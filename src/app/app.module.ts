@@ -14,9 +14,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 
 import { AppComponent, AttendeeRegistrationDialog,SelectSessionDialog} from './app.component';
-import { HomeComponent } from './home';
 import { LoginComponent } from './login';
-import { InviteAttendeesComponent } from './invite-attendees';;
 import { AttendeesRegistrationComponent } from './attendees-registration'
 import { LoaderComponent } from './_components/loader/loader.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -26,8 +24,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { ConfirmationDialogComponent } from './_components/confirmation-dialog/confirmation-dialog.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { EmailTemplatesComponent } from './email-templates';
-import { AddEmailTemplateComponent } from './add-email-template';
 import { FrontbookingComponent } from './frontbooking/frontbooking.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -35,9 +31,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
     declarations: [
         AppComponent,
-        HomeComponent,
         LoginComponent,
-        InviteAttendeesComponent,
         AttendeesRegistrationComponent,
         LoaderComponent,
         AttendeeRegistrationDialog,
@@ -45,8 +39,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         ConfirmationDialogComponent,
         ForgotPasswordComponent,
         ResetPasswordComponent,
-        EmailTemplatesComponent,
-        AddEmailTemplateComponent,
         FrontbookingComponent,
         ],
     imports: [

@@ -1,7 +1,11 @@
 <div id="booking_flow" class="front-booking-main d-flex justify-content-center">
+    <div class="main_bg"></div>
     <div class="card-wrap main-front-container">
         <mat-card class="p-0">
             <div class="step-wrapper">
+                <div class="step-loader" *ngIf="isLoader">
+                    <img src="../../assets/loading-spinner.gif" />
+                </div>
                 <div id="service_list" class="main-step step_1 p-0" *ngIf="catselection">
                     <div class="step-top-head"></div> 
                     <div class="col-lg-12 col-sm-12 col-12 float-left loggedin_head" *ngIf="isLoggedIn">
@@ -34,7 +38,7 @@
                     <mat-card-content class="p-4 mt-0 mb-2">
                         <div class="row service-list">
                             <label *ngFor="let category of catdata; let i = index" for="categoty_{{i}}" class="col-lg-4 col-sm-6 col-12" >
-                                <input type="radio" value="category_{{category.id}}" (click)="fnCategory($event,category.id)" id="categoty_{{i}}" class="d-none" />
+                                <input type="radio" value="category_{{category.id}}" (click)="fnCategory($event,category.id,category.category_title)" id="categoty_{{i}}" class="d-none" />
                                 <div class="single-service" *ngIf="category.status == 'E'">
                                     <div class="service-img-main">
                                         <img class="service-img" src="{{category.category_image}}" />
@@ -68,13 +72,13 @@
                         <button mat-fab color="primary" class="top-back-btn" (click)="fnbackfromservice()">
                             <i class="material-icons" color="primary">keyboard_arrow_left</i>
                         </button>
-                        Sub Category Name
+                        {{selectedcategoryName}}
                     </div>
                 </mat-card-title>
                 <mat-card-content class="p-4 mb-2 mt-0">
                         <div class="row service-list">
                             <label class="col-lg-4 col-sm-6 col-12" *ngFor="let subcategory of subcatdata; let i = index" for="subcategory_{{i}}">
-                                <input type="radio" value="subcategory_{{subcategory.id}}" (change)="fnSubCategory($event,subcategory.id)" id="subcategory_{{i}}" class="d-none" />
+                                <input type="radio" value="subcategory_{{subcategory.id}}" (change)="fnSubCategory($event,subcategory.id,subcategory.sub_category_name)" id="subcategory_{{i}}" class="d-none" />
                                 <div class="single-service" *ngIf="subcategory.sub_category_status == 'E'">
                                     <div class="service-img-main">
                                         <img class="service-img" src="{{subcategory.sub_category_image}}" />
@@ -96,7 +100,7 @@
                         <button mat-fab color="primary" class="top-back-btn" (click)="fnbackfromsubservice()">
                             <i class="material-icons" color="primary">keyboard_arrow_left</i>
                         </button>
-                        Hair Cut - Select Service
+                        {{selectedsubcategoryName}} - Select Service
                     </div>
                 </mat-card-title>
                 <mat-card-content class="p-4 mb-2 mt-0">
@@ -142,9 +146,12 @@
                         </div>
 
                     </div>
-                    <div class="col-12 col-lg-6 col-sm-12 timeslot-main" *ngIf="timeslotview">
+                    <div class="col-12 col-lg-6 col-sm-12 timeslot-main">
                         <h3 class="selected-date">{{selecteddate != '' ? selecteddate : 'qwqwqwq'}}</h3>
-                        <div class="slot-list">
+                        <div *ngIf="!timeslotview">
+                            No slots available
+                        </div>
+                        <div class="slot-list" *ngIf="timeslotview">
                             <div class="d-inline-block" *ngFor="let timeSlot of timeSlotArr, let i = index">
                                 <label>
                                     <input name="timeslot" type="radio" [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].appointmentTimeSlot==timeSlot" (click)="fnSelectTimeSlot(timeSlot)"/>

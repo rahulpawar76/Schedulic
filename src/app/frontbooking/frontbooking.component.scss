@@ -1,9 +1,17 @@
 @import "variables";
 #booking_flow{
-    background-image: url("/../../assets/images/booking_bg.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
     height: 100vh;
+    position: relative;
+    .main_bg{
+        background-image: url("/../../assets/images/booking_bg.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100vh;
+        width: 100%;
+        position: fixed;
+        top:0;
+        left: 0;
+    }
     .card-wrap{
         // overflow: auto;
         &.main-front-container{
@@ -788,23 +796,6 @@ input:focus{
 .round-btn{
     border-radius: 100px;
 }
-::-webkit-scrollbar-track
-{
-	//-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color:transparent;
-}
-
-::-webkit-scrollbar
-{
-	width: 3px;
-	background-color: transparent;
-}
-
-::-webkit-scrollbar-thumb
-{
-	background-color: $primary-color;
-}
-
  ::ng-deep .mat-radio-button.mat-radio-checked .mat-radio-inner-circle{
      background-color: $front-primary-color;
  }
@@ -889,5 +880,22 @@ input:focus{
     }
 }
 .same_check_label{
-    font-size: 16px;
+    font-size: 16px !important;
+}
+.step-loader{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    background-color: #00000070;
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    left: 0;
+    img{
+        width: 70px;
+    }
 }
