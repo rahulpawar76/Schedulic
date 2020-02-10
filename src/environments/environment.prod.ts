@@ -26,9 +26,9 @@ export const environment = {
     // tempApiUrl:     'https://aeci.she-excellence.co.za/api/risk-api'
 
     // AECI Demo
-    apiUrl:         'http://goappointment.bonnt.com/goappointment_api/',
-    authApiUrl:     'http://goappointment.bonnt.com/goappointment_api/',
-    urlForLink :    'http://goappointment.bonnt.com',
+    apiUrl:         'http://goappointment.bi-team.in/goappointment_api/api',
+    authApiUrl:     'http://goappointment.bi-team.in/goappointment_api/api',
+    urlForLink :    'http://goappointment.bi-team.in',
     tempApiUrl:     'https://aeci-demo.she-excellence.co.za/api/risk-api'
 
 };

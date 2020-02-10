@@ -6,6 +6,7 @@ import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { NgbDateParserFormatter, NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import { MdePopoverTrigger } from '@material-extended/mde';
+import { MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-frontbooking',
@@ -51,6 +52,8 @@ export class FrontbookingComponent implements OnInit {
   serviceData:any= [];
   selectedsubcategory = "";
   selectedcategory = "";
+  selectedcategoryName:any;
+  selectedsubcategoryName:any;
   booking = {
     postalcode: ""
   };
@@ -93,6 +96,7 @@ export class FrontbookingComponent implements OnInit {
   couponIcon:any="check";
   isReadOnly:any="";
   paymentMethod:any="";
+  isLoader:boolean=false;
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
   @ViewChildren(MdePopoverTrigger) trigger: QueryList<MdePopoverTrigger>;
   emailFormat = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
@@ -101,7 +105,8 @@ export class FrontbookingComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private http: HttpClient,
-    private calendar: NgbCalendar
+    private calendar: NgbCalendar,
+    private snackBar: MatSnackBar
     
   ) { 
     const current = new Date();
@@ -222,6 +227,7 @@ export class FrontbookingComponent implements OnInit {
   }
 
   fnCheckAvailPostal(){
+    this.isLoader=true;
     let requestObject = {
       "business_id" : 2,
       "postal_code" : this.booking.postalcode,
@@ -237,18 +243,22 @@ export class FrontbookingComponent implements OnInit {
       catchError(this.handleError)
     ).subscribe((response:any) => {
       if(response.data == true){
+        this.isLoader=false;
           this.validpostalcode = 'valid';
       }else{
+        this.isLoader=false;
         this.validpostalcode = 'invalid';
       }
       },
       (err) =>{
+        this.isLoader=false;
       this.validpostalcode = 'invalid';
         console.log(err)
       })
   }
 
   fnGetCategories(){
+    this.isLoader=true;
     let requestObject = {
       "business_id":2,
       "status":"E"
@@ -266,18 +276,20 @@ export class FrontbookingComponent implements OnInit {
       ).subscribe((response:any) => {
         if(response.data == true){
             this.catdata = response.response;
+            this.isLoader=false;
         }else{
-
+          this.isLoader=false;
         }
         
       },
       (err) =>{
+        this.isLoader=false;
         console.log(err)
       })
     }
 
   // Category
-  fnCategory(event,id){
+  fnCategory(event,id,categoryName){
     if(this.booking.postalcode == ''){
       this.validpostalcode = 'invalid';
       return false;
@@ -288,11 +300,13 @@ export class FrontbookingComponent implements OnInit {
     this.catselection = false;
     this.subcatselection = true;
     this.selectedcategory = id;
+    this.selectedcategoryName=categoryName
     this.fnGetSubCategory();
   }
    
   // get Sub Category function
   fnGetSubCategory(){
+    this.isLoader=true;
     let requestObject = {
       "category_id":this.selectedcategory,
       "sub_category_status":"E"
@@ -301,32 +315,37 @@ export class FrontbookingComponent implements OnInit {
       'Content-Type': 'application/json',
     });
 
-    this.http.post(`${environment.apiUrl}/get_sub_category`,requestObject,{headers:headers} ).pipe(
+    this.http.post(`${environment.apiUrl}/get-sub-category`,requestObject,{headers:headers} ).pipe(
       map((res) => {
         return res;
       }),
       catchError(this.handleError)
     ).subscribe((response:any) => {
       if(response.data == true){
+        this.isLoader=false;
         this.subcatdata = response.response;
       }else{
+        this.isLoader=false;
 
       }
     },
     (err) =>{
+      this.isLoader=false;
       console.log(err)
     })
   }
 
   // Sub Category
-  fnSubCategory(event,id){
+  fnSubCategory(event,id,subcategoryName){
     this.subcatselection = false;
     this.serviceselection = true;
     this.selectedsubcategory = id;
+    this.selectedsubcategoryName=subcategoryName
     this.fnGetAllServices();
    }
    
   fnGetAllServices(){
+    this.isLoader=true;
   let requestObject = {
     "sub_category_id":this.selectedsubcategory,
     "status":"E"
@@ -335,7 +354,7 @@ export class FrontbookingComponent implements OnInit {
     'Content-Type': 'application/json',
   });
 
-  this.http.post(`${environment.apiUrl}/get_services`,requestObject,{headers:headers} ).pipe(
+  this.http.post(`${environment.apiUrl}/get-services`,requestObject,{headers:headers} ).pipe(
     map((res) => {
       return res;
     }),
@@ -355,12 +374,14 @@ export class FrontbookingComponent implements OnInit {
         }
         
       }
+      this.isLoader=false;
       console.log(JSON.stringify(this.serviceCount));
     }else{
-      
+      this.isLoader=false;
     }
   },
     (err) =>{
+      this.isLoader=false;
       console.log(err)
     })
   }
@@ -524,6 +545,7 @@ export class FrontbookingComponent implements OnInit {
   }
 
   fnGetTimeSlots(){
+    this.isLoader=true;
     let requestObject = {
       "business_id":2,
       "selected_date":this.selecteddate
@@ -541,14 +563,17 @@ export class FrontbookingComponent implements OnInit {
       if(response.data == true){
           this.timeSlotArr = response.response;
           this.timeslotview = true;
+          this.isLoader=false;
           console.log(JSON.stringify(this.timeSlotArr));
       }
       else{
         this.timeslotview = false;
+        this.isLoader=false;
       }
       },
       (err) =>{
         this.timeslotview = false;
+        this.isLoader=false;
         console.log(err)
       })
   }
@@ -561,6 +586,7 @@ export class FrontbookingComponent implements OnInit {
   }
 
   fnGetStaff(){
+    this.isLoader=true;
     let requestObject = {
       "bussiness_id":2,
       "service_id":this.currentSelectedService
@@ -578,14 +604,18 @@ export class FrontbookingComponent implements OnInit {
       if(response.data == true){
           this.availableStaff = response.response;
           this.isStaffAvailable = true;
+          this.isLoader=false;
           console.log(JSON.stringify(this.timeSlotArr));
       }
       else{
+        this.availableStaff.length=0;
        this.isStaffAvailable = false;
+       this.isLoader=false;
       }
       },
       (err) =>{
         this.isStaffAvailable = false;
+        this.isLoader=false;
         console.log(err)
       })
   }
@@ -606,6 +636,7 @@ export class FrontbookingComponent implements OnInit {
   }
   
   fnSelectStaff(event,staff_id){
+    this.isLoader=true;
     console.log(event);
     console.log(staff_id);
     this.serviceCount[this.currentSelectedService].appointmentDate=this.selecteddate;
@@ -624,7 +655,13 @@ export class FrontbookingComponent implements OnInit {
         this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].totalCost;
       }
     }
+    this.snackBar.open("Added to cart", "X", {
+      duration: 2000,
+      verticalPosition: 'bottom',
+      panelClass : ['green-snackbar']
+      });
     this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+    this.isLoader=false;
     console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
   }
   
@@ -644,6 +681,7 @@ export class FrontbookingComponent implements OnInit {
     if(!this.formExistingUser.valid){
      this.formExistingUser.get('existing_mail').markAsTouched();
      this.formExistingUser.get('existing_password').markAsTouched();
+     
      return false;
     }
     let requestObject = {
@@ -675,12 +713,23 @@ export class FrontbookingComponent implements OnInit {
           this.formAppointmentInfo.controls['appo_city'].setValue(response.response.city);
           this.formAppointmentInfo.controls['appo_zipcode'].setValue(response.response.zip);
           this.showAddressCheckbox=false;
+          this.snackBar.open("Login successfull", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['green-snackbar']
+            });
         }
+       
         
         this.personalinfo = false;
         this.appointmentinfo = true;
         this.isLoggedIn=true;
       }else{
+        this.snackBar.open("Email or Password is incorrect", "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+        });
         this.showAddressCheckbox=true;
       }
      },
@@ -716,21 +765,6 @@ export class FrontbookingComponent implements OnInit {
       }, 500);
     });
   }
-
-    isAccessPINRegisterd(accessPin,jsonObject) {
-      let headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-      });
-      return this.http.post(`${environment.apiUrl}/maturity/saveSession/isAccessPINUnique`,{ accessPin: accessPin,json_object:jsonObject },{headers:headers}).pipe(map((response : any) =>{
-      return response;
-      }),
-      catchError(this.handleError));
-      
-      /*return this.http.post('http://localhost:8080/api/v1/isEmailRegisterd', JSON.stringify({ email: email }), { headers: headers })
-      .map((response: Response) => response.json())
-      .catch(this.handleError);*/
-      }
-
 
   fnpersonalinfo(){
     if(this.formNewUser.invalid){
@@ -770,6 +804,11 @@ export class FrontbookingComponent implements OnInit {
       catchError(this.handleError)
     ).subscribe((response:any) => {
       if(response.data == true){
+        this.snackBar.open("Customer Registered", "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['green-snackbar']
+        });
         let requestObject2 = {
           "email" : this.formNewUser.get('newUserEmail').value,
           "password" : this.formNewUser.get('newUserPassword').value
@@ -864,7 +903,7 @@ export class FrontbookingComponent implements OnInit {
       'Content-Type': 'application/json',
     });
 
-    this.http.post(`${environment.apiUrl}/check_discount_coupon`,requestObject,{headers:headers} ).pipe(
+    this.http.post(`${environment.apiUrl}/check-discount-coupon`,requestObject,{headers:headers} ).pipe(
       map((res) => {
         return res;
       }),
@@ -936,6 +975,7 @@ export class FrontbookingComponent implements OnInit {
    }
 
   fnPaymentMethod(paymentMethod){
+    console.log(paymentMethod);
     if(paymentMethod == 'Card Payment'){
       this.paymentMethod="Card Payment";
       this.creditcardform =true;

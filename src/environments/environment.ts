@@ -7,7 +7,9 @@ export const environment = {
     
  
     apiUrl:         'http://goappointment.bi-team.in/goappointment_api/api',
+    //apiUrl:         'http://localhost/angularjs/angularclient/api/she-excellence-ci-api',
     authApiUrl:     'http://goappointment.bi-team.in/goappointment_api/api',
+    //authApiUrl:     'http://localhost/angularjs/angularclient/api/she-excellence-ci-api',
     urlForLink :    'http://localhost:4200',
 
 };
