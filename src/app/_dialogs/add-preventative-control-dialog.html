@@ -1,0 +1,24 @@
+<div fxLayout="row wrap"  >
+	<div>
+		<h1 mat-dialog-title>Add New Preventative Control</h1>
+	</div>
+<!-- 	<span flex></span>
+	<div >x</div> -->
+</div>
+<div mat-dialog-content>
+	  <mat-card-content>
+	    <div fxLayout="row wrap" fxLayoutGap="3%">
+	      <div fxFlex="100">
+	        <form [formGroup]="AddPreventativeControlFormGroup" class="full-width">				  
+	          <mat-form-field>
+	            <input matInput placeholder="Preventative Control" formControlName="preventative_control">
+	          </mat-form-field>
+	        </form>
+	      </div>
+	    </div>
+	  </mat-card-content>
+</div>
+<div mat-dialog-actions>
+  <button mat-stroked-button color="warn" (click)="closeModal()" >Cancel</button>
+  <button mat-stroked-button color="primary"  (click)="saveData()" cdkFocusInitial>Save</button>
+</div>

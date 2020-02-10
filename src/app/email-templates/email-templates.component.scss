@@ -1,0 +1,69 @@
+
+    .table-head{
+        .proof-row{
+          padding: 1rem!important;
+          font-weight: 400!important;
+          font-size: .9rem;
+          text-align: left;
+          opacity: .4;
+          background-color: #eee;
+        }
+      }
+
+.top-tile{
+    position: relative;
+    .top-add-btn{
+        position: absolute;
+        top: -15px;
+        right: 0;
+    }
+}
+.action_btn{
+  .mat-button-base{
+   /* width: 36px;
+    height: 36px;*/
+    margin-right: 5px;
+   
+    .mat-button-wrapper{
+      padding: 6px 0;
+    }
+    .material-icons-outlined{
+      font-size: 16px;
+      padding: 6px 0;
+    }
+
+  }
+
+}
+
+.mat-fab .mat-button-wrapper{
+  padding: 0;
+}
+.table-content{
+  border-bottom: 1px solid #f3f3f3;
+  .proof-row{
+    border-bottom: 0;
+  }
+}
+.custom_blue_btn{
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 2px 4px 0px rgba(0, 0, 0, 0.14), 0px 0px 10px -3px black;
+  color: white;
+  cursor: pointer;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+  display: inline-block;
+  text-align: center;
+  margin: 0 5px;
+  overflow: visible;
+  min-width: 0;
+  border-radius: 50%;
+ /* width: 36px !important;
+  height:36px !important;*/
+  line-height: 0.6;
+  i{
+    font-size: 18px;
+  }
+}
+.text-center{
+  text-align: center;
+}

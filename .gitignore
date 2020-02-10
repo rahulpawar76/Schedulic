@@ -1,0 +1,8 @@
+node_modules
+dist
+src/assets/data/aeci--company.details.json
+src/assets/data/aeci--company.colours.json
+src/assets/data/sasol--company.details.json
+src/assets/data/sasol--company.colours.json
+src.zip
+package-lock.json

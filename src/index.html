@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>GoAppointment</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?"></script>
+    <!-- Spinner / Loading -->
+    <style>
+        *{
+            font-family: 'Poppins', sans-serif !important;
+        }
+        .fa{
+            font-family: FontAwesome !important;
+        }
+        .material-icons{
+            font-family: 'Material Icons' !important;
+        }
+        .index-loader {
+            position: absolute;
+            height: 120px;
+            width: 120px;
+            left: 50%;
+            top: 50%;
+            margin-left: -60px;
+            margin-top: -80px;
+        }
+        .skiptranslate.goog-te-gadget {
+            display: flex;
+            color: transparent;
+        }
+        .skiptranslate.goog-te-gadget select.goog-te-combo {
+            margin: 0 10px;
+            padding: 5px;
+        }
+        #google_translate_element span {
+            display: none;
+        }
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        } 
+        body{
+            top: 0px !important; 
+        }
+        p.lang_label{
+            padding: 5px 0 0 7%;
+         }
+    </style>
+</head>
+<body>
+    <app>
+        <img class="index-loader" src="assets/loading-spinner.gif" alt="">
+    </app>
+</body>
+</html>

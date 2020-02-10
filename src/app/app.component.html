@@ -1,0 +1,245 @@
+﻿<mat-drawer-container class="example-container" [hasBackdrop]="true">
+  <mat-drawer-content>
+      <main fxLayout="column" fxLayoutGap="0"> 
+       <!-- <mat-toolbar color="primary" class="toolbar">
+          <mat-toolbar-row>
+             <div class="logo"><a class='logo-link' routerLink="maturity"><img *ngIf="company_info" src="assets/{{company_info.logo_image}}"></a></div> -->
+            <!--<div class="logo"><a class='logo-link' routerLink="login">Goapointment!</a></div>
+            <span class="example-fill-remaining-space"></span>
+            <span class="f13" *ngIf="company_info">
+               <button   mat-stroked-button  class="admin-menu btn-menu-top" *ngIf="isAdminUser()" (click)="openDialog()">
+                <mat-icon mat-list-icon>person_add</mat-icon>
+              </button> -->
+
+             <!-- <button   mat-stroked-button  class="admin-menu btn-menu-top session-btn" *ngIf="!selectedSessionId && isLogin()" (click)="openSelectSessionDialog()">
+                Select Session
+              </button>
+
+               <button   mat-stroked-button  class="admin-menu btn-menu-top session-btn" *ngIf="selectedSessionId && isLogin()" (click)="openSelectSessionDialog()">
+                {{selectedSessionName}}
+              </button>
+
+               <button   mat-stroked-button  class="admin-menu btn-menu-top" *ngIf="isLogin()" (click)="drawer.toggle()">
+                <mat-icon mat-list-icon>menu</mat-icon>
+              </button>
+            </span> 
+
+          </mat-toolbar-row>
+        </mat-toolbar> -->
+      <div [@routeAnimations]="prepareRoute(outlet)" class="wrapAnim bottom_header" fxFlex="100">
+        <router-outlet #outlet="outlet"></router-outlet>
+      </div>
+    </main>
+    <!-- right drawer menu code -->
+ </mat-drawer-content>
+    <mat-drawer #drawer position="end" >
+      <mat-list role="list">
+        <mat-menu></mat-menu>
+        <!--[mode]="side"  <mat-list-item role="listitem">
+          <mat-icon mat-list-icon>home</mat-icon>
+          <button mat-menu-item (click)="drawer.toggle()" routerLink="">Home</button>
+        </mat-list-item> -->
+        <!-- <mat-list-item role="listitem">
+          <mat-icon mat-list-icon>sync_problem</mat-icon>
+          <button mat-menu-item (click)="drawer.toggle()" routerLink="reporting">Risk System</button>
+        </mat-list-item> -->
+        <!-- <mat-list-item role="listitem">
+          <mat-icon mat-list-icon>multiline_chart</mat-icon>
+          <button mat-menu-item (click)="drawer.toggle()" routerLink="maturity">Maturity</button>
+        </mat-list-item> -->
+ 
+
+        <!-- add here new ak -->
+        
+        <h4>Maturity</h4>
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem" routerLinkActive="is-active">
+          <mat-icon mat-list-icon>question_answer</mat-icon>
+          <button mat-menu-item (click)="drawer.toggle()" (click)="fnGoTo('maturity/assessment/select')">Practices Assessment</button>
+        </mat-list-item>
+
+        <mat-list-item role="listitem" routerLinkActive="is-active">
+          <mat-icon mat-list-icon>speed</mat-icon>
+          <button mat-menu-item (click)="drawer.toggle()" (click)="fnGoTo('maturity/performance')">Performance Assessment</button>
+        </mat-list-item>
+
+        <mat-list-item role="listitem" routerLinkActive="is-active">
+          <mat-icon mat-list-icon>assignment</mat-icon>
+          <button mat-menu-item [matMenuTriggerFor]="menu_Improvement">Improvement Focus Area</button>
+            <mat-menu   #menu_Improvement="matMenu" >
+              <button mat-menu-item (click)="drawer.toggle()" (click)="fnGoTo('maturity/improvement-focus-area')">Add Improvement Focus Area</button>
+              <button mat-menu-item (click)="drawer.toggle()" *ngIf='isAdminUser()' (click)="fnGoTo('maturity/improvement-focus-area/overview')">Improvement Focus Area Overview</button>
+            </mat-menu>
+        </mat-list-item>    
+      
+        
+        <mat-list-item role="listitem" *ngIf='isAdminUser()' routerLinkActive="is-active">
+          <mat-icon mat-list-icon>insert_chart</mat-icon>
+          <button mat-menu-item [matMenuTriggerFor]="menu" *ngIf='isManagerUser()' >Reporting</button>
+            <mat-menu #menu="matMenu" >
+              <button mat-menu-item (click)="drawer.toggle()" (click)="fnGoTo('maturity/reporting/practices')" >Practices Reporting</button>
+              <button mat-menu-item (click)="drawer.toggle()" (click)="fnGoTo('maturity/reporting/performance')" >Performance Reporting</button>
+              <button mat-menu-item (click)="drawer.toggle()" (click)="fnGoTo('maturity/reporting/overall-maturity')">Overall Maturity</button>
+            </mat-menu>
+        </mat-list-item>    
+
+        <mat-list-item role="listitem" *ngIf='isAdminUser()' routerLinkActive="is-active">
+          <mat-icon mat-list-icon>multiline_chart</mat-icon>
+          <button *ngIf='isManagerUser()'  mat-menu-item [matMenuTriggerFor]="menu_Session" >Session Management</button>
+            <mat-menu #menu_Session="matMenu">
+              <button  mat-menu-item (click)="drawer.toggle()" (click)="fnGoTo('maturity/session-management/progress')">Session Progress</button>
+              <button mat-menu-item (click)="drawer.toggle()" routerLink="maturity/session">View Session</button>
+              <button mat-menu-item (click)="drawer.toggle()" routerLink="maturity/new-session">Create Session</button>
+              <!-- <button mat-menu-item (click)="drawer.toggle()" routerLink="maturity/session-management/create">Create Session</button> -->
+            </mat-menu>
+        </mat-list-item>  
+        
+
+
+
+        <!-- <mat-list-item role="listitem" routerLinkActive="is-active">
+          <mat-icon mat-list-icon>question_answer</mat-icon>
+          <button mat-menu-item (click)="drawer.toggle()" routerLink="maturity/assessment/select">Practices Assessment</button>
+        </mat-list-item> -->
+        <!-- <mat-list-item role="listitem" routerLinkActive="is-active">
+          <mat-icon mat-list-icon>speed</mat-icon>
+          <button mat-menu-item (click)="drawer.toggle()" routerLink="maturity/performance">Performance Assessment</button>
+        </mat-list-item> -->
+        <!-- <mat-list-item role="listitem" routerLinkActive="is-active">
+          <mat-icon mat-list-icon>assignment</mat-icon>
+          <button mat-menu-item [matMenuTriggerFor]="menu">Improvement Focus Area</button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="drawer.toggle()" routerLink="maturity/improvement-focus-area">Add Improvement Focus Area</button>
+            <button mat-menu-item (click)="drawer.toggle()" *ngIf='isAdminUser()' routerLink="maturity/improvement-focus-area/overview">Improvement Focus Area Overview</button>
+          </mat-menu>
+        </mat-list-item> -->
+        <!-- <mat-list-item role="listitem" *ngIf='isManagerUser()' routerLinkActive="is-active">
+          <mat-icon mat-list-icon>insert_chart</mat-icon>
+          <button mat-menu-item [matMenuTriggerFor]="menu" >Reporting</button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="drawer.toggle()" routerLink="maturity/reporting/practices">Practices Reporting</button>
+            <button mat-menu-item (click)="drawer.toggle()" routerLink="maturity/reporting/performance">Performance Reporting</button>
+            <button mat-menu-item (click)="drawer.toggle()" routerLink="maturity/reporting/overall-maturity">Overall Maturity</button>
+          </mat-menu>
+        </mat-list-item> -->
+
+        <!-- risk Managment -->
+        <!-- <mat-list-item role="listitem"  routerLinkActive="is-active">
+            <mat-icon mat-list-icon>aspect_ratio</mat-icon>
+            <button mat-menu-item [matMenuTriggerFor]="menu_Risk" >Risk Management</button>
+          
+          <mat-menu  #menu_Risk="matMenu" >
+            <button  *ngIf='isAdminUser()'  mat-menu-item (click)="drawer.toggle()" routerLink="risk/riskdash">Risk Dashboard</button>
+          </mat-menu>
+       </mat-list-item> -->
+
+      <h4 *ngIf='isAdminUser()' class="menu-heading">Risk Management</h4>
+      <mat-divider></mat-divider>
+      <mat-list-item role="listitem" *ngIf='isAdminUser()' routerLinkActive="is-active">
+        <mat-icon mat-list-icon>square_foot</mat-icon>
+        <button mat-menu-item (click)="drawer.toggle()" routerLink="risk/riskdash">Risk Dashboard</button>
+      </mat-list-item>
+
+        
+
+     
+      <div class="settings-menu">
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem" *ngIf='isAdminUser()' routerLinkActive="is-active">
+          <mat-icon mat-list-icon>settings_applications</mat-icon>
+          <button mat-menu-item [matMenuTriggerFor]="menu_Settings" *ngIf='isManagerUser()'  >Settings</button>
+            <mat-menu #menu_Settings="matMenu">
+              <button mat-menu-item (click)="drawer.toggle()" (click)="openDialog()">Attendee Registration</button>
+              <button *ngIf='isManagerUser()' mat-menu-item (click)="drawer.toggle()" routerLink="invite-attendees">Invite Attendees</button>
+              <button mat-menu-item (click)="drawer.toggle()" routerLink="email">Email Setup</button>
+              <button *ngIf='isAdminUser()' mat-menu-item (click)="drawer.toggle()" routerLink="maturity/session-management/setup">Maturity Setup</button> 
+            </mat-menu>
+        </mat-list-item>
+        
+        <mat-list-item role="listitem">
+          <mat-icon mat-list-icon>logout</mat-icon>
+          <button mat-menu-item (click)="logout(); drawer.toggle();">Logout</button>
+        </mat-list-item>
+      </div>
+  
+        <!--  -->
+
+        <!-- <mat-list-item role="listitem" *ngIf='isManagerUser()' routerLinkActive="is-active">
+          <mat-icon mat-list-icon>aspect_ratio</mat-icon>
+          <button mat-menu-item [matMenuTriggerFor]="menu" >Session Management</button>
+          <mat-menu #menu="matMenu">
+            <button *ngIf='isAdminUser()' mat-menu-item (click)="drawer.toggle()" routerLink="maturity/session-management/setup">Maturity Setup</button>
+          
+            <button mat-menu-item (click)="drawer.toggle()" routerLink="maturity/session-management/progress">Session Progress</button>
+          </mat-menu>
+          
+        </mat-list-item> -->
+
+        <!-- <mat-list-item role="listitem" *ngIf='isAdminUser()' routerLinkActive="is-active">
+          <mat-icon mat-list-icon>square_foot</mat-icon>
+          <button mat-menu-item (click)="drawer.toggle()" routerLink="risk/riskdash">Risk System</button>
+        </mat-list-item>  -->
+        
+        <!-- <mat-list-item role="listitem" *ngIf='isManagerUser()' routerLinkActive="is-active">
+          <mat-icon mat-list-icon>square_foot</mat-icon>
+          <button mat-menu-item [matMenuTriggerFor]="menu" >Risk System</button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="drawer.toggle()" routerLink="risk/dashboard">Risk Home</button>
+            <button mat-menu-item (click)="drawer.toggle()" routerLink="risk/riskdash">Risks</button>
+            <button mat-menu-item (click)="drawer.toggle()" routerLink="risk/controls">Controls</button>
+            <button mat-menu-item (click)="drawer.toggle()" routerLink="risk/incidentdash">Incidets</button>
+            <button mat-menu-item (click)="drawer.toggle()" routerLink="risk/companydash">Companies</button>
+            <button mat-menu-item (click)="drawer.toggle()" routerLink="risk/managersdash">Action Manager</button>
+          </mat-menu>
+        </mat-list-item>-->
+
+       <!--  <mat-list-item role="listitem" *ngIf='isManagerUser()' routerLinkActive="is-active">
+          <mat-icon mat-list-icon>assignment</mat-icon>
+          <button mat-menu-item (click)="drawer.toggle()" routerLink="maturity/actions">Action Plan</button>
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngIf='isManagerUser()' routerLinkActive="is-active">
+          <mat-icon mat-list-icon>assignment_turned_in</mat-icon>
+          <button mat-menu-item (click)="drawer.toggle()" routerLink="maturity/actions/overview">Actions Overview</button>
+        </mat-list-item> -->
+        <!-- <mat-list-item role="listitem" *ngIf='isAdminUser()' routerLinkActive="is-active">
+          <mat-icon mat-list-icon>edit</mat-icon>
+          <button mat-menu-item (click)="drawer.toggle()" routerLink="maturity/setup">Admin Setup</button>
+        </mat-list-item> -->
+        <!-- <mat-list-item role="listitem" *ngIf='isManagerUser()' routerLinkActive="is-active">
+          <mat-icon mat-list-icon>contact_mail</mat-icon>
+          <button mat-menu-item (click)="drawer.toggle()" routerLink="invite-attendees">Invite Attendees</button>
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngIf='isManagerUser()' routerLinkActive="is-active">
+          <mat-icon mat-list-icon>settings_applications</mat-icon>
+          <button mat-menu-item [matMenuTriggerFor]="menu" >Settings</button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="drawer.toggle()" routerLink="email">Email Setup</button>            
+          </mat-menu>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <mat-icon mat-list-icon>logout</mat-icon>
+          <button mat-menu-item (click)="logout(); drawer.toggle();">Logout</button>
+        </mat-list-item> -->
+
+        <!--add here new-->
+        
+       <!--    <p class="lang_label" >Choose Language</p>
+        <mat-list-item  role="listitem">
+          <mat-icon mat-list-icon>flag</mat-icon>
+          <div #googletranslate id="google_translate_element"></div>
+        </mat-list-item>-->
+      </mat-list>
+    </mat-drawer>
+</mat-drawer-container>
+
+
+<!-- credits -->
+<!-- <div class="text-center mt-4">
+    <hr>
+    <p>
+        <a href="https://4xcellence.solutions/" target="_blank">4Xcellence Solutions | solving 4 business eXcellence</a>
+        <br>
+        <a href="https://www.linkedin.com/company/4xcellencesolutions/about/" target="_blank"><img src="assets/images/linkedin.svg" alt="LinkedIn - 4Xcellence Solutions" height="22" width="22"></a>
+    </p>
+</div> -->
+

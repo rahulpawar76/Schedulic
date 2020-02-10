@@ -1,0 +1,461 @@
+@import "variables";
+
+$light-gray: #f3f3f3;
+
+////////// GENERAL //////////
+
+html,
+body {
+  height: 100%;
+  font-family: 'Poppins', sans-serif !important;
+  color: #333;
+}
+
+body { margin: 0; }
+
+content {padding-bottom: 50px;}
+
+a { 
+    cursor: pointer;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.text-left {
+    text-align: left;
+}
+
+:host {
+    min-height: 100%;
+    display: flex;
+}
+
+.mat-card {
+    box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.1), 0px 4px 12px 0px rgba(0, 0, 0, 0.1) !important;
+    margin-bottom: 1rem;
+    background-color: #fff;
+    
+    .mat-card-header {
+        margin-top: 1rem !important;
+    }
+
+    .mat-card-avatar {
+        border-radius: 0;
+    }
+
+    .mat-card-title {
+        margin-bottom: 0 !important;
+        margin-top: .3rem !important;
+    }
+
+    p {
+        line-height: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    h2 {
+        margin-bottom: 0rem;
+    }
+
+    h4 {
+        margin-bottom: 1rem;
+    }
+
+    .mat-card-content {
+        margin-top: 1.5rem;
+    }
+}
+
+.ie-notice {
+    background: #fff;
+    border: solid thin #333;
+    padding: 40px 20px 20px 20px;
+}
+
+app-question-answer, app-question-select, app-root, app-login, app-reporting{
+    height:100%;
+}
+
+.toolbar {
+    position: absolute; 
+    width:100%; 
+    top:0; 
+    left:0;
+}
+
+.hide {
+    display: none !important;
+}
+
+.full-height {
+    height: 100vh;
+}
+
+.spacer {
+    margin:2rem 0;
+}
+
+.mat-divider {
+    width: 100%;
+}
+
+.mat-form-field {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+// This gets applied to errors outside of form fields
+.error-size {
+    font-size: 75%;
+}
+
+.inline-delete {
+    float: right;
+}
+
+.white {
+    color: #fff;
+}
+
+
+.mat-radio-button {
+    display: inline-block;
+    margin: 0rem 1rem 2rem 0;
+}
+
+.proof-table {
+    width:50%; 
+    margin:0 auto;
+}
+
+.proof-row {
+    padding: 1rem;
+    border-bottom: 1px solid #f3f3f3; 
+}
+
+.submit-proof {
+    margin-top: 2rem;
+}
+
+.faux-table {
+    box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.1), 0px 4px 12px 0px rgba(0, 0, 0, 0.1) !important;
+}
+
+.error-wrap{
+    position: absolute;
+}
+.error{
+    color:$error;
+    font-size: 90%;
+    display: block;
+}
+
+.red-snackbar{
+    background: #F44336;
+    color: black;
+}
+  
+.green-snackbar{
+    background: #3ce832;
+    color: black;
+}
+
+
+////////// HEADER //////////
+
+// header {
+//     position: fixed;
+//     top: 0px;
+//     width: 100%;
+// }
+
+.mat-card-header {
+    margin-top: 1rem !important;
+}
+
+
+////////// BODY //////////
+
+main {
+    height: 100%;
+    display:flex;
+    width:100%;
+    transition: all 0.5s ease;
+}
+
+.content {
+    margin: 2% 2em;
+    height: auto;
+    padding-top:64px;
+}
+
+.mat-progress-bar-buffer {
+    background: #f4f4f4 !important;
+}
+
+.flat-table {
+    width: 100%;
+    //background: $light-gray;
+}
+
+
+////////// FOOTER //////////
+
+mat-drawer-content{
+    .wrapAnim{
+        margin: 0;
+        app-dashboard{
+
+        }
+    }
+}
+
+////////// MOBILE STYLING //////////
+
+@media screen and (max-width: 780px) {
+    .review-table {
+      max-width: 100%;
+      overflow: scroll;
+    }
+  }
+
+  
+.card-custom {
+margin-bottom: 2rem;
+box-shadow: 0 0 0 0 transparent!important;
+border-radius: 4px;
+table{
+width:100%;
+border-collapse: collapse;
+th{
+padding: 1rem!important;
+font-weight: 400!important;
+font-size: .9rem;
+text-align: left;
+opacity: .4;
+background-color: #eee;
+}
+td{
+text-align: left;
+padding: 1rem!important;
+}
+.clickable{
+transition: all 0.3s;
+&:hover{
+background-color: rgba(0,0,0,.2);
+box-shadow: 0 6px 10px 0 rgba(0,0,0,.14);
+cursor: pointer;
+}
+}
+}
+}
+.indicator{
+display: inline-block;
+.block{
+display: inline-block;
+height: .4rem;
+width: .4rem;
+border: 1px solid rgba(0,0,0,.2);
+background: rgba(255,255,255,.1);
+}
+.orange{
+background: #ff7b00;
+}
+.green{
+background: green;
+}
+}
+.mat-expansion-panel {
+box-sizing: content-box;
+display: block;
+margin: 0;
+border-radius: 4px;
+overflow: hidden;
+transition: margin 225ms cubic-bezier(.4,0,.2,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);
+margin-bottom: 1rem!important;
+.mat-expansion-panel-header{
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0 24px;
+border-radius: inherit;
+}
+}
+.full-width{
+width:100%;
+}
+.block-label {
+margin-right: .5rem;
+display: inline-block;
+}
+.mat-chip-list-wrapper {
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+align-items: center;
+margin: -4px;
+}
+.mat-chip-list-wrapper .mat-standard-chip, .mat-chip-list-wrapper input.mat-input-element {
+margin: 4px;
+}
+.mat-chip.mat-standard-chip {
+background: rgba(0,0,0,.1)!important;
+font-weight: 400!important;
+font-size: .9rem!important;
+}
+.mat-chip.mat-standard-chip {
+background-color: #616161;
+color: #fff;
+}
+.mat-standard-chip {
+transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+display: inline-flex;
+padding: 7px 12px;
+border-radius: 16px;
+align-items: center;
+cursor: default;
+min-height: 32px;
+height: 1px;
+}
+.text-pass, .text-pass i {
+color: #57adc7;
+}
+.text-fail, .text-fail i {
+color: #e99546;
+}
+.btn-fab {
+    position: fixed!important;
+    bottom: 1rem;
+    right: 2rem;
+    z-index: 999;
+}
+
+
+
+
+
+
+
+
+$calendarsize: 10px;
+.ngbpicker {
+    padding: 15px;
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 15px;
+    .btn-light:not(:disabled):not(.disabled).active{
+        color: #ffffff !important;
+        background-color: transparent !important;
+    }
+
+    .ngb-dp-header.customepickheader {
+        margin-bottom: 15px;
+        width: 100%;
+    }
+    ngb-datepicker.ng-valid.ng-touched.ng-dirty{
+        border: none !important;
+        outline: none !important;
+    }
+
+    ngb-datepicker.ng-untouched.ng-pristine.ng-valid {
+        border: none;
+    }
+    
+    .ngb-dp-week.ngb-dp-weekdays.ng-star-inserted, .ngb-dp-header {
+        background: transparent !important;
+    }
+    select.custom-select{
+        background: transparent;
+        color: white;
+        border: none;
+    }
+    .ngb-dp-month-name.ng-star-inserted {
+        background: transparent;
+        color: white;
+    }
+    span.ngb-dp-navigation-chevron {
+        color: white;
+    }
+    button.btn.btn-link.ngb-dp-arrow-btn{
+        outline: none;
+    }
+
+    .ngb-dp-weekday.small.ng-star-inserted {
+        color: white;
+        font-style: normal;
+        margin-left: 3px;
+        display:inline-block;
+        // display:block;
+        visibility:hidden;
+    }    
+    .ngb-dp-weekday.small.ng-star-inserted:first-letter {
+        visibility:visible;
+    }  
+
+    .btn-light.ng-star-inserted {
+        color: white;
+    }
+    .btn-light.text-muted.outside.ng-star-inserted{
+        color: #80c3fe !important;
+        // rgb = 128 195 254	
+    }
+
+    .btn-light.text-muted.outside.ng-star-inserted:hover{
+        background-color: transparent !important;
+        pointer-events: none !important;
+    }
+    .btn-light:hover{
+        // rgb = 63 166 254	
+        background-color: #3fa6fe !important;
+        border-radius: 50%;
+    }
+    .btn-light.ng-star-inserted.bg-primary.text-white {
+        border-radius: 50%;
+        background-color: #3fa6fe !important;
+    }
+    .ngb-dp-day.ng-star-inserted:focus{
+        outline: none;
+    }
+    .btn-light.ng-star-inserted:active,.btn-light.ng-star-inserted:focus{
+        color: white !important;
+        background-color: #3fa6fe !important;
+        border-radius: 50%;
+        box-shadow: none !important;
+        outline:  none !important;
+    }
+    .day {      
+        margin: $calendarsize !important;
+      }
+    .ngb-dp-day{
+        margin: $calendarsize !important;
+      }
+    .ngb-dp-weekday{
+        margin: $calendarsize !important;
+    }
+    // .btn-light:not(:disabled):not(.disabled).active{
+    //     color: white !important;
+    //     background: transparent !important;
+    // }
+
+
+}
+
+@media only screen and (max-width: 600px){
+    .ngbpicker{
+        // margin-left: 0;
+    }
+}

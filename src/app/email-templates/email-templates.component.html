@@ -1,0 +1,62 @@
+<div class="content">
+  <p class="error" *ngIf="error">{{error}}</p>
+  <div class="top-tile">
+    <h2>Email Templates</h2>
+    <button mat-fab color="primary" class="top-add-btn" routerLink="/add-email" routerLinkActive="active"><i
+        class="material-icons-outlined">add</i></button>
+  </div>
+  <div fxLayout="row wrap" fxLayoutGap="3%">
+    <div fxFlex="100" class="" *ngIf="emailList != 'No Record Found'">
+      <div fxLayout="row wrap" class="table-head">
+        <div class="proof-row" fxFlex="25">From Title</div>
+        <div class="proof-row" fxFlex="25">Subject Title</div>
+        <div class="proof-row" fxFlex="25">E-Mail Type</div>
+        <!-- <div class="proof-row" fxFlex="25">Status</div> -->
+        <div class="proof-row" fxFlex="25">Action</div>
+      </div>
+      <div *ngFor="let item of emailList" fxLayout="row wrap" fxLayoutGap="0%" fxLayoutAlign="start center"
+        class="table-content">
+        <div class='proof-row' fxFlex="25">
+          {{item.heading}}
+        </div>
+        <div class='proof-row' fxFlex="25">
+          {{item.subject}}
+        </div>
+        <div class='proof-row' fxFlex="25" (click)="fnGetAnswers(item.template_id)">
+          {{item.type}}
+        </div>
+        <!-- <div class='proof-row' fxFlex="25" *ngIf="item.active=='yes'">
+          Active
+        </div>
+        <div class='proof-row' fxFlex="25" *ngIf="item.active=='no'">
+          In-active
+        </div> -->
+        <div class='proof-row action_btn' fxFlex="25">
+          <!-- <button mat-fab color="primary" class="top-add-btn" routerLink="" routerLinkActive="active"><i
+              class="material-icons-outlined" (click)="fnEdit(item.template_id)">edit</i></button>
+              <button mat-fab color="primary" class="top-add-btn" routerLink="" routerLinkActive="active"><i
+                class="material-icons-outlined">delete</i></button> -->
+
+          <button mat-fab color="primary" class="top-add-btn custom_blue_btn" (click)="fnEdit(item)"><i class="material-icons-outlined"
+             >edit</i></button>
+          <button mat-fab color="primary" class="top-add-btn custom_blue_btn" (click)="clickMethod(item.template_id)"><i class="material-icons-outlined">delete</i></button>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="100" class="" *ngIf="emailList == 'No Record Found'">
+      <div fxLayout="row wrap" class="table-head">
+        <div class="proof-row" fxFlex="25">From Title</div>
+        <div class="proof-row" fxFlex="25">Subject Title</div>
+        <div class="proof-row" fxFlex="25">E-Mail Type</div>
+        <!-- <div class="proof-row" fxFlex="25">Status</div> -->
+        <div class="proof-row" fxFlex="25">Action</div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutGap="0%" fxLayoutAlign="start center"
+        class="table-content">
+        <div class='proof-row text-center' fxFlex="100">
+          No record found
+        </div>
+        
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,148 @@
+@import "variables";
+
+::ng-deep .mat-card-header-text {
+    margin-left:0 !important;
+    margin-bottom:1rem !important
+}
+.login-screen {
+    background: url("/../../assets/images/login_bg.jpg");
+    height:100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    .card-wrap{
+        height: 75vh;
+        overflow: hidden;
+        border-radius: 60px;
+        .login-card{
+            background-color: transparent;
+            height:100%;
+            .login-container{
+                height: 100%;
+                mat-card-title{
+                    h2{
+                        font-size: $fs-32;
+                        font-weight: $fw-700;
+                        color: $primary-color;
+                        padding-bottom: 10px;
+                    }
+                    p{
+                        font-size: $fs-20;
+                        font-weight: $fw-400;
+                        opacity: 0.8;
+                    }
+                }
+                #login-form{
+                    background-color: #ffffff93;
+                }
+                #login-with-social{
+                    background-color: $primary-color;
+                    .social-btns{
+                        margin:20px auto;
+                        display: table;
+                        .social-login{
+                            width:60px;
+                            height:60px;
+                            border-radius: 100%;
+                            background-color: #fff;
+                            box-shadow: 2px 2px 10px #00000070;
+                            margin:10px;
+                            display: block;
+                            float: left;
+                            font-size: 30px;
+                            text-align: center;
+                            line-height: 2;
+                            &.facebook{
+                                color: #475992;
+                            }
+                            &.google_plus{
+                                color: #f34a38
+                            }
+                        }
+                    }
+                    .create-account{
+                        margin:10px 0;
+                        text-align: center;
+                        p{
+                            color:#fff;
+                            text-align: center;
+                            font-size: $fs-18;
+                            margin-bottom: 0;
+                        }
+                        .create-acc-link{
+                            border-bottom: 1px solid #fff;
+                            font-size: $fs-20;
+                            text-decoration: none;
+                            color:#fff;
+                        }
+                    }
+                }
+                .input-wrap{
+                    position: relative;
+                    .common-input{
+                        border-radius: 90px;
+                        border: 2px solid #b2b2b2;
+                        background-color: #fff;
+                        overflow: hidden;
+                        font-size: 16px;
+                        text-align: center;
+                        height: 50px;
+                    }
+                    .common-btn{
+                        background: $btn-bg;
+                        border-radius: 100px;
+                        height: 50px;
+                        font-size: $fs-22;
+                        font-weight: $fw-500;
+                        border: 1px solid $primary-color !important;
+                    }
+                   
+                    .icon-cust-pass{
+                        position: absolute;
+                        top: 0;
+                        right: 20px;
+                        line-height: 4.5;
+                    }
+                }
+                .forgot-pwd{
+                    font-size: $fs-18;
+        
+                }
+                .or-option{
+                    position: absolute;
+                    top: calc(50% - 20px);
+                    left: calc(50% - 20px);
+                    width: 40px;
+                    height: 40px;
+                    line-height: 1.8;
+                    border-radius: 100%;
+                    background-color: #fff;
+                    box-shadow: 2px 2px 10px #00000070;
+                    color: #457cfa;
+                    font-size: 20px;
+                    text-align: center;
+                    font-style: italic;
+                    z-index: 9;
+                }
+            }
+        }
+    }
+
+}
+@media only screen and (max-width: 767px){
+    .login-screen {
+        height:auto;
+        .card-wrap{
+            height: 100vh;
+            overflow-y: scroll;
+            .login-card{
+                height:auto;
+                .login-container{
+                    height: auto;
+                    .or-option{
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
