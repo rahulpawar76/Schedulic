@@ -19,7 +19,6 @@ export class AttendeesRegistrationComponent implements OnInit {
 	statusExpiry;
 
   	constructor(private _formBuilder: FormBuilder,
-  		private questionService: QuestionService,
   		private _snackBar: MatSnackBar,
   		public router: Router,
   		private route: ActivatedRoute) { 

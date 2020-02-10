@@ -1,8 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { first } from 'rxjs/operators';
-
 import { User, Role } from '@app/_models';
-import { UserService, AuthenticationService } from '@app/_services';
+//import { UserService, AuthenticationService } from '@app/_services';
 
 @Component({ 
     selector: 'app-home',
@@ -16,11 +15,11 @@ export class HomeComponent {
     // userFromApi: User;
 
     constructor(
-        private userService: UserService,
-        private authenticationService: AuthenticationService
+        //private userService: UserService,
+       // private authenticationService: AuthenticationService
     ) 
     {
-        this.currentUser = this.authenticationService.currentUserValue;
+       // this.currentUser = this.authenticationService.currentUserValue;
     }
 
     isManagerUser() {
