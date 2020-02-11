@@ -1,0 +1,192 @@
+<div class="content-main">
+<mat-tab-group mat-align-tabs="start" >
+  <mat-tab label="New" class="appointmentlabel">  
+    <div class="bookings-details-main">
+      <div class="col-sm-6 col-md-6 col-12 col-lg-4 single-booking float-left">
+        <mat-card class="col card mt-3 ">
+          <div class="card-body">
+            <div class="row"> 
+              <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
+                <label class="d-block font-weight-bold">Date & Time</label>
+                  <p>22 Oct 2019,</p> 
+                  <p>08:15am</p>
+              </div>
+            <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
+                <label class="font-weight-bold">Status</label> 
+              		<form>  						
+								  	<mat-form-field >
+								    	<mat-label>Accepted</mat-label>
+								    		<mat-select  name="status" (selectionChange)="someMethod($event.value)">
+
+								      	<mat-option *ngFor="let status of statuses" [value]="status.value">
+								        	{{status.viewValue}}
+								      	</mat-option>
+								    	</mat-select>
+								  	</mat-form-field>								
+									</form>
+            </div>                  
+          </div>
+          <div class="row"> 
+            <div class="col-6 col-sm-3 col-md-6 col-lg-8"> 
+              <label class="font-weight-bold">Service</label>
+                <p>Repainting Of Wall</p>
+                <p>Duration:8hr</p>
+              
+              <label class="font-weight-bold">Amount</label>
+                <p>$.3,000.00</p>
+              <label class="font-weight-bold">Customer</label>
+                <p>Rajkumar Balakrishnan</p>
+                <p>Phone No:9898680810</p>
+            </div>
+
+            <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons pt-4"> 
+              <button mat-button class="d-block details-btn" (click)="StaffMyAppointmentDetails()">Details</button>
+             <!--  <button mat-button class="d-block reschedule-btn">Reschedule</button> -->
+              <button mat-button class="d-block cancel-btn" (click)="NewAppointment()">Reject</button>
+              <button mat-button (click)="fninterrupted($event)" class="d-block pay-btn">Accept</button>
+            </div>                  
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+
+  </div>
+</mat-tab>
+
+ <mat-tab label="Ongoing" class="appointmentlabel">  
+    <div class="bookings-details-main">
+      <div class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
+        <mat-card class="col card mt-3 ">
+          <div class="card-body">
+            <div class="row"> 
+              <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
+                <label class="d-block font-weight-bold">Date & Time</label>
+                  <p>22 Oct 2019,</p> 
+                  <p>08:15am</p>
+              </div>
+            <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
+                <label class="font-weight-bold">Status</label> 
+                <form>              
+                    <mat-form-field>
+                      <mat-label>Accepted</mat-label>
+                        <mat-select  name="status" (selectionChange)="someMethod($event.value)">
+
+                        <mat-option *ngFor="let status of statuses" [value]="status.value">
+                          {{status.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>               
+                  </form>
+            </div>                  
+          </div>
+          <div class="row"> 
+            <div class="col-6 col-sm-3 col-md-6 col-lg-8"> 
+              <label class="font-weight-bold">Service</label>
+                <p>Repainting Of Wall</p>
+                <p>Duration:8hr</p>
+              
+              <label class="font-weight-bold">Amount</label>
+                <p>$.3,000.00</p>
+              <label class="font-weight-bold">Customer</label>
+                <p>Rajkumar Balakrishnan</p>
+                <p>Phone No:9898680810</p>
+            </div>
+
+            <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons pt-4"> 
+              <button mat-button class="d-block details-btn" (click)="OnGoingAppointmentDetails()" >Details</button>
+             <!--  <button mat-button class="d-block reschedule-btn">Reschedule</button> -->
+              <button mat-button class="d-block reschedulebtn">Reschedule</button>
+              <button mat-button class="d-block complete-btn">Complete</button>
+            </div>                  
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+  </div>
+</mat-tab>
+<mat-tab label="Completed" class="appointmentlabel">  
+    <div class="bookings-details-main">
+      <div class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
+        <mat-card class="col card mt-3 ">
+          <div class="card-body">
+            <div class="row"> 
+              <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
+                <label class="d-block font-weight-bold">Date & Time</label>
+                  <p>22 Oct 2019,</p> 
+                  <p>08:15am</p>
+              </div>
+            <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
+                <label class="font-weight-bold">Status</label> 
+                <p>Completed,</p>
+                <p>22 Oct 2019</p>
+                <p>09:00am</p>
+            </div>                  
+          </div>
+          <div class="row"> 
+            <div class="col-6 col-sm-3 col-md-6 col-lg-8"> 
+              <label class="font-weight-bold">Service</label>
+                <p>Repainting Of Wall</p>
+                <p>Duration:8hr</p>
+              
+              <label class="font-weight-bold">Amount</label>
+                <p>$.3,000.00</p>
+              <label class="font-weight-bold">Customer</label>
+                <p>Rajkumar Balakrishnan</p>
+                <p>Phone No:9898680810</p>
+            </div>
+
+            <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons pt-4"> 
+              <button mat-button class="d-block details-btn" (click)="CompleteAppointmentDetails()">Details</button>
+             <!--  <button mat-button class="d-block reschedule-btn">Reschedule</button> -->
+             
+            </div>                  
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+  </div>
+</mat-tab>
+
+</mat-tab-group>
+<form class="form-inline" id="search_container_staffappo">
+   <div class="search-input-container">
+      <i class="fa fa-search before-search"></i>
+      <input class="form-control searchbox_staffappo" type="text" placeholder="Search Appointment">
+    </div>
+ <button type="button" class="btn btn-primary btnappoint_staffappo" (click)="AddAppointment()">Add Appointment</button>
+
+</form>
+
+ <button type="button" class="btn btn-primary" (click)="CashPaymentMode()">Cash Mode</button>
+
+ <button type="button" class="btn btn-primary" (click)="CashPaymentDetails()">Cash Details</button>
+
+  <button type="button" class="btn btn-primary" (click)="OnlinePaymentMode()">Online Mode</button>
+
+   <button type="button" class="btn btn-primary" (click)="OnlinePaymentDetails()">Online Details</button>
+
+
+</div>
+
+
+  
+
+
+
+
+
+ 
+
+
+
+
+
+
+  
+  
+  
+
+

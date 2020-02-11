@@ -2,3 +2,4 @@
 export * from './company.service';
 export * from './loader.service';
 export * from './question.service';
+export * from './user.service';
