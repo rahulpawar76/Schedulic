@@ -13,7 +13,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 
-import { AppComponent,SelectSessionDialog,DialogNotification} from './app.component';
+import { AppComponent, DialogNotification } from './app.component';
 import { LoginComponent } from './login';
 import { AttendeesRegistrationComponent } from './attendees-registration'
 import { LoaderComponent } from './_components/loader/loader.component';
@@ -65,7 +65,6 @@ import { DialogUserImageUpload } from './user-profile/user-profile.component';
         LoginComponent,
         AttendeesRegistrationComponent,
         LoaderComponent,
-        SelectSessionDialog,
         ConfirmationDialogComponent,
         ForgotPasswordComponent,
         ResetPasswordComponent,
@@ -126,7 +125,9 @@ import { DialogUserImageUpload } from './user-profile/user-profile.component';
         MatCheckboxModule,
         MatDialogModule,
         MatProgressSpinnerModule,
-        MatRadioModule,
+        MatRadioModule
+        
+        
     ],
     providers: [ 
         LoaderService,        
@@ -135,7 +136,7 @@ import { DialogUserImageUpload } from './user-profile/user-profile.component';
     ],
     bootstrap: [AppComponent],
     entryComponents: [ConfirmationDialogComponent,AppComponent,
-    SelectSessionDialog,DialogOverviewExampleDialog,DialogInvoiceDialog,DialogMyAppointmentDetails,DialogCancelAppointmentDetails,DialogCompleteAppointmentDetails,
+    DialogOverviewExampleDialog,DialogInvoiceDialog,DialogMyAppointmentDetails,DialogCancelAppointmentDetails,DialogCompleteAppointmentDetails,
     DialogNotification,DialogONTheWay,DialogWorkStarted,DialogInterrupted,
     InterruptedReschedule,DialogAddNewAppointment,DialogNewAppointment,
     DialogStaffMyAppointmentDetails,OnGoingAppointmentDetails,CompleteAppointmentDetails,
