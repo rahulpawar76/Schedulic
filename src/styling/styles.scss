@@ -1,5 +1,5 @@
 @import "variables";
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "my-customer.css";
 $light-gray: #f3f3f3;
 
 ////////// GENERAL //////////
@@ -153,19 +153,19 @@ app-question-answer, app-question-select, app-root, app-login, app-reporting{
     box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.1), 0px 4px 12px 0px rgba(0, 0, 0, 0.1) !important;
 }
 
-.error-wrap{
-    position: absolute;
-    left: 0;
-    bottom: -20px; 
-}
 .error{
     color:$error;
     font-size: 12px;
     display: block;
 }
+.error-wrap{
+    width: 100%;
+}
 .field-list{
     .error-wrap{
+        position: absolute;
         left: auto;
+        bottom: -20px; 
     }
 }
 .red-snackbar{
