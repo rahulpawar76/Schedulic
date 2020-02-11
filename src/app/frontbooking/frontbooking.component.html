@@ -20,6 +20,8 @@
                                 <input type="button" value="Check" (click)="fnCheckPostalCode($event)" class="inline-btn" id="check_postal_code" *ngIf="validpostalcode != 'valid'"/>
                                 <input type="button" (click)="fnChangePostalCode($event)" value="Change" class="inline-btn" id="check_postal_code" *ngIf="validpostalcode == 'valid'"/>
                                 <i class="material-icons">check_circle</i>
+                                
+                                <span class="error-wrap" *ngIf="validpostalcode == 'invalid' && postalCodeError == true"><small class="error">We do not provide service at this location</small></span>
                             </div>
                             <!-- <div class="check-aval-postal sm-py-2 valid" *ngIf="validpostalcode == 'valid'">
                                 <i class="fa fa-map-marker"></i>
@@ -123,7 +125,9 @@
                                             <input type="text" class="qty_value" id="servicecount_{{services.id}}" value="{{serviceCount[services.id].count}}" readonly/>
                                             <button mat-fab class="action-btn qty-minus" (click)="fnAdd($event,services.id)">+</button>
                                         </div>
-                                        <button (click)="fnShowCalender(services.id)" *ngIf="serviceCount[services.id].count>0" mat-button class="round-btn addon-cart-btn">Select Date</button>
+                                        <button (click)="fnShowCalender(services.id)" *ngIf="serviceCount[services.id].count>0 && !serviceCartArr[services.id]" mat-button class="round-btn addon-cart-btn">Select Date</button>
+                                        <div *ngIf="serviceCount[services.id].count>0 && !serviceCartArr[services.id]">Select Date to confirm your booking</div>
+                                        <button (click)="fnShowCalender(services.id)" *ngIf="serviceCount[services.id].count>0 && serviceCartArr[services.id]" mat-button class="round-btn addon-cart-btn">Modify Date</button>
                                     </div>
                                 </div>
                             </label>
@@ -294,11 +298,18 @@
                             <i class="material-icons" color="primary">close</i>
                         </button>
                     </div>
-                    <div class="col-lg-12 col-sm-12 col-12 float-left" *ngIf="showAddressCheckbox">
+                    <div class="col-lg-12 col-sm-12 col-12 float-left" *ngIf="showSameAsAboveCheck">
                         <!-- <mat-checkbox (change)="fnsameasabove($event)" class="same-check" id="same_check" name="sameasabove"></mat-checkbox> -->
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="same_check" (change)="fnsameasabove($event)" name="sameasabove">
                             <label class="custom-control-label same_check_label" for="same_check">Same as Above</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12 float-left" *ngIf="!showSameAsAboveCheck">
+                        <!-- <mat-checkbox (change)="fnsameasabove($event)" class="same-check" id="same_check" name="sameasabove"></mat-checkbox> -->
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="same_check" (change)="fnSameAsBillingAddress($event)" name="sameasabove">
+                            <label class="custom-control-label same_check_label" for="same_check">Same as Billing Address</label>
                         </div>
                     </div>
                 </mat-card-title>
@@ -391,6 +402,8 @@
                         <div class="col-lg-6 px-0 py-1 promocode-main" [ngClass]="{'':closecoupon === 'default','valid':closecoupon === 'valid','invalid':closecoupon === 'invalid'}">
                             <input [(ngModel)]="coupon.couponcode_val" type="text" class="coupon-code-input" isReadOnly/>
                             <button (click)="fncheckcouponcodebtn(closecoupon)" [ngClass]="{'remove-code':closecoupon === 'valid', 'coupon-code-submit':closecoupon !== 'valid'}"><i class="material-icons">{{couponIcon}}</i></button>
+                            <span class="error-wrap" *ngIf="showCouponError"><small  class="error">{{
+                                couponErrorMessage}}</small></span>
                         </div>
                         <!-- <div class="col-lg-6 px-0 py-1 promocode-main">
                             <input [(ngModel)]="coupon.couponcode_val" type="text" class="coupon-code-input" />
@@ -493,7 +506,7 @@
                 <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
                     <mat-card class="booking-summary p-0" style="width: 380px">
                         <mat-card-title class="py-2 px-3">
-                            <label class="mb-0">Summary</label><button mat-button class="round-btn continue-btn" *ngIf="serviceMainArr.totalNumberServices>0" (click)="fnContinueFromCart()">Continue<i class="material-icons" >keyboard_arrow_right</i></button>
+                            <label class="mb-0">Summary</label><button mat-button class="round-btn continue-btn" *ngIf="serviceMainArr.totalNumberServices>0" (click)="fnContinueFromCart()">Checkout<i class="material-icons" >keyboard_arrow_right</i></button>
                         </mat-card-title>
                         <mat-card-content class="py-2 px-3 mt-0">
                             <div *ngFor="let serviceCart of serviceCartArr">

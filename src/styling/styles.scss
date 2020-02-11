@@ -155,13 +155,19 @@ app-question-answer, app-question-select, app-root, app-login, app-reporting{
 
 .error-wrap{
     position: absolute;
+    left: 0;
+    bottom: -20px; 
 }
 .error{
     color:$error;
-    font-size: 90%;
+    font-size: 12px;
     display: block;
 }
-
+.field-list{
+    .error-wrap{
+        left: auto;
+    }
+}
 .red-snackbar{
     background: #F44336;
     color: black;

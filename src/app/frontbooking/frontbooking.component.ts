@@ -22,7 +22,6 @@ export class FrontbookingComponent implements OnInit {
   date: {year: number, month: number};
   minDate: {year: number, month: number, day: number};
   maxDate: {year: number, month: number, day: number};
-  
   displayMonths = 1;
   navigation = 'arrows';
   
@@ -73,6 +72,7 @@ export class FrontbookingComponent implements OnInit {
   timeslotview: boolean = false;
   newcustomer: boolean = false;
   validpostalcode : string = 'default';
+  postalCodeError : boolean = false;
   closecoupon: string = "default";
 
   selecteddate: any;
@@ -88,7 +88,7 @@ export class FrontbookingComponent implements OnInit {
   timeSlotArr:any= [];
   selectedTimeSlot:any;
   availableStaff:any= [];
-  showAddressCheckbox:boolean=true;
+  showSameAsAboveCheck:boolean=true;
   isLoggedIn:boolean=false;
   isStaffAvailable:boolean=false;
   customerName:any;
@@ -97,6 +97,8 @@ export class FrontbookingComponent implements OnInit {
   isReadOnly:any="";
   paymentMethod:any="";
   isLoader:boolean=false;
+  showCouponError:boolean=false;
+  couponErrorMessage:any;
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
   @ViewChildren(MdePopoverTrigger) trigger: QueryList<MdePopoverTrigger>;
   emailFormat = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
@@ -203,6 +205,10 @@ export class FrontbookingComponent implements OnInit {
     localStorage.removeItem('customerId');
     localStorage.removeItem('customerToken');
     localStorage.removeItem('customerName');
+    localStorage.removeItem("billing_address");
+    localStorage.removeItem("billing_state");
+    localStorage.removeItem("billing_city");
+    localStorage.removeItem("billing_zipcode");
     localStorage.clear();
     console.log(localStorage.getItem("customerId"));
     window.location.reload();
@@ -220,9 +226,11 @@ export class FrontbookingComponent implements OnInit {
     }
     else if(postalcode_val.length == 0){
       this.validpostalcode = 'default';
+      this.postalCodeError = false;
     }
     else{
       this.validpostalcode = 'invalid';
+      this.postalCodeError = false;
     }
   }
 
@@ -245,14 +253,17 @@ export class FrontbookingComponent implements OnInit {
       if(response.data == true){
         this.isLoader=false;
           this.validpostalcode = 'valid';
+          this.postalCodeError = false;
       }else{
         this.isLoader=false;
         this.validpostalcode = 'invalid';
+        this.postalCodeError = true;
       }
       },
       (err) =>{
         this.isLoader=false;
       this.validpostalcode = 'invalid';
+      this.postalCodeError = true;
         console.log(err)
       })
   }
@@ -297,6 +308,8 @@ export class FrontbookingComponent implements OnInit {
     if(this.validpostalcode == 'invalid'){
       return false;
     }
+    
+    this.subcatdata=[];
     this.catselection = false;
     this.subcatselection = true;
     this.selectedcategory = id;
@@ -341,6 +354,7 @@ export class FrontbookingComponent implements OnInit {
     this.serviceselection = true;
     this.selectedsubcategory = id;
     this.selectedsubcategoryName=subcategoryName
+    this.serviceData = [];
     this.fnGetAllServices();
    }
    
@@ -519,11 +533,11 @@ export class FrontbookingComponent implements OnInit {
     if(this.isLoggedIn){
       this.serviceselection = false;
       this.appointmentinfo = true;
-      this.showAddressCheckbox=false;
+      this.showSameAsAboveCheck=false;
     }else{
       this.serviceselection = false;
       this.personalinfo = true;
-      this.showAddressCheckbox=true;
+      this.showSameAsAboveCheck=true;
     }
    }
 
@@ -536,11 +550,11 @@ export class FrontbookingComponent implements OnInit {
     if(this.isLoggedIn){
       this.dateselection = false;
       this.appointmentinfo = true;
-      this.showAddressCheckbox=false;
+      this.showSameAsAboveCheck=false;
     }else{
       this.dateselection = false;
       this.personalinfo = true;
-      this.showAddressCheckbox=true;
+      this.showSameAsAboveCheck=true;
     }
   }
 
@@ -639,6 +653,7 @@ export class FrontbookingComponent implements OnInit {
     this.isLoader=true;
     console.log(event);
     console.log(staff_id);
+    this.trigger.toArray()[0].togglePopover();
     this.serviceCount[this.currentSelectedService].appointmentDate=this.selecteddate;
     this.serviceCount[this.currentSelectedService].assignedStaff=staff_id;
     this.serviceCount[this.currentSelectedService].appointmentTimeSlot=this.selectedTimeSlot;
@@ -706,13 +721,16 @@ export class FrontbookingComponent implements OnInit {
         localStorage.setItem("customerId",response.response.user_id);
         localStorage.setItem("customerToken",response.response.token);
         localStorage.setItem("customerName",response.response.fullname);
-        this.customerName=localStorage.getItem("customerName")
+        localStorage.setItem("billing_address",response.response.address);
+        localStorage.setItem("billing_state",response.response.state);
+        localStorage.setItem("billing_city",response.response.city);
+        localStorage.setItem("billing_zipcode",response.response.zip);
         if(!isAfterSignup){
-          this.formAppointmentInfo.controls['appo_address'].setValue(response.response.address);
-          this.formAppointmentInfo.controls['appo_state'].setValue(response.response.state);
-          this.formAppointmentInfo.controls['appo_city'].setValue(response.response.city);
-          this.formAppointmentInfo.controls['appo_zipcode'].setValue(response.response.zip);
-          this.showAddressCheckbox=false;
+          // this.formAppointmentInfo.controls['appo_address'].setValue(response.response.address);
+          // this.formAppointmentInfo.controls['appo_state'].setValue(response.response.state);
+          // this.formAppointmentInfo.controls['appo_city'].setValue(response.response.city);
+          // this.formAppointmentInfo.controls['appo_zipcode'].setValue(response.response.zip);
+          this.showSameAsAboveCheck=false;
           this.snackBar.open("Login successfull", "X", {
             duration: 2000,
             verticalPosition: 'top',
@@ -730,7 +748,7 @@ export class FrontbookingComponent implements OnInit {
         verticalPosition: 'top',
         panelClass : ['red-snackbar']
         });
-        this.showAddressCheckbox=true;
+        this.showSameAsAboveCheck=true;
       }
      },
      (err) =>{ 
@@ -850,6 +868,33 @@ export class FrontbookingComponent implements OnInit {
       // this.appo_address_info.appo_zipcode = "";
     }
   } 
+
+  fnSameAsBillingAddress(event){
+    console.log(event.srcElement.checked)
+    if(event.srcElement.checked == true){
+      
+    console.log(event)
+      this.formAppointmentInfo.controls['appo_address'].setValue(localStorage.getItem("billing_address"));
+      this.formAppointmentInfo.controls['appo_state'].setValue(localStorage.getItem("billing_state"));
+      this.formAppointmentInfo.controls['appo_city'].setValue(localStorage.getItem("billing_city"));
+      this.formAppointmentInfo.controls['appo_zipcode'].setValue(localStorage.getItem("billing_zipcode"));
+
+      // this.appo_address_info.appo_address = this.formNewUser.get('newUserAddress').value;
+      // this.appo_address_info.appo_state = this.formNewUser.get('newUserState').value;
+      // this.appo_address_info.appo_city = this.formNewUser.get('newUserCity').value;
+      // this.appo_address_info.appo_zipcode = this.formNewUser.get('newUserZipcode').value;
+    }else{
+      this.formAppointmentInfo.controls['appo_address'].setValue('');
+      this.formAppointmentInfo.controls['appo_state'].setValue('');
+      this.formAppointmentInfo.controls['appo_city'].setValue('');
+      this.formAppointmentInfo.controls['appo_zipcode'].setValue('');
+
+      // this.appo_address_info.appo_address = "";
+      // this.appo_address_info.appo_state = "";
+      // this.appo_address_info.appo_city = "";
+      // this.appo_address_info.appo_zipcode = "";
+    }
+  } 
   
   fnappointmentinfo(event){
     console.log(JSON.stringify(this.appo_address_info));
@@ -923,17 +968,23 @@ export class FrontbookingComponent implements OnInit {
         this.couponIcon="close";
         this.closecoupon = 'valid';
         this.isReadOnly="readonly";
+        this.showCouponError=false;
+        this.couponErrorMessage="";
       }
       else{
         this.closecoupon = 'invalid';
         this.couponIcon="check";
         this.isReadOnly="";
+        this.showCouponError=true;
+        this.couponErrorMessage=response.response;
       }
       },
       (err) =>{
         this.closecoupon = 'invalid';
         this.couponIcon="check";
         this.isReadOnly="";
+        this.showCouponError=false;
+        this.couponErrorMessage="";
         console.log(err)
       })
     }
@@ -997,7 +1048,7 @@ export class FrontbookingComponent implements OnInit {
       this.summaryScreen=false;
       this.paymentScreen=false;
       this.appointmentinfo = true;
-      this.showAddressCheckbox=false;
+      this.showSameAsAboveCheck=false;
     }else{
       this.dateselection = false;
       this.catselection=false;
@@ -1009,7 +1060,7 @@ export class FrontbookingComponent implements OnInit {
       this.appointmentinfo = false;
       this.dateselection = false;
       this.personalinfo = true;
-      this.showAddressCheckbox=true;
+      this.showSameAsAboveCheck=true;
     }
   }
 
