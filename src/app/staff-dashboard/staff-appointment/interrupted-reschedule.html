@@ -1,0 +1,46 @@
+<div class="modal-dialog modal-notify modal-info" role="document" >
+    <div class="modal-content">
+      <div class="modal-header modal-bcolor-red">
+        <p class="heading lead  fontfamily" >Interrupted (Reschedule Appointment)</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <p class="mb-0">Service</p>
+          <p class="font-weight-bold">Hair Color</p>
+           
+          <label>Staff</label>
+          <mat-select class="form-control formcontrol mb-3">
+  					 <mat-option value="option">Meet Shah</mat-option>
+					</mat-select>
+					<div class="row">
+						<div class="col-6">
+					<label class="mb-0">Select Date</label>
+					 <div class="input-group">
+						 <div class="input-group-prepend">
+          					<div class="input-group-text"><i class="fa fa-calendar"></i>
+										</div>
+          			 </div>
+					  <input type="date" class="form-control formcontrol">
+					</div>
+					</div>
+					<div class="col-6 mb-3">
+					<label class="mb-0">Select Time</label>
+					 <div class="input-group">
+						 <div class="input-group-prepend">
+          					<div class="input-group-text"><i class="fa fa-clock-o"></i>
+										</div>
+          			 </div>
+					  <input type="time" class="form-control formcontrol">
+					</div>
+					</div>
+					  </div>
+
+          <label class="mb-0">Add Note</label>
+          <textarea class="form-control mb-2" placeholder="Dummy text lorem ipsum"></textarea>
+
+           <button class="d-block btn btn-primary addbtnred float-right">Reschedule</button>
+      </div>
+    </div>
+  </div>

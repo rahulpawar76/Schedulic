@@ -1,0 +1,331 @@
+<div class="content-main">
+<mat-tab-group mat-align-tabs="start" >
+  <mat-tab label="My Appointment" class="appointmentlabel">  
+    <div class="bookings-details-main">
+      <div class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
+        <mat-card class="col card mt-3 ">
+          <div class="card-body">
+            <div class="row"> 
+              <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
+                <label class="d-block font-weight-bold">Date & Time</label>
+                  <p>22 Oct 2019,</p> 
+                  <p>08:15am</p>
+              </div>
+            <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
+                <label class="font-weight-bold">Status</label> 
+                <p>Waiting For</p>
+                <p>Confirmation</p> 
+            </div>                  
+          </div>
+          <div class="row"> 
+            <div class="col-6 col-sm-3 col-md-6 col-lg-8"> 
+              <label class="font-weight-bold">Service</label>
+                <p>Repainting Of Wall</p>
+                <p>Duration:8hr</p>
+              
+              <label class="font-weight-bold">Amount</label>
+                <p>$.3,000.00</p>
+              <label class="font-weight-bold">Staff</label>
+                <p>--</p>
+            </div>
+
+            <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons pt-4"> 
+              <button mat-button class="d-block details-btn" (click)="MyAppointmentDetails()">Details</button>
+              <button mat-button class="d-block reschedule-btn">Reschedule</button>
+              <button mat-button class="d-block cancel-btn">Cancel</button>
+              <button mat-button class="d-block pay-btn">Pay</button>
+            </div>                  
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
+      <mat-card class="col card mt-3">
+        <div class="card-body">
+           <div class="row"> 
+              <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
+                <label class="d-block font-weight-bold">Date & Time</label>
+                <p>22 Oct 2019,</p> 
+                <p>08:15am</p>
+              </div>
+              <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
+                  <label class="font-weight-bold">Status</label> 
+                  <p>Waiting For</p>
+                  <p>Confirmation</p> 
+              </div>                  
+            </div>
+            <div class="row"> 
+              <div class="col-6 col-sm-3 col-md-6 col-lg-8"> 
+                <label class="font-weight-bold">Service</label>
+                  <p>Repainting Of Wall</p>
+                  <p>Duration:8hr</p>
+                
+                  <label class="font-weight-bold">Amount</label>
+                  <p>$.3,000.00</p>
+
+                <label class="font-weight-bold">Staff</label>
+                  <p>--</p>
+              </div>
+
+              <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons pt-4"> 
+                <button mat-button class="d-block details-btn">Details</button>
+                <button mat-button class="d-block reschedule-btn">Reschedule</button>
+                <button mat-button class="d-block cancel-btn">Cancel</button>
+                <button mat-button class="d-block pay-btn">Pay</button>
+              </div>                  
+            </div>
+          </div>
+        </mat-card>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
+      <mat-card class="col card mt-3">
+        <div class="card-body">
+          <div class="row"> 
+              <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
+                <label class="d-block font-weight-bold">Date & Time</label>
+                <p>22 Oct 2019,</p> 
+                <p>08:15am</p>
+              </div>
+              <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
+                  <label class="font-weight-bold">Status</label> 
+                  <p>Waiting For</p>
+                  <p>Confirmation</p> 
+              </div>                  
+          </div>
+          <div class="row"> 
+            <div class="col-6 col-sm-3 col-md-6 col-lg-8"> 
+              <label class="font-weight-bold">Service</label>
+                <p>Repainting Of Wall</p>
+                <p>Duration:8hr</p>
+                
+              <label class="font-weight-bold">Amount</label>
+                <p>$.3,000.00</p>
+
+              <label class="font-weight-bold">Staff</label>
+                <p>--</p>
+            </div>
+
+            <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons pt-4"> 
+              <button mat-button class="d-block details-btn" >Details</button>
+              <button mat-button class="d-block reschedule-btn">Reschedule</button>
+              <button mat-button class="d-block cancel-btn">Cancel</button>
+              <button mat-button class="d-block pay-btn">Pay</button>
+            </div>                  
+          </div>
+        </div>
+      </mat-card>
+    </div>
+</div>
+</mat-tab>
+<mat-tab label="Cancel Appointment">
+<div class="bookings-details-main">
+  <div class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
+    <mat-card class="col card mt-3">
+      <div class="card-body">
+        <div class="row"> 
+          <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
+            <label class="d-block font-weight-bold">Date & Time</label>
+              <p>22 Oct 2019,</p> 
+              <p>08:15am</p>
+            </div>
+            <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
+                <label class="font-weight-bold">Status</label> 
+                <p>Canceled</p>   
+            </div>                  
+        </div>
+        <div class="row"> 
+          <div class="col-6 col-sm-3 col-md-6 col-lg-8"> 
+            <label class="font-weight-bold">Service</label>
+              <p>Repainting Of Wall</p>
+              <p>Duration:8hr</p>
+              
+            <label class="font-weight-bold">Amount</label>
+              <p>$.3,000.00</p>
+
+            <label class="font-weight-bold">Staff</label>
+              <p>--</p>
+          </div>
+          <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons"> 
+            <button mat-button class="d-block details-btn" (click)="details_dialog()">Details</button>
+          </div>                  
+        </div>
+      </div>
+    </mat-card>
+  </div>
+  <div class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
+    <mat-card class="col card mt-3">
+      <div class="card-body">
+        <div class="row"> 
+          <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
+            <label class="d-block font-weight-bold">Date & Time</label>
+              <p>22 Oct 2019,</p> 
+              <p>08:15am</p>
+          </div>
+          <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
+            <label class="font-weight-bold">Status</label> 
+              <p>Canceled</p>     
+          </div>                  
+        </div>
+        <div class="row"> 
+          <div class="col-6 col-sm-3 col-md-6 col-lg-8"> 
+            <label class="font-weight-bold">Service</label>
+              <p>Repainting Of Wall</p>
+              <p>Duration:8hr</p>
+                
+            <label class="font-weight-bold">Amount</label>
+              <p>$.3,000.00</p>
+
+            <label class="font-weight-bold">Staff</label>
+              <p>--</p>
+          </div>
+          <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons"> 
+            <button mat-button class="d-block details-btn" (click)="details_dialog()">Details</button>      
+          </div>                  
+        </div>
+      </div>
+    </mat-card>
+  </div>
+  <div class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
+    <mat-card class="col card mt-3">
+      <div class="card-body">
+        <div class="row"> 
+          <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
+            <label class="d-block font-weight-bold">Date & Time</label>
+              <p>22 Oct 2019,</p> 
+              <p>08:15am</p>
+          </div>
+          <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
+            <label class="font-weight-bold">Status</label> 
+            <p>Canceled</p>         
+          </div>                  
+        </div>
+        <div class="row"> 
+          <div class="col-6 col-sm-3 col-md-6 col-lg-8"> 
+            <label class="font-weight-bold">Service</label>
+              <p>Repainting Of Wall</p>
+              <p>Duration:8hr</p>
+                
+            <label class="font-weight-bold">Amount</label>
+              <p>$.3,000.00</p>
+
+            <label class="font-weight-bold">Staff</label>
+              <p>--</p>
+          </div>
+          <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons"> 
+            <button mat-button class="d-block details-btn" (click)="details_dialog()" >Details</button>
+          </div>                  
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+</mat-tab>
+
+
+<mat-tab label="Complete Appointment">   
+  <div class="bookings-details-main">
+    <div class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
+      <mat-card class="col card mt-3">
+        <div class="card-body">
+          <div class="row"> 
+            <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
+              <label class="d-block font-weight-bold">Date & Time</label>
+              <p>22 Oct 2019,</p> 
+              <p>08:15am</p>
+            </div>
+            <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
+                <label class="font-weight-bold">Status</label> 
+                <p>Completed</p>
+               
+            </div>                  
+          </div>
+          <div class="row"> 
+            <div class="col-6 col-sm-3 col-md-6 col-lg-8"> 
+              <label class="font-weight-bold">Service</label>
+                <p>Repainting Of Wall</p>
+                <p>Duration:8hr</p>
+              
+              <label class="font-weight-bold">Amount</label>
+                <p>$.3,000.00</p>
+
+              <label class="font-weight-bold">Staff</label>
+                <p>Xyz Xyz</p>
+            </div>
+
+            <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons"> 
+              <button mat-button class="d-block details-btn" (click)="complete_details_dialog()">Details</button>
+              <button mat-button class="d-block invoice-light-btn" (click)="invoice()">Invoice</button>
+              <button mat-button class="d-block rate-btn" (click)="ratenow()" id="">Rate Now</button>   
+            </div> 
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
+      <mat-card class="col card mt-3">
+        <div class="card-body">
+          <div class="row"> 
+              <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
+                <label class="d-block font-weight-bold">Date & Time</label>
+                <p>22 Oct 2019,</p> 
+                <p>08:15am</p>
+              </div>
+              <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
+                  <label class="font-weight-bold">Status</label> 
+                  <p>Completed</p>   
+              </div>                  
+          </div>
+          <div class="row"> 
+            <div class="col-6 col-sm-3 col-md-6 col-lg-8"> 
+              <label class="font-weight-bold">Service</label>
+                <p>Repainting Of Wall</p>
+                <p>Duration:8hr</p>
+                
+              <label class="font-weight-bold">Amount</label>
+                <p>$.3,000.00</p>
+
+              <label class="font-weight-bold">Staff</label>
+                <p>Xyz Xyz</p>
+            </div>
+
+            <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons float-right"> 
+              <button mat-button class="d-block details-btn">Details</button>
+              <button mat-button class="d-block invoice-btn" (click)="invoice()">Invoice</button>
+              <div class="col-sm-6 col-md-6 col-lg-6 float-right"> 
+                <label class="font-weight-bold float-left">Rating</label>
+                  <!-- <p class="text-warning ">
+                    <i class="fa fa-star "></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                  </p> -->
+              </div>
+            </div>  
+          </div>
+        </div>
+      </mat-card>
+    </div>   
+  </div>
+  
+</mat-tab>
+</mat-tab-group>
+<form class="form-inline" id="search_container_userappo">
+  <div class="search-input-container">
+      <i class="fa fa-search before-search"></i>
+      <input class="form-control searchbox_userappo" type="text" placeholder="Search Appointment">
+    </div>
+ <button type="button" class="btn btn-primary btnappoint_userappo" disabled>Add Appointment</button>
+
+</form>
+</div>
+
+
+
+
+
+
+
+
+  
+

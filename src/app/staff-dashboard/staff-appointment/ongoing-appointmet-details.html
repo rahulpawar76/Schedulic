@@ -1,0 +1,93 @@
+<mat-sidenav-container class = "tp-container">
+  <mat-sidenav mode = "side" opened>
+<div class="modal-dialog mt-0 mb-0" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Appointment Details</h5>
+        <button type="button" (click)="onNoClick()" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+   <!--  <div class="d-flex m-2 ongoingdetails">
+       <label class="greenfont"><i class="fa fa-repeat repeat"></i>Reschedule</label>
+        <form>              
+          <mat-form-field>
+            <mat-label>Accepted</mat-label>
+              <mat-select  name="status" (selectionChange)="someMethod($event.value)">
+                <mat-option *ngFor="let status of statuses" [value]="status.value">
+                    {{status.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>               
+        </form>
+    </div> -->
+     <div class="ongoingdetails d-flex"> 
+              <div class="col-6 col-lg-6 col-sm-3 col-md-6 "> 
+                 <label class="greenfont"><i class="fa fa-repeat repeat"></i>Reschedule</label>
+               
+              </div>
+            <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
+                
+                <form>              
+                    <mat-form-field>
+                      <mat-label>Accepted</mat-label>
+                        <mat-select  name="status" (selectionChange)="someMethod($event.value)">
+
+                        <mat-option *ngFor="let status of statuses" [value]="status.value">
+                          {{status.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>               
+                  </form>
+            </div>                  
+          </div>
+
+    <div class="modal-body modal-bcolor">
+      <p class="mb-0 font-weight-bold">22 Oct 2019</p>
+      <p>Booked On: 01 Sep 2019 @ 10:07 pm</p>
+
+      <p class="mb-0">Service</p>
+      <p class="font-weight-bold">Repainting,Wall Painting($.3,000.00)</p>
+      <p class="mb-0">Time</p>
+      <p class="font-weight-bold">08:15 am-09:00 am(45 min)</p>
+     
+      <div class="d-flex">
+     
+        <div class="pl-0">
+        <p class="mb-0">Order By</p>
+        <p class="font-weight-bold">Admin</p>
+      </div>
+      <div class="pl-5">
+        <p class="mb-0">Status</p>
+        <p class="font-weight-bold">Pending</p>
+      </div>
+     
+    </div>
+    <div>
+      <p class="mb-0">Staff</p>
+      <p class="mb-0 font-weight-bold">Pooja Chakerbarti</p>
+      <p class="mb-0">Phone NO:9876543210</p>
+    </div>
+     </div>    
+     <mat-card class="card-body-marginn booking-detail-main mb-0">
+       <h6 class="text-left mb-3">Booking Details</h6>
+        <div class="row align-items-center">
+          <p class="customer-profile-img">SP</p>
+
+        <div class="customer-name pr-3">
+          <p class="font-weight-bold mb-0">Shab Patel</p>
+          <p class="address-fontsize mb-0">shabpatel02@gmail.com</p>
+        </div>
+
+        </div>
+            <p class="staffaddress"><i class="fa fa-phone pr-3 address-fontsize bluephone"></i>9876543210</p>
+            <p class="mb-0 staffaddress"><i class="fa fa-map-marker pr-3 bluemap"></i>A-23,Preeti Tower,180 Feet Road,Near IDBI</p>
+            <p class="pl-4 staffaddress">Bank,Bhyandar(west).Mumbai-40010</p>
+            <p></p>
+
+      </mat-card>
+      
+    </div>
+  </div>
+</mat-sidenav>
+</mat-sidenav-container>

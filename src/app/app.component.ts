@@ -4,13 +4,18 @@ import { Router, RouterOutlet } from '@angular/router';
 import { AuthenticationService, CompanyService } from './_services';
 import { User, Role } from './_models';
 
-import { slideInAnimation } from './animations';
+//import { slideInAnimation } from './maturity/animations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar} from '@angular/material/snack-bar';
 
 
-import {trigger, state, style, transition, animate } from '@angular/animations';
-
+import {
+    trigger,
+    state,
+    style,
+    animate,
+    transition
+  } from '@angular/animations';
 
 
 
@@ -19,17 +24,20 @@ export interface DialogData {
   name: string;
 }
 
+
 @Component({ 
     selector: 'app', 
     templateUrl: 'app.component.html',
     styleUrls: ['app.component.scss'],
-    animations: [slideInAnimation]
+    //animations: [slideInAnimation]
 })
 
 
 export class AppComponent implements AfterViewInit {
+  animal:any;
+  
     public company_info: string;
-    
+    public usertype: string = "SM";
 
     ngAfterViewInit() { 
 
@@ -48,6 +56,18 @@ export class AppComponent implements AfterViewInit {
         private _snackBar: MatSnackBar,        
     ) {        
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+        // Set company info
+     /*    this._companyService.getCompanyInfoData().subscribe(
+          (res: any) => {
+            this.company_info =res[0];
+          },
+          (err) => {
+             this._snackBar.open("Database Connection Error", "X", {
+              verticalPosition: 'top',
+              panelClass : ['red-snackbar']
+            });
+          }
+        ); */
         this.selectedSessionId=localStorage.getItem("session_id");
         this.selectedSessionName=localStorage.getItem("session_name");
     }
@@ -65,13 +85,7 @@ export class AppComponent implements AfterViewInit {
     isAdminUser() {
         return this.currentUser && this.currentUser.role === Role.Admin;
     }
-    fnGoTo(path) {
-      if(this.selectedSessionId){
-        this.router.navigate(['/'+path]);
-      }else{
-        this.openSelectSessionDialog();
-      }
-    }
+  
     isLogin(){
         if(localStorage.getItem('currentUser')){
             return true;
@@ -80,32 +94,17 @@ export class AppComponent implements AfterViewInit {
         }
     }
 
-    // ngOnInit() {
-    //   this.setcompanycolours();
-    // }
-    
-    logout() {
-        this.authenticationService.logout();
-        this.selectedSessionId=null;
-        this.selectedSessionName=null;
-        this.router.navigate(['/login']);
+    ngOnInit() {
+     // this.setcompanycolours();
     }
+    
 
     /*fnSetSessionValues(){
       this.selectedSessionId=localStorage.getItem("session_id");
       this.selectedSessionName=localStorage.getItem("session_name");
     }*/
 
-    openDialog(): void {
-    const dialogRef = this.dialog.open(AttendeeRegistrationDialog, {
-      width: '500px',
-      data: {name: "this.name", animal: "this.animal"}
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      //this.animal = result;
-    });
-  }
 
     openSelectSessionDialog(): void {
     const dialogRef = this.dialog.open(SelectSessionDialog, {
@@ -118,24 +117,75 @@ export class AppComponent implements AfterViewInit {
     });
   }
 
+      /*StaffDashboard Navigation*/
+      StaffProfile(){
+        this.router.navigate(['/staff-profile']);
+      }
+
+      StaffAppointment(){
+      this.router.navigate(['/staff-appointment']);
+      }
+
+      WorkProfile(){
+        this.router.navigate(['/work-profile']);
+      }
+
+      WorkSpace(){
+        this.router.navigate(['/my-work-space']);
+      }
+
+      logout() {
+        this.authenticationService.logout();
+        this.selectedSessionId=null;
+        this.selectedSessionName=null;
+        this.router.navigate(['/login']);
+      }
+    
+
+      /*Customer Navigation*/
+      
+      UserProfile(){
+        this.router.navigate(['/user-profile']);
+      }
+
+      UserAppointment(){
+      this.router.navigate(['/user-appointment']);
+      }
+
+      /*For notification Dialog*/
+
+
+      openNotificationDialog(): void {
+          const dialogRef = this.dialog.open(DialogNotification, {
+        height: '500px',
+        
+    
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        this.animal = result;
+      });
+      }
+
   prepareRoute(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 
-  //  setcompanycolours() {
-  //   this._companyService.getCompanyColoursData().subscribe(
-  //     (data: any) => {
-  //       localStorage.companycolours = JSON.stringify(data[0]);
+   /*setcompanycolours() {
+    this._companyService.getCompanyColoursData().subscribe(
+      (data: any) => {
+        localStorage.companycolours = JSON.stringify(data[0]);
 
-  //       // you can export below function two functions update_SCSS_var() and setPropertyOfSCSS() 
-  //       // in any dot TS file as it will always be updated through localstorage
-  //       this.update_SCSS_var();
-  //     },
-  //     (err) => {
-  //       console.log(err);
-  //     }
-  //   );
-  // }
+        // you can export below function two functions update_SCSS_var() and setPropertyOfSCSS() 
+        // in any dot TS file as it will always be updated through localstorage
+        this.update_SCSS_var();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }*/
 
   update_SCSS_var() {
     var data = JSON.parse(localStorage.companycolours);
@@ -160,41 +210,6 @@ export class AppComponent implements AfterViewInit {
   selector: 'attendee-registration-dialog',
   templateUrl: './_dialogs/attendee-registration-dialog.html',
 })
-export class AttendeeRegistrationDialog {
-    firstFormGroup: FormGroup;
-  constructor(
-    public dialogRef: MatDialogRef<AttendeeRegistrationDialog>,
-    private _formBuilder: FormBuilder,
-    private _snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-  ngOnInit(){
-      this.firstFormGroup = this._formBuilder.group({
-          email: ['',[ Validators.email,Validators.required]],
-          firstname: [''],
-          lastname: [''],
-          password : ['',Validators.required]
-        });
-  }
-  saveData(): void {
-   if (this.firstFormGroup.invalid) {
-            return;
-    }
-  let  jsonUser = {
-      "email": this.firstFormGroup.get('email').value,
-      "firstname": this.firstFormGroup.get('firstname').value,
-      "lastname": this.firstFormGroup.get('lastname').value,
-      "password" : this.firstFormGroup.get('password').value,
-      "role" : "employee"
-    }
-    console.log("jsonUser",jsonUser)
-    
-    
-  }
-  closeModal(): void {
-    
-    this.dialogRef.close();
-  }
-}
 
 @Component({
   selector: 'select-session-dialog',
@@ -228,9 +243,10 @@ export class SelectSessionDialog {
     this.selectedSessionId=localStorage.getItem("session_id");
     this.selectedSessionName=localStorage.getItem("session_name");
   }
+
   ngOnInit(){
       this.selectSessionFormGroup = this._formBuilder.group({
-          session: ['',Validators.required]
+
         });
   }
   isAdminUser() {
@@ -270,4 +286,24 @@ export class SelectSessionDialog {
     this.dialogRef.close();
   }
 
+
+
 }
+
+/*For notification Dialog*/
+
+@Component({
+    selector: 'dialog-notification',
+    templateUrl: './_dialogs/dialog-notification.html',
+  })
+  export class DialogNotification {
+
+    constructor(
+      public dialogRef: MatDialogRef<DialogNotification>,
+      @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+
+  }
