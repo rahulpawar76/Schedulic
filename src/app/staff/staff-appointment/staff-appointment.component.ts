@@ -200,7 +200,7 @@ export class StaffAppointmentComponent implements OnInit {
 
   @Component({
       selector: 'add-new-appointment',
-      templateUrl: 'add-new-appointment.html',
+      templateUrl: '../_dialogs/add-new-appointment.html',
   })
   export class DialogAddNewAppointment {
 
@@ -216,7 +216,7 @@ export class StaffAppointmentComponent implements OnInit {
 
   @Component({
       selector: 'new-appointment',
-      templateUrl: 'new-appointment.html',
+      templateUrl: '../_dialogs/new-appointment.html',
   })
   export class DialogNewAppointment {
 
@@ -232,7 +232,7 @@ export class StaffAppointmentComponent implements OnInit {
 
   @Component({
     selector: 'on-the-way-dialog',
-    templateUrl: 'on-the-way-dialog.html',
+    templateUrl: '../_dialogs/on-the-way-dialog.html',
   })
   export class DialogONTheWay {
 
@@ -250,7 +250,7 @@ export class StaffAppointmentComponent implements OnInit {
 
   @Component({
     selector: 'work-started-dialog',
-    templateUrl: 'work-started-dialog.html',
+    templateUrl: '../_dialogs/work-started-dialog.html',
   })
   export class DialogWorkStarted {
 
@@ -266,7 +266,7 @@ export class StaffAppointmentComponent implements OnInit {
   
    @Component({
     selector: 'interrupted-dialog',
-    templateUrl: 'interrupted-dialog.html',
+    templateUrl: '../_dialogs/interrupted-dialog.html',
   })
   export class DialogInterrupted {
      animal: any;
@@ -285,7 +285,7 @@ export class StaffAppointmentComponent implements OnInit {
 
   @Component({
     selector: 'interrupted-reschedule',
-    templateUrl: 'interrupted-reschedule.html',
+    templateUrl: '../_dialogs/interrupted-reschedule.html',
   })
   export class InterruptedReschedule {
 
@@ -304,7 +304,7 @@ export class StaffAppointmentComponent implements OnInit {
 
    @Component({
       selector: 'new-appointment-details',
-      templateUrl: 'new-appointment-details.html',
+      templateUrl: '../_dialogs/new-appointment-details.html',
   })
   export class DialogStaffMyAppointmentDetails {
 
@@ -322,7 +322,7 @@ export class StaffAppointmentComponent implements OnInit {
 
    @Component({
       selector: 'ongoing-appointmet-details',
-      templateUrl: 'ongoing-appointmet-details.html',
+      templateUrl: '../_dialogs/ongoing-appointmet-details.html',
   })
   export class OnGoingAppointmentDetails {
 
@@ -338,7 +338,7 @@ export class StaffAppointmentComponent implements OnInit {
 
   @Component({
       selector: 'complete-appointment-details',
-      templateUrl: 'complete-appointment-details.html',
+      templateUrl: '../_dialogs/complete-appointment-details.html',
   })
   export class CompleteAppointmentDetails {
 
@@ -356,7 +356,7 @@ export class StaffAppointmentComponent implements OnInit {
 
   @Component({
       selector: 'cash-payment-mode',
-      templateUrl: 'cash-payment-mode.html',
+      templateUrl: '../_dialogs/cash-payment-mode.html',
   })
   export class DialogCashPaymentMode {
 
@@ -372,7 +372,7 @@ export class StaffAppointmentComponent implements OnInit {
 
   @Component({
       selector: 'online-payment-mode',
-      templateUrl: 'online-payment-mode.html',
+      templateUrl: '../_dialogs/online-payment-mode.html',
   })
   export class DialogOnlinePaymentMode {
 
@@ -388,7 +388,7 @@ export class StaffAppointmentComponent implements OnInit {
 
    @Component({
       selector: 'cash-payment-details',
-      templateUrl: 'cash-payment-details.html',
+      templateUrl: '../_dialogs/cash-payment-details.html',
   })
   export class DialogCashPaymentDetails {
 
@@ -404,7 +404,7 @@ export class StaffAppointmentComponent implements OnInit {
 
    @Component({
       selector: 'online-payment-details',
-      templateUrl: 'online-payment-details.html',
+      templateUrl: '../_dialogs/online-payment-details.html',
   })
   export class DialogOnlinePaymentDetails {
 

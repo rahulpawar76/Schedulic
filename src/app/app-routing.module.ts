@@ -10,15 +10,11 @@ import { FrontbookingComponent } from './frontbooking';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { UserappointmentsComponent } from './userappointments';
-import { UserProfileComponent } from './user-profile';
-import { MyProfileComponent } from './staff-dashboard/my-profile';
-import { WorkProfileComponent } from './staff-dashboard/work-profile';
-import { StaffAppointmentComponent } from './staff-dashboard/staff-appointment';
-import { MyWorkSpaceComponent } from './staff-dashboard/my-work-space';
-
-
 const routes: Routes = [
+  {
+    path: '', 
+    component: FrontbookingComponent 
+  },
   {
     path: 'login', 
     component: LoginComponent 
@@ -41,38 +37,21 @@ const routes: Routes = [
   },
 
   {
-    path: 'user-profile', 
-    component:  UserProfileComponent,
-  },
-
-   {
-    path: 'staff-profile', 
-    component:  MyProfileComponent,
-  },
-  
-   {
-    path: 'user-appointment', 
-    component:  UserappointmentsComponent,
+    path: 'user',
+    //canActivate: [AuthGuard],
+    loadChildren: () => import('./user/user.module').then(mod => mod.UserModule)
   },
 
   {
-    path: 'staff-appointment', 
-    component:  StaffAppointmentComponent,
-  },
-  
-  {
-    path: 'work-profile', 
-    component:  WorkProfileComponent,
-  },
-  
-  {
-    path: 'my-work-space', 
-    component:  MyWorkSpaceComponent,
+    path: 'staff',
+    //canActivate: [AuthGuard],
+    loadChildren: () => import('./staff/staff.module').then(mod => mod.StaffModule)
   },
 
   {
-    path: '**', 
-    component: FrontbookingComponent 
+    path: 'admin',
+    //canActivate: [AuthGuard],
+    loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule)
   },
 ];
 

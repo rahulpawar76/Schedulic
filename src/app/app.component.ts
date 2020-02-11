@@ -119,19 +119,20 @@ export class AppComponent implements AfterViewInit {
 
       /*StaffDashboard Navigation*/
       StaffProfile(){
-        this.router.navigate(['/staff-profile']);
+        this.router.navigate(['/staff/my-profile']);
       }
 
       StaffAppointment(){
-      this.router.navigate(['/staff-appointment']);
+      this.router.navigate(['/staff/my-appointment']);
       }
 
+
       WorkProfile(){
-        this.router.navigate(['/work-profile']);
+        this.router.navigate(['/staff/work-profile']);
       }
 
       WorkSpace(){
-        this.router.navigate(['/my-work-space']);
+        this.router.navigate(['/staff']);
       }
 
       logout() {
@@ -145,11 +146,11 @@ export class AppComponent implements AfterViewInit {
       /*Customer Navigation*/
       
       UserProfile(){
-        this.router.navigate(['/user-profile']);
+        this.router.navigate(['/user/my-profile']);
       }
 
       UserAppointment(){
-      this.router.navigate(['/user-appointment']);
+      this.router.navigate(['/user']);
       }
 
       /*For notification Dialog*/

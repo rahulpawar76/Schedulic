@@ -20,43 +20,22 @@ export class UserappointmentsComponent implements OnInit {
   animal: any;
 
 
-  constructor(public dialog: MatDialog, private http: HttpClient) {
+  constructor(
+    public dialog: MatDialog,
+     private http: HttpClient
+     ) {
   }
 
 
 ngOnInit() {
-// this.frontbooking = this._formBuilder.group({
-// paymentgateway: ['']
-// })
-this.fngetallcategories();
 
 }
 
 private handleError(error: HttpErrorResponse) {
-/*console.log(error);*/
 return throwError('Error! something went wrong.');
 }
 
-fngetallcategories(){
-let requestObject1 = {
-"business_id" : 2
-};
-let headers = new HttpHeaders({
-'Content-Type': 'application/json',
-});
 
-this.http.post(`${environment.apiUrl}/get_all_category`,requestObject1,{headers:headers} ).pipe(
-map((res) => {
-alert(JSON.stringify(res));
-}),
-catchError(this.handleError)
-).subscribe((response) => {
-console.log(response)
-},
-(err) =>{
-console.log(err)
-})
-}
    ratenow() {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '500px',
@@ -125,7 +104,7 @@ console.log(err)
 
 	@Component({
 	  selector: 'dialog-rate-review',
-	  templateUrl: 'dialog-rate-review.html',
+	  templateUrl: '../_dialogs/dialog-rate-review.html',
 	})
 	export class DialogOverviewExampleDialog {
 
@@ -142,7 +121,7 @@ console.log(err)
 
 @Component({
 	  selector: 'dialog-invoice',
-	  templateUrl: 'dialog-invoice.html',
+	  templateUrl: '../_dialogs/dialog-invoice.html',
 	})
 	export class DialogInvoiceDialog {
 
@@ -158,7 +137,7 @@ console.log(err)
 
   @Component({
     selector: 'dialog-cancel-appointment-details',
-    templateUrl: 'dialog-cancel-appointment-details.html',
+    templateUrl: '../_dialogs/dialog-cancel-appointment-details.html',
   })
   export class DialogCancelAppointmentDetails {
 
@@ -174,7 +153,7 @@ console.log(err)
 
   @Component({
     selector: 'dialog-my-appointment-details',
-    templateUrl: 'dialog-my-appointment-details.html',
+    templateUrl: '../_dialogs/dialog-my-appointment-details.html',
   })
   export class DialogMyAppointmentDetails {
 
@@ -190,7 +169,7 @@ console.log(err)
 
   @Component({
     selector: 'dialog-complete-appointment-details',
-    templateUrl: 'dialog-complete-appointment-details.html',
+    templateUrl: '../_dialogs/dialog-complete-appointment-details.html',
   })
   export class DialogCompleteAppointmentDetails {
 
