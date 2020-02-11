@@ -1,7 +1,7 @@
 ﻿import { Component, Inject,AfterViewInit, ElementRef, ViewChild} from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Router, RouterOutlet } from '@angular/router';
-import { AuthenticationService, CompanyService, QuestionService } from './_services';
+import { AuthenticationService, CompanyService } from './_services';
 import { User, Role } from './_models';
 
 import { slideInAnimation } from './animations';
@@ -42,7 +42,6 @@ export class AppComponent implements AfterViewInit {
 
     constructor(
         public router: Router,
-        public questionService: QuestionService,
         private authenticationService: AuthenticationService,
         private _companyService: CompanyService,
         public dialog: MatDialog,
@@ -97,16 +96,7 @@ export class AppComponent implements AfterViewInit {
       this.selectedSessionName=localStorage.getItem("session_name");
     }*/
 
-    openDialog(): void {
-    const dialogRef = this.dialog.open(AttendeeRegistrationDialog, {
-      width: '500px',
-      data: {name: "this.name", animal: "this.animal"}
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      //this.animal = result;
-    });
-  }
 
     openSelectSessionDialog(): void {
     const dialogRef = this.dialog.open(SelectSessionDialog, {
@@ -161,64 +151,6 @@ export class AppComponent implements AfterViewInit {
   selector: 'attendee-registration-dialog',
   templateUrl: './_dialogs/attendee-registration-dialog.html',
 })
-export class AttendeeRegistrationDialog {
-    firstFormGroup: FormGroup;
-  constructor(
-    public dialogRef: MatDialogRef<AttendeeRegistrationDialog>,
-    private _formBuilder: FormBuilder,
-    public questionService: QuestionService,
-    private _snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-  ngOnInit(){
-      this.firstFormGroup = this._formBuilder.group({
-          email: ['',[ Validators.email,Validators.required]],
-          firstname: [''],
-          lastname: [''],
-          password : ['',Validators.required]
-        });
-  }
-  saveData(): void {
-   if (this.firstFormGroup.invalid) {
-            return;
-    }
-  let  jsonUser = {
-      "email": this.firstFormGroup.get('email').value,
-      "firstname": this.firstFormGroup.get('firstname').value,
-      "lastname": this.firstFormGroup.get('lastname').value,
-      "password" : this.firstFormGroup.get('password').value,
-      "role" : "employee"
-    }
-    console.log("jsonUser",jsonUser)
-    this.questionService.SaveAttendees(jsonUser)
-      .subscribe(
-        (res) => {
-          if(res.data){
-            this._snackBar.open("Created successfully", "X", {
-              duration: 2000,
-              verticalPosition: 'top',
-              panelClass : ['green-snackbar']
-            });
-            this.dialogRef.close();
-          }else{
-              this._snackBar.open(res.response, "X", {
-              duration: 2000,
-              verticalPosition: 'top',
-              panelClass: ['red-snackbar']
-            });
-          }
-          
-        },
-        (err) =>{
-            console.log(err)
-        } 
-      );
-    
-  }
-  closeModal(): void {
-    
-    this.dialogRef.close();
-  }
-}
 
 @Component({
   selector: 'select-session-dialog',
@@ -237,7 +169,6 @@ export class SelectSessionDialog {
     public router: Router,
     public dialogRef: MatDialogRef<SelectSessionDialog>,
     private _formBuilder: FormBuilder,
-    public questionService: QuestionService,
     public authenticationService: AuthenticationService,
     private _snackBar: MatSnackBar,
     private _companyService: CompanyService,
@@ -252,11 +183,8 @@ export class SelectSessionDialog {
     }
     this.selectedSessionId=localStorage.getItem("session_id");
     this.selectedSessionName=localStorage.getItem("session_name");
-    this.fnGetAllSessions(jsonUser)
   }
-  ngOnInit(){
-      //this.appComponent = new AppComponent(this.router, this.questionService, this.authenticationService, this._companyService, this.dialog);
-      this.selectSessionFormGroup = this._formBuilder.group({
+  ngOnInit(){    this.selectSessionFormGroup = this._formBuilder.group({
           session: ['',Validators.required]
         });
   }
@@ -297,19 +225,5 @@ export class SelectSessionDialog {
     this.dialogRef.close();
   }
 
-  fnGetAllSessions(jsonUser){
-    this.questionService.GetAllSessions(jsonUser)
-      .subscribe(
-        (res) => {
-          if(res){
-            this.sessionData=res.data;
-            }else{
-              
-          }
-        },
-        (err) =>{
-            console.log(err)
-        } 
-      );
-  }
+
 }

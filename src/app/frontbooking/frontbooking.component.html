@@ -23,18 +23,6 @@
                                 
                                 <span class="error-wrap" *ngIf="validpostalcode == 'invalid' && postalCodeError == true"><small class="error">We do not provide service at this location</small></span>
                             </div>
-                            <!-- <div class="check-aval-postal sm-py-2 valid" *ngIf="validpostalcode == 'valid'">
-                                <i class="fa fa-map-marker"></i>
-                                <input type="text" [(ngModel)]="booking.postalcode" class="postcode-input" placeholder="Enter the postal code to get our service" (keyup)="fncheckpostalcode($event)" />
-                                <input type="button" (click)="fnchangepostalcode($event)" value="Change" class="inline-btn" id="check_postal_code"/>
-                                <i class="material-icons">check_circle</i>
-                            </div>
-                            <div class="check-aval-postal sm-py-2 not-valid" *ngIf="validpostalcode == 'invalid'">
-                                <i class="fa fa-map-marker"></i>
-                                <input type="text" [(ngModel)]="booking.postalcode" class="postcode-input" placeholder="Enter the postal code to get our service" (keyup)="fncheckpostalcode($event)" />
-                                <input type="button" value="Check" class="inline-btn" id="check_postal_code"/>
-                                <i class="material-icons">check_circle</i>
-                            </div> -->
                         </div>
                     </mat-card-title>
                     <mat-card-content class="p-4 mt-0 mb-2">
@@ -50,20 +38,8 @@
                                 </div>
                             </label>
                         </div>
-                </mat-card-content>
-            </div>
-            <!-- <div id="check_postal_code" class="main-step w-100 step_2 p-0" *ngIf="checkpostalcode">
-                <mat-card-content class="p-4 mb-2">
-                    <div class="row">
-                        <div class="col-lg-12 col-sm-12 col-12 check-postal float-left">
-                            <i class="fa fa-map-marker"></i>
-                            <input type="text" class="postcode-input" placeholder="Enter the postal code to get our service" />
-                            <input type="submit" value="Check" class="inline-btn" />
-                            <i class="material-icons">check_circle</i>
-                        </div>
-                    </div>
-                </mat-card-content>
-            </div> -->
+                    </mat-card-content>
+                </div>
             <div id="sub-service_list" class="main-step step_3 p-0" *ngIf="subcatselection">
                 <div class="step-top-head"></div> 
                 <div class="col-lg-12 col-sm-12 col-12 float-left loggedin_head" *ngIf="isLoggedIn">
