@@ -1,0 +1,414 @@
+@import "variables";
+
+.content-main{
+      margin-top: 63px;
+      position: relative;
+}
+.right-button-wrapp{
+      height: 100%;
+      border-radius: 0;
+      background-color: $bgblue;
+      margin: 0px;
+}
+::ng-deep .btnappoint{
+      border-radius: 21px;
+      margin-left: 20px;
+      padding-top: 4px;
+      padding-bottom: 4px;
+}
+::ng-deep .mat-tab-label-container{
+  .mat-tab-list{
+    .mat-tab-labels{
+        background-color: $tab-colors !important;
+        height: 63px;
+        align-items: center;    
+        .mat-tab-label-active{
+          background-color: #fff !important;
+          height: 63px;
+        }
+      }
+    }
+  }
+
+
+::ng-deep .mat-dialog-container{
+  padding: 0 !important;
+}
+::ng-deep .modal-info{
+  margin: 0 !important;
+}
+
+
+
+  /*Common model Background Color*/
+::ng-deep .modal-bcolor{
+  background-color: $bg-darkblue;
+  .header-margins{
+    padding: 0;
+  }
+
+}
+
+::ng-deep .form-control{
+    padding-bottom: 11px;
+    padding-top: 11px;
+    height: 31px;
+}
+
+
+
+/*My Appointments css*/
+
+.bookings-details-main{
+  .single-booking{
+    .card{
+      /*margin: 20px;*/
+      label{
+         margin-bottom: 0;
+      }
+      p{
+        margin-bottom: 0;
+        font-size: 0.9rem;;
+      }
+      .buttons{
+        margin-left: auto;
+        .details{
+            padding: 3px 1.75rem;
+            margin: 5px 0;
+            width: 140px;
+            margin-right: 0 !important;
+            font-weight: 300;
+            margin-left:auto;
+            float:right;
+        }
+        .details-btn{
+            background-color: $btnlightgrey;
+            margin: 50px 0;
+            float:right;
+        }
+        .reschedule-btn{
+            background-color: $btnlightblue;
+            float:right;
+            margin: 5px 0;
+        }
+        .cancel-btn{
+            background-color: $btnlightred;
+            float:right;
+            margin: 5px 0;
+        }
+        .pay-btn{
+            background-color: $btnlightgreen;
+            float:right;
+            margin: 5px 0;
+        }
+        .invoice-btn{
+            background-color: $lightbtn;
+            float:right;
+            margin: 5px 0;
+        }
+        .rate-btn{
+            background-color: $btnlightblue;
+            float:right;
+            margin: 5px 0;
+        }
+        .invoice-light-btn{
+            background-color: $fourth;
+            float:right;
+            margin: 5px 0;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep .d-block{
+   
+    margin-top: 0 !important;
+   // border-radius: 25px;
+    width: 130px;
+    /*margin: inherit;*/
+  }
+
+::ng-deep .footer-content{
+  justify-content: end;
+}
+
+/*on the way dialog or work started dialog css*/
+
+ ::ng-deep .modal-info{
+    .modal-bcolor-primary{
+          background-color: #d9f0fe;
+          padding-bottom: 0px;
+    .header-margins{
+          padding: 0;
+    }
+  }
+  ::ng-deep .addbtn{
+    border-radius: 20px;
+    float: right;
+  }
+} 
+
+::ng-deep .modal-body{
+  
+    .work-content{
+        text-align: center;
+        padding-left: 10px;
+    .form-control{
+        padding-bottom: 11px;
+        padding-top: 11px;
+        height: 31px;
+
+    }
+} 
+}
+
+/*interrupted dialog css*/
+
+::ng-deep .modal-info{
+    .modal-bcolor-red{
+        background-color: $btnlightred;
+        padding-bottom: 0px;
+
+    .header-margins{
+        padding: 0;
+  }
+}
+
+::ng-deep .modal-body{
+    .interrupted-content{
+        text-align: center;
+        padding-left: 10px;
+    
+} 
+
+}
+
+/*Payment Module */
+.paymentmodeimg{
+
+  width: 100%;
+}
+.payment-module-img{
+  margin: 25px;
+
+}
+.pay-radio-content{
+
+  display: flex;
+  justify-content: space-around;
+  margin: 25px;
+  
+}
+.paybtn{
+  border-radius: 20px;
+  margin: auto;
+}
+.payment-details{
+
+  .service{
+    width: 84%;
+    font-size: $fs-18;
+
+  }
+  .amount{
+    width: 16%;
+    font-size: $fs-18;
+
+  }
+  .payment-service{
+    width: 84%;
+    font-size: $fs-16;
+
+  }
+  .payment-amount{
+    width: 16%;
+
+  }
+}
+.paymentbtn{
+      margin: 20px;
+.confirmbtn{
+      margin:20px;
+      border-radius: 50px;
+      width: 130px;
+}
+.cancelbtn{
+      border-radius: 50px;
+      width: 130px;
+}
+}
+.confirmpaymentbtn{
+    width: 75%;
+    border-radius: 50px;
+    margin: auto;
+}
+
+::ng-deep .modal-info{
+  
+  .modal-bcolor-primary{
+        background-color: #d9f0fe;
+        padding-bottom: 0px;
+  .header-margins{
+        padding: 0;
+  }
+}
+} 
+}
+
+@media only screen and (max-width: 767px){   
+ ::ng-deep .payment-details{
+    .payment-service, .payment-amount, .amount, .service{
+      width: 100% !important; 
+    }
+  }
+}
+
+@media only screen and (max-width: 767px){   
+  .paymentbtn{
+    .confirmbtn {
+      display: flex; 
+    }
+    .cancelbtn{
+      display: flex; 
+}
+}
+}
+
+
+/*-----------------*/
+
+::ng-deep .addbtnred{
+        background-color: $btnlightred;
+        border-radius: 20px;
+        border-color: $btnlightred;
+    &:hover{
+        background-color:$btnlightred;
+        color: $fourth;
+        border-color: $btnlightred;
+    }
+}
+
+
+
+::ng-deep .tp-container {
+        position: absolute;
+        top: 0;
+        bottom: 0;   
+        right: 0;
+        background: #eee;
+        width: 350px;
+    .rejectbtn{
+        border-radius: 50px;
+        margin: 5px; 
+        background-color:#ff3e3f;        
+    }
+    .acceptbtn{
+        border-radius: 50px;
+        margin: 5px;                 
+    }
+    .ongoingdetails{    
+      .greenfont{
+          color: green;
+          margin: 20px;
+      .repeat{
+          margin: 8px;
+    }
+  }   
+}
+
+}
+
+/* after click next btn dialog open*/
+ ::ng-deep .input-group-text{
+        background-color: white;
+        padding: 10px;   
+}
+
+::ng-deep .formcontrol{
+  
+        padding-bottom: 5px;
+        padding-top: 5px;
+        height: 38px; 
+
+}
+
+
+#search_container_staffappo{
+  position: absolute;
+  top: 0px;
+  z-index: 10;
+  right: 50px;
+  height: 63px;
+  z-index: 1;
+  .search-input-container{
+    position: relative;
+    .before-search{
+      position: absolute;
+      line-height: 1.9;
+      left: 15px;
+    }
+    .searchbox_staffappo{
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: $fs-12;
+      text-indent: 15px;
+    }
+  }
+  .btnappoint_staffappo{
+    border-radius: 50px;
+    margin-left: 20px;
+    padding: 8px 20px;
+    font-size: 12px;
+
+  }
+}
+@media only screen and(max-width: 767px){
+  #search_container_staffappo{
+    display: none;
+  }
+}
+
+
+::ng-deep .booking-detail-main{
+  .compdetailfs{font-size: $fs-14;}
+  .customer-profile-img{
+    border-radius: 100%;
+    height: 60px;
+    width: 60px;
+    background-color: #1172f4;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    line-height: 2;
+    display: block;
+    margin: 10px;
+  }
+  .staffaddress{
+    font-size: 13px; 
+     .bluephone{
+      color: #1172f4;
+    }
+    .bluemap{
+      color: #1172f4;
+    }
+  }
+  .customer-name{
+    width: calc(100% - 80px);
+  }
+}
+
+
+
+.complete-btn{
+  background-color: #FFAF7F;
+   float:right;
+  margin: 5px 0;
+ }
+
+.reschedulebtn{
+        background-color: $btnlightblue;
+        float:right;
+        margin: 5px 0;
+}
+ 

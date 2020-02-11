@@ -12,7 +12,7 @@ $lightcolor: #00367130;
 // $proactive: var(--proactive);
 // $resilient: var(--resilient);
 // $first: var(--first);
-// $second: var(--second);
+   $second: var(--second);
 // $third: var(--third);
 // $fourth: var(--fourth);
 
@@ -28,7 +28,7 @@ $first-alt-darker: rgb(24, 21, 21);
 $second-alt-lighter: #e75a55;
 $second-alt-darker: #ab1531;
 //$third: #4D4D4D;
-//$fourth: #ffffff;
+$fourth: #ffffff;
 
 // different Var
 
@@ -49,6 +49,7 @@ $green : #16bc2c;
 $btn-bg : linear-gradient(to right, #487ffd, #427af8, #3c74f2, #366fed, #2f6ae8);
 
 // for font size
+$fs-12: 12px;
 $fs-14: 14px;
 $fs-16: 16px; 
 $fs-18: 18px; 
@@ -73,3 +74,29 @@ $fw-700: 700;
 $fw-800: 800; 
 $fw-900: 900; 
 $fwb: bold; 
+
+
+/* for tab color */
+$tab-colors:#d9f0fe;
+
+/*for button color*/
+$btnlightgrey:#d6d6d6;
+$btnlightblue:#bcd8ff;
+$btnlightred:#fa8888;
+$btnlightgreen:#a0da8d;
+$lightbtn:#fabb88;
+
+$iconcolors:#295792;
+
+$bgblue:#dce9ff;
+
+$bgdarkblue:#1172f4;
+$bgdarkorange:#ff9037;
+$bgdarkgreen:#149a5b;
+
+/*for font-family*/
+$ff-poppins : 'Poppins', sans-serif;
+/*slide header */
+
+$bg-darkblue:#eef5ff;
+$bg-header:#cfe3fc;

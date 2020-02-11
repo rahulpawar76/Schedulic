@@ -1,6 +1,5 @@
 @import "variables";
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
-
 $light-gray: #f3f3f3;
 
 ////////// GENERAL //////////
@@ -217,6 +216,11 @@ main {
     //background: $light-gray;
 }
 
+mat-select.constypeclass{
+    width: 30% !important;
+    text-align: left;
+    float: right;
+}
 
 ////////// FOOTER //////////
 
@@ -351,11 +355,6 @@ color: #e99546;
 
 
 
-
-
-
-
-
 $calendarsize: 10px;
 .ngbpicker {
     padding: 15px;
@@ -477,8 +476,6 @@ $calendarsize: 10px;
 {
 	background-color: $primary-color;
 }
-
-
 @media only screen and (max-width: 600px){
     .ngbpicker{
         // margin-left: 0;

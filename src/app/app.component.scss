@@ -1,42 +1,70 @@
 @import "variables";
 
-.example-container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #eee;
-  }
-
 .logo {
     height: 100%;
     display: inline-block;
     object-fit: contain;
-    padding: 0 2%;
+    padding: 0 1%;
     padding-top:.9rem;
-}
+
+    }
+    .logo-link{
+        color: #232324;
+        font-size: 1rem;
+
+    }
     .logo img {
-        width: 9rem;
-        max-width: 100%;
+       
+        width: 28px;
         object-fit: contain;
     }
+    .shoppingbagsize{
+      font-size: 28px;
+      color: #838383;
 
-.create-user{margin-left:2rem;}
+    }
+    .menu-comman{
+        margin-bottom: 0px;
+        position: fixed;
+        background-color: #fff;
+        z-index: 2;
+    }
 
-.example-fill-remaining-space {
+    .create-user{margin-left:2rem;}
+
+    .example-fill-remaining-space {
     /* This fills the remaining space, by using flexbox. 
         Every toolbar row uses a flexbox row layout. */
-    flex: 1 1 auto;
-}
-.example-container {
-  width: 100%;
-  height: 100%;
+        flex: 1 1 auto;
+    }
+    .example-container {
+        width: 100%;
+        height: 100%;
  
+    }
+
+/*Appoinment Menu Css*/
+
+.menu-heading {
+    margin-top: 30px;
 }
-.mat-toolbar{
-    background-color: #38D7EA !important;
+
+.iconwidth{
+    margin-left:1rem;
 }
+.customer-profile-img{
+
+  border-radius: 100%;
+  height:50px;
+  width:50px;
+
+}
+.pointer {
+    
+    cursor: pointer;
+}
+
+/*Main Menu toggle css*/
 
 mat-drawer-content {
   display: flex;
@@ -44,33 +72,86 @@ mat-drawer-content {
   align-items: flex-start;
 }
 
+.mat-list-icon{
+    color:$iconcolors;
+}
+
+.matlist{
+    display: block !important;
+    height: 60px !important;
+    width: 100% !important;
+    padding: 5px 0 !important;
+     &:hover{
+             background-color: $bgblue;
+        }
+}
+
+.menuitem{
+    color:#325c98;
+    padding-top: 4px;
+    &:focus{
+            outline:none; 
+            }           
+}
+.mat-list-item{
+     &:hover{
+                background-color: $bgblue;
+            }
+}
+
+/*Css For Toggle Bar*/
+.toggleborder{
+    border:0;
+}
+
+.toggle-color{
+    color: #4d72a4;
+    font-size: $fs-20;
+}
+
+.toolbar{
+    a{
+        &:hover{
+            color:#232324;
+        }
+    }
+}
+
+
+/*---------------------*/
+
 .is-active {
     background: rgba(0, 0, 0, 0.08);
+}
+
+.is-active mat-icon {
+    color: $second;
 }
 
 .app-name{margin-right:3%;}
 
 .admin-menu, .logout {margin-left:1rem;}
 
-@media screen and (max-device-width: 767px){
+@media screen and (max-width: 767px){
     .f13{
         font-size: 10px;
     }
     .btn-menu-top{
-    margin-left : 0px !important;
-    padding : 0px;
-    min-width : 40px;
-}
+        margin-left : 0px !important;
+        padding : 0px;
+        min-width : 40px;
+    }
     .logo{
         padding-top: 8px;
         // max-height: 35px;
     }
     .logo img {
-        width: 8rem;
+        width: 25px;
+        object-fit: contain;
     }
-    .admin-menu {
-        /*display: none !important;*/
-    }
+    // .admin-menu {
+    //     /*display: none !important;*/
+    // }
     .logout {
         margin-left:0.5rem;
         padding: 0px;
@@ -78,21 +159,119 @@ mat-drawer-content {
     .mat-toolbar-row, .mat-toolbar-single-row {
         padding: 0 2px;
     }
+     .logo-link{
+        color: #232324;
+        font-size: 1rem;
+        padding: 0 6px;
+
+    }
 }
-input:focus{
-    box-shadow: 2px 2px 8px #00000070 !important;
-    outline:0 !important;
+/*Slide Toggle*/
+
+.slidetoggle{
+    color: black;
+    font-size: $fs-16;
+    align-content: left;
 }
 
-
+/*----------*/
 .settings-menu {
     position: absolute;
     bottom: 0px;
     width: 100%;
 }
 
-.menu-heading {
-    margin-top: 30px;
+
+.mat-list-base{
+    padding: 0;
 }
 
+input{
+transition: all 0.3s;
+}
+input[type='text']:focus, input[type='email']:focus{
+box-shadow: 2px 2px 8px #00000070 !important;
+}
+input:focus{
+outline:0 !important;
+}
+.round-btn{
+border-radius: 100px;
+}
+::-webkit-scrollbar-track
+{
+//-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+background-color:transparent;
+}
+
+::-webkit-scrollbar
+{
+width: 3px;
+background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb
+{
+background-color: $primary-color;
+}
+
+
+/*---Notification----*/
+
+.bellborder{
+    border:0;
+}
+
+.bell-color{
+    color: #4d72a4;
+    font-size: $fs-20;
+}
+
+/*---Notification Dialog Container---*/
+
+::ng-deep .tp-notification-container{
+   position: absolute !important;
+   top: 0;
+   bottom: 0;
+   right: 0;
+   background: #eee;
+}
+
+::ng-deep .x-small{
+    font-size: $fs-12;
+}
+
+
+::ng-deep .fontsize-md{
+    font-size: $fs-14;
+
+}
+
+::ng-deep .fontred{
+    font-size: $fs-14;color: red;
+
+}
+
+::ng-deep .greenfont{
+
+ font-size: $fs-14;color: green;
+
+}
+
+::ng-deep .bluefont{
+    font-size: $fs-14;
+    color: blue;
+}
+
+::ng-deep .material-icons{
+    font-size: $fs-16;
+}
+::ng-deep .modal-dialog-container{
+    width: 300px;
+}
+
+.mat-drawer:not(.mat-drawer-side) {
+    box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);
+    background-color: #fff;
+}
 

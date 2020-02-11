@@ -9,6 +9,15 @@ import { ResetPasswordComponent } from './reset-password';
 import { FrontbookingComponent } from './frontbooking';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { UserappointmentsComponent } from './userappointments';
+import { UserProfileComponent } from './user-profile';
+import { MyProfileComponent } from './staff-dashboard/my-profile';
+import { WorkProfileComponent } from './staff-dashboard/work-profile';
+import { StaffAppointmentComponent } from './staff-dashboard/staff-appointment';
+import { MyWorkSpaceComponent } from './staff-dashboard/my-work-space';
+
+
 const routes: Routes = [
   {
     path: 'login', 
@@ -30,6 +39,37 @@ const routes: Routes = [
     path: 'booking', 
     component:  FrontbookingComponent,
   },
+
+  {
+    path: 'user-profile', 
+    component:  UserProfileComponent,
+  },
+
+   {
+    path: 'staff-profile', 
+    component:  MyProfileComponent,
+  },
+  
+   {
+    path: 'user-appointment', 
+    component:  UserappointmentsComponent,
+  },
+
+  {
+    path: 'staff-appointment', 
+    component:  StaffAppointmentComponent,
+  },
+  
+  {
+    path: 'work-profile', 
+    component:  WorkProfileComponent,
+  },
+  
+  {
+    path: 'my-work-space', 
+    component:  MyWorkSpaceComponent,
+  },
+
   {
     path: '**', 
     component: FrontbookingComponent 
