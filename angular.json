@@ -137,6 +137,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "she-excellence"
+    }
+  },
+  "defaultProject": "she-excellence",
+  "cli": {
+    "analytics": false
+  }
 }

@@ -99,8 +99,8 @@ export class FrontbookingComponent implements OnInit {
   isLoader:boolean=false;
   showCouponError:boolean=false;
   couponErrorMessage:any;
-  //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
   @ViewChildren(MdePopoverTrigger) trigger: QueryList<MdePopoverTrigger>;
+  //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
   emailFormat = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
   onlynumeric = /^-?(0|[1-9]\d*)?$/
 
@@ -649,11 +649,11 @@ export class FrontbookingComponent implements OnInit {
     
   }
   
-  fnSelectStaff(event,staff_id){
+  fnSelectStaff(event,staff_id,index){
     this.isLoader=true;
     console.log(event);
     console.log(staff_id);
-    this.trigger.toArray()[0].togglePopover();
+    this.trigger.toArray()[index].togglePopover();
     this.serviceCount[this.currentSelectedService].appointmentDate=this.selecteddate;
     this.serviceCount[this.currentSelectedService].assignedStaff=staff_id;
     this.serviceCount[this.currentSelectedService].appointmentTimeSlot=this.selectedTimeSlot;
