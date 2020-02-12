@@ -2,113 +2,36 @@
 <mat-tab-group mat-align-tabs="start" >
   <mat-tab label="My Appointment" class="appointmentlabel">  
     <div class="bookings-details-main">
-      <div class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
+      <div *ngFor="let appointmentData of appointmentData; let i = index" class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
         <mat-card class="col card mt-3 ">
           <div class="card-body">
             <div class="row"> 
               <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
                 <label class="d-block font-weight-bold">Date & Time</label>
-                  <p>22 Oct 2019,</p> 
-                  <p>08:15am</p>
+                <p>{{appointmentData.booking_date}}</p> 
+                <p>{{appointmentData.booking_time}}</p>
               </div>
             <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
                 <label class="font-weight-bold">Status</label> 
-                <p>Waiting For</p>
-                <p>Confirmation</p> 
+                <p class="text-capitalize" *ngIf="appointmentData.order_status == 'P'">Pending</p>
+                <p class="text-capitalize" *ngIf="appointmentData.order_status == 'A'">Accepted</p>
             </div>                  
           </div>
           <div class="row"> 
             <div class="col-6 col-sm-3 col-md-6 col-lg-8"> 
               <label class="font-weight-bold">Service</label>
-                <p>Repainting Of Wall</p>
-                <p>Duration:8hr</p>
-              
-              <label class="font-weight-bold">Amount</label>
-                <p>$.3,000.00</p>
+                <p>{{appointmentData.service.service_name}}</p>
+                <p>Duration:{{appointmentData.service.service_time}}</p>
+                <label class="font-weight-bold">Amount</label>
+                <p>$ {{appointmentData.service.service_cost}}</p>
               <label class="font-weight-bold">Staff</label>
-                <p>--</p>
+                <p *ngIf="appointmentData.staff_id == null">Not Assigned</p>
+                <p class="text-capitalize" *ngIf="appointmentData.staff_id != null">{{appointmentData.staff.firstname}} {{appointmentData.staff.lastname}}</p>
             </div>
-
             <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons pt-4"> 
-              <button mat-button class="d-block details-btn" (click)="MyAppointmentDetails()">Details</button>
+              <button mat-button class="d-block details-btn" (click)="MyAppointmentDetails(i)">Details</button>
               <button mat-button class="d-block reschedule-btn">Reschedule</button>
-              <button mat-button class="d-block cancel-btn">Cancel</button>
-              <button mat-button class="d-block pay-btn">Pay</button>
-            </div>                  
-          </div>
-        </div>
-      </mat-card>
-    </div>
-    <div class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
-      <mat-card class="col card mt-3">
-        <div class="card-body">
-           <div class="row"> 
-              <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
-                <label class="d-block font-weight-bold">Date & Time</label>
-                <p>22 Oct 2019,</p> 
-                <p>08:15am</p>
-              </div>
-              <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
-                  <label class="font-weight-bold">Status</label> 
-                  <p>Waiting For</p>
-                  <p>Confirmation</p> 
-              </div>                  
-            </div>
-            <div class="row"> 
-              <div class="col-6 col-sm-3 col-md-6 col-lg-8"> 
-                <label class="font-weight-bold">Service</label>
-                  <p>Repainting Of Wall</p>
-                  <p>Duration:8hr</p>
-                
-                  <label class="font-weight-bold">Amount</label>
-                  <p>$.3,000.00</p>
-
-                <label class="font-weight-bold">Staff</label>
-                  <p>--</p>
-              </div>
-
-              <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons pt-4"> 
-                <button mat-button class="d-block details-btn">Details</button>
-                <button mat-button class="d-block reschedule-btn">Reschedule</button>
-                <button mat-button class="d-block cancel-btn">Cancel</button>
-                <button mat-button class="d-block pay-btn">Pay</button>
-              </div>                  
-            </div>
-          </div>
-        </mat-card>
-    </div>
-    <div class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
-      <mat-card class="col card mt-3">
-        <div class="card-body">
-          <div class="row"> 
-              <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
-                <label class="d-block font-weight-bold">Date & Time</label>
-                <p>22 Oct 2019,</p> 
-                <p>08:15am</p>
-              </div>
-              <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
-                  <label class="font-weight-bold">Status</label> 
-                  <p>Waiting For</p>
-                  <p>Confirmation</p> 
-              </div>                  
-          </div>
-          <div class="row"> 
-            <div class="col-6 col-sm-3 col-md-6 col-lg-8"> 
-              <label class="font-weight-bold">Service</label>
-                <p>Repainting Of Wall</p>
-                <p>Duration:8hr</p>
-                
-              <label class="font-weight-bold">Amount</label>
-                <p>$.3,000.00</p>
-
-              <label class="font-weight-bold">Staff</label>
-                <p>--</p>
-            </div>
-
-            <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons pt-4"> 
-              <button mat-button class="d-block details-btn" >Details</button>
-              <button mat-button class="d-block reschedule-btn">Reschedule</button>
-              <button mat-button class="d-block cancel-btn">Cancel</button>
+              <button mat-button class="d-block cancel-btn" (click)="cancelAppo(appointmentData.id)">Cancel</button>
               <button mat-button class="d-block pay-btn">Pay</button>
             </div>                  
           </div>
@@ -119,14 +42,14 @@
 </mat-tab>
 <mat-tab label="Cancel Appointment">
 <div class="bookings-details-main">
-  <div class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
+  <div *ngFor="let cancelAppointmentData of cancelAppointmentData; let i = index" class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
     <mat-card class="col card mt-3">
       <div class="card-body">
         <div class="row"> 
           <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
             <label class="d-block font-weight-bold">Date & Time</label>
-              <p>22 Oct 2019,</p> 
-              <p>08:15am</p>
+              <p>{{cancelAppointmentData.booking_date}},</p> 
+              <p>{{cancelAppointmentData.booking_time}}</p>
             </div>
             <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
                 <label class="font-weight-bold">Status</label> 
@@ -136,132 +59,83 @@
         <div class="row"> 
           <div class="col-6 col-sm-3 col-md-6 col-lg-8"> 
             <label class="font-weight-bold">Service</label>
-              <p>Repainting Of Wall</p>
-              <p>Duration:8hr</p>
+              <p>{{cancelAppointmentData.service.service_name}}</p>
+              <p>Duration:{{cancelAppointmentData.service.service_time}}</p>
               
             <label class="font-weight-bold">Amount</label>
-              <p>$.3,000.00</p>
+              <p>$ {{cancelAppointmentData.total_cost}}</p>
 
             <label class="font-weight-bold">Staff</label>
-              <p>--</p>
+            <p *ngIf="cancelAppointmentData.staff_id == null">Not Assigned</p>
+            <p class="text-capitalize" *ngIf="cancelAppointmentData.staff_id != null">{{cancelAppointmentData.staff.firstname}} {{cancelAppointmentData.staff.lastname}}</p>
           </div>
           <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons"> 
-            <button mat-button class="d-block details-btn" (click)="details_dialog()">Details</button>
+            <button mat-button class="d-block details-btn" (click)="details_dialog(i)">Details</button>
           </div>                  
         </div>
       </div>
     </mat-card>
   </div>
-  <div class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
-    <mat-card class="col card mt-3">
-      <div class="card-body">
-        <div class="row"> 
-          <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
-            <label class="d-block font-weight-bold">Date & Time</label>
-              <p>22 Oct 2019,</p> 
-              <p>08:15am</p>
-          </div>
-          <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
-            <label class="font-weight-bold">Status</label> 
-              <p>Canceled</p>     
-          </div>                  
-        </div>
-        <div class="row"> 
-          <div class="col-6 col-sm-3 col-md-6 col-lg-8"> 
-            <label class="font-weight-bold">Service</label>
-              <p>Repainting Of Wall</p>
-              <p>Duration:8hr</p>
-                
-            <label class="font-weight-bold">Amount</label>
-              <p>$.3,000.00</p>
-
-            <label class="font-weight-bold">Staff</label>
-              <p>--</p>
-          </div>
-          <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons"> 
-            <button mat-button class="d-block details-btn" (click)="details_dialog()">Details</button>      
-          </div>                  
-        </div>
-      </div>
-    </mat-card>
   </div>
-  <div class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
-    <mat-card class="col card mt-3">
-      <div class="card-body">
-        <div class="row"> 
-          <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
-            <label class="d-block font-weight-bold">Date & Time</label>
-              <p>22 Oct 2019,</p> 
-              <p>08:15am</p>
-          </div>
-          <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
-            <label class="font-weight-bold">Status</label> 
-            <p>Canceled</p>         
-          </div>                  
-        </div>
-        <div class="row"> 
-          <div class="col-6 col-sm-3 col-md-6 col-lg-8"> 
-            <label class="font-weight-bold">Service</label>
-              <p>Repainting Of Wall</p>
-              <p>Duration:8hr</p>
-                
-            <label class="font-weight-bold">Amount</label>
-              <p>$.3,000.00</p>
-
-            <label class="font-weight-bold">Staff</label>
-              <p>--</p>
-          </div>
-          <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons"> 
-            <button mat-button class="d-block details-btn" (click)="details_dialog()" >Details</button>
-          </div>                  
-        </div>
-      </div>
-    </mat-card>
-  </div>
-</div>
 </mat-tab>
 
 
 <mat-tab label="Complete Appointment">   
   <div class="bookings-details-main">
-    <div class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
+    <div *ngFor="let completedAppointmentData of completedAppointmentData; let i = index" class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
       <mat-card class="col card mt-3">
         <div class="card-body">
           <div class="row"> 
             <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
               <label class="d-block font-weight-bold">Date & Time</label>
-              <p>22 Oct 2019,</p> 
-              <p>08:15am</p>
-            </div>
-            <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
-                <label class="font-weight-bold">Status</label> 
-                <p>Completed</p>
-               
-            </div>                  
+                <p>{{completedAppointmentData.booking_date}},</p> 
+                <p>{{completedAppointmentData.booking_time}}</p>
+              </div>
+              <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
+                  <label class="font-weight-bold">Status</label> 
+                  <p>Completed</p>   
+              </div>                  
           </div>
           <div class="row"> 
             <div class="col-6 col-sm-3 col-md-6 col-lg-8"> 
               <label class="font-weight-bold">Service</label>
-                <p>Repainting Of Wall</p>
-                <p>Duration:8hr</p>
-              
+                <p>{{completedAppointmentData.service.service_name}}</p>
+                <p>Duration:{{completedAppointmentData.service.service_time}}</p>
+                
               <label class="font-weight-bold">Amount</label>
-                <p>$.3,000.00</p>
-
+                <p>$ {{completedAppointmentData.total_cost}}</p>
+  
               <label class="font-weight-bold">Staff</label>
-                <p>Xyz Xyz</p>
+              <p *ngIf="completedAppointmentData.staff_id == null">Not Assigned</p>
+              <p class="text-capitalize" *ngIf="completedAppointmentData.staff_id != null">{{completedAppointmentData.staff.firstname}} {{completedAppointmentData.staff.lastname}}</p>
             </div>
 
             <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons"> 
-              <button mat-button class="d-block details-btn" (click)="complete_details_dialog()">Details</button>
-              <button mat-button class="d-block invoice-light-btn" (click)="invoice()">Invoice</button>
-              <button mat-button class="d-block rate-btn" (click)="ratenow()" id="">Rate Now</button>   
+              <button mat-button class="d-block details-btn" (click)="complete_details_dialog(i)">Details</button>
+              <button mat-button class="d-block invoice-light-btn" (click)="invoice(i)">Invoice</button>
+              <div class="" *ngIf="completedAppointmentData.rating == null">
+                <button mat-button class="d-block rate-btn" (click)="ratenow(completedAppointmentData.id)" id="">Rate Now</button>   
+              </div>
+              <div class="d-flex w-100" *ngIf="completedAppointmentData.rating != null">
+                <div class="star-rating" style="pointer-events: none;">
+                  <input type="radio" [checked]="completedAppointmentData.rating.rating == 5" id="5-stars_{{completedAppointmentData.id}}" name="rating_{{completedAppointmentData.id}}" value="5" />
+                  <label for="5-stars_{{completedAppointmentData.id}}" class="star">&#9733;</label>
+                  <input type="radio" [checked]="completedAppointmentData.rating.rating == 4"  id="4-stars_{{completedAppointmentData.id}}" name="rating_{{completedAppointmentData.id}}" value="4" />
+                  <label for="4-stars_{{completedAppointmentData.id}}" class="star">&#9733;</label>
+                  <input type="radio" [checked]="completedAppointmentData.rating.rating == 3" id="3-stars_{{completedAppointmentData.id}}" name="rating_{{completedAppointmentData.id}}" value="3" />
+                  <label for="3-stars_{{completedAppointmentData.id}}" class="star">&#9733;</label>
+                  <input type="radio" [checked]="completedAppointmentData.rating.rating == 2" id="2-stars_{{completedAppointmentData.id}}" name="rating_{{completedAppointmentData.id}}" value="2" />
+                  <label for="2-stars_{{completedAppointmentData.id}}" class="star">&#9733;</label>
+                  <input type="radio" [checked]="completedAppointmentData.rating.rating == 1" id="1-star_{{completedAppointmentData.id}}" name="rating_{{completedAppointmentData.id}}" value="1" />
+                  <label for="1-star_{{completedAppointmentData.id}}" class="star">&#9733;</label>
+                </div>   
+              </div>
             </div> 
           </div>
         </div>
       </mat-card>
     </div>
-    <div class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
+    <!-- <div class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
       <mat-card class="col card mt-3">
         <div class="card-body">
           <div class="row"> 
@@ -293,19 +167,19 @@
               <button mat-button class="d-block invoice-btn" (click)="invoice()">Invoice</button>
               <div class="col-sm-6 col-md-6 col-lg-6 float-right"> 
                 <label class="font-weight-bold float-left">Rating</label>
-                  <!-- <p class="text-warning ">
+                   <p class="text-warning ">
                     <i class="fa fa-star "></i>
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
-                  </p> -->
+                  </p> 
               </div>
             </div>  
           </div>
         </div>
       </mat-card>
-    </div>   
+    </div>    -->
   </div>
   
 </mat-tab>
@@ -315,7 +189,7 @@
       <i class="fa fa-search before-search"></i>
       <input class="form-control searchbox_userappo" type="text" placeholder="Search Appointment">
     </div>
- <button type="button" class="btn btn-primary btnappoint_userappo" disabled>Add Appointment</button>
+ <button type="button" class="btn btn-primary btnappoint_userappo" (click)="frontBooking()">Add Appointment</button>
 
 </form>
 </div>

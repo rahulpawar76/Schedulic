@@ -31,7 +31,7 @@ export class UserProfileComponent implements OnInit {
   constructor(private userService: UserService,private _formBuilder:FormBuilder,public dialog: MatDialog, private http: HttpClient) { }
 
   ngOnInit() {
-    localStorage.setItem['session_user_id'] = '21',
+    localStorage.setItem['session_user_id'] = this.profiledata.id,
     localStorage.setItem['session_user_email'] = this.profiledata.email,
     localStorage.setItem['session_user_type'] = 'C',
     this.customerProfile = this._formBuilder.group({
@@ -55,7 +55,6 @@ export class UserProfileComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.animal = result;
      });
   }
@@ -65,7 +64,6 @@ getUserProfileData(): void {
   {
     if(response.data == true){
       this.profiledata = response.response;
-      console.log(this.profiledata);
       this.customerProfile.controls['user_fullname'].setValue(this.profiledata.fullname);
       this.customerProfile.controls['user_email'].setValue(this.profiledata.email);
       this.customerProfile.controls['user_phone'].setValue(this.profiledata.phone);
@@ -128,12 +126,38 @@ logout() {
   })
   export class DialogUserImageUpload {
 
+    // SERVER_URL = "http://goappointment.bi-team.in/goappointment_api/public/category-images";
+    // uploadForm: FormGroup;  
+
     constructor(
       public dialogRef: MatDialogRef<DialogUserImageUpload>,
+      private formBuilder: FormBuilder, 
+      private httpClient: HttpClient,
       @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
     onNoClick(): void {
       this.dialogRef.close();
     }
+    // ngOnInit() {
+    //   this.uploadForm = this.formBuilder.group({
+    //     profile: ['']
+    //   });
+    // }
+    // onFileSelect(event) {
+    //   if (event.target.files.length > 0) {
+    //     const file = event.target.files[0];
+    //     //this.uploadForm.get('profile').setValue(file);
+    //     this.uploadForm.controls['profile'].setValue(file);
+    //   }
+    // }
+    // onSubmit() {
+    //   const formData = new FormData();
+    //   formData.append('file', this.uploadForm.get('profile').value);
+  
+    //   this.httpClient.post<any>(this.SERVER_URL, formData).subscribe(
+    //     (res) => console.log(res),
+    //     (err) => console.log(err)
+    //   );
+    // }
 
   }

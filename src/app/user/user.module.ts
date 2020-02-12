@@ -13,6 +13,7 @@ import { UserRoutingModule } from './user-routing.module';
 import { UserappointmentsComponent } from './userappointments';
 import { UserProfileComponent } from './user-profile';
 import { DialogOverviewExampleDialog } from './userappointments';
+import { DialogCancelReason } from './userappointments';
 import { DialogInvoiceDialog } from './userappointments';
 import { DialogMyAppointmentDetails } from './userappointments';
 import { DialogCancelAppointmentDetails } from './userappointments';
@@ -24,6 +25,7 @@ import { DialogUserImageUpload } from './user-profile';
 		UserappointmentsComponent,
 		UserProfileComponent,
 		DialogOverviewExampleDialog,
+		DialogCancelReason,
 		DialogInvoiceDialog,
 		DialogMyAppointmentDetails,
 		DialogCancelAppointmentDetails,
@@ -46,6 +48,6 @@ import { DialogUserImageUpload } from './user-profile';
   exports: [
     FormsModule
   ],
-  entryComponents: [DialogOverviewExampleDialog,DialogInvoiceDialog,DialogMyAppointmentDetails,DialogCancelAppointmentDetails,DialogCompleteAppointmentDetails,DialogUserImageUpload],
+  entryComponents: [DialogOverviewExampleDialog,DialogCancelReason,DialogInvoiceDialog,DialogMyAppointmentDetails,DialogCancelAppointmentDetails,DialogCompleteAppointmentDetails,DialogUserImageUpload],
 })
 export class UserModule { }

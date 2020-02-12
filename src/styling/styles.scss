@@ -352,6 +352,63 @@ color: #e99546;
     right: 2rem;
     z-index: 999;
 }
+::ng-deep .modal-content{
+    border:0;
+}
+// common-btn-colors
+.cancel-btn{
+    background-color: #fa8888;
+}
+.modal-bcolor-danger{
+    background-color: #fa8888;
+}
+.modal-header{
+    .close:focus{
+        outline: none;
+    }
+}
+
+.mat-dialog-container{
+    padding: 0 !important;
+}
+.modal-info{
+    margin: 0 !important;
+}
+  
+.modal-bcolor{
+    background-color: $bg-darkblue;
+    .header-margins{
+        padding: 0;
+    }
+}
+
+/*on the way dialog or work started dialog css*/
+
+.modal-info{
+    .modal-bcolor-primary{
+          background-color: #d9f0fe;
+          padding-bottom: 0px;
+    .header-margins{
+          padding: 0;
+    }
+  }
+  .addbtn{
+    border-radius: 20px;
+    float: right;
+  }
+} 
+
+.modal-body{
+  .work-content{
+    text-align: center;
+    padding-left: 10px;
+    .form-control{
+      padding-bottom: 11px;
+      padding-top: 11px;
+      height: 31px;
+    }
+  } 
+}
 
 
 
