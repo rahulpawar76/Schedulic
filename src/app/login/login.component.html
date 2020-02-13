@@ -21,20 +21,16 @@
               <p class="text-center text-dark">to your account</p>
             </mat-card-title>
             <div class="input-wrap my-3">
-              <input type="text" formControlName="email" placeholder="Username" class="common-input form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-              <small *ngIf="submitted && f.email.errors">
-                  <div *ngIf="f.email.errors.required">Email is required</div>
-              </small>
+              <input type="text" formControlName="email" placeholder="Email" class="common-input form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+              <span class="error-wrap" *ngIf="loginForm.get('email').dirty || loginForm.get('email').touched || formSubmitclicked"><small *ngIf="loginForm.get('email').hasError('required')" class="error">Email Is required</small></span>
             </div>
 
             <div class="input-wrap my-3">
-              <input type="password" formControlName="Password" placeholder="Password" class="common-input form-control" [type]="hide ? 'password' : 'text'" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+              <input type="password" formControlName="password" placeholder="Password" class="common-input form-control" [type]="hide ? 'password' : 'text'" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
               <div mat-icon-button matSuffix  class="icon-cust-pass">
                 <mat-icon  (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               </div>
-              <small *ngIf="submitted && f.password.errors">
-                  <div *ngIf="f.password.errors.required">Password is required</div>
-              </small>
+              <span class="error-wrap" *ngIf="loginForm.get('password').dirty || loginForm.get('password').touched || formSubmitclicked"><small *ngIf="loginForm.get('password').hasError('required')" class="error">Password Is required</small></span>
             </div>
             <div class="input-wrap my-3">
               <button type="submit" color="primary" [disabled]="loading" (click)="onSubmit()" class="common-btn text-white w-100 buttion-but" >
