@@ -1,0 +1,43 @@
+#Add-new-business{
+	mat-card{
+		border-radius: 20px 20px;	
+	}		
+	.SelectBusiness{
+		box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
+		}
+	
+	.SelectBusinessIcon{
+	        background-color: #e6e6e6;
+		    border-radius: 50%;
+		    padding: 25px 30px;
+		    color: white;
+		    font-size: 45px;					
+		}
+	.businness-btn{
+	    border-radius: 40px 40px;
+		padding: 0 25px;
+		background-color: #1172f4;
+		color: white;
+	}
+	.NewBusiness-matcard{
+		background-color: #cfe3fc;
+	}
+	
+	.AddNewBusinessIcon{
+		background-color: #97c1fb;
+	    border-radius: 50%;
+	    padding: 20px;
+	    color: white;
+	    font-size: 30px;
+	}
+
+}
+@media only screen and (max-width: 765px) and (orientation:portrait) {
+   		mat-card{
+   			margin-right: 0 !important;
+   			padding-bottom: 10px;
+   		}
+   		.SelectBusiness{
+   			margin-bottom: 10px;
+   		}   	
+}

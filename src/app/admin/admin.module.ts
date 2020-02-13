@@ -10,9 +10,12 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { MaterialModule } from '@app/_helpers/material.module';
 
 import { AdminRoutingModule } from './admin-routing.module';
+import { MyBusinessComponent } from './my-business/my-business.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    MyBusinessComponent
+    ],
   imports: [
     CommonModule,
     HttpClientModule,
