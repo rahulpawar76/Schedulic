@@ -10,11 +10,11 @@ import { AppointmentComponent } from './appointment/appointment.component';
 
 const routes: Routes = [
   {
-    path: 'mybusiness',
+    path: '',
     component: MyBusinessComponent
   }, 
   {
-    path: 'myworkspace',
+    path: 'my-workspace',
     component: MyWorkSpaceComponent
   }, 
   {
