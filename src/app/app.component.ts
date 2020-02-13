@@ -37,7 +37,6 @@ export class AppComponent implements AfterViewInit {
   animal:any;
   
     public company_info: string;
-    public usertype: string = "SM";
 
     ngAfterViewInit() { 
 
@@ -56,6 +55,9 @@ export class AppComponent implements AfterViewInit {
         private _snackBar: MatSnackBar,        
     ) {        
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+
+        
+        
         // Set company info
      /*    this._companyService.getCompanyInfoData().subscribe(
           (res: any) => {
@@ -68,8 +70,8 @@ export class AppComponent implements AfterViewInit {
             });
           }
         ); */
-        this.selectedSessionId=localStorage.getItem("session_id");
-        this.selectedSessionName=localStorage.getItem("session_name");
+        // this.selectedSessionId=localStorage.getItem("session_id");
+        // this.selectedSessionName=localStorage.getItem("session_name");
     }
 
 
@@ -79,11 +81,19 @@ export class AppComponent implements AfterViewInit {
     }
     
     isManagerUser() {
-        return this.currentUser && ((this.currentUser.role === Role.Manager) || (this.currentUser.role === Role.Admin));
+        return this.currentUser && (this.currentUser.role === Role.Staff);
     }
     
     isAdminUser() {
-        return this.currentUser && this.currentUser.role === Role.Admin;
+        return this.currentUser && this.currentUser.user_type === Role.Admin;
+    }
+    
+    isCustomerUser() {
+        return this.currentUser && this.currentUser.user_type === Role.Customer;
+    }
+    
+    isStaffUser() {
+        return this.currentUser && this.currentUser.user_type === Role.Staff;
     }
   
     isLogin(){
@@ -137,8 +147,6 @@ export class AppComponent implements AfterViewInit {
 
       logout() {
         this.authenticationService.logout();
-        this.selectedSessionId=null;
-        this.selectedSessionName=null;
         this.router.navigate(['/login']);
       }
     

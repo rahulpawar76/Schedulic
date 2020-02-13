@@ -15,7 +15,6 @@ export class AuthenticationService {
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
-
     }
 
     public get currentUserValue(): User {     
@@ -25,21 +24,21 @@ export class AuthenticationService {
 
     login(email: string, password: string) {
         //return this.http.post<any>(`${environment.authApiUrl}/users/authenticate`, { email, password })
-        return this.http.post<any>(`${environment.apiUrl}/auth/user_login`, { email, password })
-            .pipe(map(user => {
-               // alert(JSON.stringify(user));
-                // login successful if there's a jwt token in the response
-                if (user && user.response.token) {
-                    //alert("Im in");
-                    //alert(JSON.stringify(user.response));
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user.response));                    
-                    localStorage.setItem('sessionID',user.response.id);
-                    this.currentUserSubject.next(user.response);
-                }
-
-                return user;
-            }));
+        return this.http.post<any>(`${environment.apiUrl}/user-login`, { email, password })
+        .pipe(map(user => {
+            // login successful if there's a jwt token in the response
+            if (user && user.data== true && user.response.token) {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('userId', user.response.user_id);
+                localStorage.setItem('userToken', user.response.token);          
+                localStorage.setItem('userName', user.response.fullname);
+                localStorage.setItem('userRole', user.response.user_type);
+                localStorage.setItem('tokenID',user.response.id);
+                localStorage.setItem('currentUser', JSON.stringify(user.response));
+                this.currentUserSubject.next(user.response);
+            }
+            return user;
+        }));
     }
 
 /* That function will send email to user with reset link */
@@ -63,11 +62,12 @@ export class AuthenticationService {
 
     logout() {
         // remove user from local storage to log user out
+        localStorage.removeItem('userId');
         localStorage.removeItem('currentUser');
-        localStorage.removeItem('token');
-        localStorage.removeItem('session_id');
-        localStorage.removeItem('session_name');
-        localStorage.removeItem('companycolours');
+        localStorage.removeItem('userToken');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userRole');
+        localStorage.removeItem('tokenID');
         localStorage.clear();
         this.currentUserSubject.next(null);
     }

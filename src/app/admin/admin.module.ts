@@ -10,9 +10,18 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { MaterialModule } from '@app/_helpers/material.module';
 
 import { AdminRoutingModule } from './admin-routing.module';
+import { MyBusinessComponent } from './my-business/my-business.component';
+import { myCreateNewBusinessDialog } from './my-business';
+import { MyWorkSpaceComponent } from './my-work-space/my-work-space.component';
+import { myWorkSpaceAcceptDialog } from './my-work-space';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    MyBusinessComponent,
+    myCreateNewBusinessDialog,
+    MyWorkSpaceComponent,
+    myWorkSpaceAcceptDialog
+    ],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -29,6 +38,6 @@ import { AdminRoutingModule } from './admin-routing.module';
   exports: [
     FormsModule
   ],
-  entryComponents: [],
+  entryComponents: [myCreateNewBusinessDialog,myWorkSpaceAcceptDialog,],
 })
 export class AdminModule { }

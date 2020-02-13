@@ -2,8 +2,68 @@
 <mat-drawer-container class="example-container">
   <mat-drawer-content>
       <main fxLayout="column" fxLayoutGap="0">
-       <mat-toolbar color="primary" class="toolbar menu-comman">
-          <mat-toolbar-row>
+       <mat-toolbar color="primary" class="toolbar menu-comman" *ngIf="isLogin()">
+          <mat-toolbar-row *ngIf="isCustomerUser()">
+            <div class="logo"><a><img src="/assets/img/logo.png"></a></div> 
+            <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
+
+
+              <span class="example-fill-remaining-space">
+              </span>
+              <span class="f13">
+
+                <!-- <button   mat-stroked-button  class="admin-menu btn-menu-top" (click)="openDialog()">
+                <mat-icon mat-list-icon>person_add</mat-icon>
+                </button> -->
+
+                <!-- <button   mat-stroked-button  class="admin-menu btn-menu-top session-btn"  (click)="openSelectSessionDialog()">
+                Select Session
+                </button> -->
+
+             <mat-slide-toggle class="slidetoggle">Availability</mat-slide-toggle> 
+
+
+                <button  mat-stroked-button class="bellborder bell-color ml-3" (click)="openNotificationDialog()">
+                <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
+                </button> 
+
+                <mat-button-toggle class="toggleborder" (click)="drawer.toggle()">
+                  <i class="fa fa-bars toggle-color" aria-hidden="true"></i>
+                </mat-button-toggle>
+
+              </span> 
+          </mat-toolbar-row>
+          <mat-toolbar-row *ngIf="isStaffUser()">
+            <div class="logo"><a><img src="/assets/img/logo.png"></a></div> 
+            <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
+
+
+              <span class="example-fill-remaining-space">
+              </span>
+              <span class="f13">
+
+                <!-- <button   mat-stroked-button  class="admin-menu btn-menu-top" (click)="openDialog()">
+                <mat-icon mat-list-icon>person_add</mat-icon>
+                </button> -->
+
+                <!-- <button   mat-stroked-button  class="admin-menu btn-menu-top session-btn"  (click)="openSelectSessionDialog()">
+                Select Session
+                </button> -->
+
+             <mat-slide-toggle class="slidetoggle">Availability</mat-slide-toggle> 
+
+
+                <button  mat-stroked-button class="bellborder bell-color ml-3" (click)="openNotificationDialog()">
+                <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
+                </button> 
+
+                <mat-button-toggle class="toggleborder" (click)="drawer.toggle()">
+                  <i class="fa fa-bars toggle-color" aria-hidden="true"></i>
+                </mat-button-toggle>
+
+              </span> 
+          </mat-toolbar-row>
+          <mat-toolbar-row *ngIf="isAdminUser()">
             <div class="logo"><a><img src="/assets/img/logo.png"></a></div> 
             <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
 
@@ -41,7 +101,7 @@
     <!-- right drawer menu code -->
   </mat-drawer-content>
     <mat-drawer #drawer position="end" >
-      <mat-list role="list" *ngIf="usertype == 'C'">
+      <mat-list role="list" *ngIf="isCustomerUser()">
         <mat-menu></mat-menu>
         <mat-list-item role="listitem" (click)="drawer.toggle()" (click)="UserProfile('./user-profile')" class="matlist pointer menuitem">
             <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg"><p class="font-weight-bold mt-2 p-1">Userxyzee</p>
@@ -58,7 +118,7 @@
         </mat-list-item>
 
       </mat-list>
-      <mat-list role="list" *ngIf="usertype == 'SM'">
+      <mat-list role="list" *ngIf="isStaffUser()">
         <mat-menu></mat-menu>
         <mat-list-item role="listitem" (click)="drawer.toggle()" (click)=" StaffProfile('./staff-profile')" class="matlist pointer menuitem">
             <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg"><p class="font-weight-bold mt-2 p-1">Userxyzee</p>
@@ -82,7 +142,7 @@
         </mat-list-item>
 
       </mat-list>
-      <mat-list role="list" *ngIf="usertype == 'A'">
+      <mat-list role="list" *ngIf="isAdminUser()">
         <mat-menu></mat-menu>
         <mat-list-item role="listitem" (click)="drawer.toggle()" (click)="MyProfile('./my-profile')" class="matlist pointer menuitem">
             <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg"><p class="font-weight-bold mt-2 p-1">Userxyzee</p>

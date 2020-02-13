@@ -126,10 +126,10 @@ export class FrontbookingComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(localStorage.getItem("customerId")){
+    if(localStorage.getItem("userId")){
       this.isLoggedIn=true;
-      this.customerName=localStorage.getItem("customerName")
-      console.log(localStorage.getItem("customerId")+" "+this.isLoggedIn);
+      this.customerName=localStorage.getItem("userName")
+      console.log(localStorage.getItem("userId")+" "+this.isLoggedIn);
     }
     this.formExistingUser = this._formBuilder.group({
       existing_mail: ['',[Validators.required,Validators.email]],
@@ -202,15 +202,17 @@ export class FrontbookingComponent implements OnInit {
   
   fnLogout(){
     // remove user from local storage to log user out
-    localStorage.removeItem('customerId');
-    localStorage.removeItem('customerToken');
-    localStorage.removeItem('customerName');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('tokenID');
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userRole');
     localStorage.removeItem("billing_address");
     localStorage.removeItem("billing_state");
     localStorage.removeItem("billing_city");
     localStorage.removeItem("billing_zipcode");
     localStorage.clear();
-    console.log(localStorage.getItem("customerId"));
+    console.log(localStorage.getItem("userId"));
     window.location.reload();
   }
   // postal code
@@ -712,19 +714,23 @@ export class FrontbookingComponent implements OnInit {
      'Content-Type': 'application/json',
    });
 
-   this.http.post(`${environment.apiUrl}/customer-login`,requestObject,{headers:headers} ).pipe(
+   this.http.post(`${environment.apiUrl}/user-login`,requestObject,{headers:headers} ).pipe(
      map((res) => {
        return res;
      }),
      catchError(this.handleError)).subscribe((response:any) => {
-      if(response.data == true){
-        localStorage.setItem("customerId",response.response.user_id);
-        localStorage.setItem("customerToken",response.response.token);
-        localStorage.setItem("customerName",response.response.fullname);
+      if(response.data == true && response.response.user_type == "C"){
+        localStorage.setItem("userId",response.response.user_id);
+        localStorage.setItem("tokenID",response.response.id);
+        localStorage.setItem("userToken",response.response.token);
+        localStorage.setItem("userName",response.response.fullname);
+        localStorage.setItem("userRole",response.response.user_type);
         localStorage.setItem("billing_address",response.response.address);
         localStorage.setItem("billing_state",response.response.state);
         localStorage.setItem("billing_city",response.response.city);
         localStorage.setItem("billing_zipcode",response.response.zip);
+        this.customerName=localStorage.getItem("userName")
+
         if(!isAfterSignup){
           // this.formAppointmentInfo.controls['appo_address'].setValue(response.response.address);
           // this.formAppointmentInfo.controls['appo_state'].setValue(response.response.state);
@@ -1081,8 +1087,8 @@ export class FrontbookingComponent implements OnInit {
       "appointment_city" : this.formAppointmentInfo.get('appo_city').value,
       "appointment_zipcode" : this.formAppointmentInfo.get('appo_zipcode').value,
       "coupon_code" : this.coupon.couponcode_val,
-      "customer_id": localStorage.getItem("customerId"),
-      "customer_token" : localStorage.getItem("customerToken"),
+      "customer_id": localStorage.getItem("userId"),
+      "customer_token" : localStorage.getItem("userToken"),
       "subtotal" : this.serviceMainArr.subtotal,
       "discount" : this.serviceMainArr.discount,
       "nettotal" : this.serviceMainArr.netCost,
