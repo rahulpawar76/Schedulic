@@ -34,16 +34,6 @@ private handleError(error: HttpErrorResponse) {
 	}
 
 	updateUserProfileData(updatedprofiledata) {
-		//let requestObject = {
-
-			// "customer_id":"21",
-			// "email" : updatedprofiledata.email,
-			// "phone" : updatedprofiledata.phone,
-			// "address" : updatedprofiledata.address,
-			// "zip" : updatedprofiledata.zip,
-			// "state" : updatedprofiledata.state,
-			// "city" : updatedprofiledata.city,
-			// };
 			let headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			});
@@ -58,6 +48,79 @@ private handleError(error: HttpErrorResponse) {
 			}),
 			catchError(this.handleError));
 			
+	}
+
+	getAllAppointments(){
+		let requestObject = {
+		// "customer_id":"41"
+		};
+		let headers = new HttpHeaders({
+		'Content-Type': 'application/json',
+		"customer-id":"36"
+		});
+		return this.http.post(`${environment.apiUrl}/customer-bookings`,requestObject,{headers:headers}).pipe(
+		map((res) => {
+			return res;
+		}),
+		catchError(this.handleError));
+	}
+	getCancelAppointments(){
+		let requestObject = {
+		// "customer_id":"41"
+		};
+		let headers = new HttpHeaders({
+		'Content-Type': 'application/json',
+		"customer-id":"36"
+		});
+		return this.http.post(`${environment.apiUrl}/customer-booking-cancel`,requestObject,{headers:headers}).pipe(
+		map((res) => {
+			return res;
+		}),
+		catchError(this.handleError));
+	}
+	getCompletedAppointments(){
+		let requestObject = {
+		// "customer_id":"41"
+		};
+		let headers = new HttpHeaders({
+		'Content-Type': 'application/json',
+		"customer-id":"36"
+		});
+		return this.http.post(`${environment.apiUrl}/customer-booking-complete`,requestObject,{headers:headers}).pipe(
+		map((res) => {
+			return res;
+		}),
+		catchError(this.handleError));
+	}
+	cancelAppointment(appoId,cancelReason){
+		let requestObject = {
+			"order_item_id":appoId,
+			"cancel_notes" : cancelReason
+		};
+		let headers = new HttpHeaders({
+		'Content-Type': 'application/json',
+		});
+		return this.http.post(`${environment.apiUrl}/order-cancel`,requestObject,{headers:headers}).pipe(
+		map((res) => {
+			return res;
+		}),
+		catchError(this.handleError));
+	}
+	ratingToAppointment(appoId,ratingValueNo,ratingTitle,ratingDecreption){
+		let requestObject = {
+			"order_id":appoId,
+			"rating_title" : ratingTitle,
+			"rating" : ratingValueNo,
+			"review" : ratingDecreption,
+		};
+		let headers = new HttpHeaders({
+		'Content-Type': 'application/json',
+		});
+		return this.http.post(`${environment.apiUrl}/customer-rating`,requestObject,{headers:headers}).pipe(
+		map((res) => {
+			return res;
+		}),
+		catchError(this.handleError));
 	}
  
 }

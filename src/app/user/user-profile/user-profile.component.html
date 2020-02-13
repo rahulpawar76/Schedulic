@@ -8,7 +8,7 @@
 	 <div class="card-body row">
 		<div class="col-lg-3 col-sm-3 col-md-3">
 			<div class="profile-img-wrap" (click)="UserImgUpload()">
-          <img mat-card-avatar class="customer-profile-img" src="/assets/img/avatar-rihan.jpg">
+          <img mat-card-avatar class="customer-profile-img" src="{{profiledata.image}}">
           <div class="camera-alt"><i class="material-icons">
           camera_alt
           </i></div>
@@ -19,12 +19,13 @@
         	<div class="col-lg-12 col-md-12 col-sm-12">
             <label>Full Name</label>
             <div class="input-group">
-            		 <div class="input-group-prepend">
-          					<div class="input-group-text"><i class="material-icons">
-											person_outline</i>
-										</div>
-          			 </div>
+              <div class="input-group-prepend">
+                <div class="input-group-text"><i class="material-icons">person_outline</i></div>
+              </div>
               <input type="text" formControlName="user_fullname" value="" class="form-control common-input">
+              <span class="error-wrap" *ngIf="customerProfile.get('user_fullname').touched || customerProfile.get('user_fullname').dirty || formSubmitclicked">
+                <small *ngIf="customerProfile.get('user_fullname').hasError('required')" class="error">Full Name Is required</small>
+             </span>
             </div>
           </div>
         </div>
@@ -34,13 +35,13 @@
            <label>Email</label>
            <div class="input-group">
             	<div class="input-group-prepend">
-          			<div class="input-group-text"><i class="material-icons">
-									mail_outline</i>
-								</div>
+          			<div class="input-group-text"><i class="material-icons">mail_outline</i>	</div>
           		</div>
             <input type="text" formControlName="user_email" class="form-control common-input" value="" >
-            <span class="error-wrap" *ngIf="customerProfile.get('user_email').touched || formSubmitclicked"><small *ngIf="customerProfile.get('user_email').hasError('required')" class="error">Email Is required</small>
-              <small *ngIf="customerProfile.get('user_email').hasError('email') || customerProfile.get('user_email').hasError('pattern')" class="error">Enter valid email</small></span>
+            <span class="error-wrap" *ngIf="customerProfile.get('user_email').touched || customerProfile.get('user_email').dirty || formSubmitclicked">
+              <small *ngIf="customerProfile.get('user_email').hasError('required')" class="error">Email Is required</small>
+              <small *ngIf="customerProfile.get('user_email').hasError('pattern')" class="error">Enter valid email</small>
+            </span>
           </div>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6">
@@ -48,12 +49,15 @@
           <label>Mobile</label>
           <div class="input-group">
             <div class="input-group-prepend">
-          		<div class="input-group-text"><i class="material-icons">
-								phone_iphone</i>
-							</div>
+          		<div class="input-group-text"><i class="material-icons">phone_iphone</i></div>
           	</div>
            		<input type="text" formControlName="user_phone" class="form-control common-input" value="">
-          </div>
+               <span class="error-wrap" *ngIf="customerProfile.get('user_phone').touched || customerProfile.get('user_phone').dirty || formSubmitclicked">
+                <small *ngIf="customerProfile.get('user_phone').hasError('required')" class="error">Phone number Is required</small>
+                <small *ngIf="customerProfile.get('user_phone').hasError('pattern')" class="error">Enter valid Phone Number</small>
+                <small *ngIf="customerProfile.get('user_phone').hasError('minlength') || customerProfile.get('user_phone').hasError('maxlength')" class="error">Phone number should be 10 digits long</small>
+              </span>
+            </div>
         </div>
       </div>
     </div>   
@@ -63,15 +67,20 @@
           		<div class="input-group-text"><i class="fa fa-map-marker"></i>
 							</div>
           	</div>
-           		<input type="text" formControlName="user_address" class="form-control common-input" value="" >
+            <input type="text" formControlName="user_address" class="form-control common-input" value="" >
+            <span class="error-wrap" *ngIf="customerProfile.get('user_address').touched || customerProfile.get('user_address').dirty || formSubmitclicked">
+              <small *ngIf="customerProfile.get('user_address').hasError('required')" class="error">Address Is required</small>
+           </span>
           </div>
-
           <div class="form-group row mt-3">
         	<div class="col-lg-4 col-md-4 col-sm-4">
            
             <div class="input-group">
             		 
               <input type="text" formControlName="user_state" class="form-control common-input" value="">
+              <span class="error-wrap" *ngIf="customerProfile.get('user_state').touched || customerProfile.get('user_state').dirty || formSubmitclicked">
+                <small *ngIf="customerProfile.get('user_state').hasError('required')" class="error">State Is required</small>
+             </span>
             </div>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-4">
@@ -79,6 +88,9 @@
             <div class="input-group">
             		 
               <input type="text" formControlName="user_city" class="form-control common-input" value="" >
+              <span class="error-wrap" *ngIf="customerProfile.get('user_city').touched || customerProfile.get('user_city').dirty || formSubmitclicked">
+                <small *ngIf="customerProfile.get('user_city').hasError('required')" class="error">City Is required</small>
+             </span>
             </div>
           </div>
 
@@ -87,6 +99,10 @@
             <div class="input-group">
             		 
               <input type="text" formControlName="user_postalcode" class="form-control common-input" value="" >
+              <span class="error-wrap" *ngIf="customerProfile.get('user_postalcode').touched || customerProfile.get('user_postalcode').dirty || formSubmitclicked">
+                <small *ngIf="customerProfile.get('user_postalcode').hasError('required')" class="error">Postalcode Is required</small>
+                <small *ngIf="customerProfile.get('user_postalcode').hasError('pattern')" class="error">Enter valid Postalcode</small>
+             </span>
             </div>
           </div>
         </div>

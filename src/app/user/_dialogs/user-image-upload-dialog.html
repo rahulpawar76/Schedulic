@@ -7,7 +7,7 @@
         </button>
       </div>
       <div class="modal-body">
-           <div class="file-upload">
+           <!-- <div class="file-upload">
 
             <div class="image-upload-wrap">
                 <input class="fileuploadinput" type='file' />
@@ -19,7 +19,16 @@
                 </div>
               </div>
 
-        </div>
+        </div> -->
+
+        <form [formGroup] = "uploadProfile" (ngSubmit)="onSubmit()">      
+          <div>
+            <input type="file" formControlName="profile" (change)="onFileSelect($event)" />
+          </div>
+          <div>
+            <button type="submit">Upload</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

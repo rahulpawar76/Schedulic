@@ -31,23 +31,6 @@
   }
 
 
-::ng-deep .mat-dialog-container{
-  padding: 0 !important;
-}
-::ng-deep .modal-info{
-  margin: 0 !important;
-}
-
-
-
-  /*Common model Background Color*/
-::ng-deep .modal-bcolor{
-  background-color: $bg-darkblue;
-  .header-margins{
-    padding: 0;
-  }
-
-}
 
 ::ng-deep .form-control{
     padding-bottom: 11px;
@@ -133,55 +116,22 @@
   justify-content: end;
 }
 
-/*on the way dialog or work started dialog css*/
-
- ::ng-deep .modal-info{
-    .modal-bcolor-primary{
-          background-color: #d9f0fe;
-          padding-bottom: 0px;
-    .header-margins{
-          padding: 0;
-    }
-  }
-  ::ng-deep .addbtn{
-    border-radius: 20px;
-    float: right;
-  }
-} 
-
-::ng-deep .modal-body{
-  
-    .work-content{
-        text-align: center;
-        padding-left: 10px;
-    .form-control{
-        padding-bottom: 11px;
-        padding-top: 11px;
-        height: 31px;
-
-    }
-} 
-}
 
 /*interrupted dialog css*/
 
 ::ng-deep .modal-info{
-    .modal-bcolor-red{
-        background-color: $btnlightred;
-        padding-bottom: 0px;
-
-    .header-margins{
-        padding: 0;
+  .modal-bcolor-red{
+      background-color: $btnlightred;
+      padding-bottom: 0px;
+  .header-margins{
+    padding: 0;
   }
 }
-
 ::ng-deep .modal-body{
-    .interrupted-content{
-        text-align: center;
-        padding-left: 10px;
-    
-} 
-
+  .interrupted-content{
+    text-align: center;
+    padding-left: 10px;
+  } 
 }
 
 /*Payment Module */
