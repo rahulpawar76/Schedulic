@@ -37,7 +37,7 @@ export class AppComponent implements AfterViewInit {
   animal:any;
   
     public company_info: string;
-    public usertype: string = "C";
+    public usertype: string = "SM";
 
     ngAfterViewInit() { 
 

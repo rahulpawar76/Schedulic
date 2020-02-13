@@ -1,10 +1,11 @@
 import { Component, OnInit,Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { environment } from '@environments/environment';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
+import { StaffService } from '../_services/staff.service'
 
 export interface DialogData {
   animal: string;
@@ -18,18 +19,80 @@ export interface DialogData {
 })
 
 export class MyProfileComponent implements OnInit {
+
+  myProfile: FormGroup;
+  profiledata : any =[];
  animal: any;
-  constructor(public dialog: MatDialog, private http: HttpClient) { }
+ error:any;
+ updatedprofiledata: any =[];
+
+ emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
+ onlynumeric = /^-?(0|[1-9]\d*)?$/
+
+  constructor(
+    public dialog: MatDialog, private http: HttpClient,
+    private StaffService: StaffService,
+    private _formBuilder: FormBuilder,
+    ) { }
 
   ngOnInit() {
+
+    this.myProfile = this._formBuilder.group({
+      user_FirstName : ['', Validators.required],
+      user_LastName : ['', Validators.required],
+      user_Email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
+      user_Mobile : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+    });
+
+    this.getProfiledata();
   }
+
+  getProfiledata(){
+    this.StaffService.getProfiledata().subscribe((response:any) => 
+    {
+      if(response.data == true){
+        this.profiledata = response.response;
+        this.myProfile.controls['user_FirstName'].setValue(this.profiledata.firstname);
+        this.myProfile.controls['user_LastName'].setValue(this.profiledata.lastname);
+        this.myProfile.controls['user_Email'].setValue(this.profiledata.email);
+        this.myProfile.controls['user_Mobile'].setValue(this.profiledata.phone);
+      }
+    },
+      (err) => {
+        this.error = err;
+      }
+    )
+  }
+  onSubmit(event){
+    if(this.myProfile.valid){
+      this.updatedprofiledata ={
+  
+        "staff_id" : "2",
+        "firstname" : this.myProfile.get('user_FirstName').value,
+        "lastname" : this.myProfile.get('user_LastName').value,
+        "email" : this.myProfile.get('user_Email').value,
+        "phone" : this.myProfile.get('user_Mobile').value,
+      }
+      
+    this.fnprofilesubmit(this.updatedprofiledata)
+    }
+  }
+  fnprofilesubmit(updatedprofiledata){
+    this.StaffService.fnprofilesubmit(updatedprofiledata).subscribe((response:any) => {
+      this.profiledata = response.response;
+    },
+      (err) => {
+        this.error = err;
+      }
+    )
+  }
+  
      ImgUpload() {
     const dialogRef = this.dialog.open(DialogStaffImageUpload, {
       width: '500px',
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.animal = result;
      });
   }

@@ -95,10 +95,24 @@ getCompletedAppointments(): void{
      });
   }
 
-  invoice() {
+  rescheduleAppointment(index){
+    const dialogRef = this.dialog.open(rescheduleAppointmentDialog, {
+      
+     // height: '700px',
+      data: {fulldata: this.appointmentData[index]}
+
+    });
+
+     dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+     });
+  }
+
+  invoice(index) {
     const dialogRef = this.dialog.open(DialogInvoiceDialog, {
       width: '1000px',
-      height: '800px',
+      height: 'auto',
+      data: {fulldata: this.completedAppointmentData[index]}
 
     });
 
@@ -239,10 +253,14 @@ export class DialogCancelReason {
 	  templateUrl: '../_dialogs/dialog-invoice.html',
 	})
 	export class DialogInvoiceDialog {
+    myAppoDetailData: any;
 
 	  constructor(
 	    public dialogRef: MatDialogRef<DialogInvoiceDialog>,
-	    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+	    @Inject(MAT_DIALOG_DATA) public data: any) {
+        this.myAppoDetailData = this.data.fulldata;
+        console.log(this.myAppoDetailData);
+      }
 
 	  onNoClick(): void {
 	    this.dialogRef.close();
@@ -274,9 +292,50 @@ export class DialogCancelReason {
   })
   export class DialogMyAppointmentDetails {
     myAppoDetailData: any;
-
+    animal : any;
     constructor(
       public dialogRef: MatDialogRef<DialogMyAppointmentDetails>,
+       public dialog: MatDialog,
+      @Inject(MAT_DIALOG_DATA) public data: any) {
+        this.myAppoDetailData = this.data.fulldata;
+      }
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+
+    cancelAppo(booking_id) {
+      const dialogRef = this.dialog.open(DialogCancelReason, {
+        width: '500px',
+        data:{appoData: booking_id}
+      });
+  
+       dialogRef.afterClosed().subscribe(result => {
+        this.animal = result;
+       });
+    }
+    rescheduleAppointment(index){
+      const dialogRef = this.dialog.open(rescheduleAppointmentDialog, {
+        
+       // height: '700px',
+        data: {fulldata: this.myAppoDetailData[index]}
+  
+      });
+  
+       dialogRef.afterClosed().subscribe(result => {
+        this.animal = result;
+       });
+    }
+  }
+
+  @Component({
+    selector: 'reschedule-appointment-dialog',
+    templateUrl: '../_dialogs/reschedule-appointment-dialog.html',
+  })
+  export class rescheduleAppointmentDialog {
+    myAppoDetailData: any;
+
+    constructor(
+      public dialogRef: MatDialogRef<rescheduleAppointmentDialog>,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.myAppoDetailData = this.data.fulldata;
       }
@@ -291,14 +350,26 @@ export class DialogCancelReason {
   })
   export class DialogCompleteAppointmentDetails {
     myAppoDetailData: any;
+    animal: string;
     constructor(
       public dialogRef: MatDialogRef<DialogCompleteAppointmentDetails>,
+      public dialog: MatDialog,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.myAppoDetailData = this.data.fulldata;
       }
 
     onNoClick(): void {
       this.dialogRef.close();
+    }
+    ratenow(booking_id) {
+      const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+        width: '500px',
+        data:{appoData: booking_id}
+      });
+  
+       dialogRef.afterClosed().subscribe(result => {
+        this.animal = result;
+       });
     }
 
   }

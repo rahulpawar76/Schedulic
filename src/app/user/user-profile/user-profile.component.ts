@@ -28,7 +28,12 @@ export class UserProfileComponent implements OnInit {
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^-?(0|[1-9]\d*)?$/
 
-  constructor(private userService: UserService,private _formBuilder:FormBuilder,public dialog: MatDialog, private http: HttpClient) { }
+  constructor(
+    private userService: UserService,
+    private _formBuilder:FormBuilder,
+    public dialog: MatDialog, 
+    private http: HttpClient
+    ){ }
 
   ngOnInit() {
     localStorage.setItem['session_user_id'] = this.profiledata.id,

@@ -11,8 +11,8 @@
     </div>
     <div class="appodetails">
       <div class="">
-      <label class="greenfont w-100"><i class="fa fa-repeat repeat"></i>Reschedule</label>
-      <label class="fontred w-100"><i class="fa fa-times-circle-o circle"></i>Cancel</label>
+      <label class="greenfont w-100 pointer" (click)="rescheduleAppointment(i)"><i class="fa fa-repeat repeat"></i>Reschedule</label>
+      <label class="fontred w-100 pointer" (click)="cancelAppo(myAppoDetailData.id)"><i class="fa fa-times-circle-o circle"></i>Cancel</label>
     </div>
        <button mat-button type="button" class="d-block btn-primary float-right paybtn">Pay</button>
     </div>
