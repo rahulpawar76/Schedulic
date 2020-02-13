@@ -8,18 +8,12 @@ import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
-export interface DialogData {
-  animal: string;
-  name: string;
-}
-
 @Component({
-  selector: 'app-my-business',
-  templateUrl: './my-business.component.html',
-  styleUrls: ['./my-business.component.scss']
+  selector: 'app-my-work-space',
+  templateUrl: './my-work-space.component.html',
+  styleUrls: ['./my-work-space.component.scss']
 })
-
-export class MyBusinessComponent implements OnInit {
+export class MyWorkSpaceComponent implements OnInit {
   animal :any;
   constructor(
     public dialog: MatDialog,
@@ -32,9 +26,9 @@ export class MyBusinessComponent implements OnInit {
   }
 
   
-  creatNewBusiness() {
-    const dialogRef = this.dialog.open(myCreateNewBusinessDialog, {
-      width: '800px',
+  myworkspaceAccept() {
+    const dialogRef = this.dialog.open(myWorkSpaceAcceptDialog, {
+      width: '600px',
     });
 
      dialogRef.afterClosed().subscribe(result => {
@@ -47,15 +41,14 @@ export class MyBusinessComponent implements OnInit {
 
 
 
-
 @Component({
-  selector: 'Create-New-Business',
-  templateUrl: '../_dialogs/create-new-business-dialog.html',
+  selector: 'myworkspace-accept',
+  templateUrl: '../_dialogs/myworkspace-accept-dialog.html',
 })
-export class myCreateNewBusinessDialog {
+export class myWorkSpaceAcceptDialog {
 
   constructor(
-    public dialogRef: MatDialogRef<myCreateNewBusinessDialog>,
+    public dialogRef: MatDialogRef<myWorkSpaceAcceptDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     }
 
@@ -64,3 +57,4 @@ export class myCreateNewBusinessDialog {
   }
   
 }
+
