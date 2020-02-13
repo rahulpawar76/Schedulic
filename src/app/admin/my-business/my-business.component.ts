@@ -34,7 +34,7 @@ export class MyBusinessComponent implements OnInit {
   
   creatNewBusiness() {
     const dialogRef = this.dialog.open(myCreateNewBusinessDialog, {
-      width: '800px',
+      width: '1100px',
     });
 
      dialogRef.afterClosed().subscribe(result => {
