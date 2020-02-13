@@ -14,13 +14,16 @@ import { MyBusinessComponent } from './my-business/my-business.component';
 import { myCreateNewBusinessDialog } from './my-business';
 import { MyWorkSpaceComponent } from './my-work-space/my-work-space.component';
 import { myWorkSpaceAcceptDialog } from './my-work-space';
+import { AppointmentComponent } from './appointment/appointment.component';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   declarations: [
     MyBusinessComponent,
     myCreateNewBusinessDialog,
     MyWorkSpaceComponent,
-    myWorkSpaceAcceptDialog
+    myWorkSpaceAcceptDialog,
+    AppointmentComponent
     ],
   imports: [
     CommonModule,
@@ -33,7 +36,8 @@ import { myWorkSpaceAcceptDialog } from './my-work-space';
     DragDropModule,
     NgxChartsModule,
     ProgressBarModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    DataTablesModule
   ],
   exports: [
     FormsModule

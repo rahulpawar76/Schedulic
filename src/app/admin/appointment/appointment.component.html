@@ -1,0 +1,100 @@
+<div class="container" id="appointment" style="margin-top: 70px;">
+    <div class="row">
+        <div class="appointment-header">
+            <div class="d-flex mt-2 mb-2 ml-4 mr-4 header-content">
+                <mat-form-field appearance="outline" class="appoint-car mr-2">
+                    <mat-label>Cars</mat-label>
+                    <mat-select [(value)]="selected">
+                        <mat-option>None</mat-option>
+                        <mat-option value="option1">Daily</mat-option>
+                        <mat-option value="option2">Weekly</mat-option>
+                        <mat-option value="option3">Monthly</mat-option>
+                      </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="appoint-service mr-2">
+                    <mat-label>All Services</mat-label>
+                    <mat-select [(value)]="selected1">
+                        <mat-option>None</mat-option>
+                        <mat-option value="option1">Option 1</mat-option>
+                        <mat-option value="option2">Option 2</mat-option>
+                        <mat-option value="option3">Option 3</mat-option>
+                      </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="appoint-action">
+                    <mat-label>Actions</mat-label>
+                    <mat-select [(value)]="selected2">
+                        <mat-option>None</mat-option>
+                        <mat-option value="option1">Accept</mat-option>
+                        <mat-option value="option2">Cancel</mat-option>                        
+                      </mat-select>
+                </mat-form-field>                                       
+                
+            </div>
+            
+        </div>
+        <div class="col-12">
+            <table datatable class="row-border hover">
+                <thead>
+                  <tr>
+                    <th>Date & Time</th>
+                    <th>Customer</th>
+                    <th>Service</th>
+                    <th>Staff</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                        <p>22 Oct 2019,</p>
+                        <p>8.15am</p>
+                    </td>
+                    <td>
+                        <p>Rajkumar Balakrishnan</p>
+                        <p>Phone No: 9876543120</p>
+                    </td>
+                    <td> <p>Repainting of wall</p>
+                        <p>Painting</p>
+                    </td>
+                    <td> <p>Pooja Chakrabarti</p>
+                        <p>Phone No: 9876543120</p>
+                    </td>
+                    <td>$.3000.00</td>
+                    <td>Accepted</td>
+                    <td> 
+                        <button class="appointment-edit-btn mr-1"><i class="fa fa-pencil appointment-icon" aria-hidden="true"></i></button>
+                        <button class="appointment-cancel-btn mr-1"><i class="fa fa-times appointment-icon" aria-hidden="true"></i></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <p>22 Oct 2019,</p>
+                        <p>8.15am</p>
+                    </td>
+                    <td>
+                        <p>Rajkumar Balakrishnan</p>
+                        <p>Phone No: 9876543120</p>
+                    </td>
+                    <td> <p>Repainting of wall</p>
+                        <p>Painting</p>
+                    </td>
+                    <td> <p>Pooja Chakrabarti</p>
+                        <p>Phone No: 9876543120</p>
+                    </td>
+                    <td>$.3000.00</td>
+                    <td>Accepted</td>
+                    <td> 
+                        <button class="appointment-edit-btn mr-1"><i class="fa fa-pencil appointment-icon" aria-hidden="true"></i></button>
+                        <button class="appointment-cancel-btn mr-1"><i class="fa fa-times appointment-icon" aria-hidden="true"></i></button>
+                        <button class="appointment-confirm-btn mr-1"><i class="fa fa-check appointment-icon" aria-hidden="true"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+                </table>
+        </div>
+    </div>
+</div>

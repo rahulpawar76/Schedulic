@@ -1,0 +1,52 @@
+#appointment{
+    p{
+        margin-bottom: 0px;
+    }
+    .appointment-header{
+        background-color: #d9f0fe;
+    }
+
+    .header-content{
+        height: 39px;
+    }
+    .appoint-car{
+        width: 18%;
+    }
+    .appoint-service{
+        width: 24%;
+    }
+    .appoint-action{
+        width: 19%;
+    }
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix{
+        padding: 10px 0 10px 10px;
+    }
+    ::ng-deep  .mat-form-field-infix {
+        border-top: unset;
+    }
+    ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper{
+        transform: inherit;
+    }
+
+
+    .appointment-edit-btn{
+        background-color: #fabb88;
+        border-radius: 3px;
+        border: none;
+    }
+    .appointment-confirm-btn{
+        background-color: #89b9f9;
+        border-radius: 3px;
+        border: none;
+    }
+    .appointment-cancel-btn{
+        background-color:#e9e3e3;
+        border-radius: 3px;
+        border: none;
+    }
+    .appointment-icon{
+        padding: 5px;
+    }
+    
+
+}
