@@ -23,7 +23,7 @@ export class HomeComponent {
     }
 
     isManagerUser() {
-        return this.currentUser && ((this.currentUser.role === Role.Manager) || (this.currentUser.role === Role.Admin));
+        return this.currentUser && ((this.currentUser.role === Role.Staff) || (this.currentUser.role === Role.Admin));
     }
   
     isAdminUser() {

@@ -9,11 +9,11 @@ import { MyWorkSpaceComponent } from './my-work-space/my-work-space.component';
 
 const routes: Routes = [
   {
-    path: 'mybusiness',
+    path: '',
     component: MyBusinessComponent
   }, 
   {
-    path: 'myworkspace',
+    path: 'my-workspace',
     component: MyWorkSpaceComponent
   }, 
 ];

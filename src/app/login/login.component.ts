@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '@app/_services';
 import { LoaderService } from '@app/_services/loader.service';
+import { User, Role } from '../_models';
 
 declare var google:any
 
@@ -23,8 +24,10 @@ export class LoginComponent implements OnInit {
     error = '';
     hide = true;
     hideLoginForm: boolean = true;
-    dataLoaded: boolean = true;
+    dataLoaded: boolean = false;
     isIE: boolean = false;
+
+    currentUser: User;
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
@@ -36,8 +39,18 @@ export class LoginComponent implements OnInit {
             this.isIE = true;
         }
         // redirect to home if already logged in
+        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+       
         if (this.authenticationService.currentUserValue) { 
-            this.router.navigate(['/']);
+            if(this.authenticationService.currentUserValue.user_type == Role.Admin){
+                this.router.navigate(["admin"]);
+            }else if(this.authenticationService.currentUserValue.user_type == Role.Staff){
+                this.router.navigate(["staff"]);
+            }else if(Role.Customer){
+                this.router.navigate(["user"]);
+            }
+        }else{
+            this.dataLoaded=true;
         }
     }
 
@@ -50,6 +63,8 @@ export class LoginComponent implements OnInit {
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
+    // convenience getter for easy access to form fields
+    get f() { return this.loginForm.controls; }
 
     onSubmit() {
         this.submitted = true;
@@ -65,10 +80,19 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe(
             data => {
-                if(data.status == "true"){
+                if(data.data == true){
+                    
+                    if(data.response.user_type == "A"){
+                        this.router.navigate(["admin"]);
+                    }else if(data.response.user_type == "SM"){
+                        this.router.navigate(["staff"]);
+                    }else{
+                        this.router.navigate(["user"]);
+                    }
+
+
                     this.hideLoginForm = false;
-                    localStorage.setItem('token',data.token);
-                    this.router.navigate([this.returnUrl]);
+                    
                 }else{
                     this.error = "Email or Password is incorrect"; 
                     this.dataLoaded = true;
