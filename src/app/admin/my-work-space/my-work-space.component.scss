@@ -1,0 +1,359 @@
+/*______[1]Main-Head____________*/
+#admin-book-appointment{
+	.category{
+	margin-bottom: 0px;	
+	}
+	.font-blue{
+		color: #0089ff;
+	}
+	.font-gray{
+		color: #848484;
+	}
+	.left-border{
+		border-left: 1px solid #dedede;
+	}
+	.calender-icon{
+		color: #0089ff;
+		margin-top: 11px;
+		/*font-weight: bold;*/
+	}		
+}
+@media only screen and (min-device-width: 360px) 
+                   and (max-device-width: 825px) 
+                   and (orientation: landscape) {	
+		.align-center{
+			padding-left: 0 !important;
+			text-align: center;
+		}
+		.calender-date{
+			    padding-left: 72px;
+
+		}
+
+}
+
+/*___________[2]Category_________*/
+
+#category{
+	.bottom-border{
+		border-bottom:  1px solid #dedede;
+	}
+	li{
+			list-style: none;
+
+		}
+	ul{
+		padding-left: 0px;
+	}
+	p{
+		padding-top: 16px;
+	    display: flex;
+ 		width: 100%;
+	}
+	i{
+	    margin-left: auto;
+	}
+	.has-search .form-control {
+    padding-left: 2.375rem;
+	}
+	.has-search .form-control-feedback {
+	    position: absolute;
+	    z-index: 2;
+	    display: block;
+	    width: 2.375rem;
+	    height: 2.375rem;
+	    line-height: 2.375rem;
+	    text-align: center;
+	    pointer-events: none;
+	    color: black;
+	}
+	.searchbox_appointment{
+		border-radius: 20px;
+	}
+	.appointment{
+	    width: 25%
+	}
+	.serch_input-appoint{
+	    width: 60%;
+	    height: 39px;
+	    padding-top: 10px;
+	}
+	.filter-btn-appoint{
+	    width: 20%;
+	    padding-top: 10px;
+	    margin-left: 20px;
+	}
+}
+
+
+/*_____________[3]Appointment____________________ */
+#my-work-space{
+width: 100%;
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: 120%;
+background-position: 60% 7%;
+.timeframe-main{
+    padding-left: 50px;
+}
+	.font-blue{
+		color: #0089ff;
+	}
+    .work-space-font{
+    font-size: 12px;
+    }
+    .icon-size{
+    font-size: 1.5rem;
+    }
+    .Time{
+    width: 22%;
+    }
+    .customer-name{
+    width: 33%;
+    }
+    .service-person{
+    	 width: 25%;
+    }
+    .money{
+    width: 20%;
+    }
+    .service-background{
+       
+
+        .customer-background{
+           
+            /*border: 16px solid #6a77d38a;*/
+            border-bottom: 0;
+           
+            .customer-profile-width{
+                .customer-name-profile{
+                    background-color: white ;
+                    border-radius: 50%;
+                    /*width: 10%;*/
+                    padding: 10px;
+                    color: #79b2fd;
+                    text-align: center;
+                }
+            }
+            .customer-name-width{
+
+            }
+            .Details-button-width{
+                display: block;
+                margin-left: auto;
+                .Details-button{
+                    background: none;
+                    border-radius: 50px 50px;
+                    /*padding: 0px 24px;*/
+                    color: white;
+                    line-height: 2;
+                    margin: 4px;
+                    border: 1px solid white;
+                }
+            }
+        }
+        .line{
+            background-color:#dedede;
+            height: 1px;
+        }
+    }
+}
+.work-space-main{
+	.container{
+        display: flex;
+        .justify-content-center{
+            .cal-icon-main{ 
+                margin-top: 80px;
+                img{
+                    height: 40px;
+                    width: 40px;
+                    margin-top: 8px;
+                    border-radius: 0;
+                }
+                .beside-icon{
+                    h4{
+                        margin-bottom: 0;
+                        color: #fff;
+                        font-weight: normal;
+                    }
+                    h1{
+                        font-weight: normal;
+                        padding-bottom: 20px;
+                    }
+                } 
+            }
+            
+        }
+	}
+}
+.left-time-main{
+    position: relative;
+        &:before{
+            content: "";
+            position: absolute;
+            border: 0.5px solid #fff;
+            left: -8%;
+            top: 5%;
+            height: 90%;
+            opacity: 0.2;
+        }
+        span{
+            position: absolute;
+            left: -12%;
+            font-size: 11px;
+            top: -11px;
+    }
+}
+
+@media only screen and (max-width: 645px) and (orientation:portrait) {
+    .customer-name{
+        width: 100% !important;
+    }
+    .money{
+        width: 100% !important;
+    }
+    .Time{
+        width: 100% !important;
+    }
+}
+
+@media only screen and (max-width: 767px) and (orientation:portrait) {
+    .work-space-main{
+        .container{
+            .service-background{
+                .c-name-main{
+                    display: flex !important;
+                    flex-direction: column;
+                    .d-flex{
+                        width: 100%;
+                    }
+                    .Details-button-width{
+                        width: 100%;
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 767px){
+    .work-space-main{
+        .container{
+            display: unset;
+            .justify-content-center{
+                .cal-icon-main{ 
+                    margin-top: 10px !important;
+                }
+            }
+        }
+    }
+}
+/*_____________[3] Appointment____________________ */
+#Appoinment-Details{
+	.fontred{
+    color: red;
+    font-size: 12px;
+    width: 32%;
+  }
+  h6{
+  	font-size: 13px;
+  }
+  p{
+  	font-size: 12px;
+  }
+  .greenfont{
+    color: green;
+    font-size: 12px;
+    width: 32%;
+  }
+  .acceptbtn{
+    border-radius: 50px;
+    font-size: 12px;
+    line-height: 1;
+    width: 40%;
+        height: 30px;
+  }
+  .text-gray{
+				color: gray;
+				font-size: 12px;			
+  }
+  .background{
+			background-color: #eafafc;
+			
+			.appoint-orderBY{
+				width: 35%;
+			}
+			.appoint-Status{
+				width: 35%;
+			}
+			.appoint-staff{
+				width: 30%;
+			}
+		}
+ .icon-background{
+			background-color: #1e88e5;
+		    border-radius: 50%;
+		    padding: 13px;
+		   /* width: 5%;*/
+		    margin: 0;
+		    line-height: 0.4;
+		    text-align: center;
+		        height: 0%;
+		}
+		.Appoinment-icon{
+			color: #1e88e5;
+		}
+		.person-name{
+			text-align: center;
+		    padding-top: 0;
+		    padding: 5px 0px 5px 0;
+		}
+		.note-icon{
+			color: #1172f4;
+		}
+}
+
+// <------------myworkspace-accept-dialog----------->
+
+/*<!-- Appointment popup(Hair Cut)[1] -->*/
+
+::ng-deep #Appointment-pop-up{ 
+    /* color: white;*/
+     background-color:  #487ffd;
+ 
+ .Time{
+ width: 22%;
+ }
+ .customer-name{
+ width: 33%;
+ }
+ .service-person{
+      width: 25%;
+ }
+ .money{
+ width: 20%;
+ }
+ .Reschedulebtn{
+ border: 1px solid white;
+ border-radius: 50px;
+ font-size: 12px;
+ line-height: 2;
+ color: white;
+ padding: 0px 22px;
+}
+.accept-btn{
+ background-color: white;
+ color:  #487ffd;
+}
+.reschedulebtn-width{
+ width: 22%;
+}
+.cancelbtn-width{
+ width: 60%;
+}
+.acceptbtn-width{
+ width: 18%;
+}
+}   

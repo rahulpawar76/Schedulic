@@ -11,10 +11,16 @@ import { MaterialModule } from '@app/_helpers/material.module';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { MyBusinessComponent } from './my-business/my-business.component';
+import { myCreateNewBusinessDialog } from './my-business';
+import { MyWorkSpaceComponent } from './my-work-space/my-work-space.component';
+import { myWorkSpaceAcceptDialog } from './my-work-space';
 
 @NgModule({
   declarations: [
-    MyBusinessComponent
+    MyBusinessComponent,
+    myCreateNewBusinessDialog,
+    MyWorkSpaceComponent,
+    myWorkSpaceAcceptDialog
     ],
   imports: [
     CommonModule,
@@ -32,6 +38,6 @@ import { MyBusinessComponent } from './my-business/my-business.component';
   exports: [
     FormsModule
   ],
-  entryComponents: [],
+  entryComponents: [myCreateNewBusinessDialog,myWorkSpaceAcceptDialog,],
 })
 export class AdminModule { }
