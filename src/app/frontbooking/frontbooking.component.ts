@@ -7,6 +7,7 @@ import { Observable, throwError } from 'rxjs';
 import { NgbDateParserFormatter, NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import { MdePopoverTrigger } from '@material-extended/mde';
 import { MatSnackBar} from '@angular/material/snack-bar';
+import { AuthenticationService } from '@app/_services';
 
 @Component({
   selector: 'app-frontbooking',
@@ -108,9 +109,11 @@ export class FrontbookingComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private http: HttpClient,
     private calendar: NgbCalendar,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private authenticationService: AuthenticationService,
     
   ) { 
+    localStorage.setItem('isFront', "true");
     const current = new Date();
     const nextmonth = new Date();
       this.minDate = {
@@ -126,10 +129,10 @@ export class FrontbookingComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(localStorage.getItem("userId")){
+    if(this.authenticationService.currentUserValue && this.authenticationService.currentUserValue.user_type == "C"){
       this.isLoggedIn=true;
-      this.customerName=localStorage.getItem("userName")
-      console.log(localStorage.getItem("userId")+" "+this.isLoggedIn);
+      this.customerName=this.authenticationService.currentUserValue.fullname;
+      console.log(this.authenticationService.currentUserValue.user_id+" "+this.isLoggedIn);
     }
     this.formExistingUser = this._formBuilder.group({
       existing_mail: ['',[Validators.required,Validators.email]],
@@ -202,17 +205,20 @@ export class FrontbookingComponent implements OnInit {
   
   fnLogout(){
     // remove user from local storage to log user out
-    localStorage.removeItem('userId');
-    localStorage.removeItem('tokenID');
-    localStorage.removeItem('userToken');
-    localStorage.removeItem('userName');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem("billing_address");
-    localStorage.removeItem("billing_state");
-    localStorage.removeItem("billing_city");
-    localStorage.removeItem("billing_zipcode");
+    // localStorage.removeItem('userId');
+    // localStorage.removeItem('tokenID');
+    // localStorage.removeItem('userToken');
+    // localStorage.removeItem('userName');
+    // localStorage.removeItem('userRole');
+    // localStorage.removeItem("billing_address");
+    // localStorage.removeItem("billing_state");
+    // localStorage.removeItem("billing_city");
+    // localStorage.removeItem("billing_zipcode");
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("isFront");
     localStorage.clear();
-    console.log(localStorage.getItem("userId"));
+    this.authenticationService.currentUserSubject.next(null);
+    //console.log(localStorage.getItem("userId"));
     window.location.reload();
   }
   // postal code
@@ -720,16 +726,19 @@ export class FrontbookingComponent implements OnInit {
      }),
      catchError(this.handleError)).subscribe((response:any) => {
       if(response.data == true && response.response.user_type == "C"){
-        localStorage.setItem("userId",response.response.user_id);
-        localStorage.setItem("tokenID",response.response.id);
-        localStorage.setItem("userToken",response.response.token);
-        localStorage.setItem("userName",response.response.fullname);
-        localStorage.setItem("userRole",response.response.user_type);
-        localStorage.setItem("billing_address",response.response.address);
-        localStorage.setItem("billing_state",response.response.state);
-        localStorage.setItem("billing_city",response.response.city);
-        localStorage.setItem("billing_zipcode",response.response.zip);
-        this.customerName=localStorage.getItem("userName")
+        // localStorage.setItem("userId",response.response.user_id);
+        // localStorage.setItem("tokenID",response.response.id);
+        // localStorage.setItem("userToken",response.response.token);
+        // localStorage.setItem("userName",response.response.fullname);
+        // localStorage.setItem("userRole",response.response.user_type);
+        // localStorage.setItem("billing_address",response.response.address);
+        // localStorage.setItem("billing_state",response.response.state);
+        // localStorage.setItem("billing_city",response.response.city);
+        // localStorage.setItem("billing_zipcode",response.response.zip);
+        localStorage.setItem('currentUser', JSON.stringify(response.response));
+        localStorage.setItem('isFront', "true");
+        this.authenticationService.currentUserSubject.next(response.response);
+        this.customerName=this.authenticationService.currentUserValue.fullname;
 
         if(!isAfterSignup){
           // this.formAppointmentInfo.controls['appo_address'].setValue(response.response.address);
@@ -880,10 +889,10 @@ export class FrontbookingComponent implements OnInit {
     if(event.srcElement.checked == true){
       
     console.log(event)
-      this.formAppointmentInfo.controls['appo_address'].setValue(localStorage.getItem("billing_address"));
-      this.formAppointmentInfo.controls['appo_state'].setValue(localStorage.getItem("billing_state"));
-      this.formAppointmentInfo.controls['appo_city'].setValue(localStorage.getItem("billing_city"));
-      this.formAppointmentInfo.controls['appo_zipcode'].setValue(localStorage.getItem("billing_zipcode"));
+      this.formAppointmentInfo.controls['appo_address'].setValue(this.authenticationService.currentUserValue.address);
+      this.formAppointmentInfo.controls['appo_state'].setValue(this.authenticationService.currentUserValue.state);
+      this.formAppointmentInfo.controls['appo_city'].setValue(this.authenticationService.currentUserValue.city);
+      this.formAppointmentInfo.controls['appo_zipcode'].setValue(this.authenticationService.currentUserValue.zip);
 
       // this.appo_address_info.appo_address = this.formNewUser.get('newUserAddress').value;
       // this.appo_address_info.appo_state = this.formNewUser.get('newUserState').value;
@@ -1087,8 +1096,8 @@ export class FrontbookingComponent implements OnInit {
       "appointment_city" : this.formAppointmentInfo.get('appo_city').value,
       "appointment_zipcode" : this.formAppointmentInfo.get('appo_zipcode').value,
       "coupon_code" : this.coupon.couponcode_val,
-      "customer_id": localStorage.getItem("userId"),
-      "customer_token" : localStorage.getItem("userToken"),
+      "customer_id": this.authenticationService.currentUserValue.user_id,
+      "customer_token" : this.authenticationService.currentUserValue.token,
       "subtotal" : this.serviceMainArr.subtotal,
       "discount" : this.serviceMainArr.discount,
       "nettotal" : this.serviceMainArr.netCost,

@@ -103,6 +103,14 @@ export class AppComponent implements AfterViewInit {
             return false;
         }
     }
+  
+    isFront(){
+        if(localStorage.getItem('isFront') && localStorage.getItem('isFront')=="true"){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     ngOnInit() {
      // this.setcompanycolours();

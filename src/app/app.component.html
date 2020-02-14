@@ -2,7 +2,7 @@
 <mat-drawer-container class="example-container">
   <mat-drawer-content>
       <main fxLayout="column" fxLayoutGap="0">
-       <mat-toolbar color="primary" class="toolbar menu-comman" *ngIf="isLogin()">
+       <mat-toolbar color="primary" class="toolbar menu-comman" *ngIf="isLogin() && !isFront()">
           <mat-toolbar-row *ngIf="isCustomerUser()">
             <div class="logo"><a><img src="/assets/img/logo.png"></a></div> 
             <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
