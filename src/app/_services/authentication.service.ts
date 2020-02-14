@@ -9,7 +9,7 @@ import { User } from '@app/_models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    private currentUserSubject: BehaviorSubject<User>;
+    public currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
     user_id: any;
     constructor(private http: HttpClient) {
@@ -29,12 +29,13 @@ export class AuthenticationService {
             // login successful if there's a jwt token in the response
             if (user && user.data== true && user.response.token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('userId', user.response.user_id);
-                localStorage.setItem('userToken', user.response.token);          
-                localStorage.setItem('userName', user.response.fullname);
-                localStorage.setItem('userRole', user.response.user_type);
-                localStorage.setItem('tokenID',user.response.id);
+                // localStorage.setItem('userId', user.response.user_id);
+                // localStorage.setItem('userToken', user.response.token);          
+                // localStorage.setItem('userName', user.response.fullname);
+                // localStorage.setItem('userRole', user.response.user_type);
+                // localStorage.setItem('tokenID',user.response.id);
                 localStorage.setItem('currentUser', JSON.stringify(user.response));
+               // localStorage.setItem('isFront', "false");
                 this.currentUserSubject.next(user.response);
             }
             return user;
@@ -62,13 +63,14 @@ export class AuthenticationService {
 
     logout() {
         // remove user from local storage to log user out
-        localStorage.removeItem('userId');
+        // localStorage.removeItem('userId');
         localStorage.removeItem('currentUser');
-        localStorage.removeItem('userToken');
-        localStorage.removeItem('userName');
-        localStorage.removeItem('userRole');
-        localStorage.removeItem('tokenID');
-        localStorage.clear();
+        localStorage.removeItem('isFront');
+        // localStorage.removeItem('userToken');
+        // localStorage.removeItem('userName');
+        // localStorage.removeItem('userRole');
+        // localStorage.removeItem('tokenID');
+        // localStorage.clear();
         this.currentUserSubject.next(null);
     }
 }

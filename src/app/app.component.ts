@@ -19,6 +19,7 @@ import {
 
 
 
+
 export interface DialogData {
   animal: string;
   name: string;
@@ -98,6 +99,14 @@ export class AppComponent implements AfterViewInit {
   
     isLogin(){
         if(localStorage.getItem('currentUser')){
+            return true;
+        }else{
+            return false;
+        }
+    }
+  
+    isFront(){
+        if(localStorage.getItem('isFront') && localStorage.getItem('isFront')=="true"){
             return true;
         }else{
             return false;

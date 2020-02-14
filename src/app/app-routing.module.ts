@@ -38,19 +38,22 @@ const routes: Routes = [
 
   {
     path: 'user',
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
+    data: {roles: Role.Customer},
     loadChildren: () => import('./user/user.module').then(mod => mod.UserModule)
   },
 
   {
     path: 'staff',
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
+    data: {roles: Role.Staff},
     loadChildren: () => import('./staff/staff.module').then(mod => mod.StaffModule)
   },
 
   {
     path: 'admin',
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
+    data: {roles: Role.Admin},
     loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule)
   },
 ];

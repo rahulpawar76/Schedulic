@@ -66,7 +66,6 @@ export class MyProfileComponent implements OnInit {
   onSubmit(event){
     if(this.myProfile.valid){
       this.updatedprofiledata ={
-  
         "staff_id" : "2",
         "firstname" : this.myProfile.get('user_FirstName').value,
         "lastname" : this.myProfile.get('user_LastName').value,
