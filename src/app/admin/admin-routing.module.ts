@@ -13,6 +13,10 @@ const routes: Routes = [
     component: MyBusinessComponent
   }, 
   {
+    path: 'my-business',
+    component: MyBusinessComponent
+  }, 
+  {
     path: 'my-workspace',
     component: MyWorkSpaceComponent
   }, 
