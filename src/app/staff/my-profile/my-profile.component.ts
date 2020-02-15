@@ -37,7 +37,7 @@ export class MyProfileComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private authenticationService:AuthenticationService
     ) { 
-      this.staffId=this.authenticationService.currentUserValue.user_id
+      this.staffId=JSON.stringify(this.authenticationService.currentUserValue.user_id);
     }
 
   ngOnInit() {
@@ -61,6 +61,9 @@ export class MyProfileComponent implements OnInit {
         this.myProfile.controls['user_LastName'].setValue(this.profiledata.lastname);
         this.myProfile.controls['user_Email'].setValue(this.profiledata.email);
         this.myProfile.controls['user_Mobile'].setValue(this.profiledata.phone);
+      }
+      else if(response.data == false){
+        alert(response.response)
       }
     },
       (err) => {

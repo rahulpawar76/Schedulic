@@ -15,9 +15,10 @@ export class WorkProfileComponent implements OnInit {
  animal: any;
  error:any;
  serviceData: any;
- workingHours: any;
+ workingHours: any = [];
+ breakHours: any = [];
+ offDays: any = [];
 
- dayName: any;
 
   constructor(
     private StaffService: StaffService,
@@ -27,15 +28,27 @@ export class WorkProfileComponent implements OnInit {
 
     this.getAllServices();
     this.getWorkingHours();
+    this.getBreakHours();
   }
 
+  dynamicSort(property) {
+    var sortOrder = 1;
+    if (property[0] === "-") {
+    sortOrder = -1;
+    property = property.substr(1);
+    }
+    return function (a, b) {
+    var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+    return result * sortOrder;
+    }
+  }
   getAllServices(){
     this.StaffService.getAllServices().subscribe((response:any) => {
       if(response.data == true){
         this.serviceData = response.response;
       }
-      else{
-        alert("Service Not Found");
+      else if(response.data == false){
+        this.serviceData = '';
       }
     },
       (err) => {
@@ -45,28 +58,88 @@ export class WorkProfileComponent implements OnInit {
   }
   getWorkingHours(){
     this.StaffService.getWorkingHours().subscribe((response:any) => {
+      
       if(response.data == true){
         this.workingHours = response.response;
-        console.log(this.workingHours);
-          if(this.workingHours.week_day_id == '1'){
-            this.dayName == 'Monday'
-          }else if(this.workingHours.week_day_id == '2'){
-            this.dayName == 'Tuesday'
-          }else if(this.workingHours.week_day_id == '3'){
-            this.dayName == 'Wednesday'
-          }else if(this.workingHours.week_day_id == '4'){
-            this.dayName == 'Thursday'
-          }else if(this.workingHours.week_day_id == '5'){
-            this.dayName == 'Friday'
-          }else if(this.workingHours.week_day_id == '6'){
-            this.dayName == 'Saturday'
-          }else if(this.workingHours.week_day_id == '7'){
-            this.dayName == 'Sunday'
+        for(let i=0; i<this.workingHours.length;i++){
+          if(this.workingHours[i].week_day_id == "0"){
+            this.workingHours[i].week_day_name = "Sunday";
           }
-          alert(this.dayName);
+          if(this.workingHours[i].week_day_id == "1"){
+            this.workingHours[i].week_day_name = "Monday";
+
+          } 
+          if(this.workingHours[i].week_day_id == "2"){
+            this.workingHours[i].week_day_name = "Tuesday";
+
+          } 
+          if(this.workingHours[i].week_day_id == "3"){
+            this.workingHours[i].week_day_name = "Wednesday";
+
+          } 
+          if(this.workingHours[i].week_day_id == "4"){
+            this.workingHours[i].week_day_name = "Thursday";
+
+          } 
+          if(this.workingHours[i].week_day_id == "5"){
+            this.workingHours[i].week_day_name = "Friday";
+
+          } 
+          if(this.workingHours[i].week_day_id == "6"){
+            this.workingHours[i].week_day_name = "Saturday";
+
+          }
+        }
+         
       }
-      else{
-        alert("Working Hours Not Found");
+      else if(response.data == false){
+        this.workingHours = '';
+      }
+    },
+      (err) => {
+        this.error = err;
+      }
+    )
+  }
+  getBreakHours(){
+    this.StaffService.getBreakHours().subscribe((response:any) => {
+      if(response.data == true){
+        this.breakHours = response.response.break_time;
+        this.offDays = response.response.off_day;
+        this.breakHours = this.breakHours.sort(this.dynamicSort("week_day_id"))
+        for(let i=0; i<this.breakHours.length;i++){
+          if(this.breakHours[i].week_day_id == "0"){
+            this.breakHours[i].week_day_name = "Sunday";
+          }
+          if(this.breakHours[i].week_day_id == "1"){
+            this.breakHours[i].week_day_name = "Monday";
+
+          } 
+          if(this.breakHours[i].week_day_id == "2"){
+            this.breakHours[i].week_day_name = "Tuesday";
+
+          } 
+          if(this.breakHours[i].week_day_id == "3"){
+            this.breakHours[i].week_day_name = "Wednesday";
+
+          } 
+          if(this.breakHours[i].week_day_id == "4"){
+            this.breakHours[i].week_day_name = "Thursday";
+
+          } 
+          if(this.breakHours[i].week_day_id == "5"){
+            this.breakHours[i].week_day_name = "Friday";
+
+          } 
+          if(this.breakHours[i].week_day_id == "6"){
+            this.breakHours[i].week_day_name = "Saturday";
+
+          }
+        }
+        console.log(this.offDays);
+      }
+      else if(response.data == false){
+        this.breakHours = '';
       }
     },
       (err) => {
