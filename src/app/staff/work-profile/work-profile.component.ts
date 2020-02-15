@@ -136,6 +136,35 @@ export class WorkProfileComponent implements OnInit {
 
           }
         }
+        for(let i=0; i<this.offDays.length;i++){
+          if(this.offDays[i].week_day_id == "0"){
+            this.offDays[i].week_day_name = "Sunday";
+          }
+          if(this.offDays[i].week_day_id == "1"){
+            this.offDays[i].week_day_name = "Monday";
+
+          } 
+          if(this.offDays[i].week_day_id == "2"){
+            this.offDays[i].week_day_name = "Tuesday";
+
+          } 
+          if(this.offDays[i].week_day_id == "3"){
+            this.offDays[i].week_day_name = "Wednesday";
+
+          } 
+          if(this.offDays[i].week_day_id == "4"){
+            this.offDays[i].week_day_name = "Thursday";
+
+          } 
+          if(this.offDays[i].week_day_id == "5"){
+            this.offDays[i].week_day_name = "Friday";
+
+          } 
+          if(this.offDays[i].week_day_id == "6"){
+            this.offDays[i].week_day_name = "Saturday";
+
+          }
+        }
         console.log(this.offDays);
       }
       else if(response.data == false){

@@ -91,7 +91,27 @@
 			</mat-card>
 		</div>
 	</div>
-	<div *ngIf="breakHours == ''" class="staff-work-profile work-prfile-breaks">
+	<div *ngIf="offDays != ''" class="staff-work-profile work-prfile-breaks">
+		<div *ngFor="let offDays of offDays; let i = index" class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
+			<mat-card class="card">
+				<div class="card-body-workinghour mt-3">
+					<div class="wrapcontent w-100">
+						<div class="map">
+							<img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/calendar.png">
+						</div>
+						<label>{{offDays.week_day_name}}</label>
+					</div>
+					<div  class="wrapcontent">
+						<div class="hours">
+							<p>Day Off</p> 
+						</div>
+						
+					</div>
+				</div>
+			</mat-card>
+		</div>
+	</div>
+	<div *ngIf="breakHours == '' && offDays == ''" class="staff-work-profile work-prfile-breaks">
 		<h2>No Break Found</h2>
 	</div>
 </mat-tab>
