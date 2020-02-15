@@ -10,9 +10,13 @@ import { AuthenticationService } from '@app/_services';
 
 export class StaffService {
 	staffId:any
+	staffToken:any
   constructor(private http: HttpClient,private _snackBar: MatSnackBar,private authenticationService:AuthenticationService) { 
 
-    this.staffId=this.authenticationService.currentUserValue.user_id
+    this.staffId=this.authenticationService.currentUserValue.user_id;
+    this.staffToken = this.authenticationService.currentUserValue.token;
+    alert(this.staffId);
+    alert(this.staffToken);
   }  
 
   private handleError(error: HttpErrorResponse) {
@@ -22,11 +26,12 @@ export class StaffService {
 
   getProfiledata(){
     let requestObject = {
-        //"customer_id":"36"
+      'staff_id' : this.staffId
     };
     let headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        'staff-id' : this.staffId
+        'staff-id' : this.staffId,
+        'api-token' : this.staffToken 
     });
     return this.http.post(`${environment.apiUrl}/staff-profile`,requestObject,{headers:headers}).pipe(
     map((res) => {
@@ -40,6 +45,7 @@ export class StaffService {
     };
     let headers = new HttpHeaders({
         'Content-Type': 'application/json',
+        'staff-id' : this.staffId,
     });
     return this.http.post(`${environment.apiUrl}/staff-service`,requestObject,{headers:headers}).pipe(
     map((res) => {
@@ -62,12 +68,13 @@ export class StaffService {
   }
   fnprofilesubmit(updatedprofiledata){
     console.log(updatedprofiledata)
-    // let requestObject = {
-    //     'staff_id' : '2'
-    // };
+    let requestObject = {
+        
+    };
     let headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        'staff-id' : this.staffId
+        'staff-id' : this.staffId,
+        'api-token' : this.staffToken 
     });
     return this.http.post(`${environment.apiUrl}/staff-profile-update`,updatedprofiledata,{headers:headers}).pipe(
     map((res) => {

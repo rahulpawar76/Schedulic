@@ -6,6 +6,7 @@ import { environment } from '@environments/environment';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { StaffService } from '../_services/staff.service'
+import { AuthenticationService } from '@app/_services';
 
 export interface DialogData {
   animal: string;
@@ -25,6 +26,7 @@ export class MyProfileComponent implements OnInit {
  animal: any;
  error:any;
  updatedprofiledata: any =[];
+ staffId: any;
 
  emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
  onlynumeric = /^-?(0|[1-9]\d*)?$/
@@ -33,7 +35,10 @@ export class MyProfileComponent implements OnInit {
     public dialog: MatDialog, private http: HttpClient,
     private StaffService: StaffService,
     private _formBuilder: FormBuilder,
-    ) { }
+    private authenticationService:AuthenticationService
+    ) { 
+      this.staffId=this.authenticationService.currentUserValue.user_id
+    }
 
   ngOnInit() {
 
@@ -66,7 +71,7 @@ export class MyProfileComponent implements OnInit {
   onSubmit(event){
     if(this.myProfile.valid){
       this.updatedprofiledata ={
-        "staff_id" : "2",
+        "staff_id" : this.staffId,
         "firstname" : this.myProfile.get('user_FirstName').value,
         "lastname" : this.myProfile.get('user_LastName').value,
         "email" : this.myProfile.get('user_Email').value,
