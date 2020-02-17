@@ -38,7 +38,7 @@
 				<div>
 					<ul>
 					<li class="bottom-border plr-25">
-						<p><b>Category</b></p>
+						<p class="title-main">Category</p>
 					</li>
 					<li class="bottom-border plr-25">
 						<p>All Services<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
@@ -66,18 +66,18 @@
 			</mat-card>
 			<mat-card class="col-lg-5 col-12 col-md-6 border-8 p-0">
 				<div>
-					<div class="d-flex bottom-border">
+					<div class="d-flex bottom-border align-items-center">
 						<div class="appointment pl-2">
-							<p><b>Appointment</b></p>
+							<p class="title-main">Appointment</p>
 						</div>	
 						<form class="serch_input-appoint">							
 							<div class="form-group has-search">
 							    <span class="fa fa-search form-control-feedback"></span>
-							    <input type="text" class="form-control searchbox_appointment" placeholder="Service Staff,Customer">
+							    <input type="text" class="form-control searchbox_appointment" placeholder="Service, Staff, Customer">
 							  </div>												
 						</form>
 						<div class="filter-btn-appoint">
-							<button class="btn-secondary" mat-button><i class="material-icons">filter_list_alt</i>Filter</button>
+							<button class="btn-secondary filter-btn" mat-button><i class="material-icons mr-1">filter_list_alt</i>Filter</button>
 						</div>
 					</div>
 				</div>
@@ -87,12 +87,12 @@
 		            <div class="work-service-bg-main">
 		                <div class="service-background pt-4"> 
 		                    <div class="left-time-main ">
-		                        <span class="font-blue">12:00pm</span>
+		                        <span class="font-blue left-font">12:00pm</span>
 		                        <div class="pl-3">
 		                            <p class="mb-0 work-space-font">in 8 hours ago</p>
-		                            <h5>Foot Massage (Salon)</h5>
+		                            <h5 class="appoint-name">Foot Massage </h5><span class="after-appont-title">(Salon)</span>
 		                        </div>
-		                        <div class="d-flex flex-wrap pl-3">
+		                        <div class="d-flex flex-wrap pl-3 mb-4">
 		                            <div class="d-flex Time">
 		                            	<i class="fa fa-clock-o  pr-2" aria-hidden="true"></i>	
 		                                <p class="work-space-font pt-0">12:00 pm</p>
@@ -113,12 +113,12 @@
 		                    </div>
 
 		                    <div class="left-time-main">
-		                        <span class="font-blue">12:00pm</span>
+		                        <span class="font-blue left-font">12:00pm</span>
 		                        <div class="pl-3 pt-2">
 		                            <p class="mb-0 work-space-font ">in 5 hours ago</p>
-		                            <h5>Cleaning (Home Cleaning)</h5>
+		                            <h5 class="appoint-name">Cleaning </h5><span class="after-appont-title">(Home Cleaning)</span>
 		                        </div>
-		                        <div class="d-flex flex-wrap pl-3">
+		                        <div class="d-flex flex-wrap pl-3 mb-4">
 		                            <div class="d-flex Time">
 		                                <i class="fa fa-clock-o  pr-2" aria-hidden="true"></i>
 		                                <p class="work-space-font pt-0">12:00 pm</p>
@@ -128,7 +128,7 @@
 		                                <p class="work-space-font pt-0">Customer Name</p>
 		                            </div>
 		                            <div class="d-flex service-person">
-		                                <i class="fa fa-user-o pr-2" aria-hidden="true"></i>
+										<i class="fa fa-briefcase pr-2 " aria-hidden="true"></i>
 		                                <p class="work-space-font pt-0 ">Parth Jain</p>
 		                            </div>
 		                            <div class="money">
@@ -139,12 +139,12 @@
 		                    </div>     
 
 		                    <div class="left-time-main">
-		                        <span class="font-blue">12:00pm</span>
+		                        <span class="font-blue left-font">12:00pm</span>
 		                        <div class="pl-3 pt-2">
 		                            <p class="mb-0 work-space-font">in 8 hours ago</p>
-		                            <h5>Foot Massage (Salon)</h5>
+		                            <h5 class="appoint-name">Foot Massage </h5><span class="after-appont-title">(Salon)</span>
 		                        </div>
-		                        <div class="d-flex flex-wrap pl-3">
+		                        <div class="d-flex flex-wrap pl-3 mb-4">
 		                            <div class="d-flex Time">
 		                                <i class="fa fa-clock-o  pr-2" aria-hidden="true"></i>
 		                                <p class="work-space-font pt-0">12:00 pm</p>
@@ -154,7 +154,7 @@
 		                                <p class="work-space-font pt-0">Customer Name</p>
 		                            </div>
 		                            <div class="d-flex service-person">
-		                                <i class="fa fa-user-o pr-2" aria-hidden="true"></i>
+		                                <i class="fa fa-briefcase pr-2 " aria-hidden="true"></i>
 		                                <p class="work-space-font pt-0 ">Parth Jain</p>
 		                            </div>
 		                            <div class="money">
@@ -172,14 +172,14 @@
 			<mat-card class="col-lg-3 col-12 col-md-6 border-8 p-0">
 				<div id="Appoinment-Details">
 					<div class="plr-25 bottom-border">
-				        <p class="fs-1rem"><b>Appoinment Details</b></p>
+				        <p class="fs-1rem title-main">Appoinment Details</p>
 				    </div>
 				    <div class="pt-2 pb-2 d-flex bottom-border pl-3 pr-3">
 				       <label class="greenfont pt-2"><i class="fa fa-repeat repeat pr-1"></i>Reschedule</label>
 				       <label class="fontred  pt-2 pl-2"><i class="fa fa-times-circle-o pr-1"></i>Cancel</label>
 				       <button mat-button type="button" class="d-block btn-primary float-right acceptbtn" (click)="myworkspaceAccept()">Accept</button>
 			      	</div>
-				  	 <div class="background pl-4 pb-2">
+				  	 <div class="background pl-4 pb-2 border-right-blue position-relative">
 				        <div class="">
 				          <h6 class="mb-0 pt-2">09 Sep 2019</h6>
 				          <p class="text-gray pt-0 mb-0">Booked On:01 sep 2019 @ 12:07 pm</p>
@@ -222,7 +222,7 @@
 				        <p class="pl-3 pt-0 mb-0">9876543210</p>
 				      </div>
 				      <div class="pl-4 d-flex pt-2">
-				        <i class="fa fa-map-marker Appoinment-icon" aria-hidden="true"></i>
+						<img class="map-icon" src="../../assets/images/admin/map.png" />
 				        <h6 class="pl-3 pt-0 mb-0">A-23,Preeti Tower,180 Feet Road,Near IDBI Bank,Bhyandar(west).Mumbai-40010</h6>
 				      </div>
 				      <div  class="pl-4 pt-2 bottom-border">
