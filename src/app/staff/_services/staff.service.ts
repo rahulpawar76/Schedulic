@@ -11,7 +11,11 @@ import { AuthenticationService } from '@app/_services';
 export class StaffService {
 	staffId:any
 	staffToken:any
-  constructor(private http: HttpClient,private _snackBar: MatSnackBar,private authenticationService:AuthenticationService) { 
+  constructor(
+    private http: HttpClient,
+    private _snackBar: MatSnackBar,
+    private authenticationService:AuthenticationService
+    ) { 
 
     this.staffId=JSON.stringify(this.authenticationService.currentUserValue.user_id);
     this.staffToken = this.authenticationService.currentUserValue.token;
@@ -96,6 +100,20 @@ export class StaffService {
         'api-token' : this.staffToken 
     });
     return this.http.post(`${environment.apiUrl}/staff-break-hours`,requestObject,{headers:headers}).pipe(
+    map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+  getAllHolidays(){
+    let requestObject = {
+    };
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'staff-id' : this.staffId,
+        'api-token' : this.staffToken 
+    });
+    return this.http.post(`${environment.apiUrl}/staff-holidayslist`,requestObject,{headers:headers}).pipe(
     map((res) => {
         return res;
     }),

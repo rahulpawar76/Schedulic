@@ -18,6 +18,7 @@ export class WorkProfileComponent implements OnInit {
  workingHours: any = [];
  breakHours: any = [];
  offDays: any = [];
+ holidayData: any;
 
 
   constructor(
@@ -29,6 +30,7 @@ export class WorkProfileComponent implements OnInit {
     this.getAllServices();
     this.getWorkingHours();
     this.getBreakHours();
+    this.getAllHolidays();
   }
 
   dynamicSort(property) {
@@ -165,10 +167,23 @@ export class WorkProfileComponent implements OnInit {
 
           }
         }
-        console.log(this.offDays);
       }
       else if(response.data == false){
         this.breakHours = '';
+      }
+    },
+      (err) => {
+        this.error = err;
+      }
+    )
+  }
+  getAllHolidays(){
+    this.StaffService.getAllHolidays().subscribe((response:any) => {
+      if(response.data == true){
+        this.holidayData = response.response;
+      }
+      else if(response.data == false){
+        this.holidayData = '';
       }
     },
       (err) => {

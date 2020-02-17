@@ -117,55 +117,26 @@
 </mat-tab>
 
 <mat-tab label="Time Off">  
-	<div class="staff-work-profile work-profile-time-off">
-      <div class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
-        <mat-card class="card">
-          <div class="card-body-workinghour mt-3">
-	         	<div class="wrapcontent">
-		          <div class="map">
-					<img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/time-off.png">
-							</div>
-							<label>Ganesh Chaturthi</label>
+	<div *ngIf="holidayData != ''" class="staff-work-profile work-profile-time-off">
+		<div *ngFor="let holidayData of holidayData; let i=index" class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
+			<mat-card class="card">
+				<div class="card-body-workinghour mt-3">
+					<div class="wrapcontent">
+						<div class="map">
+							<img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/time-off.png">
 						</div>
-						<div  class="wrapcontent1">
-								<p>28 Aug 2019 to 1 sep 2019</p>	
-						</div>
-        	</div>
-      	</mat-card>
-    </div>
-
-    <div class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
-        <mat-card class="card">
-          <div class="card-body-workinghour mt-3">
-	         	<div class="wrapcontent">
-		          <div class="map">
-					<img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/time-off.png">
-							</div>
-							<label>Dussehra</label>
-						</div>
-						<div class="wrapcontent1">
-								<p>2 Oct 2019</p>	
-						</div>
-        	</div>
-      	</mat-card>
-    </div>
-
-    <div class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
-        <mat-card class="card">
-          <div class="card-body-workinghour mt-3">
-	         	<div class="wrapcontent">
-		          <div class="map">
-					<img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/time-off.png">
-							</div>
-							<label>Christmas</label>
-						</div>
-						<div class="wrapcontent1">
-								<p>25th Dec 2019</p>	
-						</div>
-        	</div>
-      	</mat-card>
-    </div>
-  </div>
+						<label>{{holidayData.description}}</label>
+					</div>
+					<div  class="wrapcontent1">
+						<p>{{holidayData.start_date}} to {{holidayData.end_date}}</p>	
+					</div>
+				</div>
+			</mat-card>
+		</div>
+	  </div>
+	  <div *ngIf="holidayData == ''" class="staff-work-profile work-profile-time-off">
+		  <h2 class="text-center my-2">No Holiday Found</h2>
+	  </div>
 </mat-tab>
 </mat-tab-group>
 </div>
