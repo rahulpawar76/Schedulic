@@ -5,6 +5,28 @@
 		margin-top: 11px;
 		/*font-weight: bold;*/
 	}
+    margin-top: 64px;
+    display: flex;
+    justify-content: center;
+    .row{
+        width: 100%;
+        mat-card{
+        display: inline-flex;
+        width: 100%;
+        border-radius: 8px;
+        align-items: center;
+        justify-content: center;
+        .flex-align-center{
+            align-items: center;
+            display: inline-flex;
+            flex-direction: column;
+            }
+        }
+    }
+    .flex-content-center{
+        justify-content: center;
+        display: flex;
+    }
 	.category{
 	margin-bottom: 0px;	
 	}
@@ -36,12 +58,18 @@
 /*___________[2]Category_________*/
 
 #category{
+    .mat-card{
+        margin: 0px 18px;
+    }
 	.bottom-border{
-		border-bottom:  1px solid #dedede;
-	}
+        border-bottom:  1px solid #dedede;
+    }
+    .plr-25{
+        padding: 0px 25px;
+    }
 	li{
 			list-style: none;
-
+            padding: 0px 25px;
 		}
 	ul{
 		padding-left: 0px;
@@ -193,17 +221,17 @@ background-position: 60% 7%;
         &:before{
             content: "";
             position: absolute;
-            border: 0.5px solid #fff;
-            left: -8%;
-            top: 5%;
-            height: 90%;
+            border: 0.5px solid #625555;
+            left: -5%;
+            top: 12%;
+            height: 87%;
             opacity: 0.2;
         }
         span{
             position: absolute;
-            left: -12%;
+            left: -8%;
             font-size: 11px;
-            top: -11px;
+            top: 0;
     }
 }
 
@@ -253,6 +281,9 @@ background-position: 60% 7%;
 }
 /*_____________[3] Appointment____________________ */
 #Appoinment-Details{
+    .fs-1rem{
+        font-size: 1rem;
+    }
 	.fontred{
     color: red;
     font-size: 12px;

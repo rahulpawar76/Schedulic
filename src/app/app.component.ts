@@ -3,10 +3,14 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialo
 import { Router, RouterOutlet } from '@angular/router';
 import { AuthenticationService, CompanyService } from './_services';
 import { User, Role } from './_models';
+import { map, catchError } from 'rxjs/operators';
+import { environment } from '@environments/environment';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSlideToggleChange } from '@angular/material';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 
 //import { slideInAnimation } from './maturity/animations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar} from '@angular/material/snack-bar';
 
 
 import {
@@ -19,10 +23,12 @@ import {
 
 
 
+
 export interface DialogData {
   animal: string;
   name: string;
 }
+
 
 
 @Component({ 
@@ -35,11 +41,14 @@ export interface DialogData {
 
 export class AppComponent implements AfterViewInit {
   animal:any;
-  
-    public company_info: string;
+  userData :any;
+  userStatus =true;
+  currentUserId: any;
+  statusStaff: any;
+  public company_info: string;
 
     ngAfterViewInit() { 
-
+      this.getStatusOfCurrentStaff();
     }
     
     // myRoute: string;
@@ -52,11 +61,12 @@ export class AppComponent implements AfterViewInit {
         private authenticationService: AuthenticationService,
         private _companyService: CompanyService,
         public dialog: MatDialog,
+        private http: HttpClient,
         private _snackBar: MatSnackBar,        
     ) {        
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
 
-        
+        this.currentUserId = JSON.stringify(this.authenticationService.currentUserValue.user_id);
         
         // Set company info
      /*    this._companyService.getCompanyInfoData().subscribe(
@@ -103,6 +113,14 @@ export class AppComponent implements AfterViewInit {
             return false;
         }
     }
+  
+    isFront(){
+        if(localStorage.getItem('isFront') && localStorage.getItem('isFront')=="true"){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     ngOnInit() {
      // this.setcompanycolours();
@@ -115,17 +133,6 @@ export class AppComponent implements AfterViewInit {
     }*/
 
 
-
-    openSelectSessionDialog(): void {
-    const dialogRef = this.dialog.open(SelectSessionDialog, {
-      width: '400px',
-      data: {path: ""}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      //this.animal = result;
-    });
-  }
 
       /*StaffDashboard Navigation*/
       StaffProfile(){
@@ -213,89 +220,49 @@ export class AppComponent implements AfterViewInit {
     }
     return getComputedStyle(document.documentElement).getPropertyValue(key);
   }
-}
 
-@Component({
-  selector: 'attendee-registration-dialog',
-  templateUrl: './_dialogs/attendee-registration-dialog.html',
-})
-
-@Component({
-  selector: 'select-session-dialog',
-  templateUrl: './_dialogs/select-session-dialog.html',
-})
-export class SelectSessionDialog {
-    selectSessionFormGroup: FormGroup;
-    currentUser: User;
-    token: string;
-    sessionData: any;
-    selectedSessionId: any;
-    selectedSessionName: any;
-   // path: any;
-    //appComponent: any;
-  constructor(
-    public router: Router,
-    public dialogRef: MatDialogRef<SelectSessionDialog>,
-    private _formBuilder: FormBuilder,
-    public authenticationService: AuthenticationService,
-    private _snackBar: MatSnackBar,
-    private _companyService: CompanyService,
-    public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
-      this.currentUser = this.authenticationService.currentUserValue;
-      this.token = this.currentUser.token;
-      let  jsonUser = {
-      "user_id": this.currentUser.id,
-      "role": this.currentUser.role,
-      "token": this.token
+  getStatusOfCurrentStaff(){
+    this.userData = this.authenticationService.currentUserValue
+    console.log(this.userData);
+    if(this.userData.status == 'D'){
+      this.userStatus = true;
     }
-    this.selectedSessionId=localStorage.getItem("session_id");
-    this.selectedSessionName=localStorage.getItem("session_name");
-  }
-
-  ngOnInit(){
-      this.selectSessionFormGroup = this._formBuilder.group({
-
-        });
-  }
-  isAdminUser() {
-      return this.currentUser && this.currentUser.role === Role.Admin;
-  }
-  saveData(): void {
-   if (this.selectSessionFormGroup.valid) {
-    let splitted = this.selectSessionFormGroup.get('session').value.split("-", 2); 
-    if(splitted[0] != localStorage.getItem("session_id")){
-      localStorage.setItem('session_id',splitted[0]);
-      localStorage.setItem('session_name',splitted[1]);
-      console.log(localStorage.getItem("session_id"));
-      console.log(localStorage.getItem("session_name"));
-      window.location.reload();
-      //this.appComponent.fnSetSessionValues();
-      /*if(this.data.path == undefined){
-        window.location.reload();
-      }else{
-        this.router.navigate([this.data.path]);
-      }*/
+    else if(this.userData.status == 'E'){
+      this.userStatus = false;
     }
-    this.dialogRef.close();
-    }else if(!this.selectSessionFormGroup.get('session').value){
-      //this.dialogRef.close();
-    }else{
-      this._snackBar.open("Select Session", "X", {
+  }
+  changeStatus(value: MatSlideToggleChange){
+    const { checked } = value;
+    if(this.userStatus == false){
+      this.statusStaff = 'E'
+    }
+    else{
+      this.statusStaff = 'D'
+    }
+  let requestObject = {
+    'status': this.statusStaff
+  };
+  let headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'staff-id' : this.currentUserId,
+  });
+  this.http.post(`${environment.apiUrl}/staff-status-update`,requestObject,{headers:headers} ).pipe(
+    map((res) => {
+      return res;
+    }),
+  ).subscribe((response:any) => {
+    if(response.data == true){
+      this._snackBar.open("Availibility Updated", "X", {
         duration: 2000,
-        verticalPosition: 'top',
-        panelClass: ['red-snackbar']
+        verticalPosition: 'bottom',
+        panelClass : ['green-snackbar']
       });
     }
-
-    
+    },
+    (err) =>{
+      console.log(err)
+    })
   }
-  closeModal(): void {
-    
-    this.dialogRef.close();
-  }
-
-
 
 }
 

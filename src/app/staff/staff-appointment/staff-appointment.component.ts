@@ -1,5 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { StaffService } from '../_services/staff.service'
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 export interface status {
   
@@ -22,7 +25,8 @@ export interface DialogData {
 export class StaffAppointmentComponent implements OnInit {
 	animal: any;
   status: any;
- 
+  newAppointmentData: any;
+  completedAppointmentData: any;
 
   statuses: status[] = [
     {value: 'ontheway', viewValue: 'On The Way',statuses:''},
@@ -31,9 +35,37 @@ export class StaffAppointmentComponent implements OnInit {
   ];
   
 
-  constructor(public dialog: MatDialog) { }
+  constructor(
+    public dialog: MatDialog,
+    private StaffService: StaffService,
+    
+    ) { }
 
   ngOnInit() {
+
+    this.getNewAppointment();
+    this.getCompletedAppointment();
+  }
+
+  getNewAppointment(){
+    this.StaffService.getNewAppointment().subscribe((response:any) =>{
+      if(response.data == true){
+        this.newAppointmentData = response.response;
+      }
+      else if(response.data == false) {
+        this.newAppointmentData = '';
+      }
+    })
+  }
+  getCompletedAppointment(){
+    this.StaffService.getCompletedAppointment().subscribe((response:any) =>{
+      if(response.data == true){
+        this.completedAppointmentData = response.response;
+      }
+      else if(response.data == false) {
+        this.completedAppointmentData = '';
+      }
+    })
   }
 
    someMethod(event): void {
@@ -43,7 +75,6 @@ export class StaffAppointmentComponent implements OnInit {
       });
 
        dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
         this.status = result;
        });
     }
@@ -53,7 +84,6 @@ export class StaffAppointmentComponent implements OnInit {
       });
 
        dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
         this.status = result;
        });
     }
@@ -63,7 +93,6 @@ export class StaffAppointmentComponent implements OnInit {
       });
 
        dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
         this.status = result;
        });
     }
@@ -76,7 +105,6 @@ export class StaffAppointmentComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
        this.animal = result;
      });
   }
@@ -87,20 +115,19 @@ export class StaffAppointmentComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.animal = result;
      });
   }
 
 
-  StaffMyAppointmentDetails(){
+  StaffMyAppointmentDetails(index){
 
     const dialogRef = this.dialog.open(DialogStaffMyAppointmentDetails, {
      height: '700px',
+     data :{fulldata : this.newAppointmentData[index]}
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.animal = result;
      });
 
@@ -113,20 +140,19 @@ export class StaffAppointmentComponent implements OnInit {
         });
 
          dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
           this.animal = result;
          });
 
   }
 
-  CompleteAppointmentDetails(){
+  CompleteAppointmentDetails(index){
 
       const dialogRef = this.dialog.open(CompleteAppointmentDetails, {
          height: '700px',
+         data : {fuldata: this.completedAppointmentData[index]}
         });
 
          dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
           this.animal = result;
          });
 
@@ -139,7 +165,6 @@ export class StaffAppointmentComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.animal = result;
      });
    }
@@ -153,7 +178,6 @@ export class StaffAppointmentComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
        this.animal = result;
      });
   }
@@ -165,7 +189,6 @@ export class StaffAppointmentComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
        this.animal = result;
      });
   }
@@ -177,7 +200,6 @@ export class StaffAppointmentComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
        this.animal = result;
      });
   }
@@ -189,7 +211,6 @@ export class StaffAppointmentComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
        this.animal = result;
      });
   }
@@ -308,9 +329,13 @@ export class StaffAppointmentComponent implements OnInit {
   })
   export class DialogStaffMyAppointmentDetails {
 
+    detailData: any;
     constructor(
       public dialogRef: MatDialogRef<DialogStaffMyAppointmentDetails>,
-      @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+      @Inject(MAT_DIALOG_DATA) public data: any) {
+
+        this.detailData =  this.data.fulldata;
+      }
 
     onNoClick(): void {
       this.dialogRef.close();
@@ -341,10 +366,12 @@ export class StaffAppointmentComponent implements OnInit {
       templateUrl: '../_dialogs/complete-appointment-details.html',
   })
   export class CompleteAppointmentDetails {
-
+    detailData: any;
     constructor(
       public dialogRef: MatDialogRef<CompleteAppointmentDetails>,
-      @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+      @Inject(MAT_DIALOG_DATA) public data: any) {
+        this.detailData = this.data.fuldata;
+      }
 
     onNoClick(): void {
       this.dialogRef.close();

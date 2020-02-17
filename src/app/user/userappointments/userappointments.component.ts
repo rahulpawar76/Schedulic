@@ -53,6 +53,9 @@ getAllAppointments(): void{
     if(response.data == true){
       this.appointmentData = response.response;
     }
+    else if(response.data == false){
+      this.appointmentData = '';
+    }
   })
 }
 getCancelAppointments(): void{
@@ -60,12 +63,18 @@ getCancelAppointments(): void{
     if(response.data == true){
       this.cancelAppointmentData = response.response;
     }
+    else if(response.data == false){
+      this.cancelAppointmentData = '';
+    }
   })
 }
 getCompletedAppointments(): void{
   this.UserService.getCompletedAppointments().subscribe((response:any) =>{
     if(response.data == true){
       this.completedAppointmentData = response.response;
+    }
+    else if(response.data == false){
+      this.completedAppointmentData = '';
     }
   })
 }
@@ -259,7 +268,6 @@ export class DialogCancelReason {
 	    public dialogRef: MatDialogRef<DialogInvoiceDialog>,
 	    @Inject(MAT_DIALOG_DATA) public data: any) {
         this.myAppoDetailData = this.data.fulldata;
-        console.log(this.myAppoDetailData);
       }
 
 	  onNoClick(): void {

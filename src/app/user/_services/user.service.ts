@@ -4,12 +4,20 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { AuthenticationService } from '@app/_services';
 
 @Injectable({ providedIn: 'root' })
 
 export class UserService {
-	
-  constructor(private http: HttpClient,private _snackBar: MatSnackBar) { }   
+	userId: any;
+  constructor(
+	private http: HttpClient,
+	private _snackBar: MatSnackBar,
+	private authenticationService: AuthenticationService
+	) { 
+
+		this.userId=this.authenticationService.currentUserValue.user_id
+	}   
 
 
 
@@ -20,10 +28,11 @@ private handleError(error: HttpErrorResponse) {
 
 	getUserProfileData() {
 		let requestObject = {
-			"customer_id":"36"
+			"customer_id":this.userId
 			};
 			let headers = new HttpHeaders({
 			'Content-Type': 'application/json',
+			"customer-id":this.userId
 			});
 			return this.http.post(`${environment.apiUrl}/customer-profile`,requestObject,{headers:headers}).pipe(
 			map((res) => {
@@ -36,6 +45,7 @@ private handleError(error: HttpErrorResponse) {
 	updateUserProfileData(updatedprofiledata) {
 			let headers = new HttpHeaders({
 			'Content-Type': 'application/json',
+			"customer-id":this.userId
 			});
 			return this.http.post(`${environment.apiUrl}/customer-profile-update`,updatedprofiledata,{headers:headers}).pipe(
 			map((res) => {
@@ -56,7 +66,7 @@ private handleError(error: HttpErrorResponse) {
 		};
 		let headers = new HttpHeaders({
 		'Content-Type': 'application/json',
-		"customer-id":"36"
+		"customer-id":this.userId
 		});
 		return this.http.post(`${environment.apiUrl}/customer-bookings`,requestObject,{headers:headers}).pipe(
 		map((res) => {
@@ -70,7 +80,7 @@ private handleError(error: HttpErrorResponse) {
 		};
 		let headers = new HttpHeaders({
 		'Content-Type': 'application/json',
-		"customer-id":"36"
+		"customer-id":this.userId
 		});
 		return this.http.post(`${environment.apiUrl}/customer-booking-cancel`,requestObject,{headers:headers}).pipe(
 		map((res) => {
@@ -84,7 +94,7 @@ private handleError(error: HttpErrorResponse) {
 		};
 		let headers = new HttpHeaders({
 		'Content-Type': 'application/json',
-		"customer-id":"36"
+		"customer-id":this.userId
 		});
 		return this.http.post(`${environment.apiUrl}/customer-booking-complete`,requestObject,{headers:headers}).pipe(
 		map((res) => {

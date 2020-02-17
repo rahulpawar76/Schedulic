@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
+import { AuthenticationService } from '@app/_services';
 
 export interface DialogData {
   animal: string;
@@ -20,6 +20,7 @@ export interface DialogData {
 })
 export class UserProfileComponent implements OnInit {
  animal: any;
+ userId:any;
 
   customerProfile :FormGroup;
   updatedprofiledata :any;
@@ -32,8 +33,11 @@ export class UserProfileComponent implements OnInit {
     private userService: UserService,
     private _formBuilder:FormBuilder,
     public dialog: MatDialog, 
-    private http: HttpClient
-    ){ }
+    private http: HttpClient,
+    private authenticationService : AuthenticationService,
+    ){
+      this.userId=this.authenticationService.currentUserValue.user_id
+     }
 
   ngOnInit() {
     localStorage.setItem['session_user_id'] = this.profiledata.id,
@@ -87,7 +91,7 @@ onSubmit(event){
   if(this.customerProfile.valid){
     this.updatedprofiledata ={
 
-      "customer_id" : "21",
+      "customer_id" : this.userId,
       "fullname" : this.customerProfile.get('user_fullname').value,
       "email" : this.customerProfile.get('user_email').value,
       "phone" : this.customerProfile.get('user_phone').value,

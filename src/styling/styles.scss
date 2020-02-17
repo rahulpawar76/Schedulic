@@ -242,7 +242,13 @@ mat-drawer-content{
     }
   }
 
-  
+.max-width-97{
+    max-width: 97%;
+    margin: 0 auto;
+}
+.border-8{
+    border-radius: 8px !important;
+}
 .card-custom {
 margin-bottom: 2rem;
 box-shadow: 0 0 0 0 transparent!important;
@@ -415,6 +421,7 @@ color: #e99546;
 ::ng-deep .opinter{
     cursor: pointer;
 }
+
 $calendarsize: 10px;
 .ngbpicker {
     padding: 15px;

@@ -13,6 +13,7 @@ const routes: Routes = [
   {
     path: '',
     component: MyBusinessComponent
+
   }, 
   {
     path: 'my-business',
@@ -29,6 +30,7 @@ const routes: Routes = [
   {
     path: 'my-customer',
     component: CustomersComponent 
+
   },
 ];
 
