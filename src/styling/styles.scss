@@ -387,7 +387,6 @@ color: #e99546;
 .modal-info{
     .modal-bcolor-primary{
           background-color: #d9f0fe;
-          padding-bottom: 0px;
     .header-margins{
           padding: 0;
     }
@@ -413,6 +412,9 @@ color: #e99546;
     padding-bottom: 0 !important;
 }
 
+::ng-deep .opinter{
+    cursor: pointer;
+}
 $calendarsize: 10px;
 .ngbpicker {
     padding: 15px;

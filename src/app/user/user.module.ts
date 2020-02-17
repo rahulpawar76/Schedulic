@@ -16,6 +16,7 @@ import { DialogOverviewExampleDialog } from './userappointments';
 import { DialogCancelReason } from './userappointments';
 import { DialogInvoiceDialog } from './userappointments';
 import { DialogMyAppointmentDetails } from './userappointments';
+import { rescheduleAppointmentDialog } from './userappointments';
 import { DialogCancelAppointmentDetails } from './userappointments';
 import { DialogCompleteAppointmentDetails } from './userappointments';
 import { DialogUserImageUpload } from './user-profile';
@@ -30,7 +31,8 @@ import { DialogUserImageUpload } from './user-profile';
 		DialogMyAppointmentDetails,
 		DialogCancelAppointmentDetails,
 		DialogCompleteAppointmentDetails,
-		DialogUserImageUpload
+    DialogUserImageUpload,
+    rescheduleAppointmentDialog
   ],
   imports: [
     CommonModule,
@@ -48,6 +50,6 @@ import { DialogUserImageUpload } from './user-profile';
   exports: [
     FormsModule
   ],
-  entryComponents: [DialogOverviewExampleDialog,DialogCancelReason,DialogInvoiceDialog,DialogMyAppointmentDetails,DialogCancelAppointmentDetails,DialogCompleteAppointmentDetails,DialogUserImageUpload],
+  entryComponents: [DialogOverviewExampleDialog,rescheduleAppointmentDialog,DialogCancelReason,DialogInvoiceDialog,DialogMyAppointmentDetails,DialogCancelAppointmentDetails,DialogCompleteAppointmentDetails,DialogUserImageUpload],
 })
 export class UserModule { }

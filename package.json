@@ -33,6 +33,8 @@
     "classlist.js": "^1.1.20150312",
     "datatables.net": "^1.10.20",
     "datatables.net-dt": "^1.10.20",
+    "datatables.net-responsive": "^2.2.3",
+    "datatables.net-responsive-dt": "^2.2.3",
     "font-awesome": "^4.7.0",
     "hammerjs": "^2.0.8",
     "highcharts": "^7.2.1",

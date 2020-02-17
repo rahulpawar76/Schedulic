@@ -1,5 +1,10 @@
 /*______[1]Main-Head____________*/
 #admin-book-appointment{
+    .calender-icon{
+		color: #0089ff;
+		margin-top: 11px;
+		/*font-weight: bold;*/
+	}
 	.category{
 	margin-bottom: 0px;	
 	}
@@ -12,11 +17,7 @@
 	.left-border{
 		border-left: 1px solid #dedede;
 	}
-	.calender-icon{
-		color: #0089ff;
-		margin-top: 11px;
-		/*font-weight: bold;*/
-	}		
+			
 }
 @media only screen and (min-device-width: 360px) 
                    and (max-device-width: 825px) 

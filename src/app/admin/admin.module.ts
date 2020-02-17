@@ -9,6 +9,7 @@ import { ProgressBarModule } from "angular-progress-bar";
 import { HighchartsChartModule } from 'highcharts-angular';
 import { MaterialModule } from '@app/_helpers/material.module';
 
+
 import { AdminRoutingModule } from './admin-routing.module';
 import { MyBusinessComponent } from './my-business/my-business.component';
 import { myCreateNewBusinessDialog } from './my-business';
@@ -16,6 +17,9 @@ import { MyWorkSpaceComponent } from './my-work-space/my-work-space.component';
 import { myWorkSpaceAcceptDialog } from './my-work-space';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { DataTablesModule } from 'angular-datatables';
+import { DialogAddNewAppointment } from './appointment/appointment.component';
+import { DialogNewAppointment } from './appointment/appointment.component';
+import { CustomersComponent } from './customers/customers.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,10 @@ import { DataTablesModule } from 'angular-datatables';
     myCreateNewBusinessDialog,
     MyWorkSpaceComponent,
     myWorkSpaceAcceptDialog,
-    AppointmentComponent
+    AppointmentComponent,
+    DialogAddNewAppointment,
+    DialogNewAppointment,
+    CustomersComponent
     ],
   imports: [
     CommonModule,
@@ -42,6 +49,6 @@ import { DataTablesModule } from 'angular-datatables';
   exports: [
     FormsModule
   ],
-  entryComponents: [myCreateNewBusinessDialog,myWorkSpaceAcceptDialog,],
+  entryComponents: [myCreateNewBusinessDialog,myWorkSpaceAcceptDialog,DialogAddNewAppointment,DialogNewAppointment],
 })
 export class AdminModule { }

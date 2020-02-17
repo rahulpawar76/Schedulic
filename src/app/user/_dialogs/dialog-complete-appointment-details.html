@@ -8,9 +8,25 @@
           <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div>
+    <div class="d-flex">
       <button class="btn btn-warning complete-invoice-btnwidth mt-2 ml-3 pt-1 pb-1 mb-2">Invoice</button>
-       <button class="btn btn-primary complete-rate-btnwidth mt-2 ml-3 pt-1 pb-1 mb-2 ">Rate Now</button>
+      <div *ngIf="myAppoDetailData.rating == null"> 
+        <button (click)="ratenow(myAppoDetailData.id)" class="btn btn-primary complete-rate-btnwidth mt-2 ml-3 pt-1 pb-1 mb-2 ">Rate Now</button>
+      </div>
+      <div class="d-flex statick-rating w-100" *ngIf="myAppoDetailData.rating != null">
+        <div class="star-rating">
+          <input type="radio" [checked]="myAppoDetailData.rating.rating == 5" id="5-stars_{{myAppoDetailData.id}}" name="rating_{{myAppoDetailData.id}}_pop" value="5" />
+          <label for="5-stars_{{myAppoDetailData.id}}" class="star">&#9733;</label>
+          <input type="radio" [checked]="myAppoDetailData.rating.rating == 4"  id="4-stars_{{myAppoDetailData.id}}" name="rating_{{myAppoDetailData.id}}_1_pop" value="4" />
+          <label for="4-stars_{{myAppoDetailData.id}}" class="star">&#9733;</label>
+          <input type="radio" [checked]="myAppoDetailData.rating.rating == 3" id="3-stars_{{myAppoDetailData.id}}" name="rating_{{myAppoDetailData.id}}_pop" value="3" />
+          <label for="3-stars_{{myAppoDetailData.id}}" class="star">&#9733;</label>
+          <input type="radio" [checked]="myAppoDetailData.rating.rating == 2" id="2-stars_{{myAppoDetailData.id}}" name="rating_{{myAppoDetailData.id}}_pop" value="2" />
+          <label for="2-stars_{{myAppoDetailData.id}}" class="star">&#9733;</label>
+          <input type="radio" [checked]="myAppoDetailData.rating.rating == 1" id="1-star_{{myAppoDetailData.id}}" name="rating_{{myAppoDetailData.id}}_pop" value="1" />
+          <label for="1-star_{{myAppoDetailData.id}}" class="star">&#9733;</label>
+        </div>   
+      </div>
     </div>
 
     <div class="modal-body modal-bcolor">

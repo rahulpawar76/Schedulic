@@ -1,21 +1,13 @@
 <div class="content-main">
 <mat-tab-group mat-align-tabs="start" >
-  <mat-tab label="Category">  
+  <mat-tab label="Services">  
     <div class="staff-work-profile work-profile-category">
       <div class="single-booking">
-		<div class="col-sm-3 col-lg-3 col-md-6 profile-single-slot float-left">
+		<div *ngFor="let serviceData of serviceData; let i = index" class="col-sm-3 col-lg-3 col-md-6 profile-single-slot float-left">
 			<mat-card class="card">
 			<div class="card-body-content mt-3">       
-				<img mat-card-avatar class="customer-profile-img text-center mb-1" src="/assets/img/avatar-rihan.jpg">
-				<p class="text-center">Salon</p>		
-			</div>
-			</mat-card>
-		</div>
-		<div class="col-sm-3 col-lg-3 col-md-6 profile-single-slot float-left">
-			<mat-card class="card">
-			<div class="card-body-content mt-3">       
-				<img mat-card-avatar class="customer-profile-img text-center" src="/assets/img/avatar-rihan.jpg">
-				<p class="text-center">Salon</p>		
+				<img mat-card-avatar class="customer-profile-img text-center mb-1" src="{{serviceData.service_image}}">
+				<p class="text-center">{{serviceData.service_name}}</p>		
 			</div>
 			</mat-card>
 		</div>
@@ -41,222 +33,31 @@
         	</div>
       	</mat-card>
     </div>
-
-    <div class="col-sm-3 col-lg-3 col-md-6 profile-single-slot float-left">
-      <mat-card class="card">
-        <div class="card-body-workinghour mt-3">
-	        <div class="wrapcontent">
-		        <div class="map">
-		          <i class="fa fa-map-marker"></i>
-						</div>
-							<label>Malad</label>
-					</div>
-					<div class="wrapcontent1">
-						<p class="mb-0 ">Postal Codes</p> 
-						<p class="wrapcontent1">400067</p>
-					</div>
-        </div>
-      </mat-card>
-    </div>
-
-
-
-    <div class="col-sm-3 col-lg-3 col-md-6 profile-single-slot float-left">
-      <mat-card class="card">
-        <div class="card-body-workinghour mt-3">
-	        <div class="wrapcontent">
-		        <div class="map">
-		          <i class="fa fa-map-marker"></i>
-						</div>
-							<label>Bhayandar</label>
-					</div>
-					<div class="wrapcontent1">
-						<p class="mb-0">Postal Codes</p> 
-						<p class="wrapcontent1">401101</p>
-					</div>
-        </div>
-      </mat-card>
-    </div>
-
-    <div class="col-sm-3 col-lg-3 col-md-6 profile-single-slot float-left">
-      <mat-card class="card">
-        <div class="card-body-workinghour mt-3">
-	        <div class="wrapcontent">
-		        <div class="map">
-		          	<i class="fa fa-map-marker"></i>
-						</div>
-							<label>Paanipath</label>
-					</div>
-					<div class="wrapcontent1">
-						<p class="mb-0">Postal Codes</p> 
-						<p class="wrapcontent1">401707</p>
-					</div>
-        </div>
-      </mat-card>
-    </div>
 	</div> 
 </mat-tab>
 
 	<mat-tab label="Working Hours">  
     <div class="staff-work-profile work-prfile-w-hours">
-      <div class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
+      <div *ngFor="let workingHours of workingHours; let i = index" class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
         <mat-card class="card">
           <div class="card-body-workinghour mt-3">
 	         	<div class="wrapcontent">
-		          <div class="map">
-						<img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/calendar.png">
-							</div>
-							<label>Monday</label>
-						</div>
-						<div  class="wrapcontent">
-							<div class="hours">
-								<p>8.00 am</p> 
-							</div>						
-							<label>to</label>
-							<div class="hours">
-								<p> 6.00 am</p> 
-							</div>
-						</div>
-        	</div>
-      	</mat-card>
-    </div>
-
-    <div class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
-      <mat-card class="card">
-        <div class="card-body-workinghour mt-3">
-          	<div class="wrapcontent">
-		          <div class="map">
+					<div class="map">
 						<img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/calendar.png">
 					</div>
-							<label>Tuesday</label>
-						</div>
-						<div class="wrapcontent">
-							<div class="hours">
-								<p>8.00 am</p> 
-							</div>
-							
-							<label>to</label>
-							<div class="hours">
-								<p> 6.00 am</p> 
-							</div>
-						</div>
+					<label>{{dayName}}</label>
+				</div>
+				<div class="wrapcontent">
+					<div class="hours">
+						<p>{{workingHours.day_start_time}}</p> 
+					</div>						
+					<label>to</label>
+					<div class="hours">
+						<p>{{workingHours.day_end_time}}</p> 
+					</div>
+				</div>
         	</div>
-      </mat-card>
-    </div>
-
-    <div class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
-      <mat-card class="card">
-           <div class="card-body-workinghour mt-3">
-          	<div class="wrapcontent">
-		          <div class="map">
-					<img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/calendar.png">
-							</div>
-							<label>Wednesday</label>
-						</div>
-						<div  class="wrapcontent">
-							<div class="hours">
-								<p>8.00 am</p> 
-							</div>
-							
-							<label>to</label>
-							<div class="hours">
-								<p> 6.00 am</p> 
-							</div>
-						</div>
-        	</div>
-       </mat-card>
-    </div>
-
-    <div class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
-      <mat-card class="card">
-         <div class="card-body-workinghour mt-3">
-          	<div class="wrapcontent">
-		          <div class="map">
-					<img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/calendar.png">
-							</div>
-							<label>Thursday</label>
-						</div>
-						<div  class="wrapcontent">
-							<div class="hours">
-								<p>8.00 am</p> 
-							</div>
-							
-							<label>to</label>
-							<div class="hours">
-								<p> 6.00 am</p> 
-							</div>
-						</div>
-        	</div>
-      </mat-card>
-    </div>
-
-    <div class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
-      <mat-card class="card">
-         <div class="card-body-workinghour mt-3">
-          	<div class="wrapcontent">
-		          <div class="map">
-					<img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/calendar.png">
-							</div>
-							<label>Friday</label>
-						</div>
-						<div  class="wrapcontent">
-							<div class="hours">
-								<p>8.00 am</p> 
-							</div>
-							
-							<label>to</label>
-							<div class="hours">
-								<p> 6.00 am</p> 
-							</div>
-						</div>
-        	</div>
-      </mat-card>
-    </div>
-
-    <div class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
-      <mat-card class="card">
-        <div class="card-body-workinghour mt-3">
-          	<div class="wrapcontent">
-		          <div class="map">
-					<img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/calendar.png">
-							</div>
-							<label>Saturday</label>
-						</div>
-						<div  class="wrapcontent">
-							<div class="hours">
-								<p>Day Off</p> 
-							</div>
-							
-							<label></label>
-							<div class="">
-								<p></p> 
-							</div>
-						</div>
-        	</div>
-      </mat-card>
-    </div>
-
-    <div class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
-      <mat-card class="card">
-         <div class="card-body-workinghour mt-3">
-          	<div class="wrapcontent">
-		          <div class="map">
-					<img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/calendar.png">
-							</div>
-							<label>Sunday</label>
-						</div>
-						<div  class="wrapcontent1">
-							<div class="hours">
-								<p>Day Off</p> 
-							</div>
-							
-							<label></label>
-							<div class="">
-								<p></p> 
-							</div>
-						</div>
-        	</div>
-      </mat-card>
+      	</mat-card>
     </div>
 </div>
 </mat-tab>
@@ -479,13 +280,4 @@
   </div>
 </mat-tab>
 </mat-tab-group>
-<form class="form-inline" id="search_container_workprofile">
-   <div class="search-input-container">
-      <i class="fa fa-search before-search"></i>
-      <input class="form-control searchbox_workprofile" type="text" placeholder="Search Appointment">
-    </div>
- <button type="button" class="btn btn-primary btnappoint_workprofile" (click)="AddAppointment()">Add Appointment</button>
-
-</form>
-
 </div>

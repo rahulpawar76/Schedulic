@@ -13,17 +13,7 @@
               </div>
             <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
                 <label class="font-weight-bold">Status</label> 
-              		<form>  						
-								  	<mat-form-field >
-								    	<mat-label>Accepted</mat-label>
-								    		<mat-select  name="status" (selectionChange)="someMethod($event.value)">
-
-								      	<mat-option *ngFor="let status of statuses" [value]="status.value">
-								        	{{status.viewValue}}
-								      	</mat-option>
-								    	</mat-select>
-								  	</mat-form-field>								
-									</form>
+                <p>Pending</p>
             </div>                  
           </div>
           <div class="row"> 

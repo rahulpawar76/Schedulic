@@ -129,6 +129,9 @@
       }
     }
   }
+}
+::ng-deep .statick-rating{
+  pointer-events: none;
   .star-rating{
     label{
       font-size: 20px;
