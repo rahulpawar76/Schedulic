@@ -165,7 +165,9 @@
         margin-bottom: 0px;
     }
     .mat-icon{
-        line-height: 1.5;
+        color: blue;
+        font-size: 23px;
+        line-height: 0.8;
     }
     .customerProfile-width{
         width: 15%;
@@ -189,6 +191,24 @@
             border-radius: 21px;
             background-color: #c5c5c5;
         }
+    }
+    .mobileNo-width{
+        width: 20%;
+    }
+    .officeNo-width{
+        width: 20%;
+    }
+    .homeNo-width{
+        width: 60%;
+    }
+    .registration{
+        width: 27%;
+    }
+    .lastBookedAppoint{
+        width: 35%;
+    }
+    .lastBookedService{
+        width: 38%;
     }
    
 }
