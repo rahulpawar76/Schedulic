@@ -725,7 +725,7 @@ export class FrontbookingComponent implements OnInit {
        return res;
      }),
      catchError(this.handleError)).subscribe((response:any) => {
-      if(response.data == true && response.response.user_type == "C"){
+      if(response.data == true ){
         // localStorage.setItem("userId",response.response.user_id);
         // localStorage.setItem("tokenID",response.response.id);
         // localStorage.setItem("userToken",response.response.token);

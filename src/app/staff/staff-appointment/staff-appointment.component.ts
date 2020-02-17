@@ -51,7 +51,6 @@ export class StaffAppointmentComponent implements OnInit {
     this.StaffService.getNewAppointment().subscribe((response:any) =>{
       if(response.data == true){
         this.newAppointmentData = response.response;
-        console.log(this.newAppointmentData);
       }
       else if(response.data == false) {
         this.newAppointmentData = '';
@@ -76,7 +75,6 @@ export class StaffAppointmentComponent implements OnInit {
       });
 
        dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
         this.status = result;
        });
     }
@@ -86,7 +84,6 @@ export class StaffAppointmentComponent implements OnInit {
       });
 
        dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
         this.status = result;
        });
     }
@@ -96,7 +93,6 @@ export class StaffAppointmentComponent implements OnInit {
       });
 
        dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
         this.status = result;
        });
     }
@@ -109,7 +105,6 @@ export class StaffAppointmentComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
        this.animal = result;
      });
   }
@@ -120,7 +115,6 @@ export class StaffAppointmentComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.animal = result;
      });
   }
@@ -134,7 +128,6 @@ export class StaffAppointmentComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.animal = result;
      });
 
@@ -147,7 +140,6 @@ export class StaffAppointmentComponent implements OnInit {
         });
 
          dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
           this.animal = result;
          });
 
@@ -161,7 +153,6 @@ export class StaffAppointmentComponent implements OnInit {
         });
 
          dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
           this.animal = result;
          });
 
@@ -174,7 +165,6 @@ export class StaffAppointmentComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.animal = result;
      });
    }
@@ -188,7 +178,6 @@ export class StaffAppointmentComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
        this.animal = result;
      });
   }
@@ -200,7 +189,6 @@ export class StaffAppointmentComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
        this.animal = result;
      });
   }
@@ -212,7 +200,6 @@ export class StaffAppointmentComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
        this.animal = result;
      });
   }
@@ -224,7 +211,6 @@ export class StaffAppointmentComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
        this.animal = result;
      });
   }

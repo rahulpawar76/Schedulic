@@ -1,7 +1,7 @@
 <div class="content-main">
 <mat-tab-group mat-align-tabs="start" >
   <mat-tab label="My Appointment" class="appointmentlabel">  
-    <div class="bookings-details-main">
+    <div *ngIf="appointmentData != ''" class="bookings-details-main">
       <div *ngFor="let appointmentData of appointmentData; let i = index" class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
         <mat-card class="col card mt-3 ">
           <div class="card-body">
@@ -39,9 +39,12 @@
       </mat-card>
     </div>
 </div>
+<div *ngIf="appointmentData == ''" class="bookings-details-main">
+  <h2 class="text-center my-3">NO Data Found</h2>
+</div>
 </mat-tab>
 <mat-tab label="Cancel Appointment">
-<div class="bookings-details-main">
+<div *ngIf="cancelAppointmentData != ''" class="bookings-details-main">
   <div *ngFor="let cancelAppointmentData of cancelAppointmentData; let i = index" class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
     <mat-card class="col card mt-3">
       <div class="card-body">
@@ -77,11 +80,15 @@
     </mat-card>
   </div>
   </div>
+  
+<div *ngIf="cancelAppointmentData == ''" class="bookings-details-main">
+  <h2 class="text-center my-3">NO Data Found</h2>
+</div>
 </mat-tab>
 
 
 <mat-tab label="Complete Appointment">   
-  <div class="bookings-details-main">
+  <div *ngIf="completedAppointmentData != ''" class="bookings-details-main">
     <div *ngFor="let completedAppointmentData of completedAppointmentData; let i = index" class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
       <mat-card class="col card mt-3">
         <div class="card-body">
@@ -136,6 +143,10 @@
       </mat-card>
     </div>
   </div>
+  
+<div *ngIf="completedAppointmentData == ''" class="bookings-details-main">
+  <h2 class="text-center my-3">NO Data Found</h2>
+</div>
 </mat-tab>
 </mat-tab-group>
 <form class="form-inline" id="search_container_userappo">

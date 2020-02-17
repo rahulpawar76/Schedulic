@@ -30,7 +30,7 @@
               </span>
               <span class="f13">
 
-             <mat-slide-toggle class="slidetoggle">Availability</mat-slide-toggle> 
+             <mat-slide-toggle [(ngModel)]="userStatus" [checked]="userStatus" (click)="changeStatus($event)" class="slidetoggle">Availability</mat-slide-toggle> 
 
 
                 <button  mat-stroked-button class="bellborder bell-color ml-3" (click)="openNotificationDialog()">
@@ -67,20 +67,34 @@
                 <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
                 </button> 
 
-                <mat-button-toggle class="toggleborder" (click)="drawer.toggle()">
+                <!-- <mat-button-toggle class="toggleborder" (click)="drawer.toggle()">
                   <i class="fa fa-bars toggle-color" aria-hidden="true"></i>
-                </mat-button-toggle>
+                </mat-button-toggle> -->
 
               </span> 
           </mat-toolbar-row>
       </mat-toolbar>
-      <div class="bottom_header" fxFlex="100">
+      <div class="bottom_header" *ngIf="isCustomerUser()" fxFlex="100">
         <router-outlet #outlet="outlet"></router-outlet>
+      </div>
+      <div class="bottom_header" *ngIf="isStaffUser()" fxFlex="100">
+        <router-outlet #outlet="outlet"></router-outlet>
+      </div>
+      <div class="bottom_header" *ngIf="isAdminUser()" fxFlex="100">
+        <mat-drawer-container class="example-container">
+          <mat-drawer mode="side" opened>Drawer content</mat-drawer>
+          <mat-drawer-content>
+            <router-outlet #outlet="outlet"></router-outlet>
+          </mat-drawer-content>
+        </mat-drawer-container>
+
+        
+        
       </div>
     </main>
     <!-- right drawer menu code -->
   </mat-drawer-content>
-    <mat-drawer #drawer position="end" >
+    <mat-drawer #drawer position="end">
       <mat-list role="list" *ngIf="isCustomerUser()">
         <mat-menu></mat-menu>
         <mat-list-item role="listitem" (click)="drawer.toggle()" (click)="UserProfile('./user-profile')" class="matlist pointer menuitem">
@@ -122,33 +136,19 @@
         </mat-list-item>
 
       </mat-list>
-      <mat-list role="list" *ngIf="isAdminUser()">
-        <mat-menu></mat-menu>
-        <mat-list-item role="listitem" (click)="drawer.toggle()" (click)="MyProfile('./my-profile')" class="matlist pointer menuitem">
+      <!-- <mat-list role="list" *ngIf="isAdminUser()">
+        <mat-menu>asdasd</mat-menu>
+        <mat-list-item role="listitem" (click)="drawer.toggle()" class="matlist pointer menuitem">
             <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg"><p class="font-weight-bold mt-2 p-1">Userxyzee</p>
         </mat-list-item>
-   
-        <!-- <mat-list-item role="listitem" (click)="UserAppointment('./userappointments')" 
-            (click)="drawer.toggle()">
-          <button mat-menu-item (click)="drawer.toggle()" class="menuitem">
-            <i mat-list-icon class="fa fa-briefcase mr-3"></i>My Work Space</button>
-        </mat-list-item> -->
-       
-        <mat-list-item role="listitem"  (click)="StaffAppointment('./staff-appointment')" 
-            (click)="drawer.toggle()">
+        <mat-list-item role="listitem" (click)="drawer.toggle()">
           <button mat-menu-item (click)="drawer.toggle()" class="menuitem"><i mat-list-icon  class="fa fa-calendar mr-3"></i>My Appointmets</button>
         </mat-list-item>
-
-       <!--  <mat-list-item role="listitem"  (click)="WorkProfile('./work-profile')" 
-            (click)="drawer.toggle()">
-          <button mat-menu-item (click)="drawer.toggle()" class="menuitem"><i mat-list-icon    class="material-icons mr-3">people_alt</i>Work Profile</button>
-        </mat-list-item> -->
-
         <mat-list-item role="listitem" >
           <button mat-menu-item (click)="logout(); drawer.toggle();" class="menuitem">
             <i mat-list-icon class="fa fa-sign-out mr-3 menuitem"></i>Logout</button>
         </mat-list-item>
-      </mat-list>
+      </mat-list> -->
     </mat-drawer>
 </mat-drawer-container>
 

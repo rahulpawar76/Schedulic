@@ -10,9 +10,16 @@ import { AuthenticationService } from '@app/_services';
 
 export class StaffService {
 	staffId:any
-  constructor(private http: HttpClient,private _snackBar: MatSnackBar,private authenticationService:AuthenticationService) { 
+	staffToken:any
+  constructor(
+    private http: HttpClient,
+    private _snackBar: MatSnackBar,
+    private authenticationService:AuthenticationService
+    ) { 
 
-    this.staffId=this.authenticationService.currentUserValue.user_id
+    this.staffId=JSON.stringify(this.authenticationService.currentUserValue.user_id);
+    this.staffToken = this.authenticationService.currentUserValue.token;
+    
   }  
 
   private handleError(error: HttpErrorResponse) {
@@ -22,11 +29,11 @@ export class StaffService {
 
   getProfiledata(){
     let requestObject = {
-        //"customer_id":"36"
     };
     let headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        'staff-id' : this.staffId
+        'staff-id' : this.staffId,
+        'api-token' : this.staffToken 
     });
     return this.http.post(`${environment.apiUrl}/staff-profile`,requestObject,{headers:headers}).pipe(
     map((res) => {
@@ -34,40 +41,14 @@ export class StaffService {
     }),
     catchError(this.handleError));
   }
-  getAllServices(){
-    let requestObject = {
-        'staff_id' : this.staffId
-    };
-    let headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-    });
-    return this.http.post(`${environment.apiUrl}/staff-service`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-  getWorkingHours(){
-    let requestObject = {
-        'staff_id' : this.staffId
-    };
-    let headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-    });
-    return this.http.post(`${environment.apiUrl}/staff-working-hours`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
   fnprofilesubmit(updatedprofiledata){
-    console.log(updatedprofiledata)
-    // let requestObject = {
-    //     'staff_id' : '2'
-    // };
+    let requestObject = {
+        
+    };
     let headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        'staff-id' : this.staffId
+        'staff-id' : this.staffId,
+        'api-token' : this.staffToken 
     });
     return this.http.post(`${environment.apiUrl}/staff-profile-update`,updatedprofiledata,{headers:headers}).pipe(
     map((res) => {
@@ -80,6 +61,66 @@ export class StaffService {
     }),
     catchError(this.handleError));
   }
+  
+  // work profile
+  getAllServices(){
+    let requestObject = {
+    };
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'staff-id' : this.staffId,
+        'api-token' : this.staffToken 
+    });
+    return this.http.post(`${environment.apiUrl}/staff-service`,requestObject,{headers:headers}).pipe(
+    map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+  getWorkingHours(){
+    let requestObject = {
+    };
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'staff-id' : this.staffId,
+        'api-token' : this.staffToken 
+    });
+    return this.http.post(`${environment.apiUrl}/staff-working-hours`,requestObject,{headers:headers}).pipe(
+    map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+  getBreakHours(){
+    let requestObject = {
+    };
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'staff-id' : this.staffId,
+        'api-token' : this.staffToken 
+    });
+    return this.http.post(`${environment.apiUrl}/staff-break-hours`,requestObject,{headers:headers}).pipe(
+    map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+  getAllHolidays(){
+    let requestObject = {
+    };
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'staff-id' : this.staffId,
+        'api-token' : this.staffToken 
+    });
+    return this.http.post(`${environment.apiUrl}/staff-holidayslist`,requestObject,{headers:headers}).pipe(
+    map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+
+  // staff Appointments
   getNewAppointment(){
     let requestObject = {
       'business_id': '2',
