@@ -274,3 +274,18 @@ background-color: $primary-color;
     background-color: #fff;
 }
 
+.left-admin-menu{
+    mat-drawer{
+        width: 7%;
+        filter: drop-shadow(1.5px 2.598px 1.5px rgba(2,2,2,0.09));
+        background-color: #04397f;
+        .mat-drawer-inner-container{
+            mat-list-item.logo{
+                margin-bottom: 50px;
+            }
+        }
+    }
+    &mat-drawer-content{
+        margin-left: 96px !important; 
+    }
+}
