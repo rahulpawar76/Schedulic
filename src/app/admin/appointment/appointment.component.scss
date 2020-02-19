@@ -118,3 +118,14 @@
         
     } 
 }
+#appointment{
+    ::ng-deep #DataTables_Table_0_filter{
+        input[type="search"]{
+            border-radius: 100px;
+            &:focus{
+                outline: 0;
+            }
+        }
+    }
+}
+

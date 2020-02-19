@@ -7,6 +7,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { AdminService } from '../_services/admin-main.service'
 
 @Component({
   selector: 'app-my-work-space',
@@ -19,6 +20,7 @@ export class MyWorkSpaceComponent implements OnInit {
     public dialog: MatDialog,
      private http: HttpClient,
      public router: Router,
+     private AdminService: AdminService,
      private _snackBar: MatSnackBar) {
    }
 

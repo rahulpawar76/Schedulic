@@ -11,20 +11,20 @@
 	<div class="">
 		<div class="col-12">
 			<div class="d-flex flex-wrap">
-				<mat-card class="col-lg-3 col-md-6 col-sm-12 text-center SelectBusiness">
+				<mat-card *ngFor="let allBusiness of allBusiness; let i=index" class="col-lg-3 col-md-6 col-sm-12 text-center SelectBusiness">
 					<div class="pt-3 image-round-main d-flex">
 						<div class="SelectBusinessIcon">
 							<img mat-card-avatar="" src="../../assets/images/admin/multi-building.png">
 						</div>
 					</div>
 					<div class="pt-3 business-title">
-						<h6>Glass Repair</h6>
+						<h6 class="text-capitalize">{{allBusiness.business_name}}</h6>
 					</div>
 					<div class="content">
-						Akshay Nagar 1st Block 1st cross,Rammurthy nagar, Bangalore-560016,India.
+						{{allBusiness.address}}
 					</div>
 					<div class="pt-3">
-						<button mat-button class="businness-btn">Select Business</button>
+						<button mat-button class="businness-btn" (click)="fnSelectBusiness(allBusiness.id)">Select Business</button>
 					</div>
 				</mat-card>
 				<mat-card  class="col-lg-3 col-md-6 col-sm-12 text-center NewBusiness-matcard" (click)="creatNewBusiness()">
