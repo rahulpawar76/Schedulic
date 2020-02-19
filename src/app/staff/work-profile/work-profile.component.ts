@@ -18,6 +18,8 @@ export class WorkProfileComponent implements OnInit {
  workingHours: any = [];
  breakHours: any = [];
  offDays: any = [];
+ holidayData: any;
+ postalCodeData: any;
 
 
   constructor(
@@ -29,6 +31,8 @@ export class WorkProfileComponent implements OnInit {
     this.getAllServices();
     this.getWorkingHours();
     this.getBreakHours();
+    this.getAllHolidays();
+    this.getAllPostalcodes();
   }
 
   dynamicSort(property) {
@@ -136,10 +140,67 @@ export class WorkProfileComponent implements OnInit {
 
           }
         }
-        console.log(this.offDays);
+        for(let i=0; i<this.offDays.length;i++){
+          if(this.offDays[i].week_day_id == "0"){
+            this.offDays[i].week_day_name = "Sunday";
+          }
+          if(this.offDays[i].week_day_id == "1"){
+            this.offDays[i].week_day_name = "Monday";
+
+          } 
+          if(this.offDays[i].week_day_id == "2"){
+            this.offDays[i].week_day_name = "Tuesday";
+
+          } 
+          if(this.offDays[i].week_day_id == "3"){
+            this.offDays[i].week_day_name = "Wednesday";
+
+          } 
+          if(this.offDays[i].week_day_id == "4"){
+            this.offDays[i].week_day_name = "Thursday";
+
+          } 
+          if(this.offDays[i].week_day_id == "5"){
+            this.offDays[i].week_day_name = "Friday";
+
+          } 
+          if(this.offDays[i].week_day_id == "6"){
+            this.offDays[i].week_day_name = "Saturday";
+
+          }
+        }
       }
       else if(response.data == false){
         this.breakHours = '';
+      }
+    },
+      (err) => {
+        this.error = err;
+      }
+    )
+  }
+  getAllHolidays(){
+    this.StaffService.getAllHolidays().subscribe((response:any) => {
+      if(response.data == true){
+        this.holidayData = response.response;
+      }
+      else if(response.data == false){
+        this.holidayData = '';
+      }
+    },
+      (err) => {
+        this.error = err;
+      }
+    )
+  }
+  getAllPostalcodes(){
+    this.StaffService.getAllPostalcodes().subscribe((response:any) => {
+      if(response.data == true){
+        this.postalCodeData = response.response;
+        console.log(this.postalCodeData)
+      }
+      else if(response.data == false){
+        this.postalCodeData = '';
       }
     },
       (err) => {

@@ -30,16 +30,14 @@
       </div>
       <div class="pl-5">  
         <p class="mb-0">Status</p>
-        <p class="font-weight-bold text-capitalize">Pending</p>
+        <p class="text-capitalize" *ngIf="detailData.order_status == 'P'">Waiting For Confirmation</p>
+        <p class="text-capitalize" *ngIf="detailData.order_status == 'AC'">Confirm</p>
+        <p class="text-capitalize" *ngIf="detailData.order_status == 'RSA'">Rescheduled By Admin</p>
+        <p class="text-capitalize" *ngIf="detailData.order_status == 'RSS'">Rescheduled</p>
+        <p class="text-capitalize" *ngIf="detailData.order_status == 'RSC'">Rescheduled By Customer</p>
+        <p class="text-capitalize" *ngIf="detailData.order_status == 'R'">Rejected</p>
       </div>
     </div>
-    <!-- <div>
-      <p class="mb-0">Staff</p>
-      <div class="" *ngIf="detailData.staff_id != null">
-        <p class="mb-0 font-weight-bold text-capitalize">{{detailData.staff.firstname}} {{detailData.staff.lastname}}</p>
-        <p class="mb-0">Phone NO:{{detailData.staff.phone}}</p>
-      </div>
-    </div> -->
      </div>    
      <mat-card class="card-body-marginn booking-detail-main mb-0">
        <h6 class="text-left mb-3">Booking Details</h6>

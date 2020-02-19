@@ -1,0 +1,57 @@
+<mat-sidenav-container class = "tp-container">
+   <mat-sidenav class="w-100" mode= "side" opened>
+<div class="modal-dialog mt-0 mb-0" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Appointment Details</h5>
+        <button type="button" (click)="onNoClick()" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body modal-bcolor">
+      
+      <p class="mb-0 font-weight-bold"> {{appoDetail.booking_date}}</p>
+      <p>Booked On: {{appoDetail.updated_at}}</p>
+
+      <p class="mb-0">Service</p>
+      <p class="font-weight-bold">{{appoDetail.service.service_name}}($ {{appoDetail.service.service_cost}})</p>
+      <p class="mb-0">Time</p>
+      <p class="font-weight-bold">{{appoDetail.service.service_time}}</p>
+     
+    <div class="d-flex">
+      <div class="pl-0">
+        <p class="mb-0">Order By</p>
+        <p class="font-weight-bold text-capitalize">{{appoDetail.order_by}}</p>
+      </div>
+      <div class="pl-5">  
+        <p class="mb-0">Status</p>
+        <p class="text-capitalize" *ngIf="appoDetail.order_status == 'P'">Waiting For Confirmation</p>
+        <p class="text-capitalize" *ngIf="appoDetail.order_status == 'AC'">Confirm</p>
+        <p class="text-capitalize" *ngIf="appoDetail.order_status == 'RSA'">Rescheduled By Admin</p>
+        <p class="text-capitalize" *ngIf="appoDetail.order_status == 'RSS'">Rescheduled</p>
+        <p class="text-capitalize" *ngIf="appoDetail.order_status == 'RSC'">Rescheduled By Customer</p>
+        <p class="text-capitalize" *ngIf="appoDetail.order_status == 'R'">Rejected</p>
+      </div>
+    </div>
+     </div>    
+     <mat-card class="card-body-marginn booking-detail-main mb-0">
+       <h6 class="text-left mb-3">Booking Details</h6>
+       <div class="row align-items-center">
+        <p class="customer-profile-img">SP</p>
+        <div class="customer-name pr-3">
+          <p class="font-weight-bold mb-0">{{appoDetail.customer.fullname}}</p>
+          <p class="address-fontsize mb-0">{{appoDetail.customer.email}}</p>
+        </div>
+      </div>
+        <p class=" address-fontsize"><i class="fa fa-phone pr-3 bluephone"></i>{{appoDetail.customer.phone}}</p>
+        <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i>{{appoDetail.customer.address}}</p>
+        <p class="pl-4 address-fontsize">{{appoDetail.customer.city}}, {{appoDetail.customer.state}}, {{appoDetail.customer.zip}}</p>
+        <p>Appointment Notes</p>
+        <p>{{appoDetail.booking_notes}}</p>
+    </mat-card>
+      
+    </div>
+  </div>
+</mat-sidenav>
+</mat-sidenav-container>

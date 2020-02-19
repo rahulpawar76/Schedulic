@@ -11,7 +11,11 @@ import { AuthenticationService } from '@app/_services';
 export class StaffService {
 	staffId:any
 	staffToken:any
-  constructor(private http: HttpClient,private _snackBar: MatSnackBar,private authenticationService:AuthenticationService) { 
+  constructor(
+    private http: HttpClient,
+    private _snackBar: MatSnackBar,
+    private authenticationService:AuthenticationService
+    ) { 
 
     this.staffId=JSON.stringify(this.authenticationService.currentUserValue.user_id);
     this.staffToken = this.authenticationService.currentUserValue.token;
@@ -37,6 +41,7 @@ export class StaffService {
     }),
     catchError(this.handleError));
   }
+
   fnprofilesubmit(updatedprofiledata){
     let requestObject = {
         
@@ -73,6 +78,7 @@ export class StaffService {
     }),
     catchError(this.handleError));
   }
+
   getWorkingHours(){
     let requestObject = {
     };
@@ -87,6 +93,7 @@ export class StaffService {
     }),
     catchError(this.handleError));
   }
+
   getBreakHours(){
     let requestObject = {
     };
@@ -96,6 +103,36 @@ export class StaffService {
         'api-token' : this.staffToken 
     });
     return this.http.post(`${environment.apiUrl}/staff-break-hours`,requestObject,{headers:headers}).pipe(
+    map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+
+  getAllHolidays(){
+    let requestObject = {
+    };
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'staff-id' : this.staffId,
+        'api-token' : this.staffToken 
+    });
+    return this.http.post(`${environment.apiUrl}/staff-holidayslist`,requestObject,{headers:headers}).pipe(
+    map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+
+  getAllPostalcodes(){
+    let requestObject = {
+    };
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'staff-id' : this.staffId,
+        'api-token' : this.staffToken 
+    });
+    return this.http.post(`${environment.apiUrl}/staff-postal-code`,requestObject,{headers:headers}).pipe(
     map((res) => {
         return res;
     }),
@@ -117,6 +154,7 @@ export class StaffService {
     }),
     catchError(this.handleError));
   }
+
   getCompletedAppointment(){
     let requestObject = {
       'staff_id' : this.staffId,
@@ -124,9 +162,60 @@ export class StaffService {
       'status': 'CO'
     };
     let headers = new HttpHeaders({
-        'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
     });
     return this.http.post(`${environment.apiUrl}/staff-booking`,requestObject,{headers:headers}).pipe(
+    map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+
+  getOnGoingAppointment(){
+    let requestObject = {
+      'business_id': '2',
+    };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'staff-id' : this.staffId,
+      
+    });
+    return this.http.post(`${environment.apiUrl}/staff-ongoing-bookings`,requestObject,{headers:headers}).pipe(
+    map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+  changeStatus(order_item_id, status, notes){
+    let requestObject = {
+      'order_item_id': order_item_id,
+      'order_status': status,
+      'notes' : notes,
+    };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'staff-id' : this.staffId,
+      
+    });
+    return this.http.post(`${environment.apiUrl}/staff-update-bookings`,requestObject,{headers:headers}).pipe(
+    map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+
+  // mywork-space
+  getTodayAppointment(){
+    let requestObject = {
+      'staff_id' : this.staffId,
+      'business_id': '2'
+    };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'staff-id' : this.staffId,
+      'api-token' : this.staffToken 
+    });
+    return this.http.post(`${environment.apiUrl}/staff-today-bookings`,requestObject,{headers:headers}).pipe(
     map((res) => {
         return res;
     }),

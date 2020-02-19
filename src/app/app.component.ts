@@ -6,7 +6,7 @@ import { User, Role } from './_models';
 
 //import { slideInAnimation } from './maturity/animations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 import {
@@ -125,16 +125,6 @@ export class AppComponent implements AfterViewInit {
 
 
 
-    openSelectSessionDialog(): void {
-    const dialogRef = this.dialog.open(SelectSessionDialog, {
-      width: '400px',
-      data: {path: ""}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      //this.animal = result;
-    });
-  }
 
       /*StaffDashboard Navigation*/
       StaffProfile(){
@@ -222,90 +212,10 @@ export class AppComponent implements AfterViewInit {
     }
     return getComputedStyle(document.documentElement).getPropertyValue(key);
   }
-}
 
-@Component({
-  selector: 'attendee-registration-dialog',
-  templateUrl: './_dialogs/attendee-registration-dialog.html',
-})
-
-@Component({
-  selector: 'select-session-dialog',
-  templateUrl: './_dialogs/select-session-dialog.html',
-})
-export class SelectSessionDialog {
-    selectSessionFormGroup: FormGroup;
-    currentUser: User;
-    token: string;
-    sessionData: any;
-    selectedSessionId: any;
-    selectedSessionName: any;
-   // path: any;
-    //appComponent: any;
-  constructor(
-    public router: Router,
-    public dialogRef: MatDialogRef<SelectSessionDialog>,
-    private _formBuilder: FormBuilder,
-    public authenticationService: AuthenticationService,
-    private _snackBar: MatSnackBar,
-    private _companyService: CompanyService,
-    public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
-      this.currentUser = this.authenticationService.currentUserValue;
-      this.token = this.currentUser.token;
-      let  jsonUser = {
-      "user_id": this.currentUser.id,
-      "role": this.currentUser.role,
-      "token": this.token
-    }
-    this.selectedSessionId=localStorage.getItem("session_id");
-    this.selectedSessionName=localStorage.getItem("session_name");
-  }
-
-  ngOnInit(){
-      this.selectSessionFormGroup = this._formBuilder.group({
-
-        });
-  }
-  isAdminUser() {
-      return this.currentUser && this.currentUser.role === Role.Admin;
-  }
-  saveData(): void {
-   if (this.selectSessionFormGroup.valid) {
-    let splitted = this.selectSessionFormGroup.get('session').value.split("-", 2); 
-    if(splitted[0] != localStorage.getItem("session_id")){
-      localStorage.setItem('session_id',splitted[0]);
-      localStorage.setItem('session_name',splitted[1]);
-      console.log(localStorage.getItem("session_id"));
-      console.log(localStorage.getItem("session_name"));
-      window.location.reload();
-      //this.appComponent.fnSetSessionValues();
-      /*if(this.data.path == undefined){
-        window.location.reload();
-      }else{
-        this.router.navigate([this.data.path]);
-      }*/
-    }
-    this.dialogRef.close();
-    }else if(!this.selectSessionFormGroup.get('session').value){
-      //this.dialogRef.close();
-    }else{
-      this._snackBar.open("Select Session", "X", {
-        duration: 2000,
-        verticalPosition: 'top',
-        panelClass: ['red-snackbar']
-      });
-    }
-
+  getStatusCurrentStaff(){
     
   }
-  closeModal(): void {
-    
-    this.dialogRef.close();
-  }
-
-
-
 }
 
 /*For notification Dialog*/

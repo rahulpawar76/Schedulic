@@ -52,16 +52,6 @@
               </span>
               <span class="f13">
 
-                <!-- <button   mat-stroked-button  class="admin-menu btn-menu-top" (click)="openDialog()">
-                <mat-icon mat-list-icon>person_add</mat-icon>
-                </button> -->
-
-                <!-- <button   mat-stroked-button  class="admin-menu btn-menu-top session-btn"  (click)="openSelectSessionDialog()">
-                Select Session
-                </button> -->
-
-             <mat-slide-toggle class="slidetoggle">Availability</mat-slide-toggle> 
-
 
                 <button  mat-stroked-button class="bellborder bell-color ml-3" (click)="openNotificationDialog()">
                 <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
@@ -74,8 +64,26 @@
               </span> 
           </mat-toolbar-row>
       </mat-toolbar>
-      <div class="bottom_header" fxFlex="100">
+      <div class="bottom_header" *ngIf="!isLogin() && !isFront()" fxFlex="100">
         <router-outlet #outlet="outlet"></router-outlet>
+      </div>
+      <div class="bottom_header" *ngIf="isFront()" fxFlex="100">
+        <router-outlet #outlet="outlet"></router-outlet>
+      </div>
+      <div class="bottom_header" *ngIf="isCustomerUser() && !isFront()" fxFlex="100">
+        <router-outlet #outlet="outlet"></router-outlet>
+      </div>
+      <div class="bottom_header" *ngIf="isStaffUser() && !isFront()" fxFlex="100">
+        <router-outlet #outlet="outlet"></router-outlet>
+      </div>
+      <div class="bottom_header" *ngIf="isAdminUser() && !isFront()" fxFlex="100">
+        <mat-drawer-container class="example-container">
+          <mat-drawer mode="side" opened>Drawer content</mat-drawer>
+          <mat-drawer-content>
+            <router-outlet #outlet="outlet"></router-outlet>
+          </mat-drawer-content>
+        </mat-drawer-container>
+        
       </div>
     </main>
     <!-- right drawer menu code -->
