@@ -2,12 +2,15 @@ import { Component, Inject, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { UserService } from '../_services/user.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators  } from '@angular/forms';
 import { environment } from '@environments/environment';
 import { Router, RouterOutlet } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { DatePipe} from '@angular/common';
+import {MatDatepickerInputEvent} from '@angular/material/datepicker';
+
 
 export interface DialogData {
   animal: string;
@@ -42,12 +45,6 @@ ngOnInit() {
   this.getCompletedAppointments();
 }
 
-private handleError(error: HttpErrorResponse) {
-return throwError('Error! something went wrong.');
-}
-
-
-
 getAllAppointments(): void{
   this.UserService.getAllAppointments().subscribe((response:any) =>{
     if(response.data == true){
@@ -58,6 +55,7 @@ getAllAppointments(): void{
     }
   })
 }
+
 getCancelAppointments(): void{
   this.UserService.getCancelAppointments().subscribe((response:any) =>{
     if(response.data == true){
@@ -68,6 +66,7 @@ getCancelAppointments(): void{
     }
   })
 }
+
 getCompletedAppointments(): void{
   this.UserService.getCompletedAppointments().subscribe((response:any) =>{
     if(response.data == true){
@@ -113,7 +112,7 @@ getCompletedAppointments(): void{
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      this.animal = result;
+      this.getAllAppointments();
      });
   }
 
@@ -134,12 +133,12 @@ getCompletedAppointments(): void{
     const dialogRef = this.dialog.open(DialogMyAppointmentDetails, {
       
       height: '700px',
-      data: {fulldata: this.appointmentData[index]}
+      data: {fulldata: this.appointmentData[index],index:index}
 
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      this.animal = result;
+      this.getAllAppointments();
      });
   }
 
@@ -300,12 +299,16 @@ export class DialogCancelReason {
   })
   export class DialogMyAppointmentDetails {
     myAppoDetailData: any;
+    index: any;
     animal : any;
     constructor(
       public dialogRef: MatDialogRef<DialogMyAppointmentDetails>,
        public dialog: MatDialog,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.myAppoDetailData = this.data.fulldata;
+        console.log(this.myAppoDetailData)
+        this.index = this.data.index;
+        console.log(this.index)
       }
     onNoClick(): void {
       this.dialogRef.close();
@@ -321,36 +324,193 @@ export class DialogCancelReason {
         this.animal = result;
        });
     }
-    rescheduleAppointment(index){
+    rescheduleAppointment(){
       const dialogRef = this.dialog.open(rescheduleAppointmentDialog, {
         
        // height: '700px',
-        data: {fulldata: this.myAppoDetailData[index]}
+        data: {fulldata: this.myAppoDetailData}
   
       });
   
        dialogRef.afterClosed().subscribe(result => {
-        this.animal = result;
+        this.dialogRef.close();
        });
     }
   }
 
-  @Component({
-    selector: 'reschedule-appointment-dialog',
-    templateUrl: '../_dialogs/reschedule-appointment-dialog.html',
-  })
-  export class rescheduleAppointmentDialog {
-    myAppoDetailData: any;
-
-    constructor(
-      public dialogRef: MatDialogRef<rescheduleAppointmentDialog>,
-      @Inject(MAT_DIALOG_DATA) public data: any) {
-        this.myAppoDetailData = this.data.fulldata;
-      }
-    onNoClick(): void {
-      this.dialogRef.close();
+@Component({
+  selector: 'reschedule-appointment-dialog',
+  templateUrl: '../_dialogs/reschedule-appointment-dialog.html',
+  providers: [DatePipe]
+})
+export class rescheduleAppointmentDialog {
+  myAppoDetailData: any;
+  minDate = new Date(2000, 0, 1);
+  formAppointmentReschedule: FormGroup;
+  timeSlotArr:any= [];
+  availableStaff:any= [];
+  constructor(
+    public dialogRef: MatDialogRef<rescheduleAppointmentDialog>,
+    private datePipe: DatePipe,
+    private _formBuilder: FormBuilder,
+    private http: HttpClient,
+    private userService: UserService,
+    private _snackBar: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.myAppoDetailData = this.data.fulldata;
+      console.log(JSON.stringify(this.myAppoDetailData));
+      //this.fnGetOffDays();
+      this.formAppointmentReschedule = this._formBuilder.group({
+        rescheduleServiceId: ['', Validators.required],
+        rescheduleDate: ['', Validators.required],
+        rescheduleTime: ['', Validators.required],
+        rescheduleStaff: ['', Validators.required],
+        rescheduleNote: [''],
+      });
+      this.formAppointmentReschedule.controls['rescheduleServiceId'].setValue(this.myAppoDetailData.service.id);
     }
+
+    // fnGetOffDays(){
+    //   let requestObject = {
+    //     "business_id":2
+    //   };
+    //   let headers = new HttpHeaders({
+    //     'Content-Type': 'application/json',
+    //   });
+
+    //   this.http.post(`${environment.apiUrl}/list-holidays`,requestObject,{headers:headers} ).pipe(
+    //     map((res) => {
+    //       return res;
+    //     }),
+    //     catchError(this.handleError)
+    //     ).subscribe((response:any) => {
+    //       if(response.data == true){
+    //         this.offDaysList = response.response;
+    //         //alert(JSON.stringify(this.offDaysList));
+    //       }
+    //       else{
+
+    //       }
+    //     },
+    //     (err) =>{
+    //       console.log(err)
+    //     })
+    //   }
+
+      fnDateChange(event: MatDatepickerInputEvent<Date>) {
+        console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
+        let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
+        this.formAppointmentReschedule.controls['rescheduleTime'].setValue(null);
+        this.formAppointmentReschedule.controls['rescheduleStaff'].setValue(null);
+        this.timeSlotArr= [];
+        this.availableStaff= [];
+        this.fnGetTimeSlots(this.myAppoDetailData.service.id,date);
+      }
+
+      fnGetTimeSlots(rescheduleServiceId,rescheduleDate){
+        let requestObject = {
+          "business_id":2,
+          "selected_date":rescheduleDate
+        };
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+
+        this.http.post(`${environment.apiUrl}/list-availabel-timings`,requestObject,{headers:headers} ).pipe(
+          map((res) => {
+            return res;
+          }),
+         // catchError(this.handleError)
+          ).subscribe((response:any) => {
+            if(response.data == true){
+              this.timeSlotArr=response.response;
+              console.log(this.timeSlotArr);
+            }
+            else{
+            }
+          },
+          (err) =>{
+            console.log(err)
+          })
+        }
+     
+        fnChangeTimeSlot(event){
+          console.log(event);
+          this.formAppointmentReschedule.controls['rescheduleStaff'].setValue(null);
+          this.fnGetStaff(event);
+        }
+
+        fnGetStaff(slot){
+          let requestObject = {
+            "bussiness_id":2,
+            "service_id":this.myAppoDetailData.service.id
+          };
+          let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+          });
+
+          this.http.post(`${environment.apiUrl}/service-staff`,requestObject,{headers:headers} ).pipe(
+            map((res) => {
+              return res;
+            }),
+            //catchError(this.handleError)
+          ).subscribe((response:any) => {
+            if(response.data == true){
+                this.availableStaff = response.response;
+                console.log(JSON.stringify(this.availableStaff));
+            }
+            else{
+              this.availableStaff.length=0;
+            }
+            },
+            (err) =>{
+              console.log(err)
+            })
+        }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
+  formRescheduleSubmit(){
+    if(this.formAppointmentReschedule.invalid){
+      return false;
+    }
+
+    console.log(this.myAppoDetailData.order_id);
+    console.log(this.formAppointmentReschedule.get('rescheduleServiceId').value);
+    console.log(this.datePipe.transform(new Date(this.formAppointmentReschedule.get('rescheduleDate').value),"yyyy-MM-dd"));
+    console.log(this.formAppointmentReschedule.get('rescheduleTime').value);
+    console.log(this.formAppointmentReschedule.get('rescheduleStaff').value);
+    console.log(this.formAppointmentReschedule.get('rescheduleNote').value);
+    let requestObject = {
+     "order_item_id":JSON.stringify(this.myAppoDetailData.id),
+     "staff_id":this.formAppointmentReschedule.get('rescheduleStaff').value,
+     "book_date":this.datePipe.transform(new Date(this.formAppointmentReschedule.get('rescheduleDate').value),"yyyy-MM-dd"),
+     "book_time":this.formAppointmentReschedule.get('rescheduleTime').value,
+     "book_notes":this.formAppointmentReschedule.get('rescheduleNote').value
+    };
+    this.userService.rescheduleAppointment(requestObject).subscribe((response:any) =>{
+      if(response.data == true){
+        this._snackBar.open("Appointment Rescheduled", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+          });
+          this.dialogRef.close();
+     }
+      else if(response.data == false){
+        this._snackBar.open("Appointment not Rescheduled", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+          });
+      }
+    })
+  }
+}
+
+
+
 
   @Component({
     selector: 'dialog-complete-appointment-details',
