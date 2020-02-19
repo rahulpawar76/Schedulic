@@ -7,8 +7,10 @@
             </button>
         </div>
         <div class="modal-body">
+            <form [formGroup]="formAppointmentReschedule">
             <p class="mb-0">Service</p>
             <p class="font-weight-bold">{{myAppoDetailData.service.service_name}}</p>
+            <input formControlName="rescheduleServiceId" hidden >
             <div class="row">
                 <div class="col-6">
                     <label class="mb-0">Select Date</label>
@@ -16,7 +18,9 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
-                        <input type="date" class="form-control formcontrol">
+                        <!-- <input type="date" class="form-control formcontrol"> -->
+                        <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="Choose a date" formControlName="rescheduleDate" class="form-control formcontrol" (click)="picker.open()" (dateChange)="fnDateChange($event)">
+                        <mat-datepicker #picker></mat-datepicker>
                     </div>
                 </div>
                 <div class="col-6 mb-3">
@@ -25,17 +29,23 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
                         </div>
-                        <input type="time" class="form-control formcontrol">
+                       <!--  <input type="time"   class="form-control formcontrol"> -->
+                        <mat-select formControlName="rescheduleTime" class="form-control formcontrol" (selectionChange)="fnChangeTimeSlot($event.value)" [disabled]="">
+                            <!-- <mat-option>None</mat-option> -->
+                            <mat-option *ngFor="let slot of timeSlotArr" value="{{slot}}">{{slot}}</mat-option>
+                        </mat-select>
                     </div>
                 </div>
             </div>
+            <!-- [(value)]="selected" -->
             <label>Staff</label>
-            <mat-select class="form-control formcontrol mb-3">
-                <mat-option value="option">Meet Shah</mat-option>
+            <mat-select class="form-control formcontrol mb-3" formControlName="rescheduleStaff" >
+                <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">{{staff.firstname}} {{staff.lastname}}</mat-option>
             </mat-select>
             <label class="mb-0">Add Note</label>
-            <textarea class="form-control mb-2" placeholder="Dummy text lorem ipsum"></textarea>
-            <button class="d-block btn btn-primary addbtnred float-right">Reschedule</button>
+            <textarea class="form-control mb-2" placeholder="Add Note" formControlName="rescheduleNote" ></textarea>
+            <button class="d-block btn btn-primary addbtnred float-right" (click)='formRescheduleSubmit($event)'>Reschedule</button>
+        </form>
       </div>
     </div>
   </div>

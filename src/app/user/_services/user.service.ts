@@ -28,11 +28,11 @@ private handleError(error: HttpErrorResponse) {
 
 	getUserProfileData() {
 		let requestObject = {
-			"customer_id":this.userId
+			"customer_id":JSON.stringify(this.userId)
 			};
 			let headers = new HttpHeaders({
 			'Content-Type': 'application/json',
-			"customer-id":this.userId
+			"customer-id":JSON.stringify(this.userId)
 			});
 			return this.http.post(`${environment.apiUrl}/customer-profile`,requestObject,{headers:headers}).pipe(
 			map((res) => {
@@ -45,7 +45,7 @@ private handleError(error: HttpErrorResponse) {
 	updateUserProfileData(updatedprofiledata) {
 			let headers = new HttpHeaders({
 			'Content-Type': 'application/json',
-			"customer-id":this.userId
+			"customer-id":JSON.stringify(this.userId)
 			});
 			return this.http.post(`${environment.apiUrl}/customer-profile-update`,updatedprofiledata,{headers:headers}).pipe(
 			map((res) => {
@@ -66,7 +66,7 @@ private handleError(error: HttpErrorResponse) {
 		};
 		let headers = new HttpHeaders({
 		'Content-Type': 'application/json',
-		"customer-id":this.userId
+		"customer-id":JSON.stringify(this.userId)
 		});
 		return this.http.post(`${environment.apiUrl}/customer-bookings`,requestObject,{headers:headers}).pipe(
 		map((res) => {
@@ -80,7 +80,7 @@ private handleError(error: HttpErrorResponse) {
 		};
 		let headers = new HttpHeaders({
 		'Content-Type': 'application/json',
-		"customer-id":this.userId
+		"customer-id":JSON.stringify(this.userId)
 		});
 		return this.http.post(`${environment.apiUrl}/customer-booking-cancel`,requestObject,{headers:headers}).pipe(
 		map((res) => {
@@ -94,7 +94,7 @@ private handleError(error: HttpErrorResponse) {
 		};
 		let headers = new HttpHeaders({
 		'Content-Type': 'application/json',
-		"customer-id":this.userId
+		"customer-id":JSON.stringify(this.userId)
 		});
 		return this.http.post(`${environment.apiUrl}/customer-booking-complete`,requestObject,{headers:headers}).pipe(
 		map((res) => {
@@ -127,6 +127,19 @@ private handleError(error: HttpErrorResponse) {
 		'Content-Type': 'application/json',
 		});
 		return this.http.post(`${environment.apiUrl}/customer-rating`,requestObject,{headers:headers}).pipe(
+		map((res) => {
+			return res;
+		}),
+		catchError(this.handleError));
+	}
+
+	rescheduleAppointment(requestObject){
+		
+		let headers = new HttpHeaders({
+		'Content-Type': 'application/json',
+		"customer-id":JSON.stringify(this.userId)
+		});
+		return this.http.post(`${environment.apiUrl}/order-resedule`,requestObject,{headers:headers}).pipe(
 		map((res) => {
 			return res;
 		}),
