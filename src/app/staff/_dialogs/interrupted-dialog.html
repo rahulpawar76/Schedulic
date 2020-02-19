@@ -11,9 +11,9 @@
           <p class="h5 interrupted-content">some reason!</p>
            
           <label>Add Note</label>
-          <textarea class="form-control mb-2" placeholder="Dummy text lorem ipsum"></textarea>
+          <textarea class="form-control mb-2" [(ngModel)]="notes" placeholder="Dummy text lorem ipsum"></textarea>
 
-           <button class="d-block btn btn-primary addbtnred float-right" (click)="fninterrupted($event)">Next</button>
+           <button class="d-block btn btn-primary addbtnred float-right" (click)="changeBookingStatus(booking_id, status)">Next</button>
       </div>
     </div>
   </div>

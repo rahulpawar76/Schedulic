@@ -3,6 +3,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { StaffService } from '../_services/staff.service'
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface status {
   
@@ -27,17 +28,20 @@ export class StaffAppointmentComponent implements OnInit {
   status: any;
   newAppointmentData: any;
   completedAppointmentData: any;
+  onGoingAppointmentData: any;
+  notes: any;
 
   statuses: status[] = [
-    {value: 'ontheway', viewValue: 'On The Way',statuses:''},
-    {value: 'workstarted', viewValue: 'Work Started',statuses:''},
-    {value: 'interrupted', viewValue: 'Interrupted',statuses:''}
+    {value: 'OW', viewValue: 'On The Way',statuses:''},
+    {value: 'WS', viewValue: 'Work Started',statuses:''},
+    {value: 'ITR', viewValue: 'Interrupted',statuses:''}
   ];
   
 
   constructor(
     public dialog: MatDialog,
     private StaffService: StaffService,
+    private _snackBar: MatSnackBar,
     
     ) { }
 
@@ -45,6 +49,7 @@ export class StaffAppointmentComponent implements OnInit {
 
     this.getNewAppointment();
     this.getCompletedAppointment();
+    this.getOnGoingAppointment();
   }
 
   getNewAppointment(){
@@ -67,43 +72,81 @@ export class StaffAppointmentComponent implements OnInit {
       }
     })
   }
-
-   someMethod(event): void {
-    if(event == 'ontheway'){
+  getOnGoingAppointment(){
+    this.StaffService.getOnGoingAppointment().subscribe((response:any) =>{
+      if(response.data == true){
+        this.onGoingAppointmentData = response.response;
+      }
+      else if(response.data == false) {
+        this.onGoingAppointmentData = '';
+      }
+    })
+  }
+   someMethod(booking_id, status): void {
+    if(status == 'OW'){
       const dialogRef = this.dialog.open(DialogONTheWay, {
         width: '500px',
+        data: {booking_id :booking_id, status: status}
       });
 
        dialogRef.afterClosed().subscribe(result => {
         this.status = result;
+        this.getOnGoingAppointment();
        });
     }
-    if(event == 'workstarted'){
+    if(status == 'WS'){
       const dialogRef = this.dialog.open(DialogWorkStarted, {
         width: '500px',
+        data: {booking_id :booking_id, status: status}
       });
 
        dialogRef.afterClosed().subscribe(result => {
         this.status = result;
+        this.getOnGoingAppointment();
        });
     }
-    if(event == 'interrupted'){
+    if(status == 'ITR'){
       const dialogRef = this.dialog.open(DialogInterrupted, {
         width: '500px',
+        data: {booking_id :booking_id, status: status}
       });
 
        dialogRef.afterClosed().subscribe(result => {
         this.status = result;
+        this.getOnGoingAppointment();
        });
     }
   }
 
+  changeBookingStatus(order_item_id, status){
+    this.StaffService.changeStatus(order_item_id, status, this.notes).subscribe((response:any) =>{
+      if(response.data == true){
+        this._snackBar.open("Appointment Updated", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        
+        this.getNewAppointment();
+        this.getCompletedAppointment();
+        this.getOnGoingAppointment();
+      }
+      else if(response.data == false) {
+        this._snackBar.open("Appointment Not Updated", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        }); 
+      }
+    })
+  }
+
+
+
   AddAppointment() {
     const dialogRef = this.dialog.open(DialogAddNewAppointment, {
       width: '500px',
-      
     });
-
      dialogRef.afterClosed().subscribe(result => {
        this.animal = result;
      });
@@ -113,7 +156,6 @@ export class StaffAppointmentComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogNewAppointment, {
       width: '500px',
     });
-
      dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
      });
@@ -121,53 +163,50 @@ export class StaffAppointmentComponent implements OnInit {
 
 
   StaffMyAppointmentDetails(index){
-
     const dialogRef = this.dialog.open(DialogStaffMyAppointmentDetails, {
      height: '700px',
      data :{fulldata : this.newAppointmentData[index]}
     });
-
      dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
+      this.getNewAppointment();
+      this.getCompletedAppointment();
+      this.getOnGoingAppointment();
      });
-
   }
 
-  OnGoingAppointmentDetails(){
-
-      const dialogRef = this.dialog.open(OnGoingAppointmentDetails, {
-         height: '700px',
-        });
-
-         dialogRef.afterClosed().subscribe(result => {
-          this.animal = result;
-         });
-
+  OnGoingAppointmentDetails(index){
+    const dialogRef = this.dialog.open(OnGoingAppointmentDetails, {
+      height: '700px',
+      data: {fuldata: this.onGoingAppointmentData[index]}
+    });
+      dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+      });
   }
 
   CompleteAppointmentDetails(index){
+    const dialogRef = this.dialog.open(CompleteAppointmentDetails, {
+      height: '700px',
+      data : {fuldata: this.completedAppointmentData[index]}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    this.animal = result;
+    });
 
-      const dialogRef = this.dialog.open(CompleteAppointmentDetails, {
-         height: '700px',
-         data : {fuldata: this.completedAppointmentData[index]}
-        });
+  }
 
-         dialogRef.afterClosed().subscribe(result => {
-          this.animal = result;
-         });
+  rescheduleAppointment(){
+    const dialogRef = this.dialog.open(InterruptedReschedule, {
+      height: '700px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    this.animal = result;
+    });
 
   }
   
-  fninterrupted(event){
-    const dialogRef = this.dialog.open(InterruptedReschedule, {
-      width: '500px',
 
-    });
-
-     dialogRef.afterClosed().subscribe(result => {
-      this.animal = result;
-     });
-   }
 
    /*Payment Module*/
 
@@ -240,7 +279,6 @@ export class StaffAppointmentComponent implements OnInit {
       templateUrl: '../_dialogs/new-appointment.html',
   })
   export class DialogNewAppointment {
-
     constructor(
       public dialogRef: MatDialogRef<DialogNewAppointment>,
       @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
@@ -256,12 +294,40 @@ export class StaffAppointmentComponent implements OnInit {
     templateUrl: '../_dialogs/on-the-way-dialog.html',
   })
   export class DialogONTheWay {
-
+    status: any;
+    booking_id: any;
+    notes: any;
     constructor(
       public dialogRef: MatDialogRef<DialogONTheWay>,
-      @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+      public dialog: MatDialog,
+      private StaffService: StaffService,
+      private _snackBar: MatSnackBar,
+      @Inject(MAT_DIALOG_DATA) public data: any) {
+
+        this.status = this.data.status;
+        this.booking_id = this.data.booking_id 
+      }
 
     onNoClick(): void {
+      this.dialogRef.close();
+    }
+    changeBookingStatus(order_item_id, status){
+      this.StaffService.changeStatus(order_item_id, status, this.notes).subscribe((response:any) =>{
+        if(response.data == true){
+          this._snackBar.open("Appointment Updated", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+        }
+        else if(response.data == false) {
+          this._snackBar.open("Appointment Not Updated", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          }); 
+        }
+      })
       this.dialogRef.close();
     }
 
@@ -274,12 +340,42 @@ export class StaffAppointmentComponent implements OnInit {
     templateUrl: '../_dialogs/work-started-dialog.html',
   })
   export class DialogWorkStarted {
-
+    
+    status: any;
+    booking_id: any;
+    notes: any;
     constructor(
       public dialogRef: MatDialogRef<DialogWorkStarted>,
-      @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+      public dialog: MatDialog,
+      private StaffService: StaffService,
+      private _snackBar: MatSnackBar,
+      @Inject(MAT_DIALOG_DATA) public data: any) {
+        
+        this.status = this.data.status;
+        this.booking_id = this.data.booking_id 
+      }
 
     onNoClick(): void {
+      this.dialogRef.close();
+      
+    }
+    changeBookingStatus(order_item_id, status){
+      this.StaffService.changeStatus(order_item_id, status, this.notes).subscribe((response:any) =>{
+        if(response.data == true){
+          this._snackBar.open("Appointment Updated", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+        }
+        else if(response.data == false) {
+          this._snackBar.open("Appointment Not Updated", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          }); 
+        }
+      })
       this.dialogRef.close();
     }
 
@@ -291,15 +387,43 @@ export class StaffAppointmentComponent implements OnInit {
   })
   export class DialogInterrupted {
      animal: any;
-
+    
+     status: any;
+     booking_id: any;
+     notes: any;
     constructor(
       public dialogRef: MatDialogRef<DialogInterrupted>,
-      @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+      private StaffService: StaffService,
+      private _snackBar: MatSnackBar,
+      @Inject(MAT_DIALOG_DATA) public data: any) {
+        
+        this.status = this.data.status;
+        this.booking_id = this.data.booking_id 
+      }
 
     onNoClick(): void {
       this.dialogRef.close();
     }
-
+    
+    changeBookingStatus(order_item_id, status){
+      this.StaffService.changeStatus(order_item_id, status, this.notes).subscribe((response:any) =>{
+        if(response.data == true){
+          this._snackBar.open("Appointment Updated", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+        }
+        else if(response.data == false) {
+          this._snackBar.open("Appointment Not Updated", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          }); 
+        }
+      })
+      this.dialogRef.close();
+    }
 
   }
 
@@ -328,17 +452,38 @@ export class StaffAppointmentComponent implements OnInit {
       templateUrl: '../_dialogs/new-appointment-details.html',
   })
   export class DialogStaffMyAppointmentDetails {
-
+    notes:any;
     detailData: any;
     constructor(
       public dialogRef: MatDialogRef<DialogStaffMyAppointmentDetails>,
+      private StaffService: StaffService,
+      private _snackBar: MatSnackBar,
       @Inject(MAT_DIALOG_DATA) public data: any) {
-
         this.detailData =  this.data.fulldata;
       }
-
     onNoClick(): void {
       this.dialogRef.close();
+    }
+    
+    changeBookingStatus(order_item_id, status){
+      this.StaffService.changeStatus(order_item_id, status, this.notes).subscribe((response:any) =>{
+        if(response.data == true){
+          this._snackBar.open("Appointment Updated", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+          this.dialogRef.close();
+        }
+        else if(response.data == false) {
+          this._snackBar.open("Appointment Not Updated", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          }); 
+          this.dialogRef.close();
+        }
+      })
     }
 
   }
@@ -350,13 +495,59 @@ export class StaffAppointmentComponent implements OnInit {
       templateUrl: '../_dialogs/ongoing-appointmet-details.html',
   })
   export class OnGoingAppointmentDetails {
-
+    
+  status: any;
+  appoDetail: any;
     constructor(
       public dialogRef: MatDialogRef<OnGoingAppointmentDetails>,
-      @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+      public dialog: MatDialog,
+      private StaffService: StaffService,
+      @Inject(MAT_DIALOG_DATA) public data: any) {
+
+        this.appoDetail = this.data.fuldata;
+      }
+
+      statuses: status[] = [
+        {value: 'OW', viewValue: 'On The Way',statuses:''},
+        {value: 'WS', viewValue: 'Work Started',statuses:''},
+        {value: 'ITR', viewValue: 'Interrupted',statuses:''}
+      ];
 
     onNoClick(): void {
       this.dialogRef.close();
+    }
+
+    someMethod(booking_id, status): void {
+      if(status == 'OW'){
+        const dialogRef = this.dialog.open(DialogONTheWay, {
+          width: '500px',
+          data: {booking_id :booking_id, status: status}
+        });
+  
+         dialogRef.afterClosed().subscribe(result => {
+          this.status = result;
+         });
+      }
+      if(status == 'WS'){
+        const dialogRef = this.dialog.open(DialogWorkStarted, {
+          width: '500px',
+          data: {booking_id :booking_id, status: status}
+        });
+  
+         dialogRef.afterClosed().subscribe(result => {
+          this.status = result;
+         });
+      }
+      if(status == 'ITR'){
+        const dialogRef = this.dialog.open(DialogInterrupted, {
+          width: '500px',
+          data: {booking_id :booking_id, status: status}
+        });
+  
+         dialogRef.afterClosed().subscribe(result => {
+          this.status = result;
+         });
+      }
     }
 
   }

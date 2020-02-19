@@ -15,7 +15,7 @@
 			}
 		}
 		.second{
-			justify-content: end;
+			justify-content: flex-end;
 			display: flex;
 			a{
 				background-color: #f87912;
@@ -102,13 +102,13 @@
 
 }
 @media only screen and (max-width: 765px) and (orientation:portrait) {
-   		mat-card{
-   			margin-right: 0 !important;
-   			padding-bottom: 10px;
-   		}
-   		.SelectBusiness{
-   			margin-bottom: 10px;
-   		}   	
+	mat-card{
+		margin-right: 0 !important;
+		padding-bottom: 10px;
+	}
+	.SelectBusiness{
+		margin-bottom: 10px;
+	}   	
 }
 
 @media only screen and (max-width: 767px) {

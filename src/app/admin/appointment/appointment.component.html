@@ -1,0 +1,214 @@
+<div class="max-width-94" id="appointment" style="margin-top: 70px;">
+    <div class="row">
+        <div class="appointment-header col-12">
+            <div class="d-flex mt-2 mb-2 ml-4 mr-4 col-12 header-content">
+                <div class="col-lg-4 col-12 col-md-4 col-sm-12 d-flex">
+                    <mat-form-field appearance="outline" class="appoint-daily mr-2">
+                        <mat-label>Daily</mat-label>
+                        <mat-select [(value)]="selected">
+                            <mat-option>None</mat-option>
+                            <mat-option value="option1">Daily</mat-option>
+                            <mat-option value="option2">Weekly</mat-option>
+                            <mat-option value="option3">Monthly</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="appoint-service mr-2">
+                        <mat-label>All Services</mat-label>
+                        <mat-select [(value)]="selected1">
+                            <mat-option>None</mat-option>
+                            <mat-option value="option1">Option 1</mat-option>
+                            <mat-option value="option2">Option 2</mat-option>
+                            <mat-option value="option3">Option 3</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="appoint-action">
+                        <mat-label>Actions</mat-label>
+                        <mat-select [(value)]="selected2">
+                            <mat-option>None</mat-option>
+                            <mat-option value="option1">Accept</mat-option>
+                            <mat-option value="option2">Cancel</mat-option>                        
+                        </mat-select>
+                    </mat-form-field> 
+                </div>
+                <div class="col-lg-4 col-12 col-md-4 col-sm-12 d-flex header-date">
+                    <div id="head-date" class=" .offset-lg-4">
+                        <div class="d-flex">
+                            <button class="date-btn pr-2"><i class="fa fa-angle-left date-icon" aria-hidden="true"></i></button>
+                            <p class="date-para pr-2">22 Oct 2019</p>
+                            <button  class="date-btn"><i class="fa fa-angle-right date-icon" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-12 col-md-4 col-sm-12 d-flex">
+                    <div class="searchbox mr-2">
+                        <form class="serch_input-appoint">							
+                            <div class="form-group has-search">
+                                <span class="fa fa-search form-control-feedback verticalLine"></span>
+                                <input type="text" class="form-control searchbox_appointment " placeholder="Customer,Service Staff,Status">
+                            </div>												
+                        </form>
+                    </div>  
+                    <div class="">
+                        <button (click)="addAppointment()" class="addAppointment-head-btn mt-1">Add Appointment </button>
+                    </div> 
+                </div>
+            </div>            
+        </div>
+        <div class="col-12" id="Appointment-dataTable">
+            <table [dtOptions]="dtOptions" datatable class="row-border hover">
+                <thead>
+                  <tr>
+                    <th>Date & Time</th>
+                    <th>Customer</th>
+                    <th>Service</th>
+                    <th>Staff</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                        <p>22 Oct 2019,</p>
+                        <p>8.15am</p>
+                    </td>
+                    <td>
+                        <p>Rajkumar Balakrishnan</p>
+                        <p>Phone No: 9876543120</p>
+                    </td>
+                    <td> <p>Repainting of wall</p>
+                        <p>Painting</p>
+                    </td>
+                    <td> <p>Pooja Chakrabarti</p>
+                        <p>Phone No: 9876543120</p>
+                    </td>
+                    <td>$.3000.00</td>
+                    <td>Accepted</td>
+                    <td> 
+                        <button (click)="newAppointment()" class="appointment-edit-btn mr-1"><i class="fa fa-pencil appointment-icon" aria-hidden="true"></i></button>
+                        <button class="appointment-cancel-btn mr-1"><i class="fa fa-times appointment-icon" aria-hidden="true"></i></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <p>22 Oct 2019,</p>
+                        <p>8.15am</p>
+                    </td>
+                    <td>
+                        <p>Rajkumar Balakrishnan</p>
+                        <p>Phone No: 9876543120</p>
+                    </td>
+                    <td> <p>Repainting of wall</p>
+                        <p>Painting</p>
+                    </td>
+                    <td> <p>Pooja Chakrabarti</p>
+                        <p>Phone No: 9876543120</p>
+                    </td>
+                    <td>$.3000.00</td>
+                    <td>Accepted</td>
+                    <td> 
+                        <button class="appointment-edit-btn mr-1"><i class="fa fa-pencil appointment-icon" aria-hidden="true"></i></button>
+                        <button class="appointment-cancel-btn mr-1"><i class="fa fa-times appointment-icon" aria-hidden="true"></i></button>
+                        <button class="appointment-confirm-btn mr-1"><i class="fa fa-check appointment-icon" aria-hidden="true"></i></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <p>22 Oct 2019,</p>
+                        <p>8.15am</p>
+                    </td>
+                    <td>
+                        <p>Rajkumar Balakrishnan</p>
+                        <p>Phone No: 9876543120</p>
+                    </td>
+                    <td> <p>Repainting of wall</p>
+                        <p>Painting</p>
+                    </td>
+                    <td> <p>Pooja Chakrabarti</p>
+                        <p>Phone No: 9876543120</p>
+                    </td>
+                    <td>$.3000.00</td>
+                    <td>Accepted</td>
+                    <td> 
+                        <button class="appointment-edit-btn mr-1"><i class="fa fa-pencil appointment-icon" aria-hidden="true"></i></button>
+                        <button class="appointment-cancel-btn mr-1"><i class="fa fa-times appointment-icon" aria-hidden="true"></i></button>
+                        <button class="appointment-confirm-btn mr-1"><i class="fa fa-check appointment-icon" aria-hidden="true"></i></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <p>22 Oct 2019,</p>
+                        <p>8.15am</p>
+                    </td>
+                    <td>
+                        <p>Rajkumar Balakrishnan</p>
+                        <p>Phone No: 9876543120</p>
+                    </td>
+                    <td> <p>Repainting of wall</p>
+                        <p>Painting</p>
+                    </td>
+                    <td> <p>Pooja Chakrabarti</p>
+                        <p>Phone No: 9876543120</p>
+                    </td>
+                    <td>$.3000.00</td>
+                    <td>Accepted</td>
+                    <td> 
+                        <button class="appointment-edit-btn mr-1"><i class="fa fa-pencil appointment-icon" aria-hidden="true"></i></button>
+                        <button class="appointment-cancel-btn mr-1"><i class="fa fa-times appointment-icon" aria-hidden="true"></i></button>
+                        <button class="appointment-confirm-btn mr-1"><i class="fa fa-check appointment-icon" aria-hidden="true"></i></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <p>22 Oct 2019,</p>
+                        <p>8.15am</p>
+                    </td>
+                    <td>
+                        <p>Rajkumar Balakrishnan</p>
+                        <p>Phone No: 9876543120</p>
+                    </td>
+                    <td> <p>Repainting of wall</p>
+                        <p>Painting</p>
+                    </td>
+                    <td> <p>Pooja Chakrabarti</p>
+                        <p>Phone No: 9876543120</p>
+                    </td>
+                    <td>$.3000.00</td>
+                    <td>Accepted</td>
+                    <td> 
+                        <button class="appointment-edit-btn mr-1"><i class="fa fa-pencil appointment-icon" aria-hidden="true"></i></button>
+                        <button class="appointment-cancel-btn mr-1"><i class="fa fa-times appointment-icon" aria-hidden="true"></i></button>
+                        <button class="appointment-confirm-btn mr-1"><i class="fa fa-check appointment-icon" aria-hidden="true"></i></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <p>22 Oct 2019,</p>
+                        <p>8.15am</p>
+                    </td>
+                    <td>
+                        <p>Rajkumar Balakrishnan</p>
+                        <p>Phone No: 9876543120</p>
+                    </td>
+                    <td> <p>Repainting of wall</p>
+                        <p>Painting</p>
+                    </td>
+                    <td> <p>Pooja Chakrabarti</p>
+                        <p>Phone No: 9876543120</p>
+                    </td>
+                    <td>$.3000.00</td>
+                    <td>Accepted</td>
+                    <td> 
+                        <button class="appointment-edit-btn mr-1"><i class="fa fa-pencil appointment-icon" aria-hidden="true"></i></button>
+                        <button class="appointment-cancel-btn mr-1"><i class="fa fa-times appointment-icon" aria-hidden="true"></i></button>
+                        <button class="appointment-confirm-btn mr-1"><i class="fa fa-check appointment-icon" aria-hidden="true"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+                </table>
+        </div>
+    </div>
+</div>
