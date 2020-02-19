@@ -1,7 +1,15 @@
-// .max-width-94{
-//     max-width: 94%;
-//     margin: 0 auto;
+// ::ng-deep .mat-drawer{
+//     max-width: 25%;
 // }
+// ::ng-deep .mat-drawer-content{
+//     max-width: 75%;
+//     margin-left: 288px;
+// }
+.max-width-94{
+    max-width: 94%;
+    margin: 0 auto;
+}
+
 .example-container{
     .devider-slim{
         width: 100%;
@@ -89,10 +97,10 @@
         }
         .customer-checkbox{
             line-height: 3;
-            width: 7%;
+            width:11%;
         }
         .customer-name-width{
-            width: 13%;
+            width: 20%;
             margin-right: .5rem!important;
             .customer-name{
                 background-color:#00c6ff;
@@ -104,7 +112,7 @@
             }
         }        
         .customer-details{
-            width: 80%;
+            width: 69%;
         }
     }
     #Add-New-Customer{
@@ -157,6 +165,21 @@
 
 
 #Customer-Listing{
+    
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix{
+        padding: 10px 0 10px 10px;
+    }
+    ::ng-deep  .mat-form-field-infix {
+        border-top: unset;
+    }
+    ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper{
+        transform: inherit;
+    }
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper{
+        background-color: white;
+        border-radius: 5px;
+    }
+
     .devider-slim{
         width: 100%;
         border-bottom: 1px solid #ccc;
@@ -164,33 +187,38 @@
     p{
         margin-bottom: 0px;
     }
-    .mat-icon{
-        color: blue;
-        font-size: 23px;
-        line-height: 0.8;
-    }
+    mat-icon{
+        line-height: 1.5;
+    }    
     .customerProfile-width{
         width: 15%;
     }
     .customerName-width{
         width: 60%;
+        height: max-content;
     }
     .customer-btn{
         margin-left: auto;
+        height: max-content;
         display: flex;
         .customer-edit-btn{
             width: 103px;
-            height: 41px;
+            height: 37px;
             border-radius: 21px;
             background-color: #1173f4;
             color: white;
         }
         .customer-delete-btn{
             width: 129px;
-            height: 41px;
+            height: 37px;
             border-radius: 21px;
             background-color: #c5c5c5;
         }
+    }
+    .add-tag-icon{
+        color: blue;
+        font-size: 23px;
+        line-height: 0.8;
     }
     .mobileNo-width{
         width: 20%;
@@ -210,6 +238,97 @@
     .lastBookedService{
         width: 38%;
     }
-   
+    .Add-Appointment{
+        width: 180px;
+        height: 37px;
+        border-radius: 23px;
+        background-color: #f87812;
+        color: white;
+        margin-left: auto;
+    }
+    .notes{
+        color: blue;
+    }
+    .Add-Note-btn{
+        width: 120px;
+        height: 37px;
+        border-radius: 23px;
+        background-color: #f87812;
+        color: white;
+    }
+    .addNotes{
+        display: flex;
+        justify-content: center;
+        .Add-notes-background{
+            width: 31%;
+            height: 165px;
+            background-color: #fcfcfc;
+            color: #f87812;
+            border: 1px solid #fbb984;
+            border-radius: 6px;
+            .addnote-icon{
+                font-size: 70px;  
+                line-height: 1;         
+            }
+            .addnote-link{
+                color: #f87812;
+            }
+        }
+    }
+    .NoteMatcard{
+        background-color: #e8f2fe;
+        border: 1px solid #73b0ff;
+        border-radius: 12px;
+        .add-note-subject-icon{
+            background-color: white;
+            border-radius: 50%;
+            text-align: center;
+            color: #5b9ff7;
+        }
+        .border-bottom{
+            border-bottom: 1px solid #dee2e6;;
+        }
+       
+    }
+    .paymentMatTab{
+
+    }
+    
+        .searchbox{
+            .has-search .form-control {
+                padding-left: 2.375rem;
+            }
+            
+            .has-search .form-control-feedback {
+                position: absolute;
+                z-index: 2;
+                display: block;
+                width: 2.375rem;
+                height: 2.375rem;
+                line-height: 2.375rem;
+                text-align: center;
+                pointer-events: none;
+                color: #aaa;
+            }                 
+        }
+    
+    
+}
+
+// <!---add-new-note-dialog style ---->
+::ng-deep .modal-footer{
+    border: none !important;
+    ::ng-deep .cancelbtn{
+        width: 112px;
+        height: 37px;
+        border-radius: 25px;
+        background-color: #9b9b9b;
+    }
+    ::ng-deep .savebtn{
+        width: 112px;
+        height: 37px;
+        border-radius: 25px;
+        background-color: #1173f4;  
+    }
 }
 

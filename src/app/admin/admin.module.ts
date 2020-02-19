@@ -20,6 +20,8 @@ import { DataTablesModule } from 'angular-datatables';
 import { DialogAddNewAppointment } from './appointment/appointment.component';
 import { DialogNewAppointment } from './appointment/appointment.component';
 import { CustomersComponent } from './customers/customers.component';
+import { DialogNewCustomerAppointment } from './customers/customers.component';
+import { DialogAddNewNote } from './customers/customers.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { CustomersComponent } from './customers/customers.component';
     AppointmentComponent,
     DialogAddNewAppointment,
     DialogNewAppointment,
-    CustomersComponent
+    CustomersComponent,
+    DialogNewCustomerAppointment,
+    DialogAddNewNote
     ],
   imports: [
     CommonModule,
@@ -49,6 +53,6 @@ import { CustomersComponent } from './customers/customers.component';
   exports: [
     FormsModule
   ],
-  entryComponents: [myCreateNewBusinessDialog,myWorkSpaceAcceptDialog,DialogAddNewAppointment,DialogNewAppointment],
+  entryComponents: [myCreateNewBusinessDialog,myWorkSpaceAcceptDialog,DialogAddNewAppointment,DialogNewAppointment,DialogNewCustomerAppointment,DialogAddNewNote],
 })
 export class AdminModule { }
