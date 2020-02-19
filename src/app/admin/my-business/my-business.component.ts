@@ -29,22 +29,17 @@ export interface DialogData {
 
 export class MyBusinessComponent implements OnInit {
   animal :any;
-  countries :any = [];
-  ct:any;
   
+   
   constructor(
     public dialog: MatDialog,
      private http: HttpClient,
      public router: Router,
      private _snackBar: MatSnackBar) {
-       this.countries=[];
       localStorage.setItem('isBusiness', 'true');
-      this.ct = require('countries-and-timezones');
-      this.countries = this.ct.getAllCountries();
    }
 
   ngOnInit() {
-    console.log(this.ct)
   }
 
   
@@ -68,10 +63,6 @@ export class MyBusinessComponent implements OnInit {
 })
 export class myCreateNewBusinessDialog {
   
-  status: any;
-  
-  ct = require('countries-and-timezones');
-  countries = this.ct.getAllCountries();
 
   constructor(
     public dialogRef: MatDialogRef<myCreateNewBusinessDialog>,
