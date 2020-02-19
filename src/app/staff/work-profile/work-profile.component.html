@@ -16,27 +16,28 @@
 		<h2 class="text-center my-3">No Service Found</h2>
 	</div>
   	</div>
-	</mat-tab>
+</mat-tab>
 
-	<mat-tab label="Postal Codes"> 
-  	<div class="staff-work-profile">
-      <div class="col-sm-3 col-lg-3 col-md-6 profile-single-slot float-left">
-        <mat-card class="card">
-          <div class="card-body-workinghour mt-3">
-	         	<div class="wrapcontent">
-		          <div class="map">
-		          		<i class="fa fa-map-marker"></i>
-							</div>
-							<label>Kandivali</label>
-						</div>
-						<div class="wrapcontent1">
-							<p class="mb-0">Postal Code</p>
-							<p class="wrapcontent1">400101</p>  
-						</div>
-        	</div>
-      	</mat-card>
-    </div>
+<mat-tab label="Postal Codes"> 
+  	<div *ngIf="postalCodeData != ''" class="staff-work-profile">
+		<div *ngFor="let postalCodeData of postalCodeData; let i=index" class="col-sm-3 col-lg-3 col-md-6 profile-single-slot float-left">
+			<mat-card class="card">
+				<div class="card-body-workinghour mt-3">
+					<div class="wrapcontent">
+						<div class="map"><i class="fa fa-map-marker"></i></div>
+						<label class="text-capitaliza">{{postalCodeData[0].area}}</label>
+					</div>
+					<div class="wrapcontent1">
+						<p class="mb-0">Postal Code</p>
+						<p class="wrapcontent1">{{postalCodeData[0].postal_code}}</p>  
+					</div>
+				</div>
+			</mat-card>
+		</div>
 	</div> 
+	<div *ngIf="postalCodeData == ''" class="staff-work-profile">
+		<h2 class="text-center my-2">No PostalCode Found</h2>
+	</div>
 </mat-tab>
 <mat-tab label="Working Hours">  
     <div *ngIf="workingHours != ''" class="staff-work-profile work-prfile-w-hours">

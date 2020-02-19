@@ -19,6 +19,7 @@ export class WorkProfileComponent implements OnInit {
  breakHours: any = [];
  offDays: any = [];
  holidayData: any;
+ postalCodeData: any;
 
 
   constructor(
@@ -31,6 +32,7 @@ export class WorkProfileComponent implements OnInit {
     this.getWorkingHours();
     this.getBreakHours();
     this.getAllHolidays();
+    this.getAllPostalcodes();
   }
 
   dynamicSort(property) {
@@ -184,6 +186,21 @@ export class WorkProfileComponent implements OnInit {
       }
       else if(response.data == false){
         this.holidayData = '';
+      }
+    },
+      (err) => {
+        this.error = err;
+      }
+    )
+  }
+  getAllPostalcodes(){
+    this.StaffService.getAllPostalcodes().subscribe((response:any) => {
+      if(response.data == true){
+        this.postalCodeData = response.response;
+        console.log(this.postalCodeData)
+      }
+      else if(response.data == false){
+        this.postalCodeData = '';
       }
     },
       (err) => {

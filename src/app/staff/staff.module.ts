@@ -31,6 +31,7 @@ import { DialogCashPaymentMode } from './staff-appointment/staff-appointment.com
 import { DialogOnlinePaymentMode } from './staff-appointment/staff-appointment.component';
 import { DialogCashPaymentDetails } from './staff-appointment/staff-appointment.component';
 import { DialogOnlinePaymentDetails } from './staff-appointment/staff-appointment.component';
+import { DialogTodayAppointmentDetail } from './my-work-space/my-work-space.component';
 
 import { DialogStaffImageUpload } from './my-profile/my-profile.component';
 
@@ -54,7 +55,8 @@ import { DialogStaffImageUpload } from './my-profile/my-profile.component';
 		DialogOnlinePaymentMode,
 		DialogCashPaymentDetails,
 		DialogOnlinePaymentDetails,
-		DialogStaffImageUpload
+    DialogStaffImageUpload,
+    DialogTodayAppointmentDetail
   ],
   imports: [
     CommonModule,
@@ -76,6 +78,6 @@ import { DialogStaffImageUpload } from './my-profile/my-profile.component';
     InterruptedReschedule,DialogAddNewAppointment,DialogNewAppointment,
     DialogStaffMyAppointmentDetails,OnGoingAppointmentDetails,CompleteAppointmentDetails,
     DialogCashPaymentMode,DialogOnlinePaymentMode,DialogCashPaymentDetails,
-    DialogOnlinePaymentDetails,DialogStaffImageUpload],
+    DialogOnlinePaymentDetails,DialogStaffImageUpload,DialogTodayAppointmentDetail],
 })
 export class StaffModule { }
