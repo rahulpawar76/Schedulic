@@ -13,6 +13,14 @@ export interface DialogData {
   name: string;
 }
 
+
+// export interface status {
+  
+//   id: string;
+//   name :string;
+//   timezone:string;
+  
+// }
 @Component({
   selector: 'app-my-business',
   templateUrl: './my-business.component.html',
@@ -21,14 +29,22 @@ export interface DialogData {
 
 export class MyBusinessComponent implements OnInit {
   animal :any;
+  countries :any = [];
+  ct:any;
+  
   constructor(
     public dialog: MatDialog,
      private http: HttpClient,
      public router: Router,
      private _snackBar: MatSnackBar) {
+       this.countries=[];
+      localStorage.setItem('isBusiness', 'true');
+      this.ct = require('countries-and-timezones');
+      this.countries = this.ct.getAllCountries();
    }
 
   ngOnInit() {
+    console.log(this.ct)
   }
 
   
@@ -46,13 +62,16 @@ export class MyBusinessComponent implements OnInit {
 }
 
 
-
-
 @Component({
   selector: 'Create-New-Business',
   templateUrl: '../_dialogs/create-new-business-dialog.html',
 })
 export class myCreateNewBusinessDialog {
+  
+  status: any;
+  
+  ct = require('countries-and-timezones');
+  countries = this.ct.getAllCountries();
 
   constructor(
     public dialogRef: MatDialogRef<myCreateNewBusinessDialog>,
@@ -62,5 +81,9 @@ export class myCreateNewBusinessDialog {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  // countrieslist: status[] = [
+  //   this.countries
+  // ];
   
 }

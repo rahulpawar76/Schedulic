@@ -31,6 +31,7 @@
     "angular-router-animations": "0.0.4",
     "bootstrap": "^4.4.1",
     "classlist.js": "^1.1.20150312",
+    "countries-and-timezones": "^2.0.5",
     "datatables.net": "^1.10.20",
     "datatables.net-dt": "^1.10.20",
     "datatables.net-responsive": "^2.2.3",

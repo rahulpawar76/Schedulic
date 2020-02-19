@@ -2,7 +2,7 @@
 <mat-drawer-container class="example-container">
   <mat-drawer-content>
       <main fxLayout="column" fxLayoutGap="0">
-       <mat-toolbar color="primary" class="toolbar menu-comman" *ngIf="isLogin() && !isFront()">
+       <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser() && !isBusiness()}" color="primary" class="toolbar menu-comman" *ngIf="isLogin() && !isFront()">
           <mat-toolbar-row *ngIf="isCustomerUser()">
             <div class="logo"><a><img src="/assets/img/logo.png"></a></div> 
             <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
@@ -44,15 +44,10 @@
               </span> 
           </mat-toolbar-row>
           <mat-toolbar-row *ngIf="isAdminUser()">
-            <div class="logo"><a><img src="/assets/img/logo.png"></a></div> 
+            <!-- <div class="logo"><a><img src="/assets/img/logo.png"></a></div>  -->
             <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
-
-
-              <span class="example-fill-remaining-space">
-              </span>
+              <span class="example-fill-remaining-space"></span>
               <span class="f13">
-
-
                 <button  mat-stroked-button class="bellborder bell-color ml-3" (click)="openNotificationDialog()">
                 <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
                 </button> 
@@ -78,34 +73,34 @@
       </div>
       <div class="bottom_header" *ngIf="isAdminUser() && !isFront()" fxFlex="100">
         <mat-drawer-container class="example-container left-admin-menu">
-          <mat-drawer mode="side" opened>
+          <mat-drawer *ngIf="!isBusiness()" mode="side" opened>
             <mat-list-item role="listitem"  class="matlist pointer menuitem logo">
-              <div class="logo"><a href="#"><img src="/assets/images/admin/admin-logo-orange.png"></a></div>
+              <div class="logo"><img src="/assets/images/admin/admin-logo-orange.png"></div>
             </mat-list-item>
             <mat-list-item role="listitem" class="add">
-              <div class="add"><a href="#"><img src="/assets/images/admin/add.png"></a></div>
+              <div class="add common-menu"><img src="/assets/images/admin/add.png"></div>
             </mat-list-item> 
-            <mat-list-item role="listitem" >
-              <div class="add"><a href="#"><img src="/assets/images/admin/admin-menu-bag.png"></a></div>
+            <mat-list-item role="listitem" (click)="myWorkSpaceNav()">
+              <div class="common-menu"><img src="/assets/images/admin/admin-menu-bag.png"></div>
             </mat-list-item>
             <mat-list-item role="listitem" >
-              <div class="add"><a href="#"><img src="/assets/images/admin/admin-menu-calendar.png"></a></div>
+              <div class="common-menu"><img src="/assets/images/admin/admin-menu-calendar.png"></div>
             </mat-list-item>
             <mat-list-item role="listitem" >
-              <div class="add"><a href="#"><img src="/assets/images/admin/admin-menu-user.png"></a></div>
+              <div class="common-menu"><img src="/assets/images/admin/admin-menu-user.png"></div>
             </mat-list-item>
             <mat-list-item role="listitem" >
-              <div class="add"><a href="#"><img src="/assets/images/admin/admin-menu-statistics.png"></a></div>
+              <div class="common-menu"><img src="/assets/images/admin/admin-menu-statistics.png"></div>
             </mat-list-item>
             <mat-list-item role="listitem" >
-              <div class="add"><a href="#"><img src="/assets/images/admin/admin-menu-megaphone.png"></a></div>
+              <div class="common-menu"><img src="/assets/images/admin/admin-menu-megaphone.png"></div>
             </mat-list-item>
             <div>
               <mat-list-item role="listitem" >
-                <div class="add"><a href="#"><img src="/assets/images/admin/admin-menu-settings.png"></a></div>
+                <div class="common-menu"><img src="/assets/images/admin/admin-menu-settings.png"></div>
               </mat-list-item>
               <mat-list-item role="listitem" >
-                <div class="add"><a href="#"><img src="/assets/images/admin/admin-menu-user-2.png"></a></div>
+                <div class="common-menu"><img src="/assets/images/admin/admin-menu-user-2.png"></div>
               </mat-list-item>
             </div>
           </mat-drawer>
@@ -172,9 +167,9 @@
             <i mat-list-icon class="fa fa-briefcase mr-3"></i>My Work Space</button>
         </mat-list-item> -->
        
-        <mat-list-item role="listitem"  (click)="StaffAppointment('./staff-appointment')" 
+        <mat-list-item role="listitem"  (click)="myWorkSpaceNav()" 
             (click)="drawer.toggle()">
-          <button mat-menu-item (click)="drawer.toggle()" class="menuitem"><i mat-list-icon  class="fa fa-calendar mr-3"></i>My Appointmets</button>
+          <button mat-menu-item class="menuitem"><i mat-list-icon  class="fa fa-calendar mr-3"></i>My Appointmets</button>
         </mat-list-item>
 
        <!--  <mat-list-item role="listitem"  (click)="WorkProfile('./work-profile')" 
