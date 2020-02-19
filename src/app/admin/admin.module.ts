@@ -9,18 +9,32 @@ import { ProgressBarModule } from "angular-progress-bar";
 import { HighchartsChartModule } from 'highcharts-angular';
 import { MaterialModule } from '@app/_helpers/material.module';
 
+
 import { AdminRoutingModule } from './admin-routing.module';
 import { MyBusinessComponent } from './my-business/my-business.component';
 import { myCreateNewBusinessDialog } from './my-business';
 import { MyWorkSpaceComponent } from './my-work-space/my-work-space.component';
 import { myWorkSpaceAcceptDialog } from './my-work-space';
+import { AppointmentComponent } from './appointment/appointment.component';
+import { DataTablesModule } from 'angular-datatables';
+import { DialogAddNewAppointment } from './appointment/appointment.component';
+import { DialogNewAppointment } from './appointment/appointment.component';
+import { CustomersComponent } from './customers/customers.component';
+import { DialogNewCustomerAppointment } from './customers/customers.component';
+import { DialogAddNewNote } from './customers/customers.component';
 
 @NgModule({
   declarations: [
     MyBusinessComponent,
     myCreateNewBusinessDialog,
     MyWorkSpaceComponent,
-    myWorkSpaceAcceptDialog
+    myWorkSpaceAcceptDialog,
+    AppointmentComponent,
+    DialogAddNewAppointment,
+    DialogNewAppointment,
+    CustomersComponent,
+    DialogNewCustomerAppointment,
+    DialogAddNewNote
     ],
   imports: [
     CommonModule,
@@ -33,11 +47,12 @@ import { myWorkSpaceAcceptDialog } from './my-work-space';
     DragDropModule,
     NgxChartsModule,
     ProgressBarModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    DataTablesModule
   ],
   exports: [
     FormsModule
   ],
-  entryComponents: [myCreateNewBusinessDialog,myWorkSpaceAcceptDialog,],
+  entryComponents: [myCreateNewBusinessDialog,myWorkSpaceAcceptDialog,DialogAddNewAppointment,DialogNewAppointment,DialogNewCustomerAppointment,DialogAddNewNote],
 })
 export class AdminModule { }

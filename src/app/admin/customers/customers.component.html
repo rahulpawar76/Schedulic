@@ -1,0 +1,607 @@
+<div class="">
+    <div class="">
+
+        <mat-drawer-container class="example-container col-lg-12"  style="margin-top: 70px;">
+            <mat-drawer mode="side" opened id="Customer-list" class="col-lg-4 pl-0 pr-0"  style="max-width: 25%;">
+                <div class="leftarrow-icon">
+                    <mat-icon aria-hidden="false" class="customer-drawer-leftarrow">arrow_back</mat-icon>
+                </div>
+                <mat-form-field appearance="outline" class="all-customer-list col-lg-12 col-12 col-md-12">
+                    <mat-label>All Customers</mat-label>
+                    <mat-select [(value)]="selected">
+                      <mat-option>None</mat-option>
+                      <mat-option value="option1">Option 1</mat-option>
+                      <mat-option value="option2">Option 2</mat-option>
+                      <mat-option value="option3">Option 3</mat-option>
+                    </mat-select>
+                  </mat-form-field>  
+                  <mat-form-field appearance="outline" class="all-action-list col-lg-12 col-12 col-md-12">
+                    <mat-label>Actions</mat-label>
+                    <mat-select [(value)]="selected">
+                      <mat-option>None</mat-option>
+                      <mat-option value="option1">Option 1</mat-option>
+                      <mat-option value="option2">Option 2</mat-option>
+                      <mat-option value="option3">Option 3</mat-option>
+                    </mat-select>
+                  </mat-form-field> 
+                  <div class="searchbox col-lg-12 col-12 col-md-12">
+                    <form class="serch_input-appoint">							
+                        <div class="form-group has-search">
+                            <span class="fa fa-search form-control-feedback verticalLine"></span>
+                            <input type="text" class="form-control searchbox_appointment " placeholder="Search Customer">
+                        </div>												
+                    </form>
+                  </div> 
+                <div class="d-flex m-2">
+                    <mat-checkbox class="customer-checkbox"></mat-checkbox>
+                    <div class="customer-name-width "><div class="customer-name">CS</div></div>
+                    <div class="customer-details">
+                        <h6>Clalre Sharewood</h6>
+                        <p>dummy@dummy.xyz</p>
+                    </div>            
+                </div>  
+                <div class="devider-slim my-3"></div> 
+                <div class="d-flex m-2">
+                    <mat-checkbox class="customer-checkbox"></mat-checkbox>
+                    <div class="customer-name-width">
+                        <div class="customer-name">KM</div>
+                    </div>
+                    <div class="customer-details">
+                        <h6>Clalre Sharewood</h6>
+                        <p>dummy@dummy.xyz</p>
+                    </div>            
+                </div>  
+                <div class="devider-slim my-3"></div>
+                <div class="d-flex m-2">
+                    <mat-checkbox class="customer-checkbox"></mat-checkbox>
+                    <div class="customer-name-width"><div class="customer-name">SG</div></div>
+                    <div class="customer-details">
+                        <h6>Clalre Sharewood</h6>
+                        <p>dummy@dummy.xyz</p>
+                    </div>            
+                </div>  
+                <div class="devider-slim my-3"></div>
+                <div class="d-flex m-2">
+                    <mat-checkbox class="customer-checkbox"></mat-checkbox>
+                    <div class="customer-name-width"><div class="customer-name">H</div></div>
+                    <div class="customer-details">
+                        <h6>Clalre Sharewood</h6>
+                        <p>dummy@dummy.xyz</p>
+                    </div>            
+                </div>  
+                <div class="devider-slim my-3"></div>
+                <div class="d-flex m-2">
+                    <mat-checkbox class="customer-checkbox"></mat-checkbox>
+                    <div class="customer-name-width"><div class="customer-name">KW</div></div>
+                    <div class="customer-details">
+                        <h6>Clalre Sharewood</h6>
+                        <p>dummy@dummy.xyz</p>
+                    </div>            
+                </div>  
+                <div class="devider-slim my-3"></div>
+                <div class="d-flex m-2">
+                    <mat-checkbox class="customer-checkbox"></mat-checkbox>
+                    <div class="customer-name-width"><div class="customer-name">MT</div></div>
+                    <div class="customer-details">
+                        <h6>Clalre Sharewood</h6>
+                        <p>dummy@dummy.xyz</p>
+                    </div>            
+                </div>  
+                <div class="devider-slim my-3"></div>
+                <div class="d-flex m-2">
+                    <mat-checkbox class="customer-checkbox"></mat-checkbox>
+                    <div class="customer-name-width"><div class="customer-name">CS</div></div>
+                    <div class="customer-details">
+                        <h6>Clalre Sharewood</h6>
+                        <p>dummy@dummy.xyz</p>
+                    </div>            
+                </div>  
+                <div class="devider-slim my-3"></div>      
+            </mat-drawer>
+        
+            <mat-drawer-content class="col-lg-8 pl-0 pr-0" style="max-width: 75%; margin-left: 288px;">
+                <div id="Add-New-Customer" class="container pl-0 pr-0" style="">
+                    <mat-card class="mb-0">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h6>Add New Customer</h6>
+                            </div>     
+                        </div>     
+                        <div class="row"> 
+                            <div class="col-lg-4 col-12 col-md-4">
+                                <div class="w-100 d-flex justify-content-center">
+                                    <div class="customer-profile-background">
+                                        <img src="/assets/images/admin/picture.png" class="profile-image">
+                                    </div>
+                                </div>
+                                <div class="mt-3 text-center">
+                                    <button mat-button appearance="fill" class="profile-uploadbtn">Upload Image</button>
+                                </div>
+                                <div class="mt-3 text-center">
+                                    <button mat-button appearance="fill" class="profile-removebtn mb-2">Remove</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-12 col-md-8">                    
+                                <mat-form-field class="col-lg-6 col-12 col-md-6" appearance="outline">
+                                    <mat-label>First Name</mat-label>
+                                    <mat-icon class="mr-4" matPrefix>person</mat-icon>
+                                    <input matInput placeholder="Enter Your First Name">  
+                                </mat-form-field>                            
+                                <mat-form-field class="col-lg-6 col-12 col-md-6" appearance="outline">
+                                    <mat-label>Last Name</mat-label>
+                                    <mat-icon class="mr-4" matPrefix>person</mat-icon>
+                                    <input matInput placeholder="Enter Your Last Name">  
+                                </mat-form-field>                            
+                                    
+                                <mat-form-field class="col-lg-6 col-12 col-md-6" appearance="outline">
+                                    <mat-label>Email</mat-label>
+                                    <mat-icon class="mr-4" matPrefix>email</mat-icon>
+                                    <input matInput placeholder="Enter Your Email">  
+                                </mat-form-field>                             
+                                <mat-form-field class="col-lg-6 col-12 col-md-6" appearance="outline">
+                                    <mat-label>Contact Number</mat-label>
+                                    <mat-icon class="mr-4" matPrefix>call</mat-icon>
+                                    <input matInput placeholder="Enter Your number">  
+                                </mat-form-field>         
+                                     
+                                <mat-form-field class="col-lg-6 col-12 col-md-6" appearance="outline">
+                                    <mat-label>Office Number</mat-label>
+                                    <mat-icon class="mr-4" matPrefix>format_list_numbered</mat-icon>
+                                    <input matInput placeholder="Enter Your number">  
+                                </mat-form-field>                             
+                                <mat-form-field class="col-lg-6 col-12 col-md-6" appearance="outline">
+                                    <mat-label>Home Number</mat-label>
+                                    <mat-icon class="mr-4" matPrefix>home</mat-icon>
+                                    <input matInput placeholder="Enter Your number">  
+                                </mat-form-field>     
+                                <mat-form-field class="col-lg-12 col-12 col-md-12" appearance="outline">
+                                    <mat-label>Address</mat-label>
+                                    <mat-icon class="mr-4" matPrefix>location_on</mat-icon>
+                                    <input matInput placeholder="Enter Your address">  
+                                </mat-form-field>   
+                                <mat-form-field class="col-lg-4 col-12 col-md-4" appearance="outline">
+                                    <mat-label>State</mat-label>                   
+                                    <input matInput placeholder="">  
+                                </mat-form-field>
+                                <mat-form-field class="col-lg-4 col-12 col-md-4" appearance="outline">
+                                    <mat-label>City</mat-label>                    
+                                    <input matInput placeholder="">  
+                                </mat-form-field>
+                                <mat-form-field class="col-lg-4 col-12 col-md-4" appearance="outline">
+                                    <mat-label>Zip</mat-label>                   
+                                    <input matInput placeholder="">  
+                                </mat-form-field>  
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="devider-slim my-3"></div> 
+                            <div class="action-btn">
+                                <div class="mx-2">
+                                    <button mat-button appearance="fill" class="customer-cancel-btn">Cancel</button>
+                                </div>
+                                <div class="mx-2">
+                                    <button mat-button appearance="fill" class="customer-save-btn">Save</button>
+                                </div>  
+                            </div>    
+                        </div>
+                    </mat-card>
+                </div>
+        
+                <div id="Customer-Listing" class=" pl-0 pr-0" style="">
+                    <mat-card class="mb-0">
+                        <div class="d-flex m-2 align-items-center">
+                            <div class="customerProfile-width">
+                                <img class="rounded-circle" src="/assets/images/admin/Layer6.png">
+                            </div>
+                            <div class="customerName-width">
+                                <h6>Kirsten Mckellar</h6>
+                                <p>dummy@dummy.xyz</p>
+                            </div>
+                            <div class="customer-btn">
+                                <div class="mx-2">                                
+                                    <button mat-button appearance="fill" class="customer-edit-btn text-center pl-0"><mat-icon class="">edit</mat-icon>Edit</button>
+                                </div>
+                                <div class="mx-2">
+                                    <button mat-button appearance="fill" class="customer-delete-btn"><mat-icon class="">delete</mat-icon> Delete</button>
+                                </div> 
+                            </div>
+                        </div>
+                        <mat-tab-group>
+                            <mat-tab id="Details" label="Details">
+                               <div class="d-flex my-3">
+                                   <div class="mobileNo-width">
+                                       <h6>Mobile</h6>
+                                       <p>9876543210</p>
+                                   </div>
+                                   <div class="officeNo-width">
+                                    <h6>Office</h6>
+                                    <p>9876543210</p>
+                                </div>
+                                <div class="homeNo-width">
+                                    <h6>Home</h6>
+                                    <p>9876543210</p>
+                                </div>
+                               </div>
+                               <div class="devider-slim"></div> 
+                               <div class="my-3">
+                                    <div>
+                                        <h6>Address</h6>
+                                        <p>Akshay Nagar 1st Block 1st cross, Rammurthy nagar, Bangalore, Karnataka-560016</p>
+                                    </div>
+                                </div>
+                                <div class="devider-slim"></div> 
+                                <div class="d-flex my-3">
+                                    <div>
+                                        <div class="d-flex">
+                                            <h6 class="mr-2">Tags</h6>
+                                            <mat-icon class="add-tag-icon">add_circle</mat-icon>                                      
+                                        </div>
+                                            <p>Add Tags to group different customers.</p>
+                                        </div>
+                                    </div>
+                            <div class="devider-slim"></div> 
+                            <div class="d-flex my-3">
+                                <div class="registration">
+                                    <h6>Registration</h6>
+                                    <p>18 Sep 2019, 02:25 pm Created By Admin</p>
+                                </div>
+                                <div class="lastBookedAppoint">
+                                 <h6>LAST BOOKED APPOINTMENT </h6>
+                                 <p>18 Sep 2019, 02:25 pm</p>
+                             </div>
+                             <div class="lastBookedService">
+                                 <h6>LAST BOOKED SERVICE</h6>
+                                 <p>Hair Cut (Salon)</p>
+                             </div>
+                            </div>
+                            <div class="devider-slim"></div> 
+                            </mat-tab>
+                            <mat-tab id="Appointments" label="Appointments">
+                                <div class="d-flex">
+                                    <button (click)="newCustomerAppointment()" class="Add-Appointment my-2" mat-button>Add Appointment</button>
+                                </div>
+                                <div class="devider-slim"></div> 
+                                <div class="Customer-appointment-table">
+                                    <table class="table">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Time</th>
+                                            <th scope="col">Service</th>
+                                            <th scope="col">Staff</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Status</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td scope="row">25 Oct 2019</td>
+                                            <td>08:15 am</td>
+                                            <td>Repainting</td>
+                                            <td>Parth Jain</td>
+                                            <td>$.3000.00</td>
+                                            <td>Accepted</td>
+                                          </tr>
+                                          <tr>
+                                            <td scope="row">25 Oct 2019</td>
+                                            <td>09:15 am</td>
+                                            <td>Repainting</td>
+                                            <td>Parth Jain</td>
+                                            <td>$.3000.00</td>
+                                            <td>Pending</td>
+                                          </tr>
+                                          <tr class="border-bottom">
+                                            <td scope="row">25 Oct 2019</td>
+                                            <td>10:15 am</td>
+                                            <td>Repainting</td>
+                                            <td>Parth Jain</td>
+                                            <td>$.3000.00</td>
+                                            <td>Accepted</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </mat-tab>
+                            <mat-tab label="Notes"> 
+                                <div class="d-flex my-3">
+                                    <h6 class="notes">Notes</h6> 
+                                    <div class="d-flex ml-auto">
+                                        <button (click)="newAddNote()" class="Add-Note-btn"  mat-button>Add Note</button>
+                                    </div>
+                                </div>
+                                <div class="addNotes">
+                                    <div class="Add-notes-background d-flex justify-content-center flex-wrap align-items-center">
+                                        <div class="d-flex justify-content-center flex-wrap">
+                                            <div>
+                                                <mat-icon aria-hidden="false" class="addnote-icon w-auto h-auto" aria-label="note-add-icon">note_add</mat-icon>
+                                            </div>
+                                            <div class="text-center w-100">
+                                                <a href="#" class="addnote-link"><mat-icon aria-hidden="false" aria-label="note-add icon">add</mat-icon>Add Notes</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <mat-card class="NoteMatcard col-lg-4">
+                                        <div class="d-flex">
+                                            <h6>Subject</h6>
+                                            <div class="d-flex ml-auto">
+                                                <mat-icon (click)="newAddNote()" class="add-note-subject-icon" aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+                                                <mat-icon class="add-note-subject-icon ml-2" aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+                                            </div>
+                                        </div>
+                                        <div class="py-3">
+                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
+                                        </div>
+                                        <div class="d-flex">
+                                            <div class=" d-flex ml-auto">
+                                                <p class="" >2019-02-04</p>
+                                                <p class="pl-2">06:07:10</p>
+                                            </div>
+                                        </div>
+                                    </mat-card>
+                                    <mat-card class="NoteMatcard col-lg-4">
+                                        <div class="d-flex">
+                                            <h6>Subject</h6>
+                                            <div class="d-flex ml-auto">
+                                                <mat-icon class="add-note-subject-icon" aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+                                                <mat-icon class="add-note-subject-icon ml-2" aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+                                            </div>
+                                        </div>
+                                        <div class="py-3">
+                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
+                                        </div>
+                                        <div class="d-flex">
+                                            <div class=" d-flex ml-auto">
+                                                <p class="" >2019-02-04</p>
+                                                <p class="pl-2">06:07:10</p>
+                                            </div>
+                                        </div>
+                                    </mat-card>
+                                    <mat-card class="NoteMatcard col-lg-4">
+                                        <div class="d-flex">
+                                            <h6>Subject</h6>
+                                            <div class="d-flex ml-auto">
+                                                <mat-icon class="add-note-subject-icon" aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+                                                <mat-icon class="add-note-subject-icon ml-2" aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+                                            </div>
+                                        </div>
+                                        <div class="py-3">
+                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
+                                        </div>
+                                        <div class="d-flex">
+                                            <div class=" d-flex ml-auto">
+                                                <p class="" >2019-02-04</p>
+                                                <p class="pl-2">06:07:10</p>
+                                            </div>
+                                        </div>
+                                    </mat-card>                                    
+                                </div>
+                            </mat-tab>
+                            <mat-tab label="Payments">
+                                <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Time</th>
+                                        <th scope="col">Service</th>
+                                        <th scope="col">Mode</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col"></th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td scope="row">25 Oct 2019</td>
+                                        <td>08:15 am</td>
+                                        <td>Repainting</td>
+                                        <td>Cash</td>
+                                        <td>$.2680.00</td>
+                                        <td>paid</td>
+                                        <td class="">
+                                            <mat-icon class=" ml-2" aria-hidden="false" aria-label="Example home icon">picture_as_pdf</mat-icon>
+                                            <mat-icon class=" ml-2" aria-hidden="false" aria-label="Example home icon">print</mat-icon>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td scope="row">---</td>
+                                        <td>---</td>
+                                        <td>Repainting</td>
+                                        <td>---</td>
+                                        <td>$.3000.00</td>
+                                        <td>pending</td>
+                                        <td class="">
+                                            <mat-icon class=" ml-2" aria-hidden="false" aria-label="Example home icon">picture_as_pdf</mat-icon>
+                                            <mat-icon class=" ml-2" aria-hidden="false" aria-label="Example home icon">print</mat-icon>
+                                        </td>
+                                      </tr>
+                                      <tr class="border-bottom">
+                                        <td scope="row">25 Oct 2019</td>
+                                        <td>08:15 am</td>
+                                        <td>Repainting</td>
+                                        <td>Online</td>
+                                        <td>$.4500.00</td>
+                                        <td>paid</td>
+                                        <td>
+                                            <mat-icon class=" ml-2" aria-hidden="false" aria-label="Example home icon">picture_as_pdf</mat-icon>
+                                            <mat-icon class=" ml-2" aria-hidden="false" aria-label="Example home icon">print</mat-icon>
+                                        </td>
+                                      </tr>                                      
+                                    </tbody>
+                                  </table>                                   
+                            </mat-tab>
+                            <mat-tab label="Review">
+                            <div class="">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-8 col-12 col-sm-12">
+                                        <h6>Payments</h6>
+                                        <div class="searchbox">
+                                        <h6>Amount</h6>
+                                            <div class="form-group has-search">
+                                                <span class="fa fa-search form-control-feedback"></span>
+                                                <input type="text" class="form-control" placeholder="3000.00">
+                                            </div> 
+                                        </div>
+                                        <div class="searchbox">
+                                            <h6>Discount</h6>
+                                                <div class="form-group has-search">
+                                                    <span class="fa fa-search form-control-feedback"></span>
+                                                    <input type="text" class="form-control" placeholder="Enter Discount">
+                                                </div> 
+                                            </div>
+                                        <div>
+                                            <h6 for="comment">Type</h6>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                  <input type="radio" class="form-check-input" name="optradio">Cash
+                                                </label>
+                                            </div>
+                                              <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                  <input type="radio" class="form-check-input" name="optradio">Online
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="form-group">
+                                                <h6 for="comment">Note</h6>
+                                                <textarea class="form-control" rows="5" id="comment" placeholder="Enter Payment Note"></textarea>
+                                              </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-12 col-sm-12">
+                                        <div>
+                                            <h6>25 Oct 2019</h6>
+                                            <p>Booked On:01 sep 2019 @ 12:07 pm</p>
+                                        </div>
+                                        <div>
+                                            <p>Service </p>
+                                            <h6>Repainting,(wall painting)</h6>
+                                        </div>
+                                        <div>
+                                            <p>Time</p>
+                                            <h6>08:15 am - 08:50 am(35 min)</h6>
+                                        </div>
+                                        <div class="d-flex">
+                                            <div>
+                                                <p>Order By</p>
+                                                <h6>Admin</h6>
+                                            </div>
+                                            <div>
+                                                <p>Status</p>
+                                                <h6>Pending</h6>
+                                            </div>
+                                            <div>
+                                                <p>Staff</p>
+                                                <h6>----</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    
+                            </mat-tab>
+                          </mat-tab-group>
+                    </mat-card>
+                </div>
+        
+
+            </mat-drawer-content>
+          </mat-drawer-container>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+<!-- 
+<div id="Add-New-Customer" class="container" style="margin-top: 70px;">
+    <mat-card>
+        <div class="row">
+            <div class="col-lg-12">
+                <h6>Add New Customer</h6>
+            </div>     
+        </div>     
+        <div class="row"> 
+            <div class="col-lg-4 col-12 col-md-4">
+                <div class="w-100 d-flex justify-content-center">
+                    <div class="customer-profile-background">
+                        <img src="/assets/images/admin/picture.png" class="profile-image">
+                    </div>
+                </div>
+                <div class="mt-3 text-center">
+                    <button mat-button appearance="fill" class="profile-uploadbtn">Upload Image</button>
+                </div>
+                <div class="mt-3 text-center">
+                    <button mat-button appearance="fill" class="profile-removebtn mb-2">Remove</button>
+                </div>
+            </div>
+            <div class="col-lg-8 col-12 col-md-8">                    
+                <mat-form-field class="col-lg-6 col-12 col-md-6" appearance="outline">
+                    <mat-label>First Name</mat-label>
+                    <mat-icon class="mr-4" matPrefix>person</mat-icon>
+                    <input matInput placeholder="Enter Your First Name">  
+                </mat-form-field>                            
+                <mat-form-field class="col-lg-6 col-12 col-md-6" appearance="outline">
+                    <mat-label>Last Name</mat-label>
+                    <mat-icon class="mr-4" matPrefix>person</mat-icon>
+                    <input matInput placeholder="Enter Your Last Name">  
+                </mat-form-field>                            
+                    
+                <mat-form-field class="col-lg-6 col-12 col-md-6" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <mat-icon class="mr-4" matPrefix>email</mat-icon>
+                    <input matInput placeholder="Enter Your Email">  
+                </mat-form-field>                             
+                <mat-form-field class="col-lg-6 col-12 col-md-6" appearance="outline">
+                    <mat-label>Contact Number</mat-label>
+                    <mat-icon class="mr-4" matPrefix>call</mat-icon>
+                    <input matInput placeholder="Enter Your number">  
+                </mat-form-field>         
+                     
+                <mat-form-field class="col-lg-6 col-12 col-md-6" appearance="outline">
+                    <mat-label>Office Number</mat-label>
+                    <mat-icon class="mr-4" matPrefix>format_list_numbered</mat-icon>
+                    <input matInput placeholder="Enter Your number">  
+                </mat-form-field>                             
+                <mat-form-field class="col-lg-6 col-12 col-md-6" appearance="outline">
+                    <mat-label>Home Number</mat-label>
+                    <mat-icon class="mr-4" matPrefix>home</mat-icon>
+                    <input matInput placeholder="Enter Your number">  
+                </mat-form-field>     
+                <mat-form-field class="col-lg-12 col-12 col-md-12" appearance="outline">
+                    <mat-label>Address</mat-label>
+                    <mat-icon class="mr-4" matPrefix>location_on</mat-icon>
+                    <input matInput placeholder="Enter Your address">  
+                </mat-form-field>   
+                <mat-form-field class="col-lg-4 col-12 col-md-4" appearance="outline">
+                    <mat-label>State</mat-label>                   
+                    <input matInput placeholder="">  
+                </mat-form-field>
+                <mat-form-field class="col-lg-4 col-12 col-md-4" appearance="outline">
+                    <mat-label>City</mat-label>                    
+                    <input matInput placeholder="">  
+                </mat-form-field>
+                <mat-form-field class="col-lg-4 col-12 col-md-4" appearance="outline">
+                    <mat-label>Zip</mat-label>                   
+                    <input matInput placeholder="">  
+                </mat-form-field>  
+            </div> 
+        </div>
+        <div class="row">
+            <div class="devider-slim my-3"></div> 
+            <div class="action-btn">
+                <div class="mx-2">
+                    <button mat-button appearance="fill" class="customer-cancel-btn">Cancel</button>
+                </div>
+                <div class="mx-2">
+                    <button mat-button appearance="fill" class="customer-save-btn">Save</button>
+                </div>  
+            </div>    
+        </div>
+    </mat-card>
+</div> -->
