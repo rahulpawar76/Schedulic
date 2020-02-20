@@ -154,6 +154,7 @@
             height: 39px;
             border-radius: 7px;
             background-color: #1173f4;
+            color: white;
         }
         
         .action-btn{
@@ -290,31 +291,91 @@
         }
        
     }
-    .paymentMatTab{
-
-    }
-    
-        .searchbox{
-            .has-search .form-control {
-                padding-left: 2.375rem;
-            }
+        .paymentMatTab{
             
-            .has-search .form-control-feedback {
-                position: absolute;
-                z-index: 2;
-                display: block;
-                width: 2.375rem;
-                height: 2.375rem;
-                line-height: 2.375rem;
-                text-align: center;
-                pointer-events: none;
-                color: #aaa;
-            }                 
         }
+            .Customer-payment{
+                padding-left: 15px;
+                font-size: 18px;
+            }
+            .searchbox{
+                .has-search .form-control {
+                    padding-left: 2.375rem;
+                }
+                
+                .has-search .form-control-feedback {
+                    position: absolute;
+                    z-index: 2;
+                    display: block;
+                    width: 2.375rem;
+                    height: 2.375rem;
+                    line-height: 2.375rem;
+                    text-align: center;
+                    pointer-events: none;
+                    color: #aaa;
+                }                 
+            }
+                .main-border{
+                        border-left: 1px solid #ccc;
+                    .small-font{
+                        font-size: 12px;
+                    }
+                    .OrderBy-width{
+                        width: 38%;
+                    }
+                    .Status-width{
+                        width: 42%;
+                    }
+                    .Staff-width{
+                        width: 20%;
+                    }
+                    .subtotal{
+                        filter: drop-shadow(1.5px 2.598px 4px rgba(2,2,2,0.08));
+                        background-color: #deecff;
+                        width: 100%;
+                        border-top: 1px solid #ccc; ;
+                        border-bottom: 1px solid #ccc;
+                    }
+                    .Total{
+                        filter: drop-shadow(1.5px 2.598px 4px rgba(2,2,2,0.08));
+                        background-color:#dfecff;
+                    }
+            }
+            .customer-cancel-btn{
+                width: 100px;
+                height: 39px;
+                border-radius: 7px;
+                background-color: #dddddd;
+            }
+            .customer-pay-btn{
+                width: 109px;
+                height: 39px;
+                border-radius: 7px;
+                background-color: #1173f4;
+                color: white;
+            }
+            .action-btn{
+                margin-left: auto;
+                display: flex;
+            }
+            .star-icon{
+                color: #fda901;
+            }
+            .view-btn{
+                background-color: #f1f5f8;
+            }
     
     
 }
-
+::ng-deep .tp-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+  
+    right: 0;
+    background: #eee;
+    width: 350px;
+ }
 // <!---add-new-note-dialog style ---->
 ::ng-deep .modal-footer{
     border: none !important;
@@ -329,6 +390,40 @@
         height: 37px;
         border-radius: 25px;
         background-color: #1173f4;  
+        color: white;
+    }
+}
+
+// <!---view-review-dialog style ---->
+::ng-deep .view-review-dialog{
+    .booking-detail-main{
+    padding: 16px;
+    border-bottom: 1px solid #ccc;
+        .customer-profile-img{
+        border-radius: 100%;
+        height: 60px;
+        width: 60px;
+        background-color:#f98b3c;
+        color: white;
+        text-align: center;
+        padding: 14px;
+        line-height: 2;
+        display: block;
+        margin: 10px;
+        }
+        .call-icon{
+            line-height: 1.5;
+            color: blue;
+        }
+        .customer-name{
+        width: calc(100% - 80px);
+        }
+        .star-icon{
+            color: #fda901;
+        }
+        .small-font{
+            font-size: 12px;
+        }
     }
 }
 

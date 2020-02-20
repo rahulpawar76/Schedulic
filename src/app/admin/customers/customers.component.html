@@ -1,5 +1,5 @@
-<div class="">
-    <div class="">
+<div class="container-fluid">
+    <div class="row">
 
         <mat-drawer-container class="example-container col-lg-12"  style="margin-top: 70px;">
             <mat-drawer mode="side" opened id="Customer-list" class="col-lg-4 pl-0 pr-0"  style="max-width: 25%;">
@@ -90,7 +90,9 @@
                 <div class="devider-slim my-3"></div>
                 <div class="d-flex m-2">
                     <mat-checkbox class="customer-checkbox"></mat-checkbox>
-                    <div class="customer-name-width"><div class="customer-name">CS</div></div>
+                    <div class="customer-name-width">
+                        <div class="customer-name">CS</div>
+                    </div>
                     <div class="customer-details">
                         <h6>Clalre Sharewood</h6>
                         <p>dummy@dummy.xyz</p>
@@ -429,77 +431,134 @@
                                         </td>
                                       </tr>                                      
                                     </tbody>
-                                  </table>                                   
-                            </mat-tab>
-                            <mat-tab label="Review">
-                            <div class="">
-                                <div class="row">
-                                    <div class="col-lg-8 col-md-8 col-12 col-sm-12">
-                                        <h6>Payments</h6>
-                                        <div class="searchbox">
-                                        <h6>Amount</h6>
-                                            <div class="form-group has-search">
-                                                <span class="fa fa-search form-control-feedback"></span>
-                                                <input type="text" class="form-control" placeholder="3000.00">
-                                            </div> 
-                                        </div>
-                                        <div class="searchbox">
-                                            <h6>Discount</h6>
+                                  </table>  
+                                  <!--  payment 2nd module  --> 
+                                  <div class="">
+                                    <div class="row mx-0">
+                                        
+                                        <div class="col-lg-8 col-md-8 col-12 col-sm-12 p-4">
+                                            <h6 class="pb-4 Customer-payment">Payment</h6>
+                                            <div class="searchbox col-lg-6 col-12 col-md-6 pb-2">
+                                                <h6>Amount</h6>
                                                 <div class="form-group has-search">
                                                     <span class="fa fa-search form-control-feedback"></span>
-                                                    <input type="text" class="form-control" placeholder="Enter Discount">
+                                                    <input type="text" class="form-control" placeholder="3000.00">
                                                 </div> 
                                             </div>
-                                        <div>
-                                            <h6 for="comment">Type</h6>
-                                            <div class="form-check-inline">
-                                                <label class="form-check-label">
-                                                  <input type="radio" class="form-check-input" name="optradio">Cash
-                                                </label>
-                                            </div>
-                                              <div class="form-check-inline">
-                                                <label class="form-check-label">
-                                                  <input type="radio" class="form-check-input" name="optradio">Online
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="form-group">
-                                                <h6 for="comment">Note</h6>
-                                                <textarea class="form-control" rows="5" id="comment" placeholder="Enter Payment Note"></textarea>
-                                              </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-12 col-sm-12">
-                                        <div>
-                                            <h6>25 Oct 2019</h6>
-                                            <p>Booked On:01 sep 2019 @ 12:07 pm</p>
-                                        </div>
-                                        <div>
-                                            <p>Service </p>
-                                            <h6>Repainting,(wall painting)</h6>
-                                        </div>
-                                        <div>
-                                            <p>Time</p>
-                                            <h6>08:15 am - 08:50 am(35 min)</h6>
-                                        </div>
-                                        <div class="d-flex">
-                                            <div>
-                                                <p>Order By</p>
-                                                <h6>Admin</h6>
+                                            <div class="searchbox col-lg-6 col-12 col-md-6  pb-2">
+                                                <h6>Discount</h6>
+                                                    <div class="form-group has-search ">
+                                                        <span class="fa fa-search form-control-feedback"></span>
+                                                        <input type="text" class="form-control" placeholder="Enter Discount">
+                                                    </div> 
+                                                </div>
+                                            <div class=" pb-3 col-lg-6 col-12 col-md-6">
+                                                <h6 for="comment">Type</h6>
+                                                <div class="form-check-inline ">
+                                                    <label class="form-check-label">
+                                                      <input type="radio" class="form-check-input" name="optradio">Cash
+                                                    </label>
+                                                </div>
+                                                  <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                      <input type="radio" class="form-check-input" name="optradio">Online
+                                                    </label>
+                                                  </div>
                                             </div>
                                             <div>
-                                                <p>Status</p>
-                                                <h6>Pending</h6>
-                                            </div>
-                                            <div>
-                                                <p>Staff</p>
-                                                <h6>----</h6>
+                                                <div class="form-group col-lg-6 col-12 col-md-6">
+                                                    <h6 for="comment">Note</h6>
+                                                    <textarea class="form-control" rows="3" id="comment" placeholder="Enter Payment Note"></textarea>
+                                                  </div>
                                             </div>
                                         </div>
+                                        <div class="col-lg-4 col-md-4 col-12 col-sm-12">
+                                            <div class="main-border">
+                                                <div class="p-3">
+                                                    <div>
+                                                        <h6 class="mb-0">25 Oct 2019</h6>
+                                                        <p class="small-font">Booked On:01 sep 2019 @ 12:07 pm</p>
+                                                    </div>
+                                                    <div class="pt-2">
+                                                        <p class="small-font">Service </p>
+                                                        <h6>Repainting,<small>(wall painting)</small></h6>
+                                                    </div>
+                                                    <div class="pt-2">
+                                                        <p class="small-font">Time</p>
+                                                        <h6>08:15 am - 08:50 am <small>(35 min)</small></h6>
+                                                    </div>
+                                                    <div class="d-flex pt-2">
+                                                        <div class="OrderBy-width">
+                                                            <p class="small-font">Order By</p>
+                                                            <h6>Admin</h6>
+                                                        </div>
+                                                        <div class="Status-width">
+                                                            <p class="small-font">Status</p>
+                                                            <h6>Pending</h6>
+                                                        </div>
+                                                        <div class="Staff-width">
+                                                            <p class="small-font">Staff</p>
+                                                            <h6>----</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="subtotal p-3">
+                                                    <h6 class="pb-1">Sub Total $.</h6>
+                                                    <h6 class="pb-1">Tax (18%) $.</h6>
+                                                    <h6 class="mb-0">Discount $.</h6>
+                                                </div>
+                                                <div class="Total p-3">
+                                                    <h6>total $.</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="devider-slim my-3"></div> 
+                                        <div class="action-btn">
+                                            <div class="mx-2">
+                                                <button mat-button appearance="fill" class="customer-cancel-btn">Cancel</button>
+                                            </div>
+                                            <div class="mx-2">
+                                                <button (click)="newPaymentNote()" mat-button appearance="fill" class="customer-pay-btn">Pay</button>
+                                            </div>  
+                                        </div> 
                                     </div>
                                 </div>
-                            </div>    
+                            </mat-tab>
+                            <mat-tab label="Review">
+                                <div class="d-flex">
+                                    <div class="d-flex py-3 star-icon ">
+                                        <mat-icon aria-hidden="false" class="star-icon">star</mat-icon>
+                                        <mat-icon aria-hidden="false">star</mat-icon>
+                                        <mat-icon aria-hidden="false">star</mat-icon>
+                                        <mat-icon aria-hidden="false">star</mat-icon>
+                                        <mat-icon aria-hidden="false">star</mat-icon>
+                                    </div>
+                                    <div class="py-2 ml-auto">
+                                        <button mat-button appearance="fill" class="view-btn" (click)="viewReviewDetail()"><mat-icon aria-hidden="false">visibility</mat-icon>View</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h6>Best I Could Find</h6>
+                                    <p>Go-appointin is the best solution i've found our scheduling needs. We use Appointy to schedule energy audits and assessments that last 1-4 hours each across a team of 8 analysts. </p>
+                                </div>
+                                <div class="devider-slim my-3"></div> 
+                                <div class="d-flex">
+                                    <div class="d-flex py-3 star-icon ">
+                                        <mat-icon aria-hidden="false" class="star-icon">star</mat-icon>
+                                        <mat-icon aria-hidden="false">star</mat-icon>
+                                        <mat-icon aria-hidden="false">star</mat-icon>
+                                        <mat-icon aria-hidden="false">star</mat-icon>
+                                        <mat-icon aria-hidden="false">star</mat-icon>
+                                    </div>
+                                    <div class="py-2 ml-auto">
+                                        <mat-button-toggle mat-button appearance="fill" class="view-btn"><mat-icon aria-hidden="false">visibility</mat-icon>View</mat-button-toggle>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h6>Best I Could Find</h6>
+                                    <p>Go-appointin is the best solution i've found our scheduling needs. We use Appointy to schedule energy audits and assessments that last 1-4 hours each across a team of 8 analysts. </p>
+                                </div>
+                                <div class="devider-slim my-3"></div> 
                             </mat-tab>
                           </mat-tab-group>
                     </mat-card>
