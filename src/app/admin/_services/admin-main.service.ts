@@ -23,7 +23,6 @@ export class AdminService {
             localStorage.setItem('isBusiness', 'false');
             if(localStorage.getItem('business_id')){
                 this.businessId = localStorage.getItem('business_id');
-                alert(this.businessId);
             }
     }  
     private handleError(error: HttpErrorResponse) {
@@ -36,6 +35,20 @@ export class AdminService {
       }
     
     getAllBusiness(){
+        let requestObject = {
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/list-business`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    getAllAppointments(){
         let requestObject = {
         };
         let headers = new HttpHeaders({

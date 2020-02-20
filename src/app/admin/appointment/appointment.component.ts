@@ -33,8 +33,8 @@ export class AppointmentComponent implements OnInit {
   }
 
 
-  getAllBusiness(){
-    this.AdminService.getAllBusiness().subscribe((response:any) => {
+  getAllAppointments(){
+    this.AdminService.getAllAppointments().subscribe((response:any) => {
       if(response.data == true){
         this.allAppointments = response.response
       }
