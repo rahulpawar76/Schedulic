@@ -109,7 +109,7 @@
         font-size: 12px;
 	}
 	.appointment{
-	    width: 25%
+	    width: 30%
 	}
 	.serch_input-appoint{
 	    width: 60%;
@@ -135,6 +135,20 @@
 
 /*_____________[3]Appointment____________________ */
 #my-work-space{
+<<<<<<< HEAD
+width: 100%;
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: 120%;
+background-position: 60% 7%;
+i{
+    line-height: 1.5;
+}
+.timeframe-main{
+    padding-left: 50px;
+}
+=======
     width: 100%;
     background-size: cover;
     background-repeat: no-repeat;
@@ -147,6 +161,7 @@
     i{
         color: #949494;
     }
+>>>>>>> d99280a3fa3fb10d5071b0345b38566ab555640f
 	.font-blue{
 		color: #0089ff;
 	}
@@ -174,7 +189,9 @@
     }
     .service-background{
        
-
+        .work-space-font{
+            font-size: 12px;
+            }
         .customer-background{
            
             /*border: 16px solid #6a77d38a;*/
@@ -656,6 +673,15 @@
 			}
 		}
  .icon-background{
+<<<<<<< HEAD
+            background-color: #1172f4;
+            border-radius: 50%;
+            padding: 10px;
+            width: 45px;
+            height: 45px;
+            text-align: center;
+            color: white;
+=======
 			background-color: #1e88e5;
 		    border-radius: 50%;
 		    padding: 13px;
@@ -667,6 +693,7 @@
             height: 45px;
             display: flex;
             align-items: center
+>>>>>>> d99280a3fa3fb10d5071b0345b38566ab555640f
 		}
 		.Appoinment-icon{
 			color: #1e88e5;

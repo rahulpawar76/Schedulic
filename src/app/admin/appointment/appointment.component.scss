@@ -118,6 +118,24 @@
         
     } 
 }
+// <!----- new-appointment-dialog---->
+// ::ng-deep .new-appointment{
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix{
+        padding: 10px 0 10px 10px;
+    }
+    ::ng-deep  .mat-form-field-infix {
+        border-top: unset;
+    }
+    ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper{
+        transform: inherit;
+    }
+    ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper{
+        padding-top: 8px;
+    }
+    ::ng-deep .mat-form-field-prefix .mat-icon, .mat-form-field-suffix .mat-icon{
+        font-size: 17px;
+    }
+// }
 #appointment{
     ::ng-deep #DataTables_Table_0_filter{
         input[type="search"]{

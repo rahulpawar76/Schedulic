@@ -21,7 +21,7 @@
              <mat-option value="option">Select Service</mat-option>
           </mat-select>
           </div>
-            </div>
+          </div>
          
         
           <label class="mb-0">Select Date</label>
@@ -42,6 +42,17 @@
                  </div>
             <input type="time" class="form-control formcontrol">
           </div>      
+
+          <mat-form-field appearance="outline" id="new-appointment">
+            <mat-icon matPrefix class="pr-2 people-icon">people_alt</mat-icon>
+            <mat-label>Select Staff</mat-label>
+            <mat-select [(value)]="selected">
+              <mat-option>None</mat-option>
+              <mat-option value="option1">Option 1</mat-option>
+              <mat-option value="option2">Option 2</mat-option>
+              <mat-option value="option3">Option 3</mat-option>
+            </mat-select>
+          </mat-form-field>
               <button class="d-block btn btn-primary addbtn ml-2">Create</button>
               <button class="d-block btn btn-secondary addbtn float-right">Back</button>
 

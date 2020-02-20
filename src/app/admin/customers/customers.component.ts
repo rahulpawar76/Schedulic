@@ -39,6 +39,29 @@ export class CustomersComponent implements OnInit {
   newAddNote() {
     const dialogRef = this.dialog.open(DialogAddNewNote, {
       width: '500px',
+      
+    });
+
+     dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+     });
+  }
+
+  newPaymentNote() {
+    const dialogRef = this.dialog.open(DialogPaymentNote, {
+      width: '500px',
+    });
+
+     dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+     });
+  }
+  
+  viewReviewDetail(){
+    const dialogRef = this.dialog.open(DialogViewReview, {
+      width: '500px',
     });
 
      dialogRef.afterClosed().subscribe(result => {
@@ -82,3 +105,34 @@ onNoClick(): void {
 
 }
 
+@Component({
+  selector: 'new-appointment',
+  templateUrl: '../_dialogs/payment-note-dialog.html',
+})
+export class DialogPaymentNote {
+
+constructor(
+  public dialogRef: MatDialogRef<DialogPaymentNote>,
+  @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+onNoClick(): void {
+  this.dialogRef.close();
+}
+
+}
+
+@Component({
+  selector: 'new-appointment',
+  templateUrl: '../_dialogs/view-review-dialog.html',
+})
+export class DialogViewReview {
+
+constructor(
+  public dialogRef: MatDialogRef<DialogViewReview>,
+  @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+onNoClick(): void {
+  this.dialogRef.close();
+}
+
+}

@@ -22,6 +22,9 @@ import { DialogNewAppointment } from './appointment/appointment.component';
 import { CustomersComponent } from './customers/customers.component';
 import { DialogNewCustomerAppointment } from './customers/customers.component';
 import { DialogAddNewNote } from './customers/customers.component';
+import { DialogPaymentNote } from './customers/customers.component';
+import { DialogViewReview } from './customers/customers.component';
+import { DiscountCouponComponent } from './discount-coupon/discount-coupon.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { DialogAddNewNote } from './customers/customers.component';
     DialogNewAppointment,
     CustomersComponent,
     DialogNewCustomerAppointment,
-    DialogAddNewNote
+    DialogAddNewNote,
+    DialogPaymentNote,
+    DialogViewReview,
+    DiscountCouponComponent
     ],
   imports: [
     CommonModule,
@@ -53,6 +59,6 @@ import { DialogAddNewNote } from './customers/customers.component';
   exports: [
     FormsModule
   ],
-  entryComponents: [myCreateNewBusinessDialog,myWorkSpaceAcceptDialog,DialogAddNewAppointment,DialogNewAppointment,DialogNewCustomerAppointment,DialogAddNewNote],
+  entryComponents: [myCreateNewBusinessDialog,myWorkSpaceAcceptDialog,DialogAddNewAppointment,DialogNewAppointment,DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,DialogViewReview],
 })
 export class AdminModule { }
