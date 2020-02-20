@@ -13,6 +13,14 @@ export interface DialogData {
   name: string;
 }
 
+
+// export interface status {
+  
+//   id: string;
+//   name :string;
+//   timezone:string;
+  
+// }
 @Component({
   selector: 'app-my-business',
   templateUrl: './my-business.component.html',
@@ -21,11 +29,14 @@ export interface DialogData {
 
 export class MyBusinessComponent implements OnInit {
   animal :any;
+  
+   
   constructor(
     public dialog: MatDialog,
      private http: HttpClient,
      public router: Router,
      private _snackBar: MatSnackBar) {
+      localStorage.setItem('isBusiness', 'true');
    }
 
   ngOnInit() {
@@ -46,13 +57,12 @@ export class MyBusinessComponent implements OnInit {
 }
 
 
-
-
 @Component({
   selector: 'Create-New-Business',
   templateUrl: '../_dialogs/create-new-business-dialog.html',
 })
 export class myCreateNewBusinessDialog {
+  
 
   constructor(
     public dialogRef: MatDialogRef<myCreateNewBusinessDialog>,
@@ -62,5 +72,9 @@ export class myCreateNewBusinessDialog {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  // countrieslist: status[] = [
+  //   this.countries
+  // ];
   
 }

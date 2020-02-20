@@ -56,6 +56,7 @@ export class AppComponent implements AfterViewInit {
         private _snackBar: MatSnackBar,        
     ) {        
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+        localStorage.setItem('isBusiness', 'false');
 
         
         
@@ -112,6 +113,13 @@ export class AppComponent implements AfterViewInit {
             return false;
         }
     }
+    isBusiness(){
+        if(localStorage.getItem('isBusiness') && localStorage.getItem('isBusiness')=="true"){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     ngOnInit() {
      // this.setcompanycolours();
@@ -124,6 +132,12 @@ export class AppComponent implements AfterViewInit {
     }*/
 
 
+
+
+      /*Admin Dashboard Navigation*/
+      myWorkSpaceNav(){
+        this.router.navigate(['/admin/my-workspace']);
+      }
 
 
       /*StaffDashboard Navigation*/
@@ -235,3 +249,5 @@ export class AppComponent implements AfterViewInit {
     }
 
   }
+
+  

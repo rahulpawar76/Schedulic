@@ -9,8 +9,8 @@
         </button>
     </div>
     <div class="d-flex m-2">
-      <button class="d-block btn btn-danger rejectbtn ">Reject</button>
-       <button class="d-block btn btn-primary acceptbtn ">Accept</button>
+      <button class="d-block btn btn-danger rejectbtn " (click)="changeBookingStatus(detailData.id, 'R')">Reject</button>
+       <button class="d-block btn btn-primary acceptbtn " (click)="changeBookingStatus(detailData.id, 'AC')">Accept</button>
     </div>
 
     <div class="modal-body modal-bcolor">
