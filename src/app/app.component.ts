@@ -56,7 +56,6 @@ export class AppComponent implements AfterViewInit {
         private _snackBar: MatSnackBar,        
     ) {        
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-        localStorage.setItem('isBusiness', 'false');
 
         
         

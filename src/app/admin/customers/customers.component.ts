@@ -1,5 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { AdminService } from '../_services/admin-main.service'
+
 
 export interface DialogData {
   animal: string;
@@ -15,7 +17,7 @@ export interface DialogData {
 export class CustomersComponent implements OnInit {
   dtOptions: any = {};
   animal: any;
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog,private AdminService: AdminService,) { }
 
  
 

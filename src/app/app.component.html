@@ -1,15 +1,11 @@
 ﻿
-<mat-drawer-container class="example-container">
+<mat-drawer-container>
   <mat-drawer-content>
       <main fxLayout="column" fxLayoutGap="0">
        <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser() && !isBusiness()}" color="primary" class="toolbar menu-comman" *ngIf="isLogin() && !isFront()">
           <mat-toolbar-row *ngIf="isCustomerUser()">
             <div class="logo"><a><img src="/assets/img/logo.png"></a></div> 
             <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
-
-
-              <span class="example-fill-remaining-space">
-              </span>
               <span class="f13">
                 <button  mat-stroked-button class="bellborder bell-color ml-3" (click)="openNotificationDialog()">
                 <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
@@ -48,6 +44,9 @@
             <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
               <span class="example-fill-remaining-space"></span>
               <span class="f13">
+                <div class="">
+                  <button mat-button class="" (click)="goToMyBusiness">My Businesses</button>
+                </div>
                 <button  mat-stroked-button class="bellborder bell-color ml-3" (click)="openNotificationDialog()">
                 <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
                 </button> 
