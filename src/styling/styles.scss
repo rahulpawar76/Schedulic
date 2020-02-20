@@ -421,7 +421,11 @@ color: #e99546;
 ::ng-deep .opinter{
     cursor: pointer;
 }
-
+.sub-container{
+    margin-top:70px;
+    width: 100%;
+    height: 100%;
+}
 $calendarsize: 10px;
 .ngbpicker {
     padding: 15px;
