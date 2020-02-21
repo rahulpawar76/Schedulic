@@ -55,7 +55,7 @@
 
 #category{
     .mat-card{
-        margin: 0px 17px;
+        margin: 0px 16px;
     }
 	.bottom-border{
         border-bottom:  1px solid #dedede;
@@ -136,7 +136,6 @@
 
 /*_____________[3]Appointment____________________ */
 #my-work-space{
-<<<<<<< HEAD
 width: 100%;
 background-size: cover;
 background-repeat: no-repeat;
@@ -144,25 +143,14 @@ background-attachment: fixed;
 background-size: 120%;
 background-position: 60% 7%;
 i{
-    line-height: 1.5;
+    // line-height: 1.5;
+    color: #949494;
 }
 .timeframe-main{
     padding-left: 50px;
 }
-=======
-    width: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 120%;
-    background-position: 60% 7%;
-    .timeframe-main{
-        padding-left: 50px;
-    }
-    i{
-        color: #949494;
-    }
->>>>>>> d99280a3fa3fb10d5071b0345b38566ab555640f
+    
+   
 	.font-blue{
 		color: #0089ff;
 	}
@@ -674,7 +662,6 @@ i{
 			}
 		}
  .icon-background{
-<<<<<<< HEAD
             background-color: #1172f4;
             border-radius: 50%;
             padding: 10px;
@@ -682,19 +669,6 @@ i{
             height: 45px;
             text-align: center;
             color: white;
-=======
-			background-color: #1e88e5;
-		    border-radius: 50%;
-		    padding: 13px;
-		   /* width: 5%;*/
-		    margin: 0;
-		    line-height: 0.4;
-		    text-align: center;
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center
->>>>>>> d99280a3fa3fb10d5071b0345b38566ab555640f
 		}
 		.Appoinment-icon{
 			color: #1e88e5;

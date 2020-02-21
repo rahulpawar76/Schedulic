@@ -317,6 +317,10 @@
             }
                 .main-border{
                         border-left: 1px solid #ccc;
+                        height: 100%;
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: stretch;
                     .small-font{
                         font-size: 12px;
                     }
@@ -339,6 +343,7 @@
                     .Total{
                         filter: drop-shadow(1.5px 2.598px 4px rgba(2,2,2,0.08));
                         background-color:#dfecff;
+                        width: 100%;
                     }
             }
             .customer-cancel-btn{
