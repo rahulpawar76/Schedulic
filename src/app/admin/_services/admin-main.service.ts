@@ -35,6 +35,8 @@ export class AdminService {
       }
     
     getAllBusiness(){
+        alert(this.adminId);
+        alert(this.adminToken);
         let requestObject = {
         };
         let headers = new HttpHeaders({
@@ -42,6 +44,7 @@ export class AdminService {
             'admin-id' : this.adminId,
             'api-token' : this.adminToken 
         });
+        
         return this.http.post(`${environment.apiUrl}/list-business`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;

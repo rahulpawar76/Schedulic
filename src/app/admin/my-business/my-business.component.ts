@@ -55,7 +55,7 @@ export class MyBusinessComponent implements OnInit {
   }
   fnSelectBusiness(business_id){
     localStorage.setItem('business_id', business_id);
-    this.router.navigate(['/admin/my-appointment']);
+    this.router.navigate(['/admin/my-workspace']);
   }
 
   
