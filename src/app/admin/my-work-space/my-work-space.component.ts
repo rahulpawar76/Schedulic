@@ -22,6 +22,8 @@ export class MyWorkSpaceComponent implements OnInit {
      public router: Router,
      private AdminService: AdminService,
      private _snackBar: MatSnackBar) {
+       
+      localStorage.setItem('isBusiness', 'false');
    }
 
   ngOnInit() {

@@ -1,11 +1,11 @@
 <div class="container-fluid sub-container" id="customers">
-    <div class="row">
-        <mat-drawer-container class="col-lg-12" >
-            <mat-drawer mode="side" opened id="Customer-list" class="col-lg-4 pl-0 pr-0"  style="max-width: 25%;">
+    <div class="row h-100">
+        <mat-drawer-container class="w-100" >
+            <mat-drawer mode="side" opened id="Customer-list" class="pl-0 pr-0" style="width:300px">
                 <div class="leftarrow-icon">
                     <mat-icon aria-hidden="false" class="customer-drawer-leftarrow">arrow_back</mat-icon>
                 </div>
-                <mat-form-field appearance="outline" class="all-customer-list col-lg-12 col-12 col-md-12">
+                <mat-form-field appearance="outline" class="my-2 all-customer-list col-lg-12 col-12 col-md-12">
                     <mat-label>All Customers</mat-label>
                     <mat-select [(value)]="selected">
                       <mat-option>None</mat-option>
@@ -14,7 +14,7 @@
                       <mat-option value="option3">Option 3</mat-option>
                     </mat-select>
                   </mat-form-field>  
-                  <mat-form-field appearance="outline" class="all-action-list col-lg-12 col-12 col-md-12">
+                  <mat-form-field appearance="outline" class="my-2 all-action-list col-lg-12 col-12 col-md-12">
                     <mat-label>Actions</mat-label>
                     <mat-select [(value)]="selected">
                       <mat-option>None</mat-option>
@@ -31,77 +31,18 @@
                         </div>												
                     </form>
                   </div> 
-                <div class="d-flex m-2">
+                <div *ngFor="let allCustomers of allCustomers; let i=index" (click)="fnSelectCustomer(allCustomers.id)" class="d-flex devider-slim pb-2 m-2">
                     <mat-checkbox class="customer-checkbox"></mat-checkbox>
                     <div class="customer-name-width "><div class="customer-name">CS</div></div>
                     <div class="customer-details">
-                        <h6>Clalre Sharewood</h6>
-                        <p>dummy@dummy.xyz</p>
-                    </div>            
+                        <h6>{{allCustomers.fullname}}</h6>
+                        <p>{{allCustomers.email}}</p>
+                    </div>       
                 </div>  
-                <div class="devider-slim my-3"></div> 
-                <div class="d-flex m-2">
-                    <mat-checkbox class="customer-checkbox"></mat-checkbox>
-                    <div class="customer-name-width">
-                        <div class="customer-name">KM</div>
-                    </div>
-                    <div class="customer-details">
-                        <h6>Clalre Sharewood</h6>
-                        <p>dummy@dummy.xyz</p>
-                    </div>            
-                </div>  
-                <div class="devider-slim my-3"></div>
-                <div class="d-flex m-2">
-                    <mat-checkbox class="customer-checkbox"></mat-checkbox>
-                    <div class="customer-name-width"><div class="customer-name">SG</div></div>
-                    <div class="customer-details">
-                        <h6>Clalre Sharewood</h6>
-                        <p>dummy@dummy.xyz</p>
-                    </div>            
-                </div>  
-                <div class="devider-slim my-3"></div>
-                <div class="d-flex m-2">
-                    <mat-checkbox class="customer-checkbox"></mat-checkbox>
-                    <div class="customer-name-width"><div class="customer-name">H</div></div>
-                    <div class="customer-details">
-                        <h6>Clalre Sharewood</h6>
-                        <p>dummy@dummy.xyz</p>
-                    </div>            
-                </div>  
-                <div class="devider-slim my-3"></div>
-                <div class="d-flex m-2">
-                    <mat-checkbox class="customer-checkbox"></mat-checkbox>
-                    <div class="customer-name-width"><div class="customer-name">KW</div></div>
-                    <div class="customer-details">
-                        <h6>Clalre Sharewood</h6>
-                        <p>dummy@dummy.xyz</p>
-                    </div>            
-                </div>  
-                <div class="devider-slim my-3"></div>
-                <div class="d-flex m-2">
-                    <mat-checkbox class="customer-checkbox"></mat-checkbox>
-                    <div class="customer-name-width"><div class="customer-name">MT</div></div>
-                    <div class="customer-details">
-                        <h6>Clalre Sharewood</h6>
-                        <p>dummy@dummy.xyz</p>
-                    </div>            
-                </div>  
-                <div class="devider-slim my-3"></div>
-                <div class="d-flex m-2">
-                    <mat-checkbox class="customer-checkbox"></mat-checkbox>
-                    <div class="customer-name-width">
-                        <div class="customer-name">CS</div>
-                    </div>
-                    <div class="customer-details">
-                        <h6>Clalre Sharewood</h6>
-                        <p>dummy@dummy.xyz</p>
-                    </div>            
-                </div>  
-                <div class="devider-slim my-3"></div>      
             </mat-drawer>
         
-            <mat-drawer-content class="col-lg-8 pl-0 pr-0" style="max-width: 75%; margin-left: 288px;">
-                <div id="Add-New-Customer" class="container pl-0 pr-0" style="">
+            <mat-drawer-content class="pl-0 pr-0" style="margin-left: 300px;">
+                <div *ngIf="newCustomer" id="Add-New-Customer" class="container pl-0 pr-0" style="">
                     <mat-card class="mb-0">
                         <div class="row">
                             <div class="col-lg-12">
@@ -178,7 +119,7 @@
                             <div class="devider-slim my-3"></div> 
                             <div class="action-btn">
                                 <div class="mx-2">
-                                    <button mat-button appearance="fill" class="customer-cancel-btn">Cancel</button>
+                                    <button (click)="fnCancelNewCustomer()" mat-button appearance="fill" class="customer-cancel-btn">Cancel</button>
                                 </div>
                                 <div class="mx-2">
                                     <button mat-button appearance="fill" class="customer-save-btn">Save</button>
@@ -188,7 +129,7 @@
                     </mat-card>
                 </div>
         
-                <div id="Customer-Listing" class=" pl-0 pr-0" style="">
+                <div *ngIf="fullDetailsOfCustomer" id="Customer-Listing" class=" pl-0 pr-0" style="">
                     <mat-card class="mb-0">
                         <div class="d-flex m-2 align-items-center">
                             <div class="customerProfile-width">
@@ -199,6 +140,9 @@
                                 <p>dummy@dummy.xyz</p>
                             </div>
                             <div class="customer-btn">
+                                <div class="mx-2">                                
+                                    <button (click)="fnAddNewCustomer()" mat-button appearance="fill" class="customer-edit-btn text-center pl-0"><mat-icon class="">edit</mat-icon>New</button>
+                                </div>
                                 <div class="mx-2">                                
                                     <button mat-button appearance="fill" class="customer-edit-btn text-center pl-0"><mat-icon class="">edit</mat-icon>Edit</button>
                                 </div>
@@ -310,7 +254,7 @@
                                         <button (click)="newAddNote()" class="Add-Note-btn"  mat-button>Add Note</button>
                                     </div>
                                 </div>
-                                <div class="addNotes">
+                                <!-- <div class="addNotes">
                                     <div class="Add-notes-background d-flex justify-content-center flex-wrap align-items-center">
                                         <div class="d-flex justify-content-center flex-wrap">
                                             <div>
@@ -321,62 +265,69 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="d-flex">
-                                    <mat-card class="NoteMatcard col-lg-4">
-                                        <div class="d-flex">
-                                            <h6>Subject</h6>
-                                            <div class="d-flex ml-auto">
-                                                <mat-icon (click)="newAddNote()" class="add-note-subject-icon" aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
-                                                <mat-icon class="add-note-subject-icon ml-2" aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+                                    <div class=" col-lg-4">
+                                        <mat-card class="NoteMatcard">
+                                            <div class="d-flex">
+                                                <h6>Subject</h6>
+                                                <div class="d-flex ml-auto">
+                                                    <mat-icon (click)="newAddNote()" class="add-note-subject-icon" aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+                                                    <mat-icon class="add-note-subject-icon ml-2" aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="py-3">
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <div class=" d-flex ml-auto">
-                                                <p class="" >2019-02-04</p>
-                                                <p class="pl-2">06:07:10</p>
+                                            <div class="py-3">
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
                                             </div>
-                                        </div>
-                                    </mat-card>
-                                    <mat-card class="NoteMatcard col-lg-4">
-                                        <div class="d-flex">
-                                            <h6>Subject</h6>
-                                            <div class="d-flex ml-auto">
-                                                <mat-icon class="add-note-subject-icon" aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
-                                                <mat-icon class="add-note-subject-icon ml-2" aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+                                            <div class="d-flex">
+                                                <div class=" d-flex ml-auto">
+                                                    <p class="" >2019-02-04</p>
+                                                    <p class="pl-2">06:07:10</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="py-3">
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <div class=" d-flex ml-auto">
-                                                <p class="" >2019-02-04</p>
-                                                <p class="pl-2">06:07:10</p>
+                                        </mat-card>
+                                    </div>
+                                    <div class=" col-lg-4">
+                                        <mat-card class="NoteMatcard">
+                                            <div class="d-flex">
+                                                <h6>Subject</h6>
+                                                <div class="d-flex ml-auto">
+                                                    <mat-icon (click)="newAddNote()" class="add-note-subject-icon" aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+                                                    <mat-icon class="add-note-subject-icon ml-2" aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </mat-card>
-                                    <mat-card class="NoteMatcard col-lg-4">
-                                        <div class="d-flex">
-                                            <h6>Subject</h6>
-                                            <div class="d-flex ml-auto">
-                                                <mat-icon class="add-note-subject-icon" aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
-                                                <mat-icon class="add-note-subject-icon ml-2" aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+                                            <div class="py-3">
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
                                             </div>
-                                        </div>
-                                        <div class="py-3">
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <div class=" d-flex ml-auto">
-                                                <p class="" >2019-02-04</p>
-                                                <p class="pl-2">06:07:10</p>
+                                            <div class="d-flex">
+                                                <div class=" d-flex ml-auto">
+                                                    <p class="" >2019-02-04</p>
+                                                    <p class="pl-2">06:07:10</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </mat-card>                                    
+                                        </mat-card>
+                                    </div>
+                                    <div class=" col-lg-4">
+                                        <mat-card class="NoteMatcard">
+                                            <div class="d-flex">
+                                                <h6>Subject</h6>
+                                                <div class="d-flex ml-auto">
+                                                    <mat-icon (click)="newAddNote()" class="add-note-subject-icon" aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+                                                    <mat-icon class="add-note-subject-icon ml-2" aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+                                                </div>
+                                            </div>
+                                            <div class="py-3">
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <div class=" d-flex ml-auto">
+                                                    <p class="" >2019-02-04</p>
+                                                    <p class="pl-2">06:07:10</p>
+                                                </div>
+                                            </div>
+                                        </mat-card>
+                                    </div>
+                                                                        
                                 </div>
                             </mat-tab>
                             <mat-tab label="Payments">
@@ -550,7 +501,7 @@
                                         <mat-icon aria-hidden="false">star</mat-icon>
                                     </div>
                                     <div class="py-2 ml-auto">
-                                        <mat-button-toggle mat-button appearance="fill" class="view-btn"><mat-icon aria-hidden="false">visibility</mat-icon>View</mat-button-toggle>
+                                        <button mat-button appearance="fill" class="view-btn" (click)="viewReviewDetail()"><mat-icon aria-hidden="false">visibility</mat-icon>View</button>
                                     </div>
                                 </div>
                                 <div>

@@ -34,9 +34,8 @@ export class AdminService {
        
       }
     
+    //   Business Module
     getAllBusiness(){
-        alert(this.adminId);
-        alert(this.adminToken);
         let requestObject = {
         };
         let headers = new HttpHeaders({
@@ -51,6 +50,8 @@ export class AdminService {
         }),
         catchError(this.handleError));
     }
+
+    // Appointment Module
     getAllAppointments(){
         let requestObject = {
         };
@@ -60,6 +61,23 @@ export class AdminService {
             'api-token' : this.adminToken 
         });
         return this.http.post(`${environment.apiUrl}/list-business`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
+    // Custpmer Module
+    getAllCustomers(){
+        let requestObject = {
+            'business_id': this.businessId,
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/admin-customer-list`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;
         }),

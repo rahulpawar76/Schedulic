@@ -17,12 +17,44 @@ export interface DialogData {
 export class CustomersComponent implements OnInit {
   dtOptions: any = {};
   animal: any;
-  constructor(public dialog: MatDialog,private AdminService: AdminService,) { }
-
- 
+  allCustomers: any;
+  newCustomer: boolean = false;
+  fullDetailsOfCustomer: boolean = true;
+  constructor(
+    public dialog: MatDialog,
+    private AdminService: AdminService,
+    ) { 
+    
+    localStorage.setItem('isBusiness', 'false');
+  }
 
   ngOnInit() {
+    this.getAllCustomers();
+  }
 
+  getAllCustomers(){
+    this.AdminService.getAllCustomers().subscribe((response:any) => {
+      if(response.data == true){
+        this.allCustomers = response.response
+        console.log(this.allCustomers);
+      }
+      else if(response.data == false){
+        this.allCustomers = ''
+      }
+    })
+  }
+
+  fnSelectCustomer(customer_id){
+    alert(customer_id);
+  }
+
+  fnAddNewCustomer(){
+    this.newCustomer = true;
+    this.fullDetailsOfCustomer = false;
+  }
+  fnCancelNewCustomer(){
+    this.newCustomer = false;
+    this.fullDetailsOfCustomer = true;
   }
 
   newCustomerAppointment() {

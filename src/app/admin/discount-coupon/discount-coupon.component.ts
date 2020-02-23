@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DiscountCouponComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    
+    localStorage.setItem('isBusiness', 'false');
+   }
 
   ngOnInit() {
   }

@@ -36,6 +36,7 @@ export interface DialogData {
 
 export class AppComponent implements AfterViewInit {
   animal:any;
+  selectedBusinessName: any;
   
     public company_info: string;
 
@@ -122,6 +123,7 @@ export class AppComponent implements AfterViewInit {
     }
     isBusinessSelected(){
         if(localStorage.getItem('business_id') && localStorage.getItem('business_id')!=""){
+          this.selectedBusinessName = localStorage.getItem('business_name');
             return true;
         }else{
             return false;
@@ -147,6 +149,7 @@ export class AppComponent implements AfterViewInit {
       }
       MyBusinessNav(){
         localStorage.removeItem('business_id');
+        localStorage.removeItem('business_name');
         this.router.navigate(['/admin/my-business']);
       }
       MyCustomerNav(){
