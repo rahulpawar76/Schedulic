@@ -476,12 +476,12 @@ export class rescheduleAppointmentDialog {
       return false;
     }
 
-    console.log(this.myAppoDetailData.order_id);
-    console.log(this.formAppointmentReschedule.get('rescheduleServiceId').value);
-    console.log(this.datePipe.transform(new Date(this.formAppointmentReschedule.get('rescheduleDate').value),"yyyy-MM-dd"));
-    console.log(this.formAppointmentReschedule.get('rescheduleTime').value);
-    console.log(this.formAppointmentReschedule.get('rescheduleStaff').value);
-    console.log(this.formAppointmentReschedule.get('rescheduleNote').value);
+    // console.log(this.myAppoDetailData.order_id);
+    // console.log(this.formAppointmentReschedule.get('rescheduleServiceId').value);
+    // console.log(this.datePipe.transform(new Date(this.formAppointmentReschedule.get('rescheduleDate').value),"yyyy-MM-dd"));
+    // console.log(this.formAppointmentReschedule.get('rescheduleTime').value);
+    // console.log(this.formAppointmentReschedule.get('rescheduleStaff').value);
+    // console.log(this.formAppointmentReschedule.get('rescheduleNote').value);
     let requestObject = {
      "order_item_id":JSON.stringify(this.myAppoDetailData.id),
      "staff_id":this.formAppointmentReschedule.get('rescheduleStaff').value,

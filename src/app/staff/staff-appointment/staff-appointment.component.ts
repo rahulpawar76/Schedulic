@@ -4,6 +4,11 @@ import { StaffService } from '../_services/staff.service'
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { DatePipe} from '@angular/common';
+import { environment } from '@environments/environment';
+import { Router, RouterOutlet } from '@angular/router';
+import { map, catchError } from 'rxjs/operators';
 
 export interface status {
   
@@ -148,18 +153,11 @@ export class StaffAppointmentComponent implements OnInit {
       width: '500px',
     });
      dialogRef.afterClosed().subscribe(result => {
-       this.animal = result;
+       this.getNewAppointment();
      });
   }
   
-  NewAppointment() {
-    const dialogRef = this.dialog.open(DialogNewAppointment, {
-      width: '500px',
-    });
-     dialogRef.afterClosed().subscribe(result => {
-      this.animal = result;
-     });
-  }
+  
 
 
   StaffMyAppointmentDetails(index){
@@ -193,12 +191,15 @@ export class StaffAppointmentComponent implements OnInit {
 
   }
 
-  rescheduleAppointment(){
+  rescheduleAppointment(index){
     const dialogRef = this.dialog.open(InterruptedReschedule, {
       height: '700px',
+      data : {fulldata: this.onGoingAppointmentData[index]}
     });
+      console.log(this.onGoingAppointmentData[index]);
     dialogRef.afterClosed().subscribe(result => {
-    this.animal = result;
+    
+    this.getOnGoingAppointment();
     });
 
   }
@@ -258,28 +259,519 @@ export class StaffAppointmentComponent implements OnInit {
   @Component({
       selector: 'add-new-appointment',
       templateUrl: '../_dialogs/add-new-appointment.html',
+      providers: [DatePipe]
   })
   export class DialogAddNewAppointment {
-
+    formAddNewAppointmentStaffStep1:FormGroup;
+    formAddNewAppointmentStaffStep2:FormGroup;
+    secondStep:boolean = false;
+    catdata :[];
+    subcatdata :[];
+    serviceData:any= [];
+    selectedCatId:any;
+    selectedSubCatId:any;
+    selectedServiceId:any;
+    minDate = new Date(2000, 0, 1);
+    timeSlotArr:any= [];
+    serviceCount:any= [];
+    selectedDate:any;
+    selectedTime:any;
+    staffId:any;
+    token:any;
     constructor(
       public dialogRef: MatDialogRef<DialogAddNewAppointment>,
-      @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+      public dialog: MatDialog,
+      private _formBuilder: FormBuilder,
+      private http: HttpClient,
+      private staffService: StaffService,
+      private _snackBar: MatSnackBar,
+      private datePipe: DatePipe,
+      @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+
+      this.staffId=(JSON.parse(localStorage.getItem('currentUser'))).user_id
+      this.token=(JSON.parse(localStorage.getItem('currentUser'))).token
+      let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
+      let onlynumeric = /^-?(0|[1-9]\d*)?$/
+
+      this.formAddNewAppointmentStaffStep1 = this._formBuilder.group({
+        customerFullName: ['', Validators.required],
+        customerEmail: ['', [Validators.required,Validators.email,Validators.pattern(emailPattern)]],
+        customerPhone: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(onlynumeric)]],
+        customerAddress: ['', Validators.required],
+        customerState: ['', Validators.required],
+        customerCity: ['', Validators.required],
+        customerPostalCode: ['',[Validators.required,Validators.pattern(onlynumeric)]],
+      });
+
+      this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
+        customerCategory: ['', Validators.required],
+        customerSubCategory: ['', Validators.required],
+        customerService: ['', [Validators.required]],
+        customerDate: ['', Validators.required],
+        customerTime: ['', Validators.required]
+      });
+    }
+
+    // personal info
+    isEmailUnique(control: FormControl) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+          });
+          return this.http.post(`${environment.apiUrl}/verify-email`,{ emailid: control.value },{headers:headers}).pipe(map((response : any) =>{
+            return response;
+          })).subscribe((res) => {
+            if(res){
+              if(res.data == false){
+                resolve({ isEmailUnique: true });
+              }else{
+              resolve(null);
+              }
+            }
+          });
+        }, 500);
+      });
+    }
 
     onNoClick(): void {
       this.dialogRef.close();
     }
 
-  }
+    fnNewAppointmentStep1(){
+      if(this.formAddNewAppointmentStaffStep1.invalid){
+        this.formAddNewAppointmentStaffStep1.get('customerFullName').markAsTouched();
+        this.formAddNewAppointmentStaffStep1.get('customerEmail').markAsTouched();
+        this.formAddNewAppointmentStaffStep1.get('customerPhone').markAsTouched();
+        this.formAddNewAppointmentStaffStep1.get('customerAddress').markAsTouched();
+        this.formAddNewAppointmentStaffStep1.get('customerState').markAsTouched();
+        this.formAddNewAppointmentStaffStep1.get('customerCity').markAsTouched();
+        this.formAddNewAppointmentStaffStep1.get('customerPostalCode').markAsTouched();
+        return false;
+      }
+
+      this.fnGetCategories(); 
+      this.secondStep=true;
+    }
+
+    fnGetCategories(){
+      let requestObject = {
+        "business_id":2,
+        "status":"E"
+        };
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'mode': 'no-cors'
+      });
+
+      this.http.post(`${environment.apiUrl}/get-all-category`,requestObject,{headers:headers} ).pipe(
+        map((res) => {
+          return res;
+        })
+        ).subscribe((response:any) => {
+          if(response.data == true){
+            this.catdata = response.response;
+            console.log(this.catdata);
+          }else{
+          }
+        },
+        (err) =>{
+          console.log(err)
+        })
+      }
+
+      fnSelectCat(event){
+        console.log(event)
+        this.fnGetSubCategory(event);
+        this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].setValue(null);
+        this.formAddNewAppointmentStaffStep2.controls['customerService'].setValue(null);
+      }
+    
+
+
+      // get Sub Category function
+      fnGetSubCategory(event){
+        let requestObject = {
+          "category_id":event,
+          "sub_category_status":"E"
+        };
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+
+        this.http.post(`${environment.apiUrl}/get-sub-category`,requestObject,{headers:headers} ).pipe(
+          map((res) => {
+            return res;
+          }),
+        ).subscribe((response:any) => {
+          if(response.data == true){
+            this.subcatdata = response.response;
+            console.log(this.subcatdata)
+          }else{
+
+          }
+        },
+        (err) =>{
+          console.log(err)
+        })
+      }
+
+      fnSelectSubCat(event){
+        console.log(event)
+        this.fnGetAllServices(event);
+        this.formAddNewAppointmentStaffStep2.controls['customerService'].setValue(null);
+        this.serviceCount.length=0;
+      }
+
+      fnGetAllServices(event){
+        let requestObject = {
+          "sub_category_id":event,
+          "status":"E"
+        };
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+
+        this.http.post(`${environment.apiUrl}/get-services`,requestObject,{headers:headers} ).pipe(
+          map((res) => {
+            return res;
+          }),
+        ).subscribe((response:any) => {
+          if(response.data == true){
+            this.serviceData = response.response;
+             for(let i=0; i<this.serviceData.length;i++){
+              this.serviceData[i].count=0;
+              this.serviceData[i].totalCost=0;
+              this.serviceData[i].appointmentDate='';
+              this.serviceData[i].appointmentTimeSlot='';
+              this.serviceData[i].assignedStaff=this.staffId;
+              this.serviceCount[this.serviceData[i].id]=this.serviceData[i];
+            }
+            console.log(JSON.stringify(this.serviceData));
+          }else{
+          }
+        },
+        (err) =>{
+          console.log(err)
+        })
+      }
+
+     fnSelectService(service_id){
+      console.log(service_id)
+      for(let i=0; i<this.serviceCount.length;i++){
+        if(this.serviceCount[i] != null && this.serviceCount[i].id == service_id){
+          this.serviceCount[i].count=1;
+          this.serviceCount[i].totalCost=1*this.serviceCount[i].service_cost;
+          if(this.selectedDate){
+            this.serviceCount[i].appointmentDate=this.selectedDate;
+          }else{
+            this.serviceCount[i].appointmentDate='';
+          }
+          if(this.selectedTime){
+            this.serviceCount[i].appointmentTimeSlot=this.selectedTime;
+          }else{
+            this.serviceCount[i].appointmentTimeSlot='';
+          }
+          this.serviceCount[i].assignedStaff=this.staffId;
+        }else if(this.serviceCount[i] != null && this.serviceCount[i].id != service_id){
+          this.serviceCount[i].count=0;
+          this.serviceCount[i].totalCost=0;
+          this.serviceCount[i].appointmentDate='';
+          this.serviceCount[i].appointmentTimeSlot='';
+          this.serviceCount[i].assignedStaff=null;
+        }
+      }
+      console.log(JSON.stringify(this.serviceCount));
+      }
+
+     fnDateChange(event: MatDatepickerInputEvent<Date>) {
+      console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
+      let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
+      this.formAddNewAppointmentStaffStep2.controls['customerTime'].setValue(null);
+      this.timeSlotArr= [];
+      this.serviceCount[this.selectedServiceId].appointmentDate=date;
+      this.selectedDate=date;
+      console.log(JSON.stringify(this.serviceCount));
+      this.fnGetTimeSlots(date);
+      }
+
+      fnGetTimeSlots(date){
+        let requestObject = {
+          "business_id":2,
+          "selected_date":date
+        };
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+
+        this.http.post(`${environment.apiUrl}/list-availabel-timings`,requestObject,{headers:headers} ).pipe(
+          map((res) => {
+            return res;
+          }),
+         // catchError(this.handleError)
+          ).subscribe((response:any) => {
+            if(response.data == true){
+              this.timeSlotArr=response.response;
+              console.log(this.timeSlotArr);
+            }
+            else{
+            }
+          },
+          (err) =>{
+            console.log(err)
+          })
+        }
+
+        fnSelectTime(timeSlot){
+          this.serviceCount[this.selectedServiceId].appointmentTimeSlot =timeSlot;
+          this.selectedTime=timeSlot;
+          console.log(JSON.stringify(this.serviceCount));
+        } 
+
+        onBackClick(){
+          this.secondStep=false;
+        }
+
+        fnNewAppointmentStep2(){
+          if(this.formAddNewAppointmentStaffStep2.invalid){
+            this.formAddNewAppointmentStaffStep2.get('customerCategory').markAsTouched();
+            this.formAddNewAppointmentStaffStep2.get('customerSubCategory').markAsTouched();
+            this.formAddNewAppointmentStaffStep2.get('customerService').markAsTouched();
+            this.formAddNewAppointmentStaffStep2.get('customerDate').markAsTouched();
+            this.formAddNewAppointmentStaffStep2.get('customerTime').markAsTouched();
+            return false;
+          }
+
+          let serviceCartArrTemp:any= [];
+          for(let i=0; i<this.serviceCount.length;i++){
+            if(this.serviceCount[i] != null && this.serviceCount[i].count > 0){
+              serviceCartArrTemp.push(this.serviceCount[i]);
+            }
+          }
+          console.log(JSON.stringify(serviceCartArrTemp));
+          const currentDateTime = new Date();
+          let requestObject = {
+            "postal_code": this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
+            "business_id": 2,
+            "serviceInfo": serviceCartArrTemp,
+            "customer_name": this.formAddNewAppointmentStaffStep1.get('customerFullName').value,
+            "customer_email": this.formAddNewAppointmentStaffStep1.get('customerEmail').value,
+            "customer_phone": this.formAddNewAppointmentStaffStep1.get('customerPhone').value,
+            "appointment_address": this.formAddNewAppointmentStaffStep1.get('customerAddress').value,
+            "appointment_state": this.formAddNewAppointmentStaffStep1.get('customerState').value,
+            "appointment_city": this.formAddNewAppointmentStaffStep1.get('customerCity').value,
+            "appointment_zipcode": this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
+            "coupon_code": '',
+            "subtotal": serviceCartArrTemp[0].totalCost,
+            "discount": 0,
+            "nettotal": serviceCartArrTemp[0].totalCost,
+            "created_by": "staff",
+            "payment_method": "Cash",
+            "order_date": currentDateTime
+          };
+          console.log(JSON.stringify(requestObject));
+          let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'api-token': this.token,
+            'staff-id': JSON.stringify(this.staffId),
+          });
+          this.http.post(`${environment.apiUrl}/order-create-check`,requestObject,{headers:headers} ).
+          pipe(
+          map((res) => {
+            return res;
+          }),
+          ).subscribe((response:any) => {
+            if(response.data == true){
+              this._snackBar.open("Appointment created", "X", {
+                  duration: 2000,
+                  verticalPosition:'top',
+                  panelClass :['green-snackbar']
+              });
+              this.dialogRef.close();
+            }
+            else{
+                this._snackBar.open("Appointment not created", "X", {
+                    duration: 2000,
+                    verticalPosition:'top',
+                    panelClass :['red-snackbar']
+                });
+            }
+          },
+          (err) =>{
+            
+          })
+        }
+      }
 
   @Component({
       selector: 'new-appointment',
       templateUrl: '../_dialogs/new-appointment.html',
+    providers: [DatePipe]
   })
   export class DialogNewAppointment {
 
+    catdata :[];
+    subcatdata :[];
+    serviceData:any= [];
+    selectedCatId:any;
+    selectedSubCatId:any;
+    selectedServiceId:any;
+    minDate = new Date(2000, 0, 1);
+    timeSlotArr:any= [];
     constructor(
       public dialogRef: MatDialogRef<DialogNewAppointment>,
-      @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+      private datePipe: DatePipe,
+      public dialog: MatDialog,
+      private _formBuilder: FormBuilder,
+      private http: HttpClient,
+      private staffService: StaffService,
+      private _snackBar: MatSnackBar,
+      @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+      this.fnGetCategories();
+    }
+
+  fnGetCategories(){
+    let requestObject = {
+      "business_id":2,
+      "status":"E"
+      };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'mode': 'no-cors'
+    });
+
+    this.http.post(`${environment.apiUrl}/get-all-category`,requestObject,{headers:headers} ).pipe(
+      map((res) => {
+        return res;
+      })
+      ).subscribe((response:any) => {
+        if(response.data == true){
+            this.catdata = response.response;
+            console.log(this.catdata);
+        }else{
+        }
+        
+      },
+      (err) =>{
+        console.log(err)
+      })
+    }
+
+    fnSelectCat(event){
+      console.log(event)
+      this.fnGetSubCategory(event);
+    }
+      // get Sub Category function
+  fnGetSubCategory(event){
+    let requestObject = {
+      "category_id":event,
+      "sub_category_status":"E"
+    };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    this.http.post(`${environment.apiUrl}/get-sub-category`,requestObject,{headers:headers} ).pipe(
+      map((res) => {
+        return res;
+      }),
+    ).subscribe((response:any) => {
+      if(response.data == true){
+        this.subcatdata = response.response;
+        console.log(this.subcatdata)
+      }else{
+
+      }
+    },
+    (err) =>{
+      console.log(err)
+    })
+  }
+
+  fnSelectSubCat(event){
+    console.log(event)
+    this.fnGetAllServices(event);
+  }
+
+  fnGetAllServices(event){
+  let requestObject = {
+    "sub_category_id":event,
+    "status":"E"
+  };
+  let headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+  });
+
+  this.http.post(`${environment.apiUrl}/get-services`,requestObject,{headers:headers} ).pipe(
+    map((res) => {
+      return res;
+    }),
+  ).subscribe((response:any) => {
+    if(response.data == true){
+      this.serviceData = response.response;
+      // console.log(JSON.stringify(this.serviceCount));
+      // for(let i=0; i<this.serviceData.length;i++){
+      //   if(this.serviceCount[this.serviceData[i].id] == null){
+      //     this.serviceData[i].count=0;
+      //     this.serviceData[i].totalCost=0;
+      //     this.serviceData[i].appointmentDate='';
+      //     this.serviceData[i].appointmentTimeSlot='';
+      //     this.serviceData[i].assignedStaff=null;
+      //     this.serviceCount[this.serviceData[i].id]=this.serviceData[i];
+      //   }
+        
+     // }
+      console.log(JSON.stringify(this.serviceData));
+    }else{
+    }
+  },
+    (err) =>{
+      console.log(err)
+    })
+  }
+
+ fnSelectService(event){
+    console.log(event)
+  }
+
+   fnDateChange(event: MatDatepickerInputEvent<Date>) {
+        console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
+        let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
+        //this.formAppointmentRescheduleStaff.controls['rescheduleTime'].setValue(null);
+        //this.formAppointmentRescheduleStaff.controls['rescheduleStaff'].setValue(null);
+        this.timeSlotArr= [];
+        //this.availableStaff= [];
+        this.fnGetTimeSlots(date);
+      }
+
+      fnGetTimeSlots(date){
+        let requestObject = {
+          "business_id":2,
+          "selected_date":date
+        };
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+
+        this.http.post(`${environment.apiUrl}/list-availabel-timings`,requestObject,{headers:headers} ).pipe(
+          map((res) => {
+            return res;
+          }),
+         // catchError(this.handleError)
+          ).subscribe((response:any) => {
+            if(response.data == true){
+              this.timeSlotArr=response.response;
+              console.log(this.timeSlotArr);
+            }
+            else{
+            }
+          },
+          (err) =>{
+            console.log(err)
+          })
+        }
+
+    
 
     onNoClick(): void {
       this.dialogRef.close();
@@ -317,6 +809,7 @@ export class StaffAppointmentComponent implements OnInit {
             verticalPosition:'top',
             panelClass :['green-snackbar']
           });
+          this.dialogRef.close();
         }
         else if(response.data == false) {
           this._snackBar.open("Appointment Not Updated", "X", {
@@ -324,9 +817,9 @@ export class StaffAppointmentComponent implements OnInit {
             verticalPosition:'top',
             panelClass :['red-snackbar']
           }); 
+          this.dialogRef.close();
         }
       })
-      this.dialogRef.close();
     }
 
   }
@@ -365,6 +858,7 @@ export class StaffAppointmentComponent implements OnInit {
             verticalPosition:'top',
             panelClass :['green-snackbar']
           });
+          this.dialogRef.close();
         }
         else if(response.data == false) {
           this._snackBar.open("Appointment Not Updated", "X", {
@@ -372,9 +866,9 @@ export class StaffAppointmentComponent implements OnInit {
             verticalPosition:'top',
             panelClass :['red-snackbar']
           }); 
+          this.dialogRef.close();
         }
       })
-      this.dialogRef.close();
     }
 
   }
@@ -411,6 +905,7 @@ export class StaffAppointmentComponent implements OnInit {
             verticalPosition:'top',
             panelClass :['green-snackbar']
           });
+          this.dialogRef.close();
         }
         else if(response.data == false) {
           this._snackBar.open("Appointment Not Updated", "X", {
@@ -418,9 +913,9 @@ export class StaffAppointmentComponent implements OnInit {
             verticalPosition:'top',
             panelClass :['red-snackbar']
           }); 
+          this.dialogRef.close();
         }
       })
-      this.dialogRef.close();
     }
 
   }
@@ -429,16 +924,144 @@ export class StaffAppointmentComponent implements OnInit {
   @Component({
     selector: 'interrupted-reschedule',
     templateUrl: '../_dialogs/interrupted-reschedule.html',
+    providers: [DatePipe]
   })
   export class InterruptedReschedule {
-
+    formAppointmentRescheduleStaff:FormGroup;
+    myAppoDetailData:any;
+    minDate = new Date(2000, 0, 1);
+    timeSlotArr:any= [];
+    availableStaff:any= [];
     constructor(
       public dialogRef: MatDialogRef<InterruptedReschedule>,
-      @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+      private datePipe: DatePipe,
+      private _formBuilder: FormBuilder,
+      private http: HttpClient,
+      private staffService: StaffService,
+      private _snackBar: MatSnackBar,
+      @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.myAppoDetailData=this.data.fulldata;
+      this.formAppointmentRescheduleStaff = this._formBuilder.group({
+        rescheduleServiceId: [this.myAppoDetailData.id, Validators.required],
+        rescheduleDate: ['', Validators.required],
+        rescheduleTime: ['', Validators.required],
+        rescheduleStaff: [this.myAppoDetailData.staff_id, Validators.required],
+        rescheduleNote: [''],
+      });
+      this.formAppointmentRescheduleStaff.controls['rescheduleServiceId'].setValue(this.myAppoDetailData.service.id);
+    }
+
+    
+    fnDateChange(event: MatDatepickerInputEvent<Date>) {
+        console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
+        let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
+        this.formAppointmentRescheduleStaff.controls['rescheduleTime'].setValue(null);
+        //this.formAppointmentRescheduleStaff.controls['rescheduleStaff'].setValue(null);
+        this.timeSlotArr= [];
+        this.availableStaff= [];
+        this.fnGetTimeSlots(this.myAppoDetailData.service.id,date);
+      }
+
+      fnGetTimeSlots(rescheduleServiceId,rescheduleDate){
+        let requestObject = {
+          "business_id":2,
+          "selected_date":rescheduleDate
+        };
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+
+        this.http.post(`${environment.apiUrl}/list-availabel-timings`,requestObject,{headers:headers} ).pipe(
+          map((res) => {
+            return res;
+          }),
+         // catchError(this.handleError)
+          ).subscribe((response:any) => {
+            if(response.data == true){
+              this.timeSlotArr=response.response;
+              console.log(this.timeSlotArr);
+            }
+            else{
+            }
+          },
+          (err) =>{
+            console.log(err)
+          })
+        }
+     
+        fnChangeTimeSlot(event){
+          console.log(event);
+          //this.formAppointmentRescheduleStaff.controls['rescheduleStaff'].setValue(null);
+          //this.fnGetStaff(event);
+        }
+
+        fnGetStaff(slot){
+          let requestObject = {
+            "bussiness_id":2,
+            "service_id":this.myAppoDetailData.service.id
+          };
+          let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+          });
+
+          this.http.post(`${environment.apiUrl}/service-staff`,requestObject,{headers:headers} ).pipe(
+            map((res) => {
+              return res;
+            }),
+            //catchError(this.handleError)
+          ).subscribe((response:any) => {
+            if(response.data == true){
+                this.availableStaff = response.response;
+                console.log(JSON.stringify(this.availableStaff));
+            }
+            else{
+              this.availableStaff.length=0;
+            }
+            },
+            (err) =>{
+              console.log(err)
+            })
+        }
 
     onNoClick(): void {
       this.dialogRef.close();
     }
+  formRescheduleSubmit(){
+    if(this.formAppointmentRescheduleStaff.invalid){
+      return false;
+    }
+
+    console.log(this.myAppoDetailData.order_id);
+    console.log(this.formAppointmentRescheduleStaff.get('rescheduleServiceId').value);
+    console.log(this.datePipe.transform(new Date(this.formAppointmentRescheduleStaff.get('rescheduleDate').value),"yyyy-MM-dd"));
+    console.log(this.formAppointmentRescheduleStaff.get('rescheduleTime').value);
+    console.log(this.formAppointmentRescheduleStaff.get('rescheduleStaff').value);
+    console.log(this.formAppointmentRescheduleStaff.get('rescheduleNote').value);
+    let requestObject = {
+     "order_item_id":JSON.stringify(this.myAppoDetailData.id),
+     "staff_id":this.formAppointmentRescheduleStaff.get('rescheduleStaff').value,
+     "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleStaff.get('rescheduleDate').value),"yyyy-MM-dd"),
+     "book_time":this.formAppointmentRescheduleStaff.get('rescheduleTime').value,
+     "book_notes":this.formAppointmentRescheduleStaff.get('rescheduleNote').value
+    };
+    this.staffService.rescheduleAppointment(requestObject).subscribe((response:any) =>{
+      if(response.data == true){
+        this._snackBar.open("Appointment Rescheduled", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+          });
+          this.dialogRef.close();
+     }
+      else if(response.data == false){
+        this._snackBar.open("Appointment not Rescheduled", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+          });
+      }
+    })
+  }
 
   }
 
