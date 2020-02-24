@@ -36,6 +36,7 @@ export interface DialogData {
 
 export class AppComponent implements AfterViewInit {
   animal:any;
+  selectedBusinessName: any;
   
     public company_info: string;
 
@@ -47,6 +48,7 @@ export class AppComponent implements AfterViewInit {
     currentUser: User;
     selectedSessionId: any;
     selectedSessionName: any;
+    timer:any =0;
 
     constructor(
         public router: Router,
@@ -112,6 +114,21 @@ export class AppComponent implements AfterViewInit {
             return false;
         }
     }
+    isBusiness(){
+        if(localStorage.getItem('isBusiness') && localStorage.getItem('isBusiness')=="true"){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    isBusinessSelected(){
+        if(localStorage.getItem('business_id') && localStorage.getItem('business_id')!=""){
+          this.selectedBusinessName = localStorage.getItem('business_name');
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     ngOnInit() {
      // this.setcompanycolours();
@@ -124,6 +141,26 @@ export class AppComponent implements AfterViewInit {
     }*/
 
 
+
+
+      /*Admin Dashboard Navigation*/
+      myWorkSpaceNav(){
+        this.router.navigate(['/admin/my-workspace']);
+      }
+      MyBusinessNav(){
+        localStorage.removeItem('business_id');
+        localStorage.removeItem('business_name');
+        this.router.navigate(['/admin/my-business']);
+      }
+      MyCustomerNav(){
+        this.router.navigate(['/admin/my-customer']);
+      }
+      MyAppointmentNav(){
+        this.router.navigate(['/admin/my-appointment']);
+      }
+      // MyReportsNav(){
+      //   this.router.navigate(['/admin/my-business']);
+      // }
 
 
       /*StaffDashboard Navigation*/
@@ -146,9 +183,20 @@ export class AppComponent implements AfterViewInit {
 
       logout() {
         this.authenticationService.logout();
+        if (this.timer) {
+          clearTimeout(this.timer);
+          this.timer = 0;
+        }
         this.router.navigate(['/login']);
       }
-    
+      
+      initiateTimeout(){
+        console.log('initiateTimeout');
+        let that=this
+        that.timer=setTimeout(function(){
+        that.logout()
+        },1080000);
+        }
 
       /*Customer Navigation*/
       
@@ -235,3 +283,5 @@ export class AppComponent implements AfterViewInit {
     }
 
   }
+
+  

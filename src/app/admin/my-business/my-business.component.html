@@ -1,46 +1,48 @@
-<div id="my-business-top">
-	<div class="col-12 d-flex inner">
-		<div class="col-lg-6 col-md-6 col-sm-12 first d-flex"><span>My Business</span></div>
-		<div class="col-lg-6 col-md-6 col-sm-12 second">
-			<a (click)="creatNewBusiness()"><i class="fa fa-plus AddNewBusinessIcon" aria-hidden="true"></i> Add New Business / Location</a>
+<div class="container-fluid sub-container" id="my_business">
+	<div id="my-business-top">
+		<div class="col-12 d-flex inner">
+			<div class="col-lg-6 col-md-6 col-sm-12 first d-flex"><span>My Business</span></div>
+			<div class="col-lg-6 col-md-6 col-sm-12 second">
+				<a (click)="creatNewBusiness()"><i class="fa fa-plus AddNewBusinessIcon" aria-hidden="true"></i> Add New Business / Location</a>
+			</div>
 		</div>
 	</div>
-</div>
 
-<div class="" id="Add-new-business">
-	<div class="">
-		<div class="col-12">
-			<div class="d-flex flex-wrap">
-				<mat-card class="col-lg-3 col-md-6 col-sm-12 text-center SelectBusiness">
-					<div class="pt-3 image-round-main d-flex">
-						<div class="SelectBusinessIcon">
-							<img mat-card-avatar="" src="../../assets/images/admin/multi-building.png">
+	<div class="" id="Add-new-business">
+		<div class="">
+			<div class="col-12">
+				<div class="d-flex flex-wrap">
+					<mat-card *ngFor="let allBusiness of allBusiness; let i=index" class="col-lg-3 col-md-6 col-sm-12 text-center SelectBusiness">
+						<div class="pt-3 image-round-main d-flex">
+							<div class="SelectBusinessIcon">
+								<img mat-card-avatar="" src="../../assets/images/admin/multi-building.png">
+							</div>
 						</div>
-					</div>
-					<div class="pt-3 business-title">
-						<h6>Glass Repair</h6>
-					</div>
-					<div class="content">
-						Akshay Nagar 1st Block 1st cross,Rammurthy nagar, Bangalore-560016,India.
-					</div>
-					<div class="pt-3">
-						<button mat-button class="businness-btn">Select Business</button>
-					</div>
-				</mat-card>
-				<mat-card  class="col-lg-3 col-md-6 col-sm-12 text-center NewBusiness-matcard" (click)="creatNewBusiness()">
-					<div class="business-btn-main">
-						<div class="AddNewBusinessIcon">
-							<img mat-card-avatar="" src="../../assets/images/admin/add.png">
+						<div class="pt-3 business-title">
+							<h6 class="text-capitalize">{{allBusiness.business_name}}</h6>
 						</div>
-					</div>
-					<div class="pt-4">
-						<h6>Add New Business/location</h6>
-					</div>
-					<div class="pb-3 content">
-						Business/Location can be a physical or online address from where services are provided.Each business/location can have its own staff members, resources, services, and settings.
-					</div>
-				</mat-card>
-			</div>	
+						<div class="content">
+							{{allBusiness.address}}
+						</div>
+						<div class="pt-3">
+							<button mat-button class="businness-btn" (click)="fnSelectBusiness(allBusiness.id, allBusiness.business_name)">Select Business</button>
+						</div>
+					</mat-card>
+					<mat-card  class="col-lg-3 col-md-6 col-sm-12 text-center NewBusiness-matcard" (click)="creatNewBusiness()">
+						<div class="business-btn-main">
+							<div class="AddNewBusinessIcon">
+								<img mat-card-avatar="" src="../../assets/images/admin/add.png">
+							</div>
+						</div>
+						<div class="pt-4">
+							<h6>Add New Business/location</h6>
+						</div>
+						<div class="pb-3 content">
+							Business/Location can be a physical or online address from where services are provided.Each business/location can have its own staff members, resources, services, and settings.
+						</div>
+					</mat-card>
+				</div>	
+			</div>
 		</div>
 	</div>
 </div>
