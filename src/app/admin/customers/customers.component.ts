@@ -20,6 +20,7 @@ export class CustomersComponent implements OnInit {
   allCustomers: any;
   newCustomer: boolean = false;
   fullDetailsOfCustomer: boolean = true;
+  isLoaderAdmin : boolean = false;
   constructor(
     public dialog: MatDialog,
     private AdminService: AdminService,
@@ -101,6 +102,10 @@ export class CustomersComponent implements OnInit {
       this.animal = result;
      });
   }
+  
+fnLoaderShow(){
+  this.isLoaderAdmin = true;
+}
 
 }
 
