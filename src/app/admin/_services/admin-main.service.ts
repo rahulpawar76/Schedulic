@@ -117,16 +117,20 @@ export class AdminService {
     }
 
     // Appointment Module
-    getAllAppointments(){
+    getAllAppointments(durationType,services){
         let requestObject = {
+            'business_id' : this.businessId,
+            'duration_type' : durationType,
+            'services' : services
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : this.adminId,
             'api-token' : this.adminToken 
         });
-        return this.http.post(`${environment.apiUrl}/list-business`,requestObject,{headers:headers}).pipe(
+        return this.http.post(`${environment.apiUrl}/admin-booking-listing`,requestObject,{headers:headers}).pipe(
         map((res) => {
+            console.log(res);
             return res;
         }),
         catchError(this.handleError));
