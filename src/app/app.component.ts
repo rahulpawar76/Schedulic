@@ -147,12 +147,10 @@ export class AppComponent implements AfterViewInit {
       myWorkSpaceNav(){
         this.router.navigate(['/admin/my-workspace']);
       }
-<<<<<<< HEAD
       myReportsNav(){
         this.router.navigate(['/admin/my-reports']);
 
       }
-=======
       MyBusinessNav(){
         localStorage.removeItem('business_id');
         localStorage.removeItem('business_name');
@@ -167,7 +165,6 @@ export class AppComponent implements AfterViewInit {
       // MyReportsNav(){
       //   this.router.navigate(['/admin/my-business']);
       // }
->>>>>>> aebc85f64426bf13bbfef5d35bcb7fac209df9e6
 
 
       /*StaffDashboard Navigation*/
