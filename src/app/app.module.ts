@@ -74,7 +74,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         ResetPasswordComponent,
         FrontbookingComponent,
         DialogNotification,
+<<<<<<< HEAD
         
+=======
+       
+>>>>>>> aebc85f64426bf13bbfef5d35bcb7fac209df9e6
         ],
     imports: [
         BrowserModule,

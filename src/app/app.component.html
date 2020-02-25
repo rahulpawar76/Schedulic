@@ -1,15 +1,11 @@
 ﻿
-<mat-drawer-container class="example-container">
+<mat-drawer-container class="main-container">
   <mat-drawer-content>
       <main fxLayout="column" fxLayoutGap="0">
        <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser() && !isBusiness()}" color="primary" class="toolbar menu-comman" *ngIf="isLogin() && !isFront()">
           <mat-toolbar-row *ngIf="isCustomerUser()">
             <div class="logo"><a><img src="/assets/img/logo.png"></a></div> 
             <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
-
-
-              <span class="example-fill-remaining-space">
-              </span>
               <span class="f13">
                 <button  mat-stroked-button class="bellborder bell-color ml-3" (click)="openNotificationDialog()">
                 <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
@@ -46,8 +42,13 @@
           <mat-toolbar-row *ngIf="isAdminUser()">
             <!-- <div class="logo"><a><img src="/assets/img/logo.png"></a></div>  -->
             <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
-              <span class="example-fill-remaining-space"></span>
+              <span class="example-fill-remaining-space">
+                <div class="selected-business-btn-main">
+                  <button mat-button color="primary" class="text-capitalize" *ngIf="isBusinessSelected() && !isBusiness()">Business : {{selectedBusinessName}}</button>
+                </div>
+              </span>
               <span class="f13">
+                <button mat-button color="primary"  (click)="MyBusinessNav()">My Businesses</button>
                 <button  mat-stroked-button class="bellborder bell-color ml-3" (click)="openNotificationDialog()">
                 <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
                 </button> 
@@ -72,7 +73,7 @@
         <router-outlet #outlet="outlet"></router-outlet>
       </div>
       <div class="bottom_header" *ngIf="isAdminUser() && !isFront()" fxFlex="100">
-        <mat-drawer-container class="example-container left-admin-menu">
+        <mat-drawer-container class="main-container left-admin-menu">
           <mat-drawer *ngIf="!isBusiness()" mode="side" opened>
             <mat-list-item role="listitem"  class="matlist pointer menuitem logo">
               <div class="logo"><img src="/assets/images/admin/admin-logo-orange.png"></div>
@@ -84,13 +85,18 @@
               <div class="common-menu"><img src="/assets/images/admin/admin-menu-bag.png"></div>
             </mat-list-item>
             <mat-list-item role="listitem" >
-              <div class="common-menu"><img src="/assets/images/admin/admin-menu-calendar.png"></div>
+              <div class="common-menu" (click)="MyAppointmentNav()"><img src="/assets/images/admin/admin-menu-calendar.png"></div>
             </mat-list-item>
             <mat-list-item role="listitem" >
-              <div class="common-menu"><img src="/assets/images/admin/admin-menu-user.png"></div>
+              <div class="common-menu" (click)="MyCustomerNav()"><img src="/assets/images/admin/admin-menu-user.png"></div>
             </mat-list-item>
+<<<<<<< HEAD
             <mat-list-item role="listitem" (click)="myReportsNav()">
               <div class="common-menu"><img src="/assets/images/admin/admin-menu-statistics.png"></div>
+=======
+            <mat-list-item role="listitem" >
+              <div class="common-menu" (click)="MyReportsNav()"><img src="/assets/images/admin/admin-menu-statistics.png"></div>
+>>>>>>> aebc85f64426bf13bbfef5d35bcb7fac209df9e6
             </mat-list-item>
             <mat-list-item role="listitem" >
               <div class="common-menu"><img src="/assets/images/admin/admin-menu-megaphone.png"></div>

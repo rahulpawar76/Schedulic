@@ -23,8 +23,14 @@ import { DialogNewAppointment } from './appointment/appointment.component';
 import { CustomersComponent } from './customers/customers.component';
 import { DialogNewCustomerAppointment } from './customers/customers.component';
 import { DialogAddNewNote } from './customers/customers.component';
+<<<<<<< HEAD
 import { ReportsComponent } from './reports/reports.component';
 import { AppointmentLiveComponent } from './appointment-live/appointment-live.component';
+=======
+import { DialogPaymentNote } from './customers/customers.component';
+import { DialogViewReview } from './customers/customers.component';
+import { DiscountCouponComponent } from './discount-coupon/discount-coupon.component';
+>>>>>>> aebc85f64426bf13bbfef5d35bcb7fac209df9e6
 
 @NgModule({
   declarations: [
@@ -38,8 +44,14 @@ import { AppointmentLiveComponent } from './appointment-live/appointment-live.co
     CustomersComponent,
     DialogNewCustomerAppointment,
     DialogAddNewNote,
+<<<<<<< HEAD
     ReportsComponent,
     AppointmentLiveComponent
+=======
+    DialogPaymentNote,
+    DialogViewReview,
+    DiscountCouponComponent
+>>>>>>> aebc85f64426bf13bbfef5d35bcb7fac209df9e6
     ],
   imports: [
     CommonModule,
@@ -59,6 +71,6 @@ import { AppointmentLiveComponent } from './appointment-live/appointment-live.co
   exports: [
     FormsModule
   ],
-  entryComponents: [myCreateNewBusinessDialog,myWorkSpaceAcceptDialog,DialogAddNewAppointment,DialogNewAppointment,DialogNewCustomerAppointment,DialogAddNewNote],
+  entryComponents: [myCreateNewBusinessDialog,myWorkSpaceAcceptDialog,DialogAddNewAppointment,DialogNewAppointment,DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,DialogViewReview],
 })
 export class AdminModule { }

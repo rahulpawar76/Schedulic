@@ -6,7 +6,7 @@ import { first } from 'rxjs/operators';
 import { AuthenticationService } from '@app/_services';
 import { LoaderService } from '@app/_services/loader.service';
 import { User, Role } from '../_models';
-
+import { AppComponent } from '../app.component';
 declare var google:any
 
 @Component({ 
@@ -33,7 +33,8 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private loaderService: LoaderService
+        private loaderService: LoaderService,
+        private appComponent:AppComponent
     ) { 
         if(/msie\s|trident\//i.test(window.navigator.userAgent)){
             this.isIE = true;
@@ -90,7 +91,7 @@ export class LoginComponent implements OnInit {
                         this.router.navigate(["user"]);
                     }
 
-
+                    this.appComponent.initiateTimeout();
                     this.hideLoginForm = false;
                     
                 }else{
