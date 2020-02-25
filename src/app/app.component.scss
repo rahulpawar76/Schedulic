@@ -61,7 +61,6 @@
 
 }
 .pointer {
-    
     cursor: pointer;
 }
 
@@ -325,4 +324,9 @@ background-color: $primary-color;
 .admin_top_bar{
     width: calc(100% - 90px);
     left:90px;
+}
+.main-admin-drawer{
+    ::ng-deep .ng-star-inserted{
+        width: 100%;
+    }
 }

@@ -50,6 +50,71 @@ export class AdminService {
         }),
         catchError(this.handleError));
     }
+    gelAllCountry(){
+        let requestObject = {
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+        });
+        return this.http.post(`${environment.apiUrl}/countries`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    gelAllState(country_id){
+        let requestObject = {
+            'country_id' : country_id
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+        });
+        return this.http.post(`${environment.apiUrl}/states`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    gelAllCities(state_id){
+        let requestObject = {
+            'state_id' : state_id
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+        });
+        return this.http.post(`${environment.apiUrl}/cities`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    getTimeZone(){
+        let requestObject = {
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+        });
+        return this.http.post(`http://api.timezonedb.com/v2.1/list-time-zone?key=L1US8PRRVKYX&format=json`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    createNewBusiness(newBusinessData){
+        let requestObject = {
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/create-business`,newBusinessData,{headers:headers}).pipe(
+        map((res) => {
+           
+            return res;
+        }),
+        catchError(this.handleError));
+    }
 
     // Appointment Module
     getAllAppointments(){

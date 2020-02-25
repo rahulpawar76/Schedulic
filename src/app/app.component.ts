@@ -147,6 +147,10 @@ export class AppComponent implements AfterViewInit {
       myWorkSpaceNav(){
         this.router.navigate(['/admin/my-workspace']);
       }
+      myReportsNav(){
+        this.router.navigate(['/admin/my-reports']);
+
+      }
       MyBusinessNav(){
         localStorage.removeItem('business_id');
         localStorage.removeItem('business_name');
