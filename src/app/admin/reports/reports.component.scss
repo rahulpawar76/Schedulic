@@ -1,0 +1,251 @@
+@import "variables";
+// // ::ng-deep .mat-drawer{
+// //     max-width: 25%;
+// // }
+// // ::ng-deep .mat-drawer-content{
+// //     max-width: 75%;
+// //     margin-left: 288px;
+// // }
+// .max-width-94{
+//     max-width: 94%;
+//     margin: 0 auto;
+// }
+
+// .example-container{
+//     .devider-slim{
+//         width: 100%;
+//         border-bottom: 1px solid #ccc;
+//     }
+//     #Customer-list{
+//         background-color: #f2f2f2;
+//         ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix{
+//             padding: 10px 0 10px 10px;
+//         }
+//         ::ng-deep  .mat-form-field-infix {
+//             border-top: unset;
+//         }
+//         ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper{
+//             transform: inherit;
+//         }
+//         ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper{
+//             background-color: white;
+//             border-radius: 5px;
+//         }
+        .leftarrow-icon{
+            // margin-left: auto;
+            display: flex;
+            .customer-drawer-leftarrow{
+                padding: 4px 8px;
+                height: auto;
+                width: auto;
+                text-align: center;
+                background-color: #dedede;
+                 margin-left: auto;
+            }
+           
+        }
+        .cust-reports{
+            margin: 2px;;
+            font-size: 18px;
+        }
+        .cust-icons{
+            font-size: 20px;
+            .cust-search{
+                margin: 20px 15px;
+            }
+            .cust-print{
+                margin: 20px 15px;
+            }
+        }
+        .main-cust-table-content{
+            padding: 0;
+
+        }
+       
+//         p{
+//             margin-bottom: 0px;
+//         }
+//         h6{
+//             margin-bottom: 0px;;
+//         }
+//         .searchbox{
+//             // width: 60%;  
+//             .serch_input-appoint{           
+//                 height: 39px; 
+//                 padding-top: 3px; 
+//                 .has-search .form-control {
+//                     padding-left: 2.375rem;
+//                     }
+//                     .has-search .form-control-feedback {
+//                         position: absolute;
+//                         z-index: 2;
+//                         display: block;
+//                         width: 2.375rem;
+//                         height: 1rem;
+//                         line-height: 2rem;
+//                         text-align: center;
+//                         pointer-events: none;
+//                         color: black;
+//                         .has-search .form-control-feedback .verticalLine{
+//                             &:after {
+//                                 content: "";
+//                                 position: absolute;
+//                                 top: 58%;
+//                                 right: 0;
+//                                 width: 1px;
+//                                 height: 100%;
+//                                 background: #f2f2f2;
+//                             }
+//                         } 
+//                     }
+//                     ::placeholder {         
+//                         font-size: 12px;
+//                     }                        
+//                     .searchbox_appointment{
+//                         border-radius: 20px;
+//                         height: 33px;
+//                         background-color: #f2f2f2;
+//                     }          
+//             }                   
+//         }
+//         .customer-checkbox{
+//             line-height: 3;
+//             width:11%;
+//         }
+//         .customer-name-width{
+//             width: 20%;
+//             margin-right: .5rem!important;
+//             .customer-name{
+//                 background-color:#00c6ff;
+//                 border-radius: 50%;
+//                 padding: 10px;          
+//                 width: 45px;
+//                 height: 45px;
+//                 text-align: center;
+//             }
+//         }        
+//         .customer-details{
+//             width: 69%;
+//         }
+//     }
+//     #Add-New-Customer{
+//         .customer-profile-background{
+//             background-color: #e8e8e8;
+//             padding: 30px;
+//             width: 110px;
+//             height: 110px;
+//             border-radius: 80px;
+//             .profile-image{
+//                 width: 50px;
+//                 height: 50px;
+//             }
+//         }
+//         .profile-uploadbtn{
+//             width: 165px;
+//             height: 51px;
+//             border-radius: 4px;
+//             background-color: #f87812;
+//             border: 2px solid #f87812;
+//             color: white;
+//         }
+//         .profile-removebtn{
+//             width:167px;
+//             height: 51px;
+//             border-radius: 4px;
+//             background-color: #bcbcbc;
+//             border: 2px solid #bcbcbc;
+//             color: white;
+//         }
+//         .customer-cancel-btn{
+//             width: 100px;
+//             height: 39px;
+//             border-radius: 7px;
+//             background-color: #dddddd;
+//         }
+//         .customer-save-btn{
+//             width: 109px;
+//             height: 39px;
+//             border-radius: 7px;
+//             background-color: #1173f4;
+//         }
+        
+//         .action-btn{
+//             margin-left: auto;
+//             display: flex;
+//         }
+//     }
+// }
+
+.main-custmer-content{
+
+    background-color: lightblue;
+   
+}
+
+#Customer-Listing{
+    text-align: center;
+    padding: 15px;
+
+    .custreports{
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .custrecords{
+        font-size: 16px;
+        font-weight: bold;
+        
+    }
+    .main-table-content{
+        padding: 0;
+       
+    }
+   
+}
+.main-heading-content{
+    background-color: #fabb88;
+}
+
+
+.mat-list-icon{
+    color:$iconcolors;
+}
+
+.matlist{
+    display: block !important;
+    height: 60px !important;
+    width: 100% !important;
+    padding: 5px 0 !important;
+     &:hover{
+             background-color: $bgblue;
+        }
+}
+
+.menuitem{
+    color:#325c98;
+    padding-top: 4px;
+    &:focus{
+            outline:none; 
+            }           
+}
+.mat-list-item{
+     &:hover{
+                background-color: $bgblue;
+                color: #295792;
+            }
+}
+.saleschart{
+    margin: 0 14px;
+    font-size: 23px;
+   
+}
+.custchart{
+    font-size: 24px;
+    margin: 0 17px;
+
+}
+.salesreportsimg{
+    color:$iconcolors;
+}
+.pointer{
+    cursor: pointer;
+}

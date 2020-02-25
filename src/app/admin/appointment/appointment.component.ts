@@ -1,6 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { AdminService } from '../_services/admin-main.service'
+import { AdminService } from '../_services/admin-main.service';
+import { Subject } from 'rxjs';
 
 
 export interface DialogData {
@@ -14,10 +15,14 @@ export interface DialogData {
   styleUrls: ['./appointment.component.scss']
 })
 export class AppointmentComponent implements OnInit {
-  dtOptions: any = {};
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+  
   animal: any;
   allAppointments:any;
-  
+  durationType : any;
+  dataTable: any;
+  selectedServices: any;
   constructor(
     public dialog: MatDialog,
     private AdminService: AdminService,
@@ -26,17 +31,32 @@ export class AppointmentComponent implements OnInit {
      }
 
   ngOnInit() {
+    this.durationType = 'month';
+    this.selectedServices =  'all';
+    this.getAllAppointments(this.durationType,this.selectedServices);
+    
     this.dtOptions = {
+     
       // Use this attribute to enable the responsive extension
-      responsive: true
+      responsive: true,
     };
+   
+  }
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 
+  selectdurationType(type){
+    this.durationType = type;
+    this.getAllAppointments(this.durationType,this.selectedServices);
+  }
 
-  getAllAppointments(){
-    this.AdminService.getAllAppointments().subscribe((response:any) => {
+  getAllAppointments(durationType,services){
+    this.AdminService.getAllAppointments(durationType,services).subscribe((response:any) => {
       if(response.data == true){
         this.allAppointments = response.response
+        this.dtTrigger.next();
       }
       else if(response.data == false){
         this.allAppointments = ''

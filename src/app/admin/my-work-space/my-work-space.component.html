@@ -14,19 +14,19 @@
 				<h6 class="font-blue pl-4 mb-0">Today</h6>
 			</div>
 			<div class="col-lg-2 col-md-4 col-6  flex-align-center left-border">
-				<h6 class="font-blue mb-0">15</h6>
-				<p class="font-blue mb-0">Appoitments</p>
+				<h6 class="font-blue mb-0">{{revenue.appointments}}</h6>
+				<p class="font-blue mb-0">Appointments</p>
 			</div>
 			<div class="col-lg-2 col-md-4 col-6 flex-align-center left-border">
-				<h6 class="font-blue mb-0">$1600.00</h6>
+				<h6 class="font-blue mb-0">{{revenue.confirmRevenue}}.00</h6>
 				<p class="font-blue mb-0">Confirmed Revenue </p>
 			</div>
 			<div class="col-lg-2 col-md-4 col-6 flex-align-center left-border">
-				<h6 class="font-blue mb-0">$200.00</h6>
+				<h6 class="font-blue mb-0">${{revenue.projectedRevenue}}.00</h6>
 				<p class="font-blue mb-0">Projected Revenue</p>
 			</div>
 			<div class="col-lg-2 col-md-4 col-6 flex-align-center left-border">
-				<h6 class="font-blue mb-0">$1800.00</h6>
+				<h6 class="font-blue mb-0">${{revenue.totalEstimate}}.00</h6>
 				<p class="font-blue mb-0">Total Estimated</p>
 			</div>	
 		</mat-card>
@@ -41,27 +41,12 @@
 					<li class="bottom-border plr-25">
 						<p class="title-main">Category</p>
 					</li>
-					<li class="bottom-border plr-25">
-						<p>All Services<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+					<li class="bottom-border plr-25" (click)="fnOnClickCategory('all')">
+						<p class="title-main">All Services<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
 					</li>
-					<li class="bottom-border plr-25">
-						<p>Salon<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+					<li class="bottom-border plr-25" *ngFor="let category of categories" (click)="fnOnClickCategory(category.id)">
+						<p class="title-main">{{category.category_title}}<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
 					</li>
-					<li class="bottom-border plr-25">
-						<p>Home Cleaning<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-					</li>
-					<li class="bottom-border plr-25">
-						<p>Pest Control<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-					</li>
-					<li class="bottom-border plr-25">
-						<p>Appliances<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-					</li>
-					<li class="bottom-border plr-25">
-						<p>Plumbing<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-					</li>
-					<li class="">
-						<p>Electrical<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-					</li>	
 					</ul>								
 				</div>
 			</mat-card>
@@ -78,7 +63,20 @@
 							  </div>												
 						</form>
 						<div class="filter-btn-appoint">
-							<button class="btn-secondary filter-btn" mat-button><i class="material-icons mr-1">filter_list_alt</i>Filter</button>
+							<!-- <button class="btn-secondary filter-btn" mat-button><i class="material-icons mr-1">filter_list_alt</i>Filter</button> -->
+						 <mat-form-field appearance="outline" class="my-2 all-customer-list col-lg-12 col-12 col-md-12">
+                  <mat-label class="btn-secondary filter-btn"><i class="material-icons mr-1">filter_list_alt</i>Filter</mat-label>
+                  <mat-select [(value)]="selected">
+                    <!-- <mat-option>None</mat-option> -->
+                    <mat-option value="option1">Pending</mat-option>
+                    <mat-option value="option2">Accepted</mat-option>
+                    <mat-option value="option3">On The Way</mat-option>
+                    <mat-option value="option3">Work Started</mat-option>
+                    <mat-option value="option3">Rescheduled</mat-option>
+                    <mat-option value="option3">Cancelled</mat-option>
+                    <mat-option value="option3">Completed</mat-option>
+                  </mat-select>
+                </mat-form-field>
 						</div>
 					</div>
 				</div>
@@ -87,84 +85,31 @@
 		       		<div class="justify-content-center timeframe-main ">
 		            <div class="work-service-bg-main">
 		                <div class="service-background pt-4"> 
-		                    <div class="left-time-main ">
-		                        <span class="font-blue left-font">12:00pm</span>
+		                    <div class="left-time-main" *ngFor="let appointment of appointments">
+		                        <span class="font-blue left-font">{{appointment.booking_time}}</span>
 		                        <div class="pl-3">
 		                            <p class="mb-0 work-space-font">in 8 hours ago</p>
-		                            <h5>Foot Massage <small class="work-space-font">(Salon)</small></h5>
+		                            <h5>{{appointment.service.service_name}} <small class="work-space-font">(Salon)</small></h5>
 		                        </div>
 		                        <div class="d-flex flex-wrap pl-3 mb-4">
 		                            <div class="d-flex Time">
 		                            	<i class="fa fa-clock-o  pr-2" aria-hidden="true"></i>	
-		                                <p class="work-space-font pt-0">12:00 pm</p>
+		                                <p class="work-space-font pt-0">{{appointment.booking_time}}</p>
 		                            </div>
 		                            <div class="d-flex customer-name">
 		                                <i class="fa fa-user-o pr-2" aria-hidden="true"></i>
-		                                <p class="work-space-font pt-0 ">Customer Name</p>
+		                                <p class="work-space-font pt-0 ">{{appointment.customer.fullname}}</p>
 		                            </div>
 		                            <div class="d-flex service-person">
 		                                <i class="fa fa-briefcase pr-2 " aria-hidden="true"></i>
-		                                <p class="work-space-font pt-0 ">Parth Jain</p>
+		                                <p class="work-space-font pt-0 ">{{appointment.staff.username}}</p>
 		                            </div>
 		                            <div class="money">
-		                                <p class="work-space-font pt-0 ">$.500.00</p>
+		                                <p class="work-space-font pt-0 ">$ {{appointment.total_cost}}</p>
 		                            </div>
 		                        </div>
 		                         <div class="line ml-1 mr-1"></div>
 		                    </div>
-
-		                    <div class="left-time-main">
-		                        <span class="font-blue left-font">12:00pm</span>
-		                        <div class="pl-3 pt-2">
-		                            <p class="mb-0 work-space-font ">in 5 hours ago</p>
-		                            <h5 class="appoint-name">Cleaning </h5><span class="after-appont-title">(Home Cleaning)</span>
-		                        </div>
-		                        <div class="d-flex flex-wrap pl-3 mb-4">
-		                            <div class="d-flex Time">
-		                                <i class="fa fa-clock-o  pr-2" aria-hidden="true"></i>
-		                                <p class="work-space-font pt-0">12:00 pm</p>
-		                            </div>
-		                            <div class="d-flex customer-name">
-		                                <i class="fa fa-user-o  pr-2" aria-hidden="true"></i>
-		                                <p class="work-space-font pt-0">Customer Name</p>
-		                            </div>
-		                            <div class="d-flex service-person">
-										<i class="fa fa-briefcase pr-2 " aria-hidden="true"></i>
-		                                <p class="work-space-font pt-0 ">Parth Jain</p>
-		                            </div>
-		                            <div class="money">
-		                                <p class="work-space-font pt-0">$.500.00</p>
-		                            </div>                             
-		                        </div>
-		                        <div class="line ml-1 mr-1" ></div>
-		                    </div>     
-
-		                    <div class="left-time-main">
-		                        <span class="font-blue left-font">12:00pm</span>
-		                        <div class="pl-3 pt-2">
-		                            <p class="mb-0 work-space-font">in 8 hours ago</p>
-		                            <h5>Foot Massage <small class="work-space-font">(Salon)</small></h5>
-		                        </div>
-		                        <div class="d-flex flex-wrap pl-3 mb-4">
-		                            <div class="d-flex Time">
-		                                <i class="fa fa-clock-o  pr-2" aria-hidden="true"></i>
-		                                <p class="work-space-font pt-0">12:00 pm</p>
-		                            </div>
-		                            <div class="d-flex customer-name">
-		                                <i class="fa fa-user-o  pr-2" aria-hidden="true"></i>
-		                                <p class="work-space-font pt-0">Customer Name</p>
-		                            </div>
-		                            <div class="d-flex service-person">
-		                                <i class="fa fa-briefcase pr-2 " aria-hidden="true"></i>
-		                                <p class="work-space-font pt-0 ">Parth Jain</p>
-		                            </div>
-		                            <div class="money">
-		                                <p class="work-space-font pt-0">$.500.00</p>
-		                            </div>
-		                        </div>
-		                        <div class="line ml-1 mr-1" ></div>
-		                    </div> 
-
 	                	</div>
 		            </div>
 		        	</div>

@@ -5,11 +5,11 @@
                 <div class="col-lg-4 col-12 col-md-4 col-sm-12 d-flex">
                     <mat-form-field appearance="outline" class="appoint-daily mr-2">
                         <mat-label>All</mat-label>
-                        <mat-select [(value)]="selected">
+                        <mat-select [(value)]="selected" (selectionChange)="selectdurationType($event.value)">
                             <mat-option>None</mat-option>
-                            <mat-option value="option1">Daily</mat-option>
-                            <mat-option value="option2">Weekly</mat-option>
-                            <mat-option value="option3">Monthly</mat-option>
+                            <mat-option value="daily">Daily</mat-option>
+                            <mat-option value="week">Weekly</mat-option>
+                            <mat-option value="month">Monthly</mat-option>
                         </mat-select>
                     </mat-form-field>
 
@@ -57,7 +57,7 @@
             </div>            
         </div>
         <div class="col-12" id="Appointment-dataTable">
-            <table [dtOptions]="dtOptions" datatable class="row-border hover">
+            <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="row-border hover">
                 <thead>
                   <tr>
                     <th>Date & Time</th>
@@ -70,25 +70,38 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr *ngFor="let allAppointmentsData of allAppointments; let i=index">
                     <td>
-                        <p>22 Oct 2019,</p>
-                        <p>8.15am</p>
+                        <p>{{allAppointmentsData.booking_date}},</p>
+                        <p>{{allAppointmentsData.booking_time}}</p>
                     </td>
                     <td>
-                        <p>Rajkumar Balakrishnan</p>
-                        <p>Phone No: 9876543120</p>
+                        <p>{{allAppointmentsData.customer.fullname}}</p>
+                        <p>Phone No: {{allAppointmentsData.customer.phone}}</p>
                     </td>
-                    <td> <p>Repainting of wall</p>
-                        <p>Painting</p>
+                    <td> 
+                        <p>{{allAppointmentsData.service.service_name}}</p>
                     </td>
                     <td> <p>Pooja Chakrabarti</p>
                         <p>Phone No: 9876543120</p>
                     </td>
-                    <td>$.3000.00</td>
-                    <td>Accepted</td>
+                    <td>$ {{allAppointmentsData.total_cost}}</td>
+                    <td>
+                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'P'">Waiting For Confirmation</p>
+                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'AC'">Confirm</p>
+                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'RSA'">Rescheduled By Admin</p>
+                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'RSS'">Rescheduled By Staff</p>
+                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'RSC'">Rescheduled By Customer</p>
+                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'R'">Rejected</p>
+                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'OW'">On The Way</p>
+                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'WS'">Work Started</p>
+                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'ITR'">Interrupted</p>
+                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'CO'">Completed</p>
+                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'CC'">Cancelled By Customer</p>
+                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'C'">Cancelled</p>
+                    </td>
                     <td> 
-                        <button (click)="newAppointment()" class="appointment-edit-btn mr-1"><i class="fa fa-pencil appointment-icon" aria-hidden="true"></i></button>
+                        <button (click)="newAppointment(index)" class="appointment-edit-btn mr-1"><i class="fa fa-pencil appointment-icon" aria-hidden="true"></i></button>
                         <button class="appointment-cancel-btn mr-1"><i class="fa fa-times appointment-icon" aria-hidden="true"></i></button>
                     </td>
                   </tr>
