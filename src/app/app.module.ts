@@ -28,6 +28,7 @@ import { FrontbookingComponent } from './frontbooking/frontbooking.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
+
 //import { UserappointmentsComponent } from './user-dashboard/userappointments/userappointments.component';
 // import { DialogOverviewExampleDialog } from './user-dashboard/userappointments/userappointments.component';
 // import { DialogInvoiceDialog } from './user-dashboard/userappointments/userappointments.component';
@@ -72,7 +73,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         ForgotPasswordComponent,
         ResetPasswordComponent,
         FrontbookingComponent,
-        DialogNotification
+        DialogNotification,
+       
         ],
     imports: [
         BrowserModule,
