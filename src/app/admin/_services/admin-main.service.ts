@@ -84,5 +84,65 @@ export class AdminService {
         catchError(this.handleError));
     }
 
+    // Get Appointments by Category and Status
+    getAllAppointmentsByCategoryAndStatus(requestObject){
+        
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/admin-today-listing`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
+    // Get Categories
+    getAllCategories(requestObject){
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+
+        return this.http.post(`${environment.apiUrl}/get-all-category`,requestObject,{headers:headers} ).pipe(
+          map((res) => {
+            return res;
+          }),
+          catchError(this.handleError));
+    }
+
+    // Get 
+    get(requestObject){
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+
+        return this.http.post(`${environment.apiUrl}/get-all-category`,requestObject,{headers:headers} ).pipe(
+          map((res) => {
+            return res;
+          }),
+          catchError(this.handleError));
+    }
+
+    // Get TodayRevenue
+    getTodayRevenue(requestObject){
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+
+        return this.http.post(`${environment.apiUrl}/admin-today-revenue`,requestObject,{headers:headers} ).pipe(
+          map((res) => {
+            return res;
+          }),
+          catchError(this.handleError));
+    }
+
 
 }
