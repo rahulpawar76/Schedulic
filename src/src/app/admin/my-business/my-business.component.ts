@@ -8,22 +8,22 @@ import { AdminService } from '../_services/admin-main.service'
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 export interface DialogData {
-animal: string;
-name: string;
+  animal: string;
+  name: string;
 }
 
 
 // export interface status {
-
-// id: string;
-// name :string;
-// timezone:string;
-
+  
+//   id: string;
+//   name :string;
+//   timezone:string;
+  
 // }
 @Component({
-selector: 'app-my-business',
-templateUrl: './my-business.component.html',
-styleUrls: ['./my-business.component.scss']
+  selector: 'app-my-business',
+  templateUrl: './my-business.component.html',
+  styleUrls: ['./my-business.component.scss']
 })
 
 export class MyBusinessComponent implements OnInit {
@@ -75,8 +75,8 @@ export class MyBusinessComponent implements OnInit {
 
 
 @Component({
-selector: 'Create-New-Business',
-templateUrl: '../_dialogs/create-new-business-dialog.html',
+  selector: 'Create-New-Business',
+  templateUrl: '../_dialogs/create-new-business-dialog.html',
 })
 export class myCreateNewBusinessDialog {
   allCountry: any;
