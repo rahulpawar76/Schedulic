@@ -9,81 +9,71 @@ import { Observable, throwError } from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 export interface DialogData {
-  animal: string;
-  name: string;
+animal: string;
+name: string;
 }
 
 
 // export interface status {
-  
-//   id: string;
-//   name :string;
-//   timezone:string;
-  
+
+// id: string;
+// name :string;
+// timezone:string;
+
 // }
 @Component({
-  selector: 'app-my-business',
-  templateUrl: './my-business.component.html',
-  styleUrls: ['./my-business.component.scss']
+selector: 'app-my-business',
+templateUrl: './my-business.component.html',
+styleUrls: ['./my-business.component.scss']
 })
 
 export class MyBusinessComponent implements OnInit {
-  animal :any;
-  countries :any = [];
-  ct:any;
-  
-  constructor(
-    public dialog: MatDialog,
-     private http: HttpClient,
-     public router: Router,
-     private _snackBar: MatSnackBar) {
-       this.countries=[];
-      localStorage.setItem('isBusiness', 'true');
-      this.ct = require('countries-and-timezones');
-      this.countries = this.ct.getAllCountries();
-   }
+animal :any;
 
-  ngOnInit() {
-    console.log(this.ct)
-  }
+constructor(
+public dialog: MatDialog,
+private http: HttpClient,
+public router: Router,
+private _snackBar: MatSnackBar) {
+localStorage.setItem('isBusiness', 'true');
+}
 
-  
-  creatNewBusiness() {
-    const dialogRef = this.dialog.open(myCreateNewBusinessDialog, {
-      width: '1100px',
-    });
+ngOnInit() {
+}
 
-     dialogRef.afterClosed().subscribe(result => {
-      this.animal = result;
-     });
-  }
+
+creatNewBusiness() {
+const dialogRef = this.dialog.open(myCreateNewBusinessDialog, {
+width: '1100px',
+});
+
+dialogRef.afterClosed().subscribe(result => {
+this.animal = result;
+});
+}
 
 
 }
 
 
 @Component({
-  selector: 'Create-New-Business',
-  templateUrl: '../_dialogs/create-new-business-dialog.html',
+selector: 'Create-New-Business',
+templateUrl: '../_dialogs/create-new-business-dialog.html',
 })
 export class myCreateNewBusinessDialog {
-  
-  status: any;
-  
-  ct = require('countries-and-timezones');
-  countries = this.ct.getAllCountries();
 
-  constructor(
-    public dialogRef: MatDialogRef<myCreateNewBusinessDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
-    }
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
+constructor(
+public dialogRef: MatDialogRef<myCreateNewBusinessDialog>,
+@Inject(MAT_DIALOG_DATA) public data: any) {
+}
 
-  // countrieslist: status[] = [
-  //   this.countries
-  // ];
-  
+onNoClick(): void {
+this.dialogRef.close();
+}
+
+// countrieslist: status[] = [
+// this.countries
+// ];
+
 }
