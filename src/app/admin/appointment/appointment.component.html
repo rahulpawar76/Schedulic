@@ -17,9 +17,7 @@
                         <mat-label>All Services</mat-label>
                         <mat-select [(value)]="selected1">
                             <mat-option>None</mat-option>
-                            <mat-option value="option1">Option 1</mat-option>
-                            <mat-option value="option2">Option 2</mat-option>
-                            <mat-option value="option3">Option 3</mat-option>
+                            <mat-option *ngFor="let allservices of allservices;" value="option1">Option 1</mat-option>
                         </mat-select>
                     </mat-form-field>
 
@@ -60,6 +58,7 @@
             <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="row-border hover">
                 <thead>
                   <tr>
+                    <th><mat-checkbox class=""></mat-checkbox></th>
                     <th>Date & Time</th>
                     <th>Customer</th>
                     <th>Service</th>
@@ -71,6 +70,9 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let allAppointmentsData of allAppointments; let i=index">
+                    <td>
+                        <mat-checkbox class=""></mat-checkbox>
+                    </td>
                     <td>
                         <p>{{allAppointmentsData.booking_date}},</p>
                         <p>{{allAppointmentsData.booking_time}}</p>
