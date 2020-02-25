@@ -89,7 +89,7 @@
             <mat-list-item role="listitem" >
               <div class="common-menu"><img src="/assets/images/admin/admin-menu-user.png"></div>
             </mat-list-item>
-            <mat-list-item role="listitem" >
+            <mat-list-item role="listitem" (click)="myReportsNav()">
               <div class="common-menu"><img src="/assets/images/admin/admin-menu-statistics.png"></div>
             </mat-list-item>
             <mat-list-item role="listitem" >
@@ -104,7 +104,7 @@
               </mat-list-item>
             </div>
           </mat-drawer>
-          <mat-drawer-content>
+          <mat-drawer-content class="main-admin-drawer">
             <router-outlet #outlet="outlet"></router-outlet>
           </mat-drawer-content>
         </mat-drawer-container>

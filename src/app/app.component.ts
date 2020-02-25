@@ -138,6 +138,10 @@ export class AppComponent implements AfterViewInit {
       myWorkSpaceNav(){
         this.router.navigate(['/admin/my-workspace']);
       }
+      myReportsNav(){
+        this.router.navigate(['/admin/my-reports']);
+
+      }
 
 
       /*StaffDashboard Navigation*/

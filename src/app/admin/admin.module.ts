@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProgressBarModule } from "angular-progress-bar";
 import { HighchartsChartModule } from 'highcharts-angular';
 import { MaterialModule } from '@app/_helpers/material.module';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 import { AdminRoutingModule } from './admin-routing.module';
@@ -22,6 +23,8 @@ import { DialogNewAppointment } from './appointment/appointment.component';
 import { CustomersComponent } from './customers/customers.component';
 import { DialogNewCustomerAppointment } from './customers/customers.component';
 import { DialogAddNewNote } from './customers/customers.component';
+import { ReportsComponent } from './reports/reports.component';
+import { AppointmentLiveComponent } from './appointment-live/appointment-live.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,9 @@ import { DialogAddNewNote } from './customers/customers.component';
     DialogNewAppointment,
     CustomersComponent,
     DialogNewCustomerAppointment,
-    DialogAddNewNote
+    DialogAddNewNote,
+    ReportsComponent,
+    AppointmentLiveComponent
     ],
   imports: [
     CommonModule,
@@ -48,7 +53,8 @@ import { DialogAddNewNote } from './customers/customers.component';
     NgxChartsModule,
     ProgressBarModule,
     HighchartsChartModule,
-    DataTablesModule
+    DataTablesModule,
+    MatSidenavModule
   ],
   exports: [
     FormsModule

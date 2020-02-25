@@ -5,6 +5,8 @@ import { MyBusinessComponent } from './my-business/my-business.component';
 import { MyWorkSpaceComponent } from './my-work-space/my-work-space.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { CustomersComponent } from './customers/customers.component';
+import { ReportsComponent } from './reports/reports.component';
+import { AppointmentLiveComponent } from './appointment-live/appointment-live.component';
 
 //import { Role } from '@app/_models';
 //import { AuthGuard } from '@app/_helpers';
@@ -30,6 +32,16 @@ const routes: Routes = [
   {
     path: 'my-customer',
     component: CustomersComponent 
+
+  },
+  {
+    path: 'my-reports',
+    component: ReportsComponent 
+
+  },
+  {
+    path: 'my-appointment-live',
+    component: AppointmentLiveComponent 
 
   },
 ];
