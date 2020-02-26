@@ -13,10 +13,14 @@
     }
     .discountcoupon-btn{
         width: 200px;
-        height: 37px;
+        //height: 37px;
         border-radius: 26px;
         background-color: #1173f4;
         color: white;
+        right: 50px;
+        z-index: 10;
+        position: absolute;
+        height: 35px;
     }
     .dropdown{
         width: 15%;
@@ -61,4 +65,15 @@
                 }          
         }                   
     }
+
+    .special-table{
+        border-spacing: 0 15px;
+      .special-row{
+          background: transparent;
+          &:hover{
+              background-color: #d9f0fe !important;
+          }
+       
+      }
+  }
 }
