@@ -34,6 +34,7 @@ export class MyWorkSpaceComponent implements OnInit {
     customerPhone: "",
     customerAddress: "",
     booking_time_to: "",
+    timeToService: "",
     service_name: ""
   };
   categories:any=[];
@@ -74,11 +75,14 @@ export class MyWorkSpaceComponent implements OnInit {
       
       this.appointments.forEach( (element) => {
           // Rename Answers
+          var todayDateTime = new Date();
           element.booking_time=element.booking_date+" "+element.booking_time;
-          var dt = new Date(this.datePipe.transform(new Date(element.booking_time),"dd MMM yyyy hh:mm a"));
-          dt.setMinutes( dt.getMinutes() + parseInt(element.service_time) );
+          var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_time),"dd MMM yyyy hh:mm a"));
+          dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+          var temp = dateTemp.getTime() - todayDateTime.getTime();
+          element.timeToService=(temp/3600000).toFixed();
           element.booking_time=this.datePipe.transform(new Date(element.booking_time),"hh:mm a")
-          element.booking_time_to=this.datePipe.transform(new Date(dt),"hh:mm a")
+          element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
           element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
           element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
            
@@ -90,6 +94,7 @@ export class MyWorkSpaceComponent implements OnInit {
       this.appointmentDetails.total_cost=this.appointments[0].total_cost;
       this.appointmentDetails.service_time=this.appointments[0].service_time;
       this.appointmentDetails.booking_time_to=this.appointments[0].booking_time_to;
+      this.appointmentDetails.timeToService=this.appointments[0].timeToService;
       this.appointmentDetails.order_by=this.appointments[0].order_by;
       this.appointmentDetails.order_status=this.appointments[0].order_status;
       this.appointmentDetails.staffName=this.appointments[0].staff.firstname+" "+this.appointments[0].staff.lastname;

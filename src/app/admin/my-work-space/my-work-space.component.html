@@ -93,7 +93,7 @@
 		                    <div class="left-time-main" *ngFor="let appointment of appointments;let i=index" (click)="fnOnClickAppointment(i)">
 		                        <span class="font-blue left-font">{{appointment.booking_time}}</span>
 		                        <div class="pl-3">
-		                            <p class="mb-0 work-space-font">in 8 hours ago</p>
+		                            <p class="mb-0 work-space-font">in {{appointment.timeToService}} hours</p>
 		                            <h5>{{appointment.service.service_name}} <small class="work-space-font">(Salon)</small></h5>
 		                        </div>
 		                        <div class="d-flex flex-wrap pl-3 mb-4">
