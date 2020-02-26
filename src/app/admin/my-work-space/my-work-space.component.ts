@@ -33,6 +33,7 @@ export class MyWorkSpaceComponent implements OnInit {
     customerEmail: "",
     customerPhone: "",
     customerAddress: "",
+    booking_time_to: "",
     service_name: ""
   };
   categories:any=[];
