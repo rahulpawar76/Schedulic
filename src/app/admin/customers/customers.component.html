@@ -6,7 +6,7 @@
                 <div class="leftarrow-icon">
                     <mat-icon aria-hidden="false" class="customer-drawer-leftarrow">arrow_back</mat-icon>
                 </div>
-                <mat-form-field  class="my-2 all-customer-list col-lg-12 col-12 col-md-12 bottom-border-field">
+                <mat-form-field appearance="outline" class="my-2 all-customer-list col-lg-12 col-12 col-md-12">
                     <mat-label>All Customers</mat-label>
                     <mat-select [(value)]="selected">
                       <mat-option>None</mat-option>
@@ -15,7 +15,7 @@
                       <mat-option value="option3">Option 3</mat-option>
                     </mat-select>
                   </mat-form-field>  
-                  <mat-form-field class="my-2 all-action-list col-lg-12 col-12 col-md-12 bottom-border-field">
+                  <mat-form-field appearance="outline" class="my-2 all-action-list col-lg-12 col-12 col-md-12">
                     <mat-label>Actions</mat-label>
                     <mat-select [(value)]="selected">
                       <mat-option>None</mat-option>
@@ -43,7 +43,7 @@
             </mat-drawer>
         
             <mat-drawer-content class="pl-0 pr-0" style="margin-left: 300px;">
-                <div *ngIf="newCustomer" id="Add-New-Customer" class="container pl-0 pr-0" style="">
+                <div *ngIf="newCustomer" id="Add-New-Customer" class="container pl-0 pr-0">
                     <mat-card class="mb-0">
                         <div class="row">
                             <div class="col-lg-12">
