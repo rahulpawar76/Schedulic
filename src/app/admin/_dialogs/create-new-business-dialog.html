@@ -7,76 +7,82 @@
             </div>
             <div> 				
                <div class="pt-5">
-                   <form>
+                  <form [formGroup]="createBusiness">
                      <div class="form-row">
-                       <div class="form-group col-md-6 col-lg-6 col-sm-12">
-                          <mat-form-field class="example-full-width" appearance="outline">
-                           <mat-label>How do customer recognize your business?</mat-label>
-                           <input matInput placeholder="Enter Your business Name">
+                       <div class="form-group col-md-6 col-lg-6 col-sm-12 bottom-border-field">
+                          <mat-form-field class="example-full-width">
+                            <mat-label>How do customer recognize your business?</mat-label>
+                            <input matInput formControlName="business_name" placeholder="Enter Your business Name">
                          </mat-form-field>
+                         <span class="error-wrap" *ngIf="createBusiness.get('business_name').dirty || createBusiness.get('business_name').touched || formSubmitclicked"><small *ngIf="createBusiness.get('business_name').hasError('required')" class="error">Business Name Is required</small></span>
                        </div>
-                       <div class="form-group col-md-6 col-lg-6 col-sm-12">
-                        <mat-form-field class="example-full-width" appearance="outline">
-                           <mat-label>Where is your business located?</mat-label>
-                           <input matInput placeholder="Address">
-                          </mat-form-field>					      
+                       <div class="form-group col-md-6 col-lg-6 col-sm-12 bottom-border-field">
+                          <mat-form-field class="example-full-width">
+                            <mat-label>Where is your business located?</mat-label>
+                            <input formControlName="business_address" matInput placeholder="Address">
+                          </mat-form-field>		
+                          <span class="error-wrap" *ngIf="createBusiness.get('business_address').dirty || createBusiness.get('business_address').touched || formSubmitclicked"><small *ngIf="createBusiness.get('business_address').hasError('required')" class="error">Business Address Is required</small></span>			      
                        </div>
                       </div>			 		  
                      <div class="form-row">					  	 
-                       <div class="form-group offset-md-6 offset-lg-6 col-md-3 col-lg-3 col-sm-6  mb-0">	
-                         <mat-form-field appearance="outline" class="mb-0">
+                       <div class="form-group offset-md-6 offset-lg-6 col-md-3 col-lg-3 col-sm-6  mb-0 bottom-border-field">	
+                         <mat-form-field class="mb-0">
                              <mat-label>Country</mat-label>
-                             <mat-select name="country" >
-                              <mat-option *ngFor="let country of countries" [value]="country.id">
-                                {{country.name}}
+                             <mat-select formControlName="business_country" (selectionChange)="selectCountry($event.value)">
+                              <mat-option *ngFor="let allCountry of allCountry" [value]="allCountry.id">
+                                {{allCountry.name}}
                               </mat-option>
                             </mat-select>
                          </mat-form-field>
+                         <span class="error-wrap" *ngIf="createBusiness.get('business_country').dirty || createBusiness.get('business_country').touched || formSubmitclicked"><small *ngIf="createBusiness.get('business_country').hasError('required')" class="error">Country Is required</small></span>
                        </div>
-                       <div class="form-group  col-md-3 col-lg-3 col-sm-6 mb-0">					     
-                         <mat-form-field appearance="outline">
+                       <div class="form-group  col-md-3 col-lg-3 col-sm-6 mb-0 bottom-border-field">			     
+                         <mat-form-field>
                              <mat-label>Region</mat-label>
-                             <mat-select>
-                               <mat-option *ngFor="let food of foods" [value]="food.value">
-                                 {{food.viewValue}}
+                             <mat-select formControlName="business_region" (selectionChange)="selectStates($event.value)">
+                               <mat-option *ngFor="let allStates of allStates" [value]="allStates.id">
+                                 {{allStates.name}}
                                </mat-option>
                              </mat-select>
                          </mat-form-field>
+                         <span class="error-wrap" *ngIf="createBusiness.get('business_region').dirty || createBusiness.get('business_region').touched || formSubmitclicked"><small *ngIf="createBusiness.get('business_region').hasError('required')" class="error">Region Is required</small></span>
                        </div>
                      </div>
                      <div class="form-row">
-                       <div class="form-group col-md-6 col-lg-6 col-sm-12 mt-res">
-                           <mat-label>What is your time zone</mat-label>
-                          <mat-form-field appearance="outline">
-                             <mat-label>select time zone</mat-label>
-                             <mat-select>
-                               <mat-option *ngFor="let food of foods" [value]="food.value">
-                                 {{food.viewValue}}
+                       <div class="form-group col-md-6 col-lg-6 col-sm-12 mt-res bottom-border-field align-bottom">
+                          <mat-form-field>
+                             <mat-label>Time zone</mat-label>
+                             <mat-select formControlName="business_timezone">
+                               <mat-option *ngFor="let listTimeZone of listTimeZone" [value]="listTimeZone.zoneName">
+                                 {{listTimeZone.zoneName}}
                                </mat-option>
                              </mat-select>
                          </mat-form-field>
+                         <span class="error-wrap" *ngIf="createBusiness.get('business_timezone').dirty || createBusiness.get('business_timezone').touched || formSubmitclicked"><small *ngIf="createBusiness.get('business_timezone').hasError('required')" class="error">Timezone Is required</small></span>
                        </div>
-                       <div class="form-group  col-md-3 col-lg-3 col-sm-6">
+                       <div class="form-group  col-md-3 col-lg-3 col-sm-6 bottom-border-field">
                        <mat-label class="select-hide">&nbsp; </mat-label>					      
-                         <mat-form-field appearance="outline">
-                             <mat-label>city</mat-label>
-                             <mat-select>
-                               <mat-option *ngFor="let food of foods" [value]="food.value">
-                                 {{food.viewValue}}
+                         <mat-form-field>
+                             <mat-label>City</mat-label>
+                             <mat-select  formControlName="business_city">
+                               <mat-option *ngFor="let allCities of allCities" [value]="allCities.id">
+                                 {{allCities.name}}
                                </mat-option>
                              </mat-select>
                          </mat-form-field>
+                         <span class="error-wrap" *ngIf="createBusiness.get('business_city').dirty || createBusiness.get('business_city').touched || formSubmitclicked"><small *ngIf="createBusiness.get('business_city').hasError('required')" class="error">City Is required</small></span>
                        </div>
-                       <div class="form-group col-md-3 col-lg-3 col-sm-6">	
+                       <div class="form-group col-md-3 col-lg-3 col-sm-6 bottom-border-field">	
                            <mat-label class="select-hide">&nbsp; </mat-label>	
-                          <mat-form-field  appearance="outline">
+                          <mat-form-field>
                            <mat-label>zip</mat-label>
-                           <input matInput placeholder="zip">
-                         </mat-form-field>						 
+                           <input matInput  formControlName="business_zip">
+                         </mat-form-field>					
+                         <span class="error-wrap" *ngIf="createBusiness.get('business_zip').dirty || createBusiness.get('business_zip').touched || formSubmitclicked"><small *ngIf="createBusiness.get('business_zip').hasError('required')" class="error">Zipcode Is required</small> <small *ngIf="createBusiness.get('business_zip').hasError('pattern')" class="error">Enter valid Zipcode</small></span>	 
                        </div>
                      </div>
                      <div class="text-center pt-2">
-                         <button mat-button class="admin-business-Submitbutton">Submit</button>
+                         <button mat-button class="admin-business-Submitbutton" (click)="fnCreateBusiness()">Submit</button>
                      </div>					  
                    </form>
                </div> 				

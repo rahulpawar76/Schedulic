@@ -16,17 +16,83 @@ import { AdminService } from '../_services/admin-main.service'
 })
 export class MyWorkSpaceComponent implements OnInit {
   animal :any;
+  error:any;
+  appointments:any=[];
+  categories:any=[];
+  businessId:any;
+  revenue:any;
   constructor(
     public dialog: MatDialog,
      private http: HttpClient,
      public router: Router,
-     private AdminService: AdminService,
+     private adminService: AdminService,
      private _snackBar: MatSnackBar) {
+       
+      localStorage.setItem('isBusiness', 'false');
    }
 
   ngOnInit() {
+    this.businessId=localStorage.getItem('business_id');
+    this.fnGetTodayRevenue("all");
+    this.fnGetAllAppointmentsByCategoryAndStatus("all");
+    this.fnGetAllCategories();
   }
 
+  fnGetAllAppointmentsByCategoryAndStatus(categoryId){
+    let requestObject = {
+            "business_id":this.businessId,
+            "category":categoryId,
+            "status_filter":"all"
+        };
+     this.adminService.getAllAppointmentsByCategoryAndStatus(requestObject).subscribe((response:any) => 
+  {
+    if(response.data == true){
+      this.appointments=response.response.data;
+    }else{
+      this.appointments=[];
+    }
+  },
+    (err) => {
+      this.error = err;
+    }
+  )
+  }
+
+  fnGetAllCategories(){
+
+  let requestObject = {
+    "business_id":this.businessId,
+    "status":"E"
+    };
+     this.adminService.getAllCategories(requestObject).subscribe((response:any) => 
+  {
+    if(response.data == true){
+      this.categories=response.response;
+    }
+  },
+    (err) => {
+      this.error = err;
+    }
+  )
+  }
+
+  fnGetTodayRevenue(categoryId){
+
+  let requestObject = {
+    "business_id":this.businessId,
+    "services":categoryId
+    };
+     this.adminService.getTodayRevenue(requestObject).subscribe((response:any) => 
+  {
+    if(response.data == true){
+      this.revenue=response.response;
+    }
+  },
+    (err) => {
+      this.error = err;
+    }
+  )
+  }
   
   myworkspaceAccept() {
     const dialogRef = this.dialog.open(myWorkSpaceAcceptDialog, {
@@ -36,6 +102,11 @@ export class MyWorkSpaceComponent implements OnInit {
      dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
      });
+  }
+
+  fnOnClickCategory(categoryId){
+    this.fnGetTodayRevenue(categoryId);
+    this.fnGetAllAppointmentsByCategoryAndStatus(categoryId);
   }
 
 

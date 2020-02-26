@@ -222,4 +222,17 @@ export class StaffService {
     catchError(this.handleError));
   }
 
+  rescheduleAppointment(requestObject){
+    
+    let headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    "customer-id":JSON.stringify(this.staffId)
+    });
+    return this.http.post(`${environment.apiUrl}/staff-resedule-bookings`,requestObject,{headers:headers}).pipe(
+    map((res) => {
+      return res;
+    }),
+    catchError(this.handleError));
+  }
+
 }

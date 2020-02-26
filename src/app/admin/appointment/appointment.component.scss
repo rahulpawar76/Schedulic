@@ -19,7 +19,8 @@
         background-color: #d9f0fe;
         // width: 100%;   
         .header-content{
-            height: 39px;
+            height: 60px;
+            align-items: center;
                 .appoint-daily{
                     width: 28%;
                 }
@@ -96,7 +97,7 @@
         }  
     }
     #Appointment-dataTable{
-
+        margin:20px 0;
         .appointment-edit-btn{
             background-color: #fabb88;
             border-radius: 3px;
@@ -137,11 +138,25 @@
     }
 // }
 #appointment{
-    ::ng-deep #DataTables_Table_0_filter{
-        input[type="search"]{
-            border-radius: 100px;
-            &:focus{
-                outline: 0;
+    ::ng-deep #DataTables_Table_0_wrapper{
+        #DataTables_Table_0_filter{
+            input[type="search"]{
+                border-radius: 100px;
+                height: 34px;
+                border: 1px solid #ced4da;
+                padding: 10px 16px;
+                font-size: 16px;
+                &:focus{
+                    outline: 0;
+                }
+            }
+        }
+        .dataTables_length{
+            select[name="DataTables_Table_0_length"]{
+                border: 1px solid #ced4da;
+                padding: 10px;
+                font-size: 16px;
+                border-radius: 5px;
             }
         }
     }

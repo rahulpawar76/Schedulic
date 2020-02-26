@@ -43,10 +43,12 @@
             <!-- <div class="logo"><a><img src="/assets/img/logo.png"></a></div>  -->
             <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
               <span class="example-fill-remaining-space">
-                <button mat-button color="primary" *ngIf="isBusinessSelected()">Selected Business</button>
+                <div class="selected-business-btn-main">
+                  <button mat-button color="primary" class="text-capitalize" *ngIf="isBusinessSelected() && !isBusiness()">Business : {{selectedBusinessName}}</button>
+                </div>
               </span>
               <span class="f13">
-                <button mat-button color="primary" (click)="MyBusinessNav()">My Businesses</button>
+                <button mat-button color="primary"  (click)="MyBusinessNav()">My Businesses</button>
                 <button  mat-stroked-button class="bellborder bell-color ml-3" (click)="openNotificationDialog()">
                 <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
                 </button> 
@@ -103,7 +105,7 @@
               </mat-list-item>
             </div>
           </mat-drawer>
-          <mat-drawer-content>
+          <mat-drawer-content class="main-admin-drawer">
             <router-outlet #outlet="outlet"></router-outlet>
           </mat-drawer-content>
         </mat-drawer-container>

@@ -161,6 +161,10 @@ app-question-answer, app-question-select, app-root, app-login, app-reporting{
 .error-wrap{
     width: 100%;
 }
+.align-bottom{
+    display: flex;
+    align-items: end;
+}
 .field-list{
     .error-wrap{
         position: absolute;
@@ -417,8 +421,7 @@ color: #e99546;
 ::ng-deep .mat-form-field-wrapper{
     padding-bottom: 0 !important;
 }
-
-::ng-deep .opinter{
+.pointer{
     cursor: pointer;
 }
 .sub-container{
@@ -426,6 +429,11 @@ color: #e99546;
     width: 100%;
     height: 100%;
 }
+app-customers{
+    height: calc(100% - 70px);
+    width: 100%;
+}
+
 $calendarsize: 10px;
 .ngbpicker {
     padding: 15px;
@@ -550,5 +558,51 @@ $calendarsize: 10px;
 @media only screen and (max-width: 600px){
     .ngbpicker{
         // margin-left: 0;
+    }
+}
+
+
+// common for mat Components
+
+.mat-form-field{
+    margin-bottom: 0;
+}
+
+::ng-deep .bottom-border-field .mat-form-field-underline{
+	bottom: 0 !important;
+}
+::ng-deep .bottom-border-field .mat-form-field-infix{
+	padding: 1em 0 !important;
+}
+
+.bottom-border-field .mat-form-field-underline{
+	bottom: 0 !important;
+}
+.bottom-border-field .mat-form-field-infix{
+    padding: 1em 0 !important;
+    border-top: unset;
+}
+.bottom-border-field mat-icon{
+    padding-right: 10px;
+    border-right: 1px solid #222;
+    display: table;
+}
+.bottom-border-field{
+    margin-top: 20px;
+}
+.loader-main{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0%;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+        height: 80px;
+        width: 80px;
     }
 }

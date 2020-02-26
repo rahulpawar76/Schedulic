@@ -37,7 +37,10 @@
 .main-container {
     width: 100%;
     height: 100%;
-
+}
+.selected-business-btn-main{
+    display: table;
+    margin: 0 auto;
 }
 
 
@@ -58,7 +61,6 @@
 
 }
 .pointer {
-    
     cursor: pointer;
 }
 
@@ -322,4 +324,9 @@ background-color: $primary-color;
 .admin_top_bar{
     width: calc(100% - 90px);
     left:90px;
+}
+.main-admin-drawer{
+    ::ng-deep .ng-star-inserted{
+        width: 100%;
+    }
 }
