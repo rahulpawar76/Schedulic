@@ -23,6 +23,7 @@ export class AppointmentComponent implements OnInit {
   durationType : any;
   dataTable: any;
   selectedServices: any;
+  allservices: any;
   constructor(
     public dialog: MatDialog,
     private AdminService: AdminService,
@@ -34,6 +35,7 @@ export class AppointmentComponent implements OnInit {
     this.durationType = 'month';
     this.selectedServices =  'all';
     this.getAllAppointments(this.durationType,this.selectedServices);
+    this.getAllServices();
     
     this.dtOptions = {
      
@@ -60,6 +62,18 @@ export class AppointmentComponent implements OnInit {
       }
       else if(response.data == false){
         this.allAppointments = ''
+      }
+    })
+  }
+
+  getAllServices(){
+    this.AdminService.getAllServices().subscribe((response:any) => {
+      if(response.data == true){
+        this.allservices = response.response
+        console.log(this.allservices);
+      }
+      else if(response.data == false){
+        this.allservices = ''
       }
     })
   }

@@ -6,11 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./discount-coupon.component.scss']
 })
 export class DiscountCouponComponent implements OnInit {
+  dtOptions: any = {};
+  animal: any;
+  
+  constructor() { }
 
-  constructor() {
+  // constructor() {
     
-    localStorage.setItem('isBusiness', 'false');
-   }
+  //   localStorage.setItem('isBusiness', 'false');
+  //  }
 
   ngOnInit() {
   }

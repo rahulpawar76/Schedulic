@@ -1,3 +1,4 @@
+
 <div class="" id="Discount-Coupon" style="margin-top: 70px;">
     <div class="row mx-0">
         <div class="col-12">
@@ -24,61 +25,174 @@
                     <form class="serch_input-appoint">							
                         <div class="form-group has-search">
                             <span class="fa fa-search form-control-feedback verticalLine"></span>
-                            <input type="text" class="form-control searchbox_appointment " placeholder="Customer,Service Staff,Status">
+                            <input type="text" class="form-control searchbox_appointment " placeholder="Search Coupon">
                         </div>												
                     </form>
                   </div>
             </div>
-            <div class="Customer-appointment-table special-table">
-                <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">Title</th>
-                        <th scope="col"></th>
-                        <th scope="col">Created on</th>
-                        <th scope="col">valid form</th>
-                        <th scope="col">valid till</th>
-                        <th scope="col">MaximumRedemptions</th>
-                        <th>Used</th>
-                        <th>Status</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr  class="special-row">
-                        <td scope="row">Diwali Offer</td>
-                        <td>DIWALI50</td>
-                        <td>Sep 24,2019</td>
-                        <td>Sep 24,2019</td>
-                        <td>Oct 24,2019</td>
-                        <td>100</td>
-                        <td>5</td>
-                        <td>Active</td>
-                        <td></td>
-                      </tr>
-                      <tr  class="special-row">
-                        <td scope="row">New Year Offer</td>
-                        <td>OFFER10</td>
-                        <td>Sep 24,2019</td>
-                        <td>Sep 24,2019</td>
-                        <td>Oct 24,2019</td>
-                        <td>100</td>
-                        <td>5</td>
-                        <td>Active</td>
-                      </tr>
-                      <tr class="border-bottom special-row">
-                        <td scope="row">Big billion Sale</td>
-                        <td>STEAL25</td>
-                        <td>Sep 24,2019</td>
-                        <td>Sep 24,2019</td>
-                        <td>Oct 24,2019</td>
-                        <td>100</td>
-                        <td>5</td>
-                        <td>Active</td>
-                      </tr>
-                    </tbody>
+            <div class="col-12 discount-coupon-table" id="">
+              <table [dtOptions]="dtOptions" datatable class="row-border hover">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Coupon Code</th>
+                      <th>Created on</th>
+                      <th>valid form</th>
+                      <th>valid till</th>
+                      <th >Maximum<br />Redemptions</th>
+                      <th>Used</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                          <p>Diwali Offer</p>
+                      </td>
+                      <td>
+                          <p><span class="couponcode">DIWALI50</span></p>
+                      </td>
+                      <td> 
+                        <p>Sep 24,2019</p>
+                      </td>
+                      <td> 
+                        <p>Sep 24,2019</p>
+                      </td>
+                      <td>
+                        <p>Oct 24,2019</p>
+                      </td>
+                      <td>
+                        <p>100</p>
+                      </td>
+                      <td>
+                        <p>5</p>
+                      </td>
+                      <td>
+                        <p>Active</p>
+                      </td>
+                      <td>
+                        <p><mat-slide-toggle>Slide me!</mat-slide-toggle></p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                          <p>New Year Offer</p>
+                      </td>
+                      <td>
+                          <p><span class="couponcode">OFFER10</span></p>
+                      </td>
+                      <td> 
+                        <p>Aug 13,2019</p>
+                      </td>
+                      <td> 
+                        <p>Aug 13,2019</p>
+                      </td>
+                      <td>
+                        <p>Sep 02,2019</p>
+                      </td>
+                      <td>
+                        <p>50</p>
+                      </td>
+                      <td>
+                        <p>20</p>
+                      </td>
+                      <td>
+                        <p>Active</p>
+                      </td>
+                      <td>
+                        <p><mat-slide-toggle>Slide me!</mat-slide-toggle></p>
+                      </td>
+                    </tr>
+                  </tbody>
                   </table>
-            </div>
+          </div>
         </div>
     </div>
+  </mat-card>
+
+  <mat-card>
+  <div class="row">
+    <div class="col-lg-8 col-sm-12 col-md-12 col-12">
+      <h5>Add Discount Coupon</h5>
+        <mat-form-field appearance="outline" class="col-lg-6 col-12 col-sm-12 col-md-6">
+          <mat-label>Coupon Name</mat-label>
+          <mat-icon matPrefix><i class="fa fa-percent icon-img" aria-hidden="true"></i></mat-icon>
+          <input matInput placeholder="Christmas Offer">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-lg-6 col-12 col-sm-12 col-md-6">
+          <mat-label>Maximum Redemptions</mat-label>
+          <mat-icon matPrefix><i class="fa fa-gift icon-img" aria-hidden="true"></i></mat-icon>
+          <input matInput placeholder="CHRISTMAS400">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-lg-6 col-12 col-sm-12 col-md-6">
+          <mat-label>Coupon Code</mat-label>
+          <mat-icon matPrefix><i class="fa fa-percent icon-img" aria-hidden="true"></i></mat-icon>
+          <input matInput placeholder="Christmas Offer">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-lg-6 col-12 col-sm-12 col-md-6">
+          <mat-label>Valid Form</mat-label>
+          <input matInput [matDatepicker]="picker"  placeholder="MM/DD/YYYY">
+          <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-lg-3 col-12 col-sm-12 col-md-3">
+          <mat-label>Discount Type</mat-label>
+          <mat-icon matPrefix><i class="fa fa-percent icon-img" aria-hidden="true"></i></mat-icon>
+          <mat-select [(value)]="selected">
+            <mat-option>None</mat-option>
+            <mat-option value="option1">Percentage</mat-option>
+            <mat-option value="option2">Fixed Amount</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-lg-3 col-12 col-sm-12 col-md-3">
+          <mat-label>Discount</mat-label>
+          <mat-icon matPrefix><i class="fa fa-percent icon-img" aria-hidden="true"></i></mat-icon>
+          <mat-select [(value)]="selected">
+            <mat-option>None</mat-option>
+            <mat-option value="option1">50</mat-option>
+            <mat-option value="option2">Option 2</mat-option>
+            <mat-option value="option3">Option 3</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- <mat-form-field appearance="outline" class="col-lg-6 col-12 col-sm-12 col-md-6">
+          <mat-label>Valid Form</mat-label>
+          <input matInput [matDatepicker]="picker"  placeholder="MM/DD/YYYY">
+          <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field> -->
+    </div>
+    <div class="col-lg-4 col-12 col-md-4">
+       <h6>Select Service</h6>
+       <mat-form-field appearance="outline">
+        <mat-label>Outline form field</mat-label>
+        <input matInput placeholder="Category,Subcategory,Service">
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+      <ul>
+        <li class="bottom-border plr-25">
+          <p>Salon<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+        </li>
+        <li class="bottom-border plr-25">
+          <p>Hair<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+        </li>
+        <li class="bottom-border plr-25">
+          <p>Home Cleaning<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+        </li>
+        <li class="bottom-border plr-25">
+          <p>Pest Control<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+        </li>
+        <li class="bottom-border plr-25">
+          <p>Appliances<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+        </li>
+        <li class="bottom-border plr-25">
+          <p>Plumbing<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+        </li>
+        <li class="">
+          <p>Electrical<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+        </li>	
+        </ul>		
+    </div>
+  </div>
+</mat-card>
 </div>
