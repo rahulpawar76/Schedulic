@@ -19,15 +19,22 @@
 					</mat-select> -->
 					<div class="row">
 						<div class="col-6">
-            <label class="mb-0">Select Date</label>
+            <!-- <label class="mb-0">Select Date</label>
             <div class="input-group">
               <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fa fa-calendar"></i>
                 </div>
-              </div>
+              </div> -->
               <!-- <input type="date" class="form-control formcontrol"> -->
-              <input mat-input [min]="minDate" [matDatepicker]="picker" placeholder="Choose a date" formControlName="rescheduleDate" class="form-control formcontrol" (click)="picker.open()" (dateChange)="fnDateChange($event)">
-              <mat-datepicker #picker></mat-datepicker>
+              <div>
+                <mat-form-field  class=" bottom-border-field">
+                  <mat-label>Select Date</mat-label>
+                   <!-- <input mat-input [min]="minDate" [matDatepicker]="picker" placeholder="Choose a date" formControlName="rescheduleDate" class="form-control formcontrol" (click)="picker.open()" (dateChange)="fnDateChange($event)"> -->
+                    <input matInput [min]="minDate" [matDatepicker]="picker"  placeholder="Choose a date" formControlName="rescheduleDate" (click)="picker.open()" (dateChange)="fnDateChange($event)">
+                    <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            
             </div>
 					</div>
 					<div class="col-6 mb-3">

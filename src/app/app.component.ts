@@ -158,9 +158,12 @@ export class AppComponent implements AfterViewInit {
       MyAppointmentNav(){
         this.router.navigate(['/admin/my-appointment']);
       }
-      // MyReportsNav(){
-      //   this.router.navigate(['/admin/my-business']);
-      // }
+      MyReportsNav(){
+        this.router.navigate(['/admin/my-reports']);
+      }
+      MyDiscountCouponNav(){
+        this.router.navigate(['/admin/my-discountcoupon']);
+      }
 
 
       /*StaffDashboard Navigation*/
