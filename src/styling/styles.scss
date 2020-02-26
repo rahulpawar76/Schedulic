@@ -572,20 +572,29 @@ $calendarsize: 10px;
 	bottom: 0 !important;
 }
 ::ng-deep .bottom-border-field .mat-form-field-infix{
-	padding: 1em 0 !important;
+    padding: 0.4em 0 !important;
+    margin-bottom: 5px;
+}
+::ng-deep .bottom-border-field .mat-icon{
+    line-height: 1;
+    font-size: 100% !important;
 }
 
 .bottom-border-field .mat-form-field-underline{
 	bottom: 0 !important;
 }
 .bottom-border-field .mat-form-field-infix{
-    padding: 1em 0 !important;
+    padding: 0.4em 0 !important;
+    margin-bottom: 5px;
     border-top: unset;
 }
 .bottom-border-field mat-icon{
     padding-right: 10px;
     border-right: 1px solid #222;
     display: table;
+    line-height: 1;
+    font-size: 100% !important;
+    margin-right: 10px;
 }
 .bottom-border-field{
     margin-top: 20px;

@@ -326,7 +326,19 @@ background-color: $primary-color;
     left:90px;
 }
 .main-admin-drawer{
-    ::ng-deep .ng-star-inserted{
+    ::ng-deep app-my-work-space{
+        width: 100%;
+    }
+    ::ng-deep app-appointment{
+        width: 100%;
+    }
+    ::ng-deep app-customers{
+        width: 100%;
+    }
+    ::ng-deep app-reports{
+        width: 100%;
+    }
+    ::ng-deep app-discount-coupon{
         width: 100%;
     }
 }

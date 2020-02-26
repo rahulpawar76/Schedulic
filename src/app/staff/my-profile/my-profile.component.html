@@ -11,13 +11,19 @@
                 <div class="camera-alt"><i class="material-icons"> camera_alt</i></div></div>
             <div class="col-8">
                     <div class="form-group row">
-                        <label class="col-3 col-lg-3 col-form-label form-control-label">First Name</label>
+                        <!-- <label class="col-3 col-lg-3 col-form-label form-control-label">First Name</label> -->
                         <div class="col-9 col-lg-9">
-                            <div class="input-group">
+                            <div>
+                            <!-- <div class="input-group">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="material-icons">person_outline</i></div>
-                                </div>
-								<input class="form-control" type="text" formControlName="user_FirstName"  value="">
+                                </div> -->
+                                <!-- <input class="form-control" type="text" formControlName="user_FirstName"  value=""> -->
+                                <mat-form-field class="form-group  bottom-border-field">
+                                    <mat-label>First Name</mat-label>
+                                    <mat-icon matPrefix ><i class="material-icons">person_outline</i></mat-icon>
+                                    <input matInput formControlName="user_FirstName"  value="" placeholder="Enter First Name" >
+                                  </mat-form-field>
 								<span class="error-wrap" *ngIf="myProfile.get('user_FirstName').touched || myProfile.get('user_FirstName').dirty || formSubmitclicked">
 									<small *ngIf="myProfile.get('user_FirstName').hasError('required')" class="error">First Name Is required</small>
 								 </span>
@@ -26,13 +32,19 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-3 col-lg-3 col-form-label form-control-label">Last Name</label>
+                        <!-- <label class="col-3 col-lg-3 col-form-label form-control-label">Last Name</label> -->
                         <div class="col-9 col-lg-9">
-                            <div class="input-group">
+                            <!-- <div class="input-group">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="material-icons">person_outline</i></div>
-                                </div>
-								<input class="form-control" type="text" formControlName="user_LastName"  value="">
+                                </div> -->
+                                <!-- <input class="form-control" type="text" formControlName="user_LastName"  value=""> -->
+                                <div>
+                                    <mat-form-field class="form-group  bottom-border-field">
+                                        <mat-label>Last Name</mat-label>
+                                        <mat-icon matPrefix ><i class="material-icons">person_outline</i></mat-icon>
+                                        <input matInput formControlName="user_LastName"  value="" placeholder="Enter Last Name" >
+                                      </mat-form-field>
 								<span class="error-wrap" *ngIf="myProfile.get('user_LastName').touched || myProfile.get('user_LastName').dirty || formSubmitclicked">
 									<small *ngIf="myProfile.get('user_LastName').hasError('required')" class="error">Last Name Is required</small>
 								 </span>
@@ -41,13 +53,19 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-3 col-lg-3 col-form-label form-control-label">Email</label>
+                        <!-- <label class="col-3 col-lg-3 col-form-label form-control-label">Email</label> -->
                         <div class="col-9 col-lg-9">
-                            <div class="input-group">
+                            <!-- <div class="input-group">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="material-icons">mail_outline</i></div>
-                                </div>
-                                <input class="form-control" formControlName="user_Email"  type="email" value="">
+                                </div> -->
+                                <!-- <input class="form-control" formControlName="user_Email"  type="email" value=""> -->
+                                <div>
+                                    <mat-form-field class="form-group  bottom-border-field">
+                                        <mat-label> Email</mat-label>
+                                        <mat-icon matPrefix><i class="fa fa-envelope-o"></i></mat-icon>
+                                        <input matInput formControlName="user_Email" value="" placeholder="Enter Email" >
+                                      </mat-form-field>
 								<span class="error-wrap" *ngIf="myProfile.get('user_Email').touched || myProfile.get('user_Email').dirty || formSubmitclicked">
 									<small *ngIf="myProfile.get('user_Email').hasError('required')" class="error">Email Address Is required</small>
 									<small *ngIf="myProfile.get('user_Email').hasError('email') || myProfile.get('user_Email').hasError('emailFormat')" class="error">Email Address Is not valid</small>
@@ -57,14 +75,20 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-3 col-lg-3 col-form-label form-control-label">Mobile</label>
+                        <!-- <label class="col-3 col-lg-3 col-form-label form-control-label">Mobile</label> -->
                         <div class="col-9 col-lg-9">
-                            <div class="input-group">
+                            <!-- <div class="input-group">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="material-icons">phone_iphone</i></div>
                                 </div>
-                                <input class="form-control" formControlName="user_Mobile" type="text" value="">
-								<span class="error-wrap" *ngIf="myProfile.get('user_Mobile').touched || myProfile.get('user_Mobile').dirty || formSubmitclicked">
+                                <input class="form-control" formControlName="user_Mobile" type="text" value=""> -->
+                                <div>
+                                    <mat-form-field class="form-group  bottom-border-field">
+                                        <mat-label>Mobile</mat-label>
+                                        <mat-icon matPrefix><i class="fa fa-phone"></i></mat-icon>
+                                        <input matInput formControlName="user_Mobile"  value="" placeholder="Enter Mobile Number" >
+                                      </mat-form-field>
+                                <span class="error-wrap" *ngIf="myProfile.get('user_Mobile').touched || myProfile.get('user_Mobile').dirty || formSubmitclicked">
 									<small *ngIf="myProfile.get('user_Mobile').hasError('required')" class="error">Mobile Number Is required</small>
 									<small *ngIf="myProfile.get('user_Mobile').hasError('minLength') || myProfile.get('user_Mobile').hasError('maxLength')" class="error">Mobile Number shoud be 10 digit</small>
 									<small *ngIf="myProfile.get('user_Mobile').hasError('onlynumeric')" class="error">Mobile Number shoud be Number only</small>

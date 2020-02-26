@@ -8,27 +8,38 @@
     ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper{
         transform: inherit;
     }
+    ::ng-deep .mat-drawer-container {
+        // background-color: white;
+    }
+    ::ng-deep table.dataTable thead th, table.dataTable thead td{
+        border-top: 1px solid #111111;
+    }
     mat-icon{
         line-height: 1.5;
+        margin-right: 7px;
     }
     .discountcoupon-btn{
         width: 200px;
-        height: 37px;
+        //height: 37px;
         border-radius: 26px;
         background-color: #1173f4;
         color: white;
+        right: 50px;
+        z-index: 10;
+        position: absolute;
+        height: 35px;
     }
     .dropdown{
         width: 15%;
     }
     .searchbox{
-        width: 30%;  
         margin-left: auto;
         .serch_input-appoint{           
             height: 39px; 
             padding-top: 3px; 
             .has-search .form-control {
                 padding-left: 2.375rem;
+                //width: 60%;
                 }
                 .has-search .form-control-feedback {
                     position: absolute;
@@ -61,4 +72,58 @@
                 }          
         }                   
     }
+
+    .special-table{
+        border-spacing: 0 15px;
+      .special-row{
+          background: transparent;
+          &:hover{
+              background-color: #d9f0fe !important;
+          }
+       
+      }
+  }
+   
+    .icon-img{
+        opacity: 40%;
+    }
+    .bottom-border{
+        border-bottom:  1px solid #dedede;
+    }
+    li{
+        list-style: none;
+        padding: 0px 25px;
+        font-size: 14px;
+        i{
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+        p{
+            padding-top: 16px;
+            display: flex;
+            width: 100%;
+        }
+        .plr-25{
+            padding: 0px 25px;
+        }
+    }
+    .discount-coupon-table{
+        .couponcode{
+            border: 2px dashed #b2b2b2;
+            padding: 5px;
+            color: #5499f7;
+            text-align: center;
+            display: block;
+            border-radius: 5px;
+        }
+    }
+    // table.dataTable.row-border tbody td{
+    //     border-top:0;
+    // }
+    // table.dataTable.row-border tbody tr{
+    //     border-top: 1px solid #dddddd;
+    // }
+    
+    
 }

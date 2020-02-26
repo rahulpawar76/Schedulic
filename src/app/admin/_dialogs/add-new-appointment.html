@@ -7,67 +7,96 @@
         </button>
       </div>
       <div class="modal-body">              
-          <label class="mb-0">Customer Full Name</label>
-           <div class="input-group mb-2">
+          <!-- <label class="mb-0">Customer Full Name</label>
+            <div class="input-group mb-2">
              <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="material-icons">    person_outline
+                    <div class="input-group-text"><i class="material-icons">person_outline
                     </i>
                     </div>
                  </div>
             <input type="text" class="form-control formcontrol" placeholder="Enter Customer Name">
-          </div>
+          </div> -->
+           
+           <mat-form-field class="form-group  bottom-border-field">
+            <mat-label>Customer Full Name</mat-label>
+            <mat-icon matPrefix><i class="material-icons">person_outline</i></mat-icon>
+            <input matInput placeholder="Enter Customer Name" >
+          </mat-form-field>
           
-          
-          <label class="mb-0">Customer Email</label>
+          <!-- <label class="mb-0">Customer Email</label>
            <div class="input-group mb-2">
              <div class="input-group-prepend">
                     <div class="input-group-text"><i class="fa fa-envelope-o"></i>
                     </div>
                  </div>
             <input type="email" class="form-control formcontrol" placeholder="Enter Customer Email">
-          </div>
+          </div> -->
 
-           <label class="mb-0">Customer Contact Number</label>
+          <mat-form-field class="form-group  bottom-border-field">
+            <mat-label>Customer Email</mat-label>
+            <mat-icon matPrefix><i class="fa fa-envelope-o"></i></mat-icon>
+            <input matInput placeholder="Enter Customer Email" >
+          </mat-form-field>
+
+           <!-- <label class="mb-0">Customer Contact Number</label>
            <div class="input-group mb-2">
              <div class="input-group-prepend">
                     <div class="input-group-text"><i class="fa fa-phone"></i>
                     </div>
                  </div>
             <input type="email" class="form-control formcontrol" placeholder="Enter Customer Phone Number">
-          </div>
+          </div> -->
+          
+          <mat-form-field class="form-group  bottom-border-field">
+            <mat-label>Customer Contact Number</mat-label>
+            <mat-icon matPrefix><i class="fa fa-phone"></i></mat-icon>
+            <input matInput placeholder="Enter Customer Contact Number" >
+          </mat-form-field>
 
-          <label class="mb-0">Customer Address</label>
+          <!-- <label class="mb-0">Customer Address</label>
            <div class="input-group mb-3">
              <div class="input-group-prepend">
                     <div class="input-group-text"><i class="fa fa-map-marker" ></i>
                     </div>
                  </div>
             <input type="email" class="form-control formcontrol" placeholder="Enter Customer Address">
-          </div> 
+          </div>  -->
+          <mat-form-field class="form-group  bottom-border-field">
+            <mat-label>Customer Address</mat-label>
+            <mat-icon matPrefix><i class="fa fa-map-marker"></i></mat-icon>
+            <input matInput placeholder="Enter Customer Address" >
+          </mat-form-field>
 
-          <div class="form-group row mt-3">
-          <div class="col-4">
-           
-            <div class="input-group">
-                 
-              <input type="text" class="form-control" placeholder="State">
+
+          <div class="form-group row mt-3 bottom-border-field">
+          <div class="col-4">  
+            <div class="input-group">        
+              <mat-form-field>
+                <mat-label>State</mat-label>
+                <input matInput>
+              </mat-form-field>
             </div>
           </div>
-          <div class="col-4">
           
-            <div class="input-group">
-                 
-              <input type="text" class="form-control" placeholder="City">
+
+          <div class="col-4">  
+            <div class="input-group">       
+              <mat-form-field>
+                <mat-label>City</mat-label>
+                <input matInput>
+              </mat-form-field>
             </div>
           </div>
 
           <div class="col-4 ">
-          
-            <div class="input-group">
-                 
-              <input type="text" class="form-control" placeholder="Postal Code">
+            <div class="input-group">     
+              <mat-form-field>
+                <mat-label>Postal Code</mat-label>
+                <input matInput>
+              </mat-form-field>
             </div>
           </div>
+
         </div> 
            <button class="d-block btn btn-primary addbtn" (click)="NewAppointment()">Next</button>
       </div>

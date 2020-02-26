@@ -62,7 +62,10 @@
     .plr-25{
         padding: 0px 25px;
     }
-	li{
+	
+	ul{
+        padding-left: 0px;
+        li{
 			list-style: none;
             padding: 0px 25px;
             font-size: 14px;
@@ -70,15 +73,14 @@
                 display: flex;
                 align-items: center;
             }
+            p{
+                padding-top: 16px;
+                display: flex;
+                 width: 100%;
+            }
 		}
-	ul{
-		padding-left: 0px;
 	}
-	p{
-		padding-top: 16px;
-	    display: flex;
- 		width: 100%;
-    }
+	
     .appoint-name{
         display: inline-flex;
         margin-right: 10px;
@@ -605,13 +607,7 @@ i{
 /*_____________[3] Appointment____________________ */
 #Appoinment-Details{
     .border-right-blue:after{
-        content: '';
-        background-color: #1173f4;
-        right: 0;
-        position: absolute;
-        top: 0;
-        width: 3px;
-        height: 80%;
+      
     }
     .map-icon{
         width: 10%;
@@ -634,7 +630,7 @@ i{
   .greenfont{
     color: green;
     font-size: 12px;
-    width: 32%;
+    width: 35%;
   }
   .acceptbtn{
     border-radius: 50px;
