@@ -20,6 +20,7 @@ export class AdminService {
 
             this.adminId=JSON.stringify(this.authenticationService.currentUserValue.user_id);
             this.adminToken = this.authenticationService.currentUserValue.token;
+            alert(this.adminToken)
             localStorage.setItem('isBusiness', 'false');
             if(localStorage.getItem('business_id')){
                 this.businessId = localStorage.getItem('business_id');

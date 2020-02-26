@@ -1,16 +1,16 @@
-<div class="container" id="Discount-Coupon" style="margin-top: 70px;">
-  <mat-card>
-    <div class="row">
+
+<div class="" id="Discount-Coupon" style="margin-top: 70px;">
+    <div class="row mx-0">
         <div class="col-12">
-            <div class="d-flex">
-                <h5 class="col">Discount Coupon</h5>
-                <div class="col">
+            <div class="d-flex mb-1">
+                <h5>Discount Coupon</h5>
+                <div>
                     <button mat-button class="discountcoupon-btn"><mat-icon aria-hidden="false">add</mat-icon>Discount Coupon</button>
                 </div>
             </div>
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
-            <div class="d-flex">
-                <mat-form-field class="dropdown" appearance="outline">
+            <div class="d-flex mb-3">
+                <mat-form-field class="dropdown bottom-border-field">
                     <mat-label>All</mat-label>
                     <mat-select [(value)]="selected">
                       <mat-option>None</mat-option>
@@ -109,34 +109,37 @@
           </div>
         </div>
     </div>
-  </mat-card>
-
   <mat-card>
   <div class="row">
     <div class="col-lg-8 col-sm-12 col-md-12 col-12">
       <h5>Add Discount Coupon</h5>
-        <mat-form-field appearance="outline" class="col-lg-6 col-12 col-sm-12 col-md-6">
+      
+        <mat-form-field class="form-group col-lg-6 col-12 col-sm-12 col-md-6 bottom-border-field">
           <mat-label>Coupon Name</mat-label>
           <mat-icon matPrefix><i class="fa fa-percent icon-img" aria-hidden="true"></i></mat-icon>
-          <input matInput placeholder="Christmas Offer">
+          <input matInput placeholder="Christmas Offer" >
         </mat-form-field>
-        <mat-form-field appearance="outline" class="col-lg-6 col-12 col-sm-12 col-md-6">
+
+        <mat-form-field  class="col-lg-6 col-12 col-sm-12 col-md-6  bottom-border-field">
           <mat-label>Maximum Redemptions</mat-label>
           <mat-icon matPrefix><i class="fa fa-gift icon-img" aria-hidden="true"></i></mat-icon>
           <input matInput placeholder="CHRISTMAS400">
         </mat-form-field>
-        <mat-form-field appearance="outline" class="col-lg-6 col-12 col-sm-12 col-md-6">
+
+        <mat-form-field class="col-lg-6 col-12 col-sm-12 col-md-6  bottom-border-field">
           <mat-label>Coupon Code</mat-label>
           <mat-icon matPrefix><i class="fa fa-percent icon-img" aria-hidden="true"></i></mat-icon>
           <input matInput placeholder="Christmas Offer">
         </mat-form-field>
-        <mat-form-field appearance="outline" class="col-lg-6 col-12 col-sm-12 col-md-6">
+
+        <mat-form-field  class="col-lg-6 col-12 col-sm-12 col-md-6  bottom-border-field">
           <mat-label>Valid Form</mat-label>
           <input matInput [matDatepicker]="picker"  placeholder="MM/DD/YYYY">
           <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="col-lg-3 col-12 col-sm-12 col-md-3">
+
+        <mat-form-field class="col-lg-3 col-12 col-sm-12 col-md-3 bottom-border-field">
           <mat-label>Discount Type</mat-label>
           <mat-icon matPrefix><i class="fa fa-percent icon-img" aria-hidden="true"></i></mat-icon>
           <mat-select [(value)]="selected">
@@ -145,7 +148,8 @@
             <mat-option value="option2">Fixed Amount</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="col-lg-3 col-12 col-sm-12 col-md-3">
+
+        <mat-form-field class="col-lg-3 col-12 col-sm-12 col-md-3 bottom-border-field">
           <mat-label>Discount</mat-label>
           <mat-icon matPrefix><i class="fa fa-percent icon-img" aria-hidden="true"></i></mat-icon>
           <mat-select [(value)]="selected">
@@ -155,6 +159,7 @@
             <mat-option value="option3">Option 3</mat-option>
           </mat-select>
         </mat-form-field>
+
         <!-- <mat-form-field appearance="outline" class="col-lg-6 col-12 col-sm-12 col-md-6">
           <mat-label>Valid Form</mat-label>
           <input matInput [matDatepicker]="picker"  placeholder="MM/DD/YYYY">

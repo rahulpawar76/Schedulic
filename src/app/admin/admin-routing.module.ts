@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { Role } from '@app/_models';
+import { AuthGuard } from '@app/_helpers';
 
 import { MyBusinessComponent } from './my-business/my-business.component';
 import { MyWorkSpaceComponent } from './my-work-space/my-work-space.component';
@@ -49,6 +51,12 @@ const routes: Routes = [
     path: 'my-discountcoupon',
     component: DiscountCouponComponent 
 
+  },
+  {
+    path: 'settings',
+    canActivate: [AuthGuard],
+    data: {roles: Role.Admin},
+    loadChildren: () => import('./settings/settings.module').then(mod => mod.SettingsModule)
   },
 ];
 

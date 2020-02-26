@@ -56,7 +56,7 @@
               </div>
             <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
                 <form>              
-                    <mat-form-field>
+                    <mat-form-field class=" bottom-border-field">
                       <mat-label>Change Status</mat-label>
                         <mat-select  name="status" [(value)]="onGoingAppointmentData.order_status" (selectionChange)="someMethod(onGoingAppointmentData.id, $event.value)">
                         <mat-option *ngFor="let status of statuses" [value]="status.value">

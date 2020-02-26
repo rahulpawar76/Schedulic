@@ -6,7 +6,7 @@
                     generator,Lorem Ipsum,giving information on its origins.</p>
                 <div class="col-2 pendingborder" style="border-right: 1px solid blue; margin: 0;text-align: right;">
                     <label class="mb-0 pendingdate" style="text-align: right;">December 13</label>
-                    <p style="text-align: right;font-size: 18px;">Wednesday</p>
+                    <p style="text-align: right;font-size: 16px;">Wednesday</p>
                 </div>
 
                 <div class="" style="margin: 0 20px 0 20px;">
@@ -17,7 +17,7 @@
             </div>
             <div class="col-12" >
                 <mat-card>
-                <table  datatable class="row-border hover">
+                <table  [dtOptions]="dtOptions" datatable class=" special-table hover">
                     <thead>               
                         <th>Services</th>
                         <th>Customer</th>   
@@ -28,60 +28,60 @@
                     </thead>
                     <tbody>
                        
-                      <tr>
+                      <tr class="special-row">
                         <td><p class="mb-0">Hair Color</p></td>
                         <td><p class="mb-0">Raj Kumar</p>
-                            <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                            <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                            <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                            <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                         </td>
                         <td><p class="mb-0">Raj Kumar</p>
-                          <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                          <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                          <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                          <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                       </td>
                         <td>$.3,3000.00</td>
                         <td>12 Dec 2019</td>
                         <td>07:00 pm</td>
                       
                       </tr>
-                      <tr>
+                      <tr class="special-row">
                         <td><p class="mb-0">Fruit Facial</p></td>
                             <td><p class="mb-0">Raj Kumar</p>
-                                <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
+                                <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
                                 <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
                             </td>
                             <td><p class="mb-0">Raj Kumar</p>
-                              <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                              <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                              <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                              <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                           </td>
                             <td>$.3,3000.00</td>
                             <td>12 Dec 2019</td>
                             <td>07:00 pm</td>
                       
                       </tr>
-                      <tr>
+                      <tr class="special-row">
                         <td ><p class="mb-0">Fish Pedicure</p></td>
                         <td><p class="mb-0">Raj Kumar</p>
-                            <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                            <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                            <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                            <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                         </td>
                         <td><p class="mb-0">Raj Kumar</p>
-                          <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                          <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                          <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                          <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                         </td>
                         <td>$.3,3000.00</td>
                         <td>12 Dec 2019</td>
                         <td>07:00 pm</td>
                        
                       </tr>
-                      <tr>
+                      <tr class="special-row">
                         <td><p class="mb-0">Chocalate Manicure</p></td>
                             <td><p class="mb-0">Raj Kumar</p>
-                                <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                                <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                                <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                                <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                             </td>
                             <td><p class="mb-0">Raj Kumar</p>
-                              <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                              <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                              <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                              <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                           </td>
                             <td>$.3,3000.00</td>
                             <td>12 Dec 2019</td>
@@ -111,7 +111,7 @@
 
             </div>
             <div class="col-12" >
-                <table  datatable class="row-border hover">
+                <table  [dtOptions]="dtOptions" datatable class="row-border special-table hover">
                     <thead>            
                         <th>Services</th>
                         <th>Customer</th>   
@@ -122,60 +122,60 @@
                     </thead>
                     <tbody>
                        
-                      <tr>
+                      <tr class="special-row">
                         <td><p class="mb-0">Hair Color</p></td>
                         <td><p class="mb-0">Raj Kumar</p>
-                            <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                            <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                            <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                            <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                         </td>
                         <td><p class="mb-0">Raj Kumar</p>
-                          <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                          <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                          <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                          <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                       </td>
                         <td>$.3,3000.00</td>
                         <td>12 Dec 2019</td>
                         <td>07:00 pm</td>
                       
                       </tr>
-                      <tr>
+                      <tr class="special-row">
                         <td><p class="mb-0">Fruit Facial</p></td>
                             <td><p class="mb-0">Raj Kumar</p>
-                                <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                                <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                                <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                                <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                             </td>
                             <td><p class="mb-0">Raj Kumar</p>
-                              <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                              <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                              <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                              <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                           </td>
                             <td>$.3,3000.00</td>
                             <td>12 Dec 2019</td>
                             <td>07:00 pm</td>
                       
                       </tr>
-                      <tr>
+                      <tr class="special-row">
                         <td ><p class="mb-0">Fish Pedicure</p></td>
                         <td><p class="mb-0">Raj Kumar</p>
-                            <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                            <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                            <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                            <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                         </td>
                         <td><p class="mb-0">Raj Kumar</p>
-                          <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                          <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                          <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                          <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                         </td>
                         <td>$.3,3000.00</td>
                         <td>12 Dec 2019</td>
                         <td>07:00 pm</td>
                        
                       </tr>
-                      <tr>
+                      <tr class="special-row">
                         <td><p class="mb-0">Chocalate Manicure</p></td>
                             <td><p class="mb-0">Raj Kumar</p>
-                                <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                                <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                                <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                                <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                             </td>
                             <td><p class="mb-0">Raj Kumar</p>
-                              <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                              <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                              <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                              <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                           </td>
                             <td>$.3,3000.00</td>
                             <td>12 Dec 2019</td>
@@ -203,7 +203,7 @@
 
         </div>
         <div class="col-12" >
-            <table  datatable class="row-border hover">
+            <table [dtOptions]="dtOptions" datatable class="row-border special-table hover">
                 <thead>   
                     <th>Services</th>
                     <th>Customer</th>   
@@ -214,60 +214,60 @@
                 </thead>
                 <tbody>
                    
-                  <tr>
+                  <tr class="special-row">
                     <td><p class="mb-0">Hair Color</p></td>
                     <td><p class="mb-0">Raj Kumar</p>
-                        <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                        <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                        <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                     </td>
                     <td><p class="mb-0">Raj Kumar</p>
-                      <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                      <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                      <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                      <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                   </td>
                     <td>$.3,3000.00</td>
                     <td>12 Dec 2019</td>
                     <td>07:00 pm</td>
                   
                   </tr>
-                  <tr>
+                  <tr class="special-row">
                     <td><p class="mb-0">Fruit Facial</p></td>
                         <td><p class="mb-0">Raj Kumar</p>
-                            <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                            <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                            <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                            <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                         </td>
                         <td><p class="mb-0">Raj Kumar</p>
-                          <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                          <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                          <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                          <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                       </td>
                         <td>$.3,3000.00</td>
                         <td>12 Dec 2019</td>
                         <td>07:00 pm</td>
                   
                   </tr>
-                  <tr>
+                  <tr class="special-row">
                     <td ><p class="mb-0">Fish Pedicure</p></td>
                     <td><p class="mb-0">Raj Kumar</p>
-                        <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                        <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                        <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                     </td>
                     <td><p class="mb-0">Raj Kumar</p>
-                      <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                      <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                      <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                      <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                     </td>
                     <td>$.3,3000.00</td>
                     <td>12 Dec 2019</td>
                     <td>07:00 pm</td>
                    
                   </tr>
-                  <tr>
+                  <tr class="special-row">
                     <td><p class="mb-0">Chocalate Manicure</p></td>
                         <td><p class="mb-0">Raj Kumar</p>
-                            <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                            <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                            <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                            <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                         </td>
                         <td><p class="mb-0">Raj Kumar</p>
-                          <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                          <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                          <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                          <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                       </td>
                         <td>$.3,3000.00</td>
                         <td>12 Dec 2019</td>
@@ -295,7 +295,7 @@
 
             </div>
             <div class="col-12" >
-                <table  datatable class="row-border hover">
+                <table [dtOptions]="dtOptions" datatable class="row-border special-table hover">
                     <thead>            
                         <th>Services</th>
                         <th>Customer</th>   
@@ -306,60 +306,60 @@
                     </thead>
                     <tbody>
                        
-                      <tr>
+                      <tr class="special-row">
                         <td><p class="mb-0">Hair Color</p></td>
                         <td><p class="mb-0">Raj Kumar</p>
-                            <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                            <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                            <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                            <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                         </td>
                         <td><p class="mb-0">Raj Kumar</p>
-                          <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                          <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                          <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                          <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                       </td>
                         <td>$.3,3000.00</td>
                         <td>12 Dec 2019</td>
                         <td>07:00 pm</td>
                       
                       </tr>
-                      <tr>
+                      <tr class="special-row">
                         <td><p class="mb-0">Fruit Facial</p></td>
                             <td><p class="mb-0">Raj Kumar</p>
-                                <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                                <p> <i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                                <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                                <p> <i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                             </td>
                             <td><p class="mb-0">Raj Kumar</p>
-                              <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                              <p> <i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                              <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                              <p> <i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                           </td>
                             <td>$.3,3000.00</td>
                             <td>12 Dec 2019</td>
                             <td>07:00 pm</td>
                       
                       </tr>
-                      <tr>
+                      <tr class="special-row">
                         <td ><p class="mb-0">Fish Pedicure</p></td>
                         <td><p class="mb-0">Raj Kumar</p>
-                            <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                            <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                            <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                            <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                         </td>
                         <td><p class="mb-0">Raj Kumar</p>
-                          <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                          <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                          <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                          <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                         </td>
                         <td>$.3,3000.00</td>
                         <td>12 Dec 2019</td>
                         <td>07:00 pm</td>
                        
                       </tr>
-                      <tr>
+                      <tr class="special-row">
                         <td><p class="mb-0">Chocalate Manicure</p></td>
                             <td><p class="mb-0">Raj Kumar</p>
-                                <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                                <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                                <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                                <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                             </td>
                             <td><p class="mb-0">Raj Kumar</p>
-                              <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                              <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                              <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                              <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                           </td>
                             <td>$.3,3000.00</td>
                             <td>12 Dec 2019</td>
@@ -404,12 +404,12 @@
                       <tr class="special-row">
                         <td><p class="mb-0">Hair Color</p></td>
                         <td><p class="mb-0">Raj Kumar</p>
-                            <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                            <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                            <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                            <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                         </td>
                         <td><p class="mb-0">Raj Kumar</p>
-                          <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                          <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                          <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                          <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                       </td>
                         <td>$.3,3000.00</td>
                         <td>12 Dec 2019</td>
@@ -419,12 +419,28 @@
                       <tr class="special-row">
                         <td><p class="mb-0">Hair Color</p></td>
                         <td><p class="mb-0">Raj Kumar</p>
-                            <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                            <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                            <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                            <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                         </td>
                         <td><p class="mb-0">Raj Kumar</p>
-                          <p class="mb-0"><i class="fa fa-phone mr-2"></i>Phone No:1234567890</p>
-                          <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
+                          <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                          <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
+                      </td>
+                        <td>$.3,3000.00</td>
+                        <td>12 Dec 2019</td>
+                        <td>07:00 pm</td>
+                      
+                      </tr>
+
+                      <tr class="special-row">
+                        <td><p class="mb-0">Hair Color</p></td>
+                        <td><p class="mb-0">Raj Kumar</p>
+                            <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                            <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
+                        </td>
+                        <td><p class="mb-0">Raj Kumar</p>
+                          <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                          <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                       </td>
                         <td>$.3,3000.00</td>
                         <td>12 Dec 2019</td>

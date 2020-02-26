@@ -20,12 +20,14 @@
     }
     .discountcoupon-btn{
         width: 200px;
-        height: 37px;
+        //height: 37px;
         border-radius: 26px;
         background-color: #1173f4;
         color: white;
-        margin-left: auto;
-        display: flex;
+        right: 50px;
+        z-index: 10;
+        position: absolute;
+        height: 35px;
     }
     .dropdown{
         width: 15%;
@@ -37,7 +39,7 @@
             padding-top: 3px; 
             .has-search .form-control {
                 padding-left: 2.375rem;
-                width: 60%;
+                //width: 60%;
                 }
                 .has-search .form-control-feedback {
                     position: absolute;
@@ -70,6 +72,17 @@
                 }          
         }                   
     }
+
+    .special-table{
+        border-spacing: 0 15px;
+      .special-row{
+          background: transparent;
+          &:hover{
+              background-color: #d9f0fe !important;
+          }
+       
+      }
+  }
    
     .icon-img{
         opacity: 40%;
