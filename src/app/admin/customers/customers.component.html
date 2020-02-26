@@ -32,10 +32,10 @@
                         </div>												
                     </form>
                   </div> 
-                <div *ngFor="let allCustomers of allCustomers; let i=index" (click)="fnSelectCustomer(allCustomers.id)" class="d-flex devider-slim pb-2 m-2">
+                <div *ngFor="let allCustomers of allCustomers; let i=index" class="d-flex devider-slim pb-2 m-2">
                     <mat-checkbox class="customer-checkbox"></mat-checkbox>
-                    <div class="customer-name-width "><div class="customer-name">CS</div></div>
-                    <div class="customer-details">
+                    <div (click)="fnSelectCustomer(allCustomers.id)" class="customer-name-width pointer"><div class="customer-name">CS</div></div>
+                    <div (click)="fnSelectCustomer(allCustomers.id)" class="customer-details pointer">
                         <h6>{{allCustomers.fullname}}</h6>
                         <p>{{allCustomers.email}}</p>
                     </div>       
@@ -130,15 +130,15 @@
                     </mat-card>
                 </div>
         
-                <div *ngIf="fullDetailsOfCustomer" id="Customer-Listing" class=" pl-0 pr-0" style="">
+                <div *ngIf="fullDetailsOfCustomer && customersDetails != null" id="Customer-Listing" class=" pl-0 pr-0" style="">
                     <mat-card class="mb-0">
                         <div class="d-flex m-2 align-items-center">
                             <div class="customerProfile-width">
-                                <img class="rounded-circle" src="/assets/images/admin/Layer6.png">
+                                <img class="rounded-circle" src="">
                             </div>
                             <div class="customerName-width">
-                                <h6>Kirsten Mckellar</h6>
-                                <p>dummy@dummy.xyz</p>
+                                <h6>{{customersDetails.fullname}}</h6>
+                                <p>{{customersDetails.email}}</p>
                             </div>
                             <div class="customer-btn">
                                 <div class="mx-2">                                
@@ -157,22 +157,22 @@
                                <div class="d-flex my-3">
                                    <div class="mobileNo-width">
                                        <h6>Mobile</h6>
-                                       <p>9876543210</p>
+                                       <p>{{customersDetails.phone}}</p>
                                    </div>
                                    <div class="officeNo-width">
                                     <h6>Office</h6>
-                                    <p>9876543210</p>
+                                    <p>{{customersDetails.phone_office}}</p>
                                 </div>
                                 <div class="homeNo-width">
                                     <h6>Home</h6>
-                                    <p>9876543210</p>
+                                    <p>{{customersDetails.phone_home}}</p>
                                 </div>
                                </div>
                                <div class="devider-slim"></div> 
                                <div class="my-3">
                                     <div>
                                         <h6>Address</h6>
-                                        <p>Akshay Nagar 1st Block 1st cross, Rammurthy nagar, Bangalore, Karnataka-560016</p>
+                                        <p>{{customersDetails.address}}</p>
                                     </div>
                                 </div>
                                 <div class="devider-slim"></div> 
@@ -189,7 +189,9 @@
                             <div class="d-flex my-3">
                                 <div class="registration">
                                     <h6>Registration</h6>
-                                    <p>18 Sep 2019, 02:25 pm Created By Admin</p>
+
+                                    
+                                    <p>{{customersDetails.created_at}} Created By {{customersDetails.created_by}}</p>
                                 </div>
                                 <div class="lastBookedAppoint">
                                  <h6>LAST BOOKED APPOINTMENT </h6>
@@ -220,30 +222,29 @@
                                           </tr>
                                         </thead>
                                         <tbody>
-                                          <tr>
-                                            <td scope="row">25 Oct 2019</td>
-                                            <td>08:15 am</td>
-                                            <td>Repainting</td>
-                                            <td>Parth Jain</td>
-                                            <td>$.3000.00</td>
-                                            <td>Accepted</td>
+                                          <tr *ngFor="let customerAppoint of customerAppoint; let i=index">
+                                            <td scope="row">{{customerAppoint.booking_date}}</td>
+                                            <td>{{customerAppoint.booking_time}}</td>
+                                            <td>{{customerAppoint.service.service_name}}</td>
+                                            <td>{{customerAppoint.staff.firstname}} {{customerAppoint.staff.lastname}}</td>
+                                            <td>$.{{customerAppoint.total_cost}}</td>
+                                            <td>
+                                                <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'P'">Waiting For Confirmation</p>
+                                                <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'AC'">Confirm</p>
+                                                <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'RSA'">Rescheduled By Admin</p>
+                                                <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'RSS'">Rescheduled By Staff</p>
+                                                <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'RSC'">Rescheduled By Customer</p>
+                                                <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'R'">Rejected</p>
+                                                <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'OW'">On The Way</p>
+                                                <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'WS'">Work Started</p>
+                                                <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'ITR'">Interrupted</p>
+                                                <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'CO'">Completed</p>
+                                                <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'CC'">Cancelled By Customer</p>
+                                                <p class="text-capitalize" *ngIf="customerAppoint
+                                                .order_status == 'C'">Cancelled</p>
+                                            </td>
                                           </tr>
-                                          <tr>
-                                            <td scope="row">25 Oct 2019</td>
-                                            <td>09:15 am</td>
-                                            <td>Repainting</td>
-                                            <td>Parth Jain</td>
-                                            <td>$.3000.00</td>
-                                            <td>Pending</td>
-                                          </tr>
-                                          <tr class="border-bottom">
-                                            <td scope="row">25 Oct 2019</td>
-                                            <td>10:15 am</td>
-                                            <td>Repainting</td>
-                                            <td>Parth Jain</td>
-                                            <td>$.3000.00</td>
-                                            <td>Accepted</td>
-                                          </tr>
+                                          
                                         </tbody>
                                       </table>
                                 </div>
@@ -268,67 +269,25 @@
                                     </div>
                                 </div> -->
                                 <div class="d-flex">
-                                    <div class=" col-lg-4">
+                                    <div *ngFor="let customerNotes of customerNotes; let i=index" class=" col-lg-4">
                                         <mat-card class="NoteMatcard">
                                             <div class="d-flex">
-                                                <h6>Subject</h6>
+                                                <h6>{{customerNotes.note_subject}}</h6>
                                                 <div class="d-flex ml-auto">
                                                     <mat-icon (click)="newAddNote()" class="add-note-subject-icon" aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
                                                     <mat-icon class="add-note-subject-icon ml-2" aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
                                                 </div>
                                             </div>
                                             <div class="py-3">
-                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
+                                                <p>{{customerNotes.note_decreption}}</p>
                                             </div>
                                             <div class="d-flex">
                                                 <div class=" d-flex ml-auto">
-                                                    <p class="" >2019-02-04</p>
-                                                    <p class="pl-2">06:07:10</p>
+                                                    <p class="" >{{customerNotes.created_at}}</p>
                                                 </div>
                                             </div>
                                         </mat-card>
-                                    </div>
-                                    <div class=" col-lg-4">
-                                        <mat-card class="NoteMatcard">
-                                            <div class="d-flex">
-                                                <h6>Subject</h6>
-                                                <div class="d-flex ml-auto">
-                                                    <mat-icon (click)="newAddNote()" class="add-note-subject-icon" aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
-                                                    <mat-icon class="add-note-subject-icon ml-2" aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
-                                                </div>
-                                            </div>
-                                            <div class="py-3">
-                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
-                                            </div>
-                                            <div class="d-flex">
-                                                <div class=" d-flex ml-auto">
-                                                    <p class="" >2019-02-04</p>
-                                                    <p class="pl-2">06:07:10</p>
-                                                </div>
-                                            </div>
-                                        </mat-card>
-                                    </div>
-                                    <div class=" col-lg-4">
-                                        <mat-card class="NoteMatcard">
-                                            <div class="d-flex">
-                                                <h6>Subject</h6>
-                                                <div class="d-flex ml-auto">
-                                                    <mat-icon (click)="newAddNote()" class="add-note-subject-icon" aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
-                                                    <mat-icon class="add-note-subject-icon ml-2" aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
-                                                </div>
-                                            </div>
-                                            <div class="py-3">
-                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
-                                            </div>
-                                            <div class="d-flex">
-                                                <div class=" d-flex ml-auto">
-                                                    <p class="" >2019-02-04</p>
-                                                    <p class="pl-2">06:07:10</p>
-                                                </div>
-                                            </div>
-                                        </mat-card>
-                                    </div>
-                                                                        
+                                    </div>                              
                                 </div>
                             </mat-tab>
                             <mat-tab label="Payments">
@@ -476,40 +435,31 @@
                                 </div>
                             </mat-tab>
                             <mat-tab label="Review">
-                                <div class="d-flex">
-                                    <div class="d-flex py-3 star-icon ">
-                                        <mat-icon aria-hidden="false" class="star-icon">star</mat-icon>
-                                        <mat-icon aria-hidden="false">star</mat-icon>
-                                        <mat-icon aria-hidden="false">star</mat-icon>
-                                        <mat-icon aria-hidden="false">star</mat-icon>
-                                        <mat-icon aria-hidden="false">star</mat-icon>
+                                <div *ngFor="let customerReviews of customerReviews; let i=index" class="devider-slim pb-2 my-2">
+                                    <div class="d-flex">
+                                        <div class="d-flex statick-rating w-100" *ngIf="customerReviews.rating != null">
+                                            <div class="star-rating">
+                                              <input type="radio" [checked]="customerReviews.rating == 5" id="5-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="5" />
+                                              <label for="5-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                                              <input type="radio" [checked]="customerReviews.rating == 4"  id="4-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="4" />
+                                              <label for="4-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                                              <input type="radio" [checked]="customerReviews.rating == 3" id="3-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="3" />
+                                              <label for="3-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                                              <input type="radio" [checked]="customerReviews.rating == 2" id="2-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="2" />
+                                              <label for="2-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                                              <input type="radio" [checked]="customerReviews.rating == 1" id="1-star_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="1" />
+                                              <label for="1-star_{{customerReviews.id}}" class="star">&#9733;</label>
+                                            </div>   
+                                          </div>
+                                        <div class="py-2 ml-auto">
+                                            <button mat-button appearance="fill" class="view-btn" (click)="viewReviewDetail()"><mat-icon aria-hidden="false">visibility</mat-icon>View</button>
+                                        </div>
                                     </div>
-                                    <div class="py-2 ml-auto">
-                                        <button mat-button appearance="fill" class="view-btn" (click)="viewReviewDetail()"><mat-icon aria-hidden="false">visibility</mat-icon>View</button>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h6>Best I Could Find</h6>
-                                    <p>Go-appointin is the best solution i've found our scheduling needs. We use Appointy to schedule energy audits and assessments that last 1-4 hours each across a team of 8 analysts. </p>
-                                </div>
-                                <div class="devider-slim my-3"></div> 
-                                <div class="d-flex">
-                                    <div class="d-flex py-3 star-icon ">
-                                        <mat-icon aria-hidden="false" class="star-icon">star</mat-icon>
-                                        <mat-icon aria-hidden="false">star</mat-icon>
-                                        <mat-icon aria-hidden="false">star</mat-icon>
-                                        <mat-icon aria-hidden="false">star</mat-icon>
-                                        <mat-icon aria-hidden="false">star</mat-icon>
-                                    </div>
-                                    <div class="py-2 ml-auto">
-                                        <button mat-button appearance="fill" class="view-btn" (click)="viewReviewDetail()"><mat-icon aria-hidden="false">visibility</mat-icon>View</button>
+                                    <div>
+                                        <h6>{{customerReviews.rating_title}}</h6>
+                                        <p>{{customerReviews.review}}</p>
                                     </div>
                                 </div>
-                                <div>
-                                    <h6>Best I Could Find</h6>
-                                    <p>Go-appointin is the best solution i've found our scheduling needs. We use Appointy to schedule energy audits and assessments that last 1-4 hours each across a team of 8 analysts. </p>
-                                </div>
-                                <div class="devider-slim my-3"></div> 
                             </mat-tab>
                           </mat-tab-group>
                     </mat-card>

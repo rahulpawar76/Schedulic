@@ -156,7 +156,7 @@ export class AdminService {
         catchError(this.handleError));
     }
 
-    // Custpmer Module
+    // Customer Module
     getAllCustomers(){
         let requestObject = {
             'business_id': this.businessId,
@@ -167,6 +167,21 @@ export class AdminService {
             'api-token' : this.adminToken 
         });
         return this.http.post(`${environment.apiUrl}/admin-customer-list`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    getCustomersDetails(customer_id){
+        let requestObject = {
+            'customer_id': customer_id,
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/admin-customer-details`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;
         }),
