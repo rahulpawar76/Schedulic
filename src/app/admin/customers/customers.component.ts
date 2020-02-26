@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { AdminService } from '../_services/admin-main.service'
+import { AdminService } from '../_services/admin-main.service';
+import { DatePipe} from '@angular/common';
 
 
 export interface DialogData {
@@ -8,22 +9,28 @@ export interface DialogData {
   name: string;
  
 }
-
 @Component({
   selector: 'app-customers',
   templateUrl: './customers.component.html',
-  styleUrls: ['./customers.component.scss']
+  styleUrls: ['./customers.component.scss'],
+  providers: [DatePipe]
 })
 export class CustomersComponent implements OnInit {
   dtOptions: any = {};
   animal: any;
   allCustomers: any;
+  customersDetails: any;
+  customerPersonalDetails: any;
+  customerAppoint: any;
+  customerNotes: any;
+  customerReviews: any;
   newCustomer: boolean = false;
   fullDetailsOfCustomer: boolean = true;
   isLoaderAdmin : boolean = false;
   constructor(
     public dialog: MatDialog,
     private AdminService: AdminService,
+    private datePipe: DatePipe,
     ) { 
     
     localStorage.setItem('isBusiness', 'false');
@@ -37,7 +44,6 @@ export class CustomersComponent implements OnInit {
     this.AdminService.getAllCustomers().subscribe((response:any) => {
       if(response.data == true){
         this.allCustomers = response.response
-        console.log(this.allCustomers);
       }
       else if(response.data == false){
         this.allCustomers = ''
@@ -45,9 +51,6 @@ export class CustomersComponent implements OnInit {
     })
   }
 
-  fnSelectCustomer(customer_id){
-    alert(customer_id);
-  }
 
   fnAddNewCustomer(){
     this.newCustomer = true;
@@ -56,6 +59,24 @@ export class CustomersComponent implements OnInit {
   fnCancelNewCustomer(){
     this.newCustomer = false;
     this.fullDetailsOfCustomer = true;
+  }
+
+  
+  fnSelectCustomer(customer_id){
+    this.AdminService.getCustomersDetails(customer_id).subscribe((response:any) => {
+      if(response.data == true){
+        alert("Hello");
+        this.customersDetails = response.response
+        this.customerPersonalDetails = response.response.customer_details
+        this.customerAppoint = response.response.appointmets
+        this.customerNotes = response.response.notes
+        this.customerReviews = response.response.revirew
+        console.log(this.customersDetails);
+      }
+      else if(response.data == false){
+        this.customersDetails = ''
+      }
+    })
   }
 
   newCustomerAppointment() {
