@@ -69,6 +69,7 @@
                   <mat-select [(value)]="selected" (selectionChange)="fnOnClickStatus($event)">
                     <mat-option value="all">All</mat-option>
                     <mat-option value="P">Pending</mat-option>
+                    <mat-option value="CNF">Confirm</mat-option>
                     <mat-option value="AC">Accepted</mat-option>
                     <mat-option value="OW">On The Way</mat-option>
                     <mat-option value="WS">Work Started</mat-option>
@@ -96,6 +97,7 @@
 		                            <div class="d-flex">
 			                            <p class="mb-0 work-space-font">in {{appointment.timeToService}} hours</p>
 			                            <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'P'">Pending</p>
+			                            <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'CNF'">Confirm</p>
 			                            <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'AC'">Accepted</p>
 			                            <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'OW'">On The Way</p>
 			                            <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'WS'">Work Started</p>
@@ -121,7 +123,7 @@
 		                            </div>
 		                            <div class="d-flex service-person">
 		                                <i class="fa fa-briefcase pr-2 " aria-hidden="true"></i>
-		                                <p class="work-space-font pt-0 ">{{appointment.staff.username}}</p>
+		                                <p class="work-space-font pt-0 ">{{appointment.staff.firstname}} {{appointment.staff.lastname}}</p>
 		                            </div>
 		                            <div class="money">
 		                                <p class="work-space-font pt-0 ">$ {{appointment.total_cost}}</p>
@@ -140,11 +142,19 @@
 					<div class="plr-25 bottom-border">
 				        <p class="fs-1rem title-main">Appoinment Details</p>
 				    </div>
-				    <div class="pt-2 pb-2 d-flex bottom-border pl-3 pr-3">
-				       <label class="greenfont pt-2"><i class="fa fa-repeat repeat pr-1"></i>Reschedule</label>
-				       <label class="fontred  pt-2 pl-2"><i class="fa fa-times-circle-o pr-1"></i>Cancel</label>
-				       <button mat-button type="button" class="d-block btn-primary float-right acceptbtn" (click)="myworkspaceAccept()">Accept</button>
-			      	</div>
+		<!-- 				<div class="pt-2 pb-2 d-flex bottom-border pl-3 pr-3" *ngIf="appointmentDetails.order_status != 'CO'">
+						 <label class="greenfont pt-2"><i class="fa fa-repeat repeat pr-1"></i>Reschedule</label>
+						 <label class="fontred  pt-2 pl-2"><i class="fa fa-times-circle-o pr-1"></i>Cancel</label>
+						 <button mat-button type="button" class="d-block btn-primary float-right acceptbtn" (click)="myworkspaceAccept()" *ngIf="appointmentDetails.order_status == 'P'">Accept</button>
+						 <button mat-button type="button" class="d-block btn-primary float-right acceptbtn" (click)="myworkspaceAccept()" *ngIf="appointmentDetails.order_status == 'CNF'">Assign To</button>
+						 <button mat-button type="button" class="d-block btn-primary float-right acceptbtn" (click)="myworkspaceAccept()" *ngIf="appointmentDetails.order_status == 'AC'">Complete</button>
+						</div>
+						<div class="pt-2 pb-2 d-flex bottom-border pl-3 pr-3" *ngIf="appointmentDetails.order_status == 'CO'">Completed</div> -->
+						<div class="pt-2 pb-2 d-flex bottom-border pl-3 pr-3">
+						 <label class="greenfont pt-2" (click)="rescheduleAppointment()"><i class="fa fa-repeat repeat pr-1"></i>Reschedule</label>
+						 <label class="fontred  pt-2 pl-2"><i class="fa fa-times-circle-o pr-1"></i>Cancel</label>
+						 <button mat-button type="button" class="d-block btn-primary float-right acceptbtn" (click)="myworkspaceAccept()">Accept</button>
+						</div>
 				  	 <div class="background pl-4 pb-2 border-right-blue position-relative">
 				        <div class="">
 				          <h6 class="mb-0 pt-2">{{appointmentDetails.booking_date}}</h6>
@@ -166,15 +176,16 @@
 				           <div class="appoint-Status">
 				            <p class="text-gray mb-0 pt-2">Status</p>
 				            <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'P'">Pending</h6>
+				            <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'CNF'">Confirm</h6>
 				            <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'AC'">Accepted</h6>
-				            <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'OW'">On</h6>
-				            <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'WS'">Work</h6>
-				            <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'RSA'">Rescheduled</h6>
-				            <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'RSS'">Rescheduled</h6>
-				            <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'RSC'">Rescheduled</h6>
+				            <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'OW'">On The Way</h6>
+				            <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'WS'">Work Started</h6>
+				            <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'RSA'">Rescheduled By Admin</h6>
+				            <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'RSS'">Rescheduled By Staff</h6>
+				            <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'RSC'">Rescheduled By Client</h6>
 				            <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'ITR'">Intrupted</h6>
 				            <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'C'">Cancelled</h6>
-				            <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'CC'">Cancelled</h6>
+				            <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'CC'">Cancelled By Client</h6>
 				            <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'R'">Rejected</h6>
 				            <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'CO'">Completed</h6>
 				          </div>
