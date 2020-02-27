@@ -74,29 +74,31 @@
       </div>
       <div class="bottom_header" *ngIf="isAdminUser() && !isFront()" fxFlex="100">
         <mat-drawer-container class="main-container left-admin-menu">
-          <mat-drawer *ngIf="!isBusiness()" mode="side" opened>
-            <mat-list-item role="listitem"  class="matlist pointer menuitem logo">
-              <div class="logo"><img src="/assets/images/admin/admin-logo-orange.png"></div>
-            </mat-list-item>
-            <mat-list-item role="listitem" class="add">
-              <div class="add common-menu"><img src="/assets/images/admin/add.png"></div>
-            </mat-list-item> 
-            <mat-list-item role="listitem" (click)="myWorkSpaceNav()">
-              <div class="common-menu"><img src="/assets/images/admin/admin-menu-bag.png"></div>
-            </mat-list-item>
-            <mat-list-item role="listitem" >
-              <div class="common-menu" (click)="MyAppointmentNav()"><img src="/assets/images/admin/admin-menu-calendar.png"></div>
-            </mat-list-item>
-            <mat-list-item role="listitem" >
-              <div class="common-menu" (click)="MyCustomerNav()"><img src="/assets/images/admin/admin-menu-user.png"></div>
-            </mat-list-item>
-            <mat-list-item role="listitem" >
-              <div class="common-menu" (click)="MyReportsNav()"><img src="/assets/images/admin/admin-menu-statistics.png"></div>
-            </mat-list-item>
-            <mat-list-item role="listitem" >
-              <div class="common-menu" (click)="MyDiscountCouponNav()"><img src="/assets/images/admin/admin-menu-megaphone.png"></div>
-            </mat-list-item>
-            <div>
+          <mat-drawer class="main_admin_menu" *ngIf="!isBusiness()" mode="side" opened>
+            <div class="top_admin_menu">
+              <mat-list-item role="listitem"  class="matlist pointer menuitem logo">
+                <div class="logo"><img src="/assets/images/admin/admin-logo-orange.png"></div>
+              </mat-list-item>
+              <mat-list-item role="listitem" class="add">
+                <div class="add common-menu"><img src="/assets/images/admin/add.png"></div>
+              </mat-list-item> 
+              <mat-list-item role="listitem" (click)="myWorkSpaceNav()">
+                <div class="common-menu"><img src="/assets/images/admin/admin-menu-bag.png"></div>
+              </mat-list-item>
+              <mat-list-item role="listitem" >
+                <div class="common-menu" (click)="MyAppointmentNav()"><img src="/assets/images/admin/admin-menu-calendar.png"></div>
+              </mat-list-item>
+              <mat-list-item role="listitem" >
+                <div class="common-menu" (click)="MyCustomerNav()"><img src="/assets/images/admin/admin-menu-user.png"></div>
+              </mat-list-item>
+              <mat-list-item role="listitem" >
+                <div class="common-menu" (click)="MyReportsNav()"><img src="/assets/images/admin/admin-menu-statistics.png"></div>
+              </mat-list-item>
+              <mat-list-item role="listitem" >
+                <div class="common-menu" (click)="MyDiscountCouponNav()"><img src="/assets/images/admin/admin-menu-megaphone.png"></div>
+              </mat-list-item>
+            </div>
+            <div class="bottom_admin_menu">
               <mat-list-item role="listitem" >
                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-settings.png"></div>
               </mat-list-item>

@@ -1,11 +1,11 @@
 
 <div class="" id="Discount-Coupon" style="margin-top: 70px;">
-    <div class="row mx-0">
+    <div *ngIf="couponCodeListing" class="row mx-0">
         <div class="col-12">
             <div class="d-flex mb-1">
                 <h5>Discount Coupon</h5>
                 <div>
-                    <button mat-button class="discountcoupon-btn"><mat-icon aria-hidden="false">add</mat-icon>Discount Coupon</button>
+                    <button (click)="fnNewCouponCode()" mat-button class="discountcoupon-btn"><mat-icon aria-hidden="false">add</mat-icon>Discount Coupon</button>
                 </div>
             </div>
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
@@ -109,7 +109,7 @@
           </div>
         </div>
     </div>
-  <mat-card>
+  <mat-card *ngIf="addNewCouponCode">
   <div class="row">
     <div class="col-lg-8 col-sm-12 col-md-12 col-12">
       <h5>Add Discount Coupon</h5>
