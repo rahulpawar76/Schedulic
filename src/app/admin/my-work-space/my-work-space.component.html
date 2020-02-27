@@ -1,7 +1,7 @@
 <div  class="container-fluid sub-container">
 <div id="admin-book-appointment">		
 	<div class="row">
-		<mat-card class="mt-4 mb-4">
+		<mat-card class="mt-4 mb-4" *ngIf="revenue != null && revenue != undefined">
 			<div class="col-lg-2 col-md-4 col-6 flex-align-center">
 				<h6 class="category">Category</h6>
 				<p class="font-gray pt-1 mb-0">All Services</p>
@@ -64,17 +64,22 @@
 						</form>
 						<div class="filter-btn-appoint">
 							<!-- <button class="btn-secondary filter-btn" mat-button><i class="material-icons mr-1">filter_list_alt</i>Filter</button> -->
-			<mat-form-field class="my-2 all-customer-list col-lg-12 col-12 col-md-12 bottom-border-field">
-                  <mat-label class="btn-secondary filter-btn"><i class="material-icons mr-1">filter_list_alt</i>Filter</mat-label>
-                  <mat-select [(value)]="selected">
-                    <!-- <mat-option>None</mat-option> -->
-                    <mat-option value="option1">Pending</mat-option>
-                    <mat-option value="option2">Accepted</mat-option>
-                    <mat-option value="option3">On The Way</mat-option>
-                    <mat-option value="option3">Work Started</mat-option>
-                    <mat-option value="option3">Rescheduled</mat-option>
-                    <mat-option value="option3">Cancelled</mat-option>
-                    <mat-option value="option3">Completed</mat-option>
+						 <mat-form-field class="my-2 all-customer-list col-lg-12 col-12 col-md-12 bottom-border-field">
+                  <mat-label class="">Filter</mat-label>
+                  <mat-select [(value)]="selected" (selectionChange)="fnOnClickStatus($event)">
+                    <mat-option value="all">All</mat-option>
+                    <mat-option value="P">Pending</mat-option>
+                    <mat-option value="AC">Accepted</mat-option>
+                    <mat-option value="OW">On The Way</mat-option>
+                    <mat-option value="WS">Work Started</mat-option>
+                    <mat-option value="RSA">Rescheduled By Admin</mat-option>
+                    <mat-option value="RSS">Rescheduled By Staff</mat-option>
+                    <mat-option value="RSC">Rescheduled By Client</mat-option>
+                    <mat-option value="ITR">Intrupted</mat-option>
+                    <mat-option value="C">Cancelled</mat-option>
+                    <mat-option value="CC">Cancelled by Client</mat-option>
+                    <mat-option value="R">Rejected</mat-option>
+                    <mat-option value="CO">Completed</mat-option>
                   </mat-select>
                 </mat-form-field>
 						</div>
@@ -85,10 +90,10 @@
 		       		<div class="justify-content-center timeframe-main ">
 		            <div class="work-service-bg-main">
 		                <div class="service-background pt-4"> 
-		                    <div class="left-time-main" *ngFor="let appointment of appointments">
+		                    <div class="left-time-main" *ngFor="let appointment of appointments;let i=index" (click)="fnOnClickAppointment(i)">
 		                        <span class="font-blue left-font">{{appointment.booking_time}}</span>
 		                        <div class="pl-3">
-		                            <p class="mb-0 work-space-font">in 8 hours ago</p>
+		                            <p class="mb-0 work-space-font">in {{appointment.timeToService}} hours</p>
 		                            <h5>{{appointment.service.service_name}} <small class="work-space-font">(Salon)</small></h5>
 		                        </div>
 		                        <div class="d-flex flex-wrap pl-3 mb-4">
@@ -115,7 +120,7 @@
 		        	</div>
 				</div>
 			</mat-card>
-			<mat-card class="col-lg-3 col-12 col-md-6 border-8 p-0">
+			<mat-card class="col-lg-3 col-12 col-md-6 border-8 p-0" *ngIf="appointments.length>0">
 				<div id="Appoinment-Details">
 					<div class="plr-25 bottom-border">
 				        <p class="fs-1rem title-main">Appoinment Details</p>
@@ -127,29 +132,29 @@
 			      	</div>
 				  	 <div class="background pl-4 pb-2 border-right-blue position-relative">
 				        <div class="">
-				          <h6 class="mb-0 pt-2">09 Sep 2019</h6>
-				          <p class="text-gray pt-0 mb-0">Booked On:01 sep 2019 @ 12:07 pm</p>
+				          <h6 class="mb-0 pt-2">{{appointmentDetails.booking_date}}</h6>
+				          <p class="text-gray pt-0 mb-0">Booked On:{{appointmentDetails.created_at}}</p>
 				        </div>
 				        <div>
-				          <h6 class="mb-0 pt-2">Hair Cut(Salon) : $.200.00</h6>
+				          <h6 class="mb-0 pt-2">{{appointmentDetails.service_name}}(Salon) : $.{{appointmentDetails.total_cost}}.00</h6>
 				          <p class="text-gray pt-0 mb-0">(Tax : $.50.00)</p>
 				        </div>
 				        <div>
 				          <p class="text-gray  mb-0 pt-2">Time</p>
-				          <h6 class="pt-0 mb-0">12:00 am - 01:00 am (1 hr)</h6>
+				          <h6 class="pt-0 mb-0">{{appointmentDetails.booking_time}} - {{appointmentDetails.booking_time_to}} ({{appointmentDetails.service_time}})</h6>
 				        </div>        
 				        <div class="d-flex">
 				          <div class="appoint-orderBY">
 				            <p class="text-gray mb-0 pt-2">Order By</p>
-				            <h6 class="pt-0 mb-0">Admin</h6>
+				            <h6 class="pt-0 mb-0 text-capitalize">{{appointmentDetails.order_by}}</h6>
 				          </div>
 				           <div class="appoint-Status">
 				            <p class="text-gray mb-0 pt-2">Status</p>
-				            <h6 class="pt-0 mb-0">Pending</h6>
+				            <h6 class="pt-0 mb-0">{{appointmentDetails.order_status}}</h6>
 				          </div>
 				           <div class="appoint-staff">
 					          <p class="text-gray mb-0 pt-2">Staff</p>
-					          <h6 class="pt-0 mb-0">Path Jain</h6>
+					          <h6 class="pt-0 mb-0 text-capitalize">{{appointmentDetails.staffName}}</h6>
 				        	</div>
 				        </div>       
 				      </div>
@@ -159,17 +164,17 @@
 				          <div class="icon-background">SP</div>
 				        </div>
 				        <div class="pl-2">
-				          <h6 class="mb-0 pt-0">Shab Patel</h6>
-				          <p class="text-gray pt-0 mb-0">shabpatel02@gmail.com</p>
+				          <h6 class="mb-0 pt-0">{{appointmentDetails.customerName}}</h6>
+				          <p class="text-gray pt-0 mb-0">{{appointmentDetails.customerEmail}}</p>
 				        </div>
 				      </div>
 				      <div class="d-flex pl-4 pt-2">
 				        <i class="fa fa-phone Appoinment-icon"></i>
-				        <p class="pl-3 pt-0 mb-0">9876543210</p>
+				        <p class="pl-3 pt-0 mb-0">{{appointmentDetails.customerPhone}}</p>
 				      </div>
 				      <div class="pl-4 d-flex pt-2">
 						<img class="map-icon" src="../../assets/images/admin/map.png" />
-				        <h6 class="pl-3 pt-0 mb-0">A-23,Preeti Tower,180 Feet Road,Near IDBI Bank,Bhyandar(west).Mumbai-40010</h6>
+				        <h6 class="pl-3 pt-0 mb-0">{{appointmentDetails.customerAddress}}</h6>
 				      </div>
 				      <div  class="pl-4 pt-2 bottom-border">
 				      	<h6>Note<i class="fa fa-plus-circle pl-2 note-icon" aria-hidden="true"></i></h6>

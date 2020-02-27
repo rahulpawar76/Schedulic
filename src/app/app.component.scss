@@ -342,3 +342,37 @@ background-color: $primary-color;
         width: 100%;
     }
 }
+
+
+// star ratting
+
+::ng-deep .star-rating {
+    display:flex;
+    flex-direction: row-reverse;
+    font-size:1.5em;
+    justify-content:center;
+    padding:0 .2em;
+    text-align:center;
+    width:auto;
+    input {
+      display:none;
+    }
+    label {
+      color:#ccc;
+      cursor:pointer;
+      font-size: 70px;
+      padding: 5px;
+    }
+    input[type="radio"]:checked ~ label{
+      color:#f90;
+    }
+  }
+  
+  ::ng-deep .statick-rating{
+    pointer-events: none;
+    .star-rating{
+      label{
+        font-size: 20px;
+      }
+    }
+  }
