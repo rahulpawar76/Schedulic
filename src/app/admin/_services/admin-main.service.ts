@@ -250,9 +250,11 @@ export class AdminService {
 
     // Couponcode
 
-    getAllCouponCode(){
+    getAllCouponCode(couponListFilter){
+        alert(couponListFilter);
         let requestObject = {
             'business_id': this.businessId,
+            'filter' : couponListFilter,
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
