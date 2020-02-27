@@ -251,7 +251,6 @@ export class AdminService {
     // Couponcode
 
     getAllCouponCode(couponListFilter){
-        alert(couponListFilter);
         let requestObject = {
             'business_id': this.businessId,
             'filter' : couponListFilter,
@@ -262,6 +261,22 @@ export class AdminService {
             'api-token' : this.adminToken 
         });
         return this.http.post(`${environment.apiUrl}/discount-coupon-list`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    createNewCouponCode(createdCouponCodeData){
+        alert(createdCouponCodeData);
+        // let requestObject = {
+        //     'business_id': this.businessId,
+        // };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/create-discount-coupon`,createdCouponCodeData,{headers:headers}).pipe(
         map((res) => {
             return res;
         }),

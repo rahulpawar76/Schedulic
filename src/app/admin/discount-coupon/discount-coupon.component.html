@@ -91,7 +91,7 @@
                 <mat-form-field>
                   <mat-label>Coupon Name</mat-label>
                   <mat-icon matPrefix><i class="fa fa-percent icon-img" aria-hidden="true"></i></mat-icon>
-                  <input matInput formControlName="coupan_name"  value=""  placeholder="Christmas Offer" >
+                  <input matInput formControlName="coupan_name"  placeholder="Christmas Offer" >
                 </mat-form-field>
                 <span class="error-wrap" *ngIf="discountCoupon.get('coupan_name').touched || discountCoupon.get('coupan_name').dirty || formSubmitclicked">
                     <small *ngIf="discountCoupon.get('coupan_name').hasError('required')" class="error">Coupon Name Is required</small>
@@ -102,7 +102,7 @@
                 <mat-form-field>
                   <mat-label>Maximum Redemptions</mat-label>
                   <mat-icon matPrefix><i class="fa fa-gift icon-img" aria-hidden="true"></i></mat-icon>
-                  <input matInput formControlName="max_redemption"  value="" placeholder="CHRISTMAS400">
+                  <input matInput formControlName="max_redemption" placeholder="CHRISTMAS400">
                 </mat-form-field>
                 <span class="error-wrap" *ngIf="discountCoupon.get('max_redemption').touched || discountCoupon.get('max_redemption').dirty || formSubmitclicked">
                   <small *ngIf="discountCoupon.get('max_redemption').hasError('required')" class="error">Maximum Redemptions Is required</small>
@@ -114,22 +114,22 @@
                 <mat-form-field >
                   <mat-label>Coupon Code</mat-label>
                   <mat-icon matPrefix><i class="fa fa-percent icon-img" aria-hidden="true"></i></mat-icon>
-                  <input matInput formControlName="coupan_code"  value="" placeholder="Christmas Offer">
+                  <input matInput formControlName="coupon_code" placeholder="Christmas Offer">
                 </mat-form-field>
-                <span class="error-wrap" *ngIf="discountCoupon.get('coupan_code').touched || discountCoupon.get('coupan_code').dirty || formSubmitclicked">
-                  <small *ngIf="discountCoupon.get('coupan_code').hasError('required')" class="error">Coupon Code Is required</small>   
+                <span class="error-wrap" *ngIf="discountCoupon.get('coupon_code').touched || discountCoupon.get('coupon_code').dirty || formSubmitclicked">
+                  <small *ngIf="discountCoupon.get('coupon_code').hasError('required')" class="error">Coupon Code Is required</small>   
                 </span>
               </div>
 
               <div class=" form-group col-lg-6 col-12 col-sm-12 col-md-6  bottom-border-field">
                 <mat-form-field >
                   <mat-label>Valid Form</mat-label>
-                  <input matInput [matDatepicker]="valid_from_picker" formControlName="valid_form"  value="" placeholder="MM/DD/YYYY">
+                  <input matInput [matDatepicker]="valid_from_picker" formControlName="valid_from" placeholder="MM/DD/YYYY">
                   <mat-datepicker-toggle matPrefix [for]="valid_from_picker"></mat-datepicker-toggle>
                   <mat-datepicker #valid_from_picker></mat-datepicker>
                 </mat-form-field>
-                <span class="error-wrap" *ngIf="discountCoupon.get('valid_form').touched || discountCoupon.get('valid_form').dirty || formSubmitclicked">
-                  <small *ngIf="discountCoupon.get('valid_form').hasError('required')" class="error"> Is required</small>           
+                <span class="error-wrap" *ngIf="discountCoupon.get('valid_from').touched || discountCoupon.get('valid_from').dirty || formSubmitclicked">
+                  <small *ngIf="discountCoupon.get('valid_from').hasError('required')" class="error"> Is required</small>           
                 </span>
               </div>
 
@@ -139,8 +139,8 @@
                   <mat-icon matPrefix><i class="fa fa-percent icon-img" aria-hidden="true"></i></mat-icon>
                   <mat-select [(value)]="selected" formControlName="discount_type" >
                     <mat-option>None</mat-option>
-                    <mat-option value="option1">Percentage</mat-option>
-                    <mat-option value="option2">Fixed Amount</mat-option>
+                    <mat-option value="P">Percentage</mat-option>
+                    <mat-option value="F">Fixed Amount</mat-option>
                   </mat-select>
                 </mat-form-field>
                 <span class="error-wrap" *ngIf="discountCoupon.get('discount_type').touched || discountCoupon.get('discount_type').dirty || formSubmitclicked">
@@ -152,7 +152,7 @@
                 <mat-form-field>
                   <mat-label>Discount</mat-label>
                   <mat-icon matPrefix><i class="fa fa-percent icon-img" aria-hidden="true"></i></mat-icon>
-                  <input matInput formControlName="discount_value"  value="" placeholder="Value">
+                  <input matInput formControlName="discount_value" placeholder="Value">
                 </mat-form-field>
                 <span class="error-wrap" *ngIf="discountCoupon.get('discount_value').touched || discountCoupon.get('discount_value').dirty || formSubmitclicked">
                   <small *ngIf="discountCoupon.get('discount_value').hasError('required')" class="error">Discount Value Is required</small>
@@ -163,7 +163,7 @@
               <div class=" form-group col-lg-6 col-12 col-sm-12 col-md-6  bottom-border-field">
                 <mat-form-field >
                   <mat-label>Valid Till</mat-label>
-                  <input matInput [matDatepicker]="valid_till_picker" formControlName="valid_till"  value="" placeholder="MM/DD/YYYY">
+                  <input matInput [matDatepicker]="valid_till_picker" formControlName="valid_till"  placeholder="MM/DD/YYYY">
                   <mat-datepicker-toggle matPrefix [for]="valid_till_picker"></mat-datepicker-toggle>
                   <mat-datepicker #valid_till_picker></mat-datepicker>
                 </mat-form-field>
@@ -207,6 +207,17 @@
         </ul>		
     </div>
   </div>
+  <div class="row">
+    <div class="devider-slim my-3"></div> 
+    <div class="action-btn">
+        <div class="mx-2">
+            <button (click)="fnCancelNewCustomer()" mat-button appearance="fill" class="discount-cancel-btn">Cancel</button>
+        </div>
+        <div class="mx-2">
+            <button mat-button type="submit" appearance="fill" (click)="fnCreateCouponSubmit()" class="discount-save-btn">Save</button>
+        </div>  
+    </div>    
+</div>
   </form>
 </mat-card>
 </div>
