@@ -8,11 +8,13 @@ import { NgbDateParserFormatter, NgbDateStruct, NgbCalendar} from '@ng-bootstrap
 import { MdePopoverTrigger } from '@material-extended/mde';
 import { MatSnackBar} from '@angular/material/snack-bar';
 import { AuthenticationService } from '@app/_services';
+import { DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-frontbooking',
   templateUrl: './frontbooking.component.html',
-  styleUrls: ['./frontbooking.component.scss']
+  styleUrls: ['./frontbooking.component.scss'],
+  providers: [DatePipe]
 })
 export class FrontbookingComponent implements OnInit {
   formExistingUser : FormGroup;
@@ -111,6 +113,7 @@ export class FrontbookingComponent implements OnInit {
     private calendar: NgbCalendar,
     private snackBar: MatSnackBar,
     private authenticationService: AuthenticationService,
+    private datePipe: DatePipe
     
   ) { 
     localStorage.setItem('isFront', "true");
@@ -551,6 +554,7 @@ export class FrontbookingComponent implements OnInit {
 
   onDateSelect(event){
     this.selecteddate = event.year+'-'+event.month+'-'+event.day;
+    this.selecteddate=this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd")
     this.fnGetTimeSlots();
   }
   // date time 
@@ -608,10 +612,13 @@ export class FrontbookingComponent implements OnInit {
   }
 
   fnGetStaff(){
+    alert(this.selecteddate);
     this.isLoader=true;
     let requestObject = {
-      "bussiness_id":2,
-      "service_id":this.currentSelectedService
+      "business_id":'2',
+      "service_id":this.currentSelectedService,
+      "book_date" : this.selecteddate,
+      "book_time" : this.selectedTimeSlot, 
     };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',

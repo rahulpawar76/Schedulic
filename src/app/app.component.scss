@@ -376,3 +376,12 @@ background-color: $primary-color;
       }
     }
   }
+.top_admin_menu{
+    height: 75vh;
+    overflow-y: scroll;
+}
+.bottom_admin_menu{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
