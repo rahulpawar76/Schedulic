@@ -19,16 +19,27 @@
       }
     }
     .pendingnotes{
-
         font-size: 16px;
         padding :20px;
-        .pendingdate{
-            font-size: 20px;
-            color: blue;
-            text-align: right;
+        .pendingborder{
+
+          border-right: 1px solid #1172f4; 
+         // margin: 0;
+          text-align: right;
+          margin: 0 20px 0 20px;
+          
+          
         }
-    }
-    table {
+        .pendingdate{
+
+          font-size: 20px;
+          color: #1172f4;
+          text-align: right;
+      }
+        
+      }
+    
+      table {
         width: 100%;
       }
 
