@@ -9,7 +9,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { AdminSettingsRoutingModule } from './settings-routing.module';
 import { ServicesComponent } from './services/services.component';
 
-import { SettingsComponent } from './settings.component'
+import { SettingsComponent } from './settings.component';
 
 
 

@@ -31,7 +31,7 @@
                   </div>
             </div>
             <div class="col-12 discount-coupon-table" id="">
-              <table [dtOptions]="dtOptions" datatable class="row-border hover">
+              <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="row-border hover">
                   <thead>
                     <tr>
                       <th>Title</th>
@@ -46,64 +46,36 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr *ngFor="let allCouponCode of allCouponCode; let i=index">
                       <td>
-                          <p>Diwali Offer</p>
+                          <p>{{allCouponCode.coupon_title}}</p>
                       </td>
                       <td>
-                          <p><span class="couponcode">DIWALI50</span></p>
+                          <p><span class="couponcode">{{allCouponCode.coupon_code}}</span></p>
                       </td>
                       <td> 
-                        <p>Sep 24,2019</p>
+                        <p>{{allCouponCode.created_at}}</p>
                       </td>
                       <td> 
-                        <p>Sep 24,2019</p>
+                        <p>{{allCouponCode.coupon_valid_from}}</p>
                       </td>
                       <td>
-                        <p>Oct 24,2019</p>
+                        <p>{{allCouponCode.coupon_valid_till}}</p>
                       </td>
                       <td>
-                        <p>100</p>
+                        <p>{{allCouponCode.coupon_max_redemptions}}</p>
                       </td>
                       <td>
-                        <p>5</p>
+                        <p>{{allCouponCode.coupon_used}}</p>
                       </td>
                       <td>
-                        <p>Active</p>
+                        <p class="text-capitalize">{{allCouponCode.status}}</p>
                       </td>
                       <td>
                         <p><mat-slide-toggle>Slide me!</mat-slide-toggle></p>
                       </td>
                     </tr>
-                    <tr>
-                      <td>
-                          <p>New Year Offer</p>
-                      </td>
-                      <td>
-                          <p><span class="couponcode">OFFER10</span></p>
-                      </td>
-                      <td> 
-                        <p>Aug 13,2019</p>
-                      </td>
-                      <td> 
-                        <p>Aug 13,2019</p>
-                      </td>
-                      <td>
-                        <p>Sep 02,2019</p>
-                      </td>
-                      <td>
-                        <p>50</p>
-                      </td>
-                      <td>
-                        <p>20</p>
-                      </td>
-                      <td>
-                        <p>Active</p>
-                      </td>
-                      <td>
-                        <p><mat-slide-toggle>Slide me!</mat-slide-toggle></p>
-                      </td>
-                    </tr>
+                    
                   </tbody>
                   </table>
           </div>

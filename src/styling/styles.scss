@@ -1,5 +1,6 @@
 @import "variables";
 @import "my-customer.css";
+@import "../assets/fonts/stamper-fonts.css";
 $light-gray: #f3f3f3;
 
 ////////// GENERAL //////////
@@ -10,7 +11,9 @@ body {
   font-family: 'Poppins', sans-serif !important;
   color: #333;
 }
-
+.ff-stamper{
+    font-family: 'Old Stamper' !important;
+}
 body { margin: 0; }
 
 content {padding-bottom: 50px;}
