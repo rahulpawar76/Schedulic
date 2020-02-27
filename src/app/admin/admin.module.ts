@@ -41,8 +41,8 @@ import { DiscountCouponComponent } from './discount-coupon/discount-coupon.compo
     CustomersComponent,
     DialogNewCustomerAppointment,
     DialogAddNewNote,
-	ReportsComponent,
-	AppointmentLiveComponent,
+    ReportsComponent,
+    AppointmentLiveComponent,
     DialogPaymentNote,
     DialogViewReview,
     DiscountCouponComponent
@@ -60,7 +60,7 @@ import { DiscountCouponComponent } from './discount-coupon/discount-coupon.compo
     ProgressBarModule,
     HighchartsChartModule,
     DataTablesModule,
-	MatSidenavModule
+	  MatSidenavModule
   ],
   exports: [
     FormsModule
