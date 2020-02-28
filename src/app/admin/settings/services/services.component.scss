@@ -12,22 +12,6 @@
         height: 50px;
     }
 }
-.profile-uploadbtn{
-    width: 165px;
-    height: 51px;
-    border-radius: 4px;
-    background-color: #f87812;
-    border: 2px solid #f87812;
-    color: white;
-}
-.profile-removebtn{
-    width:167px;
-    height: 51px;
-    border-radius: 4px;
-    background-color: #bcbcbc;
-    border: 2px solid #bcbcbc;
-    color: white;
-}
 
 .leftarrow-icon{
   // margin-left: auto;
@@ -44,8 +28,14 @@
 }
 
 .mat-list-icon{
-color:$iconcolors;
+    color:$iconcolors;
 }
+.mat-list-item{
+    &:hover{
+               background-color: $bgblue;
+               color: #295792;
+           }
+   }
 
 .matlist{
 display: block !important;
@@ -64,12 +54,7 @@ padding-top: 4px;
         outline:none; 
         }           
 }
-.mat-list-item{
- &:hover{
-            background-color: $bgblue;
-            color: #295792;
-        }
-}
+
 .saleschart{
     margin: 0 14px;
     font-size: 18px;
@@ -105,7 +90,8 @@ padding-top: 4px;
     width: 100% !important;
     padding: 5px 0 !important;
      &:hover{
-             background-color: white;
+             background-color: $bgblue;
+             color: white;
         }
     }
     
@@ -119,7 +105,8 @@ padding-top: 4px;
 
     .service-list{
         &:hover{
-                   background-color: white;
+                   background-color:$bgblue;
+                   color: black;
                 //    border: 1px solid;
                 //    /* margin: 0px; */
                 //    border-radius: 9px;
@@ -127,11 +114,14 @@ padding-top: 4px;
                   
                }
        }
+       .main-subcategory-content{
+           margin: 20px;
        .AddSubcategory-matcard{
 		background-color: #cfe3fc;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
+        justify-content: center;
+        border-radius: 15px;
     }
     .addsubcategory-btn{
 	    border-radius: 40px 40px;
@@ -139,8 +129,59 @@ padding-top: 4px;
 		background-color: #1172f4;
 		color: white;
     }
+}
+.main-hairsubcategory-content{
+    margin: 20px;
+.AddhairSubcategory-matcard{
+ background-color: #cfe3fc;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ border-radius: 15px;
+}
+.addhairsubcategory-btn{
+ border-radius: 40px 40px;
+ padding: 0 25px;
+ background-color: #1172f4;
+ color: white;
+}
+}
     .content{
         font-size: 14px;
         padding: 0;
         margin: 1%;
     }
+
+    
+       .service-profile-image{
+        width: 100%;
+        height: 100%;
+        border-radius: 100%;
+}
+
+
+.salon-edit-btn{
+    background-color: #e9e3e3;
+    border-radius: 3px;
+    border: none;
+}
+
+.salon-cancel-btn{
+    background-color:#e9e3e3;
+    border-radius: 3px;
+    border: none;
+}
+.salon-icon{
+    padding: 5px;
+}
+.Details-button{
+    background: none;
+    border-radius: 50px 50px;
+    /*padding: 0px 24px;*/
+    color: green;
+    line-height: 1.5;
+    margin: 4px;
+    border: 1px solid green;
+    font-size: 12px;
+}
+
