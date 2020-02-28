@@ -9,6 +9,7 @@ import { Observable, throwError } from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { AdminService } from '../_services/admin-main.service'
 import { DatePipe} from '@angular/common';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-my-work-space',
@@ -286,7 +287,7 @@ export class myWorkSpaceAcceptDialog {
     }
 
     
-    fnDateChange(event: MatDatepickerInputEvent<Date>) {
+    fnDateChange(event:MatDatepickerInputEvent<Date>) {
         console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
         let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
         this.formAppointmentRescheduleAdmin.controls['rescheduleTime'].setValue(null);

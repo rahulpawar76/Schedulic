@@ -1,0 +1,146 @@
+
+  
+  @import "variables";
+  .customer-profile-background{
+    background-color: #e8e8e8;
+    padding: 30px;
+    width: 110px;
+    height: 110px;
+    border-radius: 80px;
+    .profile-image{
+        width: 50px;
+        height: 50px;
+    }
+}
+.profile-uploadbtn{
+    width: 165px;
+    height: 51px;
+    border-radius: 4px;
+    background-color: #f87812;
+    border: 2px solid #f87812;
+    color: white;
+}
+.profile-removebtn{
+    width:167px;
+    height: 51px;
+    border-radius: 4px;
+    background-color: #bcbcbc;
+    border: 2px solid #bcbcbc;
+    color: white;
+}
+
+.leftarrow-icon{
+  // margin-left: auto;
+  display: flex;
+  .customer-drawer-leftarrow{
+      padding: 4px 8px;
+      height: auto;
+      width: auto;
+      text-align: center;
+      background-color: #dedede;
+       margin-left: auto;
+  }
+ 
+}
+
+.mat-list-icon{
+color:$iconcolors;
+}
+
+.matlist{
+display: block !important;
+height: 60px !important;
+width: 100% !important;
+padding: 5px 0 !important;
+ &:hover{
+         background-color: $bgblue;
+    }
+}
+
+.menuitem{
+color:#325c98;
+padding-top: 4px;
+&:focus{
+        outline:none; 
+        }           
+}
+.mat-list-item{
+ &:hover{
+            background-color: $bgblue;
+            color: #295792;
+        }
+}
+.saleschart{
+    margin: 0 14px;
+    font-size: 18px;
+   
+}
+.statustoggle{
+
+    margin: 30px;
+}
+.service-cancel-btn{
+    width: 100px;
+    height: 39px;
+    border-radius: 7px;
+    background-color: #dddddd;
+}
+.service-create-btn{
+    width: 109px;
+    height: 39px;
+    border-radius: 7px;
+    background-color: #1173f4;
+    color: white;
+}
+
+.action-btn{
+    margin-left: auto;
+    display: flex;
+}
+
+
+.services-matlist{
+    display: block !important;
+    height: 60px !important;
+    width: 100% !important;
+    padding: 5px 0 !important;
+     &:hover{
+             background-color: white;
+        }
+    }
+    
+    .services-menuitem{
+    // color:#325c98;
+    padding-top: 4px;
+    &:focus{
+            outline:none; 
+            }           
+    }
+
+    .service-list{
+        &:hover{
+                   background-color: white;
+                //    border: 1px solid;
+                //    /* margin: 0px; */
+                //    border-radius: 9px;
+                //    margin: 0px;
+                  
+               }
+       }
+       .AddSubcategory-matcard{
+		background-color: #cfe3fc;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+    }
+    .addsubcategory-btn{
+	    border-radius: 40px 40px;
+		padding: 0 25px;
+		background-color: #1172f4;
+		color: white;
+    }
+    .content{
+        font-size: 14px;
+        padding: 0;
+        margin: 1%;
+    }
