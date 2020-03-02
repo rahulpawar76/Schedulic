@@ -28,6 +28,7 @@ import { AppointmentLiveComponent } from './appointment-live/appointment-live.co
 import { DialogPaymentNote } from './customers/customers.component';
 import { DialogViewReview } from './customers/customers.component';
 import { DiscountCouponComponent } from './discount-coupon/discount-coupon.component';
+import { InterruptedReschedule } from './my-work-space/my-work-space.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { DiscountCouponComponent } from './discount-coupon/discount-coupon.compo
     AppointmentLiveComponent,
     DialogPaymentNote,
     DialogViewReview,
+    InterruptedReschedule,
     DiscountCouponComponent
     ],
   imports: [
@@ -65,6 +67,6 @@ import { DiscountCouponComponent } from './discount-coupon/discount-coupon.compo
   exports: [
     FormsModule
   ],
-  entryComponents: [myCreateNewBusinessDialog,myWorkSpaceAcceptDialog,DialogAddNewAppointment,DialogNewAppointment,DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,DialogViewReview],
+  entryComponents: [myCreateNewBusinessDialog,myWorkSpaceAcceptDialog,DialogAddNewAppointment,DialogNewAppointment,DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,DialogViewReview,InterruptedReschedule],
 })
 export class AdminModule { }

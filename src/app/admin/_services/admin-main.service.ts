@@ -290,10 +290,10 @@ export class AdminService {
 
     // Couponcode
 
-    getAllCouponCode(filter){
+    getAllCouponCode(couponListFilter){
         let requestObject = {
             'business_id': this.businessId,
-            'filter' : filter,
+            'filter' : couponListFilter,
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
@@ -306,6 +306,36 @@ export class AdminService {
         }),
         catchError(this.handleError));
     }
+    createNewCouponCode(createdCouponCodeData){
+        alert(createdCouponCodeData);
+        // let requestObject = {
+        //     'business_id': this.businessId,
+        // };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/create-discount-coupon`,createdCouponCodeData,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
+     rescheduleAppointment(requestObject){
+    
+        let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/admin-booking-resedule`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError(this.handleError));
+      }
 
     
 

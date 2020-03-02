@@ -125,5 +125,23 @@
     //     border-top: 1px solid #dddddd;
     // }
     
+    .discount-cancel-btn{
+        width: 100px;
+        height: 39px;
+        border-radius: 7px;
+        background-color: #dddddd;
+    }
+    .discount-save-btn{
+        width: 109px;
+        height: 39px;
+        border-radius: 7px;
+        background-color: #1173f4;
+        color: white;
+    }
+    
+    .action-btn{
+        margin-left: auto;
+        display: flex;
+    }
     
 }

@@ -10,7 +10,9 @@ import { AuthenticationService } from '@app/_services';
   styleUrls: ['./services.component.scss']
 })
 export class ServicesComponent implements OnInit {
-
+  salonCategory : boolean = false;
+  hairSubCategory : boolean = false;
+  AllCategory: boolean =true;
   constructor(
     
     private route: ActivatedRoute,
@@ -21,6 +23,23 @@ export class ServicesComponent implements OnInit {
 
   ngOnInit() {
   }
+  fnAllCategory(){
+      this.AllCategory =true;
+      this.salonCategory=false;
+      this.hairSubCategory=false;
 
+  }
+  fnsalonCategory(){
+    this.AllCategory =false;
+    this.salonCategory = true;
+    this.hairSubCategory = false;
+  }
+  fnhairSubCategory(){
+
+    this.AllCategory =false;
+    this.salonCategory = false;
+    this.hairSubCategory = true;
+
+  }
 
 }
