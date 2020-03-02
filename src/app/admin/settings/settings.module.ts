@@ -10,6 +10,7 @@ import { AdminSettingsRoutingModule } from './settings-routing.module';
 import { ServicesComponent } from './services/services.component';
 
 import { SettingsComponent } from './settings.component';
+import { StaffComponent } from './staff/staff.component';
 
 
 
@@ -17,6 +18,7 @@ import { SettingsComponent } from './settings.component';
   declarations: [
     ServicesComponent,
     SettingsComponent,
+    StaffComponent,
   ],
   imports: [
       CommonModule,

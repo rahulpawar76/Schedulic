@@ -167,6 +167,9 @@ export class AppComponent implements AfterViewInit {
       MyLiveAppointmentNav(){
         this.router.navigate(['/admin/my-appointment-live']);
       }
+      MySettingsNav(){
+        this.router.navigate(['/admin/settings']);
+      }
 
 
       /*StaffDashboard Navigation*/

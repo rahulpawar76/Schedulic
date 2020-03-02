@@ -72,7 +72,7 @@
                         <p class="text-capitalize">{{allCouponCode.status}}</p>
                       </td>
                       <td>
-                        <p><mat-slide-toggle>Slide me!</mat-slide-toggle></p>
+                        <div *ngIf="allCouponCode.status == 'Active' || allCouponCode.status == 'Inactive'"><mat-slide-toggle (change)="changeCouponStaus($event,allCouponCode.id)" [checked]="allCouponCode.status == 'Active'"></mat-slide-toggle></div>
                       </td>
                     </tr>
                     
@@ -174,37 +174,93 @@
             </div>
         </div>
     
-    <div class="col-lg-4 col-12 col-md-4">
+    <div class="col-lg-4 col-12 col-md-4 bottom-border-field select-service">
+      <mat-card>
        <h6>Select Service</h6>
-       <mat-form-field appearance="outline">
+       <mat-form-field class="pb-3">
         <mat-label>Outline form field</mat-label>
         <input matInput placeholder="Category,Subcategory,Service">
         <mat-icon matPrefix>search</mat-icon>
       </mat-form-field>
 
-      <ul>
-        <li class="bottom-border plr-25">
-          <p>Salon<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-        </li>
-        <li class="bottom-border plr-25">
-          <p>Hair<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-        </li>
-        <li class="bottom-border plr-25">
-          <p>Home Cleaning<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-        </li>
-        <li class="bottom-border plr-25">
-          <p>Pest Control<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-        </li>
-        <li class="bottom-border plr-25">
-          <p>Appliances<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-        </li>
-        <li class="bottom-border plr-25">
-          <p>Plumbing<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-        </li>
-        <li class="">
-          <p>Electrical<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-        </li>	
-        </ul>		
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-checkbox>Salon</mat-checkbox> 
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+      
+            <div><mat-checkbox>Service Name</mat-checkbox> </div>
+            <mat-checkbox>Service Name</mat-checkbox> 
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-checkbox>Category Name</mat-checkbox> 
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+          
+                <mat-checkbox>Service Name</mat-checkbox> 
+                <mat-checkbox>Service Name</mat-checkbox> 
+          
+            </mat-expansion-panel>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-checkbox>Hair</mat-checkbox> 
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <div><mat-checkbox>Hair Color</mat-checkbox> </div>
+            <div><mat-checkbox>Hair Cut</mat-checkbox> </div>
+            <div><mat-checkbox>Hair Spa</mat-checkbox> </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-checkbox>Home Cleaning</mat-checkbox> 
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <div><mat-checkbox>Floor Cleaning</mat-checkbox> </div>
+            <div><mat-checkbox>Kitchen Cleaning</mat-checkbox> </div>
+            <div><mat-checkbox>Sofa Cleaning</mat-checkbox> </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-checkbox>Plumbing</mat-checkbox> 
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="mat-sub-expansion">
+            <div><mat-checkbox>Floor Cleaning</mat-checkbox> </div>
+            <div><mat-checkbox>Kitchen Cleaning</mat-checkbox> </div>
+            <div><mat-checkbox>Sofa Cleaning</mat-checkbox> </div>
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-checkbox>Pest Control</mat-checkbox> 
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <div><mat-checkbox>Floor Cleaning</mat-checkbox> </div>
+            <div><mat-checkbox>Kitchen Cleaning</mat-checkbox> </div>
+            <div><mat-checkbox>Sofa Cleaning</mat-checkbox> </div>
+        </mat-expansion-panel>
+        <!-- <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Self aware panel
+            </mat-panel-title>
+            <mat-panel-description>
+              Currently I am {{panelOpenState ? 'open' : 'closed'}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>I'm visible because I am open</p>
+        </mat-expansion-panel> -->
+      </mat-accordion>
+    </mat-card>
     </div>
   </div>
   <div class="row">
