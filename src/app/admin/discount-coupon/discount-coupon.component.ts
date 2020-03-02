@@ -11,21 +11,21 @@ export class DiscountCouponComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   animal: any;
+  filter: any;
   couponCodeListing: boolean = true;
   addNewCouponCode: boolean = false;
   allCouponCode: any;
   
 
   constructor(
-    
     private AdminService: AdminService,
   ) {
-    
     localStorage.setItem('isBusiness', 'false');
    }
 
   ngOnInit() {
-    this.getAllCouponCode();
+    this.filter = 'All';
+    this.getAllCouponCode(this.filter);
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
@@ -33,8 +33,8 @@ export class DiscountCouponComponent implements OnInit {
   }
 
 
-  getAllCouponCode(){
-    this.AdminService.getAllCouponCode().subscribe((response:any) => {
+  getAllCouponCode(filter){
+    this.AdminService.getAllCouponCode(filter).subscribe((response:any) => {
       if(response.data == true){
         this.allCouponCode = response.response
         this.dtTrigger.next();
@@ -43,6 +43,10 @@ export class DiscountCouponComponent implements OnInit {
         this.allCouponCode = ''
       }
     })
+  }
+  statusChange(status){
+    this.filter = status;
+    this.getAllCouponCode(this.filter);
   }
 
   fnNewCouponCode(){

@@ -1,4 +1,5 @@
 <div class="container-fluid sub-container" id="appointment">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif"/></div>
     <div class="row">
         <div class="appointment-header col-12">
             <div class="d-flex mt-2 mb-2  mr-4 col-12 header-content">
@@ -6,7 +7,6 @@
                     <mat-form-field class="appoint-daily mr-2 bottom-border-field">
                         <mat-label>All</mat-label>
                         <mat-select [(value)]="selected" (selectionChange)="selectdurationType($event.value)">
-                            <mat-option>None</mat-option>
                             <mat-option value="daily">Daily</mat-option>
                             <mat-option value="week">Weekly</mat-option>
                             <mat-option value="month">Monthly</mat-option>
@@ -15,9 +15,9 @@
 
                     <mat-form-field  class="appoint-service mr-2 bottom-border-field">
                         <mat-label>All Services</mat-label>
-                        <mat-select [(value)]="selected1">
-                            <mat-option>None</mat-option>
-                            <mat-option *ngFor="let allservices of allservices;" value="option1">Option 1</mat-option>
+                        <mat-select [(value)]="selected1" (selectionChange)="selectService($event.value)">
+                            <mat-option value="all">All</mat-option>
+                            <mat-option *ngFor="let allservices of allservices;" value="{{allservices.id}}">{{allservices.service_name}}</mat-option>
                         </mat-select>
                     </mat-form-field>
 
@@ -84,8 +84,12 @@
                     <td> 
                         <p>{{allAppointmentsData.service.service_name}}</p>
                     </td>
-                    <td> <p>Pooja Chakrabarti</p>
-                        <p>Phone No: 9876543120</p>
+                    <td *ngIf="allAppointmentsData.staff != null"> 
+                        <p class="text-capitalize">{{allAppointmentsData.staff.firstname}} {{allAppointmentsData.staff.lastname}}</p>
+                        <p>Phone No: {{allAppointmentsData.staff.phone}}</p>
+                    </td>
+                    <td *ngIf="allAppointmentsData.staff == null"> 
+                        <p class="text-capitalize">Staff Not Assigned</p>
                     </td>
                     <td>$ {{allAppointmentsData.total_cost}}</td>
                     <td>

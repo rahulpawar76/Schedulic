@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, from } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, filter } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthenticationService } from '@app/_services';
@@ -131,7 +131,6 @@ export class AdminService {
         });
         return this.http.post(`${environment.apiUrl}/admin-booking-listing`,requestObject,{headers:headers}).pipe(
         map((res) => {
-            console.log(res);
             return res;
         }),
         catchError(this.handleError));
@@ -150,7 +149,6 @@ export class AdminService {
         });
         return this.http.post(`${environment.apiUrl}/admin-service-list`,requestObject,{headers:headers}).pipe(
         map((res) => {
-            console.log(res);
             return res;
         }),
         catchError(this.handleError));
@@ -182,6 +180,48 @@ export class AdminService {
             'api-token' : this.adminToken 
         });
         return this.http.post(`${environment.apiUrl}/admin-customer-details`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    fnCreateNewCustomer(newCustomerData){
+        // let requestObject = {
+        //     'customer_id': customer_id,
+        // };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/admin-customer-create`,newCustomerData,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    fncreateNewNote(createNewNoteData){
+        // let requestObject = {
+        //     'customer_id': customer_id,
+        // };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/customer-note-create`,createNewNoteData,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    fnEditNote(editNoteData){
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/customer-note-edit`,editNoteData,{headers:headers}).pipe(
         map((res) => {
             return res;
         }),
@@ -250,9 +290,10 @@ export class AdminService {
 
     // Couponcode
 
-    getAllCouponCode(){
+    getAllCouponCode(filter){
         let requestObject = {
             'business_id': this.businessId,
+            'filter' : filter,
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
@@ -266,5 +307,6 @@ export class AdminService {
         catchError(this.handleError));
     }
 
+    
 
 }

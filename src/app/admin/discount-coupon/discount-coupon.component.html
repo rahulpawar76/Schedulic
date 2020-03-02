@@ -11,14 +11,13 @@
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
             <div class="d-flex mb-3">
                 <mat-form-field class="dropdown bottom-border-field">
-                    <mat-label>All</mat-label>
-                    <mat-select [(value)]="selected">
-                      <mat-option>None</mat-option>
-                      <mat-option value="option1">All</mat-option>
-                      <mat-option value="option2">Active</mat-option>
-                      <mat-option value="option3">Inactive</mat-option>
-                      <mat-option value="option3">Expired</mat-option>
-                      <mat-option value="option3">Scheduled</mat-option>
+                    <mat-label>Status</mat-label>
+                    <mat-select (selectionChange)="statusChange($event.value)" [(value)]="selected">
+                      <mat-option value="All">All</mat-option>
+                      <mat-option value="Active">Active</mat-option>
+                      <mat-option value="Inactive">Inactive</mat-option>
+                      <mat-option value="Expired">Expired</mat-option>
+                      <mat-option value="Scheduled">Scheduled</mat-option>
                     </mat-select>
                   </mat-form-field>
                   <div class="searchbox mr-2">

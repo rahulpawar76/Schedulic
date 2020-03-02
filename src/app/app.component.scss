@@ -341,6 +341,9 @@ background-color: $primary-color;
     ::ng-deep app-discount-coupon{
         width: 100%;
     }
+    ::ng-deep app-appointment-live{
+        width: 100%;
+    }
 }
 
 
@@ -384,4 +387,13 @@ background-color: $primary-color;
     position: absolute;
     width: 100%;
     bottom: 0;
+}
+.profile-head{
+    display: inline-flex;
+    align-items: center;
+    p{
+        font-size: 20px;
+        color: #1172f4;
+        font-weight: 500;
+    }
 }

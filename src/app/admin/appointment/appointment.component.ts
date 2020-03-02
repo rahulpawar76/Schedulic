@@ -24,6 +24,7 @@ export class AppointmentComponent implements OnInit {
   dataTable: any;
   selectedServices: any;
   allservices: any;
+  isLoaderAdmin : boolean = false;
   constructor(
     public dialog: MatDialog,
     private AdminService: AdminService,
@@ -53,27 +54,37 @@ export class AppointmentComponent implements OnInit {
     this.durationType = type;
     this.getAllAppointments(this.durationType,this.selectedServices);
   }
+  selectService(service){
+    this.selectedServices = service;
+    this.getAllAppointments(this.durationType,this.selectedServices);
+  }
 
   getAllAppointments(durationType,services){
+    alert(services);
+    this.isLoaderAdmin = true;
     this.AdminService.getAllAppointments(durationType,services).subscribe((response:any) => {
       if(response.data == true){
         this.allAppointments = response.response
         this.dtTrigger.next();
+        this.isLoaderAdmin = false;
       }
       else if(response.data == false){
         this.allAppointments = ''
+        this.isLoaderAdmin = false;
       }
     })
   }
 
   getAllServices(){
+    this.isLoaderAdmin = true;
     this.AdminService.getAllServices().subscribe((response:any) => {
       if(response.data == true){
         this.allservices = response.response
-        console.log(this.allservices);
+        this.isLoaderAdmin = false;
       }
       else if(response.data == false){
         this.allservices = ''
+        this.isLoaderAdmin = false;
       }
     })
   }
