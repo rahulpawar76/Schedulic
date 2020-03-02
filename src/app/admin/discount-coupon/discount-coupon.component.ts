@@ -22,6 +22,7 @@ export class DiscountCouponComponent implements OnInit {
   couponListFilter: any;
   couponCodeListing: boolean = true;
   addNewCouponCode: boolean = false;
+  couponCodeStatus : any;
   allCouponCode: any;
   createdCouponCodeData: any;
   businessId : any;
@@ -84,7 +85,6 @@ export class DiscountCouponComponent implements OnInit {
 
   fnCreateCouponSubmit(){
     if(this.discountCoupon.valid){
-      alert("Valid");
       this.valid_from = this.discountCoupon.get('valid_from').value;
       this.valid_till = this.discountCoupon.get('valid_till').value;
       this.valid_from=this.datePipe.transform(new Date(this.valid_from),"yyyy-MM-dd")
@@ -123,6 +123,29 @@ export class DiscountCouponComponent implements OnInit {
   fnStatusChange(status){
     this.couponListFilter = status;
     this.getAllCouponCode(this.couponListFilter);
+  }
+  changeCouponStaus(event,coupon_id){
+    if(event.checked == true){
+      this.couponCodeStatus = 'Active';
+    }
+    else if(event.checked == false){
+      this.couponCodeStatus = 'Inactive';
+    }
+    this.AdminService.changeCouponStaus(this.couponCodeStatus,coupon_id).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open("Status Updated", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        
+    this.getAllCouponCode(this.couponListFilter);
+      }
+      else if(response.data == false){
+        
+      }
+    })
+    console.log(event)
   }
 
   fnNewCouponCode(){

@@ -37,6 +37,8 @@ export class CustomersComponent implements OnInit {
   createNewCustomer: FormGroup;
   createNewNote: FormGroup;
   newCustomerData: any;
+  existingCustomerData: any;
+  existingUserId: any;
   businessId: any;
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^-?(0|[1-9]\d*)?$/
@@ -61,18 +63,36 @@ export class CustomersComponent implements OnInit {
 
   ngOnInit() {
     this.getAllCustomers();
-    this.createNewCustomer = this._formBuilder.group({
-      cus_fullname : ['', Validators.required],
-      cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],
-      this.isEmailUnique.bind(this)],
-      cus_phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
-      cus_officenumber : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
-      cus_homenumber : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
-      cus_address : ['', Validators.required],
-      cus_state : ['', Validators.required],
-      cus_city : ['', Validators.required],
-      cus_zip : ['',[Validators.required,Validators.pattern(this.onlynumeric)]]
-    });
+    if(this.existingUserId != ''){
+      this.createNewCustomer = this._formBuilder.group({
+        cus_fullname : ['', Validators.required],
+        cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
+        cus_phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+        cus_officenumber : ['', [Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+        cus_homenumber : ['', [Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+        cus_address : ['', Validators.required],
+        cus_state : ['', Validators.required],
+        cus_city : ['', Validators.required],
+        cus_zip : ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+        customer_id : ['']
+      });
+    }
+    else{
+      this.createNewCustomer = this._formBuilder.group({
+        cus_fullname : ['', Validators.required],
+        cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],
+        this.isEmailUnique.bind(this)],
+        cus_phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+        cus_officenumber : ['', [Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+        cus_homenumber : ['', [Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+        cus_address : ['', Validators.required],
+        cus_state : ['', Validators.required],
+        cus_city : ['', Validators.required],
+        cus_zip : ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+        customer_id : ['']
+      });
+    }
+  
   }
 
   getAllCustomers(){
@@ -91,32 +111,63 @@ export class CustomersComponent implements OnInit {
   }
 
   fnCreateCustomerSubmit(){
-    if(this.createNewCustomer.valid){
-      this.newCustomerData ={
-        
-        "business_id" : this.businessId,
-        "fullname" : this.createNewCustomer.get('cus_fullname').value,
-        "email" : this.createNewCustomer.get('cus_email').value,
-        "phone" : this.createNewCustomer.get('cus_phone').value,
-        "office_phone" : this.createNewCustomer.get('cus_officenumber').value,
-        "home_phone" : this.createNewCustomer.get('cus_homenumber').value,
-        "address" : this.createNewCustomer.get('cus_address').value,
-        "state" : this.createNewCustomer.get('cus_state').value,
-        "city" : this.createNewCustomer.get('cus_city').value,
-        "zip" : this.createNewCustomer.get('cus_zip').value,
-      }
-  }else{
-      this.createNewCustomer.get('cus_fullname').markAsTouched();
-      this.createNewCustomer.get('cus_email').markAsTouched();
-      this.createNewCustomer.get('cus_phone').markAsTouched();
-      this.createNewCustomer.get('cus_officenumber').markAsTouched();
-      this.createNewCustomer.get('cus_homenumber').markAsTouched();
-      this.createNewCustomer.get('cus_address').markAsTouched();
-      this.createNewCustomer.get('cus_state').markAsTouched();
-      this.createNewCustomer.get('cus_city').markAsTouched();
-      this.createNewCustomer.get('cus_zip').markAsTouched();
+    if(this.createNewCustomer.get('customer_id').value != ''){
+      this.existingUserId = this.createNewCustomer.get('customer_id').value
+      alert(this.existingUserId);
+      if(this.createNewCustomer.valid){
+        this.existingCustomerData ={
+          "customer_id" :  this.existingUserId,
+          "business_id" : this.businessId,
+          "fullname" : this.createNewCustomer.get('cus_fullname').value,
+          "email" : this.createNewCustomer.get('cus_email').value,
+          "phone" : this.createNewCustomer.get('cus_phone').value,
+          "office_phone" : this.createNewCustomer.get('cus_officenumber').value,
+          "home_phone" : this.createNewCustomer.get('cus_homenumber').value,
+          "address" : this.createNewCustomer.get('cus_address').value,
+          "state" : this.createNewCustomer.get('cus_state').value,
+          "city" : this.createNewCustomer.get('cus_city').value,
+          "zip" : this.createNewCustomer.get('cus_zip').value,
+        }
+    } else{
+        this.createNewCustomer.get('cus_fullname').markAsTouched();
+        this.createNewCustomer.get('cus_email').markAsTouched();
+        this.createNewCustomer.get('cus_phone').markAsTouched();
+        this.createNewCustomer.get('cus_officenumber').markAsTouched();
+        this.createNewCustomer.get('cus_homenumber').markAsTouched();
+        this.createNewCustomer.get('cus_address').markAsTouched();
+        this.createNewCustomer.get('cus_state').markAsTouched();
+        this.createNewCustomer.get('cus_city').markAsTouched();
+        this.createNewCustomer.get('cus_zip').markAsTouched();
+    }
+    this.customerUpdate(this.existingCustomerData);
   }
-  this.fnCreateNewCustomer(this.newCustomerData);
+  else if(this.createNewCustomer.get('customer_id').value == ''){
+      if(this.createNewCustomer.valid){
+        this.newCustomerData ={
+          "business_id" : this.businessId,
+          "fullname" : this.createNewCustomer.get('cus_fullname').value,
+          "email" : this.createNewCustomer.get('cus_email').value,
+          "phone" : this.createNewCustomer.get('cus_phone').value,
+          "office_phone" : this.createNewCustomer.get('cus_officenumber').value,
+          "home_phone" : this.createNewCustomer.get('cus_homenumber').value,
+          "address" : this.createNewCustomer.get('cus_address').value,
+          "state" : this.createNewCustomer.get('cus_state').value,
+          "city" : this.createNewCustomer.get('cus_city').value,
+          "zip" : this.createNewCustomer.get('cus_zip').value,
+        }
+    }else{
+        this.createNewCustomer.get('cus_fullname').markAsTouched();
+        this.createNewCustomer.get('cus_email').markAsTouched();
+        this.createNewCustomer.get('cus_phone').markAsTouched();
+        this.createNewCustomer.get('cus_officenumber').markAsTouched();
+        this.createNewCustomer.get('cus_homenumber').markAsTouched();
+        this.createNewCustomer.get('cus_address').markAsTouched();
+        this.createNewCustomer.get('cus_state').markAsTouched();
+        this.createNewCustomer.get('cus_city').markAsTouched();
+        this.createNewCustomer.get('cus_zip').markAsTouched();
+    }
+    this.fnCreateNewCustomer(this.newCustomerData);
+  }
 }
 
 fnCreateNewCustomer(newCustomerData){
@@ -129,6 +180,25 @@ fnCreateNewCustomer(newCustomerData){
         panelClass :['green-snackbar']
       });
       this.getAllCustomers();
+      this.fnCancelNewCustomer();
+      this.isLoaderAdmin = false;
+    }
+    else if(response.data == false){
+      // this.allCustomers = ''
+    this.isLoaderAdmin = false;
+    }
+  })
+}
+customerUpdate(existingCustomerData){
+  this.isLoaderAdmin = true;
+  this.AdminService.customerUpdate(existingCustomerData).subscribe((response:any) => {
+    if(response.data == true){
+      this._snackBar.open("Customer Details Updated", "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['green-snackbar']
+      });
+      this.fnSelectCustomer(existingCustomerData.customer_id);
       this.fnCancelNewCustomer();
       this.isLoaderAdmin = false;
     }
@@ -167,16 +237,38 @@ fnCreateNewCustomer(newCustomerData){
       }
     })
   }
+  fnDeleteCustomer(customerId){
+  this.isLoaderAdmin = true;
+  this.AdminService.fnDeleteCustomer(customerId).subscribe((response:any) => {
+    if(response.data == true){
+      this._snackBar.open("Customer Deleted", "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['green-snackbar']
+      });
+      this.getAllCustomers();
+      this.isLoaderAdmin = false;
+    }
+    else if(response.data == false){
+      // this.allCustomers = ''
+    this.isLoaderAdmin = false;
+    }
+  })
+  }
   
-  editCustomer(){
+  editCustomer(customer_id){
+    alert(customer_id);
+    this.existingUserId = customer_id
     this.newCustomer = true;
     this.fullDetailsOfCustomer = false;
     this.isLoaderAdmin = true;
+    console.log(this.customerPersonalDetails);
+    this.createNewCustomer.controls['customer_id'].setValue(this.existingUserId);
     this.createNewCustomer.controls['cus_fullname'].setValue(this.customerPersonalDetails.fullname);
     this.createNewCustomer.controls['cus_email'].setValue(this.customerPersonalDetails.email);
     this.createNewCustomer.controls['cus_phone'].setValue(this.customerPersonalDetails.phone);
-    this.createNewCustomer.controls['cus_officenumber'].setValue(this.customerPersonalDetails.office_phone);
-    this.createNewCustomer.controls['cus_homenumber'].setValue(this.customerPersonalDetails.home_phone);
+    this.createNewCustomer.controls['cus_officenumber'].setValue(this.customerPersonalDetails.phone_office);
+    this.createNewCustomer.controls['cus_homenumber'].setValue(this.customerPersonalDetails.phone_home);
     this.createNewCustomer.controls['cus_address'].setValue(this.customerPersonalDetails.address);
     this.createNewCustomer.controls['cus_state'].setValue(this.customerPersonalDetails.state);
     this.createNewCustomer.controls['cus_city'].setValue(this.customerPersonalDetails.city);
