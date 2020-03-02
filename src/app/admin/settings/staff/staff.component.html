@@ -39,6 +39,7 @@
             </mat-drawer>
             <mat-drawer-content>
                 <mat-card>
+                <div class="row">
                     <div class="col-lg-4 col-md-4 col-12">
                         <h6>Add Staff</h6>
                         <div class="d-flex">
@@ -66,18 +67,28 @@
                         <mat-form-field class="bottom-border-field">
                             <mat-label>Description</mat-label>
                             <textarea matInput
-                                      cdkTextareaAutosize
-                                      #autosize="cdkTextareaAutosize"
-                                      cdkAutosizeMinRows="1"
-                                      cdkAutosizeMaxRows="7"></textarea>
-                          </mat-form-field> 
+                                        cdkTextareaAutosize
+                                        #autosize="cdkTextareaAutosize"
+                                        cdkAutosizeMinRows="1"
+                                        cdkAutosizeMaxRows="7"></textarea>
+                        </mat-form-field> 
                     </div>
-                </mat-card>
-                <mat-card>
                     <div class="col-lg-4 col-md-4 col-12">
-
+                        <div class="d-flex">
+                            <h6>Upload Documents</h6>
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        </div>
+                        <div>
+                            <mat-icon aria-hidden="false">cloud_upload</mat-icon>
+                            <p>.PDF .JPG .PNG .DOC</p>
+                            <p>Drag & drop your files here</p>
+                            <div>
+                                <button mat-button class="upload-btn">Upload Files</button>
+                            </div>
+                        </div>
                     </div>
-                </mat-card>
+                </div>
+            </mat-card>
             </mat-drawer-content>
         </mat-drawer-container>
     </div>
