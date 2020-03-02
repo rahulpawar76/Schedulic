@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
 //import { SettingsComponent } from '../settings.component';
 
 import { AuthenticationService } from '@app/_services';
@@ -10,6 +11,9 @@ import { AuthenticationService } from '@app/_services';
   styleUrls: ['./services.component.scss']
 })
 export class ServicesComponent implements OnInit {
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+
   salonCategory : boolean = false;
   hairSubCategory : boolean = false;
   AllCategory: boolean =true;

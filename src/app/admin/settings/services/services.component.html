@@ -32,7 +32,101 @@
                     </mat-drawer>
                     
                     <mat-drawer-content class="d-flex">
-                        <div  id="All_category" *ngIf="AllCategory" class="mb-0 w-100">
+                        <div  id="Hair_Add_New_Service" *ngIf="HairAddNewSerice" class="mb-0 w-100">
+                        <mat-card >
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h6>Add New Sevice</h6>
+                                </div>     
+                            </div>     
+                            <div class="row"> 
+                                <div class="col-lg-6 col-6 col-md-4 d-flex">
+                                    <div class="ml-3 justify-content-center">
+                                        <div class="customer-profile-background mr-3 mt-5">
+                                            <img src="/assets/images/admin/picture.png" class="profile-image">
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <div class="mt-3 text-center">
+                                            <mat-form-field class=" bottom-border-field">
+                                                <input matInput placeholder="Enter Category Name">  
+                                            </mat-form-field>   
+                                        </div>
+                                        <div class="mt-2 text-center">
+                                            <mat-form-field class=" bottom-border-field">
+                                                <textarea matInput placeholder="Category Descriptions"></textarea>     
+                                            </mat-form-field>   
+                                        </div>
+                                        <div class="mt-2 text-center">
+                                            <mat-form-field class=" bottom-border-field">
+                                                <mat-icon matPrefix><i class="material-icons">
+                                                    attach_money
+                                                    </i></mat-icon>
+                                                <mat-label>Sevice Cost</mat-label>
+                                                <input matInput placeholder="">  
+                                            </mat-form-field>   
+                                        </div>
+                                        <div class="mt-2 text-center">
+                                            <mat-form-field class=" bottom-border-field">
+                                                <mat-icon matPrefix><i class="material-icons">
+                                                    access_time
+                                                    </i></mat-icon>
+                                                <mat-label>Serice Time(mins)</mat-label>
+                                                <input matInput placeholder="">  
+                                            </mat-form-field>   
+                                        </div>
+                                        <div class="mt-2 text-center">
+                                            <mat-form-field class=" bottom-border-field">
+                                                <mat-icon matPrefix><i class="material-icons">
+                                                    people_alt
+                                                    </i></mat-icon>
+                                                <mat-label>Service Unit</mat-label>
+                                                <input matInput placeholder="">  
+                                            </mat-form-field>   
+                                        </div>
+                                        <div class="statustoggle">
+                                            <p><mat-slide-toggle>Status</mat-slide-toggle></p>
+                                            <p><mat-slide-toggle>Private</mat-slide-toggle></p>
+                                        </div> 
+                                    </div>
+                                </div>    
+                            </div>   
+                       
+                            <div class="row"> 
+                                <div class="action-btn">
+                                    <div class="mx-2">
+                                        <button (click)="fnCancelNewCustomer()" mat-button appearance="fill" class="service-cancel-btn">Cancel</button>
+                                    </div>
+                                    <div class="mx-2">
+                                        <button mat-button type="submit" appearance="fill" (click)="fnCreateCouponSubmit()" class="service-create-btn">Create</button>
+                                    </div>  
+                                </div>    
+                            </div>          
+                        </mat-card>  
+                        </div>
+                        <!-- <div class=""> 
+                            <div class="col-lg-6 col-6 col-md-4 d-flex">
+                                <div class="ml-3 justify-content-center">
+                                    <div class="service-profile-background mr-3 ">
+                                        <img src="/assets/images/admin/Layer6.png" class="service-profile-image mb-2">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class=" Details-button-width d-flex">
+                                        <h5 class="mt-2 mb-2">Salon</h5>  
+                                        <button mat-button class="public-button">Public</button>
+                                    </div> 
+                                        <button class="salon-cancel-btn mr-2"><i class="fa fa-eye salon-icon" ></i></button>  
+                                        <button class="salon-edit-btn mr-2"><i class="fa fa-pencil salon-icon"></i></button>
+                                        <button class="salon-cancel-btn mr-3"><i class="fa fa-trash-o salon-icon" ></i></button>
+                                        <mat-slide-toggle></mat-slide-toggle>
+                                </div> 
+                                
+                              
+                            </div>
+                        </div>
+                   -->
+                          <div  id="All_category" *ngIf="AllCategory" class="mb-0 w-100">
                         <mat-card >
                             <div class="row">
                                 <div class="col-lg-12">
@@ -78,7 +172,7 @@
                                 </div>    
                             </div>          
                         </mat-card>  
-                        </div>
+                        </div>  
                         <div id="salon_category" *ngIf="salonCategory" class="mb-0 w-100">
                             <div class=""> 
                                 <div class="col-lg-6 col-6 col-md-4 d-flex">
@@ -88,7 +182,10 @@
                                         </div>
                                     </div>
                                     <div>
-                                      <h5 class="mt-3">Salon</h5>     
+                                        <div class=" Details-button-width d-flex">
+                                      <h5 class="mt-2 mb-2">Salon</h5>  
+                                      <button mat-button class="public-button">Public</button>
+                                      </div>   
                                         <button class="salon-edit-btn mr-2"><i class="fa fa-pencil salon-icon"></i></button>
                                         <button class="salon-cancel-btn mr-3"><i class="fa fa-trash-o salon-icon" ></i></button>
                                         <mat-slide-toggle></mat-slide-toggle>
@@ -131,10 +228,10 @@
                                         </div>
                                     </div>
                                     <div> 
-                                        <div class=" Details-button-width">
+                                        <div class=" Details-button-width d-flex">
                                       <h5 class="mt-2 mb-2 ">Hair</h5>
                                      
-                                        <button mat-button class="Details-button">Details</button>
+                                        <button mat-button class="public-button">Public</button>
                                     </div>     
                                         <button class="salon-edit-btn mr-2"><i class="fa fa-pencil salon-icon"></i></button>
                                         <button class="salon-cancel-btn mr-2"><i class="fa fa-trash-o salon-icon" ></i></button>
@@ -158,6 +255,78 @@
                                 </mat-card> 
                             </div> 
                         </div>   
+                     <div  id="Hair_Add_New_Service" *ngIf="HairAddNewSerice" class="mb-0 w-100">
+                        <mat-card >
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h6>Add New Sevice</h6>
+                                </div>     
+                            </div>     
+                            <div class="row"> 
+                                <div class="col-lg-6 col-6 col-md-4 d-flex">
+                                    <div class="ml-3 justify-content-center">
+                                        <div class="customer-profile-background mr-3 mt-5">
+                                            <img src="/assets/images/admin/picture.png" class="profile-image">
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <div class="mt-3 text-center">
+                                            <mat-form-field class=" bottom-border-field">
+                                                <input matInput placeholder="Enter Category Name">  
+                                            </mat-form-field>   
+                                        </div>
+                                        <div class="mt-2 text-center">
+                                            <mat-form-field class=" bottom-border-field">
+                                                <textarea matInput placeholder="Category Descriptions"></textarea>     
+                                            </mat-form-field>   
+                                        </div>
+                                        <div class="mt-2 text-center">
+                                            <mat-form-field class=" bottom-border-field">
+                                                <mat-icon matPrefix><i class="material-icons">
+                                                    attach_money
+                                                    </i></mat-icon>
+                                                <mat-label>Sevice Cost</mat-label>
+                                                <input matInput placeholder="">  
+                                            </mat-form-field>   
+                                        </div>
+                                        <div class="mt-2 text-center">
+                                            <mat-form-field class=" bottom-border-field">
+                                                <mat-icon matPrefix><i class="material-icons">
+                                                    access_time
+                                                    </i></mat-icon>
+                                                <mat-label>Serice Time(mins)</mat-label>
+                                                <input matInput placeholder="">  
+                                            </mat-form-field>   
+                                        </div>
+                                        <div class="mt-2 text-center">
+                                            <mat-form-field class=" bottom-border-field">
+                                                <mat-icon matPrefix><i class="material-icons">
+                                                    people_alt
+                                                    </i></mat-icon>
+                                                <mat-label>Service Unit</mat-label>
+                                                <input matInput placeholder="">  
+                                            </mat-form-field>   
+                                        </div>
+                                        <div class="statustoggle">
+                                            <p><mat-slide-toggle>Status</mat-slide-toggle></p>
+                                            <p><mat-slide-toggle>Private</mat-slide-toggle></p>
+                                        </div> 
+                                    </div>
+                                </div>    
+                            </div>   
+                       
+                            <div class="row"> 
+                                <div class="action-btn">
+                                    <div class="mx-2">
+                                        <button (click)="fnCancelNewCustomer()" mat-button appearance="fill" class="service-cancel-btn">Cancel</button>
+                                    </div>
+                                    <div class="mx-2">
+                                        <button mat-button type="submit" appearance="fill" (click)="fnCreateCouponSubmit()" class="service-create-btn">Create</button>
+                                    </div>  
+                                </div>    
+                            </div>          
+                        </mat-card>  
+                        </div>  
                         
                     </mat-drawer-content>
                 </mat-drawer-container>
@@ -166,4 +335,6 @@
         </mat-drawer-container>
     </div>
 </div>
+
+
             
