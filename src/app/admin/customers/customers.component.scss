@@ -432,3 +432,38 @@
     }
 }
 
+#sub-header-top{
+    width: 100%;
+	.inner{
+		background: #cfe3fc;
+		padding: 15px;
+		.first{
+			align-items: center;
+			span{
+				font-size: 18px;
+				font-weight: 500;
+			}
+		}
+		.second{
+			justify-content: flex-end;
+			display: flex;
+			a{
+				background-color: #f87912;
+				padding: 7px 20px;
+				font-size: 12px;
+				color: #fff;
+				border-radius: 25px;
+				i{
+					margin-right: 10px;
+				}
+			}
+        }
+        .blue-btn{
+            width: 103px;
+            height: 37px;
+            border-radius: 21px;
+            background-color: #1173f4;
+            color: white;
+        }
+	}
+}

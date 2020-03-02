@@ -200,6 +200,36 @@ export class AdminService {
         }),
         catchError(this.handleError));
     }
+    customerUpdate(existingCustomerData){
+        // let requestObject = {
+        //     'customer_id': customer_id,
+        // };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/customer-profile-update`,existingCustomerData,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    fnDeleteCustomer(customerId){
+        let requestObject = {
+            'customer_id': customerId,
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/customer-delete`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
     fncreateNewNote(createNewNoteData){
         // let requestObject = {
         //     'customer_id': customer_id,
@@ -317,6 +347,22 @@ export class AdminService {
             'api-token' : this.adminToken 
         });
         return this.http.post(`${environment.apiUrl}/create-discount-coupon`,createdCouponCodeData,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    changeCouponStaus(couponCodeStatus,coupon_id){
+        let requestObject = {
+            'coupon_id': coupon_id,
+            'status' : couponCodeStatus
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/discount-coupon-status-update`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;
         }),
