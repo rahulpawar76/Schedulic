@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
 //import { SettingsComponent } from '../settings.component';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 import { AuthenticationService } from '@app/_services';
+//import { AdminSettingsService } from '../_services/admin-settings.service'
 
 @Component({
   selector: 'settings-services',
@@ -10,36 +13,57 @@ import { AuthenticationService } from '@app/_services';
   styleUrls: ['./services.component.scss']
 })
 export class ServicesComponent implements OnInit {
-  salonCategory : boolean = false;
-  hairSubCategory : boolean = false;
-  AllCategory: boolean =true;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+
+  
+  allCetegoryList : any;
+  allServicesList : any;
+  servicesList :boolean = true;
   constructor(
     
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    //private settingsComponent:SettingsComponent
+   // private adminSettingsService: AdminSettingsService,
   ) { }
 
   ngOnInit() {
+    this.fnAllCategory();
+    this.fnAllServices();
   }
+
+  fnAllServices(){
+    this.adminSettingsService.fnAllServices().subscribe((response:any) => {
+      if(response.data == true){
+        this.allServicesList = response.response
+        console.log(this.allServicesList);
+        if(this.allServicesList != ''){
+          this.servicesList = true;
+        }else if(this.allServicesList == ''){
+          this.servicesList = false;
+        }
+      }
+      else if(response.data == false){
+       this.allServicesList = '';
+      }
+    })
+  }
+
   fnAllCategory(){
-      this.AllCategory =true;
-      this.salonCategory=false;
-      this.hairSubCategory=false;
-
+     this.adminSettingsService.fnAllCategory().subscribe((response:any) => {
+       if(response.data == true){
+         this.allCetegoryList = response.response
+       }
+       else if(response.data == false){
+        this.allCetegoryList = '';
+       }
+     })
   }
-  fnsalonCategory(){
-    this.AllCategory =false;
-    this.salonCategory = true;
-    this.hairSubCategory = false;
-  }
-  fnhairSubCategory(){
 
-    this.AllCategory =false;
-    this.salonCategory = false;
-    this.hairSubCategory = true;
-
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.allServicesList, event.previousIndex, event.currentIndex);
   }
+
 
 }

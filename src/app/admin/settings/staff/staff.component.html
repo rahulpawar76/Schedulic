@@ -1,0 +1,95 @@
+<div class="container-fluid sub-container" id="staff">
+    <div class="row h-100">
+        <mat-drawer-container class="example-container">
+            <mat-drawer mode="side" opened style="width:300px">
+                <div class="leftarrow-icon">
+                    <mat-icon aria-hidden="false" class="customer-drawer-leftarrow">arrow_back</mat-icon>
+                </div>
+                <h6>Resource Management</h6>
+                <div class="d-flex">
+                    <mat-icon aria-hidden="false">star_outline</mat-icon>
+                    <p>Services</p>
+                </div>
+                <div class="d-flex">
+                    <mat-icon aria-hidden="false">group</mat-icon>
+                    <p>Staff</p>
+                </div>
+                <div class="d-flex">
+                    <mat-icon aria-hidden="false">access_time</mat-icon>
+                    <p>Business Hours</p>
+                </div>
+                <h6 class="pt-3">Account</h6>
+                <div class="d-flex">
+                    <mat-icon aria-hidden="false">person</mat-icon>
+                    <p>My Profile</p>
+                </div>
+                <div class="d-flex">
+                    <mat-icon aria-hidden="false">apartment</mat-icon>
+                    <p>Company Details</p>
+                </div>
+                <div class="d-flex">
+                    <mat-icon aria-hidden="false">language</mat-icon>
+                    <p>Localization</p>
+                </div>
+                <h6 class="pt-3">Payment</h6>
+                <div class="d-flex">
+                    <mat-icon aria-hidden="false">payment</mat-icon>
+                    <p>Payment Gateway</p>
+                </div>
+            </mat-drawer>
+            <mat-drawer-content>
+                <mat-card>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <h6>Add Staff</h6>
+                        <div class="d-flex">
+                            <img class="add-staff mx-auto"  src="/assets/images/admin/Layer-3.png">
+                        </div>
+                        <mat-form-field class="bottom-border-field">
+                            <mat-label>Name</mat-label>
+                            <mat-icon class="mr-4" matPrefix>person</mat-icon>
+                            <input matInput formControlName="cus_fullname" placeholder="Enter Your First Name">  
+                        </mat-form-field> 
+                        <mat-form-field class="bottom-border-field">
+                            <mat-label>Mobile</mat-label>
+                            <mat-icon class="mr-4" matPrefix>call</mat-icon>
+                            <input matInput formControlName="cus_phone" placeholder="Enter Your number">  
+                        </mat-form-field> 
+                        <mat-form-field class="bottom-border-field">
+                            <mat-label>Email</mat-label>
+                            <mat-icon class="mr-4" matPrefix>email</mat-icon>
+                            <input matInput formControlName="cus_email" placeholder="Enter Your Email">  
+                        </mat-form-field> 
+                        <mat-form-field class="bottom-border-field">
+                            <mat-label>Address</mat-label>
+                            <input matInput formControlName="cus_address" placeholder="Enter Your address">  
+                        </mat-form-field> 
+                        <mat-form-field class="bottom-border-field">
+                            <mat-label>Description</mat-label>
+                            <textarea matInput
+                                        cdkTextareaAutosize
+                                        #autosize="cdkTextareaAutosize"
+                                        cdkAutosizeMinRows="1"
+                                        cdkAutosizeMaxRows="7"></textarea>
+                        </mat-form-field> 
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="d-flex">
+                            <h6>Upload Documents</h6>
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        </div>
+                        <div>
+                            <mat-icon aria-hidden="false">cloud_upload</mat-icon>
+                            <p>.PDF .JPG .PNG .DOC</p>
+                            <p>Drag & drop your files here</p>
+                            <div>
+                                <button mat-button class="upload-btn">Upload Files</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+            </mat-drawer-content>
+        </mat-drawer-container>
+    </div>
+</div>

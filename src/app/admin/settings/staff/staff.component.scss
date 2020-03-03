@@ -1,0 +1,33 @@
+#staff{
+    .mat-drawer{
+        background-color: #f2f2f2;
+        padding-left: 25px;
+    }
+    .mat-icon{
+        line-height: 1.5;
+    }
+    .leftarrow-icon{
+        // margin-left: auto;
+        display: flex;
+        .customer-drawer-leftarrow{
+            padding: 4px 8px;
+            height: auto;
+            width: auto;
+            text-align: center;
+            background-color: #dedede;
+             margin-left: auto;
+        }
+    }
+    .add-staff{
+        width: 100px;
+        height: 100px;
+        border-radius: 73px;
+    }
+    .upload-btn{
+        width: 137px;
+        height: 35px;
+        border-radius: 17px;
+        background-color: #1173f4;
+        border: 2px solid #1173f4;
+    }
+}

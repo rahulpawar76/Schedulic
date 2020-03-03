@@ -143,5 +143,25 @@
         margin-left: auto;
         display: flex;
     }
+    .select-service{
+        max-width: 280px;
+        margin-left: auto;
+    }
+    ::ng-deep .mat-expansion-panel-body{
+        margin-left: 25px;
+        padding-bottom: 0px;
+        color: blue;
+    }
+    ::ng-deep .mat-checkbox{
+        color: blue;
+    }
+    ::ng-deep .mat-checkbox-layout{
+        margin-bottom: 0px;
+    }
+    ::ng-deep .mat-expansion-panel-header{
+        height: 25px !important;
+        background-color: #e8f2fe;
+        color: blue;
+    }
     
 }
