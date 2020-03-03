@@ -15,7 +15,6 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { MyBusinessComponent } from './my-business/my-business.component';
 import { myCreateNewBusinessDialog } from './my-business';
 import { MyWorkSpaceComponent } from './my-work-space/my-work-space.component';
-import { myWorkSpaceAcceptDialog } from './my-work-space';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { DataTablesModule } from 'angular-datatables';
 import { DialogAddNewAppointment } from './appointment/appointment.component';
@@ -35,7 +34,6 @@ import { InterruptedReschedule } from './my-work-space/my-work-space.component';
     MyBusinessComponent,
     myCreateNewBusinessDialog,
     MyWorkSpaceComponent,
-    myWorkSpaceAcceptDialog,
     AppointmentComponent,
     DialogAddNewAppointment,
     DialogNewAppointment,
@@ -67,6 +65,6 @@ import { InterruptedReschedule } from './my-work-space/my-work-space.component';
   exports: [
     FormsModule
   ],
-  entryComponents: [myCreateNewBusinessDialog,myWorkSpaceAcceptDialog,DialogAddNewAppointment,DialogNewAppointment,DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,DialogViewReview,InterruptedReschedule],
+  entryComponents: [myCreateNewBusinessDialog,DialogAddNewAppointment,DialogNewAppointment,DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,DialogViewReview,InterruptedReschedule],
 })
 export class AdminModule { }
