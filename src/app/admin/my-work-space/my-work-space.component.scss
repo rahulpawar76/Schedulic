@@ -754,7 +754,7 @@ i{
         color:#fff !important;
     }
     .active-btns{
-        display: block;
+        display: flex !important;
     }
     .Time{
         width: 22%;
@@ -794,5 +794,5 @@ i{
     }
 }
 .active-btns{
-    display: none;
+    display: none !important;
 }

@@ -140,7 +140,7 @@ export class MyWorkSpaceComponent implements OnInit {
   }
 
   fnOnClickAppointment(i){
-    this.activeBooking = i;
+        this.activeBooking = i;
         this.appointmentDetails.id=this.appointments[i].id;
         this.appointmentDetails.serviceId=this.appointments[i].service_id;
         this.appointmentDetails.staffId=this.appointments[i].staff_id;
@@ -265,7 +265,7 @@ export class MyWorkSpaceComponent implements OnInit {
     )
   }
   
-  myworkspaceAccept() {
+ /* myworkspaceAccept() {
     const dialogRef = this.dialog.open(myWorkSpaceAcceptDialog, {
       width: '600px',
       data: {appointmentDetails:this.appointmentDetails},
@@ -274,7 +274,7 @@ export class MyWorkSpaceComponent implements OnInit {
      dialogRef.afterClosed().subscribe(result => {
       this.fnGetAllAppointmentsByCategoryAndStatus();
      });
-  }
+  }*/
 
   fnOnClickCategory(categoryId,categoryName){
     this.selectedCategoryId=categoryId;
@@ -299,6 +299,53 @@ export class MyWorkSpaceComponent implements OnInit {
     });
   }
 
+  fnConfirmAppointment(){
+      let requestObject = {
+       "order_item_id":JSON.stringify(this.appointmentDetails.id),
+       "status":"CNF"
+      };
+      this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+        if(response.data == true){
+          this._snackBar.open("Appointment Confirmed", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+            });
+          this.fnGetAllAppointmentsByCategoryAndStatus();
+        }
+        else if(response.data == false){
+          this._snackBar.open("Appointment not Confirmed", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+            });
+        }
+      })
+    }
+  
+    fnCompleteAppointment(){
+      let requestObject = {
+       "order_item_id":JSON.stringify(this.appointmentDetails.id),
+       "status":"CO"
+      };
+      this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+        if(response.data == true){
+          this._snackBar.open("Appointment Completed", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+            });
+          this.fnGetAllAppointmentsByCategoryAndStatus();
+        }
+        else if(response.data == false){
+          this._snackBar.open("Appointment not Completed", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+            });
+        }
+      })
+    }
   
     fnCancelAppointment(){
       let requestObject = {
@@ -324,11 +371,36 @@ export class MyWorkSpaceComponent implements OnInit {
       })
     }
 
+  
+    /*fnCancelAppointment(){
+      let requestObject = {
+       "order_item_id":JSON.stringify(this.appointmentDetails.id),
+       "status":"C"
+      };
+      this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+        if(response.data == true){
+          this._snackBar.open("Appointment Cancelled", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+            });
+          this.fnGetAllAppointmentsByCategoryAndStatus();
+        }
+        else if(response.data == false){
+          this._snackBar.open("Appointment not Cancelled", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+            });
+        }
+      })
+    }*/
+
 }
 
 
 
-@Component({
+/*@Component({
   selector: 'myworkspace-accept',
   templateUrl: '../_dialogs/myworkspace-accept-dialog.html',
 })
@@ -431,7 +503,7 @@ export class myWorkSpaceAcceptDialog {
     this.dialogRef.close();
   }
   
-}
+}*/
 
 @Component({
     selector: 'interrupted-reschedule-dialog',
