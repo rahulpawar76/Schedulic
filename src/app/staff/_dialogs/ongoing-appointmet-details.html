@@ -26,12 +26,12 @@
       </div>                  
     </div>
     <div class="modal-body modal-bcolor">
-      <p class="mb-0 font-weight-bold"> {{appoDetail.booking_date}}</p>
-      <p>Booked On: {{appoDetail.updated_at}}</p>
+      <p class="mb-0 font-weight-bold"> {{appoDetail.booking_dateForLabel}}</p>
+      <p>Booked On: {{appoDetail.created_atForLabel}}</p>
       <p class="mb-0">Service</p>
       <p class="font-weight-bold">{{appoDetail.service.service_name}}($ {{appoDetail.service.service_cost}})</p>
       <p class="mb-0">Time</p>
-      <p class="font-weight-bold">{{appoDetail.service.service_time}}</p>
+      <p class="font-weight-bold">{{appoDetail.booking_timeForLabel}} - {{appoDetail.booking_time_to}} ({{appoDetail.service_time}})</p>
       <div class="d-flex">
         <div class="pl-0">
           <p class="mb-0">Order By</p>

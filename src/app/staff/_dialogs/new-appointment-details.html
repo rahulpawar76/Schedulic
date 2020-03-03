@@ -15,13 +15,13 @@
 
     <div class="modal-body modal-bcolor">
       
-      <p class="mb-0 font-weight-bold"> {{detailData.booking_date}}</p>
-      <p>Booked On: {{detailData.updated_at}}</p>
+      <p class="mb-0 font-weight-bold"> {{detailData.booking_dateForLabel}}</p>
+      <p>Booked On: {{detailData.created_atForLabel}}</p>
 
       <p class="mb-0">Service</p>
       <p class="font-weight-bold">{{detailData.service.service_name}}($ {{detailData.service.service_cost}})</p>
       <p class="mb-0">Time</p>
-      <p class="font-weight-bold">{{detailData.service.service_time}}</p>
+      <p class="font-weight-bold">{{detailData.booking_timeForLabel}} - {{detailData.booking_time_to}} ({{detailData.service_time}})</p>
      
     <div class="d-flex">
       <div class="pl-0">
