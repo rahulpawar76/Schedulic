@@ -20,7 +20,8 @@ export interface DialogData {
 @Component({
   selector: 'app-userappointments',
   templateUrl: './userappointments.component.html',
-  styleUrls: ['./userappointments.component.scss']
+  styleUrls: ['./userappointments.component.scss'],
+  providers: [DatePipe]
 })
 export class UserappointmentsComponent implements OnInit {
   animal: any;
@@ -33,7 +34,8 @@ export class UserappointmentsComponent implements OnInit {
      private http: HttpClient,
      private UserService: UserService,
      public router: Router,
-     private _snackBar: MatSnackBar
+     private _snackBar: MatSnackBar,
+    private datePipe: DatePipe
      ) {
   }
 
@@ -49,6 +51,16 @@ getAllAppointments(): void{
   this.UserService.getAllAppointments().subscribe((response:any) =>{
     if(response.data == true){
       this.appointmentData = response.response;
+      this.appointmentData.forEach( (element) => {
+        element.booking_timeForLabel = this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+        element.booking_dateForLabel = this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
+        element.created_atForLabel = this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a");
+
+        var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"dd MMM yyyy hh:mm a"));
+        dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+        element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+
+      });
     }
     else if(response.data == false){
       this.appointmentData = '';
@@ -60,6 +72,15 @@ getCancelAppointments(): void{
   this.UserService.getCancelAppointments().subscribe((response:any) =>{
     if(response.data == true){
       this.cancelAppointmentData = response.response;
+      this.cancelAppointmentData.forEach( (element) => {
+        element.booking_timeForLabel = this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+        element.booking_dateForLabel = this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
+        element.created_atForLabel = this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a");
+
+        var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"dd MMM yyyy hh:mm a"));
+        dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+        element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+      });
     }
     else if(response.data == false){
       this.cancelAppointmentData = '';
@@ -71,6 +92,15 @@ getCompletedAppointments(): void{
   this.UserService.getCompletedAppointments().subscribe((response:any) =>{
     if(response.data == true){
       this.completedAppointmentData = response.response;
+      this.completedAppointmentData.forEach( (element) => {
+        element.booking_timeForLabel = this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+        element.booking_dateForLabel = this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
+        element.created_atForLabel = this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a");
+
+        var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"dd MMM yyyy hh:mm a"));
+        dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+        element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+      });
     }
     else if(response.data == false){
       this.completedAppointmentData = '';

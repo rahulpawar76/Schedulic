@@ -44,10 +44,11 @@
 		    	 <button mat-button type="button" class=" Reschedulebtn d-block " (click)="rescheduleAppointment()">Reschedule</button>
 		    	</div>
 		    	<div class="cancelbtn-width">
-		    	 <button mat-button type="button" class=" Reschedulebtn d-block ">Cancel</button>
+		    	 <button mat-button type="button" class=" Reschedulebtn d-block " (click)="fnCancelAppointment()">Cancel</button>
 			 	</div>
 			 	<div class="acceptbtn-width">
-		    	 <button mat-button type="button" class=" Reschedulebtn accept-btn d-block ">Accept</button>
+		    	 <button mat-button type="button" class="Reschedulebtn accept-btn d-block" (click)="fnConfirmAppointment()"*ngIf="appointmentDetails.order_status == 'P'">Confirm</button>
+		    	 <button mat-button type="button" class="Reschedulebtn accept-btn d-block" (click)="fnCompleteAppointment()"*ngIf="appointmentDetails.order_status == 'AC'">Complete</button>
 			  	</div>
 		    </div>
 		</mat-card>

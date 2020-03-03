@@ -399,6 +399,34 @@ export class AdminService {
         catchError(this.handleError));
     }
 
+     updateAppointmentStatus(requestObject){
+    
+        let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/admin-booking-single-update`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError(this.handleError));
+      }
+
+     assignStaffToOrder(requestObject){
+    
+        let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/admin-assignStaff-update`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError(this.handleError));
+      }
+
     
 
 }
