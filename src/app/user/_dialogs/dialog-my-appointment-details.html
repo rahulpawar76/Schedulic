@@ -19,13 +19,13 @@
 
     <div class="modal-body modal-bcolor">
       
-      <p class="mb-0 font-weight-bold"> {{myAppoDetailData.booking_date}}</p>
-      <p>Booked On: {{myAppoDetailData.updated_at}}</p>
+      <p class="mb-0 font-weight-bold"> {{myAppoDetailData.booking_dateForLabel}}</p>
+      <p>Booked On: {{myAppoDetailData.created_atForLabel}}</p>
 
       <p class="mb-0">Service</p>
       <p class="font-weight-bold">{{myAppoDetailData.service.service_name}}($ {{myAppoDetailData.service.service_cost}})</p>
       <p class="mb-0">Time</p>
-      <p class="font-weight-bold">{{myAppoDetailData.service.service_time}}</p>
+      <p class="font-weight-bold">{{myAppoDetailData.booking_timeForLabel}} - {{myAppoDetailData.booking_time_to}} ({{myAppoDetailData.service.service_time}})</p>
      
       <div class="d-flex">
       
@@ -38,6 +38,7 @@
         
         <p class="font-weight-bold text-capitalize" *ngIf="myAppoDetailData.order_status == 'P'">Waiting For Confirmation</p>
         <p class="font-weight-bold text-capitalize" *ngIf="myAppoDetailData.order_status == 'AC'">Confirm</p> 
+        <p class="font-weight-bold text-capitalize" *ngIf="myAppoDetailData.order_status == 'OW'">On The Way</p>
         <p class="font-weight-bold text-capitalize" *ngIf="myAppoDetailData.order_status == 'RSA'">Rescheduled By Admin</p>
         <p class="font-weight-bold text-capitalize" *ngIf="myAppoDetailData.order_status == 'RSS'">Rescheduled By Staff</p> 
         <p class="font-weight-bold text-capitalize" *ngIf="myAppoDetailData.order_status == 'RSC'">Rescheduled</p>

@@ -8,13 +8,14 @@
             <div class="row"> 
               <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
                 <label class="d-block font-weight-bold">Date & Time</label>
-                <p>{{appointmentData.booking_date}}</p> 
-                <p>{{appointmentData.booking_time}}</p>
+                <p>{{appointmentData.booking_dateForLabel}}</p> 
+                <p>{{appointmentData.booking_timeForLabel}}</p>
               </div>
             <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
                 <label class="font-weight-bold">Status</label> 
                 <p class="text-capitalize" *ngIf="appointmentData.order_status == 'P'">Waiting For Confirmation</p>
                 <p class="text-capitalize" *ngIf="appointmentData.order_status == 'AC'">Confirm</p> 
+                <p class="text-capitalize" *ngIf="appointmentData.order_status == 'OW'">On The Way</p>
                 <p class="text-capitalize" *ngIf="appointmentData.order_status == 'RSA'">Rescheduled By Admin</p>
                 <p class="text-capitalize" *ngIf="appointmentData.order_status == 'RSS'">Rescheduled By Staff</p> 
                 <p class="text-capitalize" *ngIf="appointmentData.order_status == 'RSC'">Rescheduled</p>
@@ -55,8 +56,8 @@
         <div class="row"> 
           <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
             <label class="d-block font-weight-bold">Date & Time</label>
-              <p>{{cancelAppointmentData.booking_date}},</p> 
-              <p>{{cancelAppointmentData.booking_time}}</p>
+              <p>{{cancelAppointmentData.booking_dateForLabel}},</p> 
+              <p>{{cancelAppointmentData.booking_timeForLabel}}</p>
             </div>
             <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
                 <label class="font-weight-bold">Status</label> 
@@ -99,8 +100,8 @@
           <div class="row"> 
             <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
               <label class="d-block font-weight-bold">Date & Time</label>
-                <p>{{completedAppointmentData.booking_date}},</p> 
-                <p>{{completedAppointmentData.booking_time}}</p>
+                <p>{{completedAppointmentData.booking_dateForLabel}},</p> 
+                <p>{{completedAppointmentData.booking_timeForLabel}}</p>
               </div>
               <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
                   <label class="font-weight-bold">Status</label> 

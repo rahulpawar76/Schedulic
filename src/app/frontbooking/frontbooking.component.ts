@@ -79,6 +79,7 @@ export class FrontbookingComponent implements OnInit {
   closecoupon: string = "default";
 
   selecteddate: any;
+  selecteddateForLabel: any;
   currentSelectedService:any;
   appo_address_info = {
     appo_address:"",
@@ -102,6 +103,7 @@ export class FrontbookingComponent implements OnInit {
   isLoader:boolean=false;
   showCouponError:boolean=false;
   couponErrorMessage:any;
+  timeSlotArrForLabel:any=[];
   @ViewChildren(MdePopoverTrigger) trigger: QueryList<MdePopoverTrigger>;
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
   emailFormat = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
@@ -393,7 +395,9 @@ export class FrontbookingComponent implements OnInit {
           this.serviceData[i].count=0;
           this.serviceData[i].totalCost=0;
           this.serviceData[i].appointmentDate='';
+          this.serviceData[i].appointmentDateForLabel='';
           this.serviceData[i].appointmentTimeSlot='';
+          this.serviceData[i].appointmentTimeSlotForLabel='';
           this.serviceData[i].assignedStaff=null;
           this.serviceCount[this.serviceData[i].id]=this.serviceData[i];
         }
@@ -529,10 +533,13 @@ export class FrontbookingComponent implements OnInit {
       console.log(JSON.stringify(dateTemp));
       this.model=dateTemp;
       this.selecteddate=this.serviceCartArr[this.currentSelectedService].appointmentDate
+      this.selecteddateForLabel=this.datePipe.transform(new Date(this.serviceCartArr[this.currentSelectedService].appointmentDate),"EEE, MMM dd");
+
       this.fnGetTimeSlots();
     }else{
       this.model=this.calendar.getToday();
       this.selecteddate= this.model.year+'-'+this.model.month+'-'+this.model.day;
+      this.selecteddateForLabel= this.datePipe.transform(new Date(this.model.year+'-'+this.model.month+'-'+this.model.day),"EEE, MMM dd");
       this.fnGetTimeSlots();
     }
     this.serviceselection = false;
@@ -555,6 +562,7 @@ export class FrontbookingComponent implements OnInit {
   onDateSelect(event){
     this.selecteddate = event.year+'-'+event.month+'-'+event.day;
     this.selecteddate=this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd")
+    this.selecteddateForLabel=this.datePipe.transform(new Date(this.selecteddate),"MMM dd")
     this.fnGetTimeSlots();
   }
   // date time 
@@ -587,17 +595,29 @@ export class FrontbookingComponent implements OnInit {
       catchError(this.handleError)
     ).subscribe((response:any) => {
       if(response.data == true){
+        this.timeSlotArr.length=0;
+        this.timeSlotArrForLabel.length=0;
           this.timeSlotArr = response.response;
+          var i=0;
+          this.timeSlotArr.forEach( (element) => {
+            var dateTemp=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element+":00";
+             this.timeSlotArrForLabel[i]= this.datePipe.transform(new Date(dateTemp),"hh:mm a");
+             i++;
+          });
           this.timeslotview = true;
           this.isLoader=false;
           console.log(JSON.stringify(this.timeSlotArr));
       }
       else{
+        this.timeSlotArr.length=0;
+        this.timeSlotArrForLabel.length=0;
         this.timeslotview = false;
         this.isLoader=false;
       }
       },
       (err) =>{
+        this.timeSlotArr.length=0;
+        this.timeSlotArrForLabel.length=0;
         this.timeslotview = false;
         this.isLoader=false;
         console.log(err)
@@ -612,12 +632,11 @@ export class FrontbookingComponent implements OnInit {
   }
 
   fnGetStaff(){
-    alert(this.selecteddate);
     this.isLoader=true;
     let requestObject = {
       "business_id":'2',
       "service_id":this.currentSelectedService,
-      "book_date" : this.selecteddate,
+      "book_date" : this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd"),
       "book_time" : this.selectedTimeSlot, 
     };
     let headers = new HttpHeaders({
@@ -634,7 +653,7 @@ export class FrontbookingComponent implements OnInit {
           this.availableStaff = response.response;
           this.isStaffAvailable = true;
           this.isLoader=false;
-          console.log(JSON.stringify(this.timeSlotArr));
+          console.log(JSON.stringify(this.availableStaff));
       }
       else{
         this.availableStaff.length=0;
@@ -670,8 +689,10 @@ export class FrontbookingComponent implements OnInit {
     console.log(staff_id);
     this.trigger.toArray()[index].togglePopover();
     this.serviceCount[this.currentSelectedService].appointmentDate=this.selecteddate;
+    this.serviceCount[this.currentSelectedService].appointmentDateForLabel=this.datePipe.transform(new Date(this.selecteddate),"MMMM dd, yyyy");
     this.serviceCount[this.currentSelectedService].assignedStaff=staff_id;
     this.serviceCount[this.currentSelectedService].appointmentTimeSlot=this.selectedTimeSlot;
+    this.serviceCount[this.currentSelectedService].appointmentTimeSlotForLabel=this.datePipe.transform(new Date(this.selecteddate+" "+this.selectedTimeSlot),"hh:mm a");
     this.serviceCartArr[this.currentSelectedService]=this.serviceCount[this.currentSelectedService]
     //alert(JSON.stringify(this.selecteddate));
     //alert(JSON.stringify(this.serviceCartArr[this.currentSelectedService])); 
@@ -1109,7 +1130,7 @@ export class FrontbookingComponent implements OnInit {
       "discount" : this.serviceMainArr.discount,
       "nettotal" : this.serviceMainArr.netCost,
       "payment_method" : this.paymentMethod,
-      "order_date": currentDateTime
+      "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd")
       };
       console.log(JSON.stringify(requestObject));
       
