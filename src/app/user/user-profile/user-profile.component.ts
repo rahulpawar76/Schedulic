@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthenticationService } from '@app/_services';
 
+import {MatSnackBar} from '@angular/material/snack-bar';
 export interface DialogData {
   animal: string;
   name: string;
@@ -34,6 +35,7 @@ export class UserProfileComponent implements OnInit {
     private _formBuilder:FormBuilder,
     public dialog: MatDialog, 
     private http: HttpClient,
+    private _snackBar: MatSnackBar,
     private authenticationService : AuthenticationService,
     ){
       this.userId=this.authenticationService.currentUserValue.user_id
@@ -109,7 +111,20 @@ onSubmit(event){
   fnuserprofilesubmit(updatedprofiledata){
     this.userService.updateUserProfileData(updatedprofiledata).subscribe((response:any) => 
     {
-        this.profiledata = response.response;
+      if(response.data==true){
+        this._snackBar.open("Profile Updated", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.getUserProfileData();
+      }else{
+        this._snackBar.open("Profile Not Updated", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+      }
       },
       (err) => {
         this.error = err;

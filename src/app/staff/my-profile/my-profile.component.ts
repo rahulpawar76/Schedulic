@@ -7,6 +7,7 @@ import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { StaffService } from '../_services/staff.service'
 import { AuthenticationService } from '@app/_services';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface DialogData {
   animal: string;
@@ -35,7 +36,8 @@ export class MyProfileComponent implements OnInit {
     public dialog: MatDialog, private http: HttpClient,
     private StaffService: StaffService,
     private _formBuilder: FormBuilder,
-    private authenticationService:AuthenticationService
+    private authenticationService:AuthenticationService,
+    private _snackBar: MatSnackBar
     ) { 
       this.staffId=JSON.stringify(this.authenticationService.currentUserValue.user_id);
     }
@@ -86,7 +88,21 @@ export class MyProfileComponent implements OnInit {
   }
   fnprofilesubmit(updatedprofiledata){
     this.StaffService.fnprofilesubmit(updatedprofiledata).subscribe((response:any) => {
-      this.profiledata = response.response;
+      if(response.status == true){
+         this._snackBar.open("Profile Updated", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+         this.getProfiledata();
+      }else{
+         this._snackBar.open("Profile Not Updated", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+      }
+      
     },
       (err) => {
         this.error = err;

@@ -6,7 +6,7 @@
             <div class="d-flex flex-wrap text-white cal-icon-main">
                 <img mat-card-avatar class="customer-profile-img text-center mr-2" src="../../assets/images/calendar-work-space.png">
                 <div class="beside-icon">
-                	<h4 class="">11 SEP 2019</h4>
+                	<h4 class="">{{todayDate}}</h4>
                 	<h1 class="">Today</h1>
                 </div>	
             </div>
@@ -16,7 +16,7 @@
                     <div *ngFor="let todayAppointmentData of todayAppointmentData; let i=index" class="customer-background single-booking pb-2 left-time-main" [ngClass]="{'active':activeBooking === i}" (click)="fnBookingActive(i)">
                         <span>{{todayAppointmentData.booking_time}}</span>
                         <div class="pl-3 pt-3">
-                            <p class="mb-0 work-space-font">16 hours ago</p>
+                            <p class="mb-0 work-space-font">In {{todayAppointmentData.timeToService}} hours</p>
                             <h5>{{todayAppointmentData.service.service_name}}</h5>
                         </div>
                         <div class="d-flex flex-wrap pl-3">
