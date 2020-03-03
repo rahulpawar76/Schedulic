@@ -10,8 +10,8 @@
                     <mat-menu></mat-menu>
                         <p>Resource Management</p>
                         <div class="matlist pointer menuitem">
-                            <mat-list-item role="listitem" (click)="fnappointmentReport()"><i class="fa fa-clone saleschart"></i>Services</mat-list-item>
-                            <mat-list-item role="listitem" (click)="fnsalesReport()"><i class="fa fa-thumb-tack saleschart"></i>Staff</mat-list-item>
+                            <mat-list-item role="listitem" (click)="fnappointmentReport()"><i class="fa fa-clone servicechart"></i>Services</mat-list-item>
+                            <mat-list-item role="listitem" (click)="fnsalesReport()"><i class="fa fa-thumb-tack servicechart"></i>Staff</mat-list-item>
                         </div>
                 </mat-list>
             </mat-drawer>
@@ -22,7 +22,7 @@
                             <mat-menu></mat-menu>
                             <div  class="pl-2 bottom-border d-flex">
                                 <h5 class="ml-2">Category (1)</h5>
-                                <i class="material-icons note-icon">add_circle</i>
+                                <i class="material-icons add-icon">add_circle</i>
                             </div>
                             
                             <div class="services-matlist pointer services-menuitem">
@@ -34,8 +34,8 @@
                     </mat-drawer>
                     
                     <mat-drawer-content>
-                      
-                       <div class="" *ngIf="servicesList">
+                       
+                        <div class="" *ngIf="servicesList">
                             <div class="Customer-appointment-table">
                                 <div class="main-table-content main-cust-table-content">
                                     <div class="">
@@ -50,7 +50,7 @@
                                         </div>
                                         <div class="content" class="example-list" cdkDropList (cdkDropListDropped)="drop($event)">
                                             <div  class="example-box" *ngFor="let allServicesList of allServicesList; let i=index" cdkDrag fxLayout="row">
-                                                <div class="" fxFlex="30">Service</div>
+                                                <div class="" fxFlex="30">{{allServicesList.service_name}}</div>
                                                 <div class="" fxFlex="10">Duration</div>
                                                 <div class="" fxFlex="10">price</div>
                                                 <div class="" fxFlex="10">Unit</div>
@@ -60,37 +60,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <table class="table">
-                                        <thead class="main-heading-content">
-                                            <tr>
-                                                <th scope="col">Service</th>
-                                                <th scope="col">Duration</th>
-                                                
-                                                <th scope="col">price</th>                            
-                                                <th scope="col">Unit</th>
-                                                <th scope="col">Visibility</th>
-                                                <th scope="col">Status</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="example-list" cdkDropList (cdkDropListDropped)="drop($event)">
-                                            <tr class="example-box" *ngFor="let allServicesList of allServicesList; let i=index" cdkDrag>
-                                                <td scope="row">
-                                                    <p class="mb-0">sad</p>
-                                                    <p>Buffer Time :20 mins</p>
-                                                </td>
-                                                <td>30 mins</td>
-                                                <td>$.50.00</td>
-                                                <td>1</td>
-                                                <td>Public</td>
-                                                <td><mat-slide-toggle></mat-slide-toggle></td>
-                                                <td cdkDragHandle class="handler"><i class="fa fa-arrows" aria-hidden="true"></i></td>
-                                            </tr>
-                                        </tbody>
-                                    </table> -->
+                                   
                                 </div>
                             </div> 
-                       </div>
+                       </div> 
+                       
                      <div  id="All_category" *ngIf="!servicesList" class="mb-0 w-100 ">
                         <mat-card class="m-0">
                             <div class="row">
@@ -101,8 +75,8 @@
                             <div class="row"> 
                                 <div class="col-lg-6 col-6 col-md-4 d-flex">
                                     <div class="ml-3 justify-content-center">
-                                        <div class="customer-profile-background mr-3 mt-5">
-                                            <img src="/assets/images/admin/picture.png" class="profile-image">
+                                        <div class="services-customer-profile-background mr-3 mt-5">
+                                            <img src="/assets/images/admin/picture.png" class="service-profile-image">
                                         </div>
                                     </div>
                                     <div class="">
@@ -120,14 +94,14 @@
                                 </div>    
                             </div>
 
-                            <div class="statustoggle">
+                            <div class="service-statustoggle">
                                 <p><mat-slide-toggle>Status</mat-slide-toggle></p>
                                 <p><mat-slide-toggle>Private</mat-slide-toggle></p>
                             </div>
 
                        
                             <div class="row"> 
-                                <div class="action-btn">
+                                <div class="service-action-btn">
                                     <div class="mx-2">
                                         <button (click)="fnCancelNewCustomer()" mat-button appearance="fill" class="service-cancel-btn">Cancel</button>
                                     </div>
@@ -229,7 +203,7 @@
                            </div> 
                            
                            </div>
-                            <div class="Customer-appointment-table">
+                            <div class="Salon-Listing-table">
                                    <div class="main-table-content main-cust-table-content">
                                        <table class="table">
                                
@@ -309,7 +283,7 @@
                                 <div class="col-lg-6 col-6 col-md-4 d-flex">
                                     <div class="ml-3 justify-content-center">
                                         <div class="customer-profile-background mr-3 mt-5">
-                                            <img src="/assets/images/admin/picture.png" class="profile-image">
+                                            <img src="/assets/images/admin/picture.png" class="service-profile-image">
                                         </div>
                                     </div>
                                     <div class="">
@@ -350,7 +324,7 @@
                                                 <input matInput placeholder="">  
                                             </mat-form-field>   
                                         </div>
-                                        <div class="statustoggle">
+                                        <div class="service-statustoggle">
                                             <p><mat-slide-toggle>Status</mat-slide-toggle></p>
                                             <p><mat-slide-toggle>Private</mat-slide-toggle></p>
                                         </div> 
@@ -359,7 +333,7 @@
                             </div>   
                        
                             <div class="row"> 
-                                <div class="action-btn">
+                                <div class="service-action-btn">
                                     <div class="mx-2">
                                         <button (click)="fnCancelNewCustomer()" mat-button appearance="fill" class="service-cancel-btn">Cancel</button>
                                     </div>
