@@ -410,7 +410,7 @@ export class DialogAddNewAppointment {
       map((res) => {
         return res;
       }),
-      catchError(this.handleError)
+      //catchError(this.handleError)
     ).subscribe((response:any) => {
       if(response.data == true){
         this.availableStaff = response.response;
