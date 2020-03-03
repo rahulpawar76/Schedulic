@@ -731,3 +731,68 @@ i{
  width: 18%;
 }
 }   
+.active_booking{
+    color: #fff;
+    background-color: #007bff;
+    transform: scale(1.06);
+    z-index: 1;
+    box-shadow: 0 9px 6px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    padding: 20px 0;
+    left: 36px;
+    width: calc(100% - 40px);
+    border-radius: 4px;
+    &:before{
+        left: -34px;
+    }
+    .left-font{
+        left:-50px !important;
+    }
+    .work-space-font{
+        color:#fff !important;
+    }
+    i{
+        color:#fff !important;
+    }
+    .active-btns{
+        display: block;
+    }
+    .Time{
+        width: 22%;
+    }
+    .customer-name{
+        width: 33%;
+    }
+    .service-person{
+        width: 25%;
+    }
+    .money{
+        width: 20%;
+    }
+    .Reschedulebtn{
+        border: 1px solid white;
+        border-radius: 50px;
+        font-size: 12px;
+        line-height: 2;
+        color: white;
+        padding: 0px 22px;
+    }
+    .accept-btn{
+        background-color: white;
+        color:  #487ffd;
+    }
+    .reschedulebtn-width{
+        width: 22%;
+    }
+    .cancelbtn-width{
+        width: 60%;
+    }
+    .acceptbtn-width{
+        width: 18%;
+    }
+    .line{
+        display: none;
+    }
+}
+.active-btns{
+    display: none;
+}

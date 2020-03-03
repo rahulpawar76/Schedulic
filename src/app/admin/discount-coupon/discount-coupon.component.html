@@ -1,5 +1,6 @@
 
 <div class="" id="Discount-Coupon" style="margin-top: 70px;">
+  <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif"/></div>
     <div *ngIf="couponCodeListing" class="row mx-0">
         <div class="col-12">
             <div class="d-flex mb-1">
@@ -183,70 +184,28 @@
         <mat-icon matPrefix>search</mat-icon>
       </mat-form-field>
 
-      <mat-accordion>
-        <mat-expansion-panel>
+      <mat-accordion class="select-service-accordian">
+        <mat-expansion-panel *ngFor="let categoryServiceList of categoryServiceList; let i=index">
           <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-checkbox>Salon</mat-checkbox> 
+            <mat-panel-title class="service-title">
+              <mat-checkbox>{{categoryServiceList.category_title}}</mat-checkbox> 
             </mat-panel-title>
           </mat-expansion-panel-header>
-      
-            <div><mat-checkbox>Service Name</mat-checkbox> </div>
-            <mat-checkbox>Service Name</mat-checkbox> 
-            <mat-expansion-panel>
+            <!-- <div class="py-3">
+              <mat-checkbox>SubCategory Name</mat-checkbox> 
+            </div> -->
+            <mat-expansion-panel  class="my-3" *ngFor="let subcategoryList of categoryServiceList.subcategory; let i=index">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  <mat-checkbox>Category Name</mat-checkbox> 
+                  <mat-checkbox>{{subcategoryList.sub_category_name}}</mat-checkbox> 
                 </mat-panel-title>
               </mat-expansion-panel-header>
-          
-                <mat-checkbox>Service Name</mat-checkbox> 
-                <mat-checkbox>Service Name</mat-checkbox> 
-          
+              <div *ngFor="let serviceList of subcategoryList.services; let i=index" class="py-3">
+                <mat-checkbox (change)="fnCheckService($event.checked,serviceList.id)">{{serviceList.service_name}}</mat-checkbox> 
+              </div>
             </mat-expansion-panel>
         </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-checkbox>Hair</mat-checkbox> 
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-            <div><mat-checkbox>Hair Color</mat-checkbox> </div>
-            <div><mat-checkbox>Hair Cut</mat-checkbox> </div>
-            <div><mat-checkbox>Hair Spa</mat-checkbox> </div>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-checkbox>Home Cleaning</mat-checkbox> 
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-            <div><mat-checkbox>Floor Cleaning</mat-checkbox> </div>
-            <div><mat-checkbox>Kitchen Cleaning</mat-checkbox> </div>
-            <div><mat-checkbox>Sofa Cleaning</mat-checkbox> </div>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-checkbox>Plumbing</mat-checkbox> 
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div class="mat-sub-expansion">
-            <div><mat-checkbox>Floor Cleaning</mat-checkbox> </div>
-            <div><mat-checkbox>Kitchen Cleaning</mat-checkbox> </div>
-            <div><mat-checkbox>Sofa Cleaning</mat-checkbox> </div>
-          </div>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-checkbox>Pest Control</mat-checkbox> 
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-            <div><mat-checkbox>Floor Cleaning</mat-checkbox> </div>
-            <div><mat-checkbox>Kitchen Cleaning</mat-checkbox> </div>
-            <div><mat-checkbox>Sofa Cleaning</mat-checkbox> </div>
-        </mat-expansion-panel>
+       
         <!-- <mat-expansion-panel (opened)="panelOpenState = true"
                              (closed)="panelOpenState = false">
           <mat-expansion-panel-header>

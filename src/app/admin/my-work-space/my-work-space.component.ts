@@ -47,6 +47,7 @@ export class MyWorkSpaceComponent implements OnInit {
   revenue:any;
   selectedCategoryId:any;
   selectedCategoryName:any;
+  activeBooking: any;
   selectedStatus:any;
   constructor(
     public dialog: MatDialog,
@@ -78,6 +79,7 @@ export class MyWorkSpaceComponent implements OnInit {
   {
     if(response.data == true){
       this.appointments=response.response;
+      this.activeBooking = 0;
       
       this.appointments.forEach( (element) => {
           var todayDateTime = new Date();
@@ -127,6 +129,8 @@ export class MyWorkSpaceComponent implements OnInit {
   }
 
 fnOnClickAppointment(i){
+  
+  this.activeBooking = i;
       this.appointmentDetails.id=this.appointments[i].id;
       this.appointmentDetails.serviceId=this.appointments[i].service_id;
       this.appointmentDetails.staffId=this.appointments[i].staff_id;
