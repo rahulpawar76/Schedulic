@@ -347,80 +347,37 @@
                     </div>
                   </div>
                   <div id="customer_report" *ngIf="customerReport">
-                  <div class=" pl-0 pr-0 " id="Customer-Listing">
-                    <p class="mb-0 ">24 Oct 2019 </p>
-                    <p class="mb-0 custreports">Customer Reports</p>
-                   </div>
-                  <div class="Customer-appointment-table">
-                    <mat-card class="main-table-content main-cust-table-content">
-                      <table class="table">
-                       
-                          <thead class="main-heading-content">
-                            <tr>
-                              <th scope="col">REGISTRATION DATE</th>  
-                              <th scope="col">REGISTRATION BY</th>        
-                              <th scope="col">CUSTOMER</th>
-                              <th scope="col">PHONE NO</th>
-                              <th scope="col">EMAIL</th>                            
-                              
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td scope="row"><p class="mb-0">24 Oct 2019</p></td>
-                              <td>Admin</td>
-                              <td>Shab Patel</td>
-                              <td>1234567890</td>
-                              <td>shabpatel@gmail.com</td>
-                            </tr>
-                  
-                            <tr>
-                              <td scope="row"><p class="mb-0">24 Oct 2019</p></td>
-                              <td>Admin</td>
-                              <td>Shab Patel</td>
-                              <td>1234567890</td>
-                              <td>shabpatel@gmail.com</td>
-                            </tr>
-                  
-                            <tr>
-                              <td scope="row"><p class="mb-0">24 Oct 2019</p></td>
-                              <td>Admin</td>
-                              <td>Shab Patel</td>
-                              <td>1234567890</td>
-                              <td>shabpatel@gmail.com</td>
-                            </tr>
-                  
-                            <tr>
-                              <td scope="row"><p class="mb-0">24 Oct 2019</p></td>
-                              <td>Admin</td>
-                              <td>Shab Patel</td>
-                              <td>1234567890</td>
-                              <td>shabpatel@gmail.com</td>
-                            </tr>
-                  
-                            <tr>
-                              <td scope="row"><p class="mb-0">24 Oct 2019</p></td>
-                              <td>Admin</td>
-                              <td>Shab Patel</td>
-                              <td>1234567890</td>
-                              <td>shabpatel@gmail.com</td>
-                            </tr>
-                  
-                            <tr>
-                             <td scope="row"><p class="mb-0">24 Oct 2019</p></td>
-                              <td>Admin</td>
-                              <td>Shab Patel</td>
-                              <td>1234567890</td>
-                              <td>shabpatel@gmail.com</td>
-                            </tr>
-                         
-                          </tbody>
-                        </table>
-                        </mat-card>
-                  </div>
+                    <div class=" pl-0 pr-0 " id="Customer-Listing">
+                      <p class="mb-0 ">24 Oct 2019 </p>
+                      <p class="mb-0 custreports">Customer Reports</p>
+                    </div>
+                    <div class="Customer-appointment-table">
+                      <mat-card class="main-table-content main-cust-table-content">
+                        <table class="table">
+                        
+                            <thead class="main-heading-content">
+                              <tr>
+                                <th scope="col">REGISTRATION DATE</th>  
+                                <th scope="col">REGISTRATION BY</th>        
+                                <th scope="col">CUSTOMER</th>
+                                <th scope="col">PHONE NO</th>
+                                <th scope="col">EMAIL</th>                            
+                                
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr  *ngFor="let CustomerReportsList of CustomerReportsList; let i=index">
+                                <td scope="row"><p class="mb-0">24 Oct 2019</p></td>
+                                <td>Admin</td>
+                                <td>Shab Patel</td>
+                                <td>1234567890</td>
+                                <td>shabpatel@gmail.com</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          </mat-card>
+                    </div>
                 </div>
-                  
-
             </mat-drawer-content>
           </mat-drawer-container>
 

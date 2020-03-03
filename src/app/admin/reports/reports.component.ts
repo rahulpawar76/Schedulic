@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
+import { AdminService } from '../_services/admin-main.service'
+
 
 interface Food {
   value: string;
@@ -16,8 +18,11 @@ export class ReportsComponent implements OnInit {
   appointmentReport : boolean = true;
   salesReport : boolean = false;
   customerReport : boolean = false;
+  
+  AllCustomerReportsList:any;
+  CustomerReportsList:any;
 
-  constructor(public router: Router) { }
+  constructor(public router: Router,private AdminService: AdminService) { }
   
 
   ngOnInit() {
@@ -43,5 +48,20 @@ export class ReportsComponent implements OnInit {
     this.appointmentReport = false;
     this.salesReport = false;
     this.customerReport = true;
+
+    this.AdminService.fncustomerReport().subscribe((response:any) => {
+      if(response.data == true){
+        this.AllCustomerReportsList = response.response
+        console.log(this.AllCustomerReportsList);
+        if(this.AllCustomerReportsList != ''){
+          this.CustomerReportsList = true;
+        }else if(this.AllCustomerReportsList == ''){
+          this.CustomerReportsList = false;
+        }
+      }
+      else if(response.data == false){
+       this.AllCustomerReportsList = '';
+      }
+    })
   }
 }
