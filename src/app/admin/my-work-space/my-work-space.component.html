@@ -35,7 +35,7 @@
 
 <div class="" id="category">		
 	<div class="row flex-content-center">
-			<mat-card class="col-lg-3 col-12 col-md-6 border-8 p-0">
+			<mat-card id="all-category-list" class="col-lg-3 col-12 col-md-6 border-8 p-0">
 				<div>
 					<ul>
 					<li class="bottom-border plr-25">
@@ -139,9 +139,9 @@
 			                            <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'AC'">Accepted</p>
 			                            <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'OW'">On The Way</p>
 			                            <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'WS'">Work Started</p>
-			                            <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'RSA'">Rescheduled By Admin</p>
-			                            <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'RSS'">Rescheduled By Staff</p>
-			                            <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'RSC'">Rescheduled By Client</p>
+			                            <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'RSA'">Rescheduled</p>
+			                            <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'RSS'">Rescheduled</p>
+			                            <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'RSC'">Rescheduled</p>
 			                            <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'ITR'">Intrupted</p>
 			                            <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'C'">Cancelled</p>
 			                            <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'CC'">Cancelled by Client</p>
@@ -186,7 +186,7 @@
 		        	</div>
 				</div>
 			</mat-card>
-			<mat-card class="col-lg-3 col-12 col-md-6 border-8 p-0" *ngIf="appointments.length>0">
+			<mat-card id="appo_detail" class="col-lg-3 col-12 col-md-6 border-8 p-0" *ngIf="appointments.length>0">
 				<div id="Appoinment-Details">
 					<div class="plr-25 bottom-border">
 				        <p class="fs-1rem title-main">Appoinment Details</p>
