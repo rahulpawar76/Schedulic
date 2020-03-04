@@ -121,6 +121,16 @@ export class MyWorkSpaceComponent implements OnInit {
         this.appointmentDetails.staffName=this.appointments[0].staff.firstname+" "+this.appointments[0].staff.lastname;
       }
       this.appointmentDetails.customerName=this.appointments[0].customer.fullname;
+      // var splitted = this.appointmentDetails.customerName.split(" ");
+      // this.appointmentDetails.initials='';
+      // splitted.forEach( (element) => {
+      //   this.appointmentDetails.initials=this.appointmentDetails.initials+element.charAt(0);
+      // });
+      var str = this.appointmentDetails.customerName;
+      var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
+      this.appointmentDetails.initials = matches.join(''); // JSON
+
+
       this.appointmentDetails.customerEmail=this.appointments[0].customer.email;
       this.appointmentDetails.customerPhone=this.appointments[0].customer.phone;
       this.appointmentDetails.customerAddress=this.appointments[0].customer.address+" "+this.appointments[0].customer.city+" "+this.appointments[0].customer.state+" "+this.appointments[0].customer.zip;
@@ -158,6 +168,14 @@ export class MyWorkSpaceComponent implements OnInit {
           this.appointmentDetails.staffName=this.appointments[i].staff.firstname+" "+this.appointments[i].staff.lastname;
         }
         this.appointmentDetails.customerName=this.appointments[i].customer.fullname;
+        /*var splitted = this.appointmentDetails.customerName.split(" ");
+        this.appointmentDetails.initials='';
+        splitted.forEach( (element) => {
+          this.appointmentDetails.initials=this.appointmentDetails.initials+element.charAt(0);
+        });*/
+        var str = this.appointmentDetails.customerName;
+        var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
+        this.appointmentDetails.initials = matches.join(''); // JSON
         this.appointmentDetails.customerEmail=this.appointments[i].customer.email;
         this.appointmentDetails.customerPhone=this.appointments[i].customer.phone;
         this.appointmentDetails.customerAddress=this.appointments[i].customer.address+" "+this.appointments[i].customer.city+" "+this.appointments[i].customer.state+" "+this.appointments[i].customer.zip;
@@ -265,17 +283,6 @@ export class MyWorkSpaceComponent implements OnInit {
     )
   }
   
- /* myworkspaceAccept() {
-    const dialogRef = this.dialog.open(myWorkSpaceAcceptDialog, {
-      width: '600px',
-      data: {appointmentDetails:this.appointmentDetails},
-    });
-
-     dialogRef.afterClosed().subscribe(result => {
-      this.fnGetAllAppointmentsByCategoryAndStatus();
-     });
-  }*/
-
   fnOnClickCategory(categoryId,categoryName){
     this.selectedCategoryId=categoryId;
     this.selectedCategoryName=categoryName;
@@ -370,140 +377,8 @@ export class MyWorkSpaceComponent implements OnInit {
         }
       })
     }
-
-  
-    /*fnCancelAppointment(){
-      let requestObject = {
-       "order_item_id":JSON.stringify(this.appointmentDetails.id),
-       "status":"C"
-      };
-      this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
-        if(response.data == true){
-          this._snackBar.open("Appointment Cancelled", "X", {
-            duration: 2000,
-            verticalPosition:'top',
-            panelClass :['green-snackbar']
-            });
-          this.fnGetAllAppointmentsByCategoryAndStatus();
-        }
-        else if(response.data == false){
-          this._snackBar.open("Appointment not Cancelled", "X", {
-            duration: 2000,
-            verticalPosition:'top',
-            panelClass :['red-snackbar']
-            });
-        }
-      })
-    }*/
-
-}
-
-
-
-/*@Component({
-  selector: 'myworkspace-accept',
-  templateUrl: '../_dialogs/myworkspace-accept-dialog.html',
-})
-export class myWorkSpaceAcceptDialog {
-  appointmentDetails:any;
-  constructor(
-    public dialogRef: MatDialogRef<myWorkSpaceAcceptDialog>,
-    public dialog: MatDialog,
-    public adminService: AdminService,
-      private _snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.appointmentDetails=this.data.appointmentDetails;
-    console.log(JSON.stringify(this.appointmentDetails));
-    }
-  
-    rescheduleAppointment(){
-      const dialogRef = this.dialog.open(InterruptedReschedule, {
-        height: '700px',
-        data : {appointmentDetails: this.appointmentDetails}
-      });
-        
-      dialogRef.afterClosed().subscribe(result => {
-        this.dialogRef.close();
-      });
-    }
-  
-    fnConfirmAppointment(){
-      let requestObject = {
-       "order_item_id":JSON.stringify(this.appointmentDetails.id),
-       "status":"CNF"
-      };
-      this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
-        if(response.data == true){
-          this._snackBar.open("Appointment Confirmed", "X", {
-            duration: 2000,
-            verticalPosition:'top',
-            panelClass :['green-snackbar']
-            });
-            this.dialogRef.close();
-        }
-        else if(response.data == false){
-          this._snackBar.open("Appointment not Confirmed", "X", {
-            duration: 2000,
-            verticalPosition:'top',
-            panelClass :['red-snackbar']
-            });
-        }
-      })
-    }
-  
-    fnCompleteAppointment(){
-      let requestObject = {
-       "order_item_id":JSON.stringify(this.appointmentDetails.id),
-       "status":"CO"
-      };
-      this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
-        if(response.data == true){
-          this._snackBar.open("Appointment Completed", "X", {
-            duration: 2000,
-            verticalPosition:'top',
-            panelClass :['green-snackbar']
-            });
-            this.dialogRef.close();
-        }
-        else if(response.data == false){
-          this._snackBar.open("Appointment not Completed", "X", {
-            duration: 2000,
-            verticalPosition:'top',
-            panelClass :['red-snackbar']
-            });
-        }
-      })
-    }
-  
-    fnCancelAppointment(){
-      let requestObject = {
-       "order_item_id":JSON.stringify(this.appointmentDetails.id),
-       "status":"C"
-      };
-      this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
-        if(response.data == true){
-          this._snackBar.open("Appointment Cancelled", "X", {
-            duration: 2000,
-            verticalPosition:'top',
-            panelClass :['green-snackbar']
-            });
-            this.dialogRef.close();
-        }
-        else if(response.data == false){
-          this._snackBar.open("Appointment not Cancelled", "X", {
-            duration: 2000,
-            verticalPosition:'top',
-            panelClass :['red-snackbar']
-            });
-        }
-      })
-    }
-  
-  onNoClick(): void {
-    this.dialogRef.close();
   }
-  
-}*/
+
 
 @Component({
     selector: 'interrupted-reschedule-dialog',
@@ -624,11 +499,6 @@ export class myWorkSpaceAcceptDialog {
       return false;
     }
 
-    // console.log(this.appointmentDetails.order_id);
-    // console.log(this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value),"yyyy-MM-dd"));
-    // console.log(this.formAppointmentRescheduleAdmin.get('rescheduleTime').value);
-    // console.log(this.formAppointmentRescheduleAdmin.get('rescheduleStaff').value);
-    // console.log(this.formAppointmentRescheduleAdmin.get('rescheduleNote').value);
     let requestObject = {
      "order_item_id":JSON.stringify(this.appointmentDetails.id),
      "staff_id":this.formAppointmentRescheduleAdmin.get('rescheduleStaff').value,
