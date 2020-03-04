@@ -8,6 +8,7 @@ import { MaterialModule } from '@app/_helpers/material.module';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { AdminSettingsRoutingModule } from './settings-routing.module';
 import { ServicesComponent } from './services/services.component';
+import { DataTablesModule } from 'angular-datatables';
 
 import { SettingsComponent } from './settings.component';
 import { StaffComponent } from './staff/staff.component';
@@ -29,7 +30,8 @@ import { StaffComponent } from './staff/staff.component';
       ReactiveFormsModule,
       FormsModule,
       DragDropModule,
-      MatSidenavModule
+      MatSidenavModule,
+      DataTablesModule
   ],
   exports: [
     FormsModule

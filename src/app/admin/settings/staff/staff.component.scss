@@ -18,16 +18,167 @@
              margin-left: auto;
         }
     }
+    .payment-icon{
+        width: 24px;
+        height: 24px;
+        line-height: 1.5;
+        font-size: 14px;
+    }
     .add-staff{
         width: 100px;
         height: 100px;
         border-radius: 73px;
     }
-    .upload-btn{
+    .upload-document-top-margin{
+        margin-top: 30px;
+        .uploaddocument-icon{
+            line-height: 1.2;
+            padding-left: 5px;
+        }
+        .upload-files{
+            border: 2px dotted gray;
+            padding: 15px 15px;
+            .uploadfile-icon{
+                color: blue;
+                font-size: 30px;
+            }
+            .upload-btn{
+                width: 137px;
+                height: 35px;
+                border-radius: 17px;
+                background-color: #1173f4;
+                border: 2px solid #1173f4;
+                color: white;
+            }
+        }
+        .file-border{
+            border: 1px solid gray;
+            border-radius: 5px;
+        }
+        .pan-card{
+            width: 50%;
+        }
+        .adhar-card{
+            width: 50%;
+        }
+    }
+    .staff-delete-btn{
+        width: 100px;
+        height: 37px;
+        border-radius: 28px;
+        background-color: #ff0000;
+        color: white;
+        margin-left: auto;
+    }
+    ::ng-deep .mat-expansion-panel-body{
+        margin-left: 25px;
+        padding-bottom: 0px;
+        color: blue;
+    }
+    ::ng-deep .mat-checkbox{
+        color: blue;
+    }
+    ::ng-deep .mat-checkbox-layout{
+        margin-bottom: 0px;
+    }
+    ::ng-deep .mat-expansion-panel-header{
+        height: 25px !important;
+        background-color: #e8f2fe;
+        color: blue;
+    }
+    .staff-cancel-btn{
+        width: 128px;
+        height: 37px;
+        border-radius: 7px;
+        background-color: #dddddd;
+        margin-left: auto;
+    }
+    .staff-save-btn{
         width: 137px;
-        height: 35px;
-        border-radius: 17px;
+        height: 37px;
+        border-radius: 7px;
         background-color: #1173f4;
-        border: 2px solid #1173f4;
+    }
+   .staff-add-btn{
+        border-radius: 26px;
+        background-color: #1173f4;
+        color: white;
+        right: 50px;
+        z-index: 10;
+        position: absolute;
+        height: 35px;
+        width: 135px;
+        height: 37px;
+   }
+   .dropdown{
+    width: 30%;
+    }
+    
+    .searchbox{
+        margin-left: auto;
+        .search_input-staff{           
+            height: 39px; 
+            padding-top: 3px; 
+            .has-search .form-control {
+                padding-left: 2.375rem;
+                //width: 60%;
+                }
+                .has-search .form-control-feedback {
+                    position: absolute;
+                    z-index: 2;
+                    display: block;
+                    width: 2.375rem;
+                    height: 1rem;
+                    line-height: 2rem;
+                    text-align: center;
+                    pointer-events: none;
+                    color: black;
+                    .verticalLine{
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            top: 58%;
+                            right: 0;
+                            width: 1px;
+                            height: 100%;
+                            background: #dfc0c0;
+                    }
+                    } 
+                }
+                ::placeholder {         
+                    font-size: 12px;
+                }                        
+                .searchbox_staff{
+                    border-radius: 20px;
+                    height: 34px;
+                }          
+        }                   
+    }
+    .staff-profile-width{
+        width: 99px;
+        height: 99px;
+        border-radius: 49px;
+    }
+    .review-star{
+        color: #ffa801;
+        line-height: 1.4;
+    }
+    .staff-btn{
+        margin-left: auto;
+        height: max-content;
+        display: flex;
+        .staff-edit-btn{
+            width: 103px;
+            height: 37px;
+            border-radius: 21px;
+            background-color: #1173f4;
+            color: white;
+        }
+        .staff-delete-btn{
+            width: 129px;
+            height: 37px;
+            border-radius: 21px;
+            background-color: #c5c5c5;
+        }
     }
 }

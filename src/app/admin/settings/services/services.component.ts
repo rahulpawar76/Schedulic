@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 import { AuthenticationService } from '@app/_services';
-//import { AdminSettingsService } from '../_services/admin-settings.service'
+import { AdminSettingsService } from '../_services/admin-settings.service'
 
 @Component({
   selector: 'settings-services',
@@ -25,12 +25,11 @@ export class ServicesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-   // private adminSettingsService: AdminSettingsService,
+    private adminSettingsService: AdminSettingsService,
   ) { }
 
   ngOnInit() {
     this.fnAllCategory();
-    this.fnAllServices();
   }
 
   fnAllServices(){
