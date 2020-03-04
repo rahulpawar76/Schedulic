@@ -40,6 +40,7 @@ export class MyWorkSpaceComponent implements OnInit {
     booking_time_to: "",
     timeToService: "",
     categoryName: "",
+    initials: "",
     service_name: ""
   };
   categories:any=[];
@@ -47,7 +48,11 @@ export class MyWorkSpaceComponent implements OnInit {
   revenue:any;
   selectedCategoryId:any;
   selectedCategoryName:any;
+  activeBooking: any;
   selectedStatus:any;
+  todayDate:any;
+  availableStaff:any= [];
+  selectedStaff:any;
   constructor(
     public dialog: MatDialog,
      private http: HttpClient,
@@ -66,6 +71,7 @@ export class MyWorkSpaceComponent implements OnInit {
     this.businessId=localStorage.getItem('business_id');
     this.fnGetAllCategories();
     this.fnGetTodayRevenue();
+    this.todayDate = this.datePipe.transform(new Date(),"dd MMM yyyy")
   }
 
   fnGetAllAppointmentsByCategoryAndStatus(){
@@ -78,6 +84,7 @@ export class MyWorkSpaceComponent implements OnInit {
   {
     if(response.data == true){
       this.appointments=response.response;
+      this.activeBooking = 0;
       
       this.appointments.forEach( (element) => {
           var todayDateTime = new Date();
@@ -111,11 +118,28 @@ export class MyWorkSpaceComponent implements OnInit {
       this.appointmentDetails.timeToService=this.appointments[0].timeToService;
       this.appointmentDetails.order_by=this.appointments[0].order_by;
       this.appointmentDetails.order_status=this.appointments[0].order_status;
-      this.appointmentDetails.staffName=this.appointments[0].staff.firstname+" "+this.appointments[0].staff.lastname;
+      if(this.appointments[0].staff){
+        this.appointmentDetails.staffName=this.appointments[0].staff.firstname+" "+this.appointments[0].staff.lastname;
+      }
       this.appointmentDetails.customerName=this.appointments[0].customer.fullname;
+      // var splitted = this.appointmentDetails.customerName.split(" ");
+      // this.appointmentDetails.initials='';
+      // splitted.forEach( (element) => {
+      //   this.appointmentDetails.initials=this.appointmentDetails.initials+element.charAt(0);
+      // });
+      var str = this.appointmentDetails.customerName;
+      var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
+      this.appointmentDetails.initials = matches.join(''); // JSON
+
+
       this.appointmentDetails.customerEmail=this.appointments[0].customer.email;
       this.appointmentDetails.customerPhone=this.appointments[0].customer.phone;
       this.appointmentDetails.customerAddress=this.appointments[0].customer.address+" "+this.appointments[0].customer.city+" "+this.appointments[0].customer.state+" "+this.appointments[0].customer.zip;
+      if(this.appointmentDetails.order_status == "CNF" && this.appointments[0].staff_id == null){
+        this.selectedStaff=null;
+        this.availableStaff.length=0;
+        this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId);
+        }
     }else{
       this.appointments=[];
     }
@@ -126,26 +150,103 @@ export class MyWorkSpaceComponent implements OnInit {
   )
   }
 
-fnOnClickAppointment(i){
-      this.appointmentDetails.id=this.appointments[i].id;
-      this.appointmentDetails.serviceId=this.appointments[i].service_id;
-      this.appointmentDetails.staffId=this.appointments[i].staff_id;
-      this.appointmentDetails.booking_date=this.appointments[i].booking_date;
-      this.appointmentDetails.booking_time=this.appointments[i].booking_time;
-      this.appointmentDetails.created_at=this.appointments[i].created_at;
-      this.appointmentDetails.service_name=this.appointments[i].service.service_name;
-      this.appointmentDetails.categoryName=this.appointments[i].service.category_name;
-      this.appointmentDetails.total_cost=this.appointments[i].total_cost;
-      this.appointmentDetails.service_time=this.appointments[i].service_time;
-      this.appointmentDetails.booking_time_to=this.appointments[i].booking_time_to;
-      this.appointmentDetails.order_by=this.appointments[i].order_by;
-      this.appointmentDetails.order_status=this.appointments[i].order_status;
-      this.appointmentDetails.staffName=this.appointments[i].staff.firstname+" "+this.appointments[i].staff.lastname;
-      this.appointmentDetails.customerName=this.appointments[i].customer.fullname;
-      this.appointmentDetails.customerEmail=this.appointments[i].customer.email;
-      this.appointmentDetails.customerPhone=this.appointments[i].customer.phone;
-      this.appointmentDetails.customerAddress=this.appointments[i].customer.address+" "+this.appointments[i].customer.city+" "+this.appointments[i].customer.state+" "+this.appointments[i].customer.zip;
-}
+  fnOnClickAppointment(i){
+        this.activeBooking = i;
+        this.appointmentDetails.id=this.appointments[i].id;
+        this.appointmentDetails.serviceId=this.appointments[i].service_id;
+        this.appointmentDetails.staffId=this.appointments[i].staff_id;
+        this.appointmentDetails.booking_date=this.appointments[i].booking_date;
+        this.appointmentDetails.booking_time=this.appointments[i].booking_time;
+        this.appointmentDetails.created_at=this.appointments[i].created_at;
+        this.appointmentDetails.service_name=this.appointments[i].service.service_name;
+        this.appointmentDetails.categoryName=this.appointments[i].service.category_name;
+        this.appointmentDetails.total_cost=this.appointments[i].total_cost;
+        this.appointmentDetails.service_time=this.appointments[i].service_time;
+        this.appointmentDetails.booking_time_to=this.appointments[i].booking_time_to;
+        this.appointmentDetails.order_by=this.appointments[i].order_by;
+        this.appointmentDetails.order_status=this.appointments[i].order_status;
+        if(this.appointments[i].staff){
+          this.appointmentDetails.staffName=this.appointments[i].staff.firstname+" "+this.appointments[i].staff.lastname;
+        }
+        this.appointmentDetails.customerName=this.appointments[i].customer.fullname;
+        /*var splitted = this.appointmentDetails.customerName.split(" ");
+        this.appointmentDetails.initials='';
+        splitted.forEach( (element) => {
+          this.appointmentDetails.initials=this.appointmentDetails.initials+element.charAt(0);
+        });*/
+        var str = this.appointmentDetails.customerName;
+        var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
+        this.appointmentDetails.initials = matches.join(''); // JSON
+        this.appointmentDetails.customerEmail=this.appointments[i].customer.email;
+        this.appointmentDetails.customerPhone=this.appointments[i].customer.phone;
+        this.appointmentDetails.customerAddress=this.appointments[i].customer.address+" "+this.appointments[i].customer.city+" "+this.appointments[i].customer.state+" "+this.appointments[i].customer.zip;
+        if(this.appointmentDetails.order_status == "CNF" && this.appointments[0].staff_id == null){
+        this.selectedStaff=null;
+        this.availableStaff.length=0;
+          this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId);
+        }
+        
+  }
+
+  fnGetStaff(booking_date,booking_time,serviceId){
+    let requestObject = {
+      "business_id":this.businessId,
+      "service_id":JSON.stringify(serviceId),
+      "book_date":this.datePipe.transform(new Date(booking_date),"yyyy-MM-dd"),
+      "book_time":booking_time
+    };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    this.http.post(`${environment.apiUrl}/service-staff`,requestObject,{headers:headers} ).pipe(
+    map((res) => {
+      return res;
+    }),
+    //catchError(this.handleError)
+    ).subscribe((response:any) => {
+      if(response.data == true){
+        this.availableStaff = response.response;
+        console.log(JSON.stringify(this.availableStaff));
+      }
+      else{
+        this.availableStaff.length=0;
+      }
+    },
+    (err) =>{
+      console.log(err)
+    })
+  }
+
+  fnOnClickStaff(event){
+    alert(event.value);
+    let requestObject = {
+      "order_item_id":this.appointmentDetails.id,
+      "staff_id":event.value
+      };
+    this.adminService.assignStaffToOrder(requestObject).subscribe((response:any) => 
+    {
+      alert(JSON.stringify(response));
+      if(response.data == true){
+          this._snackBar.open("Staff Assigned", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+            });
+          this.fnGetAllAppointmentsByCategoryAndStatus();
+        }
+        else if(response.data == false){
+          this._snackBar.open("Staff not Assigned", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+            });
+        }
+    },
+    (err) => {
+      this.error = err;
+    })
+  }
 
   fnGetAllCategories(){
     let requestObject = {
@@ -183,17 +284,6 @@ fnOnClickAppointment(i){
     )
   }
   
-  myworkspaceAccept() {
-    const dialogRef = this.dialog.open(myWorkSpaceAcceptDialog, {
-      width: '600px',
-      data: {appointmentDetails:this.appointmentDetails},
-    });
-
-     dialogRef.afterClosed().subscribe(result => {
-      this.fnGetAllAppointmentsByCategoryAndStatus();
-     });
-  }
-
   fnOnClickCategory(categoryId,categoryName){
     this.selectedCategoryId=categoryId;
     this.selectedCategoryName=categoryName;
@@ -217,40 +307,79 @@ fnOnClickAppointment(i){
     });
   }
 
-}
-
-
-
-@Component({
-  selector: 'myworkspace-accept',
-  templateUrl: '../_dialogs/myworkspace-accept-dialog.html',
-})
-export class myWorkSpaceAcceptDialog {
-  appointmentDetails={}
-  constructor(
-    public dialogRef: MatDialogRef<myWorkSpaceAcceptDialog>,
-    public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.appointmentDetails=this.data.appointmentDetails;
-    console.log(JSON.stringify(this.appointmentDetails));
+  fnConfirmAppointment(){
+      let requestObject = {
+       "order_item_id":JSON.stringify(this.appointmentDetails.id),
+       "status":"CNF"
+      };
+      this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+        if(response.data == true){
+          this._snackBar.open("Appointment Confirmed", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+            });
+          this.fnGetAllAppointmentsByCategoryAndStatus();
+        }
+        else if(response.data == false){
+          this._snackBar.open("Appointment not Confirmed", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+            });
+        }
+      })
     }
   
-    rescheduleAppointment(){
-      const dialogRef = this.dialog.open(InterruptedReschedule, {
-        height: '700px',
-        data : {appointmentDetails: this.appointmentDetails}
-      });
-        
-      dialogRef.afterClosed().subscribe(result => {
-        this.dialogRef.close();
-      });
+    fnCompleteAppointment(){
+      let requestObject = {
+       "order_item_id":JSON.stringify(this.appointmentDetails.id),
+       "status":"CO"
+      };
+      this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+        if(response.data == true){
+          this._snackBar.open("Appointment Completed", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+            });
+          this.fnGetAllAppointmentsByCategoryAndStatus();
+        }
+        else if(response.data == false){
+          this._snackBar.open("Appointment not Completed", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+            });
+        }
+      })
     }
   
-  onNoClick(): void {
-    this.dialogRef.close();
+    fnCancelAppointment(){
+      let requestObject = {
+       "order_item_id":JSON.stringify(this.appointmentDetails.id),
+       "status":"C"
+      };
+      this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+        if(response.data == true){
+          this._snackBar.open("Appointment Cancelled", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+            });
+          this.fnGetAllAppointmentsByCategoryAndStatus();
+        }
+        else if(response.data == false){
+          this._snackBar.open("Appointment not Cancelled", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+            });
+        }
+      })
+    }
   }
-  
-}
+
 
 @Component({
     selector: 'interrupted-reschedule-dialog',
@@ -335,7 +464,7 @@ export class myWorkSpaceAcceptDialog {
       fnGetStaff(selectedTimeSlot){
         let requestObject = {
           "business_id":this.businessId,
-          "service_id":8,
+          "service_id":JSON.stringify(this.appointmentDetails.serviceId),
           "book_date":this.selectedDate,
           "book_time":this.selectedTimeSlot
         };
@@ -371,11 +500,6 @@ export class myWorkSpaceAcceptDialog {
       return false;
     }
 
-    // console.log(this.appointmentDetails.order_id);
-    // console.log(this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value),"yyyy-MM-dd"));
-    // console.log(this.formAppointmentRescheduleAdmin.get('rescheduleTime').value);
-    // console.log(this.formAppointmentRescheduleAdmin.get('rescheduleStaff').value);
-    // console.log(this.formAppointmentRescheduleAdmin.get('rescheduleNote').value);
     let requestObject = {
      "order_item_id":JSON.stringify(this.appointmentDetails.id),
      "staff_id":this.formAppointmentRescheduleAdmin.get('rescheduleStaff').value,

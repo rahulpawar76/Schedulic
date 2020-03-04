@@ -10,6 +10,7 @@ import { AuthenticationService } from '@app/_services';
 
 export class UserService {
 	userId: any;
+	token: any;
   constructor(
 	private http: HttpClient,
 	private _snackBar: MatSnackBar,
@@ -17,6 +18,7 @@ export class UserService {
 	) { 
 
 		this.userId=this.authenticationService.currentUserValue.user_id
+		this.token=this.authenticationService.currentUserValue.token
 	}   
 
 
@@ -32,7 +34,8 @@ private handleError(error: HttpErrorResponse) {
 			};
 			let headers = new HttpHeaders({
 			'Content-Type': 'application/json',
-			"customer-id":JSON.stringify(this.userId)
+			"customer-id":JSON.stringify(this.userId),
+			"api-token":this.token
 			});
 			return this.http.post(`${environment.apiUrl}/customer-profile`,requestObject,{headers:headers}).pipe(
 			map((res) => {
@@ -45,15 +48,16 @@ private handleError(error: HttpErrorResponse) {
 	updateUserProfileData(updatedprofiledata) {
 			let headers = new HttpHeaders({
 			'Content-Type': 'application/json',
-			"customer-id":JSON.stringify(this.userId)
+			"customer-id":JSON.stringify(this.userId),
+			"api-token":this.token
 			});
 			return this.http.post(`${environment.apiUrl}/customer-profile-update`,updatedprofiledata,{headers:headers}).pipe(
 			map((res) => {
-			this._snackBar.open("Profile Updated", "X", {
-				duration: 2000,
-				verticalPosition:'top',
-				panelClass :['green-snackbar']
-			  });
+			// this._snackBar.open("Profile Updated", "X", {
+			// 	duration: 2000,
+			// 	verticalPosition:'top',
+			// 	panelClass :['green-snackbar']
+			//   });
 			return res;
 			}),
 			catchError(this.handleError));

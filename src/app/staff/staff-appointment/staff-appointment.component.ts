@@ -26,7 +26,8 @@ export interface DialogData {
 @Component({
   selector: 'app-staff-appointment',
   templateUrl: './staff-appointment.component.html',
-  styleUrls: ['./staff-appointment.component.scss']
+  styleUrls: ['./staff-appointment.component.scss'],
+  providers: [DatePipe]
 })
 export class StaffAppointmentComponent implements OnInit {
 	animal: any;
@@ -47,6 +48,7 @@ export class StaffAppointmentComponent implements OnInit {
     public dialog: MatDialog,
     private StaffService: StaffService,
     private _snackBar: MatSnackBar,
+    private datePipe: DatePipe
     
     ) { }
 
@@ -61,6 +63,18 @@ export class StaffAppointmentComponent implements OnInit {
     this.StaffService.getNewAppointment().subscribe((response:any) =>{
       if(response.data == true){
         this.newAppointmentData = response.response;
+        this.newAppointmentData.forEach( (element) => {
+          var todayDateTime = new Date();
+          element.booking_timeForLabel=element.booking_date+" "+element.booking_time;
+          var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_timeForLabel),"dd MMM yyyy hh:mm a"));
+          dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+          var temp = dateTemp.getTime() - todayDateTime.getTime();
+          element.timeToService=(temp/3600000).toFixed();
+          element.booking_timeForLabel=this.datePipe.transform(new Date(element.booking_timeForLabel),"hh:mm a")
+          element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+          element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
+          element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+        });
       }
       else if(response.data == false) {
         this.newAppointmentData = '';
@@ -71,6 +85,20 @@ export class StaffAppointmentComponent implements OnInit {
     this.StaffService.getCompletedAppointment().subscribe((response:any) =>{
       if(response.data == true){
         this.completedAppointmentData = response.response;
+        this.completedAppointmentData.forEach( (element) => {
+          var todayDateTime = new Date();
+          element.booking_timeForLabel=element.booking_date+" "+element.booking_time;
+          var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_timeForLabel),"dd MMM yyyy hh:mm a"));
+          dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+          var temp = dateTemp.getTime() - todayDateTime.getTime();
+          element.timeToService=(temp/3600000).toFixed();
+          element.booking_timeForLabel=this.datePipe.transform(new Date(element.booking_timeForLabel),"hh:mm a")
+          element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+          element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
+          element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+          element.updated_atDateForLabel=this.datePipe.transform(new Date(element.updated_at),"dd MMM yyyy")
+          element.updated_atTimeForLabel=this.datePipe.transform(new Date(element.updated_at),"hh:mm a")
+        });
       }
       else if(response.data == false) {
         this.completedAppointmentData = '';
@@ -81,6 +109,18 @@ export class StaffAppointmentComponent implements OnInit {
     this.StaffService.getOnGoingAppointment().subscribe((response:any) =>{
       if(response.data == true){
         this.onGoingAppointmentData = response.response;
+        this.onGoingAppointmentData.forEach( (element) => {
+          var todayDateTime = new Date();
+          element.booking_timeForLabel=element.booking_date+" "+element.booking_time;
+          var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_timeForLabel),"dd MMM yyyy hh:mm a"));
+          dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+          var temp = dateTemp.getTime() - todayDateTime.getTime();
+          element.timeToService=(temp/3600000).toFixed();
+          element.booking_timeForLabel=this.datePipe.transform(new Date(element.booking_timeForLabel),"hh:mm a")
+          element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+          element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
+          element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+        });
       }
       else if(response.data == false) {
         this.onGoingAppointmentData = '';

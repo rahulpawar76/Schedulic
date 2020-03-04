@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { StaffService } from '../_services/staff.service'
+import { StaffService } from '../_services/staff.service';
+import { DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-work-profile',
   templateUrl: './work-profile.component.html',
-  styleUrls: ['./work-profile.component.scss']
+  styleUrls: ['./work-profile.component.scss'],
+  providers: [DatePipe]
 })
 export class WorkProfileComponent implements OnInit {
 
@@ -24,6 +26,7 @@ export class WorkProfileComponent implements OnInit {
 
   constructor(
     private StaffService: StaffService,
+    private datePipe: DatePipe
   ) { }
 
   ngOnInit() {
@@ -93,6 +96,11 @@ export class WorkProfileComponent implements OnInit {
             this.workingHours[i].week_day_name = "Saturday";
 
           }
+          this.workingHours[i].day_start_timeForLabel=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+this.workingHours[i].day_start_time;
+          this.workingHours[i].day_start_timeForLabel =this.datePipe.transform(new Date(this.workingHours[i].day_start_timeForLabel),"hh:mm a");
+          
+          this.workingHours[i].day_end_timeForLabel=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+this.workingHours[i].day_end_time;
+          this.workingHours[i].day_end_timeForLabel =this.datePipe.transform(new Date(this.workingHours[i].day_end_timeForLabel),"hh:mm a");
         }
          
       }
@@ -139,6 +147,11 @@ export class WorkProfileComponent implements OnInit {
             this.breakHours[i].week_day_name = "Saturday";
 
           }
+          this.breakHours[i].break_start_timeForLabel=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+this.breakHours[i].break_start_time;
+          this.breakHours[i].break_start_timeForLabel =this.datePipe.transform(new Date(this.breakHours[i].break_start_timeForLabel),"hh:mm a");
+          
+          this.breakHours[i].break_end_timeForLabel=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+this.breakHours[i].break_end_time;
+          this.breakHours[i].break_end_timeForLabel =this.datePipe.transform(new Date(this.breakHours[i].break_end_timeForLabel),"hh:mm a");
         }
         for(let i=0; i<this.offDays.length;i++){
           if(this.offDays[i].week_day_id == "0"){
@@ -168,6 +181,8 @@ export class WorkProfileComponent implements OnInit {
             this.offDays[i].week_day_name = "Saturday";
 
           }
+          this.offDays[i].start_dateForLabel =this.datePipe.transform(new Date(this.offDays[i].start_date),"dd MMM yyyy");
+          this.offDays[i].end_dateForLabel =this.datePipe.transform(new Date(this.offDays[i].end_date),"dd MMM yyyy");
         }
       }
       else if(response.data == false){
@@ -183,6 +198,10 @@ export class WorkProfileComponent implements OnInit {
     this.StaffService.getAllHolidays().subscribe((response:any) => {
       if(response.data == true){
         this.holidayData = response.response;
+        for(let i=0; i<this.holidayData.length;i++){
+          this.holidayData[i].start_dateForLabel =this.datePipe.transform(new Date(this.holidayData[i].start_date),"dd MMM yyyy");
+          this.holidayData[i].end_dateForLabel =this.datePipe.transform(new Date(this.holidayData[i].end_date),"dd MMM yyyy");
+        }
       }
       else if(response.data == false){
         this.holidayData = '';

@@ -18,16 +18,20 @@ export class DiscountCouponComponent implements OnInit {
   
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+  isLoaderAdmin : boolean = false;
   animal: any;
   couponListFilter: any;
   couponCodeListing: boolean = true;
   addNewCouponCode: boolean = false;
   couponCodeStatus : any;
   allCouponCode: any;
+  CategorySelect : boolean = false;
   createdCouponCodeData: any;
   businessId : any;
   valid_from : any;
   valid_till : any;
+  selectedService : any = [];
+  categoryServiceList : any;
   
   discountCoupon: FormGroup;
 
@@ -72,13 +76,23 @@ export class DiscountCouponComponent implements OnInit {
 
 
   getAllCouponCode(couponListFilter){
+    this.isLoaderAdmin = true;
     this.AdminService.getAllCouponCode(couponListFilter).subscribe((response:any) => {
       if(response.data == true){
         this.allCouponCode = response.response
+        this.allCouponCode.forEach( (element) => {
+          element.coupon_valid_from=this.datePipe.transform(new Date(element.coupon_valid_from),"MMM d, y")
+          element.coupon_valid_till=this.datePipe.transform(new Date(element.coupon_valid_till),"MMM d, y")
+          element.created_at=this.datePipe.transform(new Date(element.created_at),"MMM d, y")
+        });
+        console.log(this.allCouponCode);
+        
         this.dtTrigger.next();
+        this.isLoaderAdmin = false;
       }
       else if(response.data == false){
         this.allCouponCode = ''
+        this.isLoaderAdmin = false;
       }
     })
   }
@@ -94,27 +108,30 @@ export class DiscountCouponComponent implements OnInit {
         "coupon_name" : this.discountCoupon.get('coupan_name').value,
         "coupon_code" : this.discountCoupon.get('coupon_code').value,
         "coupon_max_redemptions" : this.discountCoupon.get('max_redemption').value,
-        "valid_from" : this.discountCoupon.get('valid_from').value,
-        "valid_till" : this.discountCoupon.get('valid_till').value,
+        "valid_from" : this.valid_from,
+        "valid_till" : this.valid_till,
         "discount_type" : this.discountCoupon.get('discount_type').value,
         "discount" : this.discountCoupon.get('discount_value').value,
-        "services" : [1,2,3]
+        "services" : this.selectedService
       }
       this.createNewCouponCode(this.createdCouponCodeData);
     }
+    console.log(this.createdCouponCodeData);
   }
 
   createNewCouponCode(createdCouponCodeData){
-    alert("Go to API");
+    this.isLoaderAdmin = true;
     this.AdminService.createNewCouponCode(createdCouponCodeData).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Business Created", "X", {
+        this._snackBar.open("Coupon Created", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
+        this.isLoaderAdmin = false;
       }
       else if(response.data == false){
+        this.isLoaderAdmin = false;
         
       }
     })
@@ -125,6 +142,7 @@ export class DiscountCouponComponent implements OnInit {
     this.getAllCouponCode(this.couponListFilter);
   }
   changeCouponStaus(event,coupon_id){
+    this.isLoaderAdmin = true;
     if(event.checked == true){
       this.couponCodeStatus = 'Active';
     }
@@ -140,17 +158,42 @@ export class DiscountCouponComponent implements OnInit {
         });
         
     this.getAllCouponCode(this.couponListFilter);
+    this.isLoaderAdmin = false;
       }
       else if(response.data == false){
-        
+        this.isLoaderAdmin = false;
       }
     })
-    console.log(event)
+  }
+
+  getCateServiceList(){
+    this.isLoaderAdmin = true;
+    this.AdminService.getCateServiceList().subscribe((response:any) => {
+      if(response.data == true){
+        this.categoryServiceList = response.response
+        console.log(this.categoryServiceList);
+        this.isLoaderAdmin = false;
+      }
+      else if(response.data == false){
+        this.categoryServiceList = ''
+        this.isLoaderAdmin = false;
+      }
+    })
+  }
+  fnCheckService(event,serviceId){
+    if(event == true){
+      this.selectedService.push(serviceId) 
+    }else if(event == false){
+      const index = this.selectedService.indexOf(serviceId);
+      this.selectedService.splice(index, 1);
+    }
+    console.log(this.selectedService);
   }
 
   fnNewCouponCode(){
     this.couponCodeListing = false;
     this.addNewCouponCode = true;
+    this.getCateServiceList();
   }
   
 }

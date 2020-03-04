@@ -17,7 +17,7 @@
             </div>
             <div class="col-12" >
                 <mat-card>
-                <table  [dtOptions]="dtOptions" datatable class=" special-table hover">
+                <table [dtOptions]="dtOptions" datatable class=" special-table hover">
                     <thead>               
                         <th>Services</th>
                         <th>Customer</th>   
@@ -26,11 +26,10 @@
                         <th>Date</th>
                         <th>Time</th>           
                     </thead>
-                    <tbody>
-                       
-                      <tr class="special-row">
-                        <td><p class="mb-0">Hair Color</p></td>
-                        <td><p class="mb-0">Raj Kumar</p>
+                    <tbody *ngIf="pendingAppointments != ''">
+                      <tr *ngFor="let pendingAppointments of pendingAppointments; let i=index" class="special-row">
+                        <td><p class="mb-0">{{pendingAppointments.service.service_name}}</p></td>
+                        <td><p class="mb-0">{{pendingAppointments.customer.fullname}}</p>
                             <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
                             <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                         </td>
@@ -43,52 +42,10 @@
                         <td>07:00 pm</td>
                       
                       </tr>
-                      <tr class="special-row">
-                        <td><p class="mb-0">Fruit Facial</p></td>
-                            <td><p class="mb-0">Raj Kumar</p>
-                                <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
-                                <p><i class="fa fa-envelope-o mr-2"></i>Email:rajkumar@gmail.com</p>
-                            </td>
-                            <td><p class="mb-0">Raj Kumar</p>
-                              <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
-                              <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
-                          </td>
-                            <td>$.3,3000.00</td>
-                            <td>12 Dec 2019</td>
-                            <td>07:00 pm</td>
-                      
-                      </tr>
-                      <tr class="special-row">
-                        <td ><p class="mb-0">Fish Pedicure</p></td>
-                        <td><p class="mb-0">Raj Kumar</p>
-                            <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
-                            <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
-                        </td>
-                        <td><p class="mb-0">Raj Kumar</p>
-                          <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
-                          <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
-                        </td>
-                        <td>$.3,3000.00</td>
-                        <td>12 Dec 2019</td>
-                        <td>07:00 pm</td>
-                       
-                      </tr>
-                      <tr class="special-row">
-                        <td><p class="mb-0">Chocalate Manicure</p></td>
-                            <td><p class="mb-0">Raj Kumar</p>
-                                <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
-                                <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
-                            </td>
-                            <td><p class="mb-0">Raj Kumar</p>
-                              <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
-                              <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
-                          </td>
-                            <td>$.3,3000.00</td>
-                            <td>12 Dec 2019</td>
-                            <td>07:00 pm</td>
-                       
-                      </tr>
                      
+                    </tbody>
+                    <tbody *ngIf="pendingAppointments == ''">
+                      <tr>No Appointments Available</tr>
                     </tbody>
                     </table>
                     </mat-card>
@@ -111,7 +68,7 @@
 
             </div>
             <div class="col-12" >
-                <table  [dtOptions]="dtOptions" datatable class="row-border special-table hover">
+                <table  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="row-border special-table hover">
                     <thead>            
                         <th>Services</th>
                         <th>Customer</th>   
@@ -184,7 +141,7 @@
                       </tr>
                      
                     </tbody>
-                    </table>
+                  </table>
             </div>
 
         </mat-tab>

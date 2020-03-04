@@ -127,7 +127,7 @@
 
                     </div>
                     <div class="col-12 col-lg-6 col-sm-12 timeslot-main">
-                        <h3 class="selected-date">{{selecteddate != '' ? selecteddate : 'qwqwqwq'}}</h3>
+                        <h3 class="selected-date">{{selecteddateForLabel != '' ? selecteddateForLabel : 'qwqwqwq'}}</h3>
                         <div *ngIf="!timeslotview">
                             No slots available
                         </div>
@@ -135,7 +135,7 @@
                             <div class="d-inline-block" *ngFor="let timeSlot of timeSlotArr, let i = index">
                                 <label>
                                     <input name="timeslot" type="radio" [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].appointmentTimeSlot==timeSlot" (click)="fnSelectTimeSlot(timeSlot)"/>
-                                    <div class="single-slot" [mdePopoverTriggerFor]="selectstaff" mdePopoverTriggerOn="click" #popoverTrigger="mdePopoverTrigger">{{timeSlot}}</div>
+                                    <div class="single-slot" [mdePopoverTriggerFor]="selectstaff" mdePopoverTriggerOn="click" #popoverTrigger="mdePopoverTrigger">{{timeSlotArrForLabel[i]}}</div>
                                 </label>
                                 <mde-popover #selectstaff="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
                                     <mat-card class="staff-select-box p-0" style="width: 200px">
@@ -340,8 +340,8 @@
                         <div class="row booking-summary" *ngIf="serviceCart != null && serviceCart.count > 0">
                             <div class="col-lg-8 p-0 left-side">
                                 <label class="service-title float-left">{{serviceCart.service_name}}</label>
-                                <p class="float-left"><i class="fa fa-calendar"></i>{{serviceCart.appointmentDate}}</p>
-                                <p class="float-left"><i class="fa fa-clock-o"></i> 12:30 am</p>
+                                <p class="float-left"><i class="fa fa-calendar"></i>{{serviceCart.appointmentDateForLabel}}</p>
+                                <p class="float-left"><i class="fa fa-clock-o"></i>{{serviceCart.appointmentTimeSlotForLabel}}</p>
                                 <p class="booking-des w-100">{{serviceCart.service_description}}</p>
                             </div>
                             <div class="col-lg-4 p-0 right-side">
@@ -376,7 +376,7 @@
                         <div class="col-lg-6 px-0 py-1 promocode-main">
                             <h3><i class="fa fa-percent"></i>Apply Coupon</h3>
                         </div>
-                        <div class="col-lg-6 px-0 py-1 promocode-main" [ngClass]="{'':closecoupon === 'default','valid':closecoupon === 'valid','invalid':closecoupon === 'invalid'}">
+                        <div class="col-lg-4 offset-lg-2 col-12 px-0 py-1 promocode-main" [ngClass]="{'':closecoupon === 'default','valid':closecoupon === 'valid','invalid':closecoupon === 'invalid'}">
                             <input [(ngModel)]="coupon.couponcode_val" type="text" class="coupon-code-input" isReadOnly/>
                             <button (click)="fncheckcouponcodebtn(closecoupon)" [ngClass]="{'remove-code':closecoupon === 'valid', 'coupon-code-submit':closecoupon !== 'valid'}"><i class="material-icons">{{couponIcon}}</i></button>
                             <span class="error-wrap" *ngIf="showCouponError"><small  class="error">{{
@@ -467,7 +467,7 @@
                         <div class="booking_details" *ngFor="let serviceCart of serviceCartArr">
                             <div class="d-block" *ngIf="serviceCart != null">
                                 <p>Service: <span>{{serviceCart.service_name}}</span></p>
-                                <p>Time: <span>{{serviceCart.appointmentDate}} @ {{serviceCart.appointmentTimeSlot}}</span></p>
+                                <p>Time: <span>{{serviceCart.appointmentDateForLabel}} @ {{serviceCart.appointmentTimeSlotForLabel}}</span></p>
                             </div>
                             
                         </div>
@@ -490,8 +490,8 @@
                                 <div class="row" *ngIf="serviceCart != null">
                                     <div class="col-lg-8 left-side">
                                         <label class="service-title">{{serviceCart.service_name}}</label>
-                                        <p><i class="fa fa-calendar"></i>{{serviceCart.appointmentDate}}</p>
-                                        <p><i class="fa fa-clock-o"></i> 12:30 am</p>
+                                        <p><i class="fa fa-calendar"></i>{{serviceCart.appointmentDateForLabel}}</p>
+                                        <p><i class="fa fa-clock-o"></i>{{serviceCart.appointmentTimeSlotForLabel}}</p>
                                     </div>
                                     <div class="col-lg-4 right-side">
                                         <label class="price">₹ {{serviceCart.totalCost}}</label>

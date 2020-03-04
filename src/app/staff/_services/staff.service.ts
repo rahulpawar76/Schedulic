@@ -53,11 +53,6 @@ export class StaffService {
     });
     return this.http.post(`${environment.apiUrl}/staff-profile-update`,updatedprofiledata,{headers:headers}).pipe(
     map((res) => {
-        this._snackBar.open("Profile Updated", "X", {
-            duration: 2000,
-            verticalPosition:'top',
-            panelClass :['green-snackbar']
-          });
         return res;
     }),
     catchError(this.handleError));
