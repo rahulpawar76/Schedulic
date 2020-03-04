@@ -138,13 +138,26 @@
 
 
 /*_____________[3]Appointment____________________ */
+#appo_detail{
+    height: 70vh;
+    overflow-y: auto;
+    overflow-x: visible;
+}
+#all-category-list{
+    height: 70vh;
+    overflow-y: auto;
+    overflow-x: visible;
+}
 #my-work-space{
-width: 100%;
-background-size: cover;
-background-repeat: no-repeat;
-background-attachment: fixed;
-background-size: 120%;
-background-position: 60% 7%;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 120%;
+    background-position: 60% 7%;
+    height: 70vh;
+    overflow-y: auto;
+    overflow-x: visible;
 i{
     // line-height: 1.5;
     color: #949494;
@@ -620,8 +633,7 @@ i{
       
     }
     .map-icon{
-        width: 10%;
-        height: 30%;
+        width: auto;
     }
     .fs-1rem{
         font-size: 1rem;
@@ -692,45 +704,7 @@ i{
 // <------------myworkspace-accept-dialog----------->
 
 /*<!-- Appointment popup(Hair Cut)[1] -->*/
-
-::ng-deep #Appointment-pop-up{ 
-    /* color: white;*/
-     background-color:  #487ffd;
  
- .Time{
- width: 22%;
- }
- .customer-name{
- width: 33%;
- }
- .service-person{
-      width: 25%;
- }
- .money{
- width: 20%;
- }
- .Reschedulebtn{
- border: 1px solid white;
- border-radius: 50px;
- font-size: 12px;
- line-height: 2;
- color: white;
- padding: 0px 22px;
-}
-.accept-btn{
- background-color: white;
- color:  #487ffd;
-}
-.reschedulebtn-width{
- width: 22%;
-}
-.cancelbtn-width{
- width: 60%;
-}
-.acceptbtn-width{
- width: 18%;
-}
-}   
 .active_booking{
     color: #fff;
     background-color: #007bff;
@@ -739,7 +713,7 @@ i{
     box-shadow: 0 9px 6px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
     padding: 20px 0;
     left: 36px;
-    width: calc(100% - 40px);
+    width: calc(100% - 60px);
     border-radius: 4px;
     &:before{
         left: -34px;
@@ -781,16 +755,23 @@ i{
         color:  #487ffd;
     }
     .reschedulebtn-width{
-        width: 22%;
+        width: auto;
+        margin-right: 10px;
     }
     .cancelbtn-width{
-        width: 60%;
+        width: auto;
+        margin-right: 10px;
     }
     .acceptbtn-width{
-        width: 18%;
+        width: auto;
+        margin-left: auto;
+        margin-right: 20px;
     }
     .line{
         display: none;
+    }
+    .pl-5{
+        padding-left: 1rem !important;
     }
 }
 .active-btns{
