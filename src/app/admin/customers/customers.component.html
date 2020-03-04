@@ -42,7 +42,7 @@
                   </div> 
                 <div *ngFor="let allCustomers of allCustomers; let i=index" class="d-flex devider-slim pb-2 m-2">
                     <mat-checkbox class="customer-checkbox"></mat-checkbox>
-                    <div (click)="fnSelectCustomer(allCustomers.id)" class="customer-name-width pointer"><div class="customer-name">CS</div></div>
+                    <div (click)="fnSelectCustomer(allCustomers.id)" class="customer-name-width pointer"><div class="customer-name text-uppercase">{{allCustomers.initials}}</div></div>
                     <div (click)="fnSelectCustomer(allCustomers.id)" class="customer-details pointer">
                         <h6>{{allCustomers.fullname}}</h6>
                         <p>{{allCustomers.email}}</p>

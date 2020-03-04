@@ -74,6 +74,18 @@ export class MyWorkSpaceComponent implements OnInit {
     this.todayDate = this.datePipe.transform(new Date(),"dd MMM yyyy")
   }
 
+  dynamicSort(property) {
+    var sortOrder = 1;
+    if (property[0] === "-") {
+    sortOrder = -1;
+    property = property.substr(1);
+    }
+    return function (a, b) {
+    var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+    return result * sortOrder;
+    }
+  }
+
   fnGetAllAppointmentsByCategoryAndStatus(){
     let requestObject = {
             "business_id":this.businessId,
@@ -84,6 +96,7 @@ export class MyWorkSpaceComponent implements OnInit {
   {
     if(response.data == true){
       this.appointments=response.response;
+      this.appointments = this.appointments.sort(this.dynamicSort("booking_time"))
       this.activeBooking = 0;
       
       this.appointments.forEach( (element) => {
@@ -122,16 +135,14 @@ export class MyWorkSpaceComponent implements OnInit {
         this.appointmentDetails.staffName=this.appointments[0].staff.firstname+" "+this.appointments[0].staff.lastname;
       }
       this.appointmentDetails.customerName=this.appointments[0].customer.fullname;
-      // var splitted = this.appointmentDetails.customerName.split(" ");
-      // this.appointmentDetails.initials='';
-      // splitted.forEach( (element) => {
-      //   this.appointmentDetails.initials=this.appointmentDetails.initials+element.charAt(0);
-      // });
-      var str = this.appointmentDetails.customerName;
-      var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
-      this.appointmentDetails.initials = matches.join(''); // JSON
-
-
+      var splitted = this.appointmentDetails.customerName.split(" ",2);
+      this.appointmentDetails.initials='';
+      splitted.forEach( (element) => {
+        this.appointmentDetails.initials=this.appointmentDetails.initials+element.charAt(0);
+      });
+      // var str = this.appointmentDetails.customerName;
+      // var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
+      // this.appointmentDetails.initials = matches.join(''); // JSON
       this.appointmentDetails.customerEmail=this.appointments[0].customer.email;
       this.appointmentDetails.customerPhone=this.appointments[0].customer.phone;
       this.appointmentDetails.customerAddress=this.appointments[0].customer.address+" "+this.appointments[0].customer.city+" "+this.appointments[0].customer.state+" "+this.appointments[0].customer.zip;
@@ -169,18 +180,18 @@ export class MyWorkSpaceComponent implements OnInit {
           this.appointmentDetails.staffName=this.appointments[i].staff.firstname+" "+this.appointments[i].staff.lastname;
         }
         this.appointmentDetails.customerName=this.appointments[i].customer.fullname;
-        /*var splitted = this.appointmentDetails.customerName.split(" ");
+        var splitted = this.appointmentDetails.customerName.split(" ",2);
         this.appointmentDetails.initials='';
         splitted.forEach( (element) => {
           this.appointmentDetails.initials=this.appointmentDetails.initials+element.charAt(0);
-        });*/
-        var str = this.appointmentDetails.customerName;
-        var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
-        this.appointmentDetails.initials = matches.join(''); // JSON
+        });
+        // var str = this.appointmentDetails.customerName;
+        // var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
+        // this.appointmentDetails.initials = matches.join(''); // JSON
         this.appointmentDetails.customerEmail=this.appointments[i].customer.email;
         this.appointmentDetails.customerPhone=this.appointments[i].customer.phone;
         this.appointmentDetails.customerAddress=this.appointments[i].customer.address+" "+this.appointments[i].customer.city+" "+this.appointments[i].customer.state+" "+this.appointments[i].customer.zip;
-        if(this.appointmentDetails.order_status == "CNF" && this.appointments[0].staff_id == null){
+        if(this.appointmentDetails.order_status == "CNF" && this.appointments[i].staff_id == null){
         this.selectedStaff=null;
         this.availableStaff.length=0;
           this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId);

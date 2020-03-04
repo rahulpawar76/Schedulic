@@ -161,7 +161,7 @@
             </div>
           </div>
           <mat-select class="form-control formcontrol" [disabled]="" formControlName="customerStaff" (selectionChange)="fnSelectStaff($event.value)" >
-            <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">{{staff.username}}</mat-option>
+            <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">{{staff.name}}</mat-option>
           </mat-select>
           <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerStaff').dirty || formAddNewAppointmentStaffStep2.get('customerStaff').touched || formSubmitclicked">
             <small *ngIf="formAddNewAppointmentStaffStep2.get('customerStaff').hasError('required')" class="error">Staff is required</small>
