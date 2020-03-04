@@ -134,6 +134,10 @@ export class DialogAddNewAppointment {
   selectedStaffId:any;
   availableStaff:any=[];
   isStaffAvailable:boolean=false;
+  taxType:any="P";
+  taxValue:any=10;
+  netCost:any;
+  taxAmount:any;
   constructor(
     public dialogRef: MatDialogRef<DialogAddNewAppointment>,
     public dialog: MatDialog,
@@ -457,6 +461,14 @@ export class DialogAddNewAppointment {
         serviceCartArrTemp.push(this.serviceCount[i]);
       }
     }
+    if(serviceCartArrTemp[0].totalCost > 0){
+      if(this.taxType == "P"){
+        this.taxAmount= serviceCartArrTemp[0].totalCost * this.taxValue/100;
+      }else{
+        this.taxAmount= this.taxValue;
+      }
+    }
+    this.netCost=serviceCartArrTemp[0].totalCost+this.taxAmount;
     console.log(JSON.stringify(serviceCartArrTemp));
     const currentDateTime = new Date();
     let requestObject = {
@@ -473,7 +485,7 @@ export class DialogAddNewAppointment {
       "coupon_code": '',
       "subtotal": serviceCartArrTemp[0].totalCost,
       "discount": 0,
-      "nettotal": serviceCartArrTemp[0].totalCost,
+      "nettotal": this.netCost,
       "created_by": "admin",
       "payment_method": "Cash",
       "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd hh:mm:ss") 
