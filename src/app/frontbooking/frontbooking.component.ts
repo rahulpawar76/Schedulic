@@ -61,10 +61,13 @@ export class FrontbookingComponent implements OnInit {
   };
   serviceCount:any= [];
   serviceCartArr:any= [];
+  taxType:any='F';
+  taxValue:any=10;
   serviceMainArr={
     totalNumberServices:0,
     subtotal:0,
     discount:0,
+    taxAmount:0,
     netCost:0
   }
   //postalcode :any;
@@ -427,6 +430,7 @@ export class FrontbookingComponent implements OnInit {
     this.serviceMainArr.totalNumberServices=0;
     this.serviceMainArr.subtotal=0;
     this.serviceMainArr.discount=0;
+    this.serviceMainArr.taxAmount=0;
     this.serviceMainArr.netCost=0;
     this.fncheckavailcoupon('valid');
     for(let i=0; i< this.serviceCartArr.length; i++){
@@ -435,8 +439,17 @@ export class FrontbookingComponent implements OnInit {
         this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].totalCost;
       }
     }
-    this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-    console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
+    var temp=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+    if(this.serviceMainArr.subtotal > 0){
+      if(this.taxType == "P"){
+        this.serviceMainArr.taxAmount= temp * this.taxValue/100;
+      }else{
+        this.serviceMainArr.taxAmount= this.taxValue;
+      }
+    }
+    this.serviceMainArr.netCost=temp+this.serviceMainArr.taxAmount;
+    //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+    console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.taxAmount+" "+this.serviceMainArr.netCost));
   }
 
   fnRemove(event,service_id){
@@ -456,6 +469,7 @@ export class FrontbookingComponent implements OnInit {
       this.serviceMainArr.totalNumberServices=0;
       this.serviceMainArr.subtotal=0;
       this.serviceMainArr.discount=0;
+      this.serviceMainArr.taxAmount=0;
       this.serviceMainArr.netCost=0;
       this.fncheckavailcoupon('valid');
       for(let i=0; i< this.serviceCartArr.length; i++){
@@ -464,8 +478,17 @@ export class FrontbookingComponent implements OnInit {
           this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].totalCost;
         }
       }
-      this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
+      var temp=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      if(this.serviceMainArr.subtotal > 0){
+        if(this.taxType == "P"){
+          this.serviceMainArr.taxAmount= temp * this.taxValue/100;
+        }else{
+          this.serviceMainArr.taxAmount= this.taxValue;
+        }
+      }
+      this.serviceMainArr.netCost=temp+this.serviceMainArr.taxAmount;
+      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.taxAmount+" "+this.serviceMainArr.netCost));
     }
   }
 
@@ -482,6 +505,7 @@ export class FrontbookingComponent implements OnInit {
       this.serviceMainArr.totalNumberServices=0;
       this.serviceMainArr.subtotal=0;
       this.serviceMainArr.discount=0;
+      this.serviceMainArr.taxAmount=0;
       this.serviceMainArr.netCost=0;
       this.fncheckavailcoupon('valid');
       for(let i=0; i< this.serviceCartArr.length; i++){
@@ -490,8 +514,17 @@ export class FrontbookingComponent implements OnInit {
           this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].totalCost;
         }
       }
-      this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
+      var temp=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      if(this.serviceMainArr.subtotal > 0){
+        if(this.taxType == "P"){
+          this.serviceMainArr.taxAmount= temp * this.taxValue/100;
+        }else{
+          this.serviceMainArr.taxAmount= this.taxValue;
+        }
+      }
+      this.serviceMainArr.netCost=temp+this.serviceMainArr.taxAmount;
+      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.taxAmount+" "+this.serviceMainArr.netCost));
     }
   } 
 
@@ -710,10 +743,19 @@ export class FrontbookingComponent implements OnInit {
       duration: 2000,
       verticalPosition: 'bottom',
       panelClass : ['green-snackbar']
-      });
-    this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+    });
+    var temp=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+    if(this.serviceMainArr.subtotal > 0){
+      if(this.taxType == "P"){
+        this.serviceMainArr.taxAmount= temp * this.taxValue/100;
+      }else{
+        this.serviceMainArr.taxAmount= this.taxValue;
+      }
+    }
+    this.serviceMainArr.netCost=temp+this.serviceMainArr.taxAmount;
+    //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
     this.isLoader=false;
-    console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
+    console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.taxAmount+" "+this.serviceMainArr.netCost));
   }
   
 
@@ -967,7 +1009,18 @@ export class FrontbookingComponent implements OnInit {
   fncheckavailcoupon(couponStatus){
     if(couponStatus == 'valid'){
       this.serviceMainArr.discount=0;
-      this.serviceMainArr.netCost=this.serviceMainArr.subtotal;
+
+      var temp=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      if(this.serviceMainArr.subtotal > 0){
+        if(this.taxType == "P"){
+          this.serviceMainArr.taxAmount= temp * this.taxValue/100;
+        }else{
+          this.serviceMainArr.taxAmount= this.taxValue;
+        }
+      }
+      this.serviceMainArr.netCost=temp+this.serviceMainArr.taxAmount;
+      
+      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal;
       this.closecoupon = 'default';
       this.couponIcon="check";
       this.coupon.couponcode_val ="";
@@ -1002,17 +1055,29 @@ export class FrontbookingComponent implements OnInit {
         let couponValue = response.response.coupon_value;
         if(couponType == 'P'){
           this.serviceMainArr.discount = (this.serviceMainArr.subtotal*parseInt(couponValue))/100;
-          this.serviceMainArr.netCost = this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+          //this.serviceMainArr.netCost = this.serviceMainArr.subtotal - this.serviceMainArr.discount;
         }else{
           this.serviceMainArr.discount = parseInt(couponValue);
-          this.serviceMainArr.netCost = this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+          //this.serviceMainArr.netCost = this.serviceMainArr.subtotal - this.serviceMainArr.discount;
         }
+
+        var temp=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+        if(this.serviceMainArr.subtotal > 0){
+          if(this.taxType == "P"){
+            this.serviceMainArr.taxAmount= temp * this.taxValue/100;
+          }else{
+            this.serviceMainArr.taxAmount= this.taxValue;
+          }
+        }
+        this.serviceMainArr.netCost=temp+this.serviceMainArr.taxAmount;
+        
         this.coupon.couponcode_val=response.response.coupon_code;
         this.couponIcon="close";
         this.closecoupon = 'valid';
         this.isReadOnly="readonly";
         this.showCouponError=false;
         this.couponErrorMessage="";
+        console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.taxAmount+" "+this.serviceMainArr.netCost));
       }
       else{
         this.closecoupon = 'invalid';
@@ -1020,6 +1085,7 @@ export class FrontbookingComponent implements OnInit {
         this.isReadOnly="";
         this.showCouponError=true;
         this.couponErrorMessage=response.response;
+        console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.taxAmount+" "+this.serviceMainArr.netCost));
       }
       },
       (err) =>{

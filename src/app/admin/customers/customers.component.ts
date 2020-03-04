@@ -139,7 +139,17 @@ export class CustomersComponent implements OnInit {
     this.isLoaderAdmin = true;
     this.AdminService.getAllCustomers().subscribe((response:any) => {
       if(response.data == true){
-        this.allCustomers = response.response
+        this.allCustomers = response.response;
+        this.allCustomers.forEach( (element) => {
+          // var str = element.fullname;
+          // var matches = str.match(/\b(\w)/g); 
+          // element.initials = matches.join(''); 
+          var splitted = element.fullname.split(" ",2);
+          element.initials='';
+          splitted.forEach( (element2) => {
+            element.initials=element.initials+element2.charAt(0);
+          });
+        });
         this.fnSelectCustomer(this.allCustomers[0].id);
         this.isLoaderAdmin = false;
       }
