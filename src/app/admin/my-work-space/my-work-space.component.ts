@@ -40,6 +40,7 @@ export class MyWorkSpaceComponent implements OnInit {
     booking_time_to: "",
     timeToService: "",
     categoryName: "",
+    initials: "",
     service_name: ""
   };
   categories:any=[];
