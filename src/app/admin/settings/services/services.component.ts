@@ -30,7 +30,6 @@ export class ServicesComponent implements OnInit {
 
   ngOnInit() {
     this.fnAllCategory();
-    this.fnAllServices();
   }
 
   fnAllServices(){
