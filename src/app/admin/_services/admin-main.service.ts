@@ -257,6 +257,22 @@ export class AdminService {
         }),
         catchError(this.handleError));
     }
+    fnSaveTags(customerId,tags){
+        let requestObject = {
+            'customer_id': customerId,
+            'tags': tags
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/customer-tags`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
 
     // Get Appointments by Category and Status
     getAllAppointmentsByCategoryAndStatus(requestObject){
