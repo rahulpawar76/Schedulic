@@ -12,6 +12,7 @@ import { DataTablesModule } from 'angular-datatables';
 
 import { SettingsComponent } from './settings.component';
 import { StaffComponent } from './staff/staff.component';
+import { DialogAddNewTimeOff } from './staff/staff.component';
 
 
 
@@ -20,6 +21,7 @@ import { StaffComponent } from './staff/staff.component';
     ServicesComponent,
     SettingsComponent,
     StaffComponent,
+    DialogAddNewTimeOff
   ],
   imports: [
       CommonModule,
@@ -36,6 +38,6 @@ import { StaffComponent } from './staff/staff.component';
   exports: [
     FormsModule
   ],
-   entryComponents: [SettingsComponent],
+   entryComponents: [SettingsComponent,DialogAddNewTimeOff],
 })
-export class SettingsModule { }
+export class SettingsModule {}
