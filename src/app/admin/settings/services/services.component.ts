@@ -63,6 +63,14 @@ export class ServicesComponent implements OnInit {
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.allServicesList, event.previousIndex, event.currentIndex);
   }
+  
+      // admin settings
+      MySettingsServicesNav(){
+        this.router.navigate(['/admin/settings/services']);
+      }
+      MySettingsStaffNav(){
+        this.router.navigate(['/admin/settings/staff']);
+      }
 
 
 }

@@ -172,6 +172,7 @@ export class AppComponent implements AfterViewInit {
       }
 
 
+
       /*StaffDashboard Navigation*/
       StaffProfile(){
         this.router.navigate(['/staff/my-profile']);
