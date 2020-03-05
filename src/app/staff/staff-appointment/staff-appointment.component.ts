@@ -610,7 +610,7 @@ export class StaffAppointmentComponent implements OnInit {
             "nettotal": serviceCartArrTemp[0].totalCost,
             "created_by": "staff",
             "payment_method": "Cash",
-            "order_date": currentDateTime
+            "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd hh:mm:ss") 
           };
           console.log(JSON.stringify(requestObject));
           let headers = new HttpHeaders({

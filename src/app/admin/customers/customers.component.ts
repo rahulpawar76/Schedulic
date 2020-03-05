@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ElementRef, ViewChild } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AdminService } from '../_services/admin-main.service';
 import { DatePipe } from '@angular/common';
@@ -9,12 +9,18 @@ import { map, catchError } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { AuthenticationService } from '@app/_services';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatChipInputEvent} from '@angular/material/chips';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+
 
 
 export interface DialogData {
   animal: string;
   name: string;
  
+}
+export interface Tag {
+  
 }
 @Component({
   selector: 'app-customers',
@@ -23,6 +29,8 @@ export interface DialogData {
   providers: [DatePipe]
 })
 export class CustomersComponent implements OnInit {
+
+
   dtOptions: any = {};
   animal: any;
   allCustomers: any;
@@ -40,8 +48,18 @@ export class CustomersComponent implements OnInit {
   existingCustomerData: any;
   existingUserId: any;
   businessId: any;
+  addNewTag: boolean = false;
+  tagsnew: any;
+
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^-?(0|[1-9]\d*)?$/
+
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  tags: Tag[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -60,6 +78,28 @@ export class CustomersComponent implements OnInit {
       console.log(error);
       return throwError('Error! something went wrong.');
   }
+    add(event: MatChipInputEvent): void {
+      const input = event.input;
+      const value = event.value;
+      
+      // Add our fruit
+      if ((value || '').trim()) {
+        this.tags.push(value.trim());
+      }
+
+      // Reset the input value
+      if (input) {
+        input.value = '';
+      }
+    }
+
+    remove(tg: Tag): void {
+      const index = this.tags.indexOf(tg);
+
+      if (index >= 0) {
+        this.tags.splice(index, 1);
+      }
+    }
 
   ngOnInit() {
     this.getAllCustomers();
@@ -99,7 +139,17 @@ export class CustomersComponent implements OnInit {
     this.isLoaderAdmin = true;
     this.AdminService.getAllCustomers().subscribe((response:any) => {
       if(response.data == true){
-        this.allCustomers = response.response
+        this.allCustomers = response.response;
+        this.allCustomers.forEach( (element) => {
+          // var str = element.fullname;
+          // var matches = str.match(/\b(\w)/g); 
+          // element.initials = matches.join(''); 
+          var splitted = element.fullname.split(" ",2);
+          element.initials='';
+          splitted.forEach( (element2) => {
+            element.initials=element.initials+element2.charAt(0);
+          });
+        });
         this.fnSelectCustomer(this.allCustomers[0].id);
         this.isLoaderAdmin = false;
       }
@@ -229,6 +279,8 @@ customerUpdate(existingCustomerData){
         this.customerNotes = response.response.notes
         this.customerReviews = response.response.revirew
         this.customerPersonalDetails.created_at=this.datePipe.transform(new Date(this.customerPersonalDetails.created_at),"d, MMM, y, h:mm a")
+        this.tagsnew = this.customerPersonalDetails.tag_id
+                console.log(this.tagsnew);
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
@@ -343,6 +395,28 @@ customerUpdate(existingCustomerData){
       console.log('The dialog was closed');
       this.animal = result;
      });
+  }
+  fnAddNewTag(){
+    this.addNewTag = true;
+  }
+  fnSaveTags(customerId){
+    this.addNewTag = false;
+    this.isLoaderAdmin = true;
+    this.AdminService.fnSaveTags(customerId,this.tags).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open("Customer Tag Added", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.getAllCustomers();
+        this.isLoaderAdmin = false;
+      }
+      else if(response.data == false){
+        this.isLoaderAdmin = false;
+      }
+    })
+
   }
 }
 
