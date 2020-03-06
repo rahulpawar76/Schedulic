@@ -1,5 +1,6 @@
 import { Component, OnInit , Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { AppComponent } from '@app/app.component'
 
 export interface DialogData {
   animal: string;
@@ -14,10 +15,14 @@ export interface DialogData {
 })
 export class PaymentrulesComponent implements OnInit {
   animal: any;
+  adminSettings : boolean = true;
 
   constructor(
     public dialog: MatDialog,
-  ) { }
+    private appComponent : AppComponent,
+  )   {
+    this.appComponent.settingsModule(this.adminSettings);
+   }
 
   ngOnInit() {
   }

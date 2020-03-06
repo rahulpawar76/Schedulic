@@ -11,7 +11,7 @@ import { AuthenticationService } from '@app/_services';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-
+import { AppComponent } from '@app/app.component'
 
 
 export interface DialogData {
@@ -30,7 +30,7 @@ export interface Tag {
 })
 export class CustomersComponent implements OnInit {
 
-
+  adminSettings : boolean = false;
   dtOptions: any = {};
   animal: any;
   allCustomers: any;
@@ -68,11 +68,13 @@ export class CustomersComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private http: HttpClient,
     private datePipe: DatePipe,
+    private appComponent : AppComponent,
     ) { 
       localStorage.setItem('isBusiness', 'false');
       if(localStorage.getItem('business_id')){
         this.businessId = localStorage.getItem('business_id');
     }
+    this.appComponent.settingsModule(this.adminSettings);
     }
     private handleError(error: HttpErrorResponse) {
       console.log(error);

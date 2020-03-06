@@ -6,6 +6,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { AdminService } from '../_services/admin-main.service'
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { AppComponent } from '@app/app.component'
 
 export interface DialogData {
   animal: string;
@@ -29,14 +30,17 @@ export interface DialogData {
 export class MyBusinessComponent implements OnInit {
   animal :any;
   allBusiness: any;
+  adminSettings : boolean = false;
    
   constructor(
     public dialog: MatDialog,
      private http: HttpClient,
      public router: Router,
     private AdminService: AdminService,
+    private appComponent : AppComponent,
      private _snackBar: MatSnackBar) {
       localStorage.setItem('isBusiness', 'true');
+      this.appComponent.settingsModule(this.adminSettings);
    }
 
   ngOnInit() {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppComponent } from '@app/app.component'
 
 @Component({
   selector: 'app-paymentgateway',
@@ -6,8 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./paymentgateway.component.scss']
 })
 export class PaymentgatewayComponent implements OnInit {
+  adminSettings : boolean = true;
 
-  constructor() { }
+  constructor(
+    private appComponent : AppComponent,
+  )
+   {
+    this.appComponent.settingsModule(this.adminSettings);
+   }
 
   ngOnInit() {
   }
