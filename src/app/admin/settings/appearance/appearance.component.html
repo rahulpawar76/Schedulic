@@ -1,0 +1,70 @@
+<p>appearance works!</p>
+<p>general-setting works!</p>
+
+<div class="container-fluid sub-container" id="services">
+    <div class="">
+        <mat-drawer-container class="w-100"  style="margin-top: 70px;">
+            <mat-drawer mode="side" opened id="Customer-list" class=" pl-0 pr-0"  style="width:220px;">
+               
+                <mat-list role="list">
+                    <mat-menu></mat-menu>
+                       
+                       
+                </mat-list>
+            </mat-drawer>
+            <mat-drawer-content>
+
+                <mat-tab-group>
+                    <mat-tab label="Getting Started">
+                        <div class="main-getting-content">
+                        <h5 class="mb-3">Embed Web Widget</h5>
+                        <p>Click to copy below script and paste it in your web page.</p>
+
+                        <mat-radio-group aria-label="Select an option">
+                            <mat-radio-button value="1">Script</mat-radio-button> 
+                        </mat-radio-group>
+
+                        <p>To embed the widget on your website,follow these guidelines.</p>
+                        <p>1. copy the code by simply clicking on the script once.</p>
+                        <p>2. Go to your website's HTML file and paste in before the last < body >tag</p>
+                        <p>3. Now the users visiting those web sites or application can see the Appointment Widget </p>
+                        <p>4. If you are still not sure, send the code to someone who can assist you with the configuration.</p>
+
+                        </div>
+                        <mat-card class="card-content">
+
+                          
+                        </mat-card>
+                        <div>
+                            <button mat-button type="submit" (click)="fnCopyCode()" class="appearance-save-btn">Copy Code</button>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Appearance"> 
+
+
+                    </mat-tab>
+                    <mat-tab label="Form Setting"> 
+                        <mat-card class="main-form-setting-content">
+
+                            <h5>Contact Fields</h5>
+                            <p>Select Which form field will show on your booking page.</p>
+
+                            <div>
+                            <mat-checkbox>Required</mat-checkbox>
+                            </div>
+                            <div>
+                            <mat-checkbox>Required</mat-checkbox>
+                            </div>
+                            <div>
+                            <mat-checkbox>Required</mat-checkbox>
+                            </div>
+                            <mat-checkbox>Required</mat-checkbox>
+
+                        </mat-card>
+                    </mat-tab>
+                  </mat-tab-group>
+            </mat-drawer-content>
+            </mat-drawer-container>
+            </div>
+            </div>
+            

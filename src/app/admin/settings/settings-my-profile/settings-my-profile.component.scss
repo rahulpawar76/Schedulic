@@ -1,0 +1,93 @@
+@import "variables";
+
+  .account-matlist{
+        display: block !important;
+        height: 60px !important;
+        width: 100% !important;
+        padding: 5px 0 !important;
+    //  &:hover{
+    //             background-color: $bgblue;
+    //         }
+    }
+    .account-pointer{
+        cursor: pointer;
+    }
+    
+    .account-menuitem{
+        // color:#325c98;
+         padding-top: 4px;
+    &:focus{
+            outline:none; 
+            }  
+            .accountchart{
+                margin: 0 14px;
+                font-size: 18px;
+               
+            }         
+    }
+    .mat-list-item{
+        &:hover{
+                   background-color: $bgblue;
+                   color: #295792;
+               }
+       }
+
+    .mat-list-icon{
+            color:$iconcolors;
+    }
+
+
+    .main-account-my-profile{
+        .account-my-profile-background{
+            .my-profile-image{
+                border-radius: 100%;
+            }
+        }
+        .profile-save-btn{
+            width: 100px;
+            height: 39px;
+            border-radius: 50px;
+            background-color: #1173f4;
+            color: white;
+        }
+    }
+
+    
+.account-my-profile-img-wrap{
+    background-color: #e6e6e6;
+    border-radius: 100%;
+    overflow: hidden;
+    position: relative;
+    transition: 0.3s all;
+    cursor: pointer;
+    &:hover .camera-alt{
+    transition: 0.3s all;
+        display: flex;
+    }
+.account-my-profile-img{
+    height: 100px;
+    width: 100px;	
+   
+   
+}
+
+.camera-alt{
+    display: none;
+    position: absolute;
+    top: 0;
+    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+    background-color: #00000070;
+    justify-content: center;
+    align-items: center;
+    i{
+        font-size: 45px;
+        width: auto;
+        color: #ffffff;
+    }
+}
+}
+
+    
+

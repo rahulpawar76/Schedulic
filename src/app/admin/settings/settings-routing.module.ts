@@ -8,6 +8,12 @@ import { PaymentsComponent } from './payments/payments.component';
 import { PaymentgatewayComponent } from './paymentgateway/paymentgateway.component';
 import { PaymentrulesComponent } from './paymentrules/paymentrules.component';
 import { BookingrulesComponent } from './bookingrules/bookingrules.component';
+import { SettingsMyProfileComponent } from './settings-my-profile/settings-my-profile.component';
+import { CompanyDetailsComponent } from './company-details/company-details.component';
+import { AppearanceComponent } from './appearance/appearance.component';
+import { PostalcodesComponent } from './postalcodes/postalcodes.component';
+//import{AccountComponent} from './account/account.component';
+//import { GeneralSettingComponent } from './general-setting/general-setting.component';
 
 
 const routes: Routes = [
@@ -29,11 +35,16 @@ const routes: Routes = [
   {
     path: 'payments',
    component: PaymentsComponent 
+ },
+ {
+  path: 'setting-my-profile',
+ component: SettingsMyProfileComponent 
 
   },
   {
     path: 'paymentgateway',
    component: PaymentgatewayComponent 
+},
 
   },
   {

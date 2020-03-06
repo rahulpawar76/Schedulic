@@ -1,0 +1,75 @@
+
+
+
+
+<div class="container-fluid sub-container" id="services">
+    <div class="">
+        <mat-drawer-container class="w-100"  style="margin-top: 70px;">
+            <mat-drawer mode="side" opened id="Customer-list" class=" pl-0 pr-0"  style="width:220px;">
+                
+                <mat-list role="list">
+                    <mat-menu></mat-menu>
+                       
+                </mat-list>
+            </mat-drawer>
+            <mat-drawer-content>
+
+<mat-card class="m-0">
+    <div class="row">
+        <div class="col-lg-12">
+            <h6>My Profile</h6>
+        </div>     
+    </div>     
+    <div class="row"> 
+        <div class="col-lg-6 col-6 col-md-4  main-account-my-profile">
+            <div class="ml-3 justify-content-center d-flex">
+                <!-- <div class="account-my-profile-background mr-3 mt-5">
+                    <img src="/assets/images/admin/Layer6.png" class="my-profile-image">
+                </div> -->
+                <div class="account-my-profile-img-wrap" (click)="MyProfileImgUpload()">
+                    <img mat-card-avatar class="account-my-profile-img" src="/assets/images/admin/Layer6.png">
+                    <div class="camera-alt"><i class="material-icons"> camera_alt</i></div>
+                </div>
+            </div>
+            <div class="">
+                <div class="mt-3 text-center">
+                    <mat-form-field class=" bottom-border-field">
+                        <mat-icon class="mr-4" matPrefix>person</mat-icon>
+                        <input matInput placeholder="First Name">  
+                    </mat-form-field>   
+                </div>
+
+                <div class="mt-2 text-center">
+                    <mat-form-field class=" bottom-border-field">
+                        <mat-icon class="mr-4" matPrefix>person</mat-icon>
+                        <input matInput placeholder="Last Name">    
+                    </mat-form-field>   
+                </div>
+
+                <div class="mt-2 text-center">
+                    <mat-form-field class=" bottom-border-field">
+                        <mat-icon class="mr-4" matPrefix>mail</mat-icon>
+                        <input matInput placeholder="Email">   
+                    </mat-form-field>   
+                </div>
+
+                <div class="mt-2 text-center mb-3">
+                    <mat-form-field class=" bottom-border-field">
+                        <mat-icon class="mr-4" matPrefix>phone</mat-icon>
+
+                        <input matInput placeholder="Mobile">    
+                    </mat-form-field>   
+                </div>
+
+                <div>
+                    <button mat-button type="submit" (click)="fnCreateCouponSubmit()" class="profile-save-btn">Save</button>
+                </div>
+
+            </div>
+        </div>    
+    </div>          
+</mat-card>
+</mat-drawer-content>
+</mat-drawer-container>
+</div>
+</div>
