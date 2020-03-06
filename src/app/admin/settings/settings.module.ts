@@ -13,6 +13,13 @@ import { DataTablesModule } from 'angular-datatables';
 import { SettingsComponent } from './settings.component';
 import { StaffComponent } from './staff/staff.component';
 import { DialogAddNewTimeOff } from './staff/staff.component';
+import { PaymentsComponent } from './payments/payments.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { DialogAddNewTax } from './paymentrules/paymentrules.component';
+
+import { PaymentgatewayComponent } from './paymentgateway/paymentgateway.component';
+import { PaymentrulesComponent } from './paymentrules/paymentrules.component';
+import { BookingrulesComponent } from './bookingrules/bookingrules.component';
 
 
 
@@ -21,7 +28,12 @@ import { DialogAddNewTimeOff } from './staff/staff.component';
     ServicesComponent,
     SettingsComponent,
     StaffComponent,
-    DialogAddNewTimeOff
+    DialogAddNewTimeOff,
+    PaymentsComponent,
+    DialogAddNewTax,
+    PaymentgatewayComponent,
+    PaymentrulesComponent,
+    BookingrulesComponent
   ],
   imports: [
       CommonModule,
@@ -33,11 +45,12 @@ import { DialogAddNewTimeOff } from './staff/staff.component';
       FormsModule,
       DragDropModule,
       MatSidenavModule,
-      DataTablesModule
+      DataTablesModule,
+      MatDatepickerModule
   ],
   exports: [
     FormsModule
   ],
-   entryComponents: [SettingsComponent,DialogAddNewTimeOff],
+   entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax],
 })
 export class SettingsModule {}

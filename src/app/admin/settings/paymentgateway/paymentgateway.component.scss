@@ -1,0 +1,55 @@
+#payments{
+    ::ng-deep .mat-expansion-panel-header-description, .mat-expansion-panel-header-title {
+        display: block;
+    }
+    ::ng-deep .mat-expansion-panel-header{
+        height: 100% !important;
+        padding: 20px;
+    }
+    mat-icon{
+        line-height: 1.5;
+    }
+    .top-border{
+        border-top: 1px solid #ededed;
+    }
+    .payment-label{
+        line-height: 5;
+    }
+    .action-btn{
+        margin-left: auto;
+        display: flex;
+        .payment-cancel-btn{
+            width: 100px;
+            height: 39px;
+            border-radius: 7px;
+            background-color: #dddddd;
+        }
+        .payment-save-btn{
+            width: 109px;
+            height: 39px;
+            border-radius: 7px;
+            background-color: #1173f4;
+            color: white;
+        }
+    }
+    .payment-image{
+        width: 230px;
+        height: 55px;
+    }
+}
+.payment-gateways{
+    ::ng-deep .mat-accordion{
+        .mat-expansion-indicator{
+            display: none;
+        }
+        .mat-expansion-panel-header-description{
+            display: none !important;
+        }
+        .mat-expansion-panel-header-title{
+            margin-right: 0 !important;
+        }
+        .payment-toggle-btn{
+            margin-left: auto;
+        }
+    }
+}

@@ -347,6 +347,18 @@ background-color: $primary-color;
     ::ng-deep settings-services{
         width: 100%;
     }
+    ::ng-deep app-payments{
+        width: 100%;
+    }
+    ::ng-deep app-paymentgateway{
+        width: 100%;
+    }
+    ::ng-deep app-paymentrules{
+        width: 100%;
+    }
+    ::ng-deep app-bookingrules{
+        width: 100%;
+    }
 }
 
 
