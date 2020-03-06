@@ -21,14 +21,17 @@ export class ServicesComponent implements OnInit {
   allCetegoryList : any;
   allServicesList : any;
   servicesList :boolean = true;
+  adminSettings : boolean = true;
   constructor(
     
     private route: ActivatedRoute,
     private router: Router,
-    private AppComponent: AppComponent,
+    private appComponent: AppComponent,
     private authenticationService: AuthenticationService,
     private adminSettingsService: AdminSettingsService,
-  ) { }
+  ) { 
+    this.appComponent.settingsModule(this.adminSettings);
+  }
 
   ngOnInit() {
     this.fnAllCategory();

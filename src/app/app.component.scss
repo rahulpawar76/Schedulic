@@ -275,7 +275,7 @@ background-color: $primary-color;
 }
 
 .left-admin-menu{
-    mat-drawer{
+    .main_admin_menu{
         width: 90px;
         filter: drop-shadow(1.5px 2.598px 1.5px rgba(2,2,2,0.09));
         background-color: #04397f;
@@ -321,6 +321,62 @@ background-color: $primary-color;
         margin-left: 96px !important; 
     }
 }
+
+.setting-menu{
+    background-color: #fbfbfb;
+    width: 300px;
+    .setting-menu-item{
+        cursor: pointer;
+        padding: 10px 20px;
+        align-items: center;
+        transition: all 0.3s;
+        p{
+            margin: 0;
+            font-weight: 500;
+        }
+        .menu-icon{
+            margin-right: 10px;
+            display: block;
+            height: 28px;
+            width: 28px;
+            img{
+                width: 100%;
+                position: relative;
+            }
+            .normal{
+            }
+            .colored{
+                top: -20px;
+                opacity: 0;
+                display: none;
+            }
+        }
+        &:hover{
+            background-color: #ddeafd;
+            color:#1273f6;
+            .menu-icon{
+                .normal{
+                    top: -20px;
+                    opacity: 0;
+                    display: none;
+                }
+                .colored{
+                    top: 0px;
+                    opacity: 1;
+                    display: block;
+                }
+            }
+        }
+    }
+    h6{
+        font-size: 16px;
+        font-weight: 600;
+        padding-left: 15px;
+    }
+}
+
+
+
 .admin_top_bar{
     width: calc(100% - 90px);
     left:90px;

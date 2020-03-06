@@ -1,530 +1,528 @@
-<div class="container-fluid sub-container" id="staff">
-    <div class="row h-100">
-        <mat-drawer-container class="example-container">
-            <mat-drawer mode="side" opened class="setting-menu" style="width:300px">
-                <div class="leftarrow-icon">
-                    <mat-icon aria-hidden="false" class="customer-drawer-leftarrow">arrow_back</mat-icon>
-                </div>
-                <h6>Resource Management</h6>
-                <div class="d-flex setting-menu-item">
-                    <div class="menu-icon">
-                        <img class="normal" src="../../../../assets/images/admin/settings-menu/service.png" />
-                        <img class="colored" src="../../../../assets/images/admin/settings-menu/service-color.png" />
-                    </div>
-                    <p>Services</p>
-                </div>
-                <div class="d-flex setting-menu-item">
-                    <div class="menu-icon">
-                        <img class="normal" src="../../../../assets/images/admin/settings-menu/staff.png" />
-                        <img class="colored" src="../../../../assets/images/admin/settings-menu/staff-color.png" />
-                    </div>
-                    <p>Staff</p>
-                </div>
-                <div class="d-flex setting-menu-item">
-                    <div class="menu-icon">
-                        <img class="normal" src="../../../../assets/images/admin/settings-menu/business-hours.png" />
-                        <img class="colored" src="../../../../assets/images/admin/settings-menu/business-hours-color.png" />
-                    </div>
-                    <p>Business Hours</p>
-                </div>
-                <h6 class="pt-3">Account</h6>
-                <div class="d-flex setting-menu-item">
-                    <mat-icon aria-hidden="false">person</mat-icon>
-                    <p>My Profile</p>
-                </div>
-                <div class="d-flex setting-menu-item">
-                    <mat-icon aria-hidden="false">apartment</mat-icon>
-                    <p>Company Details</p>
-                </div>
-                <div class="d-flex setting-menu-item">
-                    <mat-icon aria-hidden="false">language</mat-icon>
-                    <p>Localization</p>
-                </div>
-                <h6 class="pt-3">Payment</h6>
-                <div class="d-flex setting-menu-item">
-                    <mat-icon aria-hidden="false">payment</mat-icon>
-                    <p>Payment Gateway</p>
-                </div>
-                <div class="d-flex setting-menu-item">
-                    <i class="fa fa-credit-card payment-icon" aria-hidden="true"></i>
-                    <p>Payment Rules</p>
-                </div>
-                <h6 class="pt-3">General Setting</h6>
-                <div class="d-flex setting-menu-item">
-                    <mat-icon aria-hidden="false">warning</mat-icon>
-                    <p>Booking Rules</p>
-                </div>
-                <div class="d-flex setting-menu-item">
-                    <mat-icon aria-hidden="false">contact_mail</mat-icon>
-                    <p>Alert Rules</p>
-                </div>
-            </mat-drawer>
-            <mat-drawer-content>
-                <mat-card class="mb-0">
-                    <form >
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-12  border-right">
-                        <h6>Add Staff</h6>
-                        <div class="d-flex">
-                            <img class="add-staff mx-auto"  src="/assets/images/admin/Layer-3.png">
-                        </div>
-                        <mat-form-field class="bottom-border-field">
-                            <mat-label>Name</mat-label>
-                            <mat-icon class="mr-4" matPrefix>person</mat-icon>
-                            <input matInput placeholder="Enter Your First Name">  
-                        </mat-form-field> 
-                        <mat-form-field class="bottom-border-field">
-                            <mat-label>Mobile</mat-label>
-                            <mat-icon class="mr-4" matPrefix>call</mat-icon>
-                            <input matInput placeholder="Enter Your number">  
-                        </mat-form-field> 
-                        <mat-form-field class="bottom-border-field">
-                            <mat-label>Email</mat-label>
-                            <mat-icon class="mr-4" matPrefix>email</mat-icon>
-                            <input matInput placeholder="Enter Your Email">  
-                        </mat-form-field> 
-                        <mat-form-field class="bottom-border-field">
-                            <mat-label>Address</mat-label>
-                            <input matInput placeholder="Enter Your address">  
-                        </mat-form-field> 
-                        <mat-form-field class="bottom-border-field">
-                            <mat-label>Description</mat-label>
-                            <textarea matInput
-                                        cdkTextareaAutosize
-                                        #autosize="cdkTextareaAutosize"
-                                        cdkAutosizeMinRows="1"
-                                        cdkAutosizeMaxRows="7"></textarea>
-                        </mat-form-field> 
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-12 text-center border-right">
-                        <div class="upload-document-top-margin">
-                            <div class="d-flex">
-                                <h6>Upload Documents</h6>
-                                <i class="fa fa-question-circle uploaddocument-icon" aria-hidden="true"></i>
-                            </div>
-                            <div class="upload-files">
-                                <mat-icon aria-hidden="false" class="uploadfile-icon">cloud_upload</mat-icon>
-                                <p>.PDF .JPG .PNG .DOC</p>
-                                <p>Drag & drop your files here</p>
-                                <div>
-                                    <button mat-button class="upload-btn">Upload Files</button>
-                                </div>
-                            </div>
-                            <div class="d-flex mt-2">
-                                <div class="pan-card file-border d-flex">
-                                    <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
-                                    <p class="pr-1 mb-0">PAN card.pdf</p>
-                                    <mat-icon aria-hidden="false">cancel</mat-icon>
-                                </div>
-                                <div class="adhar-card file-border d-flex">
-                                    <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
-                                    <p class="pr-1 mb-0">Adhar card.jpg</p>
-                                    <mat-icon aria-hidden="false">cancel</mat-icon>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-12t">
-                        <!-- <mat-card> -->
-                            <div class="d-flex pb-3">
-                                <button mat-button class="staff-delete-btn">
-                                    <mat-icon class="pr-2">delete_outline</mat-icon>Delete</button>
-                            </div>
-                            <div class="border p-3">
-                                <h6>Select Service for staff</h6>
-                                <mat-form-field class="pb-3 bottom-border-field">
-                                <mat-label>Outline form field</mat-label>
-                                <input matInput placeholder="Category,Subcategory,Service">
-                                <mat-icon matPrefix>search</mat-icon>
-                                </mat-form-field>
-                                <mat-accordion>
-                                    <mat-expansion-panel>
-                                    <mat-expansion-panel-header>
-                                        <mat-panel-title>
-                                        <mat-checkbox>Salon</mat-checkbox> 
-                                        </mat-panel-title>
-                                    </mat-expansion-panel-header>
-                                        <div>
-                                            <mat-checkbox>Service Name</mat-checkbox> 
-                                        </div>
-                                        <mat-checkbox>Service Name</mat-checkbox> 
-                                        <mat-expansion-panel>
-                                        <mat-expansion-panel-header>
-                                            <mat-panel-title>
-                                            <mat-checkbox>Category Name</mat-checkbox> 
-                                            </mat-panel-title>
-                                        </mat-expansion-panel-header>
-                                            <mat-checkbox>Service Name</mat-checkbox> 
-                                            <mat-checkbox>Service Name</mat-checkbox> 
-                                        </mat-expansion-panel>
-                                    </mat-expansion-panel>
-                                    <mat-expansion-panel>
-                                    <mat-expansion-panel-header>
-                                        <mat-panel-title>
-                                        <mat-checkbox>Hair</mat-checkbox> 
-                                        </mat-panel-title>
-                                    </mat-expansion-panel-header>
-                                        <div>
-                                            <mat-checkbox>Hair Color</mat-checkbox> 
-                                        </div>
-                                        <div>
-                                            <mat-checkbox>Hair Cut</mat-checkbox> 
-                                        </div>
-                                        <div>
-                                            <mat-checkbox>Hair Spa</mat-checkbox> 
-                                        </div>
-                                    </mat-expansion-panel>
-                                    <mat-expansion-panel>
-                                    <mat-expansion-panel-header>
-                                        <mat-panel-title>
-                                        <mat-checkbox>Home Cleaning</mat-checkbox> 
-                                        </mat-panel-title>
-                                    </mat-expansion-panel-header>
-                                        <div>
-                                            <mat-checkbox>Floor Cleaning</mat-checkbox> 
-                                        </div>
-                                        <div>
-                                            <mat-checkbox>Kitchen Cleaning</mat-checkbox> 
-                                        </div>
-                                        <div>
-                                            <mat-checkbox>Sofa Cleaning</mat-checkbox> 
-                                        </div>
-                                    </mat-expansion-panel>
-                                    <mat-expansion-panel>
-                                    <mat-expansion-panel-header>
-                                        <mat-panel-title>
-                                        <mat-checkbox>Plumbing</mat-checkbox> 
-                                        </mat-panel-title>
-                                    </mat-expansion-panel-header>
-                                    <div class="mat-sub-expansion">
-                                        <div>
-                                            <mat-checkbox>Floor Cleaning</mat-checkbox> 
-                                        </div>
-                                        <div>
-                                            <mat-checkbox>Kitchen Cleaning</mat-checkbox> 
-                                        </div>
-                                        <div>
-                                            <mat-checkbox>Sofa Cleaning</mat-checkbox> 
-                                        </div>
-                                    </div>
-                                    </mat-expansion-panel>
-                                    <mat-expansion-panel>
-                                    <mat-expansion-panel-header>
-                                        <mat-panel-title>
-                                        <mat-checkbox>Pest Control</mat-checkbox> 
-                                        </mat-panel-title>
-                                    </mat-expansion-panel-header>
-                                        <div>
-                                            <mat-checkbox>Floor Cleaning</mat-checkbox> 
-                                        </div>
-                                        <div>
-                                            <mat-checkbox>Kitchen Cleaning</mat-checkbox> 
-                                        </div>
-                                        <div>
-                                            <mat-checkbox>Sofa Cleaning</mat-checkbox> 
-                                        </div>
-                                    </mat-expansion-panel>
-                                </mat-accordion>
-                            </div>
-                        <!-- </mat-card> -->
-                    </div>
-                </div>
-            </form>
-            </mat-card>
-            <mat-card class="">
-                <div class="d-flex py-2">
-                    <button mat-button class="staff-cancel-btn">Cancel</button>
-                    <button mat-button class="staff-save-btn ml-2">Save</button>
-                </div>
-            </mat-card>
-            <mat-card>
-                <div class="row p-3">
-                    <div class="d-flex mb-1">
-                        <h5>Staff</h5>
-                        <div>
-                            <button mat-button class="staff-add-btn pl-0"> <mat-icon aria-hidden="false">add</mat-icon>Add Staff</button>
-                        </div>
-                    </div>
-                    <p>Staff/team members are required to deliver services to your customers. you can define rights/permissions, and the services they can perform.</p>
-                    <div class="d-flex mb-3">
-                        <mat-form-field class="dropdown bottom-border-field mt-0">
-                            <mat-label>Status</mat-label>
-                            <mat-select>
-                              <mat-option>None</mat-option>
-                              <mat-option value="All">All</mat-option>
-                              <mat-option value="Active">Active</mat-option>
-                              <mat-option value="Inactive">Inactive</mat-option>
-                              <mat-option value="Scheduled">Scheduled</mat-option>
-                              <mat-option value="Expired">Expired</mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                          <div class="searchbox mr-2">
-                            <form class="search_input-staff">							
-                                <div class="form-group has-search">
-                                    <span class="fa fa-search form-control-feedback verticalLine"></span>
-                                    <input type="text" class="form-control searchbox_staff " placeholder="Search Coupon">
-                                </div>												
-                            </form>
-                          </div>
-                    </div>
-                    
-                        <!-- <table  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="">
-                            <thead>
-                              <tr>
-                                <th>ID</th>
-                                <th>First name</th>
-                                <th>Last name</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>zxcv</td>
-                                <td>sdfg</td>
-                                <td>sdfg</td>
-                              </tr>
-                            </tbody>
-                        </table> -->
-                  
-                    <div class="" id="">
-                        <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="row-border hover">
-                            <thead>
-                              <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Mobile</th>
-                                <th>Visibility</th>
-                                <th>Status</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>
-                                    <p>Meet Shah</p>
-                                </td>
-                                <td>
-                                    <p>meet.shah199@gmail.com</p>
-                                </td>
-                                <td> 
-                                  <p>9819824470</p>
-                                </td>
-                                <td> 
-                                  <p>Public</p>
-                                </td>
-                                <td>
-                                  <mat-slide-toggle>Slide me!</mat-slide-toggle>
-                                </td>
-                              </tr>
-                            </tbody>
-                        </table>
-                    </div>
 
+<mat-drawer-content id="staff">
+    <mat-card class="mb-0">
+    <form >
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-12  border-right">
+                <h6>Add Staff</h6>
+                <div class="d-flex">
+                    <img class="add-staff mx-auto"  src="/assets/images/admin/Layer-3.png">
                 </div>
-            </mat-card>
-            <mat-card>
-                <div class="d-flex align-items-center">
-                    <div>
-                        <img  class="staff-profile-width" src="/assets/images/admin/Layer9.png">
-                    </div>
-                    <div class="pl-2">
-                        <div class="d-flex">
-                            <h6 class="pr-2">Naznin Paul</h6>
-                            <div class="d-flex">
-                                <mat-icon aria-hidden="false" class="review-star">star</mat-icon>
-                                <mat-icon aria-hidden="false" class="review-star">star</mat-icon>
-                                <mat-icon aria-hidden="false" class="review-star">star</mat-icon>
-                                <mat-icon aria-hidden="false" class="review-star">star</mat-icon>
-                                <mat-icon aria-hidden="false" class="review-star">star</mat-icon>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="d-flex pr-2">
-                                <mat-icon aria-hidden="false" class="staff-mail-icon">email</mat-icon>
-                                <p>naazninp04@gmail.com</p>
-                            </div>
-                            <div class="d-flex">
-                                <mat-icon aria-hidden="false">call</mat-icon>
-                                <p>9820420420</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="staff-btn">
-                        <div class="mx-2">                                
-                            <button mat-button appearance="fill" class="staff-edit-btn text-center pl-0"><mat-icon class="">edit</mat-icon>Edit</button>
-                        </div>
-                        <div class="mx-2">
-                            <button mat-button appearance="fill" class="staff-delete-btn" ><mat-icon class="">delete</mat-icon> Delete</button>
-                        </div> 
-                    </div>
-                </div>
-                <mat-tab-group>
-                    <mat-tab label="Details">
-                        <div class="bottom-border">
-                            <h6>Staff Description</h6>
-                            <p class="mb-0">No Description</p>
-                        </div>
-                        <div class="bottom-border d-flex">
-                            <div>
-                                <h6>Active</h6>
-                                <p class="mb-0">Disable this to temporarily suspend this staff's account. The Staff details will not be deleted from the system.</p>
-                            </div>
-                            <div  class="ml-auto">
-                                <mat-slide-toggle></mat-slide-toggle>
-                            </div>
-                        </div>
-                        <div class="bottom-border d-flex">
-                            <div>
-                                <h6>Internal Staff</h6>
-                                <p class="mb-0">Internal Staff cannot be viewed or booked by customers.</p>
-                            </div>
-                            <div class="ml-auto">
-                                <mat-slide-toggle></mat-slide-toggle>
-                            </div>
-                        </div>
-                        <div class="bottom-border d-flex">
-                            <div>
-                                <h6>Login Allowed</h6>
-                                <p class="mb-0">Restrict Shab to login next time. Allow shab to view / manage / block dates and times for their schedule only. Staff can only search customers but cannot export the customer list.</p>
-                            </div>
-                            <div class="ml-auto">
-                                <mat-slide-toggle ></mat-slide-toggle>
-                            </div>
-                        </div>
-                        <div class="bottom-border d-flex">
-                            <div>
-                                <h6>Email Verification</h6>
-                                <div class="d-flex">
-                                    <p class="mb-0 pr-2">naazninp04@gmail.com</p>
-                                    <button mat-button class="verified-button">Not Verified</button>
-                                </div>
-                            </div>
-                            <div class="ml-auto">
-                                 <button mat-button class="send-mail-button"> <mat-icon aria-hidden="false">home</mat-icon>Send Email</button>
-                            </div>
-                        </div>
-                        <div class="bottom-border d-flex">
-                            <div>
-                                <h6>Phone Number Verification</h6>
-                                <div class="d-flex">
-                                    <p class="mb-0 pr-2">9819824470</p>
-                                    <button mat-button class="verified-button">Not Verified</button>
-                                </div>
-                            </div>
-                            <div class="ml-auto">
-                                 <button mat-button class="sms-verification-button"><mat-icon aria-hidden="false">home</mat-icon>SMS Verification Link</button>
-                            </div>
-                        </div>
-                        <div class="bottom-border-last">
-                            <h6>Documents</h6>
-                            <div class="d-flex mt-2">
-                                <div class="pan-card file-border d-flex mr-2">
-                                    <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
-                                    <p class="pr-1 mb-0">PAN card.pdf</p>
-                                </div>
-                                <div class="adhar-card file-border d-flex">
-                                    <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
-                                    <p class="pr-1 mb-0">Adhar card.jpg</p>
-                                </div>
-                            </div>
-                        </div>
-                    </mat-tab>
-                    <mat-tab label="Services">
-                        
-                        <div class="">
-                            <div class="Customer-appointment-table">
-                                <div class="main-table-content main-cust-table-content">
-                                    <div class="">
-                                        <div class="heads main-heading-content example-box header-background " fxLayout="row">
-                                            <div class="" fxFlex="10"></div>
-                                            <div class="" fxFlex="40">Service</div>
-                                            <div class="" fxFlex="30">Duration</div>
-                                            <div class="" fxFlex="20">Rate</div>
-                                        </div>
-                                        <div class="content" class="example-list">
-                                            <div  class="example-box">
-                                                <div class="" fxFlex="10">
-                                                    <mat-icon aria-hidden="false" class="check-icon-background">check</mat-icon>
-                                                </div>
-                                                <div class="" fxFlex="40">
-                                                    <div class="d-flex align-items-center">
-                                                        <img  class="staff-details-width mr-2" src="/assets/images/admin/Layer-29.png">
-                                                        <p class="mb-0">Party Mackup</p>
-                                                    </div>
-                                                </div>
-                                                <div class="" fxFlex="30">1 hour</div>
-                                                <div class="" fxFlex="20">₹ 9000</div>
-                                            </div>
-                                            <div  class="example-box">
-                                                <div class="" fxFlex="10">
-                                                    <mat-icon aria-hidden="false" class="check-icon-background">check</mat-icon>
-                                                </div>
-                                                <div class="" fxFlex="40">
-                                                    <div class="d-flex align-items-center">
-                                                        <img  class="staff-details-width mr-2" src="/assets/images/admin/Layer-29.png">
-                                                        <p class="mb-0">Party Mackup</p>
-                                                    </div>
-                                                </div>
-                                                <div class="" fxFlex="30">1 hour</div>
-                                                <div class="" fxFlex="20">₹ 9000</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                   
-                                </div>
-                            </div> 
-                       </div> 
-
-                    </mat-tab>
-                    <mat-tab label="Postal Codes">
-                        <p class="mb-0">Postal codes are defined geographical boundaries within a location. Staff can be these area code.</p>
-                        <p>Customers will only be show staff members in the area code they select.</p>
+                <mat-form-field class="bottom-border-field">
+                    <mat-label>Name</mat-label>
+                    <mat-icon class="mr-4" matPrefix>person</mat-icon>
+                    <input matInput placeholder="Enter Your First Name">  
+                </mat-form-field> 
+                <mat-form-field class="bottom-border-field">
+                    <mat-label>Mobile</mat-label>
+                    <mat-icon class="mr-4" matPrefix>call</mat-icon>
+                    <input matInput placeholder="Enter Your number">  
+                </mat-form-field> 
+                <mat-form-field class="bottom-border-field">
+                    <mat-label>Email</mat-label>
+                    <mat-icon class="mr-4" matPrefix>email</mat-icon>
+                    <input matInput placeholder="Enter Your Email">  
+                </mat-form-field> 
+                <mat-form-field class="bottom-border-field">
+                    <mat-label>Address</mat-label>
+                    <input matInput placeholder="Enter Your address">  
+                </mat-form-field> 
+                <mat-form-field class="bottom-border-field">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput
+                                cdkTextareaAutosize
+                                #autosize="cdkTextareaAutosize"
+                                cdkAutosizeMinRows="1"
+                                cdkAutosizeMaxRows="7"></textarea>
+                </mat-form-field> 
+            </div>
+            <div class="col-lg-4 col-md-4 col-12 text-center border-right">
+                <div class="upload-document-top-margin">
                     <div class="d-flex">
-                        <mat-form-field class="bottom-border-field dropdown-width">
-                            <mat-label>Select an option</mat-label>
-                            <mat-select [(value)]="selected">
-                              <mat-option>None</mat-option>
-                              <mat-option value="option1">Option 1</mat-option>
-                              <mat-option value="option2">Option 2</mat-option>
-                              <mat-option value="option3">Option 3</mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                          <div class="searchbox mr-2">
-                            <form class="search_input-staff">							
-                                <div class="form-group has-search">
-                                    <span class="fa fa-search form-control-feedback verticalLine"></span>
-                                    <input type="text" class="form-control searchbox_staff " placeholder="Search Coupon">
-                                </div>												
-                            </form>
-                          </div>
+                        <h6>Upload Documents</h6>
+                        <i class="fa fa-question-circle uploaddocument-icon" aria-hidden="true"></i>
                     </div>
-                    <div class="">
+                    <div class="upload-files">
+                        <mat-icon aria-hidden="false" class="uploadfile-icon">cloud_upload</mat-icon>
+                        <p>.PDF .JPG .PNG .DOC</p>
+                        <p>Drag & drop your files here</p>
+                        <div>
+                            <button mat-button class="upload-btn">Upload Files</button>
+                        </div>
+                    </div>
+                    <div class="d-flex mt-2">
+                        <div class="pan-card file-border d-flex">
+                            <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
+                            <p class="pr-1 mb-0">PAN card.pdf</p>
+                            <mat-icon aria-hidden="false">cancel</mat-icon>
+                        </div>
+                        <div class="adhar-card file-border d-flex">
+                            <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
+                            <p class="pr-1 mb-0">Adhar card.jpg</p>
+                            <mat-icon aria-hidden="false">cancel</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-12t">
+                <!-- <mat-card> -->
+                    <div class="d-flex pb-3">
+                        <button mat-button class="staff-delete-btn">
+                            <mat-icon class="pr-2">delete_outline</mat-icon>Delete</button>
+                    </div>
+                    <div class="border p-3">
+                        <h6>Select Service for staff</h6>
+                        <mat-form-field class="pb-3 bottom-border-field">
+                        <mat-label>Outline form field</mat-label>
+                        <input matInput placeholder="Category,Subcategory,Service">
+                        <mat-icon matPrefix>search</mat-icon>
+                        </mat-form-field>
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                <mat-checkbox>Salon</mat-checkbox> 
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                                <div>
+                                    <mat-checkbox>Service Name</mat-checkbox> 
+                                </div>
+                                <mat-checkbox>Service Name</mat-checkbox> 
+                                <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                    <mat-checkbox>Category Name</mat-checkbox> 
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                    <mat-checkbox>Service Name</mat-checkbox> 
+                                    <mat-checkbox>Service Name</mat-checkbox> 
+                                </mat-expansion-panel>
+                            </mat-expansion-panel>
+                            <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                <mat-checkbox>Hair</mat-checkbox> 
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                                <div>
+                                    <mat-checkbox>Hair Color</mat-checkbox> 
+                                </div>
+                                <div>
+                                    <mat-checkbox>Hair Cut</mat-checkbox> 
+                                </div>
+                                <div>
+                                    <mat-checkbox>Hair Spa</mat-checkbox> 
+                                </div>
+                            </mat-expansion-panel>
+                            <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                <mat-checkbox>Home Cleaning</mat-checkbox> 
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                                <div>
+                                    <mat-checkbox>Floor Cleaning</mat-checkbox> 
+                                </div>
+                                <div>
+                                    <mat-checkbox>Kitchen Cleaning</mat-checkbox> 
+                                </div>
+                                <div>
+                                    <mat-checkbox>Sofa Cleaning</mat-checkbox> 
+                                </div>
+                            </mat-expansion-panel>
+                            <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                <mat-checkbox>Plumbing</mat-checkbox> 
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="mat-sub-expansion">
+                                <div>
+                                    <mat-checkbox>Floor Cleaning</mat-checkbox> 
+                                </div>
+                                <div>
+                                    <mat-checkbox>Kitchen Cleaning</mat-checkbox> 
+                                </div>
+                                <div>
+                                    <mat-checkbox>Sofa Cleaning</mat-checkbox> 
+                                </div>
+                            </div>
+                            </mat-expansion-panel>
+                            <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                <mat-checkbox>Pest Control</mat-checkbox> 
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                                <div>
+                                    <mat-checkbox>Floor Cleaning</mat-checkbox> 
+                                </div>
+                                <div>
+                                    <mat-checkbox>Kitchen Cleaning</mat-checkbox> 
+                                </div>
+                                <div>
+                                    <mat-checkbox>Sofa Cleaning</mat-checkbox> 
+                                </div>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+                <!-- </mat-card> -->
+            </div>
+        </div>
+    </form>
+    </mat-card>
+    <mat-card class="">
+        <div class="d-flex py-2">
+            <button mat-button class="staff-cancel-btn">Cancel</button>
+            <button mat-button class="staff-save-btn ml-2">Save</button>
+        </div>
+    </mat-card>
+    <mat-card>
+        <div class="row p-3">
+            <div class="d-flex mb-1">
+                <h5>Staff</h5>
+                <div>
+                    <button mat-button class="staff-add-btn pl-0"> <mat-icon aria-hidden="false">add</mat-icon>Add Staff</button>
+                </div>
+            </div>
+            <p>Staff/team members are required to deliver services to your customers. you can define rights/permissions, and the services they can perform.</p>
+            <div class="d-flex mb-3">
+                <mat-form-field class="dropdown bottom-border-field mt-0">
+                    <mat-label>Status</mat-label>
+                    <mat-select>
+                        <mat-option>None</mat-option>
+                        <mat-option value="All">All</mat-option>
+                        <mat-option value="Active">Active</mat-option>
+                        <mat-option value="Inactive">Inactive</mat-option>
+                        <mat-option value="Scheduled">Scheduled</mat-option>
+                        <mat-option value="Expired">Expired</mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                    <div class="searchbox mr-2">
+                    <form class="search_input-staff">							
+                        <div class="form-group has-search">
+                            <span class="fa fa-search form-control-feedback verticalLine"></span>
+                            <input type="text" class="form-control searchbox_staff " placeholder="Search Coupon">
+                        </div>												
+                    </form>
+                    </div>
+            </div>
+            
+                <!-- <table  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="">
+                    <thead>
+                        <tr>
+                        <th>ID</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <td>zxcv</td>
+                        <td>sdfg</td>
+                        <td>sdfg</td>
+                        </tr>
+                    </tbody>
+                </table> -->
+            
+            <div class="" id="">
+                <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="row-border hover">
+                    <thead>
+                        <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Visibility</th>
+                        <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <td>
+                            <p>Meet Shah</p>
+                        </td>
+                        <td>
+                            <p>meet.shah199@gmail.com</p>
+                        </td>
+                        <td> 
+                            <p>9819824470</p>
+                        </td>
+                        <td> 
+                            <p>Public</p>
+                        </td>
+                        <td>
+                            <mat-slide-toggle>Slide me!</mat-slide-toggle>
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </mat-card>
+    <mat-card>
+        <div class="d-flex align-items-center">
+            <div>
+                <img  class="staff-profile-width" src="/assets/images/admin/Layer9.png">
+            </div>
+            <div class="pl-2">
+                <div class="d-flex">
+                    <h6 class="pr-2">Naznin Paul</h6>
+                    <div class="d-flex">
+                        <mat-icon aria-hidden="false" class="review-star">star</mat-icon>
+                        <mat-icon aria-hidden="false" class="review-star">star</mat-icon>
+                        <mat-icon aria-hidden="false" class="review-star">star</mat-icon>
+                        <mat-icon aria-hidden="false" class="review-star">star</mat-icon>
+                        <mat-icon aria-hidden="false" class="review-star">star</mat-icon>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="d-flex pr-2">
+                        <mat-icon aria-hidden="false" class="staff-mail-icon">email</mat-icon>
+                        <p>naazninp04@gmail.com</p>
+                    </div>
+                    <div class="d-flex">
+                        <mat-icon aria-hidden="false">call</mat-icon>
+                        <p>9820420420</p>
+                    </div>
+                </div>
+            </div>
+            <div class="staff-btn">
+                <div class="mx-2">                                
+                    <button mat-button appearance="fill" class="staff-edit-btn text-center pl-0"><mat-icon class="">edit</mat-icon>Edit</button>
+                </div>
+                <div class="mx-2">
+                    <button mat-button appearance="fill" class="staff-delete-btn" ><mat-icon class="">delete</mat-icon> Delete</button>
+                </div> 
+            </div>
+        </div>
+        <mat-tab-group>
+            <mat-tab label="Details">
+                <div class="bottom-border">
+                    <h6>Staff Description</h6>
+                    <p class="mb-0">No Description</p>
+                </div>
+                <div class="bottom-border d-flex">
+                    <div>
+                        <h6>Active</h6>
+                        <p class="mb-0">Disable this to temporarily suspend this staff's account. The Staff details will not be deleted from the system.</p>
+                    </div>
+                    <div  class="ml-auto">
+                        <mat-slide-toggle></mat-slide-toggle>
+                    </div>
+                </div>
+                <div class="bottom-border d-flex">
+                    <div>
+                        <h6>Internal Staff</h6>
+                        <p class="mb-0">Internal Staff cannot be viewed or booked by customers.</p>
+                    </div>
+                    <div class="ml-auto">
+                        <mat-slide-toggle></mat-slide-toggle>
+                    </div>
+                </div>
+                <div class="bottom-border d-flex">
+                    <div>
+                        <h6>Login Allowed</h6>
+                        <p class="mb-0">Restrict Shab to login next time. Allow shab to view / manage / block dates and times for their schedule only. Staff can only search customers but cannot export the customer list.</p>
+                    </div>
+                    <div class="ml-auto">
+                        <mat-slide-toggle ></mat-slide-toggle>
+                    </div>
+                </div>
+                <div class="bottom-border d-flex">
+                    <div>
+                        <h6>Email Verification</h6>
+                        <div class="d-flex">
+                            <p class="mb-0 pr-2">naazninp04@gmail.com</p>
+                            <button mat-button class="verified-button">Not Verified</button>
+                        </div>
+                    </div>
+                    <div class="ml-auto">
+                            <button mat-button class="send-mail-button"> <mat-icon aria-hidden="false">home</mat-icon>Send Email</button>
+                    </div>
+                </div>
+                <div class="bottom-border d-flex">
+                    <div>
+                        <h6>Phone Number Verification</h6>
+                        <div class="d-flex">
+                            <p class="mb-0 pr-2">9819824470</p>
+                            <button mat-button class="verified-button">Not Verified</button>
+                        </div>
+                    </div>
+                    <div class="ml-auto">
+                            <button mat-button class="sms-verification-button"><mat-icon aria-hidden="false">home</mat-icon>SMS Verification Link</button>
+                    </div>
+                </div>
+                <div class="bottom-border-last">
+                    <h6>Documents</h6>
+                    <div class="d-flex mt-2">
+                        <div class="pan-card file-border d-flex mr-2">
+                            <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
+                            <p class="pr-1 mb-0">PAN card.pdf</p>
+                        </div>
+                        <div class="adhar-card file-border d-flex">
+                            <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
+                            <p class="pr-1 mb-0">Adhar card.jpg</p>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Services">
+                
+                <div class="">
                     <div class="Customer-appointment-table">
                         <div class="main-table-content main-cust-table-content">
                             <div class="">
                                 <div class="heads main-heading-content example-box header-background " fxLayout="row">
                                     <div class="" fxFlex="10"></div>
-                                    <div class="" fxFlex="30">Zipcode</div>
-                                    <div class="" fxFlex="30">Area</div>
-                                    <div class="" fxFlex="30">Status</div>
+                                    <div class="" fxFlex="40">Service</div>
+                                    <div class="" fxFlex="30">Duration</div>
+                                    <div class="" fxFlex="20">Rate</div>
                                 </div>
                                 <div class="content" class="example-list">
                                     <div  class="example-box">
                                         <div class="" fxFlex="10">
-                                            <mat-checkbox></mat-checkbox>
+                                            <mat-icon aria-hidden="false" class="check-icon-background">check</mat-icon>
                                         </div>
-                                        <div class="" fxFlex="40">4000101</div>
-                                        <div class="" fxFlex="30">Kandivali</div>
-                                        <div class="" fxFlex="30">
-                                            <mat-slide-toggle></mat-slide-toggle>
+                                        <div class="" fxFlex="40">
+                                            <div class="d-flex align-items-center">
+                                                <img  class="staff-details-width mr-2" src="/assets/images/admin/Layer-29.png">
+                                                <p class="mb-0">Party Mackup</p>
+                                            </div>
                                         </div>
+                                        <div class="" fxFlex="30">1 hour</div>
+                                        <div class="" fxFlex="20">₹ 9000</div>
                                     </div>
                                     <div  class="example-box">
                                         <div class="" fxFlex="10">
-                                            <mat-checkbox></mat-checkbox>
+                                            <mat-icon aria-hidden="false" class="check-icon-background">check</mat-icon>
                                         </div>
-                                        <div class="" fxFlex="30">400067</div>
-                                        <div class="" fxFlex="30">Malad</div>
-                                        <div class="" fxFlex="30">
+                                        <div class="" fxFlex="40">
+                                            <div class="d-flex align-items-center">
+                                                <img  class="staff-details-width mr-2" src="/assets/images/admin/Layer-29.png">
+                                                <p class="mb-0">Party Mackup</p>
+                                            </div>
+                                        </div>
+                                        <div class="" fxFlex="30">1 hour</div>
+                                        <div class="" fxFlex="20">₹ 9000</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div> 
+                </div> 
+
+            </mat-tab>
+            <mat-tab label="Postal Codes">
+                <p class="mb-0">Postal codes are defined geographical boundaries within a location. Staff can be these area code.</p>
+                <p>Customers will only be show staff members in the area code they select.</p>
+            <div class="d-flex">
+                <mat-form-field class="bottom-border-field dropdown-width">
+                    <mat-label>Select an option</mat-label>
+                    <mat-select [(value)]="selected">
+                        <mat-option>None</mat-option>
+                        <mat-option value="option1">Option 1</mat-option>
+                        <mat-option value="option2">Option 2</mat-option>
+                        <mat-option value="option3">Option 3</mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                    <div class="searchbox mr-2">
+                    <form class="search_input-staff">							
+                        <div class="form-group has-search">
+                            <span class="fa fa-search form-control-feedback verticalLine"></span>
+                            <input type="text" class="form-control searchbox_staff " placeholder="Search Coupon">
+                        </div>												
+                    </form>
+                    </div>
+            </div>
+            <div class="">
+            <div class="Customer-appointment-table">
+                <div class="main-table-content main-cust-table-content">
+                    <div class="">
+                        <div class="heads main-heading-content example-box header-background " fxLayout="row">
+                            <div class="" fxFlex="10"></div>
+                            <div class="" fxFlex="30">Zipcode</div>
+                            <div class="" fxFlex="30">Area</div>
+                            <div class="" fxFlex="30">Status</div>
+                        </div>
+                        <div class="content" class="example-list">
+                            <div  class="example-box">
+                                <div class="" fxFlex="10">
+                                    <mat-checkbox></mat-checkbox>
+                                </div>
+                                <div class="" fxFlex="40">4000101</div>
+                                <div class="" fxFlex="30">Kandivali</div>
+                                <div class="" fxFlex="30">
+                                    <mat-slide-toggle></mat-slide-toggle>
+                                </div>
+                            </div>
+                            <div  class="example-box">
+                                <div class="" fxFlex="10">
+                                    <mat-checkbox></mat-checkbox>
+                                </div>
+                                <div class="" fxFlex="30">400067</div>
+                                <div class="" fxFlex="30">Malad</div>
+                                <div class="" fxFlex="30">
+                                    <mat-slide-toggle></mat-slide-toggle>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div> 
+            </div> 
+
+            
+            </mat-tab>
+            <mat-tab label="Working Hours">
+                
+                <div class="">
+                    <div class="Customer-appointment-table">
+                        <div class="main-table-content main-cust-table-content">
+                            <div class="">
+                                <div class="heads main-heading-content example-box header-background " fxLayout="row">
+                                    <div class="" fxFlex="10"></div>
+                                    <div class="" fxFlex="10"></div>
+                                    <div class="" fxFlex="30"></div>
+                                    <!-- <div class="" fxFlex="10"></div>
+                                    <div class="" fxFlex="20"></div> -->
+                                    <div class="" fxFlex="30"></div>
+                                    <div class="" fxFlex="20"></div>
+                                </div>
+                                <div class="content" class="example-list">
+                                    <div  class="example-box">
+                                        <div class="" fxFlex="10">
                                             <mat-slide-toggle></mat-slide-toggle>
+                                        </div>
+                                        <div class="" fxFlex="10">Monday</div>
+                                        <div class="" fxFlex="30">
+                                            <div class="d-flex">
+                                                <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                    <mat-label>8:00 am</mat-label>
+                                                    <mat-select [(value)]="selected">
+                                                    <mat-option>None</mat-option>
+                                                    <mat-option value="option1">Option 1</mat-option>
+                                                    <mat-option value="option2">Option 2</mat-option>
+                                                    <mat-option value="option3">Option 3</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                                <div class="to-center">to</div>
+                                                <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                    <mat-label>6:00 am</mat-label>
+                                                    <mat-select [(value)]="selected">
+                                                    <mat-option>None</mat-option>
+                                                    <mat-option value="option1">Option 1</mat-option>
+                                                    <mat-option value="option2">Option 2</mat-option>
+                                                    <mat-option value="option3">Option 3</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="blue-font" fxFlex="30">Apply to all </div>
+                                        <div class="" fxFlex="20">
+                                            <button mat-button class="staff-reset-btn">Reset to Default</button>
                                         </div>
                                     </div>
                                 </div>
@@ -534,188 +532,127 @@
                     </div> 
                     </div> 
 
-                   
-                    </mat-tab>
-                    <mat-tab label="Working Hours">
-                        
-                        <div class="">
-                            <div class="Customer-appointment-table">
-                                <div class="main-table-content main-cust-table-content">
-                                    <div class="">
-                                        <div class="heads main-heading-content example-box header-background " fxLayout="row">
-                                            <div class="" fxFlex="10"></div>
-                                            <div class="" fxFlex="10"></div>
-                                            <div class="" fxFlex="30"></div>
-                                            <!-- <div class="" fxFlex="10"></div>
-                                            <div class="" fxFlex="20"></div> -->
-                                            <div class="" fxFlex="30"></div>
-                                            <div class="" fxFlex="20"></div>
+            </mat-tab>
+            <mat-tab label="Breaks"> 
+                
+                <div class="">
+                    <div class="Customer-appointment-table">
+                        <div class="main-table-content main-cust-table-content">
+                            <div class="">
+                                <div class="heads main-heading-content example-box header-background " fxLayout="row">
+                                    <div class="" fxFlex="10"></div>
+                                    <div class="" fxFlex="15"></div>
+                                    <div class="" fxFlex="35"></div>
+                                    <!-- <div class="" fxFlex="10"></div>
+                                    <div class="" fxFlex="20"></div> -->
+                                    <div class="" fxFlex="20"></div>
+                                    <div class="" fxFlex="20"></div>
+                                </div>
+                                <div class="content" class="example-list">
+                                    <div  class="example-box">
+                                        <div class="" fxFlex="10"> Monday </div>
+                                        <div class="" fxFlex="15">
+                                            <button mat-button class="staff-addbreak-btn">Add Break</button>
                                         </div>
-                                        <div class="content" class="example-list">
-                                            <div  class="example-box">
-                                                <div class="" fxFlex="10">
-                                                    <mat-slide-toggle></mat-slide-toggle>
-                                                </div>
-                                                <div class="" fxFlex="10">Monday</div>
-                                                <div class="" fxFlex="30">
-                                                    <div class="d-flex">
-                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                            <mat-label>8:00 am</mat-label>
-                                                            <mat-select [(value)]="selected">
-                                                            <mat-option>None</mat-option>
-                                                            <mat-option value="option1">Option 1</mat-option>
-                                                            <mat-option value="option2">Option 2</mat-option>
-                                                            <mat-option value="option3">Option 3</mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                        <div class="to-center">to</div>
-                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                            <mat-label>6:00 am</mat-label>
-                                                            <mat-select [(value)]="selected">
-                                                            <mat-option>None</mat-option>
-                                                            <mat-option value="option1">Option 1</mat-option>
-                                                            <mat-option value="option2">Option 2</mat-option>
-                                                            <mat-option value="option3">Option 3</mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                </div>
-                                                <div class="blue-font" fxFlex="30">Apply to all </div>
-                                                <div class="" fxFlex="20">
-                                                    <button mat-button class="staff-reset-btn">Reset to Default</button>
-                                                </div>
+                                        <div class="" fxFlex="35">
+                                            <div class="d-flex">
+                                                <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                    <mat-label>8:00 am</mat-label>
+                                                    <mat-select [(value)]="selected">
+                                                    <mat-option>None</mat-option>
+                                                    <mat-option value="option1">Option 1</mat-option>
+                                                    <mat-option value="option2">Option 2</mat-option>
+                                                    <mat-option value="option3">Option 3</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                                <div class="to-center">to</div>
+                                                <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                    <mat-label>6:00 am</mat-label>
+                                                    <mat-select [(value)]="selected">
+                                                    <mat-option>None</mat-option>
+                                                    <mat-option value="option1">Option 1</mat-option>
+                                                    <mat-option value="option2">Option 2</mat-option>
+                                                    <mat-option value="option3">Option 3</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
                                             </div>
                                         </div>
-                                    </div>
-                                    
-                                </div>
-                            </div> 
-                            </div> 
-
-                    </mat-tab>
-                    <mat-tab label="Breaks"> 
-                        
-                        <div class="">
-                            <div class="Customer-appointment-table">
-                                <div class="main-table-content main-cust-table-content">
-                                    <div class="">
-                                        <div class="heads main-heading-content example-box header-background " fxLayout="row">
-                                            <div class="" fxFlex="10"></div>
-                                            <div class="" fxFlex="15"></div>
-                                            <div class="" fxFlex="35"></div>
-                                            <!-- <div class="" fxFlex="10"></div>
-                                            <div class="" fxFlex="20"></div> -->
-                                            <div class="" fxFlex="20"></div>
-                                            <div class="" fxFlex="20"></div>
+                                        <div class="blue-font" fxFlex="20">
+                                            <mat-icon aria-hidden="false" class="staff-delete-icon">delete_outline</mat-icon>
                                         </div>
-                                        <div class="content" class="example-list">
-                                            <div  class="example-box">
-                                                <div class="" fxFlex="10"> Monday </div>
-                                                <div class="" fxFlex="15">
-                                                    <button mat-button class="staff-addbreak-btn">Add Break</button>
-                                                </div>
-                                                <div class="" fxFlex="35">
-                                                    <div class="d-flex">
-                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                            <mat-label>8:00 am</mat-label>
-                                                            <mat-select [(value)]="selected">
-                                                            <mat-option>None</mat-option>
-                                                            <mat-option value="option1">Option 1</mat-option>
-                                                            <mat-option value="option2">Option 2</mat-option>
-                                                            <mat-option value="option3">Option 3</mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                        <div class="to-center">to</div>
-                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                            <mat-label>6:00 am</mat-label>
-                                                            <mat-select [(value)]="selected">
-                                                            <mat-option>None</mat-option>
-                                                            <mat-option value="option1">Option 1</mat-option>
-                                                            <mat-option value="option2">Option 2</mat-option>
-                                                            <mat-option value="option3">Option 3</mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                </div>
-                                                <div class="blue-font" fxFlex="20">
-                                                    <mat-icon aria-hidden="false" class="staff-delete-icon">delete_outline</mat-icon>
-                                                </div>
-                                                <div class="" fxFlex="20">
-                                                    <button mat-button class="staff-reset-btn">Reset to Default</button>
-                                                </div>
-                                            </div>
+                                        <div class="" fxFlex="20">
+                                            <button mat-button class="staff-reset-btn">Reset to Default</button>
                                         </div>
                                     </div>
-                                    
                                 </div>
-                            </div> 
-                        </div> 
+                            </div>
+                            
+                        </div>
+                    </div> 
+                </div> 
 
-                    </mat-tab>
-                    <mat-tab label="Time Off">
-                        <div class="d-flex bottom-border">
-                            <button mat-button class="reset-button ml-auto">Reset to Default</button>
-                            <button (click)="addTimeOff()" mat-button class="time-off-button"><mat-icon aria-hidden="false">add</mat-icon>Time Off</button>
-                        </div>
-                        <div class="bottom-border d-flex">
-                            <div class="calendar-background mr-3">
-                                <img src="/assets/images/admin/calendar-3.png" class="staff-calendar-image">
-                                <!-- <mat-icon aria-hidden="false" aria-label="Example home icon">calendar_today</mat-icon> -->
-                            </div>
-                            <div>
-                                <h6 class="mb-0">Dec 26, 2019</h6>
-                                <p class="mb-0 blue-font">Personal</p>
-                            </div>
-                            <div class="ml-auto">
-                                <button mat-button class="remove-button ">Remove</button>
-                            </div>
-                        </div>
-                        <div class="bottom-border d-flex">
-                            <div class="calendar-background mr-3">
-                                <img src="/assets/images/admin/calendar-3.png" class="staff-calendar-image">
-                                <!-- <mat-icon aria-hidden="false" aria-label="Example home icon">calendar_today</mat-icon> -->
-                            </div>
-                            <div>
-                                <h6 class="mb-0">Oct 8, 2019</h6>
-                                <p class="mb-0 blue-font">Dussehra</p>
-                            </div>
-                            <div class="ml-auto">
-                                <mat-slide-toggle></mat-slide-toggle>
-                            </div>
-                        </div>
-                        <div class="bottom-border d-flex">
-                            <div class="calendar-background mr-3">
-                                <img src="/assets/images/admin/calendar-3.png" class="staff-calendar-image">
-                                <!-- <mat-icon aria-hidden="false" aria-label="Example home icon">calendar_today</mat-icon> -->
-                            </div>
-                            <div>
-                                <h6 class="mb-0">Oct 2, 2019</h6>
-                                <p class="mb-0 blue-font">Ganesh Chaturthi</p>
-                            </div>
-                            <div class="ml-auto">
-                                <mat-slide-toggle></mat-slide-toggle>
-                            </div>
-                        </div>
-                        <div class="bottom-border d-flex">
-                            <div class="calendar-background mr-3">
-                                <img src="/assets/images/admin/calendar-3.png" class="staff-calendar-image">
-                                <!-- <mat-icon aria-hidden="false" aria-label="Example home icon">calendar_today</mat-icon> -->
-                            </div>
-                            <div>
-                                <h6 class="mb-0">Oct 8, 2019</h6>
-                                <p class="mb-0 blue-font">Dussehra</p>
-                            </div>
-                            <div class="ml-auto">
-                                <mat-slide-toggle></mat-slide-toggle>
-                            </div>
-                        </div>
-                    </mat-tab>
-                    <mat-tab label="Review">
-                        review
-                    </mat-tab>
-                  </mat-tab-group>
-            </mat-card>
-            </mat-drawer-content>
-        </mat-drawer-container>
-    </div>
-</div>
+            </mat-tab>
+            <mat-tab label="Time Off">
+                <div class="d-flex bottom-border">
+                    <button mat-button class="reset-button ml-auto">Reset to Default</button>
+                    <button (click)="addTimeOff()" mat-button class="time-off-button"><mat-icon aria-hidden="false">add</mat-icon>Time Off</button>
+                </div>
+                <div class="bottom-border d-flex">
+                    <div class="calendar-background mr-3">
+                        <img src="/assets/images/admin/calendar-3.png" class="staff-calendar-image">
+                        <!-- <mat-icon aria-hidden="false" aria-label="Example home icon">calendar_today</mat-icon> -->
+                    </div>
+                    <div>
+                        <h6 class="mb-0">Dec 26, 2019</h6>
+                        <p class="mb-0 blue-font">Personal</p>
+                    </div>
+                    <div class="ml-auto">
+                        <button mat-button class="remove-button ">Remove</button>
+                    </div>
+                </div>
+                <div class="bottom-border d-flex">
+                    <div class="calendar-background mr-3">
+                        <img src="/assets/images/admin/calendar-3.png" class="staff-calendar-image">
+                        <!-- <mat-icon aria-hidden="false" aria-label="Example home icon">calendar_today</mat-icon> -->
+                    </div>
+                    <div>
+                        <h6 class="mb-0">Oct 8, 2019</h6>
+                        <p class="mb-0 blue-font">Dussehra</p>
+                    </div>
+                    <div class="ml-auto">
+                        <mat-slide-toggle></mat-slide-toggle>
+                    </div>
+                </div>
+                <div class="bottom-border d-flex">
+                    <div class="calendar-background mr-3">
+                        <img src="/assets/images/admin/calendar-3.png" class="staff-calendar-image">
+                        <!-- <mat-icon aria-hidden="false" aria-label="Example home icon">calendar_today</mat-icon> -->
+                    </div>
+                    <div>
+                        <h6 class="mb-0">Oct 2, 2019</h6>
+                        <p class="mb-0 blue-font">Ganesh Chaturthi</p>
+                    </div>
+                    <div class="ml-auto">
+                        <mat-slide-toggle></mat-slide-toggle>
+                    </div>
+                </div>
+                <div class="bottom-border d-flex">
+                    <div class="calendar-background mr-3">
+                        <img src="/assets/images/admin/calendar-3.png" class="staff-calendar-image">
+                        <!-- <mat-icon aria-hidden="false" aria-label="Example home icon">calendar_today</mat-icon> -->
+                    </div>
+                    <div>
+                        <h6 class="mb-0">Oct 8, 2019</h6>
+                        <p class="mb-0 blue-font">Dussehra</p>
+                    </div>
+                    <div class="ml-auto">
+                        <mat-slide-toggle></mat-slide-toggle>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Review">
+                review
+            </mat-tab>
+            </mat-tab-group>
+    </mat-card>
+</mat-drawer-content>
