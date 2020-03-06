@@ -20,15 +20,17 @@ import { AppearanceComponent } from './appearance/appearance.component';
 
 
 import { DialogAddNewTimeOff } from './staff/staff.component';
+import { PostalcodesComponent } from './postalcodes/postalcodes.component';
 import { PaymentsComponent } from './payments/payments.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { DialogAddNewTax } from './paymentrules/paymentrules.component';
-import { PostalcodesComponent } from './postalcodes/postalcodes.component';
-
 
 import { PaymentgatewayComponent } from './paymentgateway/paymentgateway.component';
 import { PaymentrulesComponent } from './paymentrules/paymentrules.component';
 import { BookingrulesComponent } from './bookingrules/bookingrules.component';
+
+
+
 
 
 
@@ -43,7 +45,7 @@ import { BookingrulesComponent } from './bookingrules/bookingrules.component';
     DialogAddNewTax,
     PaymentgatewayComponent,
     PaymentrulesComponent,
-    BookingrulesComponent
+    BookingrulesComponent,
     SettingsMyProfileComponent,
     CompanyDetailsComponent,
     AppearanceComponent,
@@ -61,12 +63,10 @@ import { BookingrulesComponent } from './bookingrules/bookingrules.component';
       MatSidenavModule,
       DataTablesModule,
       MatDatepickerModule
-      DataTablesModule
   ],
   exports: [
     FormsModule
   ],
    entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax],
-   entryComponents: [SettingsComponent,DialogAddNewTimeOff],
 })
 export class SettingsModule {}

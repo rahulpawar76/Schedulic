@@ -31,33 +31,37 @@ const routes: Routes = [
     path: 'staff',
    component: StaffComponent 
 
-  },
-  {
-    path: 'payments',
-   component: PaymentsComponent 
+ },
+ {
+   path: 'payments',
+  component: PaymentsComponent 
+
+ },
+ {
+   path: 'paymentgateway',
+  component: PaymentgatewayComponent 
+
+ },
+ {
+   path: 'paymentrules',
+  component: PaymentrulesComponent 
+
+ },
+ {
+   path: 'bookingrules',
+  component: BookingrulesComponent 
+
  },
  {
   path: 'setting-my-profile',
  component: SettingsMyProfileComponent 
 
-  },
-  {
-    path: 'paymentgateway',
-   component: PaymentgatewayComponent 
 },
 
-  },
-  {
-    path: 'paymentrules',
-   component: PaymentrulesComponent 
 {
   path: 'company-details',
  component: CompanyDetailsComponent 
 
-  },
-  {
-    path: 'bookingrules',
-   component: BookingrulesComponent 
 },
 {
   path: 'appearance',
@@ -71,7 +75,6 @@ const routes: Routes = [
 
 },
 
-  },
 
 ];
 
