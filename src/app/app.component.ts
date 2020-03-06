@@ -37,6 +37,7 @@ export interface DialogData {
 export class AppComponent implements AfterViewInit {
   animal:any;
   selectedBusinessName: any;
+  adminSettings : boolean = false;
   
     public company_info: string;
 
@@ -58,26 +59,16 @@ export class AppComponent implements AfterViewInit {
         private _snackBar: MatSnackBar,        
     ) {        
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-
-        
-        
-        // Set company info
-     /*    this._companyService.getCompanyInfoData().subscribe(
-          (res: any) => {
-            this.company_info =res[0];
-          },
-          (err) => {
-             this._snackBar.open("Database Connection Error", "X", {
-              verticalPosition: 'top',
-              panelClass : ['red-snackbar']
-            });
-          }
-        ); */
-        // this.selectedSessionId=localStorage.getItem("session_id");
-        // this.selectedSessionName=localStorage.getItem("session_name");
     }
 
-
+    settingsModule(isSettingsPage){
+      if(isSettingsPage){
+        this.adminSettings  = true;
+      }
+      else{
+        this.adminSettings  = false;
+      }
+    }
 
     get isAdmin() {
         return this.currentUser && this.currentUser.role === Role.Admin;
@@ -170,6 +161,7 @@ export class AppComponent implements AfterViewInit {
       MySettingsNav(){
         this.router.navigate(['/admin/settings']);
       }
+
 
 
       /*StaffDashboard Navigation*/

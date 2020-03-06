@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { AdminService } from '../_services/admin-main.service'
+import { AppComponent } from '@app/app.component'
 
 
 interface Food {
@@ -18,11 +19,18 @@ export class ReportsComponent implements OnInit {
   appointmentReport : boolean = true;
   salesReport : boolean = false;
   customerReport : boolean = false;
+  adminSettings: boolean = false;
   
   AllCustomerReportsList:any;
   CustomerReportsList:any;
 
-  constructor(public router: Router,private AdminService: AdminService) { }
+  constructor(
+    public router: Router,
+    private AdminService: AdminService,
+    private appComponent: AppComponent,
+    ) {
+      this.appComponent.settingsModule(this.adminSettings);
+     }
   
 
   ngOnInit() {

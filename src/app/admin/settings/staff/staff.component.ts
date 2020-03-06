@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, from } from 'rxjs';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { AppComponent } from '@app/app.component'
 
 export interface DialogData {
   animal: string;
@@ -18,11 +19,15 @@ export class StaffComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   animal: any;
+  adminSettings : boolean = true;
 
   constructor(
     public dialog: MatDialog,
     private _formBuilder: FormBuilder,
-  ) { }
+    private appComponent : AppComponent,
+  ) {
+    this.appComponent.settingsModule(this.adminSettings);
+   }
 
   ngOnInit() {
     this.dtOptions = {

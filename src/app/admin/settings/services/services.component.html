@@ -1,21 +1,6 @@
 
-<div class="container-fluid sub-container" id="services">
-    <div class="">
-        <mat-drawer-container class="w-100"  style="margin-top: 70px;">
-            <mat-drawer mode="side" opened id="Customer-list" class=" pl-0 pr-0"  style="width:220px;">
-                <div class="leftarrow-icon">
-                    <mat-icon aria-hidden="false" class="customer-drawer-leftarrow">arrow_back</mat-icon>
-                </div>
-                <mat-list role="list">
-                    <mat-menu></mat-menu>
-                        <p>Resource Management</p>
-                        <div class="matlist pointer menuitem">
-                            <mat-list-item role="listitem" (click)="fnappointmentReport()"><i class="fa fa-clone servicechart"></i>Services</mat-list-item>
-                            <mat-list-item role="listitem" (click)="fnsalesReport()"><i class="fa fa-thumb-tack servicechart"></i>Staff</mat-list-item>
-                        </div>
-                </mat-list>
-            </mat-drawer>
-            <mat-drawer-content>
+
+            <mat-drawer-content id="services" class="ml-0">
                 <mat-drawer-container >
                     <mat-drawer mode="side" opened  style="width:250px; background-color: #dce9ff;">  
                         <mat-list role="list">
@@ -426,10 +411,7 @@
                     </mat-drawer-content>
                 </mat-drawer-container>
                 
-            </mat-drawer-content>     
-        </mat-drawer-container>
-    </div>
-</div>
+            </mat-drawer-content> 
 
 
             
