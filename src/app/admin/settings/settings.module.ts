@@ -44,6 +44,10 @@ import { BookingrulesComponent } from './bookingrules/bookingrules.component';
     PaymentgatewayComponent,
     PaymentrulesComponent,
     BookingrulesComponent
+    SettingsMyProfileComponent,
+    CompanyDetailsComponent,
+    AppearanceComponent,
+    PostalcodesComponent
   ],
   imports: [
       CommonModule,
@@ -63,5 +67,6 @@ import { BookingrulesComponent } from './bookingrules/bookingrules.component';
     FormsModule
   ],
    entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax],
+   entryComponents: [SettingsComponent,DialogAddNewTimeOff],
 })
 export class SettingsModule {}

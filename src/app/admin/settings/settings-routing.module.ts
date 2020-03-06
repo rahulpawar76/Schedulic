@@ -50,11 +50,26 @@ const routes: Routes = [
   {
     path: 'paymentrules',
    component: PaymentrulesComponent 
+{
+  path: 'company-details',
+ component: CompanyDetailsComponent 
 
   },
   {
     path: 'bookingrules',
    component: BookingrulesComponent 
+},
+{
+  path: 'appearance',
+ component: AppearanceComponent 
+
+},
+
+{
+  path: 'postalcode',
+ component: PostalcodesComponent 
+
+},
 
   },
 
