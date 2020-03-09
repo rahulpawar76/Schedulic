@@ -40,7 +40,7 @@ export class PostalcodesComponent implements OnInit {
 }
 
 @Component({
-  selector: 'new-appointment',
+  selector: 'new-postalcode',
   templateUrl: '../_dialogs/add-new-postalcode.html',
 })
 export class DialogAddPostalCode {
