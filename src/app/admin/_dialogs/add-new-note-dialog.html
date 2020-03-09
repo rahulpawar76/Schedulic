@@ -13,12 +13,12 @@
               <mat-label>Subject</mat-label>
               <input matInput type="text" formControlName="note_subject" placeholder="Enter Note Subject">
             </mat-form-field>
-            <span class="error-wrap" *ngIf="createNewNote.get('note_subject').dirty || createNewNote.get('note_subject').touched || formSubmitclicked"><small *ngIf="createNewNote.get('note_subject').hasError('required')" class="error">Subject Is required</small></span>  
+            <span class="error-wrap" *ngIf="createNewNote.get('note_subject').dirty || createNewNote.get('note_subject').touched"><small *ngIf="createNewNote.get('note_subject').hasError('required')" class="error">Subject Is required</small></span>  
             <mat-form-field class="bottom-border-field">
               <mat-label>Description</mat-label>
               <textarea matInput formControlName="note_description" placeholder="Type Note Description Here"></textarea>
             </mat-form-field>
-            <span class="error-wrap" *ngIf="createNewNote.get('note_description').dirty || createNewNote.get('note_description').touched || formSubmitclicked"><small *ngIf="createNewNote.get('note_description').hasError('required')" class="error">Subject Is required</small></span>  
+            <span class="error-wrap" *ngIf="createNewNote.get('note_description').dirty || createNewNote.get('note_description').touched"><small *ngIf="createNewNote.get('note_description').hasError('required')" class="error">Subject Is required</small></span>  
         </div>
         <div class="modal-footer pt-0">
           <button type="button" class="btn cancelbtn" data-dismiss="modal"(click)="onNoClick()">Cancel</button>

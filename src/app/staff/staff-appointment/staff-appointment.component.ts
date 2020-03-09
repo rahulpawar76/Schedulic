@@ -307,6 +307,7 @@ export class StaffAppointmentComponent implements OnInit {
   export class DialogAddNewAppointment {
     formAddNewAppointmentStaffStep1:FormGroup;
     formAddNewAppointmentStaffStep2:FormGroup;
+    bussinessId:any;
     secondStep:boolean = false;
     catdata :[];
     subcatdata :[];
@@ -321,6 +322,12 @@ export class StaffAppointmentComponent implements OnInit {
     selectedTime:any;
     staffId:any;
     token:any;
+    taxType:any="P";
+    taxValue:any;
+    netCost:any;
+    taxAmount:any;
+    taxArr:any=[];
+    taxAmountArr:any=[];
     constructor(
       public dialogRef: MatDialogRef<DialogAddNewAppointment>,
       public dialog: MatDialog,
@@ -333,6 +340,7 @@ export class StaffAppointmentComponent implements OnInit {
 
       this.staffId=(JSON.parse(localStorage.getItem('currentUser'))).user_id
       this.token=(JSON.parse(localStorage.getItem('currentUser'))).token
+      this.bussinessId=(JSON.parse(localStorage.getItem('currentUser'))).business_id;
       let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
       let onlynumeric = /^-?(0|[1-9]\d*)?$/
 
@@ -353,6 +361,7 @@ export class StaffAppointmentComponent implements OnInit {
         customerDate: ['', Validators.required],
         customerTime: ['', Validators.required]
       });
+      this.fnGetTaxDetails();
     }
 
     // personal info
@@ -377,6 +386,19 @@ export class StaffAppointmentComponent implements OnInit {
       });
     }
 
+    fnGetTaxDetails(){
+    this.staffService.getTaxDetails().subscribe((response:any) => {
+      if(response.data == true){
+        let tax = response.response
+        this.taxArr=tax;
+        console.log(this.taxArr);
+      }
+      else if(response.data == false){
+        
+      }
+    })
+  }
+
     onNoClick(): void {
       this.dialogRef.close();
     }
@@ -399,7 +421,7 @@ export class StaffAppointmentComponent implements OnInit {
 
     fnGetCategories(){
       let requestObject = {
-        "business_id":2,
+        "business_id":this.bussinessId,
         "status":"E"
         };
       let headers = new HttpHeaders({
@@ -540,7 +562,7 @@ export class StaffAppointmentComponent implements OnInit {
 
       fnGetTimeSlots(date){
         let requestObject = {
-          "business_id":2,
+          "business_id":this.bussinessId,
           "selected_date":date
         };
         let headers = new HttpHeaders({
@@ -591,11 +613,42 @@ export class StaffAppointmentComponent implements OnInit {
               serviceCartArrTemp.push(this.serviceCount[i]);
             }
           }
+          // if(serviceCartArrTemp[0].totalCost > 0){
+          //   if(this.taxType == "P"){
+          //     this.taxAmount= serviceCartArrTemp[0].totalCost * this.taxValue/100;
+          //   }else{
+          //     this.taxAmount= this.taxValue;
+          //   }
+          // }
+          var amountAfterDiscount=serviceCartArrTemp[0].totalCost;
+          var amountAfterTax=0;
+          if(amountAfterDiscount > 0){
+            this.taxArr.forEach((element) => {
+              let taxTemp={
+                name:'',
+                amount:0
+              }
+              console.log(element.name+" -- "+element.value);
+              if(this.taxType == "P"){
+               taxTemp.name= element.name;
+               taxTemp.amount= amountAfterDiscount * element.value/100;
+                amountAfterTax=amountAfterTax+taxTemp.amount;
+              }else{
+                taxTemp.name= element.name;
+                taxTemp.amount=  element.value;
+                amountAfterTax=amountAfterTax+taxTemp.amount;
+              }
+              this.taxAmountArr.push(taxTemp);
+              console.log(this.taxAmountArr);
+            });
+          }
+          this.netCost=amountAfterDiscount+amountAfterTax;
+         // this.netCost=serviceCartArrTemp[0].totalCost+this.taxAmount;
           console.log(JSON.stringify(serviceCartArrTemp));
           const currentDateTime = new Date();
           let requestObject = {
             "postal_code": this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
-            "business_id": 2,
+            "business_id": this.bussinessId,
             "serviceInfo": serviceCartArrTemp,
             "customer_name": this.formAddNewAppointmentStaffStep1.get('customerFullName').value,
             "customer_email": this.formAddNewAppointmentStaffStep1.get('customerEmail').value,
@@ -607,7 +660,8 @@ export class StaffAppointmentComponent implements OnInit {
             "coupon_code": '',
             "subtotal": serviceCartArrTemp[0].totalCost,
             "discount": 0,
-            "nettotal": serviceCartArrTemp[0].totalCost,
+            "tax": this.taxAmountArr,
+            "nettotal": this.netCost,
             "created_by": "staff",
             "payment_method": "Cash",
             "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd hh:mm:ss") 

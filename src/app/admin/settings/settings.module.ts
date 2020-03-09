@@ -22,7 +22,6 @@ import { AppearanceComponent } from './appearance/appearance.component';
 import { DialogAddNewTimeOff } from './staff/staff.component';
 import { PostalcodesComponent } from './postalcodes/postalcodes.component';
 import{DialogAddPostalCode} from './postalcodes/postalcodes.component';
-import { PaymentsComponent } from './payments/payments.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { DialogAddNewTax } from './paymentrules/paymentrules.component';
 
@@ -30,6 +29,7 @@ import { PaymentgatewayComponent } from './paymentgateway/paymentgateway.compone
 import { PaymentrulesComponent } from './paymentrules/paymentrules.component';
 import { BookingrulesComponent } from './bookingrules/bookingrules.component';
 import { BusinessHoursComponent } from './business-hours/business-hours.component';
+import { AlertsettingsComponent } from './alertsettings/alertsettings.component';
 
 
 
@@ -43,11 +43,11 @@ import { BusinessHoursComponent } from './business-hours/business-hours.componen
     StaffComponent,
   
     DialogAddNewTimeOff,
-    PaymentsComponent,
     DialogAddNewTax,
     PaymentgatewayComponent,
     PaymentrulesComponent,
     BookingrulesComponent,
+    AlertsettingsComponent,
     SettingsMyProfileComponent,
     CompanyDetailsComponent,
     AppearanceComponent,

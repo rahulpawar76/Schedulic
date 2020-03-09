@@ -23,7 +23,7 @@
                     <img src="/assets/images/admin/Layer6.png" class="company-details-image">
                     <div class="camera-alt"><i class="material-icons"> camera_alt</i></div>
                 </div> -->
-                <div class="account-my-profile-img-wrap" (click)="ImgUpload()">
+                <div class="account-my-profile-img-wrap">
                 
                     <img mat-card-avatar class="account-my-profile-img" src="/assets/images/admin/Layer6.png">
                     <div class="camera-alt"><i class="material-icons"> camera_alt</i></div>
@@ -72,8 +72,8 @@
                         
                             <mat-label>Country</mat-label>
                             <mat-select>
-                              <mat-option *ngFor="let food of foods" [value]="food.value">
-                                {{food.viewValue}}
+                              <mat-option>
+                                sdadasd
                               </mat-option>
                             </mat-select>
                          
@@ -100,8 +100,8 @@
                             
                             <mat-label>State</mat-label>
                             <mat-select>
-                              <mat-option *ngFor="let food of foods" [value]="food.value">
-                                {{food.viewValue}}
+                              <mat-option >
+                                asdasd
                               </mat-option>
                             </mat-select>
                         </mat-form-field>   
@@ -129,10 +129,10 @@
                 <div class="row"> 
                     <div class="company-action-btn">
                         <div class="mx-2">
-                            <button (click)="fnCancelNewCustomer()" mat-button appearance="fill" class="company-cancel-btn">Cancel</button>
+                            <button mat-button appearance="fill" class="company-cancel-btn">Cancel</button>
                         </div>
                         <div class="mx-2">
-                            <button mat-button type="submit" appearance="fill" (click)="fnCreateCouponSubmit()" class="company-save-btn">Save</button>
+                            <button mat-button type="submit" appearance="fill" class="company-save-btn">Save</button>
                         </div>  
                     </div>    
                 </div> 

@@ -107,7 +107,7 @@ export class AppointmentComponent implements OnInit {
 
      dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-       this.animal = result;
+      this.getAllAppointments(this.durationType,this.selectedServices);
      });
   }
 }
@@ -139,15 +139,18 @@ export class DialogAddNewAppointment {
   availableStaff:any=[];
   isStaffAvailable:boolean=false;
   taxType:any="P";
-  taxValue:any=10;
+  taxValue:any;
   netCost:any;
   taxAmount:any;
+  taxArr:any=[];
+  taxAmountArr:any=[];
   constructor(
     public dialogRef: MatDialogRef<DialogAddNewAppointment>,
     public dialog: MatDialog,
     private _formBuilder: FormBuilder,
     private http: HttpClient,
     private _snackBar: MatSnackBar,
+    private AdminService: AdminService,
     private datePipe: DatePipe,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
 
@@ -182,6 +185,20 @@ export class DialogAddNewAppointment {
       customerStaff: ['', Validators.required]
     });
     console.log("ar"+this.formAddNewAppointmentStaffStep2.get('customerDate').value);
+    this.fnGetTaxDetails();
+  }
+
+  fnGetTaxDetails(){
+    this.AdminService.getTaxDetails().subscribe((response:any) => {
+      if(response.data == true){
+        let tax = response.response
+        this.taxArr=tax;
+        console.log(this.taxArr);
+      }
+      else if(response.data == false){
+        
+      }
+    })
   }
 
   onNoClick(): void {
@@ -465,14 +482,40 @@ export class DialogAddNewAppointment {
         serviceCartArrTemp.push(this.serviceCount[i]);
       }
     }
-    if(serviceCartArrTemp[0].totalCost > 0){
-      if(this.taxType == "P"){
-        this.taxAmount= serviceCartArrTemp[0].totalCost * this.taxValue/100;
-      }else{
-        this.taxAmount= this.taxValue;
-      }
+    // if(serviceCartArrTemp[0].totalCost > 0){
+    //   if(this.taxType == "P"){
+    //     this.taxAmount= serviceCartArrTemp[0].totalCost * this.taxValue/100;
+    //   }else{
+    //     this.taxAmount= this.taxValue;
+    //   }
+    // }
+    // this.netCost=serviceCartArrTemp[0].totalCost+this.taxAmount;
+
+    var amountAfterDiscount=serviceCartArrTemp[0].totalCost;
+    var amountAfterTax=0;
+    if(amountAfterDiscount > 0){
+      this.taxArr.forEach((element) => {
+        let taxTemp={
+          name:'',
+          amount:0
+        }
+        console.log(element.name+" -- "+element.value);
+        if(this.taxType == "P"){
+         taxTemp.name= element.name;
+         taxTemp.amount= amountAfterDiscount * element.value/100;
+          amountAfterTax=amountAfterTax+taxTemp.amount;
+        }else{
+          taxTemp.name= element.name;
+          taxTemp.amount=  element.value;
+          amountAfterTax=amountAfterTax+taxTemp.amount;
+        }
+        this.taxAmountArr.push(taxTemp);
+        console.log(this.taxAmountArr);
+      });
     }
-    this.netCost=serviceCartArrTemp[0].totalCost+this.taxAmount;
+    this.netCost=amountAfterDiscount+amountAfterTax;
+
+    console.log(this.taxAmountArr);
     console.log(JSON.stringify(serviceCartArrTemp));
     const currentDateTime = new Date();
     let requestObject = {
@@ -489,6 +532,7 @@ export class DialogAddNewAppointment {
       "coupon_code": '',
       "subtotal": serviceCartArrTemp[0].totalCost,
       "discount": 0,
+      "tax": this.taxAmountArr,
       "nettotal": this.netCost,
       "created_by": "admin",
       "payment_method": "Cash",

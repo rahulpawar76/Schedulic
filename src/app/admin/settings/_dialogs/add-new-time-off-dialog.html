@@ -17,6 +17,16 @@
           <mat-label>End date</mat-label>
           <input matInput [matDatepicker]="picker">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-form-field class="bottom-border-field">
+          <mat-label>Choose a date</mat-label>
+          <input matInput [matDatepicker]="startdate">
+          <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
+          <mat-datepicker #startdate></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="bottom-border-field">
+          <mat-label>Choose a date</mat-label>
+          <input matInput [matDatepicker]="enddate">
+          <mat-datepicker-toggle matSuffix [for]="enddate"></mat-datepicker-toggle>
           <mat-datepicker #enddate></mat-datepicker>
         </mat-form-field>
 
