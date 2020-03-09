@@ -12,9 +12,16 @@ import { DataTablesModule } from 'angular-datatables';
 
 import { SettingsComponent } from './settings.component';
 import { StaffComponent } from './staff/staff.component';
+
+import { SettingsMyProfileComponent } from './settings-my-profile/settings-my-profile.component';
+import { CompanyDetailsComponent } from './company-details/company-details.component';
+
+import { AppearanceComponent } from './appearance/appearance.component';
+
+
 import { DialogAddNewTimeOff } from './staff/staff.component';
-import { PaymentsComponent } from './payments/payments.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { PostalcodesComponent } from './postalcodes/postalcodes.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DialogAddNewTax } from './paymentrules/paymentrules.component';
 
 import { PaymentgatewayComponent } from './paymentgateway/paymentgateway.component';
@@ -24,18 +31,25 @@ import { AlertsettingsComponent } from './alertsettings/alertsettings.component'
 
 
 
+
+
+
 @NgModule({
   declarations: [
     ServicesComponent,
     SettingsComponent,
     StaffComponent,
+  
     DialogAddNewTimeOff,
-    PaymentsComponent,
     DialogAddNewTax,
     PaymentgatewayComponent,
     PaymentrulesComponent,
     BookingrulesComponent,
-    AlertsettingsComponent
+    AlertsettingsComponent,
+    SettingsMyProfileComponent,
+    CompanyDetailsComponent,
+    AppearanceComponent,
+    PostalcodesComponent
   ],
   imports: [
       CommonModule,

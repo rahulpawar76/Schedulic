@@ -6,7 +6,7 @@
                 <div class="col-lg-4 col-12 col-md-4 col-sm-12 d-flex">
                     <mat-form-field class="appoint-daily mr-2 bottom-border-field">
                         <mat-label>All</mat-label>
-                        <mat-select [(value)]="selected" (selectionChange)="selectdurationType($event.value)">
+                        <mat-select (selectionChange)="selectdurationType($event.value)">
                             <mat-option value="daily">Daily</mat-option>
                             <mat-option value="week">Weekly</mat-option>
                             <mat-option value="month">Monthly</mat-option>
@@ -15,7 +15,7 @@
 
                     <mat-form-field  class="appoint-service mr-2 bottom-border-field">
                         <mat-label>All Services</mat-label>
-                        <mat-select [(value)]="selected1" (selectionChange)="selectService($event.value)">
+                        <mat-select (selectionChange)="selectService($event.value)">
                             <mat-option value="all">All</mat-option>
                             <mat-option *ngFor="let allservices of allservices;" value="{{allservices.id}}">{{allservices.service_name}}</mat-option>
                         </mat-select>
@@ -23,7 +23,7 @@
 
                     <mat-form-field  class="appoint-action bottom-border-field">
                         <mat-label>Actions</mat-label>
-                        <mat-select [(value)]="selected2">
+                        <mat-select>
                             <mat-option>None</mat-option>
                             <mat-option value="option1">Accept</mat-option>
                             <mat-option value="option2">Cancel</mat-option>                        

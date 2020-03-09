@@ -88,10 +88,10 @@
                             <div class="row"> 
                                 <div class="service-action-btn">
                                     <div class="mx-2">
-                                        <button (click)="fnCancelNewCustomer()" mat-button appearance="fill" class="service-cancel-btn">Cancel</button>
+                                        <button mat-button appearance="fill" class="service-cancel-btn">Cancel</button>
                                     </div>
                                     <div class="mx-2">
-                                        <button mat-button type="submit" appearance="fill" (click)="fnCreateCouponSubmit()" class="service-create-btn">Create</button>
+                                        <button mat-button type="submit" appearance="fill" class="service-create-btn">Create</button>
                                     </div>  
                                 </div>    
                             </div>          
@@ -126,7 +126,7 @@
                                     Sub Category is the subdivision of the large Category of service. 
                                     </div>
                                     <div class="pt-2">
-                                        <button mat-button class="addsubcategory-btn" (click)="fnSubCategory()">Add Subcategory</button>
+                                        <button mat-button class="addsubcategory-btn">Add Subcategory</button>
                                     </div>
                                 </mat-card> 
 
@@ -138,12 +138,12 @@
                                     A valuable deed, action,or effort performed to fulfill a demand or tosatisfy a need of the customer.
                                     </div>
                                     <div class="pt-2">
-                                        <button mat-button class="addsubcategory-btn" (click)="fnSubCategory()">Add Services</button>
+                                        <button mat-button class="addsubcategory-btn">Add Services</button>
                                     </div>
                                 </mat-card> 
                             </div> 
                         </div> 
-                        <div id="Salon_Listing_Service" *ngIf="SalonListingService" class="mb-0 w-100">
+                        <div id="Salon_Listing_Service" class="mb-0 w-100">
                             <div class=""> 
                                <div class=" d-flex">
                                    <div class="ml-3 justify-content-center">
@@ -166,7 +166,7 @@
                                            <div class="mt-3 d-flex">
                                            <mat-form-field class="dropdown bottom-border-field mt-3">
                                                <mat-label>Filter</mat-label>
-                                               <mat-select  [(value)]="selected">
+                                               <mat-select>
                                                <mat-option value="All">All</mat-option>
                                                <mat-option value="Active">Active</mat-option>
                                                <mat-option value="Inactive">Inactive</mat-option>
@@ -177,7 +177,7 @@
 
                                            <mat-form-field class="dropdown bottom-border-field ml-3 mt-3">
                                                <mat-label>Action</mat-label>
-                                               <mat-select  [(value)]="selected">    
+                                               <mat-select>    
                                                    <mat-option value="Active">Active</mat-option>
                                                    <mat-option value="Inactive">Inactive</mat-option>
                                                    <mat-option value="Active">Delete</mat-option>
@@ -221,7 +221,7 @@
                            </div>
                        </div> 
                    </div> 
-                        <div id="hair_subcategory" *ngIf="hairSubCategory">
+                        <div id="hair_subcategory">
                             <div class=""> 
                                 <div class="col-lg-6 col-6 col-md-4 d-flex">
                                     <div class="ml-3 justify-content-center">
@@ -252,12 +252,12 @@
                                     A valuable deed, action,or effort performed to fulfill a demand or tosatisfy a need of the customer.
                                     </div>
                                     <div class="pt-2">
-                                        <button mat-button class="addhairsubcategory-btn" (click)="fnSubCategory()">Add Services</button>
+                                        <button mat-button class="addhairsubcategory-btn">Add Services</button>
                                     </div>
                                 </mat-card> 
                             </div> 
                         </div>   
-                     <div id="Hair_Add_New_Service" *ngIf="HairAddNewSerice" class="mb-0 w-100">
+                     <div id="Hair_Add_New_Service" class="mb-0 w-100">
                         <mat-card >
                             <div class="row">
                                 <div class="col-lg-12">
@@ -320,16 +320,16 @@
                             <div class="row"> 
                                 <div class="service-action-btn">
                                     <div class="mx-2">
-                                        <button (click)="fnCancelNewCustomer()" mat-button appearance="fill" class="service-cancel-btn">Cancel</button>
+                                        <button mat-button appearance="fill" class="service-cancel-btn">Cancel</button>
                                     </div>
                                     <div class="mx-2">
-                                        <button mat-button type="submit" appearance="fill" (click)="fnCreateCouponSubmit()" class="service-create-btn">Create</button>
+                                        <button mat-button type="submit" appearance="fill" class="service-create-btn">Create</button>
                                     </div>  
                                 </div>    
                             </div>          
                         </mat-card>  
                         </div>
-                        <div id="Hair_Listing_Service" *ngIf="HairListingService" class="mb-0 w-100">
+                        <div id="Hair_Listing_Service" class="mb-0 w-100">
                              <div class=""> 
                                 <div class=" d-flex">
                                     <div class="ml-3 justify-content-center">
@@ -352,7 +352,7 @@
                                             <div class="mt-3 d-flex">
                                             <mat-form-field class="dropdown bottom-border-field mt-3">
                                                 <mat-label>Filter</mat-label>
-                                                <mat-select  [(value)]="selected">
+                                                <mat-select>
                                                 <mat-option value="All">All</mat-option>
                                                 <mat-option value="Active">Active</mat-option>
                                                 <mat-option value="Inactive">Inactive</mat-option>
@@ -363,7 +363,7 @@
 
                                             <mat-form-field class="dropdown bottom-border-field ml-3 mt-3">
                                                 <mat-label>Action</mat-label>
-                                                <mat-select  [(value)]="selected">    
+                                                <mat-select>    
                                                     <mat-option value="Active">Active</mat-option>
                                                     <mat-option value="Inactive">Inactive</mat-option>
                                                     <mat-option value="Active">Delete</mat-option>

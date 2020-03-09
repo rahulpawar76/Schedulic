@@ -66,7 +66,7 @@
 							<!-- <button class="btn-secondary filter-btn" mat-button><i class="material-icons mr-1">filter_list_alt</i>Filter</button> -->
 						 <mat-form-field class="my-2 all-customer-list col-lg-12 col-12 col-md-12 bottom-border-field">
                   <mat-label class="">Filter</mat-label>
-                  <mat-select [(value)]="selected" (selectionChange)="fnOnClickStatus($event)">
+                  <mat-select (selectionChange)="fnOnClickStatus($event)">
                     <mat-option value="all">All</mat-option>
                     <mat-option value="P">Pending</mat-option>
                     <mat-option value="CNF">Confirm</mat-option>

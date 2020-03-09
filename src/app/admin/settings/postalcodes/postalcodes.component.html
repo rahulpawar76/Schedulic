@@ -1,0 +1,70 @@
+<p>postalcodes works!</p>
+
+<div class="container-fluid">
+<div class = "row">
+    <div class="col-md-7">
+        <h4> Postal Codes </h4>
+        <p> Postal codes are defined geographical boundaries within a location.
+            <br>
+            Staff can be assigned to this area code.
+        </p>
+        <!-- <p>  </p> -->
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-4">
+        <button class = "btn btn-primary"> Upload Postal Code </button>
+        <button class = "btn btn-primary"> Add Postal Code </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <!-- <div class="dropdown">
+            <button type = "dropdown" class = "btn btn-light dropdown-toggle"  data-toggle = "dropdown">
+                Select
+            </button>
+            <div class="dropdown-menu">
+                <a href="#"> Set Active </a>
+                <a href="#"> Set Inactive </a>
+            </div>
+        </div> -->
+        <select name="dropdown" id="active/inactive">
+            <option value="0"> Select </option>
+            <option value="1"> Set Active </option>
+            <option value="2"> Set Inactive </option>
+        </select>
+    </div>
+    <div class="col-md-3"></div>
+    <div class="col-md-3 right">
+        <div class = "input-group">
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </div>
+                <input type="text" name="search" id="search" placeholder="Search Postal Codes">
+            </div>   
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <table>
+        <thead>
+            <tr>
+                <th> Check </th>
+                <th> Pincode </th>
+                <th> Area </th>
+                <th> Assigned Staffs </th>
+                <th> Status </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> <input type="checkbox" name="check" id="check"> </td>
+                <td> <label for="pincode"> 400101 </label> </td>
+                <td> <label for=""></label> </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
