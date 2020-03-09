@@ -1,0 +1,246 @@
+@import "variables";
+#services{
+    margin-left: 0;
+}
+.wrapcontent{
+    display: flex;
+    margin-bottom: 20px;
+}
+.hours{
+						
+    background-color:#ededed; 
+    height: 29px;
+    width: 80px;
+    padding: 5px 0 5px 8px;
+
+    }
+
+  
+
+    
+    .closed-braek-btn{
+        width: 100px;
+        height: 34px;
+        border-radius: 50px;
+        background-color: #949494;
+        color: white;
+    }
+    .time-off-btn{
+        width: 110px;
+        height: 34px;
+        border-radius: 50px;
+        background-color: #c3ddff;
+        color: $primary-color;
+    }
+
+    
+  .example-box {
+    padding: 20px 10px;
+    border-bottom: solid 1px #ccc;
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    background: white;
+    font-size: 14px;
+}
+
+.cdk-drag-preview {
+box-sizing: border-box;
+border-radius: 4px;
+box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+            0 8px 10px 1px rgba(0, 0, 0, 0.14),
+            0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+opacity: 0;
+}
+
+.cdk-drag-animating {
+transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.handler{
+cursor: move;
+}
+
+
+.main-working-hours-content{
+
+
+    margin: 30px;
+}
+
+
+//Break
+
+.main-breaks-content{
+
+
+    margin: 30px;
+   
+    .breaks-wrapcontent{
+
+        display: flex;
+        margin-bottom: 20px;
+        .breaks-hours{
+						
+            background-color:#ededed; 
+            height: 29px;
+            width: 80px;
+            padding: 5px 0 5px 8px;
+        
+            }
+    }
+    .closed-btn{
+						
+        background-color:#ededed; 
+        height: 29px;
+        width: 80px;
+        padding: 5px 0 5px 8px;
+    
+        }
+}
+
+
+
+.workig-hours-box{
+
+
+    padding: 10px 10px;
+    //border-bottom: solid 1px #ccc;
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    background: white;
+    font-size: 14px;
+
+}
+
+
+
+.example-box {
+    padding: 20px 10px;
+    border-bottom: solid 1px #ccc;
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    background: white;
+    font-size: 14px;
+    &.header-background{
+        background-color: #f7f7f7;
+    }
+    .check-icon-background{
+        background-color: #737373;
+        border-radius: 100%;
+        padding: 0px 4px;
+        // width: 31px;
+        // height: 31px;
+        // border-radius: 16px;
+        // background-color: #1173f4;
+    }
+    .staff-details-width{
+        width: 50px;
+        height: 50px;
+        border-radius: 34px;
+        background-color: #11acf4;
+    }
+}
+.dropdown-width{
+  width: 30%;
+}
+.workinghour-dropdown{
+width: 40%;
+}
+
+.to-center{
+    line-height: 5;
+    margin: 0px 15px;
+}
+
+
+.time-off-button{
+    width: 120px;
+    height: 37px;
+    border-radius: 26px;
+    background-color: #a8ceff;
+    padding-left: 0;
+    padding-right: 8px;
+    color: #378af6;
+}
+.calendar-background{
+    background-color: #e8f2fe;
+    padding: 13px;
+    width: 50px;
+    height: 50px;
+    border-radius: 36px;
+    .staff-calendar-image{
+        height: 24px;
+        width: 24px;
+    }
+}
+.remove-button{
+    width: 142px;
+    height: 37px;
+    border-radius: 26px;
+    background-color: #ff0000;
+}
+.blue-font{
+    color: #1173f4;
+}
+
+.bottom-border{
+    border-bottom: 1px solid #dbdbdb;
+    padding: 16px 0px;
+}
+.bottom-border-last{
+    border-bottom: none;
+    padding: 16px 0px;
+}
+
+.Add-braek-btn{
+    width: 100px;
+    height: 34px;
+    border-radius: 50px;
+    background-color: #3ab54a;
+    color: white;
+}
+
+.time-of-box{
+
+
+    padding: 10px 10px;
+    border-bottom: solid 1px #ccc;
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    background: white;
+    font-size: 14px;
+
+}
+
+.delete-box{
+
+    font-size: 20px;
+    color: red;
+}

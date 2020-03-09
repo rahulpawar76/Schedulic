@@ -12,6 +12,7 @@ import { SettingsMyProfileComponent } from './settings-my-profile/settings-my-pr
 import { CompanyDetailsComponent } from './company-details/company-details.component';
 import { AppearanceComponent } from './appearance/appearance.component';
 import { PostalcodesComponent } from './postalcodes/postalcodes.component';
+import { BusinessHoursComponent } from './business-hours/business-hours.component';
 //import{AccountComponent} from './account/account.component';
 //import { GeneralSettingComponent } from './general-setting/general-setting.component';
 
@@ -74,6 +75,13 @@ const routes: Routes = [
  component: PostalcodesComponent 
 
 },
+
+{
+  path: 'business-hours',
+ component: BusinessHoursComponent 
+
+},
+
 
 
 ];
