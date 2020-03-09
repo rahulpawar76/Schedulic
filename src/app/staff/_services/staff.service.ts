@@ -10,15 +10,16 @@ import { AuthenticationService } from '@app/_services';
 
 export class StaffService {
 	staffId:any
-	staffToken:any
+  staffToken:any
+	bussinessId:any
   constructor(
     private http: HttpClient,
     private _snackBar: MatSnackBar,
     private authenticationService:AuthenticationService
     ) { 
-
     this.staffId=JSON.stringify(this.authenticationService.currentUserValue.user_id);
     this.staffToken = this.authenticationService.currentUserValue.token;
+    this.bussinessId=this.authenticationService.currentUserValue.business_id
     
   }  
 
@@ -229,5 +230,23 @@ export class StaffService {
     }),
     catchError(this.handleError));
   }
+
+  // Get Tax details
+
+    getTaxDetails(){
+        let requestObject = {
+            'business_id': this.bussinessId,
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'staff-id' : this.staffId,
+            'api-token' : this.staffToken 
+        });
+        return this.http.post(`${environment.apiUrl}/tax-list`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
 
 }
