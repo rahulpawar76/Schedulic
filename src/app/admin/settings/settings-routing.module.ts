@@ -8,6 +8,7 @@ import { PaymentsComponent } from './payments/payments.component';
 import { PaymentgatewayComponent } from './paymentgateway/paymentgateway.component';
 import { PaymentrulesComponent } from './paymentrules/paymentrules.component';
 import { BookingrulesComponent } from './bookingrules/bookingrules.component';
+import { AlertsettingsComponent } from './alertsettings/alertsettings.component';
 
 
 const routes: Routes = [
@@ -32,18 +33,23 @@ const routes: Routes = [
 
   },
   {
-    path: 'paymentgateway',
+    path: 'payment-gateway',
    component: PaymentgatewayComponent 
 
   },
   {
-    path: 'paymentrules',
+    path: 'payment-rules',
    component: PaymentrulesComponent 
 
   },
   {
-    path: 'bookingrules',
+    path: 'booking-rules',
    component: BookingrulesComponent 
+
+  },
+  {
+    path: 'alert-settings',
+   component: AlertsettingsComponent 
 
   },
 

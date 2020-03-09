@@ -279,7 +279,7 @@
             </div>
         </mat-card>
         <div>
-            <h6>Terms & Conditions </h6>
+            <h6 class="py-4">Terms & Conditions </h6>
             <mat-card class="matcard-space">
                 <div class="d-flex">
                     <div>
@@ -294,14 +294,68 @@
                       <mat-label>Display as hyperlink text  next to a checkbox that the user must accept.</mat-label>
                       <input matInput [formControl]="emailFormControl" placeholder="Add a label to your Terms & Conditions.">
                     </mat-form-field>
-                    <mat-hint>maximum characters allowed 150</mat-hint>
+                    <div class="d-flex example-full-width ">
+                        <mat-hint class="ml-auto"><i>maximum characters allowed<span class="text-danger"> 150</span></i></mat-hint>
+                    </div>
                 </form>
                 <form class="example-form">
                     <mat-form-field class="example-full-width bottom-border-field">
                       <mat-label>Display as hyperlink text  next to a checkbox that the user must accept.</mat-label>
                       <input matInput [formControl]="emailFormControl" placeholder="Add a label to your Terms & Conditions.">
                     </mat-form-field>
-                    <mat-hint>Link will open in a new browser window</mat-hint>
+                    <div class="d-flex example-full-width ">
+                        <mat-hint class="ml-auto"><i>Link will open in a new browser window</i></mat-hint>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+        <div>
+            <h6 class="py-4">Privacy Policy </h6>
+            <mat-card class="matcard-space">
+                <div class="d-flex">
+                    <div>
+                        <h6>Terms & Conditions </h6>
+                    </div>
+                    <div class="ml-auto mx-3">
+                        <mat-slide-toggle></mat-slide-toggle>
+                    </div>
+                </div>
+                <form class="example-form">
+                    <mat-form-field class="example-full-width bottom-border-field">
+                      <mat-label>Display as hyperlink text  next to a checkbox that the user must accept.</mat-label>
+                      <input matInput [formControl]="emailFormControl" placeholder="Add a label to your Terms & Conditions.">
+                    </mat-form-field>
+                    <div class="d-flex example-full-width ">
+                        <mat-hint class="ml-auto"><i>maximum characters allowed<span class="text-danger"> 150</span></i></mat-hint>
+                    </div>
+                </form>
+                <form class="example-form">
+                    <mat-form-field class="example-full-width bottom-border-field">
+                      <mat-label>Display as hyperlink text  next to a checkbox that the user must accept.</mat-label>
+                      <input matInput [formControl]="emailFormControl" placeholder="Add a label to your Terms & Conditions.">
+                    </mat-form-field>
+                    <div class="d-flex example-full-width ">
+                        <mat-hint class="ml-auto"><i>Link will open in a new browser window</i></mat-hint>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+        <div>
+            <h6 class="py-4">Thank You Page</h6>
+            <mat-card class="matcard-space">
+                <div class="d-flex">
+                    <div>
+                        <h6>Thank You Page</h6>
+                    </div>
+                    <div class="ml-auto mx-3">
+                        <mat-slide-toggle></mat-slide-toggle>
+                    </div>
+                </div>
+                <form class="example-form">
+                    <mat-form-field class="example-full-width bottom-border-field">
+                      <mat-label>Add a link to your Thank You page</mat-label>
+                      <input matInput [formControl]="emailFormControl" placeholder="">
+                    </mat-form-field>
                 </form>
             </mat-card>
         </div>

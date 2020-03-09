@@ -20,6 +20,7 @@ import { DialogAddNewTax } from './paymentrules/paymentrules.component';
 import { PaymentgatewayComponent } from './paymentgateway/paymentgateway.component';
 import { PaymentrulesComponent } from './paymentrules/paymentrules.component';
 import { BookingrulesComponent } from './bookingrules/bookingrules.component';
+import { AlertsettingsComponent } from './alertsettings/alertsettings.component';
 
 
 
@@ -33,7 +34,8 @@ import { BookingrulesComponent } from './bookingrules/bookingrules.component';
     DialogAddNewTax,
     PaymentgatewayComponent,
     PaymentrulesComponent,
-    BookingrulesComponent
+    BookingrulesComponent,
+    AlertsettingsComponent
   ],
   imports: [
       CommonModule,
