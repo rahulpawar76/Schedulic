@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Subject } from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { DatePipe} from '@angular/common';
+import { AppComponent } from '@app/app.component'
 
 
 @Component({
@@ -15,7 +16,7 @@ import { DatePipe} from '@angular/common';
 
 
 export class DiscountCouponComponent implements OnInit {
-  
+  adminSettings : boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   isLoaderAdmin : boolean = false;
@@ -44,12 +45,14 @@ export class DiscountCouponComponent implements OnInit {
     private AdminService: AdminService,
     private _formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private appComponent : AppComponent,
   ) {
     localStorage.setItem('isBusiness', 'false');
     if(localStorage.getItem('business_id')){
       this.businessId = localStorage.getItem('business_id');
   }
+  this.appComponent.settingsModule(this.adminSettings);
    }
 
   ngOnInit() {

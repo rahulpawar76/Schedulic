@@ -1,8 +1,5 @@
 #staff{
-    .mat-drawer{
-        background-color: #f2f2f2;
-        padding-left: 25px;
-    }
+    margin-left: 0 !important;
     .mat-icon{
         line-height: 1.5;
     }
@@ -163,6 +160,9 @@
         color: #ffa801;
         line-height: 1.4;
     }
+    .staff-mail-icon{
+        
+    }
     .staff-btn{
         margin-left: auto;
         height: max-content;
@@ -181,4 +181,143 @@
             background-color: #c5c5c5;
         }
     }
+    .bottom-border{
+        border-bottom: 1px solid #dbdbdb;
+        padding: 16px 0px;
+    }
+    .bottom-border-last{
+        border-bottom: none;
+        padding: 16px 0px;
+    }
+    .verified-button{
+        width: 108px;
+        height: 26px;
+        border-radius: 17px;
+        background-color: #ee4059;
+        line-height: 1;
+        color: white;;
+    }
+    .send-mail-button{
+        width: 157px;
+        height: 37px;
+        border-radius: 26px;
+        background-color: #a8ceff;
+    }
+    .sms-verification-button{
+        width: 210px;
+        height: 37px;
+        border-radius: 26px;
+        background-color: #a8ceff;
+    }
+    .file-border{
+        border: 1px solid gray;
+        border-radius: 5px;
+        padding: 10px;
+    }
+    .reset-button{
+        width: 167px;
+        height: 37px;
+        border-radius: 26px;
+        background-color: #a8ceff;
+        color: #378af6;
+    }
+    .time-off-button{
+        width: 120px;
+        height: 37px;
+        border-radius: 26px;
+        background-color: #a8ceff;
+        padding-left: 0;
+        padding-right: 8px;
+        color: #378af6;
+    }
+    .calendar-background{
+        background-color: #e8f2fe;
+        padding: 13px;
+        width: 50px;
+        height: 50px;
+        border-radius: 36px;
+        .staff-calendar-image{
+            height: 24px;
+            width: 24px;
+        }
+    }
+    .remove-button{
+        width: 142px;
+        height: 37px;
+        border-radius: 26px;
+        background-color: #ff0000;
+    }
+    .blue-font{
+        color: #1173f4;
+    }
+    .example-list {
+        width: 100%;
+        border: solid 1px #ccc;
+        display: block;
+        background: white;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      
+      .example-box {
+            padding: 20px 10px;
+            border-bottom: solid 1px #ccc;
+            color: rgba(0, 0, 0, 0.87);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+            background: white;
+            font-size: 14px;
+            &.header-background{
+                background-color: #f7f7f7;
+            }
+            .check-icon-background{
+                background-color: #737373;
+                border-radius: 100%;
+                padding: 0px 4px;
+                // width: 31px;
+                // height: 31px;
+                // border-radius: 16px;
+                // background-color: #1173f4;
+            }
+            .staff-details-width{
+                width: 50px;
+                height: 50px;
+                border-radius: 34px;
+                background-color: #11acf4;
+            }
+      }
+      .dropdown-width{
+          width: 30%;
+      }
+      .workinghour-dropdown{
+        width: 40%;
+      }
+      .to-center{
+          line-height: 5;
+          margin: 0px 10px;
+      }
+      .staff-reset-btn{
+        width: 170px;
+        height: 37px;
+        border-radius: 26px;
+        background-color: #a8ceff;
+        color: #1173f4;
+      }
+      .staff-addbreak-btn{
+        width: 105px;
+        height: 37px;
+        border-radius: 26px;
+        background-color: #39b54a;
+        color: white;
+      }
+      .staff-delete-icon{
+          color:#e72a2a;
+          font-size: 20px;
+          line-height: 2;
+      }
+
 }
+

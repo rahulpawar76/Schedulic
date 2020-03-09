@@ -10,6 +10,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { AdminService } from '../_services/admin-main.service'
 import { DatePipe} from '@angular/common';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { AppComponent } from '@app/app.component'
 
 @Component({
   selector: 'app-my-work-space',
@@ -18,6 +19,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
   providers: [DatePipe]
 })
 export class MyWorkSpaceComponent implements OnInit {
+  adminSettings : boolean = false;
   animal :any;
   error:any;
   appointments:any=[];
@@ -59,8 +61,9 @@ export class MyWorkSpaceComponent implements OnInit {
      public router: Router,
      private adminService: AdminService,
      private _snackBar: MatSnackBar,
+     private appComponent : AppComponent,
     private datePipe: DatePipe) {
-       
+      this.appComponent.settingsModule(this.adminSettings);
       localStorage.setItem('isBusiness', 'false');
    }
 

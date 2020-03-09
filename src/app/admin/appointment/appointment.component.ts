@@ -10,6 +10,7 @@ import { DatePipe} from '@angular/common';
 import { environment } from '@environments/environment';
 import { Router, RouterOutlet } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
+import { AppComponent } from '@app/app.component'
 
 export interface DialogData {
   animal: string;
@@ -22,6 +23,7 @@ export interface DialogData {
   styleUrls: ['./appointment.component.scss']
 })
 export class AppointmentComponent implements OnInit {
+  adminSettings : boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   
@@ -35,8 +37,10 @@ export class AppointmentComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private AdminService: AdminService,
+    private appComponent : AppComponent,
     ) {
       localStorage.setItem('isBusiness', 'false');
+      this.appComponent.settingsModule(this.adminSettings);
      }
 
   ngOnInit() {

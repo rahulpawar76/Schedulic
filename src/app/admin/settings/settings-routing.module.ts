@@ -4,6 +4,16 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ServicesComponent } from './services/services.component';
 import { StaffComponent } from './staff/staff.component';
+import { PaymentgatewayComponent } from './paymentgateway/paymentgateway.component';
+import { PaymentrulesComponent } from './paymentrules/paymentrules.component';
+import { BookingrulesComponent } from './bookingrules/bookingrules.component';
+import { AlertsettingsComponent } from './alertsettings/alertsettings.component';
+import { SettingsMyProfileComponent } from './settings-my-profile/settings-my-profile.component';
+import { CompanyDetailsComponent } from './company-details/company-details.component';
+import { AppearanceComponent } from './appearance/appearance.component';
+import { PostalcodesComponent } from './postalcodes/postalcodes.component';
+//import{AccountComponent} from './account/account.component';
+//import { GeneralSettingComponent } from './general-setting/general-setting.component';
 
 
 const routes: Routes = [
@@ -22,6 +32,49 @@ const routes: Routes = [
    component: StaffComponent 
 
  },
+  {
+    path: 'payment-gateway',
+   component: PaymentgatewayComponent 
+
+  },
+  {
+    path: 'payment-rules',
+   component: PaymentrulesComponent 
+
+  },
+  {
+    path: 'booking-rules',
+   component: BookingrulesComponent 
+
+  },
+  {
+    path: 'alert-settings',
+   component: AlertsettingsComponent 
+
+  },
+ {
+  path: 'setting-my-profile',
+ component: SettingsMyProfileComponent 
+
+},
+
+{
+  path: 'company-details',
+ component: CompanyDetailsComponent 
+
+},
+{
+  path: 'appearance',
+ component: AppearanceComponent 
+
+},
+
+{
+  path: 'postalcode',
+ component: PostalcodesComponent 
+
+},
+
 
 ];
 

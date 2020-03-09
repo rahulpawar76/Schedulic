@@ -21,9 +21,9 @@
 
         </div> -->
 
-        <form [formGroup] = "uploadProfile" (ngSubmit)="onSubmit()">      
+        <form>      
           <div>
-            <input type="file" formControlName="profile" (change)="onFileSelect($event)" />
+            <input type="file" formControlName="profile" />
           </div>
           <div>
             <button type="submit">Upload</button>

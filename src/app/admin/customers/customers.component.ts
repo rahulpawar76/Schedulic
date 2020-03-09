@@ -11,6 +11,7 @@ import { AuthenticationService } from '@app/_services';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { AppComponent } from '@app/app.component'
 
 
 export interface DialogData {
@@ -19,7 +20,7 @@ export interface DialogData {
  
 }
 export interface Tag {
-  name: string;
+  
 }
 @Component({
   selector: 'app-customers',
@@ -29,7 +30,7 @@ export interface Tag {
 })
 export class CustomersComponent implements OnInit {
 
-
+  adminSettings : boolean = false;
   dtOptions: any = {};
   animal: any;
   allCustomers: any;
@@ -48,6 +49,7 @@ export class CustomersComponent implements OnInit {
   existingUserId: any;
   businessId: any;
   addNewTag: boolean = false;
+  tagsnew: any;
 
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^-?(0|[1-9]\d*)?$/
@@ -66,11 +68,13 @@ export class CustomersComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private http: HttpClient,
     private datePipe: DatePipe,
+    private appComponent : AppComponent,
     ) { 
       localStorage.setItem('isBusiness', 'false');
       if(localStorage.getItem('business_id')){
         this.businessId = localStorage.getItem('business_id');
     }
+    this.appComponent.settingsModule(this.adminSettings);
     }
     private handleError(error: HttpErrorResponse) {
       console.log(error);
@@ -79,10 +83,10 @@ export class CustomersComponent implements OnInit {
     add(event: MatChipInputEvent): void {
       const input = event.input;
       const value = event.value;
-
+      
       // Add our fruit
       if ((value || '').trim()) {
-        this.tags.push({name: value.trim()});
+        this.tags.push(value.trim());
       }
 
       // Reset the input value
@@ -91,8 +95,8 @@ export class CustomersComponent implements OnInit {
       }
     }
 
-    remove(fruit: Tag): void {
-      const index = this.tags.indexOf(fruit);
+    remove(tg: Tag): void {
+      const index = this.tags.indexOf(tg);
 
       if (index >= 0) {
         this.tags.splice(index, 1);
@@ -277,6 +281,8 @@ customerUpdate(existingCustomerData){
         this.customerNotes = response.response.notes
         this.customerReviews = response.response.revirew
         this.customerPersonalDetails.created_at=this.datePipe.transform(new Date(this.customerPersonalDetails.created_at),"d, MMM, y, h:mm a")
+        this.tagsnew = this.customerPersonalDetails.tag_id
+                console.log(this.tagsnew);
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){

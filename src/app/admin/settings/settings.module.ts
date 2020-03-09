@@ -13,6 +13,25 @@ import { DataTablesModule } from 'angular-datatables';
 import { SettingsComponent } from './settings.component';
 import { StaffComponent } from './staff/staff.component';
 
+import { SettingsMyProfileComponent } from './settings-my-profile/settings-my-profile.component';
+import { CompanyDetailsComponent } from './company-details/company-details.component';
+
+import { AppearanceComponent } from './appearance/appearance.component';
+
+
+import { DialogAddNewTimeOff } from './staff/staff.component';
+import { PostalcodesComponent } from './postalcodes/postalcodes.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DialogAddNewTax } from './paymentrules/paymentrules.component';
+
+import { PaymentgatewayComponent } from './paymentgateway/paymentgateway.component';
+import { PaymentrulesComponent } from './paymentrules/paymentrules.component';
+import { BookingrulesComponent } from './bookingrules/bookingrules.component';
+import { AlertsettingsComponent } from './alertsettings/alertsettings.component';
+
+
+
+
 
 
 @NgModule({
@@ -20,6 +39,17 @@ import { StaffComponent } from './staff/staff.component';
     ServicesComponent,
     SettingsComponent,
     StaffComponent,
+  
+    DialogAddNewTimeOff,
+    DialogAddNewTax,
+    PaymentgatewayComponent,
+    PaymentrulesComponent,
+    BookingrulesComponent,
+    AlertsettingsComponent,
+    SettingsMyProfileComponent,
+    CompanyDetailsComponent,
+    AppearanceComponent,
+    PostalcodesComponent
   ],
   imports: [
       CommonModule,
@@ -31,11 +61,12 @@ import { StaffComponent } from './staff/staff.component';
       FormsModule,
       DragDropModule,
       MatSidenavModule,
-      DataTablesModule
+      DataTablesModule,
+      MatDatepickerModule
   ],
   exports: [
     FormsModule
   ],
-   entryComponents: [SettingsComponent],
+   entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax],
 })
-export class SettingsModule { }
+export class SettingsModule {}

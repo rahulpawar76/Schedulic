@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component, OnInit, Inject } from '@angular/core';
+import { Subject, from } from 'rxjs';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { AppComponent } from '@app/app.component'
 
 export interface DialogData {
   animal: string;
@@ -17,10 +19,15 @@ export class StaffComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   animal: any;
+  adminSettings : boolean = true;
 
   constructor(
+    public dialog: MatDialog,
     private _formBuilder: FormBuilder,
-  ) { }
+    private appComponent : AppComponent,
+  ) {
+    this.appComponent.settingsModule(this.adminSettings);
+   }
 
   ngOnInit() {
     this.dtOptions = {
@@ -33,6 +40,32 @@ export class StaffComponent implements OnInit {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
+
+  addTimeOff() {
+    const dialogRef = this.dialog.open(DialogAddNewTimeOff, {
+      width: '500px',
+      
+    });
+
+     dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+       this.animal = result;
+     });
+  }
+}
+@Component({
+  selector: 'new-appointment',
+  templateUrl: '../_dialogs/add-new-time-off-dialog.html',
+})
+export class DialogAddNewTimeOff {
+
+constructor(
+  public dialogRef: MatDialogRef<DialogAddNewTimeOff>,
+  @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+onNoClick(): void {
+  this.dialogRef.close();
+}
 
 
 }
