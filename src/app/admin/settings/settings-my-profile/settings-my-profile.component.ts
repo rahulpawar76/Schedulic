@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppComponent } from '@app/app.component'
 
 @Component({
   selector: 'app-settings-my-profile',
@@ -6,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./settings-my-profile.component.scss']
 })
 export class SettingsMyProfileComponent implements OnInit {
+  adminSettings : boolean = true;
 
-  constructor() { }
-
+  constructor(
+    
+    private appComponent : AppComponent,
+  ) {
+    
+    this.appComponent.settingsModule(this.adminSettings);
+   }
   ngOnInit() {
   }
 

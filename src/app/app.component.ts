@@ -158,8 +158,39 @@ export class AppComponent implements AfterViewInit {
       MyLiveAppointmentNav(){
         this.router.navigate(['/admin/my-appointment-live']);
       }
+      // Setting Menus
       MySettingsNav(){
         this.router.navigate(['/admin/settings']);
+      }
+      MySettingsStaffNav(){
+        this.router.navigate(['/admin/settings/staff']);
+      }
+      MySettingsServicesNav(){
+        this.router.navigate(['/admin/settings/services']);
+      }
+      MySettingsProfileNav(){
+        this.router.navigate(['/admin/settings/setting-my-profile']);
+      }
+      MySettingsCompanyDetailsNav(){
+        this.router.navigate(['/admin/settings/company-details']);
+      }
+      MySettingsPaymentGatewayNav(){
+        this.router.navigate(['/admin/settings/payment-gateway']);
+      }
+      MySettingsPaymentRulesNav(){
+        this.router.navigate(['/admin/settings/payment-rules']);
+      }
+      MySettingsBookingRulesNav(){
+        this.router.navigate(['/admin/settings/booking-rules']);
+      }
+      MySettingAlertsNav(){
+        this.router.navigate(['/admin/settings/alert-settings']);
+      }
+      MySettingsApperenceNav(){
+        this.router.navigate(['/admin/settings/appearance']);
+      }
+      MySettingsPostalCodesNav(){
+        this.router.navigate(['/admin/settings/postalcode']);
       }
 
 
