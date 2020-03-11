@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { AppComponent } from '@app/app.component'
+
 
 @Component({
   selector: 'app-alertsettings',
@@ -11,10 +12,17 @@ export class AlertsettingsComponent implements OnInit {
   constructor(
     private appComponent : AppComponent,
     ) {
-      this.appComponent.settingsModule(this.adminSettings);
+      //this.appComponent.settingsModule(this.adminSettings);
      }
 
   ngOnInit() {
   }
 
+ 
+
+  
+
+
 }
+
+

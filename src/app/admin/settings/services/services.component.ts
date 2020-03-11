@@ -30,7 +30,7 @@ export class ServicesComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private adminSettingsService: AdminSettingsService,
   ) { 
-    this.appComponent.settingsModule(this.adminSettings);
+    //this.appComponent.settingsModule(this.adminSettings);
   }
 
   ngOnInit() {

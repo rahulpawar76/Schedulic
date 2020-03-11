@@ -18,7 +18,7 @@ export class BusinessHoursComponent implements OnInit {
   animal: any;
   constructor(private appComponent : AppComponent,public dialog: MatDialog) { 
 
-     this.appComponent.settingsModule(this.adminSettings);
+    // this.appComponent.settingsModule(this.adminSettings);
   }
 
   ngOnInit() {

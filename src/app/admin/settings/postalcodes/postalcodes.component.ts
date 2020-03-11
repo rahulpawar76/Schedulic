@@ -18,7 +18,7 @@ export class PostalcodesComponent implements OnInit {
 
   constructor(public dialog: MatDialog,private appComponent : AppComponent) {
 
-    this.appComponent.settingsModule(this.adminSettings);
+    //this.appComponent.settingsModule(this.adminSettings);
    }
 
   ngOnInit() {
@@ -40,7 +40,7 @@ export class PostalcodesComponent implements OnInit {
 }
 
 @Component({
-  selector: 'new-appointment',
+  selector: 'new-postalcode',
   templateUrl: '../_dialogs/add-new-postalcode.html',
 })
 export class DialogAddPostalCode {

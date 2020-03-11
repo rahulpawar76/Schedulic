@@ -1,0 +1,106 @@
+#alert-setting{
+   
+    ::ng-deep .mat-expansion-panel-header-description, .mat-expansion-panel-header-title {
+        display: block;
+    }
+    ::ng-deep .mat-expansion-panel-header{
+        height: 100% !important;
+        padding: 20px;
+    }
+    ::ng-deep .mat-expansion-panel{
+        margin-left: 25px;
+        margin-right: 25px;
+    }
+    ::ng-deep .mat-expansion-panel-body{
+        padding: 0px;
+    }
+    ::ng-deep .mat-accordion{
+        .mat-expansion-indicator{
+            // display: none;
+        }
+        .mat-expansion-panel-header-description{
+            display: none !important;
+        }
+        .mat-expansion-panel-header-title{
+            margin-right: 0 !important;
+        }
+        .payment-toggle-btn{
+            margin-left: auto;
+        }
+    }
+    .mat-icon{
+        line-height: 1.5;
+    }
+    .account-para{
+        padding: 35px;
+    }
+    .main-account-details{
+        padding: 20px;
+    }
+    .bottom-line{
+        border-bottom: solid 1px #ccc;
+        width: 100%;
+        margin: 25px 0;
+    }
+    .matcard-space{
+        padding: 35px;
+        margin: 24px;
+    }
+    .alert-booked-chechkbox{
+        width: 119px;
+        text-align: center;
+        height: 37px;
+        line-height: 2.5;
+        border-radius: 25px;
+        background-color: #deebfc ;
+        color: #1173f4;
+    }
+    .alert-update-chechkbox{
+        width: 186px;
+        text-align: center;
+        height: 37px;
+        line-height: 2.5;
+        border-radius: 25px;
+        background-color: #deebfc ;
+        color: #1173f4;
+    }
+    .alert-cancel-chechkbox{
+        width: 142px;
+        text-align: center;
+        height: 37px;
+        line-height: 2.5;
+        border-radius: 25px;
+        background-color: #deebfc ;
+        color: #1173f4;
+    }
+    .appointment-top{
+        line-height: 4.4;
+    }
+    .example-full-width{
+        margin-bottom: 20px;
+    }
+    .top-bottom-space{
+        margin: 16px 0px;
+    }
+    .payment-image{
+        width: 230px;
+        height: 55px;
+    }
+    .payment-toggle-btn{
+        margin-left: auto;
+    }
+    .payment-label{
+        line-height: 5;
+    }
+    .account-setting{
+        background-color:#deebfc ;
+        color:#1173f4;
+    }
+    .payment-image{
+        width: 178px;
+        height: 54px;
+    }
+}
+
+
+

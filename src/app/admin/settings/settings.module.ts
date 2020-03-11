@@ -22,7 +22,7 @@ import { AppearanceComponent } from './appearance/appearance.component';
 import { DialogAddNewTimeOff } from './staff/staff.component';
 import { DialogAddNewTimeOffBussiness } from './business-hours/business-hours.component';
 import { PostalcodesComponent } from './postalcodes/postalcodes.component';
-import{DialogAddPostalCode} from './postalcodes/postalcodes.component';
+import{ DialogAddPostalCode } from './postalcodes/postalcodes.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { DialogAddNewTax } from './paymentrules/paymentrules.component';
 import { ColorPickerModule } from '@syncfusion/ej2-angular-inputs';
@@ -37,7 +37,6 @@ import { AlertsettingsComponent } from './alertsettings/alertsettings.component'
 
 
 enableRipple(true);
-
 
 @NgModule({
   declarations: [

@@ -40,7 +40,7 @@ export class AppointmentComponent implements OnInit {
     private appComponent : AppComponent,
     ) {
       localStorage.setItem('isBusiness', 'false');
-      this.appComponent.settingsModule(this.adminSettings);
+      //this.appComponent.settingsModule(this.adminSettings);
      }
 
   ngOnInit() {
@@ -424,6 +424,7 @@ export class DialogAddNewAppointment {
   fnGetStaff(){
     let requestObject = {
       "business_id":this.bussinessId,
+      "postal_code":this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
       "service_id":this.selectedServiceId,
       "book_date" : this.datePipe.transform(new Date(this.selectedDate),"yyyy-MM-dd"),
       "book_time" : this.selectedTime, 
