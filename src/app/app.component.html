@@ -59,7 +59,7 @@
                 <button  mat-stroked-button class="bellborder bell-color" (click)="openNotificationDialog()">
                 <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
                 </button> 
-                <button  mat-stroked-button class="bellborder bell-color" (click)="logout()">
+                <button  mat-stroked-button class="bellborder bell-color" (click)="logoutAlert()">
                   <i mat-list-icon class="fa fa-sign-out"></i>
                 </button> 
               </span> 
@@ -115,7 +115,7 @@
           <mat-drawer-content *ngIf="adminSettings" class="main-admin-drawer">
             <div  class="container-fluid sub-container">
               <div class="row h-100">
-                  <mat-drawer-container class="example-container">
+                  <mat-drawer-container class="w-100">
                     <mat-drawer mode="side" opened class="setting-menu">
                       <div class="leftarrow-icon">
                           <mat-icon aria-hidden="false" class="customer-drawer-leftarrow">arrow_back</mat-icon>

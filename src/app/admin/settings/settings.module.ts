@@ -33,13 +33,11 @@ import { AlertsettingsComponent } from './alertsettings/alertsettings.component'
 
 
 
-
 @NgModule({
   declarations: [
     ServicesComponent,
     SettingsComponent,
     StaffComponent,
-  
     DialogAddNewTimeOff,
     DialogAddNewTax,
     PaymentgatewayComponent,
@@ -49,7 +47,7 @@ import { AlertsettingsComponent } from './alertsettings/alertsettings.component'
     SettingsMyProfileComponent,
     CompanyDetailsComponent,
     AppearanceComponent,
-    PostalcodesComponent
+    PostalcodesComponent,
   ],
   imports: [
       CommonModule,

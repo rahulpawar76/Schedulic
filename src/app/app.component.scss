@@ -471,3 +471,20 @@ background-color: $primary-color;
         font-weight: 500;
     }
 }
+// -------Logout Dialogbox css-----
+::ng-deep #logout-dialog{
+    .yes-btn{
+        width: 130px;
+        height: 37px;
+        border-radius: 29px;
+        background-color:#1172f4;
+        color: white;
+    }
+    .cancel-btn{
+        width: 130px;
+        height: 37px;
+        border-radius: 29px;
+        background-color: #9b9b9b;
+        color: white;
+    }
+}
