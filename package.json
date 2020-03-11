@@ -45,6 +45,7 @@
     "jspdf": "^1.5.3",
     "jwt-decode": "^2.2.0",
     "ng-flat-datepicker": "^0.1.4",
+    "ngx-color": "^5.0.1",
     "rxjs": "~6.5.2",
     "tslib": "^1.10.0",
     "web-animations-js": "^2.3.2",
