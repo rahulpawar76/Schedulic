@@ -112,7 +112,7 @@
               </mat-list-item>
             </div>
           </mat-drawer>
-          <mat-drawer-content *ngIf="adminSettings == 'settings'" class="main-admin-drawer">
+          <!-- <mat-drawer-content *ngIf="adminSettings == 'settings'" class="main-admin-drawer">
             <div  class="container-fluid sub-container">
               <div class="row h-100">
                   <mat-drawer-container class="w-100">
@@ -163,7 +163,7 @@
                               <img class="colored" src="../../../../assets/images/admin/settings-menu/companydetails-color.png" />
                           </div>
                           <p>Company Details</p>
-                      </div>
+                      </div>-->
                       <!-- <div class="d-flex setting-menu-item">
                           <div class="menu-icon">
                               <img class="normal" src="../../../../assets/images/admin/settings-menu/my-profile.png" />
@@ -171,7 +171,7 @@
                           </div>
                           <p>Localization</p>
                       </div> -->
-                      <h6 class="pt-3">Payment</h6>
+                      <!--<h6 class="pt-3">Payment</h6>
                       <div (click)="MySettingsPaymentGatewayNav()" class="d-flex setting-menu-item">
                           <div class="menu-icon">
                               <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentgateway.png" />
@@ -214,8 +214,8 @@
                     </mat-drawer-container>
                 </div>
             </div>
-          </mat-drawer-content>
-          <mat-drawer-content *ngIf="adminSettings == 'notsettings'" class="main-admin-drawer">
+          </mat-drawer-content> -->
+          <mat-drawer-content class="main-admin-drawer">
             <router-outlet #outlet="outlet"></router-outlet>
             </mat-drawer-content>
         </mat-drawer-container>

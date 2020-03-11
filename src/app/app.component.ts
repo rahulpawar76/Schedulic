@@ -43,7 +43,7 @@ export class AppComponent implements AfterViewInit {
     public company_info: string;
 
     ngAfterViewInit() { 
-      this.isSettingsModule("");
+      //this.isSettingsModule("");
     }
     
     // myRoute: string;
@@ -80,14 +80,14 @@ export class AppComponent implements AfterViewInit {
   };
 }
 
-isSettingsModule(isSettingsPage){
-  if(isSettingsPage=="settings"){
-    this.adminSettings = "settings";
-  }
-  else{
-    this.adminSettings = "notsettings";
-  }
-}
+// isSettingsModule(isSettingsPage){
+//   if(isSettingsPage=="settings"){
+//     this.adminSettings = "settings";
+//   }
+//   else{
+//     this.adminSettings = "notsettings";
+//   }
+// }
 
   //   settingsModule(url?: string){
   //     const mod = this.cleanUrl(url || this.currentUrl);

@@ -18,7 +18,7 @@ export class PostalcodesComponent implements OnInit {
 
   constructor(public dialog: MatDialog,private appComponent : AppComponent) {
 
-    this.appComponent.settingsModule(this.adminSettings);
+    //this.appComponent.settingsModule(this.adminSettings);
    }
 
   ngOnInit() {

@@ -10,7 +10,7 @@ export class AppearanceComponent implements OnInit {
   adminSettings : boolean = true;
   constructor(private appComponent : AppComponent) {  
     
-    this.appComponent.settingsModule(this.adminSettings);
+    //this.appComponent.settingsModule(this.adminSettings);
   }
 
   ngOnInit() {
