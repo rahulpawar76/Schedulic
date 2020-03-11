@@ -7,6 +7,7 @@ import { MyBusinessComponent } from './my-business/my-business.component';
 import { MyWorkSpaceComponent } from './my-work-space/my-work-space.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { CustomersComponent } from './customers/customers.component';
+import { MyProfileComponent } from './settings-my-profile/settings-my-profile.component';
 import { ReportsComponent } from './reports/reports.component';
 import { AppointmentLiveComponent } from './appointment-live/appointment-live.component';
 import { DiscountCouponComponent } from './discount-coupon/discount-coupon.component';
@@ -37,6 +38,11 @@ const routes: Routes = [
     component: CustomersComponent 
 
   },
+  {
+   path: 'my-profile',
+  component: MyProfileComponent 
+ 
+ },
   {
     path: 'my-reports',
     component: ReportsComponent 

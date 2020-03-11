@@ -6,7 +6,7 @@ import { AppComponent } from '@app/app.component'
   templateUrl: './settings-my-profile.component.html',
   styleUrls: ['./settings-my-profile.component.scss']
 })
-export class SettingsMyProfileComponent implements OnInit {
+export class MyProfileComponent implements OnInit {
   adminSettings : boolean = true;
   constructor(private appComponent : AppComponent) {
 

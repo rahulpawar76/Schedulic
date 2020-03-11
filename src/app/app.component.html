@@ -108,7 +108,7 @@
                 <div (click)="MySettingsNav()" class="common-menu"><img src="/assets/images/admin/admin-menu-settings.png"></div>
               </mat-list-item>
               <mat-list-item role="listitem" >
-                <div class="common-menu"><img src="/assets/images/admin/admin-menu-user-2.png"></div>
+                <div (click)="MyProfileNav()" class="common-menu"><img src="/assets/images/admin/admin-menu-user-2.png"></div>
               </mat-list-item>
             </div>
           </mat-drawer>
@@ -216,7 +216,9 @@
             </div>
           </mat-drawer-content> -->
           <mat-drawer-content class="main-admin-drawer">
+            <div class="row mx-0 h-100 w-100">
             <router-outlet #outlet="outlet"></router-outlet>
+            </div>
             </mat-drawer-content>
         </mat-drawer-container>
       </div>

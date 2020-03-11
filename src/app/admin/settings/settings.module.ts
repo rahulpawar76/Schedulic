@@ -13,7 +13,6 @@ import { DataTablesModule } from 'angular-datatables';
 import { SettingsComponent } from './settings.component';
 import { StaffComponent } from './staff/staff.component';
 
-import { SettingsMyProfileComponent } from './settings-my-profile/settings-my-profile.component';
 import { CompanyDetailsComponent } from './company-details/company-details.component';
 
 import { AppearanceComponent } from './appearance/appearance.component';
@@ -46,7 +45,6 @@ import { AlertsettingsComponent } from './alertsettings/alertsettings.component'
     PaymentrulesComponent,
     BookingrulesComponent,
     AlertsettingsComponent,
-    SettingsMyProfileComponent,
     CompanyDetailsComponent,
     AppearanceComponent,
     PostalcodesComponent,
