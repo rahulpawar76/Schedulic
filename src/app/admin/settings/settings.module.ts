@@ -20,10 +20,13 @@ import { AppearanceComponent } from './appearance/appearance.component';
 
 
 import { DialogAddNewTimeOff } from './staff/staff.component';
+import { DialogAddNewTimeOffBussiness } from './business-hours/business-hours.component';
 import { PostalcodesComponent } from './postalcodes/postalcodes.component';
 import{DialogAddPostalCode} from './postalcodes/postalcodes.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { DialogAddNewTax } from './paymentrules/paymentrules.component';
+import { ColorPickerModule } from '@syncfusion/ej2-angular-inputs';
+import { enableRipple } from '@syncfusion/ej2-base';
 
 import { PaymentgatewayComponent } from './paymentgateway/paymentgateway.component';
 import { PaymentrulesComponent } from './paymentrules/paymentrules.component';
@@ -33,7 +36,7 @@ import { AlertsettingsComponent } from './alertsettings/alertsettings.component'
 
 
 
-
+enableRipple(true);
 
 
 @NgModule({
@@ -41,7 +44,7 @@ import { AlertsettingsComponent } from './alertsettings/alertsettings.component'
     ServicesComponent,
     SettingsComponent,
     StaffComponent,
-  
+    DialogAddNewTimeOffBussiness,
     DialogAddNewTimeOff,
     DialogAddNewTax,
     PaymentgatewayComponent,
@@ -66,11 +69,12 @@ import { AlertsettingsComponent } from './alertsettings/alertsettings.component'
       DragDropModule,
       MatSidenavModule,
       DataTablesModule,
-      MatDatepickerModule
+      MatDatepickerModule,
+      ColorPickerModule
   ],
   exports: [
     FormsModule
   ],
-   entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax,DialogAddPostalCode],
+   entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax,DialogAddPostalCode,DialogAddNewTimeOffBussiness],
 })
 export class SettingsModule {}
