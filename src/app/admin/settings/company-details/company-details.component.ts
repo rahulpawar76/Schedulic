@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '@app/app.component'
+
 @Component({
   selector: 'app-company-details',
   templateUrl: './company-details.component.html',
@@ -9,7 +10,7 @@ export class CompanyDetailsComponent implements OnInit {
   adminSettings : boolean = true;
   constructor(private appComponent : AppComponent) {
 
-    this.appComponent.settingsModule(this.adminSettings);
+    //this.appComponent.settingsModule(this.adminSettings);
    }
 
   ngOnInit() {

@@ -43,7 +43,7 @@ export class AppComponent implements AfterViewInit {
     public company_info: string;
 
     ngAfterViewInit() { 
-      this.isSettingsModule("");
+     // this.isSettingsModule("");
     }
     
     // myRoute: string;
@@ -60,13 +60,19 @@ export class AppComponent implements AfterViewInit {
         private _snackBar: MatSnackBar,        
     ) {        
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-        // this.router.events.subscribe(event => {
-        //   if (event instanceof RouterEvent) this.handleRoute(event);
-        // });
+        
     }
 
 
-    dynamicSort(property: string) {
+
+
+    ngOnInit() {
+     this.router.events.subscribe(event => {
+          if (event instanceof RouterEvent) this.handleRoute(event);
+        });
+    }
+    
+     dynamicSort(property: string) {
       let sortOrder = 1;
 
       if (property[0] === "-") {
@@ -80,56 +86,54 @@ export class AppComponent implements AfterViewInit {
   };
 }
 
-isSettingsModule(isSettingsPage){
-  if(isSettingsPage=="settings"){
-    this.adminSettings = "settings";
+    isSettingsModule(url?: string){
+      const mod = this.cleanUrl(url || this.currentUrl);
+      console.log(mod);
+      if(mod == "settings"){
+        this.adminSettings  = "settings";
+      }
+      else{
+        this.adminSettings  = "notsettings";
+      }
+    }
+
+    private handleRoute(event: RouterEvent) {
+    const url = this.getUrl(event);
+    if (this.urlIsNew(url)) {
+      this.currentUrl = url;
+      this.isSettingsModule(url);
+    }
   }
-  else{
-    this.adminSettings = "notsettings";
+
+  private getUrl(event: any) {
+    if (event) {
+      const url = event.url;
+      const state = (event.state) ? event.state.url : null;
+      const redirect = (event.urlAfterRedirects) ? event.urlAfterRedirects : null;
+      const longest = [url, state, redirect].filter(value => !!value).sort(this.dynamicSort('-length'));
+      if (longest.length > 0) return longest[0];
+    }
   }
-}
 
-  //   settingsModule(url?: string){
-  //     const mod = this.cleanUrl(url || this.currentUrl);
-  //     if(mod == "admin"){
-  //       this.adminSettings  = true;
-  //     }
-  //     else{
-  //       this.adminSettings  = false;
-  //     }
-  //   }
-
-  //   private handleRoute(event: RouterEvent) {
-  //   const url = this.getUrl(event);
-  //   if (this.urlIsNew(url)) {
-  //     this.currentUrl = url;
-  //     this.settingsModule(url);
-  //   }
-  // }
-
-  // private getUrl(event: any) {
-  //   if (event) {
-  //     const url = event.url;
-  //     const state = (event.state) ? event.state.url : null;
-  //     const redirect = (event.urlAfterRedirects) ? event.urlAfterRedirects : null;
-  //     const longest = [url, state, redirect].filter(value => !!value).sort(this.dynamicSort('-length'));
-  //     if (longest.length > 0) return longest[0];
-  //   }
-  // }
-
-  // private cleanUrl(url: string) {
-  //   if (url) {
-  //     let cleanUrl = url.substr(1);
-  //     const slashIndex = cleanUrl.indexOf("/");
-  //     if (slashIndex >= 0) cleanUrl = cleanUrl.substr(0, slashIndex);
-  //     return cleanUrl;
-  //   } else return null;
-  // }
+  private cleanUrl(url: string) {
+    console.log(url);
+    if (url) {
+      let cleanUrl = url.substr(1);
+      const slashIndex = cleanUrl.indexOf("/");
+      console.log(slashIndex);
+      if (slashIndex >= 0){
+        cleanUrl = cleanUrl.substr(slashIndex+1, 8);
+        return cleanUrl;
+      }else{
+        return null;
+      }
+    } else return null;
+  }
 
 
-  // private urlIsNew(url: string) {
-  //   return !!url && url.length > 0 && url !== this.currentUrl;
-  // }
+  private urlIsNew(url: string) {
+    return !!url && url.length > 0 && url !== this.currentUrl;
+  }
 
     get isAdmin() {
         return this.currentUser && this.currentUser.role === Role.Admin;
@@ -181,11 +185,6 @@ isSettingsModule(isSettingsPage){
             return false;
         }
     }
-
-    ngOnInit() {
-     // this.setcompanycolours();
-    }
-    
 
     /*fnSetSessionValues(){
       this.selectedSessionId=localStorage.getItem("session_id");
