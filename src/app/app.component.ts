@@ -1,6 +1,6 @@
 ﻿import { Component, Inject,AfterViewInit, ElementRef, ViewChild} from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterEvent, RouterOutlet } from '@angular/router';
 import { AuthenticationService, CompanyService } from './_services';
 import { User, Role } from './_models';
 
@@ -37,12 +37,13 @@ export interface DialogData {
 export class AppComponent implements AfterViewInit {
   animal:any;
   selectedBusinessName: any;
-  adminSettings : boolean = false;
+  adminSettings:any;
+  currentUrl: string;
   
     public company_info: string;
 
     ngAfterViewInit() { 
-
+      this.isSettingsModule("");
     }
     
     // myRoute: string;
@@ -59,16 +60,76 @@ export class AppComponent implements AfterViewInit {
         private _snackBar: MatSnackBar,        
     ) {        
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+        // this.router.events.subscribe(event => {
+        //   if (event instanceof RouterEvent) this.handleRoute(event);
+        // });
     }
 
-    settingsModule(isSettingsPage){
-      if(isSettingsPage){
-        this.adminSettings  = true;
+
+    dynamicSort(property: string) {
+      let sortOrder = 1;
+
+      if (property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
       }
-      else{
-        this.adminSettings  = false;
-      }
-    }
+
+  return (a, b) => {
+    const result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+    return result * sortOrder;
+  };
+}
+
+isSettingsModule(isSettingsPage){
+  if(isSettingsPage=="settings"){
+    this.adminSettings = "settings";
+  }
+  else{
+    this.adminSettings = "notsettings";
+  }
+}
+
+  //   settingsModule(url?: string){
+  //     const mod = this.cleanUrl(url || this.currentUrl);
+  //     if(mod == "admin"){
+  //       this.adminSettings  = true;
+  //     }
+  //     else{
+  //       this.adminSettings  = false;
+  //     }
+  //   }
+
+  //   private handleRoute(event: RouterEvent) {
+  //   const url = this.getUrl(event);
+  //   if (this.urlIsNew(url)) {
+  //     this.currentUrl = url;
+  //     this.settingsModule(url);
+  //   }
+  // }
+
+  // private getUrl(event: any) {
+  //   if (event) {
+  //     const url = event.url;
+  //     const state = (event.state) ? event.state.url : null;
+  //     const redirect = (event.urlAfterRedirects) ? event.urlAfterRedirects : null;
+  //     const longest = [url, state, redirect].filter(value => !!value).sort(this.dynamicSort('-length'));
+  //     if (longest.length > 0) return longest[0];
+  //   }
+  // }
+
+  // private cleanUrl(url: string) {
+  //   if (url) {
+  //     let cleanUrl = url.substr(1);
+  //     const slashIndex = cleanUrl.indexOf("/");
+  //     if (slashIndex >= 0) cleanUrl = cleanUrl.substr(0, slashIndex);
+  //     return cleanUrl;
+  //   } else return null;
+  // }
+
+
+  // private urlIsNew(url: string) {
+  //   return !!url && url.length > 0 && url !== this.currentUrl;
+  // }
 
     get isAdmin() {
         return this.currentUser && this.currentUser.role === Role.Admin;

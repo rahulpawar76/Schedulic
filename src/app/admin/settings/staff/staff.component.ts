@@ -26,7 +26,7 @@ export class StaffComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private appComponent : AppComponent,
   ) {
-    this.appComponent.settingsModule(this.adminSettings);
+    //this.appComponent.settingsModule(this.adminSettings);
    }
 
   ngOnInit() {

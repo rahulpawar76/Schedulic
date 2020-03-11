@@ -771,6 +771,7 @@ export class FrontbookingComponent implements OnInit {
     this.isLoader=true;
     let requestObject = {
       "business_id":'2',
+      "postal_code":this.booking.postalcode,
       "service_id":this.currentSelectedService,
       "book_date" : this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd"),
       "book_time" : this.selectedTimeSlot, 

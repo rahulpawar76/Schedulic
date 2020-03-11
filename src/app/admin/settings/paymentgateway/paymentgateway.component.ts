@@ -13,7 +13,7 @@ export class PaymentgatewayComponent implements OnInit {
     private appComponent : AppComponent,
   )
    {
-    this.appComponent.settingsModule(this.adminSettings);
+    //this.appComponent.settingsModule(this.adminSettings);
    }
 
   ngOnInit() {

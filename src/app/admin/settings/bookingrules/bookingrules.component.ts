@@ -13,7 +13,7 @@ export class BookingrulesComponent implements OnInit {
   constructor(
     private appComponent : AppComponent,
   ) {
-    this.appComponent.settingsModule(this.adminSettings);
+    //this.appComponent.settingsModule(this.adminSettings);
    }
 
   ngOnInit() {

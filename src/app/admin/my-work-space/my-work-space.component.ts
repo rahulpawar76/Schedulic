@@ -57,14 +57,14 @@ export class MyWorkSpaceComponent implements OnInit {
   selectedStaff:any;
   constructor(
     public dialog: MatDialog,
-     private http: HttpClient,
-     public router: Router,
-     private adminService: AdminService,
-     private _snackBar: MatSnackBar,
-     private appComponent : AppComponent,
+    private http: HttpClient,
+    public router: Router,
+    private adminService: AdminService,
+    private _snackBar: MatSnackBar,
+    private appComponent : AppComponent,
     private datePipe: DatePipe) {
-      this.appComponent.settingsModule(this.adminSettings);
-      localStorage.setItem('isBusiness', 'false');
+    //this.appComponent.settingsModule(this.adminSettings);
+    localStorage.setItem('isBusiness', 'false');
    }
 
   ngOnInit() {
