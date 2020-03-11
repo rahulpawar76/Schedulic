@@ -218,6 +218,9 @@ export class AppComponent implements AfterViewInit {
       MyLiveAppointmentNav(){
         this.router.navigate(['/admin/my-appointment-live']);
       }
+      MyProfileNav(){
+        this.router.navigate(['/admin/my-profile']);
+      }
       // Setting Menus
       MySettingsNav(){
         this.router.navigate(['/admin/settings']);
@@ -406,6 +409,7 @@ constructor(
     this.dialogRef.close();
   }
   logout() {
+    alert("Hello");
     this.authenticationService.logout();
     if (this.timer) {
       clearTimeout(this.timer);
@@ -413,6 +417,9 @@ constructor(
     }
     this.router.navigate(['/login']);
     
+    this.dialogRef.close();
+  }
+  closePopup(){
     this.dialogRef.close();
   }
 }

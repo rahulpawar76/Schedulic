@@ -28,6 +28,7 @@ import { DialogPaymentNote } from './customers/customers.component';
 import { DialogViewReview } from './customers/customers.component';
 import { DiscountCouponComponent } from './discount-coupon/discount-coupon.component';
 import { InterruptedReschedule } from './my-work-space/my-work-space.component';
+import { MyProfileComponent } from './settings-my-profile/settings-my-profile.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { InterruptedReschedule } from './my-work-space/my-work-space.component';
     DialogAddNewNote,
     ReportsComponent,
     AppointmentLiveComponent,
+    MyProfileComponent,
     DialogPaymentNote,
     DialogViewReview,
     InterruptedReschedule,

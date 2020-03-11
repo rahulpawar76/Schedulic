@@ -82,12 +82,13 @@
                             <div class="heads main-heading-content example-box header-background " fxLayout="row">
                                 <div class="" fxFlex="10"></div>
                                 <div class="" fxFlex="5"></div>
-                                <div class="" fxFlex="10"></div>
+                                <div class="" fxFlex="15"></div>
                                 <div class="" fxFlex="30"></div>
                                 <!-- <div class="" fxFlex="10"></div>
                                 <div class="" fxFlex="20"></div> -->
+                                <div class="" fxFlex="5"></div>
                                 <div class="" fxFlex="30"></div>
-                                <div class="" fxFlex="10"></div>
+                                
                             </div>
                             <div class="content" class="example-list">
                                 <div  class="example-box">
@@ -95,7 +96,7 @@
                                         <mat-slide-toggle></mat-slide-toggle>
                                     </div>
                                     <div class="" fxFlex="5">Monday</div>
-                                    <div class="" fxFlex="10"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2">Add Break</button></div>
+                                    <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2">Add Break</button></div>
                                     <div class="" fxFlex="30">
                                         <div class="d-flex">
                                             <mat-form-field class="bottom-border-field workinghour-dropdown">
@@ -119,6 +120,7 @@
                                             </mat-form-field>
                                         </div>
                                     </div>
+                                    <div class="" fxFlex="5"><i class="fa fa-trash-o delete-box" ></i></div>
                                     <div class="blue-font" fxFlex="30">Apply to all </div>
                                   
                                 </div>
@@ -141,7 +143,7 @@
                             <div class="" fxFlex="10"></div>
                             <div class="" fxFlex="5"></div>
                             <div class="" fxFlex="15">
-                              <button mat-button appearance="fill" class="time-off-btn ml-2 mr-2"><i class="material-icons mr-2">add</i>Time Off</button></div>
+                              <button mat-button appearance="fill" (click)="addTimeOff()" class="time-off-btn ml-2 mr-2"><i class="material-icons mr-2">add</i>Time Off</button></div>
                         </div>
                         <div class="content" class="example-list" cdkDropList>
                             <div  class="time-of-box" cdkDrag fxLayout="row">

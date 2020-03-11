@@ -149,6 +149,25 @@ export class AdminSettingsService {
     }),
     catchError(this.handleError));
   }
+  
+    getServiceForCategoiry(categoryId,filter){
+        let requestObject = {
+            'business_id': this.businessId,
+            'category_id' :categoryId,
+            'filter': filter
+
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/list-service`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
 
     
     

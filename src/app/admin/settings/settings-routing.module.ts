@@ -8,7 +8,6 @@ import { PaymentgatewayComponent } from './paymentgateway/paymentgateway.compone
 import { PaymentrulesComponent } from './paymentrules/paymentrules.component';
 import { BookingrulesComponent } from './bookingrules/bookingrules.component';
 import { AlertsettingsComponent } from './alertsettings/alertsettings.component';
-import { SettingsMyProfileComponent } from './settings-my-profile/settings-my-profile.component';
 import { CompanyDetailsComponent } from './company-details/company-details.component';
 import { AppearanceComponent } from './appearance/appearance.component';
 import { PostalcodesComponent } from './postalcodes/postalcodes.component';
@@ -53,11 +52,6 @@ const routes: Routes = [
    component: AlertsettingsComponent 
 
   },
- {
-  path: 'setting-my-profile',
- component: SettingsMyProfileComponent 
-
-},
 
 {
   path: 'company-details',
