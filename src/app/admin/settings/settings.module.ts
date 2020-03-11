@@ -35,13 +35,11 @@ import { AlertsettingsComponent } from './alertsettings/alertsettings.component'
 
 
 
-
 @NgModule({
   declarations: [
     ServicesComponent,
     SettingsComponent,
     StaffComponent,
-  
     DialogAddNewTimeOff,
     DialogAddNewTax,
     PaymentgatewayComponent,

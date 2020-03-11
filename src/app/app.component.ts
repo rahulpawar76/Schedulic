@@ -43,7 +43,7 @@ export class AppComponent implements AfterViewInit {
     public company_info: string;
 
     ngAfterViewInit() { 
-     // this.isSettingsModule("");
+
     }
     
     // myRoute: string;
@@ -356,6 +356,18 @@ export class AppComponent implements AfterViewInit {
   getStatusCurrentStaff(){
     
   }
+  
+  logoutAlert() {
+    const dialogRef = this.dialog.open(DialogLogoutAppointment, {
+      width: '500px',
+      
+    });
+
+     dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+       this.animal = result;
+     });
+  }
 }
 
 /*For notification Dialog*/
@@ -375,5 +387,34 @@ export class AppComponent implements AfterViewInit {
     }
 
   }
+  
+@Component({
+  selector: 'logout-alert',
+  templateUrl: './_dialogs/logout-dialog.html',
+})
+export class DialogLogoutAppointment {
+  
+  timer:any =0;
+
+constructor(
+  public dialogRef: MatDialogRef<DialogLogoutAppointment>,
+  public router: Router,
+  private authenticationService: AuthenticationService,
+  @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  logout() {
+    this.authenticationService.logout();
+    if (this.timer) {
+      clearTimeout(this.timer);
+      this.timer = 0;
+    }
+    this.router.navigate(['/login']);
+    
+    this.dialogRef.close();
+  }
+}
 
   
