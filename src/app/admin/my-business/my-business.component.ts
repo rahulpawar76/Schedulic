@@ -40,7 +40,7 @@ export class MyBusinessComponent implements OnInit {
     private appComponent : AppComponent,
      private _snackBar: MatSnackBar) {
       localStorage.setItem('isBusiness', 'true');
-      this.appComponent.settingsModule(this.adminSettings);
+     // this.appComponent.settingsModule(this.adminSettings);
    }
 
   ngOnInit() {

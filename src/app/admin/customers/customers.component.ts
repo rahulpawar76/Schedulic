@@ -74,7 +74,7 @@ export class CustomersComponent implements OnInit {
       if(localStorage.getItem('business_id')){
         this.businessId = localStorage.getItem('business_id');
     }
-    this.appComponent.settingsModule(this.adminSettings);
+    //this.appComponent.settingsModule(this.adminSettings);
     }
     private handleError(error: HttpErrorResponse) {
       console.log(error);

@@ -61,13 +61,14 @@ export class FrontbookingComponent implements OnInit {
   };
   serviceCount:any= [];
   serviceCartArr:any= [];
-  taxType:any='F';
-  taxValue:any=10;
+  taxType:any='P';
+  taxValue:any;
+  taxArr:any=[];
+  taxAmountArr:any=[];
   serviceMainArr={
     totalNumberServices:0,
     subtotal:0,
     discount:0,
-    taxAmount:0,
     netCost:0
   }
   //postalcode :any;
@@ -147,7 +148,7 @@ export class FrontbookingComponent implements OnInit {
       existing_password: ['',Validators.required],
     })
 
-
+    this.fnGetTaxDetails();
     let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
     
     this.formNewUser = this._formBuilder.group({
@@ -178,6 +179,35 @@ export class FrontbookingComponent implements OnInit {
     
     this.serviceCount.length=0
     this.serviceCartArr.length=0
+  }
+
+  fnGetTaxDetails(){
+    this.getTaxDetails().subscribe((response:any) => {
+      if(response.data == true){
+        this.taxArr=response.response
+        console.log(this.taxArr);
+      }
+      else if(response.data == false){
+        
+      }
+    })
+  }
+
+  // Get Tax details
+
+  getTaxDetails(){
+    let requestObject = {
+      'business_id': 2,
+    };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.post(`${environment.apiUrl}/get-tax`,requestObject,{headers:headers}).pipe(
+    map((res) => {
+      return res;
+    }),
+    //catchError(this.handleError)
+    );
   }
 
   selectToday() {
@@ -430,7 +460,8 @@ export class FrontbookingComponent implements OnInit {
     this.serviceMainArr.totalNumberServices=0;
     this.serviceMainArr.subtotal=0;
     this.serviceMainArr.discount=0;
-    this.serviceMainArr.taxAmount=0;
+    this.taxAmountArr.length=0;
+    console.log(this.taxAmountArr);
     this.serviceMainArr.netCost=0;
     this.fncheckavailcoupon('valid');
     for(let i=0; i< this.serviceCartArr.length; i++){
@@ -439,17 +470,35 @@ export class FrontbookingComponent implements OnInit {
         this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].totalCost;
       }
     }
-    var temp=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+    var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+    var amountAfterTax=0;
     if(this.serviceMainArr.subtotal > 0){
-      if(this.taxType == "P"){
-        this.serviceMainArr.taxAmount= temp * this.taxValue/100;
-      }else{
-        this.serviceMainArr.taxAmount= this.taxValue;
-      }
+      this.taxArr.forEach((element) => {
+        let taxTemp={
+          name:'',
+          amount:0
+        }
+        console.log(element.name+" -- "+element.value);
+        if(this.taxType == "P"){
+         taxTemp.name= element.name;
+         taxTemp.amount= amountAfterDiscount * element.value/100;
+          amountAfterTax=amountAfterTax+taxTemp.amount;
+        }else{
+          taxTemp.name= element.name;
+          taxTemp.amount=  element.value;
+          amountAfterTax=amountAfterTax+taxTemp.amount;
+        }
+        this.taxAmountArr.push(taxTemp);
+        console.log(this.taxAmountArr);
+      });
     }
-    this.serviceMainArr.netCost=temp+this.serviceMainArr.taxAmount;
+    // this.taxAmountArr.forEach((element) => {
+    //   amountAfterDiscount=amountAfterDiscount+element;
+    // });
+    this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
     //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-    console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.taxAmount+" "+this.serviceMainArr.netCost));
+    console.log(this.taxAmountArr);
+    console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
   }
 
   fnRemove(event,service_id){
@@ -469,7 +518,8 @@ export class FrontbookingComponent implements OnInit {
       this.serviceMainArr.totalNumberServices=0;
       this.serviceMainArr.subtotal=0;
       this.serviceMainArr.discount=0;
-      this.serviceMainArr.taxAmount=0;
+      this.taxAmountArr.length=0;
+      console.log(this.taxAmountArr);
       this.serviceMainArr.netCost=0;
       this.fncheckavailcoupon('valid');
       for(let i=0; i< this.serviceCartArr.length; i++){
@@ -478,17 +528,43 @@ export class FrontbookingComponent implements OnInit {
           this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].totalCost;
         }
       }
-      var temp=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      var amountAfterTax=0;
       if(this.serviceMainArr.subtotal > 0){
-        if(this.taxType == "P"){
-          this.serviceMainArr.taxAmount= temp * this.taxValue/100;
-        }else{
-          this.serviceMainArr.taxAmount= this.taxValue;
-        }
+        this.taxArr.forEach((element) => {
+          // console.log(element.name+" -- "+element.value);
+          // if(this.taxType == "P"){
+          //   this.taxAmountArr[element.name]= amountAfterDiscount * element.value/100;
+          //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
+          // }else{
+          //   this.taxAmountArr[element.name]=  element.value;
+          //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
+          // }
+          let taxTemp={
+            name:'',
+            amount:0
+          }
+          console.log(element.name+" -- "+element.value);
+          if(this.taxType == "P"){
+           taxTemp.name= element.name;
+           taxTemp.amount= amountAfterDiscount * element.value/100;
+            amountAfterTax=amountAfterTax+taxTemp.amount;
+          }else{
+            taxTemp.name= element.name;
+            taxTemp.amount=  element.value;
+            amountAfterTax=amountAfterTax+taxTemp.amount;
+          }
+          this.taxAmountArr.push(taxTemp);
+          console.log(this.taxAmountArr);
+        });
       }
-      this.serviceMainArr.netCost=temp+this.serviceMainArr.taxAmount;
+      // this.taxAmountArr.forEach((element) => {
+      //   amountAfterDiscount=amountAfterDiscount+element;
+      // });
+      this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
       //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.taxAmount+" "+this.serviceMainArr.netCost));
+      console.log(this.taxAmountArr);
+      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
     }
   }
 
@@ -505,7 +581,8 @@ export class FrontbookingComponent implements OnInit {
       this.serviceMainArr.totalNumberServices=0;
       this.serviceMainArr.subtotal=0;
       this.serviceMainArr.discount=0;
-      this.serviceMainArr.taxAmount=0;
+      this.taxAmountArr.length=0;
+      console.log(this.taxAmountArr);
       this.serviceMainArr.netCost=0;
       this.fncheckavailcoupon('valid');
       for(let i=0; i< this.serviceCartArr.length; i++){
@@ -514,17 +591,43 @@ export class FrontbookingComponent implements OnInit {
           this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].totalCost;
         }
       }
-      var temp=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      var amountAfterTax=0;
       if(this.serviceMainArr.subtotal > 0){
-        if(this.taxType == "P"){
-          this.serviceMainArr.taxAmount= temp * this.taxValue/100;
-        }else{
-          this.serviceMainArr.taxAmount= this.taxValue;
-        }
+        this.taxArr.forEach((element) => {
+          // console.log(element.name+" -- "+element.value);
+          // if(this.taxType == "P"){
+          //   this.taxAmountArr[element.name]= amountAfterDiscount * element.value/100;
+          //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
+          // }else{
+          //   this.taxAmountArr[element.name]=  element.value;
+          //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
+          // }
+          let taxTemp={
+            name:'',
+            amount:0
+          }
+          console.log(element.name+" -- "+element.value);
+          if(this.taxType == "P"){
+           taxTemp.name= element.name;
+           taxTemp.amount= amountAfterDiscount * element.value/100;
+            amountAfterTax=amountAfterTax+taxTemp.amount;
+          }else{
+            taxTemp.name= element.name;
+            taxTemp.amount=  element.value;
+            amountAfterTax=amountAfterTax+taxTemp.amount;
+          }
+          this.taxAmountArr.push(taxTemp);
+          console.log(this.taxAmountArr);
+        });
       }
-      this.serviceMainArr.netCost=temp+this.serviceMainArr.taxAmount;
+      // this.taxAmountArr.forEach((element) => {
+      //   amountAfterDiscount=amountAfterDiscount+element;
+      // });
+      this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
       //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.taxAmount+" "+this.serviceMainArr.netCost));
+      console.log(this.taxAmountArr);
+      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
     }
   } 
 
@@ -544,7 +647,7 @@ export class FrontbookingComponent implements OnInit {
       ).subscribe((response:any) => {
         if(response.data == true){
           this.offDaysList = response.response;
-          //alert(JSON.stringify(this.offDaysList));
+          //console.log(JSON.stringify(this.offDaysList));
         }
         else{
 
@@ -660,7 +763,7 @@ export class FrontbookingComponent implements OnInit {
   fnSelectTimeSlot(timeSlot){
     this.selectedTimeSlot=timeSlot;
     console.log(this.selectedTimeSlot);
-   // alert(this.selectedTimeSlot)
+   // console.log(this.selectedTimeSlot)
     this.fnGetStaff()
   }
 
@@ -668,6 +771,7 @@ export class FrontbookingComponent implements OnInit {
     this.isLoader=true;
     let requestObject = {
       "business_id":'2',
+      "postal_code":this.booking.postalcode,
       "service_id":this.currentSelectedService,
       "book_date" : this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd"),
       "book_time" : this.selectedTimeSlot, 
@@ -727,11 +831,12 @@ export class FrontbookingComponent implements OnInit {
     this.serviceCount[this.currentSelectedService].appointmentTimeSlot=this.selectedTimeSlot;
     this.serviceCount[this.currentSelectedService].appointmentTimeSlotForLabel=this.datePipe.transform(new Date(this.selecteddate+" "+this.selectedTimeSlot),"hh:mm a");
     this.serviceCartArr[this.currentSelectedService]=this.serviceCount[this.currentSelectedService]
-    //alert(JSON.stringify(this.selecteddate));
-    //alert(JSON.stringify(this.serviceCartArr[this.currentSelectedService])); 
+    //console.log(JSON.stringify(this.selecteddate));
+    //console.log(JSON.stringify(this.serviceCartArr[this.currentSelectedService])); 
     this.serviceMainArr.totalNumberServices=0;
     this.serviceMainArr.subtotal=0;
     this.serviceMainArr.discount=0;
+      this.taxAmountArr.length=0;
     this.serviceMainArr.netCost=0;
     for(let i=0; i< this.serviceCartArr.length; i++){
       if(this.serviceCartArr[i] != null){
@@ -744,18 +849,44 @@ export class FrontbookingComponent implements OnInit {
       verticalPosition: 'bottom',
       panelClass : ['green-snackbar']
     });
-    var temp=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+    var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+    var amountAfterTax=0;
     if(this.serviceMainArr.subtotal > 0){
-      if(this.taxType == "P"){
-        this.serviceMainArr.taxAmount= temp * this.taxValue/100;
-      }else{
-        this.serviceMainArr.taxAmount= this.taxValue;
-      }
+      this.taxArr.forEach((element) => {
+        // console.log(element.name+" -- "+element.value);
+        // if(this.taxType == "P"){
+        //   this.taxAmountArr[element.name]= amountAfterDiscount * element.value/100;
+        //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
+        // }else{
+        //   this.taxAmountArr[element.name]=  element.value;
+        //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
+        // }
+        let taxTemp={
+          name:'',
+          amount:0
+        }
+        console.log(element.name+" -- "+element.value);
+        if(this.taxType == "P"){
+         taxTemp.name= element.name;
+         taxTemp.amount= amountAfterDiscount * element.value/100;
+          amountAfterTax=amountAfterTax+taxTemp.amount;
+        }else{
+          taxTemp.name= element.name;
+          taxTemp.amount=  element.value;
+          amountAfterTax=amountAfterTax+taxTemp.amount;
+        }
+        this.taxAmountArr.push(taxTemp);
+        console.log(this.taxAmountArr);
+      });
     }
-    this.serviceMainArr.netCost=temp+this.serviceMainArr.taxAmount;
+    // this.taxAmountArr.forEach((element) => {
+    //   amountAfterDiscount=amountAfterDiscount+element;
+    // });
+    this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
     //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+    console.log(this.taxAmountArr);
+    console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
     this.isLoader=false;
-    console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.taxAmount+" "+this.serviceMainArr.netCost));
   }
   
 
@@ -1009,17 +1140,57 @@ export class FrontbookingComponent implements OnInit {
   fncheckavailcoupon(couponStatus){
     if(couponStatus == 'valid'){
       this.serviceMainArr.discount=0;
+      this.taxAmountArr.length=0;
 
-      var temp=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-      if(this.serviceMainArr.subtotal > 0){
-        if(this.taxType == "P"){
-          this.serviceMainArr.taxAmount= temp * this.taxValue/100;
-        }else{
-          this.serviceMainArr.taxAmount= this.taxValue;
-        }
-      }
-      this.serviceMainArr.netCost=temp+this.serviceMainArr.taxAmount;
+      // var temp=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      // if(this.serviceMainArr.subtotal > 0){
+      //   if(this.taxType == "P"){
+      //     this.taxAmountArr= temp * this.taxValue/100;
+      //   }else{
+      //     this.taxAmountArr= this.taxValue;
+      //   }
+      // }
+      // this.serviceMainArr.netCost=temp+this.taxAmountArr;
       
+
+      var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      var amountAfterTax=0;
+      if(this.serviceMainArr.subtotal > 0){
+        this.taxArr.forEach((element) => {
+          // console.log(element.name+" -- "+element.value);
+          // if(this.taxType == "P"){
+          //   this.taxAmountArr[element.name]= amountAfterDiscount * element.value/100;
+          //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
+          // }else{
+          //   this.taxAmountArr[element.name]=  element.value;
+          //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
+          // }
+          let taxTemp={
+            name:'',
+            amount:0
+          }
+          console.log(element.name+" -- "+element.value);
+          if(this.taxType == "P"){
+           taxTemp.name= element.name;
+           taxTemp.amount= amountAfterDiscount * element.value/100;
+            amountAfterTax=amountAfterTax+taxTemp.amount;
+          }else{
+            taxTemp.name= element.name;
+            taxTemp.amount=  element.value;
+            amountAfterTax=amountAfterTax+taxTemp.amount;
+          }
+          this.taxAmountArr.push(taxTemp);
+          console.log(this.taxAmountArr);
+        });
+      }
+      // this.taxAmountArr.forEach((element) => {
+      //   amountAfterDiscount=amountAfterDiscount+element;
+      // });
+      this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
+      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      console.log(this.taxAmountArr);
+      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
+
       //this.serviceMainArr.netCost=this.serviceMainArr.subtotal;
       this.closecoupon = 'default';
       this.couponIcon="check";
@@ -1061,23 +1232,63 @@ export class FrontbookingComponent implements OnInit {
           //this.serviceMainArr.netCost = this.serviceMainArr.subtotal - this.serviceMainArr.discount;
         }
 
-        var temp=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-        if(this.serviceMainArr.subtotal > 0){
-          if(this.taxType == "P"){
-            this.serviceMainArr.taxAmount= temp * this.taxValue/100;
-          }else{
-            this.serviceMainArr.taxAmount= this.taxValue;
-          }
-        }
-        this.serviceMainArr.netCost=temp+this.serviceMainArr.taxAmount;
+        this.taxAmountArr.length=0;
+        // var temp=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+        // if(this.serviceMainArr.subtotal > 0){
+        //   if(this.taxType == "P"){
+        //     this.taxAmountArr= temp * this.taxValue/100;
+        //   }else{
+        //     this.taxAmountArr= this.taxValue;
+        //   }
+        // }
+        // this.serviceMainArr.netCost=temp+this.taxAmountArr;
         
+
+        var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+        var amountAfterTax=0;
+        if(this.serviceMainArr.subtotal > 0){
+          this.taxArr.forEach((element) => {
+            // console.log(element.name+" -- "+element.value);
+            // if(this.taxType == "P"){
+            //   this.taxAmountArr[element.name]= amountAfterDiscount * element.value/100;
+            //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
+            // }else{
+            //   this.taxAmountArr[element.name]=  element.value;
+            //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
+            // }
+            let taxTemp={
+              name:'',
+              amount:0
+            }
+            console.log(element.name+" -- "+element.value);
+            if(this.taxType == "P"){
+             taxTemp.name= element.name;
+             taxTemp.amount= amountAfterDiscount * element.value/100;
+              amountAfterTax=amountAfterTax+taxTemp.amount;
+            }else{
+              taxTemp.name= element.name;
+              taxTemp.amount=  element.value;
+              amountAfterTax=amountAfterTax+taxTemp.amount;
+            }
+            this.taxAmountArr.push(taxTemp);
+            console.log(this.taxAmountArr);
+          });
+        }
+        // this.taxAmountArr.forEach((element) => {
+        //   amountAfterDiscount=amountAfterDiscount+element;
+        // });
+        this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
+        //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+        console.log(this.taxAmountArr);
+        console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
+
         this.coupon.couponcode_val=response.response.coupon_code;
         this.couponIcon="close";
         this.closecoupon = 'valid';
         this.isReadOnly="readonly";
         this.showCouponError=false;
         this.couponErrorMessage="";
-        console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.taxAmount+" "+this.serviceMainArr.netCost));
+        //console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.taxAmountArr+" "+this.serviceMainArr.netCost));
       }
       else{
         this.closecoupon = 'invalid';
@@ -1085,7 +1296,7 @@ export class FrontbookingComponent implements OnInit {
         this.isReadOnly="";
         this.showCouponError=true;
         this.couponErrorMessage=response.response;
-        console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.taxAmount+" "+this.serviceMainArr.netCost));
+        console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
       }
       },
       (err) =>{
@@ -1194,12 +1405,12 @@ export class FrontbookingComponent implements OnInit {
       "customer_token" : this.authenticationService.currentUserValue.token,
       "subtotal" : this.serviceMainArr.subtotal,
       "discount" : this.serviceMainArr.discount,
+      "tax" : this.taxAmountArr,
       "nettotal" : this.serviceMainArr.netCost,
       "payment_method" : this.paymentMethod,
       "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd")
       };
       console.log(JSON.stringify(requestObject));
-      
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
       });
@@ -1218,7 +1429,7 @@ export class FrontbookingComponent implements OnInit {
           }, 2000);
         }
         else{
-          alert(response.response);
+          console.log(response.response);
         }
         },
         (err) =>{

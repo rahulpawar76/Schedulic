@@ -21,7 +21,7 @@ export class PaymentrulesComponent implements OnInit {
     public dialog: MatDialog,
     private appComponent : AppComponent,
   )   {
-    this.appComponent.settingsModule(this.adminSettings);
+    //this.appComponent.settingsModule(this.adminSettings);
    }
 
   ngOnInit() {

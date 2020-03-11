@@ -52,7 +52,7 @@ export class DiscountCouponComponent implements OnInit {
     if(localStorage.getItem('business_id')){
       this.businessId = localStorage.getItem('business_id');
   }
-  this.appComponent.settingsModule(this.adminSettings);
+  //this.appComponent.settingsModule(this.adminSettings);
    }
 
   ngOnInit() {

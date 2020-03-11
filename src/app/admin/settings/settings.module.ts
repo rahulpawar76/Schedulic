@@ -21,12 +21,14 @@ import { AppearanceComponent } from './appearance/appearance.component';
 
 import { DialogAddNewTimeOff } from './staff/staff.component';
 import { PostalcodesComponent } from './postalcodes/postalcodes.component';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import{ DialogAddPostalCode } from './postalcodes/postalcodes.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import { DialogAddNewTax } from './paymentrules/paymentrules.component';
 
 import { PaymentgatewayComponent } from './paymentgateway/paymentgateway.component';
 import { PaymentrulesComponent } from './paymentrules/paymentrules.component';
 import { BookingrulesComponent } from './bookingrules/bookingrules.component';
+import { BusinessHoursComponent } from './business-hours/business-hours.component';
 import { AlertsettingsComponent } from './alertsettings/alertsettings.component';
 
 
@@ -48,6 +50,8 @@ import { AlertsettingsComponent } from './alertsettings/alertsettings.component'
     CompanyDetailsComponent,
     AppearanceComponent,
     PostalcodesComponent,
+    DialogAddPostalCode,
+    BusinessHoursComponent
   ],
   imports: [
       CommonModule,
@@ -65,6 +69,6 @@ import { AlertsettingsComponent } from './alertsettings/alertsettings.component'
   exports: [
     FormsModule
   ],
-   entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax],
+   entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax,DialogAddPostalCode],
 })
 export class SettingsModule {}

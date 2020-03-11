@@ -29,7 +29,7 @@ export class ReportsComponent implements OnInit {
     private AdminService: AdminService,
     private appComponent: AppComponent,
     ) {
-      this.appComponent.settingsModule(this.adminSettings);
+      //this.appComponent.settingsModule(this.adminSettings);
      }
   
 
