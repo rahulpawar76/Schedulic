@@ -1,217 +1,346 @@
-
 <mat-drawer-container class="w-100">
-   
-    <mat-drawer-content>
-
-        <mat-tab-group>
-            <mat-tab label="Working Hours"> 
-              <div class="main-working-hours-content">
-                <div class="d-flex mb-3">
-                <p class="mt-4">Time Zone</p>
-              
-            
-                <mat-form-field class=" bottom-border-field col-6">  
-                  <mat-label>(GMT + 05:30) Indian Time-Calcutta</mat-label>  
-                  <mat-select> 
-                    <mat-option value="option1">(GMT + 05:30) Indian Time-Calcutta</mat-option>     
-                  </mat-select>
-                </mat-form-field>
-
-                </div>
-               <div class="">
-                    <div class="Customer-appointment-table">
-                        <div class="main-table-content main-cust-table-content">
-                            <div class="">
-                                <div class="heads main-heading-content example-box header-background " fxLayout="row">
-                                    <div class="" fxFlex="10"></div>
-                                    <div class="" fxFlex="10"></div>
-                                    <div class="" fxFlex="30"></div>
-                                    <!-- <div class="" fxFlex="10"></div>
-                                    <div class="" fxFlex="20"></div> -->
-                                    <div class="" fxFlex="30"></div>
-                                    <div class="" fxFlex="20"></div>
-                                </div>
-                                <div class="content" class="example-list">
-                                    <div  class="example-box">
-                                        <div class="" fxFlex="10">
-                                            <mat-slide-toggle></mat-slide-toggle>
-                                        </div>
-                                        <div class="" fxFlex="10">Monday</div>
-                                        <div class="" fxFlex="30">
-                                            <div class="d-flex">
-                                                <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                    <mat-label>8:00 am</mat-label>
-                                                    <mat-select [(value)]="selected">
-                                                    <mat-option>None</mat-option>
-                                                    <mat-option value="option1">Option 1</mat-option>
-                                                    <mat-option value="option2">Option 2</mat-option>
-                                                    <mat-option value="option3">Option 3</mat-option>
-                                                    </mat-select>
-                                                </mat-form-field>
-                                                <div class="to-center">to</div>
-                                                <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                    <mat-label>6:00 am</mat-label>
-                                                    <mat-select [(value)]="selected">
-                                                    <mat-option>None</mat-option>
-                                                    <mat-option value="option1">Option 1</mat-option>
-                                                    <mat-option value="option2">Option 2</mat-option>
-                                                    <mat-option value="option3">Option 3</mat-option>
-                                                    </mat-select>
-                                                </mat-form-field>
-                                            </div>
-                                        </div>
-                                        <div class="blue-font" fxFlex="30">Apply to all </div>
-                                      
-                                    </div>
-                                </div>
-                            </div>
-                            
+  <mat-drawer-content>
+    <mat-tab-group>
+      <mat-tab label="Working Hours">
+        <div class="main-working-hours-content">
+          <div class="d-flex mb-3">
+            <p class="mt-4">Time Zone</p>
+            <mat-form-field class=" bottom-border-field col-6">
+              <mat-label></mat-label>
+              <mat-select (selectionChange)="fnChangeTimeZone($event)">
+                <mat-option value="{{timeZone.zoneName}}" *ngFor="let timeZone of timeZoneList">{{timeZone.zoneName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="">
+            <div class="Customer-appointment-table">
+              <div class="main-table-content main-cust-table-content">
+                <div class="">
+                  <div class="heads main-heading-content example-box header-background " fxLayout="row">
+                    <div class="" fxFlex="10"></div>
+                    <div class="" fxFlex="10"></div>
+                    <div class="" fxFlex="30"></div>
+                    <div class="" fxFlex="30"></div>
+                    <div class="" fxFlex="20"></div>
+                  </div>
+                  <div class="content" class="example-list" *ngIf="workingHoursList.length>0">
+                    <form [formGroup]="formSetWorkingHours">
+                      <div  class="example-box">
+                        <div class="" fxFlex="10">
+                          <mat-slide-toggle formControlName="mondayToggle" (change)="fnChangeToggle($event,'Monday')"></mat-slide-toggle>
                         </div>
-                    </div> 
-                    </div> 
-               
-                
-                </div>
-            </mat-tab>
-
-            <mat-tab label="Breaks"> 
-              <div class="">
-                <div class="Customer-appointment-table">
-                    <div class="main-table-content main-cust-table-content">
-                        <div class="">
-                            <div class="heads main-heading-content example-box header-background " fxLayout="row">
-                                <div class="" fxFlex="10"></div>
-                                <div class="" fxFlex="5"></div>
-                                <div class="" fxFlex="15"></div>
-                                <div class="" fxFlex="30"></div>
-                                <!-- <div class="" fxFlex="10"></div>
-                                <div class="" fxFlex="20"></div> -->
-                                <div class="" fxFlex="5"></div>
-                                <div class="" fxFlex="30"></div>
-                                
-                            </div>
-                            <div class="content" class="example-list">
-                                <div  class="example-box">
-                                    <div class="" fxFlex="10">
-                                        <mat-slide-toggle></mat-slide-toggle>
-                                    </div>
-                                    <div class="" fxFlex="5">Monday</div>
-                                    <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2">Add Break</button></div>
-                                    <div class="" fxFlex="30">
-                                        <div class="d-flex">
-                                            <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                <mat-label>8:00 am</mat-label>
-                                                <mat-select [(value)]="selected">
-                                                <mat-option>None</mat-option>
-                                                <mat-option value="option1">Option 1</mat-option>
-                                                <mat-option value="option2">Option 2</mat-option>
-                                                <mat-option value="option3">Option 3</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                            <div class="to-center">to</div>
-                                            <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                <mat-label>6:00 am</mat-label>
-                                                <mat-select [(value)]="selected">
-                                                <mat-option>None</mat-option>
-                                                <mat-option value="option1">Option 1</mat-option>
-                                                <mat-option value="option2">Option 2</mat-option>
-                                                <mat-option value="option3">Option 3</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-                                    <div class="" fxFlex="5"><i class="fa fa-trash-o delete-box" ></i></div>
-                                    <div class="blue-font" fxFlex="30">Apply to all </div>
-                                  
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div> 
-                </div> 
-            </mat-tab>
-
-            <mat-tab label="Time Of">
-              <div class="Time-off-table">
-                <div class="main-table-content main-time-off-table-content">
-                    <div class="">
-                        <div class="heads main-heading-content time-of-box "  fxLayout="row">
-                            <div class="" fxFlex="6"></div>
-                            <div class="" fxFlex="54"></div>
-                           
-                            <div class="" fxFlex="10"></div>
-                            <div class="" fxFlex="5"></div>
-                            <div class="" fxFlex="15">
-                              <button mat-button appearance="fill" (click)="addTimeOff()" class="time-off-btn ml-2 mr-2"><i class="material-icons mr-2">add</i>Time Off</button></div>
-                        </div>
-                        <div class="content" class="example-list" cdkDropList>
-                            <div  class="time-of-box" cdkDrag fxLayout="row">
-                                <div class="" fxFlex="7">
-                                  <div class="calendar-background">
-                                  <img src="/assets/images/admin/calendar-3.png" class="staff-calendar-image">
-                                </div>
-                                </div>
-                                <div class="mt-2" fxFlex="73">
-                                  <p class="mb-0">Dec 25,2019</p>
-                                  <p class="blue-font">Christmas</p>
-                                </div>
-                               
-                                <div class="" fxFlex="15"><mat-slide-toggle></mat-slide-toggle></div>
-                                <div class="" fxFlex="5"><i class="fa fa-trash-o delete-box"></i></div>
-                                <div class="" fxFlex="10"></div>
-                            </div>
-                            <div  class="time-of-box" cdkDrag fxLayout="row">
-                              <div class="" fxFlex="7"> <div class="calendar-background">
-                                <img src="/assets/images/admin/calendar-3.png" class="staff-calendar-image">
-                              </div></div>
-                              <div class="mt-2" fxFlex="73">
-                                <p class="mb-0">Oct 8,2019</p>
-                                <p class="blue-font">Dussehra</p>
-                              </div>
-                             
-                              <div class="" fxFlex="15"><mat-slide-toggle></mat-slide-toggle></div>
-                              <div class="" fxFlex="5"><i class="fa fa-trash-o delete-box" ></i></div>
-                              <div class="" fxFlex="10" ></div>
+                        <div class="" fxFlex="10" *ngIf="mondayOn">{{workingHoursList[0].week_day_name}}</div>
+                        <div class="" fxFlex="30" *ngIf="mondayOn">
+                          <div class="d-flex">
+                            <mat-form-field class="bottom-border-field workinghour-dropdown">
+                              <mat-label></mat-label>
+                              <mat-select formControlName="mondayStartTime">
+                              <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                            <div class="to-center">to</div>
+                            <mat-form-field class="bottom-border-field workinghour-dropdown">
+                              <mat-label></mat-label>
+                              <mat-select formControlName="mondayEndTime">
+                              <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
                           </div>
-
-                          <div  class="time-of-box" cdkDrag fxLayout="row">
-                            <div class="" fxFlex="7"> <div class="calendar-background">
-                              <img src="/assets/images/admin/calendar-3.png" class="staff-calendar-image">
-                            </div></div>
-                            <div class="mt-2" fxFlex="73">
-                              <p class="mb-0">Oct 2,2019</p>
-                              <p class="blue-font">Ganesh Chaturthi</p>
-                            </div>
-                           
-                            <div class="" fxFlex="15"><mat-slide-toggle></mat-slide-toggle></div>
-                            <div class="" fxFlex="5"><i class="fa fa-trash-o delete-box" ></i></div>
-                            <div class="" fxFlex="10" ></div>
                         </div>
-
-                        <div  class="time-of-box" cdkDrag fxLayout="row">
-                          <div class="" fxFlex="7"> <div class="calendar-background">
-                            <img src="/assets/images/admin/calendar-3.png" class="staff-calendar-image">
-                          </div></div>
-                          <div class="mt-2" fxFlex="73">
-                            <p class="mb-0">Oct 8,2019</p>
-                            <p class="blue-font">Dussehra</p>
-                          </div>
-                         
-                          <div class="" fxFlex="15"><mat-slide-toggle></mat-slide-toggle></div>
-                          <div class="" fxFlex="5"><i class="fa fa-trash-o delete-box" ></i></div>
-                          <div class="" fxFlex="10" ></div>
+                        <div class="blue-font" fxFlex="30">Apply to all </div>
                       </div>
+                      <div  class="example-box">
+                        <div class="" fxFlex="10">
+                          <mat-slide-toggle formControlName="tuesdayToggle" (change)="fnChangeToggle($event,'Tuesday')"></mat-slide-toggle>
                         </div>
-                    </div>
-                   
+                        <div class="" fxFlex="10" *ngIf="tuesdayOn">{{workingHoursList[1].week_day_name}}</div>
+                        <div class="" fxFlex="30" *ngIf="tuesdayOn">
+                          <div class="d-flex">
+                            <mat-form-field class="bottom-border-field workinghour-dropdown">
+                              <mat-label>8:00 am</mat-label>
+                              <mat-select formControlName="tuesdayStartTime">
+                              <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                            <div class="to-center">to</div>
+                            <mat-form-field class="bottom-border-field workinghour-dropdown">
+                              <mat-label>6:00 am</mat-label>
+                              <mat-select formControlName="tuesdayEndTime">
+                              <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="blue-font" fxFlex="30"></div>
+                      </div>
+                      <div  class="example-box">
+                        <div class="" fxFlex="10">
+                          <mat-slide-toggle formControlName="wednesdayToggle" (change)="fnChangeToggle($event,'Wednesday')"></mat-slide-toggle>
+                        </div>
+                        <div class="" fxFlex="10" *ngIf="wednesdayOn">{{workingHoursList[2].week_day_name}}</div>
+                        <div class="" fxFlex="30" *ngIf="wednesdayOn">
+                          <div class="d-flex">
+                            <mat-form-field class="bottom-border-field workinghour-dropdown">
+                              <mat-label>8:00 am</mat-label>
+                              <mat-select formControlName="wednesdayStartTime">
+                              <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                            <div class="to-center">to</div>
+                            <mat-form-field class="bottom-border-field workinghour-dropdown">
+                              <mat-label>6:00 am</mat-label>
+                              <mat-select formControlName="wednesdayEndTime">
+                              <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="blue-font" fxFlex="30"></div>
+                      </div>
+                      <div  class="example-box">
+                        <div class="" fxFlex="10">
+                          <mat-slide-toggle formControlName="thursdayToggle" (change)="fnChangeToggle($event,'Thursday')"></mat-slide-toggle>
+                        </div>
+                        <div class="" fxFlex="10" *ngIf="thursdayOn">{{workingHoursList[3].week_day_name}}</div>
+                        <div class="" fxFlex="30" *ngIf="thursdayOn">
+                          <div class="d-flex">
+                            <mat-form-field class="bottom-border-field workinghour-dropdown">
+                              <mat-label>8:00 am</mat-label>
+                              <mat-select formControlName="thursdayStartTime">
+                              <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                            <div class="to-center">to</div>
+                            <mat-form-field class="bottom-border-field workinghour-dropdown">
+                              <mat-label>6:00 am</mat-label>
+                              <mat-select formControlName="thursdayEndTime">
+                              <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="blue-font" fxFlex="30"></div>
+                      </div>
+                      <div  class="example-box">
+                        <div class="" fxFlex="10">
+                          <mat-slide-toggle formControlName="fridayToggle" (change)="fnChangeToggle($event,'Friday')"></mat-slide-toggle>
+                        </div>
+                        <div class="" fxFlex="10" *ngIf="fridayOn">{{workingHoursList[4].week_day_name}}</div>
+                        <div class="" fxFlex="30" *ngIf="fridayOn">
+                          <div class="d-flex">
+                            <mat-form-field class="bottom-border-field workinghour-dropdown">
+                              <mat-label>8:00 am</mat-label>
+                              <mat-select formControlName="fridayStartTime">
+                              <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                            <div class="to-center">to</div>
+                            <mat-form-field class="bottom-border-field workinghour-dropdown">
+                              <mat-label>6:00 am</mat-label>
+                              <mat-select formControlName="fridayEndTime">
+                              <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="blue-font" fxFlex="30"></div>
+                      </div>
+                      <div  class="example-box">
+                        <div class="" fxFlex="10">
+                          <mat-slide-toggle formControlName="saturdayToggle" (change)="fnChangeToggle($event,'Saturday')"></mat-slide-toggle>
+                        </div>
+                        <div class="" fxFlex="10" *ngIf="saturdayOn">{{workingHoursList[5].week_day_name}}</div>
+                        <div class="" fxFlex="30" *ngIf="saturdayOn">
+                          <div class="d-flex">
+                            <mat-form-field class="bottom-border-field workinghour-dropdown">
+                              <mat-label>8:00 am</mat-label>
+                              <mat-select formControlName="saturdayStartTime">
+                              <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                            <div class="to-center">to</div>
+                            <mat-form-field class="bottom-border-field workinghour-dropdown">
+                              <mat-label>6:00 am</mat-label>
+                              <mat-select formControlName="saturdayEndTime">
+                              <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        <div class="" *ngIf="!saturdayOn">Closed for Business</div>
+                        </div>
+                        <div class="blue-font" fxFlex="30"></div>
+                      </div>
+                      <div  class="example-box">
+                        <div class="" fxFlex="10">
+                          <mat-slide-toggle formControlName="sundayToggle" (change)="fnChangeToggle($event,'Sunday')"></mat-slide-toggle>
+                        </div>
+                        <div class="" fxFlex="10">{{workingHoursList[6].week_day_name}}</div>
+                        <div class="" fxFlex="30" *ngIf="sundayOn">
+                          <div class="d-flex">
+                            <mat-form-field class="bottom-border-field workinghour-dropdown">
+                              <mat-label>8:00 am</mat-label>
+                              <mat-select formControlName="sundayStartTime">
+                              <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                            <div class="to-center">to</div>
+                            <mat-form-field class="bottom-border-field workinghour-dropdown">
+                              <mat-label>6:00 am</mat-label>
+                              <mat-select formControlName="sundayEndTime">
+                              <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="" *ngIf="!sundayOn">Closed for Business</div>
+                        <div class="blue-font" fxFlex="30"></div>
+                      </div>
+                      <button (click)=clickbtn();>save</button>
+                    </form>
+                  </div>
                 </div>
-            </div> 
-            
-            
-            
-            </mat-tab>
-          </mat-tab-group>
-
-    </mat-drawer-content>
-  </mat-drawer-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Breaks">
+        <div class="">
+          <div class="Customer-appointment-table">
+            <div class="main-table-content main-cust-table-content">
+              <div class="">
+                <div class="heads main-heading-content example-box header-background " fxLayout="row">
+                  <div class="" fxFlex="10"></div>
+                  <div class="" fxFlex="5"></div>
+                  <div class="" fxFlex="15"></div>
+                  <div class="" fxFlex="30"></div>
+                  <!-- <div class="" fxFlex="10"></div>
+                    <div class="" fxFlex="20"></div> -->
+                  <div class="" fxFlex="5"></div>
+                  <div class="" fxFlex="30"></div>
+                </div>
+                <div class="content" class="example-list">
+                  <div  class="example-box">
+                    <div class="" fxFlex="10">
+                      <mat-slide-toggle></mat-slide-toggle>
+                    </div>
+                    <div class="" fxFlex="5">Monday</div>
+                    <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2">Add Break</button></div>
+                    <div class="" fxFlex="30">
+                      <div class="d-flex">
+                        <mat-form-field class="bottom-border-field workinghour-dropdown">
+                          <mat-label>8:00 am</mat-label>
+                          <mat-select [(value)]="selected">
+                          <mat-option>None</mat-option>
+                          <mat-option value="option1">Option 1</mat-option>
+                          <mat-option value="option2">Option 2</mat-option>
+                          <mat-option value="option3">Option 3</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <div class="to-center">to</div>
+                        <mat-form-field class="bottom-border-field workinghour-dropdown">
+                          <mat-label>6:00 am</mat-label>
+                          <mat-select [(value)]="selected">
+                          <mat-option>None</mat-option>
+                          <mat-option value="option1">Option 1</mat-option>
+                          <mat-option value="option2">Option 2</mat-option>
+                          <mat-option value="option3">Option 3</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="" fxFlex="5"><i class="fa fa-trash-o delete-box" ></i></div>
+                    <div class="blue-font" fxFlex="30">Apply to all </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Time Of">
+        <div class="Time-off-table">
+          <div class="main-table-content main-time-off-table-content">
+            <div class="">
+              <div class="heads main-heading-content time-of-box "  fxLayout="row">
+                <div class="" fxFlex="6"></div>
+                <div class="" fxFlex="54"></div>
+                <div class="" fxFlex="10"></div>
+                <div class="" fxFlex="5"></div>
+                <div class="" fxFlex="15">
+                  <button mat-button appearance="fill" (click)="addTimeOff()" class="time-off-btn ml-2 mr-2"><i class="material-icons mr-2">add</i>Time Off</button>
+                </div>
+              </div>
+              <div class="content" class="example-list" cdkDropList>
+                <div  class="time-of-box" cdkDrag fxLayout="row">
+                  <div class="" fxFlex="7">
+                    <div class="calendar-background">
+                      <img src="/assets/images/admin/calendar-3.png" class="staff-calendar-image">
+                    </div>
+                  </div>
+                  <div class="mt-2" fxFlex="73">
+                    <p class="mb-0">Dec 25,2019</p>
+                    <p class="blue-font">Christmas</p>
+                  </div>
+                  <div class="" fxFlex="15">
+                    <mat-slide-toggle></mat-slide-toggle>
+                  </div>
+                  <div class="" fxFlex="5"><i class="fa fa-trash-o delete-box"></i></div>
+                  <div class="" fxFlex="10"></div>
+                </div>
+                <div  class="time-of-box" cdkDrag fxLayout="row">
+                  <div class="" fxFlex="7">
+                    <div class="calendar-background">
+                      <img src="/assets/images/admin/calendar-3.png" class="staff-calendar-image">
+                    </div>
+                  </div>
+                  <div class="mt-2" fxFlex="73">
+                    <p class="mb-0">Oct 8,2019</p>
+                    <p class="blue-font">Dussehra</p>
+                  </div>
+                  <div class="" fxFlex="15">
+                    <mat-slide-toggle></mat-slide-toggle>
+                  </div>
+                  <div class="" fxFlex="5"><i class="fa fa-trash-o delete-box" ></i></div>
+                  <div class="" fxFlex="10" ></div>
+                </div>
+                <div  class="time-of-box" cdkDrag fxLayout="row">
+                  <div class="" fxFlex="7">
+                    <div class="calendar-background">
+                      <img src="/assets/images/admin/calendar-3.png" class="staff-calendar-image">
+                    </div>
+                  </div>
+                  <div class="mt-2" fxFlex="73">
+                    <p class="mb-0">Oct 2,2019</p>
+                    <p class="blue-font">Ganesh Chaturthi</p>
+                  </div>
+                  <div class="" fxFlex="15">
+                    <mat-slide-toggle></mat-slide-toggle>
+                  </div>
+                  <div class="" fxFlex="5"><i class="fa fa-trash-o delete-box" ></i></div>
+                  <div class="" fxFlex="10" ></div>
+                </div>
+                <div  class="time-of-box" cdkDrag fxLayout="row">
+                  <div class="" fxFlex="7">
+                    <div class="calendar-background">
+                      <img src="/assets/images/admin/calendar-3.png" class="staff-calendar-image">
+                    </div>
+                  </div>
+                  <div class="mt-2" fxFlex="73">
+                    <p class="mb-0">Oct 8,2019</p>
+                    <p class="blue-font">Dussehra</p>
+                  </div>
+                  <div class="" fxFlex="15">
+                    <mat-slide-toggle></mat-slide-toggle>
+                  </div>
+                  <div class="" fxFlex="5"><i class="fa fa-trash-o delete-box" ></i></div>
+                  <div class="" fxFlex="10" ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-drawer-content>
+</mat-drawer-container>
