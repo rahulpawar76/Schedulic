@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 //import { SettingsComponent } from '../settings.component';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 import { AuthenticationService } from '@app/_services';
 import { AdminSettingsService } from '../_services/admin-settings.service'
@@ -28,15 +30,22 @@ export class ServicesComponent implements OnInit {
   selectedCategoryDetails : any;
   selectCategoryPage : boolean = false;
   createNewCategoryPage : boolean = false;
+  createNewSubCategoryPage : boolean = false;
+  createNewServicePage : boolean = false;
   categoryPage : boolean = false;
+  singleSubCategoryPage : boolean = false;
   subCategoryPage : boolean = false;
   addNewServicePage : boolean = false;
   isLoaderAdmin : boolean = false;
+
+  createSubCategory: FormGroup;
   constructor(
     
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
+    private _formBuilder: FormBuilder,
+    private _snackBar: MatSnackBar,
     private adminSettingsService: AdminSettingsService,
   ) { 
   }
@@ -44,9 +53,16 @@ export class ServicesComponent implements OnInit {
   ngOnInit() {
     this.fnAllCategory();
     this.fnAllServices();
+
+    this.createSubCategory = this._formBuilder.group({
+      subcategory_name : ['', Validators.required],
+      subcategory_description : ['', Validators.required],
+     });
+
   }
   fnCreateNewCategory(){
     this.createNewCategoryPage = true;
+    this.selectCategoryPage = false;
   }
   cancelNewCategory(){
     this.createNewCategoryPage = false;
@@ -98,6 +114,7 @@ export class ServicesComponent implements OnInit {
       if(response.data == true){
         this.categoryServicesList = response.response
         if(this.categoryServicesList != ''){
+          this.servicesList = false;
           this.selectCategoryPage = true;
           this.selectedCategoryDetails = this.allCetegoryList[index]
           console.log(this.selectedCategoryDetails);
@@ -114,6 +131,13 @@ export class ServicesComponent implements OnInit {
   }
   changeServiceStaus(event,serviceId){
     console.log(event);
+  }
+  fnCreateNewSubCategoryPage(categoryId){
+    this.selectCategoryPage = false;
+    this.createNewSubCategoryPage = true;
+  }
+  fnCreateNewSubCategory(){
+
   }
 
 

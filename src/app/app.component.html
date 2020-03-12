@@ -111,7 +111,7 @@
               </mat-list-item>
             </div>
           </mat-drawer>
-           <!-- <mat-drawer-content *ngIf="adminSettings == 'settings'" class="main-admin-drawer">
+           <mat-drawer-content *ngIf="adminSettings == 'settings'" class="main-admin-drawer">
             <div  class="container-fluid sub-container">
               <div class="row h-100">
                   <mat-drawer-container class="w-100">
@@ -134,7 +134,7 @@
                           </div>
                           <p>Staff</p>
                       </div>
-                      <div (click)="MySettingsServicesNav()" class="d-flex setting-menu-item">
+                      <div (click)="MySettingsBusinessHoursNav()" class="d-flex setting-menu-item">
                           <div class="menu-icon">
                               <img class="normal" src="../../../../assets/images/admin/settings-menu/business-hours.png" />
                               <img class="colored" src="../../../../assets/images/admin/settings-menu/business-hours-color.png" />
@@ -149,26 +149,19 @@
                           <p>Postal Codes</p>
                       </div>
                       <h6 class="pt-3">Account</h6>
-                      <div (click)="MySettingsProfileNav()" class="d-flex setting-menu-item">
+                      <!-- <div (click)="MySettingsProfileNav()" class="d-flex setting-menu-item">
                           <div class="menu-icon">
                               <img class="normal" src="../../../../assets/images/admin/settings-menu/my-profile.png" />
                               <img class="colored" src="../../../../assets/images/admin/settings-menu/my-profile-color.png" />
                           </div>
                           <p>My Profile</p>
-                      </div>
+                      </div> -->
                       <div (click)="MySettingsCompanyDetailsNav()" class="d-flex setting-menu-item">
                           <div class="menu-icon">
                               <img class="normal" src="../../../../assets/images/admin/settings-menu/companydetails.png" />
                               <img class="colored" src="../../../../assets/images/admin/settings-menu/companydetails-color.png" />
                           </div>
                           <p>Company Details</p>
-                      </div>
-                      <div class="d-flex setting-menu-item">
-                          <div class="menu-icon">
-                              <img class="normal" src="../../../../assets/images/admin/settings-menu/my-profile.png" />
-                              <img class="colored" src="../../../../assets/images/admin/settings-menu/my-profile-color.png" />
-                          </div>
-                          <p>Localization</p>
                       </div>
                       <h6 class="pt-3">Payment</h6>
                       <div (click)="MySettingsPaymentGatewayNav()" class="d-flex setting-menu-item">
@@ -213,7 +206,7 @@
                     </mat-drawer-container>
                 </div>
             </div>
-          </mat-drawer-content>  -->
+          </mat-drawer-content> 
           <mat-drawer-content class="main-admin-drawer">
             <div class="row mx-0 h-100 w-100">
             <router-outlet #outlet="outlet"></router-outlet>

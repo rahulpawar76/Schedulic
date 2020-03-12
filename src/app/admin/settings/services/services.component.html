@@ -1,66 +1,67 @@
 <mat-drawer-content id="services" class="ml-0">
-    <mat-drawer-container>
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif"/></div>
+    <mat-drawer-container class="h-100">
         <mat-drawer mode="side" opened  style="width:250px; background-color: #dce9ff;">  
             <mat-list role="list">
                 <div  class="pl-2 bottom-border d-flex">
-                    <h5 class="ml-2">Category (1)</h5>
-                    <i class="material-icons add-icon">add_circle</i>
+                    <h5 class="ml-2">Category ({{allCategoryCount}})</h5>
+                    <i class="material-icons add-icon pointer" (click)="fnCreateNewCategory()">add_circle</i>
                 </div>
                 <div class="services-matlist pointer services-menuitem">
-                    <mat-list-item role="listitem" (click)="fnAllServices()" class="service-list">All Services</mat-list-item> 
+                    <mat-list-item role="listitem" (click)="fnAllServices()" class="service-list">All Services ({{allServiceCount}})</mat-list-item> 
 
-                    <mat-list-item *ngFor="let allCetegoryList of allCetegoryList; let i=index" role="listitem" (click)="fnSelectCategory()" class="service-list">{{allCetegoryList.category_title}}</mat-list-item>    
+                    <mat-list-item *ngFor="let allCetegoryList of allCetegoryList; let i=index" role="listitem" (click)="fnSelectCategory(allCetegoryList.id,i)" class="service-list">{{allCetegoryList.category_title}}</mat-list-item>    
                 </div>
             </mat-list>
         </mat-drawer>
         
         <mat-drawer-content>
-           
-            <!-- <div class="" *ngIf="servicesList">
-                <div class="Customer-appointment-table">
-                    <div class="main-table-content main-cust-table-content">
-                        <div class="">
-                            <div class="heads main-heading-content example-box "  fxLayout="row">
-                                <div class="" fxFlex="30">Service</div>
-                                <div class="" fxFlex="10">Duration</div>
-                                <div class="" fxFlex="10">price</div>
-                                <div class="" fxFlex="10">Unit</div>
-                                <div class="" fxFlex="10">Visibility</div>
-                                <div class="" fxFlex="10">Status</div>
-                                <div class="" fxFlex="10"></div>
-                            </div>
-                            <div class="content" class="example-list" cdkDropList (cdkDropListDropped)="drop($event)">
-                                <div  class="example-box" *ngFor="let allServicesList of allServicesList; let i=index" cdkDrag fxLayout="row">
-                                    <div class="" fxFlex="30">{{allServicesList.service_name}}</div>
-                                    <div class="" fxFlex="10">Duration</div>
-                                    <div class="" fxFlex="10">price</div>
-                                    <div class="" fxFlex="10">Unit</div>
-                                    <div class="" fxFlex="10">Visibility</div>
-                                    <div class="" fxFlex="10"><mat-slide-toggle></mat-slide-toggle></div>
-                                    <div class="" fxFlex="10" cdkDragHandle class="handler"><i class="fa fa-arrows" aria-hidden="true"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                       
+           <div class="" *ngIf="servicesList" class="service-listing">
+            <div class="main-table-content main-cust-table-content">
+                <div *ngIf="categoryServicesList != ''" class="">
+                    <div class="heads main-heading-content drageble "  fxLayout="row">
+                        <div class="" fxFlex="30">Service</div>
+                        <div class="" fxFlex="15">Duration</div>
+                        <div class="" fxFlex="15">price</div>
+                        <div class="" fxFlex="10">Unit</div>
+                        <div class="" fxFlex="10">Visibility</div>
+                        <div class="" fxFlex="10">Status</div>
+                        <div class="" fxFlex="10"></div>
                     </div>
-                </div> 
-           </div>  -->
-           
-         <div >
+                    <div class="content" class="drageble-list" cdkDropList (cdkDropListDropped)="drop($event)">
+                        <div  class="drageble-box" *ngFor="let allServicesList of allServicesList; let i=index" cdkDrag fxLayout="row">
+                            <div class="" fxFlex="30">{{allServicesList.service_name}}</div>
+                            <div class="" fxFlex="15">{{allServicesList.service_time}}</div>
+                            <div class="" fxFlex="15">$ {{allServicesList.service_cost}}</div>
+                            <div class="" fxFlex="10">{{allServicesList.service_unit}}</div>
+                            <div class="" *ngIf="allServicesList.private_status == 'N'" fxFlex="10">Public</div>
+                            <div class="" *ngIf="allServicesList.private_status == 'Y'" fxFlex="10">Private</div>
+                            <div class="" fxFlex="10">
+                                <mat-slide-toggle (change)="changeServiceStaus($event,allServicesList.id)" [checked]="allServicesList.status == 'E'"></mat-slide-toggle>
+                            </div>
+                            <div class="" fxFlex="10" cdkDragHandle class="handler"><i class="fa fa-arrows" aria-hidden="true"></i></div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div> 
+          <!-- create new category -->
+          <div *ngIf="createNewCategoryPage">
             <mat-card class="m-0">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h6>Create New Category</h6>
+                        <h6>Create New Sub Category</h6>
                     </div>     
                 </div>     
                 <div class="row"> 
-                    <div class="col-lg-6 col-6 col-md-4 d-flex">
+                    <div class="col-lg-9 col-9 col-md-9 d-flex">
                         <div class="ml-3 justify-content-center">
                             <div class="services-customer-profile-background mr-3 mt-5">
                                 <img src="/assets/images/admin/picture.png" class="service-profile-image">
                             </div>
                         </div>
-                        <div class="">
+                        <div class="col-8">
                             <div class="mt-3 text-center">
                                 <mat-form-field class=" bottom-border-field">
                                     <input matInput placeholder="Enter Category Name">  
@@ -93,7 +94,64 @@
                 </div>          
             </mat-card>  
             </div> 
-            <div >
+             <!-- create new sub category -->
+          <div *ngIf="createNewSubCategoryPage">
+            <mat-card class="m-0">
+                <form [formGroup]="createSubCategory">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h6>Create New Sub Category</h6>
+                    </div>     
+                </div>     
+                <div class="row"> 
+                    <div class="col-lg-9 col-9 col-md-9 d-flex">
+                        <div class="ml-3 justify-content-center">
+                            <div class="services-customer-profile-background mr-3 mt-5">
+                                <img src="/assets/images/admin/picture.png" class="service-profile-image">
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="mt-3 text-center">
+                                <mat-form-field class=" bottom-border-field">
+                                    <input matInput formControlName="subcategory_name" placeholder="Enter Sub Category Name">  
+                                </mat-form-field>   
+                                <span class="error-wrap" *ngIf="createSubCategory.get('subcategory_name').touched || createSubCategory.get('subcategory_name').dirty || formSubmitclicked">
+                                    <small *ngIf="createSubCategory.get('subcategory_name').hasError('required')" class="error">Sub Category Name Is required</small>
+                                </span>
+                            </div>
+                            <div class="mt-2 text-center">
+                                <mat-form-field class=" bottom-border-field">
+                                    <textarea matInput formControlName="subcategory_description" placeholder="Sub Category Descriptions"></textarea>     
+                                </mat-form-field>   
+                                <span class="error-wrap" *ngIf="createSubCategory.get('subcategory_description').touched || createSubCategory.get('subcategory_description').dirty || formSubmitclicked">
+                                    <small *ngIf="createSubCategory.get('subcategory_description').hasError('required')" class="error">Sub Category Description Is required</small>
+                                </span>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+
+                <div class="service-statustoggle">
+                    <p><mat-slide-toggle>Status</mat-slide-toggle></p>
+                    <p><mat-slide-toggle>Private</mat-slide-toggle></p>
+                </div>
+
+           
+                <div class="row"> 
+                    <div class="service-action-btn">
+                        <div class="mx-2">
+                            <button mat-button appearance="fill" class="service-cancel-btn">Cancel</button>
+                        </div>
+                        <div class="mx-2">
+                            <button mat-button type="submit" (click)="fnCreateNewSubCategory()" appearance="fill" class="service-create-btn">Create</button>
+                        </div>  
+                    </div>    
+                </div> 
+            </form>         
+            </mat-card>  
+            </div> 
+            <!-- single category page -->
+            <div *ngIf="categoryPage">
                 <div class=""> 
                     <div class="col-lg-6 col-6 col-md-4 d-flex">
                         <div class="ml-3 justify-content-center">
@@ -139,85 +197,110 @@
                     </mat-card> 
                 </div> 
             </div> 
-            <div id="Salon_Listing_Service" class="mb-0 w-100">
+            
+            <div *ngIf="selectedCategoryDetails != '' && selectCategoryPage" id="Salon_Listing_Service" class="mb-0 w-100">
                 <div class=""> 
-                   <div class=" d-flex">
-                       <div class="ml-3 justify-content-center">
-                           <div class="service-profile-background mr-3 ">
-                               <img src="/assets/images/admin/Layer6.png" class="service-profile-image mb-2">
-                           </div>
-                       </div>
-                       <div>
-                           <div class=" Details-button-width d-flex">
-                               <h5 class="mt-2 mb-2">Salon</h5>  
-                               <button mat-button class="public-button">Public</button>  
-                           </div> 
-                               <button class="salon-cancel-btn mr-2"><i class="fa fa-eye salon-icon" ></i></button>  
-                               <button class="salon-edit-btn mr-2"><i class="fa fa-pencil salon-icon"></i></button>
-                               <button class="salon-cancel-btn mr-3"><i class="fa fa-trash-o salon-icon" ></i></button>
-                               <mat-slide-toggle></mat-slide-toggle>      
-                       </div>  
-                       <div>
-                           <button mat-button class="addservice-btn">Add Subcategory</button>
-                               <div class="mt-3 d-flex">
-                               <mat-form-field class="dropdown bottom-border-field mt-3">
-                                   <mat-label>Filter</mat-label>
-                                   <mat-select>
-                                   <mat-option value="All">All</mat-option>
-                                   <mat-option value="Active">Active</mat-option>
-                                   <mat-option value="Inactive">Inactive</mat-option>
-                                   <mat-option value="Public">Public</mat-option>
-                                   <mat-option value="Private">Private</mat-option>
-                                   </mat-select>
-                               </mat-form-field>
+                   <div class="d-flex mt-2 mb-4 mx-3">
+                        <div class="ml-3 d-flex justify-content-center">
+                            <div class="service-profile-background mr-3 ">
+                                <img src="{{selectedCategoryDetails.category_image}}" class="service-profile-image mb-2">
+                            </div>
+                            <div>
+                                <div class=" Details-button-width d-flex">
+                                    <h5 class="mt-2 mb-2">{{selectedCategoryDetails.category_title}}</h5> 
+                                    <button *ngIf="selectedCategoryDetails.private_status == 'N'" mat-button class="public-button">Public</button>
+                                    <button *ngIf="selectedCategoryDetails.private_status == 'Y'" mat-button class="public-button">Private</button>  
+                                </div> 
+                                    <button class="salon-cancel-btn mr-2"><i class="fa fa-eye salon-icon" ></i></button>  
+                                    <button class="salon-edit-btn mr-2"><i class="fa fa-pencil salon-icon"></i></button>
+                                    <button class="salon-cancel-btn mr-3"><i class="fa fa-trash-o salon-icon" ></i></button>
+                                    <mat-slide-toggle></mat-slide-toggle>      
+                            </div> 
+                        </div>  
+                        <div class="ml-auto">
+                           <button mat-button (click)="fnCreateNewSubCategoryPage(selectedCategoryDetails.id)" class="addservice-btn d-block ml-auto">Add Sub Category</button> 
+                            <div class="mt-2 d-flex">
+                                <mat-form-field class=" bottom-border-field mt-3">
+                                    <mat-label>Filter</mat-label>
+                                    <mat-select>
+                                    <mat-option value="All">All</mat-option>
+                                    <mat-option value="Active">Active</mat-option>
+                                    <mat-option value="Inactive">Inactive</mat-option>
+                                    <mat-option value="Public">Public</mat-option>
+                                    <mat-option value="Private">Private</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
 
-                               <mat-form-field class="dropdown bottom-border-field ml-3 mt-3">
-                                   <mat-label>Action</mat-label>
-                                   <mat-select>    
-                                       <mat-option value="Active">Active</mat-option>
-                                       <mat-option value="Inactive">Inactive</mat-option>
-                                       <mat-option value="Active">Delete</mat-option>
-                                   </mat-select>
-                               </mat-form-field>
-                       </div>
-                   </div>
-               </div> 
-               
+                                <mat-form-field class=" bottom-border-field ml-3 mt-3">
+                                    <mat-label>Action</mat-label>
+                                    <mat-select>    
+                                        <mat-option value="Active">Active</mat-option>
+                                        <mat-option value="Inactive">Inactive</mat-option>
+                                        <mat-option value="Active">Delete</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div> 
+                        </div>
+                    </div>
                </div>
-                <div class="Salon-Listing-table">
-                       <div class="main-table-content main-cust-table-content">
-                           <table class="table">
+               <div *ngIf="selectCategoryPage == true" class="service-listing">
+                <div class="main-table-content main-cust-table-content">
+                    <div *ngIf="categoryServicesList != ''" class="">
+                        <div class="heads main-heading-content drageble "  fxLayout="row">
+                            <div class="" fxFlex="30">Service</div>
+                            <div class="" fxFlex="15">Duration</div>
+                            <div class="" fxFlex="15">price</div>
+                            <div class="" fxFlex="10">Unit</div>
+                            <div class="" fxFlex="10">Visibility</div>
+                            <div class="" fxFlex="10">Status</div>
+                            <div class="" fxFlex="10"></div>
+                        </div>
+                        <div class="content" class="drageble-list" cdkDropList (cdkDropListDropped)="drop($event)">
+                            <div  class="drageble-box" *ngFor="let categoryServicesList of categoryServicesList; let i=index" cdkDrag fxLayout="row">
+                                <div class="" fxFlex="30">{{categoryServicesList.service_name}}</div>
+                                <div class="" fxFlex="15">{{categoryServicesList.service_time}}</div>
+                                <div class="" fxFlex="15">$ {{categoryServicesList.service_cost}}</div>
+                                <div class="" fxFlex="10">{{categoryServicesList.service_unit}}</div>
+                                <div class="" *ngIf="categoryServicesList.private_status == 'N'" fxFlex="10">Public</div>
+                                <div class="" *ngIf="categoryServicesList.private_status == 'Y'" fxFlex="10">Private</div>
+                                <div class="" fxFlex="10">
+                                    <mat-slide-toggle (change)="changeServiceStaus($event,categoryServicesList.id)" [checked]="categoryServicesList.status == 'E'"></mat-slide-toggle>
+                                </div>
+                                <div class="" fxFlex="10" cdkDragHandle class="handler"><i class="fa fa-arrows" aria-hidden="true"></i></div>
+                            </div>
+                        </div>
+                    </div>
                    
-                           <thead class="main-heading-content">
-                               <tr>
-                                   <th scope="col">Serice</th>
-                                   <th scope="col">Duration</th>
-                                   
-                                   <th scope="col">price</th>                            
-                                   <th scope="col">Unit</th>
-                                   <th scope="col">Visibility</th>
-                                   <th scope="col">Status</th>
-                                   <th></th>
-                               </tr>
-                           </thead>
-                       <tbody>
-                           <tr>
-                               <td scope="row"><p class="mb-0">Hair Cut</p>
-                               <p>Buffer Time :20 mins</p></td>
-                               <td>30 mins</td>
-                               <td>$.50.00</td>
-                               <td>1</td>
-                               <td>Public</td>
-                               <td><mat-slide-toggle></mat-slide-toggle></td>
-                               <td><i class="fa fa-arrows" aria-hidden="true"></i></td>
-                           </tr>
-                       
-                       </tbody>
-                   </table>
-               </div>
-           </div> 
+                </div>
+            </div> 
+            <div *ngIf="selectCategoryPage == false" class="d-flex flex-wrap main-subcategory-content">
+                <mat-card  class="col-lg-4 col-md-6 col-sm-12 text-center AddSubcategory-matcard pointer">
+                    <div class="pt-2 mb-2">
+                        <h5>Add Subcategory</h5>
+                    </div>
+                    <div class="pb-4 content">
+                    Sub Category is the subdivision of the large Category of service. 
+                    </div>
+                    <div class="pt-2">
+                        <button mat-button class="addsubcategory-btn">Add Subcategory</button>
+                    </div>
+                </mat-card> 
+
+                <mat-card  class="col-lg-4 col-md-6 col-sm-12 text-center AddSubcategory-matcard pointer ml-3" >  
+                    <div class="pt-2 mb-2">
+                        <h5>Add Services</h5>
+                    </div>
+                    <div class="pb-2 content">
+                    A valuable deed, action,or effort performed to fulfill a demand or tosatisfy a need of the customer.
+                    </div>
+                    <div class="pt-2">
+                        <button mat-button class="addsubcategory-btn">Add Services</button>
+                    </div>
+                </mat-card> 
+            </div> 
        </div> 
-            <div id="hair_subcategory">
+        <!-- sub category page -->
+            <div *ngIf="singleSubCategoryPage" id="single_sub_category">
                 <div class=""> 
                     <div class="col-lg-6 col-6 col-md-4 d-flex">
                         <div class="ml-3 justify-content-center">
@@ -253,7 +336,8 @@
                     </mat-card> 
                 </div> 
             </div>   
-         <div id="Hair_Add_New_Service" class="mb-0 w-100">
+            <!-- create new Service -->
+         <div *ngIf="createNewServicePage" id="create_new_service" class="mb-0 w-100">
             <mat-card >
                 <div class="row">
                     <div class="col-lg-12">
@@ -325,84 +409,6 @@
                 </div>          
             </mat-card>  
             </div>
-            <div id="Hair_Listing_Service" class="mb-0 w-100">
-                 <div class=""> 
-                    <div class=" d-flex">
-                        <div class="ml-3 justify-content-center">
-                            <div class="service-profile-background mr-3 ">
-                                <img src="/assets/images/admin/Layer6.png" class="service-profile-image mb-2">
-                            </div>
-                        </div>
-                        <div>
-                            <div class=" Details-button-width d-flex">
-                                <h5 class="mt-2 mb-2">Hair</h5>  
-                                <button mat-button class="public-button">Public</button>  
-                            </div> 
-                                <button class="salon-cancel-btn mr-2"><i class="fa fa-eye salon-icon" ></i></button>  
-                                <button class="salon-edit-btn mr-2"><i class="fa fa-pencil salon-icon"></i></button>
-                                <button class="salon-cancel-btn mr-3"><i class="fa fa-trash-o salon-icon" ></i></button>
-                                <mat-slide-toggle></mat-slide-toggle>      
-                        </div>  
-                        <div>
-                            <button mat-button class="addservice-btn">Add Service</button>
-                                <div class="mt-3 d-flex">
-                                <mat-form-field class="dropdown bottom-border-field mt-3">
-                                    <mat-label>Filter</mat-label>
-                                    <mat-select>
-                                    <mat-option value="All">All</mat-option>
-                                    <mat-option value="Active">Active</mat-option>
-                                    <mat-option value="Inactive">Inactive</mat-option>
-                                    <mat-option value="Public">Public</mat-option>
-                                    <mat-option value="Private">Private</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-
-                                <mat-form-field class="dropdown bottom-border-field ml-3 mt-3">
-                                    <mat-label>Action</mat-label>
-                                    <mat-select>    
-                                        <mat-option value="Active">Active</mat-option>
-                                        <mat-option value="Inactive">Inactive</mat-option>
-                                        <mat-option value="Active">Delete</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                        </div>
-                    </div>
-                </div> 
-                
-                </div>
-                 <div class="Customer-appointment-table">
-                        <div class="main-table-content main-cust-table-content">
-                            <table class="table">
-                    
-                            <thead class="main-heading-content">
-                                <tr>
-                                    <th scope="col">Serice</th>
-                                    <th scope="col">Duration</th>
-                                    
-                                    <th scope="col">price</th>                            
-                                    <th scope="col">Unit</th>
-                                    <th scope="col">Visibility</th>
-                                    <th scope="col">Status</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                        <tbody>
-                            <tr>
-                                <td scope="row"><p class="mb-0">Hair Cut</p>
-                                <p>Buffer Time :20 mins</p></td>
-                                <td>30 mins</td>
-                                <td>$.50.00</td>
-                                <td>1</td>
-                                <td>Public</td>
-                                <td><mat-slide-toggle></mat-slide-toggle></td>
-                                <td><i class="fa fa-arrows" aria-hidden="true"></i></td>
-                            </tr>
-                        
-                        </tbody>
-                    </table>
-                </div>
-            </div> 
-        </div> 
             
         </mat-drawer-content>
     </mat-drawer-container>

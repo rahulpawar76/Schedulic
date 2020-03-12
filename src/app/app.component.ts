@@ -229,6 +229,9 @@ export class AppComponent implements AfterViewInit {
         this.router.navigate(['/admin/settings/staff']);
       }
       MySettingsServicesNav(){
+        this.router.navigate(['/admin/settings/services']);
+      }
+      MySettingsBusinessHoursNav(){
         this.router.navigate(['/admin/settings/business-hours']);
       }
       MySettingsProfileNav(){
