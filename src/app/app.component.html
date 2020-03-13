@@ -112,7 +112,7 @@
               </mat-list-item>
             </div>
           </mat-drawer>
-          <mat-drawer-content *ngIf="adminSettings == 'settings'" class="main-admin-drawer">
+          <mat-drawer-content *ngIf="adminSettings" class="main-admin-drawer settings">
             <div  class="container-fluid sub-container">
               <div class="row h-100">
                   <mat-drawer-container class="w-100">
@@ -215,7 +215,7 @@
                 </div>
             </div>
           </mat-drawer-content>
-          <mat-drawer-content *ngIf="adminSettings == 'notsettings'" class="main-admin-drawer">
+          <mat-drawer-content *ngIf="!adminSettings" class="main-admin-drawer">
             <router-outlet #outlet="outlet"></router-outlet>
             </mat-drawer-content>
         </mat-drawer-container>

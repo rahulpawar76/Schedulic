@@ -43,7 +43,7 @@ export class AppComponent implements AfterViewInit {
     public company_info: string;
 
     ngAfterViewInit() { 
-      this.isSettingsModule("");
+     // this.isSettingsModule("");
     }
     
     // myRoute: string;
@@ -80,12 +80,12 @@ export class AppComponent implements AfterViewInit {
   };
 }
 
-isSettingsModule(isSettingsPage){
-  if(isSettingsPage=="settings"){
-    this.adminSettings = "settings";
+settingsModule(isSettingsPage){
+  if(isSettingsPage == true){
+    this.adminSettings = true;
   }
   else{
-    this.adminSettings = "notsettings";
+    this.adminSettings = false;
   }
 }
 
