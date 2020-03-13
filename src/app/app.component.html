@@ -1,5 +1,4 @@
-﻿
-<mat-drawer-container class="main-container">
+﻿<mat-drawer-container class="main-container">
   <mat-drawer-content>
       <main fxLayout="column" fxLayoutGap="0">
        <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser() && !isBusiness()}" color="primary" class="toolbar menu-comman" *ngIf="isLogin() && !isFront()">
@@ -108,11 +107,11 @@
                 <div (click)="MySettingsNav()" class="common-menu"><img src="/assets/images/admin/admin-menu-settings.png"></div>
               </mat-list-item>
               <mat-list-item role="listitem" >
-                <div class="common-menu"><img src="/assets/images/admin/admin-menu-user-2.png"></div>
+                <div (click)="MyProfileNav()" class="common-menu"><img src="/assets/images/admin/admin-menu-user-2.png"></div>
               </mat-list-item>
             </div>
           </mat-drawer>
-          <mat-drawer-content *ngIf="adminSettings" class="main-admin-drawer settings">
+           <mat-drawer-content *ngIf="adminSettings == 'settings'" class="main-admin-drawer">
             <div  class="container-fluid sub-container">
               <div class="row h-100">
                   <mat-drawer-container class="w-100">
@@ -135,7 +134,7 @@
                           </div>
                           <p>Staff</p>
                       </div>
-                      <div (click)="MySettingsServicesNav()" class="d-flex setting-menu-item">
+                      <div (click)="MySettingsBusinessHoursNav()" class="d-flex setting-menu-item">
                           <div class="menu-icon">
                               <img class="normal" src="../../../../assets/images/admin/settings-menu/business-hours.png" />
                               <img class="colored" src="../../../../assets/images/admin/settings-menu/business-hours-color.png" />
@@ -150,13 +149,13 @@
                           <p>Postal Codes</p>
                       </div>
                       <h6 class="pt-3">Account</h6>
-                      <div (click)="MySettingsProfileNav()" class="d-flex setting-menu-item">
+                      <!-- <div (click)="MySettingsProfileNav()" class="d-flex setting-menu-item">
                           <div class="menu-icon">
                               <img class="normal" src="../../../../assets/images/admin/settings-menu/my-profile.png" />
                               <img class="colored" src="../../../../assets/images/admin/settings-menu/my-profile-color.png" />
                           </div>
                           <p>My Profile</p>
-                      </div>
+                      </div> -->
                       <div (click)="MySettingsCompanyDetailsNav()" class="d-flex setting-menu-item">
                           <div class="menu-icon">
                               <img class="normal" src="../../../../assets/images/admin/settings-menu/companydetails.png" />
@@ -164,13 +163,6 @@
                           </div>
                           <p>Company Details</p>
                       </div>
-                      <!-- <div class="d-flex setting-menu-item">
-                          <div class="menu-icon">
-                              <img class="normal" src="../../../../assets/images/admin/settings-menu/my-profile.png" />
-                              <img class="colored" src="../../../../assets/images/admin/settings-menu/my-profile-color.png" />
-                          </div>
-                          <p>Localization</p>
-                      </div> -->
                       <h6 class="pt-3">Payment</h6>
                       <div (click)="MySettingsPaymentGatewayNav()" class="d-flex setting-menu-item">
                           <div class="menu-icon">
@@ -214,9 +206,11 @@
                     </mat-drawer-container>
                 </div>
             </div>
-          </mat-drawer-content>
-          <mat-drawer-content *ngIf="!adminSettings" class="main-admin-drawer">
+          </mat-drawer-content> 
+          <mat-drawer-content class="main-admin-drawer">
+            <div class="row mx-0 h-100 w-100">
             <router-outlet #outlet="outlet"></router-outlet>
+            </div>
             </mat-drawer-content>
         </mat-drawer-container>
       </div>

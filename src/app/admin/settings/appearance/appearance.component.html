@@ -16,20 +16,180 @@
             <p>3. Now the users visiting those web sites or application can see the Appointment Widget </p>
             <p>4. If you are still not sure, send the code to someone who can assist you with the configuration.</p>
 
+<div class="container-fluid sub-container" id="services">
+    <div class="">
+        <mat-drawer-container class="" >
+        
+            <mat-drawer-content>
+
+                <mat-tab-group>
+                    <mat-tab label="Getting Started">
+                        <div class="main-getting-content">
+                        <h5 class="mb-3">Embed Web Widget</h5>
+                        <p>Click to copy below script and paste it in your web page.</p>
+
+                        <mat-radio-group aria-label="Select an option">
+                            <mat-radio-button value="1">Script</mat-radio-button> 
+                        </mat-radio-group>
+
+                        <p>To embed the widget on your website,follow these guidelines.</p>
+                        <p>1. copy the code by simply clicking on the script once.</p>
+                        <p>2. Go to your website's HTML file and paste in before the last < body >tag</p>
+                        <p>3. Now the users visiting those web sites or application can see the Appointment Widget </p>
+                        <p>4. If you are still not sure, send the code to someone who can assist you with the configuration.</p>
+
+                        </div>
+                        <mat-card class="card-content">
+
+                          
+                        </mat-card>
+                        <div>
+                            <button mat-button type="submit" class="appearance-save-btn">Copy Code</button>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Appearance">
+                        <div class="main-appearance-content col-6"> 
+                        <div class="bottom-border d-flex ">
+                            <mat-label>Primary Color</mat-label>
+                            <div class="colorpicker-wrap">
+                                <input ejs-colorpicker type="color" id="colorpicker" />
+                            </div>
+                        </div>
+
+                        <div class="bottom-border d-flex">
+                            <mat-label>Primary Gradient</mat-label>
+                            <div class="colorpicker-wrap d-flex">
+                                <input ejs-colorpicker type="color" id="colorpicker" class="mr-2"/>
+                                <input ejs-colorpicker type="color" id="colorpicker" />
+                            </div>
+                        </div>
+
+                        <div class="bottom-border d-flex">
+                            <mat-label>Text Color</mat-label>
+                          
+                                <div class="colorpicker-wrap">
+                                <input ejs-colorpicker type="color" id="colorpicker"/>
+                               
+                            </div>
+                        </div>
+
+                        <div class="bottom-border d-flex">
+                            <mat-label>Text Color On Background</mat-label>
+                            <div class=" colorpicker-wrap">
+                                <input ejs-colorpicker type="color" id="colorpicker"/>
+                            </div>
+                        </div>
+
+                        <mat-form-field class="dropdown bottom-border-field bottom-border mt-3">
+                            <mat-label>Font</mat-label>
+                            <mat-select>
+                            <mat-option value="roboto">Roboto</mat-option>
+                            
+                            </mat-select>
+                        </mat-form-field>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab label="Form Setting"> 
+                        <mat-card class="main-form-setting-content">
+                            <div class="contact-field-toggle">
+                                <mat-slide-toggle></mat-slide-toggle>
+                            </div>
+                            <h5>Contact Fields</h5>
+                           
+                            <p>Select Which form field will show on your booking page.</p>
+
+                            <div class="Customer-appointment-table">
+                                <div class="main-table-content main-cust-table-content">
+                                    <div class="">
+                                        <div class="heads main-heading-content example-box" fxLayout="row">
+                                            <div class="" fxFlex="20"></div>
+                                            <div class="" fxFlex="20"></div>
+                                            <div class="" fxFlex="60"></div>
+                                            
+                
+                                        </div>
+                                        <div class="content" class="example-list">
+                                            <div  class="custom-check-box">
+                                                <div class="" fxFlex="20">
+                                                    <div class="checked round">
+                                                        <input type="checkbox" id="checkbox"/>
+                                                        <label for="checkbox"></label>  
+                                                        <p class="check-label">Name</p> 
+                                                    </div> 
+                                                </div>
+                                                <div class="" fxFlex="20"><mat-checkbox>Required</mat-checkbox></div>
+                                                <div class="" fxFlex="60"></div>
+                                               
+                                              
+                                            </div>
+                                            <div  class="custom-check-box">
+                                                <div class="" fxFlex="20">
+                                                    <div class="checked round">
+                                                        <input type="checkbox" id="checkbox1"/>
+                                                        <label for="checkbox1"></label>  
+                                                        <p class="check-label">Number</p> 
+                                                    </div>  
+                                                </div>
+                                                <div class="" fxFlex="20">  <div>
+                                                    <mat-checkbox>Required</mat-checkbox>
+                                                </div></div>
+                                                <div class="" fxFlex="60"></div>  
+                                            </div>
+                                            
+                                            <div  class="custom-check-box">
+                                                <div class="" fxFlex="20">
+                                                    <div class="checked round">
+                                                        <input type="checkbox" id="checkbox2"/>
+                                                        <label for="checkbox2"></label>  
+                                                        <p class="check-label">Email</p> 
+                                                    </div>  
+                                                </div>
+                                                <div class="" fxFlex="20">  <div>
+                                                    <mat-checkbox>Required</mat-checkbox>
+                                                </div></div>
+                                                <div class="" fxFlex="60"></div>  
+                                            </div> 
+
+                                            <div  class="custom-check-box">
+                                                <div class="" fxFlex="20">
+                                                    <div class="checked round">
+                                                        <input type="checkbox" id="checkbox3"/>
+                                                        <label for="checkbox3"></label>  
+                                                        <p class="check-label">Address</p> 
+                                                    </div>  
+                                                </div>
+                                                <div class="" fxFlex="20">  <div>
+                                                    <mat-checkbox>Required</mat-checkbox>
+                                                </div></div>
+                                                <div class="" fxFlex="60"></div>  
+                                            </div> 
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>  
+                        </mat-card>
+                    </mat-tab>
+                  </mat-tab-group>
+            </mat-drawer-content>
+            </mat-drawer-container>
             </div>
-            <mat-card class="card-content">
+            </div>
+            
+            <!-- <mat-card class="card-content">
 
                 
             </mat-card>
             <div>
-                <button mat-button type="submit" class="appearance-save-btn">Copy Code</button>
+                <button mat-button class="appearance-save-btn">Copy Code</button>
             </div>
-        </mat-tab>
-        <mat-tab label="Appearance"> 
+        </mat-tab> -->
+        <!-- <mat-tab label="Appearance"> 
             
 
-        </mat-tab>
-        <mat-tab label="Form Setting"> 
+        </mat-tab> -->
+        <!-- <mat-tab label="Form Setting"> 
             <mat-card class="main-form-setting-content">
 
                 <h5>Contact Fields</h5>
@@ -47,6 +207,6 @@
                 <mat-checkbox>Required</mat-checkbox>
 
             </mat-card>
-        </mat-tab>
-        </mat-tab-group>
-</mat-drawer-content>
+        </mat-tab> -->
+        <!-- </mat-tab-group>
+    </mat-drawer-content> -->

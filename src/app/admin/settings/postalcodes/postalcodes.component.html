@@ -1,4 +1,3 @@
-
 <mat-drawer-container class="w-100">
     <mat-drawer-content>
         <div class="main-postalcode-content">
@@ -12,10 +11,10 @@
             <div class="d-flex">
                 <mat-form-field class="bottom-border-field dropdown-width">
                     <mat-label>Select</mat-label>
-                    <mat-select >
+                    <mat-select [(ngModel)]="selectedValue" (selectionChange)="fnSelectedPostalCodeStatus($event)" [disabled]="arr.length==0">
                         
-                        <mat-option value="option1">Set Active</mat-option>
-                        <mat-option value="option2">Set Inactive</mat-option>
+                        <mat-option value="active">Set Active</mat-option>
+                        <mat-option value="inactive">Set Inactive</mat-option>
                         
                     </mat-select>
                     </mat-form-field>
@@ -33,38 +32,26 @@
                 <div class="main-table-content main-cust-table-content">
                     <div class="">
                         <div class="heads main-heading-content example-box header-background " fxLayout="row">
-                            <div class="" fxFlex="5"></div>
-                            <div class="" fxFlex="20">Zipcode</div>
-                            <div class="" fxFlex="20">Area</div>
-                            <div class="" fxFlex="20">Assigned Staff</div>
-                            <div class="" fxFlex="10">Status</div>
-                            <div class="" fxFlex="10"></div>
+                            <div class="text-center" fxFlex="5"></div>
+                            <div class="text-center" fxFlex="20">Zipcode</div>
+                            <div class="text-center" fxFlex="20">Area</div>
+                            <div class="text-center" fxFlex="20">Assigned Staff</div>
+                            <div class="text-center" fxFlex="10">Status</div>
+                            <div class="text-center" fxFlex="10"></div>
 
                         </div>
                         <div class="content" class="example-list">
-                            <div  class="example-box">
-                                <div class="" fxFlex="5">
-                                    <mat-checkbox></mat-checkbox>
+                            <div  class="example-box" *ngFor="let postalCode of postalCodeList">
+                                <div class="text-center" fxFlex="5">
+                                    <mat-checkbox (change)="fnAddPostalCodeId($event.checked,postalCode.id)"></mat-checkbox>
                                 </div>
-                                <div class="" fxFlex="20">4000101</div>
-                                <div class="" fxFlex="20">Kandivali</div>
-                                <div class="" fxFlex="20">5</div>
-                                <div class="" fxFlex="10">
-                                    <mat-slide-toggle></mat-slide-toggle>
+                                <div class="text-center " fxFlex="20">{{postalCode.postal_code}}</div>
+                                <div class="text-center " fxFlex="20">{{postalCode.area}}</div>
+                                <div class="text-center " fxFlex="20">{{postalCode.staffs_count}}</div>
+                                <div class="text-center " fxFlex="10">
+                                    <mat-slide-toggle [checked]="postalCode.postal_status" (change)="fnChangePostalCodeStatus($event.checked,postalCode.id)"></mat-slide-toggle>
                                 </div>
-                                <div class="" fxFlex="10"><i class="fa fa-trash-o delete-box" ></i></div>
-                            </div>
-                            <div  class="example-box">
-                                <div class="" fxFlex="5">
-                                    <mat-checkbox></mat-checkbox>
-                                </div>
-                                <div class="" fxFlex="20">400067</div>
-                                <div class="" fxFlex="20">Malad</div>
-                                <div class="" fxFlex="20">5</div>
-                                <div class="" fxFlex="10">
-                                    <mat-slide-toggle></mat-slide-toggle>
-                                </div>
-                                <div class="" fxFlex="10"><i class="fa fa-trash-o delete-box" ></i></div>
+                                <div class="text-center pointer" fxFlex="10" (click)="fnDeletePostalCode(postalCode.id)"><i class="fa fa-trash-o delete-box" ></i></div>
                             </div>
                         </div>
                     </div>
