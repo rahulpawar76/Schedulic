@@ -278,4 +278,98 @@
     .main-heading-content{
         padding: 15px;
     }
+   
+}
+::ng-deep .mat-expansion-panel-body{
+    margin-left: 25px;
+    padding-bottom: 0px;
+    color: blue;
+    position: relative;
+     &::before{
+        content: "";
+        border-left: 1px solid #ccc;
+        height: calc(100% - 49px);
+        position: absolute;
+        width: auto;
+        left: 0;
+    }
+}
+::ng-deep .mat-checkbox{
+    color: blue;
+}
+::ng-deep .mat-checkbox-layout{
+    margin-bottom: 0px;
+}
+.category-sidebar{
+    padding: 10px 10px 0;
+    .category-list{
+        .category-main{
+            background-color: transparent;
+            box-shadow: unset;
+            ::ng-deep .mat-expansion-panel-header{
+               border:1px solid #ccc;
+               border-radius: 10px;
+               min-height: 50px !important;
+               background-color: #fff;
+               padding: 0 15px;
+               transition: all 0.3s;
+               &:hover{
+                   background-color: #ddeafd;
+               }
+               .mat-content{
+                   order: 2;
+                   padding-left: 10px;
+               }
+            }
+            .category-title{
+                font-size: 18px;
+                font-weight: 500;
+                color: #000;
+            }
+            .sub-category-title{
+                padding: 0 15px;
+                font-size: 17px;
+                font-weight: 500;
+                color: #000;
+                position: relative;
+                &::before{
+                    content: '';
+                    width: 25px;
+                    height: 1px;
+                    background-color: #ccc;
+                    left:-25px;
+                    top:50%;
+                    position: absolute;
+                }
+            }
+        }
+        &::ng-deep .mat-accordion{
+            .mat-expansion-panel-body{
+                &::before{
+                    content: '';
+                    border-left: 1px solid #ccc;
+                    height: calc(100% - 49px);
+                    width: auto;
+                }
+            }
+        }
+    }
+    .single-box{
+        border:1px solid #ccc;
+        border-radius: 10px;
+        min-height: 50px !important;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+        &:hover{
+            background-color: #ddeafd;
+        }
+    }
+}
+.edit-box{
+    font-size: 20px;
+    color: #1173f4;
 }
