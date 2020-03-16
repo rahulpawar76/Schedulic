@@ -24,6 +24,7 @@ export class ServicesComponent implements OnInit {
     allCategoryCount: any;
     allServiceCount: any;
     editCategoryId: any;
+    editSubCategoryId: any;
     currentCategoryStatus: any;
     currentSubCategoryStatus: any;
     businessId: any;
@@ -48,15 +49,23 @@ export class ServicesComponent implements OnInit {
     addNewServicePage: boolean = false;
     isLoaderAdmin: boolean = false;
     parentCategoryId: any;
+    singleServiceStatus: any;
     selectedCategoryIndex: any;
     selectedSubCategoryIndex: any;
     newSubcategoryStatus: any = 'D';
     newSubcategoryPrivate: any = 'N';
+    editSubcategoryStatus: any = 'D';
+    editSubcategoryPrivate: any = 'N';
     newcategoryStatus: any = 'D';
     newcategoryPrivate: any = 'N';
+    editcategoryStatus: any = 'D';
+    editcategoryPrivate: any = 'N';
     newServicePrivate: any = 'N';
     newServiceStatus: any = 'D';
+    editServicePrivate: any = 'N';
+    editServiceStatus: any = 'D';
     newSubCategoryData: any;
+    updateSubCategoryData: any;
     newCategoryData: any;
     newServiceData: any;
     updateServiceData: any;
@@ -88,6 +97,7 @@ export class ServicesComponent implements OnInit {
         this.createSubCategory = this._formBuilder.group({
             subcategory_name: ['', Validators.required],
             subcategory_description: ['', Validators.required],
+            subcategory_id: [''],
         });
         this.createCategory = this._formBuilder.group({
             category_name: ['', Validators.required],
@@ -146,7 +156,6 @@ export class ServicesComponent implements OnInit {
         this.adminSettingsService.fnAllCategory().subscribe((response: any) => {
             if (response.data == true) {
                 this.allCetegoryList = response.response
-                console.log(this.allCetegoryList);
                 this.allCategoryCount = this.allCetegoryList.length
                 this.isLoaderAdmin = false;
             }
@@ -181,7 +190,6 @@ export class ServicesComponent implements OnInit {
                     this.servicesList = false;
                     this.selectCategoryPage = 'services';
                     this.selectedCategoryDetails = this.allCetegoryList[index]
-                    console.log(this.selectedCategoryDetails);
                 } else if (this.categoryServicesList == 'service not found') {
                     this.servicesList = false;
                     this.selectedCategoryDetails = this.allCetegoryList[index]
@@ -197,7 +205,29 @@ export class ServicesComponent implements OnInit {
         })
     }
     changeServiceStaus(event, serviceId) {
-        console.log(event);
+        if (event == true) {
+            this.singleServiceStatus = 'E'
+        } else if(event == false){
+            this.singleServiceStatus = 'D'
+        }
+        this.actionServiceIdarr.push(serviceId);
+        this.adminSettingsService.fnServiceAction(this.actionServiceIdarr, this.singleServiceStatus).subscribe((response: any) => {
+            if (response.data == true) {
+                this._snackBar.open("Status Updated", "X", {
+                    duration: 2000,
+                    verticalPosition: 'top',
+                    panelClass: ['green-snackbar']
+                });
+                this.actionServiceIdarr.length = 0;
+            }
+            else {
+                this._snackBar.open("Status Not Updated", "X", {
+                    duration: 2000,
+                    verticalPosition: 'top',
+                    panelClass: ['red-snackbar']
+                });
+            }
+        })
     }
     fnCreateNewSubCategoryPage(categoryId) {
         this.selectCategoryPage = '';
@@ -220,17 +250,48 @@ export class ServicesComponent implements OnInit {
             this.newSubcategoryPrivate = 'N';
         }
     }
+    editSubCategoryStatus(event) {
+        if (event == true) {
+            this.editSubcategoryStatus = 'E';
+        }
+        else if (event == false) {
+            this.editSubcategoryStatus = 'D';
+        }
+    }
+    editSubCategoryPrivate(event) {
+        if (event == true) {
+            this.editSubcategoryPrivate = 'Y';
+        }
+        else if (event == false) {
+            this.editSubcategoryPrivate = 'N';
+        }
+    }
     fnCreateNewSubCategorySubmit() {
-        if (this.createSubCategory.valid) {
-            this.newSubCategoryData = {
-                'business_id': this.businessId,
-                'category_id': this.parentCategoryId,
-                'sub_category_name': this.createSubCategory.get('subcategory_name').value,
-                'sub_category_description': this.createSubCategory.get('subcategory_description').value,
-                'sub_category_private': this.newSubcategoryPrivate,
-                'sub_category_status': this.newSubcategoryStatus,
+        if(this.editSubCategoryId != undefined){
+            if (this.createSubCategory.valid) {
+                this.updateSubCategoryData = {
+                    'business_id': this.businessId,
+                    'sub_category_id': this.editSubCategoryId,
+                    'sub_category_name': this.createSubCategory.get('subcategory_name').value,
+                    'sub_category_description': this.createSubCategory.get('subcategory_description').value,
+                    'sub_category_private': this.editSubcategoryPrivate,
+                    'sub_category_status': this.editSubcategoryStatus,
+                }
+                this.updateSubCategory(this.updateSubCategoryData);
             }
-            this.createNewSubCategory(this.newSubCategoryData);
+        }
+        else{
+            if (this.createSubCategory.valid) {
+                this.newSubCategoryData = {
+                    'business_id': this.businessId,
+                    'category_id': this.parentCategoryId,
+                    'sub_category_name': this.createSubCategory.get('subcategory_name').value,
+                    'sub_category_description': this.createSubCategory.get('subcategory_description').value,
+                    'sub_category_private': this.newSubcategoryPrivate,
+                    'sub_category_status': this.newSubcategoryStatus,
+                }
+                this.createNewSubCategory(this.newSubCategoryData);
+            }
         }
     }
     createNewSubCategory(newSubCategoryData) {
@@ -258,6 +319,32 @@ export class ServicesComponent implements OnInit {
             }
         })
     }
+    updateSubCategory(updateSubCategoryData) {
+        this.isLoaderAdmin = true;
+        this.adminSettingsService.updateSubCategory(updateSubCategoryData).subscribe((response: any) => {
+            if (response.data == true) {
+                this._snackBar.open("Category updated", "X", {
+                    duration: 2000,
+                    verticalPosition: 'top',
+                    panelClass: ['green-snackbar']
+                });
+                this.createCategory.reset();
+                this.fnAllCategory();
+                this.servicesList = true;
+                this.createNewCategoryPage = false;
+                this.isLoaderAdmin = false;
+                this.editSubCategoryId = undefined;
+            }
+            else if (response.data == false) {
+                this._snackBar.open("Category Not updated", "X", {
+                    duration: 2000,
+                    verticalPosition: 'top',
+                    panelClass: ['red-snackbar']
+                });
+                this.isLoaderAdmin = false;
+            }
+        })
+    }
     newCategoryStatus(event) {
         if (event == true) {
             this.newcategoryStatus = 'E';
@@ -274,6 +361,22 @@ export class ServicesComponent implements OnInit {
             this.newcategoryPrivate = 'N';
         }
     }
+    editCategoryStatus(event) {
+        if (event == true) {
+            this.editcategoryStatus = 'E';
+        }
+        else if (event == false) {
+            this.editcategoryStatus = 'D';
+        }
+    }
+    editCategoryPrivate(event) {
+        if (event == true) {
+            this.editcategoryPrivate = 'Y';
+        }
+        else if (event == false) {
+            this.editcategoryPrivate = 'N';
+        }
+    }
     fnCreateNewCategorySubmit() {
         if (this.createCategory.get('category_id').value != '') {
             this.editCategoryId = this.createCategory.get('category_id').value
@@ -284,23 +387,23 @@ export class ServicesComponent implements OnInit {
                     'business_id': this.businessId,
                     'category_title': this.createCategory.get('category_name').value,
                     'category_description': this.createCategory.get('category_description').value,
-                    'category_private': this.newcategoryPrivate,
-                    'status': this.newcategoryStatus,
+                    'category_private': this.editcategoryPrivate,
+                    'status': this.editcategoryStatus,
                 }
-                console.log(this.updateCategoryData);
                 this.updateCategory(this.updateCategoryData);
             }
         }
-        else if (this.createCategory.valid) {
-            this.newCategoryData = {
-                'business_id': this.businessId,
-                'category_title': this.createCategory.get('category_name').value,
-                'category_description': this.createCategory.get('category_description').value,
-                'category_private': this.newcategoryPrivate,
-                'status': this.newcategoryStatus,
+        else {
+            if (this.createCategory.valid) {
+                this.newCategoryData = {
+                    'business_id': this.businessId,
+                    'category_title': this.createCategory.get('category_name').value,
+                    'category_description': this.createCategory.get('category_description').value,
+                    'category_private': this.newcategoryPrivate,
+                    'status': this.newcategoryStatus,
+                }
+                this.createNewCategory(this.newCategoryData);
             }
-            console.log(this.newCategoryData);
-            this.createNewCategory(this.newCategoryData);
         }
     }
     updateCategory(updateCategoryData) {
@@ -316,6 +419,7 @@ export class ServicesComponent implements OnInit {
                 this.fnAllCategory();
                 this.servicesList = true;
                 this.createNewCategoryPage = false;
+                this.editCategoryId = undefined;
                 this.isLoaderAdmin = false;
             }
             else if (response.data == false) {
@@ -373,7 +477,6 @@ export class ServicesComponent implements OnInit {
                     verticalPosition: 'top',
                     panelClass: ['green-snackbar']
                 });
-                this.createCategory.reset();
                 this.fnAllCategory();
                 this.servicesList = true;
                 this.createNewCategoryPage = false;
@@ -381,6 +484,30 @@ export class ServicesComponent implements OnInit {
             }
             else if (response.data == false) {
                 this._snackBar.open("Category Not deleted", "X", {
+                    duration: 2000,
+                    verticalPosition: 'top',
+                    panelClass: ['red-snackbar']
+                });
+                this.isLoaderAdmin = false;
+            }
+        })
+    }
+    deleteSubCategory(deleteSubCategoryId) {
+        this.isLoaderAdmin = true;
+        this.adminSettingsService.deleteSubCategory(deleteSubCategoryId).subscribe((response: any) => {
+            if (response.data == true) {
+                this._snackBar.open("Sub Category deleted", "X", {
+                    duration: 2000,
+                    verticalPosition: 'top',
+                    panelClass: ['green-snackbar']
+                });
+                this.fnAllCategory();
+                this.servicesList = true;
+                this.createNewCategoryPage = false;
+                this.isLoaderAdmin = false;
+            }
+            else if (response.data == false) {
+                this._snackBar.open("Sub Category Not deleted", "X", {
                     duration: 2000,
                     verticalPosition: 'top',
                     panelClass: ['red-snackbar']
@@ -514,6 +641,22 @@ export class ServicesComponent implements OnInit {
             this.newServicePrivate = 'N';
         }
     }
+    fnEditServiceStatus(event) {
+        if (event == true) {
+            this.editServiceStatus = 'E';
+        }
+        else if (event == false) {
+            this.editServiceStatus = 'D';
+        }
+    }
+    fnEditServicePrivate(event) {
+        if (event == true) {
+            this.editServicePrivate = 'Y';
+        }
+        else if (event == false) {
+            this.editServicePrivate = 'N';
+        }
+    }
     fnCreateServiceSubmit() {
         alert(this.editServiceId);
         if (this.createService.get('service_id').value != '') {
@@ -526,11 +669,9 @@ export class ServicesComponent implements OnInit {
                     'service_cost': this.createService.get('service_cost').value,
                     'service_time': this.createService.get('service_duration').value,
                     'service_unit': this.createService.get('service_unit').value,
-                    'service_private': this.newServicePrivate,
-                    'service_status': this.newServiceStatus,
+                    'service_private': this.editServiceStatus,
+                    'service_status': this.editServicePrivate,
                 }
-
-                console.log(this.updateServiceData);
                 this.updateService(this.updateServiceData);
             }
 
@@ -563,8 +704,6 @@ export class ServicesComponent implements OnInit {
                         'service_status': this.newServiceStatus,
                     }
                 }
-
-                console.log(this.newServiceData);
                 this.createNewService(this.newServiceData);
             }
         }
@@ -606,6 +745,7 @@ export class ServicesComponent implements OnInit {
                 this.createService.reset();
                 this.createNewServicePage = false;
                 this.servicesList = true;
+                this.editServiceId = undefined;
                 this.isLoaderAdmin = false;
             }
             else if (response.data == false) {
@@ -638,6 +778,17 @@ export class ServicesComponent implements OnInit {
             }
         })
     }
+    editSubCategory(editSubCategoryId){
+        alert(editSubCategoryId);
+        this.editSubCategoryId = editSubCategoryId
+        this.singleSubCategoryPage = '';
+        this.createNewSubCategoryPage = true;
+        this.isLoaderAdmin = true;
+        this.createSubCategory.controls['subcategory_id'].setValue(editSubCategoryId);
+        this.createSubCategory.controls['subcategory_name'].setValue(this.selectedSubCategoryDetails.sub_category_name);
+        this.createSubCategory.controls['subcategory_description'].setValue(this.selectedSubCategoryDetails.sub_category_description);
+        this.isLoaderAdmin = false;
+    }
     fnEditService(index, serviceId, type) {
         alert(index)
         alert(type)
@@ -664,6 +815,23 @@ export class ServicesComponent implements OnInit {
             this.createService.controls['service_unit'].setValue(this.subCategoryServicesList[index].service_unit);
         }
         this.isLoaderAdmin = false;
+    }
+    fnDeleteService(){
+        this.isLoaderAdmin = true;
+        this.adminSettingsService.fnDeleteService(this.editServiceId).subscribe((response: any) => {
+            if (response.data == true) {
+                this._snackBar.open("Service Deleted", "X", {
+                    duration: 2000,
+                    verticalPosition: 'top',
+                    panelClass: ['green-snackbar']
+                });
+                this.fnAllServices();
+                this.isLoaderAdmin = false;
+            }
+            else if (response.data == false) {
+                this.isLoaderAdmin = false;
+            }
+        })
     }
 
 }

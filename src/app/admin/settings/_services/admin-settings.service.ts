@@ -216,6 +216,18 @@ export class AdminSettingsService {
             }),
             catchError(this.handleError));
     }
+    updateSubCategory(updateSubCategoryData) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/update-sub-category`, updateSubCategoryData, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
     deleteCategory(deleteCategoryId) {
         let requestObject = {
             'business_id': this.businessId,
@@ -312,7 +324,7 @@ export class AdminSettingsService {
     }
     changeSubCategoryStatus(currentSubCategoryStatus, subcategoryId) {
         let requestObject = {
-            'category_id': subcategoryId,
+            'subcategory_id': subcategoryId,
             'status': currentSubCategoryStatus,
 
         };
@@ -321,7 +333,7 @@ export class AdminSettingsService {
             'admin-id': this.adminId,
             'api-token': this.adminToken
         });
-        return this.http.post(`${environment.apiUrl}/create-service`, requestObject, { headers: headers }).pipe(
+        return this.http.post(`${environment.apiUrl}/update-status-subcategory`, requestObject, { headers: headers }).pipe(
             map((res) => {
                 return res;
             }),
@@ -348,6 +360,36 @@ export class AdminSettingsService {
             'api-token': this.adminToken
         });
         return this.http.post(`${environment.apiUrl}/business-workhour-list`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+    fnDeleteService(editServiceId) {
+        let requestObject = {
+            'service_id': editServiceId,
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/delete-service`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+    deleteSubCategory(deleteSubCategoryId) {
+        let requestObject = {
+            'sub_category_id': deleteSubCategoryId,
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/delete-sub-category`, requestObject, { headers: headers }).pipe(
             map((res) => {
                 return res;
             }),
