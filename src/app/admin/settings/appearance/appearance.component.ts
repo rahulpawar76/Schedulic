@@ -8,12 +8,23 @@ import { AppComponent } from '@app/app.component';
 })
 export class AppearanceComponent implements OnInit {
   adminSettings : boolean = true;
+
+  formSettingPage:boolean=false;
   constructor(private appComponent : AppComponent) {  
-    
-    //this.appComponent.settingsModule(this.adminSettings);
+   
   }
 
   ngOnInit() {
+  }
+
+  formsetting(event){
+    if(event == true){
+      this.formSettingPage = true;
+    }else if(event == false){
+      this.formSettingPage = false;
+    }
+
+
   }
 
 }

@@ -66,17 +66,16 @@
             </mat-form-field>
             </div>
         </mat-tab>
-
         <mat-tab label="Form Setting"> 
             <mat-card class="main-form-setting-content">
                 <div class="contact-field-toggle">
-                    <mat-slide-toggle></mat-slide-toggle>
+                    <mat-slide-toggle (change)="formsetting($event.checked)"></mat-slide-toggle>
                 </div>
                 <h5>Contact Fields</h5>
                 
                 <p>Select Which form field will show on your booking page.</p>
 
-                <div class="Customer-appointment-table">
+                <div class="form-setting-table" *ngIf="formSettingPage">
                     <div class="main-table-content main-cust-table-content">
                         <div class="">
                             <div class="heads main-heading-content example-box" fxLayout="row">
@@ -143,7 +142,6 @@
                                 </div> 
                             </div>
                         </div>
-                        
                     </div>
                 </div>  
             </mat-card>
@@ -151,36 +149,4 @@
     </mat-tab-group>
 </mat-drawer-content>
             
-            <!-- <mat-card class="card-content">
-
-                
-            </mat-card>
-            <div>
-                <button mat-button class="appearance-save-btn">Copy Code</button>
-            </div>
-        </mat-tab> -->
-        <!-- <mat-tab label="Appearance"> 
-            
-
-        </mat-tab> -->
-        <!-- <mat-tab label="Form Setting"> 
-            <mat-card class="main-form-setting-content">
-
-                <h5>Contact Fields</h5>
-                <p>Select Which form field will show on your booking page.</p>
-
-                <div>
-                <mat-checkbox>Required</mat-checkbox>
-                </div>
-                <div>
-                <mat-checkbox>Required</mat-checkbox>
-                </div>
-                <div>
-                <mat-checkbox>Required</mat-checkbox>
-                </div>
-                <mat-checkbox>Required</mat-checkbox>
-
-            </mat-card>
-        </mat-tab> -->
-        <!-- </mat-tab-group>
-    </mat-drawer-content> -->
+       
