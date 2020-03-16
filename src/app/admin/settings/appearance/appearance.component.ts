@@ -23,8 +23,6 @@ export class AppearanceComponent implements OnInit {
     }else if(event == false){
       this.formSettingPage = false;
     }
-
-
   }
 
 }

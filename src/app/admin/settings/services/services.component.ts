@@ -380,7 +380,6 @@ export class ServicesComponent implements OnInit {
     fnCreateNewCategorySubmit() {
         if (this.createCategory.get('category_id').value != '') {
             this.editCategoryId = this.createCategory.get('category_id').value
-            alert(this.editCategoryId);
             if (this.createCategory.valid) {
                 this.updateCategoryData = {
                     'category_id': this.editCategoryId,
@@ -458,7 +457,6 @@ export class ServicesComponent implements OnInit {
         })
     }
     editCategory(editCategoryId) {
-        alert(editCategoryId);
         this.editCategoryId = editCategoryId
         this.selectCategoryPage = '';
         this.createNewCategoryPage = true;
@@ -658,7 +656,6 @@ export class ServicesComponent implements OnInit {
         }
     }
     fnCreateServiceSubmit() {
-        alert(this.editServiceId);
         if (this.createService.get('service_id').value != '') {
             if (this.createService.valid) {
                 this.updateServiceData = {
@@ -779,7 +776,6 @@ export class ServicesComponent implements OnInit {
         })
     }
     editSubCategory(editSubCategoryId){
-        alert(editSubCategoryId);
         this.editSubCategoryId = editSubCategoryId
         this.singleSubCategoryPage = '';
         this.createNewSubCategoryPage = true;
@@ -790,8 +786,6 @@ export class ServicesComponent implements OnInit {
         this.isLoaderAdmin = false;
     }
     fnEditService(index, serviceId, type) {
-        alert(index)
-        alert(type)
         this.editServiceId = serviceId
         this.isLoaderAdmin = true;
         this.createNewServicePage = true;

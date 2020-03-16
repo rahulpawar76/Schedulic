@@ -20,8 +20,8 @@
             <div class="single-box" (click)="fnAllServices()">
                 <p class="ml-4 mb-0">All Services ({{allServiceCount}})</p>
             </div>
-            <mat-accordion class="category-list">
-                <mat-expansion-panel class="category-main" *ngFor="let allCetegoryList of allCetegoryList; let i=index">
+            <mat-accordion class="category-list" cdkDropList (cdkDropListDropped)="drop($event)">
+                <mat-expansion-panel class="category-main" cdkDragHandle *ngFor="let allCetegoryList of allCetegoryList; let i=index">
                     <mat-expansion-panel-header>
                         <mat-panel-title class="service-title">
                         <p (click)="fnSelectCategory(allCetegoryList.id,i)" class="category-title mb-0">{{allCetegoryList.category_title}} ()</p>
