@@ -510,4 +510,17 @@ export class AdminService {
         }),
         catchError(this.handleError));
     }
+
+    updateProfile(updatedAdminProfileData){
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/admin-profile-update`,updatedAdminProfileData,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
 }
