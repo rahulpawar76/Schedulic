@@ -33,6 +33,17 @@ export class AdminSettingsService {
 
     ngOnInit() { }
 
+    getTimeZone() {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+        });
+        return this.http.post(`http://api.timezonedb.com/v2.1/list-time-zone?key=L1US8PRRVKYX&format=json`, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
     fnAllServices() {
         let requestObject = {
             'business_id': this.businessId,
@@ -58,7 +69,7 @@ export class AdminSettingsService {
             'admin-id': this.adminId,
             'api-token': this.adminToken
         });
-        return this.http.post(`${environment.apiUrl}/get-category-service`, requestObject, { headers: headers }).pipe(
+        return this.http.post(`${environment.apiUrl}/get-all-category`, requestObject, { headers: headers }).pipe(
             map((res) => {
                 return res;
             }),
@@ -311,6 +322,32 @@ export class AdminSettingsService {
             'api-token': this.adminToken
         });
         return this.http.post(`${environment.apiUrl}/create-service`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    changeTimeZone(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/timezone-change`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    getWorkingHours(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/business-workhour-list`, requestObject, { headers: headers }).pipe(
             map((res) => {
                 return res;
             }),

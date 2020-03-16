@@ -43,7 +43,6 @@ export class AppComponent implements AfterViewInit {
     public company_info: string;
 
     ngAfterViewInit() { 
-
     }
     
     // myRoute: string;
