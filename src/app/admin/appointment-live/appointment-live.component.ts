@@ -12,40 +12,69 @@ import { AdminService } from '../_services/admin-main.service';
   providers: [DatePipe]
 })
 export class AppointmentLiveComponent implements OnInit {
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject();
   isLoaderAdmin : boolean = false;
   pendingAppointments : any;
+  notAssignedAppointments : any;
+  onTheWayAppointments : any;
+  workStartedAppointments : any;
+
   constructor(
     private AdminService: AdminService,
     private datePipe: DatePipe
   ) { }
 
   ngOnInit() {
-    this.dtOptions = {
-      responsive: true
-    };
     this.getPendingAppointments();
+    this.getNotAssignedAppointments();
+    this.getOnThewayAppointments();
+    this.getWorkStartedAppointments();
   }
-  ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
-  }
-
   getPendingAppointments(){
-    this.isLoaderAdmin = true;
     this.AdminService.getPendingAppointments().subscribe((response:any) => {
       if(response.data == true){
         this.pendingAppointments = response.response
-        this.dtTrigger.next();
         console.log(this.pendingAppointments);
-        this.isLoaderAdmin = false;
       }
       else if(response.data == false){
         this.pendingAppointments = ''
-        this.isLoaderAdmin = false;
       }
     })
   }
+  getNotAssignedAppointments(){
+    this.AdminService.getNotAssignedAppointments().subscribe((response:any) => {
+      if(response.data == true){
+        this.notAssignedAppointments = response.response
+        console.log(this.notAssignedAppointments);
+      }
+      else if(response.data == false){
+        this.notAssignedAppointments = ''
+      }
+    })
+  }
+
+  getOnThewayAppointments(){
+    this.AdminService.getOnThewayAppointments().subscribe((response:any) => {
+      if(response.data == true){
+        this.onTheWayAppointments = response.response
+        console.log(this.onTheWayAppointments);
+      }
+      else if(response.data == false){
+        this.onTheWayAppointments = ''
+      }
+    })
+  }
+
+  getWorkStartedAppointments(){
+    this.AdminService.getWorkStartedAppointments().subscribe((response:any) => {
+      if(response.data == true){
+        this.workStartedAppointments = response.response
+        console.log(this.workStartedAppointments);
+      }
+      else if(response.data == false){
+        this.workStartedAppointments = ''
+      }
+    })
+  }
+
 
 }

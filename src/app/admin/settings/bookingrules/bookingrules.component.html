@@ -1,7 +1,7 @@
 
 <mat-drawer-content id="booking-rules" class="ml-0">
     <mat-card>
-        <h5>Booking Rules</h5>
+        <h5 class="py-3">Booking Rules</h5>
         <mat-card>
             <div class="">
                 <div class="Customer-appointment-table">
@@ -14,8 +14,8 @@
                                 <div class="" fxFlex="12"></div>
                                 <div class="" fxFlex="12"></div>
                             </div>
-                            <div class="content" class="example-list">
-                                <div class="example-box p-3">
+                            <div class="content" class="">
+                                <div class="p-3">
                                     <div class="" fxFlex="52">
                                         <h6>Minimum Advance booking Time</h6>
                                         <p class="mb-0">Minimum advance notice do you need before a client books an appointment?</p>
@@ -58,7 +58,7 @@
                                     </div>
                                 </div>
                                 <div class="bottom-line"></div>
-                                <div class="example-box p-3">
+                                <div class="p-3">
                                     <div class="" fxFlex="52">
                                         <h6>Maximum Advance booking Time</h6>
                                         <p class="mb-0">Maximum advance notice do you need before a client books an appointment?</p>
@@ -109,7 +109,7 @@
                                     </div>
                                 </div>
                                 <div class="bottom-line"></div>
-                                <div class="example-box p-3">
+                                <div class="p-3">
                                     <div class="" fxFlex="52">
                                         <h6>Time Interval</h6>
                                         <p class="mb-0">e.g 15 min slots will show open slots at 8:00, 8:15, 8:30 etc</p>
@@ -144,7 +144,7 @@
                                     </div>
                                 </div>
                                 <div class="bottom-line"></div>
-                                <div class="example-box p-3">
+                                <div class="p-3">
                                     <div class="" fxFlex="52">
                                         <h6>Cancellation Buffer Time </h6>
                                         <p class="mb-0">Minimum notice required for Cancellation an appointment</p>
@@ -187,7 +187,7 @@
                                     </div>
                                 </div>
                                 <div class="bottom-line"></div>
-                                <div class="example-box p-3">
+                                <div class="p-3">
                                     <div class="" fxFlex="52">
                                         <h6>Reschedule an Appointment</h6>
                                         <p class="mb-0">Minimum notice required for rescheduleing an appointment</p>
@@ -254,10 +254,10 @@
                     <p class="mb-0">By Enabling this feature, Appointment request from clients will be auto confirmed.</p>
                 </div>
                 <div class="ml-auto mx-3">
-                    <mat-slide-toggle></mat-slide-toggle>
+                    <mat-slide-toggle (change)="autoassigntostaff($event.checked)"></mat-slide-toggle>
                 </div>
             </div>
-            <div class="pt-4">
+            <div class="pt-4"  *ngIf="autoAssignToStaffPage">
                 <div class="d-flex">
                     <mat-checkbox class="pr-3"></mat-checkbox>
                     <h6>Auto assign to staff</h6>
@@ -286,27 +286,29 @@
                         <h6>Terms & Conditions </h6>
                     </div>
                     <div class="ml-auto mx-3">
-                        <mat-slide-toggle></mat-slide-toggle>
+                        <mat-slide-toggle (change)="termsconditions($event.checked)"></mat-slide-toggle>
                     </div>
                 </div>
-                <form class="example-form">
-                    <mat-form-field class="example-full-width bottom-border-field">
-                      <mat-label>Display as hyperlink text  next to a checkbox that the user must accept.</mat-label>
-                      <input matInput placeholder="Add a label to your Terms & Conditions.">
-                    </mat-form-field>
-                    <div class="d-flex example-full-width ">
-                        <mat-hint class="ml-auto"><i>maximum characters allowed<span class="text-danger"> 150</span></i></mat-hint>
-                    </div>
-                </form>
-                <form class="example-form">
-                    <mat-form-field class="example-full-width bottom-border-field">
-                      <mat-label>Display as hyperlink text  next to a checkbox that the user must accept.</mat-label>
-                      <input matInput placeholder="Add a label to your Terms & Conditions.">
-                    </mat-form-field>
-                    <div class="d-flex example-full-width ">
-                        <mat-hint class="ml-auto"><i>Link will open in a new browser window</i></mat-hint>
-                    </div>
-                </form>
+                <div *ngIf="termsConditionsPage">
+                    <form class="example-form" >
+                        <mat-form-field class="example-full-width bottom-border-field">
+                        <mat-label>Display as hyperlink text  next to a checkbox that the user must accept.</mat-label>
+                        <input matInput placeholder="Add a label to your Terms & Conditions.">
+                        </mat-form-field>
+                        <div class="d-flex example-full-width">
+                            <mat-hint class="ml-auto"><i>maximum characters allowed<span class="text-danger"> 150</span></i></mat-hint>
+                        </div>
+                    </form>
+                    <form class="example-form">
+                        <mat-form-field class="example-full-width bottom-border-field">
+                        <mat-label>Display as hyperlink text  next to a checkbox that the user must accept.</mat-label>
+                        <input matInput placeholder="Add a label to your Terms & Conditions.">
+                        </mat-form-field>
+                        <div class="d-flex example-full-width ">
+                            <mat-hint class="ml-auto"><i>Link will open in a new browser window</i></mat-hint>
+                        </div>
+                    </form>
+                </div>
             </mat-card>
         </div>
         <div>
@@ -317,46 +319,50 @@
                         <h6>Terms & Conditions </h6>
                     </div>
                     <div class="ml-auto mx-3">
-                        <mat-slide-toggle></mat-slide-toggle>
+                        <mat-slide-toggle (change)="privacytermsconditions($event.checked)"></mat-slide-toggle>
                     </div>
                 </div>
-                <form class="example-form">
-                    <mat-form-field class="example-full-width bottom-border-field">
-                      <mat-label>Display as hyperlink text  next to a checkbox that the user must accept.</mat-label>
-                      <input matInput  placeholder="Add a label to your Terms & Conditions.">
-                    </mat-form-field>
-                    <div class="d-flex example-full-width ">
-                        <mat-hint class="ml-auto"><i>maximum characters allowed<span class="text-danger"> 150</span></i></mat-hint>
-                    </div>
-                </form>
-                <form class="example-form">
-                    <mat-form-field class="example-full-width bottom-border-field">
-                      <mat-label>Display as hyperlink text  next to a checkbox that the user must accept.</mat-label>
-                      <input matInput  placeholder="Add a label to your Terms & Conditions.">
-                    </mat-form-field>
-                    <div class="d-flex example-full-width ">
-                        <mat-hint class="ml-auto"><i>Link will open in a new browser window</i></mat-hint>
-                    </div>
-                </form>
+                <div  *ngIf="privacyConditionsPage">
+                    <form class="example-form">
+                        <mat-form-field class="example-full-width bottom-border-field">
+                        <mat-label>Display as hyperlink text  next to a checkbox that the user must accept.</mat-label>
+                        <input matInput  placeholder="Add a label to your Terms & Conditions.">
+                        </mat-form-field>
+                        <div class="d-flex example-full-width ">
+                            <mat-hint class="ml-auto"><i>maximum characters allowed<span class="text-danger"> 150</span></i></mat-hint>
+                        </div>
+                    </form>
+                    <form class="example-form">
+                        <mat-form-field class="example-full-width bottom-border-field">
+                        <mat-label>Display as hyperlink text  next to a checkbox that the user must accept.</mat-label>
+                        <input matInput  placeholder="Add a label to your Terms & Conditions.">
+                        </mat-form-field>
+                        <div class="d-flex example-full-width ">
+                            <mat-hint class="ml-auto"><i>Link will open in a new browser window</i></mat-hint>
+                        </div>
+                    </form>
+                </div>
             </mat-card>
         </div>
         <div>
             <h6 class="py-4">Thank You Page</h6>
             <mat-card class="matcard-space">
-                <div class="d-flex">
-                    <div>
-                        <h6>Thank You Page</h6>
+                    <div class="d-flex" >
+                        <div>
+                            <h6>Thank You Page</h6>
+                        </div>
+                        <div class="ml-auto mx-3">
+                            <mat-slide-toggle (change)="thankyou($event.checked)"></mat-slide-toggle>
+                        </div>
                     </div>
-                    <div class="ml-auto mx-3">
-                        <mat-slide-toggle></mat-slide-toggle>
+                    <div *ngIf="ThankYouPage">
+                        <form class="example-form">
+                            <mat-form-field class="example-full-width bottom-border-field">
+                            <mat-label>Add a link to your Thank You page</mat-label>
+                            <input matInput  placeholder="">
+                            </mat-form-field>
+                        </form>
                     </div>
-                </div>
-                <form class="example-form">
-                    <mat-form-field class="example-full-width bottom-border-field">
-                      <mat-label>Add a link to your Thank You page</mat-label>
-                      <input matInput  placeholder="">
-                    </mat-form-field>
-                </form>
             </mat-card>
         </div>
     </mat-card>

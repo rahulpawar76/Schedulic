@@ -1,7 +1,7 @@
 @import "variables";
 // // ::ng-deep .mat-drawer{
 // //     max-width: 25%;
-// // }
+// // }example-container
 // // ::ng-deep .mat-drawer-content{
 // //     max-width: 75%;
 // //     margin-left: 288px;
@@ -31,153 +31,61 @@
 //             background-color: white;
 //             border-radius: 5px;
 //         }
-        .leftarrow-icon{
-            // margin-left: auto;
-            display: flex;
-            .customer-drawer-leftarrow{
-                padding: 4px 8px;
-                height: auto;
-                width: auto;
-                text-align: center;
-                background-color: #dedede;
-                 margin-left: auto;
-            }
-           
-        }
-        .cust-reports{
-            margin: 2px;;
-            font-size: 18px;
-        }
-        .cust-icons{
-            font-size: 20px;
-            .cust-search{
-                margin: 20px 15px;
-            }
-            .cust-print{
-                margin: 20px 15px;
-            }
-        }
-        .main-cust-table-content{
-            padding: 0;
 
-        }
-       
-//         p{
-//             margin-bottom: 0px;
-//         }
-//         h6{
-//             margin-bottom: 0px;;
-//         }
-//         .searchbox{
-//             // width: 60%;  
-//             .serch_input-appoint{           
-//                 height: 39px; 
-//                 padding-top: 3px; 
-//                 .has-search .form-control {
-//                     padding-left: 2.375rem;
-//                     }
-//                     .has-search .form-control-feedback {
-//                         position: absolute;
-//                         z-index: 2;
-//                         display: block;
-//                         width: 2.375rem;
-//                         height: 1rem;
-//                         line-height: 2rem;
-//                         text-align: center;
-//                         pointer-events: none;
-//                         color: black;
-//                         .has-search .form-control-feedback .verticalLine{
-//                             &:after {
-//                                 content: "";
-//                                 position: absolute;
-//                                 top: 58%;
-//                                 right: 0;
-//                                 width: 1px;
-//                                 height: 100%;
-//                                 background: #f2f2f2;
-//                             }
-//                         } 
-//                     }
-//                     ::placeholder {         
-//                         font-size: 12px;
-//                     }                        
-//                     .searchbox_appointment{
-//                         border-radius: 20px;
-//                         height: 33px;
-//                         background-color: #f2f2f2;
-//                     }          
-//             }                   
-//         }
-//         .customer-checkbox{
-//             line-height: 3;
-//             width:11%;
-//         }
-//         .customer-name-width{
-//             width: 20%;
-//             margin-right: .5rem!important;
-//             .customer-name{
-//                 background-color:#00c6ff;
-//                 border-radius: 50%;
-//                 padding: 10px;          
-//                 width: 45px;
-//                 height: 45px;
-//                 text-align: center;
-//             }
-//         }        
-//         .customer-details{
-//             width: 69%;
-//         }
-//     }
-//     #Add-New-Customer{
-//         .customer-profile-background{
-//             background-color: #e8e8e8;
-//             padding: 30px;
-//             width: 110px;
-//             height: 110px;
-//             border-radius: 80px;
-//             .profile-image{
-//                 width: 50px;
-//                 height: 50px;
-//             }
-//         }
-//         .profile-uploadbtn{
-//             width: 165px;
-//             height: 51px;
-//             border-radius: 4px;
-//             background-color: #f87812;
-//             border: 2px solid #f87812;
-//             color: white;
-//         }
-//         .profile-removebtn{
-//             width:167px;
-//             height: 51px;
-//             border-radius: 4px;
-//             background-color: #bcbcbc;
-//             border: 2px solid #bcbcbc;
-//             color: white;
-//         }
-//         .customer-cancel-btn{
-//             width: 100px;
-//             height: 39px;
-//             border-radius: 7px;
-//             background-color: #dddddd;
-//         }
-//         .customer-save-btn{
-//             width: 109px;
-//             height: 39px;
-//             border-radius: 7px;
-//             background-color: #1173f4;
-//         }
-        
-//         .action-btn{
-//             margin-left: auto;
-//             display: flex;
-//         }
-//     }
-// }
+::ng-deep .mat-drawer-container .example-container{
+    margin-top: 65px !important;
+    padding-left: 0px;
+    padding-right: 0px;
+    .mat-drawer{
+        width: 258px !important;
+    }
+    .mat-drawer-content{
+        margin-left: 258px;
+    }
+}
+::ng-deep .mat-drawer-container .example-container .mat-drawer{
+    background-color: #fafafa;
+}
+::ng-deep .mat-drawer-container .example-container .mat-drawer-content{
+    background-color: white;
+}
+
+.leftarrow-icon{
+    // margin-left: auto;
+    display: flex;
+    .customer-drawer-leftarrow{
+        padding: 4px 8px;
+        height: auto;
+        width: auto;
+        text-align: center;
+        background-color: #dedede;
+            margin-left: auto;
+    }
+    
+}
+.cust-reports{
+    margin: 2px;;
+    font-size: 18px;
+}
+.cust-icons{
+    font-size: 20px;
+    .cust-search{
+        margin: 20px 15px;
+    }
+    .cust-print{
+        margin: 20px 15px;
+    }
+    .cust-download{
+        margin: 20px 15px;
+    }
+}
+.main-cust-table-content{
+    padding: 0;
+
+}
 
 .main-custmer-content{
-
+    padding: 0px 10px 10px;
     background-color: lightblue;
    
 }
