@@ -25,7 +25,6 @@ export class MyProfileComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private _formBuilder:FormBuilder) {
 
-
     //this.appComponent.settingsModule(this.adminSettings);
    }
 
@@ -39,7 +38,6 @@ export class MyProfileComponent implements OnInit {
     });
     
   }
-
   getMyProfileDetails(){
     this.AdminService.getMyProfileDetails().subscribe((response:any) => {
       if(response.data == true){
