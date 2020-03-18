@@ -10,9 +10,7 @@ import { ColorPickerComponent, OpenEventArgs } from '@syncfusion/ej2-angular-inp
   styleUrls: ['./appearance.component.scss']
 })
 export class AppearanceComponent implements OnInit {
-
-
-
+  
   Appearance:FormGroup;
   allAppColor:any;
   AppearanceData:any;
