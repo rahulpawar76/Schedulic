@@ -69,7 +69,7 @@ export class AdminSettingsService {
             'admin-id': this.adminId,
             'api-token': this.adminToken
         });
-        return this.http.post(`${environment.apiUrl}/get-all-category`, requestObject, { headers: headers }).pipe(
+        return this.http.post(`${environment.apiUrl}/get-categories`, requestObject, { headers: headers }).pipe(
             map((res) => {
                 return res;
             }),
@@ -424,6 +424,21 @@ export class AdminSettingsService {
           return res;
       }),
       catchError(this.handleError));
+    }
+    getAllCurrencies(){
+        let requestObject = {
+        'business_id': this.businessId,
+      };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/currency-get`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
     }
 
 }

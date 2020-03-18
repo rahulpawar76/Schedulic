@@ -11,6 +11,8 @@ import { AuthenticationService } from '@app/_services';
 export class UserService {
 	userId: any;
 	token: any;
+	ProfileImagedata: any;
+	updatedprofiledata: any;
   constructor(
 	private http: HttpClient,
 	private _snackBar: MatSnackBar,
@@ -138,7 +140,6 @@ private handleError(error: HttpErrorResponse) {
 	}
 
 	rescheduleAppointment(requestObject){
-		
 		let headers = new HttpHeaders({
 		'Content-Type': 'application/json',
 		"customer-id":JSON.stringify(this.userId)
@@ -149,5 +150,4 @@ private handleError(error: HttpErrorResponse) {
 		}),
 		catchError(this.handleError));
 	}
- 
 }

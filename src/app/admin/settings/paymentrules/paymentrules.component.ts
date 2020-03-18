@@ -21,6 +21,7 @@ export class PaymentrulesComponent implements OnInit {
   animal: any;
   adminSettings : boolean = true;
   taxesData :any;
+  currenciesData :any;
 
   constructor(
     public dialog: MatDialog,
@@ -34,6 +35,7 @@ export class PaymentrulesComponent implements OnInit {
 
   ngOnInit() {
     this.getAllTax();
+    this.getAllCurrencies();
   }
 
   
@@ -57,6 +59,13 @@ getAllTax(){
       console.log('The dialog was closed');
        this.animal = result;
      });
+  }
+
+  getAllCurrencies(){
+    this.AdminSettingsService.getAllCurrencies().subscribe((response:any)=>{
+        this.currenciesData = response.response;
+        console.log(this.currenciesData);
+    })
   }
 
 
