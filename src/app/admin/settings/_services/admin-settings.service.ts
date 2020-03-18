@@ -525,6 +525,39 @@ export class AdminSettingsService {
         }),
         catchError(this.handleError));
     }
+    fnCurrencyPosition(currencyPosition){
+        let requestObject = {
+            'business_id' : this.businessId,
+            'position':currencyPosition
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/create-currency-position`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
+    fnCurrencyFormat(currencyFormat){
+        let requestObject = {
+            'business_id' : this.businessId,
+            'currency_format':currencyFormat
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/create-currency-format`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
 
 
 }

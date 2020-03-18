@@ -87,10 +87,10 @@
     
                             </div>
                             <div class="content" class="form-setting-list">
-                                <div  class="custom-check-box">
-                                    <div class="" fxFlex="20">
+                                <div  class="custom-check-box" >
+                                    <div class="" fxFlex="20" >
                                         <div class="checked round">
-                                            <input type="checkbox" id="checkbox"/>
+                                            <input (change)="changeNameField($event)" type="checkbox" id="checkbox" value="name" />
                                             <label for="checkbox"></label>  
                                             <p class="check-label">Name</p> 
                                         </div> 

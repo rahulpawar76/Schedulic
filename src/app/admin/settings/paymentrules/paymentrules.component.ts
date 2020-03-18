@@ -88,6 +88,31 @@ deleteTax(tax_id){
         console.log(this.currenciesData);
     })
   }
+  fnCurrencyPosition(currencyPosition){
+    this.AdminSettingsService.fnCurrencyPosition(currencyPosition).subscribe((response:any)=>{
+      if(response.data == true){
+        this._snackBar.open("Currency Position Updated", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+      }
+  })
+
+  }
+  fnCurrencyFormat(currencyFormat){
+
+    this.AdminSettingsService.fnCurrencyFormat(currencyFormat).subscribe((response:any)=>{
+      if(response.data == true){
+        this._snackBar.open("Currency Format Updated", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+      }
+  })
+
+  }
 
 
 }

@@ -57,6 +57,8 @@ export class AppearanceComponent implements OnInit {
     }
 
   }
-
+  changeNameField(value){
+    console.log(value);
+  }
 
 }
