@@ -51,7 +51,6 @@ getAllTax(){
   })
 }
 deleteTax(tax_id){
-  alert(tax_id);
   //this.isLoaderAdmin = true;
   this.AdminSettingsService.deleteTax(tax_id).subscribe((response:any) => {
     if(response.data == true){
@@ -78,6 +77,7 @@ deleteTax(tax_id){
 
      dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.getAllTax();
        this.animal = result;
      });
   }
