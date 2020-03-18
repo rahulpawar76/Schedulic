@@ -22,6 +22,7 @@ export class PaymentrulesComponent implements OnInit {
   animal: any;
   adminSettings : boolean = true;
   taxesData :any;
+  currenciesData :any;
 
   constructor(
     public dialog: MatDialog,
@@ -36,6 +37,7 @@ export class PaymentrulesComponent implements OnInit {
 
   ngOnInit() {
     this.getAllTax();
+    this.getAllCurrencies();
   }
 
   
@@ -49,7 +51,6 @@ getAllTax(){
   })
 }
 deleteTax(tax_id){
-  alert(tax_id);
   //this.isLoaderAdmin = true;
   this.AdminSettingsService.deleteTax(tax_id).subscribe((response:any) => {
     if(response.data == true){
@@ -76,8 +77,16 @@ deleteTax(tax_id){
 
      dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.getAllTax();
        this.animal = result;
      });
+  }
+
+  getAllCurrencies(){
+    this.AdminSettingsService.getAllCurrencies().subscribe((response:any)=>{
+        this.currenciesData = response.response;
+        console.log(this.currenciesData);
+    })
   }
 
 

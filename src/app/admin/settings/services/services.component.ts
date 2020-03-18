@@ -71,6 +71,8 @@ export class ServicesComponent implements OnInit {
     updateServiceData: any;
     actionServiceIdarr: any = [];
     updateCategoryData: any;
+    editServiceStatusPrevious: any;
+    editServicePrivateStatusPrevious: any;
     createSubCategory: FormGroup;
     createCategory: FormGroup;
     createService: FormGroup;
@@ -743,6 +745,8 @@ export class ServicesComponent implements OnInit {
                 this.createNewServicePage = false;
                 this.servicesList = true;
                 this.editServiceId = undefined;
+                this.editServiceStatusPrevious = '';
+                this.editServicePrivateStatusPrevious = '';
                 this.isLoaderAdmin = false;
             }
             else if (response.data == false) {
@@ -799,6 +803,8 @@ export class ServicesComponent implements OnInit {
             this.createService.controls['service_cost'].setValue(this.categoryServicesList[index].service_cost);
             this.createService.controls['service_duration'].setValue(this.categoryServicesList[index].service_time);
             this.createService.controls['service_unit'].setValue(this.categoryServicesList[index].service_unit);
+            this.editServiceStatusPrevious = this.categoryServicesList[index].status
+            this.editServicePrivateStatusPrevious = this.categoryServicesList[index].private_status
         }
         else if(type == 'subcategory'){
             this.createService.controls['service_id'].setValue(this.editServiceId);
@@ -807,6 +813,8 @@ export class ServicesComponent implements OnInit {
             this.createService.controls['service_cost'].setValue(this.subCategoryServicesList[index].service_cost);
             this.createService.controls['service_duration'].setValue(this.subCategoryServicesList[index].service_time);
             this.createService.controls['service_unit'].setValue(this.subCategoryServicesList[index].service_unit);
+            this.editServiceStatusPrevious = this.subCategoryServicesList[index].status
+            this.editServicePrivateStatusPrevious = this.subCategoryServicesList[index].private_status
         }
         this.isLoaderAdmin = false;
     }

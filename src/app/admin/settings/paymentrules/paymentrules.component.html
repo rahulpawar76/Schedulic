@@ -7,17 +7,13 @@
                 <mat-form-field class="bottom-border-field mr-2">
                     <mat-icon matPrefix>attach_money</mat-icon>
                     <mat-label>Select Currency</mat-label>
-                    <mat-select>
-                        <mat-option>None</mat-option>
-                        <mat-option value="option1">Option 1</mat-option>
-                        <mat-option value="option2">Option 2</mat-option>
-                        <mat-option value="option3">Option 3</mat-option>
+                    <mat-select (selectionChange)="fnChangeCurrency($event.value)">
+                      <mat-option *ngFor="let currenciesData of currenciesData; let i=index" value="{{currenciesData.CurrencyCode}}">{{currenciesData.CurrencyName}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="bottom-border-field mr-2">
                     <mat-label>Currency Symbol Position</mat-label>
                     <mat-select>
-                        <mat-option>None</mat-option>
                         <mat-option value="option1">Left</mat-option>
                         <mat-option value="option2">Right</mat-option>
                     </mat-select>
@@ -25,7 +21,6 @@
                 <mat-form-field class="bottom-border-field">
                     <mat-label>Select Currency Format</mat-label>
                     <mat-select>
-                        <mat-option>None</mat-option>
                         <mat-option value="option1">xx,xxx.xx</mat-option>
                         <mat-option value="option2">xx.xxx,xx</mat-option>
                     </mat-select>
