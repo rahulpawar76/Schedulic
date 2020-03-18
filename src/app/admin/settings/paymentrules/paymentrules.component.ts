@@ -6,6 +6,7 @@ import { AdminSettingsService } from '../_services/admin-settings.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 
+
 export interface DialogData {
   animal: string;
   name: string;
@@ -27,6 +28,7 @@ export class PaymentrulesComponent implements OnInit {
     public dialog: MatDialog,
     private appComponent : AppComponent,
     private _formBuilder: FormBuilder,
+    private _snackBar: MatSnackBar,
     private AdminSettingsService: AdminSettingsService,
     
   )   {
@@ -45,6 +47,25 @@ getAllTax(){
     if(response.data == true){
       this.taxesData = response.response;
       console.log(this.taxesData);
+    }
+  })
+}
+deleteTax(tax_id){
+  alert(tax_id);
+  //this.isLoaderAdmin = true;
+  this.AdminSettingsService.deleteTax(tax_id).subscribe((response:any) => {
+    if(response.data == true){
+      this._snackBar.open("Tax Deleted", "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['green-snackbar']
+      });
+      this.getAllTax()
+      //this.isLoaderAdmin = false;
+    }
+    else if(response.data == false){
+      // this.allCustomers = ''
+    //this.isLoaderAdmin = false;
     }
   })
 }
@@ -130,4 +151,7 @@ constructor(
       }
     })
   }
+
+  
+
 }

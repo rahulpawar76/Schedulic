@@ -1,13 +1,7 @@
 <div class="container-fluid sub-container" id="services">
     <div class="">
         <mat-drawer-container class="w-100"  style="margin-top: 70px;">
-            <!-- <mat-drawer mode="side" opened id="Customer-list" class=" pl-0 pr-0"  style="width:220px;">
-                
-                <mat-list role="list">
-                    <mat-menu></mat-menu>
-                       
-                </mat-list>
-            </mat-drawer> -->
+        
             <mat-drawer-content>
 
 <mat-card class="m-0">
@@ -16,52 +10,51 @@
             <h6>Company Details</h6>
         </div>     
     </div>     
+    <form [formGroup]="companyDetails">
     <div class="row"> 
         <div class="col-lg-6 col-6 col-md-4  main-account-company-details">
             <div class="ml-3 justify-content-center d-flex ">
-                <!-- <div class="company-details-profile-background mr-3 mt-5">
-                    <img src="/assets/images/admin/Layer6.png" class="company-details-image">
-                    <div class="camera-alt"><i class="material-icons"> camera_alt</i></div>
-                </div> -->
                 <div class="account-my-profile-img-wrap">
-                
                     <img mat-card-avatar class="account-my-profile-img" src="/assets/images/admin/Layer6.png">
                     <div class="camera-alt"><i class="material-icons"> camera_alt</i></div>
                 </div>
             </div>
+            
             <div class="">
                 <div class="mt-3 text-center">
-                    <mat-form-field class=" bottom-border-field">
-                        
-                        <input matInput placeholder="Company Name">  
-                    </mat-form-field>   
+                    <mat-form-field class=" bottom-border-field">    
+                        <input formControlName="company_name" matInput placeholder="Company Name">  
+                    </mat-form-field>  
+                    <span class="error-wrap d-flex" *ngIf="companyDetails.get('company_name').dirty || companyDetails.get('company_name').touched">
+                    <small *ngIf="companyDetails.get('company_name').hasError('required')" class="error">Company Name Is required</small></span>   
+
+                </div>
+
+                <div class="mt-2 text-center">
+                    <mat-form-field class=" bottom-border-field">  
+                        <input formControlName="comp_email" matInput placeholder="Email">   
+                    </mat-form-field>
+                    <span class="error-wrap d-flex" *ngIf="companyDetails.get('comp_email').dirty || companyDetails.get('comp_email').touched">
+                        <small *ngIf="companyDetails.get('comp_email').hasError('required')" class="error">Email Is required</small>
+                        <small *ngIf="companyDetails.get('comp_email').hasError('pattern')" class="error">Email Is Invalid</small>
+                    </span>    
                 </div>
 
                 <div class="mt-2 text-center">
                     <mat-form-field class=" bottom-border-field">
-                        
-                        <input matInput placeholder="Email">   
-                    </mat-form-field>   
-                </div>
-
-                <div class="mt-2 text-center">
-                    <mat-form-field class=" bottom-border-field">
-                      
-                        <input matInput placeholder="Website">    
-                    </mat-form-field>   
-                </div>
-
-               
+                        <input formControlName="comp_website" matInput placeholder="Website">    
+                    </mat-form-field>      
+                </div>   
 
                 <div class="mt-2 text-center mb-3">
                     <mat-form-field class=" bottom-border-field">
-                       
-
-                        <input matInput placeholder="Mobile">    
-                    </mat-form-field>   
+                        <input  formControlName="comp_mobile" matInput placeholder="Mobile">    
+                    </mat-form-field>  
+                    <span class="error-wrap d-flex" *ngIf="companyDetails.get('comp_mobile').dirty || companyDetails.get('comp_mobile').touched">
+                        <small *ngIf="companyDetails.get('comp_mobile').hasError('pattern')" class="error">Mobile Number Is Invalid</small>
+                        <small *ngIf="companyDetails.get('comp_mobile').hasError('minLength') || companyDetails.get('comp_mobile').hasError('maxLength')" class="error">Mobile Number Should be 10 Digit</small>
+                    </span>  
                 </div>
-               
-
             </div>
         </div> 
         
@@ -69,61 +62,69 @@
             <div class="">
                 <div class="mt-3 text-center">
                     <mat-form-field class=" bottom-border-field">
-                        
                             <mat-label>Country</mat-label>
-                            <mat-select>
-                              <mat-option>
-                                sdadasd
-                              </mat-option>
-                            </mat-select>
-                         
-                    </mat-form-field>   
+                            <mat-select  [(value)]="selected" formControlName="country" (selectionChange)="selectCountry($event.value)">
+                                <mat-option *ngFor="let allCountry of allCountry" [value]="allCountry.id"> {{allCountry.name}}</mat-option>
+                            </mat-select>    
+                    </mat-form-field>
+                    <span class="error-wrap d-flex" *ngIf="companyDetails.get('country').dirty || companyDetails.get('country').touched">
+                    <small *ngIf="companyDetails.get('country').hasError('required')" class="error">Country Is required</small></span>  
+
                 </div>
 
                 <div class="mt-2 text-center">
                     <mat-form-field class=" bottom-border-field">
                         <mat-label>Bussiness Location</mat-label>
-                        <input matInput placeholder="Address">   
+                        <input  formControlName="comp_address" matInput placeholder="Address">   
                     </mat-form-field>   
                 </div>
 
                 <div class="row"> 
-                    <div class="mt-2 text-center col-3">
-                        <mat-form-field class=" bottom-border-field">
-                            
-                            <input matInput placeholder="City">    
-                        </mat-form-field>   
-                    </div> 
-
                     <div class="mt-2 text-center col-6">
-                        <mat-form-field class=" bottom-border-field">
-                            
-                            <mat-label>State</mat-label>
-                            <mat-select>
-                              <mat-option >
-                                asdasd
-                              </mat-option>
+                        <mat-form-field class=" bottom-border-field">    
+                            <mat-label>Region</mat-label>
+                            <mat-select  [(value)]="selected" formControlName="state" (selectionChange)="selectStates($event.value)">
+                                <mat-option *ngFor="let allStates of allStates" [value]="allStates.id">
+                                    {{allStates.name}}
+                                  </mat-option>
                             </mat-select>
-                        </mat-form-field>   
+                        </mat-form-field>
+                        <span class="error-wrap d-flex" *ngIf="companyDetails.get('state').dirty || companyDetails.get('state').touched">
+                        <small *ngIf="companyDetails.get('state').hasError('required')" class="error">State Is required</small></span>
+                           
                     </div> 
 
                     <div class="mt-2 text-center col-3">
-                        <mat-form-field class=" bottom-border-field">
-                            
-                            <input matInput placeholder="Zip">    
-                        </mat-form-field>   
+                        <mat-form-field class="bottom-border-field">
+                            <mat-label>City</mat-label>
+                            <mat-select [(value)]="selected"  formControlName="city">
+                                <mat-option *ngFor="let allCities of allCities" [value]="allCities.id">
+                                    {{allCities.name}}
+                                  </mat-option>
+                            </mat-select>  
+                        </mat-form-field> 
+                        <span class="error-wrap d-flex" *ngIf="companyDetails.get('city').dirty || companyDetails.get('city').touched">
+                        <small *ngIf="companyDetails.get('city').hasError('required')" class="error">City Is required</small></span>  
+                    </div> 
+
+                    <div class="mt-2 text-center col-3">
+                        <mat-form-field class=" bottom-border-field">    
+                            <input  formControlName="zip_code" matInput placeholder="Zip">    
+                        </mat-form-field>
+                        <span class="error-wrap d-flex" *ngIf="companyDetails.get('zip_code').dirty || companyDetails.get('zip_code').touched">
+                        <small *ngIf="companyDetails.get('zip_code').hasError('required')" class="error">Zip code Is required</small></span>   
                     </div> 
                 </div> 
 
                 <div class="mt-2 text-center">
                     <mat-form-field class=" bottom-border-field">
                         <mat-label>Description</mat-label>
-                        <textarea matInput placeholder="A brief overview of what you're all"></textarea>     
+                        <textarea  formControlName="comp_decs" matInput placeholder="A brief overview of what you're all"></textarea>     
                     </mat-form-field>   
                 </div> 
                 <div class="account-statustoggle">
-                    <p><mat-slide-toggle>Status</mat-slide-toggle></p>
-                    <p><mat-slide-toggle>Private</mat-slide-toggle></p>
+                    <p><mat-slide-toggle  (change)="changeStatus($event.checked)">Status</mat-slide-toggle></p>
+                    <p><mat-slide-toggle  (change)="changePrivateStatus($event.checked)">Private</mat-slide-toggle></p>
                 </div> 
                 
                 <div class="row"> 
@@ -132,13 +133,14 @@
                             <button mat-button appearance="fill" class="company-cancel-btn">Cancel</button>
                         </div>
                         <div class="mx-2">
-                            <button mat-button type="submit" appearance="fill" class="company-save-btn">Save</button>
+                            <button mat-button type="submit" (click)="fnUpdateCompanyDetail()" appearance="fill" class="company-save-btn">Update</button>
                         </div>  
                     </div>    
                 </div> 
             </div>
-        </div>    
+        </div>  
     </div> 
+</form>  
 
         
 </mat-card>
