@@ -88,6 +88,17 @@ deleteTax(tax_id){
         console.log(this.currenciesData);
     })
   }
+  fnChangeCurrency(currencyCode){
+    this.AdminSettingsService.fnChangeCurrency(currencyCode).subscribe((response:any)=>{
+      if(response.data == true){
+        this._snackBar.open("Currency Updated", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+      }
+    })
+  }
 
 
 }

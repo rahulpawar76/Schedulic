@@ -1,8 +1,9 @@
-import { Component, OnInit,Input,ViewChild  } from '@angular/core';
+import { Component, OnInit,Input,ViewChild, ViewContainerRef  } from '@angular/core';
 import { AppComponent } from '@app/app.component';
 import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
-import { Browser } from '@syncfusion/ej2-base';
-import { ColorPickerComponent, OpenEventArgs } from '@syncfusion/ej2-angular-inputs';
+import { ColorPickerService, Cmyk } from 'ngx-color-picker';
+import { AdminSettingsService } from '../_services/admin-settings.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-appearance',
@@ -17,24 +18,60 @@ export class AppearanceComponent implements OnInit {
   allAppColor:any;
   AppearanceData:any;
   gradientColor : any;
+  settingData : any;
+  getAppearanceData : any;
 
   formSettingPage:boolean=false;
-  constructor(private appComponent : AppComponent,private _formBuilder: FormBuilder,) {  
+  primarycolor: any = '#2889e9';
+  primarygradient1: any = '#2889e9';
+  primarygradient2: any = '#2889e9';
+  textcolor: any = '#2889e9';
+  textbgcolor: any = '#2889e9';
+  constructor(
+    private appComponent : AppComponent,
+    private _formBuilder: FormBuilder,
+    public vcRef: ViewContainerRef, 
+    private cpService: ColorPickerService,
+    private _snackBar: MatSnackBar,
+    private AdminSettingsService: AdminSettingsService,
+    ) {  
    
   }
 
   ngOnInit() {
-
     this.Appearance = this._formBuilder.group({
-      primary_color : [''],
-      primary_gradient1 : [''],
-      primary_gradient2 : [''],
-      text_color : [''],
-      text_bgcolor : [''],
       font : ['']
     });
+    this.getSettingValue();
   }
 
+  onChangePrimaryColor(event){
+    this.primarycolor = event
+  }
+  onChangePrimaryGradient1(event){
+    this.primarygradient1 = event
+  }
+  onChangePrimaryGradient2(event){
+    this.primarygradient2 = event
+  }
+  onChangeTextColor(event){
+    this.textcolor = event
+  }
+  onChangeTextBgColor(event){
+    this.textbgcolor = event
+  }
+
+  // public onChangeColor(color: string): Cmyk {
+  //   const hsva = this.cpService.stringToHsva(color);
+
+  //   const rgba = this.cpService.hsvaToRgba(hsva);
+
+
+  //   console.log(color);
+  //    console.log(rgba);
+
+  //   return this.cpService.rgbaToCmyk(rgba);
+  // }
 
   formsetting(event){
     if(event == true){
@@ -46,18 +83,43 @@ export class AppearanceComponent implements OnInit {
 
   appearanceColor(){
     if(this.Appearance.valid){
-      this.gradientColor = this.Appearance.controls['primary_gradient1'].value,this.Appearance.controls['primary_gradient2'].value
+      this.gradientColor = this.primarygradient1+","+this.primarygradient2
       alert(this.gradientColor);
       this.AppearanceData ={
-        'pri_color' : this.Appearance.controls['primary_color'].value,
+        'pri_color' : this.primarycolor,
         'pri_gradient':this.gradientColor,
-        'text_color':this.Appearance.controls['text_color'].value,
-        'text_bgcolor':this.Appearance.controls['text_bgcolor'].value,
+        'text_color':this.textcolor,
+        'text_bgcolor':this.textbgcolor,
         'font':this.Appearance.controls['font'].value
       }
-      console.log(this.AppearanceData);
+      this.fnCreateAppearance(this.AppearanceData);
     }
-
+  }
+  fnCreateAppearance(AppearanceData){
+    this.AdminSettingsService.fnCreateAppearance(AppearanceData).subscribe((response:any)=>{
+      if(response.data == true){
+        this._snackBar.open("Appearance Updated", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+      }
+    })
+  }
+  getSettingValue(){
+    this.AdminSettingsService.getSettingValue().subscribe((response:any)=>{
+      if(response.data == true){
+        this.settingData = response.response
+        console.log(this.settingData);
+        this.getAppearanceData = this.settingData.appearance.split(",", 5); 
+        console.log(this.getAppearanceData)
+        this.primarycolor = '#2889e9';
+        this.primarygradient1 = '#2889e9';
+        this.primarygradient2 = '#2889e9';
+        this.textcolor = '#2889e9';
+        this.textbgcolor = '#2889e9';
+      }
+    })
   }
 
 

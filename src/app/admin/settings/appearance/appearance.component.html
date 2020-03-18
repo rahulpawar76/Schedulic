@@ -29,29 +29,29 @@
             <div class="bottom-border d-flex ">
                 <mat-label>Primary Color</mat-label>
                 <div class="colorpicker-wrap">
-                    <input formControlName="primary_color" ejs-colorpicker type="color" id="colorpicker" />
+                    <input [style.background]="primarycolor" class="color_box" [(colorPicker)]="primarycolor" (colorPickerChange)="onChangePrimaryColor($event)" />
                 </div>
             </div>
 
             <div class="bottom-border d-flex">
                 <mat-label>Primary Gradient</mat-label>
                 <div class="colorpicker-wrap d-flex">
-                    <input formControlName="primary_gradient1" ejs-colorpicker type="color" id="colorpicker" class="mr-2"/>
-                    <input formControlName="primary_gradient2" ejs-colorpicker type="color" id="colorpicker" />
+                    <input [style.background]="primarygradient1" class="color_box" [(colorPicker)]="primarygradient1" (colorPickerChange)="onChangePrimaryGradient1($event)" />
+                    <input [style.background]="primarygradient2" class="color_box" [(colorPicker)]="primarygradient2" (colorPickerChange)="onChangePrimaryGradient2($event)" />
                 </div>
             </div>
 
             <div class="bottom-border d-flex">
                 <mat-label>Text Color</mat-label>
                     <div class="colorpicker-wrap">
-                    <input formControlName="text_color" ejs-colorpicker type="color" id="colorpicker"/>
+                        <input [style.background]="textcolor" class="color_box" [(colorPicker)]="textcolor" (colorPickerChange)="onChangeTextColor($event)" />
                 </div>
             </div>
 
             <div class="bottom-border d-flex">
                 <mat-label>Text Color On Background</mat-label>
                 <div class=" colorpicker-wrap">
-                    <input formControlName="text_bgcolor" ejs-colorpicker type="color" id="colorpicker"/>
+                    <input [style.background]="textbgcolor" class="color_box" [(colorPicker)]="textbgcolor" (colorPickerChange)="onChangeTextBgColor($event)" />
                 </div>
             </div>
            
@@ -64,9 +64,6 @@
 
             <button mat-button appearance="fill" class="save-btn" (click)="appearanceColor()">Save</button>
             </div>
-            <h4>Choose a color</h4>
-            <button #flatbtn ejs-button id="flatbtn" title="Reset" cssClass="e-small e-flat e-resetbtn" (click)="resetBtnClick()">Reset</button>
-            <input #colorpicker ejs-colorpicker id='color-picker' [value]="colorValue" type='color' (open)="Open($event)"/>
 
         </mat-tab>
         <mat-tab label="Form Setting"> 
@@ -90,8 +87,7 @@
                                 <div  class="custom-check-box">
                                     <div class="" fxFlex="20">
                                         <div class="checked round">
-                                            <input type="checkbox" id="checkbox"/>
-                                            <label for="checkbox"></label>  
+                                            <mat-checkbox class="form_field_checkbox"></mat-checkbox>
                                             <p class="check-label">Name</p> 
                                         </div> 
                                     </div>
@@ -103,8 +99,7 @@
                                 <div  class="custom-check-box">
                                     <div class="" fxFlex="20">
                                         <div class="checked round">
-                                            <input type="checkbox" id="checkbox1"/>
-                                            <label for="checkbox1"></label>  
+                                            <mat-checkbox class="form_field_checkbox"></mat-checkbox>
                                             <p class="check-label">Number</p> 
                                         </div>  
                                     </div>
@@ -117,8 +112,7 @@
                                 <div  class="custom-check-box">
                                     <div class="" fxFlex="20">
                                         <div class="checked round">
-                                            <input type="checkbox" id="checkbox2"/>
-                                            <label for="checkbox2"></label>  
+                                            <mat-checkbox class="form_field_checkbox"></mat-checkbox>
                                             <p class="check-label">Email</p> 
                                         </div>  
                                     </div>
@@ -131,8 +125,7 @@
                                 <div  class="custom-check-box">
                                     <div class="" fxFlex="20">
                                         <div class="checked round">
-                                            <input type="checkbox" id="checkbox3"/>
-                                            <label for="checkbox3"></label>  
+                                            <mat-checkbox class="form_field_checkbox"></mat-checkbox>
                                             <p class="check-label">Address</p> 
                                         </div>  
                                     </div>

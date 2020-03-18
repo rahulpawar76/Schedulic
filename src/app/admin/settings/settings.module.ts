@@ -24,7 +24,8 @@ import { PostalcodesComponent } from './postalcodes/postalcodes.component';
 import{ DialogAddPostalCode } from './postalcodes/postalcodes.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { DialogAddNewTax } from './paymentrules/paymentrules.component';
-import { ColorPickerModule } from '@syncfusion/ej2-angular-inputs';
+// import { ColorPickerModule } from '@syncfusion/ej2-angular-inputs';
+import { ColorPickerModule } from 'ngx-color-picker';
 import { enableRipple } from '@syncfusion/ej2-base';
 
 import { PaymentgatewayComponent } from './paymentgateway/paymentgateway.component';

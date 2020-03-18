@@ -124,7 +124,7 @@ export class MyProfileComponent implements OnInit {
 
 @Component({
 	  selector: 'image-upload-dialog',
-	  templateUrl: 'image-upload-dialog.html',
+	  templateUrl: '../_dialogs/image-upload-dialog.html',
 	})
 	export class DialogStaffImageUpload {
 
