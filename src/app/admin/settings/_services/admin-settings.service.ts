@@ -395,50 +395,50 @@ export class AdminSettingsService {
             }),
             catchError(this.handleError));
     }
-    fnAddTax(createAddTaxData){
+    fnAddTax(createAddTaxData) {
 
 
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
         });
-        return this.http.post(`${environment.apiUrl}/tax-create`,createAddTaxData,{headers:headers}).pipe(
-        map((res) => {
-            return res;
-        }),
-        catchError(this.handleError));
+        return this.http.post(`${environment.apiUrl}/tax-create`, createAddTaxData, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
     }
-    
-    getAllTax(){ 
-      let requestObject = {
-        'business_id': this.businessId,
-      };
-      let headers = new HttpHeaders({
-          'Content-Type': 'application/json',
-          'admin-id' : this.adminId,
-          'api-token' : this.adminToken 
-      });
-      return this.http.post(`${environment.apiUrl}/tax-list`,requestObject,{headers:headers}).pipe(
-      map((res) => {
-          return res;
-      }),
-      catchError(this.handleError));
-    }
-    getAllCurrencies(){
+
+    getAllTax() {
         let requestObject = {
-        'business_id': this.businessId,
-      };
+            'business_id': this.businessId,
+        };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
         });
-        return this.http.post(`${environment.apiUrl}/currency-get`,requestObject,{headers:headers}).pipe(
-        map((res) => {
-            return res;
-        }),
-        catchError(this.handleError));
+        return this.http.post(`${environment.apiUrl}/tax-list`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+    getAllCurrencies() {
+        let requestObject = {
+            'business_id': this.businessId,
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/currency-get`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
     }
 
     //delete tax
@@ -446,7 +446,7 @@ export class AdminSettingsService {
     deleteTax(taxId) {
         let requestObject = {
             'tax_id': taxId,
-          };
+        };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -463,7 +463,7 @@ export class AdminSettingsService {
     getCompanyDetails() {
         let requestObject = {
             'business_id': this.businessId,
-          };
+        };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -475,89 +475,89 @@ export class AdminSettingsService {
             }),
             catchError(this.handleError));
     }
-    gelAllCountry(){
+    gelAllCountry() {
         let requestObject = {
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
         });
-        return this.http.post(`${environment.apiUrl}/countries`,requestObject,{headers:headers}).pipe(
-        map((res) => {
-            return res;
-        }),
-        catchError(this.handleError));
+        return this.http.post(`${environment.apiUrl}/countries`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
     }
-    gelAllState(country_id){
+    gelAllState(country_id) {
         let requestObject = {
-            'country_id' : country_id
+            'country_id': country_id
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
         });
-        return this.http.post(`${environment.apiUrl}/states`,requestObject,{headers:headers}).pipe(
-        map((res) => {
-            return res;
-        }),
-        catchError(this.handleError));
+        return this.http.post(`${environment.apiUrl}/states`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
     }
-    gelAllCities(state_id){
+    gelAllCities(state_id) {
         let requestObject = {
-            'state_id' : state_id
+            'state_id': state_id
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
         });
-        return this.http.post(`${environment.apiUrl}/cities`,requestObject,{headers:headers}).pipe(
-        map((res) => {
-            return res;
-        }),
-        catchError(this.handleError));
+        return this.http.post(`${environment.apiUrl}/cities`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
     }
-    fnupdateBusineData(updateCompanyDetailsData){
+    fnupdateBusineData(updateCompanyDetailsData) {
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
             'api-token': this.adminToken
         });
-        return this.http.post(`${environment.apiUrl}/business-update`,updateCompanyDetailsData,{headers:headers}).pipe(
-        map((res) => {
-            return res;
-        }),
-        catchError(this.handleError));
+        return this.http.post(`${environment.apiUrl}/business-update`, updateCompanyDetailsData, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
     }
-    fnChangeCurrency(currencyCode){
+    fnChangeCurrency(currencyCode) {
         let requestObject = {
             'business_id': this.businessId,
-            "currency_code" : currencyCode
+            "currency_code": currencyCode
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
             'api-token': this.adminToken
         });
-        return this.http.post(`${environment.apiUrl}/create-currency`,requestObject,{headers:headers}).pipe(
-        map((res) => {
-            return res;
-        }),
-        catchError(this.handleError));  
+        return this.http.post(`${environment.apiUrl}/create-currency`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
     }
-    fnCreateAppearance(AppearanceData){
+    fnCreateAppearance(AppearanceData) {
         let requestObject = {
             'business_id': this.businessId,
-            "appearance" : AppearanceData
+            "appearance": AppearanceData
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
             'api-token': this.adminToken
         });
-        return this.http.post(`${environment.apiUrl}/create-appearance`,requestObject,{headers:headers}).pipe(
-        map((res) => {
-            return res;
-        }),
-        catchError(this.handleError));  
+        return this.http.post(`${environment.apiUrl}/create-appearance`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
     }
-    getSettingValue(){
+    getSettingValue() {
         let requestObject = {
             'business_id': this.businessId,
         };
@@ -566,11 +566,42 @@ export class AdminSettingsService {
             'admin-id': this.adminId,
             'api-token': this.adminToken
         });
-        return this.http.post(`${environment.apiUrl}/get-setting-value`,requestObject,{headers:headers}).pipe(
-        map((res) => {
-            return res;
-        }),
-        catchError(this.handleError));  
+        return this.http.post(`${environment.apiUrl}/get-setting-value`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
     }
-
+    fnCurrencyFormat(currencyFormat) {
+        let requestObject = {
+            'business_id': this.businessId,
+            'currency_format': currencyFormat
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/create-currency-format`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+    fnCurrencyPosition(currencyPosition) {
+        let requestObject = {
+            'business_id': this.businessId,
+            'position': currencyPosition
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/create-currency-position`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+        catchError(this.handleError));
+    }
 }

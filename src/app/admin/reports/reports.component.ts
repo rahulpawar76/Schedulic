@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { AdminService } from '../_services/admin-main.service'
-import { AppComponent } from '@app/app.component'
+import { AppComponent } from '@app/app.component';
+
 
 
 interface Food {
@@ -14,8 +15,7 @@ interface Food {
   templateUrl: './reports.component.html',
   styleUrls: ['./reports.component.scss']
 })
-export class ReportsComponent implements OnInit {
-
+export class ReportsComponent implements OnInit { 
   appointmentReport : boolean = true;
   salesReport : boolean = false;
   customerReport : boolean = false;
@@ -23,6 +23,7 @@ export class ReportsComponent implements OnInit {
   
   AllCustomerReportsList:any;
   CustomerReportsList:any;
+  selected: {startDate: Moment, endDate: Moment};
 
   constructor(
     public router: Router,

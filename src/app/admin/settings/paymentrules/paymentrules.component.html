@@ -13,16 +13,16 @@
                 </mat-form-field>
                 <mat-form-field class="bottom-border-field mr-2">
                     <mat-label>Currency Symbol Position</mat-label>
-                    <mat-select>
-                        <mat-option value="option1">Left</mat-option>
-                        <mat-option value="option2">Right</mat-option>
+                    <mat-select (selectionChange)="fnCurrencyPosition($event.value)">
+                        <mat-option value="left">Left</mat-option>
+                        <mat-option value="right">Right</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="bottom-border-field">
                     <mat-label>Select Currency Format</mat-label>
-                    <mat-select>
-                        <mat-option value="option1">xx,xxx.xx</mat-option>
-                        <mat-option value="option2">xx.xxx,xx</mat-option>
+                    <mat-select (selectionChange)="fnCurrencyFormat($event.value)" >
+                        <mat-option value="xx,xxx.xx">xx,xxx.xx</mat-option>
+                        <mat-option value="xx.xxx,xx">xx.xxx,xx</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>

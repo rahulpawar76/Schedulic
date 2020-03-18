@@ -11,9 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./appearance.component.scss']
 })
 export class AppearanceComponent implements OnInit {
-
-
-
+  
   Appearance:FormGroup;
   allAppColor:any;
   AppearanceData:any;
@@ -121,6 +119,8 @@ export class AppearanceComponent implements OnInit {
       }
     })
   }
-
+  changeNameField(value){
+    console.log(value);
+  }
 
 }
