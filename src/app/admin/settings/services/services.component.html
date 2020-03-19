@@ -86,11 +86,15 @@
                         <h6 *ngIf="editCategoryId">Update Category</h6>
                     </div>     
                 </div>     
-                <div class="row"> 
+                <div class="row">
                     <div class="col-lg-9 col-9 col-md-9 d-flex">
                         <div class="ml-3 justify-content-center">
-                            <div class="services-customer-profile-background mr-3 mt-5">
-                                <img src="/assets/images/admin/picture.png" class="service-profile-image">
+                            <div class="services-customer-profile-background profile-img-wrap mr-3 mt-5" (click)="categoryImage()">
+                                <img *ngIf="!editCategoryId" src="/assets/images/admin/picture.png" class="service-profile-image customer-profile-img">
+                                <div class="camera-alt"><i class="material-icons">
+                                    camera_alt
+                                    </i></div>
+                                <img *ngIf="editCategoryId" src="{{selectedCategoryDetails.category_image}}" class="service-profile-image">
                             </div>
                         </div>
                         <div class="col-8">
@@ -153,8 +157,12 @@
                 <div class="row"> 
                     <div class="col-lg-9 col-9 col-md-9 d-flex">
                         <div class="ml-3 justify-content-center">
-                            <div class="services-customer-profile-background mr-3 mt-5">
-                                <img src="/assets/images/admin/picture.png" class="service-profile-image">
+                            <div class="services-customer-profile-background profile-img-wrap mr-3 mt-5"  (click)="subCategoryImage()" >
+                                <img *ngIf="!editSubCategoryId" src="/assets/images/admin/picture.png" class="service-profile-image">
+                                <img *ngIf="editSubCategoryId" src="{{selectedSubCategoryDetails.sub_category_image}}" class="service-profile-image">
+                                <div class="camera-alt"><i class="material-icons">
+                                    camera_alt
+                                    </i></div>
                             </div>
                         </div>
                         <div class="col-8">
@@ -422,9 +430,13 @@
                     </div>     
                     <div class="row"> 
                         <div class="col-lg-8 col-8 col-md-8 d-flex">
-                            <div class="ml-3 justify-content-center">
-                                <div class="services-customer-profile-background mr-3 mt-5">
-                                    <img src="/assets/images/admin/picture.png" class="service-profile-image-admin">
+                            <div class="ml-3 justify-content-center " (click)="serviceImage()">
+                                <div class="services-customer-profile-background profile-img-wrap mr-3 mt-5">
+                                    <img *ngIf="!editServiceId" src="/assets/images/admin/picture.png" class="service-profile-image-admin">
+                                    <img *ngIf="editServiceId" src="{{editServiceImage}}" class="service-profile-image-admin w-100">
+                                    <div class="camera-alt"><i class="material-icons">
+                                        camera_alt
+                                        </i></div>
                                 </div>
                             </div>
                             <div class="col-9">

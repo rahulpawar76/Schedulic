@@ -5,8 +5,11 @@
         <div class="row">
             <div class="col-lg-4 col-md-4 col-12  border-right">
                 <h6>Add Staff</h6>
-                <div class="d-flex">
+                <div class="d-flex profile-img-wrap" (click)="staffImage()">
                     <img class="add-staff mx-auto"  src="/assets/images/admin/Layer-3.png">
+                    <div class="camera-alt"><i class="material-icons">
+                        camera_alt
+                        </i></div>
                 </div>
                 <mat-form-field class="bottom-border-field">
                     <mat-label>Name</mat-label>
@@ -262,7 +265,7 @@
     </mat-card>
     <mat-card>
         <div class="d-flex align-items-center">
-            <div>
+            <div class="">
                 <img  class="staff-profile-width" src="/assets/images/admin/Layer9.png">
             </div>
             <div class="pl-2">
@@ -338,7 +341,7 @@
                         </div>
                     </div>
                     <div class="ml-auto">
-                            <button mat-button class="send-mail-button"> <mat-icon aria-hidden="false">home</mat-icon>Send Email</button>
+                            <button mat-button class="send-mail-button"> <mat-icon aria-hidden="false">send</mat-icon>Send Email</button>
                     </div>
                 </div>
                 <div class="bottom-border d-flex">
@@ -350,7 +353,7 @@
                         </div>
                     </div>
                     <div class="ml-auto">
-                            <button mat-button class="sms-verification-button"><mat-icon aria-hidden="false">home</mat-icon>SMS Verification Link</button>
+                            <button mat-button class="sms-verification-button"><mat-icon aria-hidden="false">send</mat-icon>SMS Verification Link</button>
                     </div>
                 </div>
                 <div class="bottom-border-last">

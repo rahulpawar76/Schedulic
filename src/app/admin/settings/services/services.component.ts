@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject  } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 //import { SettingsComponent } from '../settings.component';
@@ -8,6 +8,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AuthenticationService } from '@app/_services';
 import { AdminSettingsService } from '../_services/admin-settings.service'
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+
+export interface DialogData {
+    animal: string;
+    name: string;
+  }
 
 @Component({
     selector: 'settings-services',
@@ -17,6 +24,11 @@ import { AdminSettingsService } from '../_services/admin-settings.service'
 export class ServicesComponent implements OnInit {
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<any> = new Subject();
+    categoryImageUrl:any;
+    subCategoryImageUrl:any;
+    serviceImageUrl:any;
+    animal: any;
+
 
 
     allCetegoryList: any;
@@ -73,12 +85,16 @@ export class ServicesComponent implements OnInit {
     updateCategoryData: any;
     editServiceStatusPrevious: any;
     editServicePrivateStatusPrevious: any;
+    editServiceImage: any;
     createSubCategory: FormGroup;
     createCategory: FormGroup;
     createService: FormGroup;
 
     onlynumeric = /^-?(0|[1-9]\d*)?$/
     constructor(
+        // private userService: UserService,
+
+        public dialog: MatDialog,
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
@@ -278,6 +294,7 @@ export class ServicesComponent implements OnInit {
                     'sub_category_description': this.createSubCategory.get('subcategory_description').value,
                     'sub_category_private': this.editSubcategoryPrivate,
                     'sub_category_status': this.editSubcategoryStatus,
+                    'sub_category_image': this.subCategoryImageUrl
                 }
                 this.updateSubCategory(this.updateSubCategoryData);
             }
@@ -291,6 +308,7 @@ export class ServicesComponent implements OnInit {
                     'sub_category_description': this.createSubCategory.get('subcategory_description').value,
                     'sub_category_private': this.newSubcategoryPrivate,
                     'sub_category_status': this.newSubcategoryStatus,
+                    'sub_category_image': this.subCategoryImageUrl
                 }
                 this.createNewSubCategory(this.newSubCategoryData);
             }
@@ -390,6 +408,7 @@ export class ServicesComponent implements OnInit {
                     'category_description': this.createCategory.get('category_description').value,
                     'category_private': this.editcategoryPrivate,
                     'status': this.editcategoryStatus,
+                    "category_image" : this.categoryImageUrl,
                 }
                 this.updateCategory(this.updateCategoryData);
             }
@@ -402,6 +421,7 @@ export class ServicesComponent implements OnInit {
                     'category_description': this.createCategory.get('category_description').value,
                     'category_private': this.newcategoryPrivate,
                     'status': this.newcategoryStatus,
+                    "category_image" : this.categoryImageUrl,
                 }
                 this.createNewCategory(this.newCategoryData);
             }
@@ -459,6 +479,7 @@ export class ServicesComponent implements OnInit {
         })
     }
     editCategory(editCategoryId) {
+        console.log(this.selectedCategoryDetails)
         this.editCategoryId = editCategoryId
         this.selectCategoryPage = '';
         this.createNewCategoryPage = true;
@@ -668,8 +689,10 @@ export class ServicesComponent implements OnInit {
                     'service_cost': this.createService.get('service_cost').value,
                     'service_time': this.createService.get('service_duration').value,
                     'service_unit': this.createService.get('service_unit').value,
-                    'service_private': this.editServiceStatus,
-                    'service_status': this.editServicePrivate,
+                    'service_private': this.editServicePrivate,
+                    'service_status': this.editServiceStatus,
+                    'service_image': this.serviceImageUrl
+                   
                 }
                 this.updateService(this.updateServiceData);
             }
@@ -688,6 +711,7 @@ export class ServicesComponent implements OnInit {
                         'service_unit': this.createService.get('service_unit').value,
                         'service_private': this.newServicePrivate,
                         'service_status': this.newServiceStatus,
+                        'service_image': this.serviceImageUrl
                     }
                 }
                 else if (this.createServiceCategoryType == 'subcategory') {
@@ -701,6 +725,7 @@ export class ServicesComponent implements OnInit {
                         'service_unit': this.createService.get('service_unit').value,
                         'service_private': this.newServicePrivate,
                         'service_status': this.newServiceStatus,
+                        'service_image': this.serviceImageUrl
                     }
                 }
                 this.createNewService(this.newServiceData);
@@ -747,6 +772,7 @@ export class ServicesComponent implements OnInit {
                 this.editServiceId = undefined;
                 this.editServiceStatusPrevious = '';
                 this.editServicePrivateStatusPrevious = '';
+                this.editServiceImage = '';
                 this.isLoaderAdmin = false;
             }
             else if (response.data == false) {
@@ -805,6 +831,7 @@ export class ServicesComponent implements OnInit {
             this.createService.controls['service_unit'].setValue(this.categoryServicesList[index].service_unit);
             this.editServiceStatusPrevious = this.categoryServicesList[index].status
             this.editServicePrivateStatusPrevious = this.categoryServicesList[index].private_status
+            this.editServiceImage = this.categoryServicesList[index].service_image
         }
         else if(type == 'subcategory'){
             this.createService.controls['service_id'].setValue(this.editServiceId);
@@ -815,6 +842,7 @@ export class ServicesComponent implements OnInit {
             this.createService.controls['service_unit'].setValue(this.subCategoryServicesList[index].service_unit);
             this.editServiceStatusPrevious = this.subCategoryServicesList[index].status
             this.editServicePrivateStatusPrevious = this.subCategoryServicesList[index].private_status
+            this.editServiceImage = this.subCategoryServicesList[index].service_image
         }
         this.isLoaderAdmin = false;
     }
@@ -836,4 +864,194 @@ export class ServicesComponent implements OnInit {
         })
     }
 
-}
+    categoryImage() {
+        const dialogRef = this.dialog.open(DialogCategoryImageUpload, {
+          width: '500px',
+          
+        });
+    
+         dialogRef.afterClosed().subscribe(result => {
+            if(result != undefined){
+                this.categoryImageUrl = result;
+                console.log(result);
+               }
+         });
+      }
+      subCategoryImage() {
+        const dialogRef = this.dialog.open(DialogSubCategoryImageUpload, {
+          width: '500px',
+          
+        });
+    
+         dialogRef.afterClosed().subscribe(result => {
+            if(result != undefined){
+                this.subCategoryImageUrl = result;
+                console.log(result);
+               }
+         });
+      }
+      serviceImage() {
+        const dialogRef = this.dialog.open(DialogServiceImageUpload, {
+          width: '500px',
+          
+        });
+    
+         dialogRef.afterClosed().subscribe(result => {
+            if(result != undefined){
+                this.serviceImageUrl = result;
+                console.log(result);
+               }
+         });
+      }
+    }
+      
+      @Component({
+        selector: 'category-image-upload',
+        templateUrl: '../_dialogs/category-image-upload.html',
+      })
+      export class DialogCategoryImageUpload {
+      
+        uploadForm: FormGroup;  
+        imageSrc: string;
+        profileImage: string;
+        
+      constructor(
+        public dialogRef: MatDialogRef<DialogCategoryImageUpload>,
+        private _formBuilder:FormBuilder,
+        private _snackBar: MatSnackBar,
+        @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+      
+        onNoClick(): void {
+            this.dialogRef.close(this.profileImage);
+          }
+          ngOnInit() {
+            this.uploadForm = this._formBuilder.group({
+              profile: ['']
+            });
+          }
+          get f() {
+            return this.uploadForm.controls;
+          }
+          
+    onFileChange(event) {
+        const reader = new FileReader();
+        if (event.target.files && event.target.files.length) {
+            const [file] = event.target.files;
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                this.imageSrc = reader.result as string;
+                this.uploadForm.patchValue({
+                    fileSource: reader.result
+                });
+            };
+        }
+    }
+    uploadImage() {
+        this.profileImage = this.imageSrc
+        this.dialogRef.close(this.profileImage);
+      }
+      
+      
+    }
+
+    @Component({
+        selector: 'service-image-upload',
+        templateUrl: '../_dialogs/service-image-upload-dialog.html',
+      })
+      export class DialogServiceImageUpload {
+      
+        uploadForm: FormGroup;  
+        imageSrc: string;
+        profileImage: string;
+        
+      constructor(
+        public dialogRef: MatDialogRef<DialogServiceImageUpload>,
+        private _formBuilder:FormBuilder,
+        private _snackBar: MatSnackBar,
+        @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+      
+        onNoClick(): void {
+            this.dialogRef.close(this.profileImage);
+          }
+          ngOnInit() {
+            this.uploadForm = this._formBuilder.group({
+              profile: ['']
+            });
+          }
+          get f() {
+            return this.uploadForm.controls;
+          }
+          
+    onFileChange(event) {
+        const reader = new FileReader();
+        if (event.target.files && event.target.files.length) {
+            const [file] = event.target.files;
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                this.imageSrc = reader.result as string;
+                this.uploadForm.patchValue({
+                    fileSource: reader.result
+                });
+            };
+        }
+    }
+    uploadImage() {
+        this.profileImage = this.imageSrc
+        this.dialogRef.close(this.profileImage);
+      }
+      
+      
+    }
+
+    
+    @Component({
+        selector: 'sub-category-image-upload',
+        templateUrl: '../_dialogs/sub-category-image-upload.html',
+      })
+      export class DialogSubCategoryImageUpload {
+      
+        uploadForm: FormGroup;  
+        imageSrc: string;
+        profileImage: string;
+        
+      constructor(
+        public dialogRef: MatDialogRef<DialogSubCategoryImageUpload>,
+        private _formBuilder:FormBuilder,
+        private _snackBar: MatSnackBar,
+        @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+      
+        onNoClick(): void {
+            this.dialogRef.close(this.profileImage);
+          }
+          ngOnInit() {
+            this.uploadForm = this._formBuilder.group({
+              profile: ['']
+            });
+          }
+          get f() {
+            return this.uploadForm.controls;
+          }
+          
+    onFileChange(event) {
+        const reader = new FileReader();
+        if (event.target.files && event.target.files.length) {
+            const [file] = event.target.files;
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                this.imageSrc = reader.result as string;
+                this.uploadForm.patchValue({
+                    fileSource: reader.result
+                });
+            };
+        }
+    }
+    uploadImage() {
+        this.profileImage = this.imageSrc
+        this.dialogRef.close(this.profileImage);
+      }
+      
+      
+    }
+
+
+
