@@ -95,7 +95,8 @@ export class PostalcodesComponent implements OnInit {
 
   fnAddPostalCodeId(event,postalCodeId){
     if(event == true){
-      this.arr.push(postalCodeId);
+      console.log(this.arr);
+      //this.arr.push(postalCodeId);
     }else{
       const index = this.arr.indexOf(postalCodeId, 0);
       if (index > -1) {
