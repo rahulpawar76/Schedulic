@@ -1,8 +1,8 @@
 <mat-drawer-content id="services" class="ml-0">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif"/></div>
     <mat-drawer-container class="h-100">
-        <mat-drawer mode="side" opened  style="width:250px; background-color: #dce9ff;">  
-            <mat-list role="list">
+        <mat-drawer mode="side" opened class="category-sidebar"  style="width:250px; background-color: #f8fbff;">  
+            <!-- <mat-list role="list">
                 <div  class="pl-2 bottom-border d-flex">
                     <h5 class="ml-2">Category ({{allCategoryCount}})</h5>
                     <i class="material-icons add-icon pointer" (click)="fnCreateNewCategory()">add_circle</i>
@@ -12,7 +12,37 @@
 
                     <mat-list-item *ngFor="let allCetegoryList of allCetegoryList; let i=index" role="listitem" (click)="fnSelectCategory(allCetegoryList.id,i)" class="service-list">{{allCetegoryList.category_title}}</mat-list-item>    
                 </div>
-            </mat-list>
+            </mat-list> -->
+            <div  class="my-2 bottom-border d-flex">
+                <h5 class="ml-3">Category ({{allCategoryCount}})</h5>
+                <i class="material-icons add-icon pointer" (click)="fnCreateNewCategory()">add_circle</i>
+            </div>
+            <div class="single-box" (click)="fnAllServices()">
+                <p class="ml-4 mb-0">All Services ({{allServiceCount}})</p>
+            </div>
+            <mat-accordion class="category-list" cdkDropList (cdkDropListDropped)="drop($event)">
+                <mat-expansion-panel class="category-main" cdkDragHandle *ngFor="let allCetegoryList of allCetegoryList; let i=index">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="service-title">
+                        <p (click)="fnSelectCategory(allCetegoryList.id,i)" class="category-title mb-0">{{allCetegoryList.category_title}} ()</p>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div *ngIf="allCetegoryList.subcategory != ''">
+                        <div (click)="fnSelectSubCategory(subcategoryList.id,i)" class="my-2" *ngFor="let subcategoryList of allCetegoryList.subcategory; let i=index">
+                            <p class="single-box sub-category-title mb-0">{{subcategoryList.sub_category_name}}</p> 
+                        </div>
+                    </div>
+                    <!-- <div *ngIf="categoryServiceList.subcategory == ''">
+                    <mat-expansion-panel  class="my-3" *ngFor="let subcategoryList of categoryServiceList.subcategory; let i=index">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          <p>{{subcategoryList.sub_category_name}}</p> 
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                    </mat-expansion-panel>
+                    </div> -->
+                </mat-expansion-panel>
+              </mat-accordion>
         </mat-drawer>
         
         <mat-drawer-content>
@@ -37,7 +67,7 @@
                             <div class="" *ngIf="allServicesList.private_status == 'N'" fxFlex="10">Public</div>
                             <div class="" *ngIf="allServicesList.private_status == 'Y'" fxFlex="10">Private</div>
                             <div class="" fxFlex="10">
-                                <mat-slide-toggle (change)="changeServiceStaus($event,allServicesList.id)" [checked]="allServicesList.status == 'E'"></mat-slide-toggle>
+                                <mat-slide-toggle (change)="changeServiceStaus($event.checked,allServicesList.id)" [checked]="allServicesList.status == 'E'"></mat-slide-toggle>
                             </div>
                             <div class="" fxFlex="10" cdkDragHandle class="handler"><i class="fa fa-arrows" aria-hidden="true"></i></div>
                         </div>
@@ -49,9 +79,11 @@
           <!-- create new category -->
           <div *ngIf="createNewCategoryPage">
             <mat-card class="m-0">
+                <form [formGroup]="createCategory">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h6>Create New Sub Category</h6>
+                        <h6 *ngIf="!editCategoryId">Create New Category</h6>
+                        <h6 *ngIf="editCategoryId">Update Category</h6>
                     </div>     
                 </div>     
                 <div class="row"> 
@@ -64,34 +96,48 @@
                         <div class="col-8">
                             <div class="mt-3 text-center">
                                 <mat-form-field class=" bottom-border-field">
-                                    <input matInput placeholder="Enter Category Name">  
+                                    <input matInput formControlName="category_name" placeholder="Enter Category Name">  
                                 </mat-form-field>   
+                                <span class="error-wrap d-flex" *ngIf="createCategory.get('category_name').touched || createCategory.get('category_name').dirty">
+                                    <small *ngIf="createCategory.get('category_name').hasError('required')" class="error">Category Name Is required</small>
+                                </span>
                             </div>
                             <div class="mt-2 text-center">
                                 <mat-form-field class=" bottom-border-field">
-                                    <textarea matInput placeholder="Category Descriptions"></textarea>     
-                                </mat-form-field>   
+                                    <textarea matInput  formControlName="category_description" placeholder="Category Descriptions"></textarea>     
+                                </mat-form-field>  
+                                <span class="error-wrap d-flex" *ngIf="createCategory.get('category_description').touched || createCategory.get('category_description').dirty">
+                                    <small *ngIf="createCategory.get('category_description').hasError('required')" class="error">Category Description Is required</small>
+                                </span>
                             </div>
                         </div>
                     </div>    
                 </div>
 
-                <div class="service-statustoggle">
-                    <p><mat-slide-toggle>Status</mat-slide-toggle></p>
-                    <p><mat-slide-toggle>Private</mat-slide-toggle></p>
+                <div class="service-statustoggle" *ngIf="!editCategoryId">
+                    <p><mat-slide-toggle (change)="newCategoryStatus($event.checked)">Status</mat-slide-toggle></p>
+                    <p><mat-slide-toggle (change)="newCategoryPrivate($event.checked)">Private</mat-slide-toggle></p>
                 </div>
-
+                <div class="service-statustoggle" *ngIf="editCategoryId">
+                    <p><mat-slide-toggle [checked]="selectedCategoryDetails.status == 'E'" (change)="editCategoryStatus($event.checked)">Status</mat-slide-toggle></p>
+                    <p><mat-slide-toggle [checked]="selectedCategoryDetails.private_status == 'Y'" (change)="editCategoryPrivate($event.checked)">Private</mat-slide-toggle></p>
+                </div>
+                <input type="hidden" formControlName="category_id">
            
                 <div class="row"> 
                     <div class="service-action-btn">
                         <div class="mx-2">
-                            <button mat-button appearance="fill" class="service-cancel-btn">Cancel</button>
+                            <button mat-button (click)="cancelNewCategory()" appearance="fill" class="service-cancel-btn">Cancel</button>
                         </div>
-                        <div class="mx-2">
-                            <button mat-button type="submit" appearance="fill" class="service-create-btn">Create</button>
+                        <div class="mx-2" *ngIf="!editCategoryId">
+                            <button mat-button (click)="fnCreateNewCategorySubmit()" type="submit" appearance="fill" class="service-create-btn">Create</button>
+                        </div>  
+                        <div class="mx-2" *ngIf="editCategoryId">
+                            <button mat-button *ngIf="editCategoryId" (click)="fnCreateNewCategorySubmit()" type="submit" appearance="fill" class="service-create-btn">Update</button>
                         </div>  
                     </div>    
-                </div>          
+                </div>     
+                </form>     
             </mat-card>  
             </div> 
              <!-- create new sub category -->
@@ -100,7 +146,8 @@
                 <form [formGroup]="createSubCategory">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h6>Create New Sub Category</h6>
+                        <h6 *ngIf="!editSubCategoryId">Create New Sub Category</h6>
+                        <h6 *ngIf="editSubCategoryId">Update Sub Category</h6>
                     </div>     
                 </div>     
                 <div class="row"> 
@@ -115,7 +162,7 @@
                                 <mat-form-field class=" bottom-border-field">
                                     <input matInput formControlName="subcategory_name" placeholder="Enter Sub Category Name">  
                                 </mat-form-field>   
-                                <span class="error-wrap" *ngIf="createSubCategory.get('subcategory_name').touched || createSubCategory.get('subcategory_name').dirty || formSubmitclicked">
+                                <span class="error-wrap d-flex" *ngIf="createSubCategory.get('subcategory_name').touched || createSubCategory.get('subcategory_name').dirty">
                                     <small *ngIf="createSubCategory.get('subcategory_name').hasError('required')" class="error">Sub Category Name Is required</small>
                                 </span>
                             </div>
@@ -123,7 +170,7 @@
                                 <mat-form-field class=" bottom-border-field">
                                     <textarea matInput formControlName="subcategory_description" placeholder="Sub Category Descriptions"></textarea>     
                                 </mat-form-field>   
-                                <span class="error-wrap" *ngIf="createSubCategory.get('subcategory_description').touched || createSubCategory.get('subcategory_description').dirty || formSubmitclicked">
+                                <span class="error-wrap d-flex" *ngIf="createSubCategory.get('subcategory_description').touched || createSubCategory.get('subcategory_description').dirty">
                                     <small *ngIf="createSubCategory.get('subcategory_description').hasError('required')" class="error">Sub Category Description Is required</small>
                                 </span>
                             </div>
@@ -131,19 +178,26 @@
                     </div>    
                 </div>
 
-                <div class="service-statustoggle">
-                    <p><mat-slide-toggle>Status</mat-slide-toggle></p>
-                    <p><mat-slide-toggle>Private</mat-slide-toggle></p>
+                <div class="service-statustoggle" *ngIf="!editSubCategoryId">
+                    <p><mat-slide-toggle (change)="newSubCategoryStatus($event.checked)">Status</mat-slide-toggle></p>
+                    <p><mat-slide-toggle (change)="newSubCategoryPrivate($event.checked)">Private</mat-slide-toggle></p>
+                </div>
+                <div class="service-statustoggle" *ngIf="editSubCategoryId">
+                    <p><mat-slide-toggle [checked]="selectedSubCategoryDetails.sub_category_status == 'E'" (change)="editSubCategoryStatus($event.checked)">Status</mat-slide-toggle></p>
+                    <p><mat-slide-toggle [checked]="selectedSubCategoryDetails.sub_category_private == 'Y'" (change)="editSubCategoryPrivate($event.checked)">Private</mat-slide-toggle></p>
                 </div>
 
-           
+                <input type="hidden" formControlName="subcategory_id">
                 <div class="row"> 
                     <div class="service-action-btn">
                         <div class="mx-2">
-                            <button mat-button appearance="fill" class="service-cancel-btn">Cancel</button>
+                            <button mat-button (click)="fnCalcelNewSubcategory()" appearance="fill" class="service-cancel-btn">Cancel</button>
                         </div>
-                        <div class="mx-2">
-                            <button mat-button type="submit" (click)="fnCreateNewSubCategory()" appearance="fill" class="service-create-btn">Create</button>
+                        <div class="mx-2" *ngIf="!editSubCategoryId">
+                            <button mat-button type="submit" (click)="fnCreateNewSubCategorySubmit()" appearance="fill" class="service-create-btn">Create</button>
+                        </div>  
+                        <div class="mx-2" *ngIf="editSubCategoryId">
+                            <button mat-button type="submit" (click)="fnCreateNewSubCategorySubmit()" appearance="fill" class="service-create-btn">Update</button>
                         </div>  
                     </div>    
                 </div> 
@@ -151,58 +205,11 @@
             </mat-card>  
             </div> 
             <!-- single category page -->
-            <div *ngIf="categoryPage">
-                <div class=""> 
-                    <div class="col-lg-6 col-6 col-md-4 d-flex">
-                        <div class="ml-3 justify-content-center">
-                            <div class="service-profile-background mr-3 ">
-                                <img src="/assets/images/admin/Layer6.png" class="service-profile-image mb-2">
-                            </div>
-                        </div>
-                        <div>
-                            <div class=" Details-button-width d-flex">
-                          <h5 class="mt-2 mb-2">Salon</h5>  
-                          <button mat-button class="public-button">Public</button>
-                          </div>   
-                            <button class="salon-edit-btn mr-2"><i class="fa fa-pencil salon-icon"></i></button>
-                            <button class="salon-cancel-btn mr-3"><i class="fa fa-trash-o salon-icon" ></i></button>
-                            <mat-slide-toggle></mat-slide-toggle>
-                        </div>
-                    </div>    
-                </div>
-                
-                <div class="d-flex flex-wrap main-subcategory-content">
-                    <mat-card  class="col-lg-4 col-md-6 col-sm-12 text-center AddSubcategory-matcard pointer">
-                        <div class="pt-2 mb-2">
-                            <h5>Add Subcategory</h5>
-                        </div>
-                        <div class="pb-4 content">
-                        Sub Category is the subdivision of the large Category of service. 
-                        </div>
-                        <div class="pt-2">
-                            <button mat-button class="addsubcategory-btn">Add Subcategory</button>
-                        </div>
-                    </mat-card> 
-
-                    <mat-card  class="col-lg-4 col-md-6 col-sm-12 text-center AddSubcategory-matcard pointer ml-3" >  
-                        <div class="pt-2 mb-2">
-                            <h5>Add Services</h5>
-                        </div>
-                        <div class="pb-2 content">
-                        A valuable deed, action,or effort performed to fulfill a demand or tosatisfy a need of the customer.
-                        </div>
-                        <div class="pt-2">
-                            <button mat-button class="addsubcategory-btn">Add Services</button>
-                        </div>
-                    </mat-card> 
-                </div> 
-            </div> 
-            
-            <div *ngIf="selectedCategoryDetails != '' && selectCategoryPage" id="Salon_Listing_Service" class="mb-0 w-100">
+            <div *ngIf="selectedCategoryDetails != '' && selectCategoryPage == 'services' || selectCategoryPage == 'notservices' " id="Salon_Listing_Service" class="mb-0 w-100">
                 <div class=""> 
                    <div class="d-flex mt-2 mb-4 mx-3">
                         <div class="ml-3 d-flex justify-content-center">
-                            <div class="service-profile-background mr-3 ">
+                            <div class="service-profile-background mr-3">
                                 <img src="{{selectedCategoryDetails.category_image}}" class="service-profile-image mb-2">
                             </div>
                             <div>
@@ -212,68 +219,73 @@
                                     <button *ngIf="selectedCategoryDetails.private_status == 'Y'" mat-button class="public-button">Private</button>  
                                 </div> 
                                     <button class="salon-cancel-btn mr-2"><i class="fa fa-eye salon-icon" ></i></button>  
-                                    <button class="salon-edit-btn mr-2"><i class="fa fa-pencil salon-icon"></i></button>
-                                    <button class="salon-cancel-btn mr-3"><i class="fa fa-trash-o salon-icon" ></i></button>
-                                    <mat-slide-toggle></mat-slide-toggle>      
+                                    <button (click)="editCategory(selectedCategoryDetails.id)" class="salon-edit-btn mr-2"><i class="fa fa-pencil salon-icon"></i></button>
+                                    <button class="salon-cancel-btn mr-3" (click)="deleteCategory(selectedCategoryDetails.id)"><i class="fa fa-trash-o salon-icon" ></i></button>
+                                    <mat-slide-toggle (change)="changeCategoryStatus($event.checked,selectedCategoryDetails.id)" [checked]="selectedCategoryDetails.status == 'E'"></mat-slide-toggle>      
                             </div> 
                         </div>  
                         <div class="ml-auto">
-                           <button mat-button (click)="fnCreateNewSubCategoryPage(selectedCategoryDetails.id)" class="addservice-btn d-block ml-auto">Add Sub Category</button> 
+                           <button mat-button *ngIf="categoryServicesList[0].sub_category_id != null" (click)="fnCreateNewSubCategoryPage(selectedCategoryDetails.id)" class="addservice-btn d-block ml-auto">Add Sub Category</button> 
                             <div class="mt-2 d-flex">
-                                <mat-form-field class=" bottom-border-field mt-3">
+                                <mat-form-field *ngIf="categoryServicesList != ''" class=" bottom-border-field mt-3">
                                     <mat-label>Filter</mat-label>
-                                    <mat-select>
-                                    <mat-option value="All">All</mat-option>
-                                    <mat-option value="Active">Active</mat-option>
-                                    <mat-option value="Inactive">Inactive</mat-option>
-                                    <mat-option value="Public">Public</mat-option>
-                                    <mat-option value="Private">Private</mat-option>
+                                    <mat-select (selectionChange)="fnFilterService(selectedCategoryDetails.id,$event.value,'category')">
+                                    <mat-option value="all">All</mat-option>
+                                    <mat-option value="E">Active</mat-option>
+                                    <mat-option value="D">Inactive</mat-option>
+                                    <mat-option value="N">Public</mat-option>
+                                    <mat-option value="Y">Private</mat-option>
                                     </mat-select>
                                 </mat-form-field>
 
-                                <mat-form-field class=" bottom-border-field ml-3 mt-3">
+                                <mat-form-field *ngIf="categoryServicesList != ''" class=" bottom-border-field ml-3 mt-3">
                                     <mat-label>Action</mat-label>
-                                    <mat-select>    
-                                        <mat-option value="Active">Active</mat-option>
-                                        <mat-option value="Inactive">Inactive</mat-option>
-                                        <mat-option value="Active">Delete</mat-option>
+                                    <mat-select  [(ngModel)]="selectedValue" (selectionChange)="fnServiceAction($event.value,selectedCategoryDetails.id,'category')">    
+                                        <mat-option value="E">Active</mat-option>
+                                        <mat-option value="D">Inactive</mat-option>
+                                        <mat-option value="DEL">Delete</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div> 
                         </div>
                     </div>
                </div>
-               <div *ngIf="selectCategoryPage == true" class="service-listing">
+               <div *ngIf="selectCategoryPage == 'services'" class="service-listing">
                 <div class="main-table-content main-cust-table-content">
                     <div *ngIf="categoryServicesList != ''" class="">
                         <div class="heads main-heading-content drageble "  fxLayout="row">
+                            <div class="" fxFlex="5"></div>
                             <div class="" fxFlex="30">Service</div>
                             <div class="" fxFlex="15">Duration</div>
-                            <div class="" fxFlex="15">price</div>
+                            <div class="" fxFlex="10">price</div>
                             <div class="" fxFlex="10">Unit</div>
                             <div class="" fxFlex="10">Visibility</div>
                             <div class="" fxFlex="10">Status</div>
                             <div class="" fxFlex="10"></div>
                         </div>
-                        <div class="content" class="drageble-list" cdkDropList (cdkDropListDropped)="drop($event)">
+                        <div class="content" class="drageble-list" cdkDropList (cdkDropListDropped)="dropCategory($event)">
                             <div  class="drageble-box" *ngFor="let categoryServicesList of categoryServicesList; let i=index" cdkDrag fxLayout="row">
+                                <div class="" fxFlex="5">
+                                    <mat-checkbox (change)="fnActionServiceId($event.checked,categoryServicesList.id)"></mat-checkbox>
+                                </div>
                                 <div class="" fxFlex="30">{{categoryServicesList.service_name}}</div>
                                 <div class="" fxFlex="15">{{categoryServicesList.service_time}}</div>
-                                <div class="" fxFlex="15">$ {{categoryServicesList.service_cost}}</div>
+                                <div class="" fxFlex="10">$ {{categoryServicesList.service_cost}}</div>
                                 <div class="" fxFlex="10">{{categoryServicesList.service_unit}}</div>
                                 <div class="" *ngIf="categoryServicesList.private_status == 'N'" fxFlex="10">Public</div>
                                 <div class="" *ngIf="categoryServicesList.private_status == 'Y'" fxFlex="10">Private</div>
                                 <div class="" fxFlex="10">
-                                    <mat-slide-toggle (change)="changeServiceStaus($event,categoryServicesList.id)" [checked]="categoryServicesList.status == 'E'"></mat-slide-toggle>
+                                    <mat-slide-toggle (change)="changeServiceStaus($event.checked,categoryServicesList.id)" [checked]="categoryServicesList.status == 'E'"></mat-slide-toggle>
                                 </div>
-                                <div class="" fxFlex="10" cdkDragHandle class="handler"><i class="fa fa-arrows" aria-hidden="true"></i></div>
+                                <div class="pointer" fxFlex="5" (click)="fnEditService(i,categoryServicesList.id,'category')"><i class="fa fa-pencil-square edit-box"></i></div>
+                                <div class="" fxFlex="5" cdkDragHandle class="handler"><i class="fa fa-arrows" aria-hidden="true"></i></div>
                             </div>
                         </div>
                     </div>
                    
                 </div>
             </div> 
-            <div *ngIf="selectCategoryPage == false" class="d-flex flex-wrap main-subcategory-content">
+            <div *ngIf="selectCategoryPage == 'notservices'" class="d-flex flex-wrap main-subcategory-content">
                 <mat-card  class="col-lg-4 col-md-6 col-sm-12 text-center AddSubcategory-matcard pointer">
                     <div class="pt-2 mb-2">
                         <h5>Add Subcategory</h5>
@@ -282,11 +294,11 @@
                     Sub Category is the subdivision of the large Category of service. 
                     </div>
                     <div class="pt-2">
-                        <button mat-button class="addsubcategory-btn">Add Subcategory</button>
+                        <button (click)="fnCreateNewSubCategoryPage(selectedCategoryDetails.id)" mat-button class="addsubcategory-btn">Add Subcategory</button>
                     </div>
                 </mat-card> 
 
-                <mat-card  class="col-lg-4 col-md-6 col-sm-12 text-center AddSubcategory-matcard pointer ml-3" >  
+                <mat-card *ngIf="selectedCategoryDetails.subcategory == ''"  class="col-lg-4 col-md-6 col-sm-12 text-center AddSubcategory-matcard pointer ml-3" >  
                     <div class="pt-2 mb-2">
                         <h5>Add Services</h5>
                     </div>
@@ -294,119 +306,209 @@
                     A valuable deed, action,or effort performed to fulfill a demand or tosatisfy a need of the customer.
                     </div>
                     <div class="pt-2">
-                        <button mat-button class="addsubcategory-btn">Add Services</button>
+                        <button (click)="fnCreateNewServicePage(selectedCategoryDetails.id,'category')" mat-button class="addsubcategory-btn">Add Services</button>
                     </div>
                 </mat-card> 
             </div> 
        </div> 
         <!-- sub category page -->
-            <div *ngIf="singleSubCategoryPage" id="single_sub_category">
+            <div *ngIf="selectedSubCategoryDetails != '' && singleSubCategoryPage == 'services' || singleSubCategoryPage == 'notservices'" id="single_sub_category">
                 <div class=""> 
-                    <div class="col-lg-6 col-6 col-md-4 d-flex">
-                        <div class="ml-3 justify-content-center">
+                    <div class="d-flex mt-2 mb-4 mx-3">
+                        <div class="ml-3 d-flex justify-content-center">
                             <div class="service-profile-background mr-3 ">
-                                <img src="/assets/images/admin/Layer6.png" class="service-profile-image mb-2">
+                                <img src="{{selectedSubCategoryDetails.sub_category_image}}" class="service-profile-image mb-2">
                             </div>
-                        </div>
-                        <div> 
-                            <div class=" Details-button-width d-flex">
-                          <h5 class="mt-2 mb-2 ">Hair</h5>
-                         
-                            <button mat-button class="public-button">Public</button>
-                        </div>     
-                            <button class="salon-edit-btn mr-2"><i class="fa fa-pencil salon-icon"></i></button>
-                            <button class="salon-cancel-btn mr-2"><i class="fa fa-trash-o salon-icon" ></i></button>
-                            <button class="salon-cancel-btn mr-3"><i class="fa fa-eye salon-icon" ></i></button>
-                            <mat-slide-toggle></mat-slide-toggle>
-                        </div>
-                    </div>    
-                </div>
-                
-                <div class="d-flex flex-wrap main-hairsubcategory-content">
-                    <mat-card  class="col-lg-4 col-md-6 col-sm-12 text-center AddhairSubcategory-matcard pointer ml-3" >  
-                        <div class="pt-2 mb-2">
-                            <h5>Add Services</h5>
-                        </div>
-                        <div class="pb-2 content">
-                        A valuable deed, action,or effort performed to fulfill a demand or tosatisfy a need of the customer.
-                        </div>
-                        <div class="pt-2">
-                            <button mat-button class="addhairsubcategory-btn">Add Services</button>
-                        </div>
-                    </mat-card> 
-                </div> 
-            </div>   
-            <!-- create new Service -->
-         <div *ngIf="createNewServicePage" id="create_new_service" class="mb-0 w-100">
-            <mat-card >
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h6>Add New Sevice</h6>
-                    </div>     
-                </div>     
-                <div class="row"> 
-                    <div class="col-lg-6 col-6 col-md-4 d-flex">
-                        <div class="ml-3 justify-content-center">
-                            <div class="services-customer-profile-background mr-3 mt-5">
-                                <img src="/assets/images/admin/picture.png" class="service-profile-image-admin">
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="mt-3 text-center">
-                                <mat-form-field class=" bottom-border-field">
-                                    <input matInput placeholder="Enter Category Name">  
-                                </mat-form-field>   
-                            </div>
-                            <div class="mt-2 text-center">
-                                <mat-form-field class=" bottom-border-field">
-                                    <textarea matInput placeholder="Category Descriptions"></textarea>     
-                                </mat-form-field>   
-                            </div>
-                            <div class="mt-2 text-center">
-                                <mat-form-field class=" bottom-border-field">
-                                    <mat-icon matPrefix><i class="material-icons">
-                                        attach_money
-                                        </i></mat-icon>
-                                    <mat-label>Sevice Cost</mat-label>
-                                    <input matInput placeholder="">  
-                                </mat-form-field>   
-                            </div>
-                            <div class="mt-2 text-center">
-                                <mat-form-field class=" bottom-border-field">
-                                    <mat-icon matPrefix><i class="material-icons">
-                                        access_time
-                                        </i></mat-icon>
-                                    <mat-label>Serice Time(mins)</mat-label>
-                                    <input matInput placeholder="">  
-                                </mat-form-field>   
-                            </div>
-                            <div class="mt-2 text-center">
-                                <mat-form-field class=" bottom-border-field">
-                                    <mat-icon matPrefix><i class="material-icons">
-                                        people_alt
-                                        </i></mat-icon>
-                                    <mat-label>Service Unit</mat-label>
-                                    <input matInput placeholder="">  
-                                </mat-form-field>   
-                            </div>
-                            <div class="service-statustoggle">
-                                <p><mat-slide-toggle>Status</mat-slide-toggle></p>
-                                <p><mat-slide-toggle>Private</mat-slide-toggle></p>
+                            <div>
+                                <div class=" Details-button-width d-flex">
+                                    <h5 class="mt-2 mb-2">{{selectedSubCategoryDetails.sub_category_name}}</h5> 
+                                    <button *ngIf="selectedSubCategoryDetails.sub_category_private == 'N'" mat-button class="public-button">Public</button>
+                                    <button *ngIf="selectedSubCategoryDetails.sub_category_private == 'Y'" mat-button class="public-button">Private</button>  
+                                </div> 
+                                    <button class="salon-cancel-btn mr-2"><i class="fa fa-eye salon-icon" ></i></button>  
+                                    <button (click)="editSubCategory(selectedSubCategoryDetails.id)" class="salon-edit-btn mr-2"><i class="fa fa-pencil salon-icon"></i></button>
+                                    <button class="salon-cancel-btn mr-3" (click)="deleteSubCategory(selectedSubCategoryDetails.id)"><i class="fa fa-trash-o salon-icon" ></i></button>
+                                    <mat-slide-toggle (change)="changeSubCategoryStatus($event.checked,selectedSubCategoryDetails.id)" [checked]="selectedSubCategoryDetails.sub_category_status == 'E'"></mat-slide-toggle>      
+                            </div> 
+                        </div>  
+                        <div class="ml-auto">
+                        <button mat-button (click)="fnCreateNewServicePage(selectedSubCategoryDetails.id,'subcategory')" class="addservice-btn d-block ml-auto">Add Service</button> 
+                            <div class="mt-2 d-flex">
+                                <mat-form-field *ngIf="subCategoryServicesList != ''" class=" bottom-border-field mt-3">
+                                    <mat-label>Filter</mat-label>
+                                    <mat-select (selectionChange)="fnFilterService(selectedSubCategoryDetails.id,$event.value,'subcategory')">
+                                    <mat-option value="all">All</mat-option>
+                                    <mat-option value="E">Active</mat-option>
+                                    <mat-option value="D">Inactive</mat-option>
+                                    <mat-option value="N">Public</mat-option>
+                                    <mat-option value="Y">Private</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                                <mat-form-field *ngIf="subCategoryServicesList != ''" class=" bottom-border-field ml-3 mt-3">
+                                    <mat-label>Action</mat-label>
+                                    <mat-select [(ngModel)]="selectedValue" (selectionChange)="fnServiceAction($event.value,selectedSubCategoryDetails.id,'subcategory')">    
+                                        <mat-option value="E">Active</mat-option>
+                                        <mat-option value="D">Inactive</mat-option>
+                                        <mat-option value="DEL">Delete</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
                             </div> 
                         </div>
-                    </div>    
-                </div>   
-           
-                <div class="row"> 
-                    <div class="service-action-btn">
-                        <div class="mx-2">
-                            <button mat-button appearance="fill" class="service-cancel-btn">Cancel</button>
-                        </div>
-                        <div class="mx-2">
-                            <button mat-button type="submit" appearance="fill" class="service-create-btn">Create</button>
+                    </div>
+                </div>
+                <div *ngIf="singleSubCategoryPage == 'services'" class="service-listing">
+                 <div class="main-table-content main-cust-table-content">
+                     <div *ngIf="subCategoryServicesList != ''" class="">
+                         <div class="heads main-heading-content drageble" fxLayout="row">
+                             <div class="" fxFlex="5"></div>
+                             <div class="" fxFlex="30">Service</div>
+                             <div class="" fxFlex="15">Duration</div>
+                             <div class="" fxFlex="10">price</div>
+                             <div class="" fxFlex="10">Unit</div>
+                             <div class="" fxFlex="10">Visibility</div>
+                             <div class="" fxFlex="10">Status</div>
+                             <div class="" fxFlex="10"></div>
+                         </div>
+                         <div class="content" class="drageble-list" cdkDropList (cdkDropListDropped)="dropSubCategory($event)">
+                             <div  class="drageble-box" *ngFor="let subCategoryServicesList of subCategoryServicesList; let i=index" cdkDrag fxLayout="row">
+                                 <div class="" fxFlex="5">
+                                    <mat-checkbox (change)="fnActionServiceId($event.checked,subCategoryServicesList.id)"></mat-checkbox>
+                                </div>
+                                 <div class="" fxFlex="30">{{subCategoryServicesList.service_name}}</div>
+                                 <div class="" fxFlex="15">{{subCategoryServicesList.service_time}}</div>
+                                 <div class="" fxFlex="10">$ {{subCategoryServicesList.service_cost}}</div>
+                                 <div class="" fxFlex="10">{{subCategoryServicesList.service_unit}}</div>
+                                 <div class="" *ngIf="subCategoryServicesList.private_status == 'N'" fxFlex="10">Public</div>
+                                 <div class="" *ngIf="subCategoryServicesList.private_status == 'Y'" fxFlex="10">Private</div>
+                                 <div class="" fxFlex="10">
+                                     <mat-slide-toggle (change)="changeServiceStaus($event.checked,subCategoryServicesList.id)" [checked]="subCategoryServicesList.status == 'E'"></mat-slide-toggle>
+                                 </div>
+                                 <div class="pointer" fxFlex="5" (click)="fnEditService(i,subCategoryServicesList.id,'subcategory')"><i class="fa fa-pencil-square edit-box"></i></div>
+                                 <div class="" fxFlex="5" cdkDragHandle class="handler"><i class="fa fa-arrows" aria-hidden="true"></i></div>
+                             </div>
+                         </div>
+                     </div>
+                    
+                 </div>
+             </div> 
+             <div *ngIf="singleSubCategoryPage == 'notservices'" class="d-flex flex-wrap main-subcategory-content">
+                 
+                 <mat-card  class="col-lg-4 col-md-6 col-sm-12 text-center AddSubcategory-matcard pointer ml-3" >  
+                     <div class="pt-2 mb-2">
+                         <h5>Add Services</h5>
+                     </div>
+                     <div class="pb-2 content">
+                     A valuable deed, action,or effort performed to fulfill a demand or tosatisfy a need of the customer.
+                     </div>
+                     <div class="pt-2">
+                         <button (click)="fnCreateNewServicePage(selectedCategoryDetails.id,'subcategory')" mat-button class="addsubcategory-btn">Add Services</button>
+                     </div>
+                 </mat-card> 
+            </div> 
+        </div>   
+        <!-- create new Service -->
+         <div *ngIf="createNewServicePage" id="create_new_service" class="mb-0 w-100">
+            <mat-card >
+                <form [formGroup]="createService">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h3 class="text-left" *ngIf="!editServiceId">Add New Sevice</h3>
+                            <h3 class="text-left" *ngIf="editServiceId">Edit Sevice</h3>
                         </div>  
-                    </div>    
-                </div>          
+                        <div class="col-lg-6" *ngIf="editServiceId">
+                            <button class="service-dlt-btn" (click)="fnDeleteService()" mat-raised-button color="warn"><i class="fa fa-trash-o delete-box" ></i> Delete</button>
+                        </div>   
+                    </div>     
+                    <div class="row"> 
+                        <div class="col-lg-8 col-8 col-md-8 d-flex">
+                            <div class="ml-3 justify-content-center">
+                                <div class="services-customer-profile-background mr-3 mt-5">
+                                    <img src="/assets/images/admin/picture.png" class="service-profile-image-admin">
+                                </div>
+                            </div>
+                            <div class="col-9">
+                                <div class="mt-3 text-center">
+                                    <mat-form-field class=" bottom-border-field">
+                                        <input matInput formControlName="service_name" placeholder="Enter Service Name">  
+                                    </mat-form-field>   
+                                    <span class="error-wrap d-flex" *ngIf="createService.get('service_name').touched || createService.get('service_name').dirty">
+                                        <small *ngIf="createService.get('service_name').hasError('required')" class="error">Service Name Is required</small>
+                                    </span>
+                                </div>
+                                <div class="mt-2 text-center">
+                                    <mat-form-field class=" bottom-border-field">
+                                        <textarea matInput formControlName="service_description" placeholder="Service Descriptions"></textarea>     
+                                    </mat-form-field> 
+                                    <span class="error-wrap d-flex" *ngIf="createService.get('service_description').touched || createService.get('service_description').dirty">
+                                        <small *ngIf="createService.get('service_description').hasError('required')" class="error">Service Description Is required</small>
+                                    </span>  
+                                </div>
+                                <div class="mt-2 text-center">
+                                    <mat-form-field class=" bottom-border-field">
+                                        <mat-icon matPrefix><i class="material-icons">
+                                            attach_money
+                                            </i></mat-icon>
+                                        <mat-label>Sevice Cost</mat-label>
+                                        <input matInput formControlName="service_cost" placeholder="">  
+                                    </mat-form-field>  
+                                    <span class="error-wrap d-flex" *ngIf="createService.get('service_cost').touched || createService.get('service_cost').dirty">
+                                        <small *ngIf="createService.get('service_cost').hasError('required')" class="error">Service Cost Is required</small>
+                                        <small *ngIf="createService.get('service_cost').hasError('pattern')" class="error">Service Cost Must be Numeric</small>
+                                    </span> 
+                                </div>
+                                <div class="mt-2 text-center">
+                                    <mat-form-field class=" bottom-border-field">
+                                        <mat-icon matPrefix><i class="material-icons">
+                                            access_time
+                                            </i></mat-icon>
+                                        <mat-label>Serice Time(mins)</mat-label>
+                                        <input matInput formControlName="service_duration" placeholder="">  
+                                    </mat-form-field>   
+                                    <span class="error-wrap d-flex" *ngIf="createService.get('service_duration').touched || createService.get('service_duration').dirty">
+                                        <small *ngIf="createService.get('service_duration').hasError('required')" class="error">Service Duration Is required</small>
+                                        <small *ngIf="createService.get('service_duration').hasError('pattern')" class="error">Service Duration Must be Numeric</small>
+                                    </span>
+                                </div>
+                                <div class="mt-2 text-center">
+                                    <mat-form-field class=" bottom-border-field">
+                                        <mat-icon matPrefix><i class="material-icons">
+                                            people_alt
+                                            </i></mat-icon>
+                                        <mat-label>Service Unit</mat-label>
+                                        <input matInput formControlName="service_unit" placeholder="">  
+                                    </mat-form-field>   
+                                    <span class="error-wrap d-flex" *ngIf="createService.get('service_unit').touched || createService.get('service_unit').dirty">
+                                        <small *ngIf="createService.get('service_unit').hasError('required')" class="error">Service Unit Is required</small>
+                                        <small *ngIf="createService.get('service_unit').hasError('pattern')" class="error">Service Unit Must be Numeric</small>
+                                    </span>
+                                </div>
+                                <div class="service-statustoggle" *ngIf="!editServiceId">
+                                    <p><mat-slide-toggle (change)="fnNewServiceStatus($event.checked)">Status</mat-slide-toggle></p>
+                                    <p><mat-slide-toggle (change)="fnNewServicePrivate($event.checked)">Private</mat-slide-toggle></p>
+                                </div> 
+                                <div class="service-statustoggle" *ngIf="editServiceId">
+                                    <p><mat-slide-toggle (change)="fnEditServiceStatus($event.checked)">Status</mat-slide-toggle></p>
+                                    <p><mat-slide-toggle (change)="fnEditServicePrivate($event.checked)">Private</mat-slide-toggle></p>
+                                </div> 
+                            </div>
+                        </div>    
+                    </div>   
+                    <input type="hidden" formControlName="service_id">
+                    <div class="row"> 
+                        <div class="service-action-btn">
+                            <div class="mx-2">
+                                <button mat-button appearance="fill" class="service-cancel-btn">Cancel</button>
+                            </div>
+                            <div *ngIf="!editServiceId" class="mx-2">
+                                <button mat-button type="submit" appearance="fill" class="service-create-btn" (click)="fnCreateServiceSubmit()">Create</button>
+                            </div>  
+                            <div *ngIf="editServiceId" class="mx-2">
+                                <button mat-button type="submit" appearance="fill" class="service-create-btn" (click)="fnCreateServiceSubmit()">Update</button>
+                            </div>  
+                        </div>    
+                    </div>   
+                </form>       
             </mat-card>  
             </div>
             

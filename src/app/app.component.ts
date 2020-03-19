@@ -411,7 +411,6 @@ constructor(
     this.dialogRef.close();
   }
   logout() {
-    alert("Hello");
     this.authenticationService.logout();
     if (this.timer) {
       clearTimeout(this.timer);
