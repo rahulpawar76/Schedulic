@@ -488,8 +488,8 @@
                                     <p><mat-slide-toggle (change)="fnNewServicePrivate($event.checked)">Private</mat-slide-toggle></p>
                                 </div> 
                                 <div class="service-statustoggle" *ngIf="editServiceId">
-                                    <p><mat-slide-toggle (change)="fnEditServiceStatus($event.checked)">Status</mat-slide-toggle></p>
-                                    <p><mat-slide-toggle (change)="fnEditServicePrivate($event.checked)">Private</mat-slide-toggle></p>
+                                    <p><mat-slide-toggle [checked]="editServiceStatusPrevious == 'E'" (change)="fnEditServiceStatus($event.checked)">Status</mat-slide-toggle></p>
+                                    <p><mat-slide-toggle [checked]="editServicePrivateStatusPrevious == 'Y'" (change)="fnEditServicePrivate($event.checked)">Private</mat-slide-toggle></p>
                                 </div> 
                             </div>
                         </div>    
