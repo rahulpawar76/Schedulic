@@ -151,9 +151,7 @@ onSubmit(event){
 
     constructor(
       public dialogRef: MatDialogRef<DialogUserImageUpload>,
-      private UserService: UserService,
       private _formBuilder:FormBuilder,
-      private _snackBar: MatSnackBar,
       @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
     onNoClick(): void {

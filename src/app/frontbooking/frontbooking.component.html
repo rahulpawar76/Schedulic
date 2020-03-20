@@ -147,7 +147,7 @@
                                                     <p class="mb-0" *ngIf="!isStaffAvailable">No Staff Available</p>
                                                     <mat-radio-group aria-label="Select Staff" *ngIf="isStaffAvailable">
                                                         <mat-radio-button [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].assignedStaff==null" (change)="fnSelectStaff($event,null,i)" value="">Any Staff</mat-radio-button>
-                                                        <mat-radio-button *ngFor="let staff of availableStaff" [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].assignedStaff==staff.id" (change)="fnSelectStaff($event,staff.id,i)" value="{{staff.id}}">{{staff.username}}</mat-radio-button>
+                                                        <mat-radio-button *ngFor="let staff of availableStaff" [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].assignedStaff==staff.id" (change)="fnSelectStaff($event,staff.id,i)" class="text-capitalize" value="{{staff.id}}">{{staff.name}}</mat-radio-button>
                                                     </mat-radio-group>
                                                    
                                                 </div>

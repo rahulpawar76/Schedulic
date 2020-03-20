@@ -23,7 +23,7 @@ export class ReportsComponent implements OnInit {
   
   AllCustomerReportsList:any;
   CustomerReportsList:any;
-  selected: {startDate: Moment, endDate: Moment};
+  // selected: {startDate: Moment, endDate: Moment};
 
   constructor(
     public router: Router,
