@@ -20,12 +20,12 @@ export interface DialogData {
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
- animal: any;
  userId:any;
 
   customerProfile :FormGroup;
   updatedprofiledata :any;
   profiledata:any = [];
+  profileUrl:any;
   error:any;
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^-?(0|[1-9]\d*)?$/
@@ -66,7 +66,11 @@ export class UserProfileComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      this.animal = result;
+       if(result != undefined){
+        this.profileUrl = result;
+        console.log(result);
+       }
+      
      });
   }
 
@@ -101,6 +105,7 @@ onSubmit(event){
       "state" : this.customerProfile.get('user_state').value,
       "city" : this.customerProfile.get('user_city').value,
       "zip" : this.customerProfile.get('user_postalcode').value,
+      "image" : this.profileUrl,
     }
     
   this.fnuserprofilesubmit(this.updatedprofiledata);
@@ -132,16 +137,6 @@ onSubmit(event){
     )
   }
 
-  
-
-logout() {
-        // this.authenticationService.logout();
-        // this.selectedSessionId=null;
-        // this.selectedSessionName=null;
-       // this.router.navigate(['/login']);
-    }
-
-
   }
 
 @Component({
@@ -150,22 +145,42 @@ logout() {
   })
   export class DialogUserImageUpload {
 
-    SERVER_URL = "http://goappointment.bi-team.in/goappointment_api/public/category-images";
     uploadForm: FormGroup;  
+    imageSrc: string;
+    profileImage: string;
 
     constructor(
       public dialogRef: MatDialogRef<DialogUserImageUpload>,
-      private formBuilder: FormBuilder, 
-      private httpClient: HttpClient,
+      private _formBuilder:FormBuilder,
       @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
     onNoClick(): void {
-      this.dialogRef.close();
+      this.dialogRef.close(this.profileImage);
     }
     ngOnInit() {
-      this.uploadForm = this.formBuilder.group({
+      this.uploadForm = this._formBuilder.group({
         profile: ['']
       });
     }
+    get f() {
+      return this.uploadForm.controls;
+    }
 
+    onFileChange(event) {
+      const reader = new FileReader();
+      if (event.target.files && event.target.files.length) {
+          const [file] = event.target.files;
+          reader.readAsDataURL(file);
+          reader.onload = () => {
+              this.imageSrc = reader.result as string;
+              this.uploadForm.patchValue({
+                  fileSource: reader.result
+              });
+          };
+      }
   }
+  uploadImage() {
+    this.profileImage = this.imageSrc
+    this.dialogRef.close(this.profileImage);
+  }
+}

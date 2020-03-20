@@ -474,7 +474,114 @@ export class AdminService {
         }),
         catchError(this.handleError));
     }
+    
+    getNotAssignedAppointments(){
+        let requestObject = {
+            'business_id': this.businessId,
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/get-notassign-live`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
 
+    getOnThewayAppointments(){
+        let requestObject = {
+            'business_id': this.businessId,
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/get-ontheway-live`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
+    
+    getWorkStartedAppointments(){
+        let requestObject = {
+            'business_id': this.businessId,
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/get-workstart-live`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
+    getAppointmentsReports(){
+        let requestObject = {
+            'business_id': this.businessId,
+            'date_filter': "order_date",
+            'report_filter':"all",
+            'start_date':" 2020-02-01",
+            'end_date': "2020-03-01",
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/appointment-reports`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
+    getSalesReports(){
+        let requestObject = {
+            'business_id': this.businessId,
+            'start_date': "2020-02-01",
+            'end_date':"2020-03-01",
+            'group_filter':"month",
+            'status_filter': "unpaid",
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/sales-reports`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
+    getCustomerReports(){
+        let requestObject = {
+            'business_id': this.businessId,
+            'start_date': "2020-01-01",
+            'end_date':"2020-01-28",
+            'filter':"admin",
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/customer-reports`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
     // Get Tax details
 
     getTaxDetails(){
@@ -487,6 +594,37 @@ export class AdminService {
             'api-token' : this.adminToken 
         });
         return this.http.post(`${environment.apiUrl}/tax-list`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
+    //setting my profile
+
+    getMyProfileDetails(){
+        let requestObject = {
+            'business_id': this.businessId,
+        };
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/get-admin-profile`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
+    updateProfile(updatedAdminProfileData){
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/admin-profile-update`,updatedAdminProfileData,{headers:headers}).pipe(
         map((res) => {
             return res;
         }),

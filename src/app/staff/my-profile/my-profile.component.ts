@@ -28,6 +28,7 @@ export class MyProfileComponent implements OnInit {
  error:any;
  updatedprofiledata: any =[];
  staffId: any;
+ profileImage : any;
 
  emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
  onlynumeric = /^-?(0|[1-9]\d*)?$/
@@ -81,6 +82,7 @@ export class MyProfileComponent implements OnInit {
         "lastname" : this.myProfile.get('user_LastName').value,
         "email" : this.myProfile.get('user_Email').value,
         "phone" : this.myProfile.get('user_Mobile').value,
+        "image" : this.profileImage,
       }
       
     this.fnprofilesubmit(this.updatedprofiledata)
@@ -116,7 +118,9 @@ export class MyProfileComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      this.animal = result;
+       if(result != undefined){
+        this.profileImage = result;
+       }
      });
   }
 
@@ -124,16 +128,45 @@ export class MyProfileComponent implements OnInit {
 
 @Component({
 	  selector: 'image-upload-dialog',
-	  templateUrl: 'image-upload-dialog.html',
+	  templateUrl: '../_dialogs/image-upload-dialog.html',
 	})
 	export class DialogStaffImageUpload {
 
+    uploadForm: FormGroup;  
+    imageSrc: any;  
+    profileImage: string;
 	  constructor(
 	    public dialogRef: MatDialogRef<DialogStaffImageUpload>,
+      private _formBuilder:FormBuilder,
 	    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
 	  onNoClick(): void {
 	    this.dialogRef.close();
-	  }
+    }
+    ngOnInit() {
+      this.uploadForm = this._formBuilder.group({
+        profile: ['']
+      });
+    }
+    get f() {
+      return this.uploadForm.controls;
+    }
+    onFileChange(event) {
+      const reader = new FileReader();
+      if (event.target.files && event.target.files.length) {
+          const [file] = event.target.files;
+          reader.readAsDataURL(file);
+          reader.onload = () => {
+              this.imageSrc = reader.result as string;
+              this.uploadForm.patchValue({
+                  fileSource: reader.result
+              });
+          };
+      }
+  }
+  uploadImage(){
+    this.profileImage = this.imageSrc
+    this.dialogRef.close(this.profileImage);
+  }
 
 	}

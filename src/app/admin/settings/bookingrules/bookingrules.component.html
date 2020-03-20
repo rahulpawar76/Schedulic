@@ -1,7 +1,7 @@
 
 <mat-drawer-content id="booking-rules" class="ml-0">
     <mat-card>
-        <h5>Booking Rules</h5>
+        <h5 class="py-3">Booking Rules</h5>
         <mat-card>
             <div class="">
                 <div class="Customer-appointment-table">
@@ -14,8 +14,8 @@
                                 <div class="" fxFlex="12"></div>
                                 <div class="" fxFlex="12"></div>
                             </div>
-                            <div class="content" class="example-list">
-                                <div class="example-box p-3">
+                            <div class="content" class="">
+                                <div class="p-3">
                                     <div class="" fxFlex="52">
                                         <h6>Minimum Advance booking Time</h6>
                                         <p class="mb-0">Minimum advance notice do you need before a client books an appointment?</p>
@@ -163,7 +163,7 @@
                                     </div>
                                 </div>
                                 <div class="bottom-line"></div>
-                                <div class="example-box p-3">
+                                <div class="p-3">
                                     <div class="" fxFlex="52">
                                         <h6>Maximum Advance booking Time</h6>
                                         <p class="mb-0">Maximum advance notice do you need before a client books an appointment?</p>
@@ -326,7 +326,7 @@
                                     </div>
                                 </div>
                                 <div class="bottom-line"></div>
-                                <div class="example-box p-3">
+                                <div class="p-3">
                                     <div class="" fxFlex="52">
                                         <h6>Time Interval</h6>
                                         <p class="mb-0">e.g 15 min slots will show open slots at 8:00, 8:15, 8:30 etc</p>
@@ -437,7 +437,7 @@
                                     </div>
                                 </div>
                                 <div class="bottom-line"></div>
-                                <div class="example-box p-3">
+                                <div class="p-3">
                                     <div class="" fxFlex="52">
                                         <h6>Cancellation Buffer Time </h6>
                                         <p class="mb-0">Minimum notice required for Cancellation an appointment</p>
@@ -583,7 +583,7 @@
                                     </div>
                                 </div>
                                 <div class="bottom-line"></div>
-                                <div class="example-box p-3">
+                                <div class="p-3">
                                     <div class="" fxFlex="52">
                                         <h6>Reschedule an Appointment</h6>
                                         <p class="mb-0">Minimum notice required for rescheduleing an appointment</p>
@@ -851,9 +851,13 @@
         <div>
             <h6 class="py-4">Thank You Page</h6>
             <mat-card class="matcard-space">
-                <div class="d-flex">
-                    <div>
-                        <h6>Thank You Page</h6>
+                    <div class="d-flex" >
+                        <div>
+                            <h6>Thank You Page</h6>
+                        </div>
+                        <div class="ml-auto mx-3">
+                            <mat-slide-toggle (change)="thankyou($event.checked)"></mat-slide-toggle>
+                        </div>
                     </div>
                     <div class="ml-auto mx-3">
                         <mat-slide-toggle (change)="fnChangeThankyouPageStatus($event)" [checked]="thankyouPageStatusValue === 'true' ? true : false"></mat-slide-toggle>

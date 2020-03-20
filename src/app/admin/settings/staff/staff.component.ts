@@ -1,13 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Subject, from } from 'rxjs';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { AppComponent } from '@app/app.component'
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthenticationService } from '@app/_services';
+import { AdminSettingsService } from '../_services/admin-settings.service'
 
 export interface DialogData {
   animal: string;
   name: string;
-  StaffCreate: FormGroup;
 }
 
 @Component({
@@ -16,40 +17,146 @@ export interface DialogData {
   styleUrls: ['./staff.component.scss']
 })
 export class StaffComponent implements OnInit {
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject();
   animal: any;
-  adminSettings : boolean = true;
+  isLoaderAdmin: boolean = false;
+  StaffCreate: FormGroup;
+  addStaffPage: boolean = false;
+  staffListPage: boolean = true;
+  singleStaffView: boolean = false;
+  businessId: any;
+  allStaffList: any;
+  staffActionId: any = [];
+  singleStaffStatus: any;
+  singleStaffDetail: any;
+  staffImageUrl:any;
 
   constructor(
     public dialog: MatDialog,
     private _formBuilder: FormBuilder,
-    private appComponent : AppComponent,
+    private authenticationService: AuthenticationService,
+    private _snackBar: MatSnackBar,
+    private adminSettingsService: AdminSettingsService,
   ) {
-    //this.appComponent.settingsModule(this.adminSettings);
-   }
+    localStorage.setItem('isBusiness', 'false');
+    if (localStorage.getItem('business_id')) {
+      this.businessId = localStorage.getItem('business_id');
+    }
+  }
 
   ngOnInit() {
-    this.dtOptions = {
-      // Use this attribute to enable the responsive extension
-      responsive: true
-    };
+    this.getAllStaff();
   }
-  
-  ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
+
+  getAllStaff() {
+    this.isLoaderAdmin = true;
+    this.adminSettingsService.getAllStaff().subscribe((response: any) => {
+      if (response.data == true) {
+        this.allStaffList = response.response
+        console.log(this.allStaffList);
+        this.isLoaderAdmin = false;
+      }
+      else if (response.data == false) {
+        this.allStaffList = '';
+        this.isLoaderAdmin = false;
+      }
+    })
   }
+
+  fnAddStaffId(event, staffId) {
+    if (event == true) {
+      this.staffActionId.push(staffId)
+    }
+    else if (event == false) {
+      const index = this.staffActionId.indexOf(staffId, 0);
+      if (index > -1) {
+        this.staffActionId.splice(index, 1);
+      }
+    }
+    console.log(this.staffActionId)
+  }
+  fnActionStaff(action) {
+    this.isLoaderAdmin = true;
+    this.adminSettingsService.fnActionStaff(action, this.staffActionId).subscribe((response: any) => {
+      if (response.data == true) {
+        this._snackBar.open("Staff Status Updated", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['green-snackbar']
+        });
+        this.getAllStaff();
+        this.staffActionId.length = 0;
+        this.isLoaderAdmin = false;
+      }
+      else if (response.data == false) {
+        this.isLoaderAdmin = false;
+      }
+    })
+  }
+  fnChangeStaffStatus(event, staffId) {
+    if (event == true) {
+      this.singleStaffStatus = 'E'
+    }
+    else if (event == false) {
+      this.singleStaffStatus = 'D'
+    }
+    this.staffActionId.push(staffId)
+    this.adminSettingsService.fnActionStaff(this.singleStaffStatus, this.staffActionId).subscribe((response: any) => {
+      if (response.data == true) {
+        this._snackBar.open("Staff Status Updated", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['green-snackbar']
+        });
+        this.getAllStaff();
+        this.staffActionId.length = 0;
+        this.isLoaderAdmin = false;
+      }
+      else if (response.data == false) {
+        this.isLoaderAdmin = false;
+      }
+    })
+  }
+
+  fnViewSingleStaff(staffId) {
+    this.isLoaderAdmin = true;
+    this.adminSettingsService.fnViewSingleStaff(staffId).subscribe((response: any) => {
+      if (response.data == true) {
+        this.singleStaffDetail = response.response
+        console.log(this.singleStaffDetail);
+        this.staffListPage = false;
+        this.singleStaffView = true;
+        this.isLoaderAdmin = false;
+      }
+      else if (response.data == false) {
+        this.isLoaderAdmin = false;
+      }
+    })
+  }
+
 
   addTimeOff() {
     const dialogRef = this.dialog.open(DialogAddNewTimeOff, {
       width: '500px',
-      
+
     });
 
-     dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-       this.animal = result;
+      this.animal = result;
+    });
+  }
+
+  staffImage() {
+    const dialogRef = this.dialog.open(DialogStaffImageUpload, {
+      width: '500px',
+      
+    });
+  
+     dialogRef.afterClosed().subscribe(result => {
+        if(result != undefined){
+            this.staffImageUrl = result;
+            console.log(result);
+           }
      });
   }
 }
@@ -59,12 +166,60 @@ export class StaffComponent implements OnInit {
 })
 export class DialogAddNewTimeOff {
 
+  constructor(
+    public dialogRef: MatDialogRef<DialogAddNewTimeOff>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+}
+
+@Component({
+  selector: 'staff-image-upload',
+  templateUrl: '../_dialogs/staff-upload-profile-image-dialog.html',
+})
+export class DialogStaffImageUpload {
+
+  uploadForm: FormGroup;  
+  imageSrc: string;
+  profileImage: string;
+  
 constructor(
-  public dialogRef: MatDialogRef<DialogAddNewTimeOff>,
+  public dialogRef: MatDialogRef<DialogStaffImageUpload>,
+  private _formBuilder:FormBuilder,
+  private _snackBar: MatSnackBar,
   @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
-onNoClick(): void {
-  this.dialogRef.close();
+  onNoClick(): void {
+      this.dialogRef.close(this.profileImage);
+    }
+    ngOnInit() {
+      this.uploadForm = this._formBuilder.group({
+        profile: ['']
+      });
+    }
+    get f() {
+      return this.uploadForm.controls;
+    }
+    
+onFileChange(event) {
+  const reader = new FileReader();
+  if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+          this.imageSrc = reader.result as string;
+          this.uploadForm.patchValue({
+              fileSource: reader.result
+          });
+      };
+  }
+}
+uploadImage() {
+  this.profileImage = this.imageSrc
+  this.dialogRef.close(this.profileImage);
 }
 
 

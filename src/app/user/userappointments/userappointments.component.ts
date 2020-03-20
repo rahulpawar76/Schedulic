@@ -118,6 +118,9 @@ getCompletedAppointments(): void{
     });
 
      dialogRef.afterClosed().subscribe(result => {
+      this.getAllAppointments();
+      this.getCancelAppointments();
+      this.getCompletedAppointments();
       this.animal = result;
      });
   }
@@ -129,6 +132,9 @@ getCompletedAppointments(): void{
     });
 
      dialogRef.afterClosed().subscribe(result => {
+      this.getAllAppointments();
+      this.getCancelAppointments();
+      this.getCompletedAppointments();
       this.animal = result;
      });
   }
@@ -143,6 +149,8 @@ getCompletedAppointments(): void{
 
      dialogRef.afterClosed().subscribe(result => {
       this.getAllAppointments();
+      this.getCancelAppointments();
+      this.getCompletedAppointments();
      });
   }
 
@@ -169,6 +177,8 @@ getCompletedAppointments(): void{
 
      dialogRef.afterClosed().subscribe(result => {
       this.getAllAppointments();
+      this.getCancelAppointments();
+      this.getCompletedAppointments();
      });
   }
 
@@ -240,7 +250,6 @@ export class DialogOverviewExampleDialog {
           verticalPosition:'bottom',
           panelClass :['green-snackbar']
           });
-          window.location.reload();
       }
     })
   }
@@ -279,7 +288,7 @@ export class DialogCancelReason {
           verticalPosition:'bottom',
           panelClass :['green-snackbar']
           });
-          window.location.reload();
+          
       }
     })
   }

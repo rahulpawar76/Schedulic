@@ -16,7 +16,7 @@
             <div class="Customer-appointment-table">
               <div class="main-table-content main-cust-table-content">
                 <div class="">
-                  <div class="heads main-heading-content example-box header-background " fxLayout="row">
+                  <div class="heads main-heading-content working-hour-box header-background " fxLayout="row">
                     <div class="" fxFlex="10"></div>
                     <div class="" fxFlex="10"></div>
                     <div class="" fxFlex="30"></div>
@@ -25,7 +25,7 @@
                   </div>
                   <div class="content" class="example-list">
                     <form [formGroup]="formSetWorkingHours">
-                      <div  class="example-box">
+                      <div  class=" working-hour-box">
                         <div class="" fxFlex="10">
                           <mat-slide-toggle formControlName="mondayToggle" (change)="fnChangeToggle($event,'Monday')"></mat-slide-toggle>
                         </div>
@@ -50,7 +50,7 @@
                         <div class="" *ngIf="!mondayOn">Closed for Business</div>
                         <div class="blue-font pointer" fxFlex="30"><p (click)="fnApplyToAll()" *ngIf="mondayOn" > Apply to all </p></div>
                       </div>
-                      <div  class="example-box">
+                      <div  class="working-hour-box">
                         <div class="" fxFlex="10">
                           <mat-slide-toggle formControlName="tuesdayToggle" (change)="fnChangeToggle($event,'Tuesday')"></mat-slide-toggle>
                         </div>
@@ -75,7 +75,7 @@
                         <div class="" *ngIf="!tuesdayOn">Closed for Business</div>
                         <div class="blue-font" fxFlex="30"></div>
                       </div>
-                      <div  class="example-box">
+                      <div  class="working-hour-box">
                         <div class="" fxFlex="10">
                           <mat-slide-toggle formControlName="wednesdayToggle" (change)="fnChangeToggle($event,'Wednesday')"></mat-slide-toggle>
                         </div>
@@ -100,7 +100,7 @@
                         <div class="" *ngIf="!wednesdayOn">Closed for Business</div>
                         <div class="blue-font" fxFlex="30"></div>
                       </div>
-                      <div  class="example-box">
+                      <div  class="working-hour-box">
                         <div class="" fxFlex="10">
                           <mat-slide-toggle formControlName="thursdayToggle" (change)="fnChangeToggle($event,'Thursday')"></mat-slide-toggle>
                         </div>
@@ -125,7 +125,7 @@
                         <div class="" *ngIf="!thursdayOn">Closed for Business</div>
                         <div class="blue-font" fxFlex="30"></div>
                       </div>
-                      <div  class="example-box">
+                      <div  class="working-hour-box">
                         <div class="" fxFlex="10">
                           <mat-slide-toggle formControlName="fridayToggle" (change)="fnChangeToggle($event,'Friday')"></mat-slide-toggle>
                         </div>
@@ -150,7 +150,7 @@
                         <div class="" *ngIf="!fridayOn">Closed for Business</div>
                         <div class="blue-font" fxFlex="30"></div>
                       </div>
-                      <div  class="example-box">
+                      <div  class="working-hour-box">
                         <div class="" fxFlex="10">
                           <mat-slide-toggle formControlName="saturdayToggle" (change)="fnChangeToggle($event,'Saturday')"></mat-slide-toggle>
                         </div>
@@ -175,7 +175,7 @@
                         <div class="" *ngIf="!saturdayOn">Closed for Business</div>
                         <div class="blue-font" fxFlex="30"></div>
                       </div>
-                      <div  class="example-box">
+                      <div  class="working-hour-box">
                         <div class="" fxFlex="10">
                           <mat-slide-toggle formControlName="sundayToggle" (change)="fnChangeToggle($event,'Sunday')"></mat-slide-toggle>
                         </div>
@@ -214,7 +214,7 @@
           <div class="Customer-appointment-table">
             <div class="main-table-content main-cust-table-content">
               <div class="">
-                <div class="heads main-heading-content example-box header-background " fxLayout="row">
+                <div class="heads main-heading-content breaks-hour-box header-background " fxLayout="row">
                   <div class="" fxFlex="10"></div>
                   <div class="" fxFlex="5"></div>
                   <div class="" fxFlex="15"></div>

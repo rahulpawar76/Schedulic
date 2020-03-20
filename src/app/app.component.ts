@@ -43,7 +43,6 @@ export class AppComponent implements AfterViewInit {
     public company_info: string;
 
     ngAfterViewInit() { 
-
     }
     
     // myRoute: string;
@@ -412,7 +411,6 @@ constructor(
     this.dialogRef.close();
   }
   logout() {
-    alert("Hello");
     this.authenticationService.logout();
     if (this.timer) {
       clearTimeout(this.timer);

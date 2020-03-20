@@ -1,12 +1,17 @@
 
 <mat-drawer-content id="staff"  class="ml-0">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif"/></div>
+    <div *ngIf="addStaffPage">
     <mat-card class="mb-0">
     <form >
         <div class="row">
             <div class="col-lg-4 col-md-4 col-12  border-right">
                 <h6>Add Staff</h6>
-                <div class="d-flex">
+                <div class="d-flex profile-img-wrap" (click)="staffImage()">
                     <img class="add-staff mx-auto"  src="/assets/images/admin/Layer-3.png">
+                    <div class="camera-alt"><i class="material-icons">
+                        camera_alt
+                        </i></div>
                 </div>
                 <mat-form-field class="bottom-border-field">
                     <mat-label>Name</mat-label>
@@ -177,7 +182,8 @@
             <button mat-button class="staff-save-btn ml-2">Save</button>
         </div>
     </mat-card>
-    <mat-card>
+</div>
+    <mat-card *ngIf="staffListPage">
         <div class="row p-3">
             <div class="d-flex mb-1">
                 <h5>Staff</h5>
@@ -185,17 +191,13 @@
                     <button mat-button class="staff-add-btn pl-0"> <mat-icon aria-hidden="false">add</mat-icon>Add Staff</button>
                 </div>
             </div>
-            <p>Staff/team members are required to deliver services to your customers. you can define rights/permissions, and the services they can perform.</p>
-            <div class="d-flex mb-3">
+            <p >Staff/team members are required to deliver services to your customers. you can define rights/permissions, and the services they can perform.</p>
+            <div class="w-100 mb-3">
                 <mat-form-field class="dropdown bottom-border-field mt-0">
                     <mat-label>Status</mat-label>
-                    <mat-select>
-                        <mat-option>None</mat-option>
-                        <mat-option value="All">All</mat-option>
-                        <mat-option value="Active">Active</mat-option>
-                        <mat-option value="Inactive">Inactive</mat-option>
-                        <mat-option value="Scheduled">Scheduled</mat-option>
-                        <mat-option value="Expired">Expired</mat-option>
+                    <mat-select [disabled]="this.staffActionId.length == 0" (selectionChange)="fnActionStaff($event.value)">
+                        <mat-option value="E">Set Active</mat-option>
+                        <mat-option value="D">Set Inactive</mat-option>
                     </mat-select>
                     </mat-form-field>
                     <div class="searchbox mr-2">
@@ -225,65 +227,99 @@
                     </tbody>
                 </table> -->
             
-            <div class="" id="">
-                <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="row-border hover">
-                    <thead>
-                        <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Mobile</th>
-                        <th>Visibility</th>
-                        <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <td>
-                            <p>Meet Shah</p>
-                        </td>
-                        <td>
-                            <p>meet.shah199@gmail.com</p>
-                        </td>
-                        <td> 
-                            <p>9819824470</p>
-                        </td>
-                        <td> 
-                            <p>Public</p>
-                        </td>
-                        <td>
-                            <mat-slide-toggle>Slide me!</mat-slide-toggle>
-                        </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="w-100" id="" *ngIf="allStaffList != ''">
+                <div class="postalcode-table">
+                    <div class="main-table-content main-cust-table-content">
+                        <div class="">
+                            <div class="heads main-heading-content staff-list-row header-background " fxLayout="row">
+                                <div class="text-left" fxFlex="5"></div>
+                                <div class="text-left" fxFlex="30">Name</div>
+                                <div class="text-left" fxFlex="30">Email</div>
+                                <div class="text-left" fxFlex="20">Mobile</div>
+                                <div class="text-left" fxFlex="10">Visibility</div>
+                                <div class="text-left" fxFlex="5">Status</div>
+    
+                            </div>
+                            <div class="content" class="staff-list">
+                                <div  class="staff-list-row" *ngFor="let allStaffList of allStaffList">
+                                    <div class="text-left" fxFlex="5">
+                                        <mat-checkbox (change)="fnAddStaffId($event.checked,allStaffList.id)"></mat-checkbox>
+                                    </div>
+                                    <div class="text-left" fxFlex="30">
+                                        <div class="staff-img">
+                                            <img src="{{allStaffList.image}}" >
+                                        </div>
+                                        <div class="staff-data">
+                                            <h5>{{allStaffList.firstname}} {{allStaffList.lastname}}</h5>
+                                            <div class="d-flex statick-rating w-100">
+                                                <div class="star-rating">
+                                                  <input type="radio" id="5-stars_2" name="rating_2" value="5" />
+                                                  <label for="5-stars_2" class="star">&#9733;</label>
+                                                  <input type="radio" id="4-stars_2" name="rating_2" value="4" />
+                                                  <label for="4-stars_2" class="star">&#9733;</label>
+                                                  <input type="radio" id="3-stars_2" name="rating_2" value="3" />
+                                                  <label for="3-stars_2" class="star">&#9733;</label>
+                                                  <input type="radio" id="2-stars_2" name="rating_2" value="2" />
+                                                  <label for="2-stars_2" class="star">&#9733;</label>
+                                                  <input type="radio" id="1-star_2" name="rating_2" value="1" />
+                                                  <label for="1-star_2" class="star">&#9733;</label>
+                                                </div>   
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-left" fxFlex="30">{{allStaffList.email}}</div>
+                                    <div class="text-left " fxFlex="15">{{allStaffList.phone}}</div>
+                                    <div class="text-left" fxFlex="10" *ngIf="allStaffList.internal_staff == 'Y'">Private</div>
+                                    <div class="text-left" fxFlex="10" *ngIf="allStaffList.internal_staff  == 'N'">Public</div>
+                                    <div class="text-left" fxFlex="5">
+                                        <mat-slide-toggle [checked]="allStaffList.status  == 'E'" (change)="fnChangeStaffStatus($event.checked,allStaffList.id)"></mat-slide-toggle>
+                                    </div>
+                                    <div class="text-left" fxFlex="5">
+                                        <button mat-mini-fab (click)="fnViewSingleStaff(allStaffList.id)">
+                                        <mat-icon class="text-white">visibility</mat-icon>
+                                      </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div> 
             </div>
 
         </div>
     </mat-card>
-    <mat-card>
+    <mat-card *ngIf="singleStaffView">
         <div class="d-flex align-items-center">
             <div>
-                <img  class="staff-profile-width" src="/assets/images/admin/Layer9.png">
+                <img  class="staff-profile-width" src="{{singleStaffDetail.staff.image}}">
             </div>
             <div class="pl-2">
                 <div class="d-flex">
-                    <h6 class="pr-2">Naznin Paul</h6>
-                    <div class="d-flex">
-                        <mat-icon aria-hidden="false" class="review-star">star</mat-icon>
-                        <mat-icon aria-hidden="false" class="review-star">star</mat-icon>
-                        <mat-icon aria-hidden="false" class="review-star">star</mat-icon>
-                        <mat-icon aria-hidden="false" class="review-star">star</mat-icon>
-                        <mat-icon aria-hidden="false" class="review-star">star</mat-icon>
+                    <h6 class="pr-2 text-capitalize">{{singleStaffDetail.staff.firstname}} {{singleStaffDetail.staff.lastname}}</h6>
+                    <div class="d-flex statick-rating w-100">
+                        <div class="star-rating">
+                          <input type="radio" id="5-stars_2" name="rating_2" value="5" />
+                          <label for="5-stars_2" class="star">&#9733;</label>
+                          <input type="radio" id="4-stars_2" name="rating_2" value="4" />
+                          <label for="4-stars_2" class="star">&#9733;</label>
+                          <input type="radio" id="3-stars_2" name="rating_2" value="3" />
+                          <label for="3-stars_2" class="star">&#9733;</label>
+                          <input type="radio" id="2-stars_2" name="rating_2" value="2" />
+                          <label for="2-stars_2" class="star">&#9733;</label>
+                          <input type="radio" id="1-star_2" name="rating_2" value="1" />
+                          <label for="1-star_2" class="star">&#9733;</label>
+                        </div>   
                     </div>
                 </div>
                 <div class="d-flex">
                     <div class="d-flex pr-2">
                         <mat-icon aria-hidden="false" class="staff-mail-icon">email</mat-icon>
-                        <p>naazninp04@gmail.com</p>
+                        <p>{{singleStaffDetail.staff.email}}</p>
                     </div>
                     <div class="d-flex">
                         <mat-icon aria-hidden="false">call</mat-icon>
-                        <p>9820420420</p>
+                        <p>{{singleStaffDetail.staff.phone}}</p>
                     </div>
                 </div>
             </div>
@@ -300,7 +336,7 @@
             <mat-tab label="Details">
                 <div class="bottom-border">
                     <h6>Staff Description</h6>
-                    <p class="mb-0">No Description</p>
+                    <p class="mb-0">{{singleStaffDetail.staff.description}}</p>
                 </div>
                 <div class="bottom-border d-flex">
                     <div>
@@ -333,24 +369,24 @@
                     <div>
                         <h6>Email Verification</h6>
                         <div class="d-flex">
-                            <p class="mb-0 pr-2">naazninp04@gmail.com</p>
+                            <p class="mb-0 pr-2">{{singleStaffDetail.staff.phone}}</p>
                             <button mat-button class="verified-button">Not Verified</button>
                         </div>
                     </div>
                     <div class="ml-auto">
-                            <button mat-button class="send-mail-button"> <mat-icon aria-hidden="false">home</mat-icon>Send Email</button>
+                            <button mat-button class="send-mail-button"> <mat-icon aria-hidden="false">send</mat-icon>Send Email</button>
                     </div>
                 </div>
                 <div class="bottom-border d-flex">
                     <div>
                         <h6>Phone Number Verification</h6>
                         <div class="d-flex">
-                            <p class="mb-0 pr-2">9819824470</p>
+                            <p class="mb-0 pr-2">{{singleStaffDetail.staff.phone}}</p>
                             <button mat-button class="verified-button">Not Verified</button>
                         </div>
                     </div>
                     <div class="ml-auto">
-                            <button mat-button class="sms-verification-button"><mat-icon aria-hidden="false">home</mat-icon>SMS Verification Link</button>
+                            <button mat-button class="sms-verification-button"><mat-icon aria-hidden="false">send</mat-icon>SMS Verification Link</button>
                     </div>
                 </div>
                 <div class="bottom-border-last">

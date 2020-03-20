@@ -11,6 +11,8 @@ import { AuthenticationService } from '@app/_services';
 export class UserService {
 	userId: any;
 	token: any;
+	ProfileImagedata: any;
+	updatedprofiledata: any;
   constructor(
 	private http: HttpClient,
 	private _snackBar: MatSnackBar,
@@ -69,8 +71,9 @@ private handleError(error: HttpErrorResponse) {
 		// "customer_id":"41"
 		};
 		let headers = new HttpHeaders({
-		'Content-Type': 'application/json',
-		"customer-id":JSON.stringify(this.userId)
+			'Content-Type': 'application/json',
+			"customer-id":JSON.stringify(this.userId),
+			"api-token":this.token
 		});
 		return this.http.post(`${environment.apiUrl}/customer-bookings`,requestObject,{headers:headers}).pipe(
 		map((res) => {
@@ -83,8 +86,9 @@ private handleError(error: HttpErrorResponse) {
 		// "customer_id":"41"
 		};
 		let headers = new HttpHeaders({
-		'Content-Type': 'application/json',
-		"customer-id":JSON.stringify(this.userId)
+			'Content-Type': 'application/json',
+			"customer-id":JSON.stringify(this.userId),
+			"api-token":this.token
 		});
 		return this.http.post(`${environment.apiUrl}/customer-booking-cancel`,requestObject,{headers:headers}).pipe(
 		map((res) => {
@@ -97,8 +101,9 @@ private handleError(error: HttpErrorResponse) {
 		// "customer_id":"41"
 		};
 		let headers = new HttpHeaders({
-		'Content-Type': 'application/json',
-		"customer-id":JSON.stringify(this.userId)
+			'Content-Type': 'application/json',
+			"customer-id":JSON.stringify(this.userId),
+			"api-token":this.token
 		});
 		return this.http.post(`${environment.apiUrl}/customer-booking-complete`,requestObject,{headers:headers}).pipe(
 		map((res) => {
@@ -112,7 +117,9 @@ private handleError(error: HttpErrorResponse) {
 			"cancel_notes" : cancelReason
 		};
 		let headers = new HttpHeaders({
-		'Content-Type': 'application/json',
+			'Content-Type': 'application/json',
+			"customer-id":JSON.stringify(this.userId),
+			"api-token":this.token
 		});
 		return this.http.post(`${environment.apiUrl}/order-cancel`,requestObject,{headers:headers}).pipe(
 		map((res) => {
@@ -128,7 +135,9 @@ private handleError(error: HttpErrorResponse) {
 			"review" : ratingDecreption,
 		};
 		let headers = new HttpHeaders({
-		'Content-Type': 'application/json',
+			'Content-Type': 'application/json',
+			"customer-id":JSON.stringify(this.userId),
+			"api-token":this.token
 		});
 		return this.http.post(`${environment.apiUrl}/customer-rating`,requestObject,{headers:headers}).pipe(
 		map((res) => {
@@ -138,10 +147,10 @@ private handleError(error: HttpErrorResponse) {
 	}
 
 	rescheduleAppointment(requestObject){
-		
 		let headers = new HttpHeaders({
-		'Content-Type': 'application/json',
-		"customer-id":JSON.stringify(this.userId)
+			'Content-Type': 'application/json',
+			"customer-id":JSON.stringify(this.userId),
+			"api-token":this.token
 		});
 		return this.http.post(`${environment.apiUrl}/order-resedule`,requestObject,{headers:headers}).pipe(
 		map((res) => {
@@ -149,5 +158,4 @@ private handleError(error: HttpErrorResponse) {
 		}),
 		catchError(this.handleError));
 	}
- 
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { AdminService } from '../_services/admin-main.service'
-import { AppComponent } from '@app/app.component'
+import { AppComponent } from '@app/app.component';
+
 
 
 interface Food {
@@ -16,6 +17,10 @@ interface Food {
 })
 export class ReportsComponent implements OnInit {
 
+  appointmentsReports : any;
+  salesReports : any;
+  customerReports : any;
+
   appointmentReport : boolean = true;
   salesReport : boolean = false;
   customerReport : boolean = false;
@@ -23,6 +28,7 @@ export class ReportsComponent implements OnInit {
   
   AllCustomerReportsList:any;
   CustomerReportsList:any;
+  //selected: {startDate: Moment, endDate: Moment};
 
   constructor(
     public router: Router,
@@ -34,6 +40,10 @@ export class ReportsComponent implements OnInit {
   
 
   ngOnInit() {
+    this.getAppointmentsReports();
+    this.getSalesReports();
+    this.customerReports();
+    
   }
   foods: Food[] = [
     {value: 'steak-0', viewValue: 'Steak'},
@@ -41,7 +51,41 @@ export class ReportsComponent implements OnInit {
     {value: 'tacos-2', viewValue: 'Tacos'}
   ];
 
+  getAppointmentsReports(){
+    this.AdminService.getAppointmentsReports().subscribe((response:any) => {
+      if(response.data == true){
+        this.appointmentsReports = response.response
+        // console.log(this.appointmentsReports);
+      }
+      else if(response.data == false){
+        this.appointmentsReports = ''
+      }
+    })
+  }
 
+  getSalesReports(){
+    this.AdminService.getSalesReports().subscribe((response:any) => {
+      if(response.data == true){
+        this.salesReports = response.response
+        console.log(this.salesReports);
+      }
+      else if(response.data == false){
+        this.salesReports = ''
+      }
+    })
+  }
+
+  getCustomerReports(){
+    this.AdminService.getCustomerReports().subscribe((response:any) => {
+      if(response.data == true){
+        this.customerReports = response.response
+        console.log(this.customerReports);
+      }
+      else if(response.data == false){
+        this.customerReports = ''
+      }
+    })
+  }
   fnappointmentReport(){
     this.appointmentReport = true;
     this.salesReport = false;

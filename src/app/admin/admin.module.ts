@@ -9,6 +9,7 @@ import { ProgressBarModule } from "angular-progress-bar";
 import { HighchartsChartModule } from 'highcharts-angular';
 import { MaterialModule } from '@app/_helpers/material.module';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 
 
 import { AdminRoutingModule } from './admin-routing.module';
@@ -63,7 +64,8 @@ import { MyProfileComponent } from './settings-my-profile/settings-my-profile.co
     ProgressBarModule,
     HighchartsChartModule,
     DataTablesModule,
-	  MatSidenavModule
+    MatSidenavModule,
+    NgxDaterangepickerMd.forRoot()
   ],
   exports: [
     FormsModule

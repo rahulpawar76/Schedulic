@@ -9,7 +9,7 @@
                 </div>
             </div>
         </div>
-        <mat-drawer-container class="w-100" >
+        <mat-drawer-container class="w-100">
             <mat-drawer mode="side" opened id="Customer-list" class="pl-0 pr-0" style="width:300px">
                 <div class="leftarrow-icon">
                     <mat-icon aria-hidden="false" class="customer-drawer-leftarrow">arrow_back</mat-icon>
@@ -267,7 +267,7 @@
                                           </tr>
                                         </thead>
                                         <tbody>
-                                          <tr *ngFor="let customerAppoint of customerAppoint; let i=index">
+                                          <tr *ngFor="let customerAppoint of customerAppoint; let i=index" class="devider-slim">
                                             <td scope="row">{{customerAppoint.booking_date}}</td>
                                             <td>{{customerAppoint.booking_time}}</td>
                                             <td>{{customerAppoint.service.service_name}}</td>
@@ -289,7 +289,6 @@
                                                 .order_status == 'C'">Cancelled</p>
                                             </td>
                                           </tr>
-                                          
                                         </tbody>
                                       </table>
                                 </div>
@@ -322,8 +321,8 @@
                                             <div class="d-flex">
                                                 <h6>{{customerNotes.note_subject}}</h6>
                                                 <div class="d-flex ml-auto">
-                                                    <mat-icon (click)="newAddNote(customerPersonalDetails.id,i)" class="add-note-subject-icon" aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
-                                                    <mat-icon class="add-note-subject-icon ml-2" aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+                                                    <mat-icon (click)="newAddNote(customerPersonalDetails.id,i)" class="add-note-subject-icon" aria-hidden="false">edit</mat-icon>
+                                                    <mat-icon class="add-note-subject-icon ml-2" aria-hidden="false">delete</mat-icon>
                                                 </div>
                                             </div>
                                             <div class="py-3">
@@ -360,8 +359,8 @@
                                         <td>$.2680.00</td>
                                         <td>paid</td>
                                         <td class="">
-                                            <mat-icon class=" ml-2" aria-hidden="false" aria-label="Example home icon">picture_as_pdf</mat-icon>
-                                            <mat-icon class=" ml-2" aria-hidden="false" aria-label="Example home icon">print</mat-icon>
+                                            <mat-icon class=" ml-2" aria-hidden="false">picture_as_pdf</mat-icon>
+                                            <mat-icon class=" ml-2" aria-hidden="false">print</mat-icon>
                                         </td>
                                       </tr>
                                       <tr>
@@ -372,8 +371,8 @@
                                         <td>$.3000.00</td>
                                         <td>pending</td>
                                         <td class="">
-                                            <mat-icon class=" ml-2" aria-hidden="false" aria-label="Example home icon">picture_as_pdf</mat-icon>
-                                            <mat-icon class=" ml-2" aria-hidden="false" aria-label="Example home icon">print</mat-icon>
+                                            <mat-icon class=" ml-2" aria-hidden="false">picture_as_pdf</mat-icon>
+                                            <mat-icon class=" ml-2" aria-hidden="false">print</mat-icon>
                                         </td>
                                       </tr>
                                       <tr class="border-bottom">
@@ -384,8 +383,8 @@
                                         <td>$.4500.00</td>
                                         <td>paid</td>
                                         <td>
-                                            <mat-icon class=" ml-2" aria-hidden="false" aria-label="Example home icon">picture_as_pdf</mat-icon>
-                                            <mat-icon class=" ml-2" aria-hidden="false" aria-label="Example home icon">print</mat-icon>
+                                            <mat-icon class=" ml-2" aria-hidden="false">picture_as_pdf</mat-icon>
+                                            <mat-icon class=" ml-2" aria-hidden="false">print</mat-icon>
                                         </td>
                                       </tr>                                      
                                     </tbody>

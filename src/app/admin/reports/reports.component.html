@@ -1,20 +1,15 @@
 <div class="">
     <div class="">
 
-        <mat-drawer-container class="example-container col-lg-12"  style="margin-top: 70px;">
+        <mat-drawer-container class="reports-container col-lg-12"  style="margin-top: 70px;">
             <mat-drawer mode="side" opened id="Customer-list" class=" pl-0 pr-0"  style="width:300px;">
                 <div class="leftarrow-icon">
                     <mat-icon aria-hidden="false" class="customer-drawer-leftarrow">arrow_back</mat-icon>
                 </div>
-                  <!-- <p>Report Management</p>
-                  <div class="cust-reports">
-                  <p>Appointment Reports</p>
-                  <p>Sales Reports</p>
-                  <p>Customer Reports</p>
-                  </div> -->
+             
                   <mat-list role="list">
                     <mat-menu></mat-menu>
-                    <p>Report Management</p>
+                    <p class="pl-4">Report Management</p>
                     <div class="matlist pointer menuitem">
                     <mat-list-item role="listitem" (click)="fnappointmentReport()"><i class="fa fa-bar-chart saleschart"></i>Appointment Reports</mat-list-item>
                     <mat-list-item role="listitem" (click)="fnsalesReport()"><i class="fa fa-bar-chart saleschart"></i>Sales Reports</mat-list-item>
@@ -25,14 +20,13 @@
         
             <mat-drawer-content class="" style="margin-left:300px">
                 <div class="d-flex main-custmer-content ">
-                    <div class="d-flex pl-3" >
+                    <div class="d-flex pl-3 w-100" >
                     
                       <mat-form-field  class="pr-3 bottom-border-field">
-                        <mat-label>Choose a date</mat-label>
-                        <input matInput [matDatepicker]="picker">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                      </mat-form-field>
+                      <mat-label>BY Date</mat-label>
+                      <input matInput type="text" ngxDaterangepickerMd  />
+                    </mat-form-field>
+			
                       
                    <mat-form-field  class="pr-3 bottom-border-field">
                     <mat-label>BY Appointment</mat-label>
@@ -51,24 +45,24 @@
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
-                  <div class="cust-icons d-flex">
-                  <i class="fa fa-search cust-search" aria-hidden="true"></i>
-                  <i class="fa fa-print cust-print" aria-hidden="true"></i>
+                  <div class="cust-icons w-100 d-flex">
+                    <i class="fa fa-search cust-search ml-auto" aria-hidden="true"></i>
+                    <i class="fa fa-print cust-print" aria-hidden="true"></i>
+                    <i class="fa fa-download cust-download" aria-hidden="true"></i>
                   </div>
                  </div>
-                   
                 </div>
                 <div id="appointment_listing" *ngIf="appointmentReport">
                   <div id="Customer-Listing" class=" pl-0 pr-0 ">
                     <p class="mb-0 ">01 Oct 2019 - 31 Oct 2019</p>
-                    <p class="mb-0 custreports">Appointment Reports(Appointment Date Wise)</p>
-                    <label class="custrecords">Total Records : </label><label> 20,</label> 
-                    <label class="custrecords">Expected Revenue: </label><label> $.18,700.00</label>
+                    <p class="mb-0 custreports">Appointment Report (Appointment Date Wise)</p>
+                    <label class="custrecords">Total Records : </label><label class="pl-1"> 20,</label> 
+                    <label class="custrecords pl-2">Expected Revenue : </label><label class="pl-1"> $.18,700.00</label>
                   </div>
                     <div class="Customer-appointment-table">
                       <mat-card class="main-table-content main-cust-table-content">
                         <table class="table">
-                        
+                     
                             <thead class="main-heading-content">
                               <tr>
                                 <th scope="col">APPOINTMENT DATE</th>
@@ -76,129 +70,35 @@
                                 <th scope="col">SERVICE</th>
                                 <th scope="col">STAFF</th>                            
                                 <th scope="col">STATUS</th>
-                              </tr>
+                            </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td scope="row"><p class="mb-0">Thu,25 Oct 2019</p>
-                                <p>Time:09:30 AM</p></td>
-                                <td><p class="mb-0">Shab Patel</p>
-                                    <p class="mb-0">Phone No:1234567890</p>
-                                    <p>Email:Shab123@gmail.com</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0">Salon(Makeup,Haircut)</p>
-                                    <p class="mb-0">Duration:1hr 40m</p>
-                                    <p>Price:$.3000.00</p>
-                                </td>
-                                <td>Pending</td>
-                                <td>Approved,
-                                    <p>Not Paid</p>
-                                </td>
+                                <tr scope="row" *ngFor="let appointmentsReports of appointmentsReports; let i=index">
+                                  <td *ngIf="appointmentsReports.booking" scope="col">
+                                    <p class="mb-0">{{appointmentsReports.booking.booking_date}}</p>
+                                    <p>Time : {{appointmentsReports.booking.booking_time}}</p>
+                                  </td>
+                                  <td *ngIf="appointmentsReports.booking">
+                                    <p class="mb-0">{{appointmentsReports.booking.customer.fullname}}</p>
+                                    <p class="mb-0">Phone No:{{appointmentsReports.booking.customer.phone}}</p>
+                                    <p>Email:{{appointmentsReports.booking.customer.email}}</p>
+                                  </td>
+                                  <td *ngIf="appointmentsReports.booking">
+                                    <p class="mb-0">{{appointmentsReports.booking.service.service_name}}</p>
+                                    <p class="mb-0">Duration:{{appointmentsReports.booking.service.service_time}}</p>
+                                    <p>Price:{{appointmentsReports.booking.service.service_cost}}</p>
+                                  </td>
+                                  <td *ngIf="appointmentsReports.booking.staff !== null && appointmentsReports.booking">
+                                    <p>{{appointmentsReports.booking.staff.firstname}}</p>
+                                    <p>{{appointmentsReports.booking.staff.lastname}}</p>
+                                  </td>
+                                  <td *ngIf="appointmentsReports.booking.staff === null && appointmentsReports.booking" class="" fxFlex="25">
+                                    <p class="mb-0">Not Assigned</p>
+                                  </td>
+                                  <td *ngIf="appointmentsReports.booking">Approved,
+                                      <p>Not Paid</p>
+                                  </td>
                               </tr>
-
-                              <tr>
-                                <td scope="row"><p class="mb-0">Thu,6 Oct 2019</p>
-                                    <p>Time:10:00 AM</p></td>
-                                <td><p class="mb-0">Parth Jain</p>
-                                    <p class="mb-0">Phone No:1234567890</p>
-                                    <p>Email:jainparth@gmail.com</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0">Salon(Makeup,Haircut)</p>
-                                    <p class="mb-0">Duration:1hr 40m</p>
-                                    <p>Price:$.3000.00</p>
-                                </td>
-                                <td>Pending</td>
-                                <td>Unapproved,
-                                    <p>Not Paid</p>
-                                </td>
-                              </tr>
-
-                              <tr>
-                                <td scope="row"><p class="mb-0">Thu,7 Oct 2019</p>
-                                    <p>Time:10:45 AM</p></td>
-                                <td><p class="mb-0">Pooja Shah</p>
-                                    <p class="mb-0">Phone No:1234567890</p>
-                                    <p>Email:poojasha78@gmail.com</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0">Salon(Haircut)</p>
-                                    <p class="mb-0">Duration:35m</p>
-                                    <p>Price:$.50.00</p>
-                                </td>
-                                <td>-</td>
-                                <td>Rejected,
-                                    <p>By Admin</p>
-                                </td>
-                              </tr>
-
-                              <tr>
-                                <td scope="row"><p class="mb-0">Thu,11 Oct 2019</p>
-                                    <p>Time:11:15 AM</p></td>
-                                <td><p class="mb-0">Raj Kumar</p>
-                                    <p class="mb-0">Phone No:1234567890</p>
-                                    <p>Email:rajkumar@gmail.com</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0">Cleaning(Home Cleaning)</p>
-                                    <p class="mb-0">Duration:30m</p>
-                                    <p>Price:$.100.00</p>
-                                </td>
-                                <td>
-                                  <p class="mb-0">Rahul Pandti</p>
-                                  <p class="mb-0">Phone No:1234567890</p>
-                                  <p>Email:rahulpandti@xyz.com</p>
-                                </td>
-                                <td>Assigned,
-                                    <p>Not Paid</p>
-                                </td>
-                              </tr>
-
-                              <tr>
-                                <td scope="row"><p class="mb-0">Thu,15 Oct 2019</p>
-                                    <p>Time:12:05 PM</p></td>
-                                <td><p class="mb-0">Nisha Jhaa</p>
-                                    <p class="mb-0">Phone No:1234567890</p>
-                                    <p>Email:nishajhaa0123@gmail.com</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0">Salon(body massage,Hair color)</p>
-                                    <p class="mb-0">Duration:45m</p>
-                                    <p>Price:$.300.00</p>
-                                </td>
-                                <td>
-                                  <p class="mb-0">Rahul Pandti</p>
-                                  <p class="mb-0">Phone No:1234567890</p>
-                                  <p>Email:rahulpandti@xyz.com</p>
-                                </td>
-                                <td>Completed,
-                                    <p> Paid</p>
-                                </td>
-                              </tr>
-
-                              <tr>
-                                <td scope="row"><p class="mb-0">Thu,24 Oct 2019</p>
-                                    <p>Time:01:00 PM</p></td>
-                                <td><p class="mb-0">Khyati Doshi</p>
-                                    <p class="mb-0">Phone No:1234567890</p>
-                                    <p>Email:doshi123@gmail.com</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0">Salon(Hair Color)</p>
-                                    <p class="mb-0">Duration:1hr 40m</p>
-                                    <p>Price:$.3000.00</p>
-                                </td>
-                                <td>
-                                  <p class="mb-0">Rahul Pandti</p>
-                                  <p class="mb-0">Phone No:1234567890</p>
-                                  <p>Email:rahulpandti@xyz.com</p>
-                                </td>
-                                <td>Interrupted,
-                                    <p>By Staff</p>
-                                </td>
-                              </tr>
-                          
                             </tbody>
                           </table>
                           </mat-card>
@@ -208,7 +108,7 @@
                     <div class=" pl-0 pr-0 " id="Customer-Listing">
                       <p class="mb-0 ">24 Oct 2019 </p>
                       <p class="mb-0 custreports">Sales Reports</p>
-                      <label class="custrecords">Total Records :</label><label> 20,</label> 
+                      <label class="custrecords">Total Records :</label><label > 20,</label> 
                       <label class="custrecords"> Confirmed Revenue:</label><label> $.18,700.00,</label>
                       <label class="custrecords"> Project Revenue:</label><label> $.10,300.00,</label>
                       <label class="custrecords">Total Estimated : </label><label> $.29,000.00</label> 
@@ -227,7 +127,7 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
+                              <tr *ngFor="let salesReports of salesReports; let i=index">
                                 <td scope="row"><p class="mb-0">Thu,24 Oct 2019</p></td>
                                 <td><p class="mb-0">Shab Patel</p>
                                     <p class="mb-0">Phone No:1234567890</p>
@@ -244,7 +144,7 @@
                                 <td>Paid
                                   <p>By Cash</p>
                                 </td>
-                              </tr>
+                              <!-- </tr>
                     
                               <tr>
                                 <td scope="row"><p class="mb-0">Thu,24 Oct 2019</p></td>
@@ -339,7 +239,7 @@
                                 <td>Paid
                                   <p>By Cash</p>
                                 </td>
-                              </tr>
+                              </tr> -->
                            
                             </tbody>
                           </table>
@@ -366,7 +266,7 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr  *ngFor="let CustomerReportsList of CustomerReportsList; let i=index">
+                              <tr *ngFor="let customerReports of customerReports; let i=index">
                                 <td scope="row"><p class="mb-0">24 Oct 2019</p></td>
                                 <td>Admin</td>
                                 <td>Shab Patel</td>
