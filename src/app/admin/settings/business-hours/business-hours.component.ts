@@ -5,6 +5,8 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { DatePipe} from '@angular/common';
 import { MatSnackBar} from '@angular/material/snack-bar';
 import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
+import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 
 export interface DialogData {
@@ -32,7 +34,30 @@ export class BusinessHoursComponent implements OnInit {
   timeZoneList: any=[];
   workingHoursList: any=[];
   timeSlotList: any=[];
-  selected: any;
+  timeOffList: any=[];
+  breakTimeList: any=[];
+  selectedTimeZone: any;
+  selectedStartTimeMonday: any;
+  selectedEndTimeMonday: any;
+  selectedStartTimeTuesday: any;
+  selectedEndTimeTuesday: any;
+  selectedStartTimeWednesday: any;
+  selectedEndTimeWednesday: any;
+  selectedStartTimeThursday: any;
+  selectedEndTimeThursday: any;
+  selectedStartTimeFriday: any;
+  selectedEndTimeFriday: any;
+  selectedStartTimeSaturday: any;
+  selectedEndTimeSaturday: any;
+  selectedStartTimeSunday: any;
+  selectedEndTimeSunday: any;
+  showMondayAddForm: boolean=false;
+  showTuesdayAddForm: boolean=false;
+  showWednesdayAddForm: boolean=false;
+  showThursdayAddForm: boolean=false;
+  showFridayAddForm: boolean=false;
+  showSaturdayAddForm: boolean=false;
+  showSundayAddForm: boolean=false;
   formSetWorkingHours: FormGroup;
   constructor(private appComponent : AppComponent,
     public dialog: MatDialog, 
@@ -44,59 +69,181 @@ export class BusinessHoursComponent implements OnInit {
       this.businessId = localStorage.getItem('business_id');
     }
     this.fnGetTimeZone();
+    this.fnGetTimeSlotsList("08:00","18:00","30");
+    this.fnGetBussinessTimeZone();
     this.fnGetWorkingHours();
-    this.fnGetTimeSlotsList("8:00","23:59","30");
+    this.fnGetTimeOffList();
+    this.fnGetBreakTimeList();
 
     this.formSetWorkingHours = this._formBuilder.group({
-      mondayToggle: [''/*,[Validators.required,Validators.email]*/],
-      mondayStartTime: [''/*,[Validators.required,Validators.email]*/],
-      mondayEndTime: [''/*,Validators.required*/],
-      tuesdayToggle: [''/*,[Validators.required,Validators.email]*/],
-      tuesdayStartTime: [''/*,[Validators.required,Validators.email]*/],
-      tuesdayEndTime: [''/*,Validators.required*/],
-      wednesdayToggle: [''/*,[Validators.required,Validators.email]*/],
-      wednesdayStartTime: [''/*,[Validators.required,Validators.email]*/],
-      wednesdayEndTime: [''/*,Validators.required*/],
-      thursdayToggle: [''/*,[Validators.required,Validators.email]*/],
-      thursdayStartTime: [''/*,[Validators.required,Validators.email]*/],
-      thursdayEndTime: [''/*,Validators.required*/],
-      fridayToggle: [''/*,[Validators.required,Validators.email]*/],
-      fridayStartTime: [''/*,[Validators.required,Validators.email]*/],
-      fridayEndTime: [''/*,Validators.required*/],
-      saturdayToggle: [''/*,[Validators.required,Validators.email]*/],
-      saturdayStartTime: [''/*,[Validators.required,Validators.email]*/],
-      saturdayEndTime: [''/*,Validators.required*/],
-      sundayToggle: [''/*,[Validators.required,Validators.email]*/],
-      sundayStartTime: [''/*,[Validators.required,Validators.email]*/],
-      sundayEndTime: [''/*,Validators.required*/],
+      mondayToggle: [false],
+      mondayStartTime: [this.timeSlotList[0].long],
+      mondayEndTime: [this.timeSlotList[this.timeSlotList.length - 1].long],
+      tuesdayToggle: [false],
+      tuesdayStartTime: [this.timeSlotList[0].long],
+      tuesdayEndTime: [this.timeSlotList[this.timeSlotList.length - 1].long],
+      wednesdayToggle: [false],
+      wednesdayStartTime: [this.timeSlotList[0].long],
+      wednesdayEndTime: [this.timeSlotList[this.timeSlotList.length - 1].long],
+      thursdayToggle: [false],
+      thursdayStartTime: [this.timeSlotList[0].long],
+      thursdayEndTime: [this.timeSlotList[this.timeSlotList.length - 1].long],
+      fridayToggle: [false],
+      fridayStartTime: [this.timeSlotList[0].long],
+      fridayEndTime: [this.timeSlotList[this.timeSlotList.length - 1].long],
+      saturdayToggle: [false],
+      saturdayStartTime: [this.timeSlotList[0].long],
+      saturdayEndTime: [this.timeSlotList[this.timeSlotList.length - 1].long],
+      sundayToggle: [false],
+      sundayStartTime: [this.timeSlotList[0].long],
+      sundayEndTime: [this.timeSlotList[this.timeSlotList.length - 1].long],
     })
   }
 
   ngOnInit() {
   }
 
-  clickbtn(){
-    console.log(this.formSetWorkingHours.get("mondayToggle").value);
-    console.log(this.formSetWorkingHours.get("mondayStartTime").value);
-    console.log(this.formSetWorkingHours.get("mondayEndTime").value);
-    console.log(this.formSetWorkingHours.get("tuesdayToggle").value);
-    console.log(this.formSetWorkingHours.get("tuesdayStartTime").value);
-    console.log(this.formSetWorkingHours.get("tuesdayEndTime").value);
-    console.log(this.formSetWorkingHours.get("wednesdayToggle").value);
-    console.log(this.formSetWorkingHours.get("wednesdayStartTime").value);
-    console.log(this.formSetWorkingHours.get("wednesdayEndTime").value);
-    console.log(this.formSetWorkingHours.get("thursdayToggle").value);
-    console.log(this.formSetWorkingHours.get("thursdayStartTime").value);
-    console.log(this.formSetWorkingHours.get("thursdayEndTime").value);
-    console.log(this.formSetWorkingHours.get("fridayToggle").value);
-    console.log(this.formSetWorkingHours.get("fridayStartTime").value);
-    console.log(this.formSetWorkingHours.get("fridayEndTime").value);
-    console.log(this.formSetWorkingHours.get("saturdayToggle").value);
-    console.log(this.formSetWorkingHours.get("saturdayStartTime").value);
-    console.log(this.formSetWorkingHours.get("saturdayEndTime").value);
-    console.log(this.formSetWorkingHours.get("sundayToggle").value);
-    console.log(this.formSetWorkingHours.get("sundayStartTime").value);
-    console.log(this.formSetWorkingHours.get("sundayEndTime").value);
+  fnGetBussinessTimeZone(){
+    let requestObject={
+      "business_id":this.businessId
+    }
+
+    this.adminSettingsService.getBussinessTimeZone(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+       this.selectedTimeZone= response.response[0].time_zone;
+      }
+    })
+  }
+
+  fnCreateWorkingHours(){
+    if(this.formSetWorkingHours.invalid){
+      alert();
+      return false;
+    }
+    let workingHoursArray:any=[];
+    let workingHoursTempArray={
+      dayNumber:"",
+      start_time:"",
+      end_time:"",
+      offday:""
+    };
+
+    workingHoursTempArray={
+      dayNumber:"1",
+      start_time:this.formSetWorkingHours.get("mondayStartTime").value,
+      end_time:this.formSetWorkingHours.get("mondayEndTime").value,
+      offday:this.formSetWorkingHours.get("mondayToggle").value?"N":"Y"
+    };
+    workingHoursArray.push(workingHoursTempArray);
+
+    workingHoursTempArray={
+      dayNumber:"2",
+      start_time:this.formSetWorkingHours.get("tuesdayStartTime").value,
+      end_time:this.formSetWorkingHours.get("tuesdayEndTime").value,
+      offday:this.formSetWorkingHours.get("tuesdayToggle").value?"N":"Y"
+    };
+    workingHoursArray.push(workingHoursTempArray);
+
+    workingHoursTempArray={
+      dayNumber:"3",
+      start_time:this.formSetWorkingHours.get("wednesdayStartTime").value,
+      end_time:this.formSetWorkingHours.get("wednesdayEndTime").value,
+      offday:this.formSetWorkingHours.get("wednesdayToggle").value?"N":"Y"
+    };
+    workingHoursArray.push(workingHoursTempArray);
+
+    workingHoursTempArray={
+      dayNumber:"4",
+      start_time:this.formSetWorkingHours.get("thursdayStartTime").value,
+      end_time:this.formSetWorkingHours.get("thursdayEndTime").value,
+      offday:this.formSetWorkingHours.get("thursdayToggle").value?"N":"Y"
+    };
+    workingHoursArray.push(workingHoursTempArray);
+
+    workingHoursTempArray={
+      dayNumber:"5",
+      start_time:this.formSetWorkingHours.get("fridayStartTime").value,
+      end_time:this.formSetWorkingHours.get("fridayEndTime").value,
+      offday:this.formSetWorkingHours.get("fridayToggle").value?"N":"Y"
+    };
+    workingHoursArray.push(workingHoursTempArray);
+
+    workingHoursTempArray={
+      dayNumber:"6",
+      start_time:this.formSetWorkingHours.get("saturdayStartTime").value,
+      end_time:this.formSetWorkingHours.get("saturdayEndTime").value,
+      offday:this.formSetWorkingHours.get("saturdayToggle").value?"N":"Y"
+    };
+    workingHoursArray.push(workingHoursTempArray);
+
+    workingHoursTempArray={
+      dayNumber:"0",
+      start_time:this.formSetWorkingHours.get("sundayStartTime").value,
+      end_time:this.formSetWorkingHours.get("sundayEndTime").value,
+      offday:this.formSetWorkingHours.get("sundayToggle").value?"N":"Y"
+    };
+    workingHoursArray.push(workingHoursTempArray);
+    console.log(JSON.stringify(workingHoursArray));
+    let requestObject={
+      "business_id":this.businessId,
+      "workingHour":workingHoursArray
+    }
+    console.log(JSON.stringify(requestObject));
+
+    this.adminSettingsService.createWorkingHours(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.fnGetWorkingHours();
+        this.snackBar.open("Working Hours Updated", "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass : ['green-snackbar']
+        });
+      }
+      else{
+       this.snackBar.open("Working Hours Not Updated", "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+  }
+
+  fnApplyToAll(){
+    if(!this.mondayOn){
+      return false;
+    }
+    if(this.formSetWorkingHours.get("mondayToggle").value){
+      if(this.formSetWorkingHours.get("mondayStartTime").value == '' || this.formSetWorkingHours.get("mondayEndTime").value == '' || this.formSetWorkingHours.get("mondayStartTime").value == null || this.formSetWorkingHours.get("mondayEndTime").value == null){
+        alert();
+        return false;
+      }
+    }
+    let requestObject={
+      "business_id":this.businessId,
+      "start_time":this.formSetWorkingHours.get("mondayStartTime").value,
+      "end_time":this.formSetWorkingHours.get("mondayEndTime").value,
+      "off_day":this.formSetWorkingHours.get("mondayToggle").value?"N":"Y"
+    }
+    console.log(JSON.stringify(requestObject));
+
+    this.adminSettingsService.applyToAll(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.fnGetWorkingHours();
+        this.snackBar.open("Working Hours applied to all", "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass : ['green-snackbar']
+        });
+      }
+      else{
+       this.snackBar.open("Working Hours Not Updated", "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
   }
 
   fnChangeToggle(event,day){
@@ -123,7 +270,7 @@ export class BusinessHoursComponent implements OnInit {
       this.sundayOn=event.checked;
     }
     
-    console.log(this.formSetWorkingHours.get("sundayToggle").value);
+    this.fnFormBuild(this.mondayOn,this.tuesdayOn,this.wednesdayOn,this.thursdayOn,this.fridayOn,this.saturdayOn,this.sundayOn);
   }
 
   fnGetTimeSlotsList(start, end,interval){
@@ -140,7 +287,7 @@ export class BusinessHoursComponent implements OnInit {
     }
   
     this.timeSlotList=result;
-    console.log(this.timeSlotList);
+    console.log(this.timeSlotList[0]);
   }
 
   timeString(time){
@@ -238,8 +385,10 @@ export class BusinessHoursComponent implements OnInit {
             }else{
               this.sundayOn=false;
             }
-            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            if(element.day_start_time && element.day_end_time){
+              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
+              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            }
           }
           if(element.week_day_id == 1){
             element.week_day_name="Monday";            
@@ -248,8 +397,10 @@ export class BusinessHoursComponent implements OnInit {
             }else{
               this.mondayOn=false;
             }
-            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            if(element.day_start_time && element.day_end_time){
+              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
+              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            }
           }
           if(element.week_day_id == 2){
             element.week_day_name="Tuesday";         
@@ -258,8 +409,10 @@ export class BusinessHoursComponent implements OnInit {
             }else{
               this.tuesdayOn=false;
             }
-            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            if(element.day_start_time && element.day_end_time){
+              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
+              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            }
           }
           if(element.week_day_id == 3){
             element.week_day_name="Wednesday";        
@@ -268,8 +421,10 @@ export class BusinessHoursComponent implements OnInit {
             }else{
               this.wednesdayOn=false;
             }
+            if(element.day_start_time && element.day_end_time){
             element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
             element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            }
           }
           if(element.week_day_id == 4){
             element.week_day_name="Thursday";       
@@ -278,8 +433,10 @@ export class BusinessHoursComponent implements OnInit {
             }else{
               this.thursdayOn=false;
             }
+            if(element.day_start_time && element.day_end_time){
             element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
             element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            }
           }
           if(element.week_day_id == 5){
             element.week_day_name="Friday";     
@@ -288,8 +445,10 @@ export class BusinessHoursComponent implements OnInit {
             }else{
               this.fridayOn=false;
             }
+            if(element.day_start_time && element.day_end_time){
             element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
             element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            }
           }
           if(element.week_day_id == 6){
             element.week_day_name="Saturday";    
@@ -298,38 +457,67 @@ export class BusinessHoursComponent implements OnInit {
             }else{
               this.saturdayOn=false;
             }
+            if(element.day_start_time && element.day_end_time){
             element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
             element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            }
           }
         });
         console.log(this.workingHoursList);
         this.formSetWorkingHours = this._formBuilder.group({
-          mondayToggle: [this.workingHoursList[0].off_day=="N"?true:false/*,[Validators.required,Validators.email]*/],
-          mondayStartTime: [this.workingHoursList[0].day_start_time/*,[Validators.required,Validators.email]*/],
-          mondayEndTime: [this.workingHoursList[0].day_end_time/*,Validators.required*/],
-          tuesdayToggle: [this.workingHoursList[1].off_day=="N"?true:false/*,[Validators.required,Validators.email]*/],
-          tuesdayStartTime: [this.workingHoursList[1].day_start_time/*,[Validators.required,Validators.email]*/],
-          tuesdayEndTime: [this.workingHoursList[1].day_end_time/*,Validators.required*/],
-          wednesdayToggle: [this.workingHoursList[2].off_day=="N"?true:false/*,[Validators.required,Validators.email]*/],
-          wednesdayStartTime: [this.workingHoursList[2].day_start_time/*,[Validators.required,Validators.email]*/],
-          wednesdayEndTime: [this.workingHoursList[2].day_end_time/*,Validators.required*/],
-          thursdayToggle: [this.workingHoursList[3].off_day=="N"?true:false/*,[Validators.required,Validators.email]*/],
-          thursdayStartTime: [this.workingHoursList[3].day_start_time/*,[Validators.required,Validators.email]*/],
-          thursdayEndTime: [this.workingHoursList[3].day_end_time/*,Validators.required*/],
-          fridayToggle: [this.workingHoursList[4].off_day=="N"?true:false/*,[Validators.required,Validators.email]*/],
-          fridayStartTime: [this.workingHoursList[4].day_start_time/*,[Validators.required,Validators.email]*/],
-          fridayEndTime: [this.workingHoursList[4].day_end_time/*,Validators.required*/],
-          saturdayToggle: [this.workingHoursList[5].off_day=="N"?true:false/*,[Validators.required,Validators.email]*/],
-          saturdayStartTime: [this.workingHoursList[5].day_start_time/*,[Validators.required,Validators.email]*/],
-          saturdayEndTime: [this.workingHoursList[5].day_end_time/*,Validators.required*/],
-          sundayToggle: [this.workingHoursList[6].off_day=="N"?true:false/*,[Validators.required,Validators.email]*/],
-          sundayStartTime: [this.workingHoursList[6].day_start_time/*,[Validators.required,Validators.email]*/],
-          sundayEndTime: [this.workingHoursList[6].day_end_time/*,Validators.required*/],
+          mondayToggle: [this.workingHoursList[0].off_day=="N"?true:false,this.mondayOn?Validators.required:''],
+          mondayStartTime: [this.workingHoursList[0].day_start_time,this.mondayOn?Validators.required:''],
+          mondayEndTime: [this.workingHoursList[0].day_end_time,this.mondayOn?Validators.required:''],
+          tuesdayToggle: [this.workingHoursList[1].off_day=="N"?true:false,this.tuesdayOn?Validators.required:''],
+          tuesdayStartTime: [this.workingHoursList[1].day_start_time,this.tuesdayOn?Validators.required:''],
+          tuesdayEndTime: [this.workingHoursList[1].day_end_time,this.tuesdayOn?Validators.required:''],
+          wednesdayToggle: [this.workingHoursList[2].off_day=="N"?true:false,this.wednesdayOn?Validators.required:''],
+          wednesdayStartTime: [this.workingHoursList[2].day_start_time,this.wednesdayOn?Validators.required:''],
+          wednesdayEndTime: [this.workingHoursList[2].day_end_time,this.wednesdayOn?Validators.required:''],
+          thursdayToggle: [this.workingHoursList[3].off_day=="N"?true:false,this.thursdayOn?Validators.required:''],
+          thursdayStartTime: [this.workingHoursList[3].day_start_time,this.thursdayOn?Validators.required:''],
+          thursdayEndTime: [this.workingHoursList[3].day_end_time,this.thursdayOn?Validators.required:''],
+          fridayToggle: [this.workingHoursList[4].off_day=="N"?true:false,this.fridayOn?Validators.required:''],
+          fridayStartTime: [this.workingHoursList[4].day_start_time,this.fridayOn?Validators.required:''],
+          fridayEndTime: [this.workingHoursList[4].day_end_time,this.fridayOn?Validators.required:''],
+          saturdayToggle: [this.workingHoursList[5].off_day=="N"?true:false,this.saturdayOn?Validators.required:''],
+          saturdayStartTime: [this.workingHoursList[5].day_start_time,this.saturdayOn?Validators.required:''],
+          saturdayEndTime: [this.workingHoursList[5].day_end_time,this.saturdayOn?Validators.required:''],
+          sundayToggle: [this.workingHoursList[6].off_day=="N"?true:false,this.sundayOn?Validators.required:''],
+          sundayStartTime: [this.workingHoursList[6].day_start_time,this.sundayOn?Validators.required:''],
+          sundayEndTime: [this.workingHoursList[6].day_end_time,this.sundayOn?Validators.required:''],
         })
       }
       else{
        
       }
+    })
+  }
+
+  fnFormBuild(mondayOn,tuesdayOn,wednesdayOn,thursdayOn,fridayOn,saturdayOn,sundayOn){
+    console.log(mondayOn+"--"+tuesdayOn+"--"+wednesdayOn+"--"+thursdayOn+"--"+fridayOn+"--"+saturdayOn+"--"+sundayOn);
+    this.formSetWorkingHours = this._formBuilder.group({
+      mondayToggle: [this.formSetWorkingHours.get("mondayToggle").value?true:false,mondayOn?Validators.required:''],
+      mondayStartTime: [this.formSetWorkingHours.get("mondayStartTime").value,mondayOn?Validators.required:''],
+      mondayEndTime: [this.formSetWorkingHours.get("mondayEndTime").value,mondayOn?Validators.required:''],
+      tuesdayToggle: [this.formSetWorkingHours.get("tuesdayToggle").value?true:false,tuesdayOn?Validators.required:''],
+      tuesdayStartTime: [this.formSetWorkingHours.get("tuesdayStartTime").value,tuesdayOn?Validators.required:''],
+      tuesdayEndTime: [this.formSetWorkingHours.get("tuesdayEndTime").value,tuesdayOn?Validators.required:''],
+      wednesdayToggle: [this.formSetWorkingHours.get("wednesdayToggle").value?true:false,wednesdayOn?Validators.required:''],
+      wednesdayStartTime: [this.formSetWorkingHours.get("wednesdayStartTime").value,wednesdayOn?Validators.required:''],
+      wednesdayEndTime: [this.formSetWorkingHours.get("wednesdayEndTime").value,wednesdayOn?Validators.required:''],
+      thursdayToggle: [this.formSetWorkingHours.get("thursdayToggle").value?true:false,thursdayOn?Validators.required:''],
+      thursdayStartTime: [this.formSetWorkingHours.get("thursdayStartTime").value,thursdayOn?Validators.required:''],
+      thursdayEndTime: [this.formSetWorkingHours.get("thursdayEndTime").value,thursdayOn?Validators.required:''],
+      fridayToggle: [this.formSetWorkingHours.get("fridayToggle").value?true:false,fridayOn?Validators.required:''],
+      fridayStartTime: [this.formSetWorkingHours.get("fridayStartTime").value,fridayOn?Validators.required:''],
+      fridayEndTime: [this.formSetWorkingHours.get("fridayEndTime").value,fridayOn?Validators.required:''],
+      saturdayToggle: [this.formSetWorkingHours.get("saturdayToggle").value?true:false,saturdayOn?Validators.required:''],
+      saturdayStartTime: [this.formSetWorkingHours.get("saturdayStartTime").value,saturdayOn?Validators.required:''],
+      saturdayEndTime: [this.formSetWorkingHours.get("saturdayEndTime").value,saturdayOn?Validators.required:''],
+      sundayToggle: [this.formSetWorkingHours.get("sundayToggle").value?true:false,sundayOn?Validators.required:''],
+      sundayStartTime: [this.formSetWorkingHours.get("sundayStartTime").value,sundayOn?Validators.required:''],
+      sundayEndTime: [this.formSetWorkingHours.get("sundayEndTime").value,sundayOn?Validators.required:''],
     })
   }
 
@@ -340,26 +528,355 @@ export class BusinessHoursComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-       this.animal = result;
+      console.log(result);
+      if(result != undefined){
+        if(result.calltrue){
+        this.fnGetTimeOffList();
+       }
+      }
+       
      });
 
   }
 
+  fnGetTimeOffList(){
+    let requestObject={
+      "business_id":this.businessId
+    }
+
+    this.adminSettingsService.getTimeOffList(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.timeOffList= response.response;
+        console.log(this.timeOffList);
+        this.timeOffList.forEach(element => {
+          if(element.start_date){
+            element.start_date=this.datePipe.transform(new Date(element.start_date),"MMM dd, yyyy");
+          }
+          if(element.end_date){
+            element.end_date=this.datePipe.transform(new Date(element.end_date),"MMM dd, yyyy");
+          }
+        });
+      }else{
+        this.timeOffList= [];
+      }
+    })
+  }
+
+  fnDeleteTimeOff(timeOffId){
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure?"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        console.log(timeOffId);
+        let requestObject={
+          "time_off_id":timeOffId
+        }
+
+        this.adminSettingsService.deleteTimeOff(requestObject).subscribe((response:any) => {
+          if(response.data == true){
+            this.fnGetTimeOffList();
+            this.snackBar.open("TimeOff Deleted", "X", {
+              duration: 2000,
+              verticalPosition: 'bottom',
+              panelClass : ['green-snackbar']
+            });
+          }else{
+           this.snackBar.open("TimeOff Not Deleted", "X", {
+              duration: 2000,
+              verticalPosition: 'bottom',
+              panelClass : ['red-snackbar']
+            });
+          }
+        })
+      }
+    });
+  }
+
+  fnChangeTimeOffStatus(event,timeOffId){
+    console.log(event.checked+"--"+timeOffId);
+    let requestObject={
+      "time_off_id":timeOffId,
+      "status":event.checked?"E":"D"
+    }
+
+    this.adminSettingsService.changeTimeOffStatus(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.fnGetTimeOffList();
+        this.snackBar.open("TimeOff status updated", "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass : ['green-snackbar']
+        });
+      }else{
+       this.snackBar.open("TimeOff status not updated", "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+  }
+
+  fnGetBreakTimeList(){
+    let requestObject={
+      "business_id":this.businessId
+    }
+
+    this.adminSettingsService.getBreakTimeList(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.breakTimeList= response.response;
+        console.log(this.breakTimeList);
+        this.breakTimeList.forEach(element => {
+          if(element.break_start_time){
+           element.break_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.break_start_time),"HH:mm");
+          }
+          if(element.break_end_time){
+            element.break_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.break_end_time),"HH:mm");
+          }
+        });
+      }else{
+        this.breakTimeList= [];
+      }
+    })
+  }
+
+  fnShowAddBreakForm(day){
+    if(day == "Monday"){
+      this.selectedStartTimeMonday=this.timeSlotList[0].long;
+      this.selectedEndTimeMonday=this.timeSlotList[this.timeSlotList.length-1].long;
+      this.showMondayAddForm=this.showMondayAddForm==true?false:true;
+    }
+    if(day == "Tuesday"){
+      this.selectedStartTimeTuesday=this.timeSlotList[0].long;
+      this.selectedEndTimeTuesday=this.timeSlotList[this.timeSlotList.length-1].long;
+      this.showTuesdayAddForm=this.showTuesdayAddForm==true?false:true;
+    }
+    if(day == "Wednesday"){
+      this.selectedStartTimeWednesday=this.timeSlotList[0].long;
+      this.selectedEndTimeWednesday=this.timeSlotList[this.timeSlotList.length-1].long;
+      this.showWednesdayAddForm=this.showWednesdayAddForm==true?false:true;
+    }
+    if(day == "Thursday"){
+      this.selectedStartTimeThursday=this.timeSlotList[0].long;
+      this.selectedEndTimeThursday=this.timeSlotList[this.timeSlotList.length-1].long;
+      this.showThursdayAddForm=this.showThursdayAddForm==true?false:true;
+    }
+    if(day == "Friday"){
+      this.selectedStartTimeFriday=this.timeSlotList[0].long;
+      this.selectedEndTimeFriday=this.timeSlotList[this.timeSlotList.length-1].long;
+      this.showFridayAddForm=this.showFridayAddForm==true?false:true;
+    }
+    if(day == "Saturday"){
+      this.selectedStartTimeSaturday=this.timeSlotList[0].long;
+      this.selectedEndTimeSaturday=this.timeSlotList[this.timeSlotList.length-1].long;
+      this.showSaturdayAddForm=this.showSaturdayAddForm==true?false:true;
+    }
+    if(day == "Sunday"){
+      this.selectedStartTimeSunday=this.timeSlotList[0].long;
+      this.selectedEndTimeSunday=this.timeSlotList[this.timeSlotList.length-1].long;
+      this.showSundayAddForm=this.showSundayAddForm==true?false:true;
+    }
+  }
+
+  fnAddBreak(day){
+    let requestObject={
+      "business_id":'',
+      "start_time":'',
+      "end_time":'',
+      "dayNumber":''
+    }
+    if(day == "Monday"){
+      requestObject={
+        "business_id":this.businessId,
+        "start_time":this.selectedStartTimeMonday,
+        "end_time":this.selectedEndTimeMonday,
+        "dayNumber":"1"
+      }
+      console.log(requestObject);
+    }
+    if(day == "Tuesday"){
+      requestObject={
+        "business_id":this.businessId,
+        "start_time":this.selectedStartTimeTuesday,
+        "end_time":this.selectedEndTimeTuesday,
+        "dayNumber":"2"
+      }
+      console.log(requestObject);
+    }
+    if(day == "Wednesday"){
+      requestObject={
+        "business_id":this.businessId,
+        "start_time":this.selectedStartTimeWednesday,
+        "end_time":this.selectedEndTimeWednesday,
+        "dayNumber":"3"
+      }
+      console.log(requestObject);
+    }
+    if(day == "Thursday"){
+      requestObject={
+        "business_id":this.businessId,
+        "start_time":this.selectedStartTimeThursday,
+        "end_time":this.selectedEndTimeThursday,
+        "dayNumber":"4"
+      }
+      console.log(requestObject);
+    }
+    if(day == "Friday"){
+      requestObject={
+        "business_id":this.businessId,
+        "start_time":this.selectedStartTimeFriday,
+        "end_time":this.selectedEndTimeFriday,
+        "dayNumber":"5"
+      }
+      console.log(requestObject);
+    }
+    if(day == "Saturday"){
+      requestObject={
+        "business_id":this.businessId,
+        "start_time":this.selectedStartTimeSaturday,
+        "end_time":this.selectedEndTimeSaturday,
+        "dayNumber":"6"
+      }
+      console.log(requestObject);
+    }
+    if(day == "Sunday"){
+      requestObject={
+        "business_id":this.businessId,
+        "start_time":this.selectedStartTimeSunday,
+        "end_time":this.selectedEndTimeSunday,
+        "dayNumber":"0"
+      }
+      console.log(requestObject);
+    }
+    this.adminSettingsService.addNewBreak(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.fnGetBreakTimeList();
+        this.showMondayAddForm=false;
+        this.showTuesdayAddForm=false;
+        this.showWednesdayAddForm=false;
+        this.showThursdayAddForm=false;
+        this.showFridayAddForm=false;
+        this.showSaturdayAddForm=false;
+        this.showSundayAddForm=false;
+        this.snackBar.open("Break Added", "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass : ['green-snackbar']
+        });
+      }
+      else{
+       this.snackBar.open("Break Not Added", "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+  }
+
+  fnDeleteBreak(breakId){
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure?"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        console.log(breakId);
+        let requestObject={
+          "break_id":breakId
+        }
+
+        this.adminSettingsService.deleteBreak(requestObject).subscribe((response:any) => {
+          if(response.data == true){
+            this.fnGetBreakTimeList();
+            this.snackBar.open("Break Deleted", "X", {
+              duration: 2000,
+              verticalPosition: 'bottom',
+              panelClass : ['green-snackbar']
+            });
+          }else{
+           this.snackBar.open("Break Not Deleted", "X", {
+              duration: 2000,
+              verticalPosition: 'bottom',
+              panelClass : ['red-snackbar']
+            });
+          }
+        })
+      }
+    });
+  }
 }
 
 @Component({
   selector: 'new-appointment',
   templateUrl: '../_dialogs/bussiness-hour-add-time-off.html',
+  providers: [DatePipe]
 })
 export class DialogAddNewTimeOffBussiness {
 
+businessId:any;
+minStartDate = new Date();
+minEndDate = new Date();
+formAddNewTimeOff: FormGroup;
 constructor(
   public dialogRef: MatDialogRef<DialogAddNewTimeOffBussiness>,
-  @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  @Inject(MAT_DIALOG_DATA) public data: DialogData,
+  private datePipe: DatePipe,
+  private _formBuilder: FormBuilder, 
+  public adminSettingsService: AdminSettingsService,
+  private snackBar: MatSnackBar) {
+  this.formAddNewTimeOff = this._formBuilder.group({
+    startDate: [this.minStartDate,Validators.required],
+    endDate: ['',Validators.required],
+    description: ['',Validators.required],
+  });
+  if(localStorage.getItem('business_id')){
+    this.businessId = localStorage.getItem('business_id');
+  }
+}
+
+fnDateChange(event: MatDatepickerInputEvent<Date>){
+  console.log(event);
+  this.minEndDate=event.value
+}
 
 onNoClick(): void {
-  this.dialogRef.close();
+  this.dialogRef.close({ call: false });
+}
+
+fnAddNewTimeOff(){
+  if(this.formAddNewTimeOff.invalid){
+    this.formAddNewTimeOff.get("startDate").markAsTouched();
+    this.formAddNewTimeOff.get("endDate").markAsTouched();
+    this.formAddNewTimeOff.get("description").markAsTouched();
+    return false;
+  }
+  let requestObject={
+      "business_id":this.businessId,
+      "start_date":this.datePipe.transform(new Date(this.formAddNewTimeOff.get("startDate").value),"yyyy-MM-dd"),
+      "end_date":this.datePipe.transform(new Date(this.formAddNewTimeOff.get("endDate").value),"yyyy-MM-dd"),
+      "description":this.formAddNewTimeOff.get("description").value
+    }
+    console.log(JSON.stringify(requestObject));
+    this.adminSettingsService.addNewTimeOff(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.dialogRef.close({ call: true });
+        this.snackBar.open("TimeOff added", "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass : ['green-snackbar']
+        });
+      }
+      else{
+       this.snackBar.open("TimeOff nit added", "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
 }
 
 
