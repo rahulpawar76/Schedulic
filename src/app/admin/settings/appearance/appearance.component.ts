@@ -18,6 +18,12 @@ export class AppearanceComponent implements OnInit {
   gradientColor : any;
   settingData : any;
   getAppearanceData : any;
+  ChangeName:boolean=false;
+  ChangeNumber:boolean=false;
+  ChangeRequired:boolean=false;
+  ChangeAddress:boolean=false;
+
+  formArr:any = [];
 
   formSettingPage:boolean=false;
   primarycolor: any = '#2889e9';
@@ -79,6 +85,65 @@ export class AppearanceComponent implements OnInit {
     }
   }
 
+  fnChangeName(event,name){
+    if(event == true){
+      this.formArr.push(name);
+      this.ChangeName = true;
+    }else if(event == false){
+      const index = this.formArr.indexOf(name, 0);
+      if (index > -1) {
+        this.formArr.splice(index, 1);
+      }
+      this.ChangeName = false;
+    }
+    console.log( this.formArr);
+  }
+
+  fnChangeNumber(event,number)
+  {
+    if(event == true){
+      this.formArr.push(number);
+      this.ChangeNumber = true;
+    }else if(event == false){
+      const index = this.formArr.indexOf(number, 0);
+      if (index > -1) {
+        this.formArr.splice(index, 1);
+      }
+      this.ChangeNumber = false;
+    }
+    console.log( this.formArr);
+  }
+  fnChangeRequired(event,email)
+  {
+    if(event == true){
+      this.formArr.push(email);
+      this.ChangeRequired = true;
+    }else if(event == false){
+      const index = this.formArr.indexOf(email, 0);
+      if (index > -1) {
+        this.formArr.splice(index, 1);
+      }
+      this.ChangeRequired = false;
+    }
+    console.log( this.formArr);
+  }
+
+  fnChangeAddress(event,address)
+  {
+    if(event == true){
+      this.formArr.push(address);
+      this.ChangeAddress = true;
+    }else if(event == false){
+      const index = this.formArr.indexOf(address, 0);
+      if (index > -1) {
+        this.formArr.splice(index, 1);
+      }
+      this.ChangeAddress = false;
+      
+    }
+    console.log( this.formArr);
+  }
+
   appearanceColor(){
     if(this.Appearance.valid){
       this.gradientColor = this.primarygradient1+","+this.primarygradient2
@@ -121,6 +186,18 @@ export class AppearanceComponent implements OnInit {
   }
   changeNameField(value){
     console.log(value);
+  }
+
+  fnFormSetting(){
+    this.AdminSettingsService.fnFormSetting(this.formSettingPage,this.formArr).subscribe((response:any)=>{
+      if(response.data == true){
+        this._snackBar.open("Currency Format Updated", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+      }
+    })
   }
 
 }

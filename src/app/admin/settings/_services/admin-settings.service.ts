@@ -604,6 +604,23 @@ export class AdminSettingsService {
             }),
         catchError(this.handleError));
     }
+    fnFormSetting(status,formArr) {
+        let requestObject = {
+            'business_id': this.businessId,
+            'status': status,
+            'form_settings' : formArr
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+    return this.http.post(`${environment.apiUrl}/set-form-settings`, requestObject, { headers: headers }).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+}
     // Staff Module
     getAllStaff() {
         let requestObject = {

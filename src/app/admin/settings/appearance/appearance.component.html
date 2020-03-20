@@ -51,7 +51,8 @@
             <div class="bottom-border d-flex">
                 <mat-label>Text Color On Background</mat-label>
                 <div class=" colorpicker-wrap">
-                    <input [style.background]="textbgcolor" class="color_box" [(colorPicker)]="textbgcolor" (colorPickerChange)="onChangeTextBgColor($event)" />
+                    <input [style.background]="textbgcolor" class="color_box" 
+                    [(colorPicker)]="textbgcolor" (colorPickerChange)="onChangeTextBgColor($event)" />
                 </div>
             </div>
            
@@ -62,7 +63,8 @@
                     </mat-select>
             </mat-form-field>
 
-            <button mat-button appearance="fill" class="save-btn" (click)="appearanceColor()">Save</button>
+            
+            <button mat-button appearance="fill" class="appearancecolor-save-btn" (click)="appearanceColor()">Save</button>
             </div>
 
         </mat-tab>
@@ -85,24 +87,25 @@
                             </div>
                             <div class="content" class="form-setting-list">
                                 <div  class="custom-check-box" >
-                                    <div class="" fxFlex="20" >
-                                        <div class="checked round">
-                                            <mat-checkbox class="form_field_checkbox"></mat-checkbox>
+                                    <div class="" fxFlex="20"  >
+                                        <div class="checked round" >
+                                            <mat-checkbox (change)="fnChangeName($event.checked,'name')" class="form_field_checkbox"></mat-checkbox>
                                             <p class="check-label">Name</p> 
                                         </div> 
                                     </div>
-                                    <div class="" fxFlex="20"><mat-checkbox>Required</mat-checkbox></div>
+                                    <div class="" fxFlex="20" *ngIf="ChangeName"><mat-checkbox >Required</mat-checkbox></div>
                                     <div class="" fxFlex="60"></div>     
                                     
                                 </div>
                                 <div  class="custom-check-box">
                                     <div class="" fxFlex="20">
                                         <div class="checked round">
-                                            <mat-checkbox class="form_field_checkbox"></mat-checkbox>
+                                            <mat-checkbox (change)="fnChangeNumber($event.checked,'number')" class="form_field_checkbox"></mat-checkbox>
                                             <p class="check-label">Number</p> 
                                         </div>  
                                     </div>
-                                    <div class="" fxFlex="20">  <div>
+                                    <div class="" fxFlex="20" *ngIf="ChangeNumber">  
+                                        <div>
                                         <mat-checkbox>Required</mat-checkbox>
                                     </div></div>
                                     <div class="" fxFlex="60"></div>  
@@ -111,11 +114,11 @@
                                 <div  class="custom-check-box">
                                     <div class="" fxFlex="20">
                                         <div class="checked round">
-                                            <mat-checkbox class="form_field_checkbox"></mat-checkbox>
+                                            <mat-checkbox (change)="fnChangeRequired($event.checked,'email')" class="form_field_checkbox"></mat-checkbox>
                                             <p class="check-label">Email</p> 
                                         </div>  
                                     </div>
-                                    <div class="" fxFlex="20">  <div>
+                                    <div class="" fxFlex="20" *ngIf="ChangeRequired">  <div>
                                         <mat-checkbox>Required</mat-checkbox>
                                     </div></div>
                                     <div class="" fxFlex="60"></div>  
@@ -124,19 +127,20 @@
                                 <div  class="custom-check-box">
                                     <div class="" fxFlex="20">
                                         <div class="checked round">
-                                            <mat-checkbox class="form_field_checkbox"></mat-checkbox>
+                                            <mat-checkbox (change)="fnChangeAddress($event.checked,'address')" class="form_field_checkbox"></mat-checkbox>
                                             <p class="check-label">Address</p> 
                                         </div>  
                                     </div>
-                                    <div class="" fxFlex="20">  <div>
-                                        <mat-checkbox>Required</mat-checkbox>
+                                    <div class="" fxFlex="20" *ngIf="ChangeAddress">  <div>
+                                        <mat-checkbox >Required</mat-checkbox>
                                     </div></div>
                                     <div class="" fxFlex="60"></div>  
-                                </div> 
+                                </div>     
                             </div>
+                            <button mat-button appearance="fill" class="form-save-btn" (click)="fnFormSetting()">Save</button>
                         </div>
                     </div>
-                </div>  
+                </div>       
             </mat-card>
         </mat-tab>
     </mat-tab-group>

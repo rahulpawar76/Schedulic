@@ -28,6 +28,7 @@ export class StaffComponent implements OnInit {
   staffActionId: any = [];
   singleStaffStatus: any;
   singleStaffDetail: any;
+  staffImageUrl:any;
 
   constructor(
     public dialog: MatDialog,
@@ -144,6 +145,20 @@ export class StaffComponent implements OnInit {
       this.animal = result;
     });
   }
+
+  staffImage() {
+    const dialogRef = this.dialog.open(DialogStaffImageUpload, {
+      width: '500px',
+      
+    });
+  
+     dialogRef.afterClosed().subscribe(result => {
+        if(result != undefined){
+            this.staffImageUrl = result;
+            console.log(result);
+           }
+     });
+  }
 }
 @Component({
   selector: 'new-appointment',
@@ -158,6 +173,54 @@ export class DialogAddNewTimeOff {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+}
+
+@Component({
+  selector: 'staff-image-upload',
+  templateUrl: '../_dialogs/staff-upload-profile-image-dialog.html',
+})
+export class DialogStaffImageUpload {
+
+  uploadForm: FormGroup;  
+  imageSrc: string;
+  profileImage: string;
+  
+constructor(
+  public dialogRef: MatDialogRef<DialogStaffImageUpload>,
+  private _formBuilder:FormBuilder,
+  private _snackBar: MatSnackBar,
+  @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  onNoClick(): void {
+      this.dialogRef.close(this.profileImage);
+    }
+    ngOnInit() {
+      this.uploadForm = this._formBuilder.group({
+        profile: ['']
+      });
+    }
+    get f() {
+      return this.uploadForm.controls;
+    }
+    
+onFileChange(event) {
+  const reader = new FileReader();
+  if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+          this.imageSrc = reader.result as string;
+          this.uploadForm.patchValue({
+              fileSource: reader.result
+          });
+      };
+  }
+}
+uploadImage() {
+  this.profileImage = this.imageSrc
+  this.dialogRef.close(this.profileImage);
+}
 
 
 }
