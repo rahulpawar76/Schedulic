@@ -1,298 +1,322 @@
 <div class="">
-    <div class="">
+  <div class="">
+    <mat-drawer-container class="reports-container col-lg-12" style="margin-top: 70px;">
+      <mat-drawer mode="side" opened id="Customer-list" class="pl-0 pr-0" style="width:300px;">
+        <div class="leftarrow-icon">
+          <mat-icon aria-hidden="false" class="customer-drawer-leftarrow">arrow_back</mat-icon>
+        </div>
+        <mat-list role="list">
+          <mat-menu></mat-menu>
+          <p class="pl-4">Report Management</p>
+          <div class="matlist pointer menuitem">
+            <mat-list-item role="listitem" (click)="fnappointmentReport()"><i class="fa fa-bar-chart saleschart"></i>Appointment Reports</mat-list-item>
+            <mat-list-item role="listitem" (click)="fnsalesReport()"><i class="fa fa-bar-chart saleschart"></i>Sales Reports</mat-list-item>
+            <mat-list-item role="listitem" (click)="fncustomerReport()"><i class="fa fa-file-text-o custchart"></i>Customer Reports</mat-list-item>
+          </div>
+        </mat-list>
+      </mat-drawer>
+      <mat-drawer-content class="" style="margin-left:300px">
+        <div class="d-flex main-custmer-content ">
+          <div class="d-flex pl-3 w-100" >
+            <mat-form-field  class="pr-3 bottom-border-field">
+              <input matInput type="text" ngxDaterangepickerMd [locale]="options" [(ngModel)]="selected" showCancel="true" alwaysShowCalendars="true" (change)="changeDateRange($event)"  readonly="readonly" />
+              <!-- <ngx-daterangepicker-material (choosedDate)="choosedDate($event)">
+              </ngx-daterangepicker-material> -->
+            </mat-form-field>
+            <mat-form-field  class="pr-3 bottom-border-field" *ngIf="isAppointmentReport">
+              <mat-select (selectionChange)="fnChangeDateFilter($event)" [(value)]="dateFilter">
+                <mat-option value="booking_date">
+                  By Appointment Date
+                </mat-option>
+                <mat-option value="order_date">
+                  By Booking Date
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field  class="pr-3 bottom-border-field" *ngIf="!isCustomerReport">
+              <mat-select (selectionChange)="fnChangeReportFilter($event)"  [(value)]="reportFilter">
+                <mat-option value="all">
+                  Detailed Report
+                </mat-option>
+                <mat-option value="date">
+                  Group By Date
+                </mat-option>
+                <mat-option value="month">
+                  Group By Month
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field  class="pr-3 bottom-border-field" *ngIf="isSalesReport">
+              <mat-select (selectionChange)="fnChangeStatusFilter($event)"  [(value)]="statusFilter">
+                <mat-option value="all">
+                  All
+                </mat-option>
+                <mat-option value="paid">
+                  Paid
+                </mat-option>
+                <mat-option value="unpaid">
+                  Unpaid
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field  class="pr-3 bottom-border-field" *ngIf="isCustomerReport">
+              <mat-select (selectionChange)="fnChangeCreatedByFilter($event)"  [(value)]="createdByFilter">
+                <mat-option value="all">
+                  Registration By All
+                </mat-option>
+                <mat-option value="admin">
+                  Admin 
+                </mat-option>
+                <mat-option value="staff">
+                  Staff
+                </mat-option>
+                <mat-option value="self">
+                  Customer
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="cust-icons w-100 d-flex">
+              <i class="fa fa-search cust-search ml-auto" aria-hidden="true"></i>
+              <i class="fa fa-print cust-print" aria-hidden="true"></i>
+              <i class="fa fa-download cust-download" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
 
-        <mat-drawer-container class="reports-container col-lg-12"  style="margin-top: 70px;">
-            <mat-drawer mode="side" opened id="Customer-list" class=" pl-0 pr-0"  style="width:300px;">
-                <div class="leftarrow-icon">
-                    <mat-icon aria-hidden="false" class="customer-drawer-leftarrow">arrow_back</mat-icon>
-                </div>
-             
-                  <mat-list role="list">
-                    <mat-menu></mat-menu>
-                    <p class="pl-4">Report Management</p>
-                    <div class="matlist pointer menuitem">
-                    <mat-list-item role="listitem" (click)="fnappointmentReport()"><i class="fa fa-bar-chart saleschart"></i>Appointment Reports</mat-list-item>
-                    <mat-list-item role="listitem" (click)="fnsalesReport()"><i class="fa fa-bar-chart saleschart"></i>Sales Reports</mat-list-item>
-                    <mat-list-item role="listitem" (click)="fncustomerReport()"><i class="fa fa-file-text-o custchart"></i>Customer Reports</mat-list-item>
-                  </div>
-                  </mat-list>
-            </mat-drawer>
-        
-            <mat-drawer-content class="" style="margin-left:300px">
-                <div class="d-flex main-custmer-content ">
-                    <div class="d-flex pl-3 w-100" >
-                    
-                      <mat-form-field  class="pr-3 bottom-border-field">
-                      <mat-label>BY Date</mat-label>
-                      <input matInput type="text" ngxDaterangepickerMd  />
-                    </mat-form-field>
-			
-                      
-                   <mat-form-field  class="pr-3 bottom-border-field">
-                    <mat-label>BY Appointment</mat-label>
-                    <mat-select>
-                      <mat-option *ngFor="let food of foods" [value]="food.value">
-                        {{food.viewValue}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  
-                  <mat-form-field  class="pr-3 bottom-border-field">
-                    <mat-label>Detailed Report</mat-label>
-                    <mat-select>
-                      <mat-option *ngFor="let food of foods" [value]="food.value">
-                        {{food.viewValue}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  <div class="cust-icons w-100 d-flex">
-                    <i class="fa fa-search cust-search ml-auto" aria-hidden="true"></i>
-                    <i class="fa fa-print cust-print" aria-hidden="true"></i>
-                    <i class="fa fa-download cust-download" aria-hidden="true"></i>
-                  </div>
-                 </div>
-                </div>
-                <div id="appointment_listing" *ngIf="appointmentReport">
-                  <div id="Customer-Listing" class=" pl-0 pr-0 ">
-                    <p class="mb-0 ">01 Oct 2019 - 31 Oct 2019</p>
-                    <p class="mb-0 custreports">Appointment Report (Appointment Date Wise)</p>
-                    <label class="custrecords">Total Records : </label><label class="pl-1"> 20,</label> 
-                    <label class="custrecords pl-2">Expected Revenue : </label><label class="pl-1"> $.18,700.00</label>
-                  </div>
-                    <div class="Customer-appointment-table">
-                      <mat-card class="main-table-content main-cust-table-content">
-                        <table class="table">
-                     
-                            <thead class="main-heading-content">
-                              <tr>
-                                <th scope="col">APPOINTMENT DATE</th>
-                                <th scope="col">CUSTOMER</th>
-                                <th scope="col">SERVICE</th>
-                                <th scope="col">STAFF</th>                            
-                                <th scope="col">STATUS</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                <tr scope="row" *ngFor="let appointmentsReports of appointmentsReports; let i=index">
-                                  <td *ngIf="appointmentsReports.booking" scope="col">
-                                    <p class="mb-0">{{appointmentsReports.booking.booking_date}}</p>
-                                    <p>Time : {{appointmentsReports.booking.booking_time}}</p>
-                                  </td>
-                                  <td *ngIf="appointmentsReports.booking">
-                                    <p class="mb-0">{{appointmentsReports.booking.customer.fullname}}</p>
-                                    <p class="mb-0">Phone No:{{appointmentsReports.booking.customer.phone}}</p>
-                                    <p>Email:{{appointmentsReports.booking.customer.email}}</p>
-                                  </td>
-                                  <td *ngIf="appointmentsReports.booking">
-                                    <p class="mb-0">{{appointmentsReports.booking.service.service_name}}</p>
-                                    <p class="mb-0">Duration:{{appointmentsReports.booking.service.service_time}}</p>
-                                    <p>Price:{{appointmentsReports.booking.service.service_cost}}</p>
-                                  </td>
-                                  <td *ngIf="appointmentsReports.booking.staff !== null && appointmentsReports.booking">
-                                    <p>{{appointmentsReports.booking.staff.firstname}}</p>
-                                    <p>{{appointmentsReports.booking.staff.lastname}}</p>
-                                  </td>
-                                  <td *ngIf="appointmentsReports.booking.staff === null && appointmentsReports.booking" class="" fxFlex="25">
-                                    <p class="mb-0">Not Assigned</p>
-                                  </td>
-                                  <td *ngIf="appointmentsReports.booking">Approved,
-                                      <p>Not Paid</p>
-                                  </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                          </mat-card>
-                    </div>
-                  </div>
-                  <div id="sales_report" *ngIf="salesReport">
-                    <div class=" pl-0 pr-0 " id="Customer-Listing">
-                      <p class="mb-0 ">24 Oct 2019 </p>
-                      <p class="mb-0 custreports">Sales Reports</p>
-                      <label class="custrecords">Total Records :</label><label > 20,</label> 
-                      <label class="custrecords"> Confirmed Revenue:</label><label> $.18,700.00,</label>
-                      <label class="custrecords"> Project Revenue:</label><label> $.10,300.00,</label>
-                      <label class="custrecords">Total Estimated : </label><label> $.29,000.00</label> 
-                     </div>
-                    <div class="Customer-appointment-table">
-                      <mat-card class="main-table-content main-cust-table-content">
-                        <table class="table">
-                         
-                            <thead class="main-heading-content">
-                              <tr>
-                                <th scope="col">PAYMENT DATE</th>          
-                                <th scope="col">CUSTOMER</th>
-                                <th scope="col">SERVICE</th>
-                                <th scope="col">AMOUNT</th>                            
-                                <th scope="col">STATUS</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr *ngFor="let salesReports of salesReports; let i=index">
-                                <td scope="row"><p class="mb-0">Thu,24 Oct 2019</p></td>
-                                <td><p class="mb-0">Shab Patel</p>
-                                    <p class="mb-0">Phone No:1234567890</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0">Makeup</p>
-                                    <p class="mb-0">20 Oct 2019,</p>
-                                    <p>09:00am</p>
-                                </td>
-                                <td>USD.500.00
-                                  <p class="mb-0">Discount:USD.60.00,</p>
-                                  <p>Tax:USD.50.00</p>
-                                </td>
-                                <td>Paid
-                                  <p>By Cash</p>
-                                </td>
-                              <!-- </tr>
-                    
-                              <tr>
-                                <td scope="row"><p class="mb-0">Thu,24 Oct 2019</p></td>
-                                <td><p class="mb-0">Shab Patel</p>
-                                    <p class="mb-0">Phone No:1234567890</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0">Repainting</p>
-                                    <p class="mb-0">20 Oct 2019,</p>
-                                    <p>09:00am</p>
-                                </td>
-                                <td>USD.500.00
-                                  <p class="mb-0">Discount:USD.60.00,</p>
-                                  <p>Tax:USD.50.00</p>
-                                </td>
-                                <td>Paid
-                                  <p>By Cash</p>
-                                </td>
-                              </tr>
-                    
-                              <tr>
-                                <td scope="row"><p class="mb-0">Thu,24 Oct 2019</p></td>
-                                <td><p class="mb-0">Shab Patel</p>
-                                    <p class="mb-0">Phone No:1234567890</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0">Haircut</p>
-                                    <p class="mb-0">20 Oct 2019,</p>
-                                    <p>09:00am</p>
-                                </td>
-                                <td>USD.500.00
-                                  <p class="mb-0">Discount:USD.60.00,</p>
-                                  <p>Tax:USD.50.00</p>
-                                </td>
-                                <td>Paid
-                                  <p>By Cash</p>
-                                </td>
-                              </tr>
-                    
-                              <tr>
-                                <td scope="row"><p class="mb-0">Thu,24 Oct 2019</p></td>
-                                <td><p class="mb-0">Shab Patel</p>
-                                    <p class="mb-0">Phone No:1234567890</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0">Cleaning</p>
-                                    <p class="mb-0">20 Oct 2019,</p>
-                                    <p>09:00am</p>
-                                </td>
-                                <td>USD.500.00
-                                  <p class="mb-0">Discount:USD.60.00,</p>
-                                  <p>Tax:USD.50.00</p>
-                                </td>
-                                <td>Paid
-                                  <p>By Cash</p>
-                                </td>
-                              </tr>
-                    
-                              <tr>
-                                <td scope="row"><p class="mb-0">Thu,24 Oct 2019</p></td>
-                                <td><p class="mb-0">Shab Patel</p>
-                                    <p class="mb-0">Phone No:1234567890</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0">Massage</p>
-                                    <p class="mb-0">20 Oct 2019,</p>
-                                    <p>09:00am</p>
-                                </td>
-                                <td>USD.500.00
-                                  <p class="mb-0">Discount:USD.60.00,</p>
-                                  <p>Tax:USD.50.00</p>
-                                </td>
-                                <td>Paid
-                                  <p>By Cash</p>
-                                </td>
-                              </tr>
-                    
-                              <tr>
-                                <td scope="row"><p class="mb-0">Thu,24 Oct 2019</p></td>
-                                <td><p class="mb-0">Shab Patel</p>
-                                    <p class="mb-0">Phone No:1234567890</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0">Hair Color</p>
-                                    <p class="mb-0">20 Oct 2019,</p>
-                                    <p>09:00am</p>
-                                </td>
-                                <td>USD.500.00
-                                  <p class="mb-0">Discount:USD.60.00,</p>
-                                  <p>Tax:USD.50.00</p>
-                                </td>
-                                <td>Paid
-                                  <p>By Cash</p>
-                                </td>
-                              </tr> -->
-                           
-                            </tbody>
-                          </table>
-                          </mat-card>
-                    </div>
-                  </div>
-                  <div id="customer_report" *ngIf="customerReport">
-                    <div class=" pl-0 pr-0 " id="Customer-Listing">
-                      <p class="mb-0 ">24 Oct 2019 </p>
-                      <p class="mb-0 custreports">Customer Reports</p>
-                    </div>
-                    <div class="Customer-appointment-table">
-                      <mat-card class="main-table-content main-cust-table-content">
-                        <table class="table">
-                        
-                            <thead class="main-heading-content">
-                              <tr>
-                                <th scope="col">REGISTRATION DATE</th>  
-                                <th scope="col">REGISTRATION BY</th>        
-                                <th scope="col">CUSTOMER</th>
-                                <th scope="col">PHONE NO</th>
-                                <th scope="col">EMAIL</th>                            
-                                
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr *ngFor="let customerReports of customerReports; let i=index">
-                                <td scope="row"><p class="mb-0">24 Oct 2019</p></td>
-                                <td>Admin</td>
-                                <td>Shab Patel</td>
-                                <td>1234567890</td>
-                                <td>shabpatel@gmail.com</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                          </mat-card>
-                    </div>
-                </div>
-            </mat-drawer-content>
-          </mat-drawer-container>
+        <div id="appointment_listing" *ngIf="isAppointmentReport">
+          <div id="Customer-Listing" class=" pl-0 pr-0 ">
+            <p class="mb-0 ">{{selectedStartDateLabel}} - {{selectedEndDateLabel}}</p>
+            <p class="mb-0 custreports" *ngIf="dateFilter=='booking_date'">Appointment Report (Appointment Date Wise)</p>
+            <p class="mb-0 custreports" *ngIf="dateFilter=='order_date'">Appointment Report (Booking Date Wise)</p>
+            <label class="custrecords">Total Records : </label><label class="pl-1">{{appointmentReportTotalRecords}},</label> 
+            <label class="custrecords pl-2">Expected Revenue : </label><label class="pl-1"> $.{{appointmentReportExpectedRevenue}}.00</label>
+          </div>
+          <div class="Customer-appointment-table">
+            <mat-card class="main-table-content main-cust-table-content">
+              <table class="table" *ngIf="!isAppointmentsGroupBy">
+                <thead class="main-heading-content">
+                  <tr>
+                    <th scope="col" class="text-center">APPOINTMENT DATE</th>
+                    <th scope="col" class="text-center">CUSTOMER</th>
+                    <th scope="col" class="text-center">SERVICE</th>
+                    <th scope="col" class="text-center">STAFF</th>
+                    <th scope="col" class="text-center">STATUS</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="appointmentReport.length>0">
+                  <tr scope="row" *ngFor="let appRep of appointmentReport; let i=index">
+                    <td scope="col" class="text-center">
+                      <p class="mb-0">{{appRep.booking_date}}</p>
+                      <p>Time : {{appRep.booking_time}}</p>
+                    </td>
+                    <td scope="col" class="text-center">
+                      <p class="mb-0">{{appRep.customer.fullname}}</p>
+                      <p class="mb-0">Phone No:{{appRep.customer.phone}}</p>
+                      <p>Email:{{appRep.customer.email}}</p>
+                    </td>
+                    <td scope="col" class="text-center">
+                      <p class="mb-0">{{appRep.service.service_name}}</p>
+                      <p class="mb-0">Duration:{{appRep.service.service_time}}</p>
+                      <p>Price:{{appRep.service.service_cost}}</p>
+                    </td>
+                    <td *ngIf="appRep.staff !== null" scope="col" class="text-center">
+                      <p>{{appRep.staff.firstname}}</p>
+                      <p>{{appRep.staff.lastname}}</p>
+                    </td>
+                    <td *ngIf="appRep.staff === null" scope="col" class="text-center">
+                      <p class="mb-0">Not Assigned</p>
+                    </td>
+                    <td *ngIf="appRep.staff !== null" class="text-center">
+                      Approved,
+                      <p>Not Paid</p>
+                    </td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="appointmentReport.length==0">
+                  <tr scope="row">
+                    <td scope="col" class="text-center">
+                      <p class="mb-0">No Data Available</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table" *ngIf="isAppointmentsGroupBy">
+                <thead class="main-heading-content">
+                  <tr>
+                    <th scope="col" class="text-center">DATE</th>
+                    <th scope="col" class="text-center">APPOINTMENTS</th>
+                    <th scope="col" class="text-center">CUSTOMERS</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="appointmentReport.length>0">
+                  <tr scope="row" *ngFor="let appRep of appointmentReport; let i=index">
+                    <td scope="col" class="text-center">
+                      <p class="mb-0" *ngIf="reportFilter=='date'">{{appRep.dates}}</p>
+                      <p class="mb-0" *ngIf="reportFilter=='month'">{{appRep.Month}}</p>
+                    </td>
+                    <td scope="col" class="text-center">
+                      <p class="mb-0">{{appRep.appointments}}</p>
+                    </td>
+                    <td scope="col" class="text-center">
+                      <p class="mb-0">{{appRep.customer}}</p>
+                    </td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="appointmentReport.length==0">
+                  <tr scope="row">
+                    <td scope="col" class="text-center">
+                      <p class="mb-0">No Data Available</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </mat-card>
+          </div>
+        </div>
 
-    </div>
+        <div id="sales_report" *ngIf="isSalesReport">
+          <div class=" pl-0 pr-0 " id="Customer-Listing">
+            <p class="mb-0 ">{{selectedStartDateLabel}} - {{selectedEndDateLabel}}</p>
+            <p class="mb-0 custreports">Sales Reports</p>
+            <label class="custrecords" *ngIf="reportFilter=='all'">Total Records :</label><label  *ngIf="reportFilter=='all'">{{salesReportTotalRecords}},</label> 
+            <label class="custrecords" *ngIf="reportFilter=='all'"> Confirmed Revenue:</label><label *ngIf="reportFilter=='all'"> $.{{salesReportConfirmedRevenue}},</label>
+            <label class="custrecords" *ngIf="reportFilter=='all'"> Project Revenue:</label><label *ngIf="reportFilter=='all'"> $.{{salesReportProjectedRevenue}},</label>
+            <label class="custrecords" *ngIf="reportFilter=='all'">Total Estimated : </label><label *ngIf="reportFilter=='all'"> $.{{salesReportTotalEstimatedRevenue}}</label>
+
+            <label class="custrecords" *ngIf="reportFilter=='date' || reportFilter=='month'">Total Records :</label><label  *ngIf="reportFilter=='date' || reportFilter=='month'">0,</label> 
+            <label class="custrecords" *ngIf="reportFilter=='date' || reportFilter=='month'">Appointments :</label><label  *ngIf="reportFilter=='date' || reportFilter=='month'">{{salesReportTotalAppointments}},</label> 
+            <label class="custrecords" *ngIf="reportFilter=='date' || reportFilter=='month'"> Customers:</label><label *ngIf="reportFilter=='date' || reportFilter=='month'"> $.{{salesReportCustomers}},</label>
+            <label class="custrecords" *ngIf="reportFilter=='date' || reportFilter=='month'"> Total Revenue:</label><label *ngIf="reportFilter=='date' || reportFilter=='month'"> $.{{salesReportTotalRevenue}},</label>
+          </div>
+          <div class="Customer-appointment-table">
+            <mat-card class="main-table-content main-cust-table-content">
+              <table class="table" *ngIf="!isSalesGroupBy">
+                <thead class="main-heading-content">
+                  <tr>
+                    <th scope="col" class="text-center">PAYMENT DATE</th>
+                    <th scope="col" class="text-center">CUSTOMER</th>
+                    <th scope="col" class="text-center">SERVICE</th>
+                    <th scope="col" class="text-center">AMOUNT</th>
+                    <th scope="col" class="text-center">STATUS</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="salesReport.length>0">
+                  <tr *ngFor="let sales of salesReport; let i=index">
+                    <td scope="row" class="text-center">
+                      <p class="mb-0">{{sales.payment_date}}</p>
+                    </td>
+                    <td class="text-center">
+                      <p class="mb-0">{{sales.get_customer.fullname}}</p>
+                      <p class="mb-0">Phone No:{{sales.get_customer.phone}}</p>
+                    </td>
+                    <td class="text-center">
+                      <p class="mb-0">{{sales.service.service_name}}</p>
+                      <p class="mb-0">{{sales.orders.booking_date}},</p>
+                      <p>{{sales.orders.booking_time}}</p>
+                    </td>
+                    <td class="text-center">
+                      USD.{{sales.amount}}
+                      <p class="mb-0">Discount:USD.60.00,</p>
+                      <p>Tax:USD.50.00</p>
+                    </td>
+                    <td *ngIf="payment_status=='paid'" class="text-center">
+                      Paid
+                      <p *ngIf="payment_mode=='Cash'">By Cash</p>
+                      <p *ngIf="payment_mode!='Cash'">By Online</p>
+                    </td>
+                    <td *ngIf="payment_status=='unpaid'" class="text-center">
+                      Unpaid
+                      <p *ngIf="payment_mode=='Cash'">By Cash</p>
+                      <p *ngIf="payment_mode!='Cash'">By Online</p>
+                    </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="salesReport.length==0">
+                  <tr scope="row">
+                    <td scope="col" class="text-center">
+                      <p class="mb-0">No Data Available</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table" *ngIf="isSalesGroupBy">
+                <thead class="main-heading-content">
+                  <tr>
+                    <th scope="col" class="text-center">DATE</th>
+                    <th scope="col" class="text-center">APPOINTMENTS</th>
+                    <th scope="col" class="text-center">CUSTOMER</th>
+                    <th scope="col" class="text-center">REVENUE</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="salesReport.length>0">
+                  <tr *ngFor="let sales of salesReport; let i=index">
+                    <td scope="row" class="text-center">
+                      <p class="mb-0" *ngIf="reportFilter=='date'">{{sales.dates}}</p>
+                      <p class="mb-0" *ngIf="reportFilter=='month'">{{sales.Months}}</p>
+                    </td>
+                    <td class="text-center">
+                      <p class="mb-0">{{sales.Appointments}}</p>
+                    </td>
+                    <td class="text-center">
+                      <p class="mb-0">{{sales.Customer}}</p>
+                    </td>
+                    <td class="text-center">
+                      <p class="mb-0">{{sales.Revenue}}</p>
+                    </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="salesReport.length==0">
+                  <tr scope="row">
+                    <td scope="col" class="text-center">
+                      <p class="mb-0">No Data Available</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </mat-card>
+          </div>
+        </div>
+
+        <div id="customer_report" *ngIf="isCustomerReport">
+          <div class=" pl-0 pr-0 " id="Customer-Listing">
+            <p class="mb-0 ">{{selectedStartDateLabel}} - {{selectedEndDateLabel}}</p>
+            <p class="mb-0 custreports">Customer Reports</p>
+          </div>
+          <div class="Customer-appointment-table">
+            <mat-card class="main-table-content main-cust-table-content">
+              <table class="table">
+                <thead class="main-heading-content">
+                  <tr>
+                    <th scope="col" class="text-center">REGISTRATION DATE</th>
+                    <th scope="col" class="text-center">REGISTRATION BY</th>
+                    <th scope="col" class="text-center">CUSTOMER</th>
+                    <th scope="col" class="text-center">PHONE NO</th>
+                    <th scope="col" class="text-center">EMAIL</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="customerReport.length>0">
+                  <tr *ngFor="let customer of customerReport; let i=index">
+                    <td scope="row" class="text-center">
+                      <p class="mb-0">{{customer.created_at}}</p>
+                    </td>
+                    <td class="text-center">{{customer.created_by}}</td>
+                    <td class="text-center">{{customer.fullname}}</td>
+                    <td class="text-center">{{customer.phone}}</td>
+                    <td class="text-center">{{customer.email}}</td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="customerReport.length==0">
+                  <tr scope="row">
+                    <td scope="col" class="text-center">
+                      <p class="mb-0">No Data Available</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </mat-card>
+          </div>
+        </div>
+      </mat-drawer-content>
+    </mat-drawer-container>
+  </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
