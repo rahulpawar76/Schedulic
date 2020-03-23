@@ -981,4 +981,36 @@ export class AdminSettingsService {
     }),
     catchError(this.handleError));
   }
+  fnChangeInternalStaff(status, staffId) {
+    let requestObject = {
+        'staff_id': staffId,
+        'internal_staff': status,
+    };
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'admin-id': this.adminId,
+        'api-token': this.adminToken
+    });
+    return this.http.post(`${environment.apiUrl}/staff-internal`, requestObject, { headers: headers }).pipe(
+        map((res) => {
+            return res;
+        }),
+    catchError(this.handleError));
+}
+fnChangeLoginAllowStaff(status, staffId) {
+    let requestObject = {
+        'staff_id': staffId,
+        'login_allowed': status,
+    };
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'admin-id': this.adminId,
+        'api-token': this.adminToken
+    });
+    return this.http.post(`${environment.apiUrl}/staff-login-allowed`, requestObject, { headers: headers }).pipe(
+        map((res) => {
+            return res;
+        }),
+    catchError(this.handleError));
+}
 }

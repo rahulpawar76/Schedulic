@@ -26,9 +26,14 @@ export class StaffComponent implements OnInit {
   businessId: any;
   allStaffList: any;
   staffActionId: any = [];
+  addPostalCodeId: any = [];
   singleStaffStatus: any;
   singleStaffDetail: any;
   staffImageUrl:any;
+  selectedServicesArr:any=[];
+  selectedPostalCodeArr:any=[];
+  staffInternalStatus : any;
+  staffLoginStatus : any;
 
   constructor(
     public dialog: MatDialog,
@@ -72,7 +77,6 @@ export class StaffComponent implements OnInit {
         this.staffActionId.splice(index, 1);
       }
     }
-    console.log(this.staffActionId)
   }
   fnActionStaff(action) {
     this.isLoaderAdmin = true;
@@ -123,6 +127,13 @@ export class StaffComponent implements OnInit {
       if (response.data == true) {
         this.singleStaffDetail = response.response
         console.log(this.singleStaffDetail);
+        this.singleStaffDetail.staff[0].services.forEach(element => {
+          this.selectedServicesArr.push(element.id);
+        });
+        this.singleStaffDetail.staff[0].postal_codes.forEach(element => {
+          this.selectedPostalCodeArr.push(element.id);
+        });
+
         this.staffListPage = false;
         this.singleStaffView = true;
         this.isLoaderAdmin = false;
@@ -131,6 +142,60 @@ export class StaffComponent implements OnInit {
         this.isLoaderAdmin = false;
       }
     })
+  }
+  fnChangeInternalStaff(event, staffId){
+    if (event == true) {
+      this.staffInternalStatus = 'Y'
+    }
+    else if (event == false) {
+      this.staffInternalStatus = 'N'
+    }
+    this.adminSettingsService.fnChangeInternalStaff(this.staffInternalStatus, staffId).subscribe((response: any) => {
+      if (response.data == true) {
+        this._snackBar.open("Internal Staff Status Updated", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['green-snackbar']
+        });
+        this.isLoaderAdmin = false;
+      }
+      else if (response.data == false) {
+        this.isLoaderAdmin = false;
+      }
+    })
+  }
+  fnChangeLoginAllowStaff(event, staffId){
+    if (event == true) {
+      this.staffLoginStatus = 'Y'
+    }
+    else if (event == false) {
+      this.staffLoginStatus = 'N'
+    }
+    this.adminSettingsService.fnChangeLoginAllowStaff(this.staffLoginStatus, staffId).subscribe((response: any) => {
+      if (response.data == true) {
+        this._snackBar.open("Login Status Updated", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['green-snackbar']
+        });
+        this.isLoaderAdmin = false;
+      }
+      else if (response.data == false) {
+        this.isLoaderAdmin = false;
+      }
+    })
+  }
+  fnAddPostalCodeId(event, postalCodeId) {
+    if (event == true) {
+      this.addPostalCodeId.push(postalCodeId)
+    }
+    else if (event == false) {
+      const index = this.addPostalCodeId.indexOf(postalCodeId, 0);
+      if (index > -1) {
+        this.addPostalCodeId.splice(index, 1);
+      }
+    }
+    console.log(this.addPostalCodeId)
   }
 
 
