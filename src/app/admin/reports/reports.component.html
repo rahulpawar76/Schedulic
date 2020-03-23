@@ -219,15 +219,15 @@
                       <p class="mb-0">Discount:USD.60.00,</p>
                       <p>Tax:USD.50.00</p>
                     </td>
-                    <td *ngIf="payment_status=='paid'" class="text-center">
+                    <td *ngIf="sales.payment_status=='paid'" class="text-center">
                       Paid
-                      <p *ngIf="payment_mode=='Cash'">By Cash</p>
-                      <p *ngIf="payment_mode!='Cash'">By Online</p>
+                      <p *ngIf="sales.payment_mode=='Cash'">By Cash</p>
+                      <p *ngIf="sales.payment_mode!='Cash'">By Online</p>
                     </td>
-                    <td *ngIf="payment_status=='unpaid'" class="text-center">
+                    <td *ngIf="sales.payment_status=='unpaid'" class="text-center">
                       Unpaid
-                      <p *ngIf="payment_mode=='Cash'">By Cash</p>
-                      <p *ngIf="payment_mode!='Cash'">By Online</p>
+                      <p *ngIf="sales.payment_mode=='Cash'">By Cash</p>
+                      <p *ngIf="sales.payment_mode!='Cash'">By Online</p>
                     </td>
                     </tr>
                 </tbody>
