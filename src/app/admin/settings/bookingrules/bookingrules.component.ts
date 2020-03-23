@@ -96,16 +96,16 @@ export class BookingrulesComponent implements OnInit {
   
   fnConvertMins(minutes){
     let min_advance_booking_time=minutes;
-    let months = min_advance_booking_time/(30*24*60);
-    // this.Months=(parseInt(months)).toString();
-    // let RAM = min_advance_booking_time%(30*24*60);
-    // let days = RAM/(24*60);
-    // this.Days=(parseInt(days)).toString();
-    // let RAD = RAM%(24*60);
-    // let hours= RAD/60;
-    // this.Hours=(parseInt(hours)).toString();
-    // let RAH = RAD%(60);
-    // this.Minutes=(parseInt(RAH)).toString();
+    let months = (min_advance_booking_time/(30*24*60)).toString();
+    this.Months=(parseInt(months)).toString();
+    let RAM = min_advance_booking_time%(30*24*60);
+    let days = (RAM/(24*60)).toString();
+    this.Days=(parseInt(days)).toString();
+    let RAD = RAM%(24*60);
+    let hours= (RAD/60).toString();
+    this.Hours=(parseInt(hours)).toString();
+    let RAH = (RAD%(60)).toString();
+    this.Minutes=(parseInt(RAH)).toString();
   }
 
   fnGetSettingValue(){
