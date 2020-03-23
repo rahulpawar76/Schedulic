@@ -22,6 +22,7 @@ export class AppearanceComponent implements OnInit {
   ChangeNumber:boolean=false;
   ChangeRequired:boolean=false;
   ChangeAddress:boolean=false;
+  gradientColorDb:any;
 
   formArr:any = [];
 
@@ -166,6 +167,7 @@ export class AppearanceComponent implements OnInit {
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
+        this.getSettingValue();
       }
     })
   }
@@ -174,13 +176,15 @@ export class AppearanceComponent implements OnInit {
       if(response.data == true){
         this.settingData = response.response
         console.log(this.settingData);
-        this.getAppearanceData = this.settingData.appearance.split(",", 5); 
-        console.log(this.getAppearanceData)
-        this.primarycolor = '#2889e9';
-        this.primarygradient1 = '#2889e9';
-        this.primarygradient2 = '#2889e9';
-        this.textcolor = '#2889e9';
-        this.textbgcolor = '#2889e9';
+        this.getAppearanceData = JSON.parse(this.settingData.appearance); 
+        this.gradientColorDb = this.getAppearanceData.pri_gradient.split(",", 2)
+        console.log(this.gradientColorDb)
+        //console.log(this.(getAppearanceData).pri_color)
+        this.primarycolor = this.getAppearanceData.pri_color;
+        this.primarygradient1 = this.gradientColorDb[0];
+        this.primarygradient2 = this.gradientColorDb[1];
+        this.textcolor = this.getAppearanceData.text_color;
+        this.textbgcolor = this.getAppearanceData.text_bgcolor;
       }
     })
   }

@@ -602,25 +602,25 @@ export class AdminSettingsService {
             map((res) => {
                 return res;
             }),
-        catchError(this.handleError));
+            catchError(this.handleError));
     }
-    fnFormSetting(status,formArr) {
+    fnFormSetting(status, formArr) {
         let requestObject = {
             'business_id': this.businessId,
             'status': status,
-            'form_settings' : formArr
+            'form_settings': formArr
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
             'api-token': this.adminToken
         });
-    return this.http.post(`${environment.apiUrl}/set-form-settings`, requestObject, { headers: headers }).pipe(
-        map((res) => {
-            return res;
-        }),
-        catchError(this.handleError));
-}
+        return this.http.post(`${environment.apiUrl}/set-form-settings`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
     // Staff Module
     getAllStaff() {
         let requestObject = {
@@ -635,9 +635,9 @@ export class AdminSettingsService {
             map((res) => {
                 return res;
             }),
-        catchError(this.handleError));
+            catchError(this.handleError));
     }
-    fnActionStaff(action,staffId) {
+    fnActionStaff(action, staffId) {
         let requestObject = {
             'status': action,
             'staff_id': staffId,
@@ -651,7 +651,7 @@ export class AdminSettingsService {
             map((res) => {
                 return res;
             }),
-        catchError(this.handleError));
+            catchError(this.handleError));
     }
     fnViewSingleStaff(staffId) {
         let requestObject = {
@@ -667,350 +667,384 @@ export class AdminSettingsService {
             map((res) => {
                 return res;
             }),
-        catchError(this.handleError));
+            catchError(this.handleError));
     }
 
-  changeTimeZone(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/timezone-change`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  getWorkingHours(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/business-workhour-list`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-  
-  createWorkingHours(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/business-workhour-create`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-  
-  applyToAll(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/workhour-applyall`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  getBussinessTimeZone(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/timezone-get`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  getTimeOffList(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/business-timeoff-list`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  deleteTimeOff(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/business-timeoff-delete`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  changeTimeOffStatus(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/business-timeoff-status-update`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  addNewTimeOff(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/business-timeoff-create`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  getBreakTimeList(requestObject){
-     let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/business-breaktime-list`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  addNewBreak(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/business-breaktime-create`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  deleteBreak(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/business-breaktime-delete`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  setMinAdvBookingTime(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/set-min-advance-booking-time`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  setMaxAdvBookingTime(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/set-max-advance-booking-time`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  setTimeInterval(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/set-time-interval-slots`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  setCancellationBufferTime(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/set-cancel-buffer-time`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  setMinResedulingTime(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/set-min-reseduling-time`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  changeCustomerLoginStatus(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/set-customer-login-status`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  updateAppAutoConfirmSettings(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/set-auto-confirm`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  changeCustomerAllowStaffRatingStatus(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/set-customer-allow-staff-rating`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  updateTermsConditionsStatusValues(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/set-terms-conditions`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  updatePrivacyPolicyStatusValues(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/set-privacy-policy`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  updateThankyouPageStatusValues(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/set-thank-you`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-    
-  getSettingValue(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id' : this.adminId,
-      'api-token' : this.adminToken 
-    });
-    return this.http.post(`${environment.apiUrl}/get-setting-value`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError));
-  }
-  fnChangeInternalStaff(status, staffId) {
-    let requestObject = {
-        'staff_id': staffId,
-        'internal_staff': status,
-    };
-    let headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'admin-id': this.adminId,
-        'api-token': this.adminToken
-    });
-    return this.http.post(`${environment.apiUrl}/staff-internal`, requestObject, { headers: headers }).pipe(
-        map((res) => {
-            return res;
-        }),
-    catchError(this.handleError));
-}
-fnChangeLoginAllowStaff(status, staffId) {
-    let requestObject = {
-        'staff_id': staffId,
-        'login_allowed': status,
-    };
-    let headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'admin-id': this.adminId,
-        'api-token': this.adminToken
-    });
-    return this.http.post(`${environment.apiUrl}/staff-login-allowed`, requestObject, { headers: headers }).pipe(
-        map((res) => {
-            return res;
-        }),
-    catchError(this.handleError));
-}
+    changeTimeZone(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/timezone-change`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    getWorkingHours(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/business-workhour-list`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    createWorkingHours(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/business-workhour-create`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    applyToAll(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/workhour-applyall`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    getBussinessTimeZone(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/timezone-get`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    getTimeOffList(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/business-timeoff-list`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    deleteTimeOff(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/business-timeoff-delete`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    changeTimeOffStatus(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/business-timeoff-status-update`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    addNewTimeOff(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/business-timeoff-create`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    getBreakTimeList(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/business-breaktime-list`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    addNewBreak(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/business-breaktime-create`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    deleteBreak(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/business-breaktime-delete`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    setMinAdvBookingTime(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/set-min-advance-booking-time`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    setMaxAdvBookingTime(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/set-max-advance-booking-time`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    setTimeInterval(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/set-time-interval-slots`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    setCancellationBufferTime(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/set-cancel-buffer-time`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    setMinResedulingTime(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/set-min-reseduling-time`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    changeCustomerLoginStatus(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/set-customer-login-status`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    updateAppAutoConfirmSettings(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/set-auto-confirm`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    changeCustomerAllowStaffRatingStatus(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/set-customer-allow-staff-rating`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    updateTermsConditionsStatusValues(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/set-terms-conditions`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    updatePrivacyPolicyStatusValues(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/set-privacy-policy`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    updateThankyouPageStatusValues(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/set-thank-you`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
+    getSettingValue(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/get-setting-value`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+    fnChangeInternalStaff(status, staffId) {
+        let requestObject = {
+            'staff_id': staffId,
+            'internal_staff': status,
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/staff-internal`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+    fnChangeLoginAllowStaff(status, staffId) {
+        let requestObject = {
+            'staff_id': staffId,
+            'login_allowed': status,
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/staff-login-allowed`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+    fnAssignPostalToStaff(status, postalCodeId, staffId) {
+        let requestObject = {
+            'staff_id': staffId,
+            'postalCodes': postalCodeId,
+            'status': status,
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/staff-postalcode-update`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+    fnAssignServiceToStaff(status, serviceId, staffId) {
+        let requestObject = {
+            'staff_id': staffId,
+            'service_id': serviceId,
+            'status': JSON.stringify(status),
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/staff-service-attach`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
 }

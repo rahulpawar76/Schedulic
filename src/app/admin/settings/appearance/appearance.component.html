@@ -58,7 +58,7 @@
            
             <mat-form-field class="dropdown bottom-border-field bottom-border mt-3">
                 <mat-label>Font</mat-label>
-                    <mat-select formControlName="font">
+                    <mat-select [(value)]="getAppearanceData.font" formControlName="font">
                         <mat-option value="roboto">Roboto</mat-option> 
                     </mat-select>
             </mat-form-field>

@@ -34,6 +34,9 @@ export class StaffComponent implements OnInit {
   selectedPostalCodeArr:any=[];
   staffInternalStatus : any;
   staffLoginStatus : any;
+  selectedStaffId : any;
+  singlePostalCodeStatus : any; 
+  selectedValue : any; 
 
   constructor(
     public dialog: MatDialog,
@@ -57,7 +60,6 @@ export class StaffComponent implements OnInit {
     this.adminSettingsService.getAllStaff().subscribe((response: any) => {
       if (response.data == true) {
         this.allStaffList = response.response
-        console.log(this.allStaffList);
         this.isLoaderAdmin = false;
       }
       else if (response.data == false) {
@@ -87,8 +89,9 @@ export class StaffComponent implements OnInit {
           verticalPosition: 'top',
           panelClass: ['green-snackbar']
         });
-        this.getAllStaff();
+        this.selectedValue = undefined
         this.staffActionId.length = 0;
+        this.getAllStaff();
         this.isLoaderAdmin = false;
       }
       else if (response.data == false) {
@@ -123,6 +126,7 @@ export class StaffComponent implements OnInit {
 
   fnViewSingleStaff(staffId) {
     this.isLoaderAdmin = true;
+    this.selectedStaffId= staffId
     this.adminSettingsService.fnViewSingleStaff(staffId).subscribe((response: any) => {
       if (response.data == true) {
         this.singleStaffDetail = response.response
@@ -133,6 +137,7 @@ export class StaffComponent implements OnInit {
         this.singleStaffDetail.staff[0].postal_codes.forEach(element => {
           this.selectedPostalCodeArr.push(element.id);
         });
+        console.log( this.selectedPostalCodeArr);
 
         this.staffListPage = false;
         this.singleStaffView = true;
@@ -173,7 +178,7 @@ export class StaffComponent implements OnInit {
     }
     this.adminSettingsService.fnChangeLoginAllowStaff(this.staffLoginStatus, staffId).subscribe((response: any) => {
       if (response.data == true) {
-        this._snackBar.open("Login Status Updated", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['green-snackbar']
@@ -195,9 +200,68 @@ export class StaffComponent implements OnInit {
         this.addPostalCodeId.splice(index, 1);
       }
     }
-    console.log(this.addPostalCodeId)
+  }
+  fnAssignPostalToStaff(value){
+    this.adminSettingsService.fnAssignPostalToStaff(value, this.addPostalCodeId, this.selectedStaffId).subscribe((response: any) => {
+      if (response.data == true) {
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['green-snackbar']
+        });
+        this.selectedPostalCodeArr.length = 0;
+        this.fnViewSingleStaff(this.selectedStaffId)
+        this.addPostalCodeId.length = 0;
+        this.selectedValue = undefined
+        this.isLoaderAdmin = false;
+      }
+      else if (response.data == false) {
+        this.isLoaderAdmin = false;
+      }
+    })
+  }
+  fnSingleAssignPostalCode(event, postalCodeId){
+    if(event == true){
+      this.singlePostalCodeStatus = 'E'
+    }else if(event == false){
+      this.singlePostalCodeStatus = 'D'
+    }
+    this.addPostalCodeId.push(postalCodeId)
+    this.adminSettingsService.fnAssignPostalToStaff(this.singlePostalCodeStatus, this.addPostalCodeId, this.selectedStaffId).subscribe((response: any) => {
+      if (response.data == true) {
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['green-snackbar']
+        });
+        this.selectedPostalCodeArr.length= 0;
+        this.fnViewSingleStaff(this.selectedStaffId)
+        this.addPostalCodeId.length = 0;
+        this.isLoaderAdmin = false;
+      }
+      else if (response.data == false) {
+        this.isLoaderAdmin = false;
+      }
+    })
   }
 
+  fnAssignServiceToStaff(event, serviceId){
+    alert(event+" | "+serviceId)
+    this.adminSettingsService.fnAssignServiceToStaff(event, serviceId, this.selectedStaffId).subscribe((response: any) => {
+      if (response.data == true) {
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['green-snackbar']
+        });
+        this.fnViewSingleStaff(this.selectedStaffId)
+        this.isLoaderAdmin = false;
+      }
+      else if (response.data == false) {
+        this.isLoaderAdmin = false;
+      }
+    })
+  }
 
   addTimeOff() {
     const dialogRef = this.dialog.open(DialogAddNewTimeOff, {
@@ -206,7 +270,6 @@ export class StaffComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.animal = result;
     });
   }
@@ -220,7 +283,6 @@ export class StaffComponent implements OnInit {
      dialogRef.afterClosed().subscribe(result => {
         if(result != undefined){
             this.staffImageUrl = result;
-            console.log(result);
            }
      });
   }

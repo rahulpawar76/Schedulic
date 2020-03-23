@@ -195,7 +195,7 @@
             <div class="w-100 mb-3">
                 <mat-form-field class="dropdown bottom-border-field mt-0">
                     <mat-label>Status</mat-label>
-                    <mat-select [disabled]="this.staffActionId.length == 0" (selectionChange)="fnActionStaff($event.value)">
+                    <mat-select [(ngModel)]="selectedValue" [disabled]="this.staffActionId.length == 0" (selectionChange)="fnActionStaff($event.value)">
                         <mat-option value="E">Set Active</mat-option>
                         <mat-option value="D">Set Inactive</mat-option>
                     </mat-select>
@@ -297,7 +297,7 @@
             <div class="pl-2">
                 <div class="d-flex">
                     <h6 class="pr-2 text-capitalize">{{singleStaffDetail.staff[0].firstname}} {{singleStaffDetail.staff[0].lastname}}</h6>
-                    <div class="d-flex statick-rating w-100">
+                    <div *ngIf="singleStaffDetail.staff[0].review != ''" class="d-flex statick-rating w-100">
                         <div class="star-rating">
                           <input type="radio" id="5-stars_2" name="rating_2" value="5" />
                           <label for="5-stars_2" class="star">&#9733;</label>
@@ -310,6 +310,9 @@
                           <input type="radio" id="1-star_2" name="rating_2" value="1" />
                           <label for="1-star_2" class="star">&#9733;</label>
                         </div>   
+                    </div>
+                    <div class="w-100" *ngIf="singleStaffDetail.staff[0].review == ''">
+                        No Review Available
                     </div>
                 </div>
                 <div class="d-flex">
@@ -418,7 +421,7 @@
                                 <div class="content" class="example-list">
                                     <div *ngFor="let staffService of singleStaffDetail.services; let i=index" class="example-box">
                                         <div class="custom_check_main" fxFlex="10">
-                                            <mat-checkbox class="form_field_checkbox" [checked]="selectedServicesArr.indexOf(staffService.id) >-1"></mat-checkbox>
+                                            <mat-checkbox (change)="fnAssignServiceToStaff($event.checked, staffService.id)" class="form_field_checkbox" [checked]="selectedServicesArr.indexOf(staffService.id) >-1"></mat-checkbox>
                                         </div>
                                         <div class="" fxFlex="40">
                                             <div class="d-flex align-items-center">
@@ -443,7 +446,7 @@
             <div class="d-flex mb-3">
                 <mat-form-field class="bottom-border-field dropdown-width">
                     <mat-label>Select an option</mat-label>
-                    <mat-select [disabled]="addPostalCodeId.length == 0">
+                    <mat-select [(ngModel)]="selectedValue" (selectionChange)="fnAssignPostalToStaff($event.value)" [disabled]="addPostalCodeId.length == 0">
                         <mat-option value="E">Set Active</mat-option>
                         <mat-option value="D">Set Inactive</mat-option>
                     </mat-select>
@@ -475,7 +478,7 @@
                                 <div class="" fxFlex="40">{{staffPostalCode.postal_code}}</div>
                                 <div class="" fxFlex="30">{{staffPostalCode.area}}</div>
                                 <div class="" fxFlex="30">
-                                    <mat-slide-toggle [checked]="selectedPostalCodeArr.indexOf(staffPostalCode.id) >-1"></mat-slide-toggle>
+                                    <mat-slide-toggle  (change)="fnSingleAssignPostalCode($event.checked, staffPostalCode.id)" [checked]="selectedPostalCodeArr.indexOf(staffPostalCode.id) >-1"></mat-slide-toggle>
                                 </div>
                             </div>
                         </div>
@@ -662,7 +665,9 @@
                 </div>
             </mat-tab>
             <mat-tab label="Review">
-                review
+                <div class="w-100" *ngIf="singleStaffDetail.staff[0].review == ''">
+                    No Review Available
+                </div>
             </mat-tab>
             </mat-tab-group>
     </mat-card>
