@@ -524,13 +524,12 @@ export class BusinessHoursComponent implements OnInit {
   addTimeOff(){
     const dialogRef = this.dialog.open(DialogAddNewTimeOffBussiness, {
       width: '500px',
-      
     });
 
      dialogRef.afterClosed().subscribe(result => {
       console.log(result);
       if(result != undefined){
-        if(result.calltrue){
+        if(result.call==true){
         this.fnGetTimeOffList();
        }
       }
@@ -574,7 +573,7 @@ export class BusinessHoursComponent implements OnInit {
           "time_off_id":timeOffId
         }
 
-        this.adminSettingsService.deleteTimeOff(requestObject).subscribe((response:any) => {
+        this.adminSettingsService.deleteTimeOffStaff(requestObject).subscribe((response:any) => {
           if(response.data == true){
             this.fnGetTimeOffList();
             this.snackBar.open("TimeOff Deleted", "X", {

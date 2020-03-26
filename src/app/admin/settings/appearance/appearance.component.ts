@@ -24,9 +24,28 @@ export class AppearanceComponent implements OnInit {
   ChangeAddress:boolean=false;
   gradientColorDb:any;
 
-  formArr:any = [];
+  formArr= {
+    contact_field_status:false,
+    nameField:{
+      status:0,
+      required:0
+    },
+    numberField:{
+      status:0,
+      required:0
+    },
+    emailField:{
+      status:0,
+      required:0
+    },
+    addressField:{
+      status:0,
+      required:0
+    },
+  };
 
   formSettingPage:boolean=false;
+  formSettingData:any=[];
   primarycolor: any = '#2889e9';
   primarygradient1: any = '#2889e9';
   primarygradient2: any = '#2889e9';
@@ -78,74 +97,35 @@ export class AppearanceComponent implements OnInit {
   //   return this.cpService.rgbaToCmyk(rgba);
   // }
 
-  formsetting(event){
+  fnChangeContactFormStatus(event){
     if(event == true){
-      this.formSettingPage = true;
+      this.formArr['contact_field_status']=true;
     }else if(event == false){
-      this.formSettingPage = false;
+      this.formArr['contact_field_status']=false;
+    this.fnFormSetting();
     }
   }
 
-  fnChangeName(event,name){
+  fnChangeFieldStatus(event,field_name){
     if(event == true){
-      this.formArr.push(name);
-      this.ChangeName = true;
+      this.formArr[field_name].status=1;
     }else if(event == false){
-      const index = this.formArr.indexOf(name, 0);
-      if (index > -1) {
-        this.formArr.splice(index, 1);
-      }
-      this.ChangeName = false;
+        this.formArr[field_name].status=0;
+        this.formArr[field_name].required=0;
     }
-    console.log( this.formArr);
+    console.log(this.formArr);
   }
 
-  fnChangeNumber(event,number)
-  {
+  fnChangeRequiredStatus(event,field_name){
     if(event == true){
-      this.formArr.push(number);
-      this.ChangeNumber = true;
+      this.formArr[field_name].required=1;
     }else if(event == false){
-      const index = this.formArr.indexOf(number, 0);
-      if (index > -1) {
-        this.formArr.splice(index, 1);
-      }
-      this.ChangeNumber = false;
+        this.formArr[field_name].required=0;
     }
-    console.log( this.formArr);
-  }
-  fnChangeRequired(event,email)
-  {
-    if(event == true){
-      this.formArr.push(email);
-      this.ChangeRequired = true;
-    }else if(event == false){
-      const index = this.formArr.indexOf(email, 0);
-      if (index > -1) {
-        this.formArr.splice(index, 1);
-      }
-      this.ChangeRequired = false;
-    }
-    console.log( this.formArr);
+    console.log(this.formArr);
   }
 
-  fnChangeAddress(event,address)
-  {
-    if(event == true){
-      this.formArr.push(address);
-      this.ChangeAddress = true;
-    }else if(event == false){
-      const index = this.formArr.indexOf(address, 0);
-      if (index > -1) {
-        this.formArr.splice(index, 1);
-      }
-      this.ChangeAddress = false;
-      
-    }
-    console.log( this.formArr);
-  }
-
-  appearanceColor(){
+  fnSaveAppearanceSettings(){
     if(this.Appearance.valid){
       this.gradientColor = this.primarygradient1+","+this.primarygradient2
       alert(this.gradientColor);
@@ -159,6 +139,7 @@ export class AppearanceComponent implements OnInit {
       this.fnCreateAppearance(this.AppearanceData);
     }
   }
+
   fnCreateAppearance(AppearanceData){
     this.AdminSettingsService.fnCreateAppearance(AppearanceData).subscribe((response:any)=>{
       if(response.data == true){
@@ -171,6 +152,7 @@ export class AppearanceComponent implements OnInit {
       }
     })
   }
+
   getSettingValue(){
     this.AdminSettingsService.getSettingsValue().subscribe((response:any)=>{
       if(response.data == true){
@@ -178,24 +160,23 @@ export class AppearanceComponent implements OnInit {
         console.log(this.settingData);
         this.getAppearanceData = JSON.parse(this.settingData.appearance); 
         this.gradientColorDb = this.getAppearanceData.pri_gradient.split(",", 2)
-        console.log(this.gradientColorDb)
-        //console.log(this.(getAppearanceData).pri_color)
+        // console.log(this.gradientColorDb)
+        // console.log(this.getAppearanceData);
         this.primarycolor = this.getAppearanceData.pri_color;
         this.primarygradient1 = this.gradientColorDb[0];
         this.primarygradient2 = this.gradientColorDb[1];
         this.textcolor = this.getAppearanceData.text_color;
         this.textbgcolor = this.getAppearanceData.text_bgcolor;
+        this.Appearance.controls['font'].setValue(this.getAppearanceData.font);
+        this.formArr=JSON.parse(this.settingData.form_settings);
       }
     })
   }
-  changeNameField(value){
-    console.log(value);
-  }
 
   fnFormSetting(){
-    this.AdminSettingsService.fnFormSetting(this.formSettingPage,this.formArr).subscribe((response:any)=>{
+    this.AdminSettingsService.fnFormSetting(this.formArr).subscribe((response:any)=>{
       if(response.data == true){
-        this._snackBar.open("Currency Format Updated", "X", {
+        this._snackBar.open("Form Settings Updated", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
