@@ -29,14 +29,24 @@ export class StaffComponent implements OnInit {
   addPostalCodeId: any = [];
   singleStaffStatus: any;
   singleStaffDetail: any;
-  staffImageUrl:any;
-  selectedServicesArr:any=[];
-  selectedPostalCodeArr:any=[];
-  staffInternalStatus : any;
-  staffLoginStatus : any;
-  selectedStaffId : any;
-  singlePostalCodeStatus : any; 
-  selectedValue : any; 
+  staffImageUrl: any;
+  selectedServicesArr: any = [];
+  selectedPostalCodeArr: any = [];
+  selectedServiceNewStaff: any = [];
+  staffInternalStatus: any;
+  staffLoginStatus: any;
+  selectedStaffId: any;
+  singlePostalCodeStatus: any;
+  selectedValue: any;
+  categoryServiceList: any;
+  newStaffData: any;
+  updateStaffData: any;
+  editStaffId: any;
+
+
+  
+  emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
+  onlynumeric = /^-?(0|[1-9]\d*)?$/
 
   constructor(
     public dialog: MatDialog,
@@ -53,6 +63,16 @@ export class StaffComponent implements OnInit {
 
   ngOnInit() {
     this.getAllStaff();
+
+    this.StaffCreate = this._formBuilder.group({
+      firstname : ['', Validators.required],
+      lastname : ['', Validators.required],
+      address : ['', Validators.required],
+      email : ['', [Validators.required,Validators.pattern(this.emailFormat)]],
+      phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      description : [''],
+      staff_id : [''],
+    });
   }
 
   getAllStaff() {
@@ -60,6 +80,7 @@ export class StaffComponent implements OnInit {
     this.adminSettingsService.getAllStaff().subscribe((response: any) => {
       if (response.data == true) {
         this.allStaffList = response.response
+        console.log(this.allStaffList);
         this.isLoaderAdmin = false;
       }
       else if (response.data == false) {
@@ -100,6 +121,7 @@ export class StaffComponent implements OnInit {
     })
   }
   fnChangeStaffStatus(event, staffId) {
+    this.isLoaderAdmin = true;
     if (event == true) {
       this.singleStaffStatus = 'E'
     }
@@ -126,7 +148,7 @@ export class StaffComponent implements OnInit {
 
   fnViewSingleStaff(staffId) {
     this.isLoaderAdmin = true;
-    this.selectedStaffId= staffId
+    this.selectedStaffId = staffId
     this.adminSettingsService.fnViewSingleStaff(staffId).subscribe((response: any) => {
       if (response.data == true) {
         this.singleStaffDetail = response.response
@@ -137,7 +159,7 @@ export class StaffComponent implements OnInit {
         this.singleStaffDetail.staff[0].postal_codes.forEach(element => {
           this.selectedPostalCodeArr.push(element.id);
         });
-        console.log( this.selectedPostalCodeArr);
+        console.log(this.selectedPostalCodeArr);
 
         this.staffListPage = false;
         this.singleStaffView = true;
@@ -148,7 +170,8 @@ export class StaffComponent implements OnInit {
       }
     })
   }
-  fnChangeInternalStaff(event, staffId){
+  fnChangeInternalStaff(event, staffId) {
+    this.isLoaderAdmin = true;
     if (event == true) {
       this.staffInternalStatus = 'Y'
     }
@@ -169,7 +192,8 @@ export class StaffComponent implements OnInit {
       }
     })
   }
-  fnChangeLoginAllowStaff(event, staffId){
+  fnChangeLoginAllowStaff(event, staffId) {
+    this.isLoaderAdmin = true;
     if (event == true) {
       this.staffLoginStatus = 'Y'
     }
@@ -201,7 +225,8 @@ export class StaffComponent implements OnInit {
       }
     }
   }
-  fnAssignPostalToStaff(value){
+  fnAssignPostalToStaff(value) {
+    this.isLoaderAdmin = true;
     this.adminSettingsService.fnAssignPostalToStaff(value, this.addPostalCodeId, this.selectedStaffId).subscribe((response: any) => {
       if (response.data == true) {
         this._snackBar.open(response.response, "X", {
@@ -220,10 +245,11 @@ export class StaffComponent implements OnInit {
       }
     })
   }
-  fnSingleAssignPostalCode(event, postalCodeId){
-    if(event == true){
+  fnSingleAssignPostalCode(event, postalCodeId) {
+    this.isLoaderAdmin = true;
+    if (event == true) {
       this.singlePostalCodeStatus = 'E'
-    }else if(event == false){
+    } else if (event == false) {
       this.singlePostalCodeStatus = 'D'
     }
     this.addPostalCodeId.push(postalCodeId)
@@ -234,7 +260,7 @@ export class StaffComponent implements OnInit {
           verticalPosition: 'top',
           panelClass: ['green-snackbar']
         });
-        this.selectedPostalCodeArr.length= 0;
+        this.selectedPostalCodeArr.length = 0;
         this.fnViewSingleStaff(this.selectedStaffId)
         this.addPostalCodeId.length = 0;
         this.isLoaderAdmin = false;
@@ -245,8 +271,8 @@ export class StaffComponent implements OnInit {
     })
   }
 
-  fnAssignServiceToStaff(event, serviceId){
-    alert(event+" | "+serviceId)
+  fnAssignServiceToStaff(event, serviceId) {
+    this.isLoaderAdmin = true;
     this.adminSettingsService.fnAssignServiceToStaff(event, serviceId, this.selectedStaffId).subscribe((response: any) => {
       if (response.data == true) {
         this._snackBar.open(response.response, "X", {
@@ -263,6 +289,166 @@ export class StaffComponent implements OnInit {
     })
   }
 
+  fnBackStaffList(){
+    this.isLoaderAdmin = true;
+    this.addStaffPage = false;
+    this.staffListPage = true;
+    this.singleStaffView = false;
+    this.getAllStaff();
+    this.isLoaderAdmin = false;
+  }
+
+  fnAddNewStaff(){
+    this.isLoaderAdmin = true;
+    this.addStaffPage = true;
+    this.staffListPage = false;
+    this.singleStaffView = false;
+    this.isLoaderAdmin = false;
+    this.getCateServiceList();
+  }
+
+  getCateServiceList(){
+    this.isLoaderAdmin = true;
+    this.adminSettingsService.getCateServiceList().subscribe((response:any) => {
+      if(response.data == true){
+        this.categoryServiceList = response.response
+        console.log(this.categoryServiceList);
+        this.isLoaderAdmin = false;
+      }
+      else if(response.data == false){
+        this.categoryServiceList = ''
+        this.isLoaderAdmin = false;
+      }
+    })
+  }
+  fnCheckService(event,serviceId){
+    if(event == true){
+      this.selectedServiceNewStaff.push(serviceId) 
+    }else if(event == false){
+      const index = this.selectedServiceNewStaff.indexOf(serviceId);
+      this.selectedServiceNewStaff.splice(index, 1);
+    }
+    console.log(this.selectedServiceNewStaff);
+  }
+  fnSubmitCreateStaff(){
+    if(this.StaffCreate.get('staff_id').value != ''){
+      alert("Edit" + this.StaffCreate.get('staff_id').value);
+      if(this.StaffCreate.valid){
+        this.updateStaffData = {
+          "staff_id" : this.StaffCreate.get('staff_id').value,
+          "firstname" : this.StaffCreate.get('firstname').value,
+          "lastname" : this.StaffCreate.get('lastname').value,
+          "email" : this.StaffCreate.get('email').value,
+          "phone" : this.StaffCreate.get('phone').value,
+          "address" : this.StaffCreate.get('address').value,
+          "servicelist" : this.selectedServiceNewStaff,
+          "image" : this.staffImageUrl,
+        }
+        console.log(this.updateStaffData);
+        this.updateStaff(this.updateStaffData);
+      }
+    }
+    else{ 
+      if(this.StaffCreate.valid){
+        this.newStaffData = {
+          "business_id" : this.businessId,
+          "firstname" : this.StaffCreate.get('firstname').value,
+          "lastname" : this.StaffCreate.get('lastname').value,
+          "email" : this.StaffCreate.get('email').value,
+          "phone" : this.StaffCreate.get('phone').value,
+          "address" : this.StaffCreate.get('address').value,
+          "servicelist" : this.selectedServiceNewStaff,
+          "image" : this.staffImageUrl,
+        }
+        console.log(this.newStaffData);
+        this.createNewStaff(this.newStaffData);
+      }
+    }
+  }
+  createNewStaff(newStaffData){
+    this.isLoaderAdmin = true;
+    this.adminSettingsService.createNewStaff(newStaffData).subscribe((response:any) => {
+        if(response.data == true){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass: ['green-snackbar']
+          });
+         this.getAllStaff();
+         this.addStaffPage = false;
+         this.staffListPage = true;
+        this.isLoaderAdmin = false;
+      }
+      else if(response.data == false){
+
+        this.isLoaderAdmin = false;
+      }
+    })
+  }
+  updateStaff(updateStaffData){
+    alert("Hello 2")
+    this.isLoaderAdmin = true;
+    this.adminSettingsService.updateStaff(updateStaffData).subscribe((response:any) => {
+        if(response.data == true){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass: ['green-snackbar']
+          });
+         this.getAllStaff();
+         this.addStaffPage = false;
+         this.staffListPage = true;
+        this.isLoaderAdmin = false;
+      }
+      else if(response.data == false){
+
+        this.isLoaderAdmin = false;
+      }
+    })
+  }
+  fnDeleteStaff(staffId){
+    this.isLoaderAdmin = true;
+    this.adminSettingsService.fnDeleteStaff(staffId).subscribe((response:any) => {
+        if(response.data == true){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass: ['green-snackbar']
+          });
+         this.getAllStaff();
+         this.singleStaffView = false;
+         this.staffListPage = true;
+        this.isLoaderAdmin = false;
+      }
+      else if(response.data == false){
+        this.isLoaderAdmin = false;
+      }
+    })
+  }
+  fnEditStaff(staffId){
+    this.editStaffId = staffId
+    this.isLoaderAdmin = true;
+    this.addStaffPage = true;
+    this.staffListPage = false;
+    this.singleStaffView = false;
+    this.StaffCreate.controls['firstname'].setValue(this.singleStaffDetail.staff[0].firstname);
+    this.StaffCreate.controls['lastname'].setValue(this.singleStaffDetail.staff[0].lastname);
+    this.StaffCreate.controls['phone'].setValue(this.singleStaffDetail.staff[0].phone);
+    this.StaffCreate.controls['address'].setValue(this.singleStaffDetail.staff[0].address);
+    this.StaffCreate.controls['description'].setValue(this.singleStaffDetail.staff[0].description);
+    this.StaffCreate.controls['email'].setValue(this.singleStaffDetail.staff[0].email);
+    this.StaffCreate.controls['staff_id'].setValue(staffId);
+    this.getCateServiceList();
+    this.isLoaderAdmin = false;
+  }
+
+
+
+
+
+
+
+
   addTimeOff() {
     const dialogRef = this.dialog.open(DialogAddNewTimeOff, {
       width: '500px',
@@ -277,14 +463,14 @@ export class StaffComponent implements OnInit {
   staffImage() {
     const dialogRef = this.dialog.open(DialogStaffImageUpload, {
       width: '500px',
-      
+
     });
-  
-     dialogRef.afterClosed().subscribe(result => {
-        if(result != undefined){
-            this.staffImageUrl = result;
-           }
-     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != undefined) {
+        this.staffImageUrl = result;
+      }
+    });
   }
 }
 @Component({
@@ -309,45 +495,45 @@ export class DialogAddNewTimeOff {
 })
 export class DialogStaffImageUpload {
 
-  uploadForm: FormGroup;  
+  uploadForm: FormGroup;
   imageSrc: string;
   profileImage: string;
-  
-constructor(
-  public dialogRef: MatDialogRef<DialogStaffImageUpload>,
-  private _formBuilder:FormBuilder,
-  private _snackBar: MatSnackBar,
-  @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogStaffImageUpload>,
+    private _formBuilder: FormBuilder,
+    private _snackBar: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   onNoClick(): void {
-      this.dialogRef.close(this.profileImage);
-    }
-    ngOnInit() {
-      this.uploadForm = this._formBuilder.group({
-        profile: ['']
-      });
-    }
-    get f() {
-      return this.uploadForm.controls;
-    }
-    
-onFileChange(event) {
-  const reader = new FileReader();
-  if (event.target.files && event.target.files.length) {
+    this.dialogRef.close(this.profileImage);
+  }
+  ngOnInit() {
+    this.uploadForm = this._formBuilder.group({
+      profile: ['']
+    });
+  }
+  get f() {
+    return this.uploadForm.controls;
+  }
+
+  onFileChange(event) {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
       reader.readAsDataURL(file);
       reader.onload = () => {
-          this.imageSrc = reader.result as string;
-          this.uploadForm.patchValue({
-              fileSource: reader.result
-          });
+        this.imageSrc = reader.result as string;
+        this.uploadForm.patchValue({
+          fileSource: reader.result
+        });
       };
+    }
   }
-}
-uploadImage() {
-  this.profileImage = this.imageSrc
-  this.dialogRef.close(this.profileImage);
-}
+  uploadImage() {
+    this.profileImage = this.imageSrc
+    this.dialogRef.close(this.profileImage);
+  }
 
 
 }

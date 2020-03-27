@@ -631,7 +631,7 @@ export class AdminSettingsService {
             'admin-id': this.adminId,
             'api-token': this.adminToken
         });
-        return this.http.post(`${environment.apiUrl}/staff-list`, requestObject, { headers: headers }).pipe(
+        return this.http.post(`${environment.apiUrl}/staff-list-with-review`, requestObject, { headers: headers }).pipe(
             map((res) => {
                 return res;
             }),
@@ -1046,5 +1046,65 @@ export class AdminSettingsService {
                 return res;
             }),
             catchError(this.handleError));
+    }
+    
+    createNewStaff(newStaffData) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/staff-create`, newStaffData, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+    fnDeleteStaff(staffId) {
+        let requestObject = {
+            'staff_id': staffId,
+            'business_id': this.businessId,
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/staff-delete`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+    
+    updateStaff(updateStaffData) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/staff-update`, updateStaffData, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+    
+    // get category and services
+
+    getCateServiceList(){
+        let requestObject = {
+            'business_id': this.businessId,
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken 
+        });
+        return this.http.post(`${environment.apiUrl}/get-category-service`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
     }
 }

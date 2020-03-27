@@ -3,43 +3,68 @@
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif"/></div>
     <div *ngIf="addStaffPage">
     <mat-card class="mb-0">
-    <form >
+    <form [formGroup]="StaffCreate">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-12  border-right">
                 <h6>Add Staff</h6>
                 <div class="d-flex profile-img-wrap" (click)="staffImage()">
-                    <img class="add-staff mx-auto"  src="/assets/images/admin/Layer-3.png">
+                    <img class="add-staff mx-auto" *ngIf="!editStaffId" src="/assets/images/admin/Layer-3.png">
+                    <img class="add-staff mx-auto" *ngIf="editStaffId" src="{{this.singleStaffDetail.staff[0].image}}">
                     <div class="camera-alt"><i class="material-icons">
                         camera_alt
                         </i></div>
                 </div>
                 <mat-form-field class="bottom-border-field">
-                    <mat-label>Name</mat-label>
+                    <mat-label>First Name</mat-label>
                     <mat-icon class="mr-4" matPrefix>person</mat-icon>
-                    <input matInput placeholder="Enter Your First Name">  
+                    <input formControlName="firstname" matInput placeholder="Enter Your First Name">  
                 </mat-form-field> 
+                <span class="error-wrap" *ngIf="StaffCreate.get('firstname').touched || StaffCreate.get('firstname').dirty || formSubmitclicked">
+                    <small *ngIf="StaffCreate.get('firstname').hasError('required')" class="error">First Name Is required</small>
+                </span>
+                <mat-form-field class="bottom-border-field">
+                    <mat-label>Last Name</mat-label>
+                    <mat-icon class="mr-4" matPrefix>person</mat-icon>
+                    <input formControlName="lastname" matInput placeholder="Enter Your Last Name">  
+                </mat-form-field> 
+                <span class="error-wrap" *ngIf="StaffCreate.get('lastname').touched || StaffCreate.get('lastname').dirty || formSubmitclicked">
+                    <small *ngIf="StaffCreate.get('lastname').hasError('required')" class="error">Last Name Is required</small>
+                </span>
                 <mat-form-field class="bottom-border-field">
                     <mat-label>Mobile</mat-label>
                     <mat-icon class="mr-4" matPrefix>call</mat-icon>
-                    <input matInput placeholder="Enter Your number">  
+                    <input formControlName="phone" matInput placeholder="Enter Your number">  
                 </mat-form-field> 
+                <span class="error-wrap" *ngIf="StaffCreate.get('phone').touched || StaffCreate.get('phone').dirty || formSubmitclicked">
+                    <small *ngIf="StaffCreate.get('phone').hasError('required')" class="error">Mobile Number Is required</small>
+                    <small *ngIf="StaffCreate.get('phone').hasError('pattern')" class="error">Mobile Number is Should be Numeric</small>
+                    <small *ngIf="StaffCreate.get('phone').hasError('minLength') || StaffCreate.get('phone').hasError('maxLength')" class="error">Mobile Number is Should be 10 Digit</small>
+                </span>
                 <mat-form-field class="bottom-border-field">
                     <mat-label>Email</mat-label>
                     <mat-icon class="mr-4" matPrefix>email</mat-icon>
-                    <input matInput placeholder="Enter Your Email">  
+                    <input formControlName="email" matInput placeholder="Enter Your Email">  
                 </mat-form-field> 
+                <span class="error-wrap" *ngIf="StaffCreate.get('email').touched || StaffCreate.get('email').dirty || formSubmitclicked">
+                    <small *ngIf="StaffCreate.get('email').hasError('required')" class="error">Email Is required</small>
+                    <small *ngIf="StaffCreate.get('email').hasError('pattern')" class="error">Email Address Is invalid</small>
+                </span>
                 <mat-form-field class="bottom-border-field">
                     <mat-label>Address</mat-label>
-                    <input matInput placeholder="Enter Your address">  
+                    <input formControlName="address" matInput placeholder="Enter Your address">  
                 </mat-form-field> 
+                <span class="error-wrap" *ngIf="StaffCreate.get('address').touched || StaffCreate.get('address').dirty || formSubmitclicked">
+                    <small *ngIf="StaffCreate.get('address').hasError('required')" class="error">Address Is required</small>
+                </span>
                 <mat-form-field class="bottom-border-field">
                     <mat-label>Description</mat-label>
-                    <textarea matInput
+                    <textarea formControlName="description" matInput
                                 cdkTextareaAutosize
                                 #autosize="cdkTextareaAutosize"
                                 cdkAutosizeMinRows="1"
                                 cdkAutosizeMaxRows="7"></textarea>
                 </mat-form-field> 
+                <input type="hidden" formControlName="staff_id" />
             </div>
             <div class="col-lg-4 col-md-4 col-12 text-center border-right">
                 <div class="upload-document-top-margin">
@@ -69,109 +94,51 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-12t">
-                <!-- <mat-card> -->
-                    <div class="d-flex pb-3">
-                        <button mat-button class="staff-delete-btn">
-                            <mat-icon class="pr-2">delete_outline</mat-icon>Delete</button>
-                    </div>
-                    <div class="border p-3">
-                        <h6>Select Service for staff</h6>
-                        <mat-form-field class="pb-3 bottom-border-field">
-                        <mat-label>Outline form field</mat-label>
-                        <input matInput placeholder="Category,Subcategory,Service">
-                        <mat-icon matPrefix>search</mat-icon>
-                        </mat-form-field>
-                        <mat-accordion>
-                            <mat-expansion-panel>
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                <mat-checkbox>Salon</mat-checkbox> 
-                                </mat-panel-title>
-                            </mat-expansion-panel-header>
-                                <div>
-                                    <mat-checkbox>Service Name</mat-checkbox> 
-                                </div>
-                                <mat-checkbox>Service Name</mat-checkbox> 
-                                <mat-expansion-panel>
-                                <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                    <mat-checkbox>Category Name</mat-checkbox> 
-                                    </mat-panel-title>
-                                </mat-expansion-panel-header>
-                                    <mat-checkbox>Service Name</mat-checkbox> 
-                                    <mat-checkbox>Service Name</mat-checkbox> 
-                                </mat-expansion-panel>
-                            </mat-expansion-panel>
-                            <mat-expansion-panel>
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                <mat-checkbox>Hair</mat-checkbox> 
-                                </mat-panel-title>
-                            </mat-expansion-panel-header>
-                                <div>
-                                    <mat-checkbox>Hair Color</mat-checkbox> 
-                                </div>
-                                <div>
-                                    <mat-checkbox>Hair Cut</mat-checkbox> 
-                                </div>
-                                <div>
-                                    <mat-checkbox>Hair Spa</mat-checkbox> 
-                                </div>
-                            </mat-expansion-panel>
-                            <mat-expansion-panel>
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                <mat-checkbox>Home Cleaning</mat-checkbox> 
-                                </mat-panel-title>
-                            </mat-expansion-panel-header>
-                                <div>
-                                    <mat-checkbox>Floor Cleaning</mat-checkbox> 
-                                </div>
-                                <div>
-                                    <mat-checkbox>Kitchen Cleaning</mat-checkbox> 
-                                </div>
-                                <div>
-                                    <mat-checkbox>Sofa Cleaning</mat-checkbox> 
-                                </div>
-                            </mat-expansion-panel>
-                            <mat-expansion-panel>
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                <mat-checkbox>Plumbing</mat-checkbox> 
-                                </mat-panel-title>
-                            </mat-expansion-panel-header>
-                            <div class="mat-sub-expansion">
-                                <div>
-                                    <mat-checkbox>Floor Cleaning</mat-checkbox> 
-                                </div>
-                                <div>
-                                    <mat-checkbox>Kitchen Cleaning</mat-checkbox> 
-                                </div>
-                                <div>
-                                    <mat-checkbox>Sofa Cleaning</mat-checkbox> 
-                                </div>
-                            </div>
-                            </mat-expansion-panel>
-                            <mat-expansion-panel>
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                <mat-checkbox>Pest Control</mat-checkbox> 
-                                </mat-panel-title>
-                            </mat-expansion-panel-header>
-                                <div>
-                                    <mat-checkbox>Floor Cleaning</mat-checkbox> 
-                                </div>
-                                <div>
-                                    <mat-checkbox>Kitchen Cleaning</mat-checkbox> 
-                                </div>
-                                <div>
-                                    <mat-checkbox>Sofa Cleaning</mat-checkbox> 
-                                </div>
-                            </mat-expansion-panel>
-                        </mat-accordion>
-                    </div>
-                <!-- </mat-card> -->
+            <div class="col-lg-4 col-md-4 col-12 select-service">
+                <mat-card>
+                    <h6>Select Service</h6>
+                    <mat-form-field class="pb-3 bottom-border-field">
+                     <mat-label>Outline form field</mat-label>
+                     <input matInput placeholder="Category,Subcategory,Service">
+                     <mat-icon matPrefix>search</mat-icon>
+                   </mat-form-field>
+             
+                   <mat-accordion class="select-service-accordian">
+                     <mat-expansion-panel *ngFor="let categoryServiceList of categoryServiceList; let i=index">
+                       <mat-expansion-panel-header>
+                         <mat-panel-title class="service-title">
+                           <mat-checkbox>{{categoryServiceList.category_title}}</mat-checkbox> 
+                         </mat-panel-title>
+                       </mat-expansion-panel-header>
+                         <!-- <div class="py-3">
+                           <mat-checkbox>SubCategory Name</mat-checkbox> 
+                         </div> -->
+                         <mat-expansion-panel  class="my-3" *ngFor="let subcategoryList of categoryServiceList.subcategory; let i=index">
+                           <mat-expansion-panel-header>
+                             <mat-panel-title>
+                               <mat-checkbox>{{subcategoryList.sub_category_name}}</mat-checkbox> 
+                             </mat-panel-title>
+                           </mat-expansion-panel-header>
+                           <div *ngFor="let serviceList of subcategoryList.services; let i=index" class="py-3">
+                             <mat-checkbox (change)="fnCheckService($event.checked,serviceList.id)">{{serviceList.service_name}}</mat-checkbox> 
+                           </div>
+                         </mat-expansion-panel>
+                     </mat-expansion-panel>
+                    
+                     <!-- <mat-expansion-panel (opened)="panelOpenState = true"
+                                          (closed)="panelOpenState = false">
+                       <mat-expansion-panel-header>
+                         <mat-panel-title>
+                           Self aware panel
+                         </mat-panel-title>
+                         <mat-panel-description>
+                           Currently I am {{panelOpenState ? 'open' : 'closed'}}
+                         </mat-panel-description>
+                       </mat-expansion-panel-header>
+                       <p>I'm visible because I am open</p>
+                     </mat-expansion-panel> -->
+                   </mat-accordion>
+                 </mat-card>
             </div>
         </div>
     </form>
@@ -179,7 +146,8 @@
     <mat-card class="">
         <div class="d-flex py-2">
             <button mat-button class="staff-cancel-btn">Cancel</button>
-            <button mat-button class="staff-save-btn ml-2">Save</button>
+             <button mat-button *ngIf="!editStaffId" (click)="fnSubmitCreateStaff()" class="staff-save-btn ml-2 text-white">Save</button>
+             <button mat-button *ngIf="editStaffId" (click)="fnSubmitCreateStaff()" class="staff-save-btn ml-2 text-white">Update</button>
         </div>
     </mat-card>
 </div>
@@ -188,7 +156,7 @@
             <div class="d-flex mb-1">
                 <h5>Staff</h5>
                 <div>
-                    <button mat-button class="staff-add-btn pl-0"> <mat-icon aria-hidden="false">add</mat-icon>Add Staff</button>
+                    <button mat-button (click)="fnAddNewStaff()" class="staff-add-btn pl-0"> <mat-icon aria-hidden="false">add</mat-icon>Add Staff</button>
                 </div>
             </div>
             <p >Staff/team members are required to deliver services to your customers. you can define rights/permissions, and the services they can perform.</p>
@@ -252,18 +220,30 @@
                                         <div class="staff-data">
                                             <h5>{{allStaffList.firstname}} {{allStaffList.lastname}}</h5>
                                             <div class="d-flex statick-rating w-100">
-                                                <div class="star-rating">
-                                                  <input type="radio" id="5-stars_2" name="rating_2" value="5" />
-                                                  <label for="5-stars_2" class="star">&#9733;</label>
-                                                  <input type="radio" id="4-stars_2" name="rating_2" value="4" />
-                                                  <label for="4-stars_2" class="star">&#9733;</label>
-                                                  <input type="radio" id="3-stars_2" name="rating_2" value="3" />
-                                                  <label for="3-stars_2" class="star">&#9733;</label>
-                                                  <input type="radio" id="2-stars_2" name="rating_2" value="2" />
-                                                  <label for="2-stars_2" class="star">&#9733;</label>
-                                                  <input type="radio" id="1-star_2" name="rating_2" value="1" />
-                                                  <label for="1-star_2" class="star">&#9733;</label>
+                                                <div class="star-rating" *ngIf="allStaffList.avg_ratings.length == 0">
+                                                  <input type="radio" id="5-stars_{{allStaffList.id}}" name="rating_2" value="5" />
+                                                  <label for="5-stars_{{allStaffList.id}}" class="star">&#9733;</label>
+                                                  <input type="radio" id="4-stars_{{allStaffList.id}}" name="rating_2" value="4" />
+                                                  <label for="4-stars_{{allStaffList.id}}" class="star">&#9733;</label>
+                                                  <input type="radio" id="3-stars_{{allStaffList.id}}" name="rating_2" value="3" />
+                                                  <label for="3-stars_{{allStaffList.id}}" class="star">&#9733;</label>
+                                                  <input type="radio" id="2-stars_{{allStaffList.id}}" name="rating_2" value="2" />
+                                                  <label for="2-stars_{{allStaffList.id}}" class="star">&#9733;</label>
+                                                  <input type="radio" id="1-star_{{allStaffList.id}}" name="rating_2" value="1" />
+                                                  <label for="1-star_{{allStaffList.id}}" class="star">&#9733;</label>
                                                 </div>   
+                                                <div class="star-rating" *ngIf="allStaffList.avg_ratings.length != 0">
+                                                    <input type="radio" [checked]="allStaffList.avg_ratings[0].aggregate == '5'" id="5-stars_{{allStaffList.id}}" name="rating_2" value="5" />
+                                                    <label for="5-stars_{{allStaffList.id}}" class="star">&#9733;</label>
+                                                    <input [checked]="allStaffList.avg_ratings[0].aggregate == '4'" type="radio" id="4-stars_{{allStaffList.id}}" name="rating_2" value="4" />
+                                                    <label for="4-stars_{{allStaffList.id}}" class="star">&#9733;</label>
+                                                    <input [checked]="allStaffList.avg_ratings[0].aggregate == '3'" type="radio" id="3-stars_{{allStaffList.id}}" name="rating_2" value="3" />
+                                                    <label for="3-stars_{{allStaffList.id}}" class="star">&#9733;</label>
+                                                    <input [checked]="allStaffList.avg_ratings[0].aggregate == '2'" type="radio" id="2-stars_{{allStaffList.id}}" name="rating_2" value="2" />
+                                                    <label for="2-stars_{{allStaffList.id}}" class="star">&#9733;</label>
+                                                    <input [checked]="allStaffList.avg_ratings[0].aggregate == '1'" type="radio" id="1-star_{{allStaffList.id}}" name="rating_2" value="1" />
+                                                    <label for="1-star_{{allStaffList.id}}" class="star">&#9733;</label>
+                                                  </div>   
                                             </div>
                                         </div>
                                     </div>
@@ -290,6 +270,9 @@
         </div>
     </mat-card>
     <mat-card *ngIf="singleStaffView">
+        <label class="pointer" (click)="fnBackStaffList()">
+            <i class="material-icons">chevron_left</i>Back
+        </label>
         <div class="d-flex align-items-center">
             <div>
                 <img  class="staff-profile-width" src="{{singleStaffDetail.staff[0].image}}">
@@ -328,10 +311,10 @@
             </div>
             <div class="staff-btn">
                 <div class="mx-2">                                
-                    <button mat-button appearance="fill" class="staff-edit-btn text-center pl-0"><mat-icon class="">edit</mat-icon>Edit</button>
+                    <button (click)="fnEditStaff(singleStaffDetail.staff[0].id)" mat-button appearance="fill" class="staff-edit-btn text-center pl-0"><mat-icon class="">edit</mat-icon>Edit</button>
                 </div>
                 <div class="mx-2">
-                    <button mat-button appearance="fill" class="staff-delete-btn" ><mat-icon class="">delete</mat-icon> Delete</button>
+                    <button mat-button (click)="fnDeleteStaff(singleStaffDetail.staff[0].id)" appearance="fill" class="staff-delete-btn" mat-raised-button color="warn" ><mat-icon class="">delete</mat-icon> Delete</button>
                 </div> 
             </div>
         </div>
