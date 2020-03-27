@@ -78,11 +78,11 @@
   ::ng-deep .mat-checkbox-layout {
     margin-bottom: 0px;
   }
-  ::ng-deep .mat-expansion-panel-header {
-    height: 25px !important;
-    background-color: #e8f2fe;
-    color: blue;
-  }
+  // ::ng-deep .mat-expansion-panel-header {
+  //   height: 25px !important;
+  //   background-color: #e8f2fe;
+  //   color: blue;
+  // }
   .staff-cancel-btn {
     width: 128px;
     height: 37px;
@@ -101,7 +101,7 @@
     background-color: #1173f4;
     color: white;
     right: 50px;
-    z-index: 10;
+    z-index: 4;
     position: absolute;
     height: 35px;
     width: 135px;
@@ -177,7 +177,6 @@
       width: 129px;
       height: 37px;
       border-radius: 21px;
-      background-color: #c5c5c5;
     }
   }
   .bottom-border {
@@ -484,4 +483,17 @@
 }
 .action-right-side{
   width:50px;
+}
+.select-service{
+  max-width: 400px;
+  margin-left: auto;
+  .select-service-accordian{
+      ::ng-deep .mat-expansion-panel-header{
+          background-color: #e8f2fe;
+          color: blue;
+      }
+      .service-title{
+
+      }
+  }
 }
