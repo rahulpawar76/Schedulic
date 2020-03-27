@@ -604,10 +604,9 @@ export class AdminSettingsService {
             }),
             catchError(this.handleError));
     }
-    fnFormSetting(status, formArr) {
+    fnFormSetting(formArr) {
         let requestObject = {
             'business_id': this.businessId,
-            'status': status,
             'form_settings': formArr
         };
         let headers = new HttpHeaders({
