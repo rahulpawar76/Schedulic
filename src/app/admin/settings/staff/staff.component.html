@@ -40,6 +40,20 @@
                 </mat-form-field> 
             </div>
             <div class="col-lg-4 col-md-4 col-12 text-center border-right">
+                
+                <!-- <div [fileUploadInputFor]="fileUploadQueue" class="upload-drop-zone">
+                    Just drag and drop files here
+                </div>
+                 
+                 
+                <div style="width: 500px">
+                    <mat-file-upload-queue #fileUploadQueue
+                        [fileAlias]="'file'"
+                        [httpUrl]="'http://goappointment.bi-team.in/goappointment_api/api/staff-create'" multiple>
+                    
+                        <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
+                    </mat-file-upload-queue>
+                </div> -->
                 <div class="upload-document-top-margin">
                     <div class="d-flex">
                         <h6>Upload Documents</h6>
@@ -90,16 +104,9 @@
                                 <div>
                                     <mat-checkbox>Service Name</mat-checkbox> 
                                 </div>
-                                <mat-checkbox>Service Name</mat-checkbox> 
-                                <mat-expansion-panel>
-                                <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                    <mat-checkbox>Category Name</mat-checkbox> 
-                                    </mat-panel-title>
-                                </mat-expansion-panel-header>
+                                <div>
                                     <mat-checkbox>Service Name</mat-checkbox> 
-                                    <mat-checkbox>Service Name</mat-checkbox> 
-                                </mat-expansion-panel>
+                                </div>
                             </mat-expansion-panel>
                             <mat-expansion-panel>
                             <mat-expansion-panel-header>

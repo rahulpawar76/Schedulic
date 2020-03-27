@@ -7,6 +7,7 @@ import { User, Role } from './_models';
 //import { slideInAnimation } from './maturity/animations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MdePopoverTrigger } from '@material-extended/mde';
 
 
 import {
@@ -39,6 +40,22 @@ export class AppComponent implements AfterViewInit {
   selectedBusinessName: any;
   adminSettings:any;
   currentUrl: string;
+
+  @ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
+
+  closePopover() {
+    this.trigger.togglePopover();
+  }
+
+  onSubmit() {
+
+    // Form Logic
+
+    // On Success close popover
+    this.closePopover();
+    
+  }
+  
   
     public company_info: string;
 
@@ -190,6 +207,31 @@ export class AppComponent implements AfterViewInit {
       this.selectedSessionName=localStorage.getItem("session_name");
     }*/
 
+    /*Add New Navigation */
+      addNewAppointNav(){
+        this.router.navigate(['/admin/my-appointment']);
+      }
+      addNewCategoryNav(){
+        this.router.navigate(['/admin/settings/']);
+      }
+      addNewServicesNav(){
+        this.router.navigate(['/admin/settings/services']);
+      }
+      addNewStaffNav(){
+        this.router.navigate(['/admin/settings/staff']);
+      }
+      addNewCustomerNav(){
+        this.router.navigate(['/admin/my-customer']);
+      }
+      addNewPostalCodeNav(){
+        this.router.navigate(['/admin/settings/postalcode']);
+      }
+      addNewDiscountCouponNav(){
+        this.router.navigate(['/admin/my-discountcoupon']);
+      }
+      addNewTimeOffNav(){
+        this.router.navigate(['/admin/settings/']);
+      }
 
 
 

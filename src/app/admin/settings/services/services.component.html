@@ -52,9 +52,9 @@
                     <div class="heads main-heading-content drageble "  fxLayout="row">
                         <div class="" fxFlex="30">Service</div>
                         <div class="" fxFlex="15">Duration</div>
-                        <div class="" fxFlex="15">price</div>
+                        <div class="" fxFlex="13">price</div>
                         <div class="" fxFlex="10">Unit</div>
-                        <div class="" fxFlex="10">Visibility</div>
+                        <div class="" fxFlex="12">Visibility</div>
                         <div class="" fxFlex="10">Status</div>
                         <div class="" fxFlex="10"></div>
                     </div>
@@ -62,9 +62,9 @@
                         <div  class="drageble-box" *ngFor="let allServicesList of allServicesList; let i=index" cdkDrag fxLayout="row">
                             <div class="" fxFlex="30">{{allServicesList.service_name}}</div>
                             <div class="" fxFlex="15">{{allServicesList.service_time}}</div>
-                            <div class="" fxFlex="15">$ {{allServicesList.service_cost}}</div>
+                            <div class="" fxFlex="13">$ {{allServicesList.service_cost}}</div>
                             <div class="" fxFlex="10">{{allServicesList.service_unit}}</div>
-                            <div class="" *ngIf="allServicesList.private_status == 'N'" fxFlex="10">Public</div>
+                            <div class="" *ngIf="allServicesList.private_status == 'N'" fxFlex="12">Public</div>
                             <div class="" *ngIf="allServicesList.private_status == 'Y'" fxFlex="10">Private</div>
                             <div class="" fxFlex="10">
                                 <mat-slide-toggle (change)="changeServiceStaus($event.checked,allServicesList.id)" [checked]="allServicesList.status == 'E'"></mat-slide-toggle>

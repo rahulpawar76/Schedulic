@@ -10,7 +10,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { MaterialModule } from '@app/_helpers/material.module';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
-
+  
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { MyBusinessComponent } from './my-business/my-business.component';
@@ -30,6 +30,8 @@ import { DialogViewReview } from './customers/customers.component';
 import { DiscountCouponComponent } from './discount-coupon/discount-coupon.component';
 import { InterruptedReschedule } from './my-work-space/my-work-space.component';
 import { MyProfileComponent } from './settings-my-profile/settings-my-profile.component';
+import { DialogMyProfileImageUpload } from './settings-my-profile/settings-my-profile.component';
+import { DialogCustomerImageUpload } from './customers/customers.component';
 
 
 @NgModule({
@@ -49,7 +51,9 @@ import { MyProfileComponent } from './settings-my-profile/settings-my-profile.co
     DialogPaymentNote,
     DialogViewReview,
     InterruptedReschedule,
-    DiscountCouponComponent
+    DiscountCouponComponent,
+    DialogMyProfileImageUpload,
+    DialogCustomerImageUpload
     ],
   imports: [
     CommonModule,
@@ -65,11 +69,11 @@ import { MyProfileComponent } from './settings-my-profile/settings-my-profile.co
     HighchartsChartModule,
     DataTablesModule,
     MatSidenavModule,
-    NgxDaterangepickerMd.forRoot()
+    NgxDaterangepickerMd.forRoot(),
   ],
   exports: [
     FormsModule
   ],
-  entryComponents: [myCreateNewBusinessDialog,DialogAddNewAppointment,DialogNewAppointment,DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,DialogViewReview,InterruptedReschedule],
+  entryComponents: [myCreateNewBusinessDialog,DialogAddNewAppointment,DialogNewAppointment,DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,DialogViewReview,InterruptedReschedule,DialogMyProfileImageUpload,DialogCustomerImageUpload],
 })
 export class AdminModule { }

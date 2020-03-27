@@ -42,6 +42,22 @@
     display: table;
     margin: 0 auto;
 }
+// Add Menu Css
+.add-content{
+    ::ng-deep .mat-list-item-content{
+        // list-style: none;
+        padding-bottom: 10px;
+    }
+    ul{
+        padding: 10px 18px;
+    }
+    .bottom-border{
+        border-bottom: 1px solid black;
+    }
+    .add-new{
+        padding: 7px 11px;
+    }
+}
 
 
 /*Appoinment Menu Css*/
