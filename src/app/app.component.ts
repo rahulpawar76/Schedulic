@@ -39,6 +39,7 @@ export class AppComponent implements AfterViewInit {
   selectedBusinessName: any;
   adminSettings:any;
   currentUrl: string;
+  loginUserData: any;
   
     public company_info: string;
 
@@ -59,6 +60,8 @@ export class AppComponent implements AfterViewInit {
         private _snackBar: MatSnackBar,        
     ) {        
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+        this.loginUserData = JSON.parse(localStorage.getItem('currentUser'));
+        
         
     }
 
@@ -69,6 +72,7 @@ export class AppComponent implements AfterViewInit {
      this.router.events.subscribe(event => {
           if (event instanceof RouterEvent) this.handleRoute(event);
         });
+        console.log(this.loginUserData.username);
     }
     
      dynamicSort(property: string) {
