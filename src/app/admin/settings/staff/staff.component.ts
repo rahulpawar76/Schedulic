@@ -752,7 +752,7 @@ export class StaffComponent implements OnInit {
       }
     })
   }
-
+  
   fnShowAddBreakForm(day){
     if(day == "Monday"){
       this.selectedStartTimeMonday=this.timeSlotList[0].long;

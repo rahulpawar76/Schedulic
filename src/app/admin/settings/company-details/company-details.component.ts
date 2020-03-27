@@ -17,8 +17,6 @@ export class CompanyDetailsComponent implements OnInit {
   allStates: any;
   allCities: any;
   businessId: any;
-  status: any = 'D';
-  privateStatus: any = 'N';
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^-?(0|[1-9]\d*)?$/
   constructor(
@@ -33,8 +31,8 @@ export class CompanyDetailsComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.getCompanyDetails();
     this.gelAllCountry();
+    this.getCompanyDetails();
     this.companyDetails = this._formBuilder.group({
       company_name : ['', Validators.required],
       comp_email : ['',[Validators.pattern(this.emailFormat)]],
@@ -46,6 +44,8 @@ export class CompanyDetailsComponent implements OnInit {
       state:['', Validators.required],
       zip_code:['', Validators.required],
       comp_decs:[''],
+      comp_status:[false],
+      comp_private_status:[false],
     });
   }
 
@@ -57,6 +57,8 @@ export class CompanyDetailsComponent implements OnInit {
       if(response.data == true){
         this.companyDetailsData = response.response;
         console.log(this.companyDetailsData);
+        this.selectCountry(this.companyDetailsData.country);
+        this.selectStates(this.companyDetailsData.state);
         this.companyDetails.controls['company_name'].setValue(this.companyDetailsData.business_name);
         this.companyDetails.controls['comp_email'].setValue(this.companyDetailsData.email);
         this.companyDetails.controls['comp_website'].setValue(this.companyDetailsData.website);
@@ -64,12 +66,14 @@ export class CompanyDetailsComponent implements OnInit {
         this.companyDetails.controls['country'].setValue(this.companyDetailsData.country);
         this.companyDetails.controls['comp_address'].setValue(this.companyDetailsData.address);
         this.companyDetails.controls['city'].setValue(this.companyDetailsData.city);
-        this.companyDetails.controls['state'].setValue(this.companyDetailsData.region);
+        this.companyDetails.controls['state'].setValue(this.companyDetailsData.state);
         this.companyDetails.controls['zip_code'].setValue(this.companyDetailsData.zipcode);
         this.companyDetails.controls['comp_decs'].setValue(this.companyDetailsData.description);
+        this.companyDetails.controls['comp_status'].setValue(this.companyDetailsData.status=="E"?true:false);
+        this.companyDetails.controls['comp_private_status'].setValue(this.companyDetailsData.private_status=="Y"?true:false);
       }
       else if(response.data == false){
-       this.companyDetailsData = '';
+       this.companyDetailsData = [];
       }
     })
   }
@@ -90,7 +94,7 @@ export class CompanyDetailsComponent implements OnInit {
         this.allStates = response.response
       }
       else if(response.data == false){
-        this.allStates = ''
+        this.allStates = [];
       }
     })
   }
@@ -100,7 +104,7 @@ export class CompanyDetailsComponent implements OnInit {
         this.allCities = response.response
       }
       else if(response.data == false){
-        this.allCities = ''
+        this.allCities = [];
       }
     })
   }
@@ -118,8 +122,8 @@ export class CompanyDetailsComponent implements OnInit {
         "state" : this.companyDetails.get('state').value,
         "zip" : this.companyDetails.get('zip_code').value,
         "description" : this.companyDetails.get('comp_decs').value,
-        "status" : this.status,
-        "private_status" : this.privateStatus,
+        "status" : this.companyDetails.get('comp_status').value==true?"E":"D",
+        "private_status" : this.companyDetails.get('comp_private_status').value==true?"Y":"N",
       }
       
     }
@@ -127,20 +131,7 @@ export class CompanyDetailsComponent implements OnInit {
     console.log(this.updateCompanyDetailsData);
     this.fnupdateBusineData(this.updateCompanyDetailsData);
   }
-  changeStatus(event){
-    if(event == true){
-      this.status = 'E'
-    }else{
-      this.status = 'D'
-    }
-  }
-  changePrivateStatus(event){
-    if(event == true){
-      this.privateStatus = 'Y'
-    }else{
-      this.privateStatus = 'N'
-    }
-  }
+
   fnupdateBusineData(updateCompanyDetailsData){
     this.adminSettingsService.fnupdateBusineData(updateCompanyDetailsData).subscribe((response:any) => {
       if(response.data == true){
