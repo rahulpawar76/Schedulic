@@ -1067,6 +1067,9 @@ export class BusinessHoursComponent implements OnInit {
       "dayNumber":''
     }
     if(day == "Monday"){
+      if(this.selectedStartTimeMonday==null || this.selectedEndTimeMonday==null){
+        return false;
+      }
       requestObject={
         "business_id":this.businessId,
         "start_time":this.selectedStartTimeMonday,
@@ -1076,6 +1079,9 @@ export class BusinessHoursComponent implements OnInit {
       console.log(requestObject);
     }
     if(day == "Tuesday"){
+      if(this.selectedStartTimeTuesday==null || this.selectedEndTimeTuesday==null){
+        return false;
+      }
       requestObject={
         "business_id":this.businessId,
         "start_time":this.selectedStartTimeTuesday,
@@ -1085,6 +1091,9 @@ export class BusinessHoursComponent implements OnInit {
       console.log(requestObject);
     }
     if(day == "Wednesday"){
+      if(this.selectedStartTimeWednesday==null || this.selectedEndTimeWednesday==null){
+        return false;
+      }
       requestObject={
         "business_id":this.businessId,
         "start_time":this.selectedStartTimeWednesday,
@@ -1094,6 +1103,9 @@ export class BusinessHoursComponent implements OnInit {
       console.log(requestObject);
     }
     if(day == "Thursday"){
+      if(this.selectedStartTimeThursday==null || this.selectedEndTimeThursday==null){
+        return false;
+      }
       requestObject={
         "business_id":this.businessId,
         "start_time":this.selectedStartTimeThursday,
@@ -1103,6 +1115,9 @@ export class BusinessHoursComponent implements OnInit {
       console.log(requestObject);
     }
     if(day == "Friday"){
+      if(this.selectedStartTimeFriday==null || this.selectedEndTimeFriday==null){
+        return false;
+      }
       requestObject={
         "business_id":this.businessId,
         "start_time":this.selectedStartTimeFriday,
@@ -1112,6 +1127,9 @@ export class BusinessHoursComponent implements OnInit {
       console.log(requestObject);
     }
     if(day == "Saturday"){
+      if(this.selectedStartTimeSaturday==null || this.selectedEndTimeSaturday==null){
+        return false;
+      }
       requestObject={
         "business_id":this.businessId,
         "start_time":this.selectedStartTimeSaturday,
@@ -1121,6 +1139,9 @@ export class BusinessHoursComponent implements OnInit {
       console.log(requestObject);
     }
     if(day == "Sunday"){
+      if(this.selectedStartTimeSunday==null || this.selectedEndTimeSunday==null){
+        return false;
+      }
       requestObject={
         "business_id":this.businessId,
         "start_time":this.selectedStartTimeSunday,

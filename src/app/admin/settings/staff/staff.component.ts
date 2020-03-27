@@ -61,6 +61,20 @@ export class StaffComponent implements OnInit {
   fridayOn : boolean;
   saturdayOn : boolean;
   sundayOn : boolean;
+  mondayWorkingHourStartTimeIndex:any;
+  mondayWorkingHourEndTimeIndex:any;
+  tuesdayWorkingHourStartTimeIndex:any;
+  tuesdayWorkingHourEndTimeIndex:any;
+  wednesdayWorkingHourStartTimeIndex:any;
+  wednesdayWorkingHourEndTimeIndex:any;
+  thursdayWorkingHourStartTimeIndex:any;
+  thursdayWorkingHourEndTimeIndex:any;
+  fridayWorkingHourStartTimeIndex:any;
+  fridayWorkingHourEndTimeIndex:any;
+  saturdayWorkingHourStartTimeIndex:any;
+  saturdayWorkingHourEndTimeIndex:any;
+  sundayWorkingHourStartTimeIndex:any;
+  sundayWorkingHourEndTimeIndex:any;
 
   breakTimeList: any=[];
   selectedStartTimeMonday: any;
@@ -84,6 +98,20 @@ export class StaffComponent implements OnInit {
   showFridayAddForm: boolean=false;
   showSaturdayAddForm: boolean=false;
   showSundayAddForm: boolean=false;
+  mondayBreakStartTimeIndex:any;
+  mondayBreakEndTimeIndex:any;
+  tuesdayBreakStartTimeIndex:any;
+  tuesdayBreakEndTimeIndex:any;
+  wednesdayBreakStartTimeIndex:any;
+  wednesdayBreakEndTimeIndex:any;
+  thursdayBreakStartTimeIndex:any;
+  thursdayBreakEndTimeIndex:any;
+  fridayBreakStartTimeIndex:any;
+  fridayBreakEndTimeIndex:any;
+  saturdayBreakStartTimeIndex:any;
+  saturdayBreakEndTimeIndex:any;
+  sundayBreakStartTimeIndex:any;
+  sundayBreakEndTimeIndex:any;
   
   timeOffList: any=[];
 
@@ -313,7 +341,58 @@ export class StaffComponent implements OnInit {
               }
             }
           });
-  
+
+          for(var i=0; i<this.timeSlotList.length; i++){
+            if(this.timeSlotList[i].long==this.workingHoursList[0].day_start_time){
+              this.mondayWorkingHourStartTimeIndex=i;
+            }
+            if(this.timeSlotList[i].long==this.workingHoursList[0].day_end_time){
+              this.mondayWorkingHourEndTimeIndex=i;
+            }
+            
+            if(this.timeSlotList[i].long==this.workingHoursList[1].day_start_time){
+              this.tuesdayWorkingHourStartTimeIndex=i;
+            }
+            if(this.timeSlotList[i].long==this.workingHoursList[1].day_end_time){
+              this.tuesdayWorkingHourEndTimeIndex=i;
+            }
+            
+            if(this.timeSlotList[i].long==this.workingHoursList[2].day_start_time){
+              this.wednesdayWorkingHourStartTimeIndex=i;
+            }
+            if(this.timeSlotList[i].long==this.workingHoursList[2].day_end_time){
+              this.wednesdayWorkingHourEndTimeIndex=i;
+            }
+            
+            if(this.timeSlotList[i].long==this.workingHoursList[3].day_start_time){
+              this.thursdayWorkingHourStartTimeIndex=i;
+            }
+            if(this.timeSlotList[i].long==this.workingHoursList[3].day_end_time){
+              this.thursdayWorkingHourEndTimeIndex=i;
+            }
+            
+            if(this.timeSlotList[i].long==this.workingHoursList[4].day_start_time){
+              this.fridayWorkingHourStartTimeIndex=i;
+            }
+            if(this.timeSlotList[i].long==this.workingHoursList[4].day_end_time){
+              this.fridayWorkingHourEndTimeIndex=i;
+            }
+            
+            if(this.timeSlotList[i].long==this.workingHoursList[5].day_start_time){
+              this.saturdayWorkingHourStartTimeIndex=i;
+            }
+            if(this.timeSlotList[i].long==this.workingHoursList[5].day_end_time){
+              this.saturdayWorkingHourEndTimeIndex=i;
+            }
+            
+            if(this.timeSlotList[i].long==this.workingHoursList[6].day_start_time){
+              this.sundayWorkingHourStartTimeIndex=i;
+            }
+            if(this.timeSlotList[i].long==this.workingHoursList[6].day_end_time){
+              this.sundayWorkingHourEndTimeIndex=i;
+            }
+
+          }
           this.formSetWorkingHours = this._formBuilder.group({
             mondayToggle: [this.workingHoursList[0].off_day=="N"?true:false,this.mondayOn?Validators.required:''],
             mondayStartTime: [this.workingHoursList[0].day_start_time,this.mondayOn?Validators.required:''],
@@ -751,6 +830,148 @@ export class StaffComponent implements OnInit {
     this.fnFormBuild(this.mondayOn,this.tuesdayOn,this.wednesdayOn,this.thursdayOn,this.fridayOn,this.saturdayOn,this.sundayOn);
   }
 
+  fnOnChangeStartTimeWorkingHour(event,day){
+    console.log(event);
+    console.log(day);
+    if(day == 'Monday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.mondayWorkingHourStartTimeIndex=i;
+        }
+      }
+      if(this.mondayWorkingHourEndTimeIndex<=this.mondayWorkingHourStartTimeIndex){
+        this.formSetWorkingHours.controls["mondayEndTime"].setValue(null);
+      }
+    }
+    
+    if(day == 'Tuesday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.tuesdayWorkingHourStartTimeIndex=i;
+        }
+      }
+      if(this.tuesdayWorkingHourEndTimeIndex<=this.tuesdayWorkingHourStartTimeIndex){
+        this.formSetWorkingHours.controls["tuesdayEndTime"].setValue(null);
+      }
+    }
+    
+    if(day == 'Wednesday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.wednesdayWorkingHourStartTimeIndex=i;
+        }
+      }
+      if(this.wednesdayWorkingHourEndTimeIndex<=this.wednesdayWorkingHourStartTimeIndex){
+        this.formSetWorkingHours.controls["wednesdayEndTime"].setValue(null);
+      }
+    }
+    
+    if(day == 'Thursday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.thursdayWorkingHourStartTimeIndex=i;
+        }
+      }
+      if(this.thursdayWorkingHourEndTimeIndex<=this.thursdayWorkingHourStartTimeIndex){
+        this.formSetWorkingHours.controls["thursdayEndTime"].setValue(null);
+      }
+    }
+    
+    if(day == 'Friday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.fridayWorkingHourStartTimeIndex=i;
+        }
+      }
+      if(this.fridayWorkingHourEndTimeIndex<=this.fridayWorkingHourStartTimeIndex){
+        this.formSetWorkingHours.controls["fridayEndTime"].setValue(null);
+      }
+    }
+    
+    if(day == 'Saturday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.saturdayWorkingHourStartTimeIndex=i;
+        }
+      }
+      if(this.saturdayWorkingHourEndTimeIndex<=this.saturdayWorkingHourStartTimeIndex){
+        this.formSetWorkingHours.controls["saturdayEndTime"].setValue(null);
+      }
+    }
+    
+    if(day == 'Sunday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.sundayWorkingHourStartTimeIndex=i;
+        }
+      }
+      if(this.sundayWorkingHourEndTimeIndex<=this.sundayWorkingHourStartTimeIndex){
+        this.formSetWorkingHours.controls["sundayEndTime"].setValue(null);
+      }
+    }
+
+  }
+
+  fnOnChangeEndTimeWorkingHour(event,day){
+    console.log(event);
+    console.log(day);
+    if(day == 'Monday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.mondayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Tuesday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.tuesdayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Wednesday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.wednesdayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Thursday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.thursdayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Friday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.fridayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Saturday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.saturdayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Sunday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.sundayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+  }
+
   fnFormBuild(mondayOn,tuesdayOn,wednesdayOn,thursdayOn,fridayOn,saturdayOn,sundayOn){
     console.log(mondayOn+"--"+tuesdayOn+"--"+wednesdayOn+"--"+thursdayOn+"--"+fridayOn+"--"+saturdayOn+"--"+sundayOn);
     this.formSetWorkingHours = this._formBuilder.group({
@@ -944,41 +1165,196 @@ export class StaffComponent implements OnInit {
       this.selectedStartTimeMonday=this.timeSlotList[0].long;
       this.selectedEndTimeMonday=this.timeSlotList[this.timeSlotList.length-1].long;
       this.showMondayAddForm=this.showMondayAddForm==true?false:true;
+      this.mondayBreakStartTimeIndex=0;
+      this.mondayBreakEndTimeIndex=this.timeSlotList.length-1;
     }
     if(day == "Tuesday"){
       this.selectedStartTimeTuesday=this.timeSlotList[0].long;
       this.selectedEndTimeTuesday=this.timeSlotList[this.timeSlotList.length-1].long;
       this.showTuesdayAddForm=this.showTuesdayAddForm==true?false:true;
+      this.tuesdayBreakStartTimeIndex=0;
+      this.tuesdayBreakEndTimeIndex=this.timeSlotList.length-1;
     }
     if(day == "Wednesday"){
       this.selectedStartTimeWednesday=this.timeSlotList[0].long;
       this.selectedEndTimeWednesday=this.timeSlotList[this.timeSlotList.length-1].long;
       this.showWednesdayAddForm=this.showWednesdayAddForm==true?false:true;
+      this.wednesdayBreakStartTimeIndex=0;
+      this.wednesdayBreakEndTimeIndex=this.timeSlotList.length-1;
     }
     if(day == "Thursday"){
       this.selectedStartTimeThursday=this.timeSlotList[0].long;
       this.selectedEndTimeThursday=this.timeSlotList[this.timeSlotList.length-1].long;
       this.showThursdayAddForm=this.showThursdayAddForm==true?false:true;
+      this.thursdayBreakStartTimeIndex=0;
+      this.thursdayBreakEndTimeIndex=this.timeSlotList.length-1;
     }
     if(day == "Friday"){
       this.selectedStartTimeFriday=this.timeSlotList[0].long;
       this.selectedEndTimeFriday=this.timeSlotList[this.timeSlotList.length-1].long;
       this.showFridayAddForm=this.showFridayAddForm==true?false:true;
+      this.fridayBreakStartTimeIndex=0;
+      this.fridayBreakEndTimeIndex=this.timeSlotList.length-1;
     }
     if(day == "Saturday"){
       this.selectedStartTimeSaturday=this.timeSlotList[0].long;
       this.selectedEndTimeSaturday=this.timeSlotList[this.timeSlotList.length-1].long;
       this.showSaturdayAddForm=this.showSaturdayAddForm==true?false:true;
+      this.saturdayBreakStartTimeIndex=0;
+      this.saturdayBreakEndTimeIndex=this.timeSlotList.length-1;
     }
     if(day == "Sunday"){
       this.selectedStartTimeSunday=this.timeSlotList[0].long;
       this.selectedEndTimeSunday=this.timeSlotList[this.timeSlotList.length-1].long;
       this.showSundayAddForm=this.showSundayAddForm==true?false:true;
+      this.sundayBreakStartTimeIndex=0;
+      this.sundayBreakEndTimeIndex=this.timeSlotList.length-1;
+    }
+  }
+
+  fnOnChangeStartTimeBreak(event,day){
+    console.log(event);
+    console.log(day);
+    if(day == 'Monday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.mondayBreakStartTimeIndex=i;
+        }
+      }
+      if(this.mondayBreakEndTimeIndex<=this.mondayBreakStartTimeIndex){
+        this.selectedEndTimeMonday=null;
+      }
+    }
+    
+    if(day == 'Tuesday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.tuesdayBreakStartTimeIndex=i;
+        }
+      }
+      if(this.tuesdayBreakEndTimeIndex<=this.tuesdayBreakStartTimeIndex){
+        this.selectedEndTimeTuesday=null;
+      }
+    }
+    
+    if(day == 'Wednesday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.wednesdayBreakStartTimeIndex=i;
+        }
+      }
+      if(this.wednesdayBreakEndTimeIndex<=this.wednesdayBreakStartTimeIndex){
+        this.selectedEndTimeWednesday=null;
+      }
+    }
+    
+    if(day == 'Thursday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.thursdayBreakStartTimeIndex=i;
+        }
+      }
+      if(this.thursdayBreakEndTimeIndex<=this.thursdayBreakStartTimeIndex){
+        this.selectedEndTimeThursday=null;
+      }
+    }
+    
+    if(day == 'Friday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.fridayBreakStartTimeIndex=i;
+        }
+      }
+      if(this.fridayBreakEndTimeIndex<=this.fridayBreakStartTimeIndex){
+        this.selectedEndTimeFriday=null;
+      }
+    }
+    
+    if(day == 'Saturday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.saturdayBreakStartTimeIndex=i;
+        }
+      }
+      if(this.saturdayBreakEndTimeIndex<=this.saturdayBreakStartTimeIndex){
+        this.selectedEndTimeSaturday=null;
+      }
+    }
+    
+    if(day == 'Sunday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.sundayBreakStartTimeIndex=i;
+        }
+      }
+      if(this.sundayBreakEndTimeIndex<=this.sundayBreakStartTimeIndex){
+        this.selectedEndTimeSunday=null;
+      }
+    }
+
+  }
+
+  fnOnChangeEndTimeBreak(event,day){
+    console.log(event);
+    console.log(day);
+    if(day == 'Monday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.mondayBreakEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Tuesday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.tuesdayBreakEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Wednesday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.wednesdayBreakEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Thursday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.thursdayBreakEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Friday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.fridayBreakEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Saturday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.saturdayBreakEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Sunday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.sundayBreakEndTimeIndex=i;
+        }
+      }
     }
   }
 
   fnAddBreak(day){
-    this.isLoaderAdmin = true;
     let requestObject={
       "staff_id":'',
       "start_time":'',
@@ -986,6 +1362,9 @@ export class StaffComponent implements OnInit {
       "dayNumber":''
     }
     if(day == "Monday"){
+      if(this.selectedStartTimeMonday==null || this.selectedEndTimeMonday==null){
+        return false;
+      }
       requestObject={
         "staff_id":this.selectedStaffId ,
         "start_time":this.selectedStartTimeMonday,
@@ -995,6 +1374,9 @@ export class StaffComponent implements OnInit {
       console.log(requestObject);
     }
     if(day == "Tuesday"){
+      if(this.selectedStartTimeTuesday==null || this.selectedEndTimeTuesday==null){
+        return false;
+      }
       requestObject={
         "staff_id":this.selectedStaffId ,
         "start_time":this.selectedStartTimeTuesday,
@@ -1004,6 +1386,9 @@ export class StaffComponent implements OnInit {
       console.log(requestObject);
     }
     if(day == "Wednesday"){
+      if(this.selectedStartTimeWednesday==null || this.selectedEndTimeWednesday==null){
+        return false;
+      }
       requestObject={
         "staff_id":this.selectedStaffId ,
         "start_time":this.selectedStartTimeWednesday,
@@ -1013,6 +1398,9 @@ export class StaffComponent implements OnInit {
       console.log(requestObject);
     }
     if(day == "Thursday"){
+      if(this.selectedStartTimeThursday==null || this.selectedEndTimeThursday==null){
+        return false;
+      }
       requestObject={
         "staff_id":this.selectedStaffId ,
         "start_time":this.selectedStartTimeThursday,
@@ -1022,6 +1410,9 @@ export class StaffComponent implements OnInit {
       console.log(requestObject);
     }
     if(day == "Friday"){
+      if(this.selectedStartTimeFriday==null || this.selectedEndTimeFriday==null){
+        return false;
+      }
       requestObject={
         "staff_id":this.selectedStaffId ,
         "start_time":this.selectedStartTimeFriday,
@@ -1031,6 +1422,9 @@ export class StaffComponent implements OnInit {
       console.log(requestObject);
     }
     if(day == "Saturday"){
+      if(this.selectedStartTimeSaturday==null || this.selectedEndTimeSaturday==null){
+        return false;
+      }
       requestObject={
         "staff_id":this.selectedStaffId ,
         "start_time":this.selectedStartTimeSaturday,
@@ -1040,6 +1434,9 @@ export class StaffComponent implements OnInit {
       console.log(requestObject);
     }
     if(day == "Sunday"){
+      if(this.selectedStartTimeSunday==null || this.selectedEndTimeSunday==null){
+        return false;
+      }
       requestObject={
         "staff_id":this.selectedStaffId ,
         "start_time":this.selectedStartTimeSunday,
@@ -1048,6 +1445,7 @@ export class StaffComponent implements OnInit {
       }
       console.log(requestObject);
     }
+    this.isLoaderAdmin = true;
     this.adminSettingsService.addNewBreakStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fnViewSingleStaff(this.selectedStaffId);
