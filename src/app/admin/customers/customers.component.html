@@ -5,8 +5,17 @@
             <div class="col-12 d-flex inner">
                 <div class="col-lg-6 col-md-6 col-sm-12 first d-flex"><span>Manage Customers</span></div>
                 <div class="col-lg-6 col-md-6 col-sm-12 second">
-                    <button (click)="fnAddNewCustomer()" mat-button appearance="fill" class="blue-btn text-center pl-0"><mat-icon class="">edit</mat-icon>New</button>
+                    <mat-form-field class=" bottom-border-field export mt-2">
+                    <mat-label>Export</mat-label>
+                        <mat-select>
+                        <mat-option>None</mat-option>
+                        <mat-option value="option1">Option 1</mat-option>
+                        </mat-select>
+                  </mat-form-field>
+                  <button (click)="ImportFileUpload()" mat-button appearance="fill" class="import">Import</button>  
+                    <button (click)="fnAddNewCustomer()" mat-button appearance="fill" class="blue-btn mt-2">Add Customer</button>
                 </div>
+               
             </div>
         </div>
         <mat-drawer-container class="w-100">
@@ -23,20 +32,12 @@
                       <mat-option value="option3">Option 3</mat-option>
                     </mat-select>
                   </mat-form-field>  
-                  <mat-form-field appearance="outline" class="my-2 all-action-list col-lg-12 col-12 col-md-12">
-                    <mat-label>Actions</mat-label>
-                    <mat-select>
-                      <mat-option>None</mat-option>
-                      <mat-option value="option4">Option 1</mat-option>
-                      <mat-option value="option5">Option 2</mat-option>
-                      <mat-option value="option6">Option 3</mat-option>
-                    </mat-select>
-                  </mat-form-field> 
+                 
                   <div class="searchbox col-lg-12 col-12 col-md-12">
                     <form class="serch_input-appoint">							
                         <div class="form-group has-search">
                             <span class="fa fa-search form-control-feedback verticalLine"></span>
-                            <input type="text" class="form-control searchbox_appointment " placeholder="Search Customer">
+                            <input type="text" class="form-control searchbox_appointment " placeholder="Name, Area, Tag">
                         </div>												
                     </form>
                   </div> 
@@ -168,7 +169,7 @@
                     <mat-card class="mb-0">
                         <div class="d-flex m-2 align-items-center">
                             <div class="customerProfile-width">
-                                <img class="w-100 rounded-circle" src="{{customerPersonalDetails.image}}">
+                                <img class="w-100 h-100 rounded-circle" src="{{customerPersonalDetails.image}}">
                             </div>
                             <div class="customerName-width">
                                 <h6>{{customerPersonalDetails.fullname}}</h6>

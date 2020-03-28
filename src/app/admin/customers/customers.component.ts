@@ -420,8 +420,37 @@ customerUpdate(existingCustomerData){
     })
 
   }
+
+  ImportFileUpload() {
+    const dialogRef = this.dialog.open(DialogImportFileUpload, {
+      width: '500px',
+      
+    });
+
+     dialogRef.afterClosed().subscribe(result => {
+        // if(result != undefined){
+        //     this.subCategoryImageUrl = result;
+        //     console.log(result);
+        //    }
+     });
+  }
 }
 
+@Component({
+  selector: 'import-file-upload',
+  templateUrl: '../_dialogs/import-file-upload.html',
+})
+export class DialogImportFileUpload {
+
+constructor(
+  public dialogRef: MatDialogRef<DialogImportFileUpload>,
+  @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+onNoClick(): void {
+  this.dialogRef.close();
+}
+
+}
 
 @Component({
   selector: 'new-appointment',

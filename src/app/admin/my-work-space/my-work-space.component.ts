@@ -22,6 +22,7 @@ export class MyWorkSpaceComponent implements OnInit {
   adminSettings : boolean = false;
   animal :any;
   error:any;
+  
   appointments:any=[];
   appointmentDetails = {
     id: "",
@@ -48,6 +49,7 @@ export class MyWorkSpaceComponent implements OnInit {
   categories:any=[];
   businessId:any;
   revenue:any;
+  formSettingPage:boolean=false;
   selectedCategoryId:any;
   selectedCategoryName:any;
   activeBooking: any;
@@ -75,6 +77,14 @@ export class MyWorkSpaceComponent implements OnInit {
     this.fnGetAllCategories();
     this.fnGetTodayRevenue();
     this.todayDate = this.datePipe.transform(new Date(),"dd MMM yyyy")
+  }
+  fnOpenNote(event){
+    if(event == true){
+      this.formSettingPage = true;
+    }else if(event == false){
+      this.formSettingPage = false;
+    }
+
   }
 
   dynamicSort(property) {

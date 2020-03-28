@@ -3,7 +3,7 @@
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif"/></div>
     <div *ngIf="addStaffPage">
     <mat-card class="mb-0">
-    <form >
+    
         <div class="row">
             <div class="col-lg-4 col-md-4 col-12  border-right">
                 <h6>Add Staff</h6>
@@ -13,21 +13,33 @@
                         camera_alt
                         </i></div>
                 </div>
+                <form  [formGroup]="addStaffPageValid">
                 <mat-form-field class="bottom-border-field">
                     <mat-label>Name</mat-label>
                     <mat-icon class="mr-4" matPrefix>person</mat-icon>
                     <input matInput placeholder="Enter Your First Name">  
                 </mat-form-field> 
-                <mat-form-field class="bottom-border-field">
-                    <mat-label>Mobile</mat-label>
-                    <mat-icon class="mr-4" matPrefix>call</mat-icon>
-                    <input matInput placeholder="Enter Your number">  
-                </mat-form-field> 
-                <mat-form-field class="bottom-border-field">
-                    <mat-label>Email</mat-label>
-                    <mat-icon class="mr-4" matPrefix>email</mat-icon>
-                    <input matInput placeholder="Enter Your Email">  
-                </mat-form-field> 
+               
+                    <mat-form-field class="bottom-border-field">
+                        <mat-label>Mobile</mat-label>
+                        <mat-icon class="mr-4" matPrefix>call</mat-icon>
+                        <input formControlName="mobile" matInput placeholder="Enter Your number">  
+                    </mat-form-field> 
+                    <span class="error-wrap d-flex" *ngIf="addStaffPageValid.get('mobile').dirty || addStaffPageValid.get('mobile').touched || formSubmitclicked">
+                        <small *ngIf="addStaffPageValid.get('mobile').hasError('required')" class="error">Mobile Number Is required</small>
+                        <small *ngIf="addStaffPageValid.get('mobile').hasError('pattern')" class="error">Mobile Number Is Invalid</small>
+                        <small *ngIf="addStaffPageValid.get('mobile').hasError('minlength') || addStaffPageValid.get('mobile').hasError('maxlength')" class="error">Phone number should be 10 digits</small>
+                    </span>  
+                    <mat-form-field class="bottom-border-field">
+                        <mat-label>Email</mat-label>
+                        <mat-icon class="mr-4" matPrefix>email</mat-icon>
+                        <input formControlName="email" matInput placeholder="Enter Your Email">  
+                    </mat-form-field>
+                    <span class="error-wrap d-flex" *ngIf="addStaffPageValid.get('email').dirty || addStaffPageValid.get('email').touched || formSubmitclicked">
+                        <small *ngIf="addStaffPageValid.get('email').hasError('required')" class="error">Email Is required</small>
+                        <small *ngIf="addStaffPageValid.get('email').hasError('pattern')" class="error">Email Is Invalid</small>
+                    </span>  
+                
                 <mat-form-field class="bottom-border-field">
                     <mat-label>Address</mat-label>
                     <input matInput placeholder="Enter Your address">  
@@ -40,6 +52,7 @@
                                 cdkAutosizeMinRows="1"
                                 cdkAutosizeMaxRows="7"></textarea>
                 </mat-form-field> 
+                </form>
             </div>
             <div class="col-lg-4 col-md-4 col-12 text-center border-right">
                 <div class="upload-document-top-margin">
@@ -174,7 +187,7 @@
                 <!-- </mat-card> -->
             </div>
         </div>
-    </form>
+    
     </mat-card>
     <mat-card class="">
         <div class="d-flex py-2">
