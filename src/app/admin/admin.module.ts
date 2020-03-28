@@ -12,6 +12,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 
 
+
+
+
 import { AdminRoutingModule } from './admin-routing.module';
 import { MyBusinessComponent } from './my-business/my-business.component';
 import { myCreateNewBusinessDialog } from './my-business';
@@ -27,9 +30,14 @@ import { ReportsComponent } from './reports/reports.component';
 import { AppointmentLiveComponent } from './appointment-live/appointment-live.component';
 import { DialogPaymentNote } from './customers/customers.component';
 import { DialogViewReview } from './customers/customers.component';
+import {DialogImportFileUpload} from './customers/customers.component';
 import { DiscountCouponComponent } from './discount-coupon/discount-coupon.component';
 import { InterruptedReschedule } from './my-work-space/my-work-space.component';
 import { MyProfileComponent } from './settings-my-profile/settings-my-profile.component';
+import { PendingAppointmentDetailsDialog } from './appointment-live/appointment-live.component';
+import { NotAssignedAppointmentDetailsDialog } from './appointment-live/appointment-live.component';
+import { OnTheWayAppointmentDetailsDialog } from './appointment-live/appointment-live.component';
+import {WorkStartedAppointmentDetailsDialog} from './appointment-live/appointment-live.component';
 
 
 @NgModule({
@@ -48,8 +56,13 @@ import { MyProfileComponent } from './settings-my-profile/settings-my-profile.co
     MyProfileComponent,
     DialogPaymentNote,
     DialogViewReview,
+    DialogImportFileUpload,
     InterruptedReschedule,
-    DiscountCouponComponent
+    DiscountCouponComponent,
+    PendingAppointmentDetailsDialog,
+    NotAssignedAppointmentDetailsDialog,
+    OnTheWayAppointmentDetailsDialog,
+    WorkStartedAppointmentDetailsDialog
     ],
   imports: [
     CommonModule,
@@ -70,6 +83,10 @@ import { MyProfileComponent } from './settings-my-profile/settings-my-profile.co
   exports: [
     FormsModule
   ],
-  entryComponents: [myCreateNewBusinessDialog,DialogAddNewAppointment,DialogNewAppointment,DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,DialogViewReview,InterruptedReschedule],
+  entryComponents: [myCreateNewBusinessDialog,DialogAddNewAppointment,DialogNewAppointment,
+    DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,
+    DialogViewReview,InterruptedReschedule,PendingAppointmentDetailsDialog,
+    NotAssignedAppointmentDetailsDialog,OnTheWayAppointmentDetailsDialog,
+    WorkStartedAppointmentDetailsDialog,DialogImportFileUpload],
 })
 export class AdminModule { }

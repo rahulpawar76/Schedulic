@@ -34,7 +34,8 @@
           <input matInput formControlName="customerPhone" placeholder="Enter Customer Contact Number" >
         </mat-form-field>
         <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').dirty || formAddNewAppointmentStaffStep1.get('customerPhone').touched || formSubmitclicked">
-          <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('required')" class="error">Phone Is required</small><small *ngIf=" formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern')" class="error">Enter a valid Phone</small>
+          <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('required')" class="error">Phone Is required</small>
+          <small *ngIf=" formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern')" class="error">Enter a valid Phone</small>
           <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerPhone').hasError('maxlength')" class="error">Phone number should be 10 digits long</small>
         </span>
 

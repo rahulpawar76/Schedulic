@@ -1,5 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Subject, from } from 'rxjs';
+import { map, catchError } from "rxjs/operators";
+import { throwError } from "rxjs";
+import {  HttpClient,  HttpEventType,  HttpErrorResponse} from "@angular/common/http";
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -23,8 +26,8 @@ export class StaffComponent implements OnInit {
   animal: any;
   isLoaderAdmin: boolean = false;
   StaffCreate: FormGroup;
-  addStaffPage: boolean = false;
-  staffListPage: boolean = true;
+  addStaffPage: boolean = true;
+  staffListPage: boolean = false;
   singleStaffView: boolean = false;
   businessId: any;
   allStaffList: any;
@@ -32,7 +35,10 @@ export class StaffComponent implements OnInit {
   addPostalCodeId: any = [];
   singleStaffStatus: any;
   singleStaffDetail: any;
-  staffImageUrl: any;
+  staffImageUrl:any;
+  progress: any;
+
+  addStaffPageValid:FormGroup;
   selectedServicesArr: any = [];
   selectedPostalCodeArr: any = [];
   selectedServiceNewStaff: any = [];
@@ -120,6 +126,7 @@ export class StaffComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private _snackBar: MatSnackBar,
+    private http: HttpClient,
     private adminSettingsService: AdminSettingsService,
     private datePipe: DatePipe,
   ) {
@@ -1741,6 +1748,8 @@ export class DialogStaffImageUpload {
     this.profileImage = this.imageSrc
     this.dialogRef.close(this.profileImage);
   }
+
+
 
 
 }

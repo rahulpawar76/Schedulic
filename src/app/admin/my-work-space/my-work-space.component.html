@@ -18,7 +18,7 @@
 				<p class="font-blue mb-0">Appointments</p>
 			</div>
 			<div class="col-lg-2 col-md-4 col-6 flex-align-center left-border">
-				<h6 class="font-blue mb-0">{{revenue.confirmRevenue}}.00</h6>
+				<h6 class="font-blue mb-0">${{revenue.confirmRevenue}}.00</h6>
 				<p class="font-blue mb-0">Confirmed Revenue </p>
 			</div>
 			<div class="col-lg-2 col-md-4 col-6 flex-align-center left-border">
@@ -67,20 +67,20 @@
 						 <mat-form-field class="my-2 all-customer-list col-lg-12 col-12 col-md-12 bottom-border-field">
                   <mat-label class="">Filter</mat-label>
                   <mat-select (selectionChange)="fnOnClickStatus($event)">
-                    <mat-option value="all">All</mat-option>
-                    <mat-option value="P">Pending</mat-option>
-                    <mat-option value="CNF">Confirm</mat-option>
-                    <mat-option value="AC">Accepted</mat-option>
-                    <mat-option value="OW">On The Way</mat-option>
-                    <mat-option value="WS">Work Started</mat-option>
-                    <mat-option value="RSA">Rescheduled By Admin</mat-option>
-                    <mat-option value="RSS">Rescheduled By Staff</mat-option>
-                    <mat-option value="RSC">Rescheduled By Client</mat-option>
-                    <mat-option value="ITR">Intrupted</mat-option>
-                    <mat-option value="C">Cancelled</mat-option>
-                    <mat-option value="CC">Cancelled by Client</mat-option>
-                    <mat-option value="R">Rejected</mat-option>
-                    <mat-option value="CO">Completed</mat-option>
+						<mat-option value="all">All</mat-option>
+						<mat-option value="P">Pending</mat-option>
+						<mat-option value="CNF">Confirm</mat-option>
+						<mat-option value="AC">Accepted</mat-option>
+						<mat-option value="OW">On The Way</mat-option>
+						<mat-option value="WS">Work Started</mat-option>
+						<mat-option value="RSA">Rescheduled By Admin</mat-option>
+						<mat-option value="RSS">Rescheduled By Staff</mat-option>
+						<mat-option value="RSC">Rescheduled By Client</mat-option>
+						<mat-option value="ITR">Intrupted</mat-option>
+						<mat-option value="C">Cancelled</mat-option>
+						<mat-option value="CC">Cancelled by Client</mat-option>
+						<mat-option value="R">Rejected</mat-option>
+						<mat-option value="CO">Completed</mat-option>
                   </mat-select>
                 </mat-form-field>
 						</div>
@@ -275,7 +275,12 @@
 				        <h6 class="pl-3 pt-0 mb-0">{{appointmentDetails.customerAddress}}</h6>
 				      </div>
 				      <div  class="pl-4 pt-2 bottom-border">
-				      	<h6>Note<i class="fa fa-plus-circle pl-2 note-icon" aria-hidden="true"></i></h6>
+						  <h6>Note<i class="fa fa-plus-circle pl-2 note-icon" (change)="fnOpenNote($event)"></i></h6>
+						  <mat-form-field class="bottom-border-field"  *ngIf="formSettingPage">
+							<mat-label>Description</mat-label>
+							<textarea rows="5" matInput  placeholder="Type Note Description Here"></textarea>
+						  </mat-form-field>
+						  
 				      </div>
 
 				</div>

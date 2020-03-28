@@ -1,0 +1,69 @@
+
+<mat-sidenav-container class = "tp-container">
+    <mat-sidenav class="w-100" mode = "side" opened>
+<div class="modal-dialog mt-0 mb-0" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Appointment Details</h5>
+          <button type="button" (click)="onNoClick()" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="appodetails">
+        <label class="greenfont"><i class="fa fa-repeat repeat"></i>Reschedule</label>
+        <label class="fontred"><i class="fa fa-times-circle-o circle"></i>Cancel</label>
+  
+         <button mat-button type="button" class="d-block btn-primary float-right paybtn">Complete</button>
+      </div>
+  
+      <div class="modal-body modal-bcolor">
+        <p class="mb-0 font-weight-bold">{{detailsData.booking_date}}</p>
+        <p>Booked On:{{detailsData.created_at}}</p>
+  
+        <p class="mb-0">Service</p>
+        <p class="font-weight-bold">{{detailsData.service.service_name}} ($.{{detailsData.service.service_cost}})</p>
+        <p class="mb-0">Time</p>
+        <p class="font-weight-bold">{{detailsData.service_time}}</p>
+       
+        <div class="d-flex">
+        
+          <div class="pl-0">
+          <p class="mb-0">Order By</p>
+          <p class="font-weight-bold">{{detailsData.order_by}}</p>
+        </div>
+        <div class="pl-5">  
+          <p class="mb-0">Status</p>
+          <p class="font-weight-bold">{{detailsData.order_status}}</p>
+        </div>
+      
+      </div>
+      <div >
+        <p class="mb-0">Staff</p>
+       
+        <p class="mb-0 font-weight-bold">{{detailsData.staff.username}} {{detailsData.staff.lastname}}</p>
+        <p class="mb-0">Phone No:{{detailsData.staff.phone}}</p>
+       
+      </div>
+   
+       </div>    
+       <mat-card class="card-body-marginn booking-detail-main mb-0">
+         <h6 class="text-left mb-3">Booking Details</h6>
+         <div class="row align-items-center">
+          <p class="customer-profile-img">SP</p>
+          <div class="customer-name pr-3">
+            <p class="font-weight-bold mb-0">{{detailsData.customer.fullname}}</p>
+            <p class="address-fontsize mb-0">{{detailsData.customer.email}}</p>
+          </div>
+  
+        </div>
+          <p class=" address-fontsize"><i class="fa fa-phone pr-3 bluephone"></i>{{detailsData.customer.phone}}</p>
+          <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i>{{detailsData.customer.address}}</p>
+          <!-- <p class="pl-4 address-fontsize">Bank,Bhyandar(west).Mumbai-40010</p> -->
+          <p>Appointment Notes</p>
+          <textarea class="form-control mb-2" placeholder="Note here"></textarea>
+      </mat-card>
+        
+      </div>
+    </div>
+    </mat-sidenav>
+    </mat-sidenav-container>

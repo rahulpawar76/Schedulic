@@ -34,7 +34,8 @@
                               </mat-option>
                             </mat-select>
                          </mat-form-field>
-                         <span class="error-wrap" *ngIf="createBusiness.get('business_country').dirty || createBusiness.get('business_country').touched"><small *ngIf="createBusiness.get('business_country').hasError('required')" class="error">Country Is required</small></span>
+                         <span class="error-wrap" *ngIf="createBusiness.get('business_country').dirty || createBusiness.get('business_country').touched">
+                           <small *ngIf="createBusiness.get('business_country').hasError('required')" class="error">Country Is required</small></span>
                        </div>
                        <div class="form-group  col-md-3 col-lg-3 col-sm-6 mb-0 bottom-border-field">			     
                          <mat-form-field>
@@ -70,7 +71,8 @@
                                </mat-option>
                              </mat-select>
                          </mat-form-field>
-                         <span class="error-wrap" *ngIf="createBusiness.get('business_city').dirty || createBusiness.get('business_city').touched"><small *ngIf="createBusiness.get('business_city').hasError('required')" class="error">City Is required</small></span>
+                         <span class="error-wrap" *ngIf="createBusiness.get('business_city').dirty || createBusiness.get('business_city').touched">
+                           <small *ngIf="createBusiness.get('business_city').hasError('required')" class="error">City Is required</small></span>
                        </div>
                        <div class="form-group col-md-3 col-lg-3 col-sm-6 bottom-border-field">	
                            <mat-label class="select-hide">&nbsp; </mat-label>	
@@ -78,7 +80,9 @@
                            <mat-label>zip</mat-label>
                            <input matInput  formControlName="business_zip">
                          </mat-form-field>					
-                         <span class="error-wrap" *ngIf="createBusiness.get('business_zip').dirty || createBusiness.get('business_zip').touched"><small *ngIf="createBusiness.get('business_zip').hasError('required')" class="error">Zipcode Is required</small> <small *ngIf="createBusiness.get('business_zip').hasError('pattern')" class="error">Enter valid Zipcode</small></span>	 
+                         <span class="error-wrap" *ngIf="createBusiness.get('business_zip').dirty || createBusiness.get('business_zip').touched">
+                           <small *ngIf="createBusiness.get('business_zip').hasError('required')" class="error">Zipcode Is required</small> 
+                           <small *ngIf="createBusiness.get('business_zip').hasError('pattern')" class="error">Enter valid Zipcode</small></span>	 
                        </div>
                      </div>
                      <div class="text-center pt-2">
