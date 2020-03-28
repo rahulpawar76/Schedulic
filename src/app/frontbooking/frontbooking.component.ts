@@ -93,6 +93,7 @@ export class FrontbookingComponent implements OnInit {
   }
   errorMessage:any;
   offDaysList:any= [];
+  workingHoursOffDaysList:any= [];
   timeSlotArr:any= [];
   selectedTimeSlot:any;
   availableStaff:any= [];
@@ -108,6 +109,11 @@ export class FrontbookingComponent implements OnInit {
   showCouponError:boolean=false;
   couponErrorMessage:any;
   timeSlotArrForLabel:any=[];
+  minimumAdvanceBookingTime:any;
+  maximumAdvanceBookingTime:any;
+  minimumAdvanceBookingDateTimeObject:any;
+  maximumAdvanceBookingDateTimeObject:any;
+  settingsArr:any=[];
   @ViewChildren(MdePopoverTrigger) trigger: QueryList<MdePopoverTrigger>;
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
   emailFormat = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
@@ -123,18 +129,8 @@ export class FrontbookingComponent implements OnInit {
     
   ) { 
     localStorage.setItem('isFront', "true");
-    const current = new Date();
-    const nextmonth = new Date();
-      this.minDate = {
-        year: current.getFullYear(),
-        month: current.getMonth() + 1,
-        day: current.getDate()
-      };
-      this.maxDate = {
-        year: current.getFullYear(),
-        month: current.getMonth() + 2,
-        day: current.getDate(),
-      };
+    this.fnGetSettings();
+    this.fnGetTaxDetails();
   }
 
   ngOnInit() {
@@ -143,12 +139,12 @@ export class FrontbookingComponent implements OnInit {
       this.customerName=this.authenticationService.currentUserValue.fullname;
       console.log(this.authenticationService.currentUserValue.user_id+" "+this.isLoggedIn);
     }
+
     this.formExistingUser = this._formBuilder.group({
       existing_mail: ['',[Validators.required,Validators.email]],
       existing_password: ['',Validators.required],
     })
 
-    this.fnGetTaxDetails();
     let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
     
     this.formNewUser = this._formBuilder.group({
@@ -181,6 +177,51 @@ export class FrontbookingComponent implements OnInit {
     this.serviceCartArr.length=0
   }
 
+  fnGetSettings(){
+    let requestObject = {
+      "business_id" : 2
+      };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    this.http.post(`${environment.apiUrl}/get-front-setting`,requestObject,{headers:headers} ).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(this.handleError)
+    ).subscribe((response:any) => {
+      if(response.data == true){
+        this.settingsArr=response.response;
+        console.log(this.settingsArr);
+
+        this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
+        this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
+        this.minimumAdvanceBookingDateTimeObject = new Date();
+        this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
+        console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
+        this.minDate = {
+          year: this.minimumAdvanceBookingDateTimeObject.getFullYear(),
+          month: this.minimumAdvanceBookingDateTimeObject.getMonth() + 1,
+          day: this.minimumAdvanceBookingDateTimeObject.getDate()
+        };
+        this.maximumAdvanceBookingDateTimeObject = new Date();
+        this.maximumAdvanceBookingDateTimeObject.setMinutes( this.maximumAdvanceBookingDateTimeObject.getMinutes() + this.maximumAdvanceBookingTime );
+        console.log("maximumAdvanceBookingDateTimeObject - "+this.maximumAdvanceBookingDateTimeObject);
+        this.maxDate = {
+          year: this.maximumAdvanceBookingDateTimeObject.getFullYear(),
+          month: this.maximumAdvanceBookingDateTimeObject.getMonth() + 1,
+          day: this.maximumAdvanceBookingDateTimeObject.getDate(),
+        };
+      }else{
+      }
+      },
+      (err) =>{
+        console.log(err)
+      })
+  }
+
+  // Get Tax details
   fnGetTaxDetails(){
     this.getTaxDetails().subscribe((response:any) => {
       if(response.data == true){
@@ -192,8 +233,6 @@ export class FrontbookingComponent implements OnInit {
       }
     })
   }
-
-  // Get Tax details
 
   getTaxDetails(){
     let requestObject = {
@@ -215,8 +254,8 @@ export class FrontbookingComponent implements OnInit {
     console.log(JSON.stringify(this.calendar.getToday()));
   }
   
-  isDisabled(date: NgbDateStruct) {
-    const d = new Date(date.year, date.month - 1, date.day);
+  //isDisabled(date: NgbDateStruct) {
+    //const d = new Date(date.year, date.month - 1, date.day);
 
     //if you want to disable week
     // return d.getDay() == 5
@@ -228,10 +267,42 @@ export class FrontbookingComponent implements OnInit {
     // return date.month - 1 ==0
 
     //if you want to disable particular day for particular month
-    return date.month - 2 ==0 && date.day==13 || date.month - 2 ==0 && date.day==17; 
-    
+    // date.month + 1 ==0 && date.day==1 || date.month + 1 ==0 && date.day==2;
+    //return date.month && date.day==13 || date.month + 1  && date.day==13 || date.month + 2  && date.day==13;
+    // let temp:any;
+    // let temp2:any;
+    // temp=date.month==2 && date.day==13;
+    // temp+=temp2 || date.month==4 && date.day==13;
+    // temp+=temp2 || date.month==3 && date.day==13;
+    //return date.month==4 && date.day==13 || date.month==3 && date.day==13;
+  //   return temp;
+  // }
+
+  isWeekend(date: NgbDateStruct) {
+    const d = new Date(date.year, date.month - 1, date.day);
+    return d.getDay() === 0 || d.getDay() === 6;
   }
-  
+  isDisabled = (date: NgbDateStruct, current: {month: number}) => {
+    return this.fnDisableDates(date); // this is undefined
+  }
+  fnDisableDates(date: NgbDateStruct){
+    const d = new Date(date.year, date.month - 1, date.day);
+    let temp:any;
+    let temp2:any;
+    for(var i=0; i<this.offDaysList.length; i++){
+      var offDay = new Date(this.offDaysList[i]);
+      if(i==0){
+       temp=date.month==offDay.getMonth()+1 && date.day==offDay.getDate(); 
+      }else{
+        temp+=temp2 || date.month==offDay.getMonth()+1 && date.day==offDay.getDate();
+      }
+    }
+    for(var i=0; i<this.workingHoursOffDaysList.length; i++){
+        temp+=temp2 || d.getDay() === this.workingHoursOffDaysList[i];
+    }
+    return temp;
+  }
+
   private handleError(error: HttpErrorResponse) {
     return throwError('Error! something went wrong.');
     //return error.error ? error.error : error.statusText;
@@ -243,22 +314,13 @@ export class FrontbookingComponent implements OnInit {
   
   fnLogout(){
     // remove user from local storage to log user out
-    // localStorage.removeItem('userId');
-    // localStorage.removeItem('tokenID');
-    // localStorage.removeItem('userToken');
-    // localStorage.removeItem('userName');
-    // localStorage.removeItem('userRole');
-    // localStorage.removeItem("billing_address");
-    // localStorage.removeItem("billing_state");
-    // localStorage.removeItem("billing_city");
-    // localStorage.removeItem("billing_zipcode");
     localStorage.removeItem("currentUser");
     localStorage.removeItem("isFront");
     localStorage.clear();
     this.authenticationService.currentUserSubject.next(null);
-    //console.log(localStorage.getItem("userId"));
     window.location.reload();
   }
+
   // postal code
   fnChangePostalCode(event){
     this.validpostalcode = 'default';
@@ -646,8 +708,18 @@ export class FrontbookingComponent implements OnInit {
       catchError(this.handleError)
       ).subscribe((response:any) => {
         if(response.data == true){
-          this.offDaysList = response.response;
-          //console.log(JSON.stringify(this.offDaysList));
+          if(response.response.holidays.length>0){
+            this.offDaysList = response.response.holidays;
+          }else{
+            this.offDaysList=[];
+          }
+          if(response.response.offday.length>0){
+            this.workingHoursOffDaysList = response.response.offday;
+          }else{
+            this.workingHoursOffDaysList=[];
+          }
+          
+          
         }
         else{
 
@@ -665,7 +737,8 @@ export class FrontbookingComponent implements OnInit {
       let year=this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[0];
       let month= this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[1];
       let day=this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[2];
-      let dateTemp={"year":JSON.parse(year),"month":JSON.parse(month),"day":JSON.parse(day)};
+      console.log(year+"--"+month+"--"+day);
+      let dateTemp={"year":year,"month":month,"day":day};
       console.log(JSON.stringify(dateTemp));
       this.model=dateTemp;
       this.selecteddate=this.serviceCartArr[this.currentSelectedService].appointmentDate
@@ -673,15 +746,58 @@ export class FrontbookingComponent implements OnInit {
 
       this.fnGetTimeSlots();
     }else{
-      this.model=this.calendar.getToday();
-      this.selecteddate= this.model.year+'-'+this.model.month+'-'+this.model.day;
-      this.selecteddateForLabel= this.datePipe.transform(new Date(this.model.year+'-'+this.model.month+'-'+this.model.day),"EEE, MMM dd");
-      this.fnGetTimeSlots();
+      this.fnSelectNextValidDate(this.minimumAdvanceBookingDateTimeObject);
     }
     this.serviceselection = false;
     this.dateselection = true;
   }
   
+  fnSelectNextValidDate(mydate){
+    
+    console.log(mydate);
+    if(this.offDaysList.indexOf(this.datePipe.transform(new Date(mydate),"yyyy-MM-dd"))>-1){
+      mydate.setDate(mydate.getDate() + 1)
+      console.log(mydate);
+      this.fnSelectNextValidDate(mydate);
+    }else{
+      let day = this.datePipe.transform(new Date(mydate),"EEE");
+      let dayId;
+      if(day == "Sun"){
+        dayId=0;
+      }
+      if(day == "Mon"){
+        dayId=1;
+      }
+      if(day == "Tue"){
+        dayId=2;
+      }
+      if(day == "Wed"){
+        dayId=3;
+      }
+      if(day == "Thu"){
+        dayId=4;
+      }
+      if(day == "Fri"){
+        dayId=5;
+      }
+      if(day == "Sat"){
+        dayId=6;
+      }
+      console.log(day);
+      if(this.workingHoursOffDaysList.indexOf(dayId)>-1){
+        mydate.setDate(mydate.getDate() + 1)
+        console.log(mydate);
+        this.fnSelectNextValidDate(mydate);
+      }else{
+        this.selecteddate=this.datePipe.transform(new Date(mydate),"yyyy-MM-dd");
+        this.selecteddateForLabel= this.datePipe.transform(new Date(mydate),"EEE, MMM dd");
+        console.log(mydate);
+        console.log(this.selecteddate);
+        console.log(this.selecteddateForLabel);
+        this.fnGetTimeSlots();
+      }
+    }
+  }
   // services
   fnServiceSelection(event){
     if(this.isLoggedIn){
@@ -698,7 +814,7 @@ export class FrontbookingComponent implements OnInit {
   onDateSelect(event){
     this.selecteddate = event.year+'-'+event.month+'-'+event.day;
     this.selecteddate=this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd")
-    this.selecteddateForLabel=this.datePipe.transform(new Date(this.selecteddate),"MMM dd")
+    this.selecteddateForLabel=this.datePipe.transform(new Date(this.selecteddate),"EEE, MMM dd")
     this.fnGetTimeSlots();
   }
   // date time 
@@ -733,7 +849,16 @@ export class FrontbookingComponent implements OnInit {
       if(response.data == true){
         this.timeSlotArr.length=0;
         this.timeSlotArrForLabel.length=0;
-          this.timeSlotArr = response.response;
+          //this.timeSlotArr = response.response;
+          this.minimumAdvanceBookingDateTimeObject = new Date();
+          this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
+          //console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
+          response.response.forEach(element => {
+            //console.log((new Date(this.datePipe.transform(this.selecteddate,"yyyy-MM-dd")+" "+element+":00"))+"----"+(this.minimumAdvanceBookingDateTimeObject));
+            if((new Date(this.datePipe.transform(this.selecteddate,"yyyy-MM-dd")+" "+element+":00")).getTime() > (this.minimumAdvanceBookingDateTimeObject).getTime()){
+              this.timeSlotArr.push(element);
+            }
+          });
           var i=0;
           this.timeSlotArr.forEach( (element) => {
             var dateTemp=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element+":00";
@@ -742,7 +867,7 @@ export class FrontbookingComponent implements OnInit {
           });
           this.timeslotview = true;
           this.isLoader=false;
-          console.log(JSON.stringify(this.timeSlotArr));
+          console.log(this.timeSlotArr);
       }
       else{
         this.timeSlotArr.length=0;
@@ -763,7 +888,9 @@ export class FrontbookingComponent implements OnInit {
   fnSelectTimeSlot(timeSlot){
     this.selectedTimeSlot=timeSlot;
     console.log(this.selectedTimeSlot);
-   // console.log(this.selectedTimeSlot)
+    // console.log(this.selectedTimeSlot)
+    this.availableStaff.length=0;
+    this.isStaffAvailable = false;
     this.fnGetStaff()
   }
 
