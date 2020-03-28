@@ -37,6 +37,7 @@ import { DialogCategoryImageUpload } from './services/services.component';
 import { DialogSubCategoryImageUpload } from './services/services.component';
 import { DialogServiceImageUpload } from './services/services.component';
 import { DialogStaffImageUpload } from './staff/staff.component';
+import {DialogDataExampleDialog} from './services/services.component';
 
 
 
@@ -64,7 +65,8 @@ enableRipple(true);
     DialogCategoryImageUpload,
     DialogSubCategoryImageUpload,
     DialogServiceImageUpload,
-    DialogStaffImageUpload
+    DialogStaffImageUpload,
+    DialogDataExampleDialog
   ],
   imports: [
       CommonModule,
@@ -83,6 +85,6 @@ enableRipple(true);
   exports: [
     FormsModule
   ],
-   entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax,DialogAddPostalCode,DialogAddNewTimeOffBussiness,DialogCategoryImageUpload,DialogSubCategoryImageUpload,DialogServiceImageUpload,DialogStaffImageUpload],
+   entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax,DialogAddPostalCode,DialogAddNewTimeOffBussiness,DialogCategoryImageUpload,DialogSubCategoryImageUpload,DialogServiceImageUpload,DialogStaffImageUpload,DialogDataExampleDialog],
 })
 export class SettingsModule {}

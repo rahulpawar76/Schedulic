@@ -14,7 +14,9 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 export interface DialogData {
     animal: string;
     name: string;
+    staffList: string;
   }
+
 
 @Component({
     selector: 'settings-services',
@@ -29,6 +31,7 @@ export class ServicesComponent implements OnInit {
     serviceImageUrl:any;
     animal: any;
 
+    staffList:any;
 
 
     allCetegoryList: any;
@@ -111,6 +114,7 @@ export class ServicesComponent implements OnInit {
     ngOnInit() {
         this.fnAllCategory();
         this.fnAllServices();
+        this.fnstaffList();
 
         this.createSubCategory = this._formBuilder.group({
             subcategory_name: ['', Validators.required],
@@ -183,6 +187,30 @@ export class ServicesComponent implements OnInit {
             }
         })
     }
+    fnstaffList(){
+        this.isLoaderAdmin = true;
+        this.adminSettingsService.fnstaffList().subscribe((response: any) => {
+            if (response.data == true) {
+                this.staffList = response.response
+                // this.allCategoryCount = this.staffList.length
+                // this.isLoaderAdmin = false;
+            }
+            else {
+                // this.staffList = '';
+                // this.isLoaderAdmin = false;
+            }
+        })
+    }
+    openDialog() {
+        this.dialog.open(DialogDataExampleDialog, {
+            width: '350px',
+            height: '400px',
+
+        //   data: {
+        //     staff: 'panda'
+        //   }
+        });
+      }
 
     dropCategory(event: CdkDragDrop<string[]>) {
         moveItemInArray(this.categoryServicesList, event.previousIndex, event.currentIndex);
@@ -1002,6 +1030,13 @@ export class ServicesComponent implements OnInit {
       
       
     }
+    @Component({
+        selector: 'dialog-data-example-dialog',
+        templateUrl: '../_dialogs/dialog-data-example-dialog.html',
+      })
+      export class DialogDataExampleDialog {
+        constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+      }
 
     
     @Component({
@@ -1052,6 +1087,6 @@ export class ServicesComponent implements OnInit {
       
       
     }
-
+    
 
 

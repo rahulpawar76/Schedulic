@@ -5,13 +5,13 @@
                 <p class="mb-0">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum
                     generator,Lorem Ipsum,giving information on its origins.</p>
                 <div class="col-2 pendingborder" >
-                    <label class="mb-0 pendingdate">December 13</label>
-                    <p style="text-align: right;font-size: 16px;">Wednesday</p>
+                    <label class="mb-0 pendingdate">{{todayDate}}</label>
+                    <p style="text-align: right;font-size: 16px;">{{todayDays}}</p>
                 </div>
 
                 <div class="" style="margin: 0 20px 0 20px;">
-                    <label class="mb-0 pendingdate">06:00</label>
-                    <p style="text-align: right;">PM</p>
+                    <label class="mb-0 pendingdate">{{todayTime}}</label>
+                    <p style="text-align: right;">{{todayPeriod}}</p>
                 </div>
 
             </div>
@@ -20,7 +20,7 @@
                   <div class="">
                     <div class="Pending-table">
                         <div class="main-table-content main-cust-table-content">
-                            <div class="">
+                            <div class="" >
                                 <div class="main-table-head" fxLayout="row">
                                     <div class="" fxFlex="20">Services</div>
                                     <div class="" fxFlex="25">Customer</div>
@@ -29,8 +29,8 @@
                                     <div class="" fxFlex="10">Date</div>
                                     <div class="" fxFlex="10">Time</div>
                                 </div>
-                                <div class="content" class="example-list">
-                                    <div *ngFor="let pendingAppointments of pendingAppointments; let i=index" class="example-box">
+                                <div class="content" class="example-list"  >
+                                    <div (click) ="fnOpenDetails(i)" *ngFor="let pendingAppointments of pendingAppointments; let i=index" class="example-box">
                                         <div class="" fxFlex="20">
                                           <p class="mb-0">{{pendingAppointments.service.service_name}}</p>
                                         </div>
@@ -72,13 +72,13 @@
                 <p class="mb-0">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum
                     generator,Lorem Ipsum,giving information on its origins.</p>
                 <div class="col-2 pendingborder" >
-                    <label class="mb-0 pendingdate" >December 13</label>
-                    <p style="text-align: right;font-size: 18px;">Wednesday</p>
+                    <label class="mb-0 pendingdate" >{{todayDate}}</label>
+                    <p style="text-align: right;font-size: 18px;">{{todayDays}}</p>
                 </div>
 
                 <div class="" style="margin: 0 20px 0 20px;">
-                    <label class="mb-0 pendingdate">06:00</label>
-                    <p style="text-align: right;">PM</p>
+                    <label class="mb-0 pendingdate">{{todayTime}}</label>
+                    <p style="text-align: right;">{{todayPeriod}}</p>
                 </div>
 
             </div>
@@ -92,8 +92,8 @@
                     <div class="" fxFlex="10">Date</div>
                     <div class="" fxFlex="10">Time</div>
                 </div>
-                <div class="content" class="example-list">
-                    <div *ngFor="let notAssignedAppointments of notAssignedAppointments; let i=index" class="example-box">
+                <div class="content" class="example-list" >
+                    <div (click) ="fnOpenNotAssignedDetails(i)" *ngFor="let notAssignedAppointments of notAssignedAppointments; let i=index" class="example-box">
                         <div class="" fxFlex="20">
                           <p class="mb-0">{{notAssignedAppointments.service.service_name}}</p>
                         </div>
@@ -129,13 +129,13 @@
             <p class="mb-0">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum
                 generator,Lorem Ipsum,giving information on its origins.</p>
             <div class="col-2 pendingborder" >
-                <label class="mb-0 pendingdate" >December 13</label>
-                <p style="text-align: right;font-size: 18px;">Wednesday</p>
+                <label class="mb-0 pendingdate" >{{todayDate}}</label>
+                <p style="text-align: right;font-size: 18px;">{{todayDays}}</p>
             </div>
 
             <div class="" style="margin: 0 20px 0 20px;">
-                <label class="mb-0 pendingdate">06:00</label>
-                <p style="text-align: right;">PM</p>
+                <label class="mb-0 pendingdate">{{todayTime}}</label>
+                <p style="text-align: right;">{{todayPeriod}}</p>
             </div>
 
         </div>
@@ -187,13 +187,13 @@
                 <p class="mb-0">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum
                     generator,Lorem Ipsum,giving information on its origins.</p>
                 <div class="col-2 pendingborder" >
-                    <label class="mb-0 pendingdate" style="text-align: right;">December 13</label>
-                    <p style="text-align: right;font-size: 18px;">Wednesday</p>
+                    <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
+                    <p style="text-align: right;font-size: 18px;">{{todayDays}}</p>
                 </div>
 
                 <div class="" style="margin: 0 20px 0 20px;">
-                    <label class="mb-0 pendingdate">06:00</label>
-                    <p style="text-align: right;">PM</p>
+                    <label class="mb-0 pendingdate">{{todayTime}}</label>
+                    <p style="text-align: right;">{{todayPeriod}}</p>
                 </div>
 
             </div>
@@ -208,7 +208,7 @@
                     <div class="" fxFlex="10">Time</div>
                 </div>
                 <div class="content" *ngIf="onTheWayAppointments != 'no booking found'" class="example-list">
-                    <div *ngFor="let onTheWayAppointments of onTheWayAppointments; let i=index" class="example-box">
+                    <div (click) ="fnOpenOnTheWayDetails(i)" *ngFor="let onTheWayAppointments of onTheWayAppointments; let i=index" class="example-box">
                         <div class="" fxFlex="20">
                           <p class="mb-0">{{onTheWayAppointments.service.service_name}}</p>
                         </div>
@@ -249,13 +249,13 @@
                 <p class="mb-0">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum
                     generator,Lorem Ipsum,giving information on its origins.</p>
                 <div class="col-2 pendingborder">
-                    <label class="mb-0 pendingdate" style="text-align: right;">December 13</label>
-                    <p style="text-align: right;font-size: 18px;">Wednesday</p>
+                    <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
+                    <p style="text-align: right;font-size: 18px;">{{todayDays}}</p>
                 </div>
 
                 <div class="" style="margin: 0 20px 0 20px;">
-                    <label class="mb-0 pendingdate">07:15</label>
-                    <p style="text-align: right;">PM</p>
+                    <label class="mb-0 pendingdate">{{todayTime}}</label>
+                    <p style="text-align: right;">{{todayPeriod}}</p>
                 </div>
 
             </div>
@@ -271,7 +271,7 @@
                         <div class="" fxFlex="10">Time</div>
                     </div>
                     <div class="content" class="example-list">
-                        <div *ngFor="let workStartedAppointments of workStartedAppointments; let i=index" class="example-box">
+                        <div (click) ="fnOpenWorkStartedDetails(i)" *ngFor="let workStartedAppointments of workStartedAppointments; let i=index" class="example-box">
                             <div class="" fxFlex="20">
                               <p class="mb-0">{{workStartedAppointments.service.service_name}}</p>
                             </div>
