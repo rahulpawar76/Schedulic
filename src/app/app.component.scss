@@ -288,7 +288,7 @@ background-color: $primary-color;
                 cursor: pointer;
                 &.logo{
                     margin-bottom: 50px;
-                    
+                    opacity: 1;
                 }
                 img{
                     width: 35px;
@@ -316,6 +316,11 @@ background-color: $primary-color;
                     border-right: 3px solid #5298f7;
                     opacity: 1;
                     transition: all 0.3s;
+                }
+                &.active{
+                    background-color: transparent;
+                    border-right: 3px solid #5298f7;
+                    opacity: 1;
                 }
             }
         }

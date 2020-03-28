@@ -40,6 +40,7 @@ export class AppComponent implements AfterViewInit {
   adminSettings:any;
   currentUrl: string;
   loginUserData: any;
+  postUrl : any;
   
     public company_info: string;
 
@@ -131,6 +132,12 @@ export class AppComponent implements AfterViewInit {
         return null;
       }
     } else return null;
+  }
+
+  fnPostUrl(menuItem){
+    alert(menuItem);
+    this.postUrl = menuItem
+    alert(this.postUrl);
   }
 
 
