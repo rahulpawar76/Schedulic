@@ -849,25 +849,25 @@ export class FrontbookingComponent implements OnInit {
       if(response.data == true){
         this.timeSlotArr.length=0;
         this.timeSlotArrForLabel.length=0;
-          //this.timeSlotArr = response.response;
-          this.minimumAdvanceBookingDateTimeObject = new Date();
-          this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
-          //console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
-          response.response.forEach(element => {
-            //console.log((new Date(this.datePipe.transform(this.selecteddate,"yyyy-MM-dd")+" "+element+":00"))+"----"+(this.minimumAdvanceBookingDateTimeObject));
-            if((new Date(this.datePipe.transform(this.selecteddate,"yyyy-MM-dd")+" "+element+":00")).getTime() > (this.minimumAdvanceBookingDateTimeObject).getTime()){
-              this.timeSlotArr.push(element);
-            }
-          });
-          var i=0;
-          this.timeSlotArr.forEach( (element) => {
-            var dateTemp=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element+":00";
-             this.timeSlotArrForLabel[i]= this.datePipe.transform(new Date(dateTemp),"hh:mm a");
-             i++;
-          });
-          this.timeslotview = true;
-          this.isLoader=false;
-          console.log(this.timeSlotArr);
+        //this.timeSlotArr = response.response;
+        this.minimumAdvanceBookingDateTimeObject = new Date();
+        this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
+        //console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
+        response.response.forEach(element => {
+          //console.log((new Date(this.datePipe.transform(this.selecteddate,"yyyy-MM-dd")+" "+element+":00"))+"----"+(this.minimumAdvanceBookingDateTimeObject));
+          if((new Date(this.datePipe.transform(this.selecteddate,"yyyy-MM-dd")+" "+element+":00")).getTime() > (this.minimumAdvanceBookingDateTimeObject).getTime()){
+            this.timeSlotArr.push(element);
+          }
+        });
+        var i=0;
+        this.timeSlotArr.forEach( (element) => {
+          var dateTemp=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element+":00";
+           this.timeSlotArrForLabel[i]= this.datePipe.transform(new Date(dateTemp),"hh:mm a");
+           i++;
+        });
+        this.timeslotview = true;
+        this.isLoader=false;
+        console.log(this.timeSlotArr);
       }
       else{
         this.timeSlotArr.length=0;
