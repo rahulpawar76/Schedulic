@@ -1,7 +1,7 @@
 ﻿import { Component, Inject,AfterViewInit, ElementRef, ViewChild} from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Router, RouterEvent, RouterOutlet } from '@angular/router';
-import { AuthenticationService, CompanyService } from './_services';
+import { AuthenticationService } from './_services';
 import { User, Role } from './_models';
 
 //import { slideInAnimation } from './maturity/animations';
@@ -56,7 +56,6 @@ export class AppComponent implements AfterViewInit {
     constructor(
         public router: Router,
         private authenticationService: AuthenticationService,
-        private _companyService: CompanyService,
         public dialog: MatDialog,
         private _snackBar: MatSnackBar,        
     ) {        
@@ -335,21 +334,6 @@ export class AppComponent implements AfterViewInit {
   prepareRoute(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
-
-   /*setcompanycolours() {
-    this._companyService.getCompanyColoursData().subscribe(
-      (data: any) => {
-        localStorage.companycolours = JSON.stringify(data[0]);
-
-        // you can export below function two functions update_SCSS_var() and setPropertyOfSCSS() 
-        // in any dot TS file as it will always be updated through localstorage
-        this.update_SCSS_var();
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }*/
 
   update_SCSS_var() {
     var data = JSON.parse(localStorage.companycolours);

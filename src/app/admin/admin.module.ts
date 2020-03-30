@@ -38,6 +38,7 @@ import { PendingAppointmentDetailsDialog } from './appointment-live/appointment-
 import { NotAssignedAppointmentDetailsDialog } from './appointment-live/appointment-live.component';
 import { OnTheWayAppointmentDetailsDialog } from './appointment-live/appointment-live.component';
 import {WorkStartedAppointmentDetailsDialog} from './appointment-live/appointment-live.component';
+import { IgxExcelExporterService } from "igniteui-angular";
 
 
 @NgModule({
@@ -83,6 +84,7 @@ import {WorkStartedAppointmentDetailsDialog} from './appointment-live/appointmen
   exports: [
     FormsModule
   ],
+  providers: [ IgxExcelExporterService ],
   entryComponents: [myCreateNewBusinessDialog,DialogAddNewAppointment,DialogNewAppointment,
     DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,
     DialogViewReview,InterruptedReschedule,PendingAppointmentDetailsDialog,

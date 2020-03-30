@@ -7,9 +7,9 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 second">
                     <mat-form-field class=" bottom-border-field export mt-2">
                     <mat-label>Export</mat-label>
-                        <mat-select>
-                        <mat-option>None</mat-option>
-                        <mat-option value="option1">Option 1</mat-option>
+                        <mat-select (selectionChange)="fnExportCustomer($event.value);">
+                        <mat-option value="all">All</mat-option>
+                        <mat-option value="selected">Selected</mat-option>
                         </mat-select>
                   </mat-form-field>
                   <button (click)="ImportFileUpload()" mat-button appearance="fill" class="import">Import</button>  
@@ -42,7 +42,7 @@
                     </form>
                   </div> 
                 <div *ngFor="let allCustomers of allCustomers; let i=index" class="d-flex devider-slim pb-2 m-2">
-                    <mat-checkbox class="customer-checkbox"></mat-checkbox>
+                    <mat-checkbox (change)="fnAddCustomerId($event.checked, allCustomers.id)" class="customer-checkbox"></mat-checkbox>
                     <div (click)="fnSelectCustomer(allCustomers.id)" class="customer-name-width pointer"><div class="customer-name text-uppercase">{{allCustomers.initials}}</div></div>
                     <div (click)="fnSelectCustomer(allCustomers.id)" class="customer-details pointer">
                         <h6>{{allCustomers.fullname}}</h6>

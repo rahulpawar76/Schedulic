@@ -42,6 +42,7 @@
     "highcharts": "^7.2.1",
     "highcharts-angular": "^2.4.0",
     "html2canvas": "^1.0.0-rc.5",
+    "igniteui-angular": "^9.0.7",
     "jquery": "^3.4.1",
     "jspdf": "^1.5.3",
     "jwt-decode": "^2.2.0",

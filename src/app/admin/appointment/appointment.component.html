@@ -23,10 +23,9 @@
 
                     <mat-form-field  class="appoint-action bottom-border-field">
                         <mat-label>Actions</mat-label>
-                        <mat-select>
-                            <mat-option>None</mat-option>
-                            <mat-option value="option1">Accept</mat-option>
-                            <mat-option value="option2">Cancel</mat-option>                        
+                        <mat-select [disabled]="orderItemsIdArr.length == 0" [(ngModel)]="selectedValue" (selectionChange)="fnAppointAction($event.value)">
+                            <mat-option value="AC">Confirm</mat-option>
+                            <mat-option value="C">Cancel</mat-option>                        
                         </mat-select>
                     </mat-form-field> 
                 </div>
@@ -58,7 +57,7 @@
             <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="row-border hover">
                 <thead>
                   <tr>
-                    <th><mat-checkbox class=""></mat-checkbox></th>
+                    <th><mat-checkbox [(ngModel)]="selectAll" (change)="checkAll()"></mat-checkbox></th>
                     <th>Date & Time</th>
                     <th>Customer</th>
                     <th>Service</th>
@@ -71,7 +70,7 @@
                 <tbody>
                   <tr *ngFor="let allAppointmentsData of allAppointments; let i=index">
                     <td>
-                        <mat-checkbox class=""></mat-checkbox>
+                        <mat-checkbox [(ngModel)]="allAppointmentsData.checked" (change)="fnAddOrderId($event.checked, allAppointmentsData.id)" class=""></mat-checkbox>
                     </td>
                     <td>
                         <p>{{allAppointmentsData.booking_date}},</p>
@@ -107,9 +106,9 @@
                         <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'C'">Cancelled</p>
                     </td>
                     <td> 
-                        <button (click)="newAppointment(index)" class="appointment-edit-btn mr-1"><i class="fa fa-pencil appointment-icon" aria-hidden="true"></i></button>
-                        <button class="appointment-cancel-btn mr-1"><i class="fa fa-times appointment-icon" aria-hidden="true"></i></button>
-                        <button class="appointment-confirm-btn mr-1"><i class="fa fa-check appointment-icon" aria-hidden="true"></i></button>
+                        <button (click)="newAppointment(index)" class="appointment-edit-btn mr-1"><i class="material-icons appointment-icon">edit</i></button>
+                        <button *ngIf="allAppointmentsData.order_status !== 'C'" (click)="cancelAppointment('C', allAppointmentsData.id)" class="appointment-cancel-btn mr-1"><i class="material-icons appointment-icon">close</i></button>
+                        <button *ngIf="allAppointmentsData.order_status == 'P'" (click)="confirmAppointment('AC', allAppointmentsData.id)" class="appointment-confirm-btn mr-1"><i class="material-icons appointment-icon">done</i></button>
                     </td>
                   </tr>
                 </tbody>
