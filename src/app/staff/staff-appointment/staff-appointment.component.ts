@@ -315,8 +315,10 @@ export class StaffAppointmentComponent implements OnInit {
     selectedCatId:any;
     selectedSubCatId:any;
     selectedServiceId:any;
-    minDate = new Date(2000, 0, 1);
+    minDate = new Date();
+    maxDate = new Date();
     timeSlotArr:any= [];
+    timeSlotArrForLabel:any= [];
     serviceCount:any= [];
     selectedDate:any;
     selectedTime:any;
@@ -328,6 +330,14 @@ export class StaffAppointmentComponent implements OnInit {
     taxAmount:any;
     taxArr:any=[];
     taxAmountArr:any=[];
+    myFilter:any;
+    offDaysList:any=[];
+    workingHoursOffDaysList:any=[];
+    settingsArr:any=[];
+    minimumAdvanceBookingTime:any;
+    maximumAdvanceBookingTime:any;
+    minimumAdvanceBookingDateTimeObject:any;
+    maximumAdvanceBookingDateTimeObject:any;
     constructor(
       public dialogRef: MatDialogRef<DialogAddNewAppointment>,
       public dialog: MatDialog,
@@ -361,7 +371,32 @@ export class StaffAppointmentComponent implements OnInit {
         customerDate: ['', Validators.required],
         customerTime: ['', Validators.required]
       });
+
+      this.fnGetSettingValue();
       this.fnGetTaxDetails();
+      this.fnGetOffDays();
+
+      this.myFilter = (d: Date | null): boolean => {
+      // const day = (d || new Date()).getDay();
+      // const month = (d || new Date()).getMonth();
+      // Prevent Saturday and Sunday from being selected.
+      // return day !== 0 && day !== 6;
+      let temp:any;
+      let temp2:any;
+      for(var i=0; i<this.offDaysList.length; i++){
+        var offDay = new Date(this.offDaysList[i]);
+        if(i==0){
+         temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+        }else{
+          temp=temp && (d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+        }
+      }
+      for(var i=0; i<this.workingHoursOffDaysList.length; i++){
+          temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
+      }
+      //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
+      return temp;
+      }
     }
 
     // personal info
@@ -386,7 +421,35 @@ export class StaffAppointmentComponent implements OnInit {
       });
     }
 
-    fnGetTaxDetails(){
+  fnGetSettingValue(){
+    let requestObject = {
+      "business_id":this.bussinessId
+    };
+    this.staffService.getSettingValue(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.settingsArr=response.response;
+        console.log(this.settingsArr);
+        this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
+        this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
+        
+        this.minimumAdvanceBookingDateTimeObject = new Date();
+        this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
+        console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
+        this.minDate = this.minimumAdvanceBookingDateTimeObject;
+
+        this.maximumAdvanceBookingDateTimeObject = new Date();
+        this.maximumAdvanceBookingDateTimeObject.setMinutes( this.maximumAdvanceBookingDateTimeObject.getMinutes() + this.maximumAdvanceBookingTime );
+        console.log("maximumAdvanceBookingDateTimeObject - "+this.maximumAdvanceBookingDateTimeObject);
+        this.maxDate = this.maximumAdvanceBookingDateTimeObject;
+      }
+      else if(response.data == false){
+        
+      }
+    })
+  }
+
+
+  fnGetTaxDetails(){
     this.staffService.getTaxDetails().subscribe((response:any) => {
       if(response.data == true){
         let tax = response.response
@@ -396,6 +459,32 @@ export class StaffAppointmentComponent implements OnInit {
       else if(response.data == false){
         
       }
+    })
+  }
+
+  fnGetOffDays(){
+    let requestObject = {
+      "business_id":this.bussinessId
+    };
+    this.staffService.getOffDays(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        if(response.response.holidays.length>0){
+          this.offDaysList = response.response.holidays;
+        }else{
+          this.offDaysList=[];
+        }
+        if(response.response.offday.length>0){
+          this.workingHoursOffDaysList = response.response.offday;
+        }else{
+          this.workingHoursOffDaysList=[];
+        }
+      }
+      else{
+
+      }
+    },
+    (err) =>{
+      console.log(err)
     })
   }
 
