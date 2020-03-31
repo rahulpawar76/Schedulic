@@ -255,7 +255,7 @@ export class AppComponent implements AfterViewInit {
         this.router.navigate(['/admin/my-discountcoupon']);
       }
       addNewTimeOffNav(){
-        this.router.navigate(['/admin/settings/']);
+        this.router.navigate(['/admin/settings/business-hours']);
       }
 
 
