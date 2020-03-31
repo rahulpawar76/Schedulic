@@ -166,7 +166,6 @@ export class CustomersComponent implements OnInit {
   fnCreateCustomerSubmit(){
     if(this.createNewCustomer.get('customer_id').value != ''){
       this.existingUserId = this.createNewCustomer.get('customer_id').value
-      alert(this.existingUserId);
       if(this.createNewCustomer.valid){
         this.existingCustomerData ={
           "customer_id" :  this.existingUserId,
@@ -313,7 +312,6 @@ customerUpdate(existingCustomerData){
   }
   
   editCustomer(customer_id){
-    alert(customer_id);
     this.existingUserId = customer_id
     this.newCustomer = true;
     this.fullDetailsOfCustomer = false;

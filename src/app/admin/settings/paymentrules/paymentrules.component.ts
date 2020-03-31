@@ -20,9 +20,13 @@ export interface DialogData {
 })
 export class PaymentrulesComponent implements OnInit {
   animal: any;
+  businessId: any;
   adminSettings: boolean = true;
   taxesData: any;
   currenciesData: any;
+  selectedCurrency: any;
+  selectedCurrencyPosition: any;
+  selectedCurrencyFormat: any;
 
   constructor(
     public dialog: MatDialog,
@@ -32,15 +36,30 @@ export class PaymentrulesComponent implements OnInit {
     private AdminSettingsService: AdminSettingsService,
 
   ) {
-    //this.appComponent.settingsModule(this.adminSettings);
+    if (localStorage.getItem('business_id')) {
+        this.businessId = localStorage.getItem('business_id');
+    }
   }
 
   ngOnInit() {
-    this.getAllTax();
     this.getAllCurrencies();
+    this.fnGetSettingValue();
+    this.getAllTax();
   }
 
-
+  fnGetSettingValue() {
+    let requestObject = {
+        'business_id': this.businessId,
+    };
+    this.AdminSettingsService.getSettingValue(requestObject).subscribe((response: any) => {
+      if (response.data == true) {
+        this.selectedCurrency = response.response.currency;
+        this.selectedCurrencyPosition = response.response.currency_symbol_position;
+        this.selectedCurrencyFormat = response.response.currency_format;
+        console.log(this.taxesData);
+      }
+    })
+  }
 
   getAllTax() {
     this.AdminSettingsService.getAllTax().subscribe((response: any) => {

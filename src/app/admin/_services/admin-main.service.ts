@@ -395,21 +395,21 @@ export class AdminService {
         catchError(this.handleError));
       }
       
-      fncustomerReport(){
-        let requestObject = {
-            'business_id': this.businessId,
-        };
-        let headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
-        });
-        return this.http.post(`${environment.apiUrl}/customer-reports`,requestObject,{headers:headers}).pipe(
-        map((res) => {
-            return res;
-        }),
-        catchError(this.handleError));
-    }
+    //   fncustomerReport(){
+    //     let requestObject = {
+    //         'business_id': this.businessId,
+    //     };
+    //     let headers = new HttpHeaders({
+    //         'Content-Type': 'application/json',
+    //         'admin-id' : this.adminId,
+    //         'api-token' : this.adminToken 
+    //     });
+    //     return this.http.post(`${environment.apiUrl}/customer-reports`,requestObject,{headers:headers}).pipe(
+    //     map((res) => {
+    //         return res;
+    //     }),
+    //     catchError(this.handleError));
+    // }
 
      updateAppointmentStatus(requestObject){
     
@@ -524,14 +524,7 @@ export class AdminService {
         catchError(this.handleError));
     }
 
-    getAppointmentsReports(){
-        let requestObject = {
-            'business_id': this.businessId,
-            'date_filter': "order_date",
-            'report_filter':"all",
-            'start_date':" 2020-02-01",
-            'end_date': "2020-03-01",
-        };
+    getAppointmentsReports(requestObject){
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : this.adminId,
@@ -544,14 +537,7 @@ export class AdminService {
         catchError(this.handleError));
     }
 
-    getSalesReports(){
-        let requestObject = {
-            'business_id': this.businessId,
-            'start_date': "2020-02-01",
-            'end_date':"2020-03-01",
-            'group_filter':"month",
-            'status_filter': "unpaid",
-        };
+    getSalesReports(requestObject){
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : this.adminId,
@@ -564,13 +550,7 @@ export class AdminService {
         catchError(this.handleError));
     }
 
-    getCustomerReports(){
-        let requestObject = {
-            'business_id': this.businessId,
-            'start_date': "2020-01-01",
-            'end_date':"2020-01-28",
-            'filter':"admin",
-        };
+    getCustomerReports(requestObject){
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : this.adminId,
