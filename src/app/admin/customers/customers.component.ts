@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { AppComponent } from '@app/app.component';
-import { IgxExcelExporterService, IgxExcelExporterOptions } from "igniteui-angular";
+//import { IgxExcelExporterService, IgxExcelExporterOptions } from "igniteui-angular";
 
 
 export interface DialogData {
@@ -71,7 +71,7 @@ export class CustomersComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private http: HttpClient,
     private datePipe: DatePipe,
-    private excelExportService: IgxExcelExporterService,
+    //private excelExportService: IgxExcelExporterService,
     private appComponent : AppComponent,
     ) { 
       localStorage.setItem('isBusiness', 'false');
@@ -433,23 +433,23 @@ customerUpdate(existingCustomerData){
     }
   }
 
-  fnExportCustomer(exportType){
-    if(exportType == 'all'){
-      this.excelExportService.exportData(this.allCustomers, new IgxExcelExporterOptions("MyCustomers"));
-    }else if(exportType == 'selected'){
-      this.AdminService.fnExportCustomer(this.selectedCustomerId).subscribe((response:any) => {
-        if(response.data == true){
-          this.selectedCustomerArr = response.response
-          this.excelExportService.exportData(this.selectedCustomerArr, new IgxExcelExporterOptions("MyCustomers"));
-          this.selectedCustomerId.length = 0;
-          this.isLoaderAdmin = false;
-        }
-        else if(response.data == false){
-          this.isLoaderAdmin = false;
-        }
-      })
-    }
-  }
+  // fnExportCustomer(exportType){
+  //   if(exportType == 'all'){
+  //     this.excelExportService.exportData(this.allCustomers, new IgxExcelExporterOptions("MyCustomers"));
+  //   }else if(exportType == 'selected'){
+  //     this.AdminService.fnExportCustomer(this.selectedCustomerId).subscribe((response:any) => {
+  //       if(response.data == true){
+  //         this.selectedCustomerArr = response.response
+  //         this.excelExportService.exportData(this.selectedCustomerArr, new IgxExcelExporterOptions("MyCustomers"));
+  //         this.selectedCustomerId.length = 0;
+  //         this.isLoaderAdmin = false;
+  //       }
+  //       else if(response.data == false){
+  //         this.isLoaderAdmin = false;
+  //       }
+  //     })
+  //   }
+  // }
 
   ImportFileUpload() {
     const dialogRef = this.dialog.open(DialogImportFileUpload, {
