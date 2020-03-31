@@ -53,6 +53,7 @@ export class CustomersComponent implements OnInit {
   businessId: any;
   addNewTag: boolean = false;
   tagsnew: any;
+  customerImageUrl:any;
 
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^-?(0|[1-9]\d*)?$/
@@ -182,6 +183,7 @@ export class CustomersComponent implements OnInit {
           "state" : this.createNewCustomer.get('cus_state').value,
           "city" : this.createNewCustomer.get('cus_city').value,
           "zip" : this.createNewCustomer.get('cus_zip').value,
+          'image': this.customerImageUrl
         }
     } else{
         this.createNewCustomer.get('cus_fullname').markAsTouched();
@@ -450,6 +452,19 @@ customerUpdate(existingCustomerData){
   //     })
   //   }
   // }
+  customerImage() {
+    const dialogRef = this.dialog.open(DialogCustomerImageUpload, {
+      width: '500px',
+      
+    });
+  
+     dialogRef.afterClosed().subscribe(result => {
+        if(result != undefined){
+            this.customerImageUrl = result;
+            console.log(result);
+           }
+     });
+  }
 
   ImportFileUpload() {
     const dialogRef = this.dialog.open(DialogImportFileUpload, {
@@ -609,6 +624,56 @@ export class DialogAddNewNote {
   }
 
 }
+
+@Component({
+  selector: 'customer-image-upload',
+  templateUrl: '../_dialogs/customer-upload-profile-image-dialog.html',
+})
+export class DialogCustomerImageUpload {
+
+  uploadForm: FormGroup;  
+  imageSrc: string;
+  profileImage: string;
+  
+constructor(
+  public dialogRef: MatDialogRef<DialogCustomerImageUpload>,
+  private _formBuilder:FormBuilder,
+  private _snackBar: MatSnackBar,
+  @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  onNoClick(): void {
+      this.dialogRef.close(this.profileImage);
+    }
+    ngOnInit() {
+      this.uploadForm = this._formBuilder.group({
+        profile: ['']
+      });
+    }
+    get f() {
+      return this.uploadForm.controls;
+    }
+    
+onFileChange(event) {
+  const reader = new FileReader();
+  if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+          this.imageSrc = reader.result as string;
+          this.uploadForm.patchValue({
+              fileSource: reader.result
+          });
+      };
+  }
+}
+uploadImage() {
+  this.profileImage = this.imageSrc
+  this.dialogRef.close(this.profileImage);
+}
+
+
+}
+
 
 @Component({
   selector: 'new-appointment',

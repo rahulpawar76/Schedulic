@@ -1,5 +1,5 @@
 <mat-drawer-content id="settings-my-profile" class="ml-0">
-    <mat-card class="m-0">
+    <mat-card class="m-0 my-profile">
         <div class="row">
             <div class="col-lg-12">
                 <h6>My Profile</h6>
@@ -11,7 +11,7 @@
                     <!-- <div class="account-my-profile-background mr-3 mt-5">
                         <img src="/assets/images/admin/Layer6.png" class="my-profile-image">
                     </div> -->
-                    <div class="account-my-profile-img-wrap">
+                    <div class="account-my-profile-img-wrap" (click)="myProfleImage()">
                         <img mat-card-avatar class="account-my-profile-img" src="/assets/images/admin/Layer6.png">
                         <div class="camera-alt"><i class="material-icons">camera_alt</i></div>
                     </div>

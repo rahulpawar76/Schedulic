@@ -2,20 +2,19 @@
     <mat-tab-group  mat-align-tabs="start">
         <mat-tab label="Pending">
             <div class="pendingnotes d-flex">
-                <p class="mb-0">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum
-                    generator,Lorem Ipsum,giving information on its origins.</p>
-                <div class="col-2 pendingborder" >
-                    <label class="mb-0 pendingdate">{{todayDate}}</label>
-                    <p style="text-align: right;font-size: 16px;">{{todayDays}}</p>
-                </div>
-
-                <div class="" style="margin: 0 20px 0 20px;">
-                    <label class="mb-0 pendingdate">{{todayTime}}</label>
-                    <p style="text-align: right;">{{todayPeriod}}</p>
-                </div>
-
+              <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum
+                generator,Lorem Ipsum,giving information on its origins.</p>
+            <div class="col-2 pendingborder appoint-head" >
+                <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
+                <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
             </div>
-            <div class="col-12" >
+
+            <div class="appoint-head" style="margin: 0 20px 0 20px;">
+                <label class="mb-0 pendingdate">{{todayTime}}</label>
+                <p class="appoint-time-zone"style="text-align: right;">{{todayPeriod}}</p>
+            </div>
+            </div>
+            <div class="col-12 p-0">
                 <mat-card class="table-background">
                   <div class="">
                     <div class="Pending-table">
@@ -29,20 +28,20 @@
                                     <div class="" fxFlex="10">Date</div>
                                     <div class="" fxFlex="10">Time</div>
                                 </div>
-                                <div class="content" class="example-list"  >
-                                    <div (click) ="fnOpenDetails(i)" *ngFor="let pendingAppointments of pendingAppointments; let i=index" class="example-box">
+                                <div class="content" class="appointment-live-list"  >
+                                    <div (click) ="fnOpenDetails(i)" *ngFor="let pendingAppointments of pendingAppointments; let i=index" class="appointment-live-list-details">
                                         <div class="" fxFlex="20">
                                           <p class="mb-0">{{pendingAppointments.service.service_name}}</p>
                                         </div>
                                         <div class=" " fxFlex="25">
                                           <p class="mb-0">{{pendingAppointments.customer.fullname}}</p>
                                           <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{pendingAppointments.customer.phone}}</p>
-                                          <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.customer.email}}</p>
+                                          <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.customer.email}}</p>
                                         </div>
                                         <div *ngIf="pendingAppointments.staff != null" class="" fxFlex="25">
                                           <p class="mb-0">Raj Kumar</p>
                                           <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
-                                          <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
+                                          <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                                         </div>
                                         <div *ngIf="pendingAppointments.staff == null" class="" fxFlex="25">
                                           <p class="mb-0">Not Assigned</p>
@@ -69,18 +68,17 @@
 
         <mat-tab label="Not Assigned" class="notassignedlabel">
             <div class="pendingnotes d-flex">
-                <p class="mb-0">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum
-                    generator,Lorem Ipsum,giving information on its origins.</p>
-                <div class="col-2 pendingborder" >
-                    <label class="mb-0 pendingdate" >{{todayDate}}</label>
-                    <p style="text-align: right;font-size: 18px;">{{todayDays}}</p>
-                </div>
+              <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum
+                generator,Lorem Ipsum,giving information on its origins.</p>
+            <div class="col-2 pendingborder appoint-head" >
+                <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
+                <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
+            </div>
 
-                <div class="" style="margin: 0 20px 0 20px;">
-                    <label class="mb-0 pendingdate">{{todayTime}}</label>
-                    <p style="text-align: right;">{{todayPeriod}}</p>
-                </div>
-
+            <div class="appoint-head" style="margin: 0 20px 0 20px;">
+                <label class="mb-0 pendingdate">{{todayTime}}</label>
+                <p class="appoint-time-zone"style="text-align: right;">{{todayPeriod}}</p>
+            </div>
             </div>
             <div class="col-12" >
               <div class="">
@@ -92,8 +90,8 @@
                     <div class="" fxFlex="10">Date</div>
                     <div class="" fxFlex="10">Time</div>
                 </div>
-                <div class="content" class="example-list" >
-                    <div (click) ="fnOpenNotAssignedDetails(i)" *ngFor="let notAssignedAppointments of notAssignedAppointments; let i=index" class="example-box">
+                <div class="content" class="appointment-live-list" >
+                    <div (click) ="fnOpenNotAssignedDetails(i)" *ngFor="let notAssignedAppointments of notAssignedAppointments; let i=index" class="appointment-live-list-details">
                         <div class="" fxFlex="20">
                           <p class="mb-0">{{notAssignedAppointments.service.service_name}}</p>
                         </div>
@@ -126,18 +124,17 @@
 
         </mat-tab>
         <div class="pendingnotes d-flex">
-            <p class="mb-0">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum
-                generator,Lorem Ipsum,giving information on its origins.</p>
-            <div class="col-2 pendingborder" >
-                <label class="mb-0 pendingdate" >{{todayDate}}</label>
-                <p style="text-align: right;font-size: 18px;">{{todayDays}}</p>
-            </div>
+          <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum
+            generator,Lorem Ipsum,giving information on its origins.</p>
+        <div class="col-2 pendingborder appoint-head" >
+            <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
+            <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
+        </div>
 
-            <div class="" style="margin: 0 20px 0 20px;">
-                <label class="mb-0 pendingdate">{{todayTime}}</label>
-                <p style="text-align: right;">{{todayPeriod}}</p>
-            </div>
-
+        <div class="appoint-head" style="margin: 0 20px 0 20px;">
+            <label class="mb-0 pendingdate">{{todayTime}}</label>
+            <p class="appoint-time-zone"style="text-align: right;">{{todayPeriod}}</p>
+        </div>
         </div>
         <div class="col-12" >
           <div class="">
@@ -149,8 +146,8 @@
                 <div class="" fxFlex="10">Date</div>
                 <div class="" fxFlex="10">Time</div>
             </div>
-            <div class="content" class="example-list">
-                <div *ngFor="let pendingAppointments of pendingAppointments; let i=index" class="example-box">
+            <div class="content" class="appointment-live-list">
+                <div *ngFor="let pendingAppointments of pendingAppointments; let i=index" class="appointment-live-list-details ">
                     <div class="" fxFlex="20">
                       <p class="mb-0">{{pendingAppointments.service.service_name}}</p>
                     </div>
@@ -184,16 +181,16 @@
 
         <mat-tab label="On The Way" class="onthewaylabel">
             <div class="pendingnotes d-flex">
-                <p class="mb-0">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum
+                <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum
                     generator,Lorem Ipsum,giving information on its origins.</p>
-                <div class="col-2 pendingborder" >
+                <div class="col-2 pendingborder appoint-head" >
                     <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
-                    <p style="text-align: right;font-size: 18px;">{{todayDays}}</p>
+                    <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
                 </div>
 
-                <div class="" style="margin: 0 20px 0 20px;">
+                <div class="appoint-head" style="margin: 0 20px 0 20px;">
                     <label class="mb-0 pendingdate">{{todayTime}}</label>
-                    <p style="text-align: right;">{{todayPeriod}}</p>
+                    <p class="appoint-time-zone"style="text-align: right;">{{todayPeriod}}</p>
                 </div>
 
             </div>
@@ -207,20 +204,20 @@
                     <div class="" fxFlex="10">Date</div>
                     <div class="" fxFlex="10">Time</div>
                 </div>
-                <div class="content" *ngIf="onTheWayAppointments != 'no booking found'" class="example-list">
-                    <div (click) ="fnOpenOnTheWayDetails(i)" *ngFor="let onTheWayAppointments of onTheWayAppointments; let i=index" class="example-box">
+                <div class="content" *ngIf="onTheWayAppointments != 'no booking found'" class="appointment-live-list">
+                    <div (click) ="fnOpenOnTheWayDetails(i)" *ngFor="let onTheWayAppointments of onTheWayAppointments; let i=index" class="appointment-live-list-details">
                         <div class="" fxFlex="20">
                           <p class="mb-0">{{onTheWayAppointments.service.service_name}}</p>
                         </div>
                         <div class=" " fxFlex="25">
                           <p class="mb-0">{{onTheWayAppointments.customer.fullname}}</p>
                           <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{onTheWayAppointments.customer.phone}}</p>
-                          <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{onTheWayAppointments.customer.email}}</p>
+                          <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{onTheWayAppointments.customer.email}}</p>
                         </div>
                         <div *ngIf="onTheWayAppointments.staff != null" class="" fxFlex="25">
                           <p class="mb-0">Raj Kumar</p>
                           <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
-                          <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
+                          <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                         </div>
                         <div *ngIf="onTheWayAppointments.staff == null" class="" fxFlex="25">
                           <p class="mb-0">Not Assigned</p>
@@ -236,7 +233,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="content" *ngIf="onTheWayAppointments == 'no booking found'" class="example-list">
+                <div class="content" *ngIf="onTheWayAppointments == 'no booking found'" class="appointment-live-list text-center p-5 no-found">
                   {{onTheWayAppointments}}
                 </div>
             </div>
@@ -246,17 +243,17 @@
         
         <mat-tab label="Work Started" class="workstartedlabel">
             <div class="pendingnotes d-flex">
-                <p class="mb-0">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum
-                    generator,Lorem Ipsum,giving information on its origins.</p>
-                <div class="col-2 pendingborder">
-                    <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
-                    <p style="text-align: right;font-size: 18px;">{{todayDays}}</p>
-                </div>
+              <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum
+                generator,Lorem Ipsum,giving information on its origins.</p>
+            <div class="col-2 pendingborder appoint-head" >
+                <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
+                <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
+            </div>
 
-                <div class="" style="margin: 0 20px 0 20px;">
-                    <label class="mb-0 pendingdate">{{todayTime}}</label>
-                    <p style="text-align: right;">{{todayPeriod}}</p>
-                </div>
+            <div class="appoint-head" style="margin: 0 20px 0 20px;">
+                <label class="mb-0 pendingdate">{{todayTime}}</label>
+                <p class="appoint-time-zone"style="text-align: right;">{{todayPeriod}}</p>
+            </div>
 
             </div>
             <div class="" >
@@ -270,20 +267,20 @@
                         <div class="" fxFlex="10">Date</div>
                         <div class="" fxFlex="10">Time</div>
                     </div>
-                    <div class="content" class="example-list">
-                        <div (click) ="fnOpenWorkStartedDetails(i)" *ngFor="let workStartedAppointments of workStartedAppointments; let i=index" class="example-box">
+                    <div class="content" class="appointment-live-list">
+                        <div (click) ="fnOpenWorkStartedDetails(i)" *ngFor="let workStartedAppointments of workStartedAppointments; let i=index" class="appointment-live-list-details">
                             <div class="" fxFlex="20">
                               <p class="mb-0">{{workStartedAppointments.service.service_name}}</p>
                             </div>
                             <div class=" " fxFlex="25">
                               <p class="mb-0">{{workStartedAppointments.customer.fullname}}</p>
                               <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{workStartedAppointments.customer.phone}}</p>
-                              <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.customer.email}}</p>
+                              <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.customer.email}}</p>
                             </div>
                             <div *ngIf="workStartedAppointments.staff != null" class="" fxFlex="25">
                               <p class="mb-0">Raj Kumar</p>
                               <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
-                              <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
+                              <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                             </div>
                             <div *ngIf="workStartedAppointments.staff == null" class="" fxFlex="25">
                               <p class="mb-0">Not Assigned</p>

@@ -3,6 +3,9 @@
     margin-top: 63px;
     position: relative;
 }
+::ng-deep .mat-tab-label-content{
+  font-weight: bolder;
+}
 ::ng-deep .mat-tab-label-container{
     .mat-tab-list{
       .mat-tab-labels{
@@ -18,9 +21,7 @@
         }
       }
     }
-    .table-background{
-      background-color: #f5f5f5;
-    }
+    
     .pendingnotes{
         background-color: white;
         font-size: 16px;
@@ -38,26 +39,53 @@
             color: #1172f4;
             text-align: right;
         }
-        
+        .appoint-head{
+          height: 55px;
+        }
+        .appoint-time-zone{
+          text-align: right;
+        }
+        .pendingborder{
+            border-right: 1px solid #1172f4; 
+            text-align: right;
+            margin: 0 20px 0 20px;
+          .appoint-day{
+            text-align: right;
+            font-size: 18px;
+          }          
+        }
+          .pendingdate{
+            font-size: 20px;
+            color: #1172f4;
+            text-align: right;
+          }
       }
       table {
         width: 100%;
       }
 
-      .example-list {
+      .table-background{
+        background-color: #f5f5f5;
+      }
+      .appointment-live-list {
         width: 100%;
-        border: solid 1px #ccc;
+        border-radius: 10px;
+        // border: solid 1px #ccc;
         display: block;
-        background: white;
-        border-radius: 4px;
+        // background: white;
+        // border-radius: 4px;
         overflow: hidden;
       }
       .main-table-head{
         padding: 10px 20px;
+        font-weight: bolder;
       }
-      .example-box {
+      .appointment-live-list-details {
             padding: 20px 10px;
-            border-bottom: solid 1px #ccc;
+            border: solid 3px white;
+            border-radius: 10px;
+            margin: 7px 0px;
+            // border-bottom: solid 1px #ccc;
             color: rgba(0, 0, 0, 0.87);
             display: flex;
             flex-direction: row;
@@ -86,7 +114,31 @@
             }
       }
 
- 
+  .no-found{
+    background-color: white;
+  }
+ .appodetails{
+    margin: 15px;
+       
+  .fontred{
+    color: red;
+    .circle{
+    margin: 8px;
+  }
+  }
+  .greenfont{
+    color: green;
+    .repeat{
+    margin: 8px;
+  }
+  }
+
+  .paybtn{
+    border-radius: 50px;
+    width: 100px;
+  }
+
+}
 /*------------------------------*/
 
  ::ng-deep .booking-detail-main{
