@@ -233,20 +233,46 @@ export class StaffService {
 
   // Get Tax details
 
-    getTaxDetails(){
-        let requestObject = {
-            'business_id': this.bussinessId,
-        };
-        let headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'staff-id' : this.staffId,
-            'api-token' : this.staffToken 
-        });
-        return this.http.post(`${environment.apiUrl}/tax-list`,requestObject,{headers:headers}).pipe(
-        map((res) => {
-            return res;
-        }),
-        catchError(this.handleError));
-    }
+  getTaxDetails(){
+      let requestObject = {
+          'business_id': this.bussinessId,
+      };
+      let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'staff-id' : this.staffId,
+          'api-token' : this.staffToken 
+      });
+      return this.http.post(`${environment.apiUrl}/tax-list`,requestObject,{headers:headers}).pipe(
+      map((res) => {
+          return res;
+      }),
+      catchError(this.handleError));
+  }
+
+  getOffDays(requestObject){
+      let headers = new HttpHeaders({
+          'staff-id' : this.staffId,
+          'api-token' : this.staffToken,
+          'Content-Type': 'application/json'
+      });
+      return this.http.post(`${environment.apiUrl}/list-holidays`,requestObject,{headers:headers}).pipe(
+      map((res) => {
+          return res;
+      }),
+      catchError(this.handleError));
+  }
+
+  getSettingValue(requestObject) {
+      let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'staff-id' : this.staffId,
+          'api-token' : this.staffToken 
+      });
+      return this.http.post(`${environment.apiUrl}/get-setting-value`, requestObject, { headers: headers }).pipe(
+          map((res) => {
+              return res;
+          }),
+          catchError(this.handleError));
+  }
 
 }

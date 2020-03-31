@@ -152,28 +152,28 @@
                 </div>
 
               </mat-list-item> 
-              <mat-list-item role="listitem" (click)="myWorkSpaceNav()">
+              <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-workspace' }" (click)="myWorkSpaceNav(); fnPostUrl('my-workspace');">
                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-bag.png"></div>
               </mat-list-item>
               <mat-list-item role="listitem" >
-                <div class="common-menu" (click)="MyAppointmentNav()"><img src="/assets/images/admin/admin-menu-calendar.png"></div>
+                <div class="common-menu" [ngClass]="{'active': postUrl == 'my-appointment' }" (click)="MyAppointmentNav(); fnPostUrl('my-appointment');"><img src="/assets/images/admin/admin-menu-calendar.png"></div>
               </mat-list-item>
               <mat-list-item role="listitem" >
-                <div class="common-menu" (click)="MyCustomerNav()"><img src="/assets/images/admin/admin-menu-user.png"></div>
+                <div class="common-menu" [ngClass]="{'active': postUrl == 'my-customers' }" (click)="MyCustomerNav(); fnPostUrl('my-customers');"><img src="/assets/images/admin/admin-menu-user.png"></div>
               </mat-list-item>
               <mat-list-item role="listitem" >
-                <div class="common-menu" (click)="MyReportsNav()"><img src="/assets/images/admin/admin-menu-statistics.png"></div>
+                <div class="common-menu" [ngClass]="{'active': postUrl == 'my-reports' }" (click)="MyReportsNav(); fnPostUrl('my-reports');"><img src="/assets/images/admin/admin-menu-statistics.png"></div>
               </mat-list-item>
               <mat-list-item role="listitem" >
-                <div class="common-menu" (click)="MyDiscountCouponNav()"><img src="/assets/images/admin/admin-menu-couon.png"></div>
+                <div class="common-menu" [ngClass]="{'active': postUrl == 'my-discountCoupon' }" (click)="MyDiscountCouponNav(); fnPostUrl('my-discountCoupon');"><img src="/assets/images/admin/admin-menu-couon.png"></div>
               </mat-list-item>
             </div>
             <div class="bottom_admin_menu">
               <mat-list-item role="listitem" >
-                <div (click)="MySettingsNav()" class="common-menu"><img src="/assets/images/admin/admin-menu-settings.png"></div>
+                <div (click)="MySettingsNav(); fnPostUrl('my-settings');" [ngClass]="{'active': postUrl == 'my-settings' }" class="common-menu"><img src="/assets/images/admin/admin-menu-settings.png"></div>
               </mat-list-item>
               <mat-list-item role="listitem" >
-                <div (click)="MyProfileNav()" class="common-menu"><img src="/assets/images/admin/admin-menu-user-2.png"></div>
+                <div (click)="MyProfileNav(); fnPostUrl('my-profile');" [ngClass]="{'active': postUrl == 'my-profile' }" class="common-menu"><img src="/assets/images/admin/admin-menu-user-2.png"></div>
               </mat-list-item>
             </div>
           </mat-drawer>

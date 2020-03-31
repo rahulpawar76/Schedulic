@@ -45,7 +45,7 @@
               <small *ngIf="StaffCreate.get('phone').hasError('pattern')" class="error">Mobile Number is Should be
                 Numeric</small>
               <small
-                *ngIf="StaffCreate.get('phone').hasError('minLength') || StaffCreate.get('phone').hasError('maxLength')"
+                *ngIf="StaffCreate.get('phone').hasError('minlength') || StaffCreate.get('phone').hasError('maxlength')"
                 class="error">Mobile Number is Should be 10 Digit</small>
             </span>
             <mat-form-field class="bottom-border-field">

@@ -34,7 +34,8 @@
           <input matInput formControlName="customerPhone" placeholder="Enter Customer Contact Number" >
         </mat-form-field>
         <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').dirty || formAddNewAppointmentStaffStep1.get('customerPhone').touched || formSubmitclicked">
-          <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('required')" class="error">Phone Is required</small><small *ngIf=" formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern')" class="error">Enter a valid Phone</small>
+          <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('required')" class="error">Phone Is required</small>
+          <small *ngIf=" formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern')" class="error">Enter a valid Phone</small>
           <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerPhone').hasError('maxlength')" class="error">Phone number should be 10 digits long</small>
         </span>
 
@@ -133,7 +134,7 @@
             <div class="input-group-text"><i class="fa fa-calendar"></i>
             </div>
           </div>
-          <input mat-input [min]="minDate" [matDatepicker]="picker" placeholder="Choose a date" class="form-control formcontrol" (click)="picker.open()" (dateChange)="fnDateChange($event)" formControlName="customerDate" >
+          <input mat-input [min]="minDate" [max]="maxDate"  [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="Choose a date" class="form-control formcontrol" (click)="picker.open()" (dateChange)="fnDateChange($event)" formControlName="customerDate" >
           <mat-datepicker #picker></mat-datepicker>
           <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerDate').dirty || formAddNewAppointmentStaffStep2.get('customerDate').touched || formSubmitclicked">
             <small *ngIf="formAddNewAppointmentStaffStep2.get('customerDate').hasError('required')" class="error">Date Is required</small>
@@ -147,7 +148,7 @@
             </div>
           </div>
           <mat-select class="form-control formcontrol" [disabled]="" formControlName="customerTime" (selectionChange)="fnSelectTime($event.value)" >
-            <mat-option *ngFor="let slot of timeSlotArr" value="{{slot}}">{{slot}}</mat-option>
+            <mat-option *ngFor="let slot of timeSlotArr; let i=index;" value="{{slot}}">{{timeSlotArrForLabel[i]}}</mat-option>
           </mat-select>
           <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerTime').dirty || formAddNewAppointmentStaffStep2.get('customerTime').touched || formSubmitclicked">
             <small *ngIf="formAddNewAppointmentStaffStep2.get('customerTime').hasError('required')" class="error">Time is required</small>

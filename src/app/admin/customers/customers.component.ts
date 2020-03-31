@@ -11,7 +11,8 @@ import { AuthenticationService } from '@app/_services';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { AppComponent } from '@app/app.component'
+import { AppComponent } from '@app/app.component';
+//import { IgxExcelExporterService, IgxExcelExporterOptions } from "igniteui-angular";
 
 
 export interface DialogData {
@@ -47,6 +48,8 @@ export class CustomersComponent implements OnInit {
   newCustomerData: any;
   existingCustomerData: any;
   existingUserId: any;
+  selectedCustomerId: any = [];
+  selectedCustomerArr: any;
   businessId: any;
   addNewTag: boolean = false;
   tagsnew: any;
@@ -69,6 +72,7 @@ export class CustomersComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private http: HttpClient,
     private datePipe: DatePipe,
+    private excelExportService: IgxExcelExporterService,
     private appComponent : AppComponent,
     ) { 
       localStorage.setItem('isBusiness', 'false');
@@ -420,8 +424,34 @@ customerUpdate(existingCustomerData){
     })
 
   }
+  fnAddCustomerId(event, customerId){
+    if(event == true){
+      this.selectedCustomerId.push(customerId);
+    }else if(event == false){
+      const index = this.selectedCustomerId.indexOf(customerId, 0);
+      if (index > -1) {
+          this.selectedCustomerId.splice(index, 1);
+      }
+    }
+  }
 
-  
+  // fnExportCustomer(exportType){
+  //   if(exportType == 'all'){
+  //     this.excelExportService.exportData(this.allCustomers, new IgxExcelExporterOptions("MyCustomers"));
+  //   }else if(exportType == 'selected'){
+  //     this.AdminService.fnExportCustomer(this.selectedCustomerId).subscribe((response:any) => {
+  //       if(response.data == true){
+  //         this.selectedCustomerArr = response.response
+  //         this.excelExportService.exportData(this.selectedCustomerArr, new IgxExcelExporterOptions("MyCustomers"));
+  //         this.selectedCustomerId.length = 0;
+  //         this.isLoaderAdmin = false;
+  //       }
+  //       else if(response.data == false){
+  //         this.isLoaderAdmin = false;
+  //       }
+  //     })
+  //   }
+  // }
   customerImage() {
     const dialogRef = this.dialog.open(DialogCustomerImageUpload, {
       width: '500px',
@@ -436,8 +466,36 @@ customerUpdate(existingCustomerData){
      });
   }
 
+  ImportFileUpload() {
+    const dialogRef = this.dialog.open(DialogImportFileUpload, {
+      width: '500px',
+      
+    });
+
+     dialogRef.afterClosed().subscribe(result => {
+        // if(result != undefined){
+        //     this.subCategoryImageUrl = result;
+        //     console.log(result);
+        //    }
+     });
+  }
 }
 
+@Component({
+  selector: 'import-file-upload',
+  templateUrl: '../_dialogs/import-file-upload.html',
+})
+export class DialogImportFileUpload {
+
+constructor(
+  public dialogRef: MatDialogRef<DialogImportFileUpload>,
+  @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+onNoClick(): void {
+  this.dialogRef.close();
+}
+
+}
 
 @Component({
   selector: 'new-appointment',

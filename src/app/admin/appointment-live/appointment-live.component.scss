@@ -23,9 +23,22 @@
     }
     
     .pendingnotes{
-            background-color: white;
-            font-size: 16px;
-            padding :20px;
+        background-color: white;
+        font-size: 16px;
+        padding :20px;
+
+        .pendingborder{
+            border-right: 1px solid #1172f4; 
+          // margin: 0;
+            text-align: right;
+            margin: 0 20px 0 20px;  
+          
+        }
+        .pendingdate{
+            font-size: 20px;
+            color: #1172f4;
+            text-align: right;
+        }
         .appoint-head{
           height: 55px;
         }
@@ -47,7 +60,6 @@
             text-align: right;
           }
       }
-    
       table {
         width: 100%;
       }
@@ -129,7 +141,7 @@
 }
 /*------------------------------*/
 
- .booking-detail-main{
+ ::ng-deep .booking-detail-main{
   .customer-profile-img{
     border-radius: 100%;
     height: 60px;
@@ -182,3 +194,59 @@
         }
     }
 }
+
+
+::ng-deep .tp-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;   
+    right: 0;
+    background: #eee;
+    width: 400px;
+    .appodetails{
+        margin: 15px;
+        
+    .fontred{
+          color: red;
+          .circle{
+            margin: 8px;
+          }
+    }
+    .assignto{
+      width: 30%;
+    }
+    .greenfont{
+        color: green;
+      .repeat{
+        margin: 8px;
+      }
+    }
+    .paybtn{
+      border-radius: 50px;
+      width: 100px;
+    }
+
+  }
+  
+}
+
+::ng-deep .appodetails-assignto{
+    margin: 8px;
+
+    .fontred{
+      color: red;
+      .circle{
+        margin: 8px;
+      }
+    }
+    .assignto{
+        width: 30%;
+    }
+    .greenfont{
+        color: green;
+    .repeat{
+        margin: 8px;
+    }
+    }
+}
+

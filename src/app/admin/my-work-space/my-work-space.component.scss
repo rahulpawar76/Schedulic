@@ -147,6 +147,15 @@
     height: 70vh;
     overflow-y: auto;
     overflow-x: visible;
+    ul{
+        li{
+            &.active{
+                p{
+                    color: #007bff
+                }
+            }
+        }
+    }
 }
 #my-work-space{
     width: 100%;

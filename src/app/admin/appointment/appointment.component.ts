@@ -10,7 +10,7 @@ import { DatePipe} from '@angular/common';
 import { environment } from '@environments/environment';
 import { Router, RouterOutlet } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
-import { AppComponent } from '@app/app.component'
+import { AppComponent } from '@app/app.component';
 
 export interface DialogData {
   animal: string;
@@ -34,10 +34,14 @@ export class AppointmentComponent implements OnInit {
   selectedServices: any;
   allservices: any;
   isLoaderAdmin : boolean = false;
+  orderItemsIdArr: any = [];
+  selectedValue: any;
+  selectAll: boolean = false;
   constructor(
     public dialog: MatDialog,
     private AdminService: AdminService,
     private appComponent : AppComponent,
+    private _snackBar: MatSnackBar,
     ) {
       localStorage.setItem('isBusiness', 'false');
       //this.appComponent.settingsModule(this.adminSettings);
@@ -110,6 +114,93 @@ export class AppointmentComponent implements OnInit {
       this.getAllAppointments(this.durationType,this.selectedServices);
      });
   }
+
+  fnAddOrderId(event, orderId){
+    if(event == true){
+      this.orderItemsIdArr.push(orderId);
+    }else if(event == false){
+      const index = this.orderItemsIdArr.indexOf(orderId, 0);
+      if (index > -1) {
+          this.orderItemsIdArr.splice(index, 1);
+      }
+    }
+    console.log(this.orderItemsIdArr);
+    if (this.allAppointments.every(a => a.checked)) {
+      this.selectAll = true;
+    } else {
+      this.selectAll = false;
+    }
+  }
+
+  fnAppointAction(status){
+    this.isLoaderAdmin = true;
+    this.AdminService.fnAppointAction(status, this.orderItemsIdArr).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.selectedValue = undefined;
+        this.orderItemsIdArr.length = 0;
+        this.getAllAppointments(this.durationType,this.selectedServices);
+        this.isLoaderAdmin = false;
+      }
+      else if(response.data == false){
+        this.isLoaderAdmin = false;
+      }
+    })
+  }
+
+  cancelAppointment(status, orderId){
+    this.orderItemsIdArr.push(orderId);
+    this.AdminService.fnAppointAction(status, this.orderItemsIdArr).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.orderItemsIdArr.length = 0;
+        this.getAllAppointments(this.durationType,this.selectedServices);
+        this.isLoaderAdmin = false;
+      }
+      else if(response.data == false){
+        this.isLoaderAdmin = false;
+      }
+    })
+  }
+  confirmAppointment(status, orderId){
+    this.orderItemsIdArr.push(orderId);
+    this.AdminService.fnAppointAction(status, this.orderItemsIdArr).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.orderItemsIdArr.length = 0;
+        this.getAllAppointments(this.durationType,this.selectedServices);
+        this.isLoaderAdmin = false;
+      }
+      else if(response.data == false){
+        this.isLoaderAdmin = false;
+      }
+    })
+  }
+  checkAll(){
+  if (this.selectAll === true) {
+    this.allAppointments.map((appoint) => {
+      appoint.checked = true;
+    });
+
+  } else {
+    this.allAppointments.map((appoint) => {
+      appoint.checked = false;
+    });
+  }
+}
+
 }
 
 @Component({
@@ -131,7 +222,9 @@ export class DialogAddNewAppointment {
   selectedSubCatId:any;
   selectedServiceId:any;
   minDate = new Date();
+  maxDate = new Date();
   timeSlotArr:any= [];
+  timeSlotArrForLabel:any= [];
   serviceCount:any= [];
   selectedDate:any;
   selectedTime:any;
@@ -144,6 +237,14 @@ export class DialogAddNewAppointment {
   taxAmount:any;
   taxArr:any=[];
   taxAmountArr:any=[];
+  myFilter:any;
+  offDaysList:any=[];
+  workingHoursOffDaysList:any=[];
+  settingsArr:any=[];
+  minimumAdvanceBookingTime:any;
+  maximumAdvanceBookingTime:any;
+  minimumAdvanceBookingDateTimeObject:any;
+  maximumAdvanceBookingDateTimeObject:any;
   constructor(
     public dialogRef: MatDialogRef<DialogAddNewAppointment>,
     public dialog: MatDialog,
@@ -185,7 +286,58 @@ export class DialogAddNewAppointment {
       customerStaff: ['', Validators.required]
     });
     console.log("ar"+this.formAddNewAppointmentStaffStep2.get('customerDate').value);
+    this.fnGetSettingValue();
     this.fnGetTaxDetails();
+    this.fnGetOffDays();
+
+    this.myFilter = (d: Date | null): boolean => {
+    // const day = (d || new Date()).getDay();
+    // const month = (d || new Date()).getMonth();
+    // Prevent Saturday and Sunday from being selected.
+    // return day !== 0 && day !== 6;
+    let temp:any;
+    let temp2:any;
+    for(var i=0; i<this.offDaysList.length; i++){
+      var offDay = new Date(this.offDaysList[i]);
+      if(i==0){
+       temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+      }else{
+        temp=temp && (d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+      }
+    }
+    for(var i=0; i<this.workingHoursOffDaysList.length; i++){
+        temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
+    }
+    //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
+    return temp;
+    }
+  }
+
+  fnGetSettingValue(){
+    let requestObject = {
+      "business_id":this.bussinessId
+    };
+    this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.settingsArr=response.response;
+        console.log(this.settingsArr);
+        this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
+        this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
+        
+        this.minimumAdvanceBookingDateTimeObject = new Date();
+        this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
+        console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
+        this.minDate = this.minimumAdvanceBookingDateTimeObject;
+
+        this.maximumAdvanceBookingDateTimeObject = new Date();
+        this.maximumAdvanceBookingDateTimeObject.setMinutes( this.maximumAdvanceBookingDateTimeObject.getMinutes() + this.maximumAdvanceBookingTime );
+        console.log("maximumAdvanceBookingDateTimeObject - "+this.maximumAdvanceBookingDateTimeObject);
+        this.maxDate = this.maximumAdvanceBookingDateTimeObject;
+      }
+      else if(response.data == false){
+        
+      }
+    })
   }
 
   fnGetTaxDetails(){
@@ -198,6 +350,32 @@ export class DialogAddNewAppointment {
       else if(response.data == false){
         
       }
+    })
+  }
+
+  fnGetOffDays(){
+    let requestObject = {
+      "business_id":this.bussinessId
+    };
+    this.AdminService.getOffDays(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        if(response.response.holidays.length>0){
+          this.offDaysList = response.response.holidays;
+        }else{
+          this.offDaysList=[];
+        }
+        if(response.response.offday.length>0){
+          this.workingHoursOffDaysList = response.response.offday;
+        }else{
+          this.workingHoursOffDaysList=[];
+        }
+      }
+      else{
+
+      }
+    },
+    (err) =>{
+      console.log(err)
     })
   }
 
@@ -373,6 +551,7 @@ export class DialogAddNewAppointment {
     this.selectedTime=undefined;
     this.selectedStaffId=undefined;
     this.timeSlotArr= [];
+    this.timeSlotArrForLabel= [];
     if(this.selectedServiceId != undefined){
       this.serviceCount[this.selectedServiceId].appointmentDate=date;
     }
@@ -397,8 +576,21 @@ export class DialogAddNewAppointment {
       // catchError(this.handleError)
     ).subscribe((response:any) => {
       if(response.data == true){
-      this.timeSlotArr=response.response;
-      console.log(this.timeSlotArr);
+      this.timeSlotArr.length=0;
+      this.timeSlotArrForLabel.length=0;
+      this.minimumAdvanceBookingDateTimeObject = new Date();
+      this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
+      response.response.forEach(element => {
+        if((new Date(date+" "+element+":00")).getTime() > (this.minimumAdvanceBookingDateTimeObject).getTime()){
+          this.timeSlotArr.push(element);
+        }
+      });
+      var i=0;
+      this.timeSlotArr.forEach( (element) => {
+        var dateTemp=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element+":00";
+         this.timeSlotArrForLabel[i]= this.datePipe.transform(new Date(dateTemp),"hh:mm a");
+         i++;
+      });
       }
       else{
       }
