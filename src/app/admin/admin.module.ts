@@ -10,7 +10,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { MaterialModule } from '@app/_helpers/material.module';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
-
+  
 
 
 
@@ -38,6 +38,9 @@ import { PendingAppointmentDetailsDialog } from './appointment-live/appointment-
 import { NotAssignedAppointmentDetailsDialog } from './appointment-live/appointment-live.component';
 import { OnTheWayAppointmentDetailsDialog } from './appointment-live/appointment-live.component';
 import {WorkStartedAppointmentDetailsDialog} from './appointment-live/appointment-live.component';
+//import { IgxExcelExporterService } from "igniteui-angular";
+import { DialogMyProfileImageUpload } from './settings-my-profile/settings-my-profile.component';
+import { DialogCustomerImageUpload } from './customers/customers.component';
 
 
 @NgModule({
@@ -59,6 +62,8 @@ import {WorkStartedAppointmentDetailsDialog} from './appointment-live/appointmen
     DialogImportFileUpload,
     InterruptedReschedule,
     DiscountCouponComponent,
+    DialogMyProfileImageUpload,
+    DialogCustomerImageUpload,
     PendingAppointmentDetailsDialog,
     NotAssignedAppointmentDetailsDialog,
     OnTheWayAppointmentDetailsDialog,
@@ -78,15 +83,18 @@ import {WorkStartedAppointmentDetailsDialog} from './appointment-live/appointmen
     HighchartsChartModule,
     DataTablesModule,
     MatSidenavModule,
-    NgxDaterangepickerMd.forRoot()
+    NgxDaterangepickerMd.forRoot(),
   ],
   exports: [
     FormsModule
+  ],
+  providers: [ 
+    // IgxExcelExporterService 
   ],
   entryComponents: [myCreateNewBusinessDialog,DialogAddNewAppointment,DialogNewAppointment,
     DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,
     DialogViewReview,InterruptedReschedule,PendingAppointmentDetailsDialog,
     NotAssignedAppointmentDetailsDialog,OnTheWayAppointmentDetailsDialog,
-    WorkStartedAppointmentDetailsDialog,DialogImportFileUpload],
+    WorkStartedAppointmentDetailsDialog,DialogImportFileUpload,DialogMyProfileImageUpload,DialogCustomerImageUpload],
 })
 export class AdminModule { }

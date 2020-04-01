@@ -56,6 +56,7 @@ export class MyWorkSpaceComponent implements OnInit {
   selectedStatus:any;
   todayDate:any;
   availableStaff:any= [];
+  selectedCategory: any = 'all';
   selectedStaff:any;
   constructor(
     public dialog: MatDialog,
@@ -98,7 +99,9 @@ export class MyWorkSpaceComponent implements OnInit {
     return result * sortOrder;
     }
   }
-
+  fnselectCategoryActive(i){
+    this.selectedCategory = i;
+  }
   fnGetAllAppointmentsByCategoryAndStatus(){
     let requestObject = {
             "business_id":this.businessId,

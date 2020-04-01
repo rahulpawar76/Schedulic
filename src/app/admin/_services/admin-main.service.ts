@@ -43,7 +43,7 @@ export class AdminService {
             'admin-id' : this.adminId,
             'api-token' : this.adminToken 
         });
-        
+        console.log(headers);
         return this.http.post(`${environment.apiUrl}/list-business`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;
@@ -635,6 +635,39 @@ export class AdminService {
                 return res;
             }),
             catchError(this.handleError));
+    }
+    fnAppointAction(status, orderItemsIdArr){
+        let requestObject = {
+            'business_id': this.businessId,
+            'order_item_list' : orderItemsIdArr,
+            'action' : status
+        };
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        }); 
+        return this.http.post(`${environment.apiUrl}/admin-booking-update-multiple`,requestObject,{headers:headers}).pipe(
+                    map((res) => {
+                        return res;
+                    }),
+                    catchError(this.handleError));
+        }
+
+    fnExportCustomer(selectedCustomerId){
+        let requestObject = {
+            'customer_id': selectedCustomerId,
+        };
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/export-customer`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
     }
 
 }

@@ -132,7 +132,7 @@
                             No slots available
                         </div>
                         <div class="slot-list" *ngIf="timeslotview">
-                            <div class="d-inline-block" *ngFor="let timeSlot of timeSlotArr, let i = index">
+                            <div class=" timing" *ngFor="let timeSlot of timeSlotArr, let i = index">
                                 <label>
                                     <input name="timeslot" type="radio" [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].appointmentTimeSlot==timeSlot" (click)="fnSelectTimeSlot(timeSlot)"/>
                                     <div class="single-slot" [mdePopoverTriggerFor]="selectstaff" mdePopoverTriggerOn="click" #popoverTrigger="mdePopoverTrigger">{{timeSlotArrForLabel[i]}}</div>

@@ -1,7 +1,7 @@
 import { Component, Inject,AfterViewInit, ElementRef, ViewChild} from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Router, RouterOutlet } from '@angular/router';
-import { AuthenticationService, CompanyService } from '@app/_services';
+import { AuthenticationService } from '@app/_services';
 import { User, Role } from '@app/_models';
 
 
@@ -22,7 +22,6 @@ export class SettingsComponent implements AfterViewInit {
   constructor(
     public router: Router,
     private authenticationService: AuthenticationService,
-    private _companyService: CompanyService,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,        
 ) {        

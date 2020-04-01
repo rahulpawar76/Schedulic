@@ -26,8 +26,8 @@ export class StaffComponent implements OnInit {
   animal: any;
   isLoaderAdmin: boolean = false;
   StaffCreate: FormGroup;
-  addStaffPage: boolean = true;
-  staffListPage: boolean = false;
+  addStaffPage: boolean = false;
+  staffListPage: boolean = true;
   singleStaffView: boolean = false;
   businessId: any;
   allStaffList: any;
