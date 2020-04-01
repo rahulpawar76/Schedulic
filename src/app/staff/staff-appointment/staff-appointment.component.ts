@@ -464,7 +464,8 @@ export class StaffAppointmentComponent implements OnInit {
 
   fnGetOffDays(){
     let requestObject = {
-      "business_id":this.bussinessId
+      "business_id":this.bussinessId,
+      "staff_id":this.staffId
     };
     this.staffService.getOffDays(requestObject).subscribe((response:any) => {
       if(response.data == true){
@@ -534,9 +535,9 @@ export class StaffAppointmentComponent implements OnInit {
         })
       }
 
-      fnSelectCat(event){
-        console.log(event)
-        this.fnGetSubCategory(event);
+      fnSelectCat(selectedCategoryId){
+        console.log(selectedCategoryId)
+        this.fnGetSubCategory(selectedCategoryId);
         this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].setValue(null);
         this.formAddNewAppointmentStaffStep2.controls['customerService'].setValue(null);
       }
@@ -544,9 +545,9 @@ export class StaffAppointmentComponent implements OnInit {
 
 
       // get Sub Category function
-      fnGetSubCategory(event){
+      fnGetSubCategory(selectedCategoryId){
         let requestObject = {
-          "category_id":event,
+          "category_id":selectedCategoryId,
           "sub_category_status":"E"
         };
         let headers = new HttpHeaders({
@@ -570,16 +571,16 @@ export class StaffAppointmentComponent implements OnInit {
         })
       }
 
-      fnSelectSubCat(event){
-        console.log(event)
-        this.fnGetAllServices(event);
+      fnSelectSubCat(selectedSubCategoryId){
+        console.log(selectedSubCategoryId)
+        this.fnGetAllServices(selectedSubCategoryId);
         this.formAddNewAppointmentStaffStep2.controls['customerService'].setValue(null);
         this.serviceCount.length=0;
       }
 
-      fnGetAllServices(event){
+      fnGetAllServices(selectedSubCategoryId){
         let requestObject = {
-          "sub_category_id":event,
+          "sub_category_id":selectedSubCategoryId,
           "status":"E"
         };
         let headers = new HttpHeaders({
@@ -610,10 +611,11 @@ export class StaffAppointmentComponent implements OnInit {
         })
       }
 
-     fnSelectService(service_id){
-      console.log(service_id)
+     fnSelectService(selectedServiceId){
+      console.log(selectedServiceId);
+      this.selectedServiceId=selectedServiceId;
       for(let i=0; i<this.serviceCount.length;i++){
-        if(this.serviceCount[i] != null && this.serviceCount[i].id == service_id){
+        if(this.serviceCount[i] != null && this.serviceCount[i].id == selectedServiceId){
           this.serviceCount[i].count=1;
           this.serviceCount[i].totalCost=1*this.serviceCount[i].service_cost;
           if(this.selectedDate){
@@ -627,7 +629,7 @@ export class StaffAppointmentComponent implements OnInit {
             this.serviceCount[i].appointmentTimeSlot='';
           }
           this.serviceCount[i].assignedStaff=this.staffId;
-        }else if(this.serviceCount[i] != null && this.serviceCount[i].id != service_id){
+        }else if(this.serviceCount[i] != null && this.serviceCount[i].id != selectedServiceId){
           this.serviceCount[i].count=0;
           this.serviceCount[i].totalCost=0;
           this.serviceCount[i].appointmentDate='';
@@ -652,13 +654,16 @@ export class StaffAppointmentComponent implements OnInit {
       fnGetTimeSlots(date){
         let requestObject = {
           "business_id":this.bussinessId,
-          "selected_date":date
+          "service_id":this.selectedServiceId,
+          "staff_id":this.staffId,
+          "book_date":date,
+          "postal_code":this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value
         };
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
         });
 
-        this.http.post(`${environment.apiUrl}/list-availabel-timings`,requestObject,{headers:headers} ).pipe(
+        this.http.post(`${environment.apiUrl}/staff-time-slots`,requestObject,{headers:headers} ).pipe(
           map((res) => {
             return res;
           }),

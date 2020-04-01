@@ -181,8 +181,8 @@ export class WorkProfileComponent implements OnInit {
             this.offDays[i].week_day_name = "Saturday";
 
           }
-          this.offDays[i].start_dateForLabel =this.datePipe.transform(new Date(this.offDays[i].start_date),"dd MMM yyyy");
-          this.offDays[i].end_dateForLabel =this.datePipe.transform(new Date(this.offDays[i].end_date),"dd MMM yyyy");
+          this.offDays[i].start_dateForLabel =this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+this.offDays[i].day_start_time),"dd MMM yyyy");
+          this.offDays[i].end_dateForLabel =this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+this.offDays[i].day_end_time),"dd MMM yyyy");
         }
       }
       else if(response.data == false){
