@@ -479,6 +479,27 @@ export class StaffAppointmentComponent implements OnInit {
         }else{
           this.workingHoursOffDaysList=[];
         }
+        this.myFilter = (d: Date | null): boolean => {
+        // const day = (d || new Date()).getDay();
+        // const month = (d || new Date()).getMonth();
+        // Prevent Saturday and Sunday from being selected.
+        // return day !== 0 && day !== 6;
+        let temp:any;
+        let temp2:any;
+        for(var i=0; i<this.offDaysList.length; i++){
+          var offDay = new Date(this.offDaysList[i]);
+          if(i==0){
+           temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+          }else{
+            temp=temp && (d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+          }
+        }
+        for(var i=0; i<this.workingHoursOffDaysList.length; i++){
+            temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
+        }
+        //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
+        return temp;
+        }
       }
       else{
 
@@ -670,8 +691,21 @@ export class StaffAppointmentComponent implements OnInit {
          // catchError(this.handleError)
           ).subscribe((response:any) => {
             if(response.data == true){
-              this.timeSlotArr=response.response;
-              console.log(this.timeSlotArr);
+              this.timeSlotArr.length=0;
+              this.timeSlotArrForLabel.length=0;
+              this.minimumAdvanceBookingDateTimeObject = new Date();
+              this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
+              response.response.forEach(element => {
+                if((new Date(date+" "+element+":00")).getTime() > (this.minimumAdvanceBookingDateTimeObject).getTime()){
+                  this.timeSlotArr.push(element);
+                }
+              });
+              var i=0;
+              this.timeSlotArr.forEach( (element) => {
+                var dateTemp=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element+":00";
+                 this.timeSlotArrForLabel[i]= this.datePipe.transform(new Date(dateTemp),"hh:mm a");
+                 i++;
+              });
             }
             else{
             }

@@ -20,6 +20,7 @@ export class WorkProfileComponent implements OnInit {
  workingHours: any = [];
  breakHours: any = [];
  offDays: any = [];
+ offDayId: any = [];
  holidayData: any;
  postalCodeData: any;
 
@@ -118,7 +119,10 @@ export class WorkProfileComponent implements OnInit {
       if(response.data == true){
         this.breakHours = response.response.break_time;
         this.offDays = response.response.off_day;
-        this.breakHours = this.breakHours.sort(this.dynamicSort("week_day_id"))
+        this.breakHours = this.breakHours.sort(this.dynamicSort("week_day_id"));
+        for(let i=0; i<this.offDays.length;i++){
+          this.offDayId.push(this.offDays[i].week_day_id);
+        }
         for(let i=0; i<this.breakHours.length;i++){
           if(this.breakHours[i].week_day_id == "0"){
             this.breakHours[i].week_day_name = "Sunday";
@@ -153,37 +157,37 @@ export class WorkProfileComponent implements OnInit {
           this.breakHours[i].break_end_timeForLabel=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+this.breakHours[i].break_end_time;
           this.breakHours[i].break_end_timeForLabel =this.datePipe.transform(new Date(this.breakHours[i].break_end_timeForLabel),"hh:mm a");
         }
-        for(let i=0; i<this.offDays.length;i++){
-          if(this.offDays[i].week_day_id == "0"){
-            this.offDays[i].week_day_name = "Sunday";
-          }
-          if(this.offDays[i].week_day_id == "1"){
-            this.offDays[i].week_day_name = "Monday";
+        // for(let i=0; i<this.offDays.length;i++){
+        //   if(this.offDays[i].week_day_id == "0"){
+        //     this.offDays[i].week_day_name = "Sunday";
+        //   }
+        //   if(this.offDays[i].week_day_id == "1"){
+        //     this.offDays[i].week_day_name = "Monday";
 
-          } 
-          if(this.offDays[i].week_day_id == "2"){
-            this.offDays[i].week_day_name = "Tuesday";
+        //   } 
+        //   if(this.offDays[i].week_day_id == "2"){
+        //     this.offDays[i].week_day_name = "Tuesday";
 
-          } 
-          if(this.offDays[i].week_day_id == "3"){
-            this.offDays[i].week_day_name = "Wednesday";
+        //   } 
+        //   if(this.offDays[i].week_day_id == "3"){
+        //     this.offDays[i].week_day_name = "Wednesday";
 
-          } 
-          if(this.offDays[i].week_day_id == "4"){
-            this.offDays[i].week_day_name = "Thursday";
+        //   } 
+        //   if(this.offDays[i].week_day_id == "4"){
+        //     this.offDays[i].week_day_name = "Thursday";
 
-          } 
-          if(this.offDays[i].week_day_id == "5"){
-            this.offDays[i].week_day_name = "Friday";
+        //   } 
+        //   if(this.offDays[i].week_day_id == "5"){
+        //     this.offDays[i].week_day_name = "Friday";
 
-          } 
-          if(this.offDays[i].week_day_id == "6"){
-            this.offDays[i].week_day_name = "Saturday";
+        //   } 
+        //   if(this.offDays[i].week_day_id == "6"){
+        //     this.offDays[i].week_day_name = "Saturday";
 
-          }
-          this.offDays[i].start_dateForLabel =this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+this.offDays[i].day_start_time),"dd MMM yyyy");
-          this.offDays[i].end_dateForLabel =this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+this.offDays[i].day_end_time),"dd MMM yyyy");
-        }
+        //   }
+        //   this.offDays[i].start_dateForLabel =this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+this.offDays[i].day_start_time),"dd MMM yyyy");
+        //   this.offDays[i].end_dateForLabel =this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+this.offDays[i].day_end_time),"dd MMM yyyy");
+        // }
       }
       else if(response.data == false){
         this.breakHours = '';
