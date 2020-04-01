@@ -85,7 +85,7 @@ export class AppComponent implements AfterViewInit {
         private _snackBar: MatSnackBar,        
     ) {        
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-        this.loginUserData = JSON.parse(localStorage.getItem('currentUser'));
+        
         //this.userId=this.authenticationService.currentUserValue.user_id
         //this.token=this.authenticationService.currentUserValue.token
         
@@ -101,10 +101,12 @@ export class AppComponent implements AfterViewInit {
 
     ngOnInit() {
      this.router.events.subscribe(event => {
-          if (event instanceof RouterEvent) this.handleRoute(event);
-        });
-        console.log(this.loginUserData);
-        console.log(this.loginUserData.user_type);
+        if (event instanceof RouterEvent) this.handleRoute(event);
+      });
+      this.loginUserData = JSON.parse(localStorage.getItem("currentUser"));
+      console.log(JSON.parse(localStorage.getItem("currentUser")));
+      console.log(this.loginUserData);
+      
     }
     
      dynamicSort(property: string) {

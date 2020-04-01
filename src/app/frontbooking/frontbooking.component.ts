@@ -738,7 +738,7 @@ export class FrontbookingComponent implements OnInit {
       let month= this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[1];
       let day=this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[2];
       console.log(year+"--"+month+"--"+day);
-      let dateTemp={"year":year,"month":month,"day":day};
+      let dateTemp={"year":parseInt(year),"month":parseInt(month),"day":parseInt(day)};
       console.log(JSON.stringify(dateTemp));
       this.model=dateTemp;
       this.selecteddate=this.serviceCartArr[this.currentSelectedService].appointmentDate
@@ -790,6 +790,13 @@ export class FrontbookingComponent implements OnInit {
         this.fnSelectNextValidDate(mydate);
       }else{
         this.selecteddate=this.datePipe.transform(new Date(mydate),"yyyy-MM-dd");
+        let year=this.selecteddate.split("-")[0];
+        let month= this.selecteddate.split("-")[1];
+        let day=this.selecteddate.split("-")[2];
+        console.log(year+"--"+month+"--"+day);
+        let dateTemp={"year":parseInt(year),"month":parseInt(month),"day":parseInt(day)};
+        console.log(JSON.stringify(dateTemp));
+        this.model=dateTemp;
         this.selecteddateForLabel= this.datePipe.transform(new Date(mydate),"EEE, MMM dd");
         console.log(mydate);
         console.log(this.selecteddate);
