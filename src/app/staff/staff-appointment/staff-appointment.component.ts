@@ -9,6 +9,7 @@ import { DatePipe} from '@angular/common';
 import { environment } from '@environments/environment';
 import { Router, RouterOutlet } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
+import { AuthenticationService } from '@app/_services';
 
 export interface status {
   
@@ -30,12 +31,16 @@ export interface DialogData {
   providers: [DatePipe]
 })
 export class StaffAppointmentComponent implements OnInit {
-	animal: any;
+  animal: any;
+	bussinessId: any;
   status: any;
   newAppointmentData: any;
   completedAppointmentData: any;
   onGoingAppointmentData: any;
   notes: any;
+  settingsArr: any;
+  cancellationBufferTime: any;
+  minReschedulingTime: any;
 
   statuses: status[] = [
     {value: 'OW', viewValue: 'On The Way',statuses:''},
@@ -48,15 +53,45 @@ export class StaffAppointmentComponent implements OnInit {
     public dialog: MatDialog,
     private StaffService: StaffService,
     private _snackBar: MatSnackBar,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private authenticationService:AuthenticationService
     
-    ) { }
+    ) { 
+      this.bussinessId=this.authenticationService.currentUserValue.business_id
+     }
 
   ngOnInit() {
-
+    this.fnGetSettingValue();
     this.getNewAppointment();
     this.getCompletedAppointment();
     this.getOnGoingAppointment();
+  }
+
+  fnGetSettingValue(){
+    let requestObject = {
+      "business_id":this.bussinessId
+    };
+    this.StaffService.getSettingValue(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.settingsArr=response.response;
+        console.log(this.settingsArr);
+        let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
+        let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
+        console.log(cancellation_buffer_time);
+        console.log(min_rescheduling_time);
+       
+        this.cancellationBufferTime = new Date();
+        this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
+        console.log("cancellationBufferTime - "+this.cancellationBufferTime);
+
+        this.minReschedulingTime = new Date();
+        this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
+        console.log("minReschedulingTime - "+this.minReschedulingTime);
+      }
+      else if(response.data == false){
+        
+      }
+    })
   }
 
   getNewAppointment(){
@@ -65,12 +100,12 @@ export class StaffAppointmentComponent implements OnInit {
         this.newAppointmentData = response.response;
         this.newAppointmentData.forEach( (element) => {
           var todayDateTime = new Date();
-          element.booking_timeForLabel=element.booking_date+" "+element.booking_time;
-          var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_timeForLabel),"dd MMM yyyy hh:mm a"));
+          element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
+          var dateTemp = new Date(this.datePipe.transform(element.booking_date_time,"dd MMM yyyy hh:mm a"));
           dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
           var temp = dateTemp.getTime() - todayDateTime.getTime();
           element.timeToService=(temp/3600000).toFixed();
-          element.booking_timeForLabel=this.datePipe.transform(new Date(element.booking_timeForLabel),"hh:mm a")
+          element.booking_timeForLabel=this.datePipe.transform(element.booking_date_time,"hh:mm a")
           element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
           element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
           element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
@@ -111,12 +146,12 @@ export class StaffAppointmentComponent implements OnInit {
         this.onGoingAppointmentData = response.response;
         this.onGoingAppointmentData.forEach( (element) => {
           var todayDateTime = new Date();
-          element.booking_timeForLabel=element.booking_date+" "+element.booking_time;
-          var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_timeForLabel),"dd MMM yyyy hh:mm a"));
+          element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
+          var dateTemp = new Date(this.datePipe.transform(element.booking_timeForLabel,"dd MMM yyyy hh:mm a"));
           dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
           var temp = dateTemp.getTime() - todayDateTime.getTime();
           element.timeToService=(temp/3600000).toFixed();
-          element.booking_timeForLabel=this.datePipe.transform(new Date(element.booking_timeForLabel),"hh:mm a")
+          element.booking_timeForLabel=this.datePipe.transform(element.booking_timeForLabel,"hh:mm a")
           element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
           element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
           element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
@@ -383,20 +418,24 @@ export class StaffAppointmentComponent implements OnInit {
       // return day !== 0 && day !== 6;
       let temp:any;
       let temp2:any;
-      for(var i=0; i<this.offDaysList.length; i++){
-        var offDay = new Date(this.offDaysList[i]);
-        if(i==0){
-         temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
-        }else{
-          temp=temp && (d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+      if(this.offDaysList.length>0 || this.workingHoursOffDaysList.length>0){
+        for(var i=0; i<this.offDaysList.length; i++){
+          var offDay = new Date(this.offDaysList[i]);
+          if(i==0){
+           temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+          }else{
+            temp=temp && (d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+          }
         }
+        for(var i=0; i<this.workingHoursOffDaysList.length; i++){
+            temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
+        }
+        //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
+        return temp;
+      }else{
+        return true;
       }
-      for(var i=0; i<this.workingHoursOffDaysList.length; i++){
-          temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
-      }
-      //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
-      return temp;
-      }
+    }
     }
 
     // personal info
@@ -478,27 +517,6 @@ export class StaffAppointmentComponent implements OnInit {
           this.workingHoursOffDaysList = response.response.offday;
         }else{
           this.workingHoursOffDaysList=[];
-        }
-        this.myFilter = (d: Date | null): boolean => {
-        // const day = (d || new Date()).getDay();
-        // const month = (d || new Date()).getMonth();
-        // Prevent Saturday and Sunday from being selected.
-        // return day !== 0 && day !== 6;
-        let temp:any;
-        let temp2:any;
-        for(var i=0; i<this.offDaysList.length; i++){
-          var offDay = new Date(this.offDaysList[i]);
-          if(i==0){
-           temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
-          }else{
-            temp=temp && (d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
-          }
-        }
-        for(var i=0; i<this.workingHoursOffDaysList.length; i++){
-            temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
-        }
-        //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
-        return temp;
         }
       }
       else{

@@ -106,8 +106,8 @@
                         <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'C'">Cancelled</p>
                     </td>
                     <td> 
-                        <button (click)="newAppointment(index)" class="appointment-edit-btn mr-1"><i class="material-icons appointment-icon">edit</i></button>
-                        <button *ngIf="allAppointmentsData.order_status !== 'C'" (click)="cancelAppointment('C', allAppointmentsData.id)" class="appointment-cancel-btn mr-1"><i class="material-icons appointment-icon">close</i></button>
+                        <button (click)="newAppointment(index)" class="appointment-edit-btn mr-1" *ngIf="allAppointmentsData.order_status !== 'C' && allAppointmentsData.order_status == 'CC' && allAppointmentsData.order_status == 'CO' && minReschedulingTime.getTime() < allAppointmentsData.booking_data_time.getTime()"><i class="material-icons appointment-icon">edit</i></button>
+                        <button *ngIf="allAppointmentsData.order_status !== 'C' && cancellationBufferTime.getTime() < allAppointmentsData.booking_data_time.getTime()" (click)="cancelAppointment('C', allAppointmentsData.id)" class="appointment-cancel-btn mr-1"><i class="material-icons appointment-icon">close</i></button>
                         <button *ngIf="allAppointmentsData.order_status == 'P'" (click)="confirmAppointment('AC', allAppointmentsData.id)" class="appointment-confirm-btn mr-1"><i class="material-icons appointment-icon">done</i></button>
                     </td>
                   </tr>

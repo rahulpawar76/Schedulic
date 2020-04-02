@@ -18,33 +18,31 @@ export class UserService {
 	private _snackBar: MatSnackBar,
 	private authenticationService: AuthenticationService
 	) { 
-
 		this.userId=this.authenticationService.currentUserValue.user_id
 		this.token=this.authenticationService.currentUserValue.token
 	}   
 
 
 
-private handleError(error: HttpErrorResponse) {
-	console.log(error);
-    return throwError('Error! something went wrong.');
-  }
+	private handleError(error: HttpErrorResponse) {
+		console.log(error);
+		return throwError('Error! something went wrong.');
+	}
 
 	getUserProfileData() {
 		let requestObject = {
 			"customer_id":JSON.stringify(this.userId)
-			};
-			let headers = new HttpHeaders({
+		};
+		let headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			"customer-id":JSON.stringify(this.userId),
 			"api-token":this.token
-			});
-			return this.http.post(`${environment.apiUrl}/customer-profile`,requestObject,{headers:headers}).pipe(
-			map((res) => {
-				return res;
-
-			}),
-			catchError(this.handleError));
+		});
+		return this.http.post(`${environment.apiUrl}/customer-profile`,requestObject,{headers:headers}).pipe(
+		map((res) => {
+			return res;
+		}),
+		catchError(this.handleError));
 	}
 
 	updateUserProfileData(updatedprofiledata) {
@@ -158,4 +156,17 @@ private handleError(error: HttpErrorResponse) {
 		}),
 		catchError(this.handleError));
 	}
+
+  getSettingValue(requestObject) {
+    let headers = new HttpHeaders({
+	    'Content-Type': 'application/json',
+			"customer-id":JSON.stringify(this.userId),
+			"api-token":this.token
+    });
+    return this.http.post(`${environment.apiUrl}/get-setting-value`, requestObject, { headers: headers }).pipe(
+    map((res) => {
+      return res;
+    }),
+    catchError(this.handleError));
+  }
 }

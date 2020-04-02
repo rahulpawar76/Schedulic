@@ -53,7 +53,7 @@
                 <button mat-button color="primary" (click)="MyBusinessNav()">My Businesses</button>
                 <span class="profile-head">
                   <img class="customer-profile-img m-2 float-left" src="/assets/img/avatar-rihan.jpg">
-                  <p class="font-weight-bold my-2 p-1">{{loginUserData.fullname}}</p>
+                  <p class="font-weight-bold my-2 p-1" *ngIf="loginUserData.full_name">{{loginUserData.full_name}}</p>
                 </span>
                 <button  mat-stroked-button class="bellborder bell-color" (click)="openNotificationDialog()">
                 <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
