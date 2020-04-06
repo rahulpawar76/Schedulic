@@ -48,80 +48,7 @@
         padding: 35px;
         margin: 24px;
     }
-    .custom-check-box {
-        padding: 4px 10px;
-        //border-bottom: solid 1px #ccc;
-        color: rgba(0, 0, 0, 0.87);
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        box-sizing: border-box;
-        background: white;
-        font-size: 14px;
-        // &.header-background{
-        //     //background-color: #f7f7f7;
-        // }
-        .checked{		
-            background-color:$btnlightblue; 
-            height: 35px;
-            //width: 142px;
-            border-radius: 50px;
-            padding: 5px 0 5px 8px;
-        }
-        .round {
-            position: relative;
-        }
-        .round label {
-            background-color: #ffffff;
-            border: 1px solid #fff; 
-            border-radius: 50%;
-            cursor: pointer;
-            height: 27px;
-            left: 0;
-            position: absolute;
-            top: 0;
-            width: 29px;
-            margin: 4px;
-    
-        }
-        .round label:after {
-            border: 2px solid #1172f4;
-            border-top: none;
-            border-right: none;
-            content: "";
-            height: 6px;
-            left: 7px;
-            opacity: 0;
-            position: absolute;
-            top: 8px;
-            transform: rotate(-45deg);
-            width: 12px;
-        }
-    
-        .round input[type="checkbox"] {
-            visibility: hidden;
-        }
-        
-        .round input[type="checkbox"]:checked + label {
-            background-color: #fff;
-            border-color: #fff;
-        }
-        
-        .round input[type="checkbox"]:checked + label:after {
-            opacity: 1;
-        }
-    
-        
-       .check-label{
-            float: left;
-            text-indent: 30px;
-            padding: 0 6px;
-            color: #1173f4;
-            font-size: 18px;
-        }
-    }
-    
+
     .alert-update-chechkbox{
         width: 186px;
         text-align: center;
@@ -166,6 +93,110 @@
     .payment-image{
         width: 178px;
         height: 54px;
+    }
+}
+
+
+.status-update-main{width: 180px !important;}
+.cancel-check-btn{width: 130px !important;}
+.custom-check-box {
+    padding: 4px 10px;
+    //border-bottom: solid 1px #ccc;
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    background: white;
+    font-size: 14px;
+    // &.header-background{
+    //     //background-color: #f7f7f7;
+    // }
+    .checked{		
+        background-color:$btnlightblue; 
+        height: 35px;
+        width: 120px;
+        border-radius: 50px;
+        padding: 5px 0 5px 8px;
+    }
+    .round {
+        position: relative;
+    }
+    .round label {
+        background-color: #ffffff;
+        border: 1px solid #fff; 
+        border-radius: 50%;
+        cursor: pointer;
+        height: 27px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 29px;
+        margin: 4px;
+
+    }
+    .round label:after {
+        border: 2px solid #1172f4;
+        border-top: none;
+        border-right: none;
+        content: "";
+        height: 6px;
+        left: 7px;
+        opacity: 0;
+        position: absolute;
+        top: 8px;
+        transform: rotate(-45deg);
+        width: 12px;
+    }
+
+    .round input[type="checkbox"] {
+        visibility: hidden;
+    }
+    
+    .round input[type="checkbox"]:checked + label {
+        background-color: #fff;
+        border-color: #fff;
+    }
+    
+    .round input[type="checkbox"]:checked + label:after {
+        opacity: 1;
+    }
+  
+   .check-label{
+        float: left;
+        text-indent: 30px;
+        padding: 0 6px;
+        color: #1173f4;
+    }
+}
+.form_field_checkbox{
+    ::ng-deep .mat-checkbox-layout{
+        background-color: #ffffff;
+        border: 1px solid #fff;
+        border-radius: 50%;
+        cursor: pointer;
+        height: 27px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 29px;
+        margin: 4px;
+        .mat-checkbox-frame{
+            border: 0;
+        }
+        .mat-checkbox-inner-container{
+            height: 100%;
+            width: 100%;
+        }   
+        svg{
+            path{ 
+                stroke: #007bff !important;
+            }
+        }
+        .mat-checkbox-background{
+            background-color: transparent;
+        }
     }
 }
 

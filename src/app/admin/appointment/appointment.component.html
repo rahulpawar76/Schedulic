@@ -68,7 +68,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let allAppointmentsData of allAppointments; let i=index">
+                  <tr  (click)="fnOpenDetails()" *ngFor="let allAppointmentsData of allAppointments; let i=index">
                     <td>
                         <mat-checkbox [(ngModel)]="allAppointmentsData.checked" (change)="fnAddOrderId($event.checked, allAppointmentsData.id)" class=""></mat-checkbox>
                     </td>
