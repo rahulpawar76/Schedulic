@@ -38,6 +38,7 @@ import { PendingAppointmentDetailsDialog } from './appointment-live/appointment-
 import { NotAssignedAppointmentDetailsDialog } from './appointment-live/appointment-live.component';
 import { OnTheWayAppointmentDetailsDialog } from './appointment-live/appointment-live.component';
 import {WorkStartedAppointmentDetailsDialog} from './appointment-live/appointment-live.component';
+import {DialogAllAppointmentDetails} from './appointment/appointment.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import {WorkStartedAppointmentDetailsDialog} from './appointment-live/appointmen
     PendingAppointmentDetailsDialog,
     NotAssignedAppointmentDetailsDialog,
     OnTheWayAppointmentDetailsDialog,
-    WorkStartedAppointmentDetailsDialog
+    WorkStartedAppointmentDetailsDialog,
+    DialogAllAppointmentDetails
     ],
   imports: [
     CommonModule,
@@ -87,6 +89,6 @@ import {WorkStartedAppointmentDetailsDialog} from './appointment-live/appointmen
     DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,
     DialogViewReview,InterruptedReschedule,PendingAppointmentDetailsDialog,
     NotAssignedAppointmentDetailsDialog,OnTheWayAppointmentDetailsDialog,
-    WorkStartedAppointmentDetailsDialog,DialogImportFileUpload],
+    WorkStartedAppointmentDetailsDialog,DialogImportFileUpload,DialogAllAppointmentDetails],
 })
 export class AdminModule { }

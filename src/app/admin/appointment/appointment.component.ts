@@ -20,7 +20,8 @@ export interface DialogData {
 @Component({
   selector: 'app-appointment',
   templateUrl: './appointment.component.html',
-  styleUrls: ['./appointment.component.scss']
+  styleUrls: ['./appointment.component.scss'],
+  providers: [DatePipe]
 })
 export class AppointmentComponent implements OnInit {
   adminSettings : boolean = false;
@@ -37,6 +38,7 @@ export class AppointmentComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private AdminService: AdminService,
+    private datePipe: DatePipe,
     private appComponent : AppComponent,
     ) {
       localStorage.setItem('isBusiness', 'false');
@@ -75,6 +77,13 @@ export class AppointmentComponent implements OnInit {
     this.AdminService.getAllAppointments(durationType,services).subscribe((response:any) => {
       if(response.data == true){
         this.allAppointments = response.response
+        console.log( this.allAppointments)
+        this.allAppointments.forEach( (element) => { 
+          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")   
+          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+
+          
+        });
         this.dtTrigger.next();
         this.isLoaderAdmin = false;
       }
@@ -109,6 +118,21 @@ export class AppointmentComponent implements OnInit {
       console.log('The dialog was closed');
       this.getAllAppointments(this.durationType,this.selectedServices);
      });
+  }
+
+  fnOpenDetails(){
+    const dialogRef = this.dialog.open(DialogAllAppointmentDetails, {
+      width: '500px',
+      data: {animal: this.animal}
+    });
+
+     dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+      //this.getAllAppointments(this.durationType,this.selectedServices);
+     });
+
+
   }
 }
 
@@ -589,4 +613,22 @@ onNoClick(): void {
   this.dialogRef.close();
 }
 
+
 }
+@Component({
+  selector: 'allappointment-listing-details',
+  templateUrl: '../_dialogs/allappointment-listing-details.html',
+})
+export class DialogAllAppointmentDetails {
+
+constructor(
+  public dialogRef: MatDialogRef<DialogAllAppointmentDetails>,
+  @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+onNoClick(): void {
+  this.dialogRef.close();
+}
+
+
+}
+

@@ -35,6 +35,7 @@ export class CustomersComponent implements OnInit {
   animal: any;
   allCustomers: any;
   customersDetails: any;
+  customerLastbooking:any;
   customerPersonalDetails: any;
   customerAppoint: any;
   customerNotes: any;
@@ -142,6 +143,7 @@ export class CustomersComponent implements OnInit {
     this.AdminService.getAllCustomers().subscribe((response:any) => {
       if(response.data == true){
         this.allCustomers = response.response;
+       
         this.allCustomers.forEach( (element) => {
           // var str = element.fullname;
           // var matches = str.match(/\b(\w)/g); 
@@ -275,13 +277,21 @@ customerUpdate(existingCustomerData){
     this.AdminService.getCustomersDetails(customer_id).subscribe((response:any) => {
       if(response.data == true){
         this.customersDetails = response.response
-        this.customerPersonalDetails = response.response.customer_details
+       
+        this.customersDetails.lastBooking.booking_date=this.datePipe.transform(new Date(this.customersDetails.lastBooking.booking_date),"d MMM y,")
+        this.customersDetails.lastBooking.booking_time=this.datePipe.transform(new Date(this.customersDetails.lastBooking.booking_date+" "+this.customersDetails.lastBooking.booking_time),"hh:mm a")
+        this.customerPersonalDetails = response.response.customer_details 
         this.customerAppoint = response.response.appointmets
         this.customerNotes = response.response.notes
         this.customerReviews = response.response.revirew
-        this.customerPersonalDetails.created_at=this.datePipe.transform(new Date(this.customerPersonalDetails.created_at),"d, MMM, y, h:mm a")
+        this.customerPersonalDetails.created_at=this.datePipe.transform(new Date(this.customerPersonalDetails.created_at),"d MMM y, h:mm a")
         this.tagsnew = this.customerPersonalDetails.tag_id
                 console.log(this.tagsnew);
+
+                this.customerAppoint.forEach( (element) => { 
+                  element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")   
+                  element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+                });
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){

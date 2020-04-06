@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 import { AdminService } from '../_services/admin-main.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { D } from '@angular/cdk/keycodes';
 
 
 export interface DialogData {
@@ -31,6 +32,8 @@ export class AppointmentLiveComponent implements OnInit {
   todayDays:any;
   todayPeriod:any;
 
+  booking_date:any;
+
   constructor(
     private AdminService: AdminService,
     private datePipe: DatePipe,
@@ -47,12 +50,20 @@ export class AppointmentLiveComponent implements OnInit {
     this.todayTime = this.datePipe.transform(new Date(),"h:mm ")
     this.todayPeriod = this.datePipe.transform(new Date(),"a")
     this.todayDays = this.datePipe.transform(new Date(),"EEEE")
+
     
   }
   getPendingAppointments(){
     this.AdminService.getPendingAppointments().subscribe((response:any) => {
       if(response.data == true){
         this.pendingAppointments = response.response
+
+        this.pendingAppointments.forEach( (element) => { 
+          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
+          
+          element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+        });
       }
       else if(response.data == false){
         this.pendingAppointments = ''
@@ -63,6 +74,13 @@ export class AppointmentLiveComponent implements OnInit {
     this.AdminService.getNotAssignedAppointments().subscribe((response:any) => {
       if(response.data == true){
         this.notAssignedAppointments = response.response
+        this.notAssignedAppointments.forEach( (element) => { 
+          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
+          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+          element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+          
+        });
+        
       }
       else if(response.data == false){
         this.notAssignedAppointments = ''
@@ -74,6 +92,12 @@ export class AppointmentLiveComponent implements OnInit {
     this.AdminService.getOnThewayAppointments().subscribe((response:any) => {
       if(response.data == true){
         this.onTheWayAppointments = response.response
+        this.onTheWayAppointments.forEach( (element) => { 
+          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
+          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+          element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+          
+        });
       }
       else if(response.data == false){
         this.onTheWayAppointments = ''
@@ -85,6 +109,12 @@ export class AppointmentLiveComponent implements OnInit {
     this.AdminService.getWorkStartedAppointments().subscribe((response:any) => {
       if(response.data == true){
         this.workStartedAppointments = response.response
+        this.workStartedAppointments.forEach( (element) => { 
+          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
+          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+          element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+          
+        });
       }
       else if(response.data == false){
         this.workStartedAppointments = ''
@@ -94,7 +124,7 @@ export class AppointmentLiveComponent implements OnInit {
 
 
   fnOpenDetails(index){
-    alert(index);
+    
     const dialogRef = this.dialog.open(PendingAppointmentDetailsDialog, {
       height: '700px',
       //data: {animal: this.animal}
@@ -108,7 +138,7 @@ export class AppointmentLiveComponent implements OnInit {
   }
 
   fnOpenNotAssignedDetails(index){
-    alert(index);
+    
     const dialogRef = this.dialog.open(NotAssignedAppointmentDetailsDialog, {
       height: '700px',
       //data: {animal: this.animal}
@@ -123,7 +153,7 @@ export class AppointmentLiveComponent implements OnInit {
 
   
   fnOpenOnTheWayDetails(index){
-    alert(index);
+    
     const dialogRef = this.dialog.open(OnTheWayAppointmentDetailsDialog, {
       height: '700px',
       //data: {animal: this.animal}
@@ -137,7 +167,7 @@ export class AppointmentLiveComponent implements OnInit {
   }
   
   fnOpenWorkStartedDetails(index){
-    alert(index);
+   
     const dialogRef = this.dialog.open(WorkStartedAppointmentDetailsDialog, {
       height: '700px',
       //data: {animal: this.animal}

@@ -108,6 +108,12 @@ export class FrontbookingComponent implements OnInit {
   showCouponError:boolean=false;
   couponErrorMessage:any;
   timeSlotArrForLabel:any=[];
+
+
+  termsConditionsStatusValue:any;
+  
+
+
   @ViewChildren(MdePopoverTrigger) trigger: QueryList<MdePopoverTrigger>;
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
   emailFormat = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
@@ -135,6 +141,7 @@ export class FrontbookingComponent implements OnInit {
         month: current.getMonth() + 2,
         day: current.getDate(),
       };
+      this.termsConditionsStatusValue="false";
   }
 
   ngOnInit() {
@@ -179,6 +186,20 @@ export class FrontbookingComponent implements OnInit {
     
     this.serviceCount.length=0
     this.serviceCartArr.length=0
+  }
+
+
+  fnChangeTermsConditionsStatus(event){
+    console.log(event);
+
+    if(event== true){
+      this.termsConditionsStatusValue=true;
+    }
+    else if(event==false){
+      this.termsConditionsStatusValue=false;
+    }
+   
+
   }
 
   fnGetTaxDetails(){

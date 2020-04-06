@@ -45,9 +45,13 @@ $grey-3: #e0e0e0;
 $front-primary-color: #3986fa;
 $red : #ed2f2f;
 $green : #16bc2c;
-// btn radient 
-$btn-bg : linear-gradient(to right, #487ffd, #427af8, #3c74f2, #366fed, #2f6ae8);
 
+$text-color: #000000;
+$text-bg:#fff;
+// btn radient 
+
+
+$primary-gradient-color:linear-gradient(to right,  #38b7fb 0%,#3969fb 100%);
 // for font size
 $fs-12: 12px;
 $fs-14: 14px;

@@ -69,7 +69,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let allAppointmentsData of allAppointments; let i=index">
+                  <tr  (click)="fnOpenDetails()" *ngFor="let allAppointmentsData of allAppointments; let i=index">
                     <td>
                         <mat-checkbox class=""></mat-checkbox>
                     </td>
