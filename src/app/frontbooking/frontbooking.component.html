@@ -134,7 +134,7 @@
                         <div class="slot-list" *ngIf="timeslotview">
                             <div class=" timing" *ngFor="let timeSlot of timeSlotArr, let i = index">
                                 <label>
-                                    <input name="timeslot" type="radio" [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].appointmentTimeSlot==timeSlot" (click)="fnSelectTimeSlot(timeSlot)"/>
+                                    <input name="timeslot" type="radio" [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].appointmentTimeSlot==timeSlot" (click)="fnSelectTimeSlot(timeSlot,i)"/>
                                     <div class="single-slot" [mdePopoverTriggerFor]="selectstaff" mdePopoverTriggerOn="click" #popoverTrigger="mdePopoverTrigger">{{timeSlotArrForLabel[i]}}</div>
                                 </label>
                                 <mde-popover #selectstaff="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
@@ -146,8 +146,8 @@
                                                     <mat-checkbox *ngFor="let staff of availableStaff" (click)="fnSelectStaff($event,staff.id)">{{staff.username}} 1</mat-checkbox> -->
                                                     <p class="mb-0" *ngIf="!isStaffAvailable">No Staff Available</p>
                                                     <mat-radio-group aria-label="Select Staff" *ngIf="isStaffAvailable">
-                                                        <mat-radio-button [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].assignedStaff==null" (change)="fnSelectStaff($event,null,i)" value="">Any Staff</mat-radio-button>
-                                                        <mat-radio-button *ngFor="let staff of availableStaff" [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].assignedStaff==staff.id" (change)="fnSelectStaff($event,staff.id,i)" class="text-capitalize" value="{{staff.id}}">{{staff.name}}</mat-radio-button>
+                                                        <mat-radio-button [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].assignedStaff==null" (change)="fnSelectStaff(null,i)" value="">Any Staff</mat-radio-button>
+                                                        <mat-radio-button *ngFor="let staff of availableStaff" [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].assignedStaff==staff.id" (change)="fnSelectStaff(staff.id,i)" class="text-capitalize" value="{{staff.id}}">{{staff.name}}</mat-radio-button>
                                                     </mat-radio-group>
                                                    
                                                 </div>

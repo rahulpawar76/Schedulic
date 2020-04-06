@@ -6,7 +6,8 @@ import { Router, RouterOutlet } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { AdminService } from '../_services/admin-main.service'
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { AppComponent } from '@app/app.component'
+import { AppComponent } from '@app/app.component';
+import { AuthenticationService } from '@app/_services';
 
 export interface DialogData {
   animal: string;
@@ -31,17 +32,23 @@ export class MyBusinessComponent implements OnInit {
   animal :any;
   allBusiness: any;
   adminSettings : boolean = false;
+  currentUser:any;
+  adminId:any;
+  token:any;
    
   constructor(
     public dialog: MatDialog,
-     private http: HttpClient,
-     public router: Router,
+    private http: HttpClient,
+    public router: Router,
     private AdminService: AdminService,
     private appComponent : AppComponent,
-     private _snackBar: MatSnackBar) {
-      localStorage.setItem('isBusiness', 'true');
-     // this.appComponent.settingsModule(this.adminSettings);
-   }
+    private authenticationService:AuthenticationService,
+    private _snackBar: MatSnackBar) {
+    localStorage.setItem('isBusiness', 'true');
+    this.currentUser=this.authenticationService.currentUserValue;
+    this.adminId=this.currentUser.user_id;
+    this.token=this.currentUser.token;
+    }
 
   ngOnInit() {
     this.getAllBusiness();

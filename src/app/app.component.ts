@@ -42,7 +42,7 @@ export interface DialogData {
 export class AppComponent implements AfterViewInit {
   animal:any;
   selectedBusinessName: any;
-  adminSettings:any;
+  adminSettings:any="notsettings";
   currentUrl: string;
   loginUserData: any;
   postUrl : any;userType : any;
@@ -85,7 +85,8 @@ export class AppComponent implements AfterViewInit {
         private _snackBar: MatSnackBar,        
     ) {        
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-        
+        console.log(JSON.parse(localStorage.getItem("currentUser")));
+        console.log(this.currentUser);
         //this.userId=this.authenticationService.currentUserValue.user_id
         //this.token=this.authenticationService.currentUserValue.token
         
@@ -103,9 +104,6 @@ export class AppComponent implements AfterViewInit {
      this.router.events.subscribe(event => {
         if (event instanceof RouterEvent) this.handleRoute(event);
       });
-      this.loginUserData = JSON.parse(localStorage.getItem("currentUser"));
-      console.log(JSON.parse(localStorage.getItem("currentUser")));
-      console.log(this.loginUserData);
       
     }
     
@@ -379,11 +377,11 @@ export class AppComponent implements AfterViewInit {
 
       openNotificationDialog() {
 
-        if(this.loginUserData.user_type == "A"){
+        if(this.currentUser.user_type == "A"){
           this.userType =  "admin"
-        }else if(this.loginUserData.user_type == "SM"){
+        }else if(this.currentUser.user_type == "SM"){
           this.userType =  "staff"
-        }else if(this.loginUserData.user_type == "C"){
+        }else if(this.currentUser.user_type == "C"){
           this.userType =  "customer"
         }
         alert(this.userType);

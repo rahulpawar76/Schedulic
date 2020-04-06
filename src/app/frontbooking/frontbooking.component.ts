@@ -114,6 +114,7 @@ export class FrontbookingComponent implements OnInit {
   minimumAdvanceBookingDateTimeObject:any;
   maximumAdvanceBookingDateTimeObject:any;
   settingsArr:any=[];
+  staffOnFrontValue:boolean=false;
   @ViewChildren(MdePopoverTrigger) trigger: QueryList<MdePopoverTrigger>;
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
   emailFormat = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
@@ -213,6 +214,7 @@ export class FrontbookingComponent implements OnInit {
           month: this.maximumAdvanceBookingDateTimeObject.getMonth() + 1,
           day: this.maximumAdvanceBookingDateTimeObject.getDate(),
         };
+        this.staffOnFrontValue=JSON.parse(JSON.parse(this.settingsArr.staff_list_on_front).status)
       }else{
       }
       },
@@ -892,13 +894,17 @@ export class FrontbookingComponent implements OnInit {
       })
   }
  
-  fnSelectTimeSlot(timeSlot){
+  fnSelectTimeSlot(timeSlot,index){
     this.selectedTimeSlot=timeSlot;
     console.log(this.selectedTimeSlot);
     // console.log(this.selectedTimeSlot)
     this.availableStaff.length=0;
     this.isStaffAvailable = false;
-    this.fnGetStaff()
+    if(this.staffOnFrontValue == true){
+      this.fnGetStaff();
+    }else{
+      this.fnSelectStaff(null,index);
+    }
   }
 
   fnGetStaff(){
@@ -954,7 +960,7 @@ export class FrontbookingComponent implements OnInit {
     
   }
   
-  fnSelectStaff(event,staff_id,index){
+  fnSelectStaff(staff_id,index){
     this.isLoader=true;
     console.log(event);
     console.log(staff_id);

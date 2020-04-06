@@ -10,7 +10,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { AdminService } from '../_services/admin-main.service'
 import { DatePipe} from '@angular/common';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { AppComponent } from '@app/app.component'
+import { AppComponent } from '@app/app.component';
+import { AuthenticationService } from '@app/_services';
 
 @Component({
   selector: 'app-my-work-space',
@@ -41,6 +42,7 @@ export class MyWorkSpaceComponent implements OnInit {
     customerEmail: "",
     customerPhone: "",
     customerAddress: "",
+    postalCode: "",
     booking_time_to: "",
     timeToService: "",
     categoryName: "",
@@ -69,6 +71,7 @@ export class MyWorkSpaceComponent implements OnInit {
     private adminService: AdminService,
     private _snackBar: MatSnackBar,
     private appComponent : AppComponent,
+    private authenticationService : AuthenticationService,
     private datePipe: DatePipe) {
     //this.appComponent.settingsModule(this.adminSettings);
     localStorage.setItem('isBusiness', 'false');
@@ -195,10 +198,11 @@ export class MyWorkSpaceComponent implements OnInit {
         this.appointmentDetails.customerEmail=this.appointments[0].customer.email;
         this.appointmentDetails.customerPhone=this.appointments[0].customer.phone;
         this.appointmentDetails.customerAddress=this.appointments[0].customer.address+" "+this.appointments[0].customer.city+" "+this.appointments[0].customer.state+" "+this.appointments[0].customer.zip;
+        this.appointmentDetails.postalCode=this.appointments[0].customer.zip;
         if(this.appointmentDetails.order_status == "CNF" && this.appointments[0].staff_id == null){
           this.selectedStaff=null;
           this.availableStaff.length=0;
-          this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId);
+          this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId,this.appointmentDetails.postalCode);
         }
       }else{
         this.appointments=[];
@@ -240,16 +244,18 @@ export class MyWorkSpaceComponent implements OnInit {
         this.appointmentDetails.customerEmail=this.appointments[i].customer.email;
         this.appointmentDetails.customerPhone=this.appointments[i].customer.phone;
         this.appointmentDetails.customerAddress=this.appointments[i].customer.address+" "+this.appointments[i].customer.city+" "+this.appointments[i].customer.state+" "+this.appointments[i].customer.zip;
+        this.appointmentDetails.postalCode=this.appointments[i].customer.zip;
         if(this.appointmentDetails.order_status == "CNF" && this.appointments[i].staff_id == null){
         this.selectedStaff=null;
         this.availableStaff.length=0;
-          this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId);
+          this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId,this.appointmentDetails.postalCode);
         }
         
   }
 
-  fnGetStaff(booking_date,booking_time,serviceId){
+  fnGetStaff(booking_date,booking_time,serviceId,postal_code){
     let requestObject = {
+      "postal_code":postal_code,
       "business_id":this.businessId,
       "service_id":JSON.stringify(serviceId),
       "book_date":this.datePipe.transform(new Date(booking_date),"yyyy-MM-dd"),
@@ -523,6 +529,7 @@ export class MyWorkSpaceComponent implements OnInit {
 
       fnGetStaff(selectedTimeSlot){
         let requestObject = {
+          "postal_code":this.appointmentDetails.postalCode,
           "business_id":this.businessId,
           "service_id":JSON.stringify(this.appointmentDetails.serviceId),
           "book_date":this.selectedDate,

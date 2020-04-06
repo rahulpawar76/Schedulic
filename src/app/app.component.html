@@ -1,68 +1,59 @@
 ﻿<mat-drawer-container class="main-container">
   <mat-drawer-content>
-      <main fxLayout="column" fxLayoutGap="0">
-       <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser() && !isBusiness()}" color="primary" class="toolbar menu-comman" *ngIf="isLogin() && !isFront()">
-          <mat-toolbar-row *ngIf="isCustomerUser()">
-            <div class="logo"><a><img src="/assets/img/logo.png"></a></div> 
-            <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
-            <span class="example-fill-remaining-space">
-            </span> 
-            <span class="f13">
-                <button  mat-stroked-button class="bellborder bell-color ml-3" (click)="openNotificationDialog()">
-                <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
-                </button> 
-
-                <mat-button-toggle class="toggleborder" (click)="drawer.toggle()">
-                  <i class="fa fa-bars toggle-color" aria-hidden="true"></i>
-                </mat-button-toggle>
-
-              </span> 
-          </mat-toolbar-row>
-          <mat-toolbar-row *ngIf="isStaffUser()">
-            <div class="logo"><a><img src="/assets/img/logo.png"></a></div> 
-            <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
-
-
-              <span class="example-fill-remaining-space">
-              </span>
-              <span class="f13">
-
-             <mat-slide-toggle class="slidetoggle">Availability</mat-slide-toggle> 
-
-
-                <button  mat-stroked-button class="bellborder bell-color ml-3" (click)="openNotificationDialog()">
-                <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
-                </button> 
-
-                <mat-button-toggle class="toggleborder" (click)="drawer.toggle()">
-                  <i class="fa fa-bars toggle-color" aria-hidden="true"></i>
-                </mat-button-toggle>
-
-              </span> 
-          </mat-toolbar-row>
-          <mat-toolbar-row *ngIf="isAdminUser()">
-            <!-- <div class="logo"><a><img src="/assets/img/logo.png"></a></div>  -->
-            <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
-              <span class="example-fill-remaining-space">
-                <div class="selected-business-btn-main">
-                  <button mat-button color="primary" class="text-capitalize" *ngIf="isBusinessSelected() && !isBusiness()">Business : {{selectedBusinessName}}</button>
-                </div>
-              </span>
-              <span class="f13 d-flex align-items-center">
-                <button mat-raised-button color="warn" (click)="MyLiveAppointmentNav()">Live</button>
-                <button mat-button color="primary" (click)="MyBusinessNav()">My Businesses</button>
-                <span class="profile-head">
-                  <img class="customer-profile-img m-2 float-left" src="/assets/img/avatar-rihan.jpg">
-                  <p class="font-weight-bold my-2 p-1" *ngIf="loginUserData.full_name">{{loginUserData.full_name}}</p>
-                </span>
-                <button  mat-stroked-button class="bellborder bell-color" (click)="openNotificationDialog()">
-                <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
-                </button> 
-                <button  mat-stroked-button class="bellborder bell-color" (click)="logoutAlert()">
-                  <i mat-list-icon class="fa fa-sign-out"></i>
-                </button> 
-              </span> 
-          </mat-toolbar-row>
+    <main fxLayout="column" fxLayoutGap="0">
+      <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser() && !isBusiness()}" color="primary" class="toolbar menu-comman" *ngIf="isLogin() && !isFront()">
+        <mat-toolbar-row *ngIf="isCustomerUser()">
+          <div class="logo"><a><img src="/assets/img/logo.png"></a></div>
+          <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
+          <span class="example-fill-remaining-space">
+          </span> 
+          <span class="f13">
+            <button  mat-stroked-button class="bellborder bell-color ml-3" (click)="openNotificationDialog()">
+            <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
+            </button> 
+            <mat-button-toggle class="toggleborder" (click)="drawer.toggle()">
+              <i class="fa fa-bars toggle-color" aria-hidden="true"></i>
+            </mat-button-toggle>
+          </span>
+        </mat-toolbar-row>
+        <mat-toolbar-row *ngIf="isStaffUser()">
+          <div class="logo"><a><img src="/assets/img/logo.png"></a></div>
+          <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
+          <span class="example-fill-remaining-space">
+          </span>
+          <span class="f13">
+            <mat-slide-toggle class="slidetoggle">Availability</mat-slide-toggle>
+            <button  mat-stroked-button class="bellborder bell-color ml-3" (click)="openNotificationDialog()">
+            <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
+            </button> 
+            <mat-button-toggle class="toggleborder" (click)="drawer.toggle()">
+              <i class="fa fa-bars toggle-color" aria-hidden="true"></i>
+            </mat-button-toggle>
+          </span>
+        </mat-toolbar-row>
+        <mat-toolbar-row *ngIf="isAdminUser()">
+          <!-- <div class="logo"><a><img src="/assets/img/logo.png"></a></div>  -->
+          <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
+          <span class="example-fill-remaining-space">
+            <div class="selected-business-btn-main">
+              <button mat-button color="primary" class="text-capitalize" *ngIf="isBusinessSelected() && !isBusiness()">Business : {{selectedBusinessName}}</button>
+            </div>
+          </span>
+          <span class="f13 d-flex align-items-center">
+            <button mat-raised-button color="warn" (click)="MyLiveAppointmentNav()">Live</button>
+            <button mat-button color="primary" (click)="MyBusinessNav()">My Businesses</button>
+            <span class="profile-head">
+              <img class="customer-profile-img m-2 float-left" src="/assets/img/avatar-rihan.jpg">
+              <p class="font-weight-bold my-2 p-1" *ngIf="currentUser.full_name">{{currentUser.full_name}}</p>
+            </span>
+            <button  mat-stroked-button class="bellborder bell-color" (click)="openNotificationDialog()">
+            <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
+            </button> 
+            <button  mat-stroked-button class="bellborder bell-color" (click)="logoutAlert()">
+            <i mat-list-icon class="fa fa-sign-out"></i>
+            </button> 
+          </span>
+        </mat-toolbar-row>
       </mat-toolbar>
       <div class="bottom_header" *ngIf="!isLogin() && !isFront()" fxFlex="100">
         <router-outlet #outlet="outlet"></router-outlet>
@@ -83,11 +74,10 @@
               <mat-list-item role="listitem"  class="matlist pointer menuitem logo">
                 <div class="logo"><img src="/assets/images/admin/admin-logo-orange.png"></div>
               </mat-list-item>
-
               <mat-list-item role="listitem" class="add">
                 <div>
                   <div class="add common-menu" [mdePopoverTriggerFor]="appPopover"
-                  mdePopoverTriggerOn="click">
+                    mdePopoverTriggerOn="click">
                     <img src="/assets/images/admin/add.png">
                   </div>
                   <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
@@ -145,21 +135,21 @@
                             </div>
                           </mat-list-item>
                         </ul>
-
                       </mat-card-content>
                     </mat-card>
                   </mde-popover>
                 </div>
-
-              </mat-list-item> 
+              </mat-list-item>
               <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-workspace' }" (click)="myWorkSpaceNav(); fnPostUrl('my-workspace');">
                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-bag.png"></div>
               </mat-list-item>
               <mat-list-item role="listitem" >
-                <div class="common-menu" [ngClass]="{'active': postUrl == 'my-appointment' }" (click)="MyAppointmentNav(); fnPostUrl('my-appointment');"><img src="/assets/images/admin/admin-menu-calendar.png"></div>
+                <div class="common-menu" [ngClass]="{'active': postUrl == 'my-appointment' }" (click)="MyAppointmentNav(); fnPostUrl('my-appointment');"><img src="/assets/images/admin/admin-menu-calendar.png">
+                </div>
               </mat-list-item>
               <mat-list-item role="listitem" >
-                <div class="common-menu" [ngClass]="{'active': postUrl == 'my-customers' }" (click)="MyCustomerNav(); fnPostUrl('my-customers');"><img src="/assets/images/admin/admin-menu-user.png"></div>
+                <div class="common-menu" [ngClass]="{'active': postUrl == 'my-customers' }" (click)="MyCustomerNav(); fnPostUrl('my-customers');"><img src="/assets/images/admin/admin-menu-user.png">
+              </div>
               </mat-list-item>
               <mat-list-item role="listitem" >
                 <div class="common-menu" [ngClass]="{'active': postUrl == 'my-reports' }" (click)="MyReportsNav(); fnPostUrl('my-reports');"><img src="/assets/images/admin/admin-menu-statistics.png"></div>
@@ -177,182 +167,171 @@
               </mat-list-item>
             </div>
           </mat-drawer>
-           <mat-drawer-content *ngIf="adminSettings == 'settings'" class="main-admin-drawer">
+          <mat-drawer-content *ngIf="adminSettings == 'settings'" class="main-admin-drawer">
             <div  class="container-fluid sub-container">
               <div class="row h-100">
-                  <mat-drawer-container class="w-100">
-                    <mat-drawer mode="side" opened class="setting-menu">
-                      <div class="leftarrow-icon d-flex">
-                          <mat-icon aria-hidden="false" class="customer-drawer-leftarrow ml-auto">arrow_back</mat-icon>
+                <mat-drawer-container class="w-100">
+                  <mat-drawer mode="side" opened class="setting-menu">
+                    <div class="leftarrow-icon d-flex">
+                      <mat-icon aria-hidden="false" class="customer-drawer-leftarrow ml-auto">arrow_back</mat-icon>
+                    </div>
+                    <h6>Resource Management</h6>
+                    <div (click)="MySettingsServicesNav()" class="d-flex setting-menu-item">
+                      <div class="menu-icon">
+                        <img class="normal" src="../../../../assets/images/admin/settings-menu/service.png" />
+                        <img class="colored" src="../../../../assets/images/admin/settings-menu/service-color.png" />
                       </div>
-                      <h6>Resource Management</h6>
-                      <div (click)="MySettingsServicesNav()" class="d-flex setting-menu-item">
-                          <div class="menu-icon">
-                              <img class="normal" src="../../../../assets/images/admin/settings-menu/service.png" />
-                              <img class="colored" src="../../../../assets/images/admin/settings-menu/service-color.png" />
-                          </div>
-                          <p>Services</p>
+                      <p>Services</p>
+                    </div>
+                    <div (click)="MySettingsStaffNav()" class="d-flex setting-menu-item">
+                      <div class="menu-icon">
+                        <img class="normal" src="../../../../assets/images/admin/settings-menu/staff.png" />
+                        <img class="colored" src="../../../../assets/images/admin/settings-menu/staff-color.png" />
                       </div>
-                      <div (click)="MySettingsStaffNav()" class="d-flex setting-menu-item">
-                          <div class="menu-icon">
-                              <img class="normal" src="../../../../assets/images/admin/settings-menu/staff.png" />
-                              <img class="colored" src="../../../../assets/images/admin/settings-menu/staff-color.png" />
-                          </div>
-                          <p>Staff</p>
+                      <p>Staff</p>
+                    </div>
+                    <div (click)="MySettingsBusinessHoursNav()" class="d-flex setting-menu-item">
+                      <div class="menu-icon">
+                        <img class="normal" src="../../../../assets/images/admin/settings-menu/business-hours.png" />
+                        <img class="colored" src="../../../../assets/images/admin/settings-menu/business-hours-color.png" />
                       </div>
-                      <div (click)="MySettingsBusinessHoursNav()" class="d-flex setting-menu-item">
-                          <div class="menu-icon">
-                              <img class="normal" src="../../../../assets/images/admin/settings-menu/business-hours.png" />
-                              <img class="colored" src="../../../../assets/images/admin/settings-menu/business-hours-color.png" />
-                          </div>
-                          <p>Business Hours</p>
+                      <p>Business Hours</p>
+                    </div>
+                    <div (click)="MySettingsPostalCodesNav()" class="d-flex setting-menu-item">
+                      <div class="menu-icon">
+                        <img class="normal" src="../../../../assets/images/admin/settings-menu/postalcode.png" />
+                        <img class="colored" src="../../../../assets/images/admin/settings-menu/postalcode-color.png" />
                       </div>
-                      <div (click)="MySettingsPostalCodesNav()" class="d-flex setting-menu-item">
-                          <div class="menu-icon">
-                              <img class="normal" src="../../../../assets/images/admin/settings-menu/postalcode.png" />
-                              <img class="colored" src="../../../../assets/images/admin/settings-menu/postalcode-color.png" />
-                          </div>
-                          <p>Postal Codes</p>
+                      <p>Postal Codes</p>
+                    </div>
+                    <h6 class="pt-3">Account</h6>
+                    <!-- <div (click)="MySettingsProfileNav()" class="d-flex setting-menu-item">
+                      <div class="menu-icon">
+                          <img class="normal" src="../../../../assets/images/admin/settings-menu/my-profile.png" />
+                          <img class="colored" src="../../../../assets/images/admin/settings-menu/my-profile-color.png" />
                       </div>
-                      <h6 class="pt-3">Account</h6>
-                      <!-- <div (click)="MySettingsProfileNav()" class="d-flex setting-menu-item">
-                          <div class="menu-icon">
-                              <img class="normal" src="../../../../assets/images/admin/settings-menu/my-profile.png" />
-                              <img class="colored" src="../../../../assets/images/admin/settings-menu/my-profile-color.png" />
-                          </div>
-                          <p>My Profile</p>
+                      <p>My Profile</p>
                       </div> -->
-                      <div (click)="MySettingsCompanyDetailsNav()" class="d-flex setting-menu-item">
-                          <div class="menu-icon">
-                              <img class="normal" src="../../../../assets/images/admin/settings-menu/companydetails.png" />
-                              <img class="colored" src="../../../../assets/images/admin/settings-menu/companydetails-color.png" />
-                          </div>
-                          <p>Company Details</p>
+                    <div (click)="MySettingsCompanyDetailsNav()" class="d-flex setting-menu-item">
+                      <div class="menu-icon">
+                        <img class="normal" src="../../../../assets/images/admin/settings-menu/companydetails.png" />
+                        <img class="colored" src="../../../../assets/images/admin/settings-menu/companydetails-color.png" />
                       </div>
-                      <h6 class="pt-3">Payment</h6>
-                      <div (click)="MySettingsPaymentGatewayNav()" class="d-flex setting-menu-item">
-                          <div class="menu-icon">
-                              <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentgateway.png" />
-                              <img class="colored" src="../../../../assets/images/admin/settings-menu/paymentgateway-color.png" />
-                          </div>
-                          <p>Payment Gateway</p>
+                      <p>Company Details</p>
+                    </div>
+                    <h6 class="pt-3">Payment</h6>
+                    <div (click)="MySettingsPaymentGatewayNav()" class="d-flex setting-menu-item">
+                      <div class="menu-icon">
+                        <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentgateway.png" />
+                        <img class="colored" src="../../../../assets/images/admin/settings-menu/paymentgateway-color.png" />
                       </div>
-                      <div (click)="MySettingsPaymentRulesNav()" class="d-flex setting-menu-item">
-                          <div class="menu-icon">
-                              <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentrules.png" />
-                              <img class="colored" src="../../../../assets/images/admin/settings-menu/paymentrules-color.png" />
-                          </div>
-                          <p>Payment Rules</p>
+                      <p>Payment Gateway</p>
+                    </div>
+                    <div (click)="MySettingsPaymentRulesNav()" class="d-flex setting-menu-item">
+                      <div class="menu-icon">
+                        <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentrules.png" />
+                        <img class="colored" src="../../../../assets/images/admin/settings-menu/paymentrules-color.png" />
                       </div>
-                      <h6 class="pt-3">General Setting</h6>
-                      <div (click)="MySettingsApperenceNav()" class="d-flex setting-menu-item">
-                          <div class="menu-icon">
-                              <img class="normal" src="../../../../assets/images/admin/settings-menu/appearance.png" />
-                              <img class="colored" src="../../../../assets/images/admin/settings-menu/appearance-color.png" />
-                          </div>
-                          <p>Appearance</p>
+                      <p>Payment Rules</p>
+                    </div>
+                    <h6 class="pt-3">General Setting</h6>
+                    <div (click)="MySettingsApperenceNav()" class="d-flex setting-menu-item">
+                      <div class="menu-icon">
+                        <img class="normal" src="../../../../assets/images/admin/settings-menu/appearance.png" />
+                        <img class="colored" src="../../../../assets/images/admin/settings-menu/appearance-color.png" />
                       </div>
-                      <div (click)="MySettingsBookingRulesNav()" class="d-flex setting-menu-item">
-                          <div class="menu-icon">
-                              <img class="normal" src="../../../../assets/images/admin/settings-menu/bookingrules.png" />
-                              <img class="colored" src="../../../../assets/images/admin/settings-menu/bookingrules-color.png" />
-                          </div>
-                          <p>Booking Rules</p>
+                      <p>Appearance</p>
+                    </div>
+                    <div (click)="MySettingsBookingRulesNav()" class="d-flex setting-menu-item">
+                      <div class="menu-icon">
+                        <img class="normal" src="../../../../assets/images/admin/settings-menu/bookingrules.png" />
+                        <img class="colored" src="../../../../assets/images/admin/settings-menu/bookingrules-color.png" />
                       </div>
-                      <div (click)="MySettingAlertsNav()" class="d-flex setting-menu-item">
-                          <div class="menu-icon">
-                              <img class="normal" src="../../../../assets/images/admin/settings-menu/alert.png" />
-                              <img class="colored" src="../../../../assets/images/admin/settings-menu/alert-color.png" />
-                          </div>
-                          <p>Alert Rules</p>
+                      <p>Booking Rules</p>
+                    </div>
+                    <div (click)="MySettingAlertsNav()" class="d-flex setting-menu-item">
+                      <div class="menu-icon">
+                        <img class="normal" src="../../../../assets/images/admin/settings-menu/alert.png" />
+                        <img class="colored" src="../../../../assets/images/admin/settings-menu/alert-color.png" />
                       </div>
+                      <p>Alert Rules</p>
+                    </div>  
                   </mat-drawer>
-                      <router-outlet #outlet="outlet"></router-outlet>
-                    
-                    </mat-drawer-container>
-                </div>
+                  <router-outlet #outlet="outlet"></router-outlet>
+                </mat-drawer-container>
+              </div>
             </div>
           </mat-drawer-content> 
           <mat-drawer-content class="main-admin-drawer">
             <div class="row mx-0 h-100 w-100">
-            <router-outlet #outlet="outlet"></router-outlet>
+              <router-outlet #outlet="outlet"></router-outlet>
             </div>
-            </mat-drawer-content>
+          </mat-drawer-content>
         </mat-drawer-container>
       </div>
     </main>
     <!-- right drawer menu code -->
   </mat-drawer-content>
-    <mat-drawer #drawer position="end" >
-      <mat-list role="list" *ngIf="isCustomerUser()">
-        <mat-menu></mat-menu>
-        <mat-list-item role="listitem" (click)="drawer.toggle()" (click)="UserProfile('./user-profile')" class="matlist pointer menuitem">
-            <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg"><p class="font-weight-bold mt-2 p-1">{{loginUserData.fullname}}</p>
-        </mat-list-item>
-   
-        <mat-list-item role="listitem"  (click)="UserAppointment('./user-appointment')" 
-            (click)="drawer.toggle()">
-          <button mat-menu-item class="menuitem"><i mat-list-icon   class="fa fa-calendar mr-3"></i>My Appointmets</button>
-        </mat-list-item>
-
-        <mat-list-item role="listitem" >
-          <button mat-menu-item (click)="logout(); drawer.toggle();" class="menuitem">
-            <i mat-list-icon class="fa fa-sign-out mr-3 menuitem"></i>Logout</button>
-        </mat-list-item>
-
-      </mat-list>
-      <mat-list role="list" *ngIf="isStaffUser()">
-        <mat-menu></mat-menu>
-        <mat-list-item role="listitem" (click)="drawer.toggle()" (click)=" StaffProfile('./staff-profile')" class="matlist pointer menuitem">
-            <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg"><p class="font-weight-bold mt-2 p-1">{{loginUserData.fullname}}</p>
-        </mat-list-item>
-         <mat-list-item role="listitem"  (click)="WorkSpace('./my-work-space')" (click)="drawer.toggle()">
-          <button mat-menu-item  class="menuitem">
-            <i mat-list-icon class="fa fa-briefcase mr-3"></i>My Work Space</button>
-        </mat-list-item> 
-       
-        <mat-list-item role="listitem" (click)="StaffAppointment('./staff-appointment')" (click)="drawer.toggle()">
-          <button mat-menu-item class="menuitem"><i mat-list-icon   class="fa fa-calendar mr-3"></i>My Appointmets</button>
-        </mat-list-item>
-
-        <mat-list-item role="listitem" (click)="WorkProfile('./work-profile')" (click)="drawer.toggle()">
-          <button mat-menu-item class="menuitem"><i mat-list-icon class="material-icons mr-3">people_alt</i>Work Profile</button>
-        </mat-list-item> 
-
-        <mat-list-item role="listitem" >
-          <button mat-menu-item (click)="logout(); drawer.toggle();" class="menuitem">
-            <i mat-list-icon class="fa fa-sign-out mr-3 menuitem"></i>Logout</button>
-        </mat-list-item>
-
-      </mat-list>
-      <mat-list role="list" *ngIf="isAdminUser()">
-        <mat-menu></mat-menu>
-        <mat-list-item role="listitem" (click)="drawer.toggle()" (click)="MyProfile('./my-profile')" class="matlist pointer menuitem">
-            <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg"><p class="font-weight-bold mt-2 p-1">Userxyzee</p>
-        </mat-list-item>
-   
-        <!-- <mat-list-item role="listitem" (click)="UserAppointment('./userappointments')" 
-            (click)="drawer.toggle()">
-          <button mat-menu-item (click)="drawer.toggle()" class="menuitem">
-            <i mat-list-icon class="fa fa-briefcase mr-3"></i>My Work Space</button>
+  <mat-drawer #drawer position="end" >
+    <mat-list role="list" *ngIf="isCustomerUser()">
+      <mat-menu></mat-menu>
+      <mat-list-item role="listitem" (click)="drawer.toggle()" (click)="UserProfile('./user-profile')" class="matlist pointer menuitem">
+        <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg">
+        <p class="font-weight-bold mt-2 p-1">{{currentUser.fullname}}</p>
+      </mat-list-item>
+      <mat-list-item role="listitem"  (click)="UserAppointment('./user-appointment')" 
+      (click)="drawer.toggle()">
+        <button mat-menu-item class="menuitem"><i mat-list-icon   class="fa fa-calendar mr-3"></i>My Appointmets</button>
+      </mat-list-item>
+      <mat-list-item role="listitem" >
+        <button mat-menu-item (click)="logout(); drawer.toggle();" class="menuitem">
+        <i mat-list-icon class="fa fa-sign-out mr-3 menuitem"></i>Logout</button>
+      </mat-list-item>
+    </mat-list>
+    <mat-list role="list" *ngIf="isStaffUser()">
+      <mat-menu></mat-menu>
+      <mat-list-item role="listitem" (click)="drawer.toggle()" (click)=" StaffProfile('./staff-profile')" class="matlist pointer menuitem">
+        <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg">
+        <p class="font-weight-bold mt-2 p-1">{{currentUser.full_name}}</p>
+      </mat-list-item>
+      <mat-list-item role="listitem"  (click)="WorkSpace('./my-work-space')" (click)="drawer.toggle()">
+        <button mat-menu-item  class="menuitem">
+        <i mat-list-icon class="fa fa-briefcase mr-3"></i>My Work Space</button>
+      </mat-list-item> 
+      <mat-list-item role="listitem" (click)="StaffAppointment('./staff-appointment')" (click)="drawer.toggle()">
+        <button mat-menu-item class="menuitem"><i mat-list-icon   class="fa fa-calendar mr-3"></i>My Appointmets</button>
+      </mat-list-item>
+      <mat-list-item role="listitem" (click)="WorkProfile('./work-profile')" (click)="drawer.toggle()">
+        <button mat-menu-item class="menuitem"><i mat-list-icon class="material-icons mr-3">people_alt</i>Work Profile</button>
+      </mat-list-item> 
+      <mat-list-item role="listitem" >
+        <button mat-menu-item (click)="logout(); drawer.toggle();" class="menuitem">
+        <i mat-list-icon class="fa fa-sign-out mr-3 menuitem"></i>Logout</button>
+      </mat-list-item>
+    </mat-list>
+    <mat-list role="list" *ngIf="isAdminUser()">
+      <mat-menu></mat-menu>
+      <mat-list-item role="listitem" (click)="drawer.toggle()" (click)="MyProfile('./my-profile')" class="matlist pointer menuitem">
+        <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg">
+        <p class="font-weight-bold mt-2 p-1">Userxyzee</p>
+      </mat-list-item>
+      <!-- <mat-list-item role="listitem" (click)="UserAppointment('./userappointments')" 
+        (click)="drawer.toggle()">
+        <button mat-menu-item (click)="drawer.toggle()" class="menuitem">
+        <i mat-list-icon class="fa fa-briefcase mr-3"></i>My Work Space</button>
         </mat-list-item> -->
-       
-        <mat-list-item role="listitem"  (click)="myWorkSpaceNav()" 
-            (click)="drawer.toggle()">
-          <button mat-menu-item class="menuitem"><i mat-list-icon  class="fa fa-calendar mr-3"></i>My Appointmets</button>
-        </mat-list-item>
-
-       <!--  <mat-list-item role="listitem"  (click)="WorkProfile('./work-profile')" 
-            (click)="drawer.toggle()">
-          <button mat-menu-item (click)="drawer.toggle()" class="menuitem"><i mat-list-icon    class="material-icons mr-3">people_alt</i>Work Profile</button>
+      <mat-list-item role="listitem"  (click)="myWorkSpaceNav()" 
+      (click)="drawer.toggle()">
+        <button mat-menu-item class="menuitem"><i mat-list-icon  class="fa fa-calendar mr-3"></i>My Appointmets</button>
+      </mat-list-item>
+      <!--  <mat-list-item role="listitem"  (click)="WorkProfile('./work-profile')" 
+        (click)="drawer.toggle()">
+        <button mat-menu-item (click)="drawer.toggle()" class="menuitem"><i mat-list-icon    class="material-icons mr-3">people_alt</i>Work Profile</button>
         </mat-list-item> -->
-
-        <mat-list-item role="listitem" >
-          <button mat-menu-item (click)="logout(); drawer.toggle();" class="menuitem">
-            <i mat-list-icon class="fa fa-sign-out mr-3 menuitem"></i>Logout</button>
-        </mat-list-item>
-      </mat-list>
-    </mat-drawer>
+      <mat-list-item role="listitem" >
+        <button mat-menu-item (click)="logout(); drawer.toggle();" class="menuitem">
+        <i mat-list-icon class="fa fa-sign-out mr-3 menuitem"></i>Logout</button>
+      </mat-list-item>
+    </mat-list>
+  </mat-drawer>
 </mat-drawer-container>
-
-
