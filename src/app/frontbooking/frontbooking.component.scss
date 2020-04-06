@@ -46,8 +46,11 @@
                         font-size: $fs-28;
                         color:$text-color;
                         .top-back-btn{
+                            background-color: #e0e0e0;
+                            font-size: $fs-28;
                             i{
                                 color:$text-color ;
+                              
                             }
                         }
                     }
@@ -295,6 +298,10 @@
                     }
                   }
                 .timeslot-main{
+                    .top-back-btn{
+                        background-color: #e0e0e0;
+
+                    }
                     .selected-date{
                         text-align: center;
                         margin: 15px;
@@ -919,4 +926,8 @@ input:focus{
 
     margin: 28px 0 0 26px;
     font-size: 18px;
+    a{
+        
+        text-decoration: none;
+    }
 }

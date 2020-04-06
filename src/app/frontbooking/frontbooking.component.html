@@ -127,6 +127,9 @@
 
                     </div>
                     <div class="col-12 col-lg-6 col-sm-12 timeslot-main">
+                        <button mat-fab color="" class="top-back-btn float-right" (click)="fnbacktofirst()">
+                            <i class="material-icons" color="">close</i>
+                        </button>
                         <h3 class="selected-date">{{selecteddateForLabel != '' ? selecteddateForLabel : ''}}</h3>
                         <div *ngIf="!timeslotview">
                             No slots available
@@ -222,17 +225,22 @@
                                     <label>Password</label>
                                     <input formControlName="newUserPassword" class="common-input" type="password" />
                                     <span class="error-wrap" *ngIf="formNewUser.get('newUserPassword').dirty || formNewUser.get('newUserPassword').touched || formSubmitclicked"><small *ngIf="formNewUser.get('newUserPassword').hasError('required')" class="error">Password Is required</small>
-                                    <small *ngIf="formNewUser.get('newUserPassword').hasError('minlength')" class="error">Minimum 8 Characters</small></span>
+                                    <small *ngIf="formNewUser.get('newUserPassword').hasError('minlength')" class="error">Minimum 8 Characters</small>
+
+                                    <small *ngIf="formNewUser.get('newUserPassword').hasError('maxlength')" class="error">Maximum 8 Characters</small>
+                                </span>
                                 </div>
                                 <div class="col-12 col-lg-6 col-md-6 col-sm-6">
                                     <label>Full Name</label>
                                     <input formControlName="newUserFullname" class="common-input" type="text" />
-                                    <span class="error-wrap" *ngIf="formNewUser.get('newUserFullname').dirty || formNewUser.get('newUserFullname').touched || formSubmitclicked"><small *ngIf="formNewUser.get('newUserFullname').hasError('required')" class="error">Fullname Is required</small></span>
+                                    <span *ngIf="formNewUser.get('newUserFullname').dirty || formNewUser.get('newUserFullname').touched || formSubmitclicked"><small *ngIf="formNewUser.get('newUserFullname').hasError('required')" class="error">Fullname Is required</small></span>
                                 </div>
                                 <div class="col-12 col-lg-6 col-md-6 col-sm-6">
                                     <label>Phone</label>
                                     <input formControlName="newUserPhone" class="common-input" type="text" />
-                                    <span class="error-wrap" *ngIf="formNewUser.get('newUserPhone').dirty || formNewUser.get('newUserPhone').touched || formSubmitclicked"><small *ngIf="formNewUser.get('newUserPhone').hasError('required')" class="error">Phone number Is required</small><small *ngIf="formNewUser.get('newUserPhone').hasError('pattern')" class="error">Enter a valid phone number</small><small *ngIf="formNewUser.get('newUserPhone').hasError('minlength') || formNewUser.get('newUserPhone').hasError('maxlength')" class="error">Phone number should be 10 digits long</small></span>
+                                    <span  *ngIf="formNewUser.get('newUserPhone').dirty || formNewUser.get('newUserPhone').touched || formSubmitclicked"><small *ngIf="formNewUser.get('newUserPhone').hasError('required')" class="error">Phone number Is required</small>
+                                        
+                                    <small *ngIf="formNewUser.get('newUserPhone').hasError('pattern')" class="error">Enter a valid phone number</small><small *ngIf="formNewUser.get('newUserPhone').hasError('minlength') || formNewUser.get('newUserPhone').hasError('maxlength')" class="error">Phone number should be 10 digits long</small></span>
                                 </div>
                                 <div class="col-12 col-lg-12 col-md-12 col-sm-12">
                                     <label>Address</label>
@@ -468,12 +476,25 @@
                     </mat-radio-group>
                     <div class="d-flex">
 
-                        <mat-checkbox class="termscondition ml-3" (change)="fnChangeTermsConditionsStatus($event.checked)" >Terms and Condition</mat-checkbox>
-                        <mat-checkbox class="termscondition ml-3">Privacy and Policy</mat-checkbox>
+                            <mat-checkbox *ngIf="termsConditions.status == 'true'" class="termscondition ml-3" (change)="fnChangeTermsConditionsStatus($event.checked)" >
+                            <a *ngIf="termsConditions.page_link != ''" href="{{termsConditions.page_link}}" target="blank">{{termsConditions.label}}</a>
+
+                            <a *ngIf="termsConditions.page_link == ''" target="blank">{{termsConditions.label}}</a>
+                            </mat-checkbox>
+                        
+                            <mat-checkbox *ngIf="privacyPolicy.status == 'true'" class="termscondition ml-3" (change)="fnChangePrivacyPolicyStatus($event.checked)">
+                                
+                            <a *ngIf ="privacyPolicy.page_link !=''" href="{{privacyPolicy.page_link}}"  target="blank" >{{privacyPolicy.label}}</a>
+                            
+                            <a *ngIf ="privacyPolicy.page_link ==''" target="blank" >{{privacyPolicy.label}}</a>
+                            
+                            
+                            </mat-checkbox>
+                        
                     </div>
 
                     <div class="bottom-ctn-btn">
-                        <button *ngIf="paymentMethod != '' && termsConditionsStatusValue" (click)="fnAppointmentBookng()" mat-button class="round-btn continue-btn proceed">Pay Now</button>
+                        <button *ngIf="paymentMethod != '' && termsConditionsStatusValue && PrivacyPolicyStatusValue" (click)="fnAppointmentBookng()" mat-button class="round-btn continue-btn proceed">Pay Now</button>
                     </div>
                    
                 </mat-card-content>
@@ -503,7 +524,7 @@
             </div>
             <!-- common footer -->  
             <div class="common-footer" *ngIf="!thankYouScreen">
-                <div class="cart-btn" [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click" #popoverTrigger="mdePopoverTrigger" (click)="fnOpenCartbox()">
+                <div class="cart-btn mt-2" [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click" #popoverTrigger="mdePopoverTrigger" (click)="fnOpenCartbox()">
                     <i *ngIf="cartOpened" class="material-icons">add_shopping_cart</i>
                     <i *ngIf="!cartOpened" class="material-icons">close</i>
                 </div>

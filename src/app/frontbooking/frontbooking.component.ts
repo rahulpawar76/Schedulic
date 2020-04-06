@@ -111,7 +111,10 @@ export class FrontbookingComponent implements OnInit {
   timeSlotArrForLabel:any=[];
 
 
-  termsConditionsStatusValue:any;
+  termsConditionsStatusValue:boolean = false;
+  termsConditions:any;
+  privacyPolicy:any;
+  PrivacyPolicyStatusValue:boolean = false;
   
 
 
@@ -147,7 +150,8 @@ export class FrontbookingComponent implements OnInit {
         month: current.getMonth() + 2,
         day: current.getDate(),
       };
-      this.termsConditionsStatusValue="false";
+
+
     this.fnGetSettings();
     this.fnGetTaxDetails();
   }
@@ -169,7 +173,7 @@ export class FrontbookingComponent implements OnInit {
     this.formNewUser = this._formBuilder.group({
       newUserEmail: ['',[Validators.required,Validators.email,Validators.pattern(emailPattern)],
       this.isEmailUnique.bind(this)],
-      newUserPassword: ['',[Validators.required,Validators.minLength(8)]],
+      newUserPassword: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(8)]],
       newUserFullname: ['',Validators.required],
       newUserPhone: ['',[Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
       newUserAddress: ['',Validators.required],
@@ -206,7 +210,21 @@ export class FrontbookingComponent implements OnInit {
     else if(event==false){
       this.termsConditionsStatusValue=false;
     }
+    
    
+
+  }
+
+  fnChangePrivacyPolicyStatus(event){
+    console.log(event);
+      if(event == true){
+      this.PrivacyPolicyStatusValue=true;
+
+      }else if(event == false){
+
+      this.PrivacyPolicyStatusValue=false;
+
+      }
 
   }
 
@@ -227,6 +245,17 @@ export class FrontbookingComponent implements OnInit {
       if(response.data == true){
         this.settingsArr=response.response;
         console.log(this.settingsArr);
+        this.termsConditions = JSON.parse(this.settingsArr.terms_condition)
+        if(this.termsConditions.status == 'false'){
+          this.termsConditionsStatusValue = true;
+        }
+        console.log(this.termsConditions);
+
+        this.privacyPolicy=JSON.parse(this.settingsArr.privacy_policy)
+        if(this.privacyPolicy.status == 'false'){
+          this.PrivacyPolicyStatusValue = true;
+        }
+        console.log(this.privacyPolicy);
 
         this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
         this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
@@ -1500,6 +1529,11 @@ export class FrontbookingComponent implements OnInit {
     this.subcatselection = false;
     this.catselection = true;
    }
+
+  //  fnbackfromdate(){
+  //     this.dateselection=false;
+  //     this.catselection = true;
+  //  }
 
    fnbacktofirst(){
     this.subcatselection = false;
