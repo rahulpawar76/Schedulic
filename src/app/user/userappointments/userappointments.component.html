@@ -35,8 +35,8 @@
             </div>
             <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons pt-4"> 
               <button mat-button class="d-block details-btn" (click)="MyAppointmentDetails(i)">Details</button>
-              <button mat-button class="d-block reschedule-btn" (click)="rescheduleAppointment(i)">Reschedule</button>
-              <button mat-button class="d-block cancel-btn" (click)="cancelAppo(appointmentData.id)">Cancel</button>
+              <button mat-button class="d-block reschedule-btn" (click)="rescheduleAppointment(i)" *ngIf="minReschedulingTime.getTime()<appointmentData.bookingDateTime.getTime()">Reschedule</button>
+              <button mat-button class="d-block cancel-btn" (click)="cancelAppo(appointmentData.id)" *ngIf="cancellationBufferTime.getTime()<appointmentData.bookingDateTime.getTime()">Cancel</button>
               <button mat-button class="d-block pay-btn">Pay</button>
             </div>                  
           </div>

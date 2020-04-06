@@ -127,12 +127,12 @@
 
                     </div>
                     <div class="col-12 col-lg-6 col-sm-12 timeslot-main">
-                        <h3 class="selected-date">{{selecteddateForLabel != '' ? selecteddateForLabel : 'qwqwqwq'}}</h3>
+                        <h3 class="selected-date">{{selecteddateForLabel != '' ? selecteddateForLabel : ''}}</h3>
                         <div *ngIf="!timeslotview">
                             No slots available
                         </div>
                         <div class="slot-list" *ngIf="timeslotview">
-                            <div class="d-inline-block" *ngFor="let timeSlot of timeSlotArr, let i = index">
+                            <div class=" timing" *ngFor="let timeSlot of timeSlotArr, let i = index">
                                 <label>
                                     <input name="timeslot" type="radio" [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].appointmentTimeSlot==timeSlot" (click)="fnSelectTimeSlot(timeSlot)"/>
                                     <div class="single-slot" [mdePopoverTriggerFor]="selectstaff" mdePopoverTriggerOn="click" #popoverTrigger="mdePopoverTrigger">{{timeSlotArrForLabel[i]}}</div>
@@ -155,6 +155,9 @@
                                         </mat-card-content>
                                     </mat-card>
                                 </mde-popover>
+                            </div>
+                            <div class=" timing" *ngIf="timeSlotArr.length==0">
+                                No Time Slots Available
                             </div>
                             
                             

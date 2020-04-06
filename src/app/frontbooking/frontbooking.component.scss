@@ -19,6 +19,11 @@
             padding:15px;
             width:95%;
         }
+        @media only screen and (max-width: 600px) {
+            .main-front-container {
+                padding:0px !important;
+            }
+          }
         mat-card{
             background-color: $text-bg;
             //height:calc(100% - 50px);
@@ -100,6 +105,11 @@
                                     color:$green;
                                 }
                             }
+                            @media only screen and (max-width: 600px) {
+                                i.material-icons{
+                                    left: 108px !important;
+                                }
+                              }
                         }
                     }
                 }
@@ -279,6 +289,11 @@
                 .datepicker-main{
                     background: $primary-gradient-color;
                 }
+                @media only screen and (max-width: 600px) {
+                    .datepicker-main {
+                      overflow-x: scroll;
+                    }
+                  }
                 .timeslot-main{
                     .selected-date{
                         text-align: center;
@@ -321,6 +336,18 @@
                         }
                     }
                 }
+                .timing{
+                    display: inline-block;
+                }
+                @media only screen and (max-width: 600px) {
+                    // body {
+                    //     display: block !important;
+                    // }
+                    .slot-list{
+                        align-items: center;
+                        text-align: center;
+                    }
+                  }
             }
             #personal_info{
                 .user-type-selection{

@@ -10,7 +10,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { MaterialModule } from '@app/_helpers/material.module';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
-
+  
 
 
 
@@ -39,6 +39,9 @@ import { NotAssignedAppointmentDetailsDialog } from './appointment-live/appointm
 import { OnTheWayAppointmentDetailsDialog } from './appointment-live/appointment-live.component';
 import {WorkStartedAppointmentDetailsDialog} from './appointment-live/appointment-live.component';
 import {DialogAllAppointmentDetails} from './appointment/appointment.component';
+//import { IgxExcelExporterService } from "igniteui-angular";
+import { DialogMyProfileImageUpload } from './settings-my-profile/settings-my-profile.component';
+import { DialogCustomerImageUpload } from './customers/customers.component';
 
 
 @NgModule({
@@ -60,6 +63,8 @@ import {DialogAllAppointmentDetails} from './appointment/appointment.component';
     DialogImportFileUpload,
     InterruptedReschedule,
     DiscountCouponComponent,
+    DialogMyProfileImageUpload,
+    DialogCustomerImageUpload,
     PendingAppointmentDetailsDialog,
     NotAssignedAppointmentDetailsDialog,
     OnTheWayAppointmentDetailsDialog,
@@ -80,15 +85,18 @@ import {DialogAllAppointmentDetails} from './appointment/appointment.component';
     HighchartsChartModule,
     DataTablesModule,
     MatSidenavModule,
-    NgxDaterangepickerMd.forRoot()
+    NgxDaterangepickerMd.forRoot(),
   ],
   exports: [
     FormsModule
+  ],
+  providers: [ 
+    // IgxExcelExporterService 
   ],
   entryComponents: [myCreateNewBusinessDialog,DialogAddNewAppointment,DialogNewAppointment,
     DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,
     DialogViewReview,InterruptedReschedule,PendingAppointmentDetailsDialog,
     NotAssignedAppointmentDetailsDialog,OnTheWayAppointmentDetailsDialog,
-    WorkStartedAppointmentDetailsDialog,DialogImportFileUpload,DialogAllAppointmentDetails],
+    WorkStartedAppointmentDetailsDialog,DialogImportFileUpload,DialogMyProfileImageUpload,DialogCustomerImageUpload],
 })
 export class AdminModule { }

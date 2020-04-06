@@ -1,8 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { AdminSettingsService } from '../_services/admin-settings.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
+export interface DialogData {
+  animal: string;
+  name: string;
+  StaffCreate: FormGroup;
+}
 @Component({
   selector: 'app-company-details',
   templateUrl: './company-details.component.html',
@@ -12,6 +18,7 @@ export class CompanyDetailsComponent implements OnInit {
   adminSettings : boolean = true;
   companyDetails:FormGroup;
   companyDetailsData:any;
+  companyDetailsImageUrl:any;
   updateCompanyDetailsData:any;
   allCountry: any;
   allStates: any;
@@ -21,6 +28,7 @@ export class CompanyDetailsComponent implements OnInit {
   onlynumeric = /^-?(0|[1-9]\d*)?$/
   constructor(
     private _formBuilder:FormBuilder,
+    public dialog: MatDialog,
     public adminSettingsService : AdminSettingsService,
     private _snackBar: MatSnackBar
     ) {
@@ -124,6 +132,7 @@ export class CompanyDetailsComponent implements OnInit {
         "description" : this.companyDetails.get('comp_decs').value,
         "status" : this.companyDetails.get('comp_status').value==true?"E":"D",
         "private_status" : this.companyDetails.get('comp_private_status').value==true?"Y":"N",
+        'image': this.companyDetailsImageUrl
       }
       
     }
@@ -146,6 +155,69 @@ export class CompanyDetailsComponent implements OnInit {
       }
     })
   }
+
+  companyDetailsImage() {
+    const dialogRef = this.dialog.open(DialogCompanyDetailsImageUpload, {
+      width: '500px',
+      
+    });
+  
+     dialogRef.afterClosed().subscribe(result => {
+        if(result != undefined){
+            this.companyDetailsImageUrl = result;
+            console.log(result);
+           }
+     });
+  }
+
+}
+
+
+@Component({
+  selector: 'staff-image-upload',
+  templateUrl: '../_dialogs/company-details-image-upload.html',
+})
+export class DialogCompanyDetailsImageUpload {
+
+  uploadForm: FormGroup;  
+  imageSrc: string;
+  profileImage: string;
+  
+constructor(
+  public dialogRef: MatDialogRef<DialogCompanyDetailsImageUpload>,
+  private _formBuilder:FormBuilder,
+  private _snackBar: MatSnackBar,
+  @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  onNoClick(): void {
+      this.dialogRef.close(this.profileImage);
+    }
+    ngOnInit() {
+      this.uploadForm = this._formBuilder.group({
+        profile: ['']
+      });
+    }
+    get f() {
+      return this.uploadForm.controls;
+    }
+    
+onFileChange(event) {
+  const reader = new FileReader();
+  if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+          this.imageSrc = reader.result as string;
+          this.uploadForm.patchValue({
+              fileSource: reader.result
+          });
+      };
+  }
+}
+uploadImage() {
+  this.profileImage = this.imageSrc
+  this.dialogRef.close(this.profileImage);
+}
 
 
 }

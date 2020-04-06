@@ -1,13 +1,18 @@
 ﻿import { Component, Inject,AfterViewInit, ElementRef, ViewChild} from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError, filter } from 'rxjs/operators';
 import { Router, RouterEvent, RouterOutlet } from '@angular/router';
-import { AuthenticationService, CompanyService } from './_services';
+import { AuthenticationService } from './_services';
 import { User, Role } from './_models';
 
 
 //import { slideInAnimation } from './maturity/animations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from '@environments/environment';
+import { MdePopoverTrigger } from '@material-extended/mde';
 
 
 import {
@@ -43,6 +48,26 @@ export class AppComponent implements AfterViewInit {
   adminSettings:any;
   currentUrl: string;
   loginUserData: any;
+  postUrl : any;userType : any;
+  userId : any;
+  token : any;
+  notificationData : any;
+
+  @ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
+
+  closePopover() {
+    this.trigger.togglePopover();
+  }
+
+  onSubmit() {
+
+    // Form Logic
+
+    // On Success close popover
+    this.closePopover();
+    
+  }
+  
   
     public company_info: string;
 
@@ -56,17 +81,23 @@ export class AppComponent implements AfterViewInit {
     timer:any =0;
 
     constructor(
+        private http: HttpClient,
         public router: Router,
         private authenticationService: AuthenticationService,
-        private _companyService: CompanyService,
         public dialog: MatDialog,
         private _snackBar: MatSnackBar,        
     ) {        
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-        this.loginUserData = JSON.parse(localStorage.getItem('currentUser'));
+        
+        //this.userId=this.authenticationService.currentUserValue.user_id
+        //this.token=this.authenticationService.currentUserValue.token
         
         
     }
+    private handleError(error: HttpErrorResponse) {
+      console.log(error);
+      return throwError('Error! something went wrong.');
+  }
 
 
 
@@ -74,9 +105,12 @@ export class AppComponent implements AfterViewInit {
     ngOnInit() {
     
      this.router.events.subscribe(event => {
-          if (event instanceof RouterEvent) this.handleRoute(event);
-        });
-        console.log(this.loginUserData.username);
+        if (event instanceof RouterEvent) this.handleRoute(event);
+      });
+      this.loginUserData = JSON.parse(localStorage.getItem("currentUser"));
+      console.log(JSON.parse(localStorage.getItem("currentUser")));
+      console.log(this.loginUserData);
+      
     }
 
     
@@ -137,6 +171,12 @@ export class AppComponent implements AfterViewInit {
         return null;
       }
     } else return null;
+  }
+
+  fnPostUrl(menuItem){
+    alert(menuItem);
+    this.postUrl = menuItem
+    alert(this.postUrl);
   }
 
 
@@ -200,6 +240,31 @@ export class AppComponent implements AfterViewInit {
       this.selectedSessionName=localStorage.getItem("session_name");
     }*/
 
+    /*Add New Navigation */
+      addNewAppointNav(){
+        this.router.navigate(['/admin/my-appointment']);
+      }
+      addNewCategoryNav(){
+        this.router.navigate(['/admin/settings/']);
+      }
+      addNewServicesNav(){
+        this.router.navigate(['/admin/settings/services']);
+      }
+      addNewStaffNav(){
+        this.router.navigate(['/admin/settings/staff']);
+      }
+      addNewCustomerNav(){
+        this.router.navigate(['/admin/my-customer']);
+      }
+      addNewPostalCodeNav(){
+        this.router.navigate(['/admin/settings/postalcode']);
+      }
+      addNewDiscountCouponNav(){
+        this.router.navigate(['/admin/my-discountcoupon']);
+      }
+      addNewTimeOffNav(){
+        this.router.navigate(['/admin/settings/business-hours']);
+      }
 
 
 
@@ -318,37 +383,77 @@ export class AppComponent implements AfterViewInit {
       /*For notification Dialog*/
 
 
-      openNotificationDialog(): void {
-          const dialogRef = this.dialog.open(DialogNotification, {
-        height: '500px',
-        
-    
-      });
+      openNotificationDialog() {
 
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-        this.animal = result;
-      });
+        if(this.loginUserData.user_type == "A"){
+          this.userType =  "admin"
+        }else if(this.loginUserData.user_type == "SM"){
+          this.userType =  "staff"
+        }else if(this.loginUserData.user_type == "C"){
+          this.userType =  "customer"
+        }
+        alert(this.userType);
+        // let requestObject = {
+        //   "user_id":this.loginUserData.user_id,
+        //   "user_type" : this.userType
+        // };
+        // if(this.userType ==  "admin"){
+        //   alert(this.loginUserData.user_id);
+        //   let headers = new HttpHeaders({
+        //     'Content-Type': 'application/json',
+        //     'admin-id' : this.userId,
+        //     "api-token":this.token,
+        //   });
+
+        //   console.log(headers);
+        //   return this.http.post(`${environment.apiUrl}/get-notification`,requestObject,{headers:headers}).pipe(
+        //     map((res) => {
+        //       return res;
+        //     }),
+        //   catchError(this.handleError)
+        //   ).subscribe((response:any) => {
+        //     this.notificationData = response.response;
+        //       console.log(this.notificationData);
+        //   }, (err) =>{
+        //     console.log(err)
+        //   })
+        // }else if(this.userType ==  "staff"){
+        //   let headers = new HttpHeaders({
+        //     'Content-Type': 'application/json',
+        //     'staff-id' : this.userId,
+        //     "api-token":this.token
+        //   });
+        //   return this.http.post(`${environment.apiUrl}/get-notification`,requestObject,{headers:headers}).pipe(
+        //     map((res) => {
+        //       this.notificationData = res;
+        //       console.log(this.notificationData);
+        //     }),
+        //   catchError(this.handleError));
+        // }else if(this.userType ==  "customer"){
+        //   let headers = new HttpHeaders({
+        //     'Content-Type': 'application/json',
+        //     "customer-id" : this.userId,
+        //     "api-token":this.token
+        //   });
+        //   return this.http.post(`${environment.apiUrl}/get-notification`,requestObject,{headers:headers}).pipe(
+        //     map((res) => {
+        //       this.notificationData = res;
+        //       console.log(this.notificationData);
+        //     }),
+        //   catchError(this.handleError));
+        // }
+        const dialogRef = this.dialog.open(DialogNotification, {
+          height: '500px',
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.animal = result;
+        });
       }
 
   prepareRoute(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
-
-   /*setcompanycolours() {
-    this._companyService.getCompanyColoursData().subscribe(
-      (data: any) => {
-        localStorage.companycolours = JSON.stringify(data[0]);
-
-        // you can export below function two functions update_SCSS_var() and setPropertyOfSCSS() 
-        // in any dot TS file as it will always be updated through localstorage
-        this.update_SCSS_var();
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }*/
 
   update_SCSS_var() {
     var data = JSON.parse(localStorage.companycolours);

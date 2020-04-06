@@ -41,10 +41,10 @@
 					<li class="bottom-border plr-25">
 						<p class="title-main">Category</p>
 					</li>
-					<li class="bottom-border plr-25 pointer" (click)="fnOnClickCategory('all','All Services')">
+					<li class="bottom-border plr-25 pointer" [ngClass]="{'active': selectedCategory == 'all' }" (click)="fnOnClickCategory('all','All Services'); fnselectCategoryActive('all');">
 						<p class="title-main">All Services<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
 					</li>
-					<li class="bottom-border plr-25 pointer" *ngFor="let category of categories" (click)="fnOnClickCategory(category.id,category.category_title)">
+					<li class="bottom-border plr-25 pointer" [ngClass]="{'active': selectedCategory == i }" *ngFor="let category of categories; let i=index" (click)="fnOnClickCategory(category.id,category.category_title); fnselectCategoryActive(i);">
 						<p class="title-main">{{category.category_title}}<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
 					</li>
 					</ul>								
@@ -52,9 +52,9 @@
 			</mat-card>
 			<mat-card class="col-lg-5 col-12 col-md-6 border-8 p-0">
 				<div>
-					<div class="d-flex bottom-border align-items-center">
+					<div class="d-flex bottom-border align-items-center p-2">
 						<div class="appointment pl-2">
-							<p class="title-main">Appointments</p>
+							<p class="title-main mb-0">Appointments</p>
 						</div>	
 						<form class="search_input-appoint">							
 							<div class="form-group has-search">
@@ -169,10 +169,10 @@
 								</div>
 								<div class="d-flex pl-3 active-btns" *ngIf="appointmentDetails.order_status != 'CO' && appointmentDetails.order_status != 'C' && appointmentDetails.order_status != 'CC'">
 									<div class="reschedulebtn-width">
-									 <button mat-button type="button" class=" Reschedulebtn d-block " (click)="rescheduleAppointment()">Reschedule</button>
+									 <button mat-button type="button" class=" Reschedulebtn d-block " (click)="rescheduleAppointment()" *ngIf="minReschedulingTime.getTime() < appointment.booking_date_time.getTime()">Reschedule</button>
 									</div>
 									<div class="cancelbtn-width">
-									 <button mat-button type="button" class=" Reschedulebtn d-block " (click)="fnCancelAppointment()">Cancel</button>
+									 <button mat-button type="button" class=" Reschedulebtn d-block " (click)="fnCancelAppointment()" *ngIf="cancellationBufferTime.getTime() < appointment.booking_date_time.getTime()">Cancel</button>
 									 </div>
 									 <div class="acceptbtn-width" *ngIf="appointmentDetails.order_status != 'CO' && appointmentDetails.order_status != 'C' && appointmentDetails.order_status != 'CC'">
 										<button mat-button type="button" class="Reschedulebtn accept-btn d-block" (click)="fnConfirmAppointment()"*ngIf="appointmentDetails.order_status == 'P'">Confirm</button>
@@ -202,8 +202,8 @@
 				        <p class="fs-1rem title-main">Appoinment Details</p>
 				    </div>
 						<div class="pt-2 pb-2 d-flex bottom-border pl-3 pr-3" *ngIf="appointmentDetails.order_status != 'CO' && appointmentDetails.order_status != 'C' && appointmentDetails.order_status != 'CC'">
-							<label class="greenfont pt-2 pointer d-flex align-items-center" (click)="rescheduleAppointment()"><i class="fa fa-repeat repeat pr-1"></i>Reschedule</label>
-							<label class="fontred  pt-2 pl-2 pointer d-flex align-items-center" (click)="fnCancelAppointment()"><i class="fa fa-times-circle-o pr-1"></i>Cancel</label>
+							<label class="greenfont pt-2 pointer d-flex align-items-center" (click)="rescheduleAppointment()" *ngIf="minReschedulingTime.getTime() < appointmentDetails.booking_date_time.getTime()"><i class="fa fa-repeat repeat pr-1"></i>Reschedule</label>
+							<label class="fontred  pt-2 pl-2 pointer d-flex align-items-center" (click)="fnCancelAppointment()" *ngIf="cancellationBufferTime.getTime() < appointmentDetails.booking_date_time.getTime()"><i class="fa fa-times-circle-o pr-1"></i>Cancel</label>
 							<button mat-button type="button" class="d-block btn-primary float-right acceptbtn" (click)="fnConfirmAppointment()" *ngIf="appointmentDetails.order_status == 'P'">Confirm</button>
 							<mat-form-field class="d-block float-right acceptbtn bottom-border-field" *ngIf="appointmentDetails.order_status == 'CNF' && (appointmentDetails.staffId == '' || appointmentDetails.staffId == null)">
 							  <mat-label>AssignTo</mat-label>

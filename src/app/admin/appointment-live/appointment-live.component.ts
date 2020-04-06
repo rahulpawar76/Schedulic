@@ -22,10 +22,10 @@ export class AppointmentLiveComponent implements OnInit {
  
   animal: string;
   isLoaderAdmin : boolean = false;
-  pendingAppointments : any;
-  notAssignedAppointments : any;
-  onTheWayAppointments : any;
-  workStartedAppointments : any;
+  pendingAppointments : any=[];
+  notAssignedAppointments : any=[];
+  onTheWayAppointments : any=[];
+  workStartedAppointments : any=[];
   staffList:any;
   todayDate:any;
   todayTime:any;
@@ -66,7 +66,7 @@ export class AppointmentLiveComponent implements OnInit {
         });
       }
       else if(response.data == false){
-        this.pendingAppointments = ''
+        this.pendingAppointments = [];
       }
     })
   }
@@ -83,7 +83,7 @@ export class AppointmentLiveComponent implements OnInit {
         
       }
       else if(response.data == false){
-        this.notAssignedAppointments = ''
+        this.notAssignedAppointments = [];
       }
     })
   }
@@ -100,7 +100,7 @@ export class AppointmentLiveComponent implements OnInit {
         });
       }
       else if(response.data == false){
-        this.onTheWayAppointments = ''
+        this.onTheWayAppointments = [];
       }
     })
   }
@@ -117,7 +117,7 @@ export class AppointmentLiveComponent implements OnInit {
         });
       }
       else if(response.data == false){
-        this.workStartedAppointments = ''
+        this.workStartedAppointments = [];
       }
     })
   }

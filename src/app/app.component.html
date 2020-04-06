@@ -53,7 +53,7 @@
                 <button mat-button color="primary" (click)="MyBusinessNav()">My Businesses</button>
                 <span class="profile-head">
                   <img class="customer-profile-img m-2 float-left" src="/assets/img/avatar-rihan.jpg">
-                  <p class="font-weight-bold my-2 p-1">Userxyzee</p>
+                  <p class="font-weight-bold my-2 p-1" *ngIf="loginUserData.full_name">{{loginUserData.full_name}}</p>
                 </span>
                 <button  mat-stroked-button class="bellborder bell-color" (click)="openNotificationDialog()">
                 <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
@@ -83,31 +83,97 @@
               <mat-list-item role="listitem"  class="matlist pointer menuitem logo">
                 <div class="logo"><img src="/assets/images/admin/admin-logo-orange.png"></div>
               </mat-list-item>
+
               <mat-list-item role="listitem" class="add">
-                <div class="add common-menu"><img src="/assets/images/admin/add.png"></div>
+                <div>
+                  <div class="add common-menu" [mdePopoverTriggerFor]="appPopover"
+                  mdePopoverTriggerOn="click">
+                    <img src="/assets/images/admin/add.png">
+                  </div>
+                  <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
+                    <mat-card class=" p-0" style="max-width: 300px" (click)="closePopover()">
+                      <mat-card-content class="add-content">
+                        <p class="mb-0 add-new">Add New</p>
+                        <div class="bottom-border"></div>
+                        <ul>
+                          <mat-list-item role="listitem" (click)="addNewAppointNav()">
+                            <div class="common-menu">
+                              <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/Appointment.png"/>
+                              Appointment
+                            </div>
+                          </mat-list-item>
+                          <mat-list-item role="listitem" (click)="addNewCategoryNav()">
+                            <div class="common-menu">
+                              <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/Category.png"/>
+                              Category
+                            </div>
+                          </mat-list-item>
+                          <mat-list-item role="listitem" (click)="addNewServicesNav()">
+                            <div class="common-menu">
+                              <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/Customer.png"/>
+                              Services
+                            </div>
+                          </mat-list-item>
+                          <mat-list-item role="listitem" (click)="addNewStaffNav()">
+                            <div class="common-menu">
+                              <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/Staff.png"/>
+                              Staff
+                            </div>
+                          </mat-list-item>
+                          <mat-list-item role="listitem" (click)="addNewCustomerNav()">
+                            <div class="common-menu">
+                              <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/Customer.png"/>
+                              Customer
+                            </div>
+                          </mat-list-item>
+                          <mat-list-item role="listitem" (click)="addNewPostalCodeNav()">
+                            <div class="common-menu">
+                              <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/postal-code.png"/>
+                              Postal Code
+                            </div>
+                          </mat-list-item>
+                          <mat-list-item role="listitem" (click)="addNewDiscountCouponNav()">
+                            <div class="common-menu">
+                              <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/discount.png"/>
+                              Discount Coupon
+                            </div>
+                          </mat-list-item>
+                          <mat-list-item role="listitem" (click)="addNewTimeOffNav()">
+                            <div class="common-menu">
+                              <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/Time-off.png"/>
+                              Time off
+                            </div>
+                          </mat-list-item>
+                        </ul>
+
+                      </mat-card-content>
+                    </mat-card>
+                  </mde-popover>
+                </div>
+
               </mat-list-item> 
-              <mat-list-item role="listitem" (click)="myWorkSpaceNav()">
+              <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-workspace' }" (click)="myWorkSpaceNav(); fnPostUrl('my-workspace');">
                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-bag.png"></div>
               </mat-list-item>
               <mat-list-item role="listitem" >
-                <div class="common-menu" (click)="MyAppointmentNav()"><img src="/assets/images/admin/admin-menu-calendar.png"></div>
+                <div class="common-menu" [ngClass]="{'active': postUrl == 'my-appointment' }" (click)="MyAppointmentNav(); fnPostUrl('my-appointment');"><img src="/assets/images/admin/admin-menu-calendar.png"></div>
               </mat-list-item>
               <mat-list-item role="listitem" >
-                <div class="common-menu" (click)="MyCustomerNav()"><img src="/assets/images/admin/admin-menu-user.png"></div>
+                <div class="common-menu" [ngClass]="{'active': postUrl == 'my-customers' }" (click)="MyCustomerNav(); fnPostUrl('my-customers');"><img src="/assets/images/admin/admin-menu-user.png"></div>
               </mat-list-item>
               <mat-list-item role="listitem" >
-                <div class="common-menu" (click)="MyReportsNav()"><img src="/assets/images/admin/admin-menu-statistics.png"></div>
+                <div class="common-menu" [ngClass]="{'active': postUrl == 'my-reports' }" (click)="MyReportsNav(); fnPostUrl('my-reports');"><img src="/assets/images/admin/admin-menu-statistics.png"></div>
               </mat-list-item>
               <mat-list-item role="listitem" >
-                <div class="common-menu" (click)="MyDiscountCouponNav()"><img src="/assets/images/admin/admin-menu-couon.png"></div>
+                <div class="common-menu" [ngClass]="{'active': postUrl == 'my-discountCoupon' }" (click)="MyDiscountCouponNav(); fnPostUrl('my-discountCoupon');"><img src="/assets/images/admin/admin-menu-couon.png"></div>
               </mat-list-item>
             </div>
             <div class="bottom_admin_menu">
               <mat-list-item role="listitem" >
-                <div (click)="MySettingsNav()" class="common-menu"><img src="/assets/images/admin/admin-menu-settings.png"></div>
+                <div (click)="MySettingsNav(); fnPostUrl('my-settings');" [ngClass]="{'active': postUrl == 'my-settings' }" class="common-menu"><img src="/assets/images/admin/admin-menu-settings.png"></div>
               </mat-list-item>
               <mat-list-item role="listitem" >
-                <div (click)="MyProfileNav()" class="common-menu"><img src="/assets/images/admin/admin-menu-user-2.png"></div>
+                <div (click)="MyProfileNav(); fnPostUrl('my-profile');" [ngClass]="{'active': postUrl == 'my-profile' }" class="common-menu"><img src="/assets/images/admin/admin-menu-user-2.png"></div>
               </mat-list-item>
             </div>
           </mat-drawer>
@@ -116,8 +182,8 @@
               <div class="row h-100">
                   <mat-drawer-container class="w-100">
                     <mat-drawer mode="side" opened class="setting-menu">
-                      <div class="leftarrow-icon">
-                          <mat-icon aria-hidden="false" class="customer-drawer-leftarrow">arrow_back</mat-icon>
+                      <div class="leftarrow-icon d-flex">
+                          <mat-icon aria-hidden="false" class="customer-drawer-leftarrow ml-auto">arrow_back</mat-icon>
                       </div>
                       <h6>Resource Management</h6>
                       <div (click)="MySettingsServicesNav()" class="d-flex setting-menu-item">
@@ -221,7 +287,7 @@
       <mat-list role="list" *ngIf="isCustomerUser()">
         <mat-menu></mat-menu>
         <mat-list-item role="listitem" (click)="drawer.toggle()" (click)="UserProfile('./user-profile')" class="matlist pointer menuitem">
-            <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg"><p class="font-weight-bold mt-2 p-1">Userxyzee</p>
+            <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg"><p class="font-weight-bold mt-2 p-1">{{loginUserData.fullname}}</p>
         </mat-list-item>
    
         <mat-list-item role="listitem"  (click)="UserAppointment('./user-appointment')" 
@@ -238,7 +304,7 @@
       <mat-list role="list" *ngIf="isStaffUser()">
         <mat-menu></mat-menu>
         <mat-list-item role="listitem" (click)="drawer.toggle()" (click)=" StaffProfile('./staff-profile')" class="matlist pointer menuitem">
-            <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg"><p class="font-weight-bold mt-2 p-1">Userxyzee</p>
+            <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg"><p class="font-weight-bold mt-2 p-1">{{loginUserData.fullname}}</p>
         </mat-list-item>
          <mat-list-item role="listitem"  (click)="WorkSpace('./my-work-space')" (click)="drawer.toggle()">
           <button mat-menu-item  class="menuitem">
