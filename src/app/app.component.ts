@@ -53,6 +53,7 @@ export class AppComponent implements AfterViewInit {
   token : any;
   notificationData : any;
   staffStatus : any;
+  businessId : any;
 
   @ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
 
@@ -91,8 +92,10 @@ export class AppComponent implements AfterViewInit {
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
         if(this.authenticationService.currentUserValue.user_id){
           this.userId=this.currentUser.user_id
-          alert(this.userId);
         }
+        if(localStorage.getItem('business_id')){
+          this.businessId = localStorage.getItem('business_id');
+      }
         
         //this.token=this.authenticationService.currentUserValue.token
         
@@ -175,9 +178,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   fnPostUrl(menuItem){
-    alert(menuItem);
     this.postUrl = menuItem
-    alert(this.postUrl);
   }
 
 
@@ -395,13 +396,12 @@ export class AppComponent implements AfterViewInit {
         }else if(this.currentUser.user_type == "C"){
           this.userType =  "customer"
         }
-        alert(this.userType);
-        let requestObject = {
-          "user_id":this.currentUser.user_id,
-          "user_type" : this.userType
-        };
+       
         if(this.userType ==  "admin"){
-          alert(this.currentUser.user_id);
+          let requestObject = {
+            "user_id":this.businessId,
+            "user_type" : this.userType
+          };
           let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : this.userId,
@@ -420,7 +420,11 @@ export class AppComponent implements AfterViewInit {
           }, (err) =>{
             console.log(err)
           })
-        }else if(this.userType ==  "staff"){
+        }else if(this.userType ==  "staff"){ 
+          let requestObject = {
+            "user_id":this.currentUser.user_id,
+            "user_type" : this.userType
+          };
           let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'staff-id' : this.userId,
@@ -433,6 +437,10 @@ export class AppComponent implements AfterViewInit {
             }),
           catchError(this.handleError));
         }else if(this.userType ==  "customer"){
+          let requestObject = {
+            "user_id":this.currentUser.user_id,
+            "user_type" : this.userType
+          };
           let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             "customer-id" : this.userId,

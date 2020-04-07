@@ -46,7 +46,7 @@
               <img class="customer-profile-img m-2 float-left" src="/assets/img/avatar-rihan.jpg">
               <p class="font-weight-bold my-2 p-1" *ngIf="currentUser.full_name">{{currentUser.full_name}}</p>
             </span>
-            <button  mat-stroked-button class="bellborder bell-color" (click)="openNotificationDialog()">
+            <button *ngIf="businessId"  mat-stroked-button class="bellborder bell-color" (click)="openNotificationDialog()">
             <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
             </button> 
             <button  mat-stroked-button class="bellborder bell-color" (click)="logoutAlert()">
@@ -68,8 +68,8 @@
         <router-outlet #outlet="outlet"></router-outlet>
       </div>
       <div class="bottom_header" *ngIf="isAdminUser() && !isFront()" fxFlex="100">
-        <mat-drawer-container class="main-container left-admin-menu">
-          <mat-drawer class="main_admin_menu" *ngIf="!isBusiness()" mode="side" opened>
+        <mat-sidenav-container class="main-container left-admin-menu">
+          <mat-sidenav class="main_admin_menu" *ngIf="!isBusiness()" mode="side" opened>
             <div class="top_admin_menu">
               <mat-list-item role="listitem"  class="matlist pointer menuitem logo">
                 <div class="logo"><img src="/assets/images/admin/admin-logo-orange.png"></div>
@@ -166,8 +166,8 @@
                 <div (click)="MyProfileNav(); fnPostUrl('my-profile');" [ngClass]="{'active': postUrl == 'my-profile' }" class="common-menu"><img src="/assets/images/admin/admin-menu-user-2.png"></div>
               </mat-list-item>
             </div>
-          </mat-drawer>
-          <mat-drawer-content *ngIf="adminSettings == 'settings'" class="main-admin-drawer">
+          </mat-sidenav>
+          <mat-sidenav-content *ngIf="adminSettings == 'settings'" class="main-admin-drawer">
             <div  class="container-fluid sub-container">
               <div class="row h-100">
                 <mat-drawer-container class="w-100">
@@ -261,13 +261,13 @@
                 </mat-drawer-container>
               </div>
             </div>
-          </mat-drawer-content> 
-          <mat-drawer-content class="main-admin-drawer">
+          </mat-sidenav-content>
+        <mat-sidenav-content class="main-admin-drawer">
             <div class="row mx-0 h-100 w-100">
               <router-outlet #outlet="outlet"></router-outlet>
             </div>
-          </mat-drawer-content>
-        </mat-drawer-container>
+          </mat-sidenav-content>
+        </mat-sidenav-container>
       </div>
     </main>
     <!-- right drawer menu code -->
