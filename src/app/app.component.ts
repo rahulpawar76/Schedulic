@@ -7,6 +7,7 @@ import { Router, RouterEvent, RouterOutlet } from '@angular/router';
 import { AuthenticationService } from './_services';
 import { User, Role } from './_models';
 
+
 //import { slideInAnimation } from './maturity/animations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -40,9 +41,11 @@ export interface DialogData {
 
 
 export class AppComponent implements AfterViewInit {
+  
+  showSuccess:any;
   animal:any;
   selectedBusinessName: any;
-  adminSettings:any;
+  adminSettings:any="notsettings";
   currentUrl: string;
   loginUserData: any;
   postUrl : any;userType : any;
@@ -104,10 +107,14 @@ export class AppComponent implements AfterViewInit {
 
 
     ngOnInit() {
+    
      this.router.events.subscribe(event => {
-          if (event instanceof RouterEvent) this.handleRoute(event);
-        });
+        if (event instanceof RouterEvent) this.handleRoute(event);
+      });
+      
     }
+
+    
     
      dynamicSort(property: string) {
       let sortOrder = 1;

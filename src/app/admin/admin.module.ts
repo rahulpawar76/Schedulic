@@ -38,6 +38,7 @@ import { PendingAppointmentDetailsDialog } from './appointment-live/appointment-
 import { NotAssignedAppointmentDetailsDialog } from './appointment-live/appointment-live.component';
 import { OnTheWayAppointmentDetailsDialog } from './appointment-live/appointment-live.component';
 import {WorkStartedAppointmentDetailsDialog} from './appointment-live/appointment-live.component';
+import {DialogAllAppointmentDetails} from './appointment/appointment.component';
 //import { IgxExcelExporterService } from "igniteui-angular";
 import { DialogMyProfileImageUpload } from './settings-my-profile/settings-my-profile.component';
 import { DialogCustomerImageUpload } from './customers/customers.component';
@@ -67,7 +68,8 @@ import { DialogCustomerImageUpload } from './customers/customers.component';
     PendingAppointmentDetailsDialog,
     NotAssignedAppointmentDetailsDialog,
     OnTheWayAppointmentDetailsDialog,
-    WorkStartedAppointmentDetailsDialog
+    WorkStartedAppointmentDetailsDialog,
+    DialogAllAppointmentDetails
     ],
   imports: [
     CommonModule,

@@ -35,8 +35,8 @@
             </div>
             <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons pt-4"> 
               <button mat-button class="d-block details-btn" (click)="MyAppointmentDetails(i)">Details</button>
-              <button mat-button class="d-block reschedule-btn" (click)="rescheduleAppointment(i)">Reschedule</button>
-              <button mat-button class="d-block cancel-btn" (click)="cancelAppo(appointmentData.id)">Cancel</button>
+              <button mat-button class="d-block reschedule-btn" (click)="rescheduleAppointment(i)" *ngIf="minReschedulingTime.getTime()<appointmentData.bookingDateTime.getTime()">Reschedule</button>
+              <button mat-button class="d-block cancel-btn" (click)="cancelAppo(appointmentData.id)" *ngIf="cancellationBufferTime.getTime()<appointmentData.bookingDateTime.getTime()">Cancel</button>
               <button mat-button class="d-block pay-btn">Pay</button>
             </div>                  
           </div>
@@ -125,7 +125,7 @@
             <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons"> 
               <button mat-button class="d-block details-btn" (click)="complete_details_dialog(i)">Details</button>
               <button mat-button class="d-block invoice-light-btn" (click)="invoice(i)">Invoice</button>
-              <div class="" *ngIf="completedAppointmentData.rating == null">
+              <div class="" *ngIf="completedAppointmentData.rating == null && isCustomerAllowedForRatingStaff">
                 <button mat-button class="d-block rate-btn" (click)="ratenow(completedAppointmentData.id)" id="">Rate Now</button>   
               </div>
               <div class="d-flex statick-rating w-100" *ngIf="completedAppointmentData.rating != null">

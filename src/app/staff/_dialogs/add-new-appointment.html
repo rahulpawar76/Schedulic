@@ -194,10 +194,10 @@
             <!-- <input type="time" class="form-control formcontrol"> -->
               <mat-select class="form-control formcontrol" [disabled]="" formControlName="customerTime" (selectionChange)="fnSelectTime($event.value)" >
             <!-- <mat-option>None</mat-option> -->
-              <mat-option *ngFor="let slot of timeSlotArr" value="{{slot}}">{{slot}}</mat-option>
+              <mat-option *ngFor="let slot of timeSlotArrForLabel" value="{{slot}}">{{slot}}</mat-option>
             </mat-select>
             <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerTime').dirty || formAddNewAppointmentStaffStep2.get('customerTime').touched || formSubmitclicked">
-              <small *ngIf="formAddNewAppointmentStaffStep2.get('customerTime').hasError('required')" class="error">time Is required</small>
+              <small *ngIf="formAddNewAppointmentStaffStep2.get('customerTime').hasError('required')" class="error">Time is required</small>
             </span>
           </div>      
               <button class="d-block btn btn-primary addbtn ml-2" (click)="fnNewAppointmentStep2()">Create</button>

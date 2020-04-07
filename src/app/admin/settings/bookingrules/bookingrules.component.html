@@ -749,6 +749,18 @@
         <mat-card class="matcard-space">
             <div class="d-flex">
                 <div>
+                    <h6>Staff List On Front</h6>
+                    <p class="mb-0">By Enabling this feature, Staff Kist will be shown in the Front.</p>
+                    <p class="mb-0"></p>
+                </div>
+                <div class="ml-auto mx-3">
+                    <mat-slide-toggle (change)="fnChangeStaffOnFrontStatus($event)" [checked]="staffListOnFrontValue === 'true' ? true : false"></mat-slide-toggle>
+                </div>
+            </div>
+        </mat-card>
+        <mat-card class="matcard-space">
+            <div class="d-flex">
+                <div>
                     <h6>Appointment auto confirm</h6>
                     <p class="mb-0">By Enabling this feature, Appointment request from clients will be auto confirmed.</p>
                 </div>
@@ -808,7 +820,7 @@
                 </div>
                 <div class="example-form" *ngIf="termsConditionsStatusValue=='true'">
                     <div class="d-flex example-full-width ">
-                        <button class="" (click)="fnSaveTermsConditionsValues()">Save</button>
+                        <button mat-button class="staff-reset-btn"  (click)="fnSaveTermsConditionsValues()">Save</button>
                     </div>
                 </div>
             </mat-card>
@@ -843,7 +855,7 @@
                 </div>
                 <div class="example-form" *ngIf="privacyPolicyStatusValue=='true'">
                     <div class="d-flex example-full-width ">
-                        <button class="" (click)="fnSavePrivacyPolicyValues()">Save</button>
+                        <button  mat-button class="staff-reset-btn" (click)="fnSavePrivacyPolicyValues()">Save</button>
                     </div>
                 </div>
             </mat-card>
@@ -866,7 +878,7 @@
                 </div>
                 <div class="example-form" *ngIf="thankyouPageStatusValue=='true'">
                     <div class="d-flex example-full-width ">
-                        <button class="" (click)="fnSaveThankyouPageValues()">Save</button>
+                        <button mat-button class="staff-reset-btn mt-3" (click)="fnSaveThankyouPageValues()">Save</button>
                     </div>
                 </div>
             </mat-card>

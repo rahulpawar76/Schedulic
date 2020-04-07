@@ -10,7 +10,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { AdminService } from '../_services/admin-main.service'
 import { DatePipe} from '@angular/common';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { AppComponent } from '@app/app.component'
+import { AppComponent } from '@app/app.component';
+import { AuthenticationService } from '@app/_services';
 
 @Component({
   selector: 'app-my-work-space',
@@ -28,6 +29,7 @@ export class MyWorkSpaceComponent implements OnInit {
     id: "",
     serviceId: "",
     staffId: "",
+    booking_date_time: "",
     booking_date: "",
     booking_time: "",
     created_at: "",
@@ -40,6 +42,7 @@ export class MyWorkSpaceComponent implements OnInit {
     customerEmail: "",
     customerPhone: "",
     customerAddress: "",
+    postalCode: "",
     booking_time_to: "",
     timeToService: "",
     categoryName: "",
@@ -58,6 +61,9 @@ export class MyWorkSpaceComponent implements OnInit {
   availableStaff:any= [];
   selectedCategory: any = 'all';
   selectedStaff:any;
+  settingsArr: any;
+  cancellationBufferTime: any;
+  minReschedulingTime: any;
   constructor(
     public dialog: MatDialog,
     private http: HttpClient,
@@ -65,6 +71,7 @@ export class MyWorkSpaceComponent implements OnInit {
     private adminService: AdminService,
     private _snackBar: MatSnackBar,
     private appComponent : AppComponent,
+    private authenticationService : AuthenticationService,
     private datePipe: DatePipe) {
     //this.appComponent.settingsModule(this.adminSettings);
     localStorage.setItem('isBusiness', 'false');
@@ -75,10 +82,39 @@ export class MyWorkSpaceComponent implements OnInit {
     this.selectedCategoryName="All Services";
     this.selectedStatus="all";
     this.businessId=localStorage.getItem('business_id');
+    this.fnGetSettingValue();
     this.fnGetAllCategories();
     this.fnGetTodayRevenue();
     this.todayDate = this.datePipe.transform(new Date(),"dd MMM yyyy")
   }
+
+  fnGetSettingValue(){
+    let requestObject = {
+      "business_id":this.businessId
+    };
+    this.adminService.getSettingValue(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.settingsArr=response.response;
+        console.log(this.settingsArr);
+        let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
+        let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
+        console.log(cancellation_buffer_time);
+        console.log(min_rescheduling_time);
+       
+        this.cancellationBufferTime = new Date();
+        this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
+        console.log("cancellationBufferTime - "+this.cancellationBufferTime);
+
+        this.minReschedulingTime = new Date();
+        this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
+        console.log("minReschedulingTime - "+this.minReschedulingTime);
+      }
+      else if(response.data == false){
+        
+      }
+    })
+  }
+
   fnOpenNote(event){
     if(event == true){
       this.formSettingPage = true;
@@ -104,25 +140,25 @@ export class MyWorkSpaceComponent implements OnInit {
   }
   fnGetAllAppointmentsByCategoryAndStatus(){
     let requestObject = {
-            "business_id":this.businessId,
-            "category":this.selectedCategoryId,
-            "status_filter":this.selectedStatus
-        };
-     this.adminService.getAllAppointmentsByCategoryAndStatus(requestObject).subscribe((response:any) => 
-  {
-    if(response.data == true){
-      this.appointments=response.response;
-      this.appointments = this.appointments.sort(this.dynamicSort("booking_time"))
-      this.activeBooking = 0;
-      
-      this.appointments.forEach( (element) => {
+      "business_id":this.businessId,
+      "category":this.selectedCategoryId,
+      "status_filter":this.selectedStatus
+    };
+    this.adminService.getAllAppointmentsByCategoryAndStatus(requestObject).subscribe((response:any) => 
+    {
+      if(response.data == true){
+        this.appointments=response.response;
+        this.appointments = this.appointments.sort(this.dynamicSort("booking_time"))
+        this.activeBooking = 0;
+        
+        this.appointments.forEach( (element) => {
           var todayDateTime = new Date();
-          element.booking_time=element.booking_date+" "+element.booking_time;
-          var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_time),"dd MMM yyyy hh:mm a"));
+          element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
+          var dateTemp = new Date(this.datePipe.transform(element.booking_date_time,"dd MMM yyyy hh:mm a"));
           dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
           var temp = dateTemp.getTime() - todayDateTime.getTime();
           element.timeToService=(temp/3600000).toFixed();
-          element.booking_time=this.datePipe.transform(new Date(element.booking_time),"hh:mm a")
+          element.booking_time=this.datePipe.transform(element.booking_date_time,"hh:mm a")
           element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
           element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
           element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
@@ -131,50 +167,50 @@ export class MyWorkSpaceComponent implements OnInit {
               element.service.category_name=this.categories[i].category_title;
             }
           }
-           
         });
-      this.appointmentDetails.id=this.appointments[0].id;
-      this.appointmentDetails.serviceId=this.appointments[0].service_id;
-      this.appointmentDetails.staffId=this.appointments[0].staff_id;
-      this.appointmentDetails.booking_date=this.appointments[0].booking_date;
-      this.appointmentDetails.booking_time=this.appointments[0].booking_time;
-      this.appointmentDetails.created_at=this.appointments[0].created_at;
-      this.appointmentDetails.service_name=this.appointments[0].service.service_name;
-      this.appointmentDetails.categoryName=this.appointments[0].service.category_name;
-      this.appointmentDetails.total_cost=this.appointments[0].total_cost;
-      this.appointmentDetails.service_time=this.appointments[0].service_time;
-      this.appointmentDetails.booking_time_to=this.appointments[0].booking_time_to;
-      this.appointmentDetails.timeToService=this.appointments[0].timeToService;
-      this.appointmentDetails.order_by=this.appointments[0].order_by;
-      this.appointmentDetails.order_status=this.appointments[0].order_status;
-      if(this.appointments[0].staff){
-        this.appointmentDetails.staffName=this.appointments[0].staff.firstname+" "+this.appointments[0].staff.lastname;
-      }
-      this.appointmentDetails.customerName=this.appointments[0].customer.fullname;
-      var splitted = this.appointmentDetails.customerName.split(" ",2);
-      this.appointmentDetails.initials='';
-      splitted.forEach( (element) => {
-        this.appointmentDetails.initials=this.appointmentDetails.initials+element.charAt(0);
-      });
-      // var str = this.appointmentDetails.customerName;
-      // var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
-      // this.appointmentDetails.initials = matches.join(''); // JSON
-      this.appointmentDetails.customerEmail=this.appointments[0].customer.email;
-      this.appointmentDetails.customerPhone=this.appointments[0].customer.phone;
-      this.appointmentDetails.customerAddress=this.appointments[0].customer.address+" "+this.appointments[0].customer.city+" "+this.appointments[0].customer.state+" "+this.appointments[0].customer.zip;
-      if(this.appointmentDetails.order_status == "CNF" && this.appointments[0].staff_id == null){
-        this.selectedStaff=null;
-        this.availableStaff.length=0;
-        this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId);
+        this.appointmentDetails.id=this.appointments[0].id;
+        this.appointmentDetails.serviceId=this.appointments[0].service_id;
+        this.appointmentDetails.staffId=this.appointments[0].staff_id;
+        this.appointmentDetails.booking_date=this.appointments[0].booking_date;
+        this.appointmentDetails.booking_time=this.appointments[0].booking_time;
+        this.appointmentDetails.booking_date_time=this.appointments[0].booking_date_time;
+        this.appointmentDetails.created_at=this.appointments[0].created_at;
+        this.appointmentDetails.service_name=this.appointments[0].service.service_name;
+        this.appointmentDetails.categoryName=this.appointments[0].service.category_name;
+        this.appointmentDetails.total_cost=this.appointments[0].total_cost;
+        this.appointmentDetails.service_time=this.appointments[0].service_time;
+        this.appointmentDetails.booking_time_to=this.appointments[0].booking_time_to;
+        this.appointmentDetails.timeToService=this.appointments[0].timeToService;
+        this.appointmentDetails.order_by=this.appointments[0].order_by;
+        this.appointmentDetails.order_status=this.appointments[0].order_status;
+        if(this.appointments[0].staff){
+          this.appointmentDetails.staffName=this.appointments[0].staff.firstname+" "+this.appointments[0].staff.lastname;
         }
-    }else{
-      this.appointments=[];
-    }
-  },
+        this.appointmentDetails.customerName=this.appointments[0].customer.fullname;
+        var splitted = this.appointmentDetails.customerName.split(" ",2);
+        this.appointmentDetails.initials='';
+        splitted.forEach( (element) => {
+          this.appointmentDetails.initials=this.appointmentDetails.initials+element.charAt(0);
+        });
+        // var str = this.appointmentDetails.customerName;
+        // var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
+        // this.appointmentDetails.initials = matches.join(''); // JSON
+        this.appointmentDetails.customerEmail=this.appointments[0].customer.email;
+        this.appointmentDetails.customerPhone=this.appointments[0].customer.phone;
+        this.appointmentDetails.customerAddress=this.appointments[0].customer.address+" "+this.appointments[0].customer.city+" "+this.appointments[0].customer.state+" "+this.appointments[0].customer.zip;
+        this.appointmentDetails.postalCode=this.appointments[0].customer.zip;
+        if(this.appointmentDetails.order_status == "CNF" && this.appointments[0].staff_id == null){
+          this.selectedStaff=null;
+          this.availableStaff.length=0;
+          this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId,this.appointmentDetails.postalCode);
+        }
+      }else{
+        this.appointments=[];
+      }
+    },
     (err) => {
       this.error = err;
-    }
-  )
+    });
   }
 
   fnOnClickAppointment(i){
@@ -184,6 +220,7 @@ export class MyWorkSpaceComponent implements OnInit {
         this.appointmentDetails.staffId=this.appointments[i].staff_id;
         this.appointmentDetails.booking_date=this.appointments[i].booking_date;
         this.appointmentDetails.booking_time=this.appointments[i].booking_time;
+        this.appointmentDetails.booking_date_time=this.appointments[i].booking_date_time;
         this.appointmentDetails.created_at=this.appointments[i].created_at;
         this.appointmentDetails.service_name=this.appointments[i].service.service_name;
         this.appointmentDetails.categoryName=this.appointments[i].service.category_name;
@@ -207,16 +244,18 @@ export class MyWorkSpaceComponent implements OnInit {
         this.appointmentDetails.customerEmail=this.appointments[i].customer.email;
         this.appointmentDetails.customerPhone=this.appointments[i].customer.phone;
         this.appointmentDetails.customerAddress=this.appointments[i].customer.address+" "+this.appointments[i].customer.city+" "+this.appointments[i].customer.state+" "+this.appointments[i].customer.zip;
+        this.appointmentDetails.postalCode=this.appointments[i].customer.zip;
         if(this.appointmentDetails.order_status == "CNF" && this.appointments[i].staff_id == null){
         this.selectedStaff=null;
         this.availableStaff.length=0;
-          this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId);
+          this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId,this.appointmentDetails.postalCode);
         }
         
   }
 
-  fnGetStaff(booking_date,booking_time,serviceId){
+  fnGetStaff(booking_date,booking_time,serviceId,postal_code){
     let requestObject = {
+      "postal_code":postal_code,
       "business_id":this.businessId,
       "service_id":JSON.stringify(serviceId),
       "book_date":this.datePipe.transform(new Date(booking_date),"yyyy-MM-dd"),
@@ -490,6 +529,7 @@ export class MyWorkSpaceComponent implements OnInit {
 
       fnGetStaff(selectedTimeSlot){
         let requestObject = {
+          "postal_code":this.appointmentDetails.postalCode,
           "business_id":this.businessId,
           "service_id":JSON.stringify(this.appointmentDetails.serviceId),
           "book_date":this.selectedDate,

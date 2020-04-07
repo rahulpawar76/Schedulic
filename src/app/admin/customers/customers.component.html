@@ -248,14 +248,16 @@
                                     
                                     <p>{{customerPersonalDetails.created_at}} Created By {{customerPersonalDetails.created_by}}</p>
                                 </div>
-                                <div class="lastBookedAppoint">
-                                 <h6>LAST BOOKED APPOINTMENT </h6>
-                                 <p>18 Sep 2019, 02:25 pm</p>
-                             </div>
-                             <div class="lastBookedService">
-                                 <h6>LAST BOOKED SERVICE</h6>
-                                 <p>Hair Cut (Salon)</p>
-                             </div>
+                               
+                                    <div class="lastBookedAppoint">
+                                        <h6>LAST BOOKED APPOINTMENT </h6>
+                                        <p>{{customersDetails.lastBooking.booking_date}} {{customersDetails.lastBooking.booking_time}}</p>
+                                    </div>
+                                    <div class="lastBookedService">
+                                        <h6>LAST BOOKED SERVICE</h6>
+                                        <p>{{customersDetails.lastBooking.service.service_name}} ({{customersDetails.lastBooking.service.category.category_title}})</p>
+                                    </div>
+                               
                             </div>
                             <div class="devider-slim"></div> 
                             </mat-tab>

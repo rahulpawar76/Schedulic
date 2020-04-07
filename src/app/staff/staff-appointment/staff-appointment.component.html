@@ -90,7 +90,7 @@
 
             <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons pt-4"> 
               <button mat-button class="d-block details-btn" (click)="OnGoingAppointmentDetails(i)" >Details</button>
-              <button mat-button class="d-block reschedulebtn" (click)="rescheduleAppointment(i)">Reschedule</button>
+              <button mat-button class="d-block reschedulebtn" (click)="rescheduleAppointment(i)" *ngIf="minReschedulingTime.getTime() < onGoingAppointmentData.booking_date_time.getTime()">Reschedule</button>
               <button mat-button class="d-block complete-btn" (click)="changeBookingStatus(onGoingAppointmentData.id, 'CO')">Complete</button>
             </div>                  
           </div>

@@ -109,11 +109,21 @@ export class FrontbookingComponent implements OnInit {
   showCouponError:boolean=false;
   couponErrorMessage:any;
   timeSlotArrForLabel:any=[];
+
+
+  termsConditionsStatusValue:boolean = false;
+  termsConditions:any;
+  privacyPolicy:any;
+  PrivacyPolicyStatusValue:boolean = false;
+  
+
+
   minimumAdvanceBookingTime:any;
   maximumAdvanceBookingTime:any;
   minimumAdvanceBookingDateTimeObject:any;
   maximumAdvanceBookingDateTimeObject:any;
   settingsArr:any=[];
+  staffOnFrontValue:boolean=false;
   @ViewChildren(MdePopoverTrigger) trigger: QueryList<MdePopoverTrigger>;
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
   emailFormat = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
@@ -129,6 +139,20 @@ export class FrontbookingComponent implements OnInit {
     
   ) { 
     localStorage.setItem('isFront', "true");
+    const current = new Date();
+    const nextmonth = new Date();
+      this.minDate = {
+        year: current.getFullYear(),
+        month: current.getMonth() + 1,
+        day: current.getDate()
+      };
+      this.maxDate = {
+        year: current.getFullYear(),
+        month: current.getMonth() + 2,
+        day: current.getDate(),
+      };
+
+
     this.fnGetSettings();
     this.fnGetTaxDetails();
   }
@@ -150,7 +174,7 @@ export class FrontbookingComponent implements OnInit {
     this.formNewUser = this._formBuilder.group({
       newUserEmail: ['',[Validators.required,Validators.email,Validators.pattern(emailPattern)],
       this.isEmailUnique.bind(this)],
-      newUserPassword: ['',[Validators.required,Validators.minLength(8)]],
+      newUserPassword: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(8)]],
       newUserFullname: ['',Validators.required],
       newUserPhone: ['',[Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
       newUserAddress: ['',Validators.required],
@@ -177,6 +201,34 @@ export class FrontbookingComponent implements OnInit {
     this.serviceCartArr.length=0
   }
 
+
+  fnChangeTermsConditionsStatus(event){
+    console.log(event);
+
+    if(event== true){
+      this.termsConditionsStatusValue=true;
+    }
+    else if(event==false){
+      this.termsConditionsStatusValue=false;
+    }
+    
+   
+
+  }
+
+  fnChangePrivacyPolicyStatus(event){
+    console.log(event);
+      if(event == true){
+      this.PrivacyPolicyStatusValue=true;
+
+      }else if(event == false){
+
+      this.PrivacyPolicyStatusValue=false;
+
+      }
+
+  }
+
   fnGetSettings(){
     let requestObject = {
       "business_id" : 2
@@ -194,6 +246,17 @@ export class FrontbookingComponent implements OnInit {
       if(response.data == true){
         this.settingsArr=response.response;
         console.log(this.settingsArr);
+        this.termsConditions = JSON.parse(this.settingsArr.terms_condition)
+        if(this.termsConditions.status == 'false'){
+          this.termsConditionsStatusValue = true;
+        }
+        console.log(this.termsConditions);
+
+        this.privacyPolicy=JSON.parse(this.settingsArr.privacy_policy)
+        if(this.privacyPolicy.status == 'false'){
+          this.PrivacyPolicyStatusValue = true;
+        }
+        console.log(this.privacyPolicy);
 
         this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
         this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
@@ -213,6 +276,7 @@ export class FrontbookingComponent implements OnInit {
           month: this.maximumAdvanceBookingDateTimeObject.getMonth() + 1,
           day: this.maximumAdvanceBookingDateTimeObject.getDate(),
         };
+        this.staffOnFrontValue=JSON.parse(JSON.parse(this.settingsArr.staff_list_on_front).status)
       }else{
       }
       },
@@ -738,7 +802,7 @@ export class FrontbookingComponent implements OnInit {
       let month= this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[1];
       let day=this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[2];
       console.log(year+"--"+month+"--"+day);
-      let dateTemp={"year":year,"month":month,"day":day};
+      let dateTemp={"year":parseInt(year),"month":parseInt(month),"day":parseInt(day)};
       console.log(JSON.stringify(dateTemp));
       this.model=dateTemp;
       this.selecteddate=this.serviceCartArr[this.currentSelectedService].appointmentDate
@@ -790,6 +854,13 @@ export class FrontbookingComponent implements OnInit {
         this.fnSelectNextValidDate(mydate);
       }else{
         this.selecteddate=this.datePipe.transform(new Date(mydate),"yyyy-MM-dd");
+        let year=this.selecteddate.split("-")[0];
+        let month= this.selecteddate.split("-")[1];
+        let day=this.selecteddate.split("-")[2];
+        console.log(year+"--"+month+"--"+day);
+        let dateTemp={"year":parseInt(year),"month":parseInt(month),"day":parseInt(day)};
+        console.log(JSON.stringify(dateTemp));
+        this.model=dateTemp;
         this.selecteddateForLabel= this.datePipe.transform(new Date(mydate),"EEE, MMM dd");
         console.log(mydate);
         console.log(this.selecteddate);
@@ -885,13 +956,17 @@ export class FrontbookingComponent implements OnInit {
       })
   }
  
-  fnSelectTimeSlot(timeSlot){
+  fnSelectTimeSlot(timeSlot,index){
     this.selectedTimeSlot=timeSlot;
     console.log(this.selectedTimeSlot);
     // console.log(this.selectedTimeSlot)
     this.availableStaff.length=0;
     this.isStaffAvailable = false;
-    this.fnGetStaff()
+    if(this.staffOnFrontValue == true){
+      this.fnGetStaff();
+    }else{
+      this.fnSelectStaff(null,index);
+    }
   }
 
   fnGetStaff(){
@@ -947,7 +1022,7 @@ export class FrontbookingComponent implements OnInit {
     
   }
   
-  fnSelectStaff(event,staff_id,index){
+  fnSelectStaff(staff_id,index){
     this.isLoader=true;
     console.log(event);
     console.log(staff_id);
@@ -1460,6 +1535,11 @@ export class FrontbookingComponent implements OnInit {
     this.subcatselection = false;
     this.catselection = true;
    }
+
+  //  fnbackfromdate(){
+  //     this.dateselection=false;
+  //     this.catselection = true;
+  //  }
 
    fnbacktofirst(){
     this.subcatselection = false;

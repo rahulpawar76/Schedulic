@@ -125,7 +125,7 @@ export class StaffService {
     };
     let headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        'staff-id' : this.staffId,
+        'staff-id' : this.staffId ,
         'api-token' : this.staffToken 
     });
     return this.http.post(`${environment.apiUrl}/staff-postal-code`,requestObject,{headers:headers}).pipe(
@@ -255,7 +255,7 @@ export class StaffService {
           'api-token' : this.staffToken,
           'Content-Type': 'application/json'
       });
-      return this.http.post(`${environment.apiUrl}/list-holidays`,requestObject,{headers:headers}).pipe(
+      return this.http.post(`${environment.apiUrl}/staff-holiday-offdays`,requestObject,{headers:headers}).pipe(
       map((res) => {
           return res;
       }),

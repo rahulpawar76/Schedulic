@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit} from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { UserService } from '../_services/user.service';
 import { FormGroup, FormBuilder, Validators  } from '@angular/forms';
@@ -7,9 +7,10 @@ import { environment } from '@environments/environment';
 import { Router, RouterOutlet } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import { DatePipe} from '@angular/common';
-import {MatDatepickerInputEvent} from '@angular/material/datepicker';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DatePipe } from '@angular/common';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { AuthenticationService } from '@app/_services';
 
 
 export interface DialogData {
@@ -25,45 +26,82 @@ export interface DialogData {
 })
 export class UserappointmentsComponent implements OnInit {
   animal: any;
+  bussinessId: any;
   appointmentData : any;
   cancelAppointmentData: any;
   completedAppointmentData: any;
+  settingsArr: any;
+  cancellationBufferTime: any;
+  minReschedulingTime: any;
+  isCustomerAllowedForRatingStaff: boolean=false;
 
   constructor(
     public dialog: MatDialog,
-     private http: HttpClient,
-     private UserService: UserService,
-     public router: Router,
-     private _snackBar: MatSnackBar,
-    private datePipe: DatePipe
-     ) {
+    private http: HttpClient,
+    private UserService: UserService,
+    public router: Router,
+    private _snackBar: MatSnackBar,
+    private datePipe: DatePipe,
+    private authenticationService: AuthenticationService
+    ) {
+    this.bussinessId=this.authenticationService.currentUserValue.business_id;
   }
 
 
 ngOnInit() {
-
+  this.fnGetSettingValue();
   this.getAllAppointments();
   this.getCancelAppointments();
   this.getCompletedAppointments();
 }
+
+fnGetSettingValue(){
+    let requestObject = {
+      "business_id":this.bussinessId
+    };
+    this.UserService.getSettingValue(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.settingsArr=response.response;
+        console.log(this.settingsArr);
+        let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
+        let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
+        this.isCustomerAllowedForRatingStaff=JSON.parse(this.settingsArr.customer_allow_for_staff_rating);
+        console.log(cancellation_buffer_time);
+        console.log(min_rescheduling_time);
+        console.log(this.isCustomerAllowedForRatingStaff);
+       
+        this.cancellationBufferTime = new Date();
+        this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
+        console.log("cancellationBufferTime - "+this.cancellationBufferTime);
+
+        this.minReschedulingTime = new Date();
+        this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
+        console.log("minReschedulingTime - "+this.minReschedulingTime);
+      }
+      else if(response.data == false){
+        
+      }
+    })
+  }
 
 getAllAppointments(): void{
   this.UserService.getAllAppointments().subscribe((response:any) =>{
     if(response.data == true){
       this.appointmentData = response.response;
       this.appointmentData.forEach( (element) => {
-        element.booking_timeForLabel = this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+        element.bookingDateTime = new Date(element.booking_date+" "+element.booking_time);
+        element.booking_timeForLabel = this.datePipe.transform(element.bookingDateTime,"hh:mm a");
         element.booking_dateForLabel = this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
         element.created_atForLabel = this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a");
 
-        var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"dd MMM yyyy hh:mm a"));
+        var dateTemp = new Date(this.datePipe.transform(element.bookingDateTime,"dd MMM yyyy hh:mm a"));
         dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
         element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
 
       });
     }
     else if(response.data == false){
-      this.appointmentData = '';
+      this.appointmentData = [];
     }
   })
 }
@@ -107,7 +145,6 @@ getCompletedAppointments(): void{
     }
   })
 }
-
 
 // Dialogs
 
