@@ -49,6 +49,7 @@ export class AppComponent implements AfterViewInit {
   userId : any;
   token : any;
   notificationData : any;
+  staffStatus : any;
 
   @ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
 
@@ -85,15 +86,18 @@ export class AppComponent implements AfterViewInit {
         private _snackBar: MatSnackBar,        
     ) {        
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-        this.loginUserData = JSON.parse(localStorage.getItem('currentUser'));
-        //this.userId=this.authenticationService.currentUserValue.user_id
+        if(this.authenticationService.currentUserValue.user_id){
+          this.userId=this.currentUser.user_id
+          alert(this.userId);
+        }
+        
         //this.token=this.authenticationService.currentUserValue.token
         
         
     }
-    private handleError(error: HttpErrorResponse) {
-      console.log(error);
-      return throwError('Error! something went wrong.');
+  private handleError(error: HttpErrorResponse) {
+    console.log(error);
+    return throwError('Error! something went wrong.');
   }
 
 
@@ -103,8 +107,6 @@ export class AppComponent implements AfterViewInit {
      this.router.events.subscribe(event => {
           if (event instanceof RouterEvent) this.handleRoute(event);
         });
-        console.log(this.loginUserData);
-        console.log(this.loginUserData.user_type);
     }
     
      dynamicSort(property: string) {
@@ -372,68 +374,70 @@ export class AppComponent implements AfterViewInit {
       this.router.navigate(['/user']);
       }
 
+      
+
       /*For notification Dialog*/
 
 
       openNotificationDialog() {
 
-        if(this.loginUserData.user_type == "A"){
+        if(this.currentUser.user_type == "A"){
           this.userType =  "admin"
-        }else if(this.loginUserData.user_type == "SM"){
+        }else if(this.currentUser.user_type == "SM"){
           this.userType =  "staff"
-        }else if(this.loginUserData.user_type == "C"){
+        }else if(this.currentUser.user_type == "C"){
           this.userType =  "customer"
         }
         alert(this.userType);
-        // let requestObject = {
-        //   "user_id":this.loginUserData.user_id,
-        //   "user_type" : this.userType
-        // };
-        // if(this.userType ==  "admin"){
-        //   alert(this.loginUserData.user_id);
-        //   let headers = new HttpHeaders({
-        //     'Content-Type': 'application/json',
-        //     'admin-id' : this.userId,
-        //     "api-token":this.token,
-        //   });
+        let requestObject = {
+          "user_id":this.currentUser.user_id,
+          "user_type" : this.userType
+        };
+        if(this.userType ==  "admin"){
+          alert(this.currentUser.user_id);
+          let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.userId,
+            "api-token":this.token,
+          });
 
-        //   console.log(headers);
-        //   return this.http.post(`${environment.apiUrl}/get-notification`,requestObject,{headers:headers}).pipe(
-        //     map((res) => {
-        //       return res;
-        //     }),
-        //   catchError(this.handleError)
-        //   ).subscribe((response:any) => {
-        //     this.notificationData = response.response;
-        //       console.log(this.notificationData);
-        //   }, (err) =>{
-        //     console.log(err)
-        //   })
-        // }else if(this.userType ==  "staff"){
-        //   let headers = new HttpHeaders({
-        //     'Content-Type': 'application/json',
-        //     'staff-id' : this.userId,
-        //     "api-token":this.token
-        //   });
-        //   return this.http.post(`${environment.apiUrl}/get-notification`,requestObject,{headers:headers}).pipe(
-        //     map((res) => {
-        //       this.notificationData = res;
-        //       console.log(this.notificationData);
-        //     }),
-        //   catchError(this.handleError));
-        // }else if(this.userType ==  "customer"){
-        //   let headers = new HttpHeaders({
-        //     'Content-Type': 'application/json',
-        //     "customer-id" : this.userId,
-        //     "api-token":this.token
-        //   });
-        //   return this.http.post(`${environment.apiUrl}/get-notification`,requestObject,{headers:headers}).pipe(
-        //     map((res) => {
-        //       this.notificationData = res;
-        //       console.log(this.notificationData);
-        //     }),
-        //   catchError(this.handleError));
-        // }
+          console.log(headers);
+          return this.http.post(`${environment.apiUrl}/get-notification`,requestObject,{headers:headers}).pipe(
+            map((res) => {
+              return res;
+            }),
+          catchError(this.handleError)
+          ).subscribe((response:any) => {
+            this.notificationData = response.response;
+              console.log(this.notificationData);
+          }, (err) =>{
+            console.log(err)
+          })
+        }else if(this.userType ==  "staff"){
+          let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'staff-id' : this.userId,
+            "api-token":this.token
+          });
+          return this.http.post(`${environment.apiUrl}/get-notification`,requestObject,{headers:headers}).pipe(
+            map((res) => {
+              this.notificationData = res;
+              console.log(this.notificationData);
+            }),
+          catchError(this.handleError));
+        }else if(this.userType ==  "customer"){
+          let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            "customer-id" : this.userId,
+            "api-token":this.token
+          });
+          return this.http.post(`${environment.apiUrl}/get-notification`,requestObject,{headers:headers}).pipe(
+            map((res) => {
+              this.notificationData = res;
+              console.log(this.notificationData);
+            }),
+          catchError(this.handleError));
+        }
         const dialogRef = this.dialog.open(DialogNotification, {
           height: '500px',
         });
@@ -441,7 +445,37 @@ export class AppComponent implements AfterViewInit {
           console.log('The dialog was closed');
           this.animal = result;
         });
+        
       }
+      // staffAvaibility(event){
+      //   alert(this.userId)
+      //   alert(event)
+      //   if(event == true){
+      //     this.staffStatus = "E"
+      //   }else{
+      //     this.staffStatus = "D"
+      //   }
+      //   let requestObject = {
+      //     "status":this.staffStatus,
+      //   };
+      //   let headers = new HttpHeaders({
+      //     'Content-Type': 'application/json',
+      //     'staff-id' : this.userId,
+      //     "api-token":this.token
+      //   });
+      //   return this.http.post(`${environment.apiUrl}/staff-status-update`,requestObject,{headers:headers}).pipe(
+      //   map((res) => {
+      //       return res;
+      //   }),
+      //   catchError(this.handleError)
+      //   ).subscribe((response:any) => {
+      //     if(response.data == true){
+      //       alert("Status Updated")
+      //     }
+      //   }, (err) =>{
+      //     console.log(err)
+      //   })
+      // }
 
   prepareRoute(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];

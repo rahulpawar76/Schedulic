@@ -27,7 +27,7 @@
               </span>
               <span class="f13">
 
-             <mat-slide-toggle class="slidetoggle">Availability</mat-slide-toggle> 
+             <mat-slide-toggle (change)="staffAvaibility($event.checked)" class="slidetoggle">Availability</mat-slide-toggle> 
 
 
                 <button  mat-stroked-button class="bellborder bell-color ml-3" (click)="openNotificationDialog()">
@@ -53,7 +53,7 @@
                 <button mat-button color="primary" (click)="MyBusinessNav()">My Businesses</button>
                 <span class="profile-head">
                   <img class="customer-profile-img m-2 float-left" src="/assets/img/avatar-rihan.jpg">
-                  <p class="font-weight-bold my-2 p-1">{{loginUserData.full_name}}</p>
+                  <!-- <p class="font-weight-bold my-2 p-1">{{loginUserData.full_name}}</p> -->
                 </span>
                 <button  mat-stroked-button class="bellborder bell-color" (click)="openNotificationDialog()">
                 <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
@@ -95,7 +95,7 @@
                       <mat-card-content class="add-content">
                         <p class="mb-0 add-new">Add New</p>
                         <div class="bottom-border"></div>
-                        <ul>
+                        <ul class="admin-add-menu">
                           <mat-list-item role="listitem" (click)="addNewAppointNav()">
                             <div class="common-menu">
                               <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/Appointment.png"/>
@@ -287,7 +287,8 @@
       <mat-list role="list" *ngIf="isCustomerUser()">
         <mat-menu></mat-menu>
         <mat-list-item role="listitem" (click)="drawer.toggle()" (click)="UserProfile('./user-profile')" class="matlist pointer menuitem">
-            <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg"><p class="font-weight-bold mt-2 p-1">{{loginUserData.full_name}}</p>
+            <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg">
+            <!-- <p class="font-weight-bold mt-2 p-1">{{loginUserData.full_name}}</p> -->
         </mat-list-item>
    
         <mat-list-item role="listitem"  (click)="UserAppointment('./user-appointment')" 
@@ -304,7 +305,8 @@
       <mat-list role="list" *ngIf="isStaffUser()">
         <mat-menu></mat-menu>
         <mat-list-item role="listitem" (click)="drawer.toggle()" (click)=" StaffProfile('./staff-profile')" class="matlist pointer menuitem">
-            <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg"><p class="font-weight-bold mt-2 p-1">{{loginUserData.full_name}}</p>
+            <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg">
+            <!-- <p class="font-weight-bold mt-2 p-1">{{loginUserData.full_name}}</p> -->
         </mat-list-item>
          <mat-list-item role="listitem"  (click)="WorkSpace('./my-work-space')" (click)="drawer.toggle()">
           <button mat-menu-item  class="menuitem">

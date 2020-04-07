@@ -3,16 +3,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '@app/_services';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from '@environments/environment';
+import { Observable, throwError } from 'rxjs';
+import { AppComponent } from '@app/app.component';
+import { map, catchError, filter } from 'rxjs/operators';
 
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const invalidCtrl = !!(control && control.invalid && control.parent.dirty);
-    const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
-
-    return (invalidCtrl || invalidParent);
-  }
-}
 
 @Component({
   selector: 'app-reset-password',
@@ -25,63 +22,84 @@ export class ResetPasswordComponent implements OnInit {
   dataLoaded: boolean = true;
   error= '';
   submitted = false;
-  matcher = new MyErrorStateMatcher();
+  newPassword: any;
+  accesToken : any;
   constructor(
   		private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
-        private router: Router,
+      private route: ActivatedRoute,
+      private router: Router,       
+      private _snackBar: MatSnackBar,
+      private http: HttpClient,
         private authenticationService: AuthenticationService
         ) {
   	
          }
 
-  ngOnInit() {  	
-    this.user_id = this.route.snapshot.queryParams['id'] || '/';    
+  ngOnInit() {  	 
   	this.resetPasswordForm = this.formBuilder.group({
-        new_password: ['', Validators.required],
-        confirm_password: ['', Validators.required]            
+      NewPassword: ['', Validators.required],
+      ReNewPassword: ['', Validators.required]            
     },{validator: this.checkPasswords });
+    console.log(this.route.snapshot.queryParams['accessToken']);
+    
+    this.accesToken = this.route.snapshot.queryParams['accessToken'];
   }
+  private handleError(error: HttpErrorResponse) {
+    console.log(error);
+    return throwError('Error! something went wrong.');
+}
+
 
 /* Check password and confirm password */
  checkPasswords(group: FormGroup) { // here we have the 'passwords' group
-    let pass = group.controls.new_password.value;
-    let confirmPass = group.controls.confirm_password.value;
+    let pass = group.controls.NewPassword.value;
+    let confirmPass = group.controls.ReNewPassword.value;
 
     return pass === confirmPass ? null : { notSame: true }
   }
 
-/*checkPasswords(group: FormGroup) { // here we have the 'passwords' group
-  let pass = group.get('new_password').value;
-  let confirmPass = group.get('confirm_password').value; 
-  return pass === confirmPass ? null : { notSame: true }     
-}*/
 
 // convenience getter for easy access to form fields
     get f() { return this.resetPasswordForm.controls; }
 
 
 /* That function will reset password */
-  fnResetPassword() {   
-  		this.submitted = true;   
-        // stop here if form is invalid
-        if (this.resetPasswordForm.invalid) {
-            return;
-        }       
-        this.dataLoaded = false;
-        this.authenticationService.setNewPassword(this.f.new_password.value,this.user_id)
-            .pipe(first())
-            .subscribe(
-                data => {                     
-                  if(data.status === "true" ){                    
-                    this.router.navigate(['/login']);
-                  }      
-                },
-                error => {                    
-                    this.error = "Email is incorrect"; 
-                    this.dataLoaded = true;                    
-                });
-        
-    }
+  fnSubmitResetPassword() {   
+    if (this.resetPasswordForm.valid) {
+      this.newPassword = this.resetPasswordForm.get('ReNewPassword').value
+      alert(this.accesToken);
+      let requestObject = {
+        "password":this.newPassword,
+        "token" : this.accesToken
+      };
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+      return this.http.post(`${environment.apiUrl}/reset-password`,requestObject,{headers:headers}).pipe(
+      map((res) => {
+          return res;
+      }),
+      catchError(this.handleError)
+      ).subscribe((response:any) => {
+        if(response.data == true){
+          this._snackBar.open("Passward Successfully Reset", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+          this.router.navigate(['/login']);
+        }
+        else if(response.data == false){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+        }
+      }, (err) =>{
+        console.log(err)
+      })
+    }      
+  }
 
 }
