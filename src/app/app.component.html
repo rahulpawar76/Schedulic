@@ -68,8 +68,8 @@
         <router-outlet #outlet="outlet"></router-outlet>
       </div>
       <div class="bottom_header" *ngIf="isAdminUser() && !isFront()" fxFlex="100">
-        <mat-sidenav-container class="main-container left-admin-menu">
-          <mat-sidenav class="main_admin_menu" *ngIf="!isBusiness()" mode="side" opened>
+        <mat-drawer-container class="main-container left-admin-menu">
+          <mat-drawer [disableClose]="true" class="main_admin_menu" *ngIf="!isBusiness()" mode="side" opened>
             <div class="top_admin_menu">
               <mat-list-item role="listitem"  class="matlist pointer menuitem logo">
                 <div class="logo"><img src="/assets/images/admin/admin-logo-orange.png"></div>
@@ -166,12 +166,12 @@
                 <div (click)="MyProfileNav(); fnPostUrl('my-profile');" [ngClass]="{'active': postUrl == 'my-profile' }" class="common-menu"><img src="/assets/images/admin/admin-menu-user-2.png"></div>
               </mat-list-item>
             </div>
-          </mat-sidenav>
-          <mat-sidenav-content *ngIf="adminSettings == 'settings'" class="main-admin-drawer">
+          </mat-drawer>
+          <mat-drawer-content *ngIf="adminSettings == 'settings'" class="main-admin-drawer">
             <div  class="container-fluid sub-container">
               <div class="row h-100">
                 <mat-drawer-container class="w-100">
-                  <mat-drawer mode="side" opened class="setting-menu">
+                  <mat-drawer [disableClose]="true" mode="side" opened class="setting-menu">
                     <div class="leftarrow-icon d-flex">
                       <mat-icon aria-hidden="false" class="customer-drawer-leftarrow ml-auto">arrow_back</mat-icon>
                     </div>
@@ -261,13 +261,13 @@
                 </mat-drawer-container>
               </div>
             </div>
-          </mat-sidenav-content>
-        <mat-sidenav-content class="main-admin-drawer">
+          </mat-drawer-content> 
+          <mat-drawer-content class="main-admin-drawer">
             <div class="row mx-0 h-100 w-100">
               <router-outlet #outlet="outlet"></router-outlet>
             </div>
-          </mat-sidenav-content>
-        </mat-sidenav-container>
+          </mat-drawer-content>
+        </mat-drawer-container>
       </div>
     </main>
     <!-- right drawer menu code -->

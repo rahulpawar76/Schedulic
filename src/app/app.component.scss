@@ -353,6 +353,9 @@ background-color: $primary-color;
 .setting-menu{
     background-color: #fbfbfb;
     width: 300px;
+    position: fixed;
+    top: 70px;
+    height: 100vh;
     .setting-menu-item{
         cursor: pointer;
         padding: 10px 20px;

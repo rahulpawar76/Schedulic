@@ -1,7 +1,7 @@
 <mat-drawer-content id="services" class="ml-0">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif"/></div>
     <mat-drawer-container class="h-100">
-        <mat-drawer mode="side" opened class="category-sidebar"  style="width:250px; background-color: #f8fbff;">  
+        <mat-drawer [disableClose]="true" mode="side" opened class="category-sidebar"  style="width:250px; background-color: #f8fbff;">  
             <!-- <mat-list role="list">
                 <div  class="pl-2 bottom-border d-flex">
                     <h5 class="ml-2">Category ({{allCategoryCount}})</h5>
