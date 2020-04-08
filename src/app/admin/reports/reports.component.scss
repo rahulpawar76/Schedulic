@@ -1,37 +1,4 @@
 @import "variables";
-// // ::ng-deep .mat-drawer{
-// //     max-width: 25%;
-// // }example-container
-// // ::ng-deep .mat-drawer-content{
-// //     max-width: 75%;
-// //     margin-left: 288px;
-// // }
-// .max-width-94{
-//     max-width: 94%;
-//     margin: 0 auto;
-// }
-
-// .example-container{
-//     .devider-slim{
-//         width: 100%;
-//         border-bottom: 1px solid #ccc;
-//     }
-//     #Customer-list{
-//         background-color: #f2f2f2;
-//         ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix{
-//             padding: 10px 0 10px 10px;
-//         }
-//         ::ng-deep  .mat-form-field-infix {
-//             border-top: unset;
-//         }
-//         ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper{
-//             transform: inherit;
-//         }
-//         ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper{
-//             background-color: white;
-//             border-radius: 5px;
-//         }
-
 ::ng-deep .mat-drawer-container .example-container{
     margin-top: 65px !important;
     padding-left: 0px;
