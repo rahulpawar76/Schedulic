@@ -450,27 +450,29 @@ export class BookingrulesComponent implements OnInit {
     console.log(event.checked);
     console.log(this.staffListOnFrontValue);
 
-    // let requestObject={
-    //   "business_id":this.businessId,
-    //   "customer_login":JSON.stringify(event.checked)
-    // }
-    // console.log(JSON.stringify(requestObject));
-    // this.adminSettingsService.changeCustomerLoginStatus(requestObject).subscribe((response:any) => {
-    //   if(response.data == true){
-    //     this.snackBar.open("Customer Login Status Updated", "X", {
-    //       duration: 2000,
-    //       verticalPosition: 'bottom',
-    //       panelClass : ['green-snackbar']
-    //     });
-    //   }
-    //   else{
-    //    this.snackBar.open("Customer Login Status Not Updated", "X", {
-    //       duration: 2000,
-    //       verticalPosition: 'bottom',
-    //       panelClass : ['red-snackbar']
-    //     });
-    //   }
-    // })
+    let requestObject={
+      "business_id":this.businessId,
+      "staff_list_on_front":{
+        "status" : JSON.stringify(event.checked)
+      }
+    }
+    console.log(JSON.stringify(requestObject));
+    this.adminSettingsService.changeStaffOnFrontStatus(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.snackBar.open("Staff On Front Status Updated", "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass : ['green-snackbar']
+        });
+      }
+      else{
+       this.snackBar.open("Staff On Front Status Not Updated", "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
   }
   
   fnChangeAutoAssignStaffStatus(event){

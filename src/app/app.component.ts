@@ -94,7 +94,7 @@ export class AppComponent implements AfterViewInit {
         private CommonService:CommonService       
     ) {        
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-        if(this.authenticationService.currentUserValue.user_id){
+        if(this.currentUser && this.currentUser.user_id){
           this.userId=this.currentUser.user_id
         }
         if(localStorage.getItem('business_id')){

@@ -919,6 +919,19 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
 
+    changeStaffOnFrontStatus(requestObject) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/set-staff-list-front`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
     updateAppAutoConfirmSettings(requestObject) {
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
