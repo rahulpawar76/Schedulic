@@ -292,6 +292,7 @@ export class FrontbookingComponent implements OnInit {
           }
         }else{
           const validators = [Validators.required];
+          const validatorsZipCode = [Validators.required,Validators.pattern(this.onlynumeric)];
           this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
           this.formNewUser.addControl('newUserState', new FormControl('', validators));
           this.formNewUser.addControl('newUserCity', new FormControl('', validators));
