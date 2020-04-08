@@ -116,7 +116,7 @@ export class FrontbookingComponent implements OnInit {
   privacyPolicy:any;
   PrivacyPolicyStatusValue:boolean = false;
   
-
+  contactFormSettingsArr:any=[];
 
   minimumAdvanceBookingTime:any;
   maximumAdvanceBookingTime:any;
@@ -141,28 +141,16 @@ export class FrontbookingComponent implements OnInit {
     localStorage.setItem('isFront', "true");
     const current = new Date();
     const nextmonth = new Date();
-      this.minDate = {
-        year: current.getFullYear(),
-        month: current.getMonth() + 1,
-        day: current.getDate()
-      };
-      this.maxDate = {
-        year: current.getFullYear(),
-        month: current.getMonth() + 2,
-        day: current.getDate(),
-      };
-
-
-    this.fnGetSettings();
-    this.fnGetTaxDetails();
-  }
-
-  ngOnInit() {
-    if(this.authenticationService.currentUserValue && this.authenticationService.currentUserValue.user_type == "C"){
-      this.isLoggedIn=true;
-      this.customerName=this.authenticationService.currentUserValue.fullname;
-      console.log(this.authenticationService.currentUserValue.user_id+" "+this.isLoggedIn);
-    }
+    this.minDate = {
+      year: current.getFullYear(),
+      month: current.getMonth() + 1,
+      day: current.getDate()
+    };
+    this.maxDate = {
+      year: current.getFullYear(),
+      month: current.getMonth() + 2,
+      day: current.getDate(),
+    };
 
     this.formExistingUser = this._formBuilder.group({
       existing_mail: ['',[Validators.required,Validators.email]],
@@ -177,20 +165,31 @@ export class FrontbookingComponent implements OnInit {
       newUserPassword: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(8)]],
       newUserFullname: ['',Validators.required],
       newUserPhone: ['',[Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
-      newUserAddress: ['',Validators.required],
-      newUserState: ['',Validators.required],
-      newUserCity: ['',Validators.required],
-      newUserZipcode: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+      // newUserAddress: ['',Validators.required],
+      // newUserState: ['',Validators.required],
+      // newUserCity: ['',Validators.required],
+      // newUserZipcode: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
       newUserSplReq: ['']
     })
 
     this.formAppointmentInfo = this._formBuilder.group({
-      appo_address: ['',[Validators.required]],
-      appo_state: ['',[Validators.required]],
-      appo_city: ['',Validators.required],
-      appo_zipcode: ['',[Validators.required,Validators.pattern(this.onlynumeric)]]
+      // appo_address: ['',[Validators.required]],
+      // appo_state: ['',[Validators.required]],
+      // appo_city: ['',Validators.required],
+      // appo_zipcode: ['',[Validators.required,Validators.pattern(this.onlynumeric)]]
     })
-    
+
+    this.fnGetSettings();
+    this.fnGetTaxDetails();
+  }
+
+  ngOnInit() {
+    if(this.authenticationService.currentUserValue && this.authenticationService.currentUserValue.user_type == "C"){
+      this.isLoggedIn=true;
+      this.customerName=this.authenticationService.currentUserValue.fullname;
+      console.log(this.authenticationService.currentUserValue.user_id+" "+this.isLoggedIn);
+    }
+
     this.fnGetCategories();
     this.fnGetOffDays();
     setTimeout(() => {
@@ -257,6 +256,53 @@ export class FrontbookingComponent implements OnInit {
           this.PrivacyPolicyStatusValue = true;
         }
         console.log(this.privacyPolicy);
+
+        this.contactFormSettingsArr=JSON.parse(this.settingsArr.form_settings)
+        if(this.contactFormSettingsArr.contact_field_status == true){
+          if(this.contactFormSettingsArr.addressField.status == 1){
+            if(this.contactFormSettingsArr.addressField.required == 1){
+              const validators = [Validators.required];
+              const validatorsZipCode = [Validators.required,Validators.pattern(this.onlynumeric)];
+              this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
+              this.formNewUser.addControl('newUserState', new FormControl('', validators));
+              this.formNewUser.addControl('newUserCity', new FormControl('', validators));
+              this.formNewUser.addControl('newUserZipcode', new FormControl('', validatorsZipCode));
+
+              this.formAppointmentInfo.addControl('appo_address', new FormControl('', validators));
+              this.formAppointmentInfo.addControl('appo_state', new FormControl('', validators));
+              this.formAppointmentInfo.addControl('appo_city', new FormControl('', validators));
+              this.formAppointmentInfo.addControl('appo_zipcode', new FormControl('', validatorsZipCode));
+
+            }else{
+              this.formNewUser.addControl('newUserAddress', new FormControl(''));
+              this.formNewUser.addControl('newUserState', new FormControl(''));
+              this.formNewUser.addControl('newUserCity', new FormControl(''));
+              this.formNewUser.addControl('newUserZipcode', new FormControl(''));
+
+              this.formAppointmentInfo.addControl('appo_address', new FormControl(''));
+              this.formAppointmentInfo.addControl('appo_state', new FormControl(''));
+              this.formAppointmentInfo.addControl('appo_city', new FormControl(''));
+              this.formAppointmentInfo.addControl('appo_zipcode', new FormControl(''));
+            }
+          }else{
+            this.formAppointmentInfo.addControl('appo_address', new FormControl(''));
+            this.formAppointmentInfo.addControl('appo_state', new FormControl(''));
+            this.formAppointmentInfo.addControl('appo_city', new FormControl(''));
+            this.formAppointmentInfo.addControl('appo_zipcode', new FormControl(''));
+          }
+        }else{
+          const validators = [Validators.required];
+          this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
+          this.formNewUser.addControl('newUserState', new FormControl('', validators));
+          this.formNewUser.addControl('newUserCity', new FormControl('', validators));
+          this.formNewUser.addControl('newUserZipcode', new FormControl('', validatorsZipCode));
+
+          this.formAppointmentInfo.addControl('appo_address', new FormControl('', validators));
+          this.formAppointmentInfo.addControl('appo_state', new FormControl('', validators));
+          this.formAppointmentInfo.addControl('appo_city', new FormControl('', validators));
+          this.formAppointmentInfo.addControl('appo_zipcode', new FormControl('', validatorsZipCode));
+        }
+        console.log(this.contactFormSettingsArr);
 
         this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
         this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
@@ -1208,25 +1254,65 @@ export class FrontbookingComponent implements OnInit {
       this.formNewUser.get('newUserPassword').markAsTouched();
       this.formNewUser.get('newUserFullname').markAsTouched();
       this.formNewUser.get('newUserPhone').markAsTouched();
-      this.formNewUser.get('newUserAddress').markAsTouched();
-      this.formNewUser.get('newUserState').markAsTouched();
-      this.formNewUser.get('newUserCity').markAsTouched();
-      this.formNewUser.get('newUserZipcode').markAsTouched();
+      if(this.contactFormSettingsArr.contact_field_status == true){
+        if(this.contactFormSettingsArr.addressField.status == 1){
+          this.formNewUser.get('newUserAddress').markAsTouched();
+          this.formNewUser.get('newUserState').markAsTouched();
+          this.formNewUser.get('newUserCity').markAsTouched();
+          this.formNewUser.get('newUserZipcode').markAsTouched();
+          // if(this.contactFormSettingsArr.addressField.required == 1){
+          //   const validators = [Validators.required];
+          //   const validatorsZipCode = [Validators.required,Validators.pattern(this.onlynumeric)];
+          //   this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
+          //   this.formNewUser.addControl('newUserState', new FormControl('', validators));
+          //   this.formNewUser.addControl('newUserCity', new FormControl('', validators));
+          //   this.formNewUser.addControl('newUserZipcode', new FormControl('', validatorsZipCode));
+
+          // }else{
+          //   this.formNewUser.addControl('newUserAddress', new FormControl(''));
+          //   this.formNewUser.addControl('newUserState', new FormControl(''));
+          //   this.formNewUser.addControl('newUserCity', new FormControl(''));
+          //   this.formNewUser.addControl('newUserZipcode', new FormControl(''));
+          // }
+        }
+      }else{
+        this.formNewUser.get('newUserAddress').markAsTouched();
+        this.formNewUser.get('newUserState').markAsTouched();
+        this.formNewUser.get('newUserCity').markAsTouched();
+        this.formNewUser.get('newUserZipcode').markAsTouched();
+      }
       return false;
     }
     this.fnSignUp();
    }
    
   fnSignUp(){
+    let newUserAddress="";
+    let newUserState="";
+    let newUserCity="";
+    let newUserZipcode="";
+    if(this.contactFormSettingsArr.contact_field_status == true){
+      if(this.contactFormSettingsArr.addressField.status == 1){
+        newUserAddress=this.formNewUser.get('newUserAddress').value;
+        newUserState=this.formNewUser.get('newUserState').value;
+        newUserCity=this.formNewUser.get('newUserCity').value;
+        newUserZipcode=this.formNewUser.get('newUserZipcode').value;
+      }
+    }else{
+      newUserAddress=this.formNewUser.get('newUserAddress').value;
+      newUserState=this.formNewUser.get('newUserState').value;
+      newUserCity=this.formNewUser.get('newUserCity').value;
+      newUserZipcode=this.formNewUser.get('newUserZipcode').value;
+    }
     let requestObject = {
       "email" : this.formNewUser.get('newUserEmail').value,
       "password" : this.formNewUser.get('newUserPassword').value,
       "fullname":this.formNewUser.get('newUserFullname').value,
       "phone":this.formNewUser.get('newUserPhone').value,
-      "address":this.formNewUser.get('newUserAddress').value,
-      "zip":this.formNewUser.get('newUserZipcode').value,
-      "state":this.formNewUser.get('newUserState').value,
-      "city":this.formNewUser.get('newUserCity').value,
+      "address":newUserAddress,
+      "zip":newUserZipcode,
+      "state":newUserState,
+      "city":newUserCity,
       "business_id":2
       };
     let headers = new HttpHeaders({
@@ -1264,11 +1350,21 @@ export class FrontbookingComponent implements OnInit {
     console.log(event.srcElement.checked)
     if(event.srcElement.checked == true){
       
-    console.log(event)
+    console.log(event);
+    if(this.contactFormSettingsArr.contact_field_status == true){
+      if(this.contactFormSettingsArr.addressField.status == 1){
+        this.formAppointmentInfo.controls['appo_address'].setValue(this.formNewUser.get('newUserAddress').value);
+        this.formAppointmentInfo.controls['appo_state'].setValue(this.formNewUser.get('newUserState').value);
+        this.formAppointmentInfo.controls['appo_city'].setValue(this.formNewUser.get('newUserCity').value);
+        this.formAppointmentInfo.controls['appo_zipcode'].setValue(this.formNewUser.get('newUserZipcode').value);
+      }
+    }else{
       this.formAppointmentInfo.controls['appo_address'].setValue(this.formNewUser.get('newUserAddress').value);
       this.formAppointmentInfo.controls['appo_state'].setValue(this.formNewUser.get('newUserState').value);
       this.formAppointmentInfo.controls['appo_city'].setValue(this.formNewUser.get('newUserCity').value);
       this.formAppointmentInfo.controls['appo_zipcode'].setValue(this.formNewUser.get('newUserZipcode').value);
+    }
+      
 
       // this.appo_address_info.appo_address = this.formNewUser.get('newUserAddress').value;
       // this.appo_address_info.appo_state = this.formNewUser.get('newUserState').value;

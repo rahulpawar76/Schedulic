@@ -75,25 +75,25 @@
                 <div  class="custom-check-box" >
                   <div class="" fxFlex="20"  >
                     <div class="checked round" >
-                      <mat-checkbox (change)="fnChangeFieldStatus($event.checked,'nameField')" class="form_field_checkbox" [checked]="formArr['nameField'].status=='1'"></mat-checkbox>
+                      <mat-checkbox (change)="fnChangeFieldStatus($event.checked,'nameField')" class="form_field_checkbox" [checked]="formArr['nameField'].status=='1'" [disabled]="true"></mat-checkbox>
                       <p class="check-label">Name</p>
                     </div>
                   </div>
                   <div class="" fxFlex="20" *ngIf="formArr['nameField'].status=='1'">
-                    <mat-checkbox  (change)="fnChangeRequiredStatus($event.checked,'nameField')" [checked]="formArr['nameField'].required=='1'">Required</mat-checkbox>
+                    <mat-checkbox  (change)="fnChangeRequiredStatus($event.checked,'nameField')" [checked]="formArr['nameField'].required=='1'" [disabled]="true">Required</mat-checkbox>
                   </div>
                   <div class="" fxFlex="60"></div>
                 </div>
                 <div  class="custom-check-box">
                   <div class="" fxFlex="20">
                     <div class="checked round">
-                      <mat-checkbox (change)="fnChangeFieldStatus($event.checked,'numberField')" class="form_field_checkbox" [checked]="formArr['numberField'].status=='1'"></mat-checkbox>
+                      <mat-checkbox (change)="fnChangeFieldStatus($event.checked,'numberField')" class="form_field_checkbox" [checked]="formArr['numberField'].status=='1'" [disabled]="true"></mat-checkbox>
                       <p class="check-label">Number</p>
                     </div>
                   </div>
                   <div class="" fxFlex="20" *ngIf="formArr['numberField'].status=='1'">
                     <div>
-                      <mat-checkbox (change)="fnChangeRequiredStatus($event.checked,'numberField')" [checked]="formArr['numberField'].required=='1'">Required</mat-checkbox>
+                      <mat-checkbox (change)="fnChangeRequiredStatus($event.checked,'numberField')" [checked]="formArr['numberField'].required=='1'" [disabled]="true">Required</mat-checkbox>
                     </div>
                   </div>
                   <div class="" fxFlex="60"></div>
@@ -101,13 +101,13 @@
                 <div  class="custom-check-box">
                   <div class="" fxFlex="20">
                     <div class="checked round">
-                      <mat-checkbox (change)="fnChangeFieldStatus($event.checked,'emailField')" class="form_field_checkbox" [checked]="formArr['emailField'].status=='1'"></mat-checkbox>
+                      <mat-checkbox (change)="fnChangeFieldStatus($event.checked,'emailField')" class="form_field_checkbox" [checked]="formArr['emailField'].status=='1'" [disabled]="true"></mat-checkbox>
                       <p class="check-label">Email</p>
                     </div>
                   </div>
                   <div class="" fxFlex="20" *ngIf="formArr['emailField'].status=='1'">
                     <div>
-                      <mat-checkbox (change)="fnChangeRequiredStatus($event.checked,'emailField')" [checked]="formArr['emailField'].required=='1'">Required</mat-checkbox>
+                      <mat-checkbox (change)="fnChangeRequiredStatus($event.checked,'emailField')" [checked]="formArr['emailField'].required=='1'" [disabled]="true">Required</mat-checkbox>
                     </div>
                   </div>
                   <div class="" fxFlex="60"></div>
