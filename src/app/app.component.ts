@@ -392,81 +392,47 @@ export class AppComponent implements AfterViewInit {
 
 
     openNotificationDialog() {
-
+      let headers;
       if(this.currentUser.user_type == "A"){
-        this.userType =  "admin"
-        let requestObject = {
-          "user_id":this.businessId,
-          "user_type" : this.userType
-        };
-        let headers = new HttpHeaders({
+        this.userType =  "admin";
+        headers = new HttpHeaders({
           'Content-Type': 'application/json',
           'admin-id' : JSON.stringify(this.currentUser.user_id),
           "api-token":this.currentUser.token
         });
-        this.CommonService.openNotificationDialog(requestObject,headers).subscribe((response:any)=>{
-          if(response.data == true){
-            this.notificationData = response.response
-            const dialogRef = this.dialog.open(DialogNotification, {
-              height: '500px',
-              data : { fulldata: this.notificationData}
-            });
-            dialogRef.afterClosed().subscribe(result => {
-              console.log('The dialog was closed');
-              this.animal = result;
-            });
-          }  
-        })
       }else if(this.currentUser.user_type == "SM"){
-        this.userType =  "staff"
-        let requestObject = {
-          "user_id":this.userId,
-          "user_type" : this.userType
-        };
-        let headers = new HttpHeaders({
+        this.userType =  "staff";
+        headers = new HttpHeaders({
           'Content-Type': 'application/json',
           'staff-id' : JSON.stringify(this.currentUser.user_id),
           "api-token":this.currentUser.token
         });
-        this.CommonService.openNotificationDialog(requestObject,headers).subscribe((response:any)=>{
-          if(response.data == true){
-            this.notificationData = response.response
-            const dialogRef = this.dialog.open(DialogNotification, {
-              height: '500px',
-              data : { fulldata: this.notificationData}
-            });
-            dialogRef.afterClosed().subscribe(result => {
-              console.log('The dialog was closed');
-              this.animal = result;
-            });
-          }  
-        })
       }else if(this.currentUser.user_type == "C"){
-        this.userType =  "customer"
-        let requestObject = {
-          "user_id":this.userId,
-          "user_type" : this.userType
-        };
-        let headers = new HttpHeaders({
+        this.userType =  "customer";
+        headers = new HttpHeaders({
           'Content-Type': 'application/json',
           'customer-id' : JSON.stringify(this.currentUser.user_id),
           "api-token":this.currentUser.token
         });
-        this.CommonService.openNotificationDialog(requestObject,headers).subscribe((response:any)=>{
-          if(response.data == true){
-            this.notificationData = response.response
-            const dialogRef = this.dialog.open(DialogNotification, {
-              height: '500px',
-              data : { fulldata: this.notificationData}
-            });
-            dialogRef.afterClosed().subscribe(result => {
-              console.log('The dialog was closed');
-              this.animal = result;
-            });
-          }  
-        })
       }
-      
+      let requestObject = {
+        "user_id":this.businessId,
+        "user_type" : this.userType
+      };
+      this.CommonService.openNotificationDialog(requestObject,headers).subscribe((response:any)=>{
+        if(response.data == true){
+          this.notificationData = response.response
+          const dialogRef = this.dialog.open(DialogNotification, {
+            height: '500px',
+            data : { fulldata: this.notificationData}
+          });
+          dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.animal = result;
+          });
+        }
+        
+      })
       
     }
       staffAvaibility(event){
