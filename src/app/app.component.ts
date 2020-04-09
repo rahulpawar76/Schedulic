@@ -96,13 +96,14 @@ export class AppComponent implements AfterViewInit {
     ) {        
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
         if(this.currentUser && this.currentUser.user_id){
-          this.userId=this.currentUser.user_id
+          this.userId=this.currentUser.user_id;
+          this.token=this.currentUser.token
         }
         if(localStorage.getItem('business_id')){
           this.businessId = localStorage.getItem('business_id');
       }
         
-        //this.token=this.authenticationService.currentUserValue.token
+        
         
         
     }
@@ -393,38 +394,55 @@ export class AppComponent implements AfterViewInit {
       /*For notification Dialog*/
 
 
-      openNotificationDialog() {
+    openNotificationDialog() {
 
-        if(this.currentUser.user_type == "A"){
-          this.userType =  "admin"
-        }else if(this.currentUser.user_type == "SM"){
-          this.userType =  "staff"
-        }else if(this.currentUser.user_type == "C"){
-          this.userType =  "customer"
-        }
-        this.CommonService.openNotificationDialog(this.userType).subscribe((response:any)=>{
-          if(response.data == true){
-            this.notificationData = response.response
-            const dialogRef = this.dialog.open(DialogNotification, {
-              height: '500px',
-              data : { fulldata: this.notificationData}
-            });
-            dialogRef.afterClosed().subscribe(result => {
-              console.log('The dialog was closed');
-              this.animal = result;
-            });
-          }
-          
-        })
-        
+      if(this.currentUser.user_type == "A"){
+        this.userType =  "admin"
+      }else if(this.currentUser.user_type == "SM"){
+        this.userType =  "staff"
+      }else if(this.currentUser.user_type == "C"){
+        this.userType =  "customer"
       }
+      let requestObject = {
+        "user_id":this.businessId,
+        "user_type" : this.userType
+      };
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'admin-id' : JSON.stringify(this.userId),
+        "api-token":this.token
+      });
+      this.CommonService.openNotificationDialog(requestObject,headers).subscribe((response:any)=>{
+        if(response.data == true){
+          this.notificationData = response.response
+          const dialogRef = this.dialog.open(DialogNotification, {
+            height: '500px',
+            data : { fulldata: this.notificationData}
+          });
+          dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.animal = result;
+          });
+        }
+        
+      })
+      
+    }
       staffAvaibility(event){
         if(event == true){
           this.staffStatus = "E"
         }else{
           this.staffStatus = "D"
         }
-        this.CommonService.staffAvaibility(this.staffStatus).subscribe((response:any)=>{
+        let requestObject = {
+          "status": this.staffStatus,
+        };
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'staff-id' : JSON.stringify(this.userId),
+          "api-token":this.token
+        });
+        this.CommonService.staffAvaibility(requestObject,headers).subscribe((response:any)=>{
           if(response.data == true){
             this._snackBar.open(response.response, "X", {
               duration: 2000,
