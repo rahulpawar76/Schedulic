@@ -1,5 +1,6 @@
 ﻿<mat-drawer-container class="main-container">
   <mat-drawer-content>
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif"/></div>
     <main fxLayout="column" fxLayoutGap="0">
       <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser() && !isBusiness()}" color="primary" class="toolbar menu-comman" *ngIf="isLogin() && !isFront()">
         <mat-toolbar-row *ngIf="isCustomerUser()">

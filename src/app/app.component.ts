@@ -56,6 +56,7 @@ export class AppComponent implements AfterViewInit {
   notificationData : any;
   staffStatus : any;
   businessId : any;
+  isLoaderAdmin : boolean = false;
 
   @ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
 
@@ -394,7 +395,7 @@ export class AppComponent implements AfterViewInit {
 
 
       openNotificationDialog() {
-
+        this.isLoaderAdmin = true;
         if(this.currentUser.user_type == "A"){
           this.userType =  "admin"
         }else if(this.currentUser.user_type == "SM"){
@@ -413,6 +414,10 @@ export class AppComponent implements AfterViewInit {
               console.log('The dialog was closed');
               this.animal = result;
             });
+            this.isLoaderAdmin = false
+          } else{
+
+            this.isLoaderAdmin = false
           }
           
         })
@@ -518,10 +523,10 @@ export class AppComponent implements AfterViewInit {
         this.notifications = this.notifications.sort(this.dynamicSort("booking_time"))
         this.notifications.forEach( (element) => { 
           var todayDateTime = new Date();
-          element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
-          var dateTemp = new Date(this.datePipe.transform(element.booking_date_time,"dd MMM yyyy hh:mm a"));
+          //element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
+          var dateTemp = new Date(this.datePipe.transform(element.updated_at,"dd MMM yyyy hh:mm a"));
           dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
-          var temp = dateTemp.getTime() - todayDateTime.getTime();
+          var temp = todayDateTime.getTime() - dateTemp.getTime();
           element.timeToService=(temp/3600000).toFixed();
 
           element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
