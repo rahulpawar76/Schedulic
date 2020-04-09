@@ -270,6 +270,10 @@ background-color: $primary-color;
     font-size: $fs-14;
     color: blue;
 }
+::ng-deep .orangefont{
+    font-size: $fs-14;
+    color: #eb7c2b;
+}
 
 ::ng-deep .material-icons{
     font-size: $fs-16;
