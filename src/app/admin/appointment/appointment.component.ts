@@ -53,19 +53,20 @@ export class AppointmentComponent implements OnInit {
     ) {
       localStorage.setItem('isBusiness', 'false');
       this.businessId=localStorage.getItem('business_id');
+      this.durationType = 'month';
+      this.selectedServices =  'all';
+      this.fnGetSettingValue();
+      this.getAllAppointments(this.durationType,this.selectedServices);
+      this.getAllServices();
+      
+      this.dtOptions = {
+        // Use this attribute to enable the responsive extension
+        responsive: true,
+      };
      }
 
   ngOnInit() {
-    this.durationType = 'month';
-    this.selectedServices =  'all';
-    this.fnGetSettingValue();
-    this.getAllAppointments(this.durationType,this.selectedServices);
-    this.getAllServices();
     
-    this.dtOptions = {
-      // Use this attribute to enable the responsive extension
-      responsive: true,
-    };
   }
 
   ngOnDestroy(): void {
