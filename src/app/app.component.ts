@@ -95,10 +95,6 @@ export class AppComponent implements AfterViewInit {
         private CommonService:CommonService       
     ) {        
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-        if(this.currentUser && this.currentUser.user_id){
-          this.userId=this.currentUser.user_id;
-          this.token=this.currentUser.token
-        }
         if(localStorage.getItem('business_id')){
           this.businessId = localStorage.getItem('business_id');
       }
@@ -409,8 +405,8 @@ export class AppComponent implements AfterViewInit {
       };
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        'admin-id' : JSON.stringify(this.userId),
-        "api-token":this.token
+        'admin-id' : JSON.stringify(this.currentUser.user_id),
+        "api-token":this.currentUser.token
       });
       this.CommonService.openNotificationDialog(requestObject,headers).subscribe((response:any)=>{
         if(response.data == true){
@@ -439,8 +435,8 @@ export class AppComponent implements AfterViewInit {
         };
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
-          'staff-id' : JSON.stringify(this.userId),
-          "api-token":this.token
+          'staff-id' : JSON.stringify(this.currentUser.user_id),
+          "api-token":this.currentUser.token
         });
         this.CommonService.staffAvaibility(requestObject,headers).subscribe((response:any)=>{
           if(response.data == true){
