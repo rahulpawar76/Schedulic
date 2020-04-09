@@ -391,23 +391,33 @@ export class AppComponent implements AfterViewInit {
 
 
     openNotificationDialog() {
-
+      let headers;
       if(this.currentUser.user_type == "A"){
-        this.userType =  "admin"
+        this.userType =  "admin";
+        headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'admin-id' : JSON.stringify(this.currentUser.user_id),
+          "api-token":this.currentUser.token
+        });
       }else if(this.currentUser.user_type == "SM"){
-        this.userType =  "staff"
+        this.userType =  "staff";
+        headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'staff-id' : JSON.stringify(this.currentUser.user_id),
+          "api-token":this.currentUser.token
+        });
       }else if(this.currentUser.user_type == "C"){
-        this.userType =  "customer"
+        this.userType =  "customer";
+        headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'customer-id' : JSON.stringify(this.currentUser.user_id),
+          "api-token":this.currentUser.token
+        });
       }
       let requestObject = {
         "user_id":this.businessId,
         "user_type" : this.userType
       };
-      let headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'admin-id' : JSON.stringify(this.currentUser.user_id),
-        "api-token":this.currentUser.token
-      });
       this.CommonService.openNotificationDialog(requestObject,headers).subscribe((response:any)=>{
         if(response.data == true){
           this.notificationData = response.response
