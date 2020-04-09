@@ -24,9 +24,10 @@ export class CommonService {
           this.businessId = localStorage.getItem('business_id');
       }
       if(this.currentUser && this.currentUser.user_id){
-        this.userId=this.currentUser.user_id
+        this.userId=this.currentUser.user_id;
+        this.token=this.currentUser.token
       }
-      this.token=this.authenticationService.currentUserValue.token
+      
     }  
   private handleError(error: HttpErrorResponse) {
       console.log(error);
