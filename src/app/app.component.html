@@ -47,7 +47,7 @@
               <img class="customer-profile-img m-2 float-left" src="/assets/img/avatar-rihan.jpg">
               <p class="font-weight-bold my-2 p-1" *ngIf="currentUser.full_name">{{currentUser.full_name}}</p>
             </span>
-            <button *ngIf="businessId"  mat-stroked-button class="bellborder bell-color" (click)="openNotificationDialog()">
+            <button *ngIf="!isBusiness()"  mat-stroked-button class="bellborder bell-color" (click)="openNotificationDialog()">
             <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
             </button> 
             <button  mat-stroked-button class="bellborder bell-color" (click)="logoutAlert()">
