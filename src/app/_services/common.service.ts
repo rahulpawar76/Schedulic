@@ -26,7 +26,9 @@ export class CommonService {
       if(this.currentUser && this.currentUser.user_id){
         this.userId=this.currentUser.user_id
       }
-      this.token=this.authenticationService.currentUserValue.token
+      if(this.currentUser && this.currentUser.token){
+        this.token=this.authenticationService.currentUserValue.token
+      }
     }  
   private handleError(error: HttpErrorResponse) {
       console.log(error);

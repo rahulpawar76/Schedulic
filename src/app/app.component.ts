@@ -7,6 +7,7 @@ import { Router, RouterEvent, RouterOutlet } from '@angular/router';
 import { AuthenticationService } from './_services';
 import { User, Role } from './_models';
 import { CommonService } from './_services'
+import { DatePipe} from '@angular/common';
 
 
 //import { slideInAnimation } from './maturity/animations';
@@ -423,9 +424,13 @@ export class AppComponent implements AfterViewInit {
         }else{
           this.staffStatus = "D"
         }
-        this.CommonService.openNotificationDialog(this.staffStatus).subscribe((response:any)=>{
+        this.CommonService.staffAvaibility(this.staffStatus).subscribe((response:any)=>{
           if(response.data == true){
-            alert(response.response);
+            this._snackBar.open(response.response, "X", {
+              duration: 2000,
+              verticalPosition:'top',
+              panelClass :['green-snackbar']
+            });
           }
         })
         
@@ -500,19 +505,45 @@ export class AppComponent implements AfterViewInit {
 @Component({
     selector: 'dialog-notification',
     templateUrl: './_dialogs/dialog-notification.html',
+    providers: [DatePipe]
   })
   export class DialogNotification {
     notifications: any;
 
     constructor(
       public dialogRef: MatDialogRef<DialogNotification>,
+      private datePipe: DatePipe,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.notifications = this.data.fulldata
+        this.notifications = this.notifications.sort(this.dynamicSort("booking_time"))
+        this.notifications.forEach( (element) => { 
+          var todayDateTime = new Date();
+          element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
+          var dateTemp = new Date(this.datePipe.transform(element.booking_date_time,"dd MMM yyyy hh:mm a"));
+          dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+          var temp = dateTemp.getTime() - todayDateTime.getTime();
+          element.timeToService=(temp/3600000).toFixed();
+
+          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
+          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+        });
         console.log(this.notifications)
       }
 
     onNoClick(): void {
       this.dialogRef.close();
+    }
+
+    dynamicSort(property) {
+      var sortOrder = 1;
+      if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+      }
+      return function (a, b) {
+      var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+      }
     }
 
   }
@@ -534,6 +565,8 @@ constructor(
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  
   logout() {
     this.authenticationService.logout();
     if (this.timer) {
