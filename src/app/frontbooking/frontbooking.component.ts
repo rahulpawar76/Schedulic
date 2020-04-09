@@ -274,21 +274,21 @@ export class FrontbookingComponent implements OnInit {
               this.formAppointmentInfo.addControl('appo_zipcode', new FormControl('', validatorsZipCode));
 
             }else{
-              this.formNewUser.addControl('newUserAddress', new FormControl(''));
-              this.formNewUser.addControl('newUserState', new FormControl(''));
-              this.formNewUser.addControl('newUserCity', new FormControl(''));
-              this.formNewUser.addControl('newUserZipcode', new FormControl(''));
+              this.formNewUser.addControl('newUserAddress', new FormControl(null));
+              this.formNewUser.addControl('newUserState', new FormControl(null));
+              this.formNewUser.addControl('newUserCity', new FormControl(null));
+              this.formNewUser.addControl('newUserZipcode', new FormControl(null));
 
-              this.formAppointmentInfo.addControl('appo_address', new FormControl(''));
-              this.formAppointmentInfo.addControl('appo_state', new FormControl(''));
-              this.formAppointmentInfo.addControl('appo_city', new FormControl(''));
-              this.formAppointmentInfo.addControl('appo_zipcode', new FormControl(''));
+              this.formAppointmentInfo.addControl('appo_address', new FormControl(null));
+              this.formAppointmentInfo.addControl('appo_state', new FormControl(null));
+              this.formAppointmentInfo.addControl('appo_city', new FormControl(null));
+              this.formAppointmentInfo.addControl('appo_zipcode', new FormControl(null));
             }
           }else{
-            this.formAppointmentInfo.addControl('appo_address', new FormControl(''));
-            this.formAppointmentInfo.addControl('appo_state', new FormControl(''));
-            this.formAppointmentInfo.addControl('appo_city', new FormControl(''));
-            this.formAppointmentInfo.addControl('appo_zipcode', new FormControl(''));
+            this.formAppointmentInfo.addControl('appo_address', new FormControl(null));
+            this.formAppointmentInfo.addControl('appo_state', new FormControl(null));
+            this.formAppointmentInfo.addControl('appo_city', new FormControl(null));
+            this.formAppointmentInfo.addControl('appo_zipcode', new FormControl(null));
           }
         }else{
           const validators = [Validators.required];
@@ -1372,10 +1372,10 @@ export class FrontbookingComponent implements OnInit {
       // this.appo_address_info.appo_city = this.formNewUser.get('newUserCity').value;
       // this.appo_address_info.appo_zipcode = this.formNewUser.get('newUserZipcode').value;
     }else{
-      this.formAppointmentInfo.controls['appo_address'].setValue('');
-      this.formAppointmentInfo.controls['appo_state'].setValue('');
-      this.formAppointmentInfo.controls['appo_city'].setValue('');
-      this.formAppointmentInfo.controls['appo_zipcode'].setValue('');
+      this.formAppointmentInfo.controls['appo_address'].setValue(null);
+      this.formAppointmentInfo.controls['appo_state'].setValue(null);
+      this.formAppointmentInfo.controls['appo_city'].setValue(null);
+      this.formAppointmentInfo.controls['appo_zipcode'].setValue(null);
 
       // this.appo_address_info.appo_address = "";
       // this.appo_address_info.appo_state = "";
