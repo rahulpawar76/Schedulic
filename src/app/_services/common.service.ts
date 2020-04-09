@@ -27,7 +27,7 @@ export class CommonService {
         this.userId=this.currentUser.user_id;
         this.token=this.currentUser.token
       }
-      
+
     }  
   private handleError(error: HttpErrorResponse) {
       console.log(error);

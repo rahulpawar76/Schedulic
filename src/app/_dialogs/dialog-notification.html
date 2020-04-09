@@ -3,104 +3,102 @@
     <div class="modal-dialog-container mt-0 mb-0" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Notification  ({{notifications.length}})</h5>
-            <button type="button" (click)="onNoClick()" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+          <h5 class="modal-title">Notification ({{notifications.length}})</h5>
+          <button type="button" (click)="onNoClick()" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
 
         <div class="modal-body ">
-          <div class="row">
-            <div class="col-12">
-               <label class="mb-0 bluefont">On The Way</label>
-               <label class="mb-0 x-small float-right">Just Now</label>
-            </div>
+          <div class="" *ngFor="let notifications of notifications;  let i=index;">
+            <div class="row">
+              <div class="col-12">
+                <label class="mb-0 bluefont">On The Way</label>
+                <label class="mb-0 x-small float-right">in {{notifications.timeToService}} hours</label>
+              </div>
             </div>
             <div class="row">
-            <div class="col-6">
-             
-              <label class="mb-0 fontsize-md">Service Name</label>
-              <p class="mb-0 x-small"><i class="fa fa-briefcase pr-2"></i>Staff Name</p>
+              <div class="col-6">
+                <label class="mb-0 fontsize-md">{{notifications.service.service_name}}</label>
+                <p class="mb-0 x-small" *ngIf="notifications.staff"><i class="fa fa-briefcase pr-2"></i>{{notifications.staff.firstname}} {{notifications.staff.lastname}}</p>
+                <p class="mb-0 x-small" *ngIf="!notifications.staff"><i class="fa fa-briefcase pr-2"></i>Not Assigned</p>
+              </div>
+              <div class="col-6 ">
+                <p class="mb-0 x-small"><i class="material-icons pr-2">calendar_today</i>{{notifications.booking_date}}</p>
+                <p class="mb-0 x-small"><i class="material-icons pr-2">access_alarm</i>{{notifications.booking_time}}</p>
+              </div>
             </div>
-            
-            <div class="col-6 ">
-            
-            <p class="mb-0 x-small"><i class="material-icons pr-2">calendar_today</i>9 sep 2019</p>            
-            <p class="mb-0 x-small"><i class="material-icons pr-2">access_alarm</i>09:00am</p>
+            <hr>
           </div>
-        </div>
-        
-    
-          <hr>
 
-           <div class="row">
+          <div class="row">
             <div class="col-12 mb-1">
-               <label class="mb-0 fontred ">Appointment Cancelled</label>
-               <label class="mb-0 x-small float-right pr-1">1 hour ago</label>
+              <label class="mb-0 fontred ">Appointment Cancelled</label>
+              <label class="mb-0 x-small float-right pr-1">1 hour ago</label>
             </div>
-            </div>
-            <div class="row">
+          </div>
+          <div class="row">
             <div class="col-6">
-             
+
               <label class="mb-0 fontsize-md">Service Name</label>
               <p class="mb-0 x-small">Cancelled</p>
             </div>
-            
+
             <div class="col-6 mt-1">
-            
-            <p class="mb-0 x-small"><i class="material-icons pr-2">calendar_today</i>9 sep 2019</p>            
-            <p class="mb-0 x-small"><i class="material-icons pr-2">access_alarm</i>09:00am</p>
+
+              <p class="mb-0 x-small"><i class="material-icons pr-2">calendar_today</i>9 sep 2019</p>
+              <p class="mb-0 x-small"><i class="material-icons pr-2">access_alarm</i>09:00am</p>
+            </div>
           </div>
-        </div>
-      
 
-       <hr>
 
-           <div class="row">
+          <hr>
+
+          <div class="row">
             <div class="col-12">
-               <label class="mb-0 greenfont">Appointment Completed</label>
-               <label class="mb-0 x-small float-right pr-1">Just Now</label>
+              <label class="mb-0 greenfont">Appointment Completed</label>
+              <label class="mb-0 x-small float-right pr-1">Just Now</label>
             </div>
-            </div>
-            <div class="row">
+          </div>
+          <div class="row">
             <div class="col-6">
-             
+
               <label class="mb-0 fontsize-md">Service Name</label>
               <p class="mb-0 x-small"><i class="fa fa-briefcase pr-2"></i>Staff Name</p>
             </div>
-            
+
             <div class="col-6 mt-1">
-            
-            <p class="mb-0 x-small"><i class="material-icons pr-2">calendar_today</i>9 sep 2019</p>            
-            <p class="mb-0 x-small"><i class="material-icons pr-2">access_alarm</i>09:00am</p>
+
+              <p class="mb-0 x-small"><i class="material-icons pr-2">calendar_today</i>9 sep 2019</p>
+              <p class="mb-0 x-small"><i class="material-icons pr-2">access_alarm</i>09:00am</p>
+            </div>
           </div>
-        </div>
 
 
-       <hr>
+          <hr>
 
-           <div class="row">
+          <div class="row">
             <div class="col-12">
-               <label class="mb-0 greenfont">Appointment Rescheduled</label>
-               <label class="mb-0 x-small float-right pr-1">Just Now</label>
+              <label class="mb-0 greenfont">Appointment Rescheduled</label>
+              <label class="mb-0 x-small float-right pr-1">Just Now</label>
             </div>
-            </div>
-            <div class="row">
+          </div>
+          <div class="row">
             <div class="col-6">
-             
+
               <label class="mb-0 fontsize-md">Service Name</label>
               <p class="mb-0 x-small">Rescheduled</p>
             </div>
-            
+
             <div class="col-6 mt-1">
-            
-            <p class="mb-0 x-small"><i class="material-icons pr-2">calendar_today</i>9 sep 2019</p>            
-            <p class="mb-0 x-small"><i class="material-icons pr-2">access_alarm</i>09:00am</p>
+
+              <p class="mb-0 x-small"><i class="material-icons pr-2">calendar_today</i>9 sep 2019</p>
+              <p class="mb-0 x-small"><i class="material-icons pr-2">access_alarm</i>09:00am</p>
+            </div>
           </div>
+
         </div>
-         
-      </div>     
+      </div>
     </div>
-  </div>
-</mat-sidenav>
+  </mat-sidenav>
 </mat-sidenav-container>
