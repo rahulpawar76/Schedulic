@@ -128,10 +128,10 @@ export class AppearanceComponent implements OnInit {
   fnSaveAppearanceSettings(){
     if(this.Appearance.valid){
       this.gradientColor = this.primarygradient1+","+this.primarygradient2
-      alert(this.gradientColor);
       this.AppearanceData ={
         'pri_color' : this.primarycolor,
-        'pri_gradient':this.gradientColor,
+        'pri_gradient1':this.primarygradient1,
+        'pri_gradient2':this.primarygradient2,
         'text_color':this.textcolor,
         'text_bgcolor':this.textbgcolor,
         'font':this.Appearance.controls['font'].value
@@ -159,12 +159,12 @@ export class AppearanceComponent implements OnInit {
         this.settingData = response.response
         console.log(this.settingData);
         this.getAppearanceData = JSON.parse(this.settingData.appearance); 
-        this.gradientColorDb = this.getAppearanceData.pri_gradient.split(",", 2)
+        //this.gradientColorDb = this.getAppearanceData.pri_gradient.split(",", 2)
         // console.log(this.gradientColorDb)
         // console.log(this.getAppearanceData);
         this.primarycolor = this.getAppearanceData.pri_color;
-        this.primarygradient1 = this.gradientColorDb[0];
-        this.primarygradient2 = this.gradientColorDb[1];
+        this.primarygradient1 =  this.getAppearanceData.pri_gradient1;
+        this.primarygradient2 =  this.getAppearanceData.pri_gradient2;
         this.textcolor = this.getAppearanceData.text_color;
         this.textbgcolor = this.getAppearanceData.text_bgcolor;
         this.Appearance.controls['font'].setValue(this.getAppearanceData.font);

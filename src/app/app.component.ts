@@ -1,11 +1,12 @@
 ﻿import { Component, Inject,AfterViewInit, ElementRef, ViewChild} from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, from } from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
 import { Router, RouterEvent, RouterOutlet } from '@angular/router';
 import { AuthenticationService } from './_services';
 import { User, Role } from './_models';
+import { CommonService } from './_services'
 
 
 //import { slideInAnimation } from './maturity/animations';
@@ -81,13 +82,16 @@ export class AppComponent implements AfterViewInit {
     selectedSessionId: any;
     selectedSessionName: any;
     timer:any =0;
+    settingsArr:any ;
+    appearenceColor: any;
 
     constructor(
         private http: HttpClient,
         public router: Router,
         private authenticationService: AuthenticationService,
         public dialog: MatDialog,
-        private _snackBar: MatSnackBar,        
+        private _snackBar: MatSnackBar, 
+        private CommonService:CommonService       
     ) {        
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
         if(this.currentUser && this.currentUser.user_id){
@@ -114,6 +118,7 @@ export class AppComponent implements AfterViewInit {
      this.router.events.subscribe(event => {
         if (event instanceof RouterEvent) this.handleRoute(event);
       });
+      this.setcompanycolours();
       
     }
 
@@ -396,109 +401,66 @@ export class AppComponent implements AfterViewInit {
         }else if(this.currentUser.user_type == "C"){
           this.userType =  "customer"
         }
-       
-        if(this.userType ==  "admin"){
-          let requestObject = {
-            "user_id":this.businessId,
-            "user_type" : this.userType
-          };
-          let headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'admin-id' : this.userId,
-            "api-token":this.token,
-          });
-
-          console.log(headers);
-          return this.http.post(`${environment.apiUrl}/get-notification`,requestObject,{headers:headers}).pipe(
-            map((res) => {
-              return res;
-            }),
-          catchError(this.handleError)
-          ).subscribe((response:any) => {
-            this.notificationData = response.response;
-              console.log(this.notificationData);
-          }, (err) =>{
-            console.log(err)
-          })
-        }else if(this.userType ==  "staff"){ 
-          let requestObject = {
-            "user_id":this.currentUser.user_id,
-            "user_type" : this.userType
-          };
-          let headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'staff-id' : this.userId,
-            "api-token":this.token
-          });
-          return this.http.post(`${environment.apiUrl}/get-notification`,requestObject,{headers:headers}).pipe(
-            map((res) => {
-              this.notificationData = res;
-              console.log(this.notificationData);
-            }),
-          catchError(this.handleError));
-        }else if(this.userType ==  "customer"){
-          let requestObject = {
-            "user_id":this.currentUser.user_id,
-            "user_type" : this.userType
-          };
-          let headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            "customer-id" : this.userId,
-            "api-token":this.token
-          });
-          return this.http.post(`${environment.apiUrl}/get-notification`,requestObject,{headers:headers}).pipe(
-            map((res) => {
-              this.notificationData = res;
-              console.log(this.notificationData);
-            }),
-          catchError(this.handleError));
-        }
-        const dialogRef = this.dialog.open(DialogNotification, {
-          height: '500px',
-        });
-        dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
-          this.animal = result;
-        });
+        this.CommonService.openNotificationDialog(this.userType).subscribe((response:any)=>{
+          if(response.data == true){
+            this.notificationData = response.response
+            const dialogRef = this.dialog.open(DialogNotification, {
+              height: '500px',
+              data : { fulldata: this.notificationData}
+            });
+            dialogRef.afterClosed().subscribe(result => {
+              console.log('The dialog was closed');
+              this.animal = result;
+            });
+          }
+          
+        })
         
       }
-      // staffAvaibility(event){
-      //   alert(this.userId)
-      //   alert(event)
-      //   if(event == true){
-      //     this.staffStatus = "E"
-      //   }else{
-      //     this.staffStatus = "D"
-      //   }
-      //   let requestObject = {
-      //     "status":this.staffStatus,
-      //   };
-      //   let headers = new HttpHeaders({
-      //     'Content-Type': 'application/json',
-      //     'staff-id' : this.userId,
-      //     "api-token":this.token
-      //   });
-      //   return this.http.post(`${environment.apiUrl}/staff-status-update`,requestObject,{headers:headers}).pipe(
-      //   map((res) => {
-      //       return res;
-      //   }),
-      //   catchError(this.handleError)
-      //   ).subscribe((response:any) => {
-      //     if(response.data == true){
-      //       alert("Status Updated")
-      //     }
-      //   }, (err) =>{
-      //     console.log(err)
-      //   })
-      // }
+      staffAvaibility(event){
+        if(event == true){
+          this.staffStatus = "E"
+        }else{
+          this.staffStatus = "D"
+        }
+        this.CommonService.openNotificationDialog(this.staffStatus).subscribe((response:any)=>{
+          if(response.data == true){
+            alert(response.response);
+          }
+        })
+        
+      }
 
   prepareRoute(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
+  setcompanycolours() {
+    let requestObject = {
+      "business_id" : this.businessId
+      };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    this.http.post(`${environment.apiUrl}/get-front-setting`,requestObject,{headers:headers} ).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(this.handleError)
+    ).subscribe((response:any) => {
+      if(response.data == true){
+        this.settingsArr=response.response;
+        console.log(this.settingsArr);
+        this.appearenceColor = JSON.parse(this.settingsArr.appearance)
+        console.log(this.appearenceColor)
+      }
+    }, (err) =>{
+      console.log(err)
+    })
+  }
 
   update_SCSS_var() {
-    var data = JSON.parse(localStorage.companycolours);
-    for (const [key, value] of Object.entries(data)) {
+    for (const [key, value] of Object.entries(this.appearenceColor)) {
       this.setPropertyOfSCSS('--' + key, value);
       // document.documentElement.style.setProperty('--' + key, value);
     }
@@ -513,6 +475,8 @@ export class AppComponent implements AfterViewInit {
     }
     return getComputedStyle(document.documentElement).getPropertyValue(key);
   }
+
+  
 
   getStatusCurrentStaff(){
     
@@ -538,10 +502,14 @@ export class AppComponent implements AfterViewInit {
     templateUrl: './_dialogs/dialog-notification.html',
   })
   export class DialogNotification {
+    notifications: any;
 
     constructor(
       public dialogRef: MatDialogRef<DialogNotification>,
-      @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+      @Inject(MAT_DIALOG_DATA) public data: any) {
+        this.notifications = this.data.fulldata
+        console.log(this.notifications)
+      }
 
     onNoClick(): void {
       this.dialogRef.close();
