@@ -224,7 +224,7 @@
 
               </div>
               <div class="content" class="staff-list">
-                <div class="staff-list-row" *ngFor="let allStaffList of allStaffList">
+                <div class="staff-list-row" *ngFor="let allStaffList of allStaffList; let i=index">
                   <div class="text-left" fxFlex="5">
                     <mat-checkbox (change)="fnAddStaffId($event.checked,allStaffList.id)"></mat-checkbox>
                   </div>
@@ -276,7 +276,7 @@
                       (change)="fnChangeStaffStatus($event.checked,allStaffList.id)"></mat-slide-toggle>
                   </div>
                   <div class="text-left" fxFlex="5">
-                    <button mat-mini-fab (click)="fnViewSingleStaff(allStaffList.id)">
+                    <button mat-mini-fab (click)="fnViewSingleStaff(allStaffList.id,i)">
                       <mat-icon class="text-white">visibility</mat-icon>
                     </button>
                   </div>
@@ -299,18 +299,23 @@
           <h6 class="pr-2 text-capitalize">{{singleStaffDetail.staff[0].firstname}}
             {{singleStaffDetail.staff[0].lastname}}</h6>
           <div *ngIf="singleStaffDetail.staff[0].review != ''" class="d-flex statick-rating w-100">
-            <div class="star-rating">
-              <input type="radio" id="5-stars_2" name="rating_2" value="5" />
-              <label for="5-stars_2" class="star">&#9733;</label>
-              <input type="radio" id="4-stars_2" name="rating_2" value="4" />
-              <label for="4-stars_2" class="star">&#9733;</label>
-              <input type="radio" id="3-stars_2" name="rating_2" value="3" />
-              <label for="3-stars_2" class="star">&#9733;</label>
-              <input type="radio" id="2-stars_2" name="rating_2" value="2" />
-              <label for="2-stars_2" class="star">&#9733;</label>
-              <input type="radio" id="1-star_2" name="rating_2" value="1" />
-              <label for="1-star_2" class="star">&#9733;</label>
-            </div>
+             <div class="star-rating" *ngIf="singleStaffDataRating.avg_ratings.length != 0">
+                <input type="radio" [checked]="singleStaffDataRating.avg_ratings[0].aggregate == '5'"
+                  id="5-stars_{{singleStaffDataRating.id}}" name="rating_2" value="5" />
+                <label for="5-stars_{{singleStaffDataRating.id}}" class="star">&#9733;</label>
+                <input [checked]="singleStaffDataRating.avg_ratings[0].aggregate == '4'" type="radio"
+                  id="4-stars_{{singleStaffDataRating.id}}" name="rating_2" value="4" />
+                <label for="4-stars_{{singleStaffDataRating.id}}" class="star">&#9733;</label>
+                <input [checked]="singleStaffDataRating.avg_ratings[0].aggregate == '3'" type="radio"
+                  id="3-stars_{{singleStaffDataRating.id}}" name="rating_2" value="3" />
+                <label for="3-stars_{{singleStaffDataRating.id}}" class="star">&#9733;</label>
+                <input [checked]="singleStaffDataRating.avg_ratings[0].aggregate == '2'" type="radio"
+                  id="2-stars_{{singleStaffDataRating.id}}" name="rating_2" value="2" />
+                <label for="2-stars_{{singleStaffDataRating.id}}" class="star">&#9733;</label>
+                <input [checked]="singleStaffDataRating.avg_ratings[0].aggregate == '1'" type="radio"
+                  id="1-star_{{singleStaffDataRating.id}}" name="rating_2" value="1" />
+                <label for="1-star_{{singleStaffDataRating.id}}" class="star">&#9733;</label>
+              </div>
           </div>
           <div class="w-100" *ngIf="singleStaffDetail.staff[0].review == ''">
             No Review Available
@@ -1091,6 +1096,33 @@
         </div>
       </mat-tab>
       <mat-tab label="Review">
+        <div *ngIf="singleStaffDetail.staff[0].review != ''">
+          <div *ngFor="let customerReviews of singleStaffDetail.staff[0].review; let i=index" class="devider-slim pb-2 my-2">
+              <div class="d-flex">
+                  <div class="d-flex statick-rating w-100" *ngIf="customerReviews.rating != null">
+                      <div class="star-rating">
+                        <input type="radio" [checked]="customerReviews.rating == 5" id="5-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="5" />
+                        <label for="5-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                        <input type="radio" [checked]="customerReviews.rating == 4"  id="4-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="4" />
+                        <label for="4-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                        <input type="radio" [checked]="customerReviews.rating == 3" id="3-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="3" />
+                        <label for="3-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                        <input type="radio" [checked]="customerReviews.rating == 2" id="2-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="2" />
+                        <label for="2-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                        <input type="radio" [checked]="customerReviews.rating == 1" id="1-star_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="1" />
+                        <label for="1-star_{{customerReviews.id}}" class="star">&#9733;</label>
+                      </div>   
+                    </div>
+                  <div class="py-2 ml-auto">
+                      <button mat-button appearance="fill" class="view-btn" (click)="viewReviewDetail()"><mat-icon aria-hidden="false">visibility</mat-icon>View</button>
+                  </div>
+              </div>
+              <div>
+                  <h6>{{customerReviews.rating_title}}</h6>
+                  <p>{{customerReviews.review}}</p>
+              </div>
+          </div>
+        </div>
         <div class="w-100" *ngIf="singleStaffDetail.staff[0].review == ''">
           No Review Available
         </div>
