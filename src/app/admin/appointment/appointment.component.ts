@@ -11,18 +11,20 @@ import { environment } from '@environments/environment';
 import { Router, RouterOutlet } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
 import { AppComponent } from '@app/app.component';
+import { Observable, throwError } from 'rxjs';
 
 export interface DialogData {
   animal: string;
   name: string;
- 
 }
+
 @Component({
   selector: 'app-appointment',
   templateUrl: './appointment.component.html',
   styleUrls: ['./appointment.component.scss'],
   providers: [DatePipe]
 })
+
 export class AppointmentComponent implements OnInit {
   adminSettings : boolean = false;
   dtOptions: DataTables.Settings = {};
@@ -51,21 +53,25 @@ export class AppointmentComponent implements OnInit {
     ) {
       localStorage.setItem('isBusiness', 'false');
       this.businessId=localStorage.getItem('business_id');
+      this.durationType = 'month';
+      this.selectedServices =  'all';
+      this.fnGetSettingValue();
+      this.getAllAppointments(this.durationType,this.selectedServices);
+      this.getAllServices();
+      
+      this.dtOptions = {
+        // Use this attribute to enable the responsive extension
+        responsive: true,
+      };
      }
 
   ngOnInit() {
-    this.durationType = 'month';
-    this.selectedServices =  'all';
-    this.fnGetSettingValue();
-    this.getAllAppointments(this.durationType,this.selectedServices);
-    this.getAllServices();
     
-    this.dtOptions = {
-     
-      // Use this attribute to enable the responsive extension
-      responsive: true,
-    };
-   
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 
   fnGetSettingValue(){
@@ -95,15 +101,11 @@ export class AppointmentComponent implements OnInit {
     })
   }
 
-  ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
-  }
-
   selectdurationType(type){
     this.durationType = type;
     this.getAllAppointments(this.durationType,this.selectedServices);
   }
+
   selectService(service){
     this.selectedServices = service;
     this.getAllAppointments(this.durationType,this.selectedServices);
@@ -114,12 +116,11 @@ export class AppointmentComponent implements OnInit {
     this.AdminService.getAllAppointments(durationType,services).subscribe((response:any) => {
       if(response.data == true){
         this.allAppointments = response.response
-        console.log( this.allAppointments)
+        console.log( this.allAppointments);
         this.allAppointments.forEach( (element) => { 
-          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")   
+          element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
+          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
           element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
-
-          
         });
         this.dtTrigger.next();
         this.isLoaderAdmin = false;
@@ -148,29 +149,41 @@ export class AppointmentComponent implements OnInit {
   addAppointment() {
     const dialogRef = this.dialog.open(DialogAddNewAppointment, {
       width: '500px',
-      
+      data: {},
     });
 
-     dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.getAllAppointments(this.durationType,this.selectedServices);
-     });
+    });
+  }
+
+  fnEditAppointment(index) {
+    console.log(this.allAppointments[index])
+    const dialogRef = this.dialog.open(DialogAddNewAppointment, {
+      width: '500px',
+      data: {appointmentData : this.allAppointments[index]},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getAllAppointments(this.durationType,this.selectedServices);
+    });
   }
 
   fnOpenDetails(){
+    return false;
     const dialogRef = this.dialog.open(DialogAllAppointmentDetails, {
       width: '500px',
       data: {animal: this.animal}
     });
-
-     dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.animal = result;
       //this.getAllAppointments(this.durationType,this.selectedServices);
-     });
-
-
+    });
   }
+
   fnAddOrderId(event, orderId){
     if(event == true){
       this.orderItemsIdArr.push(orderId);
@@ -226,6 +239,7 @@ export class AppointmentComponent implements OnInit {
       }
     })
   }
+
   confirmAppointment(status, orderId){
     this.orderItemsIdArr.push(orderId);
     this.AdminService.fnAppointAction(status, this.orderItemsIdArr).subscribe((response:any) => {
@@ -244,18 +258,19 @@ export class AppointmentComponent implements OnInit {
       }
     })
   }
-  checkAll(){
-  if (this.selectAll === true) {
-    this.allAppointments.map((appoint) => {
-      appoint.checked = true;
-    });
 
-  } else {
-    this.allAppointments.map((appoint) => {
-      appoint.checked = false;
-    });
+  checkAll(){
+    if (this.selectAll === true) {
+      this.allAppointments.map((appoint) => {
+        appoint.checked = true;
+      });
+
+    } else {
+      this.allAppointments.map((appoint) => {
+        appoint.checked = false;
+      });
+    }
   }
-}
 
 }
 
@@ -301,6 +316,31 @@ export class DialogAddNewAppointment {
   maximumAdvanceBookingTime:any;
   minimumAdvanceBookingDateTimeObject:any;
   maximumAdvanceBookingDateTimeObject:any;
+  appointmentData={
+    business_id:'',
+    order_item_id:'',
+    order_id:'',
+    customer_id:'',
+    fullName:'',
+    email:'',
+    phone:'',
+    address:'',
+    city:'',
+    state:'',
+    zip:'',
+    category_id:'',
+    sub_category_id:'',
+    service_id:'',
+    booking_date:new Date(),
+    booking_time:'',
+    staff:'',
+  }
+  validationArr:any=[];
+  disablePostalCode:boolean=false;
+  disableCategory:boolean=false;
+  disableSubCategory:boolean=false;
+  disableService:boolean=false;
+  dialogTitle:any="New Appointment";
   constructor(
     public dialogRef: MatDialogRef<DialogAddNewAppointment>,
     public dialog: MatDialog,
@@ -309,39 +349,74 @@ export class DialogAddNewAppointment {
     private _snackBar: MatSnackBar,
     private AdminService: AdminService,
     private datePipe: DatePipe,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    
+    let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
+    let onlynumeric = /^-?(0|[1-9]\d*)?$/
+    if(this.data.appointmentData){
+      console.log(this.data.appointmentData);
+      this.appointmentData.business_id=this.data.appointmentData.business_id;
+      this.appointmentData.order_id=this.data.appointmentData.order_id;
+      this.appointmentData.order_item_id=this.data.appointmentData.id;
+      this.appointmentData.customer_id=this.data.appointmentData.customer_id;
+      this.appointmentData.fullName=this.data.appointmentData.customer.fullname;
+      this.appointmentData.email=this.data.appointmentData.customer.email;
+      this.appointmentData.phone=this.data.appointmentData.customer.phone;
+      this.appointmentData.address=this.data.appointmentData.customer.address;
+      this.appointmentData.city=this.data.appointmentData.customer.city;
+      this.appointmentData.state=this.data.appointmentData.customer.state;
+      this.appointmentData.zip=this.data.appointmentData.customer.zip;
+      this.appointmentData.category_id=JSON.stringify(this.data.appointmentData.service.category_id);
+      this.appointmentData.sub_category_id=JSON.stringify(this.data.appointmentData.service.sub_category_id);
+      this.appointmentData.service_id=JSON.stringify(this.data.appointmentData.service.id);
+      this.appointmentData.booking_date=new Date(this.data.appointmentData.booking_date);
+      this.appointmentData.booking_time=this.datePipe.transform(new Date(this.data.appointmentData.booking_date+" "+this.data.appointmentData.booking_time),"HH:mm");
+      this.bussinessId=this.appointmentData.business_id;
+      this.appointmentData.staff=this.data.appointmentData.staff_id;
+      this.selectedServiceId=this.appointmentData.service_id;
+      this.selectedDate = this.datePipe.transform(new Date(this.appointmentData.booking_date),"yyyy-MM-dd");
+      this.selectedTime=this.appointmentData.booking_time;
+      this.disablePostalCode=true;
+      this.disableCategory=true;
+      this.disableSubCategory=true;
+      this.disableService=true;
+      this.dialogTitle="Edit Appointment";
+      this.validationArr=this.isEmailUnique.bind(this);
+    }else{
+      this.bussinessId=JSON.parse(localStorage.getItem('business_id'));
+      
+    }
+    console.log(this.appointmentData);
     this.adminId=(JSON.parse(localStorage.getItem('currentUser'))).user_id
     this.token=(JSON.parse(localStorage.getItem('currentUser'))).token
-    this.bussinessId=localStorage.getItem('business_id')
+    
     console.log(this.adminId);
     console.log(this.token);
     console.log(this.bussinessId);
-    let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
-    let onlynumeric = /^-?(0|[1-9]\d*)?$/
 
     this.subcatdata=[];
     this.serviceData=[];
 
     this.formAddNewAppointmentStaffStep1 = this._formBuilder.group({
-      customerFullName: ['', Validators.required],
-      customerEmail: ['', [Validators.required,Validators.email,Validators.pattern(emailPattern)]],
-      customerPhone: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(onlynumeric)]],
-      customerAddress: ['', Validators.required],
-      customerState: ['', Validators.required],
-      customerCity: ['', Validators.required],
-      customerPostalCode: ['',[Validators.required,Validators.pattern(onlynumeric)]],
+      customerFullName: [this.appointmentData.fullName, Validators.required],
+      customerEmail: [this.appointmentData.email,[Validators.required,Validators.email,Validators.pattern(emailPattern)], this.validationArr],
+      customerPhone: [this.appointmentData.phone, [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(onlynumeric)]],
+      customerAddress: [this.appointmentData.address, Validators.required],
+      customerState: [this.appointmentData.state, Validators.required],
+      customerCity: [this.appointmentData.city, Validators.required],
+      customerPostalCode: [{ value: this.appointmentData.zip, disabled: this.disablePostalCode }, [Validators.required,Validators.pattern(onlynumeric)]],
+      //customerPostalCode: new FormControl({ value: this.appointmentData.zip, disabled: this.disablePostalCode },[Validators.required,Validators.pattern(onlynumeric)]),
     });
 
     this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
-      customerCategory: ['', Validators.required],
-      customerSubCategory: ['', Validators.required],
-      customerService: ['', [Validators.required]],
-      customerDate: ['', Validators.required],
-      customerTime: ['', Validators.required],
-      customerStaff: ['', Validators.required]
+      customerCategory: [this.appointmentData.category_id, Validators.required],
+      customerSubCategory: [this.appointmentData.sub_category_id, Validators.required],
+      customerService: [this.appointmentData.service_id, [Validators.required]],
+      customerDate: [this.appointmentData.booking_date, Validators.required],
+      customerTime: [this.appointmentData.booking_time, Validators.required],
+      customerStaff: [this.appointmentData.staff, Validators.required]
     });
-    console.log("ar"+this.formAddNewAppointmentStaffStep2.get('customerDate').value);
+    console.log("ar "+this.formAddNewAppointmentStaffStep2.get('customerDate').value);
     this.fnGetSettingValue();
     this.fnGetTaxDetails();
     this.fnGetOffDays();
@@ -373,6 +448,33 @@ export class DialogAddNewAppointment {
     }
   }
 
+  private handleError(error: HttpErrorResponse) {
+    return throwError('Error! something went wrong.');
+    //return error.error ? error.error : error.statusText;
+  }
+
+  isEmailUnique(control: FormControl) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+        return this.http.post(`${environment.apiUrl}/verify-email`,{ emailid: control.value },{headers:headers}).pipe(map((response : any) =>{
+          return response;
+        }),
+        catchError(this.handleError)).subscribe((res) => {
+          if(res){
+            if(res.data == false){
+            resolve({ isEmailUnique: true });
+            }else{
+            resolve(null);
+            }
+          }
+        });
+      }, 500);
+    });
+  }
+
   fnGetSettingValue(){
     let requestObject = {
       "business_id":this.bussinessId
@@ -393,6 +495,11 @@ export class DialogAddNewAppointment {
         this.maximumAdvanceBookingDateTimeObject.setMinutes( this.maximumAdvanceBookingDateTimeObject.getMinutes() + this.maximumAdvanceBookingTime );
         console.log("maximumAdvanceBookingDateTimeObject - "+this.maximumAdvanceBookingDateTimeObject);
         this.maxDate = this.maximumAdvanceBookingDateTimeObject;
+
+        if(!this.data.appointmentData){
+          this.formAddNewAppointmentStaffStep2.controls['customerDate'].setValue(this.minimumAdvanceBookingDateTimeObject);
+          this.selectedDate = this.datePipe.transform(new Date(this.minimumAdvanceBookingDateTimeObject),"yyyy-MM-dd");
+        }
       }
       else if(response.data == false){
         
@@ -455,6 +562,12 @@ export class DialogAddNewAppointment {
       return false;
     }
     this.fnGetCategories(); 
+    if(this.data.appointmentData){
+      this.fnGetSubCategory(this.appointmentData.category_id);
+      this.fnGetAllServices(this.appointmentData.sub_category_id);
+      this.fnGetTimeSlots(this.selectedDate);
+      this.fnGetStaff();
+    }
     this.secondStep=true;
   }
 
@@ -476,7 +589,7 @@ export class DialogAddNewAppointment {
     ).subscribe((response:any) => {
       if(response.data == true){
         this.catdata = response.response;
-        console.log(this.catdata);
+        //console.log(this.catdata);
       }else{
       }
     },
@@ -517,7 +630,7 @@ export class DialogAddNewAppointment {
     ).subscribe((response:any) => {
       if(response.data == true){
       this.subcatdata = response.response;
-      console.log(this.subcatdata)
+      // console.log(this.subcatdata)
       }else{
       }
     },
@@ -561,7 +674,33 @@ export class DialogAddNewAppointment {
           this.serviceData[i].assignedStaff=null;
           this.serviceCount[this.serviceData[i].id]=this.serviceData[i];
         }
-        console.log(JSON.stringify(this.serviceData));
+        // console.log(JSON.stringify(this.serviceData));
+        if(this.data.appointmentData){
+          for(let i=0; i<this.serviceCount.length;i++){
+                if(this.serviceCount[i] != null && this.serviceCount[i].id == this.selectedServiceId){
+                  this.serviceCount[i].count=1;
+                  this.serviceCount[i].totalCost=1*this.serviceCount[i].service_cost;
+                  if(this.selectedDate){
+                    this.serviceCount[i].appointmentDate=this.selectedDate;
+                  }else{
+                    this.serviceCount[i].appointmentDate='';
+                  }
+                  if(this.selectedTime){
+                    this.serviceCount[i].appointmentTimeSlot=this.selectedTime;
+                  }else{
+                    this.serviceCount[i].appointmentTimeSlot='';
+                  }
+                  this.serviceCount[i].assignedStaff=null;
+                }else if(this.serviceCount[i] != null && this.serviceCount[i].id != this.selectedServiceId){
+                  this.serviceCount[i].count=0;
+                  this.serviceCount[i].totalCost=0;
+                  this.serviceCount[i].appointmentDate='';
+                  this.serviceCount[i].appointmentTimeSlot='';
+                  this.serviceCount[i].assignedStaff=null;
+                }
+              }
+              console.log(JSON.stringify(this.serviceCount));
+            }
       }else{
       }
     },
@@ -580,6 +719,7 @@ export class DialogAddNewAppointment {
         this.serviceCount[i].totalCost=1*this.serviceCount[i].service_cost;
         if(this.selectedDate){
           this.serviceCount[i].appointmentDate=this.selectedDate;
+          this.fnGetTimeSlots(this.selectedDate);
         }else{
           this.serviceCount[i].appointmentDate='';
         }
@@ -651,6 +791,10 @@ export class DialogAddNewAppointment {
          this.timeSlotArrForLabel[i]= this.datePipe.transform(new Date(dateTemp),"hh:mm a");
          i++;
       });
+      if(this.timeSlotArr.length==0){
+        this.formAddNewAppointmentStaffStep2.controls['customerTime'].setValue(null);
+    this.formAddNewAppointmentStaffStep2.controls['customerStaff'].setValue(null);
+      }
       }
       else{
       }
@@ -661,6 +805,7 @@ export class DialogAddNewAppointment {
   }
 
   fnSelectTime(timeSlot){
+    console.log(timeSlot);
     if(this.selectedServiceId != undefined){
       this.serviceCount[this.selectedServiceId].appointmentTimeSlot =timeSlot;
     }
@@ -728,7 +873,15 @@ export class DialogAddNewAppointment {
       this.formAddNewAppointmentStaffStep2.get('customerStaff').markAsTouched();
       return false;
     }
+    if(!this.data.appointmentData){
+      this.fnBookAppointment();
+    }else{
+      this.fnEditAppointment();
+    }
+    
+  }
 
+  fnBookAppointment(){
     let serviceCartArrTemp:any= [];
     for(let i=0; i<this.serviceCount.length;i++){
       if(this.serviceCount[i] != null && this.serviceCount[i].count > 0){
@@ -792,7 +945,6 @@ export class DialogAddNewAppointment {
       "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd hh:mm:ss") 
     };
     console.log(JSON.stringify(requestObject));
-    
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'api-token': this.token,
@@ -814,6 +966,108 @@ export class DialogAddNewAppointment {
       }
       else{
           this._snackBar.open("Appointment not created", "X", {
+              duration: 2000,
+              verticalPosition:'top',
+              panelClass :['red-snackbar']
+          });
+      }
+    },
+    (err) =>{
+      
+    })
+  }
+
+  fnEditAppointment(){
+    let serviceCartArrTemp:any= [];
+    for(let i=0; i<this.serviceCount.length;i++){
+      if(this.serviceCount[i] != null && this.serviceCount[i].count > 0){
+        serviceCartArrTemp.push(this.serviceCount[i]);
+      }
+    }
+    // if(serviceCartArrTemp[0].totalCost > 0){
+    //   if(this.taxType == "P"){
+    //     this.taxAmount= serviceCartArrTemp[0].totalCost * this.taxValue/100;
+    //   }else{
+    //     this.taxAmount= this.taxValue;
+    //   }
+    // }
+    // this.netCost=serviceCartArrTemp[0].totalCost+this.taxAmount;
+
+    var amountAfterDiscount=serviceCartArrTemp[0].totalCost;
+    var amountAfterTax=0;
+    if(amountAfterDiscount > 0){
+      this.taxArr.forEach((element) => {
+        let taxTemp={
+          name:'',
+          amount:0
+        }
+        console.log(element.name+" -- "+element.value);
+        if(this.taxType == "P"){
+         taxTemp.name= element.name;
+         taxTemp.amount= amountAfterDiscount * element.value/100;
+          amountAfterTax=amountAfterTax+taxTemp.amount;
+        }else{
+          taxTemp.name= element.name;
+          taxTemp.amount=  element.value;
+          amountAfterTax=amountAfterTax+taxTemp.amount;
+        }
+        this.taxAmountArr.push(taxTemp);
+        console.log(this.taxAmountArr);
+      });
+    }
+    this.netCost=amountAfterDiscount+amountAfterTax;
+
+    console.log(this.taxAmountArr);
+    console.log(JSON.stringify(serviceCartArrTemp));
+    const currentDateTime = new Date();
+    
+    let requestObject = {
+      "order_item_id": this.appointmentData.order_item_id,
+      "order_id": this.appointmentData.order_id,
+      "customer_id": this.appointmentData.customer_id,
+      "postal_code": this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
+      "business_id": this.bussinessId,
+      "serviceInfo": serviceCartArrTemp,
+      "customer_name": this.formAddNewAppointmentStaffStep1.get('customerFullName').value,
+      "customer_email": this.formAddNewAppointmentStaffStep1.get('customerEmail').value,
+      "customer_phone": this.formAddNewAppointmentStaffStep1.get('customerPhone').value,
+      "appointment_address": this.formAddNewAppointmentStaffStep1.get('customerAddress').value,
+      "appointment_state": this.formAddNewAppointmentStaffStep1.get('customerState').value,
+      "appointment_city": this.formAddNewAppointmentStaffStep1.get('customerCity').value,
+      "appointment_zipcode": this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
+      "coupon_code": '',
+      "subtotal": serviceCartArrTemp[0].totalCost,
+      "discount": 0,
+      "tax": this.taxAmountArr,
+      "nettotal": this.netCost,
+      "created_by": "admin",
+      "payment_method": "Cash",
+      "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd hh:mm:ss") 
+    };
+   
+    console.log(JSON.stringify(requestObject));
+    // return false;
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'api-token': this.token,
+      'admin-id': JSON.stringify(this.adminId),
+    });
+    this.http.post(`${environment.apiUrl}/order-item-edit`,requestObject,{headers:headers} ).
+    pipe(
+    map((res) => {
+      return res;
+    }),
+    ).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open("Appointment Updated", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+        });
+        this.dialogRef.close();
+      }
+      else{
+          this._snackBar.open("Appointment not Updated", "X", {
               duration: 2000,
               verticalPosition:'top',
               panelClass :['red-snackbar']

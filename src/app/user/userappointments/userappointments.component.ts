@@ -33,6 +33,7 @@ export class UserappointmentsComponent implements OnInit {
   settingsArr: any;
   cancellationBufferTime: any;
   minReschedulingTime: any;
+  isCustomerAllowedForRatingStaff: boolean=false;
 
   constructor(
     public dialog: MatDialog,
@@ -64,8 +65,10 @@ fnGetSettingValue(){
         console.log(this.settingsArr);
         let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
         let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
+        this.isCustomerAllowedForRatingStaff=JSON.parse(this.settingsArr.customer_allow_for_staff_rating);
         console.log(cancellation_buffer_time);
         console.log(min_rescheduling_time);
+        console.log(this.isCustomerAllowedForRatingStaff);
        
         this.cancellationBufferTime = new Date();
         this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);

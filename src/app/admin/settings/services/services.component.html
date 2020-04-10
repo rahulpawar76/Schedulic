@@ -1,7 +1,7 @@
 <mat-drawer-content id="services" class="ml-0">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif"/></div>
     <mat-drawer-container class="h-100">
-        <mat-drawer mode="side" opened class="category-sidebar"  style="width:250px; background-color: #f8fbff;">  
+        <mat-drawer [disableClose]="true" mode="side" opened class="category-sidebar"  style="width:250px; background-color: #f8fbff;">  
             <!-- <mat-list role="list">
                 <div  class="pl-2 bottom-border d-flex">
                     <h5 class="ml-2">Category ({{allCategoryCount}})</h5>
@@ -65,7 +65,7 @@
                             <div class="" fxFlex="13">$ {{allServicesList.service_cost}}</div>
                             <div class="" fxFlex="10">{{allServicesList.service_unit}}</div>
                             <div class="" *ngIf="allServicesList.private_status == 'N'" fxFlex="12">Public</div>
-                            <div class="" *ngIf="allServicesList.private_status == 'Y'" fxFlex="10">Private</div>
+                            <div class="" *ngIf="allServicesList.private_status == 'Y'" fxFlex="12">Private</div>
                             <div class="" fxFlex="10">
                                 <mat-slide-toggle (change)="changeServiceStaus($event.checked,allServicesList.id)" [checked]="allServicesList.status == 'E'"></mat-slide-toggle>
                             </div>

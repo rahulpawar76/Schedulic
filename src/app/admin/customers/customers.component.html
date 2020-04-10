@@ -7,7 +7,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 second">
                     <mat-form-field class=" bottom-border-field export mt-2">
                     <mat-label>Export</mat-label>
-                        <mat-select (selectionChange)="fnExportCustomer($event.value);">
+                        <mat-select>
                         <mat-option value="all">All</mat-option>
                         <mat-option value="selected">Selected</mat-option>
                         </mat-select>
@@ -283,7 +283,8 @@
                                             <td scope="row">{{customerAppoint.booking_date}}</td>
                                             <td>{{customerAppoint.booking_time}}</td>
                                             <td>{{customerAppoint.service.service_name}}</td>
-                                            <td>{{customerAppoint.staff.firstname}} {{customerAppoint.staff.lastname}}</td>
+                                            <td *ngIf="customerAppoint.staff">{{customerAppoint.staff.firstname}} {{customerAppoint.staff.lastname}}</td>
+                                            <td *ngIf="!customerAppoint.staff">Staff Not Assigned</td>
                                             <td>$.{{customerAppoint.total_cost}}</td>
                                             <td>
                                                 <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'P'">Waiting For Confirmation</p>

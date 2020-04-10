@@ -1,4 +1,10 @@
-
+:root {
+   --pri_color: '#3986fa';
+   --pri_gradient1: '#38b7fb';
+   --pri_gradien2: '#3969fb';
+   --text_color: '#000000';
+   --text_bgcolor: '#ffffff';
+}
 $error: #f1552f;
 // $reactive: #f1552f;
 // $compliant: #e7bb10;
@@ -42,7 +48,7 @@ $dec-grey : #606060;
 $grey-1: #4c4c4c;
 $grey-2: #929292;
 $grey-3: #e0e0e0;
-$front-primary-color: #3986fa;
+$front-primary-color: var(--pri_color);
 $red : #ed2f2f;
 $green : #16bc2c;
 

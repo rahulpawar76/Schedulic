@@ -137,7 +137,7 @@
                         <div class="slot-list" *ngIf="timeslotview">
                             <div class=" timing" *ngFor="let timeSlot of timeSlotArr, let i = index">
                                 <label>
-                                    <input name="timeslot" type="radio" [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].appointmentTimeSlot==timeSlot" (click)="fnSelectTimeSlot(timeSlot)"/>
+                                    <input name="timeslot" type="radio" [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].appointmentTimeSlot==timeSlot" (click)="fnSelectTimeSlot(timeSlot,i)"/>
                                     <div class="single-slot" [mdePopoverTriggerFor]="selectstaff" mdePopoverTriggerOn="click" #popoverTrigger="mdePopoverTrigger">{{timeSlotArrForLabel[i]}}</div>
                                 </label>
                                 <mde-popover #selectstaff="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
@@ -149,8 +149,8 @@
                                                     <mat-checkbox *ngFor="let staff of availableStaff" (click)="fnSelectStaff($event,staff.id)">{{staff.username}} 1</mat-checkbox> -->
                                                     <p class="mb-0" *ngIf="!isStaffAvailable">No Staff Available</p>
                                                     <mat-radio-group aria-label="Select Staff" *ngIf="isStaffAvailable">
-                                                        <mat-radio-button [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].assignedStaff==null" (change)="fnSelectStaff($event,null,i)" value="">Any Staff</mat-radio-button>
-                                                        <mat-radio-button *ngFor="let staff of availableStaff" [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].assignedStaff==staff.id" (change)="fnSelectStaff($event,staff.id,i)" class="text-capitalize" value="{{staff.id}}">{{staff.name}}</mat-radio-button>
+                                                        <mat-radio-button [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].assignedStaff==null" (change)="fnSelectStaff(null,i)" value="">Any Staff</mat-radio-button>
+                                                        <mat-radio-button *ngFor="let staff of availableStaff" [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].assignedStaff==staff.id" (change)="fnSelectStaff(staff.id,i)" class="text-capitalize" value="{{staff.id}}">{{staff.name}}</mat-radio-button>
                                                     </mat-radio-group>
                                                    
                                                 </div>
@@ -242,22 +242,22 @@
                                         
                                     <small *ngIf="formNewUser.get('newUserPhone').hasError('pattern')" class="error">Enter a valid phone number</small><small *ngIf="formNewUser.get('newUserPhone').hasError('minlength') || formNewUser.get('newUserPhone').hasError('maxlength')" class="error">Phone number should be 10 digits long</small></span>
                                 </div>
-                                <div class="col-12 col-lg-12 col-md-12 col-sm-12">
+                                <div class="col-12 col-lg-12 col-md-12 col-sm-12" *ngIf="contactFormSettingsArr.addressField.status == 1">
                                     <label>Address</label>
                                     <textarea formControlName="newUserAddress" class="common-input" rows="3" ></textarea>
                                     <span class="error-wrap" *ngIf="formNewUser.get('newUserAddress').dirty || formNewUser.get('newUserAddress').touched || formSubmitclicked"><small *ngIf="formNewUser.get('newUserAddress').hasError('required')" class="error">Address Is required</small></span>
                                 </div>
-                                <div class="col-12 col-lg-4 col-md-4 col-sm-4">
+                                <div class="col-12 col-lg-4 col-md-4 col-sm-4" *ngIf="contactFormSettingsArr.addressField.status == 1">
                                     <label>State</label>
                                     <input formControlName="newUserState" class="common-input" type="text" />
                                     <span class="error-wrap" *ngIf="formNewUser.get('newUserState').dirty || formNewUser.get('newUserState').touched || formSubmitclicked"><small *ngIf="formNewUser.get('newUserState').hasError('required')" class="error">State Is required</small></span>
                                 </div>
-                                <div class="col-12 col-lg-4 col-md-4 col-sm-4">
+                                <div class="col-12 col-lg-4 col-md-4 col-sm-4" *ngIf="contactFormSettingsArr.addressField.status == 1">
                                     <label>City</label>
                                     <input formControlName="newUserCity" class="common-input" type="text" />
                                     <span class="error-wrap" *ngIf="formNewUser.get('newUserCity').dirty || formNewUser.get('newUserCity').touched || formSubmitclicked"><small *ngIf="formNewUser.get('newUserCity').hasError('required')" class="error">City Is required</small></span>
                                 </div>
-                                <div class="col-12 col-lg-4 col-md-4 col-sm-4">
+                                <div class="col-12 col-lg-4 col-md-4 col-sm-4" *ngIf="contactFormSettingsArr.addressField.status == 1">
                                     <label>Zip Code</label>
                                     <input formControlName="newUserZipcode" class="common-input" type="text" />
                                     <span class="error-wrap" *ngIf="formNewUser.get('newUserZipcode').dirty || formNewUser.get('newUserZipcode').touched || formSubmitclicked">

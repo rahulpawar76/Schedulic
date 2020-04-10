@@ -9,22 +9,19 @@ import { AuthenticationService } from '@app/_services';
 @Injectable({ providedIn: 'root' })
 
 export class AdminService {
-    adminId:any
-    adminToken:any
-    businessId : any;
-    constructor(
-        private http: HttpClient,
-        private _snackBar: MatSnackBar,
-        private authenticationService:AuthenticationService
-        ) { 
-
-            this.adminId=JSON.stringify(this.authenticationService.currentUserValue.user_id);
-            this.adminToken = this.authenticationService.currentUserValue.token;
-            localStorage.setItem('isBusiness', 'false');
-            if(localStorage.getItem('business_id')){
-                this.businessId = localStorage.getItem('business_id');
-            }
-    }  
+  businessId : any;
+  currentUser : any;
+  constructor(
+    private http: HttpClient,
+    private _snackBar: MatSnackBar,
+    private authenticationService:AuthenticationService
+    ) {
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    localStorage.setItem('isBusiness', 'false');
+    if(localStorage.getItem('business_id')){
+      this.businessId = localStorage.getItem('business_id');
+    }
+  }  
     private handleError(error: HttpErrorResponse) {
         console.log(error);
         return throwError('Error! something went wrong.');
@@ -40,8 +37,8 @@ export class AdminService {
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token
         });
         console.log(headers);
         return this.http.post(`${environment.apiUrl}/list-business`,requestObject,{headers:headers}).pipe(
@@ -101,12 +98,11 @@ export class AdminService {
         catchError(this.handleError));
     }
     createNewBusiness(newBusinessData){
-        let requestObject = {
-        };
+        
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token
         });
         return this.http.post(`${environment.apiUrl}/create-business`,newBusinessData,{headers:headers}).pipe(
         map((res) => {
@@ -126,8 +122,8 @@ export class AdminService {
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/admin-booking-listing`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -144,8 +140,8 @@ export class AdminService {
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/admin-service-list`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -161,8 +157,8 @@ export class AdminService {
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/admin-customer-list`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -176,8 +172,8 @@ export class AdminService {
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/admin-customer-details`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -191,8 +187,8 @@ export class AdminService {
         // };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/admin-customer-create`,newCustomerData,{headers:headers}).pipe(
         map((res) => {
@@ -206,8 +202,8 @@ export class AdminService {
         // };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/customer-profile-update`,existingCustomerData,{headers:headers}).pipe(
         map((res) => {
@@ -221,8 +217,8 @@ export class AdminService {
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/customer-delete`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -236,8 +232,8 @@ export class AdminService {
         // };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/customer-note-create`,createNewNoteData,{headers:headers}).pipe(
         map((res) => {
@@ -248,8 +244,8 @@ export class AdminService {
     fnEditNote(editNoteData){
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/customer-note-edit`,editNoteData,{headers:headers}).pipe(
         map((res) => {
@@ -264,8 +260,8 @@ export class AdminService {
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/customer-tags`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -279,8 +275,8 @@ export class AdminService {
         
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/admin-today-listing`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -293,8 +289,8 @@ export class AdminService {
     getAllCategories(requestObject){
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
 
         return this.http.post(`${environment.apiUrl}/get-all-category`,requestObject,{headers:headers} ).pipe(
@@ -308,8 +304,8 @@ export class AdminService {
     get(requestObject){
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
 
         return this.http.post(`${environment.apiUrl}/get-all-category`,requestObject,{headers:headers} ).pipe(
@@ -323,8 +319,8 @@ export class AdminService {
     getTodayRevenue(requestObject){
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
 
         return this.http.post(`${environment.apiUrl}/admin-today-revenue`,requestObject,{headers:headers} ).pipe(
@@ -343,8 +339,8 @@ export class AdminService {
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/discount-coupon-list`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -355,8 +351,8 @@ export class AdminService {
     createNewCouponCode(createdCouponCodeData){
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/create-discount-coupon`,createdCouponCodeData,{headers:headers}).pipe(
         map((res) => {
@@ -371,8 +367,8 @@ export class AdminService {
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/discount-coupon-status-update`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -385,8 +381,8 @@ export class AdminService {
     
         let headers = new HttpHeaders({
         'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/admin-booking-resedule`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -401,8 +397,8 @@ export class AdminService {
     //     };
     //     let headers = new HttpHeaders({
     //         'Content-Type': 'application/json',
-    //         'admin-id' : this.adminId,
-    //         'api-token' : this.adminToken 
+    //         'admin-id' : JSON.stringify(this.currentUser.user_id),
+    //         'api-token' : this.currentUser.token 
     //     });
     //     return this.http.post(`${environment.apiUrl}/customer-reports`,requestObject,{headers:headers}).pipe(
     //     map((res) => {
@@ -415,8 +411,8 @@ export class AdminService {
     
         let headers = new HttpHeaders({
         'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/admin-booking-single-update`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -429,8 +425,8 @@ export class AdminService {
     
         let headers = new HttpHeaders({
         'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/admin-assignStaff-update`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -447,8 +443,8 @@ export class AdminService {
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/get-category-service`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -465,8 +461,8 @@ export class AdminService {
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/get-pending-live`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -481,8 +477,8 @@ export class AdminService {
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/get-notassign-live`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -497,8 +493,8 @@ export class AdminService {
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/get-ontheway-live`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -514,8 +510,8 @@ export class AdminService {
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/get-workstart-live`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -527,8 +523,8 @@ export class AdminService {
     getAppointmentsReports(requestObject){
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/appointment-reports`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -540,8 +536,8 @@ export class AdminService {
     getSalesReports(requestObject){
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/sales-reports`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -553,8 +549,8 @@ export class AdminService {
     getCustomerReports(requestObject){
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/customer-reports`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -570,8 +566,8 @@ export class AdminService {
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken 
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
         });
         return this.http.post(`${environment.apiUrl}/tax-list`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -587,8 +583,8 @@ export class AdminService {
             'business_id': this.businessId,
         };
         let headers = new HttpHeaders({
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken,
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
             'Content-Type': 'application/json'
         });
         return this.http.post(`${environment.apiUrl}/get-admin-profile`,requestObject,{headers:headers}).pipe(
@@ -600,8 +596,8 @@ export class AdminService {
 
     updateProfile(updatedAdminProfileData){
         let headers = new HttpHeaders({
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken,
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
             'Content-Type': 'application/json'
         });
         return this.http.post(`${environment.apiUrl}/admin-profile-update`,updatedAdminProfileData,{headers:headers}).pipe(
@@ -613,8 +609,8 @@ export class AdminService {
 
     getOffDays(requestObject){
         let headers = new HttpHeaders({
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken,
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
             'Content-Type': 'application/json'
         });
         return this.http.post(`${environment.apiUrl}/list-holidays`,requestObject,{headers:headers}).pipe(
@@ -625,10 +621,11 @@ export class AdminService {
     }
 
     getSettingValue(requestObject) {
+        
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id': this.adminId,
-            'api-token': this.adminToken
+            'admin-id': JSON.stringify(this.currentUser.user_id),
+            'api-token': this.currentUser.token
         });
         return this.http.post(`${environment.apiUrl}/get-setting-value`, requestObject, { headers: headers }).pipe(
             map((res) => {
@@ -643,8 +640,8 @@ export class AdminService {
             'action' : status
         };
         let headers = new HttpHeaders({
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken,
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
             'Content-Type': 'application/json'
         }); 
         return this.http.post(`${environment.apiUrl}/admin-booking-update-multiple`,requestObject,{headers:headers}).pipe(
@@ -659,8 +656,8 @@ export class AdminService {
             'customer_id': selectedCustomerId,
         };
         let headers = new HttpHeaders({
-            'admin-id' : this.adminId,
-            'api-token' : this.adminToken,
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
             'Content-Type': 'application/json'
         });
         return this.http.post(`${environment.apiUrl}/export-customer`,requestObject,{headers:headers}).pipe(

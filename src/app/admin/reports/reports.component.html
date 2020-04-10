@@ -1,12 +1,6 @@
-<div class="">
-  <div class="">
-    <mat-drawer-container class="reports-container col-lg-12" style="margin-top: 70px;">
-      <mat-drawer mode="side" opened id="Customer-list" class="pl-0 pr-0" style="width:300px;">
-        <div class="leftarrow-icon">
-          <mat-icon aria-hidden="false" class="customer-drawer-leftarrow">arrow_back</mat-icon>
-        </div>
+<mat-drawer-container class="reports-container h-100" style="margin-top: 70px;">
+      <mat-drawer [disableClose]="true" mode="side" opened id="Customer-list" class="pl-0 pr-0" style="width:300px;">
         <mat-list role="list">
-          <mat-menu></mat-menu>
           <p class="pl-4">Report Management</p>
           <div class="matlist pointer menuitem">
             <mat-list-item role="listitem" (click)="fnappointmentReport()"><i class="fa fa-bar-chart saleschart"></i>Appointment Reports</mat-list-item>
@@ -318,5 +312,3 @@
         </div>
       </mat-drawer-content>
     </mat-drawer-container>
-  </div>
-</div>

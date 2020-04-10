@@ -104,4 +104,7 @@ export class LoginComponent implements OnInit {
                 this.dataLoaded = true;  
             });
     }
+    forgotPassword(){
+        this.router.navigate(['/forgot-password']);
+    }
 }

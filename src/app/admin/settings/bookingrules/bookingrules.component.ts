@@ -38,6 +38,7 @@ export class BookingrulesComponent implements OnInit {
   minResedulingTimeHours:any;
   minResedulingTimeMinutes:any;
   customerLoginValue:any;
+  staffListOnFrontValue:any;
   appAutoConfirmValue:any;
   autoAssignStaffValue:any;
   customerAllowStaffRatingValue:any;
@@ -78,6 +79,7 @@ export class BookingrulesComponent implements OnInit {
     this.minResedulingTimeHours="0";
     this.minResedulingTimeMinutes="0";
     this.customerLoginValue="false";
+    this.staffListOnFrontValue="false";
     this.appAutoConfirmValue="false";
     this.autoAssignStaffValue="false";
     this.customerAllowStaffRatingValue="false";
@@ -166,6 +168,8 @@ export class BookingrulesComponent implements OnInit {
        //  // }
 
         this.customerLoginValue=this.settingsArr.customer_login;
+        this.staffListOnFrontValue=JSON.parse(this.settingsArr.staff_list_on_front).status;
+        console.log(JSON.parse(this.settingsArr.staff_list_on_front).status);
         this.appAutoConfirmValue=JSON.parse(this.settingsArr.auto_confirm_setting).appointment_auto_confirm;
         this.autoAssignStaffValue=JSON.parse(this.settingsArr.auto_confirm_setting).auto_assign_to_staff;
         this.customerAllowStaffRatingValue=this.settingsArr.customer_allow_for_staff_rating;
@@ -434,6 +438,35 @@ export class BookingrulesComponent implements OnInit {
       }
       else{
        this.snackBar.open("Customer Login Status Not Updated", "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+  }
+  
+  fnChangeStaffOnFrontStatus(event){
+    console.log(event.checked);
+    console.log(this.staffListOnFrontValue);
+
+    let requestObject={
+      "business_id":this.businessId,
+      "staff_list_on_front":{
+        "status" : JSON.stringify(event.checked)
+      }
+    }
+    console.log(JSON.stringify(requestObject));
+    this.adminSettingsService.changeStaffOnFrontStatus(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.snackBar.open("Staff On Front Status Updated", "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass : ['green-snackbar']
+        });
+      }
+      else{
+       this.snackBar.open("Staff On Front Status Not Updated", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']
