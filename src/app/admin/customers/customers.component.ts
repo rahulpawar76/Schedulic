@@ -40,6 +40,7 @@ export class CustomersComponent implements OnInit {
   customerLastbooking:any;
   customerPersonalDetails: any;
   customerAppoint: any;
+  reviewOrderData : any;
   customerNotes: any;
   customerReviews: any;
   newCustomer: boolean = false;
@@ -292,6 +293,8 @@ customerUpdate(existingCustomerData){
       console.log( this.customerAppoint)
         this.customerNotes = response.response.notes
         this.customerReviews = response.response.revirew
+        console.log(this.customerReviews);
+
         this.customerPersonalDetails.created_at=this.datePipe.transform(new Date(this.customerPersonalDetails.created_at),"d MMM y, h:mm a")
         this.tagsnew = this.customerPersonalDetails.tag_id
                 console.log(this.tagsnew);
@@ -405,16 +408,37 @@ customerUpdate(existingCustomerData){
      });
   }
   
-  viewReviewDetail(){
-    const dialogRef = this.dialog.open(DialogViewReview, {
-      width: '500px',
-    });
+  viewReviewDetail(index, OrderId){
+    alert(OrderId);
+    this.isLoaderAdmin = true;
+    this.AdminService.viewReviewDetail(OrderId).subscribe((response:any) => {
+      if(response.data == true){
+        this.reviewOrderData = response.response;
+        console.log(this.reviewOrderData)
+        this.reviewOrderData.forEach( (element) => { 
+                  element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")   
+                  element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+                  element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+                });
 
-     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
-     });
+         const dialogRef = this.dialog.open(DialogViewReview, {
+          width: '500px',
+          data :{fulldata : this.customerReviews[index], orderData : this.reviewOrderData}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.animal = result;
+        });
+        this.isLoaderAdmin = false;
+      }
+      else if(response.data == false){
+        this.isLoaderAdmin = false;
+      }
+    })
+   
   }
+
   fnAddNewTag(){
     this.addNewTag = true;
   }
@@ -744,10 +768,18 @@ onNoClick(): void {
   templateUrl: '../_dialogs/view-review-dialog.html',
 })
 export class DialogViewReview {
-
+detailsData: any;
+orderDataFull:any;
 constructor(
   public dialogRef: MatDialogRef<DialogViewReview>,
-  @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  private AdminService: AdminService,
+  @Inject(MAT_DIALOG_DATA) public data: any) {
+
+     this.detailsData =  this.data.fulldata;
+     this.orderDataFull =  this.data.orderData[0];
+     console.log(this.orderDataFull);
+    console.log(this.detailsData);
+  }
 
 onNoClick(): void {
   this.dialogRef.close();
