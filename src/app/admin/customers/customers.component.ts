@@ -16,6 +16,7 @@ import { AppComponent } from '@app/app.component';
 
 
 export interface DialogData {
+  fulldata: any;
   animal: string;
   name: string;
  
@@ -288,6 +289,7 @@ customerUpdate(existingCustomerData){
         this.customersDetails.lastBooking.booking_time=this.datePipe.transform(new Date(this.customersDetails.lastBooking.booking_date+" "+this.customersDetails.lastBooking.booking_time),"hh:mm a")
         this.customerPersonalDetails = response.response.customer_details 
         this.customerAppoint = response.response.appointmets
+      console.log( this.customerAppoint)
         this.customerNotes = response.response.notes
         this.customerReviews = response.response.revirew
         this.customerPersonalDetails.created_at=this.datePipe.transform(new Date(this.customerPersonalDetails.created_at),"d MMM y, h:mm a")
@@ -297,6 +299,7 @@ customerUpdate(existingCustomerData){
                 this.customerAppoint.forEach( (element) => { 
                   element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")   
                   element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+                  element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
                 });
         this.isLoaderAdmin = false;
       }
@@ -489,6 +492,41 @@ customerUpdate(existingCustomerData){
         //    }
      });
   }
+
+  fnCustomerAppointmentDetails(index){
+
+    const dialogRef = this.dialog.open(CustomerAppointmentDetailsDialog, {
+      height: '700px',
+      //data: {animal: this.animal}
+      data :{fulldata : this.customerAppoint[index]}
+     });
+      dialogRef.afterClosed().subscribe(result => {
+       this.animal = result;
+      //this.getPendingAppointments();
+     
+      });
+
+  }
+}
+
+@Component({
+  selector: 'customer-appointment-details-dialog',
+  templateUrl: '../_dialogs/customer-appointment-details-dialog.html',
+})
+export class CustomerAppointmentDetailsDialog {
+  detailsData: any;
+constructor(
+  public dialogRef: MatDialogRef<CustomerAppointmentDetailsDialog>,
+  @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+
+    this.detailsData =  this.data.fulldata;
+    console.log(this.detailsData);
+  }
+
+onNoClick(): void {
+  this.dialogRef.close();
+}
+
 }
 
 @Component({

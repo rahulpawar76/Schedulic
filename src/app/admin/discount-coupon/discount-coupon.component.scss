@@ -169,3 +169,52 @@
     }
     
 }
+
+.mat-visibility{
+
+    font-size: 20px;
+    color: blue;
+    margin-left: 15px;
+}
+
+
+::ng-deep .tp-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;   
+    right: 0;
+    background: #eee;
+    width: 400px;
+    .appodetails{
+        margin: 15px;
+
+        
+    .fontred{
+          color: red;
+          .circle{
+            margin: 8px;
+          }
+    }
+    .assignto{
+      width: 30%;
+    }
+    .greenfont{
+        color: green;
+      .repeat{
+        margin: 8px;
+      }
+    }
+    .paybtn{
+      border-radius: 50px;
+      width: 100px;
+    }
+
+  }
+
+  .couponCode{
+
+    color: #1173f4;
+}
+
+  
+}

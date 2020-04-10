@@ -40,10 +40,11 @@
                       <th>Created on</th>
                       <th>valid form</th>
                       <th>valid till</th>
-                      <th >Maximum<br />Redemptions</th>
+                      <th>Maximum<br />Redemptions</th>
                       <th>Used</th>
                       <th>Status</th>
                       <th>Action</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -73,9 +74,21 @@
                         <p class="text-capitalize">{{allCouponCode.status}}</p>
                       </td>
                       <td>
-                        <div *ngIf="allCouponCode.status == 'Active' || allCouponCode.status == 'Inactive'"><mat-slide-toggle (change)="changeCouponStaus($event,allCouponCode.id)" [checked]="allCouponCode.status == 'Active'"></mat-slide-toggle></div>
+                        <div *ngIf="allCouponCode.status == 'Active' || allCouponCode.status == 'Inactive'"><mat-slide-toggle (change)="changeCouponStaus($event,allCouponCode.id)" [checked]="allCouponCode.status == 'Active'"></mat-slide-toggle>
+                         
+                        </div>
+                        
                       </td>
+                      <td>
+                        <div class="pointer">
+                          <span class="material-icons mat-visibility" (click)="fnCouponDetails(i)">visibility</span>
+                        </div>
+                        
+                        
+                      </td>
+                     
                     </tr>
+                   
                     
                   </tbody>
                   </table>

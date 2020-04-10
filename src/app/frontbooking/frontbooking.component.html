@@ -260,7 +260,10 @@
                                 <div class="col-12 col-lg-4 col-md-4 col-sm-4" *ngIf="contactFormSettingsArr.addressField.status == 1">
                                     <label>Zip Code</label>
                                     <input formControlName="newUserZipcode" class="common-input" type="text" />
-                                    <span class="error-wrap" *ngIf="formNewUser.get('newUserZipcode').dirty || formNewUser.get('newUserZipcode').touched || formSubmitclicked"><small *ngIf="formNewUser.get('newUserZipcode').hasError('required')" class="error">ZipCode Is required</small><small *ngIf="formNewUser.get('newUserZipcode').hasError('pattern')" class="error">Enter a valid zipcode</small></span>
+                                    <span class="error-wrap" *ngIf="formNewUser.get('newUserZipcode').dirty || formNewUser.get('newUserZipcode').touched || formSubmitclicked">
+                                    <small *ngIf="formNewUser.get('newUserZipcode').hasError('required')" class="error">ZipCode Is required</small>
+                                    <small *ngIf="formNewUser.get('newUserZipcode').hasError('pattern')" class="error">Enter a valid zipcode</small></span>
+                                   
                                 </div>
                                 <div class="col-12 col-lg-12 col-md-12 col-sm-12">
                                     <label>Special request (Notes)</label>
