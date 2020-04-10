@@ -37,6 +37,7 @@ export class StaffComponent implements OnInit {
   singleStaffDetail: any;
   staffImageUrl:any;
   progress: any;
+  singleStaffDataRating: any;
 
   addStaffPageValid:FormGroup;
   selectedServicesArr: any = [];
@@ -245,9 +246,12 @@ export class StaffComponent implements OnInit {
     })
   }
 
-  fnViewSingleStaff(staffId) {
+  fnViewSingleStaff(staffId,index) {
+    alert(index)
     this.isLoaderAdmin = true;
     this.selectedStaffId= staffId;
+    this.singleStaffDataRating = this.allStaffList[index]
+    console.log(this.singleStaffDataRating);
     this.adminSettingsService.fnViewSingleStaff(staffId).subscribe((response: any) => {
       if (response.data == true) {
         this.singleStaffDetail = response.response
