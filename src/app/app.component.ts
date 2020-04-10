@@ -433,6 +433,11 @@ export class AppComponent implements AfterViewInit {
         });
         this.isLoaderAdmin = false;
       } else {
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['green-snackbar']
+        });
         this.isLoaderAdmin = false;
       }
 
@@ -511,11 +516,6 @@ export class AppComponent implements AfterViewInit {
   }
 
 
-
-  getStatusCurrentStaff() {
-
-  }
-
   logoutAlert() {
     const dialogRef = this.dialog.open(DialogLogoutAppointment, {
       width: '500px',
@@ -527,6 +527,7 @@ export class AppComponent implements AfterViewInit {
       this.animal = result;
     });
   }
+
 }
 
 /*For notification Dialog*/
@@ -538,13 +539,31 @@ export class AppComponent implements AfterViewInit {
 })
 export class DialogNotification {
   notifications: any;
+  currentUser: User;
+  businessId :any;
+  userId: any;
+  userType: any;
+  animal:any;
+  token: any;
+  isLoaderAdmin : boolean = false;
+  order_item_id : any = [];
 
   constructor(
     public dialogRef: MatDialogRef<DialogNotification>,
     private datePipe: DatePipe,
+    private http: HttpClient,
+    private authenticationService: AuthenticationService,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
+    private CommonService: CommonService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    if (localStorage.getItem('business_id')) {
+      this.businessId = localStorage.getItem('business_id');
+    }
     this.notifications = this.data.fulldata
-    this.notifications = this.notifications.sort(this.dynamicSort("booking_time"))
+    this.notifications = this.notifications.sort(this.dynamicSort("booking_date"))
     this.notifications.forEach((element) => {
       var todayDateTime = new Date();
       //element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
@@ -559,6 +578,54 @@ export class DialogNotification {
     console.log(this.notifications)
   }
 
+  fnViewNotification(index, orderId){
+   this.order_item_id.push(orderId);
+    let headers;
+    if (this.currentUser.user_type == "A") {
+      this.userType = "admin";
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'admin-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    } else if (this.currentUser.user_type == "SM") {
+      this.userType = "staff";
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'staff-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    } else if (this.currentUser.user_type == "C") {
+      this.userType = "customer";
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'customer-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    }
+    let requestObject = {
+      "order_item_id": this.order_item_id,
+    };
+    this.CommonService.fnViewNotification(requestObject, headers).subscribe((response: any) => {
+      if (response.data == true) {
+        this.notificationAppointment(index);
+      }
+    })
+  }
+ 
+   notificationAppointment(index) {
+     alert()
+    const dialogRef = this.dialog.open(DialogNotificationAppointment, {
+      width: '500px',
+      data : { fulldata : this.notifications[index] }
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
+  }
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -578,6 +645,46 @@ export class DialogNotification {
 }
 
 @Component({
+  selector: 'Notification-Appointment',
+  templateUrl: './_dialogs/dialog-notification-appointment.html',
+  providers: [DatePipe]
+})
+export class DialogNotificationAppointment {
+  myAppoDetailData:any;
+  bookingDateTime:any;
+  booking_timeForLabel:any;
+  created_atForLabel:any;
+  booking_dateForLabel:any;
+  booking_time_to:any;
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogNotificationAppointment>,
+    public router: Router,
+    private datePipe: DatePipe,
+    private authenticationService: AuthenticationService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.myAppoDetailData = this.data.fulldata
+      console.log(this.myAppoDetailData)
+        this.bookingDateTime = new Date(this.myAppoDetailData.booking_date+" "+this.myAppoDetailData.booking_time);
+        this.booking_timeForLabel = this.datePipe.transform(this.bookingDateTime,"hh:mm a");
+        this.booking_dateForLabel = this.datePipe.transform(new Date(this.myAppoDetailData.booking_date),"dd MMM yyyy");
+        this.created_atForLabel = this.datePipe.transform(new Date(this.myAppoDetailData.created_at),"dd MMM yyyy @ hh:mm a");
+
+        var dateTemp = new Date(this.datePipe.transform(this.bookingDateTime,"dd MMM yyyy hh:mm a"));
+        dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(this.myAppoDetailData.service_time) );
+        this.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+
+     }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+
+}
+
+
+@Component({
   selector: 'logout-alert',
   templateUrl: './_dialogs/logout-dialog.html',
 })
@@ -594,7 +701,6 @@ export class DialogLogoutAppointment {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 
   logout() {
     this.authenticationService.logout();

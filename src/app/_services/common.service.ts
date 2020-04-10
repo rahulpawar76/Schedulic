@@ -44,5 +44,12 @@ export class CommonService {
     }),
     catchError(this.handleError));
   }
+  fnViewNotification(requestObject,headers){
+    return this.http.post(`${environment.apiUrl}/update-notification`,requestObject,{headers:headers}).pipe(
+    map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
 
 }

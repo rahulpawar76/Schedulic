@@ -11,7 +11,7 @@
 
         <div class="modal-body ">
           <div class="" *ngFor="let notifications of notifications;  let i=index;">
-            <div *ngIf="notifications.order_status == 'P'" class="">
+            <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'P'" class="single-notification pointer">
               <div class="row">
                 <div class="col-12">
                   <label class="mb-0 bluefont">New Appointment</label>
@@ -23,7 +23,7 @@
               <div class="row">
                 <div class="col-6">
                   <label class="mb-0 fontsize-md">{{notifications.service.service_name}}</label>
-                  <p class="mb-0 x-small"><i class="fa fa-user-o"></i>Booked By {{notifications.customer.fullname}}</p>
+                  <p class="mb-0 x-small">Booked By {{notifications.customer.fullname}}</p>
                 </div>
                 <div class="col-6 ">
                   <p class="mb-0 x-small"><i
@@ -34,7 +34,7 @@
               </div>
               <hr>
             </div>
-            <div *ngIf="notifications.order_status == 'OW' || notifications.order_status == 'WS'  || notifications.order_status == 'CNF' || notifications.order_status == 'AC'  || notifications.order_status == 'R'" class="">
+            <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'OW' || notifications.order_status == 'WS'  || notifications.order_status == 'CNF' || notifications.order_status == 'AC'  || notifications.order_status == 'R'" class="single-notification pointer">
               <div class="row">
                 <div class="col-12">
                   <label class="mb-0 orangefont">Status Update</label>
@@ -55,13 +55,13 @@
                 <div class="col-6 ">
                   <p class="mb-0 x-small" *ngIf="notifications.staff"><i class="fa fa-briefcase pr-2"></i>{{notifications.staff.firstname}} {{notifications.staff.lastname}}</p>
                   <p class="mb-0 x-small" *ngIf="!notifications.staff"><i class="fa fa-briefcase pr-2"></i>Not Assigned</p>
-                  <p class="mb-0 x-small"><i class="fa fa-user-o"></i>{{notifications.customer.fullname}}
+                  <p class="mb-0 x-small"><i class="fa fa-user-o pr-2"></i>{{notifications.customer.fullname}}
                   </p>
                 </div>
               </div>
               <hr>
             </div>
-            <div *ngIf="notifications.order_status == 'CC' || notifications.order_status == 'C'" class="">
+            <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'CC' || notifications.order_status == 'C'" class="single-notification pointer">
               <div class="row">
                 <div class="col-12"> 
                   <label class="mb-0 fontred">Appointment Cancelled</label>
@@ -84,7 +84,7 @@
               </div>
               <hr>
             </div>
-            <div *ngIf="notifications.order_status == 'CO'" class="">
+            <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'CO'" class="single-notification pointer">
               <div class="row">
                 <div class="col-12">  
                   <label class="mb-0 greenfont">Appointment Completed</label>
@@ -96,7 +96,7 @@
               <div class="row">
                 <div class="col-6">
                   <label class="mb-0 fontsize-md">{{notifications.service.service_name}}</label> 
-                  <p class="mb-0 x-small"><i class="fa fa-user-o"></i>{{notifications.customer.fullname}}
+                  <p class="mb-0 x-small"><i class="fa fa-user-o pr-2"></i>{{notifications.customer.fullname}}
                 </div>
                 <div class="col-6 ">
                   <p class="mb-0 x-small"><i class="fa fa-briefcase pr-2"></i>{{notifications.staff.firstname}} {{notifications.staff.lastname}}</p>
@@ -107,7 +107,7 @@
               </div>
               <hr>
             </div>
-            <div *ngIf="notifications.order_status == 'RSS' || notifications.order_status == 'RSA' || notifications.order_status == 'RSC'" class="">
+            <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'RSS' || notifications.order_status == 'RSA' || notifications.order_status == 'RSC'" class="single-notification pointer">
               <div class="row">
                 <div class="col-12">
                   <label class="mb-0 greenfont">Appointment Rescheduled</label>
@@ -132,73 +132,6 @@
               <hr>
             </div>
           </div>
-
-          <!-- <div class="row">
-            <div class="col-12 mb-1">
-              <label class="mb-0 fontred ">Appointment Cancelled</label>
-              <label class="mb-0 x-small float-right pr-1">1 hour ago</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-6">
-
-              <label class="mb-0 fontsize-md">Service Name</label>
-              <p class="mb-0 x-small">Cancelled</p>
-            </div>
-
-            <div class="col-6 mt-1">
-
-              <p class="mb-0 x-small"><i class="material-icons pr-2">calendar_today</i>9 sep 2019</p>
-              <p class="mb-0 x-small"><i class="material-icons pr-2">access_alarm</i>09:00am</p>
-            </div>
-          </div>
-
-
-          <hr>
-
-          <div class="row">
-            <div class="col-12">
-              <label class="mb-0 greenfont">Appointment Completed</label>
-              <label class="mb-0 x-small float-right pr-1">Just Now</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-6">
-
-              <label class="mb-0 fontsize-md">Service Name</label>
-              <p class="mb-0 x-small"><i class="fa fa-briefcase pr-2"></i>Staff Name</p>
-            </div>
-
-            <div class="col-6 mt-1">
-
-              <p class="mb-0 x-small"><i class="material-icons pr-2">calendar_today</i>9 sep 2019</p>
-              <p class="mb-0 x-small"><i class="material-icons pr-2">access_alarm</i>09:00am</p>
-            </div>
-          </div>
-
-
-          <hr>
-
-          <div class="row">
-            <div class="col-12">
-              <label class="mb-0 greenfont">Appointment Rescheduled</label>
-              <label class="mb-0 x-small float-right pr-1">Just Now</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-6">
-
-              <label class="mb-0 fontsize-md">Service Name</label>
-              <p class="mb-0 x-small">Rescheduled</p>
-            </div>
-
-            <div class="col-6 mt-1">
-
-              <p class="mb-0 x-small"><i class="material-icons pr-2">calendar_today</i>9 sep 2019</p>
-              <p class="mb-0 x-small"><i class="material-icons pr-2">access_alarm</i>09:00am</p>
-            </div>
-          </div> -->
-
         </div>
       </div>
     </div>
