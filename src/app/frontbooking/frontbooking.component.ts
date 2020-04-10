@@ -114,8 +114,9 @@ export class FrontbookingComponent implements OnInit {
   termsConditionsStatusValue:boolean = false;
   termsConditions:any;
   privacyPolicy:any;
+  thankYou:any;
   PrivacyPolicyStatusValue:boolean = false;
-  
+
 
 
   minimumAdvanceBookingTime:any;
@@ -210,9 +211,7 @@ export class FrontbookingComponent implements OnInit {
     else if(event==false){
       this.termsConditionsStatusValue=false;
     }
-    
-   
-
+     
   }
 
   fnChangePrivacyPolicyStatus(event){
@@ -256,6 +255,9 @@ export class FrontbookingComponent implements OnInit {
           this.PrivacyPolicyStatusValue = true;
         }
         console.log(this.privacyPolicy);
+
+        this.thankYou=JSON.parse(this.settingsArr.thank_you);
+        console.log(this.thankYou)
 
         this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
         this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
@@ -1623,12 +1625,18 @@ export class FrontbookingComponent implements OnInit {
         catchError(this.handleError)
       ).subscribe((response:any) => {
         if(response.data == true){
-          this.thankYouScreen=true;
-          this.paymentScreen=false;
+          if(this.thankYou.status == 'true'){
+            //alert(this.thankYou.status);
+            window.location.href = this.thankYou.page_link;
+          }else if(this.thankYou.status == 'false'){
+           
+                this.thankYouScreen=true;
+                this.paymentScreen=false;
           setTimeout(() => {
             window.location.reload();
           }, 2000);
         }
+      }
         else{
           console.log(response.response);
         }

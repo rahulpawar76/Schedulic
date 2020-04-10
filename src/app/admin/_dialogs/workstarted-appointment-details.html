@@ -33,7 +33,12 @@
         </div>
         <div class="pl-5">  
           <p class="mb-0">Status</p>
-          <p class="font-weight-bold">{{detailsData.order_status}}</p>
+          <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'P'">Waiting For Confirmation</p>
+          <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'AC'">Confirm</p>
+          <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'RSA'">Rescheduled By Admin</p>
+          <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'RSS'">Rescheduled</p>
+          <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'RSC'">Rescheduled By Customer</p>
+          <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'R'">Rejected</p>
         </div>
       
       </div>

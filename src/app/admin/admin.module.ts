@@ -43,6 +43,10 @@ import {DialogAllAppointmentDetails} from './appointment/appointment.component';
 import { DialogMyProfileImageUpload } from './settings-my-profile/settings-my-profile.component';
 import { DialogCustomerImageUpload } from './customers/customers.component';
 
+import { DialogCouponDetails } from './discount-coupon/discount-coupon.component';
+
+import { CustomerAppointmentDetailsDialog } from './customers/customers.component';
+
 
 @NgModule({
   declarations: [
@@ -69,7 +73,9 @@ import { DialogCustomerImageUpload } from './customers/customers.component';
     NotAssignedAppointmentDetailsDialog,
     OnTheWayAppointmentDetailsDialog,
     WorkStartedAppointmentDetailsDialog,
-    DialogAllAppointmentDetails
+    DialogAllAppointmentDetails,
+    DialogCouponDetails,
+    CustomerAppointmentDetailsDialog
     ],
   imports: [
     CommonModule,
@@ -97,6 +103,7 @@ import { DialogCustomerImageUpload } from './customers/customers.component';
     DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,
     DialogViewReview,InterruptedReschedule,PendingAppointmentDetailsDialog,
     NotAssignedAppointmentDetailsDialog,OnTheWayAppointmentDetailsDialog,
-    WorkStartedAppointmentDetailsDialog,DialogImportFileUpload,DialogMyProfileImageUpload,DialogCustomerImageUpload],
+    WorkStartedAppointmentDetailsDialog,DialogImportFileUpload,DialogMyProfileImageUpload,
+    DialogCustomerImageUpload,DialogCouponDetails,CustomerAppointmentDetailsDialog],
 })
 export class AdminModule { }

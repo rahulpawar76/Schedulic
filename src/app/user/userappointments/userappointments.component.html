@@ -32,6 +32,7 @@
               <label class="font-weight-bold">Staff</label>
                 <p *ngIf="appointmentData.staff_id == null">Not Assigned</p>
                 <p class="text-capitalize" *ngIf="appointmentData.staff_id != null">{{appointmentData.staff.firstname}} {{appointmentData.staff.lastname}}</p>
+                
             </div>
             <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons pt-4"> 
               <button mat-button class="d-block details-btn" (click)="MyAppointmentDetails(i)">Details</button>
