@@ -1,11 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import { AdminService } from '../_services/admin-main.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { DatePipe} from '@angular/common';
 import { AppComponent } from '@app/app.component'
 
+export interface DialogData {
+  animal: string;
+ 
+ 
+}
 
 @Component({
   selector: 'app-discount-coupon',
@@ -46,6 +52,7 @@ export class DiscountCouponComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
     private datePipe: DatePipe,
+    public dialog: MatDialog,
     private appComponent : AppComponent,
   ) {
     localStorage.setItem('isBusiness', 'false');
@@ -83,7 +90,7 @@ export class DiscountCouponComponent implements OnInit {
     this.AdminService.getAllCouponCode(couponListFilter).subscribe((response:any) => {
       if(response.data == true){
         this.allCouponCode = response.response
-        this.allCouponCode.forEach( (element) => {
+        this.allCouponCode.forEach((element) => {
           element.coupon_valid_from=this.datePipe.transform(new Date(element.coupon_valid_from),"MMM d, y")
           element.coupon_valid_till=this.datePipe.transform(new Date(element.coupon_valid_till),"MMM d, y")
           element.created_at=this.datePipe.transform(new Date(element.created_at),"MMM d, y")
@@ -198,5 +205,69 @@ export class DiscountCouponComponent implements OnInit {
     this.addNewCouponCode = true;
     this.getCateServiceList();
   }
+
+  fnCouponDetails(index){
+    
+    const dialogRef = this.dialog.open(DialogCouponDetails, {
+      height: '700px',
   
+      data :{fulldata : this.allCouponCode[index]}
+      
+    });
+
+     dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    this.getAllCouponCode(this.couponListFilter);
+     });
+
+  }
+  
+}
+
+@Component({
+  selector: 'coupon-details',
+  templateUrl: '../_dialogs/coupon-details.html',
+})
+export class DialogCouponDetails {
+  detailsData: any;
+  isLoaderAdmin:any;
+  couponCodeStatus:any;
+constructor(
+  public dialogRef: MatDialogRef<DialogCouponDetails>,
+  private AdminService: AdminService,
+  private _snackBar: MatSnackBar,
+  @Inject(MAT_DIALOG_DATA) public data: any) {
+
+    this.detailsData =  this.data.fulldata;
+    console.log(this.detailsData);
+  }
+
+onNoClick(): void {
+  this.dialogRef.close();
+}
+
+changeCouponStaus(event,coupon_id){
+  this.isLoaderAdmin = true;
+  if(event.checked == true){
+    this.couponCodeStatus = 'Active';
+  }
+  else if(event.checked == false){
+    this.couponCodeStatus = 'Inactive';
+  }
+  this.AdminService.changeCouponStaus(this.couponCodeStatus,coupon_id).subscribe((response:any) => {
+    if(response.data == true){
+      this._snackBar.open("Status Updated", "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['green-snackbar']
+      });
+      this.isLoaderAdmin = false;
+    }
+    else if(response.data == false){
+      this.isLoaderAdmin = false;
+    }
+  })
+}
+
 }

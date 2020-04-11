@@ -107,7 +107,7 @@
                                     <mat-icon class="mr-4" matPrefix>call</mat-icon>
                                     <input matInput formControlName="cus_phone" placeholder="Enter Your number">  
                                 </mat-form-field> 
-                                <span class="error-wrap" *ngIf="createNewCustomer.get('cus_phone').dirty || createNewCustomer.get('cus_phone').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_phone').hasError('required')" class="error">Contact Number Is required</small><small *ngIf="createNewCustomer.get('cus_phone').hasError('pattern')" class="error">Contact Number Should in numbers</small><small *ngIf="createNewCustomer.get('cus_phone').hasError('minLength') || createNewCustomer.get('cus_phone').hasError('maxLength')" class="error">Contact Number Should only 10 digits</small></span>       
+                                <span class="error-wrap" *ngIf="createNewCustomer.get('cus_phone').dirty || createNewCustomer.get('cus_phone').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_phone').hasError('required')" class="error">Contact Number Is required</small><small *ngIf="createNewCustomer.get('cus_phone').hasError('pattern')" class="error">Contact Number Should in numbers</small><small *ngIf="createNewCustomer.get('cus_phone').hasError('minlength') || createNewCustomer.get('cus_phone').hasError('maxlength')" class="error">Contact Number Should only 10 digits</small></span>       
                             </div>     
                             <div class="col-lg-6 col-12 col-md-6 bottom-border-field"> 
                                 <mat-form-field>
@@ -115,7 +115,7 @@
                                     <mat-icon class="mr-4" matPrefix>format_list_numbered</mat-icon>
                                     <input matInput formControlName="cus_officenumber" placeholder="Enter Your number">  
                                 </mat-form-field>  
-                                <span class="error-wrap" *ngIf="createNewCustomer.get('cus_officenumber').dirty || createNewCustomer.get('cus_officenumber').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_officenumber').hasError('pattern')" class="error">Office Phone Should in numbers</small><small *ngIf="createNewCustomer.get('cus_officenumber').hasError('minLength') || createNewCustomer.get('cus_officenumber').hasError('maxLength')" class="error">Office Phone Should only 10 digits</small></span>
+                                <span class="error-wrap" *ngIf="createNewCustomer.get('cus_officenumber').dirty || createNewCustomer.get('cus_officenumber').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_officenumber').hasError('pattern')" class="error">Office Phone Should in numbers</small><small *ngIf="createNewCustomer.get('cus_officenumber').hasError('minlength') || createNewCustomer.get('cus_officenumber').hasError('maxlength')" class="error">Office Phone Should only 10 digits</small></span>
                             </div>     
                             <div class="col-lg-6 col-12 col-md-6 bottom-border-field">                            
                                 <mat-form-field>
@@ -124,7 +124,7 @@
                                     <input matInput formControlName="cus_homenumber" placeholder="Enter Your number">  
                                 </mat-form-field>  
                                
-                                <span class="error-wrap" *ngIf="createNewCustomer.get('cus_homenumber').dirty || createNewCustomer.get('cus_homenumber').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_homenumber').hasError('pattern')" class="error">Home Phone Should in numbers</small><small *ngIf="createNewCustomer.get('cus_homenumber').hasError('minLength') || createNewCustomer.get('cus_homenumber').hasError('maxLength')" class="error">Home Phone Should only 10 digits</small></span>
+                                <span class="error-wrap" *ngIf="createNewCustomer.get('cus_homenumber').dirty || createNewCustomer.get('cus_homenumber').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_homenumber').hasError('pattern')" class="error">Home Phone Should in numbers</small><small *ngIf="createNewCustomer.get('cus_homenumber').hasError('minlength') || createNewCustomer.get('cus_homenumber').hasError('maxlength')" class="error">Home Phone Should only 10 digits</small></span>
                             </div>     
                             <div class="col-lg-12 col-12 col-md-12 bottom-border-field">    
                                 <mat-form-field>
@@ -279,11 +279,12 @@
                                           </tr>
                                         </thead>
                                         <tbody>
-                                          <tr *ngFor="let customerAppoint of customerAppoint; let i=index" class="devider-slim">
+                                          <tr  (click) ="fnCustomerAppointmentDetails(i)" *ngFor="let customerAppoint of customerAppoint; let i=index" class="devider-slim">
                                             <td scope="row">{{customerAppoint.booking_date}}</td>
                                             <td>{{customerAppoint.booking_time}}</td>
                                             <td>{{customerAppoint.service.service_name}}</td>
-                                            <td *ngIf="customerAppoint.staff != null">{{customerAppoint.staff.firstname}} {{customerAppoint.staff.lastname}}</td>
+                                            <td *ngIf="customerAppoint.staff">{{customerAppoint.staff.firstname}} {{customerAppoint.staff.lastname}}</td>
+                                            <td *ngIf="!customerAppoint.staff">Staff Not Assigned</td>
                                             <!-- <td>$.{{customerAppoint.total_cost}}</td> -->
                                             <td *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ customerAppoint.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>
                                             <td *ngIf="currencySymbolPosition=='right'">{{ customerAppoint.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</td>
@@ -518,7 +519,7 @@
                                             </div>   
                                           </div>
                                         <div class="py-2 ml-auto">
-                                            <button mat-button appearance="fill" class="view-btn" (click)="viewReviewDetail()"><mat-icon aria-hidden="false">visibility</mat-icon>View</button>
+                                            <button mat-button appearance="fill" class="view-btn" (click)="viewReviewDetail(i,customerReviews.order_id)"><mat-icon aria-hidden="false">visibility</mat-icon>View</button>
                                         </div>
                                     </div>
                                     <div>

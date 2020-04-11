@@ -1,5 +1,11 @@
-﻿<mat-drawer-container class="main-container">
+﻿<style>
+  /* *{
+    font-family: '{{appearenceColor.font}}', sans-serif !important;
+  } */
+</style>
+<mat-drawer-container class="main-container">
   <mat-drawer-content>
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif"/></div>
     <main fxLayout="column" fxLayoutGap="0">
       <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser() && !isBusiness()}" color="primary" class="toolbar menu-comman" *ngIf="isLogin() && !isFront()">
         <mat-toolbar-row *ngIf="isCustomerUser()">
@@ -46,7 +52,7 @@
               <img class="customer-profile-img m-2 float-left" src="/assets/img/avatar-rihan.jpg">
               <p class="font-weight-bold my-2 p-1" *ngIf="currentUser.full_name">{{currentUser.full_name}}</p>
             </span>
-            <button *ngIf="businessId"  mat-stroked-button class="bellborder bell-color" (click)="openNotificationDialog()">
+            <button *ngIf="!isBusiness()"  mat-stroked-button class="bellborder bell-color" (click)="openNotificationDialog()">
             <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
             </button> 
             <button  mat-stroked-button class="bellborder bell-color" (click)="logoutAlert()">

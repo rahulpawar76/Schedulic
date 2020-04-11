@@ -111,6 +111,7 @@ export class StaffAppointmentComponent implements OnInit {
     this.StaffService.getNewAppointment().subscribe((response:any) =>{
       if(response.data == true){
         this.newAppointmentData = response.response;
+        console.log( this.newAppointmentData);
         this.newAppointmentData.forEach( (element) => {
           var todayDateTime = new Date();
           element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);

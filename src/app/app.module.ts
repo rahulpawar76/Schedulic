@@ -15,7 +15,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 
-import { AppComponent, DialogNotification, DialogLogoutAppointment } from './app.component';
+import { AppComponent, DialogNotification, DialogLogoutAppointment, DialogNotificationAppointment } from './app.component';
 import { LoginComponent } from './login';
 import { AttendeesRegistrationComponent } from './attendees-registration'
 import { LoaderComponent } from './_components/loader/loader.component';
@@ -79,7 +79,8 @@ registerLocaleData(localeDe);
         ResetPasswordComponent,
         FrontbookingComponent,
         DialogNotification,
-        DialogLogoutAppointment
+        DialogNotificationAppointment,
+        DialogLogoutAppointment,
        
         ],
     imports: [
@@ -123,7 +124,7 @@ registerLocaleData(localeDe);
     ],
     bootstrap: [AppComponent],
     entryComponents: [ConfirmationDialogComponent,AppComponent,
-    DialogNotification,DialogLogoutAppointment],
+    DialogNotification,DialogLogoutAppointment,DialogNotificationAppointment],
 })
 
 export class AppModule { }

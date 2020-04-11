@@ -666,5 +666,21 @@ export class AdminService {
         }),
         catchError(this.handleError));
     }
+    viewReviewDetail(orderId){
+        let requestObject = {
+            'order_item_id': orderId,
+        };
+        let headers = new HttpHeaders({
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/rating-orderinfo`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    
 
 }

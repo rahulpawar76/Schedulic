@@ -28,6 +28,7 @@
                 <p *ngIf="currencySymbolPosition=='right'">{{ newAppointmentData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
               <label class="font-weight-bold">Customer</label>
                 <p class="text-capitalize">{{newAppointmentData.customer.fullname}}</p>
+                <p class="text-capitalize">Phone No:{{newAppointmentData.customer.phone}}</p>
             </div>
 
             <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons pt-4"> 
@@ -90,6 +91,7 @@
                 <p *ngIf="currencySymbolPosition=='right'">{{ onGoingAppointmentData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
               <label class="font-weight-bold">Customer</label>
                 <p class="text-capitalize">{{onGoingAppointmentData.customer.fullname}}</p>
+                <p class="text-capitalize">Phone No:{{onGoingAppointmentData.customer.phone}}</p>
             </div>
 
             <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons pt-4"> 
@@ -134,6 +136,7 @@
                 <p *ngIf="currencySymbolPosition=='right'">{{ completedAppointmentData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
               <label class="font-weight-bold">Customer</label>
                 <p class="text-capitalize">{{completedAppointmentData.customer.fullname}}</p>
+                <p class="text-capitalize">Phone No:{{completedAppointmentData.customer.phone}}</p>
             </div>
 
             <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons pt-4"> 

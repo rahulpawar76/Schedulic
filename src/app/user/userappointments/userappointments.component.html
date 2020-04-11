@@ -14,12 +14,14 @@
             <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
                 <label class="font-weight-bold">Status</label> 
                 <p class="text-capitalize" *ngIf="appointmentData.order_status == 'P'">Waiting For Confirmation</p>
-                <p class="text-capitalize" *ngIf="appointmentData.order_status == 'AC'">Confirm</p> 
+                <p class="text-capitalize" *ngIf="appointmentData.order_status == 'AC'">Accepted</p> 
                 <p class="text-capitalize" *ngIf="appointmentData.order_status == 'OW'">On The Way</p>
                 <p class="text-capitalize" *ngIf="appointmentData.order_status == 'RSA'">Rescheduled By Admin</p>
                 <p class="text-capitalize" *ngIf="appointmentData.order_status == 'RSS'">Rescheduled By Staff</p> 
                 <p class="text-capitalize" *ngIf="appointmentData.order_status == 'RSC'">Rescheduled</p>
                 <p class="text-capitalize" *ngIf="appointmentData.order_status == 'R'">Rejected</p>
+                <p class="text-capitalize" *ngIf="appointmentData.order_status == 'CNF'">Confirm</p>
+                <p class="text-capitalize" *ngIf="appointmentData.order_status == 'OW'">On the Way</p>
             </div>                  
           </div>
           <div class="row"> 
@@ -34,6 +36,7 @@
               <label class="font-weight-bold">Staff</label>
                 <p *ngIf="appointmentData.staff_id == null">Not Assigned</p>
                 <p class="text-capitalize" *ngIf="appointmentData.staff_id != null">{{appointmentData.staff.firstname}} {{appointmentData.staff.lastname}}</p>
+                
             </div>
             <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons pt-4"> 
               <button mat-button class="d-block details-btn" (click)="MyAppointmentDetails(i)">Details</button>

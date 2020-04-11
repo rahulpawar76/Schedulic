@@ -582,3 +582,94 @@
     margin: 0 auto;
     display: table;
     }
+    
+
+
+    ::ng-deep .booking-detail-main{
+        .customer-profile-img{
+          border-radius: 100%;
+          height: 60px;
+          width: 60px;
+          background-color: #1172f4;
+          color: white;
+          text-align: center;
+          padding: 14px;
+          line-height: 2;
+          display: block;
+          margin: 10px;
+        }
+        .customer-name{
+          width: calc(100% - 80px);
+        }
+      }
+      
+      
+       .address-fontsize{
+          font-size: 13px; 
+          .bluephone{
+            color: #1172f4;
+          }
+          .bluemap{
+            color: #1172f4;
+          }
+      }
+      .bluephone{
+          color: #1172f4;
+        }
+        .special-table{
+            border-spacing: 0 15px;
+          .special-row{
+              box-shadow: 2px 2px 10px #00000050;
+              border-radius: 15px;
+              overflow: hidden;
+              background: transparent;
+              &:hover{
+                  background-color: #d9f0fe !important;
+              }
+              td{
+                  &:first-child{
+                      border-top-left-radius: 15px;
+                      border-bottom-left-radius: 15px;
+                  }
+                  &:last-child{
+                      border-top-right-radius: 15px;
+                      border-bottom-right-radius: 15px;
+                  }
+              }
+          }
+      }
+
+     
+    ::ng-deep .tp-container {
+        position: absolute;
+        top: 0;
+        bottom: 0;   
+        right: 0;
+        background: #eee;
+        width: 400px;
+        .appodetails{
+            margin: 15px;
+            
+        .fontred{
+              color: red;
+              .circle{
+                margin: 8px;
+              }
+        }
+        .assignto{
+          width: 30%;
+        }
+        .greenfont{
+            color: green;
+          .repeat{
+            margin: 8px;
+          }
+        }
+        .paybtn{
+          border-radius: 50px;
+          width: 100px;
+        }
+    
+      }
+      
+    }

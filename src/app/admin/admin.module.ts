@@ -44,6 +44,13 @@ import { DialogMyProfileImageUpload } from './settings-my-profile/settings-my-pr
 import { DialogCustomerImageUpload } from './customers/customers.component';
 import { SharedModule } from '../shared.module';
 
+import { DialogCouponDetails } from './discount-coupon/discount-coupon.component';
+
+import { CustomerAppointmentDetailsDialog } from './customers/customers.component';
+
+
+
+
 @NgModule({
   declarations: [
     MyBusinessComponent,
@@ -69,7 +76,9 @@ import { SharedModule } from '../shared.module';
     NotAssignedAppointmentDetailsDialog,
     OnTheWayAppointmentDetailsDialog,
     WorkStartedAppointmentDetailsDialog,
-    DialogAllAppointmentDetails
+    DialogAllAppointmentDetails,
+    DialogCouponDetails,
+    CustomerAppointmentDetailsDialog
     ],
   imports: [
     CommonModule,
@@ -98,6 +107,7 @@ import { SharedModule } from '../shared.module';
     DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,
     DialogViewReview,InterruptedReschedule,PendingAppointmentDetailsDialog,
     NotAssignedAppointmentDetailsDialog,OnTheWayAppointmentDetailsDialog,
-    WorkStartedAppointmentDetailsDialog,DialogImportFileUpload,DialogMyProfileImageUpload,DialogCustomerImageUpload],
+    WorkStartedAppointmentDetailsDialog,DialogImportFileUpload,DialogMyProfileImageUpload,
+    DialogCustomerImageUpload,DialogCouponDetails,CustomerAppointmentDetailsDialog],
 })
 export class AdminModule { }
