@@ -48,6 +48,7 @@ import { DialogCouponDetails } from './discount-coupon/discount-coupon.component
 import { CustomerAppointmentDetailsDialog } from './customers/customers.component';
 
 
+
 @NgModule({
   declarations: [
     MyBusinessComponent,

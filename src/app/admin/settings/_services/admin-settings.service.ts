@@ -1265,5 +1265,21 @@ export class AdminSettingsService {
         }),
         catchError(this.handleError));
     }
+
+    viewStaffReviewDetail(orderId){
+        let requestObject = {
+            'order_item_id': orderId,
+        };
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/rating-orderinfo`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
     
 }

@@ -38,6 +38,7 @@ export class StaffComponent implements OnInit {
   staffImageUrl:any;
   progress: any;
   singleStaffDataRating: any;
+  singleStaffIndex: any;
 
   addStaffPageValid:FormGroup;
   selectedServicesArr: any = [];
@@ -121,6 +122,8 @@ export class StaffComponent implements OnInit {
   sundayBreakEndTimeIndex:any;
   
   timeOffList: any=[];
+
+  reviewOrderData : any;
 
   constructor(
     public dialog: MatDialog,
@@ -247,6 +250,7 @@ export class StaffComponent implements OnInit {
   }
 
   fnViewSingleStaff(staffId,index) {
+    this.singleStaffIndex = index;
     alert(index)
     this.isLoaderAdmin = true;
     this.selectedStaffId= staffId;
@@ -532,7 +536,7 @@ export class StaffComponent implements OnInit {
           panelClass: ['green-snackbar']
         });
         this.selectedPostalCodeArr.length = 0;
-        this.fnViewSingleStaff(this.selectedStaffId)
+        this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex)
         this.addPostalCodeId.length = 0;
         this.selectedValue = undefined
         this.isLoaderAdmin = false;
@@ -558,7 +562,7 @@ export class StaffComponent implements OnInit {
           panelClass: ['green-snackbar']
         });
         this.selectedPostalCodeArr.length = 0;
-        this.fnViewSingleStaff(this.selectedStaffId)
+        this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex)
         this.addPostalCodeId.length = 0;
         this.isLoaderAdmin = false;
       }
@@ -577,7 +581,7 @@ export class StaffComponent implements OnInit {
           verticalPosition: 'top',
           panelClass: ['green-snackbar']
         });
-        this.fnViewSingleStaff(this.selectedStaffId)
+        this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex)
         this.isLoaderAdmin = false;
       }
       else if (response.data == false) {
@@ -756,7 +760,7 @@ export class StaffComponent implements OnInit {
       console.log(result);
       if(result != undefined){
         if(result.call==true){
-        this.fnViewSingleStaff(this.selectedStaffId);
+        this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
        }
       }
     });
@@ -1088,7 +1092,7 @@ export class StaffComponent implements OnInit {
 
     this.adminSettingsService.createWorkingHoursStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.fnViewSingleStaff(this.selectedStaffId);
+        this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
         this._snackBar.open("Working Hours Updated", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
@@ -1127,7 +1131,7 @@ export class StaffComponent implements OnInit {
     
     this.adminSettingsService.applyToAllStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.fnViewSingleStaff(this.selectedStaffId);
+        this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
         this._snackBar.open("Working Hours applied to all", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
@@ -1153,7 +1157,7 @@ export class StaffComponent implements OnInit {
     }
     this.adminSettingsService.workingHoursResetToDefault(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.fnViewSingleStaff(this.selectedStaffId);
+        this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
         this._snackBar.open("Working Hours Reset", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
@@ -1459,7 +1463,7 @@ export class StaffComponent implements OnInit {
     this.isLoaderAdmin = true;
     this.adminSettingsService.addNewBreakStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.fnViewSingleStaff(this.selectedStaffId);
+        this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
         this.showMondayAddForm=false;
         this.showTuesdayAddForm=false;
         this.showWednesdayAddForm=false;
@@ -1500,7 +1504,7 @@ export class StaffComponent implements OnInit {
 
         this.adminSettingsService.deleteBreakStaff(requestObject).subscribe((response:any) => {
           if(response.data == true){
-            this.fnViewSingleStaff(this.selectedStaffId);
+            this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
             this._snackBar.open("Break Deleted", "X", {
               duration: 2000,
               verticalPosition: 'bottom',
@@ -1528,7 +1532,7 @@ export class StaffComponent implements OnInit {
 
     this.adminSettingsService.resetToDefaultBreakStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.fnViewSingleStaff(this.selectedStaffId);
+        this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
         this._snackBar.open("Break Reset to Default", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
@@ -1556,7 +1560,7 @@ export class StaffComponent implements OnInit {
 
     this.adminSettingsService.changeTimeOffStatusStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.fnViewSingleStaff(this.selectedStaffId);
+        this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
         this._snackBar.open("TimeOff status updated", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
@@ -1582,7 +1586,7 @@ export class StaffComponent implements OnInit {
 
     this.adminSettingsService.resetToDefaultTimeOffStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.fnViewSingleStaff(this.selectedStaffId);
+        this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
         this._snackBar.open("TimeOff status Reset to Default", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
@@ -1614,7 +1618,7 @@ export class StaffComponent implements OnInit {
 
         this.adminSettingsService.deleteTimeOff(requestObject).subscribe((response:any) => {
           if(response.data == true){
-            this.fnViewSingleStaff(this.selectedStaffId);
+            this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
             this._snackBar.open("TimeOff Deleted", "X", {
               duration: 2000,
               verticalPosition: 'bottom',
@@ -1633,7 +1637,63 @@ export class StaffComponent implements OnInit {
     });
   }
 
+  viewStaffReviewDetail(index,OrderId){
+
+   alert(OrderId);
+    this.isLoaderAdmin = true;
+    this.adminSettingsService.viewStaffReviewDetail(OrderId).subscribe((response:any) => {
+      if(response.data == true){
+        this.reviewOrderData = response.response;
+        console.log(this.reviewOrderData)
+        this.reviewOrderData.forEach( (element) => { 
+          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")   
+          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+          element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+        });
+
+         const dialogRef = this.dialog.open(DialogStaffViewReview, {
+          width: '500px',
+          data :{fulldata : this.singleStaffDetail.staff[0].review[index], orderData : this.reviewOrderData}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.animal = result;
+        });
+        this.isLoaderAdmin = false;
+      }
+      else if(response.data == false){
+        this.isLoaderAdmin = false;
+      }
+    })
+  }
+  
+
 }
+@Component({
+  selector: 'new-appointment',
+  templateUrl: '../_dialogs/staff-view-review-dialog.html',
+})
+export class DialogStaffViewReview {
+detailsData: any;
+orderDataFull:any;
+constructor(
+  public dialogRef: MatDialogRef<DialogStaffViewReview>,
+  private adminSettingsService: AdminSettingsService,
+  @Inject(MAT_DIALOG_DATA) public data: any) {
+
+     this.detailsData =  this.data.fulldata;
+     this.orderDataFull =  this.data.orderData[0];
+     console.log(this.orderDataFull);
+    console.log(this.detailsData);
+  }
+
+onNoClick(): void {
+  this.dialogRef.close();
+}
+
+}
+
 @Component({
   selector: 'new-appointment',
   templateUrl: '../_dialogs/add-new-time-off-dialog.html',

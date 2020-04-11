@@ -40,6 +40,8 @@ import { DialogStaffImageUpload } from './staff/staff.component';
 import { DialogCompanyDetailsImageUpload } from './company-details/company-details.component';
 import {DialogDataExampleDialog} from './services/services.component';
 
+import { DialogStaffViewReview } from './staff/staff.component';
+
 
 
 
@@ -68,7 +70,8 @@ enableRipple(true);
     DialogServiceImageUpload,
     DialogStaffImageUpload,
     DialogCompanyDetailsImageUpload,
-    DialogDataExampleDialog
+    DialogDataExampleDialog,
+    DialogStaffViewReview
   ],
   imports: [
       CommonModule,
@@ -87,6 +90,6 @@ enableRipple(true);
   exports: [
     FormsModule
   ],
-   entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax,DialogAddPostalCode,DialogAddNewTimeOffBussiness,DialogCategoryImageUpload,DialogSubCategoryImageUpload,DialogServiceImageUpload,DialogStaffImageUpload,DialogCompanyDetailsImageUpload,DialogDataExampleDialog],
+   entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax,DialogAddPostalCode,DialogAddNewTimeOffBussiness,DialogCategoryImageUpload,DialogSubCategoryImageUpload,DialogServiceImageUpload,DialogStaffImageUpload,DialogCompanyDetailsImageUpload,DialogDataExampleDialog,DialogStaffViewReview],
 })
 export class SettingsModule {}
