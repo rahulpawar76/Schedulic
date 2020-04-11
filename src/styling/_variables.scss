@@ -4,6 +4,7 @@
    --pri_gradien2: '#3969fb';
    --text_color: '#000000';
    --text_bgcolor: '#ffffff';
+   --font: 'Poppins';
 }
 $error: #f1552f;
 // $reactive: #f1552f;
@@ -49,6 +50,7 @@ $grey-1: #4c4c4c;
 $grey-2: #929292;
 $grey-3: #e0e0e0;
 $front-primary-color: var(--pri_color);
+$selected-font-family: var(--font);
 $red : #ed2f2f;
 $green : #16bc2c;
 
