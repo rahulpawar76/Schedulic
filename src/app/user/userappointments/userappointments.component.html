@@ -28,7 +28,9 @@
                 <p>{{appointmentData.service.service_name}}</p>
                 <p>Duration:{{appointmentData.service.service_time}}</p>
                 <label class="font-weight-bold">Amount</label>
-                <p>$ {{appointmentData.service.service_cost}}</p>
+                <!-- <p>$ {{appointmentData.service.service_cost}}</p> -->
+                <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ appointmentData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                <p *ngIf="currencySymbolPosition=='right'">{{ appointmentData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
               <label class="font-weight-bold">Staff</label>
                 <p *ngIf="appointmentData.staff_id == null">Not Assigned</p>
                 <p class="text-capitalize" *ngIf="appointmentData.staff_id != null">{{appointmentData.staff.firstname}} {{appointmentData.staff.lastname}}</p>
@@ -71,7 +73,9 @@
               <p>Duration:{{cancelAppointmentData.service.service_time}}</p>
               
             <label class="font-weight-bold">Amount</label>
-              <p>$ {{cancelAppointmentData.total_cost}}</p>
+              <!-- <p>$ {{cancelAppointmentData.total_cost}}</p> -->
+              <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ cancelAppointmentData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+              <p *ngIf="currencySymbolPosition=='right'">{{ cancelAppointmentData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
 
             <label class="font-weight-bold">Staff</label>
             <p *ngIf="cancelAppointmentData.staff_id == null">Not Assigned</p>
@@ -115,7 +119,9 @@
                 <p *ngIf="completedAppointmentData.service != ''">Duration:{{completedAppointmentData.service.service_time}}</p>
                 
               <label class="font-weight-bold">Amount</label>
-                <p>$ {{completedAppointmentData.total_cost}}</p>
+                <!-- <p>$ {{completedAppointmentData.total_cost}}</p> -->
+                <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ completedAppointmentData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                <p *ngIf="currencySymbolPosition=='right'">{{ completedAppointmentData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
   
               <label class="font-weight-bold">Staff</label>
               <p *ngIf="completedAppointmentData.staff_id == null">Not Assigned</p>

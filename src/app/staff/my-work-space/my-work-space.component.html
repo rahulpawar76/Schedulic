@@ -29,7 +29,9 @@
                                 <p class="work-space-font ">{{todayAppointmentData.customer.fullname}}</p>
                             </div>
                             <div class="money">
-                                <p class="work-space-font ">$ {{todayAppointmentData.total_cost}}</p>
+                                <!-- <p class="work-space-font ">$ {{todayAppointmentData.total_cost}}</p> -->
+                                <p class="work-space-font" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ todayAppointmentData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                                <p class="work-space-font" *ngIf="currencySymbolPosition=='right'">{{ todayAppointmentData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
                             </div>
                         </div>
                         <div class="pl-3 c-name-main">

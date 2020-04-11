@@ -39,7 +39,7 @@ import { DialogServiceImageUpload } from './services/services.component';
 import { DialogStaffImageUpload } from './staff/staff.component';
 import { DialogCompanyDetailsImageUpload } from './company-details/company-details.component';
 import {DialogDataExampleDialog} from './services/services.component';
-
+import { SharedModule } from '../../shared.module';
 
 
 
@@ -83,6 +83,7 @@ enableRipple(true);
       DataTablesModule,
       MatDatepickerModule,
       ColorPickerModule,
+      SharedModule
   ],
   exports: [
     FormsModule

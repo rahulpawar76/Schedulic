@@ -20,6 +20,7 @@ import { rescheduleAppointmentDialog } from './userappointments';
 import { DialogCancelAppointmentDetails } from './userappointments';
 import { DialogCompleteAppointmentDetails } from './userappointments';
 import { DialogUserImageUpload } from './user-profile';
+import { SharedModule } from '../shared.module';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { DialogUserImageUpload } from './user-profile';
     DragDropModule,
     NgxChartsModule,
     ProgressBarModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    SharedModule
   ],
   exports: [
     FormsModule

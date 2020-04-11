@@ -92,6 +92,10 @@ export class ServicesComponent implements OnInit {
     createSubCategory: FormGroup;
     createCategory: FormGroup;
     createService: FormGroup;
+    settingsArr:any=[];
+    currencySymbol:any;
+    currencySymbolPosition:any;
+    currencySymbolFormat:any;
 
     onlynumeric = /^-?(0|[1-9]\d*)?$/
     constructor(
@@ -112,6 +116,7 @@ export class ServicesComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.fnGetSettings();
         this.fnAllCategory();
         this.fnAllServices();
         this.fnstaffList();
@@ -135,6 +140,32 @@ export class ServicesComponent implements OnInit {
             service_id: [''],
         });
 
+    }
+
+    fnGetSettings(){
+    let requestObject = {
+      "business_id" : this.businessId
+      };
+
+    this.adminSettingsService.getSettingValue(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.settingsArr = response.response;
+        console.log(this.settingsArr);
+
+        this.currencySymbol = this.settingsArr.currency;
+        console.log(this.currencySymbol);
+        
+        this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+        console.log(this.currencySymbolPosition);
+        
+        this.currencySymbolFormat = this.settingsArr.currency_format;
+        console.log(this.currencySymbolFormat);
+      }else{
+      }
+      },
+      (err) =>{
+        console.log(err)
+      })
     }
     fnCreateNewCategory() {
         this.createNewCategoryPage = true;

@@ -14,19 +14,27 @@
 				<h6 class="font-blue pl-4 mb-0">Today</h6>
 			</div>
 			<div class="col-lg-2 col-md-4 col-6  flex-align-center left-border">
-				<h6 class="font-blue mb-0">{{revenue.appointments}}</h6>
+				<!-- <h6 class="font-blue mb-0">{{revenue.appointments}}</h6> -->
+				<h6 class="font-blue mb-0" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ revenue.appointments | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
+				<h6 class="font-blue mb-0" *ngIf="currencySymbolPosition=='right'">{{ revenue.appointments | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6>
 				<p class="font-blue mb-0">Appointments</p>
 			</div>
 			<div class="col-lg-2 col-md-4 col-6 flex-align-center left-border">
-				<h6 class="font-blue mb-0">${{revenue.confirmRevenue}}.00</h6>
+				<!-- <h6 class="font-blue mb-0">${{revenue.confirmRevenue}}.00</h6> -->
+				<h6 class="font-blue mb-0" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ revenue.confirmRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
+				<h6 class="font-blue mb-0" *ngIf="currencySymbolPosition=='right'">{{ revenue.confirmRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6>
 				<p class="font-blue mb-0">Confirmed Revenue </p>
 			</div>
 			<div class="col-lg-2 col-md-4 col-6 flex-align-center left-border">
-				<h6 class="font-blue mb-0">${{revenue.projectedRevenue}}.00</h6>
+				<!-- <h6 class="font-blue mb-0">${{revenue.projectedRevenue}}.00</h6> -->
+				<h6 class="font-blue mb-0" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ revenue.projectedRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
+				<h6 class="font-blue mb-0" *ngIf="currencySymbolPosition=='right'">{{ revenue.projectedRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6>
 				<p class="font-blue mb-0">Projected Revenue</p>
 			</div>
 			<div class="col-lg-2 col-md-4 col-6 flex-align-center left-border">
-				<h6 class="font-blue mb-0">${{revenue.totalEstimate}}.00</h6>
+				<!-- <h6 class="font-blue mb-0">${{revenue.totalEstimate}}.00</h6> -->
+				<h6 class="font-blue mb-0" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ revenue.totalEstimate | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
+				<h6 class="font-blue mb-0" *ngIf="currencySymbolPosition=='right'">{{ revenue.totalEstimate | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6>
 				<p class="font-blue mb-0">Total Estimated</p>
 			</div>	
 		</mat-card>
@@ -164,7 +172,9 @@
 		                                <p class="work-space-font pt-0 ">{{appointment.staff.firstname}} {{appointment.staff.lastname}}</p>
 		                            </div>
 		                            <div class="money">
-		                                <p class="work-space-font pt-0 ">$ {{appointment.total_cost}}</p>
+		                                <!-- <p class="work-space-font pt-0 ">$ {{appointment.total_cost}}</p> -->
+		                                <p class="work-space-font pt-0 " *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ appointment.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+		                                <p class="work-space-font pt-0 " *ngIf="currencySymbolPosition=='right'">{{ appointment.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
 		                            </div>
 								</div>
 								<div class="d-flex pl-3 active-btns" *ngIf="appointmentDetails.order_status != 'CO' && appointmentDetails.order_status != 'C' && appointmentDetails.order_status != 'CC'">
@@ -222,7 +232,9 @@
 				          <p class="text-gray pt-0 mb-0">Booked On:{{appointmentDetails.created_at}}</p>
 				        </div>
 				        <div>
-				          <h6 class="mb-0 pt-2">{{appointmentDetails.service_name}}({{appointmentDetails.categoryName}}) : $.{{appointmentDetails.total_cost}}.00</h6>
+				          <!-- <h6 class="mb-0 pt-2">{{appointmentDetails.service_name}}({{appointmentDetails.categoryName}}) : $.{{appointmentDetails.total_cost}}.00</h6> -->
+				          <h6 class="mb-0 pt-2" *ngIf="currencySymbolPosition=='left'">{{appointmentDetails.service_name}}({{appointmentDetails.categoryName}}) : {{currencySymbol| currencySymbol:'wide'}} {{ appointmentDetails.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
+				          <h6 class="mb-0 pt-2" *ngIf="currencySymbolPosition=='right'">{{appointmentDetails.service_name}}({{appointmentDetails.categoryName}}) : {{ appointmentDetails.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6>
 				          <p class="text-gray pt-0 mb-0">(Tax : $.50.00)</p>
 				        </div>
 				        <div>

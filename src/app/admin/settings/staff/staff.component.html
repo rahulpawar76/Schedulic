@@ -443,7 +443,9 @@
                       </div>
                     </div>
                     <div class="" fxFlex="30">{{staffService.service_time}}</div>
-                    <div class="" fxFlex="20">₹ {{staffService.service_cost}}</div>
+                    <!-- <div class="" fxFlex="20">₹ {{staffService.service_cost}}</div> -->
+                    <div class="" fxFlex="20" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ staffService.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</div>
+                    <div class="" fxFlex="20" *ngIf="currencySymbolPosition=='right'">{{ staffService.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
                   </div>
                 </div>
               </div>

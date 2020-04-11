@@ -42,7 +42,7 @@ import {DialogAllAppointmentDetails} from './appointment/appointment.component';
 //import { IgxExcelExporterService } from "igniteui-angular";
 import { DialogMyProfileImageUpload } from './settings-my-profile/settings-my-profile.component';
 import { DialogCustomerImageUpload } from './customers/customers.component';
-
+import { SharedModule } from '../shared.module';
 
 @NgModule({
   declarations: [
@@ -86,6 +86,7 @@ import { DialogCustomerImageUpload } from './customers/customers.component';
     DataTablesModule,
     MatSidenavModule,
     NgxDaterangepickerMd.forRoot(),
+    SharedModule
   ],
   exports: [
     FormsModule

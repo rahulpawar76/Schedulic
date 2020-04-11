@@ -120,6 +120,10 @@ export class StaffComponent implements OnInit {
   sundayBreakEndTimeIndex:any;
   
   timeOffList: any=[];
+  settingsArr:any=[];
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;
 
   constructor(
     public dialog: MatDialog,
@@ -161,6 +165,7 @@ export class StaffComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fnGetSettings();
     this.getAllStaff();
 
     this.StaffCreate = this._formBuilder.group({
@@ -172,6 +177,32 @@ export class StaffComponent implements OnInit {
       description : [''],
       staff_id : [''],
     });
+  }
+
+  fnGetSettings(){
+  let requestObject = {
+    "business_id" : this.businessId
+    };
+
+  this.adminSettingsService.getSettingValue(requestObject).subscribe((response:any) => {
+    if(response.data == true){
+      this.settingsArr = response.response;
+      console.log(this.settingsArr);
+
+      this.currencySymbol = this.settingsArr.currency;
+      console.log(this.currencySymbol);
+      
+      this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+      console.log(this.currencySymbolPosition);
+      
+      this.currencySymbolFormat = this.settingsArr.currency_format;
+      console.log(this.currencySymbolFormat);
+    }else{
+    }
+    },
+    (err) =>{
+      console.log(err)
+    })
   }
 
   getAllStaff() {

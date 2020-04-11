@@ -15,7 +15,9 @@
       <p>Booked On: {{appoDetail.created_at}}</p>
 
       <p class="mb-0">Service</p>
-      <p class="font-weight-bold">{{appoDetail.service.service_name}}($ {{appoDetail.service.service_cost}})</p>
+      <!-- <p class="font-weight-bold">{{appoDetail.service.service_name}}($ {{appoDetail.service.service_cost}})</p> -->
+      <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{appoDetail.service.service_name}}({{currencySymbol| currencySymbol:'wide'}} {{ appoDetail.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</p>
+      <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{appoDetail.service.service_name}}({{ appoDetail.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}})</p>
       <p class="mb-0">Time</p>
       <p class="font-weight-bold">{{appoDetail.booking_time}} - {{appoDetail.booking_time_to}} ({{appoDetail.service.service_time}})</p>
      

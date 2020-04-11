@@ -47,8 +47,12 @@
                                           <p class="mb-0">Not Assigned</p>
                                         
                                         </div>
-                                        <div class="" fxFlex="10">
+                                        <!-- <div class="" fxFlex="10">
                                           {{pendingAppointments.total_cost}}
+                                        </div> -->
+                                        <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                        </div>
+                                        <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
                                         </div>
                                         <div class="" fxFlex="10">
                                           {{pendingAppointments.booking_date}}
@@ -108,8 +112,12 @@
                         <div *ngIf="notAssignedAppointments.staff == null" class="" fxFlex="25">
                           <p class="mb-0">Not Assigned</p>
                         </div>
-                        <div class="" fxFlex="10">
+                        <!-- <div class="" fxFlex="10">
                           {{notAssignedAppointments.total_cost}}
+                        </div> -->
+                        <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ notAssignedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                        </div>
+                        <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ notAssignedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
                         </div>
                         <div class="" fxFlex="10">
                           {{notAssignedAppointments.booking_date}}
@@ -165,8 +173,12 @@
                       <p class="mb-0">Not Assigned</p>
                     
                     </div>
-                    <div class="" fxFlex="10">
+                    <!-- <div class="" fxFlex="10">
                       {{pendingAppointments.total_cost}}
+                    </div> -->
+                    <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                    </div>
+                    <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
                     </div>
                     <div class="" fxFlex="10">
                       {{pendingAppointments.booking_date}}
@@ -221,9 +233,13 @@
                         </div>
                         <div *ngIf="onTheWayAppointments.staff == null" class="" fxFlex="25">
                           <p class="mb-0">Not Assigned</p>
-                        </div>
+                        </div><!-- 
                         <div class="" fxFlex="10">
                           {{onTheWayAppointments.total_cost}}
+                        </div> -->
+                        <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ onTheWayAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                        </div>
+                        <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ onTheWayAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
                         </div>
                         <div class="" fxFlex="10">
                           {{onTheWayAppointments.booking_date}}

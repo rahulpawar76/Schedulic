@@ -44,6 +44,9 @@ export class AppointmentComponent implements OnInit {
   settingsArr: any;
   cancellationBufferTime: any;
   minReschedulingTime: any;
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;
   constructor(
     public dialog: MatDialog,
     private AdminService: AdminService,
@@ -82,6 +85,16 @@ export class AppointmentComponent implements OnInit {
       if(response.data == true){
         this.settingsArr=response.response;
         console.log(this.settingsArr);
+
+        this.currencySymbol = this.settingsArr.currency;
+        console.log(this.currencySymbol);
+        
+        this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+        console.log(this.currencySymbolPosition);
+        
+        this.currencySymbolFormat = this.settingsArr.currency_format;
+        console.log(this.currencySymbolFormat);
+        
         let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
         let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
         console.log(cancellation_buffer_time);
