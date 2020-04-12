@@ -633,7 +633,6 @@ export class StaffComponent implements OnInit {
   }
   fnSubmitCreateStaff(){
     if(this.StaffCreate.get('staff_id').value != ''){
-      alert("Edit" + this.StaffCreate.get('staff_id').value);
       if(this.StaffCreate.valid){
         this.updateStaffData = {
           "staff_id" : this.StaffCreate.get('staff_id').value,
@@ -687,7 +686,6 @@ export class StaffComponent implements OnInit {
     })
   }
   updateStaff(updateStaffData){
-    alert("Hello 2")
     this.isLoaderAdmin = true;
     this.adminSettingsService.updateStaff(updateStaffData).subscribe((response:any) => {
         if(response.data == true){
@@ -1017,7 +1015,6 @@ export class StaffComponent implements OnInit {
   fnCreateWorkingHours(){
     this.isLoaderAdmin = true;
     if(this.formSetWorkingHours.invalid){
-      alert();
       return false;
     }
     let workingHoursArray:any=[];
@@ -1116,7 +1113,6 @@ export class StaffComponent implements OnInit {
     }
     if(this.formSetWorkingHours.get("mondayToggle").value){
       if(this.formSetWorkingHours.get("mondayStartTime").value == '' || this.formSetWorkingHours.get("mondayEndTime").value == '' || this.formSetWorkingHours.get("mondayStartTime").value == null || this.formSetWorkingHours.get("mondayEndTime").value == null){
-        alert();
         return false;
       }
     }

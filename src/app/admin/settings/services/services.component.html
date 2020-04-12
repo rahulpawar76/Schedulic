@@ -507,7 +507,7 @@
                         </div>   
                         <div class="col-lg-4 col-8 col-md-8 d-flex">
                             <div class="border p-3">
-                                <div class="d-flex">
+                                <!-- <div class="d-flex">
                                 <h6> staff for this service</h6>
                                 <i class="material-icons add-icon pointer" (click)="openDialog()" >add_circle</i>
                                 </div>
@@ -515,18 +515,20 @@
                                 <mat-label>Outline form field</mat-label>
                                 <input matInput placeholder="Category,Subcategory,Service">
                                 <mat-icon matPrefix>search</mat-icon>
-                                </mat-form-field>
+                                </mat-form-field> -->
                                 
                                <!-- <mat-list>
                                     <mat-list-item *ngFor="let staffList of staffList">
                                         {{staffList.username}} {{staffList.lastname}} <i class="material-icons minus-icon pointer" >remove_circle_outline</i>  
                                     </mat-list-item> 
                                </mat-list> -->
-                               
-                            <div  class="drageble-box" *ngFor="let staffList of staffList" fxLayout="row">
-                                <div class="" fxFlex="90"> <mat-checkbox>{{staffList.username}} {{staffList.lastname}}</mat-checkbox></div>
-                                <div class="" fxFlex="10"> <i class="material-icons minus-icon pointer" >remove_circle_outline</i></div>
-                            
+                               <div>
+                                    <div  class="drageble-box" *ngFor="let staffList of staffList" fxLayout="row">
+                                        <div class="" fxFlex="90"> 
+                                            <mat-checkbox (change)="fnAssignStaffToService($event.checked, staffList.id)" [checked]="assignStaffArr.indexOf(staffList.id) > -1">{{staffList.username}} {{staffList.lastname}}</mat-checkbox>
+                                        </div>
+                                        <!-- <div class="" fxFlex="10"> <i class="material-icons minus-icon pointer" >remove_circle_outline</i></div> -->
+                                    </div>
                                 </div>
                              
                             </div>

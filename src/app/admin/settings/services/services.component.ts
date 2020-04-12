@@ -92,6 +92,8 @@ export class ServicesComponent implements OnInit {
     createSubCategory: FormGroup;
     createCategory: FormGroup;
     createService: FormGroup;
+    assignedStaff: any;
+    assignStaffArr: any = [];
 
     onlynumeric = /^-?(0|[1-9]\d*)?$/
     constructor(
@@ -707,7 +709,8 @@ export class ServicesComponent implements OnInit {
         }
     }
     fnCreateServiceSubmit() {
-        if (this.createService.get('service_id').value != '') {
+        alert(this.createService.get('service_id').value)
+        if (this.createService.get('service_id').value != null || this.createService.get('service_id').value != '') {
             if (this.createService.valid) {
                 this.updateServiceData = {
                     'service_id': this.createService.get('service_id').value,
@@ -719,14 +722,15 @@ export class ServicesComponent implements OnInit {
                     'service_unit': this.createService.get('service_unit').value,
                     'service_private': this.editServicePrivate,
                     'service_status': this.editServiceStatus,
-                    'service_image': this.serviceImageUrl
+                    'service_image': this.serviceImageUrl,
+                    'staff_list' : this.assignStaffArr
                    
                 }
                 this.updateService(this.updateServiceData);
             }
 
         }
-        else if (this.createService.get('service_id').value == '') {
+        else if (this.createService.get('service_id').value == null || this.createService.get('service_id').value == '') {
             if (this.createService.valid) {
                 if (this.createServiceCategoryType == 'category') {
                     this.newServiceData = {
@@ -739,7 +743,8 @@ export class ServicesComponent implements OnInit {
                         'service_unit': this.createService.get('service_unit').value,
                         'service_private': this.newServicePrivate,
                         'service_status': this.newServiceStatus,
-                        'service_image': this.serviceImageUrl
+                        'service_image': this.serviceImageUrl,
+                        'staff_list' : this.assignStaffArr
                     }
                 }
                 else if (this.createServiceCategoryType == 'subcategory') {
@@ -753,7 +758,8 @@ export class ServicesComponent implements OnInit {
                         'service_unit': this.createService.get('service_unit').value,
                         'service_private': this.newServicePrivate,
                         'service_status': this.newServiceStatus,
-                        'service_image': this.serviceImageUrl
+                        'service_image': this.serviceImageUrl,
+                        'staff_list' : this.assignStaffArr
                     }
                 }
                 this.createNewService(this.newServiceData);
@@ -771,6 +777,7 @@ export class ServicesComponent implements OnInit {
                     panelClass: ['green-snackbar']
                 });
                 this.createService.reset();
+                this.assignStaffArr.length = 0;
                 this.createNewServicePage = false;
                 this.servicesList = true;
                 this.isLoaderAdmin = false;
@@ -781,6 +788,7 @@ export class ServicesComponent implements OnInit {
                     verticalPosition: 'top',
                     panelClass: ['red-snackbar']
                 });
+                this.assignStaffArr.length = 0;
                 this.isLoaderAdmin = false;
             }
         })
@@ -796,6 +804,7 @@ export class ServicesComponent implements OnInit {
                 });
                 this.createService.reset();
                 this.createNewServicePage = false;
+                this.assignStaffArr.length = 0;
                 this.servicesList = true;
                 this.editServiceId = undefined;
                 this.editServiceStatusPrevious = '';
@@ -850,6 +859,12 @@ export class ServicesComponent implements OnInit {
         this.servicesList = false;
         this.selectCategoryPage = '';
         this.singleSubCategoryPage = '';
+        this.assignedStaff = this.categoryServicesList[index].staffs;
+        
+        console.log(this.assignedStaff)
+         this.assignedStaff.forEach(element => {
+              this.assignStaffArr.push(element.id);
+          });
         if (type == 'category') {
             this.createService.controls['service_id'].setValue(this.editServiceId);
             this.createService.controls['service_name'].setValue(this.categoryServicesList[index].service_name);
@@ -890,6 +905,17 @@ export class ServicesComponent implements OnInit {
                 this.isLoaderAdmin = false;
             }
         })
+    }
+
+    fnAssignStaffToService(event, staffId){
+        if(event == true){
+            this.assignStaffArr.push(staffId)
+        }else if(event == false){
+             const index = this.assignStaffArr.indexOf(staffId, 0);
+            if (index > -1) {
+                this.assignStaffArr.splice(index, 1);
+            }
+        }
     }
 
     categoryImage() {
