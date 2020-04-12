@@ -63,8 +63,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // import { DialogStaffImageUpload } from './staff-dashboard/my-profile/my-profile.component';
 
-
-
+import { SharedModule } from './shared.module';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
+registerLocaleData(localeDe);
 @NgModule({
     declarations: [
         AppComponent,
@@ -99,7 +102,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         MatButtonModule,
         MatDialogModule,
         MatProgressSpinnerModule,
-        MatRadioModule
+        MatRadioModule,
+        SharedModule
     ],
     exports: [
         BrowserModule,
@@ -116,6 +120,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         LoaderService,        
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        
     ],
     bootstrap: [AppComponent],
     entryComponents: [ConfirmationDialogComponent,AppComponent,

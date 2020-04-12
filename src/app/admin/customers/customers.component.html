@@ -285,7 +285,9 @@
                                             <td>{{customerAppoint.service.service_name}}</td>
                                             <td *ngIf="customerAppoint.staff">{{customerAppoint.staff.firstname}} {{customerAppoint.staff.lastname}}</td>
                                             <td *ngIf="!customerAppoint.staff">Staff Not Assigned</td>
-                                            <td>$.{{customerAppoint.total_cost}}</td>
+                                            <!-- <td>$.{{customerAppoint.total_cost}}</td> -->
+                                            <td *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ customerAppoint.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>
+                                            <td *ngIf="currencySymbolPosition=='right'">{{ customerAppoint.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</td>
                                             <td>
                                                 <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'P'">Waiting For Confirmation</p>
                                                 <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'AC'">Confirm</p>

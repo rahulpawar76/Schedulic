@@ -124,6 +124,9 @@ export class FrontbookingComponent implements OnInit {
   maximumAdvanceBookingDateTimeObject:any;
   settingsArr:any=[];
   staffOnFrontValue:boolean=false;
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;
   @ViewChildren(MdePopoverTrigger) trigger: QueryList<MdePopoverTrigger>;
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
   emailFormat = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
@@ -179,8 +182,7 @@ export class FrontbookingComponent implements OnInit {
       // appo_zipcode: ['',[Validators.required,Validators.pattern(this.onlynumeric)]]
     })
 
-    this.fnGetSettings();
-    this.fnGetTaxDetails();
+    
   }
 
   ngOnInit() {
@@ -189,6 +191,8 @@ export class FrontbookingComponent implements OnInit {
       this.customerName=this.authenticationService.currentUserValue.fullname;
       console.log(this.authenticationService.currentUserValue.user_id+" "+this.isLoggedIn);
     }
+    this.fnGetSettings();
+    this.fnGetTaxDetails();
 
     this.fnGetCategories();
     this.fnGetOffDays();
@@ -243,7 +247,17 @@ export class FrontbookingComponent implements OnInit {
       if(response.data == true){
         this.settingsArr=response.response;
         console.log(this.settingsArr);
-        this.termsConditions = JSON.parse(this.settingsArr.terms_condition)
+
+        this.currencySymbol = this.settingsArr.currency;
+        console.log(this.currencySymbol);
+        
+        this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+        console.log(this.currencySymbolPosition);
+        
+        this.currencySymbolFormat = this.settingsArr.currency_format;
+        console.log(this.currencySymbolFormat);
+
+        this.termsConditions = JSON.parse(this.settingsArr.terms_condition);
         if(this.termsConditions.status == 'false'){
           this.termsConditionsStatusValue = true;
         }

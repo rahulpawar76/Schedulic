@@ -46,7 +46,7 @@
             </div>
           </span>
           <span class="f13 d-flex align-items-center">
-            <button mat-raised-button color="warn" (click)="MyLiveAppointmentNav()">Live</button>
+            <button mat-raised-button color="warn" *ngIf="!isBusiness()" (click)="MyLiveAppointmentNav()">Live</button>
             <button mat-button color="primary" (click)="MyBusinessNav()">My Businesses</button>
             <span class="profile-head">
               <img class="customer-profile-img m-2 float-left" src="/assets/img/avatar-rihan.jpg">

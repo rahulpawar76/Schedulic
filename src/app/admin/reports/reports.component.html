@@ -83,7 +83,10 @@
             <p class="mb-0 custreports" *ngIf="dateFilter=='booking_date'">Appointment Report (Appointment Date Wise)</p>
             <p class="mb-0 custreports" *ngIf="dateFilter=='order_date'">Appointment Report (Booking Date Wise)</p>
             <label class="custrecords">Total Records : </label><label class="pl-1">{{appointmentReportTotalRecords}},</label> 
-            <label class="custrecords pl-2">Expected Revenue : </label><label class="pl-1"> $.{{appointmentReportExpectedRevenue}}.00</label>
+            <!-- <label class="custrecords pl-2">Expected Revenue : </label><label class="pl-1"> $.{{appointmentReportExpectedRevenue}}.00</label> -->
+            <label class="custrecords pl-2">Expected Revenue : </label>
+            <label class="pl-1" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ appointmentReportExpectedRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
+            <label class="pl-1" *ngIf="currencySymbolPosition=='right'">{{ appointmentReportExpectedRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
           </div>
           <div class="Customer-appointment-table">
             <mat-card class="main-table-content main-cust-table-content">
@@ -111,7 +114,9 @@
                     <td scope="col" class="text-center">
                       <p class="mb-0">{{appRep.service.service_name}}</p>
                       <p class="mb-0">Duration:{{appRep.service.service_time}}</p>
-                      <p>Price:{{appRep.service.service_cost}}</p>
+                      <!-- <p>Price:{{appRep.service.service_cost}}</p> -->
+                      <p *ngIf="currencySymbolPosition=='left'">Price: {{currencySymbol| currencySymbol:'wide'}} {{ appRep.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                      <p *ngIf="currencySymbolPosition=='right'">Price: {{ appRep.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
                     </td>
                     <td *ngIf="appRep.staff !== null" scope="col" class="text-center">
                       <p>{{appRep.staff.firstname}}</p>
@@ -173,14 +178,23 @@
             <p class="mb-0 ">{{selectedStartDateLabel}} - {{selectedEndDateLabel}}</p>
             <p class="mb-0 custreports">Sales Reports</p>
             <label class="custrecords" *ngIf="reportFilter=='all'">Total Records :</label><label  *ngIf="reportFilter=='all'">{{salesReportTotalRecords}},</label> 
-            <label class="custrecords" *ngIf="reportFilter=='all'"> Confirmed Revenue:</label><label *ngIf="reportFilter=='all'"> $.{{salesReportConfirmedRevenue}},</label>
-            <label class="custrecords" *ngIf="reportFilter=='all'"> Project Revenue:</label><label *ngIf="reportFilter=='all'"> $.{{salesReportProjectedRevenue}},</label>
-            <label class="custrecords" *ngIf="reportFilter=='all'">Total Estimated : </label><label *ngIf="reportFilter=='all'"> $.{{salesReportTotalEstimatedRevenue}}</label>
+            <label class="custrecords" *ngIf="reportFilter=='all'"> Confirmed Revenue:</label>
+            <!-- <label *ngIf="reportFilter=='all'"> $.{{salesReportConfirmedRevenue}},</label> -->
+            <label *ngIf="reportFilter=='all' && currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ salesReportConfirmedRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }},</label>
+            <label *ngIf="reportFilter=='all' && currencySymbolPosition=='right'">{{ salesReportConfirmedRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}},</label>
+            <label class="custrecords" *ngIf="reportFilter=='all'"> Project Revenue:</label>
+            <!-- <label *ngIf="reportFilter=='all'"> $.{{salesReportProjectedRevenue}},</label> -->
+            <label *ngIf="reportFilter=='all' && currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ salesReportProjectedRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }},</label>
+            <label *ngIf="reportFilter=='all' && currencySymbolPosition=='right'">{{ salesReportProjectedRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}},</label>
+            <label class="custrecords" *ngIf="reportFilter=='all'">Total Estimated : </label>
+            <!-- <label *ngIf="reportFilter=='all'"> $.{{salesReportTotalEstimatedRevenue}}</label> -->
+            <label *ngIf="reportFilter=='all' && currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ salesReportTotalEstimatedRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
+            <label *ngIf="reportFilter=='all' && currencySymbolPosition=='right'">{{ salesReportTotalEstimatedRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
 
             <label class="custrecords" *ngIf="reportFilter=='date' || reportFilter=='month'">Total Records :</label><label  *ngIf="reportFilter=='date' || reportFilter=='month'">0,</label> 
             <label class="custrecords" *ngIf="reportFilter=='date' || reportFilter=='month'">Appointments :</label><label  *ngIf="reportFilter=='date' || reportFilter=='month'">{{salesReportTotalAppointments}},</label> 
             <label class="custrecords" *ngIf="reportFilter=='date' || reportFilter=='month'"> Customers:</label><label *ngIf="reportFilter=='date' || reportFilter=='month'"> $.{{salesReportCustomers}},</label>
-            <label class="custrecords" *ngIf="reportFilter=='date' || reportFilter=='month'"> Total Revenue:</label><label *ngIf="reportFilter=='date' || reportFilter=='month'"> $.{{salesReportTotalRevenue}},</label>
+            <label class="custrecords" *ngIf="reportFilter=='date' || reportFilter=='month'"> Total Revenue:</label><!-- <label *ngIf="reportFilter=='date' || reportFilter=='month'"> $.{{salesReportTotalRevenue}},</label> --><label *ngIf="(reportFilter=='date' || reportFilter=='month') && currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ salesReportTotalRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }},</label><label *ngIf="(reportFilter=='date' || reportFilter=='month') && currencySymbolPosition=='right'">{{ salesReportTotalRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}},</label>
           </div>
           <div class="Customer-appointment-table">
             <mat-card class="main-table-content main-cust-table-content">
@@ -208,8 +222,16 @@
                       <p class="mb-0">{{sales.orders.booking_date}},</p>
                       <p>{{sales.orders.booking_time}}</p>
                     </td>
-                    <td class="text-center">
-                      USD.{{sales.amount}}
+                    <!-- <td class="text-center">
+                      {{sales.amount}}
+                      <p class="mb-0">Discount:USD.60.00,</p>
+                      <p>Tax:USD.50.00</p>
+                    </td> -->
+                    <td class="text-center" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ sales.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                      <p class="mb-0">Discount:USD.60.00,</p>
+                      <p>Tax:USD.50.00</p>
+                    </td>
+                    <td class="text-center" *ngIf="currencySymbolPosition=='right'">{{ sales.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
                       <p class="mb-0">Discount:USD.60.00,</p>
                       <p>Tax:USD.50.00</p>
                     </td>
@@ -255,7 +277,9 @@
                       <p class="mb-0">{{sales.Customer}}</p>
                     </td>
                     <td class="text-center">
-                      <p class="mb-0">{{sales.Revenue}}</p>
+                      <!-- <p class="mb-0">{{sales.Revenue}}</p> -->
+                      <p class="mb-0" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ sales.Revenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                      <p class="mb-0" *ngIf="currencySymbolPosition=='right'">{{ sales.Revenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
                     </td>
                     </tr>
                 </tbody>

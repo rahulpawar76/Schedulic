@@ -2,10 +2,12 @@
     <mat-card class="payment-rules">
         <h5>Payment Rules</h5>
         <mat-card>
+            <!-- <h5>{{'USD'| currencySymbol}}</h5> -->
+            <!-- <h5> {{selectedCurrency| currencySymbol:'wide'}} {{ '3522.595' | currency:selectedCurrency:'':'1.2-2':'en-US' }}</h5> -->
             <h5>Currency</h5>
             <div class="d-flex">
                 <mat-form-field class="bottom-border-field mr-2">
-                    <mat-icon matPrefix>attach_money</mat-icon>
+                    <mat-icon matPrefix>{{selectedCurrency| currencySymbol:'wide'}}</mat-icon>
                     <mat-label>Select Currency</mat-label>
                     <mat-select (selectionChange)="fnChangeCurrency($event.value)" [(value)]="selectedCurrency">
                       <mat-option *ngFor="let currenciesData of currenciesData; let i=index" value="{{currenciesData.CurrencyCode}}">{{currenciesData.CurrencyName}}</mat-option>
@@ -21,8 +23,8 @@
                 <mat-form-field class="bottom-border-field">
                     <mat-label>Select Currency Format</mat-label>
                     <mat-select (selectionChange)="fnCurrencyFormat($event.value)" [(value)]="selectedCurrencyFormat">
-                        <mat-option value="xx,xxx.xx">xx,xxx.xx</mat-option>
-                        <mat-option value="xx.xxx,xx">xx.xxx,xx</mat-option>
+                        <mat-option value="en-US">xx,xxx.xx</mat-option>
+                        <mat-option value="de">xx.xxx,xx</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>

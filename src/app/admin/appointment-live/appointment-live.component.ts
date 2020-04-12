@@ -20,6 +20,7 @@ export interface DialogData {
 })
 export class AppointmentLiveComponent implements OnInit {
  
+  businessId: any;
   animal: string;
   isLoaderAdmin : boolean = false;
   pendingAppointments : any=[];
@@ -33,6 +34,10 @@ export class AppointmentLiveComponent implements OnInit {
   todayPeriod:any;
 
   booking_date:any;
+  settingsArr:any=[];
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;
 
   constructor(
     private AdminService: AdminService,
@@ -41,6 +46,10 @@ export class AppointmentLiveComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if(localStorage.getItem('business_id')){
+      this.businessId=localStorage.getItem('business_id');
+    }
+    this.fnGetSettings();
     this.getPendingAppointments();
     this.getNotAssignedAppointments();
     this.getOnThewayAppointments();
@@ -53,6 +62,33 @@ export class AppointmentLiveComponent implements OnInit {
 
     
   }
+
+  fnGetSettings(){
+    let requestObject = {
+      "business_id" : this.businessId
+      };
+
+    this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.settingsArr = response.response;
+        console.log(this.settingsArr);
+
+        this.currencySymbol = this.settingsArr.currency;
+        console.log(this.currencySymbol);
+        
+        this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+        console.log(this.currencySymbolPosition);
+        
+        this.currencySymbolFormat = this.settingsArr.currency_format;
+        console.log(this.currencySymbolFormat);
+      }else{
+      }
+      },
+      (err) =>{
+        console.log(err)
+      })
+  }
+
   getPendingAppointments(){
     this.AdminService.getPendingAppointments().subscribe((response:any) => {
       if(response.data == true){

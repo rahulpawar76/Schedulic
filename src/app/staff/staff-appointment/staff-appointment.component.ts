@@ -38,9 +38,12 @@ export class StaffAppointmentComponent implements OnInit {
   completedAppointmentData: any;
   onGoingAppointmentData: any;
   notes: any;
-  settingsArr: any;
+  settingsArr:any=[];
   cancellationBufferTime: any;
   minReschedulingTime: any;
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;
 
   statuses: status[] = [
     {value: 'OW', viewValue: 'On The Way',statuses:''},
@@ -75,6 +78,16 @@ export class StaffAppointmentComponent implements OnInit {
       if(response.data == true){
         this.settingsArr=response.response;
         console.log(this.settingsArr);
+
+        this.currencySymbol = this.settingsArr.currency;
+        console.log(this.currencySymbol);
+        
+        this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+        console.log(this.currencySymbolPosition);
+        
+        this.currencySymbolFormat = this.settingsArr.currency_format;
+        console.log(this.currencySymbolFormat);
+
         let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
         let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
         console.log(cancellation_buffer_time);
@@ -1319,15 +1332,62 @@ export class StaffAppointmentComponent implements OnInit {
   export class DialogStaffMyAppointmentDetails {
     notes:any;
     detailData: any;
+    bussinessId: any;
+    cancellationBufferTime=new Date();
+    minReschedulingTime=new Date();
+    settingsArr:any=[];
+    currencySymbol:any;
+    currencySymbolPosition:any;
+    currencySymbolFormat:any;
     constructor(
       public dialogRef: MatDialogRef<DialogStaffMyAppointmentDetails>,
       private StaffService: StaffService,
       private _snackBar: MatSnackBar,
+      private authenticationService: AuthenticationService,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.detailData =  this.data.fulldata;
+        this.bussinessId=this.authenticationService.currentUserValue.business_id
+        console.log(this.detailData);
+        this.fnGetSettingValue();
       }
     onNoClick(): void {
       this.dialogRef.close();
+    }
+    fnGetSettingValue(){
+      let requestObject = {
+        "business_id":this.bussinessId
+      };
+      this.StaffService.getSettingValue(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.settingsArr=response.response;
+          console.log(this.settingsArr);
+
+          this.currencySymbol = this.settingsArr.currency;
+          console.log(this.currencySymbol);
+          
+          this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+          console.log(this.currencySymbolPosition);
+          
+          this.currencySymbolFormat = this.settingsArr.currency_format;
+          console.log(this.currencySymbolFormat);
+
+          let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
+          let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
+          console.log(cancellation_buffer_time);
+          console.log(min_rescheduling_time);
+         
+          this.cancellationBufferTime = new Date();
+          this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
+          console.log("cancellationBufferTime - "+this.cancellationBufferTime);
+
+          this.minReschedulingTime = new Date();
+          this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
+          console.log("minReschedulingTime - "+this.minReschedulingTime);
+        }
+        else if(response.data == false){
+          
+        }
+      })
     }
     
     changeBookingStatus(order_item_id, status){
@@ -1363,13 +1423,24 @@ export class StaffAppointmentComponent implements OnInit {
     
   status: any;
   appoDetail: any;
+  bussinessId: any;
+  cancellationBufferTime=new Date();
+  minReschedulingTime=new Date();
+  settingsArr:any=[];
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;
     constructor(
       public dialogRef: MatDialogRef<OnGoingAppointmentDetails>,
       public dialog: MatDialog,
+      public authenticationService: AuthenticationService,
       private StaffService: StaffService,
       @Inject(MAT_DIALOG_DATA) public data: any) {
 
         this.appoDetail = this.data.fuldata;
+        console.log(this.appoDetail);
+        this.bussinessId=this.authenticationService.currentUserValue.business_id
+        this.fnGetSettingValue();
       }
 
       statuses: status[] = [
@@ -1381,6 +1452,43 @@ export class StaffAppointmentComponent implements OnInit {
     onNoClick(): void {
       this.dialogRef.close();
     }
+    fnGetSettingValue(){
+      let requestObject = {
+        "business_id":this.bussinessId
+      };
+      this.StaffService.getSettingValue(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.settingsArr=response.response;
+          console.log(this.settingsArr);
+
+          this.currencySymbol = this.settingsArr.currency;
+          console.log(this.currencySymbol);
+          
+          this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+          console.log(this.currencySymbolPosition);
+          
+          this.currencySymbolFormat = this.settingsArr.currency_format;
+          console.log(this.currencySymbolFormat);
+
+          let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
+          let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
+          console.log(cancellation_buffer_time);
+          console.log(min_rescheduling_time);
+         
+          this.cancellationBufferTime = new Date();
+          this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
+          console.log("cancellationBufferTime - "+this.cancellationBufferTime);
+
+          this.minReschedulingTime = new Date();
+          this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
+          console.log("minReschedulingTime - "+this.minReschedulingTime);
+        }
+        else if(response.data == false){
+          
+        }
+      })
+    }
+    
 
     someMethod(booking_id, status): void {
       if(status == 'OW'){
@@ -1423,14 +1531,47 @@ export class StaffAppointmentComponent implements OnInit {
   })
   export class CompleteAppointmentDetails {
     detailData: any;
+    bussinessId: any;
+    settingsArr:any=[];
+    currencySymbol:any;
+    currencySymbolPosition:any;
+    currencySymbolFormat:any;
     constructor(
+      private authenticationService:AuthenticationService,
+      private StaffService:StaffService,
       public dialogRef: MatDialogRef<CompleteAppointmentDetails>,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.detailData = this.data.fuldata;
+        console.log(this.detailData);
+        this.bussinessId=this.authenticationService.currentUserValue.business_id
+        this.fnGetSettingValue();
       }
 
     onNoClick(): void {
       this.dialogRef.close();
+    }
+    fnGetSettingValue(){
+      let requestObject = {
+        "business_id":this.bussinessId
+      };
+      this.StaffService.getSettingValue(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.settingsArr=response.response;
+          console.log(this.settingsArr);
+
+          this.currencySymbol = this.settingsArr.currency;
+          console.log(this.currencySymbol);
+          
+          this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+          console.log(this.currencySymbolPosition);
+          
+          this.currencySymbolFormat = this.settingsArr.currency_format;
+          console.log(this.currencySymbolFormat);
+        }
+        else if(response.data == false){
+          
+        }
+      })
     }
 
   }

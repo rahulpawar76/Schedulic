@@ -71,6 +71,10 @@ export class ReportsComponent implements OnInit {
   //   'This Month': [moment().startOf('month'), moment().endOf('month')],
   //   'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
   // };
+  settingsArr:any=[];
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;
 
   constructor(
     public router: Router,
@@ -93,9 +97,36 @@ export class ReportsComponent implements OnInit {
   }
   
   ngOnInit() {
+    this.fnGetSettings();
     // this.fnGetAppointmentsReport();
     // this.fnGetSalesReport();
     // this.fnGetCustomerReport();
+  }
+
+  fnGetSettings(){
+    let requestObject = {
+      "business_id" : this.businessId
+      };
+
+    this.adminService.getSettingValue(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.settingsArr = response.response;
+        console.log(this.settingsArr);
+
+        this.currencySymbol = this.settingsArr.currency;
+        console.log(this.currencySymbol);
+        
+        this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+        console.log(this.currencySymbolPosition);
+        
+        this.currencySymbolFormat = this.settingsArr.currency_format;
+        console.log(this.currencySymbolFormat);
+      }else{
+      }
+      },
+      (err) =>{
+        console.log(err)
+      })
   }
 
   changeDateRange(event){
