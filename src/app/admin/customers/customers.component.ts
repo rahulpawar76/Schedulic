@@ -55,7 +55,7 @@ export class CustomersComponent implements OnInit {
   selectedCustomerArr: any;
   businessId: any;
   addNewTag: boolean = false;
-  tagsnew: any;
+  tagsnew: any=[];
   customerImageUrl:any;
 
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
@@ -105,6 +105,7 @@ export class CustomersComponent implements OnInit {
       if (input) {
         input.value = '';
       }
+      console.log(this.tags);
     }
 
     remove(tg: Tag): void {
@@ -113,6 +114,7 @@ export class CustomersComponent implements OnInit {
       if (index >= 0) {
         this.tags.splice(index, 1);
       }
+      console.log(this.tags);
     }
 
   ngOnInit() {
@@ -322,13 +324,14 @@ customerUpdate(existingCustomerData){
         this.customerPersonalDetails = response.response.customer_details 
         this.customerAppoint = response.response.appointmets
       console.log( this.customerAppoint)
+      console.log( this.customerPersonalDetails)
         this.customerNotes = response.response.notes
         this.customerReviews = response.response.revirew
         console.log(this.customerReviews);
 
         this.customerPersonalDetails.created_at=this.datePipe.transform(new Date(this.customerPersonalDetails.created_at),"d MMM y, h:mm a")
-        this.tagsnew = this.customerPersonalDetails.tag_id
-        console.log(this.tagsnew);
+        this.tags = this.customerPersonalDetails.tag_id.split(",");
+        console.log(this.tags);
 
         this.customerAppoint.forEach( (element) => { 
           element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")   
@@ -483,7 +486,7 @@ customerUpdate(existingCustomerData){
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
-        this.getAllCustomers();
+        this.fnSelectCustomer(customerId);
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
