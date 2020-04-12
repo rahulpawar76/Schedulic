@@ -85,7 +85,7 @@ export class AppComponent implements AfterViewInit {
   selectedSessionName: any;
   timer: any = 0;
   settingsArr: any;
-  appearenceColor: any;
+  appearenceColor: any=[];
 
   constructor(
     private http: HttpClient,
@@ -99,7 +99,8 @@ export class AppComponent implements AfterViewInit {
     if (localStorage.getItem('business_id')) {
       this.businessId = localStorage.getItem('business_id');
     }
-
+    console.log("businessId-- "+localStorage.getItem('business_id'));
+    console.log("businessId-- "+this.businessId);
 
 
 
@@ -489,9 +490,11 @@ export class AppComponent implements AfterViewInit {
     ).subscribe((response: any) => {
       if (response.data == true) {
         this.settingsArr = response.response;
-        console.log(this.settingsArr);
-        this.appearenceColor = JSON.parse(this.settingsArr.appearance)
-        console.log(this.appearenceColor)
+        //console.log(this.settingsArr);
+        // this.appearenceColor = JSON.parse(this.settingsArr.appearance)
+        // console.log(this.appearenceColor)
+        localStorage.companycolours = this.settingsArr.appearance;
+        this.update_SCSS_var();
       }
     }, (err) => {
       console.log(err)
@@ -499,7 +502,8 @@ export class AppComponent implements AfterViewInit {
   }
 
   update_SCSS_var() {
-    for (const [key, value] of Object.entries(this.appearenceColor)) {
+    const data = JSON.parse(localStorage.companycolours);
+    for (const [key, value] of Object.entries(data)) {
       this.setPropertyOfSCSS('--' + key, value);
       // document.documentElement.style.setProperty('--' + key, value);
     }

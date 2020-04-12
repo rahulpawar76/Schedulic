@@ -142,6 +142,7 @@ export class FrontbookingComponent implements OnInit {
     
   ) { 
     localStorage.setItem('isFront', "true");
+    this.fnGetSettings();
     const current = new Date();
     const nextmonth = new Date();
     this.minDate = {
@@ -191,7 +192,7 @@ export class FrontbookingComponent implements OnInit {
       this.customerName=this.authenticationService.currentUserValue.fullname;
       console.log(this.authenticationService.currentUserValue.user_id+" "+this.isLoggedIn);
     }
-    this.fnGetSettings();
+    
     this.fnGetTaxDetails();
 
     this.fnGetCategories();

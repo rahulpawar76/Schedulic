@@ -328,13 +328,13 @@ customerUpdate(existingCustomerData){
 
         this.customerPersonalDetails.created_at=this.datePipe.transform(new Date(this.customerPersonalDetails.created_at),"d MMM y, h:mm a")
         this.tagsnew = this.customerPersonalDetails.tag_id
-                console.log(this.tagsnew);
+        console.log(this.tagsnew);
 
-                this.customerAppoint.forEach( (element) => { 
-                  element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")   
-                  element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
-                  element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
-                });
+        this.customerAppoint.forEach( (element) => { 
+          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")   
+          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+          element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+        });
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
