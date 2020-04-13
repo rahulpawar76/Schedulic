@@ -554,7 +554,8 @@ export class rescheduleAppointmentDialog {
 
       fnDateChange(event: MatDatepickerInputEvent<Date>) {
         console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
-        let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
+        let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd");
+        this.selectedDate=date;
         this.formAppointmentReschedule.controls['rescheduleTime'].setValue(null);
         this.formAppointmentReschedule.controls['rescheduleStaff'].setValue(null);
         this.timeSlotArr= [];
@@ -564,7 +565,7 @@ export class rescheduleAppointmentDialog {
 
       fnGetTimeSlots(rescheduleServiceId,rescheduleDate){
         let requestObject = {
-          "business_id":2,
+          "business_id":this.myAppoDetailData.business_id,
           "selected_date":rescheduleDate
         };
         let headers = new HttpHeaders({
@@ -597,7 +598,10 @@ export class rescheduleAppointmentDialog {
 
         fnGetStaff(slot){
           let requestObject = {
-            "bussiness_id":2,
+            "business_id":this.myAppoDetailData.business_id,
+            "book_date":this.selectedDate,
+            "book_time":slot,
+            "postal_code":this.myAppoDetailData.customer.zip,
             "service_id":this.myAppoDetailData.service.id
           };
           let headers = new HttpHeaders({
