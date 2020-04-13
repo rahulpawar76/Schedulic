@@ -49,7 +49,7 @@
            <label>Staff</label>
           <mat-select class="form-control formcontrol mb-3" formControlName="rescheduleStaff">
             <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">
-              {{staff.username}}
+              {{staff.name}}
             </mat-option>
           </mat-select>
           <label class="mb-0">Add Note</label>

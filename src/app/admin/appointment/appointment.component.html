@@ -95,7 +95,8 @@
                     <td *ngIf="currencySymbolPosition=='right'">{{ allAppointmentsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</td>
                     <td>
                         <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'P'">Waiting For Confirmation</p>
-                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'AC'">Confirm</p>
+                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'CNF'">Confirm</p>
+                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'AC'">Accepted</p>
                         <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'RSA'">Rescheduled By Admin</p>
                         <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'RSS'">Rescheduled By Staff</p>
                         <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'RSC'">Rescheduled By Customer</p>
@@ -109,7 +110,7 @@
                     </td>
                     <td> 
                         <button (click)="fnEditAppointment(i)" class="appointment-edit-btn mr-1" *ngIf="allAppointmentsData.order_status != 'C' && allAppointmentsData.order_status != 'CC' && allAppointmentsData.order_status != 'CO' && minReschedulingTime.getTime() < allAppointmentsData.booking_date_time.getTime()"><i class="material-icons appointment-icon">edit</i></button>
-                        <button *ngIf="allAppointmentsData.order_status !== 'C' && cancellationBufferTime.getTime() < allAppointmentsData.booking_date_time.getTime()" (click)="cancelAppointment('C', allAppointmentsData.id)" class="appointment-cancel-btn mr-1"><i class="material-icons appointment-icon">close</i></button>
+                        <button *ngIf="allAppointmentsData.order_status !== 'C' && allAppointmentsData.order_status !== 'CC' && allAppointmentsData.order_status !== 'CO' && cancellationBufferTime.getTime() < allAppointmentsData.booking_date_time.getTime()" (click)="cancelAppointment('C', allAppointmentsData.id)" class="appointment-cancel-btn mr-1"><i class="material-icons appointment-icon">close</i></button>
                         <button *ngIf="allAppointmentsData.order_status == 'P'" (click)="confirmAppointment('AC', allAppointmentsData.id)" class="appointment-confirm-btn mr-1"><i class="material-icons appointment-icon">done</i></button>
                     </td>
                   </tr>
