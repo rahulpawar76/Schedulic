@@ -282,7 +282,6 @@ export class StaffComponent implements OnInit {
 
   fnViewSingleStaff(staffId,index) {
     this.singleStaffIndex = index;
-    alert(index)
     this.isLoaderAdmin = true;
     this.selectedStaffId= staffId;
     this.singleStaffDataRating = this.allStaffList[index]
@@ -1665,8 +1664,6 @@ export class StaffComponent implements OnInit {
   }
 
   viewStaffReviewDetail(index,OrderId){
-
-   alert(OrderId);
     this.isLoaderAdmin = true;
     this.adminSettingsService.viewStaffReviewDetail(OrderId).subscribe((response:any) => {
       if(response.data == true){
