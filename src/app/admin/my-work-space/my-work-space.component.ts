@@ -211,7 +211,7 @@ export class MyWorkSpaceComponent implements OnInit {
         this.appointmentDetails.customerEmail=this.appointments[0].customer.email;
         this.appointmentDetails.customerPhone=this.appointments[0].customer.phone;
         this.appointmentDetails.customerAddress=this.appointments[0].customer.address+" "+this.appointments[0].customer.city+" "+this.appointments[0].customer.state+" "+this.appointments[0].customer.zip;
-        this.appointmentDetails.postalCode=this.appointments[0].customer.zip;
+        this.appointmentDetails.postalCode=this.appointments[0].postal_code;
         if(this.appointmentDetails.order_status == "CNF" && this.appointments[0].staff_id == null){
           this.selectedStaff=null;
           this.availableStaff.length=0;

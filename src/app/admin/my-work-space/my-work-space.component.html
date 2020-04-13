@@ -189,8 +189,11 @@
 
 										<mat-form-field class="d-block float-right acceptbtn bottom-border-field" *ngIf="appointmentDetails.order_status == 'CNF' && (appointmentDetails.staffId == '' || appointmentDetails.staffId == null)">
 										  <mat-label>AssignTo</mat-label>
-										  <mat-select [(value)]="selectedStaff" (selectionChange)="fnOnClickStaff($event)">
+										  <mat-select  *ngIf="availableStaff.length != 0" [(value)]="selectedStaff" (selectionChange)="fnOnClickStaff($event)">
 										    <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">{{staff.name}}</mat-option>
+										  </mat-select>
+										  <mat-select *ngIf="availableStaff.length === 0" [(value)]="selectedStaff">
+										    <mat-option value="Not Assigned">No Staff Available</mat-option>
 										  </mat-select>
 										</mat-form-field>
 										<button mat-button type="button" class="Reschedulebtn accept-btn d-block" *ngIf="(appointmentDetails.order_status == 'RSA' || appointmentDetails.order_status == 'RSC' || appointmentDetails.order_status == 'RSS' || appointmentDetails.order_status == 'CNF') && (appointmentDetails.staffId != '' && appointmentDetails.staffId != null)">Assigned</button>
