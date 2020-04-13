@@ -62,7 +62,9 @@
                         <div  class="drageble-box" *ngFor="let allServicesList of allServicesList; let i=index" cdkDrag fxLayout="row">
                             <div class="" fxFlex="30">{{allServicesList.service_name}}</div>
                             <div class="" fxFlex="15">{{allServicesList.service_time}}</div>
-                            <div class="" fxFlex="13">$ {{allServicesList.service_cost}}</div>
+                            <!-- <div class="" fxFlex="13">$ {{allServicesList.service_cost}}</div> -->
+                            <div class="" fxFlex="13" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ allServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</div>
+                            <div class="" fxFlex="13" *ngIf="currencySymbolPosition=='right'">{{ allServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
                             <div class="" fxFlex="10">{{allServicesList.service_unit}}</div>
                             <div class="" *ngIf="allServicesList.private_status == 'N'" fxFlex="12">Public</div>
                             <div class="" *ngIf="allServicesList.private_status == 'Y'" fxFlex="12">Private</div>
@@ -278,7 +280,9 @@
                                 </div>
                                 <div class="" fxFlex="30">{{categoryServicesList.service_name}}</div>
                                 <div class="" fxFlex="15">{{categoryServicesList.service_time}}</div>
-                                <div class="" fxFlex="10">$ {{categoryServicesList.service_cost}}</div>
+                                <!-- <div class="" fxFlex="10">$ {{categoryServicesList.service_cost}}</div> -->
+                                <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ categoryServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</div>
+                                <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ categoryServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
                                 <div class="" fxFlex="10">{{categoryServicesList.service_unit}}</div>
                                 <div class="" *ngIf="categoryServicesList.private_status == 'N'" fxFlex="10">Public</div>
                                 <div class="" *ngIf="categoryServicesList.private_status == 'Y'" fxFlex="10">Private</div>
@@ -385,7 +389,9 @@
                                 </div>
                                  <div class="" fxFlex="30">{{subCategoryServicesList.service_name}}</div>
                                  <div class="" fxFlex="15">{{subCategoryServicesList.service_time}}</div>
-                                 <div class="" fxFlex="10">$ {{subCategoryServicesList.service_cost}}</div>
+                                 <!-- <div class="" fxFlex="10">$ {{subCategoryServicesList.service_cost}}</div> -->
+                                 <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ subCategoryServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</div>
+                                 <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ subCategoryServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
                                  <div class="" fxFlex="10">{{subCategoryServicesList.service_unit}}</div>
                                  <div class="" *ngIf="subCategoryServicesList.private_status == 'N'" fxFlex="10">Public</div>
                                  <div class="" *ngIf="subCategoryServicesList.private_status == 'Y'" fxFlex="10">Private</div>
@@ -410,7 +416,7 @@
                      A valuable deed, action,or effort performed to fulfill a demand or tosatisfy a need of the customer.
                      </div>
                      <div class="pt-2">
-                         <button (click)="fnCreateNewServicePage(selectedCategoryDetails.id,'subcategory')" mat-button class="addsubcategory-btn">Add Services</button>
+                         <button (click)="fnCreateNewServicePage(selectedSubCategoryDetails.id,'subcategory')" mat-button class="addsubcategory-btn">Add Services</button>
                      </div>
                  </mat-card> 
             </div> 
@@ -507,7 +513,7 @@
                         </div>   
                         <div class="col-lg-4 col-8 col-md-8 d-flex">
                             <div class="border p-3">
-                                <div class="d-flex">
+                                <!-- <div class="d-flex">
                                 <h6> staff for this service</h6>
                                 <i class="material-icons add-icon pointer" (click)="openDialog()" >add_circle</i>
                                 </div>
@@ -515,18 +521,20 @@
                                 <mat-label>Outline form field</mat-label>
                                 <input matInput placeholder="Category,Subcategory,Service">
                                 <mat-icon matPrefix>search</mat-icon>
-                                </mat-form-field>
+                                </mat-form-field> -->
                                 
                                <!-- <mat-list>
                                     <mat-list-item *ngFor="let staffList of staffList">
                                         {{staffList.username}} {{staffList.lastname}} <i class="material-icons minus-icon pointer" >remove_circle_outline</i>  
                                     </mat-list-item> 
                                </mat-list> -->
-                               
-                            <div  class="drageble-box" *ngFor="let staffList of staffList" fxLayout="row">
-                                <div class="" fxFlex="90"> <mat-checkbox>{{staffList.username}} {{staffList.lastname}}</mat-checkbox></div>
-                                <div class="" fxFlex="10"> <i class="material-icons minus-icon pointer" >remove_circle_outline</i></div>
-                            
+                               <div>
+                                    <div  class="drageble-box" *ngFor="let staffList of staffList" fxLayout="row">
+                                        <div class="" fxFlex="90"> 
+                                            <mat-checkbox (change)="fnAssignStaffToService($event.checked, staffList.id)" [checked]="assignStaffArr.indexOf(staffList.id) > -1">{{staffList.username}} {{staffList.lastname}}</mat-checkbox>
+                                        </div>
+                                        <!-- <div class="" fxFlex="10"> <i class="material-icons minus-icon pointer" >remove_circle_outline</i></div> -->
+                                    </div>
                                 </div>
                              
                             </div>

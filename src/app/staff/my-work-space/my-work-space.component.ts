@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { StaffService } from '../_services/staff.service';
 import { DatePipe} from '@angular/common';
+import { AuthenticationService } from '@app/_services';
 
 export interface status {
   
@@ -29,15 +30,48 @@ export class MyWorkSpaceComponent implements OnInit {
   todayAppointmentData: any;
   activeBooking: any;
   todayDate: any;
+  bussinessId: any;
+  settingsArr:any=[];
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;
   constructor(
     public dialog: MatDialog,
     private StaffService: StaffService,
+    private authenticationService: AuthenticationService,
     private datePipe: DatePipe
-  ) { }
+  ) {
+    this.bussinessId=this.authenticationService.currentUserValue.business_id
+  }
 
   ngOnInit() {
      this.todayDate = this.datePipe.transform(new Date(),"dd MMM yyyy");
+    this.fnGetSettingValue();
     this.getTodayAppointment();
+  }
+
+  fnGetSettingValue(){
+    let requestObject = {
+      "business_id":this.bussinessId
+    };
+    this.StaffService.getSettingValue(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.settingsArr=response.response;
+        console.log(this.settingsArr);
+
+        this.currencySymbol = this.settingsArr.currency;
+        console.log(this.currencySymbol);
+        
+        this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+        console.log(this.currencySymbolPosition);
+        
+        this.currencySymbolFormat = this.settingsArr.currency_format;
+        console.log(this.currencySymbolFormat);
+      }
+      else if(response.data == false){
+        
+      }
+    })
   }
 
   getTodayAppointment(){
@@ -88,15 +122,47 @@ export class MyWorkSpaceComponent implements OnInit {
 export class DialogTodayAppointmentDetail {
 
 appoDetail : any;
+bussinessId: any;
+settingsArr:any=[];
+currencySymbol:any;
+currencySymbolPosition:any;
+currencySymbolFormat:any;
 constructor(
   public dialogRef: MatDialogRef<DialogTodayAppointmentDetail>,
+  private StaffService: StaffService,
+  private authenticationService: AuthenticationService,
   @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.appoDetail = this.data.fullData
+    this.appoDetail = this.data.fullData;
+    this.bussinessId=this.authenticationService.currentUserValue.business_id
+    this.fnGetSettingValue();
     console.log(this.appoDetail);
   }
 
 onNoClick(): void {
   this.dialogRef.close();
 }
+    fnGetSettingValue(){
+      let requestObject = {
+        "business_id":this.bussinessId
+      };
+      this.StaffService.getSettingValue(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.settingsArr=response.response;
+          console.log(this.settingsArr);
+
+          this.currencySymbol = this.settingsArr.currency;
+          console.log(this.currencySymbol);
+          
+          this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+          console.log(this.currencySymbolPosition);
+          
+          this.currencySymbolFormat = this.settingsArr.currency_format;
+          console.log(this.currencySymbolFormat);
+        }
+        else if(response.data == false){
+          
+        }
+      })
+    }
 
 }

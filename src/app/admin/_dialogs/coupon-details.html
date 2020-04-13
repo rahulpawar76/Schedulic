@@ -35,7 +35,10 @@
 
 
       <p class="mb-0 ">Applies to</p>
-      <p class="mb-4 font-weight-bold ">Hair cut & Hair Color</p>
+      <span class="font-weight-bold" *ngFor="let serviceList of couponCodeDetail.services; let i=index;">
+        {{serviceList.service_name}}, 
+      </span>
+      <p class="mb-4 "></p>
       <div class="d-flex">
           <div class="pl-0">
           <p class="mb-0">Valid From</p>

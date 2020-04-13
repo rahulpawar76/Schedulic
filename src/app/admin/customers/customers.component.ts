@@ -55,7 +55,7 @@ export class CustomersComponent implements OnInit {
   selectedCustomerArr: any;
   businessId: any;
   addNewTag: boolean = false;
-  tagsnew: any;
+  tagsnew: any=[];
   customerImageUrl:any;
 
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
@@ -67,6 +67,10 @@ export class CustomersComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   tags: Tag[] = [];
+  settingsArr:any=[];
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;
 
   constructor(
     public dialog: MatDialog,
@@ -101,6 +105,7 @@ export class CustomersComponent implements OnInit {
       if (input) {
         input.value = '';
       }
+      console.log(this.tags);
     }
 
     remove(tg: Tag): void {
@@ -109,9 +114,11 @@ export class CustomersComponent implements OnInit {
       if (index >= 0) {
         this.tags.splice(index, 1);
       }
+      console.log(this.tags);
     }
 
   ngOnInit() {
+    this.fnGetSettings();
     this.getAllCustomers();
     if(this.existingUserId != ''){
       this.createNewCustomer = this._formBuilder.group({
@@ -143,6 +150,32 @@ export class CustomersComponent implements OnInit {
       });
     }
   
+  }
+
+  fnGetSettings(){
+    let requestObject = {
+      "business_id" : this.businessId
+      };
+
+    this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.settingsArr = response.response;
+        console.log(this.settingsArr);
+
+        this.currencySymbol = this.settingsArr.currency;
+        console.log(this.currencySymbol);
+        
+        this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+        console.log(this.currencySymbolPosition);
+        
+        this.currencySymbolFormat = this.settingsArr.currency_format;
+        console.log(this.currencySymbolFormat);
+      }else{
+      }
+      },
+      (err) =>{
+        console.log(err)
+      })
   }
 
   getAllCustomers(){
@@ -291,19 +324,22 @@ customerUpdate(existingCustomerData){
         this.customerPersonalDetails = response.response.customer_details 
         this.customerAppoint = response.response.appointmets
       console.log( this.customerAppoint)
+      console.log( this.customerPersonalDetails)
         this.customerNotes = response.response.notes
         this.customerReviews = response.response.revirew
         console.log(this.customerReviews);
 
         this.customerPersonalDetails.created_at=this.datePipe.transform(new Date(this.customerPersonalDetails.created_at),"d MMM y, h:mm a")
-        this.tagsnew = this.customerPersonalDetails.tag_id
-                console.log(this.tagsnew);
+        if(this.customerPersonalDetails.tag_id != null){
+          this.tags = this.customerPersonalDetails.tag_id.split(",");
+        }
+        console.log(this.tags);
 
-                this.customerAppoint.forEach( (element) => { 
-                  element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")   
-                  element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
-                  element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
-                });
+        this.customerAppoint.forEach( (element) => { 
+          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")   
+          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+          element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+        });
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
@@ -452,7 +488,7 @@ customerUpdate(existingCustomerData){
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
-        this.getAllCustomers();
+        this.fnSelectCustomer(customerId);
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){

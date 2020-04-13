@@ -44,6 +44,9 @@ export class AppointmentComponent implements OnInit {
   settingsArr: any;
   cancellationBufferTime: any;
   minReschedulingTime: any;
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;
   constructor(
     public dialog: MatDialog,
     private AdminService: AdminService,
@@ -82,6 +85,16 @@ export class AppointmentComponent implements OnInit {
       if(response.data == true){
         this.settingsArr=response.response;
         console.log(this.settingsArr);
+
+        this.currencySymbol = this.settingsArr.currency;
+        console.log(this.currencySymbol);
+        
+        this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+        console.log(this.currencySymbolPosition);
+        
+        this.currencySymbolFormat = this.settingsArr.currency_format;
+        console.log(this.currencySymbolFormat);
+        
         let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
         let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
         console.log(cancellation_buffer_time);
@@ -376,7 +389,7 @@ export class DialogAddNewAppointment {
       this.selectedServiceId=this.appointmentData.service_id;
       this.selectedDate = this.datePipe.transform(new Date(this.appointmentData.booking_date),"yyyy-MM-dd");
       this.selectedTime=this.appointmentData.booking_time;
-      this.disablePostalCode=true;
+      this.disablePostalCode=false;
       this.disableCategory=true;
       this.disableSubCategory=true;
       this.disableService=true;
@@ -459,7 +472,7 @@ export class DialogAddNewAppointment {
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
         });
-        return this.http.post(`${environment.apiUrl}/verify-email`,{ emailid: control.value },{headers:headers}).pipe(map((response : any) =>{
+        return this.http.post(`${environment.apiUrl}/check-emailid`,{ emailid: control.value,customer_id:this.appointmentData.customer_id },{headers:headers}).pipe(map((response : any) =>{
           return response;
         }),
         catchError(this.handleError)).subscribe((res) => {

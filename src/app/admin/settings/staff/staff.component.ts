@@ -122,6 +122,10 @@ export class StaffComponent implements OnInit {
   sundayBreakEndTimeIndex:any;
   
   timeOffList: any=[];
+  settingsArr:any=[];
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;
 
   reviewOrderData : any;
 
@@ -165,6 +169,7 @@ export class StaffComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fnGetSettings();
     this.getAllStaff();
 
     this.StaffCreate = this._formBuilder.group({
@@ -176,6 +181,32 @@ export class StaffComponent implements OnInit {
       description : [''],
       staff_id : [''],
     });
+  }
+
+  fnGetSettings(){
+  let requestObject = {
+    "business_id" : this.businessId
+    };
+
+  this.adminSettingsService.getSettingValue(requestObject).subscribe((response:any) => {
+    if(response.data == true){
+      this.settingsArr = response.response;
+      console.log(this.settingsArr);
+
+      this.currencySymbol = this.settingsArr.currency;
+      console.log(this.currencySymbol);
+      
+      this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+      console.log(this.currencySymbolPosition);
+      
+      this.currencySymbolFormat = this.settingsArr.currency_format;
+      console.log(this.currencySymbolFormat);
+    }else{
+    }
+    },
+    (err) =>{
+      console.log(err)
+    })
   }
 
   getAllStaff() {
@@ -251,7 +282,6 @@ export class StaffComponent implements OnInit {
 
   fnViewSingleStaff(staffId,index) {
     this.singleStaffIndex = index;
-    alert(index)
     this.isLoaderAdmin = true;
     this.selectedStaffId= staffId;
     this.singleStaffDataRating = this.allStaffList[index]
@@ -633,7 +663,6 @@ export class StaffComponent implements OnInit {
   }
   fnSubmitCreateStaff(){
     if(this.StaffCreate.get('staff_id').value != ''){
-      alert("Edit" + this.StaffCreate.get('staff_id').value);
       if(this.StaffCreate.valid){
         this.updateStaffData = {
           "staff_id" : this.StaffCreate.get('staff_id').value,
@@ -687,7 +716,6 @@ export class StaffComponent implements OnInit {
     })
   }
   updateStaff(updateStaffData){
-    alert("Hello 2")
     this.isLoaderAdmin = true;
     this.adminSettingsService.updateStaff(updateStaffData).subscribe((response:any) => {
         if(response.data == true){
@@ -1031,7 +1059,6 @@ export class StaffComponent implements OnInit {
   fnCreateWorkingHours(){
     this.isLoaderAdmin = true;
     if(this.formSetWorkingHours.invalid){
-      alert();
       return false;
     }
     let workingHoursArray:any=[];
@@ -1130,7 +1157,6 @@ export class StaffComponent implements OnInit {
     }
     if(this.formSetWorkingHours.get("mondayToggle").value){
       if(this.formSetWorkingHours.get("mondayStartTime").value == '' || this.formSetWorkingHours.get("mondayEndTime").value == '' || this.formSetWorkingHours.get("mondayStartTime").value == null || this.formSetWorkingHours.get("mondayEndTime").value == null){
-        alert();
         return false;
       }
     }
@@ -1652,8 +1678,6 @@ export class StaffComponent implements OnInit {
   }
 
   viewStaffReviewDetail(index,OrderId){
-
-   alert(OrderId);
     this.isLoaderAdmin = true;
     this.adminSettingsService.viewStaffReviewDetail(OrderId).subscribe((response:any) => {
       if(response.data == true){

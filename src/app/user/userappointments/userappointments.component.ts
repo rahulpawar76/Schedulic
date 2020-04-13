@@ -34,6 +34,9 @@ export class UserappointmentsComponent implements OnInit {
   cancellationBufferTime: any;
   minReschedulingTime: any;
   isCustomerAllowedForRatingStaff: boolean=false;
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;
 
   constructor(
     public dialog: MatDialog,
@@ -63,6 +66,16 @@ fnGetSettingValue(){
       if(response.data == true){
         this.settingsArr=response.response;
         console.log(this.settingsArr);
+
+        this.currencySymbol = this.settingsArr.currency;
+        console.log(this.currencySymbol);
+        
+        this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+        console.log(this.currencySymbolPosition);
+        
+        this.currencySymbolFormat = this.settingsArr.currency_format;
+        console.log(this.currencySymbolFormat);
+
         let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
         let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
         this.isCustomerAllowedForRatingStaff=JSON.parse(this.settingsArr.customer_allow_for_staff_rating);
@@ -357,14 +370,47 @@ export class DialogCancelReason {
   })
   export class DialogCancelAppointmentDetails {
     myAppoDetailData: any;
+    bussinessId : any;
+    settingsArr: any;
+    currencySymbol:any;
+    currencySymbolPosition:any;
+    currencySymbolFormat:any;
     constructor(
       public dialogRef: MatDialogRef<DialogCancelAppointmentDetails>,
+      private authenticationService: AuthenticationService,
+      private UserService: UserService,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.myAppoDetailData = this.data.fulldata;
+        this.bussinessId=this.authenticationService.currentUserValue.business_id;
+        this.fnGetSettingValue();
       }
 
     onNoClick(): void {
       this.dialogRef.close();
+    }
+
+    fnGetSettingValue(){
+      let requestObject = {
+        "business_id":this.bussinessId
+      };
+      this.UserService.getSettingValue(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.settingsArr=response.response;
+          console.log(this.settingsArr);
+
+          this.currencySymbol = this.settingsArr.currency;
+          console.log(this.currencySymbol);
+          
+          this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+          console.log(this.currencySymbolPosition);
+          
+          this.currencySymbolFormat = this.settingsArr.currency_format;
+          console.log(this.currencySymbolFormat);
+        }
+        else if(response.data == false){
+          
+        }
+      })
     }
 
   }
@@ -377,17 +423,50 @@ export class DialogCancelReason {
     myAppoDetailData: any;
     index: any;
     animal : any;
+    bussinessId : any;
+    settingsArr: any;
+    currencySymbol:any;
+    currencySymbolPosition:any;
+    currencySymbolFormat:any;
     constructor(
       public dialogRef: MatDialogRef<DialogMyAppointmentDetails>,
+      private authenticationService: AuthenticationService,
+      private UserService: UserService,
        public dialog: MatDialog,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.myAppoDetailData = this.data.fulldata;
         console.log(this.myAppoDetailData)
         this.index = this.data.index;
         console.log(this.index)
+        this.bussinessId=this.authenticationService.currentUserValue.business_id;
+        this.fnGetSettingValue();
       }
     onNoClick(): void {
       this.dialogRef.close();
+    }
+
+    fnGetSettingValue(){
+      let requestObject = {
+        "business_id":this.bussinessId
+      };
+      this.UserService.getSettingValue(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.settingsArr=response.response;
+          console.log(this.settingsArr);
+
+          this.currencySymbol = this.settingsArr.currency;
+          console.log(this.currencySymbol);
+          
+          this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+          console.log(this.currencySymbolPosition);
+          
+          this.currencySymbolFormat = this.settingsArr.currency_format;
+          console.log(this.currencySymbolFormat);
+        }
+        else if(response.data == false){
+          
+        }
+      })
     }
 
     cancelAppo(booking_id) {
@@ -425,6 +504,7 @@ export class rescheduleAppointmentDialog {
   formAppointmentReschedule: FormGroup;
   timeSlotArr:any= [];
   availableStaff:any= [];
+  selectedDate:any;
   constructor(
     public dialogRef: MatDialogRef<rescheduleAppointmentDialog>,
     private datePipe: DatePipe,
@@ -475,7 +555,8 @@ export class rescheduleAppointmentDialog {
 
       fnDateChange(event: MatDatepickerInputEvent<Date>) {
         console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
-        let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
+        let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd");
+        this.selectedDate=date;
         this.formAppointmentReschedule.controls['rescheduleTime'].setValue(null);
         this.formAppointmentReschedule.controls['rescheduleStaff'].setValue(null);
         this.timeSlotArr= [];
@@ -485,7 +566,7 @@ export class rescheduleAppointmentDialog {
 
       fnGetTimeSlots(rescheduleServiceId,rescheduleDate){
         let requestObject = {
-          "business_id":2,
+          "business_id":this.myAppoDetailData.business_id,
           "selected_date":rescheduleDate
         };
         let headers = new HttpHeaders({
@@ -518,7 +599,10 @@ export class rescheduleAppointmentDialog {
 
         fnGetStaff(slot){
           let requestObject = {
-            "bussiness_id":2,
+            "business_id":this.myAppoDetailData.business_id,
+            "book_date":this.selectedDate,
+            "book_time":slot,
+            "postal_code":this.myAppoDetailData.customer.zip,
             "service_id":this.myAppoDetailData.service.id
           };
           let headers = new HttpHeaders({
@@ -595,15 +679,48 @@ export class rescheduleAppointmentDialog {
   export class DialogCompleteAppointmentDetails {
     myAppoDetailData: any;
     animal: string;
+    bussinessId : any;
+    settingsArr: any;
+    currencySymbol:any;
+    currencySymbolPosition:any;
+    currencySymbolFormat:any;
     constructor(
       public dialogRef: MatDialogRef<DialogCompleteAppointmentDetails>,
+      private authenticationService: AuthenticationService,
+      private UserService: UserService,
       public dialog: MatDialog,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.myAppoDetailData = this.data.fulldata;
+        this.bussinessId=this.authenticationService.currentUserValue.business_id;
+        this.fnGetSettingValue();
       }
 
     onNoClick(): void {
       this.dialogRef.close();
+    }
+    
+    fnGetSettingValue(){
+      let requestObject = {
+        "business_id":this.bussinessId
+      };
+      this.UserService.getSettingValue(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.settingsArr=response.response;
+          console.log(this.settingsArr);
+
+          this.currencySymbol = this.settingsArr.currency;
+          console.log(this.currencySymbol);
+          
+          this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+          console.log(this.currencySymbolPosition);
+          
+          this.currencySymbolFormat = this.settingsArr.currency_format;
+          console.log(this.currencySymbolFormat);
+        }
+        else if(response.data == false){
+          
+        }
+      })
     }
     ratenow(booking_id) {
       const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {

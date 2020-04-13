@@ -64,6 +64,9 @@ export class MyWorkSpaceComponent implements OnInit {
   settingsArr: any;
   cancellationBufferTime: any;
   minReschedulingTime: any;
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;
   constructor(
     public dialog: MatDialog,
     private http: HttpClient,
@@ -96,6 +99,16 @@ export class MyWorkSpaceComponent implements OnInit {
       if(response.data == true){
         this.settingsArr=response.response;
         console.log(this.settingsArr);
+
+        this.currencySymbol = this.settingsArr.currency;
+        console.log(this.currencySymbol);
+        
+        this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+        console.log(this.currencySymbolPosition);
+        
+        this.currencySymbolFormat = this.settingsArr.currency_format;
+        console.log(this.currencySymbolFormat);
+        
         let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
         let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
         console.log(cancellation_buffer_time);
@@ -198,7 +211,7 @@ export class MyWorkSpaceComponent implements OnInit {
         this.appointmentDetails.customerEmail=this.appointments[0].customer.email;
         this.appointmentDetails.customerPhone=this.appointments[0].customer.phone;
         this.appointmentDetails.customerAddress=this.appointments[0].customer.address+" "+this.appointments[0].customer.city+" "+this.appointments[0].customer.state+" "+this.appointments[0].customer.zip;
-        this.appointmentDetails.postalCode=this.appointments[0].customer.zip;
+        this.appointmentDetails.postalCode=this.appointments[0].postal_code;
         if(this.appointmentDetails.order_status == "CNF" && this.appointments[0].staff_id == null){
           this.selectedStaff=null;
           this.availableStaff.length=0;

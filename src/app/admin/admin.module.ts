@@ -27,7 +27,7 @@ import { CustomersComponent } from './customers/customers.component';
 import { DialogNewCustomerAppointment } from './customers/customers.component';
 import { DialogAddNewNote } from './customers/customers.component';
 import { ReportsComponent } from './reports/reports.component';
-import { AppointmentLiveComponent } from './appointment-live/appointment-live.component';
+import { AppointmentLiveComponent,RescheduleAppointment } from './appointment-live/appointment-live.component';
 import { DialogPaymentNote } from './customers/customers.component';
 import { DialogViewReview } from './customers/customers.component';
 import {DialogImportFileUpload} from './customers/customers.component';
@@ -42,10 +42,12 @@ import {DialogAllAppointmentDetails} from './appointment/appointment.component';
 //import { IgxExcelExporterService } from "igniteui-angular";
 import { DialogMyProfileImageUpload } from './settings-my-profile/settings-my-profile.component';
 import { DialogCustomerImageUpload } from './customers/customers.component';
+import { SharedModule } from '../shared.module';
 
 import { DialogCouponDetails } from './discount-coupon/discount-coupon.component';
 
 import { CustomerAppointmentDetailsDialog } from './customers/customers.component';
+
 
 
 
@@ -74,6 +76,7 @@ import { CustomerAppointmentDetailsDialog } from './customers/customers.componen
     NotAssignedAppointmentDetailsDialog,
     OnTheWayAppointmentDetailsDialog,
     WorkStartedAppointmentDetailsDialog,
+    RescheduleAppointment,
     DialogAllAppointmentDetails,
     DialogCouponDetails,
     CustomerAppointmentDetailsDialog
@@ -93,6 +96,7 @@ import { CustomerAppointmentDetailsDialog } from './customers/customers.componen
     DataTablesModule,
     MatSidenavModule,
     NgxDaterangepickerMd.forRoot(),
+    SharedModule
   ],
   exports: [
     FormsModule
@@ -105,6 +109,6 @@ import { CustomerAppointmentDetailsDialog } from './customers/customers.componen
     DialogViewReview,InterruptedReschedule,PendingAppointmentDetailsDialog,
     NotAssignedAppointmentDetailsDialog,OnTheWayAppointmentDetailsDialog,
     WorkStartedAppointmentDetailsDialog,DialogImportFileUpload,DialogMyProfileImageUpload,
-    DialogCustomerImageUpload,DialogCouponDetails,CustomerAppointmentDetailsDialog],
+    DialogCustomerImageUpload,DialogCouponDetails,CustomerAppointmentDetailsDialog,RescheduleAppointment],
 })
 export class AdminModule { }

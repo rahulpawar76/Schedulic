@@ -34,7 +34,7 @@ import { DialogOnlinePaymentDetails } from './staff-appointment/staff-appointmen
 import { DialogTodayAppointmentDetail } from './my-work-space/my-work-space.component';
 
 import { DialogStaffImageUpload } from './my-profile/my-profile.component';
-
+import { SharedModule } from '../shared.module';
 
 @NgModule({
   declarations: [
@@ -69,7 +69,8 @@ import { DialogStaffImageUpload } from './my-profile/my-profile.component';
     DragDropModule,
     NgxChartsModule,
     ProgressBarModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    SharedModule
   ],
   exports: [
     FormsModule
