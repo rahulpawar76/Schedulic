@@ -40,7 +40,7 @@
             <!-- [(value)]="selected" -->
             <label>Staff</label>
             <mat-select class="form-control formcontrol mb-3" formControlName="rescheduleStaff" >
-                <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">{{staff.firstname}} {{staff.lastname}}</mat-option>
+                <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">{{staff.name}}</mat-option>
             </mat-select>
             <label class="mb-0">Add Note</label>
             <textarea class="form-control mb-2" placeholder="Add Note" formControlName="rescheduleNote" ></textarea>

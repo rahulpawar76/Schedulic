@@ -472,7 +472,7 @@ export class DialogAddNewAppointment {
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
         });
-        return this.http.post(`${environment.apiUrl}/verify-email`,{ emailid: control.value },{headers:headers}).pipe(map((response : any) =>{
+        return this.http.post(`${environment.apiUrl}/check-emailid`,{ emailid: control.value,customer_id:this.appointmentData.customer_id },{headers:headers}).pipe(map((response : any) =>{
           return response;
         }),
         catchError(this.handleError)).subscribe((res) => {
