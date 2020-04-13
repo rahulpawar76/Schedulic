@@ -10,10 +10,10 @@
           </button>
       </div>
       <div class="appodetails">
-        <label class="greenfont"><i class="fa fa-repeat repeat"></i>Reschedule</label>
-        <label class="fontred"><i class="fa fa-times-circle-o circle"></i>Cancel</label>
+        <label class="greenfont" (click)="fnRescheduleAppointment()"><i class="fa fa-repeat repeat"></i>Reschedule</label>
+        <label class="fontred" (click)="fnCancelAppointment()"><i class="fa fa-times-circle-o circle"></i>Cancel</label>
   
-         <button mat-button type="button" class="d-block btn-primary float-right paybtn">Confirm</button>
+         <button mat-button type="button" class="d-block btn-primary float-right paybtn" (click)="fnConfirmAppointment()">Confirm</button>
       </div>
   
       <div class="modal-body modal-bcolor">

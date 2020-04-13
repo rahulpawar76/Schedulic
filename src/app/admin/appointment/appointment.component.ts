@@ -389,7 +389,7 @@ export class DialogAddNewAppointment {
       this.selectedServiceId=this.appointmentData.service_id;
       this.selectedDate = this.datePipe.transform(new Date(this.appointmentData.booking_date),"yyyy-MM-dd");
       this.selectedTime=this.appointmentData.booking_time;
-      this.disablePostalCode=true;
+      this.disablePostalCode=false;
       this.disableCategory=true;
       this.disableSubCategory=true;
       this.disableService=true;

@@ -27,7 +27,7 @@ import { CustomersComponent } from './customers/customers.component';
 import { DialogNewCustomerAppointment } from './customers/customers.component';
 import { DialogAddNewNote } from './customers/customers.component';
 import { ReportsComponent } from './reports/reports.component';
-import { AppointmentLiveComponent } from './appointment-live/appointment-live.component';
+import { AppointmentLiveComponent,RescheduleAppointment } from './appointment-live/appointment-live.component';
 import { DialogPaymentNote } from './customers/customers.component';
 import { DialogViewReview } from './customers/customers.component';
 import {DialogImportFileUpload} from './customers/customers.component';
@@ -76,6 +76,7 @@ import { CustomerAppointmentDetailsDialog } from './customers/customers.componen
     NotAssignedAppointmentDetailsDialog,
     OnTheWayAppointmentDetailsDialog,
     WorkStartedAppointmentDetailsDialog,
+    RescheduleAppointment,
     DialogAllAppointmentDetails,
     DialogCouponDetails,
     CustomerAppointmentDetailsDialog
@@ -108,6 +109,6 @@ import { CustomerAppointmentDetailsDialog } from './customers/customers.componen
     DialogViewReview,InterruptedReschedule,PendingAppointmentDetailsDialog,
     NotAssignedAppointmentDetailsDialog,OnTheWayAppointmentDetailsDialog,
     WorkStartedAppointmentDetailsDialog,DialogImportFileUpload,DialogMyProfileImageUpload,
-    DialogCustomerImageUpload,DialogCouponDetails,CustomerAppointmentDetailsDialog],
+    DialogCustomerImageUpload,DialogCouponDetails,CustomerAppointmentDetailsDialog,RescheduleAppointment],
 })
 export class AdminModule { }
