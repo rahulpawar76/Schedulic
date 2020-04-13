@@ -504,6 +504,7 @@ export class rescheduleAppointmentDialog {
   formAppointmentReschedule: FormGroup;
   timeSlotArr:any= [];
   availableStaff:any= [];
+  selectedDate:any;
   constructor(
     public dialogRef: MatDialogRef<rescheduleAppointmentDialog>,
     private datePipe: DatePipe,
