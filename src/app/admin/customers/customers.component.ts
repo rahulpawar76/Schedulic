@@ -330,7 +330,9 @@ customerUpdate(existingCustomerData){
         console.log(this.customerReviews);
 
         this.customerPersonalDetails.created_at=this.datePipe.transform(new Date(this.customerPersonalDetails.created_at),"d MMM y, h:mm a")
-        this.tags = this.customerPersonalDetails.tag_id.split(",");
+        if(this.customerPersonalDetails.tag_id != null){
+          this.tags = this.customerPersonalDetails.tag_id.split(",");
+        }
         console.log(this.tags);
 
         this.customerAppoint.forEach( (element) => { 

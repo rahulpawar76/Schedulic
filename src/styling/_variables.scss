@@ -54,8 +54,8 @@ $selected-font-family: var(--font);
 $red : #ed2f2f;
 $green : #16bc2c;
 
-$text-color: #000000;
-$text-bg:#fff;
+$text-color:  var(--text_color);
+$text-bg: var(--text_bgcolor);
 // btn radient 
 
 
