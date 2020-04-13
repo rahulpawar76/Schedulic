@@ -409,7 +409,7 @@ customerUpdate(existingCustomerData){
   }
   
   viewReviewDetail(index, OrderId){
-    alert(OrderId);
+    //alert(OrderId);
     this.isLoaderAdmin = true;
     this.AdminService.viewReviewDetail(OrderId).subscribe((response:any) => {
       if(response.data == true){

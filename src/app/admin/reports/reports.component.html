@@ -179,7 +179,7 @@
 
             <label class="custrecords" *ngIf="reportFilter=='date' || reportFilter=='month'">Total Records :</label><label  *ngIf="reportFilter=='date' || reportFilter=='month'">0,</label> 
             <label class="custrecords" *ngIf="reportFilter=='date' || reportFilter=='month'">Appointments :</label><label  *ngIf="reportFilter=='date' || reportFilter=='month'">{{salesReportTotalAppointments}},</label> 
-            <label class="custrecords" *ngIf="reportFilter=='date' || reportFilter=='month'"> Customers:</label><label *ngIf="reportFilter=='date' || reportFilter=='month'"> $.{{salesReportCustomers}},</label>
+            <label class="custrecords" *ngIf="reportFilter=='date' || reportFilter=='month'"> Customers:</label><label *ngIf="reportFilter=='date' || reportFilter=='month'"> {{salesReportCustomers}},</label>
             <label class="custrecords" *ngIf="reportFilter=='date' || reportFilter=='month'"> Total Revenue:</label><label *ngIf="reportFilter=='date' || reportFilter=='month'"> $.{{salesReportTotalRevenue}},</label>
           </div>
           <div class="Customer-appointment-table">

@@ -206,6 +206,8 @@ export class DiscountCouponComponent implements OnInit {
     this.getCateServiceList();
   }
 
+ 
+
   fnCouponDetails(index){
     
     const dialogRef = this.dialog.open(DialogCouponDetails, {
@@ -269,5 +271,6 @@ changeCouponStaus(event,coupon_id){
     }
   })
 }
+
 
 }

@@ -144,6 +144,7 @@ export class ServicesComponent implements OnInit {
     }
     cancelNewCategory() {
         this.createNewCategoryPage = false;
+         this.servicesList = true;
     }
 
     fnAllServices() {
@@ -673,6 +674,18 @@ export class ServicesComponent implements OnInit {
         this.createNewSubCategoryPage = false;
         this.createNewCategoryPage = false;
         this.singleSubCategoryPage = '';
+    }
+
+    fnCalcelNewSubcategory(){
+
+    this.servicesList = true;
+    this.createNewServicePage = false;
+    this.createNewSubCategoryPage = false;  
+    }
+    fnCancelAddService(){
+        this.servicesList = true;
+        this.createNewServicePage = false;
+        this.createNewSubCategoryPage = false;
     }
     fnNewServiceStatus(event) {
         if (event == true) {

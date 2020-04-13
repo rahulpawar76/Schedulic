@@ -215,7 +215,7 @@
 							<button mat-button type="button" class="d-block btn-primary float-right acceptbtn" (click)="fnCompleteAppointment()" *ngIf="appointmentDetails.order_status == 'AC'">Complete</button>
 						</div>
 						<div class="pt-2 pb-2 d-flex bottom-border pl-3 pr-3" *ngIf="appointmentDetails.order_status == 'CO'">Completed</div>
-						<div class="pt-2 pb-2 d-flex bottom-border pl-3 pr-3" *ngIf=" appointmentDetails.order_status != 'C' || appointmentDetails.order_status != 'CC'">Cancelled</div>
+						<div class="pt-2 pb-2 d-flex bottom-border pl-3 pr-3" *ngIf="appointmentDetails.order_status != 'C' || appointmentDetails.order_status != 'CC'">Cancelled</div>
 				  	 <div class="background pl-4 pb-2 border-right-blue position-relative">
 				        <div class="">
 				          <h6 class="mb-0 pt-2">{{appointmentDetails.booking_date}}</h6>
