@@ -698,6 +698,13 @@ export class ServicesComponent implements OnInit {
     }
 
     fnCreateNewServicePage(categoryId, type) {
+        this.createService.controls['service_name'].setValue(null);
+        this.createService.controls['service_description'].setValue(null);
+        this.createService.controls['service_cost'].setValue(null);
+        this.createService.controls['service_duration'].setValue(null);
+        this.createService.controls['service_unit'].setValue(null);
+        this.createService.controls['service_id'].setValue(null);
+        this.assignStaffArr.length = 0;
         this.createServiceCategoryId = categoryId
         this.createServiceCategoryType = type
         this.createNewServicePage = true;
