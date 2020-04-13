@@ -206,12 +206,12 @@ export class DiscountCouponComponent implements OnInit {
     this.getCateServiceList();
   }
 
-  fnCouponDetails(index){
+  fnCouponDetails(index, CouponId){
     
     const dialogRef = this.dialog.open(DialogCouponDetails, {
       height: '700px',
   
-      data :{fulldata : this.allCouponCode[index]}
+      data :{fulldata : this.allCouponCode[index], couponId : CouponId}
       
     });
 
@@ -233,6 +233,8 @@ export class DialogCouponDetails {
   detailsData: any;
   isLoaderAdmin:any;
   couponCodeStatus:any;
+  couponId:any;
+  servicesList:any;
 constructor(
   public dialogRef: MatDialogRef<DialogCouponDetails>,
   private AdminService: AdminService,
@@ -240,11 +242,26 @@ constructor(
   @Inject(MAT_DIALOG_DATA) public data: any) {
 
     this.detailsData =  this.data.fulldata;
+    this.couponId = this.data.couponId
     console.log(this.detailsData);
+    this.getServiceListForCoupon();
   }
 
 onNoClick(): void {
   this.dialogRef.close();
+}
+
+getServiceListForCoupon(){
+  this.isLoaderAdmin = true;
+  this.AdminService.getServiceListForCoupon(this.couponId).subscribe((response:any) => {
+    if(response.data == true){
+        this.servicesList = JSON.stringify(response.response.services);
+      this.isLoaderAdmin = false;
+    }
+    else if(response.data == false){
+      this.isLoaderAdmin = false;
+    }
+  })
 }
 
 changeCouponStaus(event,coupon_id){
