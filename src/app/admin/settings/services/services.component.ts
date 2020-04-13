@@ -748,7 +748,7 @@ export class ServicesComponent implements OnInit {
     }
     fnCreateServiceSubmit() {
         alert(this.createService.get('service_id').value)
-        if (this.createService.get('service_id').value != null || this.createService.get('service_id').value != '') {
+        if (this.createService.get('service_id').value != null && this.createService.get('service_id').value != '') {
             if (this.createService.valid) {
                 this.updateServiceData = {
                     'service_id': this.createService.get('service_id').value,
