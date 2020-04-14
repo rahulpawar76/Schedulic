@@ -291,10 +291,11 @@ export class StaffComponent implements OnInit {
         this.singleStaffDetail = response.response
         console.log(this.singleStaffDetail);
         this.singleStaffDetail.staff[0].services.forEach(element => {
-          this.selectedServicesArr.push(element.id);
+          // this.selectedServicesArr.push(element.id);
+          this.selectedServiceNewStaff.push(element.id);
         });
-        console.log("selectedServicesArr");
-        console.log(this.selectedServicesArr);
+        console.log("selectedServiceNewStaff");
+        console.log(this.selectedServiceNewStaff);
         this.singleStaffDetail.staff[0].postal_codes.forEach(element => {
           this.selectedPostalCodeArr.push(element.id);
         });
@@ -664,6 +665,7 @@ export class StaffComponent implements OnInit {
     console.log(this.selectedServiceNewStaff);
   }
   fnSubmitCreateStaff(){
+    console.log(this.StaffCreate.get('staff_id').value);
     if(this.StaffCreate.get('staff_id').value != ''){
       if(this.StaffCreate.valid){
         this.updateStaffData = {
@@ -678,6 +680,8 @@ export class StaffComponent implements OnInit {
         }
         console.log(this.updateStaffData);
         this.updateStaff(this.updateStaffData);
+      }else{
+        console.log(this.StaffCreate.valid);
       }
     }
     else{ 

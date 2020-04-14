@@ -128,8 +128,8 @@
                       </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div *ngFor="let serviceList of subcategoryList.services; let i=index" class="py-3">
-                      <mat-checkbox (change)="fnCheckService($event.checked,serviceList.id)" checked="selectedServicesArr.indexOf(serviceList.id) > -1">
-                        {{serviceList.service_name}}</mat-checkbox>
+                      <mat-checkbox (change)="fnCheckService($event.checked,serviceList.id)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) > -1" checked="true">{{serviceList.service_name}}</mat-checkbox>
+                      <mat-checkbox (change)="fnCheckService($event.checked,serviceList.id)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) < 0">{{serviceList.service_name}}</mat-checkbox>
                     </div>
                   </mat-expansion-panel>
                 </mat-expansion-panel>
