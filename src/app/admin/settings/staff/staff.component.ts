@@ -639,6 +639,7 @@ export class StaffComponent implements OnInit {
     this.singleStaffView = false;
     this.isLoaderAdmin = false;
     this.selectedServiceNewStaff=[];
+    
     this.getCateServiceList();
   }
 
