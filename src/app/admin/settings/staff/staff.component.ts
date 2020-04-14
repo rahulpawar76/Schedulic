@@ -293,6 +293,8 @@ export class StaffComponent implements OnInit {
         this.singleStaffDetail.staff[0].services.forEach(element => {
           this.selectedServicesArr.push(element.id);
         });
+        console.log("selectedServicesArr");
+        console.log(this.selectedServicesArr);
         this.singleStaffDetail.staff[0].postal_codes.forEach(element => {
           this.selectedPostalCodeArr.push(element.id);
         });
@@ -647,7 +649,7 @@ export class StaffComponent implements OnInit {
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
-        this.categoryServiceList = ''
+        this.categoryServiceList = [];
         this.isLoaderAdmin = false;
       }
     })
