@@ -205,7 +205,7 @@ export class CustomersComponent implements OnInit {
   }
 
   fnCreateCustomerSubmit(){
-    if(this.createNewCustomer.get('customer_id').value != ''){
+    if(this.createNewCustomer.get('customer_id').value != null){
       this.existingUserId = this.createNewCustomer.get('customer_id').value
       if(this.createNewCustomer.valid){
         this.existingCustomerData ={
@@ -235,7 +235,7 @@ export class CustomersComponent implements OnInit {
     }
     this.customerUpdate(this.existingCustomerData);
   }
-  else if(this.createNewCustomer.get('customer_id').value == ''){
+  else{
       if(this.createNewCustomer.valid){
         this.newCustomerData ={
           "business_id" : this.businessId,
@@ -306,6 +306,16 @@ customerUpdate(existingCustomerData){
   fnAddNewCustomer(){
     this.newCustomer = true;
     this.fullDetailsOfCustomer = false;
+    this.createNewCustomer.controls['customer_id'].setValue(null);
+    this.createNewCustomer.controls['cus_fullname'].setValue(null);
+    this.createNewCustomer.controls['cus_email'].setValue(null);
+    this.createNewCustomer.controls['cus_phone'].setValue(null);
+    this.createNewCustomer.controls['cus_officenumber'].setValue(null);
+    this.createNewCustomer.controls['cus_homenumber'].setValue(null);
+    this.createNewCustomer.controls['cus_address'].setValue(null);
+    this.createNewCustomer.controls['cus_state'].setValue(null);
+    this.createNewCustomer.controls['cus_city'].setValue(null);
+    this.createNewCustomer.controls['cus_zip'].setValue(null);
   }
   fnCancelNewCustomer(){
     this.newCustomer = false;
@@ -318,13 +328,14 @@ customerUpdate(existingCustomerData){
     this.AdminService.getCustomersDetails(customer_id).subscribe((response:any) => {
       if(response.data == true){
         this.customersDetails = response.response
-       
-        this.customersDetails.lastBooking.booking_date=this.datePipe.transform(new Date(this.customersDetails.lastBooking.booking_date),"d MMM y,")
-        this.customersDetails.lastBooking.booking_time=this.datePipe.transform(new Date(this.customersDetails.lastBooking.booking_date+" "+this.customersDetails.lastBooking.booking_time),"hh:mm a")
+        if(this.customersDetails.lastBooking){
+          this.customersDetails.lastBooking.booking_date=this.datePipe.transform(new Date(this.customersDetails.lastBooking.booking_date),"d MMM y,")
+          this.customersDetails.lastBooking.booking_time=this.datePipe.transform(new Date(this.customersDetails.lastBooking.booking_date+" "+this.customersDetails.lastBooking.booking_time),"hh:mm a")
+        }
         this.customerPersonalDetails = response.response.customer_details 
         this.customerAppoint = response.response.appointmets
-      console.log( this.customerAppoint)
-      console.log( this.customerPersonalDetails)
+        console.log( this.customerAppoint)
+        console.log( this.customerPersonalDetails)
         this.customerNotes = response.response.notes
         this.customerReviews = response.response.revirew
         console.log(this.customerReviews);
@@ -341,6 +352,8 @@ customerUpdate(existingCustomerData){
           element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
         });
         this.isLoaderAdmin = false;
+        this.newCustomer = false;
+        this.fullDetailsOfCustomer = true;
       }
       else if(response.data == false){
         this.customersDetails = ''

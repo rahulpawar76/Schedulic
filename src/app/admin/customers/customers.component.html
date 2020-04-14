@@ -251,11 +251,11 @@
                                
                                     <div class="lastBookedAppoint">
                                         <h6>LAST BOOKED APPOINTMENT </h6>
-                                        <p>{{customersDetails.lastBooking.booking_date}} {{customersDetails.lastBooking.booking_time}}</p>
+                                        <p>{{customersDetails.lastBooking?customersDetails.lastBooking.booking_date:''}} {{customersDetails.lastBooking?customersDetails.lastBooking.booking_time:''}}</p>
                                     </div>
                                     <div class="lastBookedService">
                                         <h6>LAST BOOKED SERVICE</h6>
-                                        <p>{{customersDetails.lastBooking.service.service_name}} ({{customersDetails.lastBooking.service.category.category_title}})</p>
+                                        <p>{{customersDetails.lastBooking?customersDetails.lastBooking.service.service_name:''}} {{customersDetails.lastBooking?(customersDetails.lastBooking.service.category.category_title):''}}</p>
                                     </div>
                                
                             </div>
