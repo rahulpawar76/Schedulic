@@ -227,9 +227,9 @@
                           <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{onTheWayAppointments.customer.email}}</p>
                         </div>
                         <div *ngIf="onTheWayAppointments.staff != null" class="" fxFlex="25">
-                          <p class="mb-0">Raj Kumar</p>
-                          <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
-                          <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
+                          <p class="mb-0">{{onTheWayAppointments.staff.firstname}} {{onTheWayAppointments.staff.lastname}}</p>
+                          <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{onTheWayAppointments.staff.phone}}</p>
+                          <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{onTheWayAppointments.staff.email}}</p>
                         </div>
                         <div *ngIf="onTheWayAppointments.staff == null" class="" fxFlex="25">
                           <p class="mb-0">Not Assigned</p>
@@ -294,9 +294,9 @@
                               <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.customer.email}}</p>
                             </div>
                             <div *ngIf="workStartedAppointments.staff != null" class="" fxFlex="25">
-                              <p class="mb-0">Raj Kumar</p>
-                              <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
-                              <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
+                              <p class="mb-0">{{workStartedAppointments.staff.firstname}} {{workStartedAppointments.staff.lastname}}</p>
+                              <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{workStartedAppointments.staff.phone}}</p>
+                              <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.staff.email}}</p>
                             </div>
                             <div *ngIf="workStartedAppointments.staff == null" class="" fxFlex="25">
                               <p class="mb-0">Not Assigned</p>
