@@ -36,11 +36,11 @@ export class StaffAppointmentComponent implements OnInit {
   status: any;
   newAppointmentData: any;
   completedAppointmentData: any;
-  onGoingAppointmentData: any=[];
+  onGoingAppointmentData: any;
   notes: any;
   settingsArr:any=[];
-  cancellationBufferTime= new Date();
-  minReschedulingTime= new Date();
+  cancellationBufferTime: any;
+  minReschedulingTime: any;
   currencySymbol:any;
   currencySymbolPosition:any;
   currencySymbolFormat:any;
@@ -172,7 +172,7 @@ export class StaffAppointmentComponent implements OnInit {
         });
       }
       else if(response.data == false) {
-        this.onGoingAppointmentData = [];
+        this.onGoingAppointmentData = '';
       }
     })
   }
@@ -1445,8 +1445,7 @@ export class StaffAppointmentComponent implements OnInit {
 
       statuses: status[] = [
         {value: 'OW', viewValue: 'On The Way',statuses:''},
-        {value: 'WS', viewValue: 'Work Started',statuses:''},
-        {value: 'ITR', viewValue: 'Interrupted',statuses:''}
+        {value: 'WS', viewValue: 'Work Started',statuses:''}
       ];
 
     onNoClick(): void {
