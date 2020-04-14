@@ -233,7 +233,7 @@ export class DialogCouponDetails {
   isLoaderAdmin:any;
   couponCodeStatus:any;
   couponId:any;
-  servicesList:any;
+  couponCodeDetail:any;
 constructor(
   public dialogRef: MatDialogRef<DialogCouponDetails>,
   private AdminService: AdminService,
@@ -254,7 +254,7 @@ getServiceListForCoupon(){
   this.isLoaderAdmin = true;
   this.AdminService.getServiceListForCoupon(this.couponId).subscribe((response:any) => {
     if(response.data == true){
-        this.servicesList = JSON.stringify(response.response.services);
+        this.couponCodeDetail = response.response
       this.isLoaderAdmin = false;
     }
     else if(response.data == false){
