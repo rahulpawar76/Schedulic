@@ -187,6 +187,7 @@ export class StaffService {
       'order_item_id': order_item_id,
       'order_status': status,
       'notes' : notes,
+      'staff_id' : this.staffId
     };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
