@@ -36,11 +36,11 @@ export class StaffAppointmentComponent implements OnInit {
   status: any;
   newAppointmentData: any;
   completedAppointmentData: any;
-  onGoingAppointmentData: any;
+  onGoingAppointmentData: any=[];
   notes: any;
   settingsArr:any=[];
-  cancellationBufferTime: any;
-  minReschedulingTime: any;
+  cancellationBufferTime= new Date();
+  minReschedulingTime= new Date();
   currencySymbol:any;
   currencySymbolPosition:any;
   currencySymbolFormat:any;
@@ -172,7 +172,7 @@ export class StaffAppointmentComponent implements OnInit {
         });
       }
       else if(response.data == false) {
-        this.onGoingAppointmentData = '';
+        this.onGoingAppointmentData = [];
       }
     })
   }
