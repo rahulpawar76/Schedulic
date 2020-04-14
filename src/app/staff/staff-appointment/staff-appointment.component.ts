@@ -39,16 +39,15 @@ export class StaffAppointmentComponent implements OnInit {
   onGoingAppointmentData: any;
   notes: any;
   settingsArr:any=[];
-  cancellationBufferTime: any;
-  minReschedulingTime: any;
+ cancellationBufferTime= new Date();
+  minReschedulingTime= new Date();
   currencySymbol:any;
   currencySymbolPosition:any;
   currencySymbolFormat:any;
 
   statuses: status[] = [
     {value: 'OW', viewValue: 'On The Way',statuses:''},
-    {value: 'WS', viewValue: 'Work Started',statuses:''},
-    {value: 'ITR', viewValue: 'Interrupted',statuses:''}
+    {value: 'WS', viewValue: 'Work Started',statuses:''}
   ];
   
 
@@ -284,15 +283,24 @@ export class StaffAppointmentComponent implements OnInit {
   }
 
   rescheduleAppointment(index){
-    const dialogRef = this.dialog.open(InterruptedReschedule, {
-      height: '700px',
-      data : {fulldata: this.onGoingAppointmentData[index]}
-    });
-      console.log(this.onGoingAppointmentData[index]);
-    dialogRef.afterClosed().subscribe(result => {
+     const dialogRef = this.dialog.open(DialogInterrupted, {
+        width: '500px',
+        data : {fulldata: this.onGoingAppointmentData[index]}
+      });
+
+        dialogRef.afterClosed().subscribe(result => {
+        this.status = result;
+        this.getOnGoingAppointment();
+        });
+    // const dialogRef = this.dialog.open(InterruptedReschedule, {
+    //   height: '700px',
+    //   data : {fulldata: this.onGoingAppointmentData[index]}
+    // });
+    //   console.log(this.onGoingAppointmentData[index]);
+    // dialogRef.afterClosed().subscribe(result => {
     
-    this.getOnGoingAppointment();
-    });
+    // this.getOnGoingAppointment();
+    // });
 
   }
   
@@ -1137,42 +1145,52 @@ export class StaffAppointmentComponent implements OnInit {
   export class DialogInterrupted {
      animal: any;
     
-     status: any;
-     booking_id: any;
+     bookingData: any;
      notes: any;
     constructor(
       public dialogRef: MatDialogRef<DialogInterrupted>,
       private StaffService: StaffService,
       private _snackBar: MatSnackBar,
+    public dialog: MatDialog,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         
-        this.status = this.data.status;
-        this.booking_id = this.data.booking_id 
+        this.bookingData = this.data.fulldata;
       }
 
     onNoClick(): void {
       this.dialogRef.close();
     }
     
-    changeBookingStatus(order_item_id, status){
-      this.StaffService.changeStatus(order_item_id, status, this.notes).subscribe((response:any) =>{
-        if(response.data == true){
-          this._snackBar.open("Appointment Updated", "X", {
-            duration: 2000,
-            verticalPosition:'top',
-            panelClass :['green-snackbar']
-          });
-          this.dialogRef.close();
-        }
-        else if(response.data == false) {
-          this._snackBar.open("Appointment Not Updated", "X", {
-            duration: 2000,
-            verticalPosition:'top',
-            panelClass :['red-snackbar']
-          }); 
-          this.dialogRef.close();
-        }
-      })
+    changeBookingStatus(order_item_id,){
+    const dialogRef = this.dialog.open(InterruptedReschedule, {
+          width: '500px',
+          data : {fulldata: this.bookingData}
+        });
+          console.log(this.bookingData);
+        dialogRef.afterClosed().subscribe(result => {
+        
+        
+        });
+
+
+      // this.StaffService.changeStatus(order_item_id, status, this.notes).subscribe((response:any) =>{
+      //   if(response.data == true){
+      //     this._snackBar.open("Appointment Updated", "X", {
+      //       duration: 2000,
+      //       verticalPosition:'top',
+      //       panelClass :['green-snackbar']
+      //     });
+      //     this.dialogRef.close();
+      //   }
+      //   else if(response.data == false) {
+      //     this._snackBar.open("Appointment Not Updated", "X", {
+      //       duration: 2000,
+      //       verticalPosition:'top',
+      //       panelClass :['red-snackbar']
+      //     }); 
+      //     this.dialogRef.close();
+      //   }
+      // })
     }
 
   }
@@ -1446,6 +1464,7 @@ export class StaffAppointmentComponent implements OnInit {
       statuses: status[] = [
         {value: 'OW', viewValue: 'On The Way',statuses:''},
         {value: 'WS', viewValue: 'Work Started',statuses:''}
+       
       ];
 
     onNoClick(): void {
