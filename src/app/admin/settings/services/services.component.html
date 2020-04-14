@@ -228,7 +228,7 @@
                                     <button *ngIf="selectedCategoryDetails.private_status == 'N'" mat-button class="public-button">Public</button>
                                     <button *ngIf="selectedCategoryDetails.private_status == 'Y'" mat-button class="public-button">Private</button>  
                                 </div> 
-                                    <button class="salon-cancel-btn mr-2"><i class="fa fa-eye salon-icon" ></i></button>  
+                                    <!-- <button class="salon-cancel-btn mr-2"><i class="fa fa-eye salon-icon" ></i></button>   -->
                                     <button (click)="editCategory(selectedCategoryDetails.id)" class="salon-edit-btn mr-2"><i class="fa fa-pencil salon-icon"></i></button>
                                     <button class="salon-cancel-btn mr-3" (click)="deleteCategory(selectedCategoryDetails.id)"><i class="fa fa-trash-o salon-icon" ></i></button>
                                     <mat-slide-toggle (change)="changeCategoryStatus($event.checked,selectedCategoryDetails.id)" [checked]="selectedCategoryDetails.status == 'E'"></mat-slide-toggle>      
@@ -337,7 +337,7 @@
                                     <button *ngIf="selectedSubCategoryDetails.sub_category_private == 'N'" mat-button class="public-button">Public</button>
                                     <button *ngIf="selectedSubCategoryDetails.sub_category_private == 'Y'" mat-button class="public-button">Private</button>  
                                 </div> 
-                                    <button class="salon-cancel-btn mr-2"><i class="fa fa-eye salon-icon" ></i></button>  
+                                    <!-- <button class="salon-cancel-btn mr-2"><i class="fa fa-eye salon-icon" ></i></button>   -->
                                     <button (click)="editSubCategory(selectedSubCategoryDetails.id)" class="salon-edit-btn mr-2"><i class="fa fa-pencil salon-icon"></i></button>
                                     <button class="salon-cancel-btn mr-3" (click)="deleteSubCategory(selectedSubCategoryDetails.id)"><i class="fa fa-trash-o salon-icon" ></i></button>
                                     <mat-slide-toggle (change)="changeSubCategoryStatus($event.checked,selectedSubCategoryDetails.id)" [checked]="selectedSubCategoryDetails.sub_category_status == 'E'"></mat-slide-toggle>      
@@ -416,7 +416,7 @@
                      A valuable deed, action,or effort performed to fulfill a demand or tosatisfy a need of the customer.
                      </div>
                      <div class="pt-2">
-                         <button (click)="fnCreateNewServicePage(selectedCategoryDetails.id,'subcategory')" mat-button class="addsubcategory-btn">Add Services</button>
+                         <button (click)="fnCreateNewServicePage(selectedSubCategoryDetails.id,'subcategory')" mat-button class="addsubcategory-btn">Add Services</button>
                      </div>
                  </mat-card> 
             </div> 
@@ -430,7 +430,7 @@
                             <h3 class="text-left" *ngIf="!editServiceId">Add New Sevice</h3>
                             <h3 class="text-left" *ngIf="editServiceId">Edit Sevice</h3>
                         </div>  
-                        <div class="col-lg-6" *ngIf="editServiceId">
+                        <div class="col-lg-6" *ngIf="!editServiceId">
                             <button class="service-dlt-btn" (click)="fnDeleteService()" mat-raised-button color="warn"><i class="fa fa-trash-o delete-box" ></i> Delete</button>
                         </div>   
                     </div>     
@@ -544,7 +544,7 @@
                     <div class="row"> 
                         <div class="service-action-btn">
                             <div class="mx-2">
-                                <button mat-button appearance="fill" class="service-cancel-btn">Cancel</button>
+                                <button mat-button appearance="fill" (click)="fnCancelAddService()" class="service-cancel-btn">Cancel</button>
                             </div>
                             <div *ngIf="!editServiceId" class="mx-2">
                                 <button mat-button type="submit" appearance="fill" class="service-create-btn" (click)="fnCreateServiceSubmit()">Create</button>

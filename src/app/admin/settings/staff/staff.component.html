@@ -154,7 +154,7 @@
     </mat-card>
     <mat-card class="">
       <div class="d-flex py-2">
-        <button mat-button class="staff-cancel-btn">Cancel</button>
+        <button mat-button class="staff-cancel-btn" (click)="fnCancelStaff()">Cancel</button>
         <button mat-button *ngIf="!editStaffId" (click)="fnSubmitCreateStaff()"
           class="staff-save-btn ml-2 text-white">Save</button>
         <button mat-button *ngIf="editStaffId" (click)="fnSubmitCreateStaff()"
@@ -333,6 +333,9 @@
         </div>
       </div>
       <div class="staff-btn">
+       <div class="mx-2">                                
+              <button (click)="fnBackStaff()" mat-button appearance="fill" class="staff-back-btn text-center pl-0">Back</button>
+          </div>
           <div class="mx-2">                                
               <button (click)="fnEditStaff(singleStaffDetail.staff[0].id)" mat-button appearance="fill" class="staff-edit-btn text-center pl-0"><mat-icon class="">edit</mat-icon>Edit</button>
           </div>
@@ -1115,15 +1118,18 @@
                         <label for="1-star_{{customerReviews.id}}" class="star">&#9733;</label>
                       </div>   
                     </div>
-                  <div class="py-2 ml-auto">
-                      <button mat-button appearance="fill" class="view-btn" 
-                      (click)="viewStaffReviewDetail(i,customerReviews.order_id)"><mat-icon aria-hidden="false">visibility</mat-icon>View</button>
-                  </div>
+                
               </div>
               <div>
                   <h6>{{customerReviews.rating_title}}</h6>
                   <p>{{customerReviews.review}}</p>
               </div>
+              
+                <div>
+                      <button mat-button appearance="fill" class="view-btn" 
+                      (click)="viewStaffReviewDetail(i,customerReviews.order_id)"><mat-icon aria-hidden="false">visibility</mat-icon>View</button>
+                  </div>
+                  <hr>
           </div>
         </div>
         <div class="w-100" *ngIf="singleStaffDetail.staff[0].review == ''">

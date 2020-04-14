@@ -97,7 +97,7 @@
         
         <div class="row">
           <div class="col-6">
-            <label class="mb-0">Category</label>
+            <label class="mb-1">Category</label>
             <mat-select [(value)]="selectedCatId" (selectionChange)="fnSelectCat($event.value)" class="form-control formcontrol" formControlName="customerCategory" [disabled]="disableCategory">
               <mat-option *ngFor="let cat of catdata" value="{{cat.id}}">{{cat.category_title}}</mat-option>
             </mat-select>
@@ -107,7 +107,7 @@
           </div>
 
           <div class="col-6 mb-3">
-            <label class="mb-0">Sub Category</label>
+            <label class="mb-1">Sub Category</label>
             <mat-select class="form-control formcontrol" [(value)]="selectedSubCatId" (selectionChange)="fnSelectSubCat($event.value)" formControlName="customerSubCategory"  [disabled]="disableSubCategory">
               <mat-option *ngFor="let subcat of subcatdata" value="{{subcat.id}}">{{subcat.sub_category_name}}</mat-option>
             </mat-select>
@@ -117,7 +117,7 @@
           </div>
 
           <div class="col-12 mb-3">
-            <label class="mb-0">Service</label>
+            <label class="mb-1">Service</label>
             <mat-select class="form-control formcontrol" [(value)]="selectedServiceId" (selectionChange)="fnSelectService($event.value)" formControlName="customerService"  [disabled]="disableService">
                <mat-option *ngFor="let service of serviceData" value="{{service.id}}">{{service.service_name}}</mat-option>
             </mat-select>
@@ -127,7 +127,7 @@
           </div>
         </div>
         
-        <label class="mb-0">Select Date</label>
+        <label class="mb-1">Select Date</label>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <div class="input-group-text"><i class="fa fa-calendar"></i>
@@ -140,7 +140,7 @@
           </span>
         </div>
 
-        <label class="mb-0">Select Time</label>
+        <label class="mb-1">Select Time</label>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <div class="input-group-text"><i class="fa fa-clock-o"></i>
@@ -154,7 +154,7 @@
           </span>
         </div>      
 
-        <label class="mb-0">Select Staff</label>
+        <label class="mb-1">Select Staff</label>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <div class="input-group-text"><i class="fa fa-user-o"></i>

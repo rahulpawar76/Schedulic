@@ -177,6 +177,7 @@ export class ServicesComponent implements OnInit {
     }
     cancelNewCategory() {
         this.createNewCategoryPage = false;
+         this.servicesList = true;
     }
 
     fnAllServices() {
@@ -530,7 +531,7 @@ export class ServicesComponent implements OnInit {
                 this.isLoaderAdmin = false;
             }
             else if (response.data == false) {
-                this._snackBar.open("Category Not Created", "X", {
+                this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
                     panelClass: ['red-snackbar']
@@ -714,6 +715,18 @@ export class ServicesComponent implements OnInit {
         this.createNewCategoryPage = false;
         this.singleSubCategoryPage = '';
     }
+
+    fnCalcelNewSubcategory(){
+
+    this.servicesList = true;
+    this.createNewServicePage = false;
+    this.createNewSubCategoryPage = false;  
+    }
+    fnCancelAddService(){
+        this.servicesList = true;
+        this.createNewServicePage = false;
+        this.createNewSubCategoryPage = false;
+    }
     fnNewServiceStatus(event) {
         if (event == true) {
             this.newServiceStatus = 'E';
@@ -821,7 +834,7 @@ export class ServicesComponent implements OnInit {
                 this.isLoaderAdmin = false;
             }
             else if (response.data == false) {
-                this._snackBar.open("Service Not Created", "X", {
+                this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
                     panelClass: ['red-snackbar']

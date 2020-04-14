@@ -773,7 +773,21 @@ export class StaffComponent implements OnInit {
     this.isLoaderAdmin = false;
   }
 
+ fnBackStaff(){
+   this.addStaffPage = false;
+  this.staffListPage = true;
+    this.singleStaffView = false;
 
+ }
+
+ fnCancelStaff(){
+
+    this.addStaffPage = false;
+    this.staffListPage = false;
+    this.singleStaffView = true;
+    
+   
+ }
 
 
 
@@ -1678,7 +1692,7 @@ export class StaffComponent implements OnInit {
         });
 
          const dialogRef = this.dialog.open(DialogStaffViewReview, {
-          width: '500px',
+          height: '700px',
           data :{fulldata : this.singleStaffDetail.staff[0].review[index], orderData : this.reviewOrderData}
         });
 

@@ -28,6 +28,12 @@
         background-color: #c3ddff;
         color: $primary-color;
     }
+     .bussiness-save-btn {
+    width: 137px;
+    height: 37px;
+    border-radius: 7px;
+    background-color: #1173f4;
+  }
 
     
   .working-hour-box {
@@ -239,4 +245,11 @@ width: 40%;
 
     font-size: 20px;
     color: red;
+}
+.save-btn{
+    width: 120px;
+    height: 37px;
+    border-radius: 26px;
+    background-color: #a8ceff;
+    color: #1173f4;
 }
