@@ -15,11 +15,10 @@
       <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
         <form>              
           <mat-form-field class="bottom-border-field">
-            <mat-label>Accepted</mat-label>
+                      <mat-label>Change Status</mat-label>
               <mat-select  name="status" [(value)]="appoDetail.order_status" (selectionChange)="someMethod(appoDetail.id, $event.value)">
-              <mat-option *ngFor="let status of statuses" [value]="status.value">
-                {{status.viewValue}}
-              </mat-option>
+               <mat-option *ngIf="timeToServiceDecimal < 60" value="OW">On The Way</mat-option>
+                        <mat-option *ngIf="timeToServiceDecimal < 30" value="WS">Work Started</mat-option>
             </mat-select>
           </mat-form-field>               
         </form>

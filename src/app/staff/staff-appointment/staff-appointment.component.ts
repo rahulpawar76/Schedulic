@@ -39,7 +39,7 @@ export class StaffAppointmentComponent implements OnInit {
   onGoingAppointmentData: any;
   notes: any;
   settingsArr:any=[];
- cancellationBufferTime= new Date();
+  cancellationBufferTime= new Date();
   minReschedulingTime= new Date();
   currencySymbol:any;
   currencySymbolPosition:any;
@@ -160,11 +160,15 @@ export class StaffAppointmentComponent implements OnInit {
         this.onGoingAppointmentData.forEach( (element) => {
           var todayDateTime = new Date();
           element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
-          var dateTemp = new Date(this.datePipe.transform(element.booking_timeForLabel,"dd MMM yyyy hh:mm a"));
+          var dateTemp = new Date(this.datePipe.transform(element.booking_date_time,"dd MMM yyyy hh:mm a"));
+          var dateTemp2 = new Date(this.datePipe.transform(element.booking_date_time,"dd MMM yyyy hh:mm a"));
           dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
           var temp = dateTemp.getTime() - todayDateTime.getTime();
           element.timeToService=(temp/3600000).toFixed();
-          element.booking_timeForLabel=this.datePipe.transform(element.booking_timeForLabel,"hh:mm a")
+           dateTemp2.setMinutes( dateTemp2.getMinutes());
+          var serviceTimeTamp =  dateTemp2.getTime() - todayDateTime.getTime();
+          element.timeToServiceDecimal=(serviceTimeTamp/60000).toFixed();
+          element.booking_timeForLabel=this.datePipe.transform(element.booking_date_time,"hh:mm a")
           element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
           element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
           element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
@@ -1436,6 +1440,7 @@ export class StaffAppointmentComponent implements OnInit {
    @Component({
       selector: 'ongoing-appointmet-details',
       templateUrl: '../_dialogs/ongoing-appointmet-details.html',
+  providers: [DatePipe]
   })
   export class OnGoingAppointmentDetails {
     
@@ -1448,10 +1453,13 @@ export class StaffAppointmentComponent implements OnInit {
   currencySymbol:any;
   currencySymbolPosition:any;
   currencySymbolFormat:any;
+  booking_date_time:any;
+  timeToServiceDecimal:any;
     constructor(
       public dialogRef: MatDialogRef<OnGoingAppointmentDetails>,
       public dialog: MatDialog,
       public authenticationService: AuthenticationService,
+      private datePipe: DatePipe,
       private StaffService: StaffService,
       @Inject(MAT_DIALOG_DATA) public data: any) {
 
@@ -1459,6 +1467,15 @@ export class StaffAppointmentComponent implements OnInit {
         console.log(this.appoDetail);
         this.bussinessId=this.authenticationService.currentUserValue.business_id
         this.fnGetSettingValue();
+         var todayDateTime = new Date();
+           this.booking_date_time=new Date( this.appoDetail.booking_date+" "+ this.appoDetail.booking_time);
+          var dateTemp2 = new Date(this.datePipe.transform(this.booking_date_time,"dd MMM yyyy hh:mm a"));
+           dateTemp2.setMinutes( dateTemp2.getMinutes());
+          var serviceTimeTamp =  dateTemp2.getTime() - todayDateTime.getTime();
+          this.timeToServiceDecimal=(serviceTimeTamp/60000).toFixed();
+
+
+
       }
 
       statuses: status[] = [
