@@ -22,7 +22,11 @@ export class AlertsettingsComponent implements OnInit {
   Days:any;
   Hours:any;
   Minutes:any;
-
+  adminSettings : boolean = true;
+  appointmentsReminder : boolean = false;
+  appointmentsReminderStaff :boolean = false;
+  appointmentsReminderAdmin :boolean = false;
+  AppointmentsReminderSMS : boolean = false;
   constructor(
     private appComponent : AppComponent,
     public adminSettingsService : AdminSettingsService,
@@ -73,6 +77,48 @@ export class AlertsettingsComponent implements OnInit {
       }
     })
   }
+fnAppointmentsReminder(event){
+    if(event == true){
+      this.appointmentsReminder = true;
+    }else if(event == false){
+      this.appointmentsReminder = false;
+    }
+}
+
+fnAppointmentsReminderStaff(event){
+    if(event == true){
+
+      this.appointmentsReminderStaff = true;
+      
+    }else if(event == false){
+
+      this.appointmentsReminderStaff = false;
+    }
+}
+fnAppointmentsReminderAdmin(event){
+    if(event == true){
+
+      this.appointmentsReminderAdmin = true;
+      
+    }else if(event == false){
+
+      this.appointmentsReminderAdmin = false;
+    }
+
+}
+
+fnAppointmentsReminderSMS(event){
+
+    if(event == true){
+
+      this.AppointmentsReminderSMS = true;
+      
+    }else if(event == false){
+
+      this.AppointmentsReminderSMS = false;
+    }
+
+}
 
   fnCusEmailAppoint(event, value){
     if(event == true){

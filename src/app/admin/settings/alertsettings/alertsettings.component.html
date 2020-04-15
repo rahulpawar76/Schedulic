@@ -11,9 +11,10 @@
                             <p class="">Remind customers about upcoming appointments?</p>
                         </div>
                         <div class="ml-auto mx-3">
-                            <mat-slide-toggle></mat-slide-toggle>
+                            <mat-slide-toggle [checked]="appointmentsReminder" (change)="fnAppointmentsReminder($event.checked)"></mat-slide-toggle>
                         </div>
                     </div>
+                <div *ngIf="appointmentsReminder">
                     <div>
                         <h5>Send an Email</h5>
                     </div>
@@ -214,6 +215,7 @@
                                 </div> 
                             </div> 
                         </div>
+                    </div>
                 </mat-card>
                 <h5 class="m-4">Alert sent to Staff</h5>
                 <mat-card class="matcard-space">
@@ -223,9 +225,10 @@
                             <p class="">Remind customers about upcoming appointments?</p>
                         </div>
                         <div class="ml-auto mx-3">
-                            <mat-slide-toggle></mat-slide-toggle>
+                            <mat-slide-toggle [checked]="appointmentsReminderStaff" (change)="fnAppointmentsReminderStaff($event.checked)"></mat-slide-toggle>
                         </div>
                     </div>
+                    <div *ngIf="appointmentsReminderStaff">
                     <div>
                         <h5>Send an Email</h5>
                     </div>
@@ -323,6 +326,7 @@
                                 </div> 
                             </div> 
                         </div>
+                    </div>
                 </mat-card>
                 <h5 class="m-4">Alert sent to Admin</h5>
                 <mat-card class="matcard-space">
@@ -332,9 +336,10 @@
                             <p class="">Remind customers about upcoming appointments?</p>
                         </div>
                         <div class="ml-auto mx-3">
-                            <mat-slide-toggle></mat-slide-toggle>
+                            <mat-slide-toggle [checked]="appointmentsReminderAdmin" (change)="fnAppointmentsReminderAdmin($event.checked)"></mat-slide-toggle>
                         </div>
                     </div>
+                <div *ngIf="appointmentsReminderAdmin">
                     <div>
                         <h5>Add Email Id</h5>
                         <p class="mb-0">Lorem ipsum is dummy text used for Typesetting</p>
@@ -442,6 +447,7 @@
                                 </div> 
                             </div> 
                         </div>
+                    </div>
                 </mat-card>
                 <h5 class="m-4">Customize Your Alerts</h5>
                 <mat-card class="matcard-space">
@@ -773,9 +779,10 @@
                             <h5>Appointments SMS Reminders</h5>
                         </div>
                         <div class="ml-auto mx-3">
-                            <mat-slide-toggle></mat-slide-toggle>
+                            <mat-slide-toggle [checked]="appointmentsReminderSMS" (change)="fnAppointmentsReminderSMS($event.checked)" ></mat-slide-toggle>
                         </div>
                     </div>
+                    <div *ngIf="AppointmentsReminderSMS">
                     <div class="top-bottom-space">
                         <h5>When to send</h5>
                     </div>
@@ -900,6 +907,7 @@
                                 </div> 
                             </div> 
                         </div>
+                    </div>
                 </mat-card>
                 <h5 class="m-4">Select SMS Gateway</h5>
                 <mat-accordion class="matcard-space">
