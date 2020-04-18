@@ -161,6 +161,10 @@
     line-height: 1.4;
   }
   .staff-mail-icon {
+    color:#1173f4;
+  }
+  .staff-call-icon {
+    color:#1173f4;
   }
   .staff-btn {
     margin-left: auto;
@@ -313,6 +317,14 @@
     border-radius: 26px;
     background-color: #a8ceff;
     color: #1173f4;
+  }
+  .staff-Hours-btn {
+    width: 120px;
+    height: 32px;
+    border-radius: 26px;
+    background-color: #a8ceff;
+    color: #1173f4;
+    margin:5px;
   }
   .staff-addbreak-btn {
     width: 105px;
@@ -496,7 +508,7 @@
   width:50px;
 }
 .select-service{
-  max-width: 400px;
+  //max-width: 400px;
   margin-left: auto;
   .select-service-accordian{
       ::ng-deep .mat-expansion-panel-header{
@@ -506,7 +518,20 @@
       .service-title{
 
       }
+     
   }
+   .staff-delete-btn {
+    border-radius: 26px;
+    background-color: #fe0000;
+    color: white;
+    right: 50px;
+    z-index: 4;
+    position: absolute;
+    height: 35px;
+    width: 135px;
+    height: 37px;
+
+      }
 }
 
 ::ng-deep .tp-container {

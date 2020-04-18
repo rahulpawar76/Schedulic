@@ -23,7 +23,11 @@
                             <mat-icon class="mr-4" matPrefix>person</mat-icon>
                             <input formControlName="first_name" matInput placeholder="First Name">  
                         </mat-form-field>   
-                        <span class="error-wrap d-flex" *ngIf="settingMyProfile.get('first_name').dirty || settingMyProfile.get('first_name').touched"><small *ngIf="settingMyProfile.get('first_name').hasError('required')" class="error">First Name Is required</small></span>   
+                        <span class="error-wrap d-flex" *ngIf="settingMyProfile.get('first_name').dirty || settingMyProfile.get('first_name').touched">
+                        <small *ngIf="settingMyProfile.get('first_name').hasError('required')" class="error">First Name Is required</small>
+                        <small *ngIf="settingMyProfile.get('first_name').hasError('maxlength')" class="error">Name must be at least 11 character.</small>
+                        
+                        </span>   
                     </div>
 
                     <div class="mt-2 text-center">
@@ -31,7 +35,11 @@
                             <mat-icon class="mr-4" matPrefix>person</mat-icon>
                             <input formControlName="last_name" matInput placeholder="Last Name">    
                         </mat-form-field>   
-                        <span class="error-wrap d-flex" *ngIf="settingMyProfile.get('last_name').dirty || settingMyProfile.get('last_name').touched"><small *ngIf="settingMyProfile.get('last_name').hasError('required')" class="error">Last Name Is required</small></span>  
+                        <span class="error-wrap d-flex" *ngIf="settingMyProfile.get('last_name').dirty || settingMyProfile.get('last_name').touched">
+                        <small *ngIf="settingMyProfile.get('last_name').hasError('required')" class="error">Last Name Is required</small>
+                        <small *ngIf="settingMyProfile.get('last_name').hasError('maxlength')" class="error">Name must be at least 11 character.</small>
+                        
+                        </span>  
                     </div>
 
                     <div class="mt-2 text-center">

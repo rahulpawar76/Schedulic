@@ -173,9 +173,9 @@ export class StaffComponent implements OnInit {
     this.getAllStaff();
 
     this.StaffCreate = this._formBuilder.group({
-      firstname : ['', Validators.required],
-      lastname : ['', Validators.required],
-      address : ['', Validators.required],
+      firstname : ['',[ Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
+      lastname : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
+      address : ['', [Validators.required,Validators.minLength(3)]],
       email : ['', [Validators.required,Validators.pattern(this.emailFormat)]],
       phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
       description : [''],

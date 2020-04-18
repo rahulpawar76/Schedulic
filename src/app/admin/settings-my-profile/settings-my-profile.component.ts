@@ -41,8 +41,8 @@ export class MyProfileComponent implements OnInit {
   ngOnInit() {
     this.getMyProfileDetails();
     this.settingMyProfile = this._formBuilder.group({
-      first_name : ['', Validators.required],
-      last_name : ['', [Validators.required]],
+      first_name : ['', [Validators.required,Validators.maxLength(11)]],
+      last_name : ['', [Validators.required,Validators.maxLength(11)]],
       email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
       mobile : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
     });

@@ -28,6 +28,10 @@ export class PostalcodesComponent implements OnInit {
   }
 
   ngOnInit() {}
+  
+  onNoClick(): void {
+  this.dialogRef.close();
+}
 
   addPostalCode(){
 

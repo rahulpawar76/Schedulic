@@ -37,7 +37,7 @@
                     <form class="serch_input-appoint">							
                         <div class="form-group has-search">
                             <span class="fa fa-search form-control-feedback verticalLine"></span>
-                            <input type="text" class="form-control searchbox_appointment " placeholder="Name, Area, Tag">
+                            <input type="text" class="form-control searchbox_appointment " placeholder="Search Customer">
                         </div>												
                     </form>
                   </div> 
@@ -139,14 +139,21 @@
                                     <mat-label>State</mat-label>                   
                                     <input matInput formControlName="cus_state" placeholder="">  
                                 </mat-form-field>
-                                <span class="error-wrap" *ngIf="createNewCustomer.get('cus_state').dirty || createNewCustomer.get('cus_state').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_state').hasError('required')" class="error">State Is required</small></span>
+                                <span class="error-wrap" *ngIf="createNewCustomer.get('cus_state').dirty || createNewCustomer.get('cus_state').touched || formSubmitclicked">
+                                <small *ngIf="createNewCustomer.get('cus_state').hasError('required')" class="error">State Is required</small>
+                                <small *ngIf="createNewCustomer.get('cus_state').hasError('minlength') " class="error">State must be at least 2 character.</small>
+                                
+                                </span>
                             </div>     
                             <div class="col-lg-4 col-12 col-md-4 bottom-border-field"> 
                                 <mat-form-field>
                                     <mat-label>City</mat-label>                    
                                     <input matInput formControlName="cus_city" placeholder="">  
                                 </mat-form-field>
-                                <span class="error-wrap" *ngIf="createNewCustomer.get('cus_city').dirty || createNewCustomer.get('cus_city').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_city').hasError('required')" class="error">City Is required</small></span>
+                                <span class="error-wrap" *ngIf="createNewCustomer.get('cus_city').dirty || createNewCustomer.get('cus_city').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_city').hasError('required')" class="error">City Is required</small>
+                                <small *ngIf="createNewCustomer.get('cus_city').hasError('minlength') " class="error">City must be at least 2 character.</small>
+                                
+                                </span>
                             </div>     
                             <div class="col-lg-4 col-12 col-md-4 bottom-border-field"> 
                                 <mat-form-field >

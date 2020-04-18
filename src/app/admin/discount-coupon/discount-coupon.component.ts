@@ -67,9 +67,9 @@ export class DiscountCouponComponent implements OnInit {
     this.getAllCouponCode(this.couponListFilter);
 
     this.discountCoupon = this._formBuilder.group({
-      coupan_name : ['', Validators.required],
-      max_redemption : ['', [Validators.required,Validators.pattern(this.onlynumeric)]],
-      coupon_code : ['', Validators.required],
+      coupan_name : ['', [Validators.required,Validators.maxLength(8)]],
+      max_redemption : ['', [Validators.required,Validators.maxLength(2),Validators.pattern(this.onlynumeric)]],
+      coupon_code : ['', [Validators.required,Validators.maxLength(8)]],
       valid_from : ['', Validators.required],
       discount_type : ['', Validators.required],
       valid_till : ['', Validators.required],
@@ -234,6 +234,7 @@ export class DialogCouponDetails {
   couponCodeStatus:any;
   couponId:any;
   couponCodeDetail:any;
+  
 constructor(
   public dialogRef: MatDialogRef<DialogCouponDetails>,
   private AdminService: AdminService,
