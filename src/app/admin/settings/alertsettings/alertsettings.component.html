@@ -14,35 +14,35 @@
                             <mat-slide-toggle [checked]="appointmentsReminder" (change)="fnAppointmentsReminder($event.checked)"></mat-slide-toggle>
                         </div>
                     </div>
-                <div *ngIf="appointmentsReminder">
-                    <div>
-                        <h5>Send an Email</h5>
-                    </div>
-                    <div>
-                        <p class="pt-2">Appointments</p>
-                    </div>
-                   <div class="d-flex my-3">
-                      <div  class="custom-check-box">
-                          <div class="checked round">
-                            <mat-checkbox [checked]="emailCustomerAppointment['booked'].status == '1'" (change)="fnCusEmailAppoint($event.checked, 'booked')" class="form_field_checkbox" ></mat-checkbox>
-                            <p class="check-label">Booked</p>
-                          </div>
-                        </div>  
-                        
-                        <div  class="custom-check-box">
-                            <div class="checked round status-update-main">
-                              <mat-checkbox [checked]="emailCustomerAppointment['status_updated'].status == '1'" (change)="fnCusEmailAppoint($event.checked, 'status_updated')" class="form_field_checkbox" ></mat-checkbox>
-                              <p class="check-label">Status Updated</p>
+                    <div *ngIf="appointmentsReminder">
+                        <div>
+                            <h5>Send an Email</h5>
+                        </div>
+                        <div>
+                            <p class="pt-2">Appointments</p>
+                        </div>
+                        <div class="d-flex my-3">
+                            <div class="custom-check-box">
+                                <div class="checked round">
+                                    <mat-checkbox [checked]="emailCustomerAppointment['booked'].status == '1'" (change)="fnCusEmailAppoint($event.checked, 'booked')" class="form_field_checkbox"></mat-checkbox>
+                                    <p class="check-label">Booked</p>
+                                </div>
                             </div>
-                          </div> 
-                          <div  class="custom-check-box">
-                            <div class="checked round cancel-check-btn">
-                              <mat-checkbox [checked]="emailCustomerAppointment['cancelled'].status == '1'" (change)="fnCusEmailAppoint($event.checked, 'cancelled')" class="form_field_checkbox"></mat-checkbox>
-                              <p class="check-label">Cancelled</p>
+
+                            <div class="custom-check-box">
+                                <div class="checked round status-update-main">
+                                    <mat-checkbox [checked]="emailCustomerAppointment['status_updated'].status == '1'" (change)="fnCusEmailAppoint($event.checked, 'status_updated')" class="form_field_checkbox"></mat-checkbox>
+                                    <p class="check-label">Status Updated</p>
+                                </div>
                             </div>
-                          </div>   
-                   </div>
-                    <!-- <div class="d-flex my-3">
+                            <div class="custom-check-box">
+                                <div class="checked round cancel-check-btn">
+                                    <mat-checkbox [checked]="emailCustomerAppointment['cancelled'].status == '1'" (change)="fnCusEmailAppoint($event.checked, 'cancelled')" class="form_field_checkbox"></mat-checkbox>
+                                    <p class="check-label">Cancelled</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="d-flex my-3">
                         <div class="alert-booked-chechkbox mr-3">
                             <mat-checkbox class="checkbox-circle">Booked</mat-checkbox>
                         </div>
@@ -53,11 +53,11 @@
                             <mat-checkbox>Cancelled</mat-checkbox>
                         </div>
                     </div> -->
-                    <div class="bottom-line"></div>
-                    <div>
-                        <h5>Reminder Lead Time</h5>
-                        <p>Send a reminder to customers</p>
-                    </div>
+                        <div class="bottom-line"></div>
+                        <div>
+                            <h5>Reminder Lead Time</h5>
+                            <p>Send a reminder to customers</p>
+                        </div>
                         <div class="">
                             <div class="">
                                 <div class="main-table-content main-cust-table-content">
@@ -212,13 +212,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> 
-                            </div> 
+                                </div>
+                            </div>
                         </div>
-                        
-                      <button mat-button class="save-btn my-3" (click)="fnSubmitCusEmailAlert()">Save</button>
+
+                        <button mat-button class="save-btn my-3" (click)="fnSubmitCusEmailAlert()">Save</button>
                     </div>
-                    
+
                 </mat-card>
                 <h5 class="m-4">Alert sent to Staff</h5>
                 <mat-card class="matcard-space">
@@ -232,34 +232,34 @@
                         </div>
                     </div>
                     <div *ngIf="appointmentsReminderStaff">
-                    <div>
-                        <h5>Send an Email</h5>
-                    </div>
-                    <div>
-                        <p class="pt-2">Appointments</p>
-                    </div>
-                    <div class="d-flex my-3">
-                        <div  class="custom-check-box" >
-                            <div class="checked round" >
-                              <mat-checkbox [checked]="emailStaffAppointment['booked'].status == '1'" (change)="fnStaffEmailAppoint($event.checked, 'booked')" class="form_field_checkbox" ></mat-checkbox>
-                              <p class="check-label">Booked</p>
+                        <div>
+                            <h5>Send an Email</h5>
+                        </div>
+                        <div>
+                            <p class="pt-2">Appointments</p>
+                        </div>
+                        <div class="d-flex my-3">
+                            <div class="custom-check-box">
+                                <div class="checked round">
+                                    <mat-checkbox [checked]="emailStaffAppointment['booked'].status == '1'" (change)="fnStaffEmailAppoint($event.checked, 'booked')" class="form_field_checkbox"></mat-checkbox>
+                                    <p class="check-label">Booked</p>
+                                </div>
                             </div>
-                          </div>  
-                          
-                          <div  class="custom-check-box" >
-                              <div class="checked round status-update-main" >
-                                <mat-checkbox [checked]="emailStaffAppointment['status_updated'].status == '1'" (change)="fnStaffEmailAppoint($event.checked, 'status_updated')" class="form_field_checkbox" ></mat-checkbox>
-                                <p class="check-label">Status Updated</p>
-                              </div>
-                            </div> 
-                            <div  class="custom-check-box" >
-                              <div class="checked round cancel-check-btn" >
-                                <mat-checkbox [checked]="emailStaffAppointment['cancelled'].status == '1'" (change)="fnStaffEmailAppoint($event.checked, 'cancelled')" class="form_field_checkbox" ></mat-checkbox>
-                                <p class="check-label">Cancelled</p>
-                              </div>
-                            </div>   
-                     </div>
-                    <!-- <div class="d-flex my-3">
+
+                            <div class="custom-check-box">
+                                <div class="checked round status-update-main">
+                                    <mat-checkbox [checked]="emailStaffAppointment['status_updated'].status == '1'" (change)="fnStaffEmailAppoint($event.checked, 'status_updated')" class="form_field_checkbox"></mat-checkbox>
+                                    <p class="check-label">Status Updated</p>
+                                </div>
+                            </div>
+                            <div class="custom-check-box">
+                                <div class="checked round cancel-check-btn">
+                                    <mat-checkbox [checked]="emailStaffAppointment['cancelled'].status == '1'" (change)="fnStaffEmailAppoint($event.checked, 'cancelled')" class="form_field_checkbox"></mat-checkbox>
+                                    <p class="check-label">Cancelled</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="d-flex my-3">
                         <div class="alert-booked-chechkbox mr-3">
                             <mat-checkbox class="checkbox-circle">Booked</mat-checkbox>
                         </div>
@@ -270,11 +270,11 @@
                             <mat-checkbox>Cancelled</mat-checkbox>
                         </div>
                     </div> -->
-                    <div class="bottom-line"></div>
-                    <div>
-                        <h5>Reminder Lead Time</h5>
-                        <p>Send a reminder to customers</p>
-                    </div>
+                        <div class="bottom-line"></div>
+                        <div>
+                            <h5>Reminder Lead Time</h5>
+                            <p>Send a reminder to customers</p>
+                        </div>
                         <div class="">
                             <div class="">
                                 <div class="main-table-content main-cust-table-content">
@@ -429,10 +429,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> 
-                            </div> 
+                                </div>
+                            </div>
                         </div>
-                      <button mat-button class="save-btn my-3" (click)="fnSubmitStaffEmailAlert()">Save</button>
+                        <button mat-button class="save-btn my-3" (click)="fnSubmitStaffEmailAlert()">Save</button>
                     </div>
                 </mat-card>
                 <h5 class="m-4">Alert sent to Admin</h5>
@@ -446,49 +446,49 @@
                             <mat-slide-toggle [checked]="appointmentsReminderAdmin" (change)="fnAppointmentsReminderAdmin($event.checked)"></mat-slide-toggle>
                         </div>
                     </div>
-                <div *ngIf="appointmentsReminderAdmin">
-                    <div>
-                        <h5>Add Email Id</h5>
-                        <p class="mb-0">Lorem ipsum is dummy text used for Typesetting</p>
-                        <form [formGroup]="adminEmailForAlert" class="example-form">
-                            <mat-form-field class="example-full-width bottom-border-field w-50">
-                                <mat-label>Your Mail Id</mat-label>
-                                <input formControlName="alertEmail" matInput placeholder="dummytest379@gmail.com">
-                            </mat-form-field>
-                            <span class="error-wrap" *ngIf="adminEmailForAlert.get('alertEmail').dirty || adminEmailForAlert.get('alertEmail').touched || formSubmitclicked">
+                    <div *ngIf="appointmentsReminderAdmin">
+                        <div>
+                            <h5>Add Email Id</h5>
+                            <p class="mb-0">Lorem ipsum is dummy text used for Typesetting</p>
+                            <form [formGroup]="adminEmailForAlert" class="example-form">
+                                <mat-form-field class="example-full-width bottom-border-field w-50">
+                                    <mat-label>Your Mail Id</mat-label>
+                                    <input formControlName="alertEmail" matInput placeholder="dummytest379@gmail.com">
+                                </mat-form-field>
+                                <span class="error-wrap" *ngIf="adminEmailForAlert.get('alertEmail').dirty || adminEmailForAlert.get('alertEmail').touched || formSubmitclicked">
                                 <small *ngIf="adminEmailForAlert.get('alertEmail').hasError('required')" class="error">Email Is required</small>
                                 <small *ngIf="adminEmailForAlert.get('alertEmail').hasError('email') || adminEmailForAlert.get('alertEmail').hasError('pattern')" class="error">Enter valid email</small>
                             </span>
-                        </form>
-                    </div>
-                    <div>
-                        <h5>Send an Email</h5>
-                    </div>
-                    <div>
-                        <p class="pt-2">Appointments</p>
-                    </div>
-                    <div class="d-flex my-3">
-                        <div  class="custom-check-box" >
-                            <div class="checked round" >
-                              <mat-checkbox [checked]="emailAdminAppointment['booked'].status == '1'" (change)="fnAdminEmailAppoint($event.checked, 'booked')" class="form_field_checkbox" ></mat-checkbox>
-                              <p class="check-label">Booked</p>
+                            </form>
+                        </div>
+                        <div>
+                            <h5>Send an Email</h5>
+                        </div>
+                        <div>
+                            <p class="pt-2">Appointments</p>
+                        </div>
+                        <div class="d-flex my-3">
+                            <div class="custom-check-box">
+                                <div class="checked round">
+                                    <mat-checkbox [checked]="emailAdminAppointment['booked'].status == '1'" (change)="fnAdminEmailAppoint($event.checked, 'booked')" class="form_field_checkbox"></mat-checkbox>
+                                    <p class="check-label">Booked</p>
+                                </div>
                             </div>
-                          </div>  
-                          
-                          <div  class="custom-check-box" >
-                              <div class="checked round status-update-main" >
-                                <mat-checkbox [checked]="emailAdminAppointment['status_updated'].status == '1'" (change)="fnAdminEmailAppoint($event.checked, 'status_updated')" class="form_field_checkbox" ></mat-checkbox>
-                                <p class="check-label">Status Updated</p>
-                              </div>
-                            </div> 
-                            <div  class="custom-check-box" >
-                              <div class="checked round cancel-check-btn" >
-                                <mat-checkbox [checked]="emailAdminAppointment['cancelled'].status == '1'" (change)="fnAdminEmailAppoint($event.checked, 'cancelled')" class="form_field_checkbox" ></mat-checkbox>
-                                <p class="check-label">Cancelled</p>
-                              </div>
-                            </div>   
-                     </div>
-                    <!-- <div class="d-flex my-3">
+
+                            <div class="custom-check-box">
+                                <div class="checked round status-update-main">
+                                    <mat-checkbox [checked]="emailAdminAppointment['status_updated'].status == '1'" (change)="fnAdminEmailAppoint($event.checked, 'status_updated')" class="form_field_checkbox"></mat-checkbox>
+                                    <p class="check-label">Status Updated</p>
+                                </div>
+                            </div>
+                            <div class="custom-check-box">
+                                <div class="checked round cancel-check-btn">
+                                    <mat-checkbox [checked]="emailAdminAppointment['cancelled'].status == '1'" (change)="fnAdminEmailAppoint($event.checked, 'cancelled')" class="form_field_checkbox"></mat-checkbox>
+                                    <p class="check-label">Cancelled</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="d-flex my-3">
                         <div class="alert-booked-chechkbox mr-3" >
                             <mat-checkbox class="checkbox-circle">Booked</mat-checkbox>
                         </div>
@@ -499,11 +499,11 @@
                             <mat-checkbox>Cancelled</mat-checkbox>
                         </div>
                     </div> -->
-                    <div class="bottom-line"></div>
-                    <div>
-                        <h5>Reminder Lead Time</h5>
-                        <p>Send a reminder to customers</p>
-                    </div>
+                        <div class="bottom-line"></div>
+                        <div>
+                            <h5>Reminder Lead Time</h5>
+                            <p>Send a reminder to customers</p>
+                        </div>
                         <div class="">
                             <div class="">
                                 <div class="main-table-content main-cust-table-content">
@@ -658,10 +658,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> 
-                            </div> 
+                                </div>
+                            </div>
                         </div>
-                      <button mat-button class="save-btn my-3" (click)="fnSubmitAdminEmailAlert()">Save</button>
+                        <button mat-button class="save-btn my-3" (click)="fnSubmitAdminEmailAlert()">Save</button>
                     </div>
                 </mat-card>
                 <h5 class="m-4">Customize Your Alerts</h5>
@@ -707,29 +707,28 @@
                                             </div>
                                         </mat-panel-title>
                                         <mat-panel-description>
-                                            
+
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
-                                    <div  class="single-email-template">
-                                                 <div class="" fxLayout="row">
-                                                    <div class="" fxFlex="70">
-                                                        <textarea row="100"></textarea>
-                                                    </div>
-                                                    <div class="" fxFlex="30">
-                                                        <p>sdfdfssdf</p>
-                                                        <p>sdfdfssdf</p>
-                                                        <p>sdfdfssdf</p>
-                                                        <p>sdfdfssdf</p>
-                                                        <p>sdfdfssdf</p>
-                                                        <p>sdfdfssdf</p>
-                                                        <p>sdfdfssdf</p>
-                                                        <p>sdfdfssdf</p>
-                                                        <p>sdfdfssdf</p>
-                                                    </div>
-                                                </div>
+                                    <div class="single-email-template">
+                                        <div class="" fxLayout="row">
+                                            <div class="" fxFlex="70">
+                                                <textarea row="100"></textarea>
                                             </div>
+                                            <div class="" fxFlex="30">
+                                                <p>sdfdfssdf</p>
+                                                <p>sdfdfssdf</p>
+                                                <p>sdfdfssdf</p>
+                                                <p>sdfdfssdf</p>
+                                                <p>sdfdfssdf</p>
+                                                <p>sdfdfssdf</p>
+                                                <p>sdfdfssdf</p>
+                                                <p>sdfdfssdf</p>
+                                                <p>sdfdfssdf</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </mat-expansion-panel>
-
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
@@ -745,74 +744,74 @@
 
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        <div class="d-flex">
-                                            <mat-slide-toggle class="mr-4"></mat-slide-toggle>
-                                            <h5>Appointment Rejected</h5>
-                                        </div>
-                                    </mat-panel-title>
-                                    <mat-panel-description>
-                                    </mat-panel-description>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Rejected</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
                                     </mat-expansion-panel-header>
                                 </mat-expansion-panel>
 
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        <div class="d-flex">
-                                            <mat-slide-toggle class="mr-4"></mat-slide-toggle>
-                                            <h5>Appointment Cancelled by You</h5>
-                                        </div>
-                                    </mat-panel-title>
-                                    <mat-panel-description>
-                                    </mat-panel-description>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Cancelled by You</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
                                     </mat-expansion-panel-header>
                                 </mat-expansion-panel>
 
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        <div class="d-flex">
-                                            <mat-slide-toggle class="mr-4"></mat-slide-toggle>
-                                            <h5>Appointment rescheduled by You</h5>
-                                        </div>
-                                    </mat-panel-title>
-                                    <mat-panel-description>
-                                    </mat-panel-description>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment rescheduled by You</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
                                     </mat-expansion-panel-header>
                                 </mat-expansion-panel>
 
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        <div class="d-flex">
-                                            <mat-slide-toggle class="mr-4"></mat-slide-toggle>
-                                            <h5>Client Appointment Reminder</h5>
-                                        </div>
-                                    </mat-panel-title>
-                                    <mat-panel-description>
-                                    </mat-panel-description>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <h5>Client Appointment Reminder</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
                                     </mat-expansion-panel-header>
                                 </mat-expansion-panel>
 
-                                
+
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        <div class="d-flex">
-                                            <mat-slide-toggle class="mr-4"></mat-slide-toggle>
-                                            <h5>Appointment Completed</h5>
-                                        </div>
-                                    </mat-panel-title>
-                                    <mat-panel-description>
-                                    </mat-panel-description>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Completed</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
                                     </mat-expansion-panel-header>
                                 </mat-expansion-panel>
 
                             </mat-accordion>
                         </div>
                     </mat-tab>
-                    <mat-tab label="Admin Email Template"> 
+                    <mat-tab label="Admin Email Template">
                         <div class="m-4">
                             <mat-accordion>
                                 <mat-expansion-panel>
@@ -843,74 +842,74 @@
 
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        <div class="d-flex">
-                                            <mat-slide-toggle class="mr-4"></mat-slide-toggle>
-                                            <h5>Appointment Rejected</h5>
-                                        </div>
-                                    </mat-panel-title>
-                                    <mat-panel-description>
-                                    </mat-panel-description>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Rejected</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
                                     </mat-expansion-panel-header>
                                 </mat-expansion-panel>
 
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        <div class="d-flex">
-                                            <mat-slide-toggle class="mr-4"></mat-slide-toggle>
-                                            <h5>Appointment Cancelled by Customer</h5>
-                                        </div>
-                                    </mat-panel-title>
-                                    <mat-panel-description>
-                                    </mat-panel-description>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Cancelled by Customer</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
                                     </mat-expansion-panel-header>
                                 </mat-expansion-panel>
 
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        <div class="d-flex">
-                                            <mat-slide-toggle class="mr-4"></mat-slide-toggle>
-                                            <h5>Appointment rescheduled by Customer</h5>
-                                        </div>
-                                    </mat-panel-title>
-                                    <mat-panel-description>
-                                    </mat-panel-description>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment rescheduled by Customer</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
                                     </mat-expansion-panel-header>
                                 </mat-expansion-panel>
 
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        <div class="d-flex">
-                                            <mat-slide-toggle class="mr-4"></mat-slide-toggle>
-                                            <h5>Admin Appointment Reminder</h5>
-                                        </div>
-                                    </mat-panel-title>
-                                    <mat-panel-description>
-                                    </mat-panel-description>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <h5>Admin Appointment Reminder</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
                                     </mat-expansion-panel-header>
                                 </mat-expansion-panel>
 
-                                
+
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        <div class="d-flex">
-                                            <mat-slide-toggle class="mr-4"></mat-slide-toggle>
-                                            <h5>Appointment Completed</h5>
-                                        </div>
-                                    </mat-panel-title>
-                                    <mat-panel-description>
-                                    </mat-panel-description>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Completed</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
                                     </mat-expansion-panel-header>
                                 </mat-expansion-panel>
 
                             </mat-accordion>
-                        </div>    
+                        </div>
                     </mat-tab>
-                    <mat-tab label="Staff Email Template"> 
+                    <mat-tab label="Staff Email Template">
                         <div class="m-4">
                             <mat-accordion>
                                 <mat-expansion-panel>
@@ -941,76 +940,76 @@
 
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        <div class="d-flex">
-                                            <mat-slide-toggle class="mr-4"></mat-slide-toggle>
-                                            <h5>Appointment Rejected</h5>
-                                        </div>
-                                    </mat-panel-title>
-                                    <mat-panel-description>
-                                    </mat-panel-description>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Rejected</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
                                     </mat-expansion-panel-header>
                                 </mat-expansion-panel>
 
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        <div class="d-flex">
-                                            <mat-slide-toggle class="mr-4"></mat-slide-toggle>
-                                            <h5>Appointment Cancelled by Customer</h5>
-                                        </div>
-                                    </mat-panel-title>
-                                    <mat-panel-description>
-                                    </mat-panel-description>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Cancelled by Customer</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
                                     </mat-expansion-panel-header>
                                 </mat-expansion-panel>
 
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        <div class="d-flex">
-                                            <mat-slide-toggle class="mr-4"></mat-slide-toggle>
-                                            <h5>Appointment Rescheduled by Customer</h5>
-                                        </div>
-                                    </mat-panel-title>
-                                    <mat-panel-description>
-                                    </mat-panel-description>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Rescheduled by Customer</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
                                     </mat-expansion-panel-header>
                                 </mat-expansion-panel>
 
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        <div class="d-flex">
-                                            <mat-slide-toggle class="mr-4"></mat-slide-toggle>
-                                            <h5>Admin Appointment Reminder</h5>
-                                        </div>
-                                    </mat-panel-title>
-                                    <mat-panel-description>
-                                    </mat-panel-description>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <h5>Admin Appointment Reminder</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
                                     </mat-expansion-panel-header>
                                 </mat-expansion-panel>
 
-                                
+
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        <div class="d-flex">
-                                            <mat-slide-toggle class="mr-4"></mat-slide-toggle>
-                                            <h5>Appointment Completed</h5>
-                                        </div>
-                                    </mat-panel-title>
-                                    <mat-panel-description>
-                                    </mat-panel-description>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Completed</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
                                     </mat-expansion-panel-header>
                                 </mat-expansion-panel>
 
                             </mat-accordion>
                         </div>
                     </mat-tab>
-                  </mat-tab-group>
+                </mat-tab-group>
             </mat-tab>
-            <mat-tab label="SMS Alert"> 
+            <mat-tab label="SMS Alert">
                 <h5 class="m-4">SMS Reminders</h5>
                 <mat-card class="matcard-space">
                     <div class="d-flex">
@@ -1018,38 +1017,38 @@
                             <h5>Appointments SMS Reminders</h5>
                         </div>
                         <div class="ml-auto mx-3">
-                            <mat-slide-toggle [checked]="appointmentsReminderSMS" (change)="fnAppointmentsReminderSMS($event.checked)" ></mat-slide-toggle>
+                            <mat-slide-toggle [checked]="appointmentsReminderSMS" (change)="fnAppointmentsReminderSMS($event.checked)"></mat-slide-toggle>
                         </div>
                     </div>
                     <div *ngIf="AppointmentsReminderSMS">
-                    <div class="top-bottom-space">
-                        <h5>When to send</h5>
-                    </div>
-                    <div>
-                        <p class="pt-2">Appointments</p>
-                    </div>
-                    <div class="d-flex my-3">
-                        <div  class="custom-check-box" >
-                            <div class="checked round" >
-                              <mat-checkbox  class="form_field_checkbox" ></mat-checkbox>
-                              <p class="check-label">Booked</p>
+                        <div class="top-bottom-space">
+                            <h5>When to send</h5>
+                        </div>
+                        <div>
+                            <p class="pt-2">Appointments</p>
+                        </div>
+                        <div class="d-flex my-3">
+                            <div class="custom-check-box">
+                                <div class="checked round">
+                                    <mat-checkbox class="form_field_checkbox"></mat-checkbox>
+                                    <p class="check-label">Booked</p>
+                                </div>
                             </div>
-                          </div>  
-                          
-                          <div  class="custom-check-box" >
-                              <div class="checked round  status-update-main" >
-                                <mat-checkbox  class="form_field_checkbox" ></mat-checkbox>
-                                <p class="check-label">Status Updated</p>
-                              </div>
-                            </div> 
-                            <div  class="custom-check-box" >
-                              <div class="checked round cancel-check-btn" >
-                                <mat-checkbox  class="form_field_checkbox" ></mat-checkbox>
-                                <p class="check-label">Cancelled</p>
-                              </div>
-                            </div>   
-                     </div>
-                    <!-- <div class="d-flex my-3">
+
+                            <div class="custom-check-box">
+                                <div class="checked round  status-update-main">
+                                    <mat-checkbox class="form_field_checkbox"></mat-checkbox>
+                                    <p class="check-label">Status Updated</p>
+                                </div>
+                            </div>
+                            <div class="custom-check-box">
+                                <div class="checked round cancel-check-btn">
+                                    <mat-checkbox class="form_field_checkbox"></mat-checkbox>
+                                    <p class="check-label">Cancelled</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="d-flex my-3">
                         <div class="alert-booked-chechkbox mr-3">
                             <mat-checkbox class="checkbox-circle">Booked</mat-checkbox>
                         </div>
@@ -1060,38 +1059,38 @@
                             <mat-checkbox>Cancelled</mat-checkbox>
                         </div>
                     </div> -->
-                    <div class="top-bottom-space">
-                            <h5 class="mt-4 mb-3">Who to send SMS  to</h5>
-                    </div>
-                    <div class="d-flex top-bottom-space">
+                        <div class="top-bottom-space">
+                            <h5 class="mt-4 mb-3">Who to send SMS to</h5>
+                        </div>
+                        <div class="d-flex top-bottom-space">
+                            <div>
+                                <h5>Admin</h5>
+                            </div>
+                            <div class="ml-auto mx-3">
+                                <mat-slide-toggle></mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="d-flex top-bottom-space">
+                            <div>
+                                <h5>Customer</h5>
+                            </div>
+                            <div class="ml-auto mx-3">
+                                <mat-slide-toggle></mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="d-flex top-bottom-space">
+                            <div>
+                                <h5>Staff</h5>
+                            </div>
+                            <div class="ml-auto mx-3">
+                                <mat-slide-toggle></mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="bottom-line"></div>
                         <div>
-                            <h5>Admin</h5>
+                            <h5>Reminder Lead Time</h5>
+                            <p>Send a reminder to customers</p>
                         </div>
-                        <div class="ml-auto mx-3">
-                            <mat-slide-toggle></mat-slide-toggle>
-                        </div>
-                    </div>
-                    <div class="d-flex top-bottom-space">
-                        <div>
-                            <h5>Customer</h5>
-                        </div>
-                        <div class="ml-auto mx-3">
-                            <mat-slide-toggle></mat-slide-toggle>
-                        </div>
-                    </div>
-                    <div class="d-flex top-bottom-space">
-                        <div>
-                            <h5>Staff</h5>
-                        </div>
-                        <div class="ml-auto mx-3">
-                            <mat-slide-toggle></mat-slide-toggle>
-                        </div>
-                    </div>
-                    <div class="bottom-line"></div>
-                    <div>
-                        <h5>Reminder Lead Time</h5>
-                        <p>Send a reminder to customers</p>
-                    </div>
                         <div class="">
                             <div class="">
                                 <div class="main-table-content main-cust-table-content">
@@ -1107,7 +1106,7 @@
                                                 <div class=" mx-2" fxFlex="15">
                                                     <mat-form-field class="bottom-border-field">
                                                         <mat-label>0 Days</mat-label>
-                                                        <mat-select >
+                                                        <mat-select>
                                                             <mat-option>None</mat-option>
                                                             <mat-option value="option1">Option 1</mat-option>
                                                             <mat-option value="option2">Option 2</mat-option>
@@ -1118,7 +1117,7 @@
                                                 <div class=" mx-2" fxFlex="15">
                                                     <mat-form-field class="bottom-border-field">
                                                         <mat-label>0 hour</mat-label>
-                                                        <mat-select >
+                                                        <mat-select>
                                                             <mat-option>None</mat-option>
                                                             <mat-option value="option1">Option 1</mat-option>
                                                             <mat-option value="option2">Option 2</mat-option>
@@ -1129,7 +1128,7 @@
                                                 <div class=" mx-2" fxFlex="15">
                                                     <mat-form-field class="bottom-border-field">
                                                         <mat-label>30 minute</mat-label>
-                                                        <mat-select >
+                                                        <mat-select>
                                                             <mat-option>None</mat-option>
                                                             <mat-option value="option1">Option 1</mat-option>
                                                             <mat-option value="option2">Option 2</mat-option>
@@ -1143,99 +1142,99 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> 
-                            </div> 
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </mat-card>
                 <h5 class="m-4">Select SMS Gateway</h5>
                 <mat-accordion class="matcard-space">
                     <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <div class="d-flex">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <div class="d-flex">
+                                    <div>
+                                        <img src="/assets/images/admin/twilio.png" class="payment-image">
+                                    </div>
+                                    <div class="payment-toggle-btn">
+                                        <mat-slide-toggle class=""></mat-slide-toggle>
+                                    </div>
+                                </div>
                                 <div>
-                                    <img src="/assets/images/admin/twilio.png" class="payment-image">
+                                    <p class="mb-0 pt-2 pl-3">Twilio SMS Gateway</p>
                                 </div>
-                                <div class="payment-toggle-btn">
-                                    <mat-slide-toggle class=""></mat-slide-toggle>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="mb-0 pt-2 pl-3">Twilio SMS Gateway</p>
-                            </div>
-                        </mat-panel-title>
-                        <mat-panel-description>
-                        
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
-                    
-                    <div class="account-setting">
-                        <p class="mb-0 py-2 account-para">Twilio Account Settings</p>
-                    </div>
-                    <div class="p-2">
-                    <div class="main-account-details">
-                        <div class="">
-                            <div class="main-table-content main-cust-table-content">
+                            </mat-panel-title>
+                            <mat-panel-description>
+
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <div class="account-setting">
+                            <p class="mb-0 py-2 account-para">Twilio Account Settings</p>
+                        </div>
+                        <div class="p-2">
+                            <div class="main-account-details">
                                 <div class="">
-                                    <div class="" fxLayout="row">
-                                        <div class="" fxFlex="20"></div>
-                                        <div class="" fxFlex="80"></div>
-                                    </div>
-                                    <div class="content" class="">
+                                    <div class="main-table-content main-cust-table-content">
                                         <div class="">
-                                            <div class=" mx-2" fxFlex="20">
-                                                <label class="payment-label">Account SID</label>
+                                            <div class="" fxLayout="row">
+                                                <div class="" fxFlex="20"></div>
+                                                <div class="" fxFlex="80"></div>
                                             </div>
-                                            <div class=" mx-2" fxFlex="80">
-                                                <mat-form-field class="example-full-width bottom-border-field">
-                                                    <input matInput placeholder="" value="">
-                                                </mat-form-field>
+                                            <div class="content" class="">
+                                                <div class="">
+                                                    <div class=" mx-2" fxFlex="20">
+                                                        <label class="payment-label">Account SID</label>
+                                                    </div>
+                                                    <div class=" mx-2" fxFlex="80">
+                                                        <mat-form-field class="example-full-width bottom-border-field">
+                                                            <input matInput placeholder="" value="">
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="content" class="">
-                                        <div class="">
-                                            <div class=" mx-2" fxFlex="20">
-                                                <label class="payment-label">Auth Token</label>
+                                            <div class="content" class="">
+                                                <div class="">
+                                                    <div class=" mx-2" fxFlex="20">
+                                                        <label class="payment-label">Auth Token</label>
+                                                    </div>
+                                                    <div class=" mx-2" fxFlex="80">
+                                                        <mat-form-field class="example-full-width bottom-border-field">
+                                                            <input matInput placeholder="" value="">
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class=" mx-2" fxFlex="80">
-                                                <mat-form-field class="example-full-width bottom-border-field">
-                                                    <input matInput placeholder="" value="">
-                                                </mat-form-field>
+                                            <div class="content" class="">
+                                                <div class="">
+                                                    <div class=" mx-2" fxFlex="20">
+                                                        <label class="payment-label">Twilio Sender</label>
+                                                    </div>
+                                                    <div class=" mx-2" fxFlex="80">
+                                                        <mat-form-field class="example-full-width bottom-border-field">
+                                                            <input matInput placeholder="" value="">
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="content" class="">
-                                        <div class="">
-                                            <div class=" mx-2" fxFlex="20">
-                                                <label class="payment-label">Twilio Sender</label>
-                                            </div>
-                                            <div class=" mx-2" fxFlex="80">
-                                                <mat-form-field class="example-full-width bottom-border-field">
-                                                    <input matInput placeholder="" value="">
-                                                </mat-form-field>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="content" class="">
-                                        <div class="">
-                                            <div class=" mx-2" fxFlex="20">
-                                                <label class="payment-label">Admin Phone Number</label>
-                                            </div>
-                                            <div class=" mx-2" fxFlex="80">
-                                                <mat-form-field class="example-full-width bottom-border-field">
-                                                    <mat-icon matPrefix><img src="/assets/images/admin/india.png"></mat-icon>
-                                                    <input  type="number" matInput placeholder="" value="">
-                                                </mat-form-field>
+                                            <div class="content" class="">
+                                                <div class="">
+                                                    <div class=" mx-2" fxFlex="20">
+                                                        <label class="payment-label">Admin Phone Number</label>
+                                                    </div>
+                                                    <div class=" mx-2" fxFlex="80">
+                                                        <mat-form-field class="example-full-width bottom-border-field">
+                                                            <mat-icon matPrefix><img src="/assets/images/admin/india.png"></mat-icon>
+                                                            <input type="number" matInput placeholder="" value="">
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
-                        </div> 
-                    </div>
-                </div>
+                            </div>
+                        </div>
                     </mat-expansion-panel>
                 </mat-accordion>
                 <mat-accordion class="matcard-space">
@@ -1255,7 +1254,7 @@
                                 </div>
                             </mat-panel-title>
                             <mat-panel-description>
-                            
+
                             </mat-panel-description>
                         </mat-expansion-panel-header>
                     </mat-expansion-panel>
@@ -1277,7 +1276,7 @@
                                 </div>
                             </mat-panel-title>
                             <mat-panel-description>
-                            
+
                             </mat-panel-description>
                         </mat-expansion-panel-header>
                     </mat-expansion-panel>
@@ -1299,14 +1298,14 @@
                                 </div>
                             </mat-panel-title>
                             <mat-panel-description>
-                            
+
                             </mat-panel-description>
                         </mat-expansion-panel-header>
                     </mat-expansion-panel>
                 </mat-accordion>
                 <h5 class="m-4">SMS Reminders</h5>
                 <mat-tab-group>
-                    <mat-tab label="Client SMS Template"> 
+                    <mat-tab label="Client SMS Template">
                         <div class="my-4">
                             <mat-accordion>
                                 <mat-expansion-panel>
@@ -1324,25 +1323,7 @@
                             </mat-accordion>
                         </div>
                     </mat-tab>
-                    <mat-tab label="Admin SMS Template"> 
-                        <div class="my-4">
-                            <mat-accordion>
-                                <mat-expansion-panel>
-                                    <mat-expansion-panel-header>
-                                        <mat-panel-title>
-                                            <div class="d-flex">
-                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
-                                                <h5>Appointment Request</h5>
-                                            </div>
-                                        </mat-panel-title>
-                                        <mat-panel-description>
-                                        </mat-panel-description>
-                                    </mat-expansion-panel-header>
-                                </mat-expansion-panel>
-                            </mat-accordion>
-                        </div>    
-                    </mat-tab>
-                    <mat-tab label="Staff SMS Template"> 
+                    <mat-tab label="Admin SMS Template">
                         <div class="my-4">
                             <mat-accordion>
                                 <mat-expansion-panel>
@@ -1360,8 +1341,26 @@
                             </mat-accordion>
                         </div>
                     </mat-tab>
-                  </mat-tab-group>
+                    <mat-tab label="Staff SMS Template">
+                        <div class="my-4">
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Request</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
             </mat-tab>
-          </mat-tab-group>
+        </mat-tab-group>
     </mat-card>
 </mat-drawer-content>
