@@ -1,62 +1,63 @@
- <div class="modal-dialog modal-notify modal-info" role="document" >
+<div class="modal-dialog modal-notify modal-info" role="document">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
     <div class="modal-content">
-      <div class="modal-header modal-bcolor-primary">
-        <p class="heading lead  fontfamily" >New Appointment</p>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+        <div class="modal-header modal-bcolor-primary">
+            <p class="heading lead  fontfamily">New Appointment</p>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
           <span aria-hidden="true" class="white-text">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">         
-               <div class="row">
-            <div class="col-6">
-          <label class="mb-0">Category</label>
-          <mat-select [(value)]="selectedCatId" (selectionChange)="fnSelectCat($event.value)" class="form-control formcontrol">
-             <mat-option *ngFor="let cat of catdata" value="{{cat.id}}">{{cat.category_title}}</mat-option>
-          </mat-select>
-           
-          </div>
-          <div class="col-6 mb-3">
-          <label class="mb-0">Sub Category</label>
-          <mat-select class="form-control formcontrol" [(value)]="selectedSubCatId" (selectionChange)="fnSelectSubCat($event.value)">
-             <mat-option *ngFor="let subcat of subcatdata" value="{{subcat.id}}">{{subcat.sub_category_name}}</mat-option>
-          </mat-select>
-          </div>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-6">
+                    <label class="mb-0">Category</label>
+                    <mat-select [(value)]="selectedCatId" (selectionChange)="fnSelectCat($event.value)" class="form-control formcontrol">
+                        <mat-option *ngFor="let cat of catdata" value="{{cat.id}}">{{cat.category_title}}</mat-option>
+                    </mat-select>
 
-          <div class="col-12 mb-3">
-          <label class="mb-0">Service</label>
-          <mat-select class="form-control formcontrol" [(value)]="selectedServiceId" (selectionChange)="fnSelectService($event.value)">
-             <mat-option *ngFor="let service of serviceData" value="{{service.id}}">{{service.service_name}}</mat-option>
-          </mat-select>
-          </div>
+                </div>
+                <div class="col-6 mb-3">
+                    <label class="mb-0">Sub Category</label>
+                    <mat-select class="form-control formcontrol" [(value)]="selectedSubCatId" (selectionChange)="fnSelectSubCat($event.value)">
+                        <mat-option *ngFor="let subcat of subcatdata" value="{{subcat.id}}">{{subcat.sub_category_name}}</mat-option>
+                    </mat-select>
+                </div>
+
+                <div class="col-12 mb-3">
+                    <label class="mb-0">Service</label>
+                    <mat-select class="form-control formcontrol" [(value)]="selectedServiceId" (selectionChange)="fnSelectService($event.value)">
+                        <mat-option *ngFor="let service of serviceData" value="{{service.id}}">{{service.service_name}}</mat-option>
+                    </mat-select>
+                </div>
             </div>
-         
-        
-          <label class="mb-0">Select Date</label>
-           <div class="input-group mb-3">
-             <div class="input-group-prepend">
+
+
+            <label class="mb-0">Select Date</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
                     <div class="input-group-text"><i class="fa fa-calendar"></i>
                     </div>
-                 </div>
-            <!-- <input type="date" class="form-control formcontrol"> -->
-            <input mat-input [min]="minDate" [matDatepicker]="picker" placeholder="Choose a date" class="form-control formcontrol" (click)="picker.open()" (dateChange)="fnDateChange($event)">
-              <mat-datepicker #picker></mat-datepicker>
-          </div>
-        
-      
-          <label class="mb-0">Select Time</label>
-           <div class="input-group mb-3">
-             <div class="input-group-prepend">
+                </div>
+                <!-- <input type="date" class="form-control formcontrol"> -->
+                <input mat-input [min]="minDate" [matDatepicker]="picker" placeholder="Choose a date" class="form-control formcontrol" (click)="picker.open()" (dateChange)="fnDateChange($event)">
+                <mat-datepicker #picker></mat-datepicker>
+            </div>
+
+
+            <label class="mb-0">Select Time</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
                     <div class="input-group-text"><i class="fa fa-clock-o"></i>
                     </div>
-                 </div>
-            <!-- <input type="time" class="form-control formcontrol"> -->
-              <mat-select class="form-control formcontrol" [disabled]="">
-            <!-- <mat-option>None</mat-option> -->
-              <mat-option *ngFor="let slot of timeSlotArr" value="{{slot}}">{{slot}}</mat-option>
-            </mat-select>
-          </div>      
-              <button class="d-block btn btn-primary addbtn ml-2">Create</button>
-              <button class="d-block btn btn-secondary addbtn float-right">Back</button>
-      </div>
+                </div>
+                <!-- <input type="time" class="form-control formcontrol"> -->
+                <mat-select class="form-control formcontrol" [disabled]="">
+                    <!-- <mat-option>None</mat-option> -->
+                    <mat-option *ngFor="let slot of timeSlotArr" value="{{slot}}">{{slot}}</mat-option>
+                </mat-select>
+            </div>
+            <button class="d-block btn btn-primary addbtn ml-2">Create</button>
+            <button class="d-block btn btn-secondary addbtn float-right">Back</button>
+        </div>
     </div>
-  </div>
+</div>

@@ -399,6 +399,7 @@ export class StaffAppointmentComponent implements OnInit {
     maximumAdvanceBookingTime:any;
     minimumAdvanceBookingDateTimeObject:any;
     maximumAdvanceBookingDateTimeObject:any;
+    isLoaderAdmin: boolean = false;
     constructor(
       public dialogRef: MatDialogRef<DialogAddNewAppointment>,
       public dialog: MatDialog,
@@ -466,6 +467,7 @@ export class StaffAppointmentComponent implements OnInit {
 
     // personal info
     isEmailUnique(control: FormControl) {
+      this.isLoaderAdmin = true;
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           let headers = new HttpHeaders({
@@ -477,8 +479,10 @@ export class StaffAppointmentComponent implements OnInit {
             if(res){
               if(res.data == false){
                 resolve({ isEmailUnique: true });
+                this.isLoaderAdmin = false;
               }else{
               resolve(null);
+              this.isLoaderAdmin = false;
               }
             }
           });
@@ -515,6 +519,7 @@ export class StaffAppointmentComponent implements OnInit {
 
 
   fnGetTaxDetails(){
+    this.isLoaderAdmin = true;
     this.staffService.getTaxDetails().subscribe((response:any) => {
       if(response.data == true){
         let tax = response.response
@@ -524,10 +529,12 @@ export class StaffAppointmentComponent implements OnInit {
       else if(response.data == false){
         
       }
+      this.isLoaderAdmin = false;
     })
   }
 
   fnGetOffDays(){
+    this.isLoaderAdmin = true;
     let requestObject = {
       "business_id":this.bussinessId,
       "staff_id":this.staffId
@@ -548,6 +555,7 @@ export class StaffAppointmentComponent implements OnInit {
       else{
 
       }
+      this.isLoaderAdmin = false;
     },
     (err) =>{
       console.log(err)
@@ -575,6 +583,7 @@ export class StaffAppointmentComponent implements OnInit {
     }
 
     fnGetCategories(){
+      this.isLoaderAdmin = true;
       let requestObject = {
         "business_id":this.bussinessId,
         "status":"E"
@@ -598,6 +607,7 @@ export class StaffAppointmentComponent implements OnInit {
         (err) =>{
           console.log(err)
         })
+        this.isLoaderAdmin = false;
       }
 
       fnSelectCat(selectedCategoryId){
@@ -611,6 +621,8 @@ export class StaffAppointmentComponent implements OnInit {
 
       // get Sub Category function
       fnGetSubCategory(selectedCategoryId){
+        this.isLoaderAdmin = true;
+        
         let requestObject = {
           "category_id":selectedCategoryId,
           "sub_category_status":"E"
@@ -630,6 +642,7 @@ export class StaffAppointmentComponent implements OnInit {
           }else{
 
           }
+          this.isLoaderAdmin = false;
         },
         (err) =>{
           console.log(err)
@@ -885,7 +898,7 @@ export class StaffAppointmentComponent implements OnInit {
     selectedCatId:any;
     selectedSubCatId:any;
     selectedServiceId:any;
-    minDate = new Date(2000, 0, 1);
+    minDate = new Date();
     timeSlotArr:any= [];
     constructor(
       public dialogRef: MatDialogRef<DialogNewAppointment>,
@@ -1208,7 +1221,7 @@ export class StaffAppointmentComponent implements OnInit {
   export class InterruptedReschedule {
     formAppointmentRescheduleStaff:FormGroup;
     myAppoDetailData:any;
-    minDate = new Date(2000, 0, 1);
+    minDate = new Date();
     timeSlotArr:any= [];
     availableStaff:any= [];
     constructor(
