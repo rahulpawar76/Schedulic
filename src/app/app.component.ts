@@ -118,7 +118,7 @@ export class AppComponent implements AfterViewInit {
     this.router.events.subscribe(event => {
       if (event instanceof RouterEvent) this.handleRoute(event);
     });
-    this.setcompanycolours();
+    //this.setcompanycolours();
 
   }
 
@@ -474,9 +474,9 @@ export class AppComponent implements AfterViewInit {
   prepareRoute(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
-  setcompanycolours() {
+  setcompanycolours(businessId) {
     let requestObject = {
-      "business_id": this.businessId
+      "business_id": businessId
     };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
