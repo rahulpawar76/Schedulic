@@ -73,6 +73,7 @@ export class AlertsettingsComponent implements OnInit {
   customizeEmailAlertData: any;
   adminEmailForAlert: FormGroup;
   customizeAlert: FormGroup;
+  cusAppRequest: FormGroup;
   maxCharacters = 500; 
   characters = this.maxCharacters;
   constructor(
@@ -109,6 +110,10 @@ export class AlertsettingsComponent implements OnInit {
       emailSignature: ['',[Validators.required]]
     });
 
+    // Email Templates
+    this.cusAppRequest = this._formBuilder.group({
+      emailTemplate: ['',[Validators.required]]
+    });
  
   } 
   count(value: string){
@@ -435,7 +440,7 @@ fnAppointmentsReminderSMS(event){
         "customize_email_alert" : customizeEmailAlert
       }
 
-       this.adminSettingsService.fnSubmitCustomizeAlert(requestObject).subscribe((response:any) => {
+      this.adminSettingsService.fnSubmitCustomizeAlert(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this._snackBar.open("Customize Email alerts are Updated", "X", {
           duration: 2000,
@@ -454,6 +459,40 @@ fnAppointmentsReminderSMS(event){
     })
     }
   }
+
+  // fnSaveCusAppReqEmailTemp(){
+  //   if(this.customizeAlert.valid){
+  //     let requestObject={
+  //       "business_id":this.businessId,
+  //       "user_type" : userType,
+  //       "template_type" : tempType,
+  //       "status" : emailStatus,
+  //       "subject" : tempSubject,
+  //       "message" : 
+  //     }
+      
+  //   }
+  // }
+
+  // fnUpdateEmailTemplate(requestObject){
+  //   this.adminSettingsService.fnUpdateEmailTemplate(requestObject).subscribe((response:any) => {
+  //     if(response.data == true){
+  //       this._snackBar.open("Email Template is Updated", "X", {
+  //         duration: 2000,
+  //         verticalPosition: 'top',
+  //         panelClass : ['green-snackbar']
+  //       });
+  //       this.getSettingsValue();
+  //     }
+  //     else{
+  //     this._snackBar.open(response.response, "X", {
+  //         duration: 2000,
+  //         verticalPosition: 'top',
+  //         panelClass : ['red-snackbar']
+  //       });
+  //     }
+  //   })
+  // }
 
 }
 

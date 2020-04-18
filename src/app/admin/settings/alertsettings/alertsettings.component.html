@@ -712,16 +712,20 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form>
-                                                <mat-form-field class="bottom-border-field w-100" >
+                                            <form [formGroup]="cusAppRequest">
+                                                <mat-form-field class="bottom-border-field w-100">
                                                     <mat-label>Textarea</mat-label>
-                                                    <textarea matInput></textarea>
+                                                    <textarea appearance="outline" formControlName="emailTemplate" rows="40" matInput></textarea>
                                                 </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusAppRequest.get('emailTemplate').dirty || cusAppRequest.get('emailTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusAppRequest.get('emailTemplate').hasError('required')" class="error">Email Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-raised-button color="primary" class="ml-2">Preview Template</button>
+                                                </div>
                                             </form>
-                                            <div class="float-right">
-                                                <button mat-button class="savetemplate-btn">Save Template</button>
-                                                <button mat-button class="defaulttemplate-btn ml-2">Default Template</button>
-                                            </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <p class="mb-0">[booking_date]</p>
@@ -767,10 +771,10 @@
                                         <mat-panel-description>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
-                                       <div class="d-flex">
+                                    <div class="d-flex">
                                         <div class="col-lg-10">
                                             <form>
-                                                <mat-form-field class="bottom-border-field w-100" >
+                                                <mat-form-field class="bottom-border-field w-100">
                                                     <mat-label>Textarea</mat-label>
                                                     <textarea matInput></textarea>
                                                 </mat-form-field>
@@ -825,10 +829,10 @@
                                         <mat-panel-description>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
-                                       <div class="d-flex">
+                                    <div class="d-flex">
                                         <div class="col-lg-10">
                                             <form>
-                                                <mat-form-field class="bottom-border-field w-100" >
+                                                <mat-form-field class="bottom-border-field w-100">
                                                     <mat-label>Textarea</mat-label>
                                                     <textarea matInput></textarea>
                                                 </mat-form-field>
@@ -883,10 +887,10 @@
                                         <mat-panel-description>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
-                                       <div class="d-flex">
+                                    <div class="d-flex">
                                         <div class="col-lg-10">
                                             <form>
-                                                <mat-form-field class="bottom-border-field w-100" >
+                                                <mat-form-field class="bottom-border-field w-100">
                                                     <mat-label>Textarea</mat-label>
                                                     <textarea matInput></textarea>
                                                 </mat-form-field>
@@ -941,10 +945,10 @@
                                         <mat-panel-description>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
-                                       <div class="d-flex">
+                                    <div class="d-flex">
                                         <div class="col-lg-10">
                                             <form>
-                                                <mat-form-field class="bottom-border-field w-100" >
+                                                <mat-form-field class="bottom-border-field w-100">
                                                     <mat-label>Textarea</mat-label>
                                                     <textarea matInput></textarea>
                                                 </mat-form-field>
@@ -999,10 +1003,10 @@
                                         <mat-panel-description>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
-                                       <div class="d-flex">
+                                    <div class="d-flex">
                                         <div class="col-lg-10">
                                             <form>
-                                                <mat-form-field class="bottom-border-field w-100" >
+                                                <mat-form-field class="bottom-border-field w-100">
                                                     <mat-label>Textarea</mat-label>
                                                     <textarea matInput></textarea>
                                                 </mat-form-field>
@@ -1058,10 +1062,10 @@
                                         <mat-panel-description>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
-                                       <div class="d-flex">
+                                    <div class="d-flex">
                                         <div class="col-lg-10">
                                             <form>
-                                                <mat-form-field class="bottom-border-field w-100" >
+                                                <mat-form-field class="bottom-border-field w-100">
                                                     <mat-label>Textarea</mat-label>
                                                     <textarea matInput></textarea>
                                                 </mat-form-field>
