@@ -29,9 +29,6 @@ export class PostalcodesComponent implements OnInit {
 
   ngOnInit() {}
   
-  onNoClick(): void {
-  this.dialogRef.close();
-}
 
   addPostalCode(){
 
@@ -196,6 +193,7 @@ export class DialogAddPostalCode {
   onNoClick(): void {
     this.dialogRef.close();
   }
+  
 
   fnGetStaffList(){
     this.adminSettingsService.getStaffList().subscribe((response:any) => {

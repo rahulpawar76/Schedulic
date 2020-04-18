@@ -698,12 +698,12 @@
                     <mat-tab label="Client Email Template">
                         <div class="m-4">
                             <mat-accordion>
-                                <mat-expansion-panel>
+                                <mat-expansion-panel *ngFor="let customerEmailTemData of customerEmailTemData; let i=index">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
-                                                <h5>Appointment Request</h5>
+                                                <mat-slide-toggle (change)="fnChangeTemStatus($event.checked,customerEmailTemData.id)" [checked]="customerEmailTemData.email_template_status == 'E'" class="mr-4"></mat-slide-toggle>
+                                                <h5>{{customerEmailTemData.email_subject}}</h5>
                                             </div>
                                         </mat-panel-title>
                                         <mat-panel-description>
@@ -712,20 +712,18 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusAppRequest">
-                                                <mat-form-field class="bottom-border-field w-100">
-                                                    <mat-label>Textarea</mat-label>
-                                                    <textarea appearance="outline" formControlName="emailTemplate" rows="40" matInput></textarea>
-                                                </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusAppRequest.get('emailTemplate').dirty || cusAppRequest.get('emailTemplate').touched || formSubmitclicked">
+                                            <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                <mat-label>Template</mat-label>
+                                                <textarea [(ngModel)]="customerEmailTemData.email_message" appearance="outline" rows="40" matInput></textarea>
+                                            </mat-form-field>
+                                            <!-- <span class="error-wrap" *ngIf="cusAppRequest.get('emailTemplate').dirty || cusAppRequest.get('emailTemplate').touched || formSubmitclicked">
                                                     <small *ngIf="cusAppRequest.get('emailTemplate').hasError('required')" class="error">Email Template Is required</small>
-                                                </span>
-                                                <div class="float-right">
-                                                    <button mat-button class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button class="defaulttemplate-btn ml-2">Default Template</button>
-                                                    <button mat-raised-button color="primary" class="ml-2">Preview Template</button>
-                                                </div>
-                                            </form>
+                                                </span> -->
+                                            <div class="float-right">
+                                                <button mat-button (click)="fnSaveEmailTemp(customerEmailTemData.id)" class="savetemplate-btn">Save Template</button>
+                                                <button mat-button class="defaulttemplate-btn ml-2">Default Template</button>
+                                                <button mat-raised-button color="primary" class="ml-2">Preview Template</button>
+                                            </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <p class="mb-0">[booking_date]</p>
@@ -760,7 +758,7 @@
                                         </div>
                                     </div>
                                 </mat-expansion-panel>
-                                <mat-expansion-panel>
+                                <!-- <mat-expansion-panel>
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
@@ -1107,7 +1105,7 @@
                                             <p class="mb-0">[company_email]</p>
                                         </div>
                                     </div>
-                                </mat-expansion-panel>
+                                </mat-expansion-panel> -->
 
                             </mat-accordion>
                         </div>

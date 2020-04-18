@@ -70,12 +70,16 @@ export class AlertsettingsComponent implements OnInit {
   totalTimeCustomerEmail:any;
   totalTimeStaffEmail: any;
   totalTimeAdminEmail: any;
+  customerEmailTemData: any;
   customizeEmailAlertData: any;
   adminEmailForAlert: FormGroup;
   customizeAlert: FormGroup;
   cusAppRequest: FormGroup;
+  customerEmailTemp1: any;
+  emailTempStatus: any;
   maxCharacters = 500; 
   characters = this.maxCharacters;
+  cusEmailTempl : any;
   constructor(
     private appComponent : AppComponent,
     public adminSettingsService : AdminSettingsService,
@@ -100,6 +104,7 @@ export class AlertsettingsComponent implements OnInit {
 
   ngOnInit() {
     this.getSettingsValue();
+    this.getCustomerEmailTemplates();
     let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
     this.adminEmailForAlert = this._formBuilder.group({
       alertEmail: ['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]]
@@ -460,6 +465,82 @@ fnAppointmentsReminderSMS(event){
     }
   }
 
+  getCustomerEmailTemplates(){
+    let requestObject={
+      "business_id":this.businessId,
+      "user_type" : "C"
+    }
+    this.adminSettingsService.getCustomerEmailTemplates(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+       this.customerEmailTemData = response.response;
+      //  this.customerEmailTemData.forEach( (element) => { 
+      //   this.customerEmailTemp+element.id= element.email_message
+      // });
+       console.log(this.customerEmailTemData)
+      }
+      else{
+      this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+  }
+  fnChangeTemStatus(event, tempId){
+    if(event == true){
+      this.emailTempStatus = "E";
+    }else{
+      this.emailTempStatus = "D";
+    }
+    let requestObject = {
+      "template_id" : tempId,
+      "status" : this.emailTempStatus
+    }
+    this.adminSettingsService.fnChangeTemStatus(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open("Email Template Status Updated", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['green-snackbar']
+        });
+      }
+      else{
+      this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+  }
+  fnSaveEmailTemp(tempId){
+    console.log(this.cusEmailTempl)
+    let requestObject = {
+      "template_id" : tempId,
+      "subject" : "Appointment Request",
+      "message" : this.cusEmailTempl
+    }
+    this.fnUpdateEmailTemp(requestObject);
+  }
+  fnUpdateEmailTemp(requestObject){
+    this.adminSettingsService.fnUpdateEmailTemp(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open("Email Template is Updated", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['green-snackbar']
+        });
+      }
+      else{
+      this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+  }
   // fnSaveCusAppReqEmailTemp(){
   //   if(this.customizeAlert.valid){
   //     let requestObject={
