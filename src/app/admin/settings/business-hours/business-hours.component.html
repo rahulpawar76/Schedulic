@@ -48,7 +48,7 @@
                           </div>
                         </div>
                         <div class="" *ngIf="!mondayOn">Closed for Business</div>
-                        <div class="blue-font pointer" fxFlex="30"><p (click)="fnApplyToAll()" *ngIf="mondayOn" > Apply to all </p></div>
+                        <div class="blue-font pointer mt-3" fxFlex="30"><p (click)="fnApplyToAll()" *ngIf="mondayOn" > Apply to all </p></div>
                       </div>
                       <div  class="working-hour-box">
                         <div class="" fxFlex="10">
@@ -247,7 +247,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
                         </div>
                       </div>
                       <div *ngIf="showMondayAddForm">
@@ -265,7 +265,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="mondayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-save delete-box" (click)="fnAddBreak('Monday')"></i></div>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Monday')"></i></div>
                         </div>
                       </div>
                     </div>
@@ -293,7 +293,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
                         </div>
                       </div>
                       <div *ngIf="showTuesdayAddForm">
@@ -311,7 +311,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="tuesdayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-save delete-box" (click)="fnAddBreak('Tuesday')"></i></div>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Tuesday')"></i></div>
                         </div>
                       </div>
                     </div>
@@ -339,7 +339,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
                         </div>
                       </div>
                       <div *ngIf="showWednesdayAddForm">
@@ -357,7 +357,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="wednesdayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-save delete-box" (click)="fnAddBreak('Wednesday')"></i></div>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Wednesday')"></i></div>
                         </div>
                       </div>
                     </div>
@@ -385,7 +385,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
                         </div>
                       </div>
                       <div *ngIf="showThursdayAddForm">
@@ -403,7 +403,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="thursdayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-save delete-box" (click)="fnAddBreak('Thursday')"></i></div>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Thursday')"></i></div>
                         </div>
                       </div>
                     </div>
@@ -431,7 +431,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
                         </div>
                       </div>
                       <div *ngIf="showFridayAddForm">
@@ -449,7 +449,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="fridayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-save delete-box" (click)="fnAddBreak('Friday')"></i></div>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Friday')"></i></div>
                         </div>
                       </div>
                     </div>
@@ -477,7 +477,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
                         </div>
                       </div>
                       <div *ngIf="showSaturdayAddForm">
@@ -495,7 +495,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="saturdayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-save delete-box" (click)="fnAddBreak('Saturday')"></i></div>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Saturday')"></i></div>
                         </div>
                       </div>
                     </div>
@@ -523,7 +523,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
                         </div>
                       </div>
                       <div *ngIf="showSundayAddForm">
@@ -541,7 +541,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="sundayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-save delete-box" (click)="fnAddBreak('Sunday')"></i></div>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Sunday')"></i></div>
                         </div>
                       </div>
                     </div>
@@ -580,7 +580,7 @@
                   <div class="" fxFlex="15">
                     <mat-slide-toggle (change)="fnChangeTimeOffStatus($event,timeOff.id)" [checked]="timeOff.status == 'E'?true:false"></mat-slide-toggle>
                   </div>
-                  <div class="pointer" fxFlex="5" (click)="fnDeleteTimeOff(timeOff.id)"><i class="fa fa-trash-o delete-box"></i></div>
+                  <div class="pointer d-flex align-items-center ml-3" fxFlex="5" (click)="fnDeleteTimeOff(timeOff.id)"><i class="fa fa-trash-o delete-box"></i></div>
                   <div class="" fxFlex="10"></div>
                 </div>
               </div>

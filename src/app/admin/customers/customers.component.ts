@@ -58,6 +58,7 @@ export class CustomersComponent implements OnInit {
   addNewTag: boolean = false;
   tagsnew: any=[];
   customerImageUrl:any;
+  
 
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^-?(0|[1-9]\d*)?$/
@@ -152,8 +153,8 @@ export class CustomersComponent implements OnInit {
         cus_officenumber : ['', [Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
         cus_homenumber : ['', [Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
         cus_address : ['', Validators.required],
-        cus_state : ['', Validators.required],
-        cus_city : ['', Validators.required],
+        cus_state : ['', [Validators.required,Validators.minLength(2)]],
+        cus_city : ['', [Validators.required,Validators.minLength(2)]],
         cus_zip : ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
         customer_id : ['']
       });

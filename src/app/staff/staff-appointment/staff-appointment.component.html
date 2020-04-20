@@ -62,9 +62,8 @@
                     <mat-form-field class=" bottom-border-field">
                       <mat-label>Change Status</mat-label>
                         <mat-select  name="status" [(value)]="onGoingAppointmentData.order_status" (selectionChange)="someMethod(onGoingAppointmentData.id, $event.value)">
-                        <mat-option *ngFor="let status of statuses" [value]="status.value">
-                          {{status.viewValue}}
-                        </mat-option>
+                        <mat-option *ngIf="onGoingAppointmentData.timeToServiceDecimal < 60" value="OW">On The Way</mat-option>
+                        <mat-option *ngIf="onGoingAppointmentData.timeToServiceDecimal < 30" value="WS">Work Started</mat-option>
                       </mat-select>
                     </mat-form-field>               
                   </form>
@@ -96,7 +95,7 @@
 
             <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons pt-4"> 
               <button mat-button class="d-block details-btn" (click)="OnGoingAppointmentDetails(i)" >Details</button>
-              <button mat-button class="d-block reschedulebtn" (click)="rescheduleAppointment(i)" *ngIf="minReschedulingTime.getTime() < onGoingAppointmentData.booking_date_time.getTime()">Reschedule</button>
+              <button mat-button class="d-block reschedulebtn" (click)="rescheduleAppointment(i)" *ngIf="minReschedulingTime && onGoingAppointmentData.booking_date_time && minReschedulingTime.getTime() < onGoingAppointmentData.booking_date_time.getTime()">Reschedule</button>
               <button mat-button class="d-block complete-btn" (click)="changeBookingStatus(onGoingAppointmentData.id, 'CO')">Complete</button>
             </div>                  
           </div>

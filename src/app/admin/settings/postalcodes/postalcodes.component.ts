@@ -23,11 +23,13 @@ export class PostalcodesComponent implements OnInit {
   arr:any=[];
   constructor(public dialog: MatDialog,
     public adminSettingsService : AdminSettingsService,
-    private _snackBar: MatSnackBar) {
+    private _snackBar: MatSnackBar,
+    ) {
     this.fnGetPostalCodeList();
   }
 
   ngOnInit() {}
+  
 
   addPostalCode(){
 
@@ -192,6 +194,7 @@ export class DialogAddPostalCode {
   onNoClick(): void {
     this.dialogRef.close();
   }
+  
 
   fnGetStaffList(){
     this.adminSettingsService.getStaffList().subscribe((response:any) => {

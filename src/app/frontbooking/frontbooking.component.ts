@@ -9,6 +9,7 @@ import { MdePopoverTrigger } from '@material-extended/mde';
 import { MatSnackBar} from '@angular/material/snack-bar';
 import { AuthenticationService } from '@app/_services';
 import { DatePipe} from '@angular/common';
+import { AppComponent } from '@app/app.component';
 
 @Component({
   selector: 'app-frontbooking',
@@ -140,9 +141,11 @@ export class FrontbookingComponent implements OnInit {
     private calendar: NgbCalendar,
     private snackBar: MatSnackBar,
     private authenticationService: AuthenticationService,
+    private AppComponent : AppComponent,
     private datePipe: DatePipe
     
   ) { 
+    this.AppComponent.setcompanycolours("2");
     localStorage.setItem('isFront', "true");
     this.fnGetSettings();
     const current = new Date();

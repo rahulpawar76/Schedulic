@@ -1,184 +1,174 @@
 <div class="content-main">
-<mat-tab-group mat-align-tabs="start" >
-  <mat-tab label="My Appointment" class="appointmentlabel">  
-    <div *ngIf="appointmentData != ''" class="bookings-details-main">
-      <div *ngFor="let appointmentData of appointmentData; let i = index" class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
-        <mat-card class="col card mt-3 ">
-          <div class="card-body">
-            <div class="row"> 
-              <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
-                <label class="d-block font-weight-bold">Date & Time</label>
-                <p>{{appointmentData.booking_dateForLabel}}</p> 
-                <p>{{appointmentData.booking_timeForLabel}}</p>
-              </div>
-            <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
-                <label class="font-weight-bold">Status</label> 
-                <p class="text-capitalize" *ngIf="appointmentData.order_status == 'P'">Waiting For Confirmation</p>
-                <p class="text-capitalize" *ngIf="appointmentData.order_status == 'AC'">Accepted</p> 
-                <p class="text-capitalize" *ngIf="appointmentData.order_status == 'OW'">On The Way</p>
-                <p class="text-capitalize" *ngIf="appointmentData.order_status == 'RSA'">Rescheduled By Admin</p>
-                <p class="text-capitalize" *ngIf="appointmentData.order_status == 'RSS'">Rescheduled By Staff</p> 
-                <p class="text-capitalize" *ngIf="appointmentData.order_status == 'RSC'">Rescheduled</p>
-                <p class="text-capitalize" *ngIf="appointmentData.order_status == 'R'">Rejected</p>
-                <p class="text-capitalize" *ngIf="appointmentData.order_status == 'CNF'">Confirm</p>
-                <p class="text-capitalize" *ngIf="appointmentData.order_status == 'OW'">On the Way</p>
-            </div>                  
-          </div>
-          <div class="row"> 
-            <div *ngIf="appointmentData.service != null" class="col-6 col-sm-3 col-md-6 col-lg-8"> 
-              <label class="font-weight-bold">Service</label>
-                <p>{{appointmentData.service.service_name}}</p>
-                <p>Duration:{{appointmentData.service.service_time}}</p>
-                <label class="font-weight-bold">Amount</label>
-                <!-- <p>$ {{appointmentData.service.service_cost}}</p> -->
-                <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ appointmentData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                <p *ngIf="currencySymbolPosition=='right'">{{ appointmentData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
-              <label class="font-weight-bold">Staff</label>
-                <p *ngIf="appointmentData.staff_id == null">Not Assigned</p>
-                <p class="text-capitalize" *ngIf="appointmentData.staff_id != null">{{appointmentData.staff.firstname}} {{appointmentData.staff.lastname}}</p>
-                
+    <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="My Appointment" class="appointmentlabel">
+            <div *ngIf="appointmentData != ''" class="bookings-details-main">
+                <div *ngFor="let appointmentData of appointmentData; let i = index" class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
+                    <mat-card class="col card mt-3 ">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6 col-lg-6 col-sm-3 col-md-6">
+                                    <label class="d-block font-weight-bold">Date & Time</label>
+                                    <p>{{appointmentData.booking_dateForLabel}}</p>
+                                    <p>{{appointmentData.booking_timeForLabel}}</p>
+                                </div>
+                                <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right">
+                                    <label class="font-weight-bold">Status</label>
+                                    <p class="text-capitalize" *ngIf="appointmentData.order_status == 'P'">Waiting For Confirmation</p>
+                                    <p class="text-capitalize" *ngIf="appointmentData.order_status == 'AC'">Accepted</p>
+                                    <p class="text-capitalize" *ngIf="appointmentData.order_status == 'OW'">On The Way</p>
+                                    <p class="text-capitalize" *ngIf="appointmentData.order_status == 'RSA'">Rescheduled By Admin</p>
+                                    <p class="text-capitalize" *ngIf="appointmentData.order_status == 'RSS'">Rescheduled By Staff</p>
+                                    <p class="text-capitalize" *ngIf="appointmentData.order_status == 'RSC'">Rescheduled</p>
+                                    <p class="text-capitalize" *ngIf="appointmentData.order_status == 'R'">Rejected</p>
+                                    <p class="text-capitalize" *ngIf="appointmentData.order_status == 'CNF'">Confirm</p>
+                                    <p class="text-capitalize" *ngIf="appointmentData.order_status == 'OW'">On the Way</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div *ngIf="appointmentData.service != null" class="col-6 col-sm-3 col-md-6 col-lg-8">
+                                    <label class="font-weight-bold">Service</label>
+                                    <p>{{appointmentData.service.service_name}}</p>
+                                    <p>Duration:{{appointmentData.service.service_time}}</p>
+                                    <label class="font-weight-bold">Amount</label>
+                                    <!-- <p>$ {{appointmentData.service.service_cost}}</p> -->
+                                    <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ appointmentData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                                    <p *ngIf="currencySymbolPosition=='right'">{{ appointmentData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+                                    <label class="font-weight-bold">Staff</label>
+                                    <p *ngIf="appointmentData.staff_id == null">Not Assigned</p>
+                                    <p class="text-capitalize" *ngIf="appointmentData.staff_id != null && appointmentData.staff != null">{{appointmentData.staff.firstname}} {{appointmentData.staff.lastname}}</p>
+
+                                </div>
+                                <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons pt-4">
+                                    <button mat-button class="d-block details-btn" (click)="MyAppointmentDetails(i)">Details</button>
+                                    <button mat-button class="d-block reschedule-btn" (click)="rescheduleAppointment(i)" *ngIf="appointmentData.bookingDateTime && minReschedulingTime && minReschedulingTime.getTime()<appointmentData.bookingDateTime.getTime()">Reschedule</button>
+                                    <button mat-button class="d-block cancel-btn" (click)="cancelAppo(appointmentData.id)" *ngIf="cancellationBufferTime && appointmentData.bookingDateTime && cancellationBufferTime.getTime()<appointmentData.bookingDateTime.getTime()">Cancel</button>
+                                    <button mat-button class="d-block pay-btn">Pay</button>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
             </div>
-            <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons pt-4"> 
-              <button mat-button class="d-block details-btn" (click)="MyAppointmentDetails(i)">Details</button>
-              <button mat-button class="d-block reschedule-btn" (click)="rescheduleAppointment(i)" *ngIf="appointmentData.bookingDateTime && minReschedulingTime.getTime()<appointmentData.bookingDateTime.getTime()">Reschedule</button>
-              <button mat-button class="d-block cancel-btn" (click)="cancelAppo(appointmentData.id)" *ngIf="cancellationBufferTime.getTime()<appointmentData.bookingDateTime.getTime()">Cancel</button>
-              <button mat-button class="d-block pay-btn">Pay</button>
-            </div>                  
-          </div>
-        </div>
-      </mat-card>
-    </div>
-</div>
-<div *ngIf="appointmentData == ''" class="bookings-details-main">
-  <h2 class="text-center my-3">NO Data Found</h2>
-</div>
-</mat-tab>
-<mat-tab label="Cancel Appointment">
-<div *ngIf="cancelAppointmentData != ''" class="bookings-details-main">
-  <div *ngFor="let cancelAppointmentData of cancelAppointmentData; let i = index" class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
-    <mat-card class="col card mt-3">
-      <div class="card-body">
-        <div class="row"> 
-          <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
-            <label class="d-block font-weight-bold">Date & Time</label>
-              <p>{{cancelAppointmentData.booking_dateForLabel}},</p> 
-              <p>{{cancelAppointmentData.booking_timeForLabel}}</p>
+            <div *ngIf="appointmentData == ''" class="bookings-details-main">
+                <h2 class="text-center my-3">NO Data Found</h2>
             </div>
-            <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
-                <label class="font-weight-bold">Status</label> 
-                <p>Canceled</p>   
-            </div>                  
-        </div>
-        <div class="row"> 
-          <div class="col-6 col-sm-3 col-md-6 col-lg-8"> 
-            <label class="font-weight-bold">Service</label>
-              <p>{{cancelAppointmentData.service.service_name}}</p>
-              <p>Duration:{{cancelAppointmentData.service.service_time}}</p>
-              
-            <label class="font-weight-bold">Amount</label>
-              <!-- <p>$ {{cancelAppointmentData.total_cost}}</p> -->
-              <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ cancelAppointmentData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-              <p *ngIf="currencySymbolPosition=='right'">{{ cancelAppointmentData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+        </mat-tab>
+        <mat-tab label="Cancel Appointment">
+            <div *ngIf="cancelAppointmentData != ''" class="bookings-details-main">
+                <div *ngFor="let cancelAppointmentData of cancelAppointmentData; let i = index" class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
+                    <mat-card class="col card mt-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6 col-lg-6 col-sm-3 col-md-6">
+                                    <label class="d-block font-weight-bold">Date & Time</label>
+                                    <p>{{cancelAppointmentData.booking_dateForLabel}},</p>
+                                    <p>{{cancelAppointmentData.booking_timeForLabel}}</p>
+                                </div>
+                                <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right">
+                                    <label class="font-weight-bold">Status</label>
+                                    <p>Canceled</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-sm-3 col-md-6 col-lg-8">
+                                    <label class="font-weight-bold">Service</label>
+                                    <p>{{cancelAppointmentData.service.service_name}}</p>
+                                    <p>Duration:{{cancelAppointmentData.service.service_time}}</p>
 
-            <label class="font-weight-bold">Staff</label>
-            <p *ngIf="cancelAppointmentData.staff_id == null">Not Assigned</p>
-            <p class="text-capitalize" *ngIf="cancelAppointmentData.staff_id != null">{{cancelAppointmentData.staff.firstname}} {{cancelAppointmentData.staff.lastname}}</p>
-          </div>
-          <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons"> 
-            <button mat-button class="d-block details-btn" (click)="details_dialog(i)">Details</button>
-          </div>                  
-        </div>
-      </div>
-    </mat-card>
-  </div>
-  </div>
-  
-<div *ngIf="cancelAppointmentData == ''" class="bookings-details-main">
-  <h2 class="text-center my-3">NO Data Found</h2>
-</div>
-</mat-tab>
+                                    <label class="font-weight-bold">Amount</label>
+                                    <!-- <p>$ {{cancelAppointmentData.total_cost}}</p> -->
+                                    <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ cancelAppointmentData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                                    <p *ngIf="currencySymbolPosition=='right'">{{ cancelAppointmentData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
 
-
-<mat-tab label="Complete Appointment">   
-  <div *ngIf="completedAppointmentData != ''" class="bookings-details-main">
-    <div *ngFor="let completedAppointmentData of completedAppointmentData; let i = index" class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
-      <mat-card class="col card mt-3">
-        <div class="card-body">
-          <div class="row"> 
-            <div class="col-6 col-lg-6 col-sm-3 col-md-6"> 
-              <label class="d-block font-weight-bold">Date & Time</label>
-                <p>{{completedAppointmentData.booking_dateForLabel}},</p> 
-                <p>{{completedAppointmentData.booking_timeForLabel}}</p>
-              </div>
-              <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
-                  <label class="font-weight-bold">Status</label> 
-                  <p>Completed</p>   
-              </div>                  
-          </div>
-          <div class="row"> 
-            <div class="col-6 col-sm-3 col-md-6 col-lg-8"> 
-              <label class="font-weight-bold">Service</label>
-                <p *ngIf="completedAppointmentData.service != ''">{{completedAppointmentData.service.service_name}}</p>
-                <p *ngIf="completedAppointmentData.service != ''">Duration:{{completedAppointmentData.service.service_time}}</p>
-                
-              <label class="font-weight-bold">Amount</label>
-                <!-- <p>$ {{completedAppointmentData.total_cost}}</p> -->
-                <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ completedAppointmentData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                <p *ngIf="currencySymbolPosition=='right'">{{ completedAppointmentData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
-  
-              <label class="font-weight-bold">Staff</label>
-              <p *ngIf="completedAppointmentData.staff_id == null">Not Assigned</p>
-              <p class="text-capitalize" *ngIf="completedAppointmentData.staff_id != null">{{completedAppointmentData.staff.firstname}} {{completedAppointmentData.staff.lastname}}</p>
+                                    <label class="font-weight-bold">Staff</label>
+                                    <p *ngIf="cancelAppointmentData.staff_id == null">Not Assigned</p>
+                                    <p class="text-capitalize" *ngIf="cancelAppointmentData.staff_id != null && cancelAppointmentData.staff != null">{{cancelAppointmentData.staff.firstname}} {{cancelAppointmentData.staff.lastname}}</p>
+                                </div>
+                                <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons">
+                                    <button mat-button class="d-block details-btn" (click)="details_dialog(i)">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
             </div>
 
-            <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons"> 
-              <button mat-button class="d-block details-btn" (click)="complete_details_dialog(i)">Details</button>
-              <button mat-button class="d-block invoice-light-btn" (click)="invoice(i)">Invoice</button>
-              <div class="" *ngIf="completedAppointmentData.rating == null && isCustomerAllowedForRatingStaff">
-                <button mat-button class="d-block rate-btn" (click)="ratenow(completedAppointmentData.id)" id="">Rate Now</button>   
-              </div>
-              <div class="d-flex statick-rating w-100" *ngIf="completedAppointmentData.rating != null">
-                <div class="star-rating">
-                  <input type="radio" [checked]="completedAppointmentData.rating.rating == 5" id="5-stars_{{completedAppointmentData.id}}" name="rating_{{completedAppointmentData.id}}" value="5" />
-                  <label for="5-stars_{{completedAppointmentData.id}}" class="star">&#9733;</label>
-                  <input type="radio" [checked]="completedAppointmentData.rating.rating == 4"  id="4-stars_{{completedAppointmentData.id}}" name="rating_{{completedAppointmentData.id}}" value="4" />
-                  <label for="4-stars_{{completedAppointmentData.id}}" class="star">&#9733;</label>
-                  <input type="radio" [checked]="completedAppointmentData.rating.rating == 3" id="3-stars_{{completedAppointmentData.id}}" name="rating_{{completedAppointmentData.id}}" value="3" />
-                  <label for="3-stars_{{completedAppointmentData.id}}" class="star">&#9733;</label>
-                  <input type="radio" [checked]="completedAppointmentData.rating.rating == 2" id="2-stars_{{completedAppointmentData.id}}" name="rating_{{completedAppointmentData.id}}" value="2" />
-                  <label for="2-stars_{{completedAppointmentData.id}}" class="star">&#9733;</label>
-                  <input type="radio" [checked]="completedAppointmentData.rating.rating == 1" id="1-star_{{completedAppointmentData.id}}" name="rating_{{completedAppointmentData.id}}" value="1" />
-                  <label for="1-star_{{completedAppointmentData.id}}" class="star">&#9733;</label>
-                </div>   
-              </div>
-            </div> 
-          </div>
+            <div *ngIf="cancelAppointmentData == ''" class="bookings-details-main">
+                <h2 class="text-center my-3">NO Data Found</h2>
+            </div>
+        </mat-tab>
+
+
+        <mat-tab label="Complete Appointment">
+            <div *ngIf="completedAppointmentData != ''" class="bookings-details-main">
+                <div *ngFor="let completedAppointmentData of completedAppointmentData; let i = index" class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
+                    <mat-card class="col card mt-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6 col-lg-6 col-sm-3 col-md-6">
+                                    <label class="d-block font-weight-bold">Date & Time</label>
+                                    <p>{{completedAppointmentData.booking_dateForLabel}},</p>
+                                    <p>{{completedAppointmentData.booking_timeForLabel}}</p>
+                                </div>
+                                <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right">
+                                    <label class="font-weight-bold">Status</label>
+                                    <p>Completed</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-sm-3 col-md-6 col-lg-8">
+                                    <label class="font-weight-bold">Service</label>
+                                    <p *ngIf="completedAppointmentData.service != ''">{{completedAppointmentData.service.service_name}}</p>
+                                    <p *ngIf="completedAppointmentData.service != ''">Duration:{{completedAppointmentData.service.service_time}}</p>
+
+                                    <label class="font-weight-bold">Amount</label>
+                                    <!-- <p>$ {{completedAppointmentData.total_cost}}</p> -->
+                                    <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ completedAppointmentData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                                    <p *ngIf="currencySymbolPosition=='right'">{{ completedAppointmentData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+
+                                    <label class="font-weight-bold">Staff</label>
+                                    <p *ngIf="completedAppointmentData.staff_id == null">Not Assigned</p>
+                                    <p class="text-capitalize" *ngIf="completedAppointmentData.staff_id != null && completedAppointmentData.staff != null">{{completedAppointmentData.staff.firstname}} {{completedAppointmentData.staff.lastname}}</p>
+                                </div>
+
+                                <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons">
+                                    <button mat-button class="d-block details-btn" (click)="complete_details_dialog(i)">Details</button>
+                                    <button mat-button class="d-block invoice-light-btn" (click)="invoice(i)">Invoice</button>
+                                    <div class="" *ngIf="completedAppointmentData.rating == null && isCustomerAllowedForRatingStaff">
+                                        <button mat-button class="d-block rate-btn" (click)="ratenow(completedAppointmentData.id)" id="">Rate Now</button>
+                                    </div>
+                                    <div class="d-flex statick-rating w-100" *ngIf="completedAppointmentData.rating != null">
+                                        <div class="star-rating">
+                                            <input type="radio" [checked]="completedAppointmentData.rating.rating == 5" id="5-stars_{{completedAppointmentData.id}}" name="rating_{{completedAppointmentData.id}}" value="5" />
+                                            <label for="5-stars_{{completedAppointmentData.id}}" class="star">&#9733;</label>
+                                            <input type="radio" [checked]="completedAppointmentData.rating.rating == 4" id="4-stars_{{completedAppointmentData.id}}" name="rating_{{completedAppointmentData.id}}" value="4" />
+                                            <label for="4-stars_{{completedAppointmentData.id}}" class="star">&#9733;</label>
+                                            <input type="radio" [checked]="completedAppointmentData.rating.rating == 3" id="3-stars_{{completedAppointmentData.id}}" name="rating_{{completedAppointmentData.id}}" value="3" />
+                                            <label for="3-stars_{{completedAppointmentData.id}}" class="star">&#9733;</label>
+                                            <input type="radio" [checked]="completedAppointmentData.rating.rating == 2" id="2-stars_{{completedAppointmentData.id}}" name="rating_{{completedAppointmentData.id}}" value="2" />
+                                            <label for="2-stars_{{completedAppointmentData.id}}" class="star">&#9733;</label>
+                                            <input type="radio" [checked]="completedAppointmentData.rating.rating == 1" id="1-star_{{completedAppointmentData.id}}" name="rating_{{completedAppointmentData.id}}" value="1" />
+                                            <label for="1-star_{{completedAppointmentData.id}}" class="star">&#9733;</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+
+            <div *ngIf="completedAppointmentData == ''" class="bookings-details-main">
+                <h2 class="text-center my-3">NO Data Found</h2>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+    <form class="form-inline" id="search_container_userappo">
+        <div class="search-input-container">
+            <i class="fa fa-search before-search"></i>
+            <input class="form-control searchbox_userappo" type="text" placeholder="Search Appointment">
         </div>
-      </mat-card>
-    </div>
-  </div>
-  
-<div *ngIf="completedAppointmentData == ''" class="bookings-details-main">
-  <h2 class="text-center my-3">NO Data Found</h2>
+        <button type="button" class="btn btn-primary btnappoint_userappo" (click)="frontBooking()">Add Appointment</button>
+
+    </form>
 </div>
-</mat-tab>
-</mat-tab-group>
-<form class="form-inline" id="search_container_userappo">
-  <div class="search-input-container">
-      <i class="fa fa-search before-search"></i>
-      <input class="form-control searchbox_userappo" type="text" placeholder="Search Appointment">
-    </div>
- <button type="button" class="btn btn-primary btnappoint_userappo" (click)="frontBooking()">Add Appointment</button>
-
-</form>
-</div>
-
-
-
-
-
-
-
-
-  
-

@@ -18,20 +18,21 @@
               <mat-icon class="mr-4" matPrefix>person</mat-icon>
               <input formControlName="firstname" matInput placeholder="Enter Your First Name">
             </mat-form-field>
-            <span class="error-wrap"
-              *ngIf="StaffCreate.get('firstname').touched || StaffCreate.get('firstname').dirty || formSubmitclicked">
-              <small *ngIf="StaffCreate.get('firstname').hasError('required')" class="error">First Name Is
-                required</small>
+            <span class="error-wrap" *ngIf="StaffCreate.get('firstname').touched || StaffCreate.get('firstname').dirty || formSubmitclicked">
+                <small *ngIf="StaffCreate.get('firstname').hasError('required')" class="error">First Name Is required</small>
+                <small *ngIf="StaffCreate.get('firstname').hasError('minlength') || StaffCreate.get('firstname').hasError('maxlength')"class="error">Name must be at least 3 character</small>
+                <small *ngIf="StaffCreate.get('firstname').hasError('minlength') || StaffCreate.get('firstname').hasError('maxlength')"class="error">Name must be at least 11 character.</small>
             </span>
+
             <mat-form-field class="bottom-border-field">
               <mat-label>Last Name</mat-label>
               <mat-icon class="mr-4" matPrefix>person</mat-icon>
               <input formControlName="lastname" matInput placeholder="Enter Your Last Name">
             </mat-form-field>
-            <span class="error-wrap"
-              *ngIf="StaffCreate.get('lastname').touched || StaffCreate.get('lastname').dirty || formSubmitclicked">
-              <small *ngIf="StaffCreate.get('lastname').hasError('required')" class="error">Last Name Is
-                required</small>
+            <span class="error-wrap" *ngIf="StaffCreate.get('lastname').touched || StaffCreate.get('lastname').dirty || formSubmitclicked">
+              <small *ngIf="StaffCreate.get('lastname').hasError('required')" class="error">Last Name Is required</small>
+              <small *ngIf="StaffCreate.get('lastname').hasError('minlength') || StaffCreate.get('lastname').hasError('maxlength')"class="error">Name must be at least 3 character</small>
+              <small *ngIf="StaffCreate.get('lastname').hasError('minlength') || StaffCreate.get('lastname').hasError('maxlength')"class="error">Name must be at least 11 character.</small>
             </span>
             <mat-form-field class="bottom-border-field">
               <mat-label>Mobile</mat-label>
@@ -44,8 +45,7 @@
                 required</small>
               <small *ngIf="StaffCreate.get('phone').hasError('pattern')" class="error">Mobile Number is Should be
                 Numeric</small>
-              <small
-                *ngIf="StaffCreate.get('phone').hasError('minlength') || StaffCreate.get('phone').hasError('maxlength')"
+              <small *ngIf="StaffCreate.get('phone').hasError('minlength') || StaffCreate.get('phone').hasError('maxlength')"
                 class="error">Mobile Number is Should be 10 Digit</small>
             </span>
             <mat-form-field class="bottom-border-field">
@@ -53,8 +53,7 @@
               <mat-icon class="mr-4" matPrefix>email</mat-icon>
               <input formControlName="email" matInput placeholder="Enter Your Email">
             </mat-form-field>
-            <span class="error-wrap"
-              *ngIf="StaffCreate.get('email').touched || StaffCreate.get('email').dirty || formSubmitclicked">
+            <span class="error-wrap" *ngIf="StaffCreate.get('email').touched || StaffCreate.get('email').dirty || formSubmitclicked">
               <small *ngIf="StaffCreate.get('email').hasError('required')" class="error">Email Is required</small>
               <small *ngIf="StaffCreate.get('email').hasError('pattern')" class="error">Email Address Is invalid</small>
             </span>
@@ -62,15 +61,19 @@
               <mat-label>Address</mat-label>
               <input formControlName="address" matInput placeholder="Enter Your address">
             </mat-form-field>
-            <span class="error-wrap"
-              *ngIf="StaffCreate.get('address').touched || StaffCreate.get('address').dirty || formSubmitclicked">
+            <span class="error-wrap" *ngIf="StaffCreate.get('address').touched || StaffCreate.get('address').dirty || formSubmitclicked">
               <small *ngIf="StaffCreate.get('address').hasError('required')" class="error">Address Is required</small>
+              <small *ngIf="StaffCreate.get('address').hasError('minlength')" class="error">Address must be at least 3 character.</small>
             </span>
             <mat-form-field class="bottom-border-field">
               <mat-label>Description</mat-label>
               <textarea formControlName="description" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
                 cdkAutosizeMinRows="1" cdkAutosizeMaxRows="7"></textarea>
             </mat-form-field>
+            <!-- <span class="error-wrap"
+              *ngIf="StaffCreate.get('description').touched || StaffCreate.get('description').dirty || formSubmitclicked">
+              <small *ngIf="StaffCreate.get('description').hasError('required')" class="error">Description Is required</small>
+            </span> -->
             <input type="hidden" formControlName="staff_id" />
           </div>
           <div class="col-lg-4 col-md-4 col-12 text-center border-right">
@@ -101,7 +104,13 @@
               </div>
             </div>
           </div>
+          
           <div class="col-lg-4 col-md-4 col-12 select-service">
+             <div>
+          <button mat-button (click)="fnDeleteStaff()" class="staff-delete-btn pl-0">
+            <mat-icon aria-hidden="false">delete</mat-icon>Delete
+          </button>
+        </div>
             <mat-card>
               <h6>Select Service</h6>
               <mat-form-field class="pb-3 bottom-border-field">
@@ -187,7 +196,7 @@
           <form class="search_input-staff">
             <div class="form-group has-search">
               <span class="fa fa-search form-control-feedback verticalLine"></span>
-              <input type="text" class="form-control searchbox_staff " placeholder="Search Coupon">
+              <input type="text" class="form-control searchbox_staff " placeholder="Search by email or name">
             </div>
           </form>
         </div>
@@ -268,9 +277,9 @@
                     </div>
                   </div>
                   <div class="text-left" fxFlex="30">{{allStaffList.email}}</div>
-                  <div class="text-left " fxFlex="15">{{allStaffList.phone}}</div>
-                  <div class="text-left" fxFlex="10" *ngIf="allStaffList.internal_staff == 'Y'">Private</div>
-                  <div class="text-left" fxFlex="10" *ngIf="allStaffList.internal_staff  == 'N'">Public</div>
+                  <div class="text-left " fxFlex="20">{{allStaffList.phone}}</div>
+                  <div class="text-left" fxFlex="5" *ngIf="allStaffList.internal_staff == 'Y'">Private</div>
+                  <div class="text-left" fxFlex="5" *ngIf="allStaffList.internal_staff  == 'N'">Public</div>
                   <div class="text-left" fxFlex="5">
                     <mat-slide-toggle [checked]="allStaffList.status  == 'E'"
                       (change)="fnChangeStaffStatus($event.checked,allStaffList.id)"></mat-slide-toggle>
@@ -327,7 +336,7 @@
             <p>{{singleStaffDetail.staff[0].email}}</p>
           </div>
           <div class="d-flex">
-            <mat-icon aria-hidden="false">call</mat-icon>
+            <mat-icon aria-hidden="false" class="staff-call-icon">call</mat-icon>
             <p>{{singleStaffDetail.staff[0].phone}}</p>
           </div>
         </div>
@@ -462,7 +471,7 @@
         </div>
       </mat-tab>
       <mat-tab label="Postal Codes">
-        <p class="mb-0">Postal codes are defined geographical boundaries within a location. Staff can be these area
+        <p class="mb-0 mt-3">Postal codes are defined geographical boundaries within a location. Staff can be these area
           code.</p>
         <p>Customers will only be show staff members in the area code they select.</p>
         <div class="d-flex mb-3">
@@ -478,7 +487,7 @@
             <form class="search_input-staff">
               <div class="form-group has-search">
                 <span class="fa fa-search form-control-feedback verticalLine"></span>
-                <input type="text" class="form-control searchbox_staff " placeholder="Search Coupon">
+                <input type="text" class="form-control searchbox_staff " placeholder="Search postal code or area">
               </div>
             </form>
           </div>
@@ -518,8 +527,8 @@
               <div class="">
                 <div class="heads main-heading-content example-box header-background " fxLayout="row">
                   <div class="" fxFlex="10"></div>
-                  <div class="" fxFlex="10"></div>
-                  <div class="" fxFlex="30"></div>
+                  <div class="" fxFlex="15"></div>
+                  <div class="" fxFlex="25"></div>
                   <!-- <div class="" fxFlex="10"></div>
                     <div class="" fxFlex="20"></div> -->
                   <div class="" fxFlex="30"></div>
@@ -532,8 +541,8 @@
                         <mat-slide-toggle formControlName="mondayToggle" (change)="fnChangeToggle($event,'Monday')">
                         </mat-slide-toggle>
                       </div>
-                      <div class="" fxFlex="10">Monday</div>
-                      <div class="" fxFlex="30" *ngIf="mondayOn">
+                      <div class="" fxFlex="15">Monday</div>
+                      <div class="" fxFlex="25" *ngIf="mondayOn">
                         <div class="d-flex">
                           <mat-form-field class="bottom-border-field workinghour-dropdown">
                             <mat-select formControlName="mondayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Monday')">
@@ -550,7 +559,7 @@
                       </div>
                       <div class="" *ngIf="!mondayOn">Closed for Business</div>
                       <div class="blue-font" fxFlex="30">
-                        <p (click)="fnApplyToAll()" *ngIf="mondayOn"> Apply to all </p>
+                        <p (click)="fnApplyToAll()" *ngIf="mondayOn" class="mt-3"> Apply to all </p>
                       </div>
                       <div class="" fxFlex="20">
                         <button mat-button class="staff-reset-btn" (click)="fnWorkingHoursResetToDefault()">Reset to
@@ -562,8 +571,8 @@
                         <mat-slide-toggle formControlName="tuesdayToggle" (change)="fnChangeToggle($event,'Tuesday')">
                         </mat-slide-toggle>
                       </div>
-                      <div class="" fxFlex="10">Tuesday</div>
-                      <div class="" fxFlex="30" *ngIf="tuesdayOn">
+                      <div class="" fxFlex="15">Tuesday</div>
+                      <div class="" fxFlex="25" *ngIf="tuesdayOn">
                         <div class="d-flex">
                           <mat-form-field class="bottom-border-field workinghour-dropdown">
                             <mat-select formControlName="tuesdayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Tuesday')">
@@ -588,8 +597,8 @@
                         <mat-slide-toggle formControlName="wednesdayToggle"
                           (change)="fnChangeToggle($event,'Wednesday')"></mat-slide-toggle>
                       </div>
-                      <div class="" fxFlex="10">Wednesday</div>
-                      <div class="" fxFlex="30" *ngIf="wednesdayOn">
+                      <div class="" fxFlex="15">Wednesday</div>
+                      <div class="" fxFlex="25" *ngIf="wednesdayOn">
                         <div class="d-flex">
                           <mat-form-field class="bottom-border-field workinghour-dropdown">
                             <mat-select formControlName="wednesdayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Wednesday')">
@@ -614,8 +623,8 @@
                         <mat-slide-toggle formControlName="thursdayToggle" (change)="fnChangeToggle($event,'Thursday')">
                         </mat-slide-toggle>
                       </div>
-                      <div class="" fxFlex="10">Thursday</div>
-                      <div class="" fxFlex="30" *ngIf="thursdayOn">
+                      <div class="" fxFlex="15">Thursday</div>
+                      <div class="" fxFlex="25" *ngIf="thursdayOn">
                         <div class="d-flex">
                           <mat-form-field class="bottom-border-field workinghour-dropdown">
                             <mat-select formControlName="thursdayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Thursday')">
@@ -640,8 +649,8 @@
                         <mat-slide-toggle formControlName="fridayToggle" (change)="fnChangeToggle($event,'Friday')">
                         </mat-slide-toggle>
                       </div>
-                      <div class="" fxFlex="10">Friday</div>
-                      <div class="" fxFlex="30" *ngIf="fridayOn">
+                      <div class="" fxFlex="15">Friday</div>
+                      <div class="" fxFlex="25" *ngIf="fridayOn">
                         <div class="d-flex">
                           <mat-form-field class="bottom-border-field workinghour-dropdown">
                             <mat-select formControlName="fridayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Friday')">
@@ -666,8 +675,8 @@
                         <mat-slide-toggle formControlName="saturdayToggle" (change)="fnChangeToggle($event,'Saturday')">
                         </mat-slide-toggle>
                       </div>
-                      <div class="" fxFlex="10">Saturday</div>
-                      <div class="" fxFlex="30" *ngIf="saturdayOn">
+                      <div class="" fxFlex="15">Saturday</div>
+                      <div class="" fxFlex="25" *ngIf="saturdayOn">
                         <div class="d-flex">
                           <mat-form-field class="bottom-border-field workinghour-dropdown">
                             <mat-select formControlName="saturdayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Saturday')">
@@ -692,8 +701,8 @@
                         <mat-slide-toggle formControlName="sundayToggle" (change)="fnChangeToggle($event,'Sunday')">
                         </mat-slide-toggle>
                       </div>
-                      <div class="" fxFlex="10">Sunday</div>
-                      <div class="" fxFlex="30" *ngIf="sundayOn">
+                      <div class="" fxFlex="15">Sunday</div>
+                      <div class="" fxFlex="25" *ngIf="sundayOn">
                         <div class="d-flex">
                           <mat-form-field class="bottom-border-field workinghour-dropdown">
                             <mat-select formControlName="sundayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Sunday')">
@@ -713,7 +722,7 @@
                       <div class="" fxFlex="20">
                       </div>
                     </div>
-                    <button mat-button class="staff-reset-btn" (click)="fnCreateWorkingHours()">Save</button>
+                    <button mat-button class="staff-Hours-btn" (click)="fnCreateWorkingHours()">Save</button>
                   </form>
                 </div>
               </div>
@@ -757,7 +766,7 @@
                               <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer d-flex align-items-center ml-2"><i class="fa fa-trash-o delete-box"
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box"
                               (click)="fnDeleteBreak(breakTime.id)"></i></div>
                         </div>
                       </div>
@@ -774,7 +783,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="mondayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-save delete-box" (click)="fnAddBreak('Monday')"></i>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Monday')"></i>
                           </div>
                         </div>
                       </div>
@@ -806,7 +815,7 @@
                               <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer d-flex align-items-center ml-2"><i class="fa fa-trash-o delete-box"
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box"
                               (click)="fnDeleteBreak(breakTime.id)"></i></div>
                         </div>
                       </div>
@@ -823,7 +832,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="tuesdayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-save delete-box" (click)="fnAddBreak('Tuesday')"></i>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Tuesday')"></i>
                           </div>
                         </div>
                       </div>
@@ -853,7 +862,7 @@
                               <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer d-flex align-items-center ml-2"><i class="fa fa-trash-o delete-box"
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box"
                               (click)="fnDeleteBreak(breakTime.id)"></i></div>
                         </div>
                       </div>
@@ -870,7 +879,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="wednesdayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-save delete-box" (click)="fnAddBreak('Wednesday')"></i>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Wednesday')"></i>
                           </div>
                         </div>
                       </div>
@@ -900,7 +909,7 @@
                               <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer d-flex align-items-center ml-2"><i class="fa fa-trash-o delete-box"
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box"
                               (click)="fnDeleteBreak(breakTime.id)"></i></div>
                         </div>
                       </div>
@@ -917,7 +926,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="thursdayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-save delete-box" (click)="fnAddBreak('Thursday')"></i>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Thursday')"></i>
                           </div>
                         </div>
                       </div>
@@ -947,7 +956,7 @@
                               <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer d-flex align-items-center ml-2"><i class="fa fa-trash-o delete-box"
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box"
                               (click)="fnDeleteBreak(breakTime.id)"></i></div>
                         </div>
                       </div>
@@ -964,7 +973,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="fridayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-save delete-box" (click)="fnAddBreak('Friday')"></i>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Friday')"></i>
                           </div>
                         </div>
                       </div>
@@ -995,7 +1004,7 @@
                               <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer d-flex align-items-center ml-2"><i class="fa fa-trash-o delete-box"
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box"
                               (click)="fnDeleteBreak(breakTime.id)"></i></div>
                         </div>
                       </div>
@@ -1013,7 +1022,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="saturdayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-save delete-box" (click)="fnAddBreak('Saturday')"></i>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Saturday')"></i>
                           </div>
                         </div>
                       </div>
@@ -1060,7 +1069,7 @@
                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="sundayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-                          <div class="pointer"><i class="fa fa-save delete-box" (click)="fnAddBreak('Sunday')"></i>
+                          <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Sunday')"></i>
                           </div>
                         </div>
                       </div>
@@ -1078,7 +1087,7 @@
       <mat-tab label="Time Off">
         <div class="d-flex bottom-border">
           <button mat-button class="reset-button ml-auto" (click)="fnResetToDefaultTimeOff()">Reset to Default</button>
-          <button (click)="addTimeOff()" mat-button class="time-off-button">
+          <button (click)="addTimeOff()" mat-button class="time-off-button ml-2">
             <mat-icon aria-hidden="false">add</mat-icon>
             Time Off
           </button>

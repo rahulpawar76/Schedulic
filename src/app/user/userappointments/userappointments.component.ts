@@ -31,8 +31,8 @@ export class UserappointmentsComponent implements OnInit {
   cancelAppointmentData: any;
   completedAppointmentData: any;
   settingsArr: any;
-  cancellationBufferTime: any;
-  minReschedulingTime: any;
+  cancellationBufferTime= new Date();
+  minReschedulingTime= new Date();
   isCustomerAllowedForRatingStaff: boolean=false;
   currencySymbol:any;
   currencySymbolPosition:any;

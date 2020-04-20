@@ -39,7 +39,7 @@ export class StaffAppointmentComponent implements OnInit {
   onGoingAppointmentData: any;
   notes: any;
   settingsArr:any=[];
- cancellationBufferTime= new Date();
+  cancellationBufferTime= new Date();
   minReschedulingTime= new Date();
   currencySymbol:any;
   currencySymbolPosition:any;
@@ -160,11 +160,15 @@ export class StaffAppointmentComponent implements OnInit {
         this.onGoingAppointmentData.forEach( (element) => {
           var todayDateTime = new Date();
           element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
-          var dateTemp = new Date(this.datePipe.transform(element.booking_timeForLabel,"dd MMM yyyy hh:mm a"));
+          var dateTemp = new Date(this.datePipe.transform(element.booking_date_time,"dd MMM yyyy hh:mm a"));
+          var dateTemp2 = new Date(this.datePipe.transform(element.booking_date_time,"dd MMM yyyy hh:mm a"));
           dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
           var temp = dateTemp.getTime() - todayDateTime.getTime();
           element.timeToService=(temp/3600000).toFixed();
-          element.booking_timeForLabel=this.datePipe.transform(element.booking_timeForLabel,"hh:mm a")
+           dateTemp2.setMinutes( dateTemp2.getMinutes());
+          var serviceTimeTamp =  dateTemp2.getTime() - todayDateTime.getTime();
+          element.timeToServiceDecimal=(serviceTimeTamp/60000).toFixed();
+          element.booking_timeForLabel=this.datePipe.transform(element.booking_date_time,"hh:mm a")
           element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
           element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
           element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
@@ -396,6 +400,7 @@ export class StaffAppointmentComponent implements OnInit {
     minimumAdvanceBookingDateTimeObject:any;
     maximumAdvanceBookingDateTimeObject:any;
     showSubCatDropDown=true;
+    isLoaderAdmin: boolean = false;
     constructor(
       public dialogRef: MatDialogRef<DialogAddNewAppointment>,
       public dialog: MatDialog,
@@ -464,6 +469,7 @@ export class StaffAppointmentComponent implements OnInit {
 
     // personal info
     isEmailUnique(control: FormControl) {
+      this.isLoaderAdmin = true;
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           let headers = new HttpHeaders({
@@ -475,8 +481,10 @@ export class StaffAppointmentComponent implements OnInit {
             if(res){
               if(res.data == false){
                 resolve({ isEmailUnique: true });
+                this.isLoaderAdmin = false;
               }else{
               resolve(null);
+              this.isLoaderAdmin = false;
               }
             }
           });
@@ -513,6 +521,7 @@ export class StaffAppointmentComponent implements OnInit {
 
 
   fnGetTaxDetails(){
+    this.isLoaderAdmin = true;
     this.staffService.getTaxDetails().subscribe((response:any) => {
       if(response.data == true){
         let tax = response.response
@@ -522,10 +531,12 @@ export class StaffAppointmentComponent implements OnInit {
       else if(response.data == false){
         
       }
+      this.isLoaderAdmin = false;
     })
   }
 
   fnGetOffDays(){
+    this.isLoaderAdmin = true;
     let requestObject = {
       "business_id":this.bussinessId,
       "staff_id":this.staffId
@@ -546,6 +557,7 @@ export class StaffAppointmentComponent implements OnInit {
       else{
 
       }
+      this.isLoaderAdmin = false;
     },
     (err) =>{
       console.log(err)
@@ -573,6 +585,7 @@ export class StaffAppointmentComponent implements OnInit {
     }
 
     fnGetCategories(){
+      this.isLoaderAdmin = true;
       let requestObject = {
         "business_id":this.bussinessId,
         "status":"E"
@@ -596,6 +609,7 @@ export class StaffAppointmentComponent implements OnInit {
         (err) =>{
           console.log(err)
         })
+        this.isLoaderAdmin = false;
       }
 
       fnSelectCat(selectedCategoryId){
@@ -614,6 +628,8 @@ export class StaffAppointmentComponent implements OnInit {
 
       // get Sub Category function
       fnGetSubCategory(selectedCategoryId){
+        this.isLoaderAdmin = true;
+        
         let requestObject = {
           "category_id":selectedCategoryId,
           "sub_category_status":"E"
@@ -641,6 +657,7 @@ export class StaffAppointmentComponent implements OnInit {
             // this.formGroup.controls["firstName"].updateValueAndValidity();       
             this.fnGetAllServicesFromCategory();
           }
+          this.isLoaderAdmin = false;
         },
         (err) =>{
           console.log(err)
@@ -955,7 +972,7 @@ export class StaffAppointmentComponent implements OnInit {
     selectedCatId:any;
     selectedSubCatId:any;
     selectedServiceId:any;
-    minDate = new Date(2000, 0, 1);
+    minDate = new Date();
     timeSlotArr:any= [];
     constructor(
       public dialogRef: MatDialogRef<DialogNewAppointment>,
@@ -1278,7 +1295,7 @@ export class StaffAppointmentComponent implements OnInit {
   export class InterruptedReschedule {
     formAppointmentRescheduleStaff:FormGroup;
     myAppoDetailData:any;
-    minDate = new Date(2000, 0, 1);
+    minDate = new Date();
     timeSlotArr:any= [];
     availableStaff:any= [];
     constructor(
@@ -1510,6 +1527,7 @@ export class StaffAppointmentComponent implements OnInit {
    @Component({
       selector: 'ongoing-appointmet-details',
       templateUrl: '../_dialogs/ongoing-appointmet-details.html',
+  providers: [DatePipe]
   })
   export class OnGoingAppointmentDetails {
     
@@ -1522,10 +1540,13 @@ export class StaffAppointmentComponent implements OnInit {
   currencySymbol:any;
   currencySymbolPosition:any;
   currencySymbolFormat:any;
+  booking_date_time:any;
+  timeToServiceDecimal:any;
     constructor(
       public dialogRef: MatDialogRef<OnGoingAppointmentDetails>,
       public dialog: MatDialog,
       public authenticationService: AuthenticationService,
+      private datePipe: DatePipe,
       private StaffService: StaffService,
       @Inject(MAT_DIALOG_DATA) public data: any) {
 
@@ -1533,6 +1554,15 @@ export class StaffAppointmentComponent implements OnInit {
         console.log(this.appoDetail);
         this.bussinessId=this.authenticationService.currentUserValue.business_id
         this.fnGetSettingValue();
+         var todayDateTime = new Date();
+           this.booking_date_time=new Date( this.appoDetail.booking_date+" "+ this.appoDetail.booking_time);
+          var dateTemp2 = new Date(this.datePipe.transform(this.booking_date_time,"dd MMM yyyy hh:mm a"));
+           dateTemp2.setMinutes( dateTemp2.getMinutes());
+          var serviceTimeTamp =  dateTemp2.getTime() - todayDateTime.getTime();
+          this.timeToServiceDecimal=(serviceTimeTamp/60000).toFixed();
+
+
+
       }
 
       statuses: status[] = [
