@@ -197,21 +197,20 @@
                         <div class="input-group-text"><i class="fa fa-clock-o"></i>
                         </div>
                     </div>
-                </div>
-                <!-- <input type="time" class="form-control formcontrol"> -->
-                <mat-select class="form-control formcontrol" [disabled]="" formControlName="customerTime" (selectionChange)="fnSelectTime($event.value)">
-                    <!-- <mat-option>None</mat-option> -->
-                    <mat-option *ngFor="let slot of timeSlotArr; let i=index;" value="{{slot}}">{{timeSlotArrForLabel[i]}}</mat-option>
-                    <mat-option *ngIf="timeSlotArr.length==0" disabled>No Time Slot Available</mat-option>
-                </mat-select>
-                <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerTime').dirty || formAddNewAppointmentStaffStep2.get('customerTime').touched || formSubmitclicked">
+                    <!-- <input type="time" class="form-control formcontrol"> -->
+                    <mat-select class="form-control formcontrol" [disabled]="" formControlName="customerTime" (selectionChange)="fnSelectTime($event.value)">
+                        <!-- <mat-option>None</mat-option> -->
+                        <mat-option *ngFor="let slot of timeSlotArr; let i=index;" value="{{slot}}">{{timeSlotArrForLabel[i]}}</mat-option>
+                        <mat-option *ngIf="timeSlotArr.length==0" disabled>No Time Slot Available</mat-option>
+                    </mat-select>
+                    <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerTime').dirty || formAddNewAppointmentStaffStep2.get('customerTime').touched || formSubmitclicked">
 
               <small *ngIf="formAddNewAppointmentStaffStep2.get('customerTime').hasError('required')" class="error">Time is required</small>
             </span>
+                </div>
+                <button class="d-block btn btn-primary addbtn ml-2" (click)="fnNewAppointmentStep2()">Create</button>
+                <button class="d-block btn btn-secondary addbtn float-right" (click)="onBackClick()">Back</button>
+            </form>
         </div>
-        <button class="d-block btn btn-primary addbtn ml-2" (click)="fnNewAppointmentStep2()">Create</button>
-        <button class="d-block btn btn-secondary addbtn float-right" (click)="onBackClick()">Back</button>
-        </form>
     </div>
-</div>
 </div>
