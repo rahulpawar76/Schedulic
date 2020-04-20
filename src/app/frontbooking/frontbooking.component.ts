@@ -68,6 +68,8 @@ export class FrontbookingComponent implements OnInit {
   serviceMainArr={
     totalNumberServices:0,
     subtotal:0,
+    discount_type:null,
+    discount_value:null,
     discount:0,
     netCost:0
   }
@@ -523,6 +525,7 @@ export class FrontbookingComponent implements OnInit {
             this.catdata = response.response;
             this.isLoader=false;
         }else{
+          this.catdata = [];
           this.isLoader=false;
         }
         
@@ -544,8 +547,6 @@ export class FrontbookingComponent implements OnInit {
     }
     
     this.subcatdata=[];
-    this.catselection = false;
-    this.subcatselection = true;
     this.selectedcategory = id;
     this.selectedcategoryName=categoryName
     this.fnGetSubCategory();
@@ -569,11 +570,14 @@ export class FrontbookingComponent implements OnInit {
       catchError(this.handleError)
     ).subscribe((response:any) => {
       if(response.data == true){
+        this.catselection = false;
+        this.subcatselection = true;
         this.isLoader=false;
         this.subcatdata = response.response;
       }else{
-        this.isLoader=false;
-
+        this.subcatdata=[];
+        this.serviceData = [];
+        this.fnGetAllServicesFromCategory();
       }
     },
     (err) =>{
@@ -635,6 +639,57 @@ export class FrontbookingComponent implements OnInit {
       console.log(err)
     })
   }
+   
+  fnGetAllServicesFromCategory(){
+    this.isLoader=true;
+    let requestObject = {
+      "business_id":2,
+      "category_id":this.selectedcategory
+    };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    this.http.post(`${environment.apiUrl}/get-cat-services`,requestObject,{headers:headers} ).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(this.handleError)
+    ).subscribe((response:any) => {
+      if(response.data == true){
+        this.serviceData = response.response;
+        console.log(JSON.stringify(this.serviceCount));
+        for(let i=0; i<this.serviceData.length;i++){
+          if(this.serviceCount[this.serviceData[i].id] == null){
+            this.serviceData[i].count=0;
+            this.serviceData[i].totalCost=0;
+            this.serviceData[i].appointmentDate='';
+            this.serviceData[i].appointmentDateForLabel='';
+            this.serviceData[i].appointmentTimeSlot='';
+            this.serviceData[i].appointmentTimeSlotForLabel='';
+            this.serviceData[i].assignedStaff=null;
+            this.serviceCount[this.serviceData[i].id]=this.serviceData[i];
+          }
+          
+        }
+        this.isLoader=false;
+        this.catselection = false;
+        this.serviceselection = true;
+        console.log(JSON.stringify(this.serviceCount));
+      }else{
+        this.snackBar.open("No Sub-Category or Service Available", "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+        });
+        this.isLoader=false;
+      }
+    },
+    (err) =>{
+      this.isLoader=false;
+      console.log(err)
+    })
+  }
 
    fnShowCounter(event,service_id){
     this.currentSelectedService=service_id;
@@ -663,15 +718,18 @@ export class FrontbookingComponent implements OnInit {
     if(this.serviceMainArr.subtotal > 0){
       this.taxArr.forEach((element) => {
         let taxTemp={
+          value:0,
           name:'',
           amount:0
         }
         console.log(element.name+" -- "+element.value);
         if(this.taxType == "P"){
+         taxTemp.value= element.value;
          taxTemp.name= element.name;
          taxTemp.amount= amountAfterDiscount * element.value/100;
           amountAfterTax=amountAfterTax+taxTemp.amount;
         }else{
+          taxTemp.value= element.value;
           taxTemp.name= element.name;
           taxTemp.amount=  element.value;
           amountAfterTax=amountAfterTax+taxTemp.amount;
@@ -729,15 +787,18 @@ export class FrontbookingComponent implements OnInit {
           //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
           // }
           let taxTemp={
+          value:0,
             name:'',
             amount:0
           }
           console.log(element.name+" -- "+element.value);
           if(this.taxType == "P"){
+           taxTemp.value= element.value;
            taxTemp.name= element.name;
            taxTemp.amount= amountAfterDiscount * element.value/100;
             amountAfterTax=amountAfterTax+taxTemp.amount;
           }else{
+            taxTemp.value= element.value;
             taxTemp.name= element.name;
             taxTemp.amount=  element.value;
             amountAfterTax=amountAfterTax+taxTemp.amount;
@@ -792,15 +853,18 @@ export class FrontbookingComponent implements OnInit {
           //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
           // }
           let taxTemp={
+          value:0,
             name:'',
             amount:0
           }
           console.log(element.name+" -- "+element.value);
           if(this.taxType == "P"){
+           taxTemp.value= element.value;
            taxTemp.name= element.name;
            taxTemp.amount= amountAfterDiscount * element.value/100;
             amountAfterTax=amountAfterTax+taxTemp.amount;
           }else{
+            taxTemp.value= element.value;
             taxTemp.name= element.name;
             taxTemp.amount=  element.value;
             amountAfterTax=amountAfterTax+taxTemp.amount;
@@ -1126,15 +1190,18 @@ export class FrontbookingComponent implements OnInit {
         //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
         // }
         let taxTemp={
+          value:0,
           name:'',
           amount:0
         }
         console.log(element.name+" -- "+element.value);
         if(this.taxType == "P"){
+         taxTemp.value= element.value;
          taxTemp.name= element.name;
          taxTemp.amount= amountAfterDiscount * element.value/100;
           amountAfterTax=amountAfterTax+taxTemp.amount;
         }else{
+          taxTemp.value= element.value;
           taxTemp.name= element.name;
           taxTemp.amount=  element.value;
           amountAfterTax=amountAfterTax+taxTemp.amount;
@@ -1453,6 +1520,8 @@ export class FrontbookingComponent implements OnInit {
 
   fncheckavailcoupon(couponStatus){
     if(couponStatus == 'valid'){
+      this.serviceMainArr.discount_type = null;
+      this.serviceMainArr.discount_value=null;
       this.serviceMainArr.discount=0;
       this.taxAmountArr.length=0;
 
@@ -1480,15 +1549,18 @@ export class FrontbookingComponent implements OnInit {
           //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
           // }
           let taxTemp={
+          value:0,
             name:'',
             amount:0
           }
           console.log(element.name+" -- "+element.value);
           if(this.taxType == "P"){
+           taxTemp.value= element.value;
            taxTemp.name= element.name;
            taxTemp.amount= amountAfterDiscount * element.value/100;
             amountAfterTax=amountAfterTax+taxTemp.amount;
           }else{
+            taxTemp.value= element.value;
             taxTemp.name= element.name;
             taxTemp.amount=  element.value;
             amountAfterTax=amountAfterTax+taxTemp.amount;
@@ -1538,6 +1610,8 @@ export class FrontbookingComponent implements OnInit {
       if(response.data == true){
         let couponType = response.response.coupon_type;
         let couponValue = response.response.coupon_value;
+        this.serviceMainArr.discount_type = couponType;
+        this.serviceMainArr.discount_value = parseInt(couponValue);
         if(couponType == 'P'){
           this.serviceMainArr.discount = (this.serviceMainArr.subtotal*parseInt(couponValue))/100;
           //this.serviceMainArr.netCost = this.serviceMainArr.subtotal - this.serviceMainArr.discount;
@@ -1571,15 +1645,18 @@ export class FrontbookingComponent implements OnInit {
             //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
             // }
             let taxTemp={
+          value:0,
               name:'',
               amount:0
             }
             console.log(element.name+" -- "+element.value);
             if(this.taxType == "P"){
+             taxTemp.value= element.value;
              taxTemp.name= element.name;
              taxTemp.amount= amountAfterDiscount * element.value/100;
               amountAfterTax=amountAfterTax+taxTemp.amount;
             }else{
+              taxTemp.value= element.value;
               taxTemp.name= element.name;
               taxTemp.amount=  element.value;
               amountAfterTax=amountAfterTax+taxTemp.amount;
@@ -1723,6 +1800,8 @@ export class FrontbookingComponent implements OnInit {
       "customer_id": this.authenticationService.currentUserValue.user_id,
       "customer_token" : this.authenticationService.currentUserValue.token,
       "subtotal" : this.serviceMainArr.subtotal,
+      "discount_type" : this.serviceMainArr.discount_type,
+      "discount_value" : this.serviceMainArr.discount_value,
       "discount" : this.serviceMainArr.discount,
       "tax" : this.taxAmountArr,
       "nettotal" : this.serviceMainArr.netCost,

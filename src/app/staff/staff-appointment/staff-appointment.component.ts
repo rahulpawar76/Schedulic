@@ -395,6 +395,7 @@ export class StaffAppointmentComponent implements OnInit {
     maximumAdvanceBookingTime:any;
     minimumAdvanceBookingDateTimeObject:any;
     maximumAdvanceBookingDateTimeObject:any;
+    showSubCatDropDown=true;
     constructor(
       public dialogRef: MatDialogRef<DialogAddNewAppointment>,
       public dialog: MatDialog,
@@ -410,7 +411,8 @@ export class StaffAppointmentComponent implements OnInit {
       this.bussinessId=(JSON.parse(localStorage.getItem('currentUser'))).business_id;
       let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
       let onlynumeric = /^-?(0|[1-9]\d*)?$/
-
+      this.subcatdata=[];
+      this.serviceData=[];
       this.formAddNewAppointmentStaffStep1 = this._formBuilder.group({
         customerFullName: ['', Validators.required],
         customerEmail: ['', [Validators.required,Validators.email,Validators.pattern(emailPattern)]],
@@ -598,9 +600,14 @@ export class StaffAppointmentComponent implements OnInit {
 
       fnSelectCat(selectedCategoryId){
         console.log(selectedCategoryId)
+        this.subcatdata.length = 0;
+        this.serviceData.length = 0;
+        this.serviceCount.length=0; 
         this.fnGetSubCategory(selectedCategoryId);
         this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].setValue(null);
         this.formAddNewAppointmentStaffStep2.controls['customerService'].setValue(null);
+        this.selectedSubCatId=undefined;
+        this.selectedServiceId=undefined;
       }
     
 
@@ -621,10 +628,18 @@ export class StaffAppointmentComponent implements OnInit {
           }),
         ).subscribe((response:any) => {
           if(response.data == true){
+            this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].setValidators([Validators.required]);    
+            this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].updateValueAndValidity();           
+            this.showSubCatDropDown=true;
             this.subcatdata = response.response;
             console.log(this.subcatdata)
           }else{
-
+            this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].clearValidators();
+            this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].updateValueAndValidity();           
+           this.showSubCatDropDown=false;
+            // this.formGroup.controls["firstName"].clearValidators();
+            // this.formGroup.controls["firstName"].updateValueAndValidity();       
+            this.fnGetAllServicesFromCategory();
           }
         },
         (err) =>{
@@ -634,9 +649,11 @@ export class StaffAppointmentComponent implements OnInit {
 
       fnSelectSubCat(selectedSubCategoryId){
         console.log(selectedSubCategoryId)
+        this.serviceData.length = 0;
         this.fnGetAllServices(selectedSubCategoryId);
         this.formAddNewAppointmentStaffStep2.controls['customerService'].setValue(null);
         this.serviceCount.length=0;
+        this.selectedServiceId=undefined;
       }
 
       fnGetAllServices(selectedSubCategoryId){
@@ -671,10 +688,52 @@ export class StaffAppointmentComponent implements OnInit {
           console.log(err)
         })
       }
+   
+  fnGetAllServicesFromCategory(){
+    let requestObject = {
+      "business_id":2,
+      "category_id":this.selectedCatId
+    };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    this.http.post(`${environment.apiUrl}/get-cat-services`,requestObject,{headers:headers} ).pipe(
+      map((res) => {
+        return res;
+      }),
+      // catchError(this.handleError)
+    ).subscribe((response:any) => {
+      if(response.data == true){
+      this.serviceData = response.response;
+      for(let i=0; i<this.serviceData.length;i++){
+        this.serviceData[i].count=0;
+        this.serviceData[i].totalCost=0;
+        this.serviceData[i].appointmentDate='';
+        this.serviceData[i].appointmentTimeSlot='';
+        this.serviceData[i].assignedStaff=this.staffId;
+        this.serviceCount[this.serviceData[i].id]=this.serviceData[i];
+      }
+      console.log(JSON.stringify(this.serviceData));
+      }else{
+        this._snackBar.open("No Sub-Category or Service Available", "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+        });
+      }
+    },
+    (err) =>{
+      console.log(err)
+    })
+  }
 
      fnSelectService(selectedServiceId){
       console.log(selectedServiceId);
       this.selectedServiceId=selectedServiceId;
+      if(this.selectedDate){
+          this.fnGetTimeSlots(this.selectedDate);
+      }
       for(let i=0; i<this.serviceCount.length;i++){
         if(this.serviceCount[i] != null && this.serviceCount[i].id == selectedServiceId){
           this.serviceCount[i].count=1;
@@ -701,15 +760,22 @@ export class StaffAppointmentComponent implements OnInit {
       console.log(JSON.stringify(this.serviceCount));
       }
 
-     fnDateChange(event: MatDatepickerInputEvent<Date>) {
-      console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
-      let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
-      this.formAddNewAppointmentStaffStep2.controls['customerTime'].setValue(null);
-      this.timeSlotArr= [];
-      this.serviceCount[this.selectedServiceId].appointmentDate=date;
-      this.selectedDate=date;
-      console.log(JSON.stringify(this.serviceCount));
-      this.fnGetTimeSlots(date);
+      fnDateChange(event: MatDatepickerInputEvent<Date>) {
+        console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
+        let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
+        this.formAddNewAppointmentStaffStep2.controls['customerTime'].setValue(null);
+        this.selectedTime=undefined;
+        this.timeSlotArr= [];
+        this.timeSlotArrForLabel= [];
+        if(this.selectedServiceId != undefined){
+          this.serviceCount[this.selectedServiceId].appointmentDate=date
+        }
+        // this.serviceCount[this.selectedServiceId].appointmentDate=date;
+        this.selectedDate=date;
+        console.log(JSON.stringify(this.serviceCount));
+        if(this.selectedServiceId != undefined){
+          this.fnGetTimeSlots(date);
+        }
       }
 
       fnGetTimeSlots(date){
@@ -756,7 +822,10 @@ export class StaffAppointmentComponent implements OnInit {
         }
 
         fnSelectTime(timeSlot){
-          this.serviceCount[this.selectedServiceId].appointmentTimeSlot =timeSlot;
+          if(this.selectedServiceId != undefined){
+            this.serviceCount[this.selectedServiceId].appointmentTimeSlot =timeSlot;
+          }
+          // this.serviceCount[this.selectedServiceId].appointmentTimeSlot =timeSlot;
           this.selectedTime=timeSlot;
           console.log(JSON.stringify(this.serviceCount));
         } 
@@ -793,15 +862,18 @@ export class StaffAppointmentComponent implements OnInit {
           if(amountAfterDiscount > 0){
             this.taxArr.forEach((element) => {
               let taxTemp={
+                value:0,
                 name:'',
                 amount:0
               }
               console.log(element.name+" -- "+element.value);
               if(this.taxType == "P"){
+              taxTemp.value= element.value;
                taxTemp.name= element.name;
                taxTemp.amount= amountAfterDiscount * element.value/100;
                 amountAfterTax=amountAfterTax+taxTemp.amount;
               }else{
+                taxTemp.value= element.value;
                 taxTemp.name= element.name;
                 taxTemp.amount=  element.value;
                 amountAfterTax=amountAfterTax+taxTemp.amount;
@@ -827,6 +899,8 @@ export class StaffAppointmentComponent implements OnInit {
             "appointment_zipcode": this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
             "coupon_code": '',
             "subtotal": serviceCartArrTemp[0].totalCost,
+            "discount_type" : null,
+            "discount_value" : null,
             "discount": 0,
             "tax": this.taxAmountArr,
             "nettotal": this.netCost,

@@ -353,7 +353,7 @@
                                 </div>
                             </mat-tab>
                             <mat-tab label="Payments">
-                                <table class="table">
+                                <table class="table" *ngIf="showPaymentTable">
                                     <thead>
                                       <tr>
                                         <th scope="col">Date</th>
@@ -366,42 +366,20 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <tr>
-                                        <td scope="row">25 Oct 2019</td>
-                                        <td>08:15 am</td>
-                                        <td>Repainting</td>
-                                        <td>Cash</td>
-                                        <td>$.2680.00</td>
-                                        <td>paid</td>
-                                        <td class="">
-                                            <mat-icon class=" ml-2" aria-hidden="false">picture_as_pdf</mat-icon>
-                                            <mat-icon class=" ml-2" aria-hidden="false">print</mat-icon>
+                                      <tr *ngFor="let payment of customerPayments; let i =index;">
+                                        <td scope="row">{{payment.payment_status=='paid'?payment.paymentDate:'----'}}</td>
+                                        <td>{{payment.payment_status=='paid'?payment.paymentTime:'----'}}</td>
+                                        <td class="text-capitalize" *ngIf="payment.service">{{payment.service.service_name}}</td>
+                                        <td class="text-capitalize">{{payment.payment_status=='paid'?payment.payment_mode:'----'}}</td>
+                                        <td *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ payment.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>
+                                        <td *ngIf="currencySymbolPosition=='right'">{{ payment.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</td>
+                                        <td class="text-capitalize">{{payment.payment_status=='paid'?'Paid':'Pending'}}</td>
+                                        <td class="text-capitalize">
+                                            <button mat-button appearance="fill" class="view-btn ml-2" (click)="invoice(i)"><mat-icon class="" aria-hidden="false">description</mat-icon></button>
+                                            <button mat-button appearance="fill" class="view-btn ml-2" (click)="fnShowPaymentForm(i,null,null)"><mat-icon class="" aria-hidden="false">edit</mat-icon></button>
+                                            <button mat-button appearance="fill" class="view-btn ml-2"><mat-icon class="" aria-hidden="false">print</mat-icon></button>
                                         </td>
-                                      </tr>
-                                      <tr>
-                                        <td scope="row">---</td>
-                                        <td>---</td>
-                                        <td>Repainting</td>
-                                        <td>---</td>
-                                        <td>$.3000.00</td>
-                                        <td>pending</td>
-                                        <td class="">
-                                            <mat-icon class=" ml-2" aria-hidden="false">picture_as_pdf</mat-icon>
-                                            <mat-icon class=" ml-2" aria-hidden="false">print</mat-icon>
-                                        </td>
-                                      </tr>
-                                      <tr class="border-bottom">
-                                        <td scope="row">25 Oct 2019</td>
-                                        <td>08:15 am</td>
-                                        <td>Repainting</td>
-                                        <td>Online</td>
-                                        <td>$.4500.00</td>
-                                        <td>paid</td>
-                                        <td>
-                                            <mat-icon class=" ml-2" aria-hidden="false">picture_as_pdf</mat-icon>
-                                            <mat-icon class=" ml-2" aria-hidden="false">print</mat-icon>
-                                        </td>
-                                      </tr>                                      
+                                      </tr>                         
                                     </tbody>
                                   </table>  
                                   
@@ -409,95 +387,117 @@
                                     <h2 class="text-center py-3">No Notes Available</h2>
                                 </div> -->
                                   <!--  payment 2nd module  --> 
-                                  <div class="">
-                                    <div class="row mx-0">
-                                        
-                                        <div class="col-lg-8 col-md-8 col-12 col-sm-12">
-                                            <h6 class="pb-4 Customer-payment">Payment</h6>
-                                            <div class="searchbox col-lg-6 col-12 col-md-6 pb-2">
-                                                <h6>Amount</h6>
-                                                <div class="form-group has-search">
-                                                    <span class="fa fa-search form-control-feedback"></span>
-                                                    <input type="text" class="form-control" placeholder="3000.00">
-                                                </div> 
-                                            </div>
-                                            <div class="searchbox col-lg-6 col-12 col-md-6  pb-2">
-                                                <h6>Discount</h6>
-                                                    <div class="form-group has-search ">
+                                  <div class="" *ngIf="showPaymentForm">
+                                    <form [formGroup]="formPayment">
+                                        <div class="row mx-0">
+                                            <div class="col-lg-8 col-md-8 col-12 col-sm-12">
+                                                <h6 class="pb-4 Customer-payment">Payment</h6>
+                                                <div class="searchbox col-lg-6 col-12 col-md-6 pb-2">
+                                                    <h6>Amount</h6>
+                                                    <div class="form-group has-search">
                                                         <span class="fa fa-search form-control-feedback"></span>
-                                                        <input type="text" class="form-control" placeholder="Enter Discount">
+                                                        <input type="text" class="form-control" placeholder="3000.00" formControlName="paymentAmount" (change)="fnOnChangeAmount($event)">
+                                                        <span class="error-wrap" *ngIf="formPayment.get('paymentAmount').dirty || formPayment.get('paymentAmount').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentAmount').hasError('required')" class="error">Amount is required</small><small *ngIf="formPayment.get('paymentAmount').hasError('pattern')" class="error">Enter valid amount</small></span>   
                                                     </div> 
                                                 </div>
-                                            <div class=" pb-3 col-lg-6 col-12 col-md-6">
-                                                <h6 for="comment">Type</h6>
-                                                <div class="form-check-inline ">
-                                                    <label class="form-check-label">
-                                                      <input type="radio" class="form-check-input" name="optradio">Cash
-                                                    </label>
-                                                </div>
-                                                  <div class="form-check-inline">
-                                                    <label class="form-check-label">
-                                                      <input type="radio" class="form-check-input" name="optradio">Online
-                                                    </label>
-                                                  </div>
-                                            </div>
-                                            <div>
-                                                <div class="form-group col-lg-6 col-12 col-md-6">
-                                                    <h6 for="comment">Note</h6>
-                                                    <textarea class="form-control" rows="3" id="comment" placeholder="Enter Payment Note"></textarea>
-                                                  </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 col-12 col-sm-12">
-                                            <div class="main-border">
-                                                <div class="p-3">
-                                                    <div>
-                                                        <h6 class="mb-0">25 Oct 2019</h6>
-                                                        <p class="small-font">Booked On:01 sep 2019 @ 12:07 pm</p>
-                                                    </div>
-                                                    <div class="pt-2">
-                                                        <p class="small-font">Service </p>
-                                                        <h6>Repainting,<small>(wall painting)</small></h6>
-                                                    </div>
-                                                    <div class="pt-2">
-                                                        <p class="small-font">Time</p>
-                                                        <h6>08:15 am - 08:50 am <small>(35 min)</small></h6>
-                                                    </div>
-                                                    <div class="d-flex pt-2">
-                                                        <div class="OrderBy-width">
-                                                            <p class="small-font">Order By</p>
-                                                            <h6>Admin</h6>
-                                                        </div>
-                                                        <div class="Status-width">
-                                                            <p class="small-font">Status</p>
-                                                            <h6>Pending</h6>
-                                                        </div>
-                                                        <div class="Staff-width">
-                                                            <p class="small-font">Staff</p>
-                                                            <h6>----</h6>
+                                                <div class="searchbox col-lg-6 col-12 col-md-6  pb-2">
+                                                    <h6>Discount</h6>
+                                                        <div class="form-group has-search ">
+                                                            <span class="fa fa-search form-control-feedback"></span>
+                                                            <input type="text" class="form-control" placeholder="Enter Discount" formControlName="paymentDiscount" (change)="fnOnChangeDiscount($event)">
+                                                            <span class="error-wrap" *ngIf="formPayment.get('paymentDiscount').dirty || formPayment.get('paymentDiscount').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentDiscount').hasError('required')" class="error">Discount is required</small><small *ngIf="formPayment.get('paymentDiscount').hasError('pattern')" class="error">Enter valid discount value</small></span> 
                                                         </div>
                                                     </div>
+                                                <div class=" pb-3 col-lg-6 col-12 col-md-6">
+                                                    <h6 for="comment">Type</h6>
+                                                    <mat-radio-group class="radio-btn-wrapper" formControlName="paymentMode">
+                                                    <mat-radio-button value="Cash">Cash</mat-radio-button>
+                                                    <mat-radio-button value="Online">Online</mat-radio-button>
+                                                    </mat-radio-group>
+                                                    <span class="error-wrap" *ngIf="formPayment.get('paymentMode').dirty || formPayment.get('paymentMode').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentMode').hasError('required')" class="error">Payment Mode is required</small></span> 
                                                 </div>
-                                                <div class="subtotal p-3">
-                                                    <h6 class="pb-1 ">Sub Total $.</h6>
-                                                    <h6 class="pb-1">Tax (18%) $.</h6>
-                                                    <h6 class="mb-0">Discount $.</h6>
-                                                </div>
-                                                <div class="Total p-3">
-                                                    <h6 class="">total $.</h6>
+                                                <div>
+                                                    <div class="form-group col-lg-6 col-12 col-md-6">
+                                                        <h6 for="comment">Note</h6>
+                                                        <textarea class="form-control" rows="3" id="comment" placeholder="Enter Payment Note" formControlName="paymentNote"></textarea>
+                                                        <span class="error-wrap" *ngIf="formPayment.get('paymentNote').dirty || formPayment.get('paymentNote').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentNote').hasError('required')" class="error">Payment Note is required</small></span> 
+                                                      </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="devider-slim"></div> 
-                                        <div class="action-btn my-3">
-                                            <div class="mx-2">
-                                                <button mat-button appearance="fill" class="customer-cancel-btn">Cancel</button>
+                                            <div class="col-lg-4 col-md-4 col-12 col-sm-12">
+                                                <div class="main-border">
+                                                    <div class="p-3">
+                                                        <div>
+                                                            <h6 class="mb-0">{{serviceMainArr.bookingDateForLabel}}</h6>
+                                                            <p class="small-font">Booked On:{{serviceMainArr.created_at}}</p>
+                                                        </div>
+                                                        <div class="pt-2">
+                                                            <p class="small-font">Service </p>
+                                                            <h6>{{serviceMainArr.service_name}}, <small>({{serviceMainArr.category_title!=''?serviceMainArr.category_title:''}})</small></h6>
+                                                        </div>
+                                                        <div class="pt-2">
+                                                            <p class="small-font">Time</p>
+                                                            <h6>{{serviceMainArr.bookingTimeForLabel}} - {{serviceMainArr.bookingTimeTo}} <small>({{serviceMainArr.service_time}} min)</small></h6>
+                                                        </div>
+                                                        <div class="d-flex pt-2">
+                                                            <div class="OrderBy-width">
+                                                                <p class="small-font">Order By</p>
+                                                                <h6 class="text-capitalize">{{serviceMainArr.order_by}}</h6>
+                                                            </div>
+                                                            <div class="Status-width">
+                                                                <p class="small-font">Status</p>
+                                                                <!-- <h6>{{serviceMainArr.order_status}}</h6> -->
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'P'">Pending</h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'CNF'">Confirm</h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'AC'">Accepted</h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'OW'">On The Way</h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'WS'">Work Started</h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'RSA'">Rescheduled</h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'RSS'">Rescheduled</h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'RSC'">Rescheduled</h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'ITR'">Intrupted</h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'C'">Cancelled</h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'CC'">Cancelled by Client</h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'R'">Rejected</h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'CO'">Completed</h6>
+                                                            </div>
+                                                            <div class="Staff-width">
+                                                                <p class="small-font">Staff</p>
+                                                                <h6>{{serviceMainArr.staff_name!=''?serviceMainArr.staff_name:'----'}}</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="subtotal p-3">
+                                                        <!-- <h6 class="pb-1 ">Sub Total {{serviceMainArr.subtotal}}</h6> -->
+                                                        <h6 class="pb-1 " *ngIf="currencySymbolPosition=='left'">Sub Total: {{currencySymbol| currencySymbol:'wide'}} {{ serviceMainArr.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
+                                                        <h6 class="pb-1 " *ngIf="currencySymbolPosition=='right'">Sub Total {{ serviceMainArr.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6>
+                                                        <h6 class="pb-1" *ngFor="let tax of taxAmountArr">
+                                                            <!-- <span>Tax ({{tax.name}} - {{tax.value}}%) {{tax.amount}}</span> -->
+                                                            <span *ngIf="currencySymbolPosition=='left'">Tax ({{tax.name}} - {{tax.value}}%): {{currencySymbol| currencySymbol:'wide'}} {{ tax.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                                                            <span *ngIf="currencySymbolPosition=='right'">Tax ({{tax.name}} - {{tax.value}}%): {{ tax.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</span>
+                                                        </h6>
+                                                        <!-- <h6 class="mb-0">Discount {{serviceMainArr.discount}}</h6> -->
+                                                        <h6 class="mb-0" *ngIf="currencySymbolPosition=='left'">Discount: {{currencySymbol| currencySymbol:'wide'}} {{ serviceMainArr.discount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
+                                                        <h6 class="mb-0" *ngIf="currencySymbolPosition=='right'">Discount: {{ serviceMainArr.discount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6>
+                                                    </div>
+                                                    <div class="Total p-3">
+                                                        <!-- <h6 class="">total {{serviceMainArr.netCost}}</h6> -->
+                                                        <h6 class="" *ngIf="currencySymbolPosition=='left'">Total: {{currencySymbol| currencySymbol:'wide'}} {{ serviceMainArr.netCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
+                                                        <h6 class="" *ngIf="currencySymbolPosition=='right'">Total: {{ serviceMainArr.netCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="mx-2">
-                                                <button (click)="newPaymentNote()" mat-button appearance="fill" class="customer-pay-btn">Pay</button>
-                                            </div>  
+                                            <div class="devider-slim"></div> 
+                                            <div class="action-btn my-3">
+                                                <div class="mx-2">
+                                                    <button mat-button appearance="fill" class="customer-cancel-btn" (click)="fnShowPaymentTable()">Cancel</button>
+                                                </div>
+                                                <div class="mx-2">
+                                                    <button mat-button appearance="fill" class="customer-pay-btn" (click)="fnSubmitPaymentForm()">Pay</button>
+                                                </div>  
+                                            </div>
                                         </div> 
-                                    </div>
+                                    </form>
                                 </div>
                             </mat-tab>
                             <mat-tab label="Review">

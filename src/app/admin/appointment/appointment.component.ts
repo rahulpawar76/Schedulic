@@ -354,6 +354,7 @@ export class DialogAddNewAppointment {
   disableSubCategory:boolean=false;
   disableService:boolean=false;
   dialogTitle:any="New Appointment";
+  showSubCatDropDown=true;
   constructor(
     public dialogRef: MatDialogRef<DialogAddNewAppointment>,
     public dialog: MatDialog,
@@ -379,13 +380,15 @@ export class DialogAddNewAppointment {
       this.appointmentData.city=this.data.appointmentData.customer.city;
       this.appointmentData.state=this.data.appointmentData.customer.state;
       this.appointmentData.zip=this.data.appointmentData.customer.zip;
-      this.appointmentData.category_id=JSON.stringify(this.data.appointmentData.service.category_id);
+      this.selectedCatId=this.appointmentData.category_id=JSON.stringify(this.data.appointmentData.service.category_id);
       this.appointmentData.sub_category_id=JSON.stringify(this.data.appointmentData.service.sub_category_id);
       this.appointmentData.service_id=JSON.stringify(this.data.appointmentData.service.id);
       this.appointmentData.booking_date=new Date(this.data.appointmentData.booking_date);
       this.appointmentData.booking_time=this.datePipe.transform(new Date(this.data.appointmentData.booking_date+" "+this.data.appointmentData.booking_time),"HH:mm");
       this.bussinessId=this.appointmentData.business_id;
-      this.appointmentData.staff=this.data.appointmentData.staff_id;
+      if(this.data.appointmentData.staff_id){
+        this.appointmentData.staff=JSON.parse(this.data.appointmentData.staff_id);
+      }
       this.selectedServiceId=this.appointmentData.service_id;
       this.selectedDate = this.datePipe.transform(new Date(this.appointmentData.booking_date),"yyyy-MM-dd");
       this.selectedTime=this.appointmentData.booking_time;
@@ -423,7 +426,7 @@ export class DialogAddNewAppointment {
 
     this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
       customerCategory: [this.appointmentData.category_id, Validators.required],
-      customerSubCategory: [this.appointmentData.sub_category_id, Validators.required],
+      customerSubCategory: [this.appointmentData.sub_category_id, [Validators.required]],
       customerService: [this.appointmentData.service_id, [Validators.required]],
       customerDate: [this.appointmentData.booking_date, Validators.required],
       customerTime: [this.appointmentData.booking_time, Validators.required],
@@ -575,9 +578,22 @@ export class DialogAddNewAppointment {
       return false;
     }
     this.fnGetCategories(); 
+    if(this.bussinessId != undefined && this.selectedServiceId != undefined && this.selectedDate != undefined && this.selectedTime != undefined){
+      this.fnGetStaff();
+    }
     if(this.data.appointmentData){
-      this.fnGetSubCategory(this.appointmentData.category_id);
-      this.fnGetAllServices(this.appointmentData.sub_category_id);
+      if(this.appointmentData.sub_category_id != null && this.appointmentData.sub_category_id != "null"){
+        this.fnGetSubCategory(this.appointmentData.category_id);
+        this.fnGetAllServices(this.appointmentData.sub_category_id);
+        this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].setValidators([Validators.required]);    
+        this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].updateValueAndValidity();           
+       this.showSubCatDropDown=true;
+      }else{
+        this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].clearValidators();
+        this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].updateValueAndValidity();           
+       this.showSubCatDropDown=false;
+        this.fnGetAllServicesFromCategory();
+      }
       this.fnGetTimeSlots(this.selectedDate);
       this.fnGetStaff();
     }
@@ -642,9 +658,18 @@ export class DialogAddNewAppointment {
     }),
     ).subscribe((response:any) => {
       if(response.data == true){
+        this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].setValidators([Validators.required]);    
+        this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].updateValueAndValidity();           
+       this.showSubCatDropDown=true;
       this.subcatdata = response.response;
       // console.log(this.subcatdata)
       }else{
+        this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].clearValidators();
+        this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].updateValueAndValidity();           
+       this.showSubCatDropDown=false;
+        // this.formGroup.controls["firstName"].clearValidators();
+        // this.formGroup.controls["firstName"].updateValueAndValidity();       
+        this.fnGetAllServicesFromCategory();
       }
     },
     (err) =>{
@@ -721,9 +746,75 @@ export class DialogAddNewAppointment {
       console.log(err)
     })
   }
+   
+  fnGetAllServicesFromCategory(){
+    let requestObject = {
+      "business_id":2,
+      "category_id":this.selectedCatId
+    };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    this.http.post(`${environment.apiUrl}/get-cat-services`,requestObject,{headers:headers} ).pipe(
+      map((res) => {
+        return res;
+      }),
+      // catchError(this.handleError)
+    ).subscribe((response:any) => {
+      if(response.data == true){
+        this.serviceData = response.response;
+        for(let i=0; i<this.serviceData.length;i++){
+          this.serviceData[i].count=0;
+          this.serviceData[i].totalCost=0;
+          this.serviceData[i].appointmentDate='';
+          this.serviceData[i].appointmentTimeSlot='';
+          this.serviceData[i].assignedStaff=null;
+          this.serviceCount[this.serviceData[i].id]=this.serviceData[i];
+        }
+        // console.log(JSON.stringify(this.serviceData));
+        if(this.data.appointmentData){
+          for(let i=0; i<this.serviceCount.length;i++){
+            if(this.serviceCount[i] != null && this.serviceCount[i].id == this.selectedServiceId){
+              this.serviceCount[i].count=1;
+              this.serviceCount[i].totalCost=1*this.serviceCount[i].service_cost;
+              if(this.selectedDate){
+                this.serviceCount[i].appointmentDate=this.selectedDate;
+              }else{
+                this.serviceCount[i].appointmentDate='';
+              }
+              if(this.selectedTime){
+                this.serviceCount[i].appointmentTimeSlot=this.selectedTime;
+              }else{
+                this.serviceCount[i].appointmentTimeSlot='';
+              }
+              this.serviceCount[i].assignedStaff=null;
+            }else if(this.serviceCount[i] != null && this.serviceCount[i].id != this.selectedServiceId){
+              this.serviceCount[i].count=0;
+              this.serviceCount[i].totalCost=0;
+              this.serviceCount[i].appointmentDate='';
+              this.serviceCount[i].appointmentTimeSlot='';
+              this.serviceCount[i].assignedStaff=null;
+            }
+          }
+          console.log(JSON.stringify(this.serviceCount));
+        }
+      }else{
+        this._snackBar.open("No Sub-Category or Service Available", "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+        });
+      }
+    },
+    (err) =>{
+      console.log(err)
+    })
+  }
 
   fnSelectService(selected_service_id){
     console.log(selected_service_id)
+    this.availableStaff=[];
     this.formAddNewAppointmentStaffStep2.controls['customerStaff'].setValue(null);
     this.selectedStaffId=undefined;
     for(let i=0; i<this.serviceCount.length;i++){
@@ -765,6 +856,7 @@ export class DialogAddNewAppointment {
     this.selectedStaffId=undefined;
     this.timeSlotArr= [];
     this.timeSlotArrForLabel= [];
+    this.availableStaff=[];
     if(this.selectedServiceId != undefined){
       this.serviceCount[this.selectedServiceId].appointmentDate=date
     }
@@ -819,6 +911,7 @@ export class DialogAddNewAppointment {
 
   fnSelectTime(timeSlot){
     console.log(timeSlot);
+    this.availableStaff=[];
     if(this.selectedServiceId != undefined){
       this.serviceCount[this.selectedServiceId].appointmentTimeSlot =timeSlot;
     }
@@ -853,7 +946,7 @@ export class DialogAddNewAppointment {
         this.isStaffAvailable = true;
         console.log(JSON.stringify(this.availableStaff));
       }else{
-        this.availableStaff.length=0;
+        this.availableStaff=[];
         this.isStaffAvailable = false;
       }
     },
@@ -909,21 +1002,24 @@ export class DialogAddNewAppointment {
     //   }
     // }
     // this.netCost=serviceCartArrTemp[0].totalCost+this.taxAmount;
-
+    var discount_type = null;
     var amountAfterDiscount=serviceCartArrTemp[0].totalCost;
     var amountAfterTax=0;
     if(amountAfterDiscount > 0){
       this.taxArr.forEach((element) => {
         let taxTemp={
+          value:0,
           name:'',
           amount:0
         }
         console.log(element.name+" -- "+element.value);
         if(this.taxType == "P"){
-         taxTemp.name= element.name;
-         taxTemp.amount= amountAfterDiscount * element.value/100;
+          taxTemp.value= element.value;
+          taxTemp.name= element.name;
+          taxTemp.amount= amountAfterDiscount * element.value/100;
           amountAfterTax=amountAfterTax+taxTemp.amount;
         }else{
+          taxTemp.value= element.value;
           taxTemp.name= element.name;
           taxTemp.amount=  element.value;
           amountAfterTax=amountAfterTax+taxTemp.amount;
@@ -950,6 +1046,8 @@ export class DialogAddNewAppointment {
       "appointment_zipcode": this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
       "coupon_code": '',
       "subtotal": serviceCartArrTemp[0].totalCost,
+      "discount_type" : discount_type,
+      "discount_value" : null,
       "discount": 0,
       "tax": this.taxAmountArr,
       "nettotal": this.netCost,
@@ -958,6 +1056,7 @@ export class DialogAddNewAppointment {
       "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd hh:mm:ss") 
     };
     console.log(JSON.stringify(requestObject));
+
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'api-token': this.token,
@@ -1005,21 +1104,24 @@ export class DialogAddNewAppointment {
     //   }
     // }
     // this.netCost=serviceCartArrTemp[0].totalCost+this.taxAmount;
-
+    var discount_type = null;
     var amountAfterDiscount=serviceCartArrTemp[0].totalCost;
     var amountAfterTax=0;
     if(amountAfterDiscount > 0){
       this.taxArr.forEach((element) => {
         let taxTemp={
+          value:0,
           name:'',
           amount:0
         }
         console.log(element.name+" -- "+element.value);
         if(this.taxType == "P"){
-         taxTemp.name= element.name;
-         taxTemp.amount= amountAfterDiscount * element.value/100;
+          taxTemp.value= element.value;
+          taxTemp.name= element.name;
+          taxTemp.amount= amountAfterDiscount * element.value/100;
           amountAfterTax=amountAfterTax+taxTemp.amount;
         }else{
+          taxTemp.value= element.value;
           taxTemp.name= element.name;
           taxTemp.amount=  element.value;
           amountAfterTax=amountAfterTax+taxTemp.amount;
@@ -1050,6 +1152,8 @@ export class DialogAddNewAppointment {
       "appointment_zipcode": this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
       "coupon_code": '',
       "subtotal": serviceCartArrTemp[0].totalCost,
+      "discount_type" : discount_type,
+      "discount_value" : null,
       "discount": 0,
       "tax": this.taxAmountArr,
       "nettotal": this.netCost,
