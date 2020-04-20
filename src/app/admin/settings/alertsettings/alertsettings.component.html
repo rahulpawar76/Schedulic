@@ -455,7 +455,7 @@
                                     <mat-label>Your Mail Id</mat-label>
                                     <input formControlName="alertEmail" matInput placeholder="dummytest379@gmail.com">
                                 </mat-form-field>
-                                <span class="error-wrap" *ngIf="adminEmailForAlert.get('alertEmail').dirty || adminEmailForAlert.get('alertEmail').touched || formSubmitclicked">
+                                <span class="error-wrap" *ngIf="adminEmailForAlert.get('alertEmail').dirty || adminEmailForAlert.get('alertEmail').touched">
                                 <small *ngIf="adminEmailForAlert.get('alertEmail').hasError('required')" class="error">Email Is required</small>
                                 <small *ngIf="adminEmailForAlert.get('alertEmail').hasError('email') || adminEmailForAlert.get('alertEmail').hasError('pattern')" class="error">Enter valid email</small>
                             </span>
@@ -674,7 +674,7 @@
                                 <mat-label>Sparsh</mat-label>
                                 <input formControlName="senderName" matInput placeholder="Sparsh">
                             </mat-form-field>
-                            <span class="error-wrap" *ngIf="customizeAlert.get('senderName').dirty || customizeAlert.get('senderName').touched || formSubmitclicked">
+                            <span class="error-wrap" *ngIf="customizeAlert.get('senderName').dirty || customizeAlert.get('senderName').touched">
                                 <small *ngIf="customizeAlert.get('senderName').hasError('required')" class="error">Sender Name Is required</small>
                             </span>
                         </div>
@@ -686,7 +686,7 @@
                                 <textarea row="5" #signature (keyup)="count(signature.value)" formControlName="emailSignature" maxlength="500" matInput placeholder="Thanks Sparsh"></textarea>
                                 <mat-hint class="mt-3"><i>Characters Left:<span class="text-danger">{{characters}}</span></i></mat-hint>
                             </mat-form-field>
-                            <span class="error-wrap" *ngIf="customizeAlert.get('emailSignature').dirty || customizeAlert.get('emailSignature').touched || formSubmitclicked">
+                            <span class="error-wrap" *ngIf="customizeAlert.get('emailSignature').dirty || customizeAlert.get('emailSignature').touched">
                                 <small *ngIf="customizeAlert.get('emailSignature').hasError('required')" class="error">Email Signature Is required</small>
                             </span>
                         </div>
@@ -698,12 +698,12 @@
                     <mat-tab label="Client Email Template">
                         <div class="m-4">
                             <mat-accordion>
-                                <mat-expansion-panel *ngFor="let customerEmailTemData of customerEmailTemData; let i=index">
+                                <mat-expansion-panel>
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle (change)="fnChangeTemStatus($event.checked,customerEmailTemData.id)" [checked]="customerEmailTemData.email_template_status == 'E'" class="mr-4"></mat-slide-toggle>
-                                                <h5>{{customerEmailTemData.email_subject}}</h5>
+                                                <mat-slide-toggle (change)="fnChangeTemStatus($event.checked,'59')" class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Request</h5>
                                             </div>
                                         </mat-panel-title>
                                         <mat-panel-description>
@@ -712,18 +712,20 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <mat-form-field class="bottom-border-field w-100" no-ink-bar>
-                                                <mat-label>Template</mat-label>
-                                                <textarea [(ngModel)]="customerEmailTemData.email_message" appearance="outline" rows="40" matInput></textarea>
-                                            </mat-form-field>
-                                            <!-- <span class="error-wrap" *ngIf="cusAppRequest.get('emailTemplate').dirty || cusAppRequest.get('emailTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusAppRequest.get('emailTemplate').hasError('required')" class="error">Email Template Is required</small>
-                                                </span> -->
-                                            <div class="float-right">
-                                                <button mat-button (click)="fnSaveEmailTemp(customerEmailTemData.id)" class="savetemplate-btn">Save Template</button>
-                                                <button mat-button class="defaulttemplate-btn ml-2">Default Template</button>
-                                                <button mat-raised-button color="primary" class="ml-2">Preview Template</button>
-                                            </div>
+                                            <form [formGroup]="template1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="template1.get('emailTemplate').dirty || template1.get('emailTemplate').touched || formSubmitclicked">
+                                                        <small *ngIf="template1.get('emailTemplate').hasError('required')" class="error">Email Template Is required</small>
+                                                    </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveEmailTemp('59')" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button (click)="previewEmailTemp('0')" mat-raised-button color="primary" class="ml-2">Preview Template</button>
+                                                </div>
+                                            </form>
                                         </div>
                                         <div class="col-lg-2">
                                             <p class="mb-0">[booking_date]</p>
@@ -758,11 +760,11 @@
                                         </div>
                                     </div>
                                 </mat-expansion-panel>
-                                <!-- <mat-expansion-panel>
+                                <mat-expansion-panel>
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle (change)="fnChangeTemStatus($event.checked,'58')" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Approved</h5>
                                             </div>
                                         </mat-panel-title>
@@ -771,16 +773,20 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form>
-                                                <mat-form-field class="bottom-border-field w-100">
-                                                    <mat-label>Textarea</mat-label>
-                                                    <textarea matInput></textarea>
+                                            <form [formGroup]="template2">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
+                                                <span class="error-wrap" *ngIf="template2.get('emailTemplate').dirty || template2.get('emailTemplate').touched || formSubmitclicked">
+                                                        <small *ngIf="template2.get('emailTemplate').hasError('required')" class="error">Email Template Is required</small>
+                                                    </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveEmailTemp('58')" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button (click)="previewEmailTemp('1')" mat-raised-button color="primary" class="ml-2">Preview Template</button>
+                                                </div>
                                             </form>
-                                            <div class="float-right">
-                                                <button mat-button class="savetemplate-btn">Save Template</button>
-                                                <button mat-button class="defaulttemplate-btn ml-2">Default Template</button>
-                                            </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <p class="mb-0">[booking_date]</p>
@@ -820,7 +826,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle (change)="fnChangeTemStatus($event.checked,'57')" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rejected</h5>
                                             </div>
                                         </mat-panel-title>
@@ -829,16 +835,20 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form>
-                                                <mat-form-field class="bottom-border-field w-100">
-                                                    <mat-label>Textarea</mat-label>
-                                                    <textarea matInput></textarea>
+                                            <form [formGroup]="template3">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
+                                                <span class="error-wrap" *ngIf="template3.get('emailTemplate').dirty || template3.get('emailTemplate').touched || formSubmitclicked">
+                                                        <small *ngIf="template3.get('emailTemplate').hasError('required')" class="error">Email Template Is required</small>
+                                                    </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveEmailTemp('57')" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button (click)="previewEmailTemp('2')" mat-raised-button color="primary" class="ml-2">Preview Template</button>
+                                                </div>
                                             </form>
-                                            <div class="float-right">
-                                                <button mat-button class="savetemplate-btn">Save Template</button>
-                                                <button mat-button class="defaulttemplate-btn ml-2">Default Template</button>
-                                            </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <p class="mb-0">[booking_date]</p>
@@ -878,7 +888,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle (change)="fnChangeTemStatus($event.checked,'56')" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Cancelled by You</h5>
                                             </div>
                                         </mat-panel-title>
@@ -887,16 +897,20 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form>
-                                                <mat-form-field class="bottom-border-field w-100">
-                                                    <mat-label>Textarea</mat-label>
-                                                    <textarea matInput></textarea>
+                                            <form [formGroup]="template4">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
+                                                <span class="error-wrap" *ngIf="template4.get('emailTemplate').dirty || template4.get('emailTemplate').touched || formSubmitclicked">
+                                                        <small *ngIf="template4.get('emailTemplate').hasError('required')" class="error">Email Template Is required</small>
+                                                    </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveEmailTemp('56')" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button (click)="previewEmailTemp('3')" mat-raised-button color="primary" class="ml-2">Preview Template</button>
+                                                </div>
                                             </form>
-                                            <div class="float-right">
-                                                <button mat-button class="savetemplate-btn">Save Template</button>
-                                                <button mat-button class="defaulttemplate-btn ml-2">Default Template</button>
-                                            </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <p class="mb-0">[booking_date]</p>
@@ -936,7 +950,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle (change)="fnChangeTemStatus($event.checked,'55')" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment rescheduled by You</h5>
                                             </div>
                                         </mat-panel-title>
@@ -945,16 +959,20 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form>
-                                                <mat-form-field class="bottom-border-field w-100">
-                                                    <mat-label>Textarea</mat-label>
-                                                    <textarea matInput></textarea>
+                                            <form [formGroup]="template5">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
+                                                <span class="error-wrap" *ngIf="template5.get('emailTemplate').dirty || template5.get('emailTemplate').touched || formSubmitclicked">
+                                                        <small *ngIf="template5.get('emailTemplate').hasError('required')" class="error">Email Template Is required</small>
+                                                    </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveEmailTemp('55')" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button (click)="previewEmailTemp('4')" mat-raised-button color="primary" class="ml-2">Preview Template</button>
+                                                </div>
                                             </form>
-                                            <div class="float-right">
-                                                <button mat-button class="savetemplate-btn">Save Template</button>
-                                                <button mat-button class="defaulttemplate-btn ml-2">Default Template</button>
-                                            </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <p class="mb-0">[booking_date]</p>
@@ -994,7 +1012,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle (change)="fnChangeTemStatus($event.checked,'54')" class="mr-4"></mat-slide-toggle>
                                                 <h5>Client Appointment Reminder</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1003,16 +1021,20 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form>
-                                                <mat-form-field class="bottom-border-field w-100">
-                                                    <mat-label>Textarea</mat-label>
-                                                    <textarea matInput></textarea>
+                                            <form [formGroup]="template6">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
+                                                <span class="error-wrap" *ngIf="template6.get('emailTemplate').dirty || template6.get('emailTemplate').touched || formSubmitclicked">
+                                                        <small *ngIf="template6.get('emailTemplate').hasError('required')" class="error">Email Template Is required</small>
+                                                    </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveEmailTemp('54')" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button (click)="previewEmailTemp('5')" mat-raised-button color="primary" class="ml-2">Preview Template</button>
+                                                </div>
                                             </form>
-                                            <div class="float-right">
-                                                <button mat-button class="savetemplate-btn">Save Template</button>
-                                                <button mat-button class="defaulttemplate-btn ml-2">Default Template</button>
-                                            </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <p class="mb-0">[booking_date]</p>
@@ -1053,7 +1075,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle (change)="fnChangeTemStatus($event.checked,'53')" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Completed</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1062,16 +1084,20 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form>
-                                                <mat-form-field class="bottom-border-field w-100">
-                                                    <mat-label>Textarea</mat-label>
-                                                    <textarea matInput></textarea>
+                                            <form [formGroup]="template7">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
+                                                <span class="error-wrap" *ngIf="template7.get('emailTemplate').dirty || template7.get('emailTemplate').touched || formSubmitclicked">
+                                                        <small *ngIf="template7.get('emailTemplate').hasError('required')" class="error">Email Template Is required</small>
+                                                    </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveEmailTemp('53')" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button (click)="previewEmailTemp('6')" mat-raised-button color="primary" class="ml-2">Preview Template</button>
+                                                </div>
                                             </form>
-                                            <div class="float-right">
-                                                <button mat-button class="savetemplate-btn">Save Template</button>
-                                                <button mat-button class="defaulttemplate-btn ml-2">Default Template</button>
-                                            </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <p class="mb-0">[booking_date]</p>
@@ -1105,7 +1131,7 @@
                                             <p class="mb-0">[company_email]</p>
                                         </div>
                                     </div>
-                                </mat-expansion-panel> -->
+                                </mat-expansion-panel>
 
                             </mat-accordion>
                         </div>
@@ -1319,7 +1345,7 @@
                             <mat-slide-toggle [checked]="appointmentsReminderSMS" (change)="fnAppointmentsReminderSMS($event.checked)"></mat-slide-toggle>
                         </div>
                     </div>
-                    <div *ngIf="AppointmentsReminderSMS">
+                    <div *ngIf="appointmentsReminderSMS">
                         <div class="top-bottom-space">
                             <h5>When to send</h5>
                         </div>

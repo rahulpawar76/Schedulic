@@ -974,6 +974,7 @@ export class StaffAppointmentComponent implements OnInit {
     selectedServiceId:any;
     minDate = new Date();
     timeSlotArr:any= [];
+    isLoaderAdmin : boolean = false;
     constructor(
       public dialogRef: MatDialogRef<DialogNewAppointment>,
       private datePipe: DatePipe,
@@ -1252,7 +1253,7 @@ export class StaffAppointmentComponent implements OnInit {
       this.dialogRef.close();
     }
     
-    changeBookingStatus(order_item_id,){
+    changeBookingStatus(){
     const dialogRef = this.dialog.open(InterruptedReschedule, {
           width: '500px',
           data : {fulldata: this.bookingData}

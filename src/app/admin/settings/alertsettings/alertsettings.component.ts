@@ -1,9 +1,20 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Pipe, PipeTransform  } from '@angular/core';
 import { AppComponent } from '@app/app.component';
 import { AdminSettingsService } from '../_services/admin-settings.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {DomSanitizer} from "@angular/platform-browser";
 
+
+export interface DialogData {
+  animal: string;
+  name: string;
+  
+}
+@Pipe({
+  name: 'safeHtml',
+})
 
 @Component({
   selector: 'app-alertsettings',
@@ -66,7 +77,7 @@ export class AlertsettingsComponent implements OnInit {
   appointmentsReminder : boolean = false;
   appointmentsReminderStaff :boolean = false;
   appointmentsReminderAdmin :boolean = false;
-  AppointmentsReminderSMS : boolean = false;
+  appointmentsReminderSMS : boolean = false;
   totalTimeCustomerEmail:any;
   totalTimeStaffEmail: any;
   totalTimeAdminEmail: any;
@@ -74,7 +85,20 @@ export class AlertsettingsComponent implements OnInit {
   customizeEmailAlertData: any;
   adminEmailForAlert: FormGroup;
   customizeAlert: FormGroup;
-  cusAppRequest: FormGroup;
+  templateHtml1: any
+  templateHtml2: any
+  templateHtml3: any
+  templateHtml4: any
+  templateHtml5: any
+  templateHtml6: any
+  templateHtml7: any
+  template1: FormGroup;
+  template2: FormGroup;
+  template3: FormGroup;
+  template4: FormGroup;
+  template5: FormGroup;
+  template6: FormGroup;
+  template7: FormGroup;
   customerEmailTemp1: any;
   emailTempStatus: any;
   maxCharacters = 500; 
@@ -85,6 +109,7 @@ export class AlertsettingsComponent implements OnInit {
     public adminSettingsService : AdminSettingsService,
     private _snackBar: MatSnackBar,
     private _formBuilder: FormBuilder,
+    public dialog: MatDialog,
     ) {
       if(localStorage.getItem('business_id')){
         this.businessId = localStorage.getItem('business_id');
@@ -116,7 +141,25 @@ export class AlertsettingsComponent implements OnInit {
     });
 
     // Email Templates
-    this.cusAppRequest = this._formBuilder.group({
+    this.template1 = this._formBuilder.group({
+      emailTemplate: ['',[Validators.required]]
+    });
+    this.template2 = this._formBuilder.group({
+      emailTemplate: ['',[Validators.required]]
+    });
+    this.template3 = this._formBuilder.group({
+      emailTemplate: ['',[Validators.required]]
+    });
+    this.template4 = this._formBuilder.group({
+      emailTemplate: ['',[Validators.required]]
+    });
+    this.template5 = this._formBuilder.group({
+      emailTemplate: ['',[Validators.required]]
+    });
+    this.template6 = this._formBuilder.group({
+      emailTemplate: ['',[Validators.required]]
+    });
+    this.template7 = this._formBuilder.group({
       emailTemplate: ['',[Validators.required]]
     });
  
@@ -242,9 +285,9 @@ fnAppointmentsReminderStaff(event){
 
 fnAppointmentsReminderSMS(event){
     if(event == true){
-      this.AppointmentsReminderSMS = true;
+      this.appointmentsReminderSMS = true;
     }else if(event == false){
-      this.AppointmentsReminderSMS = false;
+      this.appointmentsReminderSMS = false;
     }
 }
 
@@ -472,9 +515,18 @@ fnAppointmentsReminderSMS(event){
     }
     this.adminSettingsService.getCustomerEmailTemplates(requestObject).subscribe((response:any) => {
       if(response.data == true){
-       this.customerEmailTemData = response.response;
+        this.customerEmailTemData = response.response;
+        this.template1.controls['emailTemplate'].setValue(this.customerEmailTemData[0].email_message);
+        this.template2.controls['emailTemplate'].setValue(this.customerEmailTemData[1].email_message);
+        this.template3.controls['emailTemplate'].setValue(this.customerEmailTemData[2].email_message);
+        this.template4.controls['emailTemplate'].setValue(this.customerEmailTemData[3].email_message);
+        this.template5.controls['emailTemplate'].setValue(this.customerEmailTemData[4].email_message);
+        this.template6.controls['emailTemplate'].setValue(this.customerEmailTemData[5].email_message);
+        this.template7.controls['emailTemplate'].setValue(this.customerEmailTemData[6].email_message);
       //  this.customerEmailTemData.forEach( (element) => { 
-      //   this.customerEmailTemp+element.id= element.email_message
+      //   if(index){
+      //     this.templateHtml = element.email_message
+      //    }
       // });
        console.log(this.customerEmailTemData)
       }
@@ -516,12 +568,56 @@ fnAppointmentsReminderSMS(event){
   }
   fnSaveEmailTemp(tempId){
     console.log(this.cusEmailTempl)
-    let requestObject = {
-      "template_id" : tempId,
-      "subject" : "Appointment Request",
-      "message" : this.cusEmailTempl
+    if(tempId == '59'){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment Request",
+        "message" : this.template1.get('emailTemplate').value
+      }
+      this.fnUpdateEmailTemp(requestObject);
+    }else if(tempId == '58'){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment Approved",
+        "message" : this.template2.get('emailTemplate').value
+      }
+      this.fnUpdateEmailTemp(requestObject);
+    }else if(tempId == '57'){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment Regected",
+        "message" : this.template3.get('emailTemplate').value
+      }
+      this.fnUpdateEmailTemp(requestObject);
+    }else if(tempId == '56'){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment cancelled By You",
+        "message" : this.template4.get('emailTemplate').value
+      }
+      this.fnUpdateEmailTemp(requestObject);
+    }else if(tempId == '55'){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment Rescheduled By You",
+        "message" : this.template5.get('emailTemplate').value
+      }
+      this.fnUpdateEmailTemp(requestObject);
+    }else if(tempId == '54'){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Client Appintment Reminder",
+        "message" : this.template6.get('emailTemplate').value
+      }
+      this.fnUpdateEmailTemp(requestObject);
+    }else if(tempId == '53'){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment Completed",
+        "message" : this.template7.get('emailTemplate').value
+      }
+      this.fnUpdateEmailTemp(requestObject);
     }
-    this.fnUpdateEmailTemp(requestObject);
   }
   fnUpdateEmailTemp(requestObject){
     this.adminSettingsService.fnUpdateEmailTemp(requestObject).subscribe((response:any) => {
@@ -575,6 +671,46 @@ fnAppointmentsReminderSMS(event){
   //   })
   // }
 
+
+  previewEmailTemp(index) {
+    const dialogRef = this.dialog.open(DialogPreviewEmailTemp, {
+      height: '700px',
+      data :{fulldata : this.customerEmailTemData[index]}
+    });
+;
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+}
+
+
+@Component({
+  selector: 'dialog-preview-email-template',
+  templateUrl: '../_dialogs/dialog-preview-email-template.html',
+})
+export class DialogPreviewEmailTemp  implements PipeTransform {
+
+  businessId :any
+  emailTemplate :any
+  safeHtmlTemp :any
+  constructor(
+    public dialogRef: MatDialogRef<DialogPreviewEmailTemp>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public adminSettingsService: AdminSettingsService,
+    private sanitizer:DomSanitizer
+    ) {
+      this.emailTemplate =  this.data.fulldata.email_message;
+      this.transform(this.emailTemplate)
+
+    if(localStorage.getItem('business_id')){
+      this.businessId = localStorage.getItem('business_id');
+    }
+  }
+  transform(emailTemplate) {
+    this.safeHtmlTemp =  this.sanitizer.bypassSecurityTrustHtml(emailTemplate);
+  }
 }
 
 
