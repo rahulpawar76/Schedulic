@@ -605,11 +605,12 @@ export class StaffAppointmentComponent implements OnInit {
             console.log(this.catdata);
           }else{
           }
+          this.isLoaderAdmin = false;
         },
         (err) =>{
           console.log(err)
         })
-        this.isLoaderAdmin = false;
+      
       }
 
       fnSelectCat(selectedCategoryId){
@@ -649,6 +650,7 @@ export class StaffAppointmentComponent implements OnInit {
             this.showSubCatDropDown=true;
             this.subcatdata = response.response;
             console.log(this.subcatdata)
+           
           }else{
             this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].clearValidators();
             this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].updateValueAndValidity();           
@@ -662,9 +664,11 @@ export class StaffAppointmentComponent implements OnInit {
         (err) =>{
           console.log(err)
         })
+        //this.isLoaderAdmin = false;
       }
 
       fnSelectSubCat(selectedSubCategoryId){
+      
         console.log(selectedSubCategoryId)
         this.serviceData.length = 0;
         this.fnGetAllServices(selectedSubCategoryId);
@@ -674,6 +678,7 @@ export class StaffAppointmentComponent implements OnInit {
       }
 
       fnGetAllServices(selectedSubCategoryId){
+        this.isLoaderAdmin = true;
         let requestObject = {
           "sub_category_id":selectedSubCategoryId,
           "status":"E"
@@ -700,10 +705,12 @@ export class StaffAppointmentComponent implements OnInit {
             console.log(JSON.stringify(this.serviceData));
           }else{
           }
+          this.isLoaderAdmin = false;
         },
         (err) =>{
           console.log(err)
         })
+       
       }
    
   fnGetAllServicesFromCategory(){
@@ -796,6 +803,7 @@ export class StaffAppointmentComponent implements OnInit {
       }
 
       fnGetTimeSlots(date){
+        this.isLoaderAdmin = true;
         let requestObject = {
           "business_id":this.bussinessId,
           "service_id":this.selectedServiceId,
@@ -831,7 +839,8 @@ export class StaffAppointmentComponent implements OnInit {
               });
             }
             else{
-            }
+            } 
+            this.isLoaderAdmin = false;
           },
           (err) =>{
             console.log(err)
@@ -988,6 +997,7 @@ export class StaffAppointmentComponent implements OnInit {
     }
 
   fnGetCategories(){
+    this.isLoaderAdmin=true;
     let requestObject = {
       "business_id":2,
       "status":"E"
@@ -1012,6 +1022,7 @@ export class StaffAppointmentComponent implements OnInit {
       (err) =>{
         console.log(err)
       })
+      this.isLoaderAdmin=false;
     }
 
     fnSelectCat(event){
@@ -1020,6 +1031,7 @@ export class StaffAppointmentComponent implements OnInit {
     }
       // get Sub Category function
   fnGetSubCategory(event){
+    this.isLoaderAdmin=true;
     let requestObject = {
       "category_id":event,
       "sub_category_status":"E"
@@ -1036,13 +1048,17 @@ export class StaffAppointmentComponent implements OnInit {
       if(response.data == true){
         this.subcatdata = response.response;
         console.log(this.subcatdata)
+       
       }else{
-
+      
       }
+      this.isLoaderAdmin=false;
     },
     (err) =>{
       console.log(err)
     })
+   
+   
   }
 
   fnSelectSubCat(event){
@@ -1051,10 +1067,11 @@ export class StaffAppointmentComponent implements OnInit {
   }
 
   fnGetAllServices(event){
-  let requestObject = {
-    "sub_category_id":event,
-    "status":"E"
-  };
+    this.isLoaderAdmin=true;
+    let requestObject = {
+      "sub_category_id":event,
+      "status":"E"
+    };
   let headers = new HttpHeaders({
     'Content-Type': 'application/json',
   });
@@ -1081,10 +1098,12 @@ export class StaffAppointmentComponent implements OnInit {
       console.log(JSON.stringify(this.serviceData));
     }else{
     }
+    this.isLoaderAdmin=false;
   },
     (err) =>{
       console.log(err)
     })
+    
   }
 
  fnSelectService(event){
