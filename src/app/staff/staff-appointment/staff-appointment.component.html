@@ -14,6 +14,7 @@
             <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right"> 
                 <label class="font-weight-bold">Status</label> 
                 <p *ngIf="newAppointmentData.order_status == 'P'">Waiting For Confirmation</p>
+                <p *ngIf="newAppointmentData.order_status == 'CNF'">Confirm</p>
                 <p *ngIf="newAppointmentData.order_status == 'RSC'">Reschedule By Customer</p>
             </div>                  
           </div>

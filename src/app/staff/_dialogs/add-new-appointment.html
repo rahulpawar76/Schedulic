@@ -144,28 +144,32 @@
                         <label class="mb-0">Category</label>
                         <mat-select [(value)]="selectedCatId" (selectionChange)="fnSelectCat($event.value)" class="form-control formcontrol" formControlName="customerCategory">
                             <mat-option *ngFor="let cat of catdata" value="{{cat.id}}">{{cat.category_title}}</mat-option>
+                            <mat-option *ngIf="catdata && catdata.length==0" disabled>No Category Available</mat-option>
                         </mat-select>
                         <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerCategory').dirty || formAddNewAppointmentStaffStep2.get('customerCategory').touched || formSubmitclicked">
           <small *ngIf="formAddNewAppointmentStaffStep2.get('customerCategory').hasError('required')" class="error">Category Is required</small>
           </span>
 
                     </div>
-                    <div class="col-6 mb-3">
+                    <div class="col-6 mb-3" *ngIf="showSubCatDropDown">
                         <label class="mb-0">Sub Category</label>
                         <mat-select class="form-control formcontrol" [(value)]="selectedSubCatId" (selectionChange)="fnSelectSubCat($event.value)" formControlName="customerSubCategory">
                             <mat-option *ngFor="let subcat of subcatdata" value="{{subcat.id}}">{{subcat.sub_category_name}}</mat-option>
+                            <mat-option *ngIf="subcatdata.length==0" disabled>No Sub-Category Available</mat-option>
                         </mat-select>
                         <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerSubCategory').dirty || formAddNewAppointmentStaffStep2.get('customerSubCategory').touched || formSubmitclicked">
               <small *ngIf="formAddNewAppointmentStaffStep2.get('customerSubCategory').hasError('required')" class="error">SubCategory Is required</small>
             </span>
                     </div>
 
-                    <div class="col-12 mb-3">
+                    <div [ngClass]="showSubCatDropDown?'col-12 mb-3':'col-6 mb-3'">
                         <label class="mb-0">Service</label>
                         <mat-select class="form-control formcontrol" [(value)]="selectedServiceId" (selectionChange)="fnSelectService($event.value)" formControlName="customerService">
                             <mat-option *ngFor="let service of serviceData" value="{{service.id}}">{{service.service_name}}</mat-option>
+                            <mat-option *ngIf="serviceData.length==0" disabled>No Service Available</mat-option>
                         </mat-select>
                         <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerService').dirty || formAddNewAppointmentStaffStep2.get('customerService').touched || formSubmitclicked">
+
               <small *ngIf="formAddNewAppointmentStaffStep2.get('customerService').hasError('required')" class="error">Service Is required</small>
             </span>
                     </div>
@@ -196,9 +200,11 @@
                     <!-- <input type="time" class="form-control formcontrol"> -->
                     <mat-select class="form-control formcontrol" [disabled]="" formControlName="customerTime" (selectionChange)="fnSelectTime($event.value)">
                         <!-- <mat-option>None</mat-option> -->
-                        <mat-option *ngFor="let slot of timeSlotArrForLabel" value="{{slot}}">{{slot}}</mat-option>
+                        <mat-option *ngFor="let slot of timeSlotArr; let i=index;" value="{{slot}}">{{timeSlotArrForLabel[i]}}</mat-option>
+                        <mat-option *ngIf="timeSlotArr.length==0" disabled>No Time Slot Available</mat-option>
                     </mat-select>
                     <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerTime').dirty || formAddNewAppointmentStaffStep2.get('customerTime').touched || formSubmitclicked">
+
               <small *ngIf="formAddNewAppointmentStaffStep2.get('customerTime').hasError('required')" class="error">Time is required</small>
             </span>
                 </div>

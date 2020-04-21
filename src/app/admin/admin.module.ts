@@ -24,6 +24,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { DialogAddNewAppointment } from './appointment/appointment.component';
 import { DialogNewAppointment } from './appointment/appointment.component';
 import { CustomersComponent } from './customers/customers.component';
+import { DialogInvoiceDialog } from './customers/customers.component';
 import { DialogNewCustomerAppointment } from './customers/customers.component';
 import { DialogAddNewNote } from './customers/customers.component';
 import { ReportsComponent } from './reports/reports.component';
@@ -60,6 +61,7 @@ import { CustomerAppointmentDetailsDialog } from './customers/customers.componen
     DialogAddNewAppointment,
     DialogNewAppointment,
     CustomersComponent,
+    DialogInvoiceDialog,
     DialogNewCustomerAppointment,
     DialogAddNewNote,
     ReportsComponent,
@@ -109,6 +111,6 @@ import { CustomerAppointmentDetailsDialog } from './customers/customers.componen
     DialogViewReview,InterruptedReschedule,PendingAppointmentDetailsDialog,
     NotAssignedAppointmentDetailsDialog,OnTheWayAppointmentDetailsDialog,
     WorkStartedAppointmentDetailsDialog,DialogImportFileUpload,DialogMyProfileImageUpload,
-    DialogCustomerImageUpload,DialogCouponDetails,CustomerAppointmentDetailsDialog,RescheduleAppointment],
+    DialogCustomerImageUpload,DialogCouponDetails,CustomerAppointmentDetailsDialog,RescheduleAppointment,DialogInvoiceDialog],
 })
 export class AdminModule { }

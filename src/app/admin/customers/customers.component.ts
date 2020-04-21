@@ -43,6 +43,7 @@ export class CustomersComponent implements OnInit {
   reviewOrderData : any;
   customerNotes: any;
   customerReviews: any;
+  customerPayments: any;
   newCustomer: boolean = false;
   fullDetailsOfCustomer: boolean = true;
   isLoaderAdmin : boolean = false;
@@ -73,6 +74,29 @@ export class CustomersComponent implements OnInit {
   currencySymbolPosition:any;
   currencySymbolFormat:any;
 
+  formPayment: FormGroup;
+  showPaymentTable:boolean=true;
+  showPaymentForm:boolean=false;
+
+  taxType:any='P';
+  taxArr:any=[];
+  taxAmountArr:any=[];
+  serviceMainArr={
+    bookingDateForLabel:'',
+    bookingTimeForLabel:'',
+    bookingTimeTo:'',
+    created_at:'',
+    service_time:'',
+    service_name:'',
+    category_title:'',
+    order_by:'',
+    order_status:'',
+    staff_name:'',
+    subtotal:0,
+    discount:0,
+    netCost:0
+  }
+  customerPaymentIndex:number;
   constructor(
     public dialog: MatDialog,
     private AdminService: AdminService,
@@ -150,6 +174,13 @@ export class CustomersComponent implements OnInit {
         customer_id : ['']
       });
     }
+
+    this.formPayment = this._formBuilder.group({
+      paymentAmount : [null, [Validators.required,Validators.pattern(this.onlynumeric)]],
+      paymentDiscount : [null, [Validators.required,Validators.pattern(this.onlynumeric)]],
+      paymentMode : ['Cash', [Validators.required]],
+      paymentNote : ['', [Validators.required]],
+    });
   
   }
 
@@ -328,30 +359,51 @@ customerUpdate(existingCustomerData){
     this.isLoaderAdmin = true;
     this.AdminService.getCustomersDetails(customer_id).subscribe((response:any) => {
       if(response.data == true){
-        this.customersDetails = response.response
+        this.customersDetails = response.response;
+
         if(this.customersDetails.lastBooking){
           this.customersDetails.lastBooking.booking_date=this.datePipe.transform(new Date(this.customersDetails.lastBooking.booking_date),"d MMM y,")
           this.customersDetails.lastBooking.booking_time=this.datePipe.transform(new Date(this.customersDetails.lastBooking.booking_date+" "+this.customersDetails.lastBooking.booking_time),"hh:mm a")
         }
-        this.customerPersonalDetails = response.response.customer_details 
-        this.customerAppoint = response.response.appointmets
-        console.log( this.customerAppoint)
-        console.log( this.customerPersonalDetails)
-        this.customerNotes = response.response.notes
-        this.customerReviews = response.response.revirew
-        console.log(this.customerReviews);
 
-        this.customerPersonalDetails.created_at=this.datePipe.transform(new Date(this.customerPersonalDetails.created_at),"d MMM y, h:mm a")
+        this.customerPersonalDetails = response.response.customer_details;
+        console.log( this.customerPersonalDetails);
+        this.customerPersonalDetails.created_at=this.datePipe.transform(new Date(this.customerPersonalDetails.created_at),"d MMM y, h:mm a");
         if(this.customerPersonalDetails.tag_id != null){
           this.tags = this.customerPersonalDetails.tag_id.split(",");
         }
         console.log(this.tags);
 
+        this.customerAppoint = response.response.appointmets;
+        console.log( this.customerAppoint);
         this.customerAppoint.forEach( (element) => { 
           element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")   
           element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
           element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
         });
+
+        this.customerNotes = response.response.notes;
+
+        this.customerReviews = response.response.revirew;
+        console.log(this.customerReviews);
+
+        this.customerPayments = response.response.payment;
+        console.log(this.customerPayments);
+        this.customerPayments.forEach( (element) => { 
+          element.paymentDate=this.datePipe.transform(new Date(element.payment_date),"dd MMM yyyy");
+          element.paymentTime=this.datePipe.transform(new Date(element.payment_date),"hh:mm a");
+          element.orders.bookingDateTime=new Date(element.orders.booking_date+" "+element.orders.booking_time);
+          element.orders.created_at=this.datePipe.transform(new Date(element.orders.created_at),"dd MMM yyyy @ hh:mm a");
+          element.orders.bookingDateForLabel=this.datePipe.transform(new Date(element.orders.booking_date),"dd MMM yyyy");
+          element.orders.bookingTimeForLabel=this.datePipe.transform(element.orders.bookingDateTime,"hh:mm a");
+
+          var dateTemp = new Date(this.datePipe.transform(element.orders.bookingDateTime,"dd MMM yyyy hh:mm a"));
+          dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.orders.service_time) );
+          element.orders.bookingTimeTo=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+
+          // element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+        });
+
         this.isLoaderAdmin = false;
         this.newCustomer = false;
         this.fullDetailsOfCustomer = true;
@@ -580,6 +632,127 @@ customerUpdate(existingCustomerData){
      
       });
 
+  }
+  fnShowPaymentForm(index,amount,discount){
+    this.customerPaymentIndex=index;
+    console.log(this.customerPayments[index]);
+    this.serviceMainArr.bookingDateForLabel=this.customerPayments[index].orders.bookingDateForLabel;
+    this.serviceMainArr.bookingTimeForLabel=this.customerPayments[index].orders.bookingTimeForLabel;
+    this.serviceMainArr.bookingTimeTo=this.customerPayments[index].orders.bookingTimeTo;
+    this.serviceMainArr.created_at=this.customerPayments[index].orders.created_at;
+    this.serviceMainArr.service_time=this.customerPayments[index].orders.service_time;
+    this.serviceMainArr.service_name=this.customerPayments[index].service.service_name;
+    this.serviceMainArr.category_title=this.customerPayments[index].service.category.category_title;
+    this.serviceMainArr.order_by=this.customerPayments[index].orders.order_by;
+    this.serviceMainArr.order_status=this.customerPayments[index].orders.order_status;
+    if(this.customerPayments[index].orders.staff){
+      this.serviceMainArr.staff_name=this.customerPayments[index].orders.staff.firstname+" "+this.customerPayments[index].orders.staff.lastname;
+    }else{
+      this.serviceMainArr.staff_name='';
+    }
+    
+    // this.serviceMainArr.service_name=this.customerPayments[index].service.service_name;
+    if(amount==null){
+      this.serviceMainArr.subtotal=parseFloat(this.customerPayments[index].orders.total_cost);
+    }else{
+      this.serviceMainArr.subtotal=amount;  
+    }
+    
+    this.serviceMainArr.discount=0;
+    this.serviceMainArr.netCost=0;
+    this.taxAmountArr.length=0;
+    this.taxArr=JSON.parse(this.customerPayments[index].orders.orders_info.tax);
+    this.formPayment.controls['paymentAmount'].setValue(this.serviceMainArr.subtotal);
+    if(discount==null){
+      if(this.customerPayments[index].orders.orders_info.discount_value){
+        if(this.customerPayments[index].orders.orders_info.discount_type == "P"){
+          this.serviceMainArr.discount = this.serviceMainArr.subtotal * this.customerPayments[index].orders.orders_info.discount_value / 100;
+        }else{
+          this.serviceMainArr.discount = this.customerPayments[index].orders.orders_info.discount_value / 2;
+        }
+      }
+    }else{
+      this.serviceMainArr.discount = discount;
+    }
+    var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+    var amountAfterTax=0;
+    this.taxArr.forEach(element=>{
+      let taxTemp={
+        value:0,
+        name:'',
+        amount:0
+      }
+      console.log(element.name+" -- "+element.value);
+      if(this.taxType == "P"){
+       taxTemp.value= element.value;
+       taxTemp.name= element.name;
+       taxTemp.amount= amountAfterDiscount * element.value/100;
+        amountAfterTax=amountAfterTax+taxTemp.amount;
+      }else{
+        taxTemp.value= element.value;
+        taxTemp.name= element.name;
+        taxTemp.amount=  element.value;
+        amountAfterTax=amountAfterTax+taxTemp.amount;
+      }
+      this.taxAmountArr.push(taxTemp);
+      console.log(this.taxAmountArr);
+    });
+    this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
+    this.formPayment.controls['paymentDiscount'].setValue(this.serviceMainArr.discount);
+    // this.formPayment.controls['paymentMode'].setValue(this.customerPayments[index]);
+    // this.formPayment.controls['paymentNote'].setValue(this.customerPayments[index]);
+    this.showPaymentForm=true;
+    this.showPaymentTable=false;
+
+  }
+
+  fnOnChangeDiscount(event){
+    console.log(event.target.value);
+    console.log(this.formPayment.get('paymentDiscount').value);
+    console.log(this.formPayment.get('paymentAmount').value);
+    this.fnShowPaymentForm(this.customerPaymentIndex,parseFloat(this.formPayment.get('paymentAmount').value),parseFloat(this.formPayment.get('paymentDiscount').value));
+  }
+
+  fnOnChangeAmount(event){
+    console.log(event.target.value);
+    console.log(this.formPayment.get('paymentDiscount').value);
+    console.log(this.formPayment.get('paymentAmount').value);
+    this.fnShowPaymentForm(this.customerPaymentIndex,parseFloat(this.formPayment.get('paymentAmount').value),parseFloat(this.formPayment.get('paymentDiscount').value));
+  }
+
+  fnShowPaymentTable(){
+    this.showPaymentForm=false;
+    this.showPaymentTable=true;
+  }
+
+  fnSubmitPaymentForm(){
+    if(!this.formPayment.valid){
+      this.formPayment.get('paymentAmount').markAsTouched();
+      this.formPayment.get('paymentDiscount').markAsTouched();
+      this.formPayment.get('paymentMode').markAsTouched();
+      this.formPayment.get('paymentNote').markAsTouched();
+      return;
+    }
+
+    console.log(this.formPayment.get('paymentAmount').value);
+    console.log(this.formPayment.get('paymentDiscount').value);
+    console.log(this.formPayment.get('paymentMode').value);
+    console.log(this.formPayment.get('paymentNote').value);
+    console.log(this.taxAmountArr);
+    console.log(this.serviceMainArr);
+  }
+
+  invoice(index) {
+    const dialogRef = this.dialog.open(DialogInvoiceDialog, {
+      width: '1000px',
+      height: 'auto',
+      data: {fulldata: this.customerPayments[index]}
+
+    });
+
+     dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+     });
   }
 }
 
@@ -836,3 +1009,30 @@ onNoClick(): void {
 }
 
 }
+
+@Component({
+    selector: 'dialog-invoice',
+    templateUrl: '../_dialogs/dialog-invoice.html',
+  })
+  export class DialogInvoiceDialog {
+    paymentData: any;
+    paymentInfo={
+      service_name:'',
+      service_qty:'',
+      service_cost:'',
+      subtotal:'',
+      service_discount:'',
+      service_tax:'',
+    }
+    constructor(
+      public dialogRef: MatDialogRef<DialogInvoiceDialog>,
+      @Inject(MAT_DIALOG_DATA) public data: any) {
+        this.paymentData = this.data.fulldata;
+        console.log(this.paymentData);
+      }
+
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+
+  }
