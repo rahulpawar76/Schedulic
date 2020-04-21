@@ -728,49 +728,49 @@ fnAppointmentsReminderSMS(event){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "New Appointment Assigned",
-        "message" : this.adminEmailTemplate7.get('emailTemplate').value
+        "message" : this.staffEmailTemplate1.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
     }else if(tempId == '72'){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Approved",
-        "message" : this.adminEmailTemplate7.get('emailTemplate').value
+        "message" : this.staffEmailTemplate2.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
     }else if(tempId == '71'){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Rejected",
-        "message" : this.adminEmailTemplate7.get('emailTemplate').value
+        "message" : this.staffEmailTemplate3.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
     }else if(tempId == '70'){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Cancelled By Customer",
-        "message" : this.adminEmailTemplate7.get('emailTemplate').value
+        "message" : this.staffEmailTemplate4.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
     }else if(tempId == '69'){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Rescheduled By Customer",
-        "message" : this.adminEmailTemplate7.get('emailTemplate').value
+        "message" : this.staffEmailTemplate5.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
     }else if(tempId == '68'){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Reminder",
-        "message" : this.adminEmailTemplate7.get('emailTemplate').value
+        "message" : this.staffEmailTemplate6.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
     }else if(tempId == '67'){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Completed",
-        "message" : this.adminEmailTemplate7.get('emailTemplate').value
+        "message" : this.staffEmailTemplate7.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
     }
@@ -852,6 +852,32 @@ fnAppointmentsReminderSMS(event){
     })
   }
 
+  fnDefaultEmailTemp(tempId){
+    let requestObject={
+      "business_id":this.businessId,
+      "template_id" : tempId
+    }
+    this.adminSettingsService.fnDefaultEmailTemp(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open("Email Template is Updated", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['green-snackbar']
+        });
+        this.getSettingsValue();
+        this.getCustomerEmailTemplates();
+        this.getAdminEmailTemplates();
+        this.getStaffEmailTemplates();
+      }
+      else{
+      this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+  }
 
 
   
