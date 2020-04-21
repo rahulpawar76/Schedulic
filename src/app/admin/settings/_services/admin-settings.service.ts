@@ -1329,7 +1329,7 @@ export class AdminSettingsService {
         }),
         catchError(this.handleError));
     }
-    getCustomerEmailTemplates(requestObject){
+    getEmailTemplates(requestObject){
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
