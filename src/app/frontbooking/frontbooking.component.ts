@@ -11,7 +11,7 @@ import { AuthenticationService } from '@app/_services';
 import { DatePipe} from '@angular/common';
 import { AppComponent } from '@app/app.component';
 
-import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
+//import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-frontbooking',
@@ -134,11 +134,11 @@ export class FrontbookingComponent implements OnInit {
   currencySymbolFormat:any;
   @ViewChildren(MdePopoverTrigger) trigger: QueryList<MdePopoverTrigger>;
 
-  separateDialCode = true;
-	SearchCountryField = SearchCountryField;
-	TooltipLabel = TooltipLabel;
-	CountryISO = CountryISO;
-	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
+  // separateDialCode = true;
+	// SearchCountryField = SearchCountryField;
+	// TooltipLabel = TooltipLabel;
+	// CountryISO = CountryISO;
+	// preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
 
 
 
