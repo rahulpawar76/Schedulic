@@ -728,7 +728,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="customerEmailTemData" [checked]="customerEmailTemData[0].email_template_status
-                          == 'E'" (change)="fnChangeTemStatus($event.checked,'59')" class="mr-4"></mat-slide-toggle>
+                          == 'E'" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[0].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Request</h5>
                                             </div>
                                         </mat-panel-title>
@@ -751,8 +751,8 @@
                             class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('59')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('59')" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveEmailTemp(customerEmailTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(customerEmailTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                     <button (click)="previewClientEmailTemp('0')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
                                                 </div>
@@ -800,7 +800,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="customerEmailTemData" [checked]="customerEmailTemData[1].email_template_status
-                          == 'E'" (change)="fnChangeTemStatus($event.checked,'58')" class="mr-4"></mat-slide-toggle>
+                          == 'E'" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[1].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Approved</h5>
                                             </div>
                                         </mat-panel-title>
@@ -822,8 +822,8 @@
                             class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('58')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('58')" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveEmailTemp(customerEmailTemData[1].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(customerEmailTemData[1].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                     <button (click)="previewClientEmailTemp('1')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
                                                 </div>
@@ -872,7 +872,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="customerEmailTemData" [checked]="customerEmailTemData[2].email_template_status
-                          == 'E'" (change)="fnChangeTemStatus($event.checked,'57')" class="mr-4"></mat-slide-toggle>
+                          == 'E'" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[2].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rejected</h5>
                                             </div>
                                         </mat-panel-title>
@@ -894,8 +894,8 @@
                             class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('57')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('57')" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveEmailTemp(customerEmailTemData[2].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(customerEmailTemData[2].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                     <button (click)="previewClientEmailTemp('2')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
                                                 </div>
@@ -944,7 +944,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="customerEmailTemData" [checked]="customerEmailTemData[3].email_template_status
-                          == 'E'" (change)="fnChangeTemStatus($event.checked,'56')" class="mr-4"></mat-slide-toggle>
+                          == 'E'" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[3].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Cancelled by You</h5>
                                             </div>
                                         </mat-panel-title>
@@ -966,8 +966,8 @@
                             class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('56')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('56')" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveEmailTemp(customerEmailTemData[3].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(customerEmailTemData[3].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                     <button (click)="previewClientEmailTemp('3')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
                                                 </div>
@@ -1016,7 +1016,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="customerEmailTemData" [checked]="customerEmailTemData[4].email_template_status
-                          == 'E'" (change)="fnChangeTemStatus($event.checked,'55')" class="mr-4"></mat-slide-toggle>
+                          == 'E'" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[4].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment rescheduled by You</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1038,8 +1038,8 @@
                             class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('55')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('55')" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveEmailTemp(customerEmailTemData[4].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(customerEmailTemData[4].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                     <button (click)="previewClientEmailTemp('4')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
                                                 </div>
@@ -1088,7 +1088,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="customerEmailTemData" [checked]="customerEmailTemData[5].email_template_status
-                          == 'E'" (change)="fnChangeTemStatus($event.checked,'54')" class="mr-4"></mat-slide-toggle>
+                          == 'E'" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[5].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Client Appointment Reminder</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1110,8 +1110,8 @@
                             class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('54')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('54')" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveEmailTemp(customerEmailTemData[5].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(customerEmailTemData[5].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                     <button (click)="previewClientEmailTemp('5')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
                                                 </div>
@@ -1161,7 +1161,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="customerEmailTemData" [checked]="customerEmailTemData[6].email_template_status
-                          == 'E'" (change)="fnChangeTemStatus($event.checked,'53')" class="mr-4"></mat-slide-toggle>
+                          == 'E'" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[6].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Completed</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1183,8 +1183,8 @@
                             class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('53')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('53')" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveEmailTemp(customerEmailTemData[6].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(customerEmailTemData[6].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                     <button (click)="previewClientEmailTemp('6')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
                                                 </div>
@@ -1239,7 +1239,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="adminEmailTemData" [checked]="adminEmailTemData[0].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,'66')" class="mr-4"></mat-slide-toggle>
+                                                == 'E'" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[0].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>New Appointment Request Require Approval</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1259,8 +1259,8 @@
                                                   </small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('66')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('66')" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveEmailTemp(adminEmailTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(adminEmailTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                     <button (click)="previewAdminEmailTemp('0')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
                                                 </div>
@@ -1309,7 +1309,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="adminEmailTemData" [checked]="adminEmailTemData[1].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,'65')" class="mr-4"></mat-slide-toggle>
+                                                == 'E'" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[1].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Approved</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1331,8 +1331,8 @@
                             class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('65')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('65')" class="defaulttemplate-btn ml-2">Default
+                                                    <button mat-button (click)="fnSaveEmailTemp(adminEmailTemData[1].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(adminEmailTemData[1].id)" class="defaulttemplate-btn ml-2">Default
                             Template</button>
                                                     <button (click)="previewAdminEmailTemp('1')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
@@ -1382,7 +1382,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="adminEmailTemData" [checked]="adminEmailTemData[2].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,'64')" class="mr-4"></mat-slide-toggle>
+                                                == 'E'" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[2].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rejected</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1404,8 +1404,8 @@
                             class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('64')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('64')" class="defaulttemplate-btn ml-2">Default
+                                                    <button mat-button (click)="fnSaveEmailTemp(adminEmailTemData[2].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(adminEmailTemData[2].id)" class="defaulttemplate-btn ml-2">Default
                             Template</button>
                                                     <button (click)="previewAdminEmailTemp('2')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
@@ -1455,7 +1455,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="adminEmailTemData" [checked]="adminEmailTemData[3].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,'63')" class="mr-4"></mat-slide-toggle>
+                                                == 'E'" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[3].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Cancelled by Customer</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1477,8 +1477,8 @@
                             class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('63')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('63')" class="defaulttemplate-btn ml-2">Default
+                                                    <button mat-button (click)="fnSaveEmailTemp(adminEmailTemData[3].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(adminEmailTemData[3].id)" class="defaulttemplate-btn ml-2">Default
                             Template</button>
                                                     <button (click)="previewAdminEmailTemp('3')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
@@ -1528,7 +1528,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="adminEmailTemData" [checked]="adminEmailTemData[4].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,'62')" class="mr-4"></mat-slide-toggle>
+                                                == 'E'" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[4].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment rescheduled by Customer</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1550,8 +1550,8 @@
                             class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('62')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('62')" class="defaulttemplate-btn ml-2">Default
+                                                    <button mat-button (click)="fnSaveEmailTemp(adminEmailTemData[4].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(adminEmailTemData[4].id)" class="defaulttemplate-btn ml-2">Default
                             Template</button>
                                                     <button (click)="previewAdminEmailTemp('4')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
@@ -1601,7 +1601,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="adminEmailTemData" [checked]="adminEmailTemData[5].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,'61')" class="mr-4"></mat-slide-toggle>
+                                                == 'E'" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[5].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Admin Appointment Reminder</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1623,8 +1623,8 @@
                             class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('61')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('61')" class="defaulttemplate-btn ml-2">Default
+                                                    <button mat-button (click)="fnSaveEmailTemp(adminEmailTemData[5].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(adminEmailTemData[5].id)" class="defaulttemplate-btn ml-2">Default
                             Template</button>
                                                     <button (click)="previewAdminEmailTemp('5')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
@@ -1675,7 +1675,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="adminEmailTemData" [checked]="adminEmailTemData[6].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,'60')" class="mr-4"></mat-slide-toggle>
+                                                == 'E'" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[6].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Completed</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1697,8 +1697,8 @@
                             class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('60')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('60')" class="defaulttemplate-btn ml-2">Default
+                                                    <button mat-button (click)="fnSaveEmailTemp(adminEmailTemData[6].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(adminEmailTemData[6].id)" class="defaulttemplate-btn ml-2">Default
                             Template</button>
                                                     <button (click)="previewAdminEmailTemp('6')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
@@ -1754,7 +1754,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="staffEmailTemData" [checked]="staffEmailTemData[0].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,'73')" class="mr-4"></mat-slide-toggle>
+                                                == 'E'" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[0].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>New Appointment Assigned</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1776,8 +1776,8 @@
                             class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('73')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('73')" class="defaulttemplate-btn ml-2">Default
+                                                    <button mat-button (click)="fnSaveEmailTemp(staffEmailTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(staffEmailTemData[0].id)" class="defaulttemplate-btn ml-2">Default
                             Template</button>
                                                     <button (click)="previewStaffEmailTemp('0')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
@@ -1827,7 +1827,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="staffEmailTemData" [checked]="staffEmailTemData[1].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,'72')" class="mr-4"></mat-slide-toggle>
+                                                == 'E'" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[1].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Approved</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1849,8 +1849,8 @@
                             class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('72')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('72')" class="defaulttemplate-btn ml-2">Default
+                                                    <button mat-button (click)="fnSaveEmailTemp(staffEmailTemData[1].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(staffEmailTemData[1].id)" class="defaulttemplate-btn ml-2">Default
                             Template</button>
                                                     <button (click)="previewStaffEmailTemp('1')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
@@ -1900,7 +1900,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="staffEmailTemData" [checked]="staffEmailTemData[2].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,'71')" class="mr-4"></mat-slide-toggle>
+                                                == 'E'" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[2].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rejected</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1922,8 +1922,8 @@
                             class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('71')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('71')" class="defaulttemplate-btn ml-2">Default
+                                                    <button mat-button (click)="fnSaveEmailTemp(staffEmailTemData[2].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(staffEmailTemData[2].id)" class="defaulttemplate-btn ml-2">Default
                             Template</button>
                                                     <button (click)="previewStaffEmailTemp('2')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
@@ -1971,7 +1971,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="staffEmailTemData" [checked]="staffEmailTemData[3].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,'70')" class="mr-4"></mat-slide-toggle>
+                                                == 'E'" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[3].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Cancelled by Customer</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1993,8 +1993,8 @@
                             class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('70')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('70')" class="defaulttemplate-btn ml-2">Default
+                                                    <button mat-button (click)="fnSaveEmailTemp(staffEmailTemData[3].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(staffEmailTemData[3].id)" class="defaulttemplate-btn ml-2">Default
                             Template</button>
                                                     <button (click)="previewStaffEmailTemp('3')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
@@ -2042,7 +2042,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="staffEmailTemData" [checked]="staffEmailTemData[4].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,'69')" class="mr-4"></mat-slide-toggle>
+                                                == 'E'" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[4].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rescheduled by Customer</h5>
                                             </div>
                                         </mat-panel-title>
@@ -2064,8 +2064,8 @@
                             class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('69')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('69')" class="defaulttemplate-btn ml-2">Default
+                                                    <button mat-button (click)="fnSaveEmailTemp(staffEmailTemData[4].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(staffEmailTemData[4].id)" class="defaulttemplate-btn ml-2">Default
                             Template</button>
                                                     <button (click)="previewStaffEmailTemp('4')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
@@ -2113,7 +2113,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="staffEmailTemData" [checked]="staffEmailTemData[5].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,'68')" class="mr-4"></mat-slide-toggle>
+                                                == 'E'" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[5].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Admin Appointment Reminder</h5>
                                             </div>
                                         </mat-panel-title>
@@ -2135,8 +2135,8 @@
                             class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('68')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('68')" class="defaulttemplate-btn ml-2">Default
+                                                    <button mat-button (click)="fnSaveEmailTemp(staffEmailTemData[5].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(staffEmailTemData[5].id)" class="defaulttemplate-btn ml-2">Default
                             Template</button>
                                                     <button (click)="previewStaffEmailTemp('5')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
@@ -2185,7 +2185,7 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="staffEmailTemData" [checked]="staffEmailTemData[6].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,'67')" class="mr-4"></mat-slide-toggle>
+                                                == 'E'" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[6].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Completed</h5>
                                             </div>
                                         </mat-panel-title>
@@ -2207,8 +2207,8 @@
                             class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveEmailTemp('67')" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultEmailTemp('67')" class="defaulttemplate-btn ml-2">Default
+                                                    <button mat-button (click)="fnSaveEmailTemp(staffEmailTemData[6].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultEmailTemp(staffEmailTemData[6].id)" class="defaulttemplate-btn ml-2">Default
                             Template</button>
                                                     <button (click)="previewStaffEmailTemp('6')" mat-raised-button color="primary" class="ml-2
                             preview-temp-btn">Preview Template</button>
@@ -2667,13 +2667,63 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Request</h5>
                                             </div>
                                         </mat-panel-title>
                                         <mat-panel-description>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
                                 </mat-expansion-panel>
                             </mat-accordion>
                         </div>
@@ -2685,13 +2735,63 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Request</h5>
                                             </div>
                                         </mat-panel-title>
                                         <mat-panel-description>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
                                 </mat-expansion-panel>
                             </mat-accordion>
                         </div>
@@ -2703,13 +2803,63 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Request</h5>
                                             </div>
                                         </mat-panel-title>
                                         <mat-panel-description>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
                                 </mat-expansion-panel>
                             </mat-accordion>
                         </div>

@@ -135,6 +135,8 @@ export class AlertsettingsComponent implements OnInit {
   staffEmailTemplate5: FormGroup;
   staffEmailTemplate6: FormGroup;
   staffEmailTemplate7: FormGroup;
+
+  cusSmsTemplate1: FormGroup;
   admintomerEmailTemp1: any;
   smsAlertsSetting: any;
   emailTempStatus: any;
@@ -244,6 +246,13 @@ export class AlertsettingsComponent implements OnInit {
     });
     this.staffEmailTemplate7 = this._formBuilder.group({
       emailTemplate: ['',[Validators.required]]
+    });
+
+
+    // Sms Forms
+
+    this.cusSmsTemplate1 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
     });
  
   } 
@@ -676,7 +685,7 @@ fnAppointmentsReminderSMS(event){
     })
   }
   fnSaveEmailTemp(tempId){
-    console.log(this.cusEmailTempl)
+    alert(tempId);
     if(tempId == '59'){
       let requestObject = {
         "template_id" : tempId,
