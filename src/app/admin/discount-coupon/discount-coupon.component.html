@@ -79,17 +79,14 @@
                         </div>
                         
                       </td>
-                      <td>
-                        <div class="pointer">
-                          <span class="material-icons mat-visibility" (click)="fnCouponDetails(i, allCouponCode.id)">visibility</span>
-                        </div>
-                        
-                        
-                      </td>
-                     
-                    </tr>
-                   
-                    
+                      <td> 
+                        <div class="text-left">
+                          <button mat-mini-fab (click)="fnCouponDetails(i, allCouponCode.id)">
+                            <mat-icon class="text-white ml-2">visibility</mat-icon>
+                          </button>
+                        </div>    
+                      </td>  
+                    </tr> 
                   </tbody>
                   </table>
           </div>
