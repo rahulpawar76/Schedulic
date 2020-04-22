@@ -2726,6 +2726,390 @@
                                     </div>
                                 </mat-expansion-panel>
                             </mat-accordion>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Approved</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Rejected</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Cancelled by you</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Rescheduled by you</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <h5>Client Appointment Reminder</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Completed</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
                         </div>
                     </mat-tab>
                     <mat-tab label="Admin SMS Template">
@@ -2736,7 +3120,392 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
-                                                <h5>Appointment Request</h5>
+                                                <h5>New Appointment Request Requires Approval</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                            
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Approved</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Rejected</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Cancelled by Customer</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Rescheduled by Customer</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <h5>Admin Appointment Reminder</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Completed</h5>
                                             </div>
                                         </mat-panel-title>
                                         <mat-panel-description>
@@ -2804,7 +3573,391 @@
                                         <mat-panel-title>
                                             <div class="d-flex">
                                                 <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
-                                                <h5>Appointment Request</h5>
+                                                <h5>New Appointment Request Requires Approval</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Approved</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Rejected</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Cancelled by Customer</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Rescheduled by Customer</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <h5>Admin Appointment Reminder</h5>
+                                            </div>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <div class="d-flex">
+                                        <div class="col-lg-10">
+                                            <form [formGroup]="cusSmsTemplate1">
+                                                <mat-form-field class="bottom-border-field w-100" no-ink-bar>
+                                                    <mat-label>Template</mat-label>
+                                                    <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
+                                                </mat-form-field>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                </span>
+                                                <div class="float-right">
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <p class="mb-0">[booking_date]</p>
+                                            <p class="mb-0">[booking_time]</p>
+                                            <p class="mb-0">[service_name]</p>
+                                            <p class="mb-0">[client_name]</p>
+                                            <p class="mb-0">[units]</p>
+                                            <p class="mb-0">[firstname]</p>
+                                            <p class="mb-0">[lastname]</p>
+                                            <p class="mb-0">[client_email]</p>
+                                            <p class="mb-0">[client_phone]</p>
+                                            <p class="mb-0">[payment_method]</p>
+                                            <p class="mb-0">[parking_status]</p>
+                                            <p class="mb-0">[Notes]</p>
+                                            <p class="mb-0">[Contact Status]</p>
+                                            <p class="mb-0">[Price]</p>
+                                            <p class="mb-0">[client_address]</p>
+                                            <p class="mb-0">[client_city]</p>
+                                            <p class="mb-0">[client_state]</p>
+                                            <p class="mb-0">[client_zip]</p>
+                                            <p class="mb-0">[staff_name]</p>
+                                            <p class="mb-0">[total_amount]</p>
+                                            <p class="mb-0">[reject_status]</p>
+                                            <p class="mb-0">[business_logo]</p>
+                                            <p class="mb-0">[admin_name]</p>
+                                            <p class="mb-0">[company_name]</p>
+                                            <p class="mb-0">[company_address]</p>
+                                            <p class="mb-0">[company_state]</p>
+                                            <p class="mb-0">[company_city]</p>
+                                            <p class="mb-0">[company_zip]</p>
+                                            <p class="mb-0">[company_country]</p>
+                                            <p class="mb-0">[company_phone]</p>
+                                            <p class="mb-0">[company_email]</p>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="d-flex">
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <h5>Appointment Completed</h5>
                                             </div>
                                         </mat-panel-title>
                                         <mat-panel-description>
