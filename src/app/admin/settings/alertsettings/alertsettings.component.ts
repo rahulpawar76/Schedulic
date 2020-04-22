@@ -57,6 +57,28 @@ export class AlertsettingsComponent implements OnInit {
       status:0
     },
   };
+  smsAppointment = {
+    booked:{
+      status:0,
+    },
+    status_updated:{
+      status:0,
+    },
+    cancelled:{
+      status:0
+    },
+  };
+  smsAlertWho = {
+    admin:{
+      status:0,
+    },
+    staff:{
+      status:0,
+    },
+    customer:{
+      status:0
+    },
+  };
   emailAlertCustomer : any;
   emailAlertCustomerDays: any;
   emailAlertCustomerHours: any;
@@ -69,6 +91,9 @@ export class AlertsettingsComponent implements OnInit {
   emailAlertAdminDays: any;
   emailAlertAdminHours: any;
   emailAlertAdminMinutes: any;
+  smsAlertDays: any;
+  smsAlertHours: any;
+  smsAlertMinutes: any;
   Months:any;
   Days:any;
   Hours:any;
@@ -82,6 +107,7 @@ export class AlertsettingsComponent implements OnInit {
   totalTimeCustomerEmail:any;
   totalTimeStaffEmail: any;
   totalTimeAdminEmail: any;
+  totalTimeSms: any;
   customerEmailTemData: any;
   adminEmailTemData: any;
   staffEmailTemData: any;
@@ -110,6 +136,7 @@ export class AlertsettingsComponent implements OnInit {
   staffEmailTemplate6: FormGroup;
   staffEmailTemplate7: FormGroup;
   admintomerEmailTemp1: any;
+  smsAlertsSetting: any;
   emailTempStatus: any;
   maxCharacters = 500; 
   characters = this.maxCharacters;
@@ -273,6 +300,17 @@ export class AlertsettingsComponent implements OnInit {
             this.customizeAlert.controls['senderName'].setValue(this.customizeEmailAlertData.sender_name);
             this.customizeAlert.controls['emailSignature'].setValue(this.customizeEmailAlertData.email_signature);
           }
+          this.emailAlertCustomer = JSON.parse(response.response.email_alert_settings_customer)
+          this.smsAlertsSetting = JSON.parse(response.response.sms_sending_settings)
+          console.log(this.smsAlertsSetting);
+          this.fnConvertMins(this.smsAlertsSetting.time);
+          this.smsAlertDays=this.Days;
+          this.smsAlertHours=this.Hours;
+          this.smsAlertMinutes=this.Minutes;
+          this.appointmentsReminderSMS = this.smsAlertsSetting.reminder_status;
+          this.smsAppointment = JSON.parse(this.smsAlertsSetting.when);
+          this.smsAlertWho = JSON.parse(this.smsAlertsSetting.who);
+
       }
       else{
        
@@ -345,7 +383,20 @@ fnAppointmentsReminderSMS(event){
     }else if(event == false){
       this.appointmentsReminderSMS = false;
     }
-}
+    let smsAlertSetting = {
+      "time" : this.totalTimeSms,
+      "when" : JSON.stringify(this.smsAppointment),
+      "reminder_status":this.appointmentsReminderSMS,
+      "who":JSON.stringify(this.smsAlertWho),
+    }
+    let requestObject={
+      "business_id":this.businessId,
+      "reminder_status":this.appointmentsReminderSMS,
+      "sms_sending_settings" : smsAlertSetting
+    }
+    console.log(requestObject);
+    this.fnUpdateSmsAlert(requestObject);
+  }
 
   fnCusEmailAppoint(event, value){
     if(event == true){
@@ -912,7 +963,89 @@ fnAppointmentsReminderSMS(event){
       console.log(`Dialog result: ${result}`);
     });
   }
+
+
+// for SMS
+  fnSetSmsReminderTime(event){
+    let sms_alert_days=0;
+    let sms_alert_hours=0;
+    let sms_alert_minutes=0;
+    if(this.smsAlertDays !=undefined){
+      sms_alert_days =  parseInt(this.smsAlertDays)*24*60;
+    }
+    if(this.smsAlertHours !=undefined){
+      sms_alert_hours =  parseInt(this.smsAlertHours)*60;
+    }
+    if(this.smsAlertMinutes !=undefined){
+      sms_alert_minutes =  parseInt(this.smsAlertMinutes);
+    }
+    this.totalTimeSms=sms_alert_days+sms_alert_hours+sms_alert_minutes;
+    console.log(this.totalTimeSms);
+
+  }
+
+
+  fnSmsAppoint(event, value){
+    if(event == true){
+      this.smsAppointment[value].status=1;
+    }else{
+      this.smsAppointment[value].status=0;
+    }
+    console.log(this.smsAppointment);
+  }
+  fnSmsWho(event, value){
+    if(event == true){
+      this.smsAlertWho[value].status=1;
+    }else{
+      this.smsAlertWho[value].status=0;
+    }
+    console.log(this.smsAppointment);
+  }
+
+  fnSubmitSmsAlert(){
+      let smsAlertSetting = {
+        "time" : this.totalTimeSms,
+        "when" : JSON.stringify(this.smsAppointment),
+        "reminder_status":this.appointmentsReminderSMS,
+        "who":JSON.stringify(this.smsAlertWho),
+      }
+      let requestObject={
+        "business_id":this.businessId,
+        "reminder_status":this.appointmentsReminderSMS,
+        "sms_sending_settings" : smsAlertSetting
+      }
+      console.log(requestObject);
+      this.fnUpdateSmsAlert(requestObject);
+  }
+
+  fnUpdateSmsAlert(requestObject){
+    this.isLoaderAdmin = true;
+    this.adminSettingsService.fnUpdateSmsAlert(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open("Sms alerts are Updated", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['green-snackbar']
+        });
+        this.getSettingsValue();
+      }
+      else{
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+      this.isLoaderAdmin = false;
+    })
+  }
+
+
 }
+
+
+
+
 
 
 @Component({
