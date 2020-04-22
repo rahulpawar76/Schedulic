@@ -676,6 +676,7 @@ fnAppointmentsReminderSMS(event){
     })
   }
   fnSaveEmailTemp(tempId){
+    alert(tempId);
     console.log(this.cusEmailTempl)
     if(tempId == '59'){
       let requestObject = {
