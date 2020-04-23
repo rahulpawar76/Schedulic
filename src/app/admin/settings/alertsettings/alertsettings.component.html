@@ -2731,7 +2731,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[1].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[1].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Approved</h5>
                                             </div>
                                         </mat-panel-title>
@@ -2740,17 +2740,17 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusSmsTemplate1">
+                                            <form [formGroup]="cusSmsTemplate2">
                                                 <mat-form-field class="bottom-border-field w-100" no-ink-bar>
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate3.get('smsTemplate').dirty || cusSmsTemplate2.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate2.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[1].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[1].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -2795,7 +2795,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[2].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[2].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rejected</h5>
                                             </div>
                                         </mat-panel-title>
@@ -2804,17 +2804,17 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusSmsTemplate1">
+                                            <form [formGroup]="cusSmsTemplate3">
                                                 <mat-form-field class="bottom-border-field w-100" no-ink-bar>
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate3.get('smsTemplate').dirty || cusSmsTemplate3.get('smsTemplate').touched">
+                                                    <small *ngIf="cusSmsTemplate3.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[2].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[2].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -2859,7 +2859,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[3].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[3].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Cancelled by you</h5>
                                             </div>
                                         </mat-panel-title>
@@ -2868,17 +2868,17 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusSmsTemplate1">
+                                            <form [formGroup]="cusSmsTemplate4">
                                                 <mat-form-field class="bottom-border-field w-100" no-ink-bar>
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate4.get('smsTemplate').dirty || cusSmsTemplate4.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate4.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[3].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[3].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -2923,7 +2923,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[4].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[4].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rescheduled by you</h5>
                                             </div>
                                         </mat-panel-title>
@@ -2932,17 +2932,17 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusSmsTemplate1">
+                                            <form [formGroup]="cusSmsTemplate5">
                                                 <mat-form-field class="bottom-border-field w-100" no-ink-bar>
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate5.get('smsTemplate').dirty || cusSmsTemplate5.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate5.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[4].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[4].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -2987,7 +2987,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[5].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[5].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Client Appointment Reminder</h5>
                                             </div>
                                         </mat-panel-title>
@@ -2996,17 +2996,17 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusSmsTemplate1">
+                                            <form [formGroup]="cusSmsTemplate6">
                                                 <mat-form-field class="bottom-border-field w-100" no-ink-bar>
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate6.get('smsTemplate').dirty || cusSmsTemplate6.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate6.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[5].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[5].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -3051,7 +3051,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[6].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[6].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Completed</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3060,17 +3060,17 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusSmsTemplate1">
+                                            <form [formGroup]="cusSmsTemplate7">
                                                 <mat-form-field class="bottom-border-field w-100" no-ink-bar>
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate7.get('smsTemplate').dirty || cusSmsTemplate7.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="cusSmsTemplate7.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[6].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[6].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -3119,7 +3119,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="adminSmsTemData" [checked]="adminSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>New Appointment Request Requires Approval</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3128,17 +3128,17 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusSmsTemplate1">
+                                            <form [formGroup]="adminSmsTemplate1">
                                                 <mat-form-field class="bottom-border-field w-100" no-ink-bar>
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                <span class="error-wrap" *ngIf="adminSmsTemplate1.get('smsTemplate').dirty || adminSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="adminSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveSmsTemp(adminSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(adminSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -3178,13 +3178,13 @@
                                     </div>
                                 </mat-expansion-panel>
                             </mat-accordion>
-                            
+
                             <mat-accordion>
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="adminSmsTemData" [checked]="adminSmsTemData[1].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[1].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Approved</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3193,17 +3193,17 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusSmsTemplate1">
+                                            <form [formGroup]="adminSmsTemplate2">
                                                 <mat-form-field class="bottom-border-field w-100" no-ink-bar>
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                <span class="error-wrap" *ngIf="adminSmsTemplate2.get('smsTemplate').dirty || adminSmsTemplate2.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="adminSmsTemplate2.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveSmsTemp(adminSmsTemData[1].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(adminSmsTemData[1].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -3248,7 +3248,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="adminSmsTemData" [checked]="adminSmsTemData[2].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[2].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rejected</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3257,17 +3257,17 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusSmsTemplate1">
+                                            <form [formGroup]="adminSmsTemplate3">
                                                 <mat-form-field class="bottom-border-field w-100" no-ink-bar>
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                <span class="error-wrap" *ngIf="adminSmsTemplate3.get('smsTemplate').dirty || adminSmsTemplate3.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="adminSmsTemplate3.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveSmsTemp(adminSmsTemData[2].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(adminSmsTemData[2].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -3312,7 +3312,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="adminSmsTemData" [checked]="adminSmsTemData[3].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[3].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Cancelled by Customer</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3321,17 +3321,17 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusSmsTemplate1">
+                                            <form [formGroup]="adminSmsTemplate4">
                                                 <mat-form-field class="bottom-border-field w-100" no-ink-bar>
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                <span class="error-wrap" *ngIf="adminSmsTemplate4.get('smsTemplate').dirty || adminSmsTemplate4.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="adminSmsTemplate4.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveSmsTemp(adminSmsTemData[3].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(adminSmsTemData[3].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -3376,7 +3376,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="adminSmsTemData" [checked]="adminSmsTemData[4].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[4].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rescheduled by Customer</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3385,17 +3385,17 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusSmsTemplate1">
+                                            <form [formGroup]="adminSmsTemplate5">
                                                 <mat-form-field class="bottom-border-field w-100" no-ink-bar>
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                <span class="error-wrap" *ngIf="adminSmsTemplate5.get('smsTemplate').dirty || adminSmsTemplate5.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="adminSmsTemplate5.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveSmsTemp(adminSmsTemData[4].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(adminSmsTemData[4].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -3440,7 +3440,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="adminSmsTemData" [checked]="adminSmsTemData[5].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[5].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Admin Appointment Reminder</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3449,17 +3449,17 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusSmsTemplate1">
+                                            <form [formGroup]="adminSmsTemplate6">
                                                 <mat-form-field class="bottom-border-field w-100" no-ink-bar>
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                <span class="error-wrap" *ngIf="adminSmsTemplate6.get('smsTemplate').dirty || adminSmsTemplate6.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="adminSmsTemplate6.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveSmsTemp(adminSmsTemData[5].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(adminSmsTemData[5].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -3504,7 +3504,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="adminSmsTemData" [checked]="adminSmsTemData[6].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[6].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Completed</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3513,17 +3513,17 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusSmsTemplate1">
+                                            <form [formGroup]="adminSmsTemplate7">
                                                 <mat-form-field class="bottom-border-field w-100" no-ink-bar>
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                <span class="error-wrap" *ngIf="adminSmsTemplate7.get('smsTemplate').dirty || adminSmsTemplate7.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="adminSmsTemplate7.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveSmsTemp(adminSmsTemData[6].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(adminSmsTemData[6].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -3572,7 +3572,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="staffSmsTemData" [checked]="staffSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>New Appointment Request Requires Approval</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3581,17 +3581,17 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusSmsTemplate1">
+                                            <form [formGroup]="staffSmsTemplate1">
                                                 <mat-form-field class="bottom-border-field w-100" no-ink-bar>
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                <span class="error-wrap" *ngIf="staffSmsTemplate1.get('smsTemplate').dirty || staffSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="staffSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveSmsTemp(staffSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(staffSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -3636,7 +3636,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="staffSmsTemData" [checked]="staffSmsTemData[1].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[1].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Approved</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3645,17 +3645,17 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusSmsTemplate1">
+                                            <form [formGroup]="staffSmsTemplate2">
                                                 <mat-form-field class="bottom-border-field w-100" no-ink-bar>
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                <span class="error-wrap" *ngIf="staffSmsTemplate2.get('smsTemplate').dirty || staffSmsTemplate2.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="staffSmsTemplate2.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveSmsTemp(staffSmsTemData[1].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(staffSmsTemData[1].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -3700,7 +3700,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="staffSmsTemData" [checked]="staffSmsTemData[2].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[2].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rejected</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3709,17 +3709,17 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusSmsTemplate1">
+                                            <form [formGroup]="staffSmsTemplate3">
                                                 <mat-form-field class="bottom-border-field w-100" no-ink-bar>
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                <span class="error-wrap" *ngIf="staffSmsTemplate3.get('smsTemplate').dirty || staffSmsTemplate3.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="staffSmsTemplate3.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveSmsTemp(staffSmsTemData[2].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(staffSmsTemData[2].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -3764,7 +3764,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="staffSmsTemData" [checked]="staffSmsTemData[3].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[3].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Cancelled by Customer</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3773,17 +3773,17 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusSmsTemplate1">
+                                            <form [formGroup]="staffSmsTemplate4">
                                                 <mat-form-field class="bottom-border-field w-100" no-ink-bar>
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                <span class="error-wrap" *ngIf="staffSmsTemplate4.get('smsTemplate').dirty || staffSmsTemplate4.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="staffSmsTemplate4.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveSmsTemp(staffSmsTemData[3].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(staffSmsTemData[3].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -3828,7 +3828,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="staffSmsTemData" [checked]="staffSmsTemData[4].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[4].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rescheduled by Customer</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3837,17 +3837,17 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusSmsTemplate1">
+                                            <form [formGroup]="staffSmsTemplate5">
                                                 <mat-form-field class="bottom-border-field w-100" no-ink-bar>
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                <span class="error-wrap" *ngIf="staffSmsTemplate5.get('smsTemplate').dirty || staffSmsTemplate5.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="staffSmsTemplate5.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveSmsTemp(staffSmsTemData[4].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(staffSmsTemData[4].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -3892,7 +3892,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="staffSmsTemData" [checked]="staffSmsTemData[5].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[5].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Admin Appointment Reminder</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3901,17 +3901,17 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusSmsTemplate1">
+                                            <form [formGroup]="staffSmsTemplate6">
                                                 <mat-form-field class="bottom-border-field w-100" no-ink-bar>
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                <span class="error-wrap" *ngIf="staffSmsTemplate6.get('smsTemplate').dirty || staffSmsTemplate6.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="staffSmsTemplate6.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveSmsTemp(staffSmsTemData[5].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(staffSmsTemData[5].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -3956,7 +3956,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle *ngIf="staffSmsTemData" [checked]="staffSmsTemData[6].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[6].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Completed</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3965,17 +3965,17 @@
                                     </mat-expansion-panel-header>
                                     <div class="d-flex">
                                         <div class="col-lg-10">
-                                            <form [formGroup]="cusSmsTemplate1">
+                                            <form [formGroup]="staffSmsTemplate7">
                                                 <mat-form-field class="bottom-border-field w-100" no-ink-bar>
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
-                                                    <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
+                                                <span class="error-wrap" *ngIf="staffSmsTemplate7.get('smsTemplate').dirty || staffSmsTemplate7.get('smsTemplate').touched || formSubmitclicked">
+                                                    <small *ngIf="staffSmsTemplate7.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
-                                                    <button mat-button (click)="fnSaveSmsTemp(cusSmsTemData[0].id)" class="savetemplate-btn">Save Template</button>
-                                                    <button mat-button (click)="fnDefaultSmsTemp(cusSmsTemData[0].id)" class="defaulttemplate-btn ml-2">Default Template</button>
+                                                    <button mat-button (click)="fnSaveSmsTemp(staffSmsTemData[6].id)" class="savetemplate-btn">Save Template</button>
+                                                    <button mat-button (click)="fnDefaultSmsTemp(staffSmsTemData[6].id)" class="defaulttemplate-btn ml-2">Default Template</button>
                                                 </div>
                                             </form>
                                         </div>

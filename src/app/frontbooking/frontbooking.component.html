@@ -251,13 +251,14 @@
                         </div>
                         <div class="col-12 col-lg-6 col-md-6 col-sm-6">
                             <label>Phone</label>
-                            <input formControlName="newUserPhone" class="common-input" type="text" />
-                            <!-- <ngx-intl-tel-input [cssClass]="'custom'" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="false" [enablePlaceholder]="true" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
-                                [selectedCountryISO]="CountryISO.India" [maxLength]="15" [tooltipField]="TooltipLabel.Name" [phoneValidation]="true" [separateDialCode]="separateDialCode" name="phone" formControlName="newUserPhone">
-                            </ngx-intl-tel-input> -->
+                            <!-- <input formControlName="newUserPhone" class="common-input" type="text" /> -->
+                            <ngx-intl-tel-input class="common-input mobile-intel-input" [cssClass]="'custom'" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="false" [enablePlaceholder]="true" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.India" [maxLength]="15" [tooltipField]="TooltipLabel.Name" [phoneValidation]="true" [separateDialCode]="separateDialCode" name="phone" formControlName="newUserPhone">
+                            </ngx-intl-tel-input>
                             <span *ngIf="formNewUser.get('newUserPhone').dirty || formNewUser.get('newUserPhone').touched || formSubmitclicked"><small *ngIf="formNewUser.get('newUserPhone').hasError('required')" class="error">Phone number Is required</small>
                                         
-                                    <small *ngIf="formNewUser.get('newUserPhone').hasError('pattern')" class="error">Enter a valid phone number</small><small *ngIf="formNewUser.get('newUserPhone').hasError('minlength') || formNewUser.get('newUserPhone').hasError('maxlength')" class="error">Phone number should be 10 digits long</small></span>
+                                    <!-- <small *ngIf="formNewUser.get('newUserPhone').hasError('pattern')" class="error">Enter a valid phone number</small> -->
+                                    <small *ngIf="formNewUser.get('newUserPhone').hasError('minlength') || formNewUser.get('newUserPhone').hasError('maxlength')" class="error">Phone number should be 10 to 15 digits long</small></span>
                         </div>
                         <div class="col-12 col-lg-12 col-md-12 col-sm-12" *ngIf="contactFormSettingsArr.addressField.status == 1">
                             <label>Address</label>
@@ -288,6 +289,7 @@
                         </div>
                     </div>
                 </form>
+
                 <div class="bottom-ctn-btn">
                     <button (click)="fnpersonalinfo()" mat-button class="round-btn continue-btn">Continue<i class="material-icons">keyboard_arrow_right</i></button>
                 </div>

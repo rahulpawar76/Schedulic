@@ -1371,7 +1371,7 @@ export class AdminSettingsService {
             'api-token' : this.adminToken,
             'Content-Type': 'application/json'
         });
-        return this.http.post(`${environment.apiUrl}/`,requestObject,{headers:headers}).pipe(
+        return this.http.post(`${environment.apiUrl}/default-email-message`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;
         }),
@@ -1384,6 +1384,54 @@ export class AdminSettingsService {
             'Content-Type': 'application/json'
         });
         return this.http.post(`${environment.apiUrl}/set-sms-reminder`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    getSmsTemplates(requestObject){
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/get-sms-template`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    fnChangeSmsTemStatus(requestObject){
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/update-sms-status-template`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    fnDefaultSmsTemp(requestObject){
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/set-default-sms-template`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    fnUpdateSmsTemp(requestObject){
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/update-sms-template`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;
         }),

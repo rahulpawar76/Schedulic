@@ -111,6 +111,9 @@ export class AlertsettingsComponent implements OnInit {
   customerEmailTemData: any;
   adminEmailTemData: any;
   staffEmailTemData: any;
+  cusSmsTemData: any;
+  adminSmsTemData: any;
+  staffSmsTemData: any;
   customizeEmailAlertData: any;
   adminEmailForAlert: FormGroup;
   customizeAlert: FormGroup;
@@ -137,9 +140,31 @@ export class AlertsettingsComponent implements OnInit {
   staffEmailTemplate7: FormGroup;
 
   cusSmsTemplate1: FormGroup;
+  cusSmsTemplate2: FormGroup;
+  cusSmsTemplate3: FormGroup;
+  cusSmsTemplate4: FormGroup;
+  cusSmsTemplate5: FormGroup;
+  cusSmsTemplate6: FormGroup;
+  cusSmsTemplate7: FormGroup;
+  adminSmsTemplate1: FormGroup;
+  adminSmsTemplate2: FormGroup;
+  adminSmsTemplate3: FormGroup;
+  adminSmsTemplate4: FormGroup;
+  adminSmsTemplate5: FormGroup;
+  adminSmsTemplate6: FormGroup;
+  adminSmsTemplate7: FormGroup;
+  staffSmsTemplate1: FormGroup;
+  staffSmsTemplate2: FormGroup;
+  staffSmsTemplate3: FormGroup;
+  staffSmsTemplate4: FormGroup;
+  staffSmsTemplate5: FormGroup;
+  staffSmsTemplate6: FormGroup;
+  staffSmsTemplate7: FormGroup;
+
   admintomerEmailTemp1: any;
   smsAlertsSetting: any;
   emailTempStatus: any;
+  smsTempStatus: any;
   maxCharacters = 500; 
   characters = this.maxCharacters;
   cusEmailTempl : any;
@@ -171,6 +196,9 @@ export class AlertsettingsComponent implements OnInit {
     this.getCustomerEmailTemplates();
     this.getAdminEmailTemplates();
     this.getStaffEmailTemplates();
+    this.getCustomerSmsTemplates();
+    this.getAdminSmsTemplates();
+    this.getStaffSmsTemplates();
     let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
     this.adminEmailForAlert = this._formBuilder.group({
       alertEmail: ['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]]
@@ -252,6 +280,68 @@ export class AlertsettingsComponent implements OnInit {
     // Sms Forms
 
     this.cusSmsTemplate1 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
+    });
+    this.cusSmsTemplate2 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
+    });
+    this.cusSmsTemplate3 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
+    });
+    this.cusSmsTemplate4 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
+    });
+    this.cusSmsTemplate5 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
+    });
+    this.cusSmsTemplate6 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
+    });
+    this.cusSmsTemplate7 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
+    });
+
+    this.adminSmsTemplate1 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
+    });
+    this.adminSmsTemplate2 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
+    });
+    this.adminSmsTemplate3 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
+    });
+    this.adminSmsTemplate4 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
+    });
+    this.adminSmsTemplate5 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
+    });
+    this.adminSmsTemplate6 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
+    });
+    this.adminSmsTemplate7 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
+    });
+
+    this.staffSmsTemplate1 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
+    });
+    this.staffSmsTemplate2 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
+    });
+    this.staffSmsTemplate3 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
+    });
+    this.staffSmsTemplate4 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
+    });
+    this.staffSmsTemplate5 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
+    });
+    this.staffSmsTemplate6 = this._formBuilder.group({
+      smsTemplate: ['',[Validators.required]]
+    });
+    this.staffSmsTemplate7 = this._formBuilder.group({
       smsTemplate: ['',[Validators.required]]
     });
  
@@ -686,147 +776,147 @@ fnAppointmentsReminderSMS(event){
   }
   fnSaveEmailTemp(tempId){
     alert(tempId);
-    if(tempId == '59'){
+    if(tempId == this.customerEmailTemData[0].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Request",
         "message" : this.cusEmailTemplate1.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
-    }else if(tempId == '58'){
+    }else if(tempId == this.customerEmailTemData[1].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Approved",
         "message" : this.cusEmailTemplate2.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
-    }else if(tempId == '57'){
+    }else if(tempId == this.customerEmailTemData[2].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Regected",
         "message" : this.cusEmailTemplate3.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
-    }else if(tempId == '56'){
+    }else if(tempId == this.customerEmailTemData[3].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment cancelled By You",
         "message" : this.cusEmailTemplate4.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
-    }else if(tempId == '55'){
+    }else if(tempId == this.customerEmailTemData[4].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Rescheduled By You",
         "message" : this.cusEmailTemplate5.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
-    }else if(tempId == '54'){
+    }else if(tempId == this.customerEmailTemData[5].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Client Appintment Reminder",
         "message" : this.cusEmailTemplate6.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
-    }else if(tempId == '53'){
+    }else if(tempId == this.customerEmailTemData[6].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Completed",
         "message" : this.cusEmailTemplate7.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
-    }else if(tempId == '66'){
+    }else if(tempId == this.adminEmailTemData[0].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "New Appointment Request Require Approval",
         "message" : this.adminEmailTemplate1.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
-    }else if(tempId == '65'){
+    }else if(tempId == this.adminEmailTemData[1].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Approved",
         "message" : this.adminEmailTemplate2.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
-    }else if(tempId == '64'){
+    }else if(tempId == this.adminEmailTemData[2].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Rejected",
         "message" : this.adminEmailTemplate3.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
-    }else if(tempId == '63'){
+    }else if(tempId == this.adminEmailTemData[3].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Cancelled by Customer",
         "message" : this.adminEmailTemplate4.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
-    }else if(tempId == '62'){
+    }else if(tempId == this.adminEmailTemData[4].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment rescheduled by Customer",
         "message" : this.adminEmailTemplate5.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
-    }else if(tempId == '61'){
+    }else if(tempId == this.adminEmailTemData[5].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Admin Appointment Reminder",
         "message" : this.adminEmailTemplate6.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
-    }else if(tempId == '60'){
+    }else if(tempId == this.adminEmailTemData[6].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Completed",
         "message" : this.adminEmailTemplate7.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
-    }else if(tempId == '73'){
+    }else if(tempId == this.staffEmailTemData[0].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "New Appointment Assigned",
         "message" : this.staffEmailTemplate1.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
-    }else if(tempId == '72'){
+    }else if(tempId == this.staffEmailTemData[1].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Approved",
         "message" : this.staffEmailTemplate2.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
-    }else if(tempId == '71'){
+    }else if(tempId == this.staffEmailTemData[2].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Rejected",
         "message" : this.staffEmailTemplate3.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
-    }else if(tempId == '70'){
+    }else if(tempId == this.staffEmailTemData[3].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Cancelled By Customer",
         "message" : this.staffEmailTemplate4.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
-    }else if(tempId == '69'){
+    }else if(tempId == this.staffEmailTemData[4].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Rescheduled By Customer",
         "message" : this.staffEmailTemplate5.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
-    }else if(tempId == '68'){
+    }else if(tempId == this.staffEmailTemData[5].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Reminder",
         "message" : this.staffEmailTemplate6.get('emailTemplate').value
       }
       this.fnUpdateEmailTemp(requestObject);
-    }else if(tempId == '67'){
+    }else if(tempId == this.staffEmailTemData[6].id){
       let requestObject = {
         "template_id" : tempId,
         "subject" : "Appointment Completed",
@@ -1048,6 +1138,317 @@ fnAppointmentsReminderSMS(event){
       this.isLoaderAdmin = false;
     })
   }
+
+  getCustomerSmsTemplates(){
+    let requestObject={
+      "business_id":this.businessId,
+      "user_type" : "C"
+    }
+    this.adminSettingsService.getSmsTemplates(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.cusSmsTemData = response.response;
+        this.cusSmsTemplate1.controls['smsTemplate'].setValue(this.cusSmsTemData[0].sms_message);
+        this.cusSmsTemplate2.controls['smsTemplate'].setValue(this.cusSmsTemData[1].sms_message);
+        this.cusSmsTemplate3.controls['smsTemplate'].setValue(this.cusSmsTemData[2].sms_message);
+        this.cusSmsTemplate4.controls['smsTemplate'].setValue(this.cusSmsTemData[3].sms_message);
+        this.cusSmsTemplate5.controls['smsTemplate'].setValue(this.cusSmsTemData[4].sms_message);
+        this.cusSmsTemplate6.controls['smsTemplate'].setValue(this.cusSmsTemData[5].sms_message);
+        this.cusSmsTemplate7.controls['smsTemplate'].setValue(this.cusSmsTemData[6].sms_message);
+        console.log(this.cusSmsTemData);
+      }
+      else{
+      this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+  }
+
+  getStaffSmsTemplates(){
+    let requestObject={
+      "business_id":this.businessId,
+      "user_type" : "S"
+    }
+    this.adminSettingsService.getSmsTemplates(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.staffSmsTemData = response.response;
+        this.staffSmsTemplate1.controls['smsTemplate'].setValue(this.staffSmsTemData[0].sms_message);
+        this.staffSmsTemplate2.controls['smsTemplate'].setValue(this.staffSmsTemData[1].sms_message);
+        this.staffSmsTemplate3.controls['smsTemplate'].setValue(this.staffSmsTemData[2].sms_message);
+        this.staffSmsTemplate4.controls['smsTemplate'].setValue(this.staffSmsTemData[3].sms_message);
+        this.staffSmsTemplate5.controls['smsTemplate'].setValue(this.staffSmsTemData[4].sms_message);
+        this.staffSmsTemplate6.controls['smsTemplate'].setValue(this.staffSmsTemData[5].sms_message);
+        this.staffSmsTemplate7.controls['smsTemplate'].setValue(this.staffSmsTemData[6].sms_message);
+        console.log(this.staffSmsTemData);
+      }
+      else{
+      this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+  }
+
+  getAdminSmsTemplates(){
+    let requestObject={
+      "business_id":this.businessId,
+      "user_type" : "A"
+    }
+    this.adminSettingsService.getSmsTemplates(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.adminSmsTemData = response.response;
+        this.adminSmsTemplate1.controls['smsTemplate'].setValue(this.adminSmsTemData[0].sms_message);
+        this.adminSmsTemplate2.controls['smsTemplate'].setValue(this.adminSmsTemData[1].sms_message);
+        this.adminSmsTemplate3.controls['smsTemplate'].setValue(this.adminSmsTemData[2].sms_message);
+        this.adminSmsTemplate4.controls['smsTemplate'].setValue(this.adminSmsTemData[3].sms_message);
+        this.adminSmsTemplate5.controls['smsTemplate'].setValue(this.adminSmsTemData[4].sms_message);
+        this.adminSmsTemplate6.controls['smsTemplate'].setValue(this.adminSmsTemData[5].sms_message);
+        this.adminSmsTemplate7.controls['smsTemplate'].setValue(this.adminSmsTemData[6].sms_message);
+        console.log(this.adminSmsTemData);
+      }
+      else{
+      this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+  }
+
+
+  fnChangeSmsTemStatus(event, tempId){
+    if(event == true){
+      this.smsTempStatus = "E";
+    }else{
+      this.smsTempStatus = "D";
+    }
+    let requestObject = {
+      "template_id" : tempId,
+      "status" : this.smsTempStatus
+    }
+    this.adminSettingsService.fnChangeSmsTemStatus(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open("Sms Template Status Updated", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['green-snackbar']
+        });
+      }
+      else{
+      this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+  }
+  fnDefaultSmsTemp(tempId){
+    let requestObject={
+      "business_id":this.businessId,
+      "template_id" : tempId
+    }
+    this.adminSettingsService.fnDefaultSmsTemp(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open("Email Template is Updated", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['green-snackbar']
+        });
+        this.getSettingsValue();
+        this.getCustomerSmsTemplates();
+        this.getAdminSmsTemplates();
+        this.getStaffSmsTemplates();
+      }
+      else{
+      this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+  }
+  fnSaveSmsTemp(tempId){
+    alert(tempId);
+    if(tempId == this.cusSmsTemData[0].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment Request",
+        "message" : this.cusSmsTemplate1.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }else if(tempId == this.cusSmsTemData[1].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment Approved",
+        "message" : this.cusSmsTemplate2.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }else if(tempId == this.cusSmsTemData[2].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment Regected",
+        "message" : this.cusSmsTemplate3.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }else if(tempId == this.cusSmsTemData[3].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment cancelled By You",
+        "message" : this.cusSmsTemplate4.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }else if(tempId == this.cusSmsTemData[4].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment Rescheduled By You",
+        "message" : this.cusSmsTemplate5.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }else if(tempId == this.cusSmsTemData[5].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Client Appintment Reminder",
+        "message" : this.cusSmsTemplate6.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }else if(tempId == this.cusSmsTemData[6].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment Completed",
+        "message" : this.cusSmsTemplate7.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }else if(tempId == this.adminSmsTemData[0].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "New Appointment Request Require Approval",
+        "message" : this.adminSmsTemplate1.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }else if(tempId == this.adminSmsTemData[1].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment Approved",
+        "message" : this.adminSmsTemplate2.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }else if(tempId == this.adminSmsTemData[2].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment Rejected",
+        "message" : this.adminSmsTemplate3.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }else if(tempId == this.adminSmsTemData[3].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment Cancelled by Customer",
+        "message" : this.adminSmsTemplate4.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }else if(tempId == this.adminSmsTemData[4].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment rescheduled by Customer",
+        "message" : this.adminSmsTemplate5.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }else if(tempId == this.adminSmsTemData[5].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Admin Appointment Reminder",
+        "message" : this.adminSmsTemplate6.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }else if(tempId == this.adminSmsTemData[6].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment Completed",
+        "message" : this.adminSmsTemplate7.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }else if(tempId == this.staffSmsTemData[0].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "New Appointment Assigned",
+        "message" : this.staffSmsTemplate1.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }else if(tempId == this.staffSmsTemData[1].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment Approved",
+        "message" : this.staffSmsTemplate2.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }else if(tempId == this.staffSmsTemData[2].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment Rejected",
+        "message" : this.staffSmsTemplate3.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }else if(tempId == this.staffSmsTemData[3].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment Cancelled By Customer",
+        "message" : this.staffSmsTemplate4.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }else if(tempId == this.staffSmsTemData[4].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment Rescheduled By Customer",
+        "message" : this.staffSmsTemplate5.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }else if(tempId == this.staffSmsTemData[5].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment Reminder",
+        "message" : this.staffSmsTemplate6.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }else if(tempId == this.staffSmsTemData[6].id){
+      let requestObject = {
+        "template_id" : tempId,
+        "subject" : "Appointment Completed",
+        "message" : this.staffSmsTemplate7.get('smsTemplate').value
+      }
+      this.fnUpdateSmsTemp(requestObject);
+    }
+  }
+  fnUpdateSmsTemp(requestObject){
+    this.adminSettingsService.fnUpdateSmsTemp(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open("Sms Template is Updated", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['green-snackbar']
+        });
+        this.getSettingsValue();
+        this.getCustomerEmailTemplates();
+        this.getAdminEmailTemplates();
+        this.getStaffEmailTemplates();
+      }
+      else{
+      this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+  }
+
+
 
 
 }

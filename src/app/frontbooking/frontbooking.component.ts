@@ -10,8 +10,7 @@ import { MatSnackBar} from '@angular/material/snack-bar';
 import { AuthenticationService } from '@app/_services';
 import { DatePipe} from '@angular/common';
 import { AppComponent } from '@app/app.component';
-
-//import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
+import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-frontbooking',
@@ -134,13 +133,11 @@ export class FrontbookingComponent implements OnInit {
   currencySymbolFormat:any;
   @ViewChildren(MdePopoverTrigger) trigger: QueryList<MdePopoverTrigger>;
 
-  // separateDialCode = true;
-	// SearchCountryField = SearchCountryField;
-	// TooltipLabel = TooltipLabel;
-	// CountryISO = CountryISO;
-	// preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
-
-
+  separateDialCode = true;
+	SearchCountryField = SearchCountryField;
+	TooltipLabel = TooltipLabel;
+	CountryISO = CountryISO;
+	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
 
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
   emailFormat = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
@@ -184,7 +181,7 @@ export class FrontbookingComponent implements OnInit {
       this.isEmailUnique.bind(this)],
       newUserPassword: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(8)]],
       newUserFullname: ['',Validators.required],
-      newUserPhone: ['',[Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      newUserPhone: ['',[Validators.required,Validators.minLength(10),Validators.maxLength(15)]],
       // newUserAddress: ['',Validators.required],
       // newUserState: ['',Validators.required],
       // newUserCity: ['',Validators.required],
@@ -208,9 +205,8 @@ export class FrontbookingComponent implements OnInit {
       this.customerName=this.authenticationService.currentUserValue.fullname;
       console.log(this.authenticationService.currentUserValue.user_id+" "+this.isLoggedIn);
     }
-    
+   // this.formNewUser.controls['newUserPhone'].setValue(this.phone)
     this.fnGetTaxDetails();
-
     this.fnGetCategories();
     this.fnGetOffDays();
     setTimeout(() => {
@@ -1405,7 +1401,7 @@ export class FrontbookingComponent implements OnInit {
       "email" : this.formNewUser.get('newUserEmail').value,
       "password" : this.formNewUser.get('newUserPassword').value,
       "fullname":this.formNewUser.get('newUserFullname').value,
-      "phone":this.formNewUser.get('newUserPhone').value,
+      "phone":this.formNewUser.get('newUserPhone').value.internationalNumber,
       "address":newUserAddress,
       "zip":newUserZipcode,
       "state":newUserState,

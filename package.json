@@ -52,6 +52,7 @@
     "moment": "^2.24.0",
     "ng-flat-datepicker": "^0.1.4",
     "ng2-file-upload": "^1.4.0",
+    "ngx-bootstrap": "^5.6.1",
     "ngx-color": "^5.0.1",
     "ngx-color-picker": "^9.0.0",
     "ngx-daterangepicker-material": "^2.2.0",
