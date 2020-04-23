@@ -11,6 +11,8 @@ import { AuthenticationService } from '@app/_services';
 import { DatePipe} from '@angular/common';
 import { AppComponent } from '@app/app.component';
 
+//import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
+
 @Component({
   selector: 'app-frontbooking',
   templateUrl: './frontbooking.component.html',
@@ -131,6 +133,15 @@ export class FrontbookingComponent implements OnInit {
   currencySymbolPosition:any;
   currencySymbolFormat:any;
   @ViewChildren(MdePopoverTrigger) trigger: QueryList<MdePopoverTrigger>;
+
+  // separateDialCode = true;
+	// SearchCountryField = SearchCountryField;
+	// TooltipLabel = TooltipLabel;
+	// CountryISO = CountryISO;
+	// preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
+
+
+
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
   emailFormat = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
   onlynumeric = /^-?(0|[1-9]\d*)?$/

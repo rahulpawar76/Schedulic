@@ -39,6 +39,7 @@ import { DialogServiceImageUpload } from './services/services.component';
 import { DialogStaffImageUpload } from './staff/staff.component';
 import { DialogCompanyDetailsImageUpload } from './company-details/company-details.component';
 import {DialogDataExampleDialog} from './services/services.component';
+import { DialogPreviewEmailTemp } from './alertsettings/alertsettings.component';
 import { SharedModule } from '../../shared.module';
 
 import { DialogStaffViewReview } from './staff/staff.component';
@@ -72,7 +73,8 @@ enableRipple(true);
     DialogStaffImageUpload,
     DialogCompanyDetailsImageUpload,
     DialogDataExampleDialog,
-    DialogStaffViewReview
+    DialogStaffViewReview,
+    DialogPreviewEmailTemp,
   ],
   imports: [
       CommonModule,
@@ -92,6 +94,6 @@ enableRipple(true);
   exports: [
     FormsModule
   ],
-   entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax,DialogAddPostalCode,DialogAddNewTimeOffBussiness,DialogCategoryImageUpload,DialogSubCategoryImageUpload,DialogServiceImageUpload,DialogStaffImageUpload,DialogCompanyDetailsImageUpload,DialogDataExampleDialog,DialogStaffViewReview],
+   entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax,DialogAddPostalCode,DialogAddNewTimeOffBussiness,DialogCategoryImageUpload,DialogSubCategoryImageUpload,DialogServiceImageUpload,DialogStaffImageUpload,DialogCompanyDetailsImageUpload,DialogDataExampleDialog,DialogStaffViewReview,DialogPreviewEmailTemp],
 })
 export class SettingsModule {}

@@ -28,6 +28,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { FrontbookingComponent } from './frontbooking/frontbooking.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+//import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 
 
@@ -103,7 +104,8 @@ registerLocaleData(localeDe);
         MatDialogModule,
         MatProgressSpinnerModule,
         MatRadioModule,
-        SharedModule
+        SharedModule,
+		//NgxIntlTelInputModule,
     ],
     exports: [
         BrowserModule,

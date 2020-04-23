@@ -1,104 +1,107 @@
-
 @import "variables";
-#alert-setting{
-   
-    ::ng-deep .mat-expansion-panel-header-description, .mat-expansion-panel-header-title {
+#alert-setting {
+     ::ng-deep .mat-expansion-panel-header-description,
+    .mat-expansion-panel-header-title {
         display: block;
     }
-    ::ng-deep .mat-expansion-panel-header{
+     ::ng-deep .mat-expansion-panel-header {
         height: 100% !important;
         padding: 20px;
     }
-    ::ng-deep .mat-expansion-panel{
+     ::ng-deep .mat-expansion-panel {
         margin-left: 25px;
         margin-right: 25px;
     }
-    ::ng-deep .mat-expansion-panel-body{
+     ::ng-deep .mat-expansion-panel-body {
         padding: 0px;
     }
-    ::ng-deep .mat-accordion{
-        .mat-expansion-indicator{
+     ::ng-deep .mat-accordion {
+        .mat-expansion-indicator {
             // display: none;
         }
-        .mat-expansion-panel-header-description{
+        .mat-expansion-panel-header-description {
             display: none !important;
         }
-        .mat-expansion-panel-header-title{
+        .mat-expansion-panel-header-title {
             margin-right: 0 !important;
         }
-        .payment-toggle-btn{
+        .payment-toggle-btn {
             margin-left: auto;
         }
     }
-    .mat-icon{
+    .mat-icon {
         line-height: 1.5;
     }
-    .account-para{
+    .account-para {
         padding: 35px;
     }
-    .main-account-details{
+    .main-account-details {
         padding: 20px;
     }
-    .bottom-line{
+    .bottom-line {
         border-bottom: solid 1px #ccc;
         width: 100%;
         margin: 25px 0;
     }
-    .matcard-space{
+    .matcard-space {
         padding: 35px;
         margin: 24px;
     }
-
-    .alert-update-chechkbox{
+    .alert-update-chechkbox {
         width: 186px;
         text-align: center;
         height: 37px;
         line-height: 2.5;
         border-radius: 25px;
-        background-color: #deebfc ;
+        background-color: #deebfc;
         color: #1173f4;
     }
-    .alert-cancel-chechkbox{
+    .alert-cancel-chechkbox {
         width: 142px;
         text-align: center;
         height: 37px;
         line-height: 2.5;
         border-radius: 25px;
-        background-color: #deebfc ;
+        background-color: #deebfc;
         color: #1173f4;
     }
-    .appointment-top{
+    .appointment-top {
         line-height: 4.4;
     }
-    .example-full-width{
+    .example-full-width {
         margin-bottom: 20px;
     }
-    .top-bottom-space{
+    .top-bottom-space {
         margin: 16px 0px;
     }
-    .payment-image{
+    .payment-image {
         width: 230px;
         height: 55px;
     }
-    .payment-toggle-btn{
+    .payment-toggle-btn {
         margin-left: auto;
     }
-    .payment-label{
+    .payment-label {
         line-height: 5;
     }
-    .account-setting{
-        background-color:#deebfc ;
-        color:#1173f4;
+    .account-setting {
+        background-color: #deebfc;
+        color: #1173f4;
     }
-    .payment-image{
+    .payment-image {
         width: 178px;
         height: 54px;
     }
 }
 
+.status-update-main {
+    width: 180px !important;
+}
 
-.status-update-main{width: 180px !important;}
-.cancel-check-btn{width: 130px !important;}
+.cancel-check-btn {
+    width: 130px !important;
+}
+
 .custom-check-box {
     padding: 4px 10px;
     //border-bottom: solid 1px #ccc;
@@ -113,8 +116,8 @@
     // &.header-background{
     //     //background-color: #f7f7f7;
     // }
-    .checked{		
-        background-color:$btnlightblue; 
+    .checked {
+        background-color: $btnlightblue;
         height: 35px;
         width: 120px;
         border-radius: 50px;
@@ -125,7 +128,7 @@
     }
     .round label {
         background-color: #ffffff;
-        border: 1px solid #fff; 
+        border: 1px solid #fff;
         border-radius: 50%;
         cursor: pointer;
         height: 27px;
@@ -134,7 +137,6 @@
         top: 0;
         width: 29px;
         margin: 4px;
-
     }
     .round label:after {
         border: 2px solid #1172f4;
@@ -149,29 +151,26 @@
         transform: rotate(-45deg);
         width: 12px;
     }
-
     .round input[type="checkbox"] {
         visibility: hidden;
     }
-    
-    .round input[type="checkbox"]:checked + label {
+    .round input[type="checkbox"]:checked+label {
         background-color: #fff;
         border-color: #fff;
     }
-    
-    .round input[type="checkbox"]:checked + label:after {
+    .round input[type="checkbox"]:checked+label:after {
         opacity: 1;
     }
-  
-   .check-label{
+    .check-label {
         float: left;
         text-indent: 30px;
         padding: 0 6px;
         color: #1173f4;
     }
 }
-.form_field_checkbox{
-    ::ng-deep .mat-checkbox-layout{
+
+.form_field_checkbox {
+     ::ng-deep .mat-checkbox-layout {
         background-color: #ffffff;
         border: 1px solid #fff;
         border-radius: 50%;
@@ -182,41 +181,46 @@
         top: 0;
         width: 29px;
         margin: 4px;
-        .mat-checkbox-frame{
+        .mat-checkbox-frame {
             border: 0;
         }
-        .mat-checkbox-inner-container{
+        .mat-checkbox-inner-container {
             height: 100%;
             width: 100%;
-        }   
-        svg{
-            path{ 
+        }
+        svg {
+            path {
                 stroke: #007bff !important;
             }
         }
-        .mat-checkbox-background{
+        .mat-checkbox-background {
             background-color: transparent;
         }
     }
 }
-.savetemplate-btn{
 
-        width: 150px;
-        border-radius: 26px;
-        background-color:#3ab54a;
-        color: white;
-        height: 35px;
-        margin:10px;
-}
-.defaulttemplate-btn{
-        width: 150px;
-        border-radius: 26px;
-        background-color:#c8c8c8;
-        color: white; 
-        height: 35px;
+.savetemplate-btn {
+    width: 150px;
+    border-radius: 26px;
+    background-color: #3ab54a;
+    color: white;
+    height: 35px;
+    margin: 10px;
 }
 
-.save-btn{
+.defaulttemplate-btn {
+    width: 150px;
+    border-radius: 26px;
+    background-color: #c8c8c8;
+    color: white;
+    height: 35px;
+}
+
+.preview-temp-btn {
+    border-radius: 26px;
+}
+
+.save-btn {
     width: 120px;
     height: 37px;
     border-radius: 26px;
@@ -224,5 +228,7 @@
     color: #1173f4;
 }
 
-
-
+::ng-deep .template-preview-main {
+    margin: 0;
+    max-height: 85%;
+}
