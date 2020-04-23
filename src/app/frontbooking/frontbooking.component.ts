@@ -621,7 +621,39 @@ export class FrontbookingComponent implements OnInit {
       for(let i=0; i<this.serviceData.length;i++){
         if(this.serviceCount[this.serviceData[i].id] == null){
           this.serviceData[i].count=0;
-          this.serviceData[i].totalCost=0;
+          this.serviceData[i].subtotal = this.serviceData[i].service_cost * this.serviceData[i].count;
+          this.serviceData[i].discount_type=null;
+          this.serviceData[i].discount_value=null;
+          this.serviceData[i].discount=0;
+          var serviceAmountAfterDiscount= this.serviceData[i].subtotal - this.serviceData[i].discount;
+          var serviceTaxAmount=0;
+          let taxMain=[];
+          this.taxArr.forEach((element) => {
+            let taxTemp={
+              value:0,
+              name:'',
+              amount:0
+            }
+            console.log(element.name+" -- "+element.value);
+            if(this.taxType == "P"){
+             taxTemp.value= element.value;
+             taxTemp.name= element.name;
+             taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+              serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+            }else{
+              taxTemp.value= element.value;
+              taxTemp.name= element.name;
+              taxTemp.amount=  element.value;
+              serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+            }
+            taxMain.push(taxTemp);
+            this.serviceData[i].tax=taxMain;
+            console.log(this.serviceData[i].tax);
+          });
+
+          // this.serviceData[i].tax=0;
+          this.serviceData[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+          // this.serviceData[i].totalCost=0;
           this.serviceData[i].appointmentDate='';
           this.serviceData[i].appointmentDateForLabel='';
           this.serviceData[i].appointmentTimeSlot='';
@@ -665,7 +697,39 @@ export class FrontbookingComponent implements OnInit {
         for(let i=0; i<this.serviceData.length;i++){
           if(this.serviceCount[this.serviceData[i].id] == null){
             this.serviceData[i].count=0;
-            this.serviceData[i].totalCost=0;
+            this.serviceData[i].subtotal = this.serviceData[i].service_cost * this.serviceData[i].count;
+            this.serviceData[i].discount_type=null;
+            this.serviceData[i].discount_value=null;
+            this.serviceData[i].discount=0;
+            
+            var serviceAmountAfterDiscount= this.serviceData[i].subtotal - this.serviceData[i].discount;
+            var serviceTaxAmount=0;
+            let taxMain=[];
+            this.taxArr.forEach((element) => {
+              let taxTemp={
+                value:0,
+                name:'',
+                amount:0
+              }
+              console.log(element.name+" -- "+element.value);
+              if(this.taxType == "P"){
+               taxTemp.value= element.value;
+               taxTemp.name= element.name;
+               taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+                serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+              }else{
+                taxTemp.value= element.value;
+                taxTemp.name= element.name;
+                taxTemp.amount=  element.value;
+                serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+              }
+              taxMain.push(taxTemp);
+              this.serviceData[i].tax=taxMain;
+              console.log(this.serviceData[i].tax);
+            });
+
+            // this.serviceData[i].tax=0;
+            this.serviceData[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
             this.serviceData[i].appointmentDate='';
             this.serviceData[i].appointmentDateForLabel='';
             this.serviceData[i].appointmentTimeSlot='';
@@ -697,7 +761,42 @@ export class FrontbookingComponent implements OnInit {
    fnShowCounter(event,service_id){
     this.currentSelectedService=service_id;
     this.serviceCount[service_id].count=1;
-    this.serviceCount[service_id].totalCost=1*this.serviceCount[service_id].service_cost;
+
+    this.serviceCount[service_id].subtotal = this.serviceCount[service_id].service_cost * this.serviceCount[service_id].count;
+    this.serviceCount[service_id].discount_type=null;
+    this.serviceCount[service_id].discount_value=null;
+    this.serviceCount[service_id].discount=0;
+    
+    var serviceAmountAfterDiscount= this.serviceCount[service_id].subtotal - this.serviceCount[service_id].discount;
+    var serviceTaxAmount=0;
+    let taxMain=[];
+    this.taxArr.forEach((element) => {
+      let taxTemp={
+        value:0,
+        name:'',
+        amount:0
+      }
+      console.log(element.name+" -- "+element.value);
+      if(this.taxType == "P"){
+       taxTemp.value= element.value;
+       taxTemp.name= element.name;
+       taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+        serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+      }else{
+        taxTemp.value= element.value;
+        taxTemp.name= element.name;
+        taxTemp.amount=  element.value;
+        serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+      }
+      taxMain.push(taxTemp);
+      this.serviceCount[service_id].tax=taxMain;
+      console.log(this.serviceCount[service_id].tax);
+    });
+
+    // this.serviceData[id].tax=0;
+    this.serviceCount[service_id].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
+    // this.serviceCount[service_id].totalCost=1*this.serviceCount[service_id].service_cost;
     console.log(JSON.stringify(this.serviceCount));
     if(this.serviceCartArr[service_id] != null){
       this.serviceCartArr[service_id]=this.serviceCount[service_id];
@@ -709,11 +808,15 @@ export class FrontbookingComponent implements OnInit {
     this.taxAmountArr.length=0;
     console.log(this.taxAmountArr);
     this.serviceMainArr.netCost=0;
-    this.fncheckavailcoupon('valid');
+    // this.fncheckavailcoupon('valid');
+    this.closecoupon = 'default';
+      this.couponIcon="check";
+      this.coupon.couponcode_val ="";
+      this.isReadOnly="";
     for(let i=0; i< this.serviceCartArr.length; i++){
       if(this.serviceCartArr[i] != null){
         this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
-        this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].totalCost;
+        this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
       }
     }
     var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
@@ -754,7 +857,42 @@ export class FrontbookingComponent implements OnInit {
     if(this.serviceCount[service_id].count >= 1){
       this.currentSelectedService=service_id;
       this.serviceCount[service_id].count=this.serviceCount[service_id].count-1
-      this.serviceCount[service_id].totalCost=this.serviceCount[service_id].count*this.serviceCount[service_id].service_cost;
+
+      this.serviceCount[service_id].subtotal = this.serviceCount[service_id].service_cost * this.serviceCount[service_id].count;
+      this.serviceCount[service_id].discount_type=null;
+      this.serviceCount[service_id].discount_value=null;
+      this.serviceCount[service_id].discount=0;
+      
+      var serviceAmountAfterDiscount= this.serviceCount[service_id].subtotal - this.serviceCount[service_id].discount;
+      var serviceTaxAmount=0;
+      let taxMain=[];
+      this.taxArr.forEach((element) => {
+        let taxTemp={
+          value:0,
+          name:'',
+          amount:0
+        }
+        console.log(element.name+" -- "+element.value);
+        if(this.taxType == "P"){
+         taxTemp.value= element.value;
+         taxTemp.name= element.name;
+         taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+          serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+        }else{
+          taxTemp.value= element.value;
+          taxTemp.name= element.name;
+          taxTemp.amount=  element.value;
+          serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+        }
+        taxMain.push(taxTemp);
+        this.serviceCount[service_id].tax=taxMain;
+        console.log(this.serviceCount[service_id].tax);
+      });
+
+      // this.serviceData[id].tax=0;
+      this.serviceCount[service_id].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
+      // this.serviceCount[service_id].totalCost=this.serviceCount[service_id].count*this.serviceCount[service_id].service_cost;
       console.log(JSON.stringify(this.serviceCount));
       if(this.serviceCartArr[service_id] != null){
         if(this.serviceCount[service_id].count < 1){
@@ -770,11 +908,15 @@ export class FrontbookingComponent implements OnInit {
       this.taxAmountArr.length=0;
       console.log(this.taxAmountArr);
       this.serviceMainArr.netCost=0;
-      this.fncheckavailcoupon('valid');
+      // this.fncheckavailcoupon('valid');
+      this.closecoupon = 'default';
+      this.couponIcon="check";
+      this.coupon.couponcode_val ="";
+      this.isReadOnly="";
       for(let i=0; i< this.serviceCartArr.length; i++){
         if(this.serviceCartArr[i] != null){
           this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
-          this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].totalCost;
+          this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
         }
       }
       var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
@@ -824,23 +966,109 @@ export class FrontbookingComponent implements OnInit {
     if(this.serviceCount[service_id].count < 10){
       this.currentSelectedService=service_id;
       this.serviceCount[service_id].count=this.serviceCount[service_id].count+1
-      this.serviceCount[service_id].totalCost=this.serviceCount[service_id].count*this.serviceCount[service_id].service_cost;
+
+      this.serviceCount[service_id].subtotal = this.serviceCount[service_id].service_cost * this.serviceCount[service_id].count;
+      this.serviceCount[service_id].discount_type=null;
+      this.serviceCount[service_id].discount_value=null;
+      this.serviceCount[service_id].discount=0;
+      
+      var serviceAmountAfterDiscount= this.serviceCount[service_id].subtotal - this.serviceCount[service_id].discount;
+      var serviceTaxAmount=0;
+      let taxMain=[];
+      this.taxArr.forEach((element) => {
+        let taxTemp={
+          value:0,
+          name:'',
+          amount:0
+        }
+        console.log(element.name+" -- "+element.value);
+        if(this.taxType == "P"){
+         taxTemp.value= element.value;
+         taxTemp.name= element.name;
+         taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+          serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+        }else{
+          taxTemp.value= element.value;
+          taxTemp.name= element.name;
+          taxTemp.amount=  element.value;
+          serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+        }
+        taxMain.push(taxTemp);
+        this.serviceCount[service_id].tax=taxMain;
+        console.log(this.serviceCount[service_id].tax);
+      });
+
+      // this.serviceData[id].tax=0;
+      this.serviceCount[service_id].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
+      // this.serviceCount[service_id].totalCost=this.serviceCount[service_id].count*this.serviceCount[service_id].service_cost;
       console.log(JSON.stringify(this.serviceCount));
       if(this.serviceCartArr[service_id] != null){
         this.serviceCartArr[service_id]=this.serviceCount[service_id];
         console.log(JSON.stringify(this.serviceCartArr));
       } 
+
+      
+      for(let i=0; i< this.serviceCartArr.length; i++){
+        if(this.serviceCartArr[i] != null){
+          this.serviceCartArr[i].subtotal = this.serviceCartArr[i].service_cost * this.serviceCartArr[i].count;
+          this.serviceCartArr[i].discount_type=null;
+          this.serviceCartArr[i].discount_value=null;
+
+          this.serviceCartArr[i].discount=0;
+
+          var serviceAmountAfterDiscount= this.serviceCartArr[i].subtotal - this.serviceCartArr[i].discount;
+          var serviceTaxAmount=0;
+          let taxMain=[];
+          this.taxArr.forEach((element) => {
+            let taxTemp={
+              value:0,
+              name:'',
+              amount:0
+            }
+            console.log(element.name+" ---- "+element.value);
+            if(this.taxType == "P"){
+             taxTemp.value= element.value;
+             taxTemp.name= element.name;
+             taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+              serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+            }else{
+              taxTemp.value= element.value;
+              taxTemp.name= element.name;
+              taxTemp.amount=  element.value;
+              serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+            }
+            taxMain.push(taxTemp);
+            this.serviceCartArr[i].tax=taxMain;
+            console.log(this.serviceCartArr[i].tax);
+          });
+
+          this.serviceCartArr[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
+          console.log(JSON.stringify(this.serviceCartArr[i]));
+          this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
+          this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
+        }
+      }
+      console.log(JSON.stringify(this.serviceCartArr));
+      
+
       this.serviceMainArr.totalNumberServices=0;
       this.serviceMainArr.subtotal=0;
       this.serviceMainArr.discount=0;
       this.taxAmountArr.length=0;
       console.log(this.taxAmountArr);
       this.serviceMainArr.netCost=0;
-      this.fncheckavailcoupon('valid');
+      // this.fncheckavailcoupon('valid');
+      this.closecoupon = 'default';
+      this.couponIcon="check";
+      this.coupon.couponcode_val ="";
+      this.isReadOnly="";
+
       for(let i=0; i< this.serviceCartArr.length; i++){
         if(this.serviceCartArr[i] != null){
           this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
-          this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].totalCost;
+          this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
         }
       }
       var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
@@ -1172,7 +1400,7 @@ export class FrontbookingComponent implements OnInit {
     for(let i=0; i< this.serviceCartArr.length; i++){
       if(this.serviceCartArr[i] != null){
         this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
-        this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].totalCost;
+        this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
       }
     }
     this.snackBar.open("Added to cart", "X", {
@@ -1525,19 +1753,64 @@ export class FrontbookingComponent implements OnInit {
     if(couponStatus == 'valid'){
       this.serviceMainArr.discount_type = null;
       this.serviceMainArr.discount_value=null;
+      // this.serviceMainArr.discount=0;
+      // this.taxAmountArr.length=0;
+
+      console.log(this.serviceCartArr);
+      this.taxAmountArr.length=0;
+              
+      this.serviceMainArr.totalNumberServices=0;
+      this.serviceMainArr.subtotal=0;
       this.serviceMainArr.discount=0;
       this.taxAmountArr.length=0;
+      console.log(this.taxAmountArr);
+      this.serviceMainArr.netCost=0;
 
-      // var temp=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-      // if(this.serviceMainArr.subtotal > 0){
-      //   if(this.taxType == "P"){
-      //     this.taxAmountArr= temp * this.taxValue/100;
-      //   }else{
-      //     this.taxAmountArr= this.taxValue;
-      //   }
-      // }
-      // this.serviceMainArr.netCost=temp+this.taxAmountArr;
-      
+      for(let i=0; i< this.serviceCartArr.length; i++){
+        if(this.serviceCartArr[i] != null){
+          this.serviceCartArr[i].subtotal = this.serviceCartArr[i].service_cost * this.serviceCartArr[i].count;
+          this.serviceCartArr[i].discount_type=null;
+          this.serviceCartArr[i].discount_value=null;
+
+          this.serviceCartArr[i].discount=0;
+
+          var serviceAmountAfterDiscount= this.serviceCartArr[i].subtotal - this.serviceCartArr[i].discount;
+          var serviceTaxAmount=0;
+          let taxMain=[];
+          this.taxArr.forEach((element) => {
+            let taxTemp={
+              value:0,
+              name:'',
+              amount:0
+            }
+            console.log(element.name+" ---- "+element.value);
+            if(this.taxType == "P"){
+             taxTemp.value= element.value;
+             taxTemp.name= element.name;
+             taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+              serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+            }else{
+              taxTemp.value= element.value;
+              taxTemp.name= element.name;
+              taxTemp.amount=  element.value;
+              serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+            }
+            taxMain.push(taxTemp);
+            this.serviceCartArr[i].tax=taxMain;
+            console.log(this.serviceCartArr[i].tax);
+          });
+
+          this.serviceCartArr[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
+          console.log(JSON.stringify(this.serviceCartArr[i]));
+          this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
+          this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
+        }
+      }
+      console.log(JSON.stringify(this.serviceCartArr));
+      this.serviceMainArr.discount_type = null;
+      this.serviceMainArr.discount_value = null;
+      this.serviceMainArr.discount=0;
 
       var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
       var amountAfterTax=0;
@@ -1593,6 +1866,9 @@ export class FrontbookingComponent implements OnInit {
         }
       }
       allServiceIds=allServiceIds.substring(0, allServiceIds.length - 1);
+      var allServiceIdsArr=allServiceIds.split(",");
+      console.log(allServiceIdsArr);
+
       let requestObject = {
       "business_id" : 2,
       "service_id" : allServiceIds,
@@ -1613,42 +1889,78 @@ export class FrontbookingComponent implements OnInit {
       if(response.data == true){
         let couponType = response.response.coupon_type;
         let couponValue = response.response.coupon_value;
+        
+        console.log(this.serviceCartArr);
+        this.taxAmountArr.length=0;
+                
+        this.serviceMainArr.totalNumberServices=0;
+        this.serviceMainArr.subtotal=0;
+        this.serviceMainArr.discount=0;
+        this.taxAmountArr.length=0;
+        console.log(this.taxAmountArr);
+        this.serviceMainArr.netCost=0;
+
+        for(let i=0; i< this.serviceCartArr.length; i++){
+          if(this.serviceCartArr[i] != null){
+            this.serviceCartArr[i].subtotal = this.serviceCartArr[i].service_cost * this.serviceCartArr[i].count;
+            this.serviceCartArr[i].discount_type=couponType;
+            this.serviceCartArr[i].discount_value=parseInt(couponValue);
+
+            if(this.serviceCartArr[i].discount_type == 'P'){
+              this.serviceCartArr[i].discount = (this.serviceCartArr[i].subtotal*parseInt(this.serviceCartArr[i].discount_value))/100;
+            }else{
+              this.serviceCartArr[i].discount = parseInt(this.serviceCartArr[i].discount_value)/allServiceIdsArr.length;
+            }
+
+            var serviceAmountAfterDiscount= this.serviceCartArr[i].subtotal - this.serviceCartArr[i].discount;
+            var serviceTaxAmount=0;
+            let taxMain=[];
+            this.taxArr.forEach((element) => {
+              let taxTemp={
+                value:0,
+                name:'',
+                amount:0
+              }
+              console.log(element.name+" ---- "+element.value);
+              if(this.taxType == "P"){
+               taxTemp.value= element.value;
+               taxTemp.name= element.name;
+               taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+                serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+              }else{
+                taxTemp.value= element.value;
+                taxTemp.name= element.name;
+                taxTemp.amount=  element.value;
+                serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+              }
+              taxMain.push(taxTemp);
+              this.serviceCartArr[i].tax=taxMain;
+              console.log(this.serviceCartArr[i].tax);
+            });
+
+            this.serviceCartArr[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
+            console.log(JSON.stringify(this.serviceCartArr[i]));
+            this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
+            this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
+          }
+        }
+        console.log(JSON.stringify(this.serviceCartArr));
         this.serviceMainArr.discount_type = couponType;
         this.serviceMainArr.discount_value = parseInt(couponValue);
         if(couponType == 'P'){
           this.serviceMainArr.discount = (this.serviceMainArr.subtotal*parseInt(couponValue))/100;
-          //this.serviceMainArr.netCost = this.serviceMainArr.subtotal - this.serviceMainArr.discount;
         }else{
           this.serviceMainArr.discount = parseInt(couponValue);
-          //this.serviceMainArr.netCost = this.serviceMainArr.subtotal - this.serviceMainArr.discount;
         }
-
-        this.taxAmountArr.length=0;
-        // var temp=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-        // if(this.serviceMainArr.subtotal > 0){
-        //   if(this.taxType == "P"){
-        //     this.taxAmountArr= temp * this.taxValue/100;
-        //   }else{
-        //     this.taxAmountArr= this.taxValue;
-        //   }
-        // }
-        // this.serviceMainArr.netCost=temp+this.taxAmountArr;
-        
 
         var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
         var amountAfterTax=0;
         if(this.serviceMainArr.subtotal > 0){
           this.taxArr.forEach((element) => {
-            // console.log(element.name+" -- "+element.value);
-            // if(this.taxType == "P"){
-            //   this.taxAmountArr[element.name]= amountAfterDiscount * element.value/100;
-            //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
-            // }else{
-            //   this.taxAmountArr[element.name]=  element.value;
-            //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
-            // }
+            
             let taxTemp={
-          value:0,
+              value:0,
               name:'',
               amount:0
             }
@@ -1668,11 +1980,7 @@ export class FrontbookingComponent implements OnInit {
             console.log(this.taxAmountArr);
           });
         }
-        // this.taxAmountArr.forEach((element) => {
-        //   amountAfterDiscount=amountAfterDiscount+element;
-        // });
         this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
-        //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
         console.log(this.taxAmountArr);
         console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
 
@@ -1783,7 +2091,7 @@ export class FrontbookingComponent implements OnInit {
     }
   }
 
-  fnAppointmentBookng(){
+  fnAppointmentBooking(){
     let serviceCartArrTemp:any= [];
     for(let i=0; i<this.serviceCartArr.length;i++){
       if(this.serviceCartArr[i]){

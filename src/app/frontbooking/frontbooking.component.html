@@ -380,9 +380,9 @@
                                     <input type="text" class="qty_value" value="{{serviceCart.count}}" readonly/>
                                     <button mat-fab class="action-btn qty-minus" (click)="fnAdd($event,serviceCart.id)">+</button>
                                 </div>
-                                <!-- <label class="price">₹ {{serviceCart.totalCost}}</label> -->
-                                <label *ngIf="currencySymbolPosition=='left'" class="price">{{currencySymbol| currencySymbol:'wide'}} {{ serviceCart.totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
-                                <label *ngIf="currencySymbolPosition=='right'" class="price">{{ serviceCart.totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
+                                <!-- <label class="price">₹ {{serviceCart.subtotal}}</label> -->
+                                <label *ngIf="currencySymbolPosition=='left'" class="price">{{currencySymbol| currencySymbol:'wide'}} {{ serviceCart.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
+                                <label *ngIf="currencySymbolPosition=='right'" class="price">{{ serviceCart.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
                             </div>
                         </div>
                     </div>
@@ -523,7 +523,7 @@
                     </div>
 
                     <div class="bottom-ctn-btn">
-                        <button *ngIf="paymentMethod != '' && termsConditionsStatusValue && PrivacyPolicyStatusValue" (click)="fnAppointmentBookng()" mat-button class="round-btn continue-btn proceed">Pay Now</button>
+                        <button *ngIf="paymentMethod != '' && termsConditionsStatusValue && PrivacyPolicyStatusValue" (click)="fnAppointmentBooking()" mat-button class="round-btn continue-btn proceed">Pay Now</button>
                     </div>
                    
                 </mat-card-content>
@@ -571,9 +571,9 @@
                                         <p><i class="fa fa-clock-o"></i>{{serviceCart.appointmentTimeSlotForLabel}}</p>
                                     </div>
                                     <div class="col-lg-4 right-side">
-                                        <!-- <label class="price">₹ {{serviceCart.totalCost}}</label> -->
-                                        <label *ngIf="currencySymbolPosition=='left'" class="price">{{currencySymbol| currencySymbol:'wide'}} {{ serviceCart.totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
-                                        <label *ngIf="currencySymbolPosition=='right'" class="price">{{ serviceCart.totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
+                                        <!-- <label class="price">₹ {{serviceCart.subtotal}}</label> -->
+                                        <label *ngIf="currencySymbolPosition=='left'" class="price">{{currencySymbol| currencySymbol:'wide'}} {{ serviceCart.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
+                                        <label *ngIf="currencySymbolPosition=='right'" class="price">{{ serviceCart.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
                                         <div class="qty-counter">
                                             <button mat-fab class="action-btn qty-minus" (click)="fnRemove($event,serviceCart.id)">-</button>
                                             <input type="text" class="qty_value" value="{{serviceCart.count}}" readonly/>
