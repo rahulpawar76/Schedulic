@@ -256,9 +256,9 @@
                                 [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.India" [maxLength]="15" [tooltipField]="TooltipLabel.Name" [phoneValidation]="true" [separateDialCode]="separateDialCode" name="phone" formControlName="newUserPhone">
                             </ngx-intl-tel-input>
                             <span *ngIf="formNewUser.get('newUserPhone').dirty || formNewUser.get('newUserPhone').touched || formSubmitclicked"><small *ngIf="formNewUser.get('newUserPhone').hasError('required')" class="error">Phone number Is required</small>
-                                        
-                                    <!-- <small *ngIf="formNewUser.get('newUserPhone').hasError('pattern')" class="error">Enter a valid phone number</small> -->
-                                    <small *ngIf="formNewUser.get('newUserPhone').hasError('minlength') || formNewUser.get('newUserPhone').hasError('maxlength')" class="error">Phone number should be 10 to 15 digits long</small></span>
+                                                
+                                            <!-- <small *ngIf="formNewUser.get('newUserPhone').hasError('pattern')" class="error">Enter a valid phone number</small> -->
+                                            <small *ngIf="formNewUser.get('newUserPhone').hasError('minlength') || formNewUser.get('newUserPhone').hasError('maxlength')" class="error">Phone number should be 10 to 15 digits long</small></span>
                         </div>
                         <div class="col-12 col-lg-12 col-md-12 col-sm-12" *ngIf="contactFormSettingsArr.addressField.status == 1">
                             <label>Address</label>
@@ -289,7 +289,6 @@
                         </div>
                     </div>
                 </form>
-
                 <div class="bottom-ctn-btn">
                     <button (click)="fnpersonalinfo()" mat-button class="round-btn continue-btn">Continue<i class="material-icons">keyboard_arrow_right</i></button>
                 </div>
@@ -383,9 +382,9 @@
                             <input type="text" class="qty_value" value="{{serviceCart.count}}" readonly/>
                             <button mat-fab class="action-btn qty-minus" (click)="fnAdd($event,serviceCart.id)">+</button>
                         </div>
-                        <!-- <label class="price">₹ {{serviceCart.totalCost}}</label> -->
-                        <label *ngIf="currencySymbolPosition=='left'" class="price">{{currencySymbol| currencySymbol:'wide'}} {{ serviceCart.totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
-                        <label *ngIf="currencySymbolPosition=='right'" class="price">{{ serviceCart.totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
+                        <!-- <label class="price">₹ {{serviceCart.subtotal}}</label> -->
+                        <label *ngIf="currencySymbolPosition=='left'" class="price">{{currencySymbol| currencySymbol:'wide'}} {{ serviceCart.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
+                        <label *ngIf="currencySymbolPosition=='right'" class="price">{{ serviceCart.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
                     </div>
                 </div>
             </div>
@@ -526,7 +525,7 @@
             </div>
 
             <div class="bottom-ctn-btn">
-                <button *ngIf="paymentMethod != '' && termsConditionsStatusValue && PrivacyPolicyStatusValue" (click)="fnAppointmentBookng()" mat-button class="round-btn continue-btn proceed">Pay Now</button>
+                <button *ngIf="paymentMethod != '' && termsConditionsStatusValue && PrivacyPolicyStatusValue" (click)="fnAppointmentBooking()" mat-button class="round-btn continue-btn proceed">Pay Now</button>
             </div>
 
         </mat-card-content>
@@ -574,9 +573,9 @@
                                 <p><i class="fa fa-clock-o"></i>{{serviceCart.appointmentTimeSlotForLabel}}</p>
                             </div>
                             <div class="col-lg-4 right-side">
-                                <!-- <label class="price">₹ {{serviceCart.totalCost}}</label> -->
-                                <label *ngIf="currencySymbolPosition=='left'" class="price">{{currencySymbol| currencySymbol:'wide'}} {{ serviceCart.totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
-                                <label *ngIf="currencySymbolPosition=='right'" class="price">{{ serviceCart.totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
+                                <!-- <label class="price">₹ {{serviceCart.subtotal}}</label> -->
+                                <label *ngIf="currencySymbolPosition=='left'" class="price">{{currencySymbol| currencySymbol:'wide'}} {{ serviceCart.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
+                                <label *ngIf="currencySymbolPosition=='right'" class="price">{{ serviceCart.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
                                 <div class="qty-counter">
                                     <button mat-fab class="action-btn qty-minus" (click)="fnRemove($event,serviceCart.id)">-</button>
                                     <input type="text" class="qty_value" value="{{serviceCart.count}}" readonly/>

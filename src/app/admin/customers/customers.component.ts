@@ -82,6 +82,7 @@ export class CustomersComponent implements OnInit {
   taxArr:any=[];
   taxAmountArr:any=[];
   serviceMainArr={
+    order_item_id:'',
     bookingDateForLabel:'',
     bookingTimeForLabel:'',
     bookingTimeTo:'',
@@ -93,9 +94,20 @@ export class CustomersComponent implements OnInit {
     order_status:'',
     staff_name:'',
     subtotal:0,
+    discount_type:null,
+    discount_value:null,
     discount:0,
-    netCost:0
+    netCost:0,
+    order_id:'',
+    order_subtotal:0,
+    order_discount_type:null,
+    order_discount_value:null,
+    order_discount:0,
+    order_netCost:0,
+    payment_type:'',
+    paymentId:''
   }
+  order_taxAmountArr=[];
   customerPaymentIndex:number;
   constructor(
     public dialog: MatDialog,
@@ -399,9 +411,14 @@ customerUpdate(existingCustomerData){
 
           var dateTemp = new Date(this.datePipe.transform(element.orders.bookingDateTime,"dd MMM yyyy hh:mm a"));
           dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.orders.service_time) );
-          element.orders.bookingTimeTo=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
-
-          // element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+          element.orders.bookingTimeTo=this.datePipe.transform(new Date(dateTemp),"hh:mm a");
+          let orderItemTempArr=[];
+          element.orders.order_items.forEach( (element2) => { 
+            if(element.orders.id!=element2.id){
+              orderItemTempArr.push(element2);
+            }
+          });
+          element.orders.order_items=orderItemTempArr;
         });
 
         this.isLoaderAdmin = false;
@@ -636,6 +653,8 @@ customerUpdate(existingCustomerData){
   fnShowPaymentForm(index,amount,discount){
     this.customerPaymentIndex=index;
     console.log(this.customerPayments[index]);
+
+    this.serviceMainArr.order_item_id=this.customerPayments[index].orders.id;
     this.serviceMainArr.bookingDateForLabel=this.customerPayments[index].orders.bookingDateForLabel;
     this.serviceMainArr.bookingTimeForLabel=this.customerPayments[index].orders.bookingTimeForLabel;
     this.serviceMainArr.bookingTimeTo=this.customerPayments[index].orders.bookingTimeTo;
@@ -651,29 +670,58 @@ customerUpdate(existingCustomerData){
       this.serviceMainArr.staff_name='';
     }
     
-    // this.serviceMainArr.service_name=this.customerPayments[index].service.service_name;
-    if(amount==null){
-      this.serviceMainArr.subtotal=parseFloat(this.customerPayments[index].orders.total_cost);
+    this.serviceMainArr.subtotal=parseFloat(this.customerPayments[index].orders.subtotal);
+    this.taxAmountArr.length=0;
+    this.serviceMainArr.discount_type=this.customerPayments[index].orders.discount_type;
+    if(this.customerPayments[index].orders.discount_value!=null && this.customerPayments[index].orders.discount_value !="null"){
+      this.serviceMainArr.discount_value=parseFloat(this.customerPayments[index].orders.discount_value);
     }else{
-      this.serviceMainArr.subtotal=amount;  
+      this.serviceMainArr.discount_value=this.customerPayments[index].orders.discount_value;
     }
     
-    this.serviceMainArr.discount=0;
-    this.serviceMainArr.netCost=0;
-    this.taxAmountArr.length=0;
-    this.taxArr=JSON.parse(this.customerPayments[index].orders.orders_info.tax);
+    this.serviceMainArr.discount=parseFloat(this.customerPayments[index].orders.discount);
+    this.taxAmountArr=JSON.parse(this.customerPayments[index].orders.tax);
+    this.serviceMainArr.netCost=parseFloat(this.customerPayments[index].orders.total_cost);
+    this.taxArr=JSON.parse(this.customerPayments[index].orders.tax);
     this.formPayment.controls['paymentAmount'].setValue(this.serviceMainArr.subtotal);
-    if(discount==null){
-      if(this.customerPayments[index].orders.orders_info.discount_value){
-        if(this.customerPayments[index].orders.orders_info.discount_type == "P"){
-          this.serviceMainArr.discount = this.serviceMainArr.subtotal * this.customerPayments[index].orders.orders_info.discount_value / 100;
-        }else{
-          this.serviceMainArr.discount = this.customerPayments[index].orders.orders_info.discount_value / 2;
-        }
-      }
+    this.formPayment.controls['paymentDiscount'].setValue(this.serviceMainArr.discount);
+    console.log(this.serviceMainArr);
+    console.log(this.taxAmountArr);
+    console.log(this.taxArr);
+
+    this.serviceMainArr.order_id=this.customerPayments[index].orders.order_id;
+    this.serviceMainArr.order_subtotal=parseFloat(this.customerPayments[index].orders.orders_info.sub_total);
+    this.serviceMainArr.order_discount_type=this.customerPayments[index].orders.orders_info.discount_type;
+
+    if(this.customerPayments[index].orders.orders_info.discount_value!=null && this.customerPayments[index].orders.orders_info.discount_value !="null"){
+      this.serviceMainArr.order_discount_value=parseFloat(this.customerPayments[index].orders.orders_info.discount_value);
     }else{
-      this.serviceMainArr.discount = discount;
+      this.serviceMainArr.order_discount_value=this.customerPayments[index].orders.orders_info.discount_value;
     }
+
+    this.serviceMainArr.order_discount=parseFloat(this.customerPayments[index].orders.orders_info.discount_amount);
+    this.order_taxAmountArr=JSON.parse(this.customerPayments[index].orders.orders_info.tax)
+    this.serviceMainArr.order_netCost=parseFloat(this.customerPayments[index].orders.orders_info.grand_total);
+    console.log(this.serviceMainArr);
+    console.log(this.order_taxAmountArr);
+    console.log(this.taxArr);
+
+    this.serviceMainArr.paymentId=this.customerPayments[index].id;
+    this.showPaymentForm=true;
+    this.showPaymentTable=false;
+
+  }
+
+  fnOnChangeDiscount(event){
+    console.log("OnChangeDiscount");
+    console.log(event.target.value);
+    console.log(this.formPayment.get('paymentAmount').value);
+    this.serviceMainArr.subtotal=parseFloat(this.formPayment.get('paymentAmount').value);
+    this.taxAmountArr.length=0;
+    this.serviceMainArr.discount_type=this.serviceMainArr.discount_type;
+    this.serviceMainArr.discount_value=this.serviceMainArr.discount_value;
+    this.serviceMainArr.discount=parseFloat(event.target.value);
+
     var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
     var amountAfterTax=0;
     this.taxArr.forEach(element=>{
@@ -698,26 +746,50 @@ customerUpdate(existingCustomerData){
       console.log(this.taxAmountArr);
     });
     this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
-    this.formPayment.controls['paymentDiscount'].setValue(this.serviceMainArr.discount);
-    // this.formPayment.controls['paymentMode'].setValue(this.customerPayments[index]);
-    // this.formPayment.controls['paymentNote'].setValue(this.customerPayments[index]);
-    this.showPaymentForm=true;
-    this.showPaymentTable=false;
 
-  }
-
-  fnOnChangeDiscount(event){
-    console.log(event.target.value);
-    console.log(this.formPayment.get('paymentDiscount').value);
-    console.log(this.formPayment.get('paymentAmount').value);
-    this.fnShowPaymentForm(this.customerPaymentIndex,parseFloat(this.formPayment.get('paymentAmount').value),parseFloat(this.formPayment.get('paymentDiscount').value));
+    console.log(this.serviceMainArr);
+    console.log(this.taxAmountArr);
+    console.log(this.taxArr);
   }
 
   fnOnChangeAmount(event){
+    console.log("OnChangeAmount");
     console.log(event.target.value);
     console.log(this.formPayment.get('paymentDiscount').value);
-    console.log(this.formPayment.get('paymentAmount').value);
-    this.fnShowPaymentForm(this.customerPaymentIndex,parseFloat(this.formPayment.get('paymentAmount').value),parseFloat(this.formPayment.get('paymentDiscount').value));
+    this.serviceMainArr.subtotal=parseFloat(event.target.value);
+    this.taxAmountArr.length=0;
+    this.serviceMainArr.discount_type=this.serviceMainArr.discount_type;
+    this.serviceMainArr.discount_value=this.serviceMainArr.discount_value;
+    this.serviceMainArr.discount=parseFloat(this.formPayment.get('paymentDiscount').value);
+
+    var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+    var amountAfterTax=0;
+    this.taxArr.forEach(element=>{
+      let taxTemp={
+        value:0,
+        name:'',
+        amount:0
+      }
+      console.log(element.name+" -- "+element.value);
+      if(this.taxType == "P"){
+       taxTemp.value= element.value;
+       taxTemp.name= element.name;
+       taxTemp.amount= amountAfterDiscount * element.value/100;
+        amountAfterTax=amountAfterTax+taxTemp.amount;
+      }else{
+        taxTemp.value= element.value;
+        taxTemp.name= element.name;
+        taxTemp.amount=  element.value;
+        amountAfterTax=amountAfterTax+taxTemp.amount;
+      }
+      this.taxAmountArr.push(taxTemp);
+      console.log(this.taxAmountArr);
+    });
+    this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
+
+    console.log(this.serviceMainArr);
+    console.log(this.taxAmountArr);
+    console.log(this.taxArr);
   }
 
   fnShowPaymentTable(){
@@ -733,13 +805,102 @@ customerUpdate(existingCustomerData){
       this.formPayment.get('paymentNote').markAsTouched();
       return;
     }
-
-    console.log(this.formPayment.get('paymentAmount').value);
-    console.log(this.formPayment.get('paymentDiscount').value);
-    console.log(this.formPayment.get('paymentMode').value);
-    console.log(this.formPayment.get('paymentNote').value);
-    console.log(this.taxAmountArr);
-    console.log(this.serviceMainArr);
+    // if(this.serviceMainArr.subtotal!=parseFloat(this.customerPayments[this.customerPaymentIndex].orders.subtotal) || this.serviceMainArr.discount!=parseFloat(this.customerPayments[this.customerPaymentIndex].orders.discount)){
+      let orderSubtotal=0;
+      let orderDiscount=0;
+      let orderTax=[];
+      let orderTotalCost=0;
+      this.serviceMainArr.discount_type="C";
+      this.serviceMainArr.order_discount_type="C";
+      orderSubtotal=this.serviceMainArr.subtotal;
+      orderDiscount=this.serviceMainArr.discount;
+      this.taxAmountArr.forEach(element=>{
+        let taxTemp={
+          value:0,
+          name:'',
+          amount:0
+        }
+         taxTemp.value= element.value;
+         taxTemp.name= element.name;
+         taxTemp.amount= element.amount;
+        orderTax.push(taxTemp);
+        console.log(orderTax);
+      });
+      
+      console.log(orderTax);
+      orderTotalCost=this.serviceMainArr.netCost;
+      this.customerPayments[this.customerPaymentIndex].orders.order_items.forEach(element=>{
+        orderSubtotal=orderSubtotal+parseFloat(element.subtotal)
+        orderDiscount=orderDiscount+parseFloat(element.discount)
+        let orderItemTaxArr=JSON.parse(element.tax);
+        for(let i=0; i<orderItemTaxArr.length; i++){
+          orderTax[i].amount=orderTax[i].amount + orderItemTaxArr[i].amount
+        };
+        orderTotalCost=orderTotalCost+parseFloat(element.total_cost)
+      });
+      this.serviceMainArr.order_subtotal=orderSubtotal;
+      this.serviceMainArr.order_discount=orderDiscount;
+      this.order_taxAmountArr=orderTax;
+      this.serviceMainArr.order_netCost=orderTotalCost;
+      console.log(this.formPayment.get('paymentAmount').value);
+      console.log(this.formPayment.get('paymentDiscount').value);
+      console.log(this.formPayment.get('paymentMode').value);
+      console.log(this.formPayment.get('paymentNote').value);
+      console.log(this.taxAmountArr);
+      console.log(this.order_taxAmountArr);
+      console.log(this.serviceMainArr);
+    // }
+    let paymentArr=[{
+      "id":this.serviceMainArr.paymentId,
+      "payment_mode":this.formPayment.get('paymentMode').value,
+      "payment_date":this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss"),
+      "amount":this.serviceMainArr.netCost,
+      "payment_status":"paid",
+      "payment_notes":this.formPayment.get('paymentNote').value
+    }]
+    let orderArr=[{
+      "id":this.serviceMainArr.order_id,
+      "subtotal":this.serviceMainArr.order_subtotal,
+      "discount_type":this.serviceMainArr.order_discount_type,
+      "discount_value":this.serviceMainArr.order_discount_value,
+      "discount":this.serviceMainArr.order_discount,
+      "tax":this.order_taxAmountArr,
+      "net_cost":this.serviceMainArr.order_netCost,
+      "payment_type":this.formPayment.get('paymentMode').value
+    }]
+    let orderItemArr=[{
+      "id":this.serviceMainArr.order_item_id,
+      "subtotal":this.serviceMainArr.subtotal,
+      "discount_type":this.serviceMainArr.discount_type,
+      "discount_value":this.serviceMainArr.discount_value,
+      "discount":this.serviceMainArr.discount,
+      "tax":this.taxAmountArr,
+      "total_cost":this.serviceMainArr.netCost
+    }]
+    let requestObject={
+      "payment":paymentArr,
+      "order":orderArr,
+      "orderItem":orderItemArr
+    }
+    console.log(requestObject);
+    this.AdminService.updatePaymentInfoAndStatus(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+       this._snackBar.open("Payment Info Updated", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+      }else{
+        this._snackBar.open("Payment Info Not Updated", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+      }
+      },
+      (err) =>{
+        console.log(err)
+      })
   }
 
   invoice(index) {

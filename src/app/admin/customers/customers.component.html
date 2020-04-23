@@ -297,7 +297,8 @@
                                             <td *ngIf="currencySymbolPosition=='right'">{{ customerAppoint.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</td>
                                             <td>
                                                 <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'P'">Waiting For Confirmation</p>
-                                                <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'AC'">Confirm</p>
+                                                <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'CNF'">Confirm</p>
+                                                <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'AC'">Accepted</p>
                                                 <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'RSA'">Rescheduled By Admin</p>
                                                 <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'RSS'">Rescheduled By Staff</p>
                                                 <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'RSC'">Rescheduled By Customer</p>

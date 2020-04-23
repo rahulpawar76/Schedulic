@@ -167,7 +167,7 @@ export class AppointmentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.getAllAppointments(this.durationType,this.selectedServices);
+      //this.getAllAppointments(this.durationType,this.selectedServices);
     });
   }
 
@@ -180,7 +180,7 @@ export class AppointmentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.getAllAppointments(this.durationType,this.selectedServices);
+      // this.getAllAppointments(this.durationType,this.selectedServices);
     });
   }
 
@@ -706,18 +706,82 @@ export class DialogAddNewAppointment {
         this.serviceData = response.response;
         for(let i=0; i<this.serviceData.length;i++){
           this.serviceData[i].count=0;
-          this.serviceData[i].totalCost=0;
+
+          this.serviceData[i].subtotal = this.serviceData[i].service_cost * this.serviceData[i].count;
+          this.serviceData[i].discount_type=null;
+          this.serviceData[i].discount_value=null;
+          this.serviceData[i].discount=0;
+          var serviceAmountAfterDiscount= this.serviceData[i].subtotal - this.serviceData[i].discount;
+          var serviceTaxAmount=0;
+          let taxMain=[];
+          this.taxArr.forEach((element) => {
+            let taxTemp={
+              value:0,
+              name:'',
+              amount:0
+            }
+            console.log(element.name+" -- "+element.value);
+            if(this.taxType == "P"){
+             taxTemp.value= element.value;
+             taxTemp.name= element.name;
+             taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+              serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+            }else{
+              taxTemp.value= element.value;
+              taxTemp.name= element.name;
+              taxTemp.amount=  element.value;
+              serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+            }
+            taxMain.push(taxTemp);
+            this.serviceData[i].tax=taxMain;
+            console.log(this.serviceData[i].tax);
+          });
+
+          // this.serviceData[i].tax=0;
+          this.serviceData[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
+          // this.serviceData[i].totalCost=0;
           this.serviceData[i].appointmentDate='';
           this.serviceData[i].appointmentTimeSlot='';
           this.serviceData[i].assignedStaff=null;
           this.serviceCount[this.serviceData[i].id]=this.serviceData[i];
         }
-        // console.log(JSON.stringify(this.serviceData));
+        console.log(JSON.stringify(this.serviceCount));
         if(this.data.appointmentData){
           for(let i=0; i<this.serviceCount.length;i++){
                 if(this.serviceCount[i] != null && this.serviceCount[i].id == this.selectedServiceId){
                   this.serviceCount[i].count=1;
-                  this.serviceCount[i].totalCost=1*this.serviceCount[i].service_cost;
+                  this.serviceCount[i].subtotal=this.serviceCount[i].count*this.serviceCount[i].service_cost;
+                  this.serviceCount[i].discount_type=null;
+                  this.serviceCount[i].discount_value=null;
+                  this.serviceCount[i].discount=0;
+                  var serviceAmountAfterDiscount= this.serviceCount[i].subtotal - this.serviceCount[i].discount;
+                  var serviceTaxAmount=0;
+                  let taxMain=[];
+                  this.taxArr.forEach((element) => {
+                    let taxTemp={
+                      value:0,
+                      name:'',
+                      amount:0
+                    }
+                    console.log(element.name+" -- "+element.value);
+                    if(this.taxType == "P"){
+                     taxTemp.value= element.value;
+                     taxTemp.name= element.name;
+                     taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+                      serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+                    }else{
+                      taxTemp.value= element.value;
+                      taxTemp.name= element.name;
+                      taxTemp.amount=  element.value;
+                      serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+                    }
+                    taxMain.push(taxTemp);
+                    this.serviceCount[i].tax=taxMain;
+                    console.log(this.serviceCount[i].tax);
+                  });
+
+                  this.serviceCount[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
                   if(this.selectedDate){
                     this.serviceCount[i].appointmentDate=this.selectedDate;
                   }else{
@@ -731,7 +795,40 @@ export class DialogAddNewAppointment {
                   this.serviceCount[i].assignedStaff=null;
                 }else if(this.serviceCount[i] != null && this.serviceCount[i].id != this.selectedServiceId){
                   this.serviceCount[i].count=0;
-                  this.serviceCount[i].totalCost=0;
+
+                  this.serviceCount[i].subtotal=this.serviceCount[i].count*this.serviceCount[i].service_cost;
+                  this.serviceCount[i].discount_type=null;
+                  this.serviceCount[i].discount_value=null;
+                  this.serviceCount[i].discount=0;
+                  var serviceAmountAfterDiscount= this.serviceCount[i].subtotal - this.serviceCount[i].discount;
+                  var serviceTaxAmount=0;
+                  let taxMain=[];
+                  this.taxArr.forEach((element) => {
+                    let taxTemp={
+                      value:0,
+                      name:'',
+                      amount:0
+                    }
+                    console.log(element.name+" -- "+element.value);
+                    if(this.taxType == "P"){
+                     taxTemp.value= element.value;
+                     taxTemp.name= element.name;
+                     taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+                      serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+                    }else{
+                      taxTemp.value= element.value;
+                      taxTemp.name= element.name;
+                      taxTemp.amount=  element.value;
+                      serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+                    }
+                    taxMain.push(taxTemp);
+                    this.serviceCount[i].tax=taxMain;
+                    console.log(this.serviceCount[i].tax);
+                  });
+
+                  this.serviceCount[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
+                  // this.serviceCount[i].totalCost=0;
                   this.serviceCount[i].appointmentDate='';
                   this.serviceCount[i].appointmentTimeSlot='';
                   this.serviceCount[i].assignedStaff=null;
@@ -766,18 +863,93 @@ export class DialogAddNewAppointment {
         this.serviceData = response.response;
         for(let i=0; i<this.serviceData.length;i++){
           this.serviceData[i].count=0;
-          this.serviceData[i].totalCost=0;
+
+          this.serviceData[i].subtotal = this.serviceData[i].service_cost * this.serviceData[i].count;
+          this.serviceData[i].discount_type=null;
+          this.serviceData[i].discount_value=null;
+          this.serviceData[i].discount=0;
+          var serviceAmountAfterDiscount= this.serviceData[i].subtotal - this.serviceData[i].discount;
+          var serviceTaxAmount=0;
+          let taxMain=[];
+          this.taxArr.forEach((element) => {
+            let taxTemp={
+              value:0,
+              name:'',
+              amount:0
+            }
+            console.log(element.name+" -- "+element.value);
+            if(this.taxType == "P"){
+             taxTemp.value= element.value;
+             taxTemp.name= element.name;
+             taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+              serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+            }else{
+              taxTemp.value= element.value;
+              taxTemp.name= element.name;
+              taxTemp.amount=  element.value;
+              serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+            }
+            taxMain.push(taxTemp);
+            this.serviceData[i].tax=taxMain;
+            console.log(this.serviceData[i].tax);
+          });
+
+          // this.serviceData[i].tax=0;
+          this.serviceData[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+          
+          // this.serviceData[i].totalCost=0;
           this.serviceData[i].appointmentDate='';
           this.serviceData[i].appointmentTimeSlot='';
           this.serviceData[i].assignedStaff=null;
           this.serviceCount[this.serviceData[i].id]=this.serviceData[i];
+        // }
+        // console.log(JSON.stringify(this.serviceCount));
+
+        //   this.serviceData[i].totalCost=0;
+        //   this.serviceData[i].appointmentDate='';
+        //   this.serviceData[i].appointmentTimeSlot='';
+        //   this.serviceData[i].assignedStaff=null;
+        //   this.serviceCount[this.serviceData[i].id]=this.serviceData[i];
         }
-        // console.log(JSON.stringify(this.serviceData));
+        console.log(JSON.stringify(this.serviceCount));
         if(this.data.appointmentData){
           for(let i=0; i<this.serviceCount.length;i++){
             if(this.serviceCount[i] != null && this.serviceCount[i].id == this.selectedServiceId){
               this.serviceCount[i].count=1;
-              this.serviceCount[i].totalCost=1*this.serviceCount[i].service_cost;
+
+              this.serviceCount[i].subtotal=this.serviceCount[i].count*this.serviceCount[i].service_cost;
+              this.serviceCount[i].discount_type=null;
+              this.serviceCount[i].discount_value=null;
+              this.serviceCount[i].discount=0;
+              var serviceAmountAfterDiscount= this.serviceCount[i].subtotal - this.serviceCount[i].discount;
+              var serviceTaxAmount=0;
+              let taxMain=[];
+              this.taxArr.forEach((element) => {
+                let taxTemp={
+                  value:0,
+                  name:'',
+                  amount:0
+                }
+                console.log(element.name+" -- "+element.value);
+                if(this.taxType == "P"){
+                 taxTemp.value= element.value;
+                 taxTemp.name= element.name;
+                 taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+                  serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+                }else{
+                  taxTemp.value= element.value;
+                  taxTemp.name= element.name;
+                  taxTemp.amount=  element.value;
+                  serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+                }
+                taxMain.push(taxTemp);
+                this.serviceCount[i].tax=taxMain;
+                console.log(this.serviceCount[i].tax);
+              });
+
+              this.serviceCount[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
+              // this.serviceCount[i].totalCost=1*this.serviceCount[i].service_cost;
               if(this.selectedDate){
                 this.serviceCount[i].appointmentDate=this.selectedDate;
               }else{
@@ -791,7 +963,40 @@ export class DialogAddNewAppointment {
               this.serviceCount[i].assignedStaff=null;
             }else if(this.serviceCount[i] != null && this.serviceCount[i].id != this.selectedServiceId){
               this.serviceCount[i].count=0;
-              this.serviceCount[i].totalCost=0;
+
+              this.serviceCount[i].subtotal=this.serviceCount[i].count*this.serviceCount[i].service_cost;
+              this.serviceCount[i].discount_type=null;
+              this.serviceCount[i].discount_value=null;
+              this.serviceCount[i].discount=0;
+              var serviceAmountAfterDiscount= this.serviceCount[i].subtotal - this.serviceCount[i].discount;
+              var serviceTaxAmount=0;
+              let taxMain=[];
+              this.taxArr.forEach((element) => {
+                let taxTemp={
+                  value:0,
+                  name:'',
+                  amount:0
+                }
+                console.log(element.name+" -- "+element.value);
+                if(this.taxType == "P"){
+                 taxTemp.value= element.value;
+                 taxTemp.name= element.name;
+                 taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+                  serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+                }else{
+                  taxTemp.value= element.value;
+                  taxTemp.name= element.name;
+                  taxTemp.amount=  element.value;
+                  serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+                }
+                taxMain.push(taxTemp);
+                this.serviceCount[i].tax=taxMain;
+                console.log(this.serviceCount[i].tax);
+              });
+
+              this.serviceCount[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
+              // this.serviceCount[i].totalCost=0;
               this.serviceCount[i].appointmentDate='';
               this.serviceCount[i].appointmentTimeSlot='';
               this.serviceCount[i].assignedStaff=null;
@@ -820,7 +1025,45 @@ export class DialogAddNewAppointment {
     for(let i=0; i<this.serviceCount.length;i++){
       if(this.serviceCount[i] != null && this.serviceCount[i].id == selected_service_id){
         this.serviceCount[i].count=1;
-        this.serviceCount[i].totalCost=1*this.serviceCount[i].service_cost;
+
+        this.serviceCount[i].subtotal = this.serviceCount[i].service_cost * this.serviceCount[i].count;
+        this.serviceCount[i].discount_type=null;
+        this.serviceCount[i].discount_value=null;
+        this.serviceCount[i].discount=0;
+        
+        var serviceAmountAfterDiscount= this.serviceCount[i].subtotal - this.serviceCount[i].discount;
+        var serviceTaxAmount=0;
+        let taxMain=[];
+        this.taxArr.forEach((element) => {
+          let taxTemp={
+            value:0,
+            name:'',
+            amount:0
+          }
+          console.log(element.name+" -- "+element.value);
+          if(this.taxType == "P"){
+           taxTemp.value= element.value;
+           taxTemp.name= element.name;
+           taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+            serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+          }else{
+            taxTemp.value= element.value;
+            taxTemp.name= element.name;
+            taxTemp.amount=  element.value;
+            serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+          }
+          taxMain.push(taxTemp);
+          this.serviceCount[i].tax=taxMain;
+          console.log(this.serviceCount[i].tax);
+        });
+
+        // this.serviceData[id].tax=0;
+        this.serviceCount[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
+        // this.serviceCount[service_id].totalCost=1*this.serviceCount[service_id].service_cost;
+        console.log(JSON.stringify(this.serviceCount));
+
+        // this.serviceCount[i].totalCost=1*this.serviceCount[i].service_cost;
         if(this.selectedDate){
           this.serviceCount[i].appointmentDate=this.selectedDate;
           this.fnGetTimeSlots(this.selectedDate);
@@ -835,7 +1078,45 @@ export class DialogAddNewAppointment {
         this.serviceCount[i].assignedStaff=null;
       }else if(this.serviceCount[i] != null && this.serviceCount[i].id != selected_service_id){
         this.serviceCount[i].count=0;
-        this.serviceCount[i].totalCost=0;
+
+        this.serviceCount[i].subtotal = this.serviceCount[i].service_cost * this.serviceCount[i].count;
+        this.serviceCount[i].discount_type=null;
+        this.serviceCount[i].discount_value=null;
+        this.serviceCount[i].discount=0;
+        
+        var serviceAmountAfterDiscount= this.serviceCount[i].subtotal - this.serviceCount[i].discount;
+        var serviceTaxAmount=0;
+        let taxMain=[];
+        this.taxArr.forEach((element) => {
+          let taxTemp={
+            value:0,
+            name:'',
+            amount:0
+          }
+          console.log(element.name+" -- "+element.value);
+          if(this.taxType == "P"){
+           taxTemp.value= element.value;
+           taxTemp.name= element.name;
+           taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+            serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+          }else{
+            taxTemp.value= element.value;
+            taxTemp.name= element.name;
+            taxTemp.amount=  element.value;
+            serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+          }
+          taxMain.push(taxTemp);
+          this.serviceCount[i].tax=taxMain;
+          console.log(this.serviceCount[i].tax);
+        });
+
+        // this.serviceData[id].tax=0;
+        this.serviceCount[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
+        // this.serviceCount[service_id].totalCost=1*this.serviceCount[service_id].service_cost;
+        console.log(JSON.stringify(this.serviceCount));
+
+        // this.serviceCount[i].totalCost=0;
         this.serviceCount[i].appointmentDate='';
         this.serviceCount[i].appointmentTimeSlot='';
         this.serviceCount[i].assignedStaff=null;
@@ -1003,8 +1284,9 @@ export class DialogAddNewAppointment {
     // }
     // this.netCost=serviceCartArrTemp[0].totalCost+this.taxAmount;
     var discount_type = null;
-    var amountAfterDiscount=serviceCartArrTemp[0].totalCost;
+    var amountAfterDiscount=serviceCartArrTemp[0].subtotal;
     var amountAfterTax=0;
+    this.taxAmountArr.length=0;
     if(amountAfterDiscount > 0){
       this.taxArr.forEach((element) => {
         let taxTemp={
@@ -1045,7 +1327,7 @@ export class DialogAddNewAppointment {
       "appointment_city": this.formAddNewAppointmentStaffStep1.get('customerCity').value,
       "appointment_zipcode": this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
       "coupon_code": '',
-      "subtotal": serviceCartArrTemp[0].totalCost,
+      "subtotal": serviceCartArrTemp[0].subtotal,
       "discount_type" : discount_type,
       "discount_value" : null,
       "discount": 0,
@@ -1056,7 +1338,6 @@ export class DialogAddNewAppointment {
       "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd hh:mm:ss") 
     };
     console.log(JSON.stringify(requestObject));
-
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'api-token': this.token,
@@ -1105,8 +1386,9 @@ export class DialogAddNewAppointment {
     // }
     // this.netCost=serviceCartArrTemp[0].totalCost+this.taxAmount;
     var discount_type = null;
-    var amountAfterDiscount=serviceCartArrTemp[0].totalCost;
+    var amountAfterDiscount=serviceCartArrTemp[0].subtotal;
     var amountAfterTax=0;
+    this.taxAmountArr.length=0;
     if(amountAfterDiscount > 0){
       this.taxArr.forEach((element) => {
         let taxTemp={
@@ -1151,7 +1433,7 @@ export class DialogAddNewAppointment {
       "appointment_city": this.formAddNewAppointmentStaffStep1.get('customerCity').value,
       "appointment_zipcode": this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
       "coupon_code": '',
-      "subtotal": serviceCartArrTemp[0].totalCost,
+      "subtotal": serviceCartArrTemp[0].subtotal,
       "discount_type" : discount_type,
       "discount_value" : null,
       "discount": 0,
@@ -1163,7 +1445,6 @@ export class DialogAddNewAppointment {
     };
    
     console.log(JSON.stringify(requestObject));
-    // return false;
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'api-token': this.token,

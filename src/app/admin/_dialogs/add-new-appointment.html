@@ -136,7 +136,7 @@
             <div class="input-group-text"><i class="fa fa-calendar"></i>
             </div>
           </div>
-          <input mat-input [min]="minDate" [max]="maxDate"  [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="Choose a date" class="form-control formcontrol" (click)="picker.open()" (dateChange)="fnDateChange($event)" formControlName="customerDate" >
+          <input mat-input [min]="minDate" [max]="maxDate"  [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="Choose a date" class="form-control formcontrol" (click)="picker.open()" (dateChange)="fnDateChange($event)" formControlName="customerDate" readonly>
           <mat-datepicker #picker></mat-datepicker>
           <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerDate').dirty || formAddNewAppointmentStaffStep2.get('customerDate').touched || formSubmitclicked">
             <small *ngIf="formAddNewAppointmentStaffStep2.get('customerDate').hasError('required')" class="error">Date Is required</small>

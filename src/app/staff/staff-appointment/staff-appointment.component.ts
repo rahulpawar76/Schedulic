@@ -696,13 +696,46 @@ export class StaffAppointmentComponent implements OnInit {
             this.serviceData = response.response;
              for(let i=0; i<this.serviceData.length;i++){
               this.serviceData[i].count=0;
-              this.serviceData[i].totalCost=0;
+
+              this.serviceData[i].subtotal = this.serviceData[i].service_cost * this.serviceData[i].count;
+              this.serviceData[i].discount_type=null;
+              this.serviceData[i].discount_value=null;
+              this.serviceData[i].discount=0;
+              var serviceAmountAfterDiscount= this.serviceData[i].subtotal - this.serviceData[i].discount;
+              var serviceTaxAmount=0;
+              let taxMain=[];
+              this.taxArr.forEach((element) => {
+                let taxTemp={
+                  value:0,
+                  name:'',
+                  amount:0
+                }
+                console.log(element.name+" -- "+element.value);
+                if(this.taxType == "P"){
+                 taxTemp.value= element.value;
+                 taxTemp.name= element.name;
+                 taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+                  serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+                }else{
+                  taxTemp.value= element.value;
+                  taxTemp.name= element.name;
+                  taxTemp.amount=  element.value;
+                  serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+                }
+                taxMain.push(taxTemp);
+                this.serviceData[i].tax=taxMain;
+                console.log(this.serviceData[i].tax);
+              });
+
+              // this.serviceData[i].tax=0;
+              this.serviceData[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
               this.serviceData[i].appointmentDate='';
               this.serviceData[i].appointmentTimeSlot='';
               this.serviceData[i].assignedStaff=this.staffId;
               this.serviceCount[this.serviceData[i].id]=this.serviceData[i];
             }
-            console.log(JSON.stringify(this.serviceData));
+            console.log(JSON.stringify(this.serviceCount));
           }else{
           }
           this.isLoaderAdmin = false;
@@ -732,7 +765,40 @@ export class StaffAppointmentComponent implements OnInit {
       this.serviceData = response.response;
       for(let i=0; i<this.serviceData.length;i++){
         this.serviceData[i].count=0;
-        this.serviceData[i].totalCost=0;
+
+        this.serviceData[i].subtotal = this.serviceData[i].service_cost * this.serviceData[i].count;
+        this.serviceData[i].discount_type=null;
+        this.serviceData[i].discount_value=null;
+        this.serviceData[i].discount=0;
+        var serviceAmountAfterDiscount= this.serviceData[i].subtotal - this.serviceData[i].discount;
+        var serviceTaxAmount=0;
+        let taxMain=[];
+        this.taxArr.forEach((element) => {
+          let taxTemp={
+            value:0,
+            name:'',
+            amount:0
+          }
+          console.log(element.name+" -- "+element.value);
+          if(this.taxType == "P"){
+           taxTemp.value= element.value;
+           taxTemp.name= element.name;
+           taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+            serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+          }else{
+            taxTemp.value= element.value;
+            taxTemp.name= element.name;
+            taxTemp.amount=  element.value;
+            serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+          }
+          taxMain.push(taxTemp);
+          this.serviceData[i].tax=taxMain;
+          console.log(this.serviceData[i].tax);
+        });
+
+        // this.serviceData[i].tax=0;
+        this.serviceData[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
         this.serviceData[i].appointmentDate='';
         this.serviceData[i].appointmentTimeSlot='';
         this.serviceData[i].assignedStaff=this.staffId;
@@ -761,7 +827,44 @@ export class StaffAppointmentComponent implements OnInit {
       for(let i=0; i<this.serviceCount.length;i++){
         if(this.serviceCount[i] != null && this.serviceCount[i].id == selectedServiceId){
           this.serviceCount[i].count=1;
-          this.serviceCount[i].totalCost=1*this.serviceCount[i].service_cost;
+
+          this.serviceCount[i].subtotal = this.serviceCount[i].service_cost * this.serviceCount[i].count;
+          this.serviceCount[i].discount_type=null;
+          this.serviceCount[i].discount_value=null;
+          this.serviceCount[i].discount=0;
+          
+          var serviceAmountAfterDiscount= this.serviceCount[i].subtotal - this.serviceCount[i].discount;
+          var serviceTaxAmount=0;
+          let taxMain=[];
+          this.taxArr.forEach((element) => {
+            let taxTemp={
+              value:0,
+              name:'',
+              amount:0
+            }
+            console.log(element.name+" -- "+element.value);
+            if(this.taxType == "P"){
+             taxTemp.value= element.value;
+             taxTemp.name= element.name;
+             taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+              serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+            }else{
+              taxTemp.value= element.value;
+              taxTemp.name= element.name;
+              taxTemp.amount=  element.value;
+              serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+            }
+            taxMain.push(taxTemp);
+            this.serviceCount[i].tax=taxMain;
+            console.log(this.serviceCount[i].tax);
+          });
+
+          // this.serviceData[id].tax=0;
+          this.serviceCount[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
+          // this.serviceCount[service_id].totalCost=1*this.serviceCount[service_id].service_cost;
+          console.log(JSON.stringify(this.serviceCount));
+
           if(this.selectedDate){
             this.serviceCount[i].appointmentDate=this.selectedDate;
           }else{
@@ -775,7 +878,45 @@ export class StaffAppointmentComponent implements OnInit {
           this.serviceCount[i].assignedStaff=this.staffId;
         }else if(this.serviceCount[i] != null && this.serviceCount[i].id != selectedServiceId){
           this.serviceCount[i].count=0;
-          this.serviceCount[i].totalCost=0;
+
+          this.serviceCount[i].subtotal = this.serviceCount[i].service_cost * this.serviceCount[i].count;
+          this.serviceCount[i].discount_type=null;
+          this.serviceCount[i].discount_value=null;
+          this.serviceCount[i].discount=0;
+          
+          var serviceAmountAfterDiscount= this.serviceCount[i].subtotal - this.serviceCount[i].discount;
+          var serviceTaxAmount=0;
+          let taxMain=[];
+          this.taxArr.forEach((element) => {
+            let taxTemp={
+              value:0,
+              name:'',
+              amount:0
+            }
+            console.log(element.name+" -- "+element.value);
+            if(this.taxType == "P"){
+             taxTemp.value= element.value;
+             taxTemp.name= element.name;
+             taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+              serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+            }else{
+              taxTemp.value= element.value;
+              taxTemp.name= element.name;
+              taxTemp.amount=  element.value;
+              serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+            }
+            taxMain.push(taxTemp);
+            this.serviceCount[i].tax=taxMain;
+            console.log(this.serviceCount[i].tax);
+          });
+
+          // this.serviceData[id].tax=0;
+          this.serviceCount[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
+          // this.serviceCount[service_id].totalCost=1*this.serviceCount[service_id].service_cost;
+          console.log(JSON.stringify(this.serviceCount));
+
+          // this.serviceCount[i].totalCost=0;
           this.serviceCount[i].appointmentDate='';
           this.serviceCount[i].appointmentTimeSlot='';
           this.serviceCount[i].assignedStaff=null;
@@ -883,8 +1024,9 @@ export class StaffAppointmentComponent implements OnInit {
           //     this.taxAmount= this.taxValue;
           //   }
           // }
-          var amountAfterDiscount=serviceCartArrTemp[0].totalCost;
+          var amountAfterDiscount=serviceCartArrTemp[0].subtotal;
           var amountAfterTax=0;
+          this.taxAmountArr.length=0;
           if(amountAfterDiscount > 0){
             this.taxArr.forEach((element) => {
               let taxTemp={
