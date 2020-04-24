@@ -30,7 +30,7 @@
                             <mat-form-field class=" bottom-border-field">
                                 <mat-label>Select Date</mat-label>
                                 <!-- <input mat-input [min]="minDate" [matDatepicker]="picker" placeholder="Choose a date" formControlName="rescheduleDate" class="form-control formcontrol" (click)="picker.open()" (dateChange)="fnDateChange($event)"> -->
-                                <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="Choose a date" formControlName="rescheduleDate" (click)="picker.open()" (dateChange)="fnDateChange($event)">
+                                <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="Select date" formControlName="rescheduleDate" (click)="picker.open()" (dateChange)="fnDateChange($event)">
                                 <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field>
