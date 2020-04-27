@@ -83,6 +83,7 @@ export class CustomersComponent implements OnInit {
   taxAmountArr:any=[];
   serviceMainArr={
     order_item_id:'',
+    customer_id:'',
     bookingDateForLabel:'',
     bookingTimeForLabel:'',
     bookingTimeTo:'',
@@ -93,6 +94,8 @@ export class CustomersComponent implements OnInit {
     order_by:'',
     order_status:'',
     staff_name:'',
+    service_cost:0,
+    service_qty:0,
     subtotal:0,
     discount_type:null,
     discount_value:null,
@@ -655,6 +658,7 @@ customerUpdate(existingCustomerData){
     console.log(this.customerPayments[index]);
 
     this.serviceMainArr.order_item_id=this.customerPayments[index].orders.id;
+    this.serviceMainArr.customer_id=this.customerPayments[index].customer_id;
     this.serviceMainArr.bookingDateForLabel=this.customerPayments[index].orders.bookingDateForLabel;
     this.serviceMainArr.bookingTimeForLabel=this.customerPayments[index].orders.bookingTimeForLabel;
     this.serviceMainArr.bookingTimeTo=this.customerPayments[index].orders.bookingTimeTo;
@@ -670,6 +674,8 @@ customerUpdate(existingCustomerData){
       this.serviceMainArr.staff_name='';
     }
     
+    this.serviceMainArr.service_cost=parseFloat(this.customerPayments[index].orders.service_cost);
+    this.serviceMainArr.service_qty=parseFloat(this.customerPayments[index].orders.service_qty);
     this.serviceMainArr.subtotal=parseFloat(this.customerPayments[index].orders.subtotal);
     this.taxAmountArr.length=0;
     this.serviceMainArr.discount_type=this.customerPayments[index].orders.discount_type;
@@ -757,6 +763,7 @@ customerUpdate(existingCustomerData){
     console.log(event.target.value);
     console.log(this.formPayment.get('paymentDiscount').value);
     this.serviceMainArr.subtotal=parseFloat(event.target.value);
+    this.serviceMainArr.service_cost=parseFloat((this.serviceMainArr.subtotal/this.serviceMainArr.service_qty).toFixed(2)) ;
     this.taxAmountArr.length=0;
     this.serviceMainArr.discount_type=this.serviceMainArr.discount_type;
     this.serviceMainArr.discount_value=this.serviceMainArr.discount_value;
@@ -798,6 +805,10 @@ customerUpdate(existingCustomerData){
   }
 
   fnSubmitPaymentForm(){
+    setTimeout(() => this.fnPaymentFormSubmit() , 500);
+  }
+
+  fnPaymentFormSubmit(){
     if(!this.formPayment.valid){
       this.formPayment.get('paymentAmount').markAsTouched();
       this.formPayment.get('paymentDiscount').markAsTouched();
@@ -805,13 +816,16 @@ customerUpdate(existingCustomerData){
       this.formPayment.get('paymentNote').markAsTouched();
       return;
     }
-    // if(this.serviceMainArr.subtotal!=parseFloat(this.customerPayments[this.customerPaymentIndex].orders.subtotal) || this.serviceMainArr.discount!=parseFloat(this.customerPayments[this.customerPaymentIndex].orders.discount)){
+
+    if(this.serviceMainArr.discount!=parseFloat(this.customerPayments[this.customerPaymentIndex].orders.discount)){
+      this.serviceMainArr.discount_type="C";
+      this.serviceMainArr.order_discount_type="C";
+    }
       let orderSubtotal=0;
       let orderDiscount=0;
       let orderTax=[];
       let orderTotalCost=0;
-      this.serviceMainArr.discount_type="C";
-      this.serviceMainArr.order_discount_type="C";
+      
       orderSubtotal=this.serviceMainArr.subtotal;
       orderDiscount=this.serviceMainArr.discount;
       this.taxAmountArr.forEach(element=>{
@@ -849,7 +863,7 @@ customerUpdate(existingCustomerData){
       console.log(this.taxAmountArr);
       console.log(this.order_taxAmountArr);
       console.log(this.serviceMainArr);
-    // }
+   
     let paymentArr=[{
       "id":this.serviceMainArr.paymentId,
       "payment_mode":this.formPayment.get('paymentMode').value,
@@ -870,6 +884,7 @@ customerUpdate(existingCustomerData){
     }]
     let orderItemArr=[{
       "id":this.serviceMainArr.order_item_id,
+      "service_cost":this.serviceMainArr.service_cost,
       "subtotal":this.serviceMainArr.subtotal,
       "discount_type":this.serviceMainArr.discount_type,
       "discount_value":this.serviceMainArr.discount_value,
@@ -890,6 +905,10 @@ customerUpdate(existingCustomerData){
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
+       this.fnSelectCustomer(this.serviceMainArr.customer_id);
+       this.formPayment.reset();
+       this.formPayment.controls['paymentMode'].setValue('Cash');
+       this.fnShowPaymentTable();
       }else{
         this._snackBar.open("Payment Info Not Updated", "X", {
           duration: 2000,
@@ -907,7 +926,7 @@ customerUpdate(existingCustomerData){
     const dialogRef = this.dialog.open(DialogInvoiceDialog, {
       width: '1000px',
       height: 'auto',
-      data: {fulldata: this.customerPayments[index]}
+      data: {fulldata: this.customerPayments[index],setting: this.settingsArr}
 
     });
 
@@ -1174,26 +1193,75 @@ onNoClick(): void {
 @Component({
     selector: 'dialog-invoice',
     templateUrl: '../_dialogs/dialog-invoice.html',
+    providers:[DatePipe]
   })
   export class DialogInvoiceDialog {
     paymentData: any;
     paymentInfo={
+      customer_name:'',
+      customer_address:'',
+      customer_city:'',
+      customer_state:'',
+      customer_zip:'',
+      invoice_date: '',
       service_name:'',
       service_qty:'',
       service_cost:'',
-      subtotal:'',
+      service_subtotal:'',
       service_discount:'',
-      service_tax:'',
+      service_netCost:'',
     }
+    serviceTaxArr:[];
+    settingsArr:any=[];
+    currencySymbol:any;
+    currencySymbolPosition:any;
+    currencySymbolFormat:any;
     constructor(
       public dialogRef: MatDialogRef<DialogInvoiceDialog>,
+      public datePipe: DatePipe,
       @Inject(MAT_DIALOG_DATA) public data: any) {
+        this.settingsArr = this.data.setting;
+        console.log(this.settingsArr);
+
+        this.currencySymbol = this.settingsArr.currency;
+        console.log(this.currencySymbol);
+
+        this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+        console.log(this.currencySymbolPosition);
+
+        this.currencySymbolFormat = this.settingsArr.currency_format;
+        console.log(this.currencySymbolFormat);
+        this.paymentInfo.invoice_date=this.datePipe.transform(new Date(), 'dd/MM/yyyy');
         this.paymentData = this.data.fulldata;
         console.log(this.paymentData);
+        this.paymentInfo.customer_name=this.paymentData.get_customer.fullname;
+        this.paymentInfo.customer_address=this.paymentData.get_customer.address;
+        this.paymentInfo.customer_city=this.paymentData.get_customer.city;
+        this.paymentInfo.customer_state=this.paymentData.get_customer.state;
+        this.paymentInfo.customer_zip=this.paymentData.get_customer.zip;
+        this.paymentInfo.service_name=this.paymentData.service.service_name;
+        this.paymentInfo.service_qty=this.paymentData.orders.service_qty;
+        this.paymentInfo.service_cost=this.paymentData.orders.service_cost;
+        this.paymentInfo.service_subtotal=this.paymentData.orders.subtotal;
+        this.paymentInfo.service_discount=this.paymentData.orders.discount;
+        this.paymentInfo.service_netCost=this.paymentData.orders.total_cost;
+        this.serviceTaxArr=JSON.parse(this.paymentData.orders.tax);
+        console.log(this.paymentInfo);
+        console.log(this.serviceTaxArr);
       }
 
     onNoClick(): void {
       this.dialogRef.close();
+    }
+
+    fnPrint(){
+      const printContent = document.getElementById("printInvoice");
+      const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
+      WindowPrt.document.write(printContent.innerHTML);
+      WindowPrt.document.close();
+      WindowPrt.focus();
+      WindowPrt.print();
+      // WindowPrt.close();
     }
 
   }
