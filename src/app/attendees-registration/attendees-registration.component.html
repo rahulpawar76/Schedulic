@@ -11,31 +11,31 @@
                         <div class="row">
                             <div class="input-wrap col-12 col-lg-6 col-sm-12 float-left my-3">
                                 <input type="text" formControlName="firstName" placeholder="First Name" class="common-input form-control" />
-                                <span class="error-wrap" *ngIf="signUpForm.get('firstName').dirty || signUpForm.get('firstName').touched || formSubmitclicked"><small *ngIf="signUpForm.get('firstName').hasError('required')" class="error">First Name Is required</small></span>
+                                <span class="error-wrap" *ngIf="signUpForm.get('firstName').dirty || signUpForm.get('firstName').touched"><small *ngIf="signUpForm.get('firstName').hasError('required')" class="error">First Name Is required</small></span>
                             </div>
                             <div class="input-wrap col-12 col-lg-6 col-sm-12 float-left my-3">
                                 <input type="text" formControlName="lastName" placeholder="Last Name" class="common-input form-control" />
-                                <span class="error-wrap" *ngIf="signUpForm.get('lastName').dirty || signUpForm.get('lastName').touched || formSubmitclicked"><small *ngIf="signUpForm.get('lastName').hasError('required')" class="error">Last Name Is required</small></span>
+                                <span class="error-wrap" *ngIf="signUpForm.get('lastName').dirty || signUpForm.get('lastName').touched"><small *ngIf="signUpForm.get('lastName').hasError('required')" class="error">Last Name Is required</small></span>
                             </div>
                             <div class="input-wrap col-12 col-lg-6 col-sm-12 float-left my-3">
                                 <input type="email" formControlName="email" placeholder="Email" class="common-input form-control" />
-                                <span class="error-wrap" *ngIf="signUpForm.get('email').dirty || signUpForm.get('email').touched || formSubmitclicked"><small *ngIf="signUpForm.get('email').hasError('required')" class="error">Email Is required</small><small *ngIf="signUpForm.get('email').hasError('pattern')" class="error">Enter Valid Email</small></span>
+                                <span class="error-wrap" *ngIf="signUpForm.get('email').dirty || signUpForm.get('email').touched"><small *ngIf="signUpForm.get('email').hasError('required')" class="error">Email Is required</small><small *ngIf="signUpForm.get('email').hasError('pattern')" class="error">Enter Valid Email</small></span>
                             </div>
                             <div class="input-wrap col-12 col-lg-6 col-sm-12 float-left my-3">
                                 <input type="text" formControlName="phonenumber" placeholder="Phone Number" class="common-input form-control" />
-                                <span class="error-wrap" *ngIf="signUpForm.get('phonenumber').dirty || signUpForm.get('phonenumber').touched || formSubmitclicked"><small *ngIf="signUpForm.get('phonenumber').hasError('required')" class="error">Phone Number Is required</small><small *ngIf="signUpForm.get('phonenumber').hasError('minLength') || signUpForm.get('phonenumber').hasError('maxLength')" class="error">Phone Number Should be 10 digit</small><small *ngIf="signUpForm.get('phonenumber').hasError('pattern')" class="error">Phone Number Should be numeric</small></span>
+                                <span class="error-wrap" *ngIf="signUpForm.get('phonenumber').dirty || signUpForm.get('phonenumber').touched"><small *ngIf="signUpForm.get('phonenumber').hasError('required')" class="error">Phone Number Is required</small><small *ngIf="signUpForm.get('phonenumber').hasError('minLength') || signUpForm.get('phonenumber').hasError('maxLength')" class="error">Phone Number Should be 10 digit</small><small *ngIf="signUpForm.get('phonenumber').hasError('pattern')" class="error">Phone Number Should be numeric</small></span>
                             </div>
                             <div class="input-wrap col-12 col-lg-12 col-sm-12 float-left my-3">
                                 <input type="password" formControlName="password" placeholder="Password" class="common-input form-control" />
-                                <span class="error-wrap" *ngIf="signUpForm.get('phonenumber').dirty || signUpForm.get('phonenumber').touched || formSubmitclicked"><small *ngIf="signUpForm.get('phonenumber').hasError('minLength')" class="error">Password Should be minimum 10 digit</small></span>
+                                <span class="error-wrap" *ngIf="signUpForm.get('phonenumber').dirty || signUpForm.get('phonenumber').touched"><small *ngIf="signUpForm.get('phonenumber').hasError('minLength')" class="error">Password Should be minimum 10 digit</small></span>
                                 <div mat-icon-button matSuffix class="icon-cust-pass">
                                     <!-- <mat-icon  (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon> -->
                                 </div>
-                                <span class="error-wrap" *ngIf="signUpForm.get('password').dirty || signUpForm.get('password').touched || formSubmitclicked"><small *ngIf="signUpForm.get('password').hasError('required')" class="error">State Is required</small></span>
+                                <span class="error-wrap" *ngIf="signUpForm.get('password').dirty || signUpForm.get('password').touched"><small *ngIf="signUpForm.get('password').hasError('required')" class="error">State Is required</small></span>
                             </div>
                             <div class="input-wrap col-12 col my-3 text-center">
                                 <button type="submit" color="primary" (click)="signUpSubmit()" class="common-btn text-white buttion-but px-5">
-								<span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mt-butn "></span>
+								<span class="spinner-border spinner-border-sm mr-1 mt-butn "></span>
 								Create Account
 							</button>
                             </div>
