@@ -1,30 +1,31 @@
-#paymentgateway{
-    ::ng-deep .mat-expansion-panel-header-description, .mat-expansion-panel-header-title {
+#paymentgateway {
+     ::ng-deep .mat-expansion-panel-header-description,
+    .mat-expansion-panel-header-title {
         display: block;
     }
-    ::ng-deep .mat-expansion-panel-header{
+     ::ng-deep .mat-expansion-panel-header {
         height: 100% !important;
         padding: 20px;
     }
-    mat-icon{
+    mat-icon {
         line-height: 1.5;
     }
-    .top-border{
+    .top-border {
         border-top: 1px solid #ededed;
     }
-    .payment-label{
+    .payment-label {
         line-height: 5;
     }
-    .action-btn{
+    .action-btn {
         margin-left: auto;
         display: flex;
-        .payment-cancel-btn{
+        .payment-cancel-btn {
             width: 100px;
             height: 39px;
             border-radius: 7px;
             background-color: #dddddd;
         }
-        .payment-save-btn{
+        .payment-save-btn {
             width: 109px;
             height: 39px;
             border-radius: 7px;
@@ -32,24 +33,44 @@
             color: white;
         }
     }
-    .payment-image{
+    .payment-image {
         width: 230px;
         height: 55px;
     }
 }
-.payment-gateways{
-    ::ng-deep .mat-accordion{
-        .mat-expansion-indicator{
+
+.payment-gateways {
+     ::ng-deep .mat-accordion {
+        .mat-expansion-indicator {
             display: none;
         }
-        .mat-expansion-panel-header-description{
+        .mat-expansion-panel-header-description {
             display: none !important;
         }
-        .mat-expansion-panel-header-title{
+        .mat-expansion-panel-header-title {
             margin-right: 0 !important;
         }
-        .payment-toggle-btn{
+        .payment-toggle-btn {
             margin-left: auto;
         }
     }
+    .payment-gateway-form {
+        label {
+            width: 30%;
+        }
+        mat-form-field {
+            width: 65%;
+        }
+        span {
+            margin-left: 30%;
+        }
+    }
+}
+
+.save-btn {
+    width: 120px;
+    height: 37px;
+    border-radius: 26px;
+    background-color: #a8ceff;
+    color: #1173f4;
 }

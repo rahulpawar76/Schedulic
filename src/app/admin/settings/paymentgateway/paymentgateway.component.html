@@ -1,69 +1,127 @@
-
-            <mat-drawer-content id="paymentgateway" class="ml-0">
-                <mat-card class="payment-gateways">
-                    <h5>Payment Gateways</h5>
-                    <div class="row mx-0">
-                        <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
-                            <mat-expansion-panel>
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                    <div class="d-flex">
-                                        <div>
-                                            <img src="/assets/images/admin/paypal.png" class="payment-image">
-                                        </div>
-                                        <div class="payment-toggle-btn">
-                                            <mat-slide-toggle class=""></mat-slide-toggle>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <p class="mb-0 pt-2">Paypal Express Checkout</p>
-                                    </div>
-                                    
-                                </mat-panel-title>
-                                <mat-panel-description>
-                                
-                                </mat-panel-description>
-                            </mat-expansion-panel-header>
-                            
-                            <div class="top-border">
-                                <div class="d-flex">
-                                    <label class="payment-label">API Username</label>
-                                    <form class="example-form ml-auto">
-                                        <mat-form-field class="example-full-width bottom-border-field">
-                                        <input matInput placeholder="" value="">
-                                        </mat-form-field>
-                                    </form>
+<mat-drawer-content id="paymentgateway" class="ml-0">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
+    <mat-card class="payment-gateways">
+        <h5>Payment Gateways</h5>
+        <div class="row mx-0">
+            <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <div class="d-flex">
+                                <div>
+                                    <img src="/assets/images/admin/paypal.png" class="payment-image">
                                 </div>
-                                <div class="d-flex">
-                                    <label class="payment-label">API Password</label>
-                                    <form class="example-form ml-auto">
-                                        <mat-form-field class="example-full-width bottom-border-field">
-                                        <input  class="ml-auto" matInput placeholder="" value="">
-                                        </mat-form-field>
-                                    </form>
-                                </div>
-                                <div class="d-flex">
-                                    <label class="payment-label">Signature</label>
-                                    <form class="example-form ml-auto">
-                                        <mat-form-field class="example-full-width bottom-border-field">
-                                        <input matInput placeholder="" value="">
-                                        </mat-form-field>
-                                    </form>
-                                </div>
-                                <div class="d-flex">
-                                    <label class="">Paypal guest payment</label>
-                                    <mat-slide-toggle class="ml-auto"></mat-slide-toggle>
-                                </div>
-                                <div class="d-flex mt-3">
-                                    <label class="">Text Mode</label>
-                                    <mat-slide-toggle class="ml-auto"></mat-slide-toggle>
+                                <div class="payment-toggle-btn">
+                                    <mat-slide-toggle *ngIf="paypalSettingValue" [checked]="paypalSettingValue.status" (change)="fnPaypalStatus($event.checked)" class=""></mat-slide-toggle>
                                 </div>
                             </div>
-                            
-                            </mat-expansion-panel>
-                        </mat-accordion>
+                            <div>
+                                <p class="mb-0 pt-2">Paypal Express Checkout</p>
+                            </div>
 
-                        <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
+                        </mat-panel-title>
+                        <mat-panel-description>
+
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+
+                    <div class="top-border">
+                        <form [formGroup]="paypal" class="example-form payment-gateway-form ml-auto">
+                            <div class="d-flex flex-wrap">
+                                <label class="payment-label">API Username</label>
+                                <mat-form-field class="example-full-width bottom-border-field">
+                                    <input formControlName="apiUsername" matInput placeholder="" value="">
+                                </mat-form-field>
+                                <span class="w-100 error-wrap" *ngIf="paypal.get('apiUsername').dirty || paypal.get('apiUsername').touched">
+                                    <small *ngIf="paypal.get('apiUsername').hasError('required')" class="error">API Username Is required</small>
+                                </span>
+                            </div>
+                            <div class="d-flex flex-wrap">
+                                <label class="payment-label">API Password</label>
+                                <mat-form-field class="example-full-width bottom-border-field">
+                                    <input formControlName="apiPassword" class="ml-auto" matInput placeholder="" value="">
+                                </mat-form-field>
+                                <span class="w-100 error-wrap" *ngIf="paypal.get('apiPassword').dirty || paypal.get('apiPassword').touched || formSubmitclicked">
+                                    <small *ngIf="paypal.get('apiPassword').hasError('required')" class="error">API Username Is required</small>
+                                </span>
+                            </div>
+                            <div class="d-flex flex-wrap">
+                                <label class="payment-label">Signature</label>
+                                <mat-form-field class="example-full-width bottom-border-field">
+                                    <input formControlName="signature" matInput placeholder="" value="">
+                                </mat-form-field>
+                                <span class="w-100 error-wrap" *ngIf="paypal.get('signature').dirty || paypal.get('signature').touched || formSubmitclicked">
+                                    <small *ngIf="paypal.get('signature').hasError('required')" class="error">API Username Is required</small>
+                                </span>
+                            </div>
+                            <!-- <div class="d-flex flex-wrap">
+                                <label class="">Paypal guest payment</label>
+                                <mat-slide-toggle *ngIf="paypalSettingValue" [checked]="paypalSettingValue.paypal_guest_payment" (change)="fnPaypalGuest($event.checked)" class="ml-auto"></mat-slide-toggle>
+                            </div> -->
+                            <div class="d-flex flex-wrap mt-3">
+                                <label class="">Test Mode</label>
+                                <mat-slide-toggle *ngIf="paypalSettingValue" [checked]="paypalSettingValue.text_mode" (change)="fnPaypalTest($event.checked)" class="ml-auto"></mat-slide-toggle>
+                            </div>
+                            <div class="">
+                                <button mat-button class="float-right save-btn my-3" (click)="fnSubmitPaypal()">Save</button>
+                            </div>
+
+                        </form>
+                    </div>
+
+                </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <div class="d-flex">
+                                <div>
+                                    <img src="/assets/images/admin/stripe.png" class="payment-image">
+                                </div>
+                                <div class="payment-toggle-btn">
+                                    <mat-slide-toggle *ngIf="stripeSettingValue" [checked]="stripeSettingValue.status" (change)="fnStripeStatus($event.checked)" class=""></mat-slide-toggle>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="mb-0 pt-2">Stripe Payment Form</p>
+                            </div>
+
+                        </mat-panel-title>
+                        <mat-panel-description>
+
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+
+                    <div class="top-border">
+                        <form [formGroup]="stripe" class="example-form payment-gateway-form ml-auto">
+                            <div class="d-flex flex-wrap">
+                                <label class="payment-label">Secret Key</label>
+                                <mat-form-field class="example-full-width bottom-border-field">
+                                    <input formControlName="secretKey" matInput placeholder="" value="">
+                                </mat-form-field>
+                                <span class="w-100 error-wrap" *ngIf="stripe.get('secretKey').dirty || stripe.get('secretKey').touched || formSubmitclicked">
+                                    <small *ngIf="stripe.get('secretKey').hasError('required')" class="error">Secret Key Is required</small>
+                                </span>
+                            </div>
+                            <div class="d-flex flex-wrap">
+                                <label class="payment-label">Publishable Key</label>
+                                <mat-form-field class="example-full-width bottom-border-field">
+                                    <input formControlName="publishableKey" class="ml-auto" matInput placeholder="" value="">
+                                </mat-form-field>
+                                <span class="w-100 error-wrap" *ngIf="stripe.get('publishableKey').dirty || stripe.get('publishableKey').touched || formSubmitclicked">
+                                    <small *ngIf="stripe.get('publishableKey').hasError('required')" class="error">Secret Key Is required</small>
+                                </span>
+                            </div>
+                            <div class="">
+                                <button mat-button class="float-right save-btn my-3" (click)="fnSubmitStripe()">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+
+            <!-- <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
                             <mat-expansion-panel>
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
@@ -105,55 +163,55 @@
                             </div>
                             
                             </mat-expansion-panel>
-                        </mat-accordion>
+                        </mat-accordion> -->
+        </div>
+
+        <!--<div class="row mx-0">
+             <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <div class="d-flex">
+                                <div>
+                                    <img src="/assets/images/admin/stripe.png" class="payment-image">
+                                </div>
+                                <div class="payment-toggle-btn">
+                                    <mat-slide-toggle class=""></mat-slide-toggle>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="mb-0 pt-2">Stripe Payment Form</p>
+                            </div>
+
+                        </mat-panel-title>
+                        <mat-panel-description>
+
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+
+                    <div class="top-border">
+                        <div class="d-flex">
+                            <label class="payment-label">Secret Key</label>
+                            <form class="example-form ml-auto">
+                                <mat-form-field class="example-full-width bottom-border-field">
+                                    <input matInput placeholder="" value="">
+                                </mat-form-field>
+                            </form>
+                        </div>
+                        <div class="d-flex">
+                            <label class="payment-label">Publishable Key</label>
+                            <form class="example-form ml-auto">
+                                <mat-form-field class="example-full-width bottom-border-field">
+                                    <input class="ml-auto" matInput placeholder="" value="">
+                                </mat-form-field>
+                            </form>
+                        </div>
                     </div>
 
-                <div class="row mx-0">
-                    <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
-                        <mat-expansion-panel>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <div class="d-flex">
-                                    <div>
-                                        <img src="/assets/images/admin/stripe.png" class="payment-image">
-                                    </div>
-                                    <div class="payment-toggle-btn">
-                                        <mat-slide-toggle class=""></mat-slide-toggle>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="mb-0 pt-2">Stripe Payment Form</p>
-                                </div>
-                                
-                            </mat-panel-title>
-                            <mat-panel-description>
-                            
-                            </mat-panel-description>
-                        </mat-expansion-panel-header>
-                        
-                        <div class="top-border">
-                            <div class="d-flex">
-                                <label class="payment-label">Secret Key</label>
-                                <form class="example-form ml-auto">
-                                    <mat-form-field class="example-full-width bottom-border-field">
-                                    <input matInput placeholder="" value="">
-                                    </mat-form-field>
-                                </form>
-                            </div>
-                            <div class="d-flex">
-                                <label class="payment-label">Publishable Key</label>
-                                <form class="example-form ml-auto">
-                                    <mat-form-field class="example-full-width bottom-border-field">
-                                    <input  class="ml-auto" matInput placeholder="" value="">
-                                    </mat-form-field>
-                                </form>
-                            </div>
-                        </div>
-                        
-                        </mat-expansion-panel>
-                    </mat-accordion>
+                </mat-expansion-panel>
+            </mat-accordion> 
 
-                    <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
+             <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
                         <mat-expansion-panel>
                         <mat-expansion-panel-header>
                             <mat-panel-title>
@@ -204,136 +262,136 @@
                         
                         </mat-expansion-panel>
                     </mat-accordion>
-                </div>
+        </div> -->
 
-                <div class="row mx-0">
-                    <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
-                        <mat-expansion-panel>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <div class="d-flex">
-                                    <div>
-                                        <img src="/assets/images/admin/payumoney.png" class="payment-image">
-                                    </div>
-                                    <div class="payment-toggle-btn">
-                                        <mat-slide-toggle class=""></mat-slide-toggle>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="mb-0 pt-2">PayU Money</p>
-                                </div>
-                                
-                            </mat-panel-title>
-                            <mat-panel-description>
-                            
-                            </mat-panel-description>
-                        </mat-expansion-panel-header>
-                        
-                        <div class="top-border">
+        <div class="row mx-0">
+            <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
                             <div class="d-flex">
+                                <div>
+                                    <img src="/assets/images/admin/payumoney.png" class="payment-image">
+                                </div>
+                                <div class="payment-toggle-btn">
+                                    <mat-slide-toggle *ngIf="payUMoneySettingValue" [checked]="payUMoneySettingValue.status" (change)="fnPayumoneyStatus($event.checked)" class=""></mat-slide-toggle>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="mb-0 pt-2">PayU Money</p>
+                            </div>
+
+                        </mat-panel-title>
+                        <mat-panel-description>
+
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+
+                    <div class="top-border">
+                        <form [formGroup]="payumoney" class="example-form ml-auto payment-gateway-form">
+                            <div class="d-flex flex-wrap">
                                 <label class="payment-label">Merchant Key</label>
-                                <form class="example-form ml-auto">
-                                    <mat-form-field class="example-full-width bottom-border-field">
-                                    <input matInput placeholder="" value="">
-                                    </mat-form-field>
-                                </form>
+                                <mat-form-field class="example-full-width bottom-border-field">
+                                    <input formControlName="merchantKey" matInput placeholder="" value="">
+                                </mat-form-field>
+                                <span class="w-100 error-wrap" *ngIf="payumoney.get('merchantKey').dirty || payumoney.get('merchantKey').touched || formSubmitclicked">
+                                    <small *ngIf="payumoney.get('merchantKey').hasError('required')" class="error">Merchant Key Is required</small>
+                                </span>
                             </div>
+                            <div class="d-flex flex-wrap">
+                                <label class="payment-label">Salt Key</label>
+                                <mat-form-field class="example-full-width bottom-border-field">
+                                    <input formControlName="saltKey" class="ml-auto" matInput placeholder="" value="">
+                                </mat-form-field>
+                                <span class="w-100 error-wrap" *ngIf="payumoney.get('saltKey').dirty || payumoney.get('saltKey').touched || formSubmitclicked">
+                                    <small *ngIf="payumoney.get('saltKey').hasError('required')" class="error">Salt Key Is required</small>
+                                </span>
+                            </div>
+                            <div class="">
+                                <button mat-button class="float-right save-btn my-3" (click)="fnSubmitPayumoney()">Save</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </mat-expansion-panel>
+            </mat-accordion>
+
+            <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
                             <div class="d-flex">
-                                <label class="payment-label">Salt Key<</label>
-                                <form class="example-form ml-auto">
-                                    <mat-form-field class="example-full-width bottom-border-field">
-                                    <input  class="ml-auto" matInput placeholder="" value="">
-                                    </mat-form-field>
-                                </form>
-                            </div>
-                        </div>
-                        
-                        </mat-expansion-panel>
-                    </mat-accordion>
-
-                    <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
-                        <mat-expansion-panel>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <div class="d-flex">
-                                    <div>
-                                        <img src="/assets/images/admin/banktransfer.png" class="payment-image">
-                                    </div>
-                                    <div class="payment-toggle-btn">
-                                        <mat-slide-toggle class=""></mat-slide-toggle>
-                                    </div>
-                                </div>
                                 <div>
-                                    <p class="mb-0 pt-2">Add Your Bank To Transfer</p>
+                                    <img src="/assets/images/admin/banktransfer.png" class="payment-image">
                                 </div>
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        
-                            <div class="top-border">
-                                <div class="d-flex">
-                                    <label class="payment-label">Bank Name</label>
-                                    <form class="example-form ml-auto">
-                                        <mat-form-field class="example-full-width bottom-border-field">
-                                        <input matInput placeholder="" value="">
-                                        </mat-form-field>
-                                    </form>
+                                <div class="payment-toggle-btn">
+                                    <mat-slide-toggle *ngIf="bankTransferSettingValue" [checked]="bankTransferSettingValue.status" (change)="fnBankTransferStatus($event.checked)" class=""></mat-slide-toggle>
                                 </div>
-                                <div class="d-flex">
-                                    <label class="payment-label">Account Name</label>
-                                    <form class="example-form ml-auto">
-                                        <mat-form-field class="example-full-width bottom-border-field">
-                                        <input  class="ml-auto" matInput placeholder="" value="">
-                                        </mat-form-field>
-                                    </form>
-                                </div>
-                                <div class="d-flex">
-                                    <label class="payment-label">Account Number</label>
-                                    <form class="example-form ml-auto">
-                                        <mat-form-field class="example-full-width bottom-border-field">
-                                        <input matInput placeholder="" value="">
-                                        </mat-form-field>
-                                    </form>
-                                </div>
-                                <div class="d-flex">
-                                    <label class="payment-label">Branch Code</label>
-                                    <form class="example-form ml-auto">
-                                        <mat-form-field class="example-full-width bottom-border-field">
-                                        <input  class="ml-auto" matInput placeholder="" value="">
-                                        </mat-form-field>
-                                    </form>
-                                </div>
-                                <div class="d-flex">
-                                    <label class="payment-label">IFSC Code</label>
-                                    <form class="example-form ml-auto">
-                                        <mat-form-field class="example-full-width bottom-border-field">
-                                        <input  class="ml-auto" matInput placeholder="" value="">
-                                        </mat-form-field>
-                                    </form>
-                                </div>
-                                <div class="d-flex">
-                                    <label class="payment-label">Bank Desription</label>
-                                    <form class="example-form ml-auto">
-                                        <mat-form-field class="example-full-width bottom-border-field">
-                                            <textarea matInput placeholder=""></textarea>
-                                        </mat-form-field>
-                                    </form>
-                                </div>  
                             </div>
-                        </mat-expansion-panel>
-                    </mat-accordion>
-                </div>
-                <mat-card class="w-100  align-items-center d-flex ml-auto">
-                    <div class="action-btn">
-                        <div class="mx-2">
-                            <button mat-button appearance="fill" class="payment-cancel-btn">Cancel</button>
-                        </div>
-                        <div class="mx-2">
-                            <button mat-button appearance="fill" class="payment-save-btn">Save</button>
-                        </div>  
-                    </div> 
-                </mat-card>   
-            </mat-card>
+                            <div>
+                                <p class="mb-0 pt-2">Add Your Bank To Transfer</p>
+                            </div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
 
-                
-            </mat-drawer-content>
-        
+                    <div class="top-border">
+                        <form [formGroup]="bankTransfer" class="example-form ml-auto payment-gateway-form">
+                            <div class="d-flex flex-wrap">
+                                <label class="payment-label">Bank Name</label>
+                                <mat-form-field class="example-full-width bottom-border-field">
+                                    <input formControlName="bankName" matInput placeholder="" value="">
+                                </mat-form-field>
+                            </div>
+                            <div class="d-flex flex-wrap">
+                                <label class="payment-label">Account Name</label>
+                                <mat-form-field class="example-full-width bottom-border-field">
+                                    <input formControlName="accountName" class="ml-auto" matInput placeholder="" value="">
+                                </mat-form-field>
+                            </div>
+                            <div class="d-flex flex-wrap">
+                                <label class="payment-label">Account Number</label>
+                                <mat-form-field class="example-full-width bottom-border-field">
+                                    <input formControlName="accountNumber" matInput placeholder="" value="">
+                                </mat-form-field>
+                            </div>
+                            <div class="d-flex flex-wrap">
+                                <label class="payment-label">Branch Code</label>
+                                <mat-form-field class="example-full-width bottom-border-field">
+                                    <input formControlName="branchCode" class="ml-auto" matInput placeholder="" value="">
+                                </mat-form-field>
+                            </div>
+                            <div class="d-flex flex-wrap">
+                                <label class="payment-label">IFSC Code</label>
+                                <mat-form-field class="example-full-width bottom-border-field">
+                                    <input formControlName="IFSCCode" class="ml-auto" matInput placeholder="" value="">
+                                </mat-form-field>
+                            </div>
+                            <div class="d-flex flex-wrap">
+                                <label class="payment-label">Bank Description</label>
+                                <mat-form-field class="example-full-width bottom-border-field">
+                                    <textarea formControlName="bankDescription" matInput placeholder=""></textarea>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="">
+                                <button mat-button class="float-right save-btn my-3" (click)="fnSubmitBankTransfer()">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+        <!-- <div class="w-100  align-items-center d-flex ml-auto">
+            <div class="action-btn">
+                <div class="mx-2">
+                    <button mat-button appearance="fill" class="payment-cancel-btn">Cancel</button>
+                </div>
+                <div class="mx-2">
+                    <button mat-button appearance="fill" class="payment-save-btn">Save</button>
+                </div>
+            </div>
+        </div> -->
+    </mat-card>
+
+
+</mat-drawer-content>
