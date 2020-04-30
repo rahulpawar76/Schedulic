@@ -125,12 +125,12 @@ export class ServicesComponent implements OnInit {
 
         this.createSubCategory = this._formBuilder.group({
             subcategory_name: ['', Validators.required],
-            subcategory_description: ['', Validators.required],
+            subcategory_description: ['',Validators.required],
             subcategory_id: [''],
         });
         this.createCategory = this._formBuilder.group({
-            category_name: ['', Validators.required],
-            category_description: ['', Validators.required],
+            category_name: ['', [Validators.required,Validators.maxLength(255)]],
+            category_description: ['', [Validators.required,Validators.maxLength(255)]],
             category_id: [''],
         });
         this.createService = this._formBuilder.group({

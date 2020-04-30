@@ -106,6 +106,7 @@
                                 </mat-form-field>   
                                 <span class="error-wrap d-flex" *ngIf="createCategory.get('category_name').touched || createCategory.get('category_name').dirty">
                                     <small *ngIf="createCategory.get('category_name').hasError('required')" class="error">Category Name Is required</small>
+                                    <small *ngIf="createCategory.get('category_name').hasError('maxlength')" class="error">Category Name may not be greater than 255 character.</small>
                                 </span>
                             </div>
                             <div class="mt-2 text-center">
@@ -114,6 +115,8 @@
                                 </mat-form-field>  
                                 <span class="error-wrap d-flex" *ngIf="createCategory.get('category_description').touched || createCategory.get('category_description').dirty">
                                     <small *ngIf="createCategory.get('category_description').hasError('required')" class="error">Category Description Is required</small>
+                                    <small *ngIf="createCategory.get('category_description').hasError('maxlength')" class="error">Category Description Name may not be greater than 255 character.</small>
+                                
                                 </span>
                             </div>
                         </div>

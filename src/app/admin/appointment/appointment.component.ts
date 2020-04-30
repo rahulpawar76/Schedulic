@@ -42,8 +42,8 @@ export class AppointmentComponent implements OnInit {
   selectedValue: any;
   selectAll: boolean = false;
   settingsArr: any;
-  cancellationBufferTime: any;
-  minReschedulingTime: any;
+  cancellationBufferTime= new Date();
+  minReschedulingTime= new Date();
   currencySymbol:any;
   currencySymbolPosition:any;
   currencySymbolFormat:any;
