@@ -253,8 +253,8 @@
                         <div class="col-12 col-lg-6 col-md-6 col-sm-6">
                             <label>Phone</label>
                             <!-- <input formControlName="newUserPhone" class="common-input" type="text" /> -->
-                            <ngx-intl-tel-input class="common-input mobile-intel-input" [cssClass]="'custom'" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="false" [enablePlaceholder]="true" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-                                [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.India" [maxLength]="15" [tooltipField]="TooltipLabel.Name" [phoneValidation]="true" [separateDialCode]="separateDialCode" name="phone" formControlName="newUserPhone">
+                            <ngx-intl-tel-input class="common-input mobile-intel-input" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
+                                [selectedCountryISO]="CountryISO.India" [maxLength]="15" [phoneValidation]="true" [separateDialCode]="separateDialCode" name="phone" formControlName="newUserPhone">
                             </ngx-intl-tel-input>
                             <span *ngIf="formNewUser.get('newUserPhone').dirty || formNewUser.get('newUserPhone').touched || formSubmitclicked"><small *ngIf="formNewUser.get('newUserPhone').hasError('required')" class="error">Phone number Is required</small>
                                                 

@@ -90,15 +90,15 @@
                   <button mat-button class="upload-btn">Upload Files</button>
                 </div>
               </div>
-              <div class="d-flex mt-2">
-                <div class="pan-card file-border d-flex">
+              <div class="d-flex mt-3">
+                <div class="pan-card file-border d-flex mr-2">
                   <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
-                  <p class="pr-1 mb-0">PAN card.pdf</p>
+                  <p class="pr-1 mb-0 mr-3">PAN card.pdf</p>
                   <mat-icon aria-hidden="false">cancel</mat-icon>
                 </div>
                 <div class="adhar-card file-border d-flex">
                   <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
-                  <p class="pr-1 mb-0">Adhar card.jpg</p>
+                  <p class="pr-1 mb-0 mb-2">Adhar card.jpg</p>
                   <mat-icon aria-hidden="false">cancel</mat-icon>
                 </div>
               </div>
@@ -185,7 +185,7 @@
         the services they can perform.</p>
       <div class="w-100 mb-3 d-flex">
         <mat-form-field class="dropdown bottom-border-field mt-0">
-          <mat-label>Status</mat-label>
+          <mat-label>Action</mat-label>
           <mat-select [(ngModel)]="selectedValue" [disabled]="this.staffActionId.length == 0"
             (selectionChange)="fnActionStaff($event.value)">
             <mat-option value="E">Set Active</mat-option>
@@ -423,7 +423,7 @@
         </div>
         <div class="bottom-border-last">
           <h6>Documents</h6>
-          <div class="d-flex mt-2">
+          <div class="d-flex mt-3">
             <div class="pan-card file-border d-flex mr-2">
               <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
               <p class="pr-1 mb-0">PAN card.pdf</p>

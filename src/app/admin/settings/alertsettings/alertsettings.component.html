@@ -743,12 +743,8 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusEmailTemplate1.get('emailTemplate').dirty ||
-                          cusEmailTemplate1.get('emailTemplate').touched ||
-                          formSubmitclicked">
-                          <small
-                            *ngIf="cusEmailTemplate1.get('emailTemplate').hasError('required')"
-                            class="error">Email Template Is required</small>
+                                                <span class="error-wrap" *ngIf="cusEmailTemplate1.get('emailTemplate').dirty || cusEmailTemplate1.get('emailTemplate').touched">
+                                                    <small *ngIf="cusEmailTemplate1.get('emailTemplate').hasError('required')" class="error">Email Template Is required</small>
                         </span>
                                                 <div class="float-right">
                                                     <button mat-button (click)="fnSaveEmailTemp(customerEmailTemData[0].id)" class="savetemplate-btn">Save Template</button>
@@ -814,9 +810,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusEmailTemplate2.get('emailTemplate').dirty ||
-                          cusEmailTemplate2.get('emailTemplate').touched ||
-                          formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="cusEmailTemplate2.get('emailTemplate').dirty || cusEmailTemplate2.get('emailTemplate').touched">
                           <small
                             *ngIf="cusEmailTemplate2.get('emailTemplate').hasError('required')"
                             class="error">Email Template Is required</small>
@@ -886,9 +880,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusEmailTemplate3.get('emailTemplate').dirty ||
-                          cusEmailTemplate3.get('emailTemplate').touched ||
-                          formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="cusEmailTemplate3.get('emailTemplate').dirty || cusEmailTemplate3.get('emailTemplate').touched">
                           <small
                             *ngIf="cusEmailTemplate3.get('emailTemplate').hasError('required')"
                             class="error">Email Template Is required</small>
@@ -958,9 +950,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusEmailTemplate4.get('emailTemplate').dirty ||
-                          cusEmailTemplate4.get('emailTemplate').touched ||
-                          formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="cusEmailTemplate4.get('emailTemplate').dirty || cusEmailTemplate4.get('emailTemplate').touched">
                           <small
                             *ngIf="cusEmailTemplate4.get('emailTemplate').hasError('required')"
                             class="error">Email Template Is required</small>
@@ -1030,9 +1020,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusEmailTemplate5.get('emailTemplate').dirty ||
-                          cusEmailTemplate5.get('emailTemplate').touched ||
-                          formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="cusEmailTemplate5.get('emailTemplate').dirty || cusEmailTemplate5.get('emailTemplate').touched">
                           <small
                             *ngIf="cusEmailTemplate5.get('emailTemplate').hasError('required')"
                             class="error">Email Template Is required</small>
@@ -1102,9 +1090,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusEmailTemplate6.get('emailTemplate').dirty ||
-                          cusEmailTemplate6.get('emailTemplate').touched ||
-                          formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="cusEmailTemplate6.get('emailTemplate').dirty || cusEmailTemplate6.get('emailTemplate').touched">
                           <small
                             *ngIf="cusEmailTemplate6.get('emailTemplate').hasError('required')"
                             class="error">Email Template Is required</small>
@@ -1175,9 +1161,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusEmailTemplate7.get('emailTemplate').dirty ||
-                          cusEmailTemplate7.get('emailTemplate').touched ||
-                          formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="cusEmailTemplate7.get('emailTemplate').dirty || cusEmailTemplate7.get('emailTemplate').touched">
                           <small
                             *ngIf="cusEmailTemplate7.get('emailTemplate').hasError('required')"
                             class="error">Email Template Is required</small>
@@ -1253,7 +1237,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="adminEmailTemplate1.get('emailTemplate').dirty || adminEmailTemplate1.get('emailTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="adminEmailTemplate1.get('emailTemplate').dirty || adminEmailTemplate1.get('emailTemplate').touched">
                                                   <small
                                                     *ngIf="adminEmailTemplate1.get('emailTemplate').hasError('required')" class="error">Email Template Is required
                                                   </small>
@@ -1324,8 +1308,7 @@
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
                                                 <span class="error-wrap" *ngIf="adminEmailTemplate2.get('emailTemplate').dirty
-                          || adminEmailTemplate2.get('emailTemplate').touched ||
-                          formSubmitclicked">
+                          || adminEmailTemplate2.get('emailTemplate').touched">
                           <small
                             *ngIf="adminEmailTemplate2.get('emailTemplate').hasError('required')"
                             class="error">Email Template Is required</small>
@@ -1397,8 +1380,7 @@
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
                                                 <span class="error-wrap" *ngIf="adminEmailTemplate3.get('emailTemplate').dirty
-                          || adminEmailTemplate3.get('emailTemplate').touched ||
-                          formSubmitclicked">
+                          || adminEmailTemplate3.get('emailTemplate').touched">
                           <small
                             *ngIf="adminEmailTemplate3.get('emailTemplate').hasError('required')"
                             class="error">Email Template Is required</small>
@@ -1470,8 +1452,7 @@
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
                                                 <span class="error-wrap" *ngIf="adminEmailTemplate4.get('emailTemplate').dirty
-                          || adminEmailTemplate4.get('emailTemplate').touched ||
-                          formSubmitclicked">
+                          || adminEmailTemplate4.get('emailTemplate').touched">
                           <small
                             *ngIf="adminEmailTemplate4.get('emailTemplate').hasError('required')"
                             class="error">Email Template Is required</small>
@@ -1543,8 +1524,7 @@
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
                                                 <span class="error-wrap" *ngIf="adminEmailTemplate5.get('emailTemplate').dirty
-                          || adminEmailTemplate5.get('emailTemplate').touched ||
-                          formSubmitclicked">
+                          || adminEmailTemplate5.get('emailTemplate').touched">
                           <small
                             *ngIf="adminEmailTemplate5.get('emailTemplate').hasError('required')"
                             class="error">Email Template Is required</small>
@@ -1616,8 +1596,7 @@
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
                                                 <span class="error-wrap" *ngIf="adminEmailTemplate6.get('emailTemplate').dirty
-                          || adminEmailTemplate6.get('emailTemplate').touched ||
-                          formSubmitclicked">
+                          || adminEmailTemplate6.get('emailTemplate').touched">
                           <small
                             *ngIf="adminEmailTemplate6.get('emailTemplate').hasError('required')"
                             class="error">Email Template Is required</small>
@@ -1690,8 +1669,7 @@
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
                                                 <span class="error-wrap" *ngIf="adminEmailTemplate7.get('emailTemplate').dirty
-                          || adminEmailTemplate7.get('emailTemplate').touched ||
-                          formSubmitclicked">
+                          || adminEmailTemplate7.get('emailTemplate').touched">
                           <small
                             *ngIf="adminEmailTemplate7.get('emailTemplate').hasError('required')"
                             class="error">Email Template Is required</small>
@@ -1768,9 +1746,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="staffEmailTemplate1.get('emailTemplate').dirty
-                          || staffEmailTemplate1.get('emailTemplate').touched ||
-                          formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="staffEmailTemplate1.get('emailTemplate').dirty || staffEmailTemplate1.get('emailTemplate').touched">
                           <small
                             *ngIf="staffEmailTemplate1.get('emailTemplate').hasError('required')"
                             class="error">Email Template Is required</small>
@@ -1842,8 +1818,7 @@
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
                                                 <span class="error-wrap" *ngIf="staffEmailTemplate2.get('emailTemplate').dirty
-                          || staffEmailTemplate2.get('emailTemplate').touched ||
-                          formSubmitclicked">
+                          || staffEmailTemplate2.get('emailTemplate').touched">
                           <small
                             *ngIf="staffEmailTemplate2.get('emailTemplate').hasError('required')"
                             class="error">Email Template Is required</small>
@@ -1915,8 +1890,7 @@
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
                                                 <span class="error-wrap" *ngIf="staffEmailTemplate3.get('emailTemplate').dirty
-                          || staffEmailTemplate3.get('emailTemplate').touched ||
-                          formSubmitclicked">
+                          || staffEmailTemplate3.get('emailTemplate').touched">
                           <small
                             *ngIf="staffEmailTemplate3.get('emailTemplate').hasError('required')"
                             class="error">Email Template Is required</small>
@@ -1986,8 +1960,7 @@
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
                                                 <span class="error-wrap" *ngIf="staffEmailTemplate4.get('emailTemplate').dirty
-                          || staffEmailTemplate4.get('emailTemplate').touched ||
-                          formSubmitclicked">
+                          || staffEmailTemplate4.get('emailTemplate').touched">
                           <small
                             *ngIf="staffEmailTemplate4.get('emailTemplate').hasError('required')"
                             class="error">Email Template Is required</small>
@@ -2057,8 +2030,7 @@
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
                                                 <span class="error-wrap" *ngIf="staffEmailTemplate5.get('emailTemplate').dirty
-                          || staffEmailTemplate5.get('emailTemplate').touched ||
-                          formSubmitclicked">
+                          || staffEmailTemplate5.get('emailTemplate').touched">
                           <small
                             *ngIf="staffEmailTemplate5.get('emailTemplate').hasError('required')"
                             class="error">Email Template Is required</small>
@@ -2128,8 +2100,7 @@
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
                                                 <span class="error-wrap" *ngIf="staffEmailTemplate6.get('emailTemplate').dirty
-                          || staffEmailTemplate6.get('emailTemplate').touched ||
-                          formSubmitclicked">
+                          || staffEmailTemplate6.get('emailTemplate').touched">
                           <small
                             *ngIf="staffEmailTemplate6.get('emailTemplate').hasError('required')"
                             class="error">Email Template Is required</small>
@@ -2200,8 +2171,7 @@
                                                     <textarea formControlName="emailTemplate" appearance="outline" rows="40" matInput></textarea>
                                                 </mat-form-field>
                                                 <span class="error-wrap" *ngIf="staffEmailTemplate7.get('emailTemplate').dirty
-                          || staffEmailTemplate7.get('emailTemplate').touched ||
-                          formSubmitclicked">
+                          || staffEmailTemplate7.get('emailTemplate').touched">
                           <small
                             *ngIf="staffEmailTemplate7.get('emailTemplate').hasError('required')"
                             class="error">Email Template Is required</small>
@@ -2592,7 +2562,7 @@
                         </div>
                     </mat-expansion-panel>
                 </mat-accordion>
-                <mat-accordion class="matcard-space">
+                <!-- <mat-accordion class="matcard-space">
                     <mat-expansion-panel>
                         <mat-expansion-panel-header>
                             <mat-panel-title>
@@ -2635,7 +2605,7 @@
                             </mat-panel-description>
                         </mat-expansion-panel-header>
                     </mat-expansion-panel>
-                </mat-accordion>
+                </mat-accordion> -->
                 <mat-accordion class="matcard-space">
                     <mat-expansion-panel>
                         <mat-expansion-panel-header>
@@ -2649,7 +2619,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <p class="mb-0 pt-2 pl-3">Plivo SMS Gateway</p>
+                                    <p class="mb-0 pt-2 pl-3">Text Local SMS Gateway</p>
                                 </div>
                             </mat-panel-title>
                             <mat-panel-description>
@@ -2681,7 +2651,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate1.get('smsTemplate').dirty || cusSmsTemplate1.get('smsTemplate').touched">
                                                     <small *ngIf="cusSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
@@ -2745,7 +2715,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate3.get('smsTemplate').dirty || cusSmsTemplate2.get('smsTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate3.get('smsTemplate').dirty || cusSmsTemplate2.get('smsTemplate').touched">
                                                     <small *ngIf="cusSmsTemplate2.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
@@ -2873,7 +2843,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate4.get('smsTemplate').dirty || cusSmsTemplate4.get('smsTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate4.get('smsTemplate').dirty || cusSmsTemplate4.get('smsTemplate').touched">
                                                     <small *ngIf="cusSmsTemplate4.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
@@ -2937,7 +2907,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate5.get('smsTemplate').dirty || cusSmsTemplate5.get('smsTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate5.get('smsTemplate').dirty || cusSmsTemplate5.get('smsTemplate').touched">
                                                     <small *ngIf="cusSmsTemplate5.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
@@ -3001,7 +2971,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate6.get('smsTemplate').dirty || cusSmsTemplate6.get('smsTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate6.get('smsTemplate').dirty || cusSmsTemplate6.get('smsTemplate').touched">
                                                     <small *ngIf="cusSmsTemplate6.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
@@ -3065,7 +3035,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="cusSmsTemplate7.get('smsTemplate').dirty || cusSmsTemplate7.get('smsTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="cusSmsTemplate7.get('smsTemplate').dirty || cusSmsTemplate7.get('smsTemplate').touched">
                                                     <small *ngIf="cusSmsTemplate7.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
@@ -3133,7 +3103,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="adminSmsTemplate1.get('smsTemplate').dirty || adminSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="adminSmsTemplate1.get('smsTemplate').dirty || adminSmsTemplate1.get('smsTemplate').touched">
                                                     <small *ngIf="adminSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
@@ -3198,7 +3168,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="adminSmsTemplate2.get('smsTemplate').dirty || adminSmsTemplate2.get('smsTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="adminSmsTemplate2.get('smsTemplate').dirty || adminSmsTemplate2.get('smsTemplate').touched">
                                                     <small *ngIf="adminSmsTemplate2.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
@@ -3262,7 +3232,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="adminSmsTemplate3.get('smsTemplate').dirty || adminSmsTemplate3.get('smsTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="adminSmsTemplate3.get('smsTemplate').dirty || adminSmsTemplate3.get('smsTemplate').touched">
                                                     <small *ngIf="adminSmsTemplate3.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
@@ -3326,7 +3296,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="adminSmsTemplate4.get('smsTemplate').dirty || adminSmsTemplate4.get('smsTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="adminSmsTemplate4.get('smsTemplate').dirty || adminSmsTemplate4.get('smsTemplate').touched">
                                                     <small *ngIf="adminSmsTemplate4.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
@@ -3390,7 +3360,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="adminSmsTemplate5.get('smsTemplate').dirty || adminSmsTemplate5.get('smsTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="adminSmsTemplate5.get('smsTemplate').dirty || adminSmsTemplate5.get('smsTemplate').touched">
                                                     <small *ngIf="adminSmsTemplate5.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
@@ -3454,7 +3424,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="adminSmsTemplate6.get('smsTemplate').dirty || adminSmsTemplate6.get('smsTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="adminSmsTemplate6.get('smsTemplate').dirty || adminSmsTemplate6.get('smsTemplate').touched">
                                                     <small *ngIf="adminSmsTemplate6.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
@@ -3518,7 +3488,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="adminSmsTemplate7.get('smsTemplate').dirty || adminSmsTemplate7.get('smsTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="adminSmsTemplate7.get('smsTemplate').dirty || adminSmsTemplate7.get('smsTemplate').touched">
                                                     <small *ngIf="adminSmsTemplate7.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
@@ -3586,7 +3556,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="staffSmsTemplate1.get('smsTemplate').dirty || staffSmsTemplate1.get('smsTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="staffSmsTemplate1.get('smsTemplate').dirty || staffSmsTemplate1.get('smsTemplate').touched">
                                                     <small *ngIf="staffSmsTemplate1.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
@@ -3650,7 +3620,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="staffSmsTemplate2.get('smsTemplate').dirty || staffSmsTemplate2.get('smsTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="staffSmsTemplate2.get('smsTemplate').dirty || staffSmsTemplate2.get('smsTemplate').touched">
                                                     <small *ngIf="staffSmsTemplate2.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
@@ -3714,7 +3684,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="staffSmsTemplate3.get('smsTemplate').dirty || staffSmsTemplate3.get('smsTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="staffSmsTemplate3.get('smsTemplate').dirty || staffSmsTemplate3.get('smsTemplate').touched">
                                                     <small *ngIf="staffSmsTemplate3.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
@@ -3778,7 +3748,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="staffSmsTemplate4.get('smsTemplate').dirty || staffSmsTemplate4.get('smsTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="staffSmsTemplate4.get('smsTemplate').dirty || staffSmsTemplate4.get('smsTemplate').touched">
                                                     <small *ngIf="staffSmsTemplate4.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
@@ -3842,7 +3812,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="staffSmsTemplate5.get('smsTemplate').dirty || staffSmsTemplate5.get('smsTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="staffSmsTemplate5.get('smsTemplate').dirty || staffSmsTemplate5.get('smsTemplate').touched">
                                                     <small *ngIf="staffSmsTemplate5.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
@@ -3906,7 +3876,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="staffSmsTemplate6.get('smsTemplate').dirty || staffSmsTemplate6.get('smsTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="staffSmsTemplate6.get('smsTemplate').dirty || staffSmsTemplate6.get('smsTemplate').touched">
                                                     <small *ngIf="staffSmsTemplate6.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
@@ -3970,7 +3940,7 @@
                                                     <mat-label>Template</mat-label>
                                                     <textarea formControlName="smsTemplate" appearance="outline" rows="30" matInput></textarea>
                                                 </mat-form-field>
-                                                <span class="error-wrap" *ngIf="staffSmsTemplate7.get('smsTemplate').dirty || staffSmsTemplate7.get('smsTemplate').touched || formSubmitclicked">
+                                                <span class="error-wrap" *ngIf="staffSmsTemplate7.get('smsTemplate').dirty || staffSmsTemplate7.get('smsTemplate').touched">
                                                     <small *ngIf="staffSmsTemplate7.get('smsTemplate').hasError('required')" class="error">Sms Template Is required</small>
                                                 </span>
                                                 <div class="float-right">
