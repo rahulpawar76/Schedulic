@@ -29,7 +29,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { FrontbookingComponent } from './frontbooking/frontbooking.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-
+import { NgxPayPalModule } from 'ngx-paypal';
 
 
 //import { UserappointmentsComponent } from './user-dashboard/userappointments/userappointments.component';
@@ -106,6 +106,7 @@ registerLocaleData(localeDe);
         MatRadioModule,
         SharedModule,
 		NgxIntlTelInputModule,
+        NgxPayPalModule
     ],
     exports: [
         BrowserModule,

@@ -6,6 +6,7 @@
                 <div class="step-loader" *ngIf="isLoader">
                     <img src="../../assets/loading-spinner.gif" />
                 </div>
+                <!-- <button (click)="fnPayUMoney()" mat-button class="round-btn continue-btn logout-btn">Temp</button> -->
                 <div id="service_list" class="main-step step_1 p-0" *ngIf="catselection">
                     <div class="step-top-head"></div>
                     <div class="col-lg-12 col-sm-12 col-12 float-left loggedin_head" *ngIf="isLoggedIn">
@@ -450,12 +451,33 @@
                     <label *ngIf="currencySymbolPosition=='right'" class="price text-right d-block">{{ serviceMainArr.netCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
                 </div>
             </div>
+            <div class="d-flex">
+
+                <mat-checkbox *ngIf="termsConditions.status == 'true'" class="termscondition ml-3" (change)="fnChangeTermsConditionsStatus($event.checked)">
+                    <a *ngIf="termsConditions.page_link != ''" href="{{termsConditions.page_link}}" target="blank">{{termsConditions.label}}</a>
+
+                    <a *ngIf="termsConditions.page_link == ''" target="blank">{{termsConditions.label}}</a>
+                </mat-checkbox>
+                <!-- <label *ngIf="termsConditions.status == 'true'"><input id="check" type="checkbox" class="termscondition ml-3" (change)="fnChangeTermsConditionsStatus($event.target.checked)" > 
+                    <a *ngIf="termsConditions.page_link != ''" href="{{termsConditions.page_link}}" target="blank">{{termsConditions.label}}</a>
+
+                    <a *ngIf="termsConditions.page_link == ''" target="blank">{{termsConditions.label}}</a>
+                </label> -->
+                <mat-checkbox *ngIf="privacyPolicy.status == 'true'" class="termscondition ml-3" (change)="fnChangePrivacyPolicyStatus($event.checked)">
+
+                    <a *ngIf="privacyPolicy.page_link !=''" href="{{privacyPolicy.page_link}}" target="blank">{{privacyPolicy.label}}</a>
+
+                    <a *ngIf="privacyPolicy.page_link ==''" target="blank">{{privacyPolicy.label}}</a>
+
+
+                </mat-checkbox>
+
+            </div>
             <div class="bottom-ctn-btn">
-                <button *ngIf='serviceMainArr.totalNumberServices>0' (click)="fnProceedToPayment($event)" mat-button class="round-btn continue-btn proceed">Proceed</button>
+                <button *ngIf='serviceMainArr.totalNumberServices>0 && termsConditionsStatusValue && PrivacyPolicyStatusValue' (click)="fnProceedToPayment($event)" mat-button class="round-btn continue-btn proceed">Proceed</button>
             </div>
         </mat-card-content>
     </div>
-
     <div id="payment_method" class="main-step step_9 p-0" *ngIf="paymentScreen">
         <div class="step-top-head"></div>
 
@@ -472,12 +494,10 @@
                 <mat-radio-button [checked]="paymentMethod == 'Cash'" (change)="fnPaymentMethod('Cash')" class="payment-radio px-3 mb-0 col-12 w-auto mt-y mx-4 p-4 cash-payment single-pay" value="pay1">Cash Payment
                     <img src="../../assets/icons/cash-symbol.png" class="payment-gtw-icon cash-payment" />
                 </mat-radio-button>
+                
                 <mat-radio-button [checked]="paymentMethod == 'Card Payment'" (change)="fnPaymentMethod('Card Payment')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay2">Credit Card
                     <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" />
                 </mat-radio-button>
-
-
-
                 <div *ngIf="creditcardform" class="field-list mx-4 row credit-card-form ">
                     <div class="col-12 left-side col-lg-6">
                         <div class="col-12">
@@ -502,30 +522,40 @@
                     </div>
                 </div>
 
+                <mat-radio-button [checked]="paymentMethod == 'Paypal'" (change)="fnPaymentMethod('Paypal')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay2">Paypal
+                    <!-- <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" /> -->
+                    <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_150x38.png" alt="PayPal" class="payment-gtw-icon cash-payment" />
+                    <!-- <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal"  class="payment-gtw-icon cash-payment"/> -->
+                </mat-radio-button>
+                <div *ngIf="showPaypalButtons" class="field-list mx-4 row credit-card-form ">
+                    <div class="col-12 left-side col-lg-6">
+                        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                    </div>
+                    <div class="col-12 right-side col-lg-6">
+                        <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_200x51.png" alt="PayPal" />
+                    </div>
+                </div>
 
-
+                <mat-radio-button [checked]="paymentMethod == 'PayUMoney'" (change)="fnPaymentMethod('PayUMoney')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay2">PayUMoney
+                    <!-- <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" /> -->
+                    <img src="../../assets/images/payumoney-logo.png" alt="PayPal" class="payment-gtw-icon cash-payment payumoney-logo-width" />
+                    <!-- <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal"  class="payment-gtw-icon cash-payment"/> -->
+                </mat-radio-button>
+                <!-- <div *ngIf="showPayUMoneyButton" class="field-list mx-4 row credit-card-form "> -->
+                    <!-- <div class="col-12 left-side col-lg-6">
+                        <div class='pm-button'><a href='https://www.payumoney.com/sandbox/paybypayumoney/#/8C489717229C94CF81E97BB992F57B4D'><img src='https://www.payumoney.com/media/images/payby_payumoney/new_buttons/23.png' /></a></div> 
+                    </div> -->
+                    <!-- <div class="col-12 left-side col-lg-6">
+                        <div class='pm-button'><button (click)="fnPayUMoney()" mat-button class="round-btn continue-btn logout-btn"><img src='https://www.payumoney.com/media/images/payby_payumoney/new_buttons/23.png' /></button></div> 
+                    </div>
+                    <div class="col-12 right-side col-lg-6">
+                        <img src='../../assets/images/payumoney-logo.png' />
+                    </div>
+                </div> -->
             </mat-radio-group>
-            <div class="d-flex">
-
-                <mat-checkbox *ngIf="termsConditions.status == 'true'" class="termscondition ml-3" (change)="fnChangeTermsConditionsStatus($event.checked)">
-                    <a *ngIf="termsConditions.page_link != ''" href="{{termsConditions.page_link}}" target="blank">{{termsConditions.label}}</a>
-
-                    <a *ngIf="termsConditions.page_link == ''" target="blank">{{termsConditions.label}}</a>
-                </mat-checkbox>
-
-                <mat-checkbox *ngIf="privacyPolicy.status == 'true'" class="termscondition ml-3" (change)="fnChangePrivacyPolicyStatus($event.checked)">
-
-                    <a *ngIf="privacyPolicy.page_link !=''" href="{{privacyPolicy.page_link}}" target="blank">{{privacyPolicy.label}}</a>
-
-                    <a *ngIf="privacyPolicy.page_link ==''" target="blank">{{privacyPolicy.label}}</a>
-
-
-                </mat-checkbox>
-
-            </div>
 
             <div class="bottom-ctn-btn">
-                <button *ngIf="paymentMethod != '' && termsConditionsStatusValue && PrivacyPolicyStatusValue" (click)="fnAppointmentBooking()" mat-button class="round-btn continue-btn proceed">Pay Now</button>
+                <button *ngIf="paymentMethod != '' && paymentMethod != 'Paypal'" (click)="fnPayNow()" mat-button class="round-btn continue-btn proceed">Pay Now</button>
             </div>
 
         </mat-card-content>
