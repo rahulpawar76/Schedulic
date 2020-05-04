@@ -581,6 +581,7 @@
                 }
                 .credit-card-form {
                     .right-side {
+                        text-align: center;
                         img {
                             max-width: 300px;
                             margin: 20px 0;
@@ -925,7 +926,7 @@ input:focus {
     align-items: center;
     background-color: #00000070;
     position: absolute;
-    z-index: 9;
+    z-index: 999;
     top: 0;
     left: 0;
     img {
@@ -953,4 +954,7 @@ input:focus {
             border-radius: 5px;
         }
     }
+}
+.payumoney-logo-width{
+    width: 147px;
 }

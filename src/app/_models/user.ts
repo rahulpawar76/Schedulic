@@ -15,4 +15,5 @@
     city?: string; //Use with fake backend
     zip?: string; //Use with fake backend
     business_id?: string; //Use with fake backend
+    phone?: string; //Use with fake backend
 }
