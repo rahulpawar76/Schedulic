@@ -1,4 +1,4 @@
-﻿<div fxLayout="row wrap" fxLayoutGap="2%" *ngIf="!dataLoaded" fxLayoutAlign="center center" class="full-height">
+<div fxLayout="row wrap" fxLayoutGap="2%" *ngIf="!dataLoaded" fxLayoutAlign="center center" class="full-height">
       <mat-spinner [diameter]="50"></mat-spinner>
       <span>Fetching data...</span>
 </div>
@@ -37,6 +37,21 @@
                   <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mt-butn "></span>
                   Login
               </button>
+            </div> 
+            <div class="input-wrap my-3">
+              <button type="button" color="primary" [disabled]="loading" (click)="signInWithGoogle()" class="common-btn text-white w-100 buttion-but" >
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mt-butn "></span>
+                  Sign In With Google
+              </button>
+              <button type="button" color="primary" [disabled]="loading" (click)="signInWithFB()" class="common-btn text-white w-100 buttion-but" >
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mt-butn "></span>
+                  Sign In With Facebook
+              </button>
+              <button type="button" color="primary" [disabled]="loading" (click)="signOut()" class="common-btn text-white w-100 buttion-but" >
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mt-butn "></span>
+                  signOut from Google
+              </button>
+              <!-- <button type="button" (click)="signInWithGoogle()" class="btn btn-primary">Sign In With Google</button> -->
             </div> 
         <!-- Traslate -->
           <div class="forgot-wrap text-center"> 

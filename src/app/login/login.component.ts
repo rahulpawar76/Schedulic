@@ -7,6 +7,7 @@ import { AuthenticationService } from '@app/_services';
 import { LoaderService } from '@app/_services/loader.service';
 import { User, Role } from '../_models';
 import { AppComponent } from '../app.component';
+import { AuthService, FacebookLoginProvider,GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 declare var google:any
 
 @Component({ 
@@ -28,13 +29,17 @@ export class LoginComponent implements OnInit {
     isIE: boolean = false;
 
     currentUser: User;
+    user: SocialUser;
+    loggedIn: boolean;
+
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
         private loaderService: LoaderService,
-        private appComponent:AppComponent
+        private appComponent:AppComponent,
+        private authService: AuthService
     ) { 
         if(/msie\s|trident\//i.test(window.navigator.userAgent)){
             this.isIE = true;
@@ -43,6 +48,11 @@ export class LoginComponent implements OnInit {
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
        
         if (this.authenticationService.currentUserValue) { 
+            this.authService.authState.subscribe((user) => {
+              this.user = user;
+              this.loggedIn = (user != null);
+              console.log(this.user);
+            });
             if(this.authenticationService.currentUserValue.user_type == Role.Admin){
                 this.router.navigate(["admin"]);
             }else if(this.authenticationService.currentUserValue.user_type == Role.Staff){
@@ -52,6 +62,16 @@ export class LoginComponent implements OnInit {
             }
         }else{
             this.dataLoaded=true;
+            this.authService.authState.subscribe((user) => {
+                if(user){
+                    this.user = user;
+                    this.loggedIn = (user != null);
+                }else{
+                    
+                }
+              
+              console.log(this.user);
+            });
         }
     }
 
@@ -106,5 +126,52 @@ export class LoginComponent implements OnInit {
     }
     forgotPassword(){
         this.router.navigate(['/forgot-password']);
+    }
+
+    fnSignup(user_data){
+        let signUpUserObj={
+            "password":"",
+            "firstname":user_data.firstname,
+            "lastname":user_data.lastname,
+            "phone":"",
+            "email":user_data.email,
+            "address":"",
+            "zip":"",
+            "state":"",
+            "city":"",
+            "country":""
+        }
+        this.authenticationService.signup(signUpUserObj).pipe(first()).subscribe(data => {
+                if(data.data == true){
+                    if(data.response.user_type == "A"){
+                        this.router.navigate(["admin"]);
+                    }else if(data.response.user_type == "SM"){
+                        this.router.navigate(["staff"]);
+                    }else{
+                        this.router.navigate(["user"]);
+                    }
+
+                    this.appComponent.initiateTimeout();
+                    this.hideLoginForm = false;
+                
+                }else{
+                    this.error = "Email or Password is incorrect"; 
+                    this.dataLoaded = true;
+                }
+            },
+            error => { 
+                this.error = "Database Connection Error"; 
+                this.dataLoaded = true;  
+            });
+    }
+
+    signInWithGoogle(): void {
+        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    }
+    // signInWithFB(): void {
+    //     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    //   }
+    signOut(): void {
+        this.authService.signOut();
     }
 }
