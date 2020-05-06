@@ -3,7 +3,7 @@
     height: 100vh;
     position: relative;
     .main_bg {
-        background-image: url("/../../assets/images/booking_bg.jpg");
+        background-image: url("/../../assets/images/booking_bg.png");
         background-size: cover;
         background-repeat: no-repeat;
         height: 100vh;
@@ -955,6 +955,11 @@ input:focus {
         }
     }
 }
-.payumoney-logo-width{
+
+.payumoney-logo-width {
     width: 147px;
+}
+
+.credit-card-form.field-list .error-wrap {
+    bottom: unset;
 }
