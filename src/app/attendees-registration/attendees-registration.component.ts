@@ -84,5 +84,8 @@ export class AttendeesRegistrationComponent implements OnInit {
 		}
 		
 	}
+	login(){
+        this.router.navigate(["login"]);
+	}
 
 }

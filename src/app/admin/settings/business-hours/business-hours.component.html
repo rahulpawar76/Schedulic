@@ -215,8 +215,8 @@
             <div class="main-table-content main-cust-table-content">
               <div class="">
                 <div class="heads main-heading-content breaks-hour-box header-background " fxLayout="row">
+                  <div class="" fxFlex="15"></div>
                   <div class="" fxFlex="10"></div>
-                  <div class="" fxFlex="5"></div>
                   <div class="" fxFlex="15"></div>
                   <div class="" fxFlex="30"></div>
                   <!-- <div class="" fxFlex="10"></div>
@@ -229,12 +229,12 @@
                     <div class="" fxFlex="5">
                       <!-- <mat-slide-toggle></mat-slide-toggle> -->
                     </div>
-                    <div class="" fxFlex="10">Monday</div>
-                    <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="mondayOn" (click)="fnShowAddBreakForm('Monday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!mondayOn">Closed</button></div>
+                    <div class="" fxFlex="15">Monday</div>
+                    <div class="" fxFlex="10"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="mondayOn" (click)="fnShowAddBreakForm('Monday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!mondayOn">Closed</button></div>
                     <div fxFlex="35" *ngIf="mondayOn">
                       <div *ngFor="let breakTime of breakTimeList">
                         <div class="d-flex" *ngIf="breakTime.week_day_id == '1'">
-                          <mat-form-field class="bottom-border-field workinghour-dropdown">
+                          <mat-form-field class="bottom-border-field workinghour-dropdown mt-0">
                             <mat-label></mat-label>
                             <mat-select [(value)]="breakTime.break_start_time" [disabled]="true">
                             <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
@@ -275,7 +275,7 @@
                     <div class="" fxFlex="5">
                       <!-- <mat-slide-toggle></mat-slide-toggle> -->
                     </div>
-                    <div class="" fxFlex="10">Tuesday</div>
+                    <div class="" fxFlex="15">Tuesday</div>
                     <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="tuesdayOn" (click)="fnShowAddBreakForm('Tuesday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!tuesdayOn">Closed</button></div>
                     <div fxFlex="35" *ngIf="tuesdayOn">
                       <div *ngFor="let breakTime of breakTimeList">
@@ -321,7 +321,7 @@
                     <div class="" fxFlex="5">
                       <!-- <mat-slide-toggle></mat-slide-toggle> -->
                     </div>
-                    <div class="" fxFlex="10">Wednesday</div>
+                    <div class="" fxFlex="15">Wednesday</div>
                     <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="wednesdayOn" (click)="fnShowAddBreakForm('Wednesday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!wednesdayOn">Closed</button></div>
                     <div fxFlex="35" *ngIf="wednesdayOn">
                       <div *ngFor="let breakTime of breakTimeList">
@@ -367,7 +367,7 @@
                     <div class="" fxFlex="5">
                       <!-- <mat-slide-toggle></mat-slide-toggle> -->
                     </div>
-                    <div class="" fxFlex="10">Thursday</div>
+                    <div class="" fxFlex="15">Thursday</div>
                     <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="thursdayOn" (click)="fnShowAddBreakForm('Thursday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!thursdayOn">Closed</button></div>
                     <div fxFlex="35" *ngIf="thursdayOn">
                       <div *ngFor="let breakTime of breakTimeList">
@@ -413,7 +413,7 @@
                     <div class="" fxFlex="5">
                       <!-- <mat-slide-toggle></mat-slide-toggle> -->
                     </div>
-                    <div class="" fxFlex="10">Friday</div>
+                    <div class="" fxFlex="15">Friday</div>
                     <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="fridayOn" (click)="fnShowAddBreakForm('Friday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!fridayOn">Closed</button></div>
                     <div fxFlex="35" *ngIf="fridayOn">
                       <div *ngFor="let breakTime of breakTimeList">
@@ -459,7 +459,7 @@
                     <div class="" fxFlex="5">
                       <!-- <mat-slide-toggle></mat-slide-toggle> -->
                     </div>
-                    <div class="" fxFlex="10">Saturday</div>
+                    <div class="" fxFlex="15">Saturday</div>
                     <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="saturdayOn" (click)="fnShowAddBreakForm('Saturday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!saturdayOn">Closed</button></div>
                     <div fxFlex="35" *ngIf="saturdayOn">
                       <div *ngFor="let breakTime of breakTimeList">
@@ -505,7 +505,7 @@
                     <div class="" fxFlex="5">
                       <!-- <mat-slide-toggle></mat-slide-toggle> -->
                     </div>
-                    <div class="" fxFlex="10">Sunday</div>
+                    <div class="" fxFlex="15">Sunday</div>
                     <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="sundayOn" (click)="fnShowAddBreakForm('Sunday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!sundayOn">Closed</button></div>
                     <div fxFlex="35" *ngIf="sundayOn">
                       <div *ngFor="let breakTime of breakTimeList">

@@ -164,6 +164,9 @@ export class LoginComponent implements OnInit {
                 this.dataLoaded = true;  
             });
     }
+    signUp(event){
+        this.router.navigate(["attendees-registration"]);
+    }
 
     signInWithGoogle(): void {
         this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
