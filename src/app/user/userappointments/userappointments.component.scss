@@ -391,3 +391,93 @@
     color:#f90;
   }
 }
+
+.field-list {
+  [class*="col-"] {
+      margin: 10px 0;
+  }
+  label {
+      display: block;
+      margin-bottom: 0px;
+      font-size: 18px;
+  }
+  .common-input {
+      display: block;
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 5px;
+      border: 1px solid #e4e3e3;
+      font-size: $fs-16;
+      transition: all 0.3s;
+      &:focus {
+          box-shadow: $shadow;
+      }
+  }
+}
+
+.bottom-ctn-btn {
+  //text-align: right;
+  margin-right: 10px;
+  .continue-btn {
+      font-size: $fs-20;
+      background-color:$primary-color;
+      padding-left: 35px;
+      padding-top: 6px;
+      padding-right: 30px;
+      padding-bottom: 6px;
+      margin-right: 50px;
+      margin: 18px 0 0 21px;
+      color: #fff;
+      border-radius: 50px;
+  }
+}
+#payment_method {
+  .single-pay {
+      background-color: #f3f3f3;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      box-shadow: $shadow;
+      .payment-gtw-icon {
+          margin-left: auto;
+          float: right;
+      }
+      &.payment-radio {
+           ::ng-deep .mat-radio-label {
+              margin-bottom: 0;
+              font-size: 22px;
+              font-weight: 500;
+              .mat-radio-outer-circle {
+                  border-color: #acacac;
+                  width: 25px;
+                  height: 25px;
+                  top: -3px;
+              }
+              .mat-radio-inner-circle {
+                  width: 25px;
+                  height: 25px;
+                  top: -3px;
+              }
+              .mat-radio-label-content {
+                  margin-left: 15px;
+                  ;
+                  width: 100%;
+                  display: flex;
+              }
+          }
+      }
+      &.mat-radio-checked {
+          background-color: $text-bg;
+      }
+  }
+  .credit-card-form {
+      .right-side {
+          text-align: center;
+          img {
+              max-width: 300px;
+              margin: 20px 0;
+          }
+      }
+      box-shadow: $shadow;
+  }
+}

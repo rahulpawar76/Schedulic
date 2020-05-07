@@ -46,10 +46,14 @@ export class UserappointmentsComponent implements OnInit {
   transactionId : any;
   paymentDateTime: any;
   paymentScreen: boolean = false;
+  onlynumeric = /^-?(0|[1-9]\d*)?$/
+
+  cardForm:FormGroup;
 
   constructor(
     public dialog: MatDialog,
     private http: HttpClient,
+    private _formBuilder: FormBuilder,
     private UserService: UserService,
     public router: Router,
     private _snackBar: MatSnackBar,
@@ -57,6 +61,13 @@ export class UserappointmentsComponent implements OnInit {
     private authenticationService: AuthenticationService
     ) {
     this.bussinessId=this.authenticationService.currentUserValue.business_id;
+    this.cardForm = this._formBuilder.group({
+      cardHolderName: ['',[Validators.required]],
+      cardNumber: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+      expiryMonth: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+      expiryYear: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+      cvvCode: ['',[Validators.required]],
+    })
   }
 
 
