@@ -27,6 +27,7 @@ export interface DialogData {
 export class UserappointmentsComponent implements OnInit {
   animal: any;
   bussinessId: any;
+  customerId:any;
   appointmentData : any;
   cancelAppointmentData: any;
   completedAppointmentData: any;
@@ -37,7 +38,10 @@ export class UserappointmentsComponent implements OnInit {
   currencySymbol:any;
   currencySymbolPosition:any;
   currencySymbolFormat:any;
-  searchKeyword:any;
+  search = {
+    keyword: ""
+  };
+  openedTab :any = 0;
   
   creditcardform = false;
   showPaypalButtons = false;
@@ -278,7 +282,7 @@ getCompletedAppointments(): void{
      });
   }
   fnTabValue(event){
-    console.log(event)
+    this.openedTab = event;
   }
   payAppoint(){
     this.paymentScreen = true;
@@ -320,7 +324,35 @@ getCompletedAppointments(): void{
   frontBooking(){
     this.router.navigate(['/booking']);
   }
-  customerSearchAppointment(event){
+  customerSearchAppointment(){
+    alert(this.search.keyword);
+    if(this.search.keyword.length > 2){
+      let requestObject = {
+        "search":this.search.keyword,
+        "customer_id":this.customerId,
+        "business_id":this.bussinessId
+      }
+      console.log(requestObject);
+      this.UserService.customerSearchAppointment(requestObject).subscribe((response:any) =>{
+        if(response.data == true){
+          this.appointmentData = response.response;
+          this.appointmentData.forEach( (element) => {
+            element.bookingDateTime = new Date(element.booking_date+" "+element.booking_time);
+            element.booking_timeForLabel = this.datePipe.transform(element.bookingDateTime,"hh:mm a");
+            element.booking_dateForLabel = this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
+            element.created_atForLabel = this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a");
+    
+            var dateTemp = new Date(this.datePipe.transform(element.bookingDateTime,"dd MMM yyyy hh:mm a"));
+            dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+            element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+    
+          });
+        }
+        else if(response.data == false){
+          this.appointmentData = [];
+        }
+      })
+    }
     
   }
 
