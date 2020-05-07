@@ -1,25 +1,25 @@
 <div class="profile-main col-8">
     <mat-card-title class="title">My Profile</mat-card-title>
     <form [formGroup]="myProfile">
-    <mat-card class="card">
-        <div class="card-body row">
-            <div class="col-lg-3 col-sm-3 col-md-3">
-            <div class="profile-img-wrap" (click)="ImgUpload()">
-                <img mat-card-avatar *ngIf="profiledata.image != ''" class="customer-profile-img" src="{{profiledata.image}}">
-                <img mat-card-avatar *ngIf="profiledata.image == ''" class="customer-profile-img" src="/src/assets/images/default.png">
-                <div class="camera-alt"><i class="material-icons"> camera_alt</i></div>
-            </div>
-            </div>
-            <div class="col-8">
+        <mat-card class="card">
+            <div class="card-body row">
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                    <div class="profile-img-wrap" (click)="ImgUpload()">
+                        <img mat-card-avatar *ngIf="profiledata.image != ''" class="customer-profile-img" src="{{profiledata.image}}">
+                        <img mat-card-avatar *ngIf="profiledata.image == ''" class="customer-profile-img" src="/src/assets/images/default.png">
+                        <div class="camera-alt"><i class="material-icons"> camera_alt</i></div>
+                    </div>
+                </div>
+                <div class="col-8">
                     <div class="form-group row">
                         <div class="col-9 col-lg-9">
                             <div>
                                 <mat-form-field class="form-group  bottom-border-field">
                                     <mat-label>First Name</mat-label>
-                                    <mat-icon matPrefix ><i class="material-icons">person_outline</i></mat-icon>
-                                    <input matInput formControlName="user_FirstName"  value="" placeholder="Enter First Name" >
-                                  </mat-form-field>
-								<span class="error-wrap" *ngIf="myProfile.get('user_FirstName').touched || myProfile.get('user_FirstName').dirty">
+                                    <mat-icon matPrefix><i class="material-icons">person_outline</i></mat-icon>
+                                    <input matInput formControlName="user_FirstName" value="" placeholder="Enter First Name">
+                                </mat-form-field>
+                                <span class="error-wrap" *ngIf="myProfile.get('user_FirstName').touched || myProfile.get('user_FirstName').dirty">
 									<small *ngIf="myProfile.get('user_FirstName').hasError('required')" class="error">First Name Is required</small>
 								 </span>
                             </div>
@@ -28,13 +28,13 @@
 
                     <div class="form-group row">
                         <div class="col-9 col-lg-9">
-                                <div>
-                                    <mat-form-field class="form-group  bottom-border-field">
-                                        <mat-label>Last Name</mat-label>
-                                        <mat-icon matPrefix ><i class="material-icons">person_outline</i></mat-icon>
-                                        <input matInput formControlName="user_LastName"  value="" placeholder="Enter Last Name" >
-                                      </mat-form-field>
-								<span class="error-wrap" *ngIf="myProfile.get('user_LastName').touched || myProfile.get('user_LastName').dirty">
+                            <div>
+                                <mat-form-field class="form-group  bottom-border-field">
+                                    <mat-label>Last Name</mat-label>
+                                    <mat-icon matPrefix><i class="material-icons">person_outline</i></mat-icon>
+                                    <input matInput formControlName="user_LastName" value="" placeholder="Enter Last Name">
+                                </mat-form-field>
+                                <span class="error-wrap" *ngIf="myProfile.get('user_LastName').touched || myProfile.get('user_LastName').dirty">
 									<small *ngIf="myProfile.get('user_LastName').hasError('required')" class="error">Last Name Is required</small>
 								 </span>
                             </div>
@@ -43,13 +43,13 @@
 
                     <div class="form-group row">
                         <div class="col-9 col-lg-9">
-                                <div>
-                                    <mat-form-field class="form-group  bottom-border-field">
-                                        <mat-label> Email</mat-label>
-                                        <mat-icon matPrefix><i class="fa fa-envelope-o"></i></mat-icon>
-                                        <input matInput formControlName="user_Email" value="" placeholder="Enter Email" >
-                                      </mat-form-field>
-								<span class="error-wrap" *ngIf="myProfile.get('user_Email').touched || myProfile.get('user_Email').dirty">
+                            <div>
+                                <mat-form-field class="form-group  bottom-border-field">
+                                    <mat-label> Email</mat-label>
+                                    <mat-icon matPrefix><i class="fa fa-envelope-o"></i></mat-icon>
+                                    <input matInput formControlName="user_Email" value="" placeholder="Enter Email">
+                                </mat-form-field>
+                                <span class="error-wrap" *ngIf="myProfile.get('user_Email').touched || myProfile.get('user_Email').dirty">
 									<small *ngIf="myProfile.get('user_Email').hasError('required')" class="error">Email Address Is required</small>
 									<small *ngIf="myProfile.get('user_Email').hasError('email') || myProfile.get('user_Email').hasError('emailFormat')" class="error">Email Address Is not valid</small>
 								 </span>
@@ -59,12 +59,12 @@
 
                     <div class="form-group row">
                         <div class="col-9 col-lg-9">
-                                <div>
-                                    <mat-form-field class="form-group  bottom-border-field">
-                                        <mat-label>Mobile</mat-label>
-                                        <mat-icon matPrefix><i class="fa fa-phone"></i></mat-icon>
-                                        <input matInput formControlName="user_Mobile"  value="" placeholder="Enter Mobile Number" >
-                                      </mat-form-field>
+                            <div>
+                                <mat-form-field class="form-group  bottom-border-field">
+                                    <mat-label>Mobile</mat-label>
+                                    <mat-icon matPrefix><i class="fa fa-phone"></i></mat-icon>
+                                    <input matInput formControlName="user_Mobile" value="" placeholder="Enter Mobile Number">
+                                </mat-form-field>
                                 <span class="error-wrap" *ngIf="myProfile.get('user_Mobile').touched || myProfile.get('user_Mobile').dirty">
 									<small *ngIf="myProfile.get('user_Mobile').hasError('required')" class="error">Mobile Number Is required</small>
 									<small *ngIf="myProfile.get('user_Mobile').hasError('minLength') || myProfile.get('user_Mobile').hasError('maxLength')" class="error">Mobile Number shoud be 10 digit</small>
@@ -73,9 +73,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
-        </div>
-    </mat-card>
-    <button class="d-block btn btn-primary details" (click)="onSubmit($event)">Save</button>
-</form>
+            <button class="d-block btn btn-primary details" (click)="onSubmit($event)">Save</button>
+        </mat-card>
+    </form>
 </div>

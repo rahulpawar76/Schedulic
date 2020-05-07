@@ -1,4 +1,4 @@
-import { Component, OnInit,ElementRef, ViewChild, ViewChildren, QueryList} from '@angular/core';
+import { Component, OnInit,ElementRef, ViewChild, ViewChildren, QueryList, Renderer2, Inject} from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import { environment } from '@environments/environment';
@@ -8,10 +8,14 @@ import { NgbDateParserFormatter, NgbDateStruct, NgbCalendar} from '@ng-bootstrap
 import { MdePopoverTrigger } from '@material-extended/mde';
 import { MatSnackBar} from '@angular/material/snack-bar';
 import { AuthenticationService } from '@app/_services';
-import { DatePipe} from '@angular/common';
+import { DatePipe, DOCUMENT } from '@angular/common';
 import { AppComponent } from '@app/app.component';
 import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
-
+import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
+import { Meta } from '@angular/platform-browser';
+// import { DOCUMENT } from '@angular/platform-browser';
+// import { DOCUMENT } from '@angular/common',
+import { sha512 as sha512 } from 'js-sha512';
 @Component({
   selector: 'app-frontbooking',
   templateUrl: './frontbooking.component.html',
@@ -49,6 +53,8 @@ export class FrontbookingComponent implements OnInit {
   existinguser = true;
   newuser = false;
   creditcardform = false;
+  showPaypalButtons = false;
+  showPayUMoneyButton = false;
   checked = false;
   minVal=1;
   catdata :[];
@@ -105,6 +111,10 @@ export class FrontbookingComponent implements OnInit {
   isLoggedIn:boolean=false;
   isStaffAvailable:boolean=false;
   customerName:any;
+  customerFirstname:any;
+  customerLastname:any;
+  customerEmail:any;
+  customerPhone:any;
   cartOpened : boolean = true;
   couponIcon:any="check";
   isReadOnly:any="";
@@ -138,10 +148,37 @@ export class FrontbookingComponent implements OnInit {
 	TooltipLabel = TooltipLabel;
 	CountryISO = CountryISO;
 	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
-
+  itemArr:any= [];
+  taxAmount=0;
+  reference_id:any;
+  transactionId:any=null;
+  paymentDateTime:any;
+  loadAPI: Promise<any>;
+  isFound:boolean=false;
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
   emailFormat = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
   onlynumeric = /^-?(0|[1-9]\d*)?$/
+  public payPalConfig?: IPayPalConfig;
+  cardForm:FormGroup
+
+  PayUMoney={
+    key:'',
+    txnid:'',
+    amount:'',
+    firstname:'',
+    email:'',
+    phone:'',
+    productinfo:'',
+    surl:'',
+    furl:'',
+    mode:'',
+    salt:'',
+    udf1:'',
+    udf2:'',
+    udf3:'',
+    udf4:'',
+    udf5:''
+  }
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -150,9 +187,17 @@ export class FrontbookingComponent implements OnInit {
     private snackBar: MatSnackBar,
     private authenticationService: AuthenticationService,
     private AppComponent : AppComponent,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private meta: Meta,
+    private renderer2: Renderer2,
+    @Inject(DOCUMENT) private _document
     
   ) { 
+    meta.addTag({name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'});
+    this.renderExternalScript('https://sboxcheckout-static.citruspay.com/bolt/run/bolt.min.js').onload = () => {
+      console.log('Google API Script loaded');
+    }
+
     this.AppComponent.setcompanycolours("2");
     localStorage.setItem('isFront', "true");
     this.fnGetSettings();
@@ -172,6 +217,13 @@ export class FrontbookingComponent implements OnInit {
     this.formExistingUser = this._formBuilder.group({
       existing_mail: ['',[Validators.required,Validators.email]],
       existing_password: ['',Validators.required],
+    })
+    this.cardForm = this._formBuilder.group({
+      cardHolderName: ['',[Validators.required]],
+      cardNumber: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+      expiryMonth: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+      expiryYear: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+      cvvCode: ['',[Validators.required]],
     })
 
     let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
@@ -199,10 +251,18 @@ export class FrontbookingComponent implements OnInit {
     
   }
 
+  
+
   ngOnInit() {
+    this.initConfig();
+
     if(this.authenticationService.currentUserValue && this.authenticationService.currentUserValue.user_type == "C"){
       this.isLoggedIn=true;
       this.customerName=this.authenticationService.currentUserValue.fullname;
+      this.customerFirstname=this.customerName.split(" ")[0];
+      this.customerLastname=this.customerName.split(" ")[1];
+      this.customerEmail=this.authenticationService.currentUserValue.email;
+      this.customerPhone=this.authenticationService.currentUserValue.phone;
       console.log(this.authenticationService.currentUserValue.user_id+" "+this.isLoggedIn);
     }
    // this.formNewUser.controls['newUserPhone'].setValue(this.phone)
@@ -217,7 +277,18 @@ export class FrontbookingComponent implements OnInit {
     this.serviceCartArr.length=0
   }
 
-
+  renderExternalScript(src: string): HTMLScriptElement {
+    const script = document.createElement('script');
+    script.id = "bolt";
+    script.type = 'text/javascript';
+    script.src = src;
+    script.async = true;
+    script.defer = true;
+    script.setAttribute('bolt-color', 'e34524');
+    script.setAttribute('bolt-logo', 'http://boltiswatching.com/wp-content/uploads/2015/09/Bolt-Logo-e14421724859591.png');
+    this.renderer2.appendChild(document.body, script);
+    return script;
+  }
   fnChangeTermsConditionsStatus(event){
     console.log(event);
 
@@ -269,6 +340,9 @@ export class FrontbookingComponent implements OnInit {
         
         this.currencySymbolFormat = this.settingsArr.currency_format;
         console.log(this.currencySymbolFormat);
+
+        this.PayUMoney.key= 'fT65jM3Y';
+        this.PayUMoney.salt='tDFEAoufm9';
 
         this.termsConditions = JSON.parse(this.settingsArr.terms_condition);
         if(this.termsConditions.status == 'false'){
@@ -1509,6 +1583,10 @@ export class FrontbookingComponent implements OnInit {
         localStorage.setItem('isFront', "true");
         this.authenticationService.currentUserSubject.next(response.response);
         this.customerName=this.authenticationService.currentUserValue.fullname;
+        this.customerFirstname=this.customerName.split(" ")[0];
+        this.customerLastname=this.customerName.split(" ")[1];
+        this.customerEmail=this.authenticationService.currentUserValue.email;
+        this.customerPhone=this.authenticationService.currentUserValue.phone;
 
         if(!isAfterSignup){
           // this.formAppointmentInfo.controls['appo_address'].setValue(response.response.address);
@@ -2023,6 +2101,30 @@ export class FrontbookingComponent implements OnInit {
     if(this.closecoupon != 'valid'){
       this.coupon.couponcode_val=''
     }
+    let digit5= Math.floor(Math.random()*90000) + 10000;
+    this.reference_id="2_"+digit5+"_"+ this.datePipe.transform(new Date(),"yyyy/MM/dd") ;
+    this.itemArr= [];
+      for(let i=0; i<this.serviceCartArr.length;i++){
+        if(this.serviceCartArr[i]){
+          let singleItem={
+            name: this.serviceCartArr[i].service_name,
+            quantity: '1',
+            description : 'Actual Quantity - '+JSON.stringify(this.serviceCartArr[i].count),
+            category: 'DIGITAL_GOODS',
+           // tax:{currency_code:"USD", value:"1.00"},
+            unit_amount: {
+              currency_code: this.currencySymbol,
+              value: JSON.stringify(this.serviceCartArr[i].subtotal)
+            }
+          }
+          this.itemArr.push(singleItem);
+
+        }
+      }
+      this.taxAmount=0;
+      this.taxAmountArr.forEach(element=>{
+        this.taxAmount=this.taxAmount+element.amount;
+      });
     this.summaryScreen = false;
     this.paymentScreen =true;
   }
@@ -2061,12 +2163,35 @@ export class FrontbookingComponent implements OnInit {
 
   fnPaymentMethod(paymentMethod){
     console.log(paymentMethod);
-    if(paymentMethod == 'Card Payment'){
-      this.paymentMethod="Card Payment";
-      this.creditcardform =true;
-    }else{
+    if(paymentMethod == 'Cash'){
       this.creditcardform =false;
+      this.showPaypalButtons =false;
       this.paymentMethod="Cash";
+      this.transactionId=null;
+      this.paymentDateTime=this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss");
+    }
+    if(paymentMethod == 'stripe'){
+      this.paymentMethod="stripe";
+      this.creditcardform =true;
+      this.showPaypalButtons =false;
+      this.transactionId=null;
+      this.paymentDateTime=this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss");
+    }
+    if(paymentMethod == 'Paypal'){
+      this.creditcardform =false;
+      this.showPaypalButtons =true;
+      this.showPayUMoneyButton =false;
+      this.paymentMethod="Paypal";
+      this.transactionId=null;
+      this.paymentDateTime=new Date();
+    }
+    if(paymentMethod == 'PayUMoney'){
+      this.creditcardform =false;
+      this.showPaypalButtons =false;
+      this.showPayUMoneyButton =true;
+      this.paymentMethod="PayUMoney";
+      this.transactionId=null;
+      this.paymentDateTime=new Date();
     }
   }
   
@@ -2098,7 +2223,192 @@ export class FrontbookingComponent implements OnInit {
     }
   }
 
+  fnPayNow(){
+    if(this.paymentMethod == 'Cash'){
+      this.fnAppointmentBooking();
+    }
+    if(this.paymentMethod == 'stripe'){
+      this.stripePayment();
+    }
+    if(this.paymentMethod == 'PayUMoney'){
+     this.fnPayUMoney();
+    }
+  }
+  stripePayment(){
+    this.isLoader = true;
+    if(this.cardForm.valid){
+      let requestObject ={
+        "name" : this.cardForm.get("cardHolderName").value,
+        "number" : this.cardForm.get("cardNumber").value,
+        "exp_month" : this.cardForm.get("expiryMonth").value,
+        "exp_year" : this.cardForm.get("expiryYear").value,
+        "cvc" : this.cardForm.get("cvvCode").value,
+        "amount" : this.serviceMainArr.netCost,
+      }
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+  
+      this.http.post(`${environment.apiUrl}/stripe-payment`,requestObject,{headers:headers} ).pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError(this.handleError)
+      ).subscribe((response:any) => {
+        if(response.data == true){
+          this.isLoader=false;
+          this.fnAppointmentBooking();
+      }
+        else{
+          this.snackBar.open("Card Invalid", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+          });
+          this.isLoader=false;
+          console.log(response.response);
+        }
+        },
+        (err) =>{
+          
+        })
+    }
+  }
+
+  private initConfig(): void {
+
+      this.payPalConfig = {
+      currency: this.currencySymbol,
+      clientId: 'AfM8281lH1hKV3Hk_RRwe5gT95do6JeBc9X3KUBSW6407yMP1nJoY820GscNd4gNP8q8fAnrZoEyayL7',
+      // clientId: 'AbwWitbWZcWZGJdguSL2wb-XcgF8KGTHps1c_w9u9t0CMN2uUoBTDSpU5NFJa5qnfN_YYaG_k-9OKfk8',
+      // clientId: 'sb',
+      createOrderOnClient: (data) => <ICreateOrderRequest>{
+        intent: 'CAPTURE',
+        purchase_units: [
+          {
+            reference_id: this.reference_id,
+            amount: {
+              currency_code: this.currencySymbol,
+              value: JSON.stringify(this.serviceMainArr.netCost),
+              breakdown: {
+                item_total: {
+                  currency_code: this.currencySymbol,
+                  value: JSON.stringify(this.serviceMainArr.subtotal)
+                },
+                tax_total : {
+                  currency_code: this.currencySymbol,
+                  value: JSON.stringify(this.taxAmount)
+                },
+                discount : {
+                  currency_code: this.currencySymbol,
+                  value: JSON.stringify(this.serviceMainArr.discount)
+                }
+              }
+            },
+            items: this.itemArr,
+            // items: [
+            //   {
+            //     name: 'Enterprise Subscription',
+            //     quantity: '1',
+            //     description : 'quantity 1',
+            //     category: 'DIGITAL_GOODS',
+            //    // tax:{currency_code:"USD", value:"1.00"},
+            //     unit_amount: {
+            //       currency_code: 'USD',
+            //       value: '8.99',
+            //     }
+            //   },
+            //   {
+            //     name: 'Enterprise Subscription2',
+            //     quantity: '1',
+            //     description : 'quantity 1',
+            //     category: 'DIGITAL_GOODS',
+            //    // tax:{currency_code:"USD", value:"1.00"},
+            //     unit_amount: {
+            //       currency_code: 'USD',
+            //       value: '8.99',
+            //     }
+            //   }
+            // ]
+          }
+        ]
+      },
+      advanced: {
+        commit: 'true'
+      },
+      style: {
+        label: 'paypal',
+        layout: 'vertical',
+        size: "responsive"
+      },
+      onApprove: (data, actions) => {
+      this.isLoader=true
+        console.log('onApprove - transaction was approved, but not authorized', data, actions);
+        actions.order.get().then(details => {
+          console.log('onApprove - you can get full order details inside onApprove: ', details);
+        });
+      },
+      onClientAuthorization: (data) => {
+        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+        //this.showSuccess = true;
+        if(data.status && data.status== "COMPLETED"){
+          this.transactionId=data.id;
+          this.paymentDateTime= this.datePipe.transform(data.create_time,"yyyy-MM-dd HH:mm:ss");
+          console.log(this.transactionId+" "+this.paymentDateTime);
+          this.fnAppointmentBooking();
+        }
+        //this.fnAppointmentBooking();
+      },
+      onCancel: (data, actions) => {
+        console.log('OnCancel', data, actions);
+        this.snackBar.open("Transaction Cancelled", "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+        });
+      },
+      onError: err => {
+        console.log('OnError', err);
+        this.snackBar.open("Error: "+err, "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+        });
+      },
+      onClick: (data, actions) => {
+        console.log('onClick', data, actions);
+      },
+    //   // onInit is called when the button first renders
+    // onInit: function(data, actions) {
+
+    //   // Disable the buttons
+    //   actions.disable();
+
+    //   // Listen for changes to the checkbox
+    //   document.querySelector('#check').addEventListener('change', function(event) {
+
+    //       // Enable or disable the button when it is checked or unchecked
+    //       if (event.target.checked) {
+    //         actions.enable();
+    //       } else {
+    //         actions.disable();
+    //       }
+    //     });
+    // },
+
+    // // onClick is called when the button is clicked
+    // onClick: function() {
+
+    //   // Show a validation error if the checkbox is not checked
+    //   if (!document.querySelector('#check').checked) {
+    //     // document.querySelector('#error').classList.remove('hidden');
+    //   }
+    // }
+    };
+    }
+
   fnAppointmentBooking(){
+    this.isLoader=true;
     let serviceCartArrTemp:any= [];
     for(let i=0; i<this.serviceCartArr.length;i++){
       if(this.serviceCartArr[i]){
@@ -2124,9 +2434,16 @@ export class FrontbookingComponent implements OnInit {
       "tax" : this.taxAmountArr,
       "nettotal" : this.serviceMainArr.netCost,
       "payment_method" : this.paymentMethod,
-      "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd")
+      "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd"),
+      "reference_id": this.reference_id,
+      "transaction_id": this.transactionId,
+      "payment_datetime": this.paymentDateTime
       };
       console.log(JSON.stringify(requestObject));
+      // setTimeout(()=>{
+      //   this.isLoader=false;
+      // },4000)
+      // return false;
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
       });
@@ -2138,16 +2455,17 @@ export class FrontbookingComponent implements OnInit {
         catchError(this.handleError)
       ).subscribe((response:any) => {
         if(response.data == true){
+          this.isLoader=false;
           if(this.thankYou.status == 'true'){
             //alert(this.thankYou.status);
             window.location.href = this.thankYou.page_link;
           }else if(this.thankYou.status == 'false'){
-           
-                this.thankYouScreen=true;
-                this.paymentScreen=false;
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
+            
+            this.thankYouScreen=true;
+            this.paymentScreen=false;
+          // setTimeout(() => {
+          //   window.location.reload();
+          // }, 2000);
         }
       }
         else{
@@ -2158,6 +2476,103 @@ export class FrontbookingComponent implements OnInit {
           
         })
       }
+
+
+    guid() {
+      return this.s4() + this.s4() + this.s4() + this.s4();
+    }
+
+    s4() {
+      return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+    }
+
+    getTxnId(){
+      return this.guid();
+    }
+    
+     // Get Random Transaction Id
+
+    fnPayUMoney(){
+      
+      this.PayUMoney.txnid= this.getTxnId();
+      this.PayUMoney.amount= this.serviceMainArr.netCost.toString();
+      this.PayUMoney.firstname= this.customerFirstname;
+      this.PayUMoney.email= this.customerEmail,
+      this.PayUMoney.phone= this.customerPhone,
+      this.PayUMoney.productinfo= 'Product Description';
+      this.PayUMoney.surl= 'http://localhost:4200/';
+      this.PayUMoney.furl= 'http://localhost:4200/';
+      this.PayUMoney.mode='dropout';// non-mandatory for Customized Response Handling
+      this.PayUMoney.udf1='';
+      this.PayUMoney.udf2='';
+      this.PayUMoney.udf3='';
+      this.PayUMoney.udf4='';
+      this.PayUMoney.udf5='';
+
+      // #Where salt is available on the PayUMoney dashboard.
+      var RequestData = {
+        key: this.PayUMoney.key,
+        txnid: this.PayUMoney.txnid,
+        hash: '',
+        amount: this.PayUMoney.amount,
+        firstname: this.PayUMoney.firstname,
+        email: this.PayUMoney.email,
+        phone: this.PayUMoney.phone,
+        productinfo: this.PayUMoney.productinfo,
+        surl : this.PayUMoney.surl,
+        furl: this.PayUMoney.furl,
+        // mode:this.PayUMoney.mode// non-mandatory for Customized Response Handling
+      }
+      this.generateRequestHash(RequestData);
+      console.log(JSON.stringify(RequestData));
+      var Handler = {
+        responseHandler: (BOLT) => {
+          console.log(JSON.stringify(BOLT));
+          if(BOLT && BOLT.response.txnStatus == "SUCCESS"){
+            let generatedHash=this.generateResponseHash(BOLT.response);
+            if(BOLT.response.hash == generatedHash){
+              this.reference_id=BOLT.response.txnid;
+              this.transactionId=BOLT.response.payuMoneyId;
+              this.paymentDateTime= this.datePipe.transform(BOLT.response.addedon,"yyyy-MM-dd HH:mm:ss");
+              this.fnAppointmentBooking();
+              console.log("SUCCESS");
+            }
+          }else if(BOLT && BOLT.response.txnStatus == "FAILED"){
+            this.snackBar.open("Transaction Failed", "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass : ['red-snackbar']
+            });
+          }else if(BOLT && BOLT.response.txnStatus == "CANCEL"){
+            this.snackBar.open(BOLT.response.txnMessage, "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass : ['red-snackbar']
+            });
+          }
+          // your payment response Code goes here, BOLT is the response object
+        },
+        catchException: function(BOLT){
+          console.log(BOLT);
+          // the code you use to handle the integration errors goes here
+        }
+      }
+      //bolt.launch( RequestData , Handler ); 
+    }
+
+    generateRequestHash(RequestData) {
+      var string = RequestData.key + '|' + RequestData.txnid + '|' + RequestData.amount + '|' + RequestData.productinfo + '|' + RequestData.firstname + '|' + RequestData.email+'|'+this.PayUMoney.udf1+'|'+this.PayUMoney.udf2+'|'+this.PayUMoney.udf3+'|'+this.PayUMoney.udf4+'|'+this.PayUMoney.udf5+'|'+'|'+'|'+'|'+'|'+'|'+this.PayUMoney.salt;
+            
+      var encrypttext = sha512(string);
+      RequestData.hash = encrypttext;
+   }
+   // (d: Date | null): string => {
+    generateResponseHash(Response) {
+      var string = this.PayUMoney.salt +'|'+Response.status+'|'+'|'+'|'+'|'+'|'+'|'+Response.udf5+'|'+this.PayUMoney.udf4+'|'+this.PayUMoney.udf3+'|'+this.PayUMoney.udf2+'|'+this.PayUMoney.udf1+'|'+Response.email+'|'+Response.firstname+'|'+Response.productinfo+'|'+Response.amount+'|'+Response.txnid+'|'+Response.key;
+            
+      var encrypttext = sha512(string);
+      return encrypttext;
+   }
 
 }
 

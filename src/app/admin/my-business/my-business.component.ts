@@ -32,6 +32,7 @@ export class MyBusinessComponent implements OnInit {
   animal :any;
   allBusiness: any;
   adminSettings : boolean = false;
+  isLoaderAdmin : boolean = false;
   currentUser:any;
   adminId:any;
   token:any;
@@ -52,6 +53,7 @@ export class MyBusinessComponent implements OnInit {
 
   ngOnInit() {
     this.getAllBusiness();
+    console.log(this.currentUser)
   }
 
   getAllBusiness(){
@@ -98,6 +100,7 @@ export class myCreateNewBusinessDialog {
   listTimeZone: any;
   newBusinessData: any;
   createBusiness :FormGroup;
+  isLoaderAdmin : boolean = false;
   onlynumeric = /^-?(0|[1-9]\d*)?$/
   
   constructor(
@@ -130,42 +133,82 @@ export class myCreateNewBusinessDialog {
   }
 
   gelAllCountry(){
+    this.isLoaderAdmin =true;
     this.AdminService.gelAllCountry().subscribe((response:any) => {
       if(response.data == true){
         this.allCountry = response.response
+        this.isLoaderAdmin =false;
       }
       else if(response.data == false){
         this.allCountry = ''
+        this._snackBar.open("Country is not loaded", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+        this.isLoaderAdmin =false;
       }
     })
   }
   selectCountry(country_id){
+    this.isLoaderAdmin =true;
     this.AdminService.gelAllState(country_id).subscribe((response:any) => {
       if(response.data == true){
         this.allStates = response.response
+        this.isLoaderAdmin =false;
       }
       else if(response.data == false){
         this.allStates = ''
+        this._snackBar.open("State is not loaded", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+        this.isLoaderAdmin =false;
       }
     })
   }
   selectStates(state_id){
+    this.isLoaderAdmin =true;
     this.AdminService.gelAllCities(state_id).subscribe((response:any) => {
       if(response.data == true){
         this.allCities = response.response
+        if(response.response == "no city found"){
+          this._snackBar.open("City is not Found", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+         
+        this.isLoaderAdmin =false;
       }
       else if(response.data == false){
         this.allCities = ''
+        this._snackBar.open("City is not loaded", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+        this.isLoaderAdmin =false;
       }
     })
   }
   getTimeZone(){
+    this.isLoaderAdmin =true;
     this.AdminService.getTimeZone().subscribe((response:any) => {
       if(response.status == 'OK'){
         this.listTimeZone = response.zones
+        this.isLoaderAdmin =false;
       }
       else if(response.data == false){
         this.listTimeZone = ''
+        this._snackBar.open("Time Zone is not loaded", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+        this.isLoaderAdmin =false;
       }
     })
   }

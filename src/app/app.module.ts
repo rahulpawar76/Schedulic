@@ -29,8 +29,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { FrontbookingComponent } from './frontbooking/frontbooking.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-
-
+import { NgxPayPalModule } from 'ngx-paypal';
+import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider,GoogleLoginProvider } from 'angularx-social-login';
 
 //import { UserappointmentsComponent } from './user-dashboard/userappointments/userappointments.component';
 // import { DialogOverviewExampleDialog } from './user-dashboard/userappointments/userappointments.component';
@@ -69,6 +69,23 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 registerLocaleData(localeDe);
+
+const config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("685641455606-lhphm08gat3kaujcu2b110icd4ngu226.apps.googleusercontent.com")
+  },
+  // {
+  //   id: FacebookLoginProvider.PROVIDER_ID,
+  //   provider: new FacebookLoginProvider('2273509446292254')
+  // }
+]);
+
+
+export function provideConfig() {
+  return config;
+}
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -106,6 +123,8 @@ registerLocaleData(localeDe);
         MatRadioModule,
         SharedModule,
 		NgxIntlTelInputModule,
+        NgxPayPalModule,
+        SocialLoginModule
     ],
     exports: [
         BrowserModule,
@@ -122,6 +141,7 @@ registerLocaleData(localeDe);
         LoaderService,        
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        { provide: AuthServiceConfig, useFactory: provideConfig }
         
     ],
     bootstrap: [AppComponent],

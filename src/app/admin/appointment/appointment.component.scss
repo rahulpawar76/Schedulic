@@ -1,163 +1,169 @@
-#appointment{
-    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix{
+#appointment {
+     ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
         padding: 10px 0 10px 10px;
     }
-    ::ng-deep  .mat-form-field-infix {
+     ::ng-deep .mat-form-field-infix {
         border-top: unset;
     }
-    ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper{
+     ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
         transform: inherit;
     }
-    &.max-width-94{
+    &.max-width-94 {
         max-width: 94%;
         margin: 0 auto;
     }
-    p{
+    p {
         margin-bottom: 0px;
     }
-    .appointment-header{
+    .appointment-header {
         background-color: #d9f0fe;
         // width: 100%;   
-        .header-content{
+        .header-content {
             height: 60px;
             align-items: center;
-                .appoint-daily{
-                    width: 28%;
-                }
-                .appoint-service{
-                    width: 40%;
-                }
-                .appoint-action{
-                    width: 32%;
-                }
-                .header-date{
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    .date-btn{
-                        background: none;
-                        border: none;
-                    }
-                    .date-icon{
-                        color: #1c7af4;
-                        font-size: 30px;
-                    }
-                    .date-para{
-                        line-height: 2.5;
-                        color: #1c7af4;
-                    }
-                }
-                .searchbox{
-                    width: 59%;  
-                    .serch_input-appoint{           
-                        height: 39px; 
-                        padding-top: 3px; 
-                        .has-search .form-control {
-                            padding-left: 2.375rem;
-                            }
-                            .has-search .form-control-feedback {
-                                position: absolute;
-                                z-index: 2;
-                                display: block;
-                                width: 2.375rem;
-                                height: 1rem;
-                                line-height: 2rem;
-                                text-align: center;
-                                pointer-events: none;
-                                color: black;
-                                .verticalLine{
-                                    &:after {
-                                        content: "";
-                                        position: absolute;
-                                        top: 58%;
-                                        right: 0;
-                                        width: 1px;
-                                        height: 100%;
-                                        background: #dfc0c0;
-                                }
-                                } 
-                            }
-                            ::placeholder {         
-                                font-size: 12px;
-                            }                        
-                            .searchbox_appointment{
-                                border-radius: 20px;
-                                height: 34px;
-                            }          
-                    }                   
-                }
-                .addAppointment-head-btn{
-                    background-color: #1172f4;
-                    border-radius: 20px 20px;
+            .appoint-daily {
+                width: 28%;
+            }
+            .appoint-service {
+                width: 40%;
+            }
+            .appoint-action {
+                width: 32%;
+            }
+            .header-date {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .date-btn {
+                    background: none;
                     border: none;
-                    padding: 7px 11px;
-                    color: white;
-                    font-size: 12px;
                 }
-        }  
+                .date-icon {
+                    color: #1c7af4;
+                    font-size: 30px;
+                }
+                .date-para {
+                    line-height: 2.5;
+                    color: #1c7af4;
+                }
+            }
+            .searchbox {
+                width: 59%;
+                .serch_input-appoint {
+                    height: 39px;
+                    padding-top: 3px;
+                    .has-search .form-control {
+                        padding-left: 2.375rem;
+                    }
+                    .has-search .form-control-feedback {
+                        position: absolute;
+                        z-index: 2;
+                        display: block;
+                        width: 2.375rem;
+                        height: 1rem;
+                        line-height: 2rem;
+                        text-align: center;
+                        pointer-events: none;
+                        color: black;
+                        .verticalLine {
+                            &:after {
+                                content: "";
+                                position: absolute;
+                                top: 58%;
+                                right: 0;
+                                width: 1px;
+                                height: 100%;
+                                background: #dfc0c0;
+                            }
+                        }
+                    }
+                     ::placeholder {
+                        font-size: 12px;
+                    }
+                    .searchbox_appointment {
+                        border-radius: 20px;
+                        height: 34px;
+                    }
+                }
+            }
+            .addAppointment-head-btn {
+                background-color: #1172f4;
+                border-radius: 20px 20px;
+                border: none;
+                padding: 7px 11px;
+                color: white;
+                font-size: 12px;
+            }
+        }
     }
-    #Appointment-dataTable{
-        margin:20px 0;
-        .appointment-edit-btn{
+    #Appointment-dataTable {
+        margin: 20px 0;
+        .appointment-edit-btn {
             background-color: #fabb88;
             border-radius: 3px;
             border: none;
         }
-        .appointment-confirm-btn{
+        .appointment-confirm-btn {
             background-color: #89b9f9;
             border-radius: 3px;
             border: none;
         }
-        .appointment-cancel-btn{
-            background-color:#e9e3e3;
+        .appointment-cancel-btn {
+            background-color: #e9e3e3;
             border-radius: 3px;
             border: none;
         }
-        .appointment-confirm-btn{
-            background-color:#88baf9;
+        .appointment-confirm-btn {
+            background-color: #88baf9;
             border-radius: 3px;
             border: none;
         }
-        .appointment-icon{
+        .appointment-icon {
             padding: 5px;
         }
-        
-    } 
+    }
 }
+
 // <!----- new-appointment-dialog---->
 // ::ng-deep .new-appointment{
-    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix{
-        padding: 10px 0 10px 10px;
-    }
-    ::ng-deep  .mat-form-field-infix {
-        border-top: unset;
-    }
-    ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper{
-        transform: inherit;
-    }
-    ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper{
-        padding-top: 8px;
-    }
-    ::ng-deep .mat-form-field-prefix .mat-icon, .mat-form-field-suffix .mat-icon{
-        font-size: 17px;
-    }
+ ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 10px 0 10px 10px;
+}
+
+ ::ng-deep .mat-form-field-infix {
+    border-top: unset;
+}
+
+ ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+    transform: inherit;
+}
+
+ ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+    padding-top: 8px;
+}
+
+ ::ng-deep .mat-form-field-prefix .mat-icon,
+.mat-form-field-suffix .mat-icon {
+    font-size: 17px;
+}
+
 // }
-#appointment{
-    ::ng-deep #DataTables_Table_0_wrapper{
-        #DataTables_Table_0_filter{
-            input[type="search"]{
+#appointment {
+     ::ng-deep .dataTables_wrapper {
+        .dataTables_filter {
+            input[type="search"] {
                 border-radius: 100px;
                 height: 34px;
                 border: 1px solid #ced4da;
                 padding: 10px 16px;
                 font-size: 16px;
-                &:focus{
+                &:focus {
                     outline: 0;
                 }
             }
         }
-        .dataTables_length{
-            select[name="DataTables_Table_0_length"]{
+        .dataTables_length {
+            select[name="DataTables_Table_0_length"] {
                 border: 1px solid #ced4da;
                 padding: 10px;
                 font-size: 16px;
@@ -170,60 +176,58 @@
 ::ng-deep .tp-container {
     position: absolute;
     top: 0;
-    bottom: 0;   
+    bottom: 0;
     right: 0;
     background: #eee;
     width: 400px;
-    .appodetails{
+    .appodetails {
         margin: 15px;
-        
-    .fontred{
-          color: red;
-          .circle{
-            margin: 8px;
-          }
+        .fontred {
+            color: red;
+            .circle {
+                margin: 8px;
+            }
+        }
+        .assignto {
+            width: 30%;
+        }
+        .greenfont {
+            color: green;
+            .repeat {
+                margin: 8px;
+            }
+        }
+        .paybtn {
+            border-radius: 50px;
+            width: 100px;
+        }
     }
-    .assignto{
-      width: 30%;
-    }
-    .greenfont{
-        color: green;
-      .repeat{
-        margin: 8px;
-      }
-    }
-    .paybtn{
-      border-radius: 50px;
-      width: 100px;
-    }
-
-  }
-  
 }
 
-::ng-deep .booking-detail-main{
-    .customer-profile-img{
-      border-radius: 100%;
-      height: 60px;
-      width: 60px;
-      background-color: #1172f4;
-      color: white;
-      text-align: center;
-      padding: 14px;
-      line-height: 2;
-      display: block;
-      margin: 10px;
+::ng-deep .booking-detail-main {
+    .customer-profile-img {
+        border-radius: 100%;
+        height: 60px;
+        width: 60px;
+        background-color: #1172f4;
+        color: white;
+        text-align: center;
+        padding: 14px;
+        line-height: 2;
+        display: block;
+        margin: 10px;
     }
-    .customer-name{
-      width: calc(100% - 80px);
+    .customer-name {
+        width: calc(100% - 80px);
     }
-  }
-  ::ng-deep .address-fontsize{
-    font-size: 13px; 
-    .bluephone{
-      color: #1172f4;
+}
+
+ ::ng-deep .address-fontsize {
+    font-size: 13px;
+    .bluephone {
+        color: #1172f4;
     }
-    .bluemap{
-      color: #1172f4;
+    .bluemap {
+        color: #1172f4;
     }
 }

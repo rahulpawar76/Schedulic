@@ -37,6 +37,15 @@ export class UserappointmentsComponent implements OnInit {
   currencySymbol:any;
   currencySymbolPosition:any;
   currencySymbolFormat:any;
+  searchKeyword:any;
+  
+  creditcardform = false;
+  showPaypalButtons = false;
+  showPayUMoneyButton = false;
+  paymentMethod:any="";
+  transactionId : any;
+  paymentDateTime: any;
+  paymentScreen: boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -257,9 +266,51 @@ getCompletedAppointments(): void{
       this.animal = result;
      });
   }
+  fnTabValue(event){
+    console.log(event)
+  }
+  payAppoint(){
+    this.paymentScreen = true;
+  }
+  fnPaymentMethod(paymentMethod){
+    console.log(paymentMethod);
+    if(paymentMethod == 'Cash'){
+      this.creditcardform =false;
+      this.showPaypalButtons =false;
+      this.paymentMethod="Cash";
+      this.transactionId=null;
+      this.paymentDateTime=this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss");
+    }
+    if(paymentMethod == 'stripe'){
+      this.paymentMethod="stripe";
+      this.creditcardform =true;
+      this.showPaypalButtons =false;
+      this.transactionId=null;
+      this.paymentDateTime=this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss");
+    }
+    if(paymentMethod == 'Paypal'){
+      this.creditcardform =false;
+      this.showPaypalButtons =true;
+      this.showPayUMoneyButton =false;
+      this.paymentMethod="Paypal";
+      this.transactionId=null;
+      this.paymentDateTime=new Date();
+    }
+    if(paymentMethod == 'PayUMoney'){
+      this.creditcardform =false;
+      this.showPaypalButtons =false;
+      this.showPayUMoneyButton =true;
+      this.paymentMethod="PayUMoney";
+      this.transactionId=null;
+      this.paymentDateTime=new Date();
+    }
+  }
 
   frontBooking(){
     this.router.navigate(['/booking']);
+  }
+  customerSearchAppointment(event){
+    
   }
 
 

@@ -42,6 +42,13 @@ export class AuthenticationService {
         }));
     }
 
+    signup(signUpUserObj) {
+        return this.http.post<any>(`${environment.apiUrl}/user-login`, { signUpUserObj })
+        .pipe(map(data => {
+            return data;
+        }));
+    }
+
 /* That function will send email to user with reset link */
     sendResetLink(user_email: string){
          let site_url = environment.urlForLink;

@@ -41,7 +41,7 @@
                                 <mat-form-field class="example-full-width bottom-border-field">
                                     <input formControlName="apiPassword" class="ml-auto" matInput placeholder="" value="">
                                 </mat-form-field>
-                                <span class="w-100 error-wrap" *ngIf="paypal.get('apiPassword').dirty || paypal.get('apiPassword').touched || formSubmitclicked">
+                                <span class="w-100 error-wrap" *ngIf="paypal.get('apiPassword').dirty || paypal.get('apiPassword').touched">
                                     <small *ngIf="paypal.get('apiPassword').hasError('required')" class="error">API Username Is required</small>
                                 </span>
                             </div>
@@ -50,7 +50,7 @@
                                 <mat-form-field class="example-full-width bottom-border-field">
                                     <input formControlName="signature" matInput placeholder="" value="">
                                 </mat-form-field>
-                                <span class="w-100 error-wrap" *ngIf="paypal.get('signature').dirty || paypal.get('signature').touched || formSubmitclicked">
+                                <span class="w-100 error-wrap" *ngIf="paypal.get('signature').dirty || paypal.get('signature').touched">
                                     <small *ngIf="paypal.get('signature').hasError('required')" class="error">API Username Is required</small>
                                 </span>
                             </div>
@@ -100,7 +100,7 @@
                                 <mat-form-field class="example-full-width bottom-border-field">
                                     <input formControlName="secretKey" matInput placeholder="" value="">
                                 </mat-form-field>
-                                <span class="w-100 error-wrap" *ngIf="stripe.get('secretKey').dirty || stripe.get('secretKey').touched || formSubmitclicked">
+                                <span class="w-100 error-wrap" *ngIf="stripe.get('secretKey').dirty || stripe.get('secretKey').touched">
                                     <small *ngIf="stripe.get('secretKey').hasError('required')" class="error">Secret Key Is required</small>
                                 </span>
                             </div>
@@ -109,7 +109,7 @@
                                 <mat-form-field class="example-full-width bottom-border-field">
                                     <input formControlName="publishableKey" class="ml-auto" matInput placeholder="" value="">
                                 </mat-form-field>
-                                <span class="w-100 error-wrap" *ngIf="stripe.get('publishableKey').dirty || stripe.get('publishableKey').touched || formSubmitclicked">
+                                <span class="w-100 error-wrap" *ngIf="stripe.get('publishableKey').dirty || stripe.get('publishableKey').touched">
                                     <small *ngIf="stripe.get('publishableKey').hasError('required')" class="error">Secret Key Is required</small>
                                 </span>
                             </div>
@@ -294,7 +294,7 @@
                                 <mat-form-field class="example-full-width bottom-border-field">
                                     <input formControlName="merchantKey" matInput placeholder="" value="">
                                 </mat-form-field>
-                                <span class="w-100 error-wrap" *ngIf="payumoney.get('merchantKey').dirty || payumoney.get('merchantKey').touched || formSubmitclicked">
+                                <span class="w-100 error-wrap" *ngIf="payumoney.get('merchantKey').dirty || payumoney.get('merchantKey').touched">
                                     <small *ngIf="payumoney.get('merchantKey').hasError('required')" class="error">Merchant Key Is required</small>
                                 </span>
                             </div>
@@ -303,7 +303,7 @@
                                 <mat-form-field class="example-full-width bottom-border-field">
                                     <input formControlName="saltKey" class="ml-auto" matInput placeholder="" value="">
                                 </mat-form-field>
-                                <span class="w-100 error-wrap" *ngIf="payumoney.get('saltKey').dirty || payumoney.get('saltKey').touched || formSubmitclicked">
+                                <span class="w-100 error-wrap" *ngIf="payumoney.get('saltKey').dirty || payumoney.get('saltKey').touched">
                                     <small *ngIf="payumoney.get('saltKey').hasError('required')" class="error">Salt Key Is required</small>
                                 </span>
                             </div>
@@ -341,18 +341,27 @@
                                 <mat-form-field class="example-full-width bottom-border-field">
                                     <input formControlName="bankName" matInput placeholder="" value="">
                                 </mat-form-field>
+                                <span class="w-100 error-wrap" *ngIf="bankTransfer.get('bankName').dirty || bankTransfer.get('bankName').touched">
+                                    <small *ngIf="bankTransfer.get('bankName').hasError('required')" class="error">API Username Is required</small>
+                                </span>
                             </div>
                             <div class="d-flex flex-wrap">
                                 <label class="payment-label">Account Name</label>
                                 <mat-form-field class="example-full-width bottom-border-field">
                                     <input formControlName="accountName" class="ml-auto" matInput placeholder="" value="">
                                 </mat-form-field>
+                                <span class="w-100 error-wrap" *ngIf="bankTransfer.get('accountName').dirty || bankTransfer.get('accountName').touched">
+                                    <small *ngIf="bankTransfer.get('accountName').hasError('required')" class="error">API Username Is required</small>
+                                </span>
                             </div>
                             <div class="d-flex flex-wrap">
                                 <label class="payment-label">Account Number</label>
                                 <mat-form-field class="example-full-width bottom-border-field">
                                     <input formControlName="accountNumber" matInput placeholder="" value="">
                                 </mat-form-field>
+                                <span class="w-100 error-wrap" *ngIf="bankTransfer.get('accountNumber').dirty || bankTransfer.get('accountNumber').touched">
+                                    <small *ngIf="bankTransfer.get('accountNumber').hasError('required')" class="error">API Username Is required</small>
+                                </span>
                             </div>
                             <div class="d-flex flex-wrap">
                                 <label class="payment-label">Branch Code</label>
@@ -365,6 +374,9 @@
                                 <mat-form-field class="example-full-width bottom-border-field">
                                     <input formControlName="IFSCCode" class="ml-auto" matInput placeholder="" value="">
                                 </mat-form-field>
+                                <span class="w-100 error-wrap" *ngIf="bankTransfer.get('IFSCCode').dirty || bankTransfer.get('IFSCCode').touched">
+                                    <small *ngIf="bankTransfer.get('IFSCCode').hasError('required')" class="error">API Username Is required</small>
+                                </span>
                             </div>
                             <div class="d-flex flex-wrap">
                                 <label class="payment-label">Bank Description</label>

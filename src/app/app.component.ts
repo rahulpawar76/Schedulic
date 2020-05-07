@@ -15,6 +15,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '@environments/environment';
 import { MdePopoverTrigger } from '@material-extended/mde';
+import { AuthService, FacebookLoginProvider,GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 
 
 import {
@@ -57,6 +58,8 @@ export class AppComponent implements AfterViewInit {
   staffStatus: any;
   businessId: any;
   isLoaderAdmin: boolean = false;
+  user: SocialUser;
+  loggedIn: boolean;
 
   @ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
 
@@ -93,7 +96,8 @@ export class AppComponent implements AfterViewInit {
     private authenticationService: AuthenticationService,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
-    private CommonService: CommonService
+    private CommonService: CommonService,
+    private authService: AuthService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     if (localStorage.getItem('business_id')) {
@@ -101,9 +105,6 @@ export class AppComponent implements AfterViewInit {
     }
     console.log("businessId-- "+localStorage.getItem('business_id'));
     console.log("businessId-- "+this.businessId);
-
-
-
   }
   private handleError(error: HttpErrorResponse) {
     console.log(error);
@@ -418,7 +419,7 @@ export class AppComponent implements AfterViewInit {
       });
     }
     let requestObject = {
-      "user_id": this.businessId,
+      "user_id": JSON.stringify(this.currentUser.user_id),
       "user_type": this.userType
     };
     this.CommonService.openNotificationDialog(requestObject, headers).subscribe((response: any) => {

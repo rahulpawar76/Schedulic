@@ -104,6 +104,8 @@ export class AlertsettingsComponent implements OnInit {
   appointmentsReminderStaff :boolean = false;
   appointmentsReminderAdmin :boolean = false;
   appointmentsReminderSMS : boolean = false;
+  twilliStatus : boolean = false;
+  textLocalStatus : boolean = false;
   totalTimeCustomerEmail:any;
   totalTimeStaffEmail: any;
   totalTimeAdminEmail: any;
@@ -159,7 +161,9 @@ export class AlertsettingsComponent implements OnInit {
   staffSmsTemplate4: FormGroup;
   staffSmsTemplate5: FormGroup;
   staffSmsTemplate6: FormGroup;
-  staffSmsTemplate7: FormGroup;
+  staffSmsTemplate7: FormGroup;  
+  twilio: FormGroup;  
+  textLocal: FormGroup;  
 
   admintomerEmailTemp1: any;
   smsAlertsSetting: any;
@@ -168,6 +172,8 @@ export class AlertsettingsComponent implements OnInit {
   maxCharacters = 500; 
   characters = this.maxCharacters;
   cusEmailTempl : any;
+  twilioSettingValue : any;
+  textLocalSettingValue : any
   constructor(
     private appComponent : AppComponent,
     public adminSettingsService : AdminSettingsService,
@@ -344,6 +350,16 @@ export class AlertsettingsComponent implements OnInit {
     this.staffSmsTemplate7 = this._formBuilder.group({
       smsTemplate: ['',[Validators.required]]
     });
+
+    this.twilio = this._formBuilder.group({
+      accountSID: ['', [Validators.required]],
+      authToken: ['', [Validators.required]],
+      twilioSender: ['', [Validators.required]],
+      adminNumber: ['', [Validators.required]]
+    });
+    this.textLocal = this._formBuilder.group({
+      apiKey: ['', [Validators.required]]
+    });
  
   } 
   count(value: string){
@@ -409,6 +425,17 @@ export class AlertsettingsComponent implements OnInit {
           this.appointmentsReminderSMS = this.smsAlertsSetting.reminder_status;
           this.smsAppointment = JSON.parse(this.smsAlertsSetting.when);
           this.smsAlertWho = JSON.parse(this.smsAlertsSetting.who);
+          if(response.response.twilo_setting){
+            this.twilioSettingValue = JSON.parse(response.response.twilo_setting);
+            this.twilio.controls['accountSID'].setValue(this.twilioSettingValue.account_sid);
+            this.twilio.controls['authToken'].setValue(this.twilioSettingValue.auth_token);
+            this.twilio.controls['twilioSender'].setValue(this.twilioSettingValue.twilo_sender_number);
+            this.twilio.controls['adminNumber'].setValue(this.twilioSettingValue.admin_phone_number);
+          }
+          if(response.response.textlocal_setting){
+            this.textLocalSettingValue = JSON.parse(response.response.textlocal_setting);
+            this.textLocal.controls['apiKey'].setValue(this.textLocalSettingValue.api_key);
+          }
 
       }
       else{
@@ -1437,6 +1464,114 @@ fnAppointmentsReminderSMS(event){
         this.getCustomerEmailTemplates();
         this.getAdminEmailTemplates();
         this.getStaffEmailTemplates();
+      }
+      else{
+      this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+  }
+
+  fnTwillioStatus(event){
+    this.twilliStatus =event;
+    let twilioSetting = {
+      "account_sid":this.twilio.get("accountSID").value,
+      "auth_token":this.twilio.get("authToken").value,
+      "twilo_sender_number":this.twilio.get("twilioSender").value,
+      "admin_phone_number":this.twilio.get("adminNumber").value,
+      "status": this.twilliStatus,
+    }
+
+    let requestObject = {
+      "business_id" :this.businessId,
+      "status":this.twilliStatus,
+      "twilo_setting" : twilioSetting
+    }
+    this.updateTwillioSettings(requestObject);
+  }
+
+  fnSubmitTwillioSettings(){
+    if(this.twilio.valid){
+      let twilioSetting = {
+        "account_sid":this.twilio.get("accountSID").value,
+        "auth_token":this.twilio.get("authToken").value,
+        "twilo_sender_number":this.twilio.get("twilioSender").value,
+        "admin_phone_number":this.twilio.get("adminNumber").value,
+        "status": this.twilliStatus,
+      }
+
+      let requestObject = {
+        "business_id" :this.businessId,
+        "status":this.twilliStatus,
+        "twilo_setting" : twilioSetting
+      }
+      this.updateTwillioSettings(requestObject);
+    }
+  }
+
+  updateTwillioSettings(requestObject){
+    this.adminSettingsService.updateTwillioSettings(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open("Twillio Setting is Updated", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['green-snackbar']
+        });
+        this.getSettingsValue();
+      }
+      else{
+      this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+  }
+
+  fnTextLocalStatus(event){
+    this.textLocalStatus = event;
+    let textLocalSetting = {
+      "api_key":this.textLocal.get("apiKey").value,
+      "status":this.textLocalStatus,
+    }
+
+    let requestObject = {
+      "business_id" :this.businessId,
+      "status":this.textLocalStatus,
+      "textlocal_setting" : textLocalSetting
+    }
+    this.updateTextLocalSettings(requestObject);
+  }
+
+  fnSubmitTextLocalSetting(){
+    if(this.textLocal.valid){
+      let textLocalSetting = {
+        "api_key":this.textLocal.get("apiKey").value,
+        "status":this.textLocalStatus,
+      }
+
+      let requestObject = {
+        "business_id" :this.businessId,
+        "status":this.textLocalStatus,
+        "textlocal_setting" : textLocalSetting
+      }
+      this.updateTextLocalSettings(requestObject);
+    }
+  }
+
+  updateTextLocalSettings(requestObject){
+    this.adminSettingsService.updateTextLocalSettings(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open("Text-Local Setting is Updated", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['green-snackbar']
+        });
+        this.getSettingsValue();
       }
       else{
       this._snackBar.open(response.response, "X", {
