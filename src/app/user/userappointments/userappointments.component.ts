@@ -38,6 +38,7 @@ export class UserappointmentsComponent implements OnInit {
   currencySymbolPosition:any;
   currencySymbolFormat:any;
   searchKeyword:any;
+  paymentScreen: boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -260,6 +261,9 @@ getCompletedAppointments(): void{
   }
   fnTabValue(event){
     console.log(event)
+  }
+  payAppoint(){
+    this.paymentScreen = true;
   }
 
   frontBooking(){
