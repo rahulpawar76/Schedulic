@@ -258,11 +258,14 @@ getCompletedAppointments(): void{
       this.animal = result;
      });
   }
+  fnTabValue(event){
+    console.log(event)
+  }
 
   frontBooking(){
     this.router.navigate(['/booking']);
   }
-  customerAppointment(event){
+  customerSearchAppointment(event){
     
   }
 
