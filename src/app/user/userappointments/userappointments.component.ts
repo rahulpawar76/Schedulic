@@ -37,6 +37,7 @@ export class UserappointmentsComponent implements OnInit {
   currencySymbol:any;
   currencySymbolPosition:any;
   currencySymbolFormat:any;
+  searchKeyword:any;
 
   constructor(
     public dialog: MatDialog,
@@ -260,6 +261,9 @@ getCompletedAppointments(): void{
 
   frontBooking(){
     this.router.navigate(['/booking']);
+  }
+  customerAppointment(event){
+    
   }
 
 

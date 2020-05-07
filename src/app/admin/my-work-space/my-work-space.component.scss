@@ -1,131 +1,128 @@
 /*______[1]Main-Head____________*/
-#admin-book-appointment{
-    .calender-icon{
-		color: #0089ff;
-		margin-top: 11px;
-		/*font-weight: bold;*/
-	}
+
+#admin-book-appointment {
+    .calender-icon {
+        color: #0089ff;
+        margin-top: 11px;
+        /*font-weight: bold;*/
+    }
     display: flex;
     justify-content: center;
-    .row{
+    .row {
         width: 100%;
-        mat-card{
-        display: inline-flex;
-        width: 100%;
-        border-radius: 8px;
-        align-items: center;
-        justify-content: center;
-        .flex-align-center{
-            align-items: center;
+        mat-card {
             display: inline-flex;
-            flex-direction: column;
+            width: 100%;
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+            .flex-align-center {
+                align-items: center;
+                display: inline-flex;
+                flex-direction: column;
             }
         }
     }
-    .flex-content-center{
+    .flex-content-center {
         justify-content: center;
         display: flex;
     }
-	.category{
-	margin-bottom: 0px;	
-	}
-	.font-blue{
-		color: #0089ff;
-	}
-	.font-gray{
-		color: #848484;
-	}
-	.left-border{
-		border-left: 1px solid #dedede;
-	}
-			
+    .category {
+        margin-bottom: 0px;
+    }
+    .font-blue {
+        color: #0089ff;
+    }
+    .font-gray {
+        color: #848484;
+    }
+    .left-border {
+        border-left: 1px solid #dedede;
+    }
 }
-@media only screen and (min-device-width: 360px) 
-                   and (max-device-width: 825px) 
-                   and (orientation: landscape) {	
-		.align-center{
-			padding-left: 0 !important;
-			text-align: center;
-		}
 
+@media only screen and (min-device-width: 360px) and (max-device-width: 825px) and (orientation: landscape) {
+    .align-center {
+        padding-left: 0 !important;
+        text-align: center;
+    }
 }
+
 
 /*___________[2]Category_________*/
 
-#category{
-    .mat-card{
+#category {
+    .mat-card {
         margin: 0px 16px;
     }
-	.bottom-border{
-        border-bottom:  1px solid #dedede;
+    .bottom-border {
+        border-bottom: 1px solid #dedede;
     }
-    .plr-25{
+    .plr-25 {
         padding: 0px 25px;
     }
-	
-	ul{
+    ul {
         padding-left: 0px;
-        li{
-			list-style: none;
+        li {
+            list-style: none;
             padding: 0px 25px;
             font-size: 14px;
-            i{
+            i {
                 display: flex;
                 align-items: center;
             }
-            p{
+            p {
                 padding-top: 16px;
                 display: flex;
-                 width: 100%;
+                width: 100%;
             }
-		}
-	}
-	
-    .appoint-name{
+        }
+    }
+    .appoint-name {
         display: inline-flex;
         margin-right: 10px;
     }
-    .after-appont-title{
+    .after-appont-title {
         font-size: 12px;
     }
-    .title-main{
-    	i{
+    .title-main {
+        i {
             margin-left: auto;
-    	}
+        }
     }
-	.has-search .form-control {
-    padding-left: 2.375rem;
-	}
-	.has-search .form-control-feedback {
-	    position: absolute;
-	    z-index: 1;
-	    display: block;
-	    width: 2.375rem;
-	    height: 2.375rem;
-	    line-height: 2rem;
-	    text-align: center;
+    .has-search .form-control {
+        padding-left: 2.375rem;
+    }
+    .has-search .form-control-feedback {
+        position: absolute;
+        z-index: 1;
+        display: block;
+        width: 2.375rem;
+        height: 2.375rem;
+        line-height: 2rem;
+        text-align: center;
         pointer-events: none;
         color: #04397f;
         font-size: 14px;
-	}
-	.searchbox_appointment{
+    }
+    .searchbox_appointment {
         border-radius: 20px;
         font-size: 12px;
-	}
-	.appointment{
-	    width: 30%
-	}
-	.search_input-appoint{
-	    width: 60%;
-	    height: 32px;
-	}
-	.filter-btn-appoint{
-	    width: 20%;
+    }
+    .appointment {
+        width: 30%
+    }
+    .search_input-appoint {
+        width: 60%;
+        height: 32px;
+    }
+    .filter-btn-appoint {
+        width: 20%;
         margin-left: 20px;
-        .filter-btn{
+        .filter-btn {
             border-radius: 3px;
-            background-color: rgba(178,178,178,0.5019607843137255);
-            border: 1px solid rgba(255,255,255,0.35);
+            background-color: rgba(178, 178, 178, 0.5019607843137255);
+            border: 1px solid rgba(255, 255, 255, 0.35);
             font-weight: 400;
             color: #292929;
             font-size: 13px;
@@ -133,31 +130,33 @@
             padding: 0px 15px;
             line-height: 25px;
         }
-	}
+    }
 }
 
 
 /*_____________[3]Appointment____________________ */
-#appo_detail{
+
+#appo_detail {
     height: 70vh;
-    overflow-y: auto;
     overflow-x: visible;
 }
-#all-category-list{
+
+#all-category-list {
     height: 70vh;
     overflow-y: auto;
     overflow-x: visible;
-    ul{
-        li{
-            &.active{
-                p{
+    ul {
+        li {
+            &.active {
+                p {
                     color: #007bff
                 }
             }
         }
     }
 }
-#my-work-space{
+
+#my-work-space {
     width: 100%;
     background-size: cover;
     background-repeat: no-repeat;
@@ -165,55 +164,50 @@
     background-size: 120%;
     background-position: 60% 7%;
     height: 70vh;
-    overflow-y: auto;
+    //overflow-y: auto;
     overflow-x: visible;
-i{
-    // line-height: 1.5;
-    color: #949494;
-}
-.timeframe-main{
-    padding-left: 50px;
-}
-    
-   
-	.font-blue{
-		color: #0089ff;
-	}
-    .work-space-font{
+    i {
+        // line-height: 1.5;
+        color: #949494;
+    }
+    .timeframe-main {
+        padding-left: 50px;
+    }
+    .font-blue {
+        color: #0089ff;
+    }
+    .work-space-font {
         font-size: 12px;
         color: #5a5a5a;
         line-height: 15px;
         margin-bottom: 0;
     }
-    .icon-size{
+    .icon-size {
         font-size: 1.5rem;
         color: #949494;
     }
-    .Time{
-    width: 22%;
+    .Time {
+        width: 22%;
     }
-    .customer-name{
-    width: 33%;
+    .customer-name {
+        width: 33%;
     }
-    .service-person{
-    	 width: 25%;
+    .service-person {
+        width: 25%;
     }
-    .money{
-    width: 20%;
+    .money {
+        width: 20%;
     }
-    .service-background{
-       
-        .work-space-font{
+    .service-background {
+        .work-space-font {
             font-size: 12px;
-            }
-        .customer-background{
-           
+        }
+        .customer-background {
             /*border: 16px solid #6a77d38a;*/
             border-bottom: 0;
-           
-            .customer-profile-width{
-                .customer-name-profile{
-                    background-color: white ;
+            .customer-profile-width {
+                .customer-name-profile {
+                    background-color: white;
                     border-radius: 50%;
                     /*width: 10%;*/
                     padding: 10px;
@@ -221,13 +215,11 @@ i{
                     text-align: center;
                 }
             }
-            .customer-name-width{
-
-            }
-            .Details-button-width{
+            .customer-name-width {}
+            .Details-button-width {
                 display: block;
                 margin-left: auto;
-                .Details-button{
+                .Details-button {
                     background: none;
                     border-radius: 50px 50px;
                     /*padding: 0px 24px;*/
@@ -238,58 +230,59 @@ i{
                 }
             }
         }
-        .line{
-            background-color:#dedede;
+        .line {
+            background-color: #dedede;
             height: 1px;
         }
     }
 }
-.work-space-main{
-	.container{
+
+.work-space-main {
+    .container {
         display: flex;
-        .justify-content-center{
-            .cal-icon-main{ 
+        .justify-content-center {
+            .cal-icon-main {
                 margin-top: 80px;
-                img{
+                img {
                     height: 40px;
                     width: 40px;
                     margin-top: 8px;
                     border-radius: 0;
                 }
-                .beside-icon{
-                    h4{
+                .beside-icon {
+                    h4 {
                         margin-bottom: 0;
                         color: #fff;
                         font-weight: normal;
                     }
-                    h1{
+                    h1 {
                         font-weight: normal;
                         padding-bottom: 20px;
                     }
-                } 
+                }
             }
-            
         }
-	}
-}
-.left-time-main{
-    position: relative;
-        &:before{
-            content: "";
-            position: absolute;
-            border: 1px solid #1173f4;
-            left: -20px;
-            top: 12%;
-            height: 87%;
-            opacity: 0.1;
-        }
-        span.left-font{
-            position: absolute;
-            left: -40px;
-            font-size: 11px;
-            top: 0;
     }
-    .status-stamp{
+}
+
+.left-time-main {
+    position: relative;
+    &:before {
+        content: "";
+        position: absolute;
+        border: 1px solid #1173f4;
+        left: -20px;
+        top: 12%;
+        height: 87%;
+        opacity: 0.1;
+    }
+    span.left-font {
+        position: absolute;
+        left: -40px;
+        font-size: 11px;
+        top: 0;
+    }
+    .status-stamp {
         margin-left: auto;
         margin-right: 20px;
         font-size: 22px;
@@ -299,34 +292,34 @@ i{
     }
 }
 
-.title-main{
+.title-main {
     font-size: 16px;
     font-weight: 500;
 }
 
 @media only screen and (max-width: 645px) and (orientation:portrait) {
-    .customer-name{
+    .customer-name {
         width: 100% !important;
     }
-    .money{
+    .money {
         width: 100% !important;
     }
-    .Time{
+    .Time {
         width: 100% !important;
     }
 }
 
 @media only screen and (max-width: 767px) and (orientation:portrait) {
-    .work-space-main{
-        .container{
-            .service-background{
-                .c-name-main{
+    .work-space-main {
+        .container {
+            .service-background {
+                .c-name-main {
                     display: flex !important;
                     flex-direction: column;
-                    .d-flex{
+                    .d-flex {
                         width: 100%;
                     }
-                    .Details-button-width{
+                    .Details-button-width {
                         width: 100%;
                         margin-bottom: 10px;
                     }
@@ -334,205 +327,205 @@ i{
             }
         }
     }
-    #category{
-        & mat-card:nth-child(2){
-            .align-items-center{
+    #category {
+        & mat-card:nth-child(2) {
+            .align-items-center {
                 flex-direction: column;
-                .appointment{
+                .appointment {
                     width: 90%;
                 }
-                & form{
+                & form {
                     width: 90%;
                 }
-                & .filter-btn-appoint{
+                & .filter-btn-appoint {
                     width: 90%;
                 }
             }
         }
     }
-    #my-work-space{
-        .left-time-main{
-            .service-person{
+    #my-work-space {
+        .left-time-main {
+            .service-person {
                 width: 100%;
             }
         }
     }
-    .left-time-main{
-        &:before{
+    .left-time-main {
+        &:before {
             left: -7%;
         }
-        span.left-font{
+        span.left-font {
             left: -12%;
+        }
     }
-}
 }
 
 @media only screen and (max-width: 767px) and (orientation:landscape) {
-    #category{
-            mat-card{
-                margin: 0 !important;
-                margin-bottom: 25px !important;
-            }
-            & mat-card:nth-child(2){
-                .align-items-center{
-                    flex-direction: row !important;
-                    padding-top: 10px;
-                    .appointment{
-                        .title-main{
-                            padding-top: 0;
-                        }
+    #category {
+        mat-card {
+            margin: 0 !important;
+            margin-bottom: 25px !important;
+        }
+        & mat-card:nth-child(2) {
+            .align-items-center {
+                flex-direction: row !important;
+                padding-top: 10px;
+                .appointment {
+                    .title-main {
+                        padding-top: 0;
                     }
                 }
             }
-    }
-    .left-time-main{
-            &:before{
-                left: -3%;
-            }
-            span.left-font{
-                left: -6%;
         }
     }
-    #Appoinment-Details{
-        .map-icon{
+    .left-time-main {
+        &:before {
+            left: -3%;
+        }
+        span.left-font {
+            left: -6%;
+        }
+    }
+    #Appoinment-Details {
+        .map-icon {
             width: unset !important;
         }
     }
-    #admin-book-appointment{
-        .row{
-            mat-card{
-                .flex-align-center{
+    #admin-book-appointment {
+        .row {
+            mat-card {
+                .flex-align-center {
                     max-width: 30%;
                 }
             }
         }
     }
-    ::ng-deep #Appointment-pop-up{
-        .d-flex.btns{
+     ::ng-deep #Appointment-pop-up {
+        .d-flex.btns {
             flex-direction: row !important;
         }
     }
 }
 
-@media only screen and (max-width: 767px){
-    .work-space-main{
-        .container{
+@media only screen and (max-width: 767px) {
+    .work-space-main {
+        .container {
             display: unset;
-            .justify-content-center{
-                .cal-icon-main{ 
+            .justify-content-center {
+                .cal-icon-main {
                     margin-top: 10px !important;
                 }
             }
         }
     }
-    #admin-book-appointment{
-        .row{
-            mat-card{
+    #admin-book-appointment {
+        .row {
+            mat-card {
                 overflow: scroll;
                 justify-content: start;
                 padding: 8px 0px;
-                .flex-align-center{
+                .flex-align-center {
                     text-align: center;
                 }
             }
         }
     }
-    #category{
+    #category {
         margin: 0 20px;
-            mat-card{
-                margin: 0 !important;
-                margin-bottom: 25px !important;
-            }
-            & mat-card:nth-child(2){
-                .align-items-center{
-                    flex-direction: column;
-                    .appointment{
-                        margin-bottom: 10px;
-                        p{
-                            margin-bottom: 0;
-                        }
-                    }
-                    & form{
-                        margin-bottom: 10px;
-                    }
-                    & .filter-btn-appoint{
-                        margin-left:  0;
-                        margin-bottom: 10px;
+        mat-card {
+            margin: 0 !important;
+            margin-bottom: 25px !important;
+        }
+        & mat-card:nth-child(2) {
+            .align-items-center {
+                flex-direction: column;
+                .appointment {
+                    margin-bottom: 10px;
+                    p {
+                        margin-bottom: 0;
                     }
                 }
+                & form {
+                    margin-bottom: 10px;
+                }
+                & .filter-btn-appoint {
+                    margin-left: 0;
+                    margin-bottom: 10px;
+                }
             }
+        }
     }
-    #my-work-space{
-        .left-time-main{
-            .Time{
+    #my-work-space {
+        .left-time-main {
+            .Time {
                 margin-bottom: 5px;
             }
-            .customer-name{
+            .customer-name {
                 margin-bottom: 5px;
             }
-            .service-person{
+            .service-person {
                 margin-bottom: 5px;
             }
         }
     }
-    ::ng-deep #Appointment-pop-up{
-        .text-white{
+     ::ng-deep #Appointment-pop-up {
+        .text-white {
             flex-direction: column;
-            .Time{
+            .Time {
                 margin-bottom: 5px;
                 width: 100%;
                 flex-direction: unset !important;
-                i{
+                i {
                     line-height: 20px;
                 }
-                & p{
+                & p {
                     margin-bottom: 0;
                 }
             }
-            .customer-name{
+            .customer-name {
                 margin-bottom: 5px;
                 width: 100%;
                 flex-direction: unset !important;
-                i{
+                i {
                     line-height: 20px;
                 }
-                & p{
+                & p {
                     margin-bottom: 0;
                 }
             }
-            .service-person{
+            .service-person {
                 width: 100%;
                 margin-bottom: 5px;
                 width: 100%;
                 flex-direction: unset !important;
-                i{
+                i {
                     line-height: 20px;
                 }
-                & p{
+                & p {
                     margin-bottom: 0;
                 }
             }
         }
         .d-flex {
             flex-direction: column;
-            .reschedulebtn-width{
+            .reschedulebtn-width {
                 width: 100%;
                 margin-bottom: 10px;
             }
-            .cancelbtn-width{
+            .cancelbtn-width {
                 width: 100%;
                 margin-bottom: 10px;
             }
-            .acceptbtn-width{
+            .acceptbtn-width {
                 width: 100%;
                 margin-bottom: 10px;
             }
         }
     }
-    ::ng-deep .cdk-overlay-container{
-        mat-dialog-container{
-            myworkspace-accept{
-                .container.pl-0{
+     ::ng-deep .cdk-overlay-container {
+        mat-dialog-container {
+            myworkspace-accept {
+                .container.pl-0 {
                     max-width: 100%;
                 }
             }
@@ -540,94 +533,95 @@ i{
     }
 }
 
-@media only screen and (min-width : 768px) and (max-width : 1024px) and (orientation:landscape) {
-    #admin-book-appointment{
-        mat-card{
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation:landscape) {
+    #admin-book-appointment {
+        mat-card {
             text-align: center;
         }
     }
-    #category{
-        .mat-card{
+    #category {
+        .mat-card {
             margin: 0px 14px;
         }
-        .mat-card:nth-child(1){
+        .mat-card:nth-child(1) {
             display: inline-table;
         }
-        .mat-card:nth-child(2){
-            .appointment{
+        .mat-card:nth-child(2) {
+            .appointment {
                 margin-right: 15px;
             }
-            & .filter-btn-appoint{
+            & .filter-btn-appoint {
                 margin-right: 10px;
                 margin-left: unset;
             }
         }
-        #my-work-space{
-            .timeframe-main{
+        #my-work-space {
+            .timeframe-main {
                 padding-left: 40px;
-                .work-service-bg-main{
-                    span.left-font{
+                .work-service-bg-main {
+                    span.left-font {
                         left: -9%;
                     }
-                    .customer-name{
+                    .customer-name {
                         margin-right: 5px;
                     }
                 }
             }
         }
     }
-    #Appoinment-Details{
-        .d-flex{
-            h6.pl-3{
+    #Appoinment-Details {
+        .d-flex {
+            h6.pl-3 {
                 word-wrap: anywhere;
             }
         }
     }
 }
-@media only screen and (min-width : 768px) and (max-width : 1024px) and (orientation:portrait) {
-    #admin-book-appointment{
-        .row{
-            mat-card{
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation:portrait) {
+    #admin-book-appointment {
+        .row {
+            mat-card {
                 overflow: scroll;
                 justify-content: start;
             }
         }
     }
-    #category{
-        .flex-content-center{
-            .border-8.mat-card:nth-child(1){
+    #category {
+        .flex-content-center {
+            .border-8.mat-card:nth-child(1) {
                 max-width: 30%;
                 display: inline-table;
             }
-            .border-8.mat-card:nth-child(2){
+            .border-8.mat-card:nth-child(2) {
                 flex: 0 0 63%;
                 max-width: 100%;
                 margin: 0;
-                .appointment{
+                .appointment {
                     margin-right: 10px;
                 }
             }
-            .border-8.mat-card:nth-child(3){
+            .border-8.mat-card:nth-child(3) {
                 max-width: 100%;
                 flex: 0 0 95%;
                 margin-top: 30px;
             }
         }
     }
-    #Appoinment-Details{
-        .map-icon{
+    #Appoinment-Details {
+        .map-icon {
             width: unset !important;
         }
     }
-    .left-time-main{
-        span.left-font{
+    .left-time-main {
+        span.left-font {
             left: -9%;
         }
     }
-    ::ng-deep #Appointment-pop-up{
-        .d-flex.flex-wrap{
-            .d-flex{
-                i{
+     ::ng-deep #Appointment-pop-up {
+        .d-flex.flex-wrap {
+            .d-flex {
+                i {
                     line-height: 23px;
                 }
             }
@@ -637,121 +631,119 @@ i{
 
 
 /*_____________[3] Appointment____________________ */
-#Appoinment-Details{
-    .border-right-blue:after{
-      
-    }
-    .map-icon{
+
+#Appoinment-Details {
+    .border-right-blue:after {}
+    .map-icon {
         width: auto;
     }
-    .fs-1rem{
+    .fs-1rem {
         font-size: 1rem;
     }
-	.fontred{
-    color: red;
-    font-size: 12px;
-    width: 32%;
-  }
-  h6{
-  	font-size: 13px;
-  }
-  p{
-  	font-size: 12px;
-  }
-  .greenfont{
-    color: green;
-    font-size: 12px;
-    width: 35%;
-  }
-  .acceptbtn{
-    border-radius: 50px;
-    font-size: 12px;
-    line-height: 1;
-    width: 40%;
-    height: 30px;
-  }
-  .text-gray{
-				color: gray;
-				font-size: 12px;			
-  }
-  .background{
-			background-color: #eafafc;
-			
-			.appoint-orderBY{
-				width: 35%;
-			}
-			.appoint-Status{
-				width: 35%;
-			}
-			.appoint-staff{
-				width: 30%;
-			}
-		}
- .icon-background{
-            background-color: #1172f4;
-            border-radius: 50%;
-            padding: 10px;
-            width: 45px;
-            height: 45px;
-            text-align: center;
-            color: white;
-		}
-		.Appoinment-icon{
-			color: #1e88e5;
-		}
-		.person-name{
-            padding-top: 0;
-            line-height: 015px;
-            font-size: 16px;
-            color: #fff;
-		}
-		.note-icon{
-			color: #1172f4;
-		}
+    .fontred {
+        color: red;
+        font-size: 12px;
+        width: 32%;
+    }
+    h6 {
+        font-size: 13px;
+    }
+    p {
+        font-size: 12px;
+    }
+    .greenfont {
+        color: green;
+        font-size: 12px;
+        width: 35%;
+    }
+    .acceptbtn {
+        border-radius: 50px;
+        font-size: 12px;
+        line-height: 1;
+        width: 40%;
+        height: 30px;
+    }
+    .text-gray {
+        color: gray;
+        font-size: 12px;
+    }
+    .background {
+        background-color: #eafafc;
+        .appoint-orderBY {
+            width: 35%;
+        }
+        .appoint-Status {
+            width: 35%;
+        }
+        .appoint-staff {
+            width: 30%;
+        }
+    }
+    .icon-background {
+        background-color: #1172f4;
+        border-radius: 50%;
+        padding: 10px;
+        width: 45px;
+        height: 45px;
+        text-align: center;
+        color: white;
+    }
+    .Appoinment-icon {
+        color: #1e88e5;
+    }
+    .person-name {
+        padding-top: 0;
+        line-height: 015px;
+        font-size: 16px;
+        color: #fff;
+    }
+    .note-icon {
+        color: #1172f4;
+    }
 }
 
 // <------------myworkspace-accept-dialog----------->
 
 /*<!-- Appointment popup(Hair Cut)[1] -->*/
- 
-.active_booking{
+
+.active_booking {
     color: #fff;
     background-color: #007bff;
     transform: scale(1.06);
     z-index: 1;
-    box-shadow: 0 9px 6px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    box-shadow: 0 9px 6px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
     padding: 20px 0;
     left: 36px;
-    width: calc(100% - 60px);
+    width: calc(100% - 30px);
     border-radius: 4px;
-    &:before{
+    &:before {
         left: -34px;
     }
-    .left-font{
-        left:-50px !important;
+    .left-font {
+        left: -50px !important;
     }
-    .work-space-font{
-        color:#fff !important;
+    .work-space-font {
+        color: #fff !important;
     }
-    i{
-        color:#fff !important;
+    i {
+        color: #fff !important;
     }
-    .active-btns{
+    .active-btns {
         display: flex !important;
     }
-    .Time{
+    .Time {
         width: 22%;
     }
-    .customer-name{
+    .customer-name {
         width: 33%;
     }
-    .service-person{
+    .service-person {
         width: 25%;
     }
-    .money{
+    .money {
         width: 20%;
     }
-    .Reschedulebtn{
+    .Reschedulebtn {
         border: 1px solid white;
         border-radius: 50px;
         font-size: 12px;
@@ -759,30 +751,31 @@ i{
         color: white;
         padding: 0px 22px;
     }
-    .accept-btn{
+    .accept-btn {
         background-color: white;
-        color:  #487ffd;
+        color: #487ffd;
     }
-    .reschedulebtn-width{
+    .reschedulebtn-width {
         width: auto;
         margin-right: 10px;
     }
-    .cancelbtn-width{
+    .cancelbtn-width {
         width: auto;
         margin-right: 10px;
     }
-    .acceptbtn-width{
+    .acceptbtn-width {
         width: auto;
         margin-left: auto;
         margin-right: 20px;
     }
-    .line{
+    .line {
         display: none;
     }
-    .pl-5{
+    .pl-5 {
         padding-left: 1rem !important;
     }
 }
-.active-btns{
+
+.active-btns {
     display: none !important;
 }

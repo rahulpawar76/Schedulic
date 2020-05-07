@@ -419,7 +419,7 @@ export class AppComponent implements AfterViewInit {
       });
     }
     let requestObject = {
-      "user_id": this.businessId,
+      "user_id": JSON.stringify(this.currentUser.user_id),
       "user_type": this.userType
     };
     this.CommonService.openNotificationDialog(requestObject, headers).subscribe((response: any) => {

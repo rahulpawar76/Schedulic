@@ -48,11 +48,11 @@ export class LoginComponent implements OnInit {
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
        
         if (this.authenticationService.currentUserValue) { 
-            this.authService.authState.subscribe((user) => {
-              this.user = user;
-              this.loggedIn = (user != null);
-              console.log(this.user);
-            });
+            // this.authService.authState.subscribe((user) => {
+            //   this.user = user;
+            //   this.loggedIn = (user != null);
+            //   console.log(this.user);
+            // });
             if(this.authenticationService.currentUserValue.user_type == Role.Admin){
                 this.router.navigate(["admin"]);
             }else if(this.authenticationService.currentUserValue.user_type == Role.Staff){
@@ -62,16 +62,16 @@ export class LoginComponent implements OnInit {
             }
         }else{
             this.dataLoaded=true;
-            this.authService.authState.subscribe((user) => {
-                if(user){
-                    this.user = user;
-                    this.loggedIn = (user != null);
-                }else{
+            // this.authService.authState.subscribe((user) => {
+            //     if(user){
+            //         this.user = user;
+            //         this.loggedIn = (user != null);
+            //     }else{
                     
-                }
+            //     }
               
-              console.log(this.user);
-            });
+            //   console.log(this.user);
+            // });
         }
     }
 

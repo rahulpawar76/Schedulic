@@ -159,6 +159,7 @@ export class FrontbookingComponent implements OnInit {
   emailFormat = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
   onlynumeric = /^-?(0|[1-9]\d*)?$/
   public payPalConfig?: IPayPalConfig;
+  cardForm:FormGroup
 
   PayUMoney={
     key:'',
@@ -216,6 +217,13 @@ export class FrontbookingComponent implements OnInit {
     this.formExistingUser = this._formBuilder.group({
       existing_mail: ['',[Validators.required,Validators.email]],
       existing_password: ['',Validators.required],
+    })
+    this.cardForm = this._formBuilder.group({
+      cardHolderName: ['',[Validators.required]],
+      cardNumber: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+      expiryMonth: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+      expiryYear: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+      cvvCode: ['',[Validators.required]],
     })
 
     let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
@@ -2162,8 +2170,8 @@ export class FrontbookingComponent implements OnInit {
       this.transactionId=null;
       this.paymentDateTime=this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss");
     }
-    if(paymentMethod == 'Card Payment'){
-      this.paymentMethod="Card Payment";
+    if(paymentMethod == 'stripe'){
+      this.paymentMethod="stripe";
       this.creditcardform =true;
       this.showPaypalButtons =false;
       this.transactionId=null;
@@ -2219,11 +2227,51 @@ export class FrontbookingComponent implements OnInit {
     if(this.paymentMethod == 'Cash'){
       this.fnAppointmentBooking();
     }
-    if(this.paymentMethod == 'Card Payment'){
-      this.fnAppointmentBooking();
+    if(this.paymentMethod == 'stripe'){
+      this.stripePayment();
     }
     if(this.paymentMethod == 'PayUMoney'){
      this.fnPayUMoney();
+    }
+  }
+  stripePayment(){
+    this.isLoader = true;
+    if(this.cardForm.valid){
+      let requestObject ={
+        "name" : this.cardForm.get("cardHolderName").value,
+        "number" : this.cardForm.get("cardNumber").value,
+        "exp_month" : this.cardForm.get("expiryMonth").value,
+        "exp_year" : this.cardForm.get("expiryYear").value,
+        "cvc" : this.cardForm.get("cvvCode").value,
+        "amount" : this.serviceMainArr.netCost,
+      }
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+  
+      this.http.post(`${environment.apiUrl}/stripe-payment`,requestObject,{headers:headers} ).pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError(this.handleError)
+      ).subscribe((response:any) => {
+        if(response.data == true){
+          this.isLoader=false;
+          this.fnAppointmentBooking();
+      }
+        else{
+          this.snackBar.open("Card Invalid", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+          });
+          this.isLoader=false;
+          console.log(response.response);
+        }
+        },
+        (err) =>{
+          
+        })
     }
   }
 
@@ -2509,7 +2557,7 @@ export class FrontbookingComponent implements OnInit {
           // the code you use to handle the integration errors goes here
         }
       }
-      // bolt.launch( RequestData , Handler ); 
+      //bolt.launch( RequestData , Handler ); 
     }
 
     generateRequestHash(RequestData) {
