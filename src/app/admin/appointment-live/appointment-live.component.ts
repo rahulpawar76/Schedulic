@@ -235,6 +235,7 @@ export class AppointmentLiveComponent implements OnInit {
 export class PendingAppointmentDetailsDialog {
 //notes:any;
 detailsData: any;
+activityLog: any=[];
 constructor(
   public dialogRef: MatDialogRef<PendingAppointmentDetailsDialog>,
   private AdminService: AdminService,
@@ -244,9 +245,25 @@ constructor(
   @Inject(MAT_DIALOG_DATA) public data: any) {
     this.detailsData =  this.data.fulldata;
     console.log(this.detailsData);
+    this.fnGetActivityLog(this.detailsData.id);
   }
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  fnGetActivityLog(orderItemId){
+    let requestObject = {
+      "order_item_id":orderItemId
+    };
+    this.AdminService.getActivityLog(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        console.log(response.response);
+        this.activityLog=response.response;
+      }
+      else if(response.data == false){
+        this.activityLog=[];
+      }
+    })
   }
 
   fnRescheduleAppointment(){
@@ -469,6 +486,7 @@ detailsData: any;
 businessId: any;
 selectedStaff: any;
 availableStaff: any=[];
+activityLog: any=[];
 constructor(
   public dialogRef: MatDialogRef<NotAssignedAppointmentDetailsDialog>,
   private AdminService: AdminService,
@@ -480,10 +498,26 @@ constructor(
   @Inject(MAT_DIALOG_DATA) public data: any) {
     this.detailsData =  this.data.fulldata;
     console.log(this.detailsData);
+    this.fnGetActivityLog(this.detailsData.id);
     this.fnGetStaff(this.detailsData.booking_date,this.detailsData.booking_time,this.detailsData.service_id,this.detailsData.postal_code);
   }
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  fnGetActivityLog(orderItemId){
+    let requestObject = {
+      "order_item_id":orderItemId
+    };
+    this.AdminService.getActivityLog(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        console.log(response.response);
+        this.activityLog=response.response;
+      }
+      else if(response.data == false){
+        this.activityLog=[];
+      }
+    })
   }
 
   fnRescheduleAppointment(){
@@ -590,6 +624,7 @@ constructor(
 export class OnTheWayAppointmentDetailsDialog {
 //notes:any;
 detailsData: any;
+activityLog: any=[];
 constructor(
   public dialogRef: MatDialogRef<OnTheWayAppointmentDetailsDialog>,
   private AdminService: AdminService,
@@ -600,9 +635,25 @@ constructor(
   @Inject(MAT_DIALOG_DATA) public data: any) {
     this.detailsData =  this.data.fulldata;
     console.log(this.detailsData);
+    this.fnGetActivityLog(this.detailsData.id);
   }
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  fnGetActivityLog(orderItemId){
+    let requestObject = {
+      "order_item_id":orderItemId
+    };
+    this.AdminService.getActivityLog(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        console.log(response.response);
+        this.activityLog=response.response;
+      }
+      else if(response.data == false){
+        this.activityLog=[];
+      }
+    })
   }
 
   fnRescheduleAppointment(){
@@ -673,6 +724,7 @@ constructor(
 export class WorkStartedAppointmentDetailsDialog {
 //notes:any;
 detailsData: any;
+activityLog: any=[];
 constructor(
   public dialogRef: MatDialogRef<WorkStartedAppointmentDetailsDialog>,
   private AdminService: AdminService,
@@ -681,9 +733,25 @@ constructor(
   @Inject(MAT_DIALOG_DATA) public data: any) {
     this.detailsData =  this.data.fulldata;
     console.log(this.detailsData);
+    this.fnGetActivityLog(this.detailsData.id);
   }
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  fnGetActivityLog(orderItemId){
+    let requestObject = {
+      "order_item_id":orderItemId
+    };
+    this.AdminService.getActivityLog(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        console.log(response.response);
+        this.activityLog=response.response;
+      }
+      else if(response.data == false){
+        this.activityLog=[];
+      }
+    })
   }
 
   fnRescheduleAppointment(){

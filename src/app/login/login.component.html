@@ -39,7 +39,7 @@
               </button>
             </div> 
             <div class="input-wrap my-3">
-              <button type="button" color="primary" [disabled]="loading" (click)="signInWithGoogle()" class="common-btn text-white w-100 buttion-but" >
+              <!-- <button type="button" color="primary" [disabled]="loading" (click)="signInWithGoogle()" class="common-btn text-white w-100 buttion-but" >
                   <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mt-butn "></span>
                   Sign In With Google
               </button>
@@ -50,7 +50,7 @@
               <button type="button" color="primary" [disabled]="loading" (click)="signOut()" class="common-btn text-white w-100 buttion-but" >
                   <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mt-butn "></span>
                   signOut from Google
-              </button>
+              </button> -->
               <!-- <button type="button" (click)="signInWithGoogle()" class="btn btn-primary">Sign In With Google</button> -->
             </div> 
         <!-- Traslate -->
@@ -68,8 +68,8 @@
             <p class="text-center text-white">With one of your social <br/> account</p>
           </mat-card-title>
           <div class="social-btns" fxLayoutalign="center center">
-            <a class="social-login facebook" href="#"><i class="fa fa-facebook-f"></i></a>
-            <a class="social-login google_plus" href="#"><i class="fa fa-google-plus"></i></a>
+            <a class="btn social-login facebook" (click)="signInWithFB()"><i class="fa fa-facebook-f"></i></a>
+            <a class="btn social-login google_plus" (click)="signInWithGoogle()"><i class="fa fa-google-plus"></i></a>
           </div>
           <div class="create-account">
             <p>Don't have account?</p>

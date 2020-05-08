@@ -16,4 +16,6 @@
     zip?: string; //Use with fake backend
     business_id?: string; //Use with fake backend
     phone?: string; //Use with fake backend
+    google_id?: string; //Use with fake backend
+    facebook_id?: string; //Use with fake backend
 }

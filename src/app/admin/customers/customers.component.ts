@@ -942,17 +942,35 @@ customerUpdate(existingCustomerData){
 })
 export class CustomerAppointmentDetailsDialog {
   detailsData: any;
+  activityLog: any=[];
 constructor(
   public dialogRef: MatDialogRef<CustomerAppointmentDetailsDialog>,
+  public adminService: AdminService,
   @Inject(MAT_DIALOG_DATA) public data: DialogData) {
 
     this.detailsData =  this.data.fulldata;
     console.log(this.detailsData);
+    this.fnGetActivityLog(this.detailsData.id);
   }
 
 onNoClick(): void {
   this.dialogRef.close();
 }
+
+fnGetActivityLog(orderItemId){
+    let requestObject = {
+      "order_item_id":orderItemId
+    };
+    this.adminService.getActivityLog(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        console.log(response.response);
+        this.activityLog=response.response;
+      }
+      else if(response.data == false){
+        this.activityLog=[];
+      }
+    })
+  }
 
 }
 

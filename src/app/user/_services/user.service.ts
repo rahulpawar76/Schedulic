@@ -169,4 +169,16 @@ export class UserService {
     }),
     catchError(this.handleError));
   }
+  getActivityLog(requestObject){
+      let headers = new HttpHeaders({
+					"customer-id":JSON.stringify(this.userId),
+					"api-token":this.token,
+          'Content-Type': 'application/json'
+      });
+      return this.http.post(`${environment.apiUrl}/logs-list`,requestObject,{headers:headers}).pipe(
+      map((res) => {
+          return res;
+      }),
+      catchError(this.handleError));
+  }
 }

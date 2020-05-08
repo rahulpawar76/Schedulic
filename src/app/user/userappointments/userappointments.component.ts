@@ -375,18 +375,35 @@ export class DialogCancelReason {
     currencySymbol:any;
     currencySymbolPosition:any;
     currencySymbolFormat:any;
+    activityLog:any=[];
     constructor(
       public dialogRef: MatDialogRef<DialogCancelAppointmentDetails>,
       private authenticationService: AuthenticationService,
       private UserService: UserService,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.myAppoDetailData = this.data.fulldata;
+        this.fnGetActivityLog(this.myAppoDetailData.id);
         this.bussinessId=this.authenticationService.currentUserValue.business_id;
         this.fnGetSettingValue();
       }
 
     onNoClick(): void {
       this.dialogRef.close();
+    }
+
+    fnGetActivityLog(orderItemId){
+      let requestObject = {
+        "order_item_id":orderItemId
+      };
+      this.UserService.getActivityLog(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          console.log(response.response);
+          this.activityLog=response.response;
+        }
+        else if(response.data == false){
+          this.activityLog=[];
+        }
+      })
     }
 
     fnGetSettingValue(){
@@ -428,6 +445,7 @@ export class DialogCancelReason {
     currencySymbol:any;
     currencySymbolPosition:any;
     currencySymbolFormat:any;
+    activityLog:any=[];
     constructor(
       public dialogRef: MatDialogRef<DialogMyAppointmentDetails>,
       private authenticationService: AuthenticationService,
@@ -435,6 +453,7 @@ export class DialogCancelReason {
        public dialog: MatDialog,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.myAppoDetailData = this.data.fulldata;
+        this.fnGetActivityLog(this.myAppoDetailData.id);
         console.log(this.myAppoDetailData)
         this.index = this.data.index;
         console.log(this.index)
@@ -443,6 +462,21 @@ export class DialogCancelReason {
       }
     onNoClick(): void {
       this.dialogRef.close();
+    }
+
+    fnGetActivityLog(orderItemId){
+      let requestObject = {
+        "order_item_id":orderItemId
+      };
+      this.UserService.getActivityLog(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          console.log(response.response);
+          this.activityLog=response.response;
+        }
+        else if(response.data == false){
+          this.activityLog=[];
+        }
+      })
     }
 
     fnGetSettingValue(){
@@ -684,6 +718,7 @@ export class rescheduleAppointmentDialog {
     currencySymbol:any;
     currencySymbolPosition:any;
     currencySymbolFormat:any;
+    activityLog:any=[];
     constructor(
       public dialogRef: MatDialogRef<DialogCompleteAppointmentDetails>,
       private authenticationService: AuthenticationService,
@@ -691,6 +726,7 @@ export class rescheduleAppointmentDialog {
       public dialog: MatDialog,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.myAppoDetailData = this.data.fulldata;
+        this.fnGetActivityLog(this.myAppoDetailData.id);
         this.bussinessId=this.authenticationService.currentUserValue.business_id;
         this.fnGetSettingValue();
       }
@@ -698,7 +734,22 @@ export class rescheduleAppointmentDialog {
     onNoClick(): void {
       this.dialogRef.close();
     }
-    
+
+    fnGetActivityLog(orderItemId){
+      let requestObject = {
+        "order_item_id":orderItemId
+      };
+      this.UserService.getActivityLog(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          console.log(response.response);
+          this.activityLog=response.response;
+        }
+        else if(response.data == false){
+          this.activityLog=[];
+        }
+      })
+    }
+
     fnGetSettingValue(){
       let requestObject = {
         "business_id":this.bussinessId

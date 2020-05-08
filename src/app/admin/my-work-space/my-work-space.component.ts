@@ -67,6 +67,8 @@ export class MyWorkSpaceComponent implements OnInit {
   currencySymbol:any;
   currencySymbolPosition:any;
   currencySymbolFormat:any;
+  
+  activityLog:any=[];
   constructor(
     public dialog: MatDialog,
     private http: HttpClient,
@@ -212,6 +214,7 @@ export class MyWorkSpaceComponent implements OnInit {
         this.appointmentDetails.customerPhone=this.appointments[0].customer.phone;
         this.appointmentDetails.customerAddress=this.appointments[0].customer.address+" "+this.appointments[0].customer.city+" "+this.appointments[0].customer.state+" "+this.appointments[0].customer.zip;
         this.appointmentDetails.postalCode=this.appointments[0].postal_code;
+        this.fnGetActivityLog(this.appointmentDetails.id);
         if(this.appointmentDetails.order_status == "CNF" && this.appointments[0].staff_id == null){
           this.selectedStaff=null;
           this.availableStaff.length=0;
@@ -258,12 +261,28 @@ export class MyWorkSpaceComponent implements OnInit {
         this.appointmentDetails.customerPhone=this.appointments[i].customer.phone;
         this.appointmentDetails.customerAddress=this.appointments[i].customer.address+" "+this.appointments[i].customer.city+" "+this.appointments[i].customer.state+" "+this.appointments[i].customer.zip;
         this.appointmentDetails.postalCode=this.appointments[i].customer.zip;
+        this.fnGetActivityLog(this.appointmentDetails.id);
         if(this.appointmentDetails.order_status == "CNF" && this.appointments[i].staff_id == null){
         this.selectedStaff=null;
         this.availableStaff.length=0;
           this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId,this.appointmentDetails.postalCode);
         }
         
+  }
+
+  fnGetActivityLog(orderItemId){
+    let requestObject = {
+      "order_item_id":orderItemId
+    };
+    this.adminService.getActivityLog(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        console.log(response.response);
+        this.activityLog=response.response;
+      }
+      else if(response.data == false){
+        this.activityLog=[];
+      }
+    })
   }
 
   fnGetStaff(booking_date,booking_time,serviceId,postal_code){

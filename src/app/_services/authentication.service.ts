@@ -42,8 +42,26 @@ export class AuthenticationService {
         }));
     }
 
+    loginWithGoogleFacebook(authId,email,provider) {
+        let requestObject={
+            "auth_id":authId,
+            "email_id":email,
+            "provider":provider
+        }
+        return this.http.post<any>(`${environment.apiUrl}/facebook-google-login`, requestObject)
+        .pipe(map(user => {
+            if (user && user.response.idExists == true) {
+                localStorage.setItem('currentUser', JSON.stringify(user.response.userData));
+                this.currentUserSubject.next(user.response.userData);
+                console.log(user.response);
+            }
+                console.log(user.response);
+            return user.response;
+        }));
+    }
+
     signup(signUpUserObj) {
-        return this.http.post<any>(`${environment.apiUrl}/user-login`, { signUpUserObj })
+        return this.http.post<any>(`${environment.apiUrl}/signup`,signUpUserObj)
         .pipe(map(data => {
             return data;
         }));
@@ -79,5 +97,6 @@ export class AuthenticationService {
         // localStorage.removeItem('tokenID');
         // localStorage.clear();
         this.currentUserSubject.next(null);
+        console.log(this.currentUserValue);
     }
 }
