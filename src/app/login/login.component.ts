@@ -103,6 +103,11 @@ export class LoginComponent implements OnInit {
     forgotPassword(){
         this.router.navigate(['/forgot-password']);
     }
+    
+    signUp(event){
+        this.router.navigate(["attendees-registration"]);
+    }
+
     signInWithGoogle(): void {
         this.appComponent.signInWithGoogle(this.loginForm);
     }

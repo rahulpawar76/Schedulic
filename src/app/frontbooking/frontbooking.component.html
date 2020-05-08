@@ -254,12 +254,12 @@
                             <label>Phone</label>
                             <!-- <input formControlName="newUserPhone" class="common-input" type="text" /> -->
                             <ngx-intl-tel-input class="common-input mobile-intel-input" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
-                                [selectedCountryISO]="CountryISO.India" [maxLength]="15" [phoneValidation]="true" [separateDialCode]="separateDialCode" name="phone" formControlName="newUserPhone">
+                                [selectedCountryISO]="CountryISO.India" [maxLength]="10" [phoneValidation]="true" [separateDialCode]="separateDialCode" name="phone" formControlName="newUserPhone">
                             </ngx-intl-tel-input>
                             <span *ngIf="formNewUser.get('newUserPhone').dirty || formNewUser.get('newUserPhone').touched || formSubmitclicked"><small *ngIf="formNewUser.get('newUserPhone').hasError('required')" class="error">Phone number Is required</small>
                                                 
                                             <!-- <small *ngIf="formNewUser.get('newUserPhone').hasError('pattern')" class="error">Enter a valid phone number</small> -->
-                                            <small *ngIf="formNewUser.get('newUserPhone').hasError('minlength') || formNewUser.get('newUserPhone').hasError('maxlength')" class="error">Phone number should be 10 to 15 digits long</small></span>
+                                            <small *ngIf="formNewUser.get('newUserPhone').hasError('minlength') || formNewUser.get('newUserPhone').hasError('maxlength')" class="error">Phone number should be 10 digits long</small></span>
                         </div>
                         <div class="col-12 col-lg-12 col-md-12 col-sm-12" *ngIf="contactFormSettingsArr.addressField.status == 1">
                             <label>Address</label>
@@ -494,32 +494,50 @@
                 <mat-radio-button [checked]="paymentMethod == 'Cash'" (change)="fnPaymentMethod('Cash')" class="payment-radio px-3 mb-0 col-12 w-auto mt-y mx-4 p-4 cash-payment single-pay" value="pay1">Cash Payment
                     <img src="../../assets/icons/cash-symbol.png" class="payment-gtw-icon cash-payment" />
                 </mat-radio-button>
-                
-                <mat-radio-button [checked]="paymentMethod == 'Card Payment'" (change)="fnPaymentMethod('Card Payment')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay2">Credit Card
+
+                <mat-radio-button [checked]="paymentMethod == 'stripe'" (change)="fnPaymentMethod('stripe')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay2">Credit Card
                     <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" />
                 </mat-radio-button>
-                <div *ngIf="creditcardform" class="field-list mx-4 row credit-card-form ">
-                    <div class="col-12 left-side col-lg-6">
-                        <div class="col-12">
-                            <label>Card Holder Name</label>
-                            <input class="common-input" type="text" />
+                <div *ngIf="creditcardform">
+                    <form [formGroup]="cardForm" class="field-list mx-4 row credit-card-form ">
+                        <div class="col-12 left-side mb-3 col-lg-6">
+                            <div class="col-12 mb-4">
+                                <label>Card Holder Name</label>
+                                <input formControlName="cardHolderName" class="common-input" type="text" />
+                                <span class="error-wrap" *ngIf="cardForm.get('cardHolderName').dirty || cardForm.get('cardHolderName').touched"><small *ngIf="cardForm.get('cardHolderName').hasError('required')" class="error">Card Holder Name Is required</small></span>
+                            </div>
+                            <div class="col-12 mb-4">
+                                <label>Card Number</label>
+                                <input formControlName="cardNumber" class="common-input" type="text" />
+                                <span class="error-wrap" *ngIf="cardForm.get('cardNumber').dirty || cardForm.get('cardNumber').touched"><small *ngIf="cardForm.get('cardNumber').hasError('required')" class="error">Card Number Is required</small>
+                                    <!-- <small *ngIf="cardForm.get('cardNumber').hasError('pattern)" class="error">Card Number should Numeric</small> -->
+                                </span>
+                            </div>
+
+                            <div class="col-6 float-left">
+                                <label>Expiry Date</label>
+                                <div class="col-6 float-left mb-4 p-0">
+                                    <label>Month</label>
+                                    <input formControlName="expiryMonth" class="common-input" type="text" />
+                                    <span class="error-wrap" *ngIf="cardForm.get('expiryMonth').dirty || cardForm.get('expiryMonth').touched"><small *ngIf="cardForm.get('expiryMonth').hasError('required')" class="error">Expiry Month Is required</small><small *ngIf="cardForm.get('expiryMonth').hasError('pattern')" class="error">Expiry Month should Numeric</small></span>
+                                </div>
+                                <div class="col-6 float-left mb-4 p-0">
+                                    <label>Year</label>
+                                    <input formControlName="expiryYear" class="common-input" type="text" />
+                                    <span class="error-wrap" *ngIf="cardForm.get('expiryYear').dirty || cardForm.get('expiryYear').touched"><small *ngIf="cardForm.get('expiryYear').hasError('required')" class="error">Expiry Year Is required</small><small *ngIf="cardForm.get('expiryYear').hasError('pattern')" class="error">Expiry Year should Numeric</small></span>
+                                </div>
+                            </div>
+                            <div class="col-6 float-left mb-4">
+                                <label class="invisible">CVV Code</label>
+                                <label class="mt-2">CVV Code</label>
+                                <input formControlName="cvvCode" class="common-input" type="password" />
+                                <span class="error-wrap" *ngIf="cardForm.get('cvvCode').dirty || cardForm.get('cvvCode').touched"><small *ngIf="cardForm.get('cvvCode').hasError('required')" class="error">CVV Code Is required</small></span>
+                            </div>
                         </div>
-                        <div class="col-12">
-                            <label>Card Number</label>
-                            <input class="common-input" type="text" />
+                        <div class="col-12 right-side col-lg-6">
+                            <img src="../../assets/icons/credit-card.png" />
                         </div>
-                        <div class="col-6 float-left">
-                            <label>Expiry Date</label>
-                            <input class="common-input" type="text" />
-                        </div>
-                        <div class="col-6 float-left">
-                            <label>CVV Code</label>
-                            <input class="common-input" type="password" />
-                        </div>
-                    </div>
-                    <div class="col-12 right-side col-lg-6">
-                        <img src="../../assets/icons/credit-card.png" />
-                    </div>
+                    </form>
                 </div>
 
                 <mat-radio-button [checked]="paymentMethod == 'Paypal'" (change)="fnPaymentMethod('Paypal')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay2">Paypal
@@ -542,10 +560,10 @@
                     <!-- <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal"  class="payment-gtw-icon cash-payment"/> -->
                 </mat-radio-button>
                 <!-- <div *ngIf="showPayUMoneyButton" class="field-list mx-4 row credit-card-form "> -->
-                    <!-- <div class="col-12 left-side col-lg-6">
+                <!-- <div class="col-12 left-side col-lg-6">
                         <div class='pm-button'><a href='https://www.payumoney.com/sandbox/paybypayumoney/#/8C489717229C94CF81E97BB992F57B4D'><img src='https://www.payumoney.com/media/images/payby_payumoney/new_buttons/23.png' /></a></div> 
                     </div> -->
-                    <!-- <div class="col-12 left-side col-lg-6">
+                <!-- <div class="col-12 left-side col-lg-6">
                         <div class='pm-button'><button (click)="fnPayUMoney()" mat-button class="round-btn continue-btn logout-btn"><img src='https://www.payumoney.com/media/images/payby_payumoney/new_buttons/23.png' /></button></div> 
                     </div>
                     <div class="col-12 right-side col-lg-6">

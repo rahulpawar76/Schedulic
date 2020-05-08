@@ -53,7 +53,9 @@
             <button mat-raised-button color="warn" *ngIf="!isBusiness()" (click)="MyLiveAppointmentNav()">Live</button>
             <button mat-button color="primary" (click)="MyBusinessNav()">My Businesses</button>
             <span class="profile-head">
-              <img class="customer-profile-img m-2 float-left" src="/assets/img/avatar-rihan.jpg">
+                <div class="customer-profile-img m-2 float-left overflow-hidden">
+                    <img class="w-100" src="{{currentUser.image}}">
+                </div>
               <p class="font-weight-bold my-2 p-1" *ngIf="currentUser.full_name">{{currentUser.full_name}}</p>
             </span>
                     <button *ngIf="!isBusiness()" mat-stroked-button class="bellborder bell-color" (click)="openNotificationDialog()">
@@ -277,7 +279,7 @@
         <mat-list role="list" *ngIf="isCustomerUser()">
             <mat-menu></mat-menu>
             <mat-list-item role="listitem" (click)="drawer.toggle()" (click)="UserProfile('./user-profile')" class="matlist pointer menuitem">
-                <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg">
+                <img class="customer-profile-img ml-2 mr-2 mb-2" src="{{currentUser.image}}">
                 <p class="font-weight-bold mt-2 p-1">{{currentUser.fullname}}</p>
             </mat-list-item>
             <mat-list-item role="listitem" (click)="UserAppointment('./user-appointment')" (click)="drawer.toggle()">
@@ -291,7 +293,7 @@
         <mat-list role="list" *ngIf="isStaffUser()">
             <mat-menu></mat-menu>
             <mat-list-item role="listitem" (click)="drawer.toggle()" (click)=" StaffProfile('./staff-profile')" class="matlist pointer menuitem">
-                <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg">
+                <img class="customer-profile-img ml-2 mr-2 mb-2" src="{{currentUser.image}}">
                 <p class="font-weight-bold mt-2 p-1">{{currentUser.full_name}}</p>
             </mat-list-item>
             <mat-list-item role="listitem" (click)="WorkSpace('./my-work-space')" (click)="drawer.toggle()">

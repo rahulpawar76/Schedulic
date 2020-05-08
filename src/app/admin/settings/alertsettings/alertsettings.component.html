@@ -2478,7 +2478,7 @@
                                         <img src="/assets/images/admin/twilio.png" class="payment-image">
                                     </div>
                                     <div class="payment-toggle-btn">
-                                        <mat-slide-toggle class=""></mat-slide-toggle>
+                                        <mat-slide-toggle *ngIf="twilioSettingValue" [checked]="twilioSettingValue.status" (change)="fnTwillioStatus($event.checked)" class=""></mat-slide-toggle>
                                     </div>
                                 </div>
                                 <div>
@@ -2497,65 +2497,76 @@
                             <div class="main-account-details">
                                 <div class="">
                                     <div class="main-table-content main-cust-table-content">
-                                        <div class="">
-                                            <div class="" fxLayout="row">
-                                                <div class="" fxFlex="20"></div>
-                                                <div class="" fxFlex="80"></div>
-                                            </div>
-                                            <div class="content" class="">
-                                                <div class="">
-                                                    <div class="mx-2" fxFlex="20">
-                                                        <label class="payment-label">Account SID</label>
+                                        <form [formGroup]="twilio">
+                                            <div class="">
+                                                <div class="" fxLayout="row">
+                                                    <div class="" fxFlex="20"></div>
+                                                    <div class="" fxFlex="80"></div>
+                                                </div>
+                                                <div class="content" class="">
+                                                    <div class="">
+                                                        <div class="mx-2" fxFlex="20">
+                                                            <label class="payment-label">Account SID</label>
+                                                        </div>
+                                                        <div class="mx-2" fxFlex="80">
+                                                            <mat-form-field class="example-full-width bottom-border-field">
+                                                                <input formControlName="accountSID" matInput placeholder="" value="">
+                                                            </mat-form-field>
+                                                        </div>
                                                     </div>
-                                                    <div class="mx-2" fxFlex="80">
-                                                        <mat-form-field class="example-full-width
-                              bottom-border-field">
-                                                            <input matInput placeholder="" value="">
-                                                        </mat-form-field>
+                                                    <span class="w-100 error-wrap" *ngIf="twilio.get('accountSID').dirty || twilio.get('accountSID').touched">
+                                                        <small *ngIf="twilio.get('accountSID').hasError('required')" class="error">Account SID Is required</small>
+                                                    </span>
+                                                </div>
+                                                <div class="content" class="">
+                                                    <div class="">
+                                                        <div class="mx-2" fxFlex="20">
+                                                            <label class="payment-label">Auth Token</label>
+                                                        </div>
+                                                        <div class="mx-2" fxFlex="80">
+                                                            <mat-form-field class="example-full-width bottom-border-field">
+                                                                <input formControlName="authToken" matInput placeholder="" value="">
+                                                            </mat-form-field>
+                                                        </div>
                                                     </div>
+                                                    <span class="w-100 error-wrap" *ngIf="twilio.get('authToken').dirty || twilio.get('authToken').touched">
+                                                        <small *ngIf="twilio.get('authToken').hasError('required')" class="error">Auth Token Is required</small>
+                                                    </span>
+                                                </div>
+                                                <div class="content" class="">
+                                                    <div class="">
+                                                        <div class="mx-2" fxFlex="20">
+                                                            <label class="payment-label">Twilio Sender</label>
+                                                        </div>
+                                                        <div class="mx-2" fxFlex="80">
+                                                            <mat-form-field class="example-full-width bottom-border-field">
+                                                                <input formControlName="twilioSender" matInput placeholder="" value="">
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                    <span class="w-100 error-wrap" *ngIf="twilio.get('twilioSender').dirty || twilio.get('twilioSender').touched">
+                                                        <small *ngIf="twilio.get('twilioSender').hasError('required')" class="error">Twilio Sender Is required</small>
+                                                    </span>
+                                                </div>
+                                                <div class="content" class="">
+                                                    <div class="">
+                                                        <div class="mx-2" fxFlex="20">
+                                                            <label class="payment-label">Admin Phone Number</label>
+                                                        </div>
+                                                        <div class="mx-2" fxFlex="80">
+                                                            <mat-form-field class="example-full-width bottom-border-field">
+                                                                <mat-icon matPrefix><img src="/assets/images/admin/india.png"></mat-icon>
+                                                                <input formControlName="adminNumber" type="number" matInput placeholder="" value="">
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                    <span class="w-100 error-wrap" *ngIf="twilio.get('adminNumber').dirty || twilio.get('adminNumber').touched">
+                                                        <small *ngIf="twilio.get('adminNumber').hasError('required')" class="error">Admin Phone Number Is required</small>
+                                                    </span>
                                                 </div>
                                             </div>
-                                            <div class="content" class="">
-                                                <div class="">
-                                                    <div class="mx-2" fxFlex="20">
-                                                        <label class="payment-label">Auth Token</label>
-                                                    </div>
-                                                    <div class="mx-2" fxFlex="80">
-                                                        <mat-form-field class="example-full-width
-                              bottom-border-field">
-                                                            <input matInput placeholder="" value="">
-                                                        </mat-form-field>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="content" class="">
-                                                <div class="">
-                                                    <div class="mx-2" fxFlex="20">
-                                                        <label class="payment-label">Twilio Sender</label>
-                                                    </div>
-                                                    <div class="mx-2" fxFlex="80">
-                                                        <mat-form-field class="example-full-width
-                              bottom-border-field">
-                                                            <input matInput placeholder="" value="">
-                                                        </mat-form-field>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="content" class="">
-                                                <div class="">
-                                                    <div class="mx-2" fxFlex="20">
-                                                        <label class="payment-label">Admin Phone Number</label>
-                                                    </div>
-                                                    <div class="mx-2" fxFlex="80">
-                                                        <mat-form-field class="example-full-width
-                              bottom-border-field">
-                                                            <mat-icon matPrefix><img src="/assets/images/admin/india.png"></mat-icon>
-                                                            <input type="number" matInput placeholder="" value="">
-                                                        </mat-form-field>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                            <button mat-button class="save-btn my-3" (click)="fnSubmitTwillioSettings()">Save</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -2615,7 +2626,7 @@
                                         <img src="/assets/images/admin/textlocal.png" class="">
                                     </div>
                                     <div class="payment-toggle-btn">
-                                        <mat-slide-toggle class=""></mat-slide-toggle>
+                                        <mat-slide-toggle *ngIf="textLocalSettingValue" [checked]="textLocalSettingValue.status" (change)="fnTextLocalStatus($event.checked)" class=""></mat-slide-toggle>
                                     </div>
                                 </div>
                                 <div>
@@ -2626,6 +2637,38 @@
 
                             </mat-panel-description>
                         </mat-expansion-panel-header>
+                        <div class="account-setting">
+                            <p class="mb-0 py-2 account-para">Text Local Account Settings</p>
+                        </div>
+                        <div class="p-2">
+                            <div class="main-account-details">
+                                <form [formGroup]="textLocal">
+                                    <div class="">
+                                        <div class="main-table-content main-cust-table-content">
+                                            <div class="">
+                                                <div class="content" class="">
+                                                    <div class="">
+                                                        <div class="mx-2" fxFlex="20">
+                                                            <label class="payment-label">API Key</label>
+                                                        </div>
+                                                        <div class="mx-2" fxFlex="80">
+                                                            <mat-form-field class="example-full-width bottom-border-field">
+                                                                <input formControlName="apiKey" matInput placeholder="" value="">
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                    <span class="w-100 error-wrap" *ngIf="textLocal.get('apiKey').dirty || textLocal.get('apiKey').touched">
+                                                        <small *ngIf="textLocal.get('apiKey').hasError('required')" class="error">Api Key Is required</small>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <button mat-button class="save-btn my-3" (click)="fnSubmitTextLocalSetting()">Save</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </mat-expansion-panel>
                 </mat-accordion>
                 <h5 class="m-4">SMS Reminders</h5>

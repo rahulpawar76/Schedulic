@@ -6,7 +6,7 @@
                     <form [formGroup]="signUpForm" class="w-75">
                         <mat-card-title>
                             <h2 class="text-center">Sign In</h2>
-                            <p class="text-center text-dark">Already have an account <a class="btn-link" routerLink="login">Login?</a></p>
+                            <p class="text-center text-dark">Already have an account <a class="btn-link" (click)="login()">Login?</a></p>
                         </mat-card-title>
                         <div class="row">
                             <div class="input-wrap col-12 col-lg-6 col-sm-12 float-left my-3">
@@ -35,7 +35,6 @@
                             </div>
                             <div class="input-wrap col-12 col my-3 text-center">
                                 <button type="submit" color="primary" (click)="signUpSubmit()" class="common-btn text-white buttion-but px-5">
-								<span class="spinner-border spinner-border-sm mr-1 mt-butn "></span>
 								Create Account
 							</button>
                             </div>
@@ -43,7 +42,9 @@
                         <!-- Traslate -->
                     </form>
                 </div>
-                <div class="or-option">or</div>
+                <div class="col-12">
+                    <div class="or-option">or</div>
+                </div>
                 <div id="login-with-social" class="right-side p-2 col-lg-12 col-md-12 col-sm-12 col-12  float-left">
                     <div class="w-75 row login-with-social">
                         <div class="col-12 col-lg-6">

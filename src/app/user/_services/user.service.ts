@@ -53,11 +53,6 @@ export class UserService {
 			});
 			return this.http.post(`${environment.apiUrl}/customer-profile-update`,updatedprofiledata,{headers:headers}).pipe(
 			map((res) => {
-			// this._snackBar.open("Profile Updated", "X", {
-			// 	duration: 2000,
-			// 	verticalPosition:'top',
-			// 	panelClass :['green-snackbar']
-			//   });
 			return res;
 			}),
 			catchError(this.handleError));
@@ -180,5 +175,17 @@ export class UserService {
           return res;
       }),
       catchError(this.handleError));
+	}
+  customerSearchAppointment(requestObject) {
+    let headers = new HttpHeaders({
+	    'Content-Type': 'application/json',
+		"customer-id":JSON.stringify(this.userId),
+		"api-token":this.token
+    });
+    return this.http.post(`${environment.apiUrl}/customer-bookings-search`, requestObject, { headers: headers }).pipe(
+    map((res) => {
+      return res;
+    }),
+    catchError(this.handleError));
   }
 }

@@ -17,6 +17,8 @@ import { map, catchError, filter } from 'rxjs/operators';
 export class ForgotPasswordComponent implements OnInit {
   forgotForm: FormGroup;
    dataLoaded: boolean = true;
+   forgotPwdContainer: boolean = true;
+   emailSentContainer: boolean = false;
    forgotEmail: any;
    error = '';
    emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
@@ -37,6 +39,7 @@ export class ForgotPasswordComponent implements OnInit {
   	this.forgotForm = this.formBuilder.group({
         email: ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]]        
     });
+    console.log(this.route.snapshot)
   }  
   private handleError(error: HttpErrorResponse) {
     console.log(error);
@@ -45,8 +48,11 @@ export class ForgotPasswordComponent implements OnInit {
 
   forgotPwdSubmit(){
     this.forgotEmail =  this.forgotForm.get('email').value
+    let site_url = environment.urlForLink;
+    console.log(site_url)
     let requestObject = {
           "email":this.forgotEmail,
+          "url" : site_url+"/reset-password?accessToken"
         };
     let headers = new HttpHeaders({
           'Content-Type': 'application/json',
@@ -63,7 +69,11 @@ export class ForgotPasswordComponent implements OnInit {
               verticalPosition:'top',
               panelClass :['green-snackbar']
             });
-            this.router.navigate(['/reset-password']);
+            this.forgotPwdContainer =false
+            this.emailSentContainer = true;
+            setTimeout(() => {
+              this.router.navigate(['/login']);
+            }, 2000);
           }
           else if(response.data == false){
             this._snackBar.open(response.response, "X", {

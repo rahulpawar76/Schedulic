@@ -30,7 +30,7 @@
         <mat-form-field class="form-group  bottom-border-field">
           <mat-label>Customer Contact Number</mat-label>
           <mat-icon matPrefix><i class="fa fa-phone"></i></mat-icon>
-          <input matInput formControlName="customerPhone" placeholder="Enter Customer Contact Number" >
+          <input type="number" matInput formControlName="customerPhone" placeholder="Enter Customer Contact Number" >
         </mat-form-field>
         <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').dirty || formAddNewAppointmentStaffStep1.get('customerPhone').touched || formSubmitclicked">
           <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('required')" class="error">Phone Is required</small>
