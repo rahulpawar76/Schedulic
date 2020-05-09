@@ -2256,6 +2256,10 @@ export class FrontbookingComponent implements OnInit {
         catchError(this.handleError)
       ).subscribe((response:any) => {
         if(response.data == true){
+          let digit5= Math.floor(Math.random()*90000) + 10000;
+        this.reference_id="2_"+digit5+"_"+ this.datePipe.transform(new Date(),"yyyy/MM/dd") ;
+          this.transactionId = response.response.id 
+          this.paymentDateTime = this. datePipe.transform(new Date(),"yyyy/MM/dd");
           this.isLoader=false;
           this.fnAppointmentBooking();
       }
