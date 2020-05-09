@@ -39,8 +39,14 @@
     .left-border {
         border-left: 1px solid #dedede;
     }
+    
 }
-
+#Appoinment-Details {
+    background: #fff;
+}
+#Appoinment-Details .title-main{
+    margin-top: 15px;
+}
 @media only screen and (min-device-width: 360px) and (max-device-width: 825px) and (orientation: landscape) {
     .align-center {
         padding-left: 0 !important;
@@ -391,6 +397,7 @@
             width: unset !important;
         }
     }
+    
     #admin-book-appointment {
         .row {
             mat-card {
