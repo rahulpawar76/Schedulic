@@ -185,7 +185,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   fnOpenDetails(){
-    return false;
+    //return false;
     const dialogRef = this.dialog.open(DialogAllAppointmentDetails, {
       width: '500px',
       data: {animal: this.animal}
@@ -272,18 +272,18 @@ export class AppointmentComponent implements OnInit {
     })
   }
 
-  checkAll(){
-    if (this.selectAll === true) {
-      this.allAppointments.map((appoint) => {
-        appoint.checked = true;
-      });
+  // checkAll(){
+  //   if (this.selectAll === true) {
+  //     this.allAppointments.map((appoint) => {
+  //       appoint.checked = true;
+  //     });
 
-    } else {
-      this.allAppointments.map((appoint) => {
-        appoint.checked = false;
-      });
-    }
-  }
+  //   } else {
+  //     this.allAppointments.map((appoint) => {
+  //       appoint.checked = false;
+  //     });
+  //   }
+  // }
 
 }
 
@@ -416,7 +416,7 @@ export class DialogAddNewAppointment {
     this.formAddNewAppointmentStaffStep1 = this._formBuilder.group({
       customerFullName: [this.appointmentData.fullName, Validators.required],
       customerEmail: [this.appointmentData.email,[Validators.required,Validators.email,Validators.pattern(emailPattern)], this.validationArr],
-      customerPhone: [this.appointmentData.phone, [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(onlynumeric)]],
+      customerPhone: [this.appointmentData.phone, [Validators.required,Validators.minLength(10),Validators.maxLength(15),Validators.pattern(onlynumeric)]],
       customerAddress: [this.appointmentData.address, Validators.required],
       customerState: [this.appointmentData.state, Validators.required],
       customerCity: [this.appointmentData.city, Validators.required],

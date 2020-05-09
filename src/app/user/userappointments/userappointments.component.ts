@@ -138,6 +138,11 @@ getAllAppointments(): void{
       });
     }
     else if(response.data == false){
+      this._snackBar.open(response.response, "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+      });
       this.appointmentData = [];
     }
   })
@@ -158,6 +163,11 @@ getCancelAppointments(): void{
       });
     }
     else if(response.data == false){
+      this._snackBar.open(response.response, "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+      });
       this.cancelAppointmentData = '';
     }
   })
@@ -178,6 +188,11 @@ getCompletedAppointments(): void{
       });
     }
     else if(response.data == false){
+      this._snackBar.open(response.response, "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+      });
       this.completedAppointmentData = '';
     }
   })
@@ -320,6 +335,9 @@ getCompletedAppointments(): void{
       this.paymentDateTime=new Date();
     }
   }
+  confirmPayment(){
+    
+  }
 
   frontBooking(){
     this.router.navigate(['/booking']);
@@ -349,6 +367,11 @@ getCompletedAppointments(): void{
           });
         }
         else if(response.data == false){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
           this.appointmentData = [];
         }
       })
@@ -395,6 +418,13 @@ export class DialogOverviewExampleDialog {
           panelClass :['green-snackbar']
           });
       }
+      else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+      }
     })
   }
 
@@ -432,7 +462,13 @@ export class DialogCancelReason {
           verticalPosition:'bottom',
           panelClass :['green-snackbar']
           });
-          
+      }
+      else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
       }
     })
   }
@@ -473,6 +509,7 @@ export class DialogCancelReason {
       public dialogRef: MatDialogRef<DialogCancelAppointmentDetails>,
       private authenticationService: AuthenticationService,
       private UserService: UserService,
+      private _snackBar: MatSnackBar,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.myAppoDetailData = this.data.fulldata;
         this.bussinessId=this.authenticationService.currentUserValue.business_id;
@@ -502,7 +539,11 @@ export class DialogCancelReason {
           console.log(this.currencySymbolFormat);
         }
         else if(response.data == false){
-          
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
         }
       })
     }
@@ -526,6 +567,7 @@ export class DialogCancelReason {
       public dialogRef: MatDialogRef<DialogMyAppointmentDetails>,
       private authenticationService: AuthenticationService,
       private UserService: UserService,
+      private _snackBar: MatSnackBar,
        public dialog: MatDialog,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.myAppoDetailData = this.data.fulldata;
@@ -558,7 +600,11 @@ export class DialogCancelReason {
           console.log(this.currencySymbolFormat);
         }
         else if(response.data == false){
-          
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
         }
       })
     }
@@ -594,7 +640,7 @@ export class DialogCancelReason {
 })
 export class rescheduleAppointmentDialog {
   myAppoDetailData: any;
-  minDate = new Date(2000, 0, 1);
+  minDate = new Date();
   formAppointmentReschedule: FormGroup;
   timeSlotArr:any= [];
   availableStaff:any= [];
@@ -677,7 +723,12 @@ export class rescheduleAppointmentDialog {
               this.timeSlotArr=response.response;
               console.log(this.timeSlotArr);
             }
-            else{
+            else if(response.data == false){
+              this._snackBar.open(response.response, "X", {
+                duration: 2000,
+                verticalPosition:'top',
+                panelClass :['red-snackbar']
+              });
             }
           },
           (err) =>{
@@ -696,7 +747,7 @@ export class rescheduleAppointmentDialog {
             "business_id":this.myAppoDetailData.business_id,
             "book_date":this.selectedDate,
             "book_time":slot,
-            "postal_code":this.myAppoDetailData.customer.zip,
+            "postal_code":this.myAppoDetailData.postal_code,
             "service_id":this.myAppoDetailData.service.id
           };
           let headers = new HttpHeaders({
@@ -713,7 +764,12 @@ export class rescheduleAppointmentDialog {
                 this.availableStaff = response.response;
                 console.log(JSON.stringify(this.availableStaff));
             }
-            else{
+              else if(response.data == false){
+                this._snackBar.open(response.response, "X", {
+                  duration: 2000,
+                  verticalPosition:'top',
+                  panelClass :['red-snackbar']
+                });
               this.availableStaff.length=0;
             }
             },
@@ -752,13 +808,14 @@ export class rescheduleAppointmentDialog {
           });
           this.dialogRef.close();
      }
-      else if(response.data == false){
-        this._snackBar.open("Appointment not Rescheduled", "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['red-snackbar']
-          });
-      }
+      
+     else if(response.data == false){
+      this._snackBar.open(response.response, "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+      });
+    }
     })
   }
 }

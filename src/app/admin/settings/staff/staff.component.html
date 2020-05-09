@@ -72,40 +72,40 @@
               *ngIf="StaffCreate.get('description').touched || StaffCreate.get('description').dirty || formSubmitclicked">
               <small *ngIf="StaffCreate.get('description').hasError('required')" class="error">Description Is required</small>
             </span> -->
-            <input type="hidden" formControlName="staff_id" />
-          </div>
-          <div class="col-lg-4 col-md-4 col-12 text-center border-right">
-            <div class="upload-document-top-margin">
-              <div class="d-flex">
-                <h6>Upload Documents</h6>
-                <i class="fa fa-question-circle uploaddocument-icon" aria-hidden="true"></i>
-              </div>
-              <div class="upload-files">
-                <mat-icon aria-hidden="false" class="uploadfile-icon">cloud_upload</mat-icon>
-                <p>.PDF .JPG .PNG .DOC</p>
-                <p>Drag & drop your files here</p>
-                <div>
-                  <button mat-button class="upload-btn">Upload Files</button>
-                </div>
-              </div>
-              <div class="d-flex mt-3">
-                <div class="pan-card file-border d-flex mr-2">
-                  <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
-                  <p class="pr-1 mb-0 mr-3">PAN card.pdf</p>
-                  <mat-icon aria-hidden="false">cancel</mat-icon>
-                </div>
-                <div class="adhar-card file-border d-flex">
-                  <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
-                  <p class="pr-1 mb-0 mb-2">Adhar card.jpg</p>
-                  <mat-icon aria-hidden="false">cancel</mat-icon>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-4 col-12 select-service">
-             <div>
-          <button mat-button (click)="fnDeleteStaff()" class="staff-delete-btn pl-2 ml-3 mt-2">
+                        <input type="hidden" formControlName="staff_id" />
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12 text-center border-right">
+                        <div class="upload-document-top-margin">
+                            <div class="d-flex">
+                                <h6>Upload Documents</h6>
+                                <i class="fa fa-question-circle uploaddocument-icon" aria-hidden="true"></i>
+                            </div>
+                            <div class="upload-files">
+                                <mat-icon aria-hidden="false" class="uploadfile-icon">cloud_upload</mat-icon>
+                                <p>.PDF .JPG .PNG .DOC</p>
+                                <p>Drag & drop your files here</p>
+                                <div>
+                                    <button mat-button class="upload-btn">Upload Files</button>
+                                </div>
+                            </div>
+                            <div class="d-flex mt-3">
+                                <div class="pan-card file-border d-flex mr-2">
+                                    <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
+                                    <p class="pr-1 mb-0 mr-3">PAN card.pdf</p>
+                                    <mat-icon aria-hidden="false">cancel</mat-icon>
+                                </div>
+                                <div class="adhar-card file-border d-flex">
+                                    <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
+                                    <p class="pr-1 mb-0 mb-2">Adhar card.jpg</p>
+                                    <mat-icon aria-hidden="false">cancel</mat-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-12 select-service">
+                        <div>
+                            <button mat-button (click)="fnDeleteStaff()" class="staff-delete-btn pl-2 ml-3 mt-2">
             <mat-icon aria-hidden="false">delete</mat-icon>Delete
           </button>
                         </div>
@@ -427,7 +427,7 @@
                                 <div class="content" class="example-list">
                                     <div *ngFor="let staffService of singleStaffDetail.services; let i=index" class="example-box">
                                         <div class="custom_check_main" fxFlex="10">
-                                            <mat-checkbox (change)="fnAssignServiceToStaff($event.checked, staffService.id)" class="form_field_checkbox" [checked]="selectedServicesArr.indexOf(staffService.id) >-1">
+                                            <mat-checkbox [checked]="selectedServiceNewStaff.indexOf(staffService.id) > -1" (change)="fnAssignServiceToStaff($event.checked, staffService.id)" class="form_field_checkbox" [checked]="selectedServicesArr.indexOf(staffService.id) >-1">
                                             </mat-checkbox>
                                         </div>
                                         <div class="" fxFlex="40">
