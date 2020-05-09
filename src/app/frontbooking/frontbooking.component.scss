@@ -218,8 +218,8 @@
             }
             .common-footer {
                 .cart-btn {
-                    width: 70px;
-                    height: 70px;
+                    width: 45px;
+                    height: 45px;
                     background: $primary-gradient-color;
                     border-radius: 100%;
                     cursor: pointer;
@@ -228,11 +228,12 @@
                     position: absolute;
                     top: calc(100% - 80px);
                     z-index: 1;
-                    right: 10px;
+                    right: 15px;
+                    margin-top: 0 !important;
                     i {
-                        font-size: 42px;
+                        font-size: 23px;
                         color: $text-bg;
-                        line-height: 1.7;
+                        line-height: 2.1;
                     }
                 }
             }
@@ -333,9 +334,9 @@
                         margin: 15px;
                         text-align: center;
                         .continue-btn {
-                            font-size: $fs-20;
+                            font-size: $fs-16;
                             background-color: $grey-3;
-                            padding: 6px 30px;
+                            padding: 6px 25px;
                             margin: 10px;
                         }
                     }
@@ -833,6 +834,7 @@ input:focus {
  ::ng-deep .mat-radio-button.mat-radio-checked .mat-radio-outer-circle {
     border-color: $front-primary-color !important;
 }
+
 
 //  for Mobile
 @media only screen and (max-width: 767px) {

@@ -325,7 +325,7 @@
     flex-wrap: wrap;
     .fontred {
         color: red;
-        margin: 0 22px 0 5px;
+        margin: 0 15x 0 5px;
         .circle {
             margin: 8px;
         }
@@ -478,4 +478,9 @@
 .payment-bk-btn {
     background-color: #e0e0e0;
     border-radius: 50px;
+}
+@media only screen and (max-width: 767px) {
+    .appodetails{
+        margin: 10px;
+    }
 }
