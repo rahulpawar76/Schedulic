@@ -2504,8 +2504,8 @@ export class FrontbookingComponent implements OnInit {
       this.PayUMoney.email= this.customerEmail,
       this.PayUMoney.phone= this.customerPhone,
       this.PayUMoney.productinfo= 'Product Description';
-      this.PayUMoney.surl= 'http://localhost:4200/';
-      this.PayUMoney.furl= 'http://localhost:4200/';
+      this.PayUMoney.surl= environment.urlForLink;
+      this.PayUMoney.furl= environment.urlForLink;
       this.PayUMoney.mode='dropout';// non-mandatory for Customized Response Handling
       this.PayUMoney.udf1='';
       this.PayUMoney.udf2='';

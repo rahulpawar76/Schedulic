@@ -181,4 +181,28 @@ export class UserService {
     }),
     catchError(this.handleError));
   }
+  customerStripePayment(requestObject) {
+    let headers = new HttpHeaders({
+	    'Content-Type': 'application/json',
+		"customer-id":JSON.stringify(this.userId),
+		"api-token":this.token
+    });
+    return this.http.post(`${environment.apiUrl}/stripe-payment`, requestObject, { headers: headers }).pipe(
+    map((res) => {
+      return res;
+    }),
+    catchError(this.handleError));
+  }
+  customerPaymentUpdate(requestObject) {
+    let headers = new HttpHeaders({
+	    'Content-Type': 'application/json',
+		"customer-id":JSON.stringify(this.userId),
+		"api-token":this.token
+    });
+    return this.http.post(`${environment.apiUrl}/customer-payment-update`, requestObject, { headers: headers }).pipe(
+    map((res) => {
+      return res;
+    }),
+    catchError(this.handleError));
+  }
 }
