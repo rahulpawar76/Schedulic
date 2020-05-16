@@ -5,135 +5,135 @@
 //     max-width: 75%;
 //     margin-left: 288px;
 // }
-#customers{
-    .devider-slim{
+#customers {
+    .devider-slim {
         //width: 100%;
         border-bottom: 1px solid #ccc;
     }
-    #Customer-list{
+    #Customer-list {
         background-color: #f2f2f2;
-        ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix{
+         ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
             padding: 10px 0 10px 10px;
         }
-        ::ng-deep  .mat-form-field-infix {
+         ::ng-deep .mat-form-field-infix {
             border-top: unset;
         }
-        ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper{
+         ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
             transform: inherit;
         }
-        ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper{
+         ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
             background-color: white;
             border-radius: 5px;
         }
-        .leftarrow-icon{
+        .leftarrow-icon {
             // margin-left: auto;
             display: flex;
-            .customer-drawer-leftarrow{
+            .customer-drawer-leftarrow {
                 padding: 4px 8px;
                 height: auto;
                 width: auto;
                 text-align: center;
                 background-color: #dedede;
-                 margin-left: auto;
+                margin-left: auto;
             }
         }
-        
-        .all-customer-list{
+        .all-customer-list {
             // width: 60%;
         }
-        .all-action-list{
+        .all-action-list {
             // width: 60%;
         }
-        p{
+        p {
             margin-bottom: 0px;
             word-break: break-all;
             overflow-wrap: break-word;
         }
-        h6{
-            margin-bottom: 0px;;
+        h6 {
+            margin-bottom: 0px;
+            ;
         }
-        .searchbox{
+        .searchbox {
             // width: 60%;  
-            .serch_input-appoint{           
-                height: 39px; 
-                padding-top: 3px; 
+            .serch_input-appoint {
+                height: 39px;
+                padding-top: 3px;
                 .has-search .form-control {
                     padding-left: 2.375rem;
+                }
+                .has-search .form-control-feedback {
+                    position: absolute;
+                    z-index: 2;
+                    display: block;
+                    width: 2.375rem;
+                    height: 1rem;
+                    line-height: 2rem;
+                    text-align: center;
+                    pointer-events: none;
+                    color: black;
+                    .has-search .form-control-feedback .verticalLine {
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            top: 58%;
+                            right: 0;
+                            width: 1px;
+                            height: 100%;
+                            background: #f2f2f2;
+                        }
                     }
-                    .has-search .form-control-feedback {
-                        position: absolute;
-                        z-index: 2;
-                        display: block;
-                        width: 2.375rem;
-                        height: 1rem;
-                        line-height: 2rem;
-                        text-align: center;
-                        pointer-events: none;
-                        color: black;
-                        .has-search .form-control-feedback .verticalLine{
-                            &:after {
-                                content: "";
-                                position: absolute;
-                                top: 58%;
-                                right: 0;
-                                width: 1px;
-                                height: 100%;
-                                background: #f2f2f2;
-                            }
-                        } 
-                    }
-                    ::placeholder {         
-                        font-size: 12px;
-                    }                        
-                    .searchbox_appointment{
-                        border-radius: 20px;
-                        height: 33px;
-                        background-color: #f2f2f2;
-                    }          
-            }                   
+                }
+                 ::placeholder {
+                    font-size: 12px;
+                }
+                .searchbox_appointment {
+                    border-radius: 20px;
+                    height: 33px;
+                    background-color: #f2f2f2;
+                }
+            }
         }
-        .customer-checkbox{
+        .customer-checkbox {
             line-height: 3;
             // width:11%;
             margin: 5px;
         }
-        .customer-name-width{
-           // width: 20%;
+        .customer-name-width {
+            // width: 20%;
             margin-right: .5rem!important;
-            .customer-name{
-                background-color:#00c6ff;
+            .customer-name {
+                background-color: #00c6ff;
                 border-radius: 50%;
-                padding: 10px;          
+                padding: 10px;
                 width: 45px;
                 height: 45px;
                 text-align: center;
             }
-        }        
-        .customer-details{
-           // width: 69%;
+        }
+        .customer-details {
+            // width: 69%;
         }
     }
-    #Add-New-Customer{
-        .add-staff{
-            .add-staff{
+    #Add-New-Customer {
+        .add-staff {
+            .add-staff {
                 width: 100%;
                 // height: 100px;
                 border-radius: 73px;
             }
         }
-        .customer-profile-background{
+        .customer-profile-background {
             background-color: #e8e8e8;
             // padding: 30px;
             // width: 110px;
             // height: 110px;
             border-radius: 80px;
-            .profile-image{
+            .profile-image {
                 width: 100%;
                 // height: 100px;
                 border-radius: 73px;
             }
         }
-        .profile-uploadbtn{
+        .profile-uploadbtn {
             width: 165px;
             height: 51px;
             border-radius: 4px;
@@ -141,115 +141,111 @@
             border: 2px solid #f87812;
             color: white;
         }
-        .profile-removebtn{
-            width:167px;
+        .profile-removebtn {
+            width: 167px;
             height: 51px;
             border-radius: 4px;
             background-color: #bcbcbc;
             border: 2px solid #bcbcbc;
             color: white;
         }
-        .customer-cancel-btn{
+        .customer-cancel-btn {
             width: 100px;
             height: 39px;
             border-radius: 7px;
             background-color: #dddddd;
         }
-        .customer-save-btn{
+        .customer-save-btn {
             width: 109px;
             height: 39px;
             border-radius: 7px;
             background-color: #1173f4;
             color: white;
         }
-        
-        .action-btn{
+        .action-btn {
             margin-left: auto;
             display: flex;
         }
     }
 }
 
-
-#Customer-Listing{
-    
-    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix{
+#Customer-Listing {
+     ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
         padding: 10px 0 10px 10px;
     }
-    ::ng-deep  .mat-form-field-infix {
+     ::ng-deep .mat-form-field-infix {
         border-top: unset;
     }
-    ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper{
+     ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
         transform: inherit;
     }
-    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper{
+     ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
         background-color: white;
         border-radius: 5px;
     }
-
-    .devider-slim{
+    .devider-slim {
         width: 100%;
         border-bottom: 1px solid #ccc;
     }
-    p{
+    p {
         margin-bottom: 0px;
     }
-    mat-icon{
+    mat-icon {
         line-height: 1.5;
-    }    
-    .customerProfile-width{
+    }
+    .customerProfile-width {
         border-radius: 50%!important;
         width: 120px;
         height: 120px;
         overflow: hidden;
         margin-right: 10px;
     }
-    .customerName-width{
+    .customerName-width {
         width: 60%;
         height: max-content;
     }
-    .customer-btn{
+    .customer-btn {
         margin-left: auto;
         height: max-content;
         display: flex;
-        .customer-edit-btn{
+        .customer-edit-btn {
             width: 103px;
             height: 37px;
             border-radius: 21px;
             background-color: #1173f4;
             color: white;
         }
-        .customer-delete-btn{
+        .customer-delete-btn {
             width: 129px;
             height: 37px;
             border-radius: 21px;
             background-color: #c5c5c5;
         }
     }
-    .add-tag-icon{
+    .add-tag-icon {
         color: blue;
         font-size: 23px;
         line-height: 0.8;
     }
-    .mobileNo-width{
+    .mobileNo-width {
         width: 20%;
     }
-    .officeNo-width{
+    .officeNo-width {
         width: 20%;
     }
-    .homeNo-width{
+    .homeNo-width {
         width: 60%;
     }
-    .registration{
-        width:32%;
+    .registration {
+        width: 32%;
     }
-    .lastBookedAppoint{
+    .lastBookedAppoint {
         width: 35%;
     }
-    .lastBookedService{
+    .lastBookedService {
         width: 33%;
     }
-    .Add-Appointment{
+    .Add-Appointment {
         width: 180px;
         height: 37px;
         border-radius: 23px;
@@ -257,229 +253,225 @@
         color: white;
         margin-left: auto;
     }
-    .notes{
+    .notes {
         color: blue;
     }
-    .Add-Note-btn{
+    .Add-Note-btn {
         width: 120px;
         height: 37px;
         border-radius: 23px;
         background-color: #f87812;
         color: white;
     }
-    .addNotes{
+    .addNotes {
         display: flex;
         justify-content: center;
-        .Add-notes-background{
+        .Add-notes-background {
             width: 31%;
             height: 165px;
             background-color: #fcfcfc;
             color: #f87812;
             border: 1px solid #fbb984;
             border-radius: 6px;
-            .addnote-icon{
-                font-size: 70px;  
-                line-height: 1;         
+            .addnote-icon {
+                font-size: 70px;
+                line-height: 1;
             }
-            .addnote-link{
+            .addnote-link {
                 color: #f87812;
             }
         }
     }
-    .NoteMatcard{
+    .NoteMatcard {
         background-color: #e8f2fe;
         border: 1px solid #73b0ff;
         border-radius: 12px;
-        .add-note-subject-icon{
+        .add-note-subject-icon {
             background-color: white;
             border-radius: 50%;
             text-align: center;
             color: #5b9ff7;
         }
-        .border-bottom{
-            border-bottom: 1px solid #dee2e6;;
+        .border-bottom {
+            border-bottom: 1px solid #dee2e6;
+            ;
         }
-       
     }
-        .paymentMatTab{
-            
+    .paymentMatTab {}
+    .Customer-payment {
+        padding-left: 15px;
+        font-size: 18px;
+    }
+    .searchbox {
+        .has-search .form-control {
+            padding-left: 2.375rem;
         }
-            .Customer-payment{
-                padding-left: 15px;
-                font-size: 18px;
-            }
-            .searchbox{
-                .has-search .form-control {
-                    padding-left: 2.375rem;
-                }
-                
-                .has-search .form-control-feedback {
-                    position: absolute;
-                    z-index: 2;
-                    display: block;
-                    width: 2.375rem;
-                    height: 2.375rem;
-                    line-height: 2.375rem;
-                    text-align: center;
-                    pointer-events: none;
-                    color: #aaa;
-                }                 
-            }
-                .main-border{
-                        border-left: 1px solid #ccc;
-                        height: 100%;
-                        display: flex;
-                        flex-wrap: wrap;
-                        align-items: stretch;
-                    .small-font{
-                        font-size: 12px;
-                    }
-                    .OrderBy-width{
-                        width: 38%;
-                    }
-                    .Status-width{
-                        width: 42%;
-                    }
-                    .Staff-width{
-                        width: 20%;
-                    }
-                    .subtotal{
-                        filter: drop-shadow(1.5px 2.598px 4px rgba(2,2,2,0.08));
-                        background-color: #deecff;
-                        width: 100%;
-                        border-top: 1px solid #ccc; ;
-                        border-bottom: 1px solid #ccc;
-                    }
-                    .Total{
-                        filter: drop-shadow(1.5px 2.598px 4px rgba(2,2,2,0.08));
-                        background-color:#dfecff;
-                        width: 100%;
-                    }
-            }
-            .customer-cancel-btn{
-                width: 100px;
-                height: 39px;
-                border-radius: 7px;
-                background-color: #dddddd;
-            }
-            .customer-pay-btn{
-                width: 109px;
-                height: 39px;
-                border-radius: 7px;
-                background-color: #1173f4;
-                color: white;
-            }
-            .action-btn{
-                margin-left: auto;
-                display: flex;
-            }
-            .star-icon{
-                color: #fda901;
-            }
-            .view-btn{
-                background-color: #f1f5f8;
-            }
-    
-    
+        .has-search .form-control-feedback {
+            position: absolute;
+            z-index: 2;
+            display: block;
+            width: 2.375rem;
+            height: 2.375rem;
+            line-height: 2.375rem;
+            text-align: center;
+            pointer-events: none;
+            color: #aaa;
+        }
+    }
+    .main-border {
+        border-left: 1px solid #ccc;
+        height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+        .small-font {
+            font-size: 12px;
+        }
+        .OrderBy-width {
+            width: 38%;
+        }
+        .Status-width {
+            width: 42%;
+        }
+        .Staff-width {
+            width: 20%;
+        }
+        .subtotal {
+            filter: drop-shadow(1.5px 2.598px 4px rgba(2, 2, 2, 0.08));
+            background-color: #deecff;
+            width: 100%;
+            border-top: 1px solid #ccc;
+            ;
+            border-bottom: 1px solid #ccc;
+        }
+        .Total {
+            filter: drop-shadow(1.5px 2.598px 4px rgba(2, 2, 2, 0.08));
+            background-color: #dfecff;
+            width: 100%;
+        }
+    }
+    .customer-cancel-btn {
+        width: 100px;
+        height: 39px;
+        border-radius: 7px;
+        background-color: #dddddd;
+    }
+    .customer-pay-btn {
+        width: 109px;
+        height: 39px;
+        border-radius: 7px;
+        background-color: #1173f4;
+        color: white;
+    }
+    .action-btn {
+        margin-left: auto;
+        display: flex;
+    }
+    .star-icon {
+        color: #fda901;
+    }
+    .view-btn {
+        background-color: #f1f5f8;
+    }
 }
+
 ::ng-deep .tp-container {
     position: absolute;
     top: 0;
     bottom: 0;
-  
     right: 0;
     background: #eee;
     width: 350px;
- }
+}
+
 // <!---add-new-note-dialog style ---->
-::ng-deep .modal-footer{
+::ng-deep .modal-footer {
     border: none !important;
-    ::ng-deep .cancelbtn{
+     ::ng-deep .cancelbtn {
         width: 112px;
         height: 37px;
         border-radius: 25px;
         background-color: #9b9b9b;
     }
-    ::ng-deep .savebtn{
+     ::ng-deep .savebtn {
         width: 112px;
         height: 37px;
         border-radius: 25px;
-        background-color: #1173f4;  
+        background-color: #1173f4;
         color: white;
     }
 }
 
 // <!---view-review-dialog style ---->
-::ng-deep .view-review-dialog{
-    .booking-detail-main{
-    padding: 16px;
-    border-bottom: 1px solid #ccc;
-        .customer-profile-img{
-        border-radius: 100%;
-        height: 60px;
-        width: 60px;
-        background-color:#f98b3c;
-        color: white;
-        text-align: center;
-        padding: 14px;
-        line-height: 2;
-        display: block;
-        margin: 10px;
+::ng-deep .view-review-dialog {
+    .booking-detail-main {
+        padding: 16px;
+        border-bottom: 1px solid #ccc;
+        .customer-profile-img {
+            border-radius: 100%;
+            height: 60px;
+            width: 60px;
+            background-color: #f98b3c;
+            color: white;
+            text-align: center;
+            padding: 14px;
+            line-height: 2;
+            display: block;
+            margin: 10px;
         }
-        .call-icon{
+        .call-icon {
             line-height: 1.5;
             color: blue;
         }
-        .customer-name{
-        width: calc(100% - 80px);
+        .customer-name {
+            width: calc(100% - 80px);
         }
-        .star-icon{
+        .star-icon {
             color: #fda901;
         }
-        .small-font{
+        .small-font {
             font-size: 12px;
         }
     }
 }
 
-#sub-header-top{
+#sub-header-top {
     width: 100%;
-	.inner{
-		background: #cfe3fc;
-		padding: 15px;
-		.first{
-			align-items: center;
-			span{
-				font-size: 18px;
-				font-weight: 500;
-			}
-		}
-		.second{
-			justify-content: flex-end;
-			display: flex;
-			a{
-				background-color: #f87912;
-				padding: 7px 20px;
-				font-size: 12px;
-				color: #fff;
-				border-radius: 25px;
-				i{
-					margin-right: 10px;
-				}
-			}
+    .inner {
+        background: #cfe3fc;
+        padding: 15px;
+        .first {
+            align-items: center;
+            span {
+                font-size: 18px;
+                font-weight: 500;
+            }
         }
-        .export{
-
+        .second {
+            justify-content: flex-end;
+            display: flex;
+            a {
+                background-color: #f87912;
+                padding: 7px 20px;
+                font-size: 12px;
+                color: #fff;
+                border-radius: 25px;
+                i {
+                    margin-right: 10px;
+                }
+            }
+        }
+        .export {
             width: 19%;
             margin: 5px;
         }
-        .import{
+        .import {
             width: 130px;
-            height: 37px; 
+            height: 37px;
             background-color: white;
             margin: 10px;
         }
-        .blue-btn{
+        .blue-btn {
             width: 130px;
             height: 39px;
             border-radius: 21px;
@@ -487,189 +479,204 @@
             color: white;
             margin: 8px;
         }
-	}
+    }
 }
-.tag-container{
+
+.tag-container {
     width: calc(100% - 110px);
 }
-.tag-save{
+
+.tag-save {
     display: flex;
     align-items: flex-end;
-    .save-btn{
+    .save-btn {
         margin: 0 5px;
         background-color: #1173f4;
         color: #fff;
     }
 }
 
-
 //Import Files
-
 ::ng-deep .file-upload {
     background-color: #ffffff;
-    
     margin: 0 auto;
     padding: 20px;
     .image-upload-wrap {
-    margin-top: 20px;
-    border: 2px dashed #03a9f4;
-    position: relative;
-    padding: 30px 0;
-    .fileuploadinput {
-       position: absolute;
-       margin: 0;
-       padding: 0;
-       width: 100%;
-       height: 100%;
-       outline: none;
-       opacity: 0;
-       cursor: pointer;
-    }
+        margin-top: 20px;
+        border: 2px dashed #03a9f4;
+        position: relative;
+        padding: 30px 0;
+        .fileuploadinput {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            outline: none;
+            opacity: 0;
+            cursor: pointer;
+            top: 0;
+        }
     }
     .drag-text {
-    text-align: center;
-    h6{
-    font-size: 18px;
+        text-align: center;
+        h6 {
+            font-size: 18px;
+        }
+        h3 {
+            font-size: 14px;
+        }
     }
-    h3{
-    font-size: 14px;
+    .imgbtn {
+        margin: 15px auto;
+        display: table;
+        padding: 8px 16px;
+        border-radius: 50px;
     }
-    }
-    .imgbtn{
-    margin: 15px auto;
-    display: table;
-    padding:8px 16px;
-    border-radius: 50px;
-    }
-    
-    }
-    
-    .profile-img-wrap{
-     border-radius: 100%;
+}
+
+.profile-img-wrap {
+    border-radius: 100%;
     height: 120px;
     max-width: 120px;
     overflow: hidden;
     position: relative;
     transition: 0.3s all;
     cursor: pointer;
-    &:hover .camera-alt{
-    transition: 0.3s all;
-     display: flex;
+    &:hover .camera-alt {
+        transition: 0.3s all;
+        display: flex;
     }
-    .customer-profile-img{
-         width: 100%;
-         height: 100%;
+    .customer-profile-img {
+        width: 100%;
+        height: 100%;
     }
-    .camera-alt{
-     display: none;
-    position: absolute;
-    top: 0;
-    border-radius: 100%;
-    width: 100%;
-    height: 100%;
-    background-color: #00000070;
-    justify-content: center;
-    align-items: center;
-    i{
-     font-size: 45px;
-     width: auto;
-     color: #ffffff;
+    .camera-alt {
+        display: none;
+        position: absolute;
+        top: 0;
+        border-radius: 100%;
+        width: 100%;
+        height: 100%;
+        background-color: #00000070;
+        justify-content: center;
+        align-items: center;
+        i {
+            font-size: 45px;
+            width: auto;
+            color: #ffffff;
+        }
     }
-    }
-    }
-    ::ng-deep .upload-preview-img{
+}
+
+ ::ng-deep .upload-preview-img {
     max-width: 200px;
     margin: 0 auto;
     display: table;
+}
+
+ ::ng-deep .booking-detail-main {
+    .customer-profile-img {
+        border-radius: 100%;
+        height: 60px;
+        width: 60px;
+        background-color: #1172f4;
+        color: white;
+        text-align: center;
+        padding: 14px;
+        line-height: 2;
+        display: block;
+        margin: 10px;
     }
-    
+    .customer-name {
+        width: calc(100% - 80px);
+    }
+}
 
+.address-fontsize {
+    font-size: 13px;
+    .bluephone {
+        color: #1172f4;
+    }
+    .bluemap {
+        color: #1172f4;
+    }
+}
 
-    ::ng-deep .booking-detail-main{
-        .customer-profile-img{
-          border-radius: 100%;
-          height: 60px;
-          width: 60px;
-          background-color: #1172f4;
-          color: white;
-          text-align: center;
-          padding: 14px;
-          line-height: 2;
-          display: block;
-          margin: 10px;
-        }
-        .customer-name{
-          width: calc(100% - 80px);
-        }
-      }
-      
-      
-       .address-fontsize{
-          font-size: 13px; 
-          .bluephone{
-            color: #1172f4;
-          }
-          .bluemap{
-            color: #1172f4;
-          }
-      }
-      .bluephone{
-          color: #1172f4;
-        }
-        .special-table{
-            border-spacing: 0 15px;
-          .special-row{
-              box-shadow: 2px 2px 10px #00000050;
-              border-radius: 15px;
-              overflow: hidden;
-              background: transparent;
-              &:hover{
-                  background-color: #d9f0fe !important;
-              }
-              td{
-                  &:first-child{
-                      border-top-left-radius: 15px;
-                      border-bottom-left-radius: 15px;
-                  }
-                  &:last-child{
-                      border-top-right-radius: 15px;
-                      border-bottom-right-radius: 15px;
-                  }
-              }
-          }
-      }
+.bluephone {
+    color: #1172f4;
+}
 
-     
-    ::ng-deep .tp-container {
-        position: absolute;
-        top: 0;
-        bottom: 0;   
-        right: 0;
-        background: #eee;
-        width: 400px;
-        .appodetails{
-            margin: 15px;
-            
-        .fontred{
-              color: red;
-              .circle{
+.special-table {
+    border-spacing: 0 15px;
+    .special-row {
+        box-shadow: 2px 2px 10px #00000050;
+        border-radius: 15px;
+        overflow: hidden;
+        background: transparent;
+        &:hover {
+            background-color: #d9f0fe !important;
+        }
+        td {
+            &:first-child {
+                border-top-left-radius: 15px;
+                border-bottom-left-radius: 15px;
+            }
+            &:last-child {
+                border-top-right-radius: 15px;
+                border-bottom-right-radius: 15px;
+            }
+        }
+    }
+}
+
+ ::ng-deep .tp-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: #eee;
+    width: 400px;
+    .appodetails {
+        margin: 15px;
+        .fontred {
+            color: red;
+            .circle {
                 margin: 8px;
-              }
+            }
         }
-        .assignto{
-          width: 30%;
+        .assignto {
+            width: 30%;
         }
-        .greenfont{
+        .greenfont {
             color: green;
-          .repeat{
-            margin: 8px;
-          }
+            .repeat {
+                margin: 8px;
+            }
         }
-        .paybtn{
-          border-radius: 50px;
-          width: 100px;
+        .paybtn {
+            border-radius: 50px;
+            width: 100px;
         }
-    
-      }
-      
     }
+}
+
+ ::ng-deep .main-invoice-wrap {
+    position: relative;
+    .modal-header {
+        position: absolute !important;
+        z-index: 1;
+        right: 10px;
+        top: 5px;
+        padding: 5px;
+        display: block;
+        height: 50px;
+        width: 50px;
+        text-align: center;
+        .close {
+            padding: 0;
+            margin: 0;
+            float: none;
+        }
+    }
+}

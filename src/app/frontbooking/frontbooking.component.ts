@@ -340,9 +340,13 @@ export class FrontbookingComponent implements OnInit {
         
         this.currencySymbolFormat = this.settingsArr.currency_format;
         console.log(this.currencySymbolFormat);
-
-        this.PayUMoney.key= 'fT65jM3Y';
-        this.PayUMoney.salt='tDFEAoufm9';
+        
+        this.PayUMoney.key= JSON.parse(this.settingsArr.payUmoney_settings.merchant_key);
+        this.PayUMoney.salt=JSON.parse(this.settingsArr.payUmoney_settings.salt_key);
+        alert(this.PayUMoney.key)
+        alert(this.PayUMoney.salt)
+        // this.PayUMoney.key= 'fT65jM3Y';
+        // this.PayUMoney.salt='tDFEAoufm9';
 
         this.termsConditions = JSON.parse(this.settingsArr.terms_condition);
         if(this.termsConditions.status == 'false'){

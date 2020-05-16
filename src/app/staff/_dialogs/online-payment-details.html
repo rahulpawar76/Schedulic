@@ -1,43 +1,57 @@
-<div class="modal-dialog modal-notify modal-info" role="document" >
-  <div class="modal-content">
-    <div class="modal-header modal-bcolor-primary">
-      <p class="heading lead  interrupted-content" >Payment Details</p>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+<div class="modal-dialog modal-notify modal-info" role="document">
+    <div class="modal-content">
+        <div class="modal-header modal-bcolor-primary">
+            <p class="heading lead  interrupted-content">Payment Details</p>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
         <span aria-hidden="true" class="white-text">&times;</span>
       </button>
+        </div>
+        <div class="modal-body">
+            <div class=" d-flex payment-details">
+                <label class="payment-service">Service</label>
+                <label class="payment-amount">Amount</label>
+            </div>
+
+            <div class=" d-flex payment-details">
+                <label class="service">Home Cleaning</label>
+                <label *ngIf="currencySymbolPosition=='left'" class="amount">{{currencySymbol| currencySymbol:'wide'}} {{ appointDetailData.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
+                <label *ngIf="currencySymbolPosition=='right'" class="amount">{{ appointDetailData.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
+            </div>
+            <div *ngIf="orderDiscount" class=" d-flex payment-details">
+                <label class="service">Discount Ammount</label>
+                <label *ngIf="currencySymbolPosition=='left'" class="amount">{{currencySymbol| currencySymbol:'wide'}} {{ orderDiscount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
+                <label *ngIf="currencySymbolPosition=='right'" class="amount">{{ orderDiscount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
+            </div>
+
+            <div *ngFor="let appointTax of appointTax; let i=index" class=" d-flex payment-details">
+                <label class="service">{{appointTax.name}}</label>
+                <label *ngIf="currencySymbolPosition=='left'" class="amount">{{currencySymbol| currencySymbol:'wide'}} {{ appointTax.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} ({{appointTax.value}}%)</label>
+                <label *ngIf="currencySymbolPosition=='right'" class="amount">{{ appointTax.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}} ({{appointTax.value}}%)</label>
+            </div>
+
+            <div class="row payment-details">
+                <div class="col-lg-6 px-0 py-1 promocode-main"><label>Coupon Code</label>
+                </div>
+                <div class="col-lg-6 col-12 px-0 py-1 promocode-main" [ngClass]="{'':closecoupon === 'default','valid':closecoupon === 'valid','invalid':closecoupon === 'invalid'}">
+                    <input [(ngModel)]="coupon.couponcode_val" type="text" class="coupon-code-input" isReadOnly/>
+                    <button (click)="fncheckcouponcodebtn(closecoupon)" [ngClass]="{'remove-code':closecoupon === 'valid', 'coupon-code-submit':closecoupon !== 'valid'}"><i class="material-icons">{{couponIcon}}</i></button>
+                    <span class="error-wrap" *ngIf="showCouponError"><small  class="error">{{
+                                couponErrorMessage}}</small></span>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="d-flex payment-details">
+            <label class="service">Total Amount</label>
+            <label *ngIf="currencySymbolPosition=='left'" class="amount font-weight-bold">{{currencySymbol| currencySymbol:'wide'}} {{ appointDetailData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
+            <label *ngIf="currencySymbolPosition=='right'" class="amount font-weight-bold">{{ appointDetailData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
+        </div>
+        <hr>
+
+        <button *ngIf="paymentMethod == 'Online'" class="d-block btn btn-primary confirmpaymentbtn">Send Payment Link To Customer</button>
+        <button (click)="confirmCashPayment()" *ngIf="paymentMethod == 'Cash'" class="d-block btn btn-primary confirmbtn float-right" (click)="confirmCashPayment()">Confirm</button>
+        <button (click)="cancelPayment()" *ngIf="paymentMethod == 'Cash'" class="d-block btn btn-secondary cancelbtn float-right">Cancel</button>
+
+
     </div>
-    <div class="modal-body">
-      <div class=" d-flex payment-details">          
-        <label class="payment-service">Service</label>
-        <label class="payment-amount">Amount</label>
-      </div>
-
-      <div class=" d-flex payment-details">          
-        <label class="service">Home Cleaning</label>
-        <label class="amount">$ 500.00</label>
-      </div>
-
-       <div class=" d-flex payment-details">          
-        <label class="service">Tax</label>
-        <label class="amount">$ 12.00</label>
-      </div>
-
-       <div class=" d-flex payment-details">          
-        <label class="service">Coupon Code</label>
-          <div class="input-group mb-2">
-       
-        <input type="text" class="form-control">
-      </div>      
-      </div>
-      <hr>
-       <div class="d-flex payment-details">  
-      <label class="service">Total Amount</label>
-      <label class="amount font-weight-bold">$ 512.00</label>
-    </div>
-      <hr>
-      
-        <button class="d-block btn btn-primary confirmpaymentbtn">Send Payment Link To Customer</button>   
-    
-    
-  </div>
 </div>

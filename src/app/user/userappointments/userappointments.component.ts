@@ -367,7 +367,7 @@ getCompletedAppointments(): void{
       this.stripePayment();
     }
     if(this.paymentMethod == 'PayUMoney'){
-     //this.fnPayUMoney();
+     this.fnPayUMoney();
     }
   }
 
@@ -799,19 +799,90 @@ export class DialogCancelReason {
 @Component({
 	  selector: 'dialog-invoice',
 	  templateUrl: '../_dialogs/dialog-invoice.html',
+    providers: [DatePipe]
 	})
 	export class DialogInvoiceDialog {
     myAppoDetailData: any;
+    bussinessId:any;
+    businessData:any;
+    settingsArr: any;
+    currencySymbol:any;
+    currencySymbolPosition:any;
+    currencySymbolFormat:any;
 
 	  constructor(
 	    public dialogRef: MatDialogRef<DialogInvoiceDialog>,
+      private authenticationService: AuthenticationService,
+      private UserService: UserService,
+      public datePipe: DatePipe,
+      private _snackBar: MatSnackBar,
 	    @Inject(MAT_DIALOG_DATA) public data: any) {
         this.myAppoDetailData = this.data.fulldata;
+        this.myAppoDetailData.invoice_date=this.datePipe.transform(new Date(), 'dd/MM/yyyy');
+        this.myAppoDetailData.invoiceNumber = "2"+this.myAppoDetailData.id+this.datePipe.transform(new Date(),"yyyy/MM/dd");
+        console.log(this.myAppoDetailData);
+        this.bussinessId=this.authenticationService.currentUserValue.business_id;
+        this.getBusinessDetail();
+        this.fnGetSettingValue();
       }
 
 	  onNoClick(): void {
 	    this.dialogRef.close();
-	  }
+    }
+    getBusinessDetail(){
+      let requestObject = {
+        "business_id":this.bussinessId
+      };
+      this.UserService.getBusinessDetail(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.businessData=response.response;
+          console.log(this.businessData);
+        }
+        else if(response.data == false){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+        }
+      })
+    }
+    fnGetSettingValue(){
+      let requestObject = {
+        "business_id":this.bussinessId
+      };
+      this.UserService.getSettingValue(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.settingsArr=response.response;
+          console.log(this.settingsArr);
+
+          this.currencySymbol = this.settingsArr.currency;
+          console.log(this.currencySymbol);
+          
+          this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+          console.log(this.currencySymbolPosition);
+          
+          this.currencySymbolFormat = this.settingsArr.currency_format;
+          console.log(this.currencySymbolFormat);
+        }
+        else if(response.data == false){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+        }
+      })
+    }
+    fnPrint(){
+      const printContent = document.getElementById("printInvoice");
+      const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
+      WindowPrt.document.write(printContent.innerHTML);
+      WindowPrt.document.close();
+      WindowPrt.focus();
+      WindowPrt.print();
+      // WindowPrt.close();
+    }
 
 	}
 

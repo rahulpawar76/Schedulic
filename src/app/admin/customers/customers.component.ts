@@ -1120,6 +1120,7 @@ constructor(
       this.dialogRef.close(this.profileImage);
     }
     ngOnInit() {
+      alert();
       this.uploadForm = this._formBuilder.group({
         profile: ['']
       });
@@ -1142,6 +1143,7 @@ onFileChange(event) {
   }
 }
 uploadImage() {
+  alert(this.imageSrc);
   this.profileImage = this.imageSrc
   this.dialogRef.close(this.profileImage);
 }
@@ -1209,19 +1211,27 @@ onNoClick(): void {
       service_cost:'',
       service_subtotal:'',
       service_discount:'',
-      service_netCost:'',
+      service_netCost:'', 
+      invoiceNumber:'', 
     }
     serviceTaxArr:[];
     settingsArr:any=[];
     currencySymbol:any;
     currencySymbolPosition:any;
     currencySymbolFormat:any;
+    bussinessId:any;
+    businessData:any;
     constructor(
       public dialogRef: MatDialogRef<DialogInvoiceDialog>,
+      private authenticationService: AuthenticationService,
+      private AdminService: AdminService,
       public datePipe: DatePipe,
+      private _snackBar: MatSnackBar,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.settingsArr = this.data.setting;
-        console.log(this.settingsArr);
+        console.log(this.settingsArr);  
+        this.bussinessId=this.authenticationService.currentUserValue.business_id;
+        this.getBusinessDetail();
 
         this.currencySymbol = this.settingsArr.currency;
         console.log(this.currencySymbol);
@@ -1234,6 +1244,8 @@ onNoClick(): void {
         this.paymentInfo.invoice_date=this.datePipe.transform(new Date(), 'dd/MM/yyyy');
         this.paymentData = this.data.fulldata;
         console.log(this.paymentData);
+        
+        this.paymentInfo.invoiceNumber = "2"+this.paymentData.id+this.datePipe.transform(new Date(),"yyyy/MM/dd");
         this.paymentInfo.customer_name=this.paymentData.get_customer.fullname;
         this.paymentInfo.customer_address=this.paymentData.get_customer.address;
         this.paymentInfo.customer_city=this.paymentData.get_customer.city;
@@ -1252,6 +1264,24 @@ onNoClick(): void {
 
     onNoClick(): void {
       this.dialogRef.close();
+    } 
+    getBusinessDetail(){
+      let requestObject = {
+        "business_id":this.bussinessId
+      };
+      this.AdminService.getBusinessDetail(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.businessData=response.response;
+          console.log(this.businessData);
+        }
+        else if(response.data == false){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+        }
+      })
     }
 
     fnPrint(){

@@ -12,20 +12,20 @@
                     <div class="row p-3 header-color">
 
                         <div class="col-12 col-lg-2 col-sm-4">
-                            <img src="/assets/img/pexels-photo-242236.png" style="width:80px;height: 90px">
+                            <img src="{{businessData.image}}" style="width:80px;height: 90px">
                         </div>
                         <div class="col-6 col-lg-6 col-sm-4 p-0">
-                            <p class="mb-0 pl-0 font-weight-bold fontfamily">YOUR COMPANY NAME</p>
-                            <p class="mb-0">1331 Hart Bilding,Ridge Road,</p>
-                            <p class="mb-0">48436 Gaines,Bhayandar(west)</p>
-                            <p class="mb-0">Thane-401101,Maharashtra,india.</p>
+                            <p class="mb-0 pl-0 font-weight-bold fontfamily">{{businessData.business_name}}</p>
+                            <p class="mb-0">{{businessData.business_name}}</p>
+                            <!-- <p class="mb-0">48436 Gaines,Bhayandar(west)</p>
+                            <p class="mb-0">Thane-401101,Maharashtra,india.</p> -->
                         </div>
                         <div class="col-6 col-lg-4 col-sm-4 text-right pr-4">
                             <h5 class="text-right">
                                 <p class="font-weight-bold mb-1 subcolor-title">INVOICE</p>
                             </h5>
-                            <p class="mb-0">Phone No.987654312</p>
-                            <p class="mb-1">Email:zxcv@zxvc.com</p>
+                            <p class="mb-0">Phone No. {{businessData.phone}}</p>
+                            <p class="mb-1">Email: {{businessData.email}}</p>
                         </div>
 
                     </div>
@@ -47,7 +47,7 @@
                         </div>
                         <div class=" col-6 col-md-6 col-sm-6 col-lg-6 text-right pr-4">
                             <p class="mb-0 fontfamily">Invoice No.</p>
-                            <p class="mb-1">123456789</p>
+                            <p class="mb-1">{{paymentInfo.invoiceNumber}}</p>
                             <p class="mb-4"></p>
                             <p class="mb-0">Invoice Date:</p>
                             <p class="mb-1">{{paymentInfo.invoice_date}}</p>
@@ -69,9 +69,9 @@
                                         <td>{{paymentInfo.service_name}}</td>
                                         <td *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ paymentInfo.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>
                                         <td *ngIf="currencySymbolPosition=='right'">{{ paymentInfo.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</td>
-                                        <td>{{paymentInfo.service_qty}}</td> 
+                                        <td>{{paymentInfo.service_qty}}</td>
                                         <td *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ paymentInfo.service_subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>
-                                        <td *ngIf="currencySymbolPosition=='right'">{{ paymentInfo.service_subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</td>   
+                                        <td *ngIf="currencySymbolPosition=='right'">{{ paymentInfo.service_subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</td>
                                     </tr>
                                     <tr>
                                         <td></td>
@@ -93,7 +93,7 @@
                                         <td></td>
                                         <td *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ tax.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>
                                         <td *ngIf="currencySymbolPosition=='right'">{{ tax.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</td>
-                                    </tr> 
+                                    </tr>
                                     <tr>
                                         <td></td>
                                         <td>TOTAL</td>
