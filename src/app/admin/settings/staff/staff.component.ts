@@ -1714,6 +1714,52 @@ export class StaffComponent implements OnInit {
     })
   }
   
+  sendEmailVerification(staffId){
+    let requestObject={
+      "staff_id":staffId
+    }
+    this.isLoaderAdmin = true;
+    this.adminSettingsService.sendEmailVerification(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass : ['green-snackbar']
+        });
+        this.isLoaderAdmin = false;
+      }else{
+        this.isLoaderAdmin = false;
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+  }
+  sendPhoneVerification(staffId){
+    let requestObject={
+      "staff_id":staffId
+    }
+    this.isLoaderAdmin = true;
+    this.adminSettingsService.sendPhoneVerification(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass : ['green-snackbar']
+        });
+        this.isLoaderAdmin = false;
+      }else{
+        this.isLoaderAdmin = false;
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+  }
 
 }
 @Component({

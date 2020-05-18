@@ -374,14 +374,19 @@
                         <h6>Email Verification</h6>
                         <div class="d-flex">
                             <p class="mb-0 pr-2">{{singleStaffDetail.staff[0].email}}</p>
-                            <button mat-button class="verified-button">Not Verified</button>
+                            <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
+                                <mat-chip *ngIf="singleStaffDetail.staff[0].email_verification_status == 'N'" selected class="verified-button">Not Verified</mat-chip>
+                                <mat-chip *ngIf="singleStaffDetail.staff[0].email_verification_status == 'Y'" selected class="btn-green">Verified</mat-chip>
+                            </mat-chip-list>
+                            <!-- <button mat-button class="verified-button">Not Verified</button>
+                            <button mat-button class="verified-button">Not Verified</button> -->
                         </div>
                     </div>
-                    <div class="ml-auto">
-                        <button mat-button class="send-mail-button">
-              <mat-icon aria-hidden="false">send</mat-icon>
-              Send Email
-            </button>
+                    <div *ngIf="singleStaffDetail.staff[0].email_verification_status == 'N'" class="ml-auto">
+                        <button (click)="sendEmailVerification(singleStaffDetail.staff[0].id)" mat-button class="send-mail-button">
+                            <mat-icon aria-hidden="false">send</mat-icon>
+                            Send Email
+                        </button>
                     </div>
                 </div>
                 <div class="bottom-border d-flex">
@@ -389,11 +394,14 @@
                         <h6>Phone Number Verification</h6>
                         <div class="d-flex">
                             <p class="mb-0 pr-2">{{singleStaffDetail.staff[0].phone}}</p>
-                            <button mat-button class="verified-button">Not Verified</button>
+                            <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
+                                <mat-chip *ngIf="singleStaffDetail.staff[0].phone_verification_status == 'N'" selected class="verified-button">Not Verified</mat-chip>
+                                <mat-chip *ngIf="singleStaffDetail.staff[0].phone_verification_status == 'Y'" selected class="btn-green">Verified</mat-chip>
+                            </mat-chip-list>
                         </div>
                     </div>
-                    <div class="ml-auto">
-                        <button mat-button class="sms-verification-button">
+                    <div *ngIf="singleStaffDetail.staff[0].phone_verification_status == 'N'" class="ml-auto">
+                        <button (click)="sendPhoneVerification(singleStaffDetail.staff[0].id)" mat-button class="sms-verification-button">
               <mat-icon aria-hidden="false">send</mat-icon>
               SMS Verification Link
             </button>
