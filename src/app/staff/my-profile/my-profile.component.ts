@@ -66,7 +66,11 @@ export class MyProfileComponent implements OnInit {
         this.myProfile.controls['user_Mobile'].setValue(this.profiledata.phone);
       }
       else if(response.data == false){
-        alert(response.response)
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
       }
     },
       (err) => {
@@ -90,7 +94,7 @@ export class MyProfileComponent implements OnInit {
   }
   fnprofilesubmit(updatedprofiledata){
     this.StaffService.fnprofilesubmit(updatedprofiledata).subscribe((response:any) => {
-      if(response.status == true){
+      if(response.data == true){
          this._snackBar.open("Profile Updated", "X", {
             duration: 2000,
             verticalPosition:'top',

@@ -479,8 +479,17 @@
     background-color: #e0e0e0;
     border-radius: 50px;
 }
+
+.payumoney-logo-width {
+    width: 147px;
+}
+
+.credit-card-form.field-list .error-wrap {
+    bottom: unset;
+}
+
 @media only screen and (max-width: 767px) {
-    .appodetails{
+    .appodetails {
         margin: 10px;
     }
 }

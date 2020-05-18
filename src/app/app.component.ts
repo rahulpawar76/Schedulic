@@ -105,6 +105,7 @@ export class AppComponent implements AfterViewInit {
     }
     console.log("businessId-- "+localStorage.getItem('business_id'));
     console.log("businessId-- "+this.businessId);
+    console.log(this.currentUser);
   }
   private handleError(error: HttpErrorResponse) {
     console.log(error);
