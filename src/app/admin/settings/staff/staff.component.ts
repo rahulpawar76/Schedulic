@@ -2,7 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Subject, from } from 'rxjs';
 import { map, catchError } from "rxjs/operators";
 import { throwError } from "rxjs";
-import {  HttpClient,  HttpEventType,  HttpErrorResponse} from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
+import { environment } from '@environments/environment';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -176,7 +177,7 @@ export class StaffComponent implements OnInit {
       firstname : ['',[ Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
       lastname : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
       address : ['', [Validators.required,Validators.minLength(3)]],
-      email : ['', [Validators.required,Validators.pattern(this.emailFormat)]],
+      email : ['', [Validators.required,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
       phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
       description : [''],
       staff_id : [''],
@@ -1712,8 +1713,38 @@ export class StaffComponent implements OnInit {
         this.isLoaderAdmin = false;
       }
     })
+  }  
+  private handleError(error: HttpErrorResponse) {
+    return throwError('Error! something went wrong.');
+    //return error.error ? error.error : error.statusText;
   }
   
+  isEmailUnique(control: FormControl){
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+        return this.http.post(`${environment.apiUrl}/verify-email`,{ emailid: control.value },{headers:headers}).pipe(map((response : any) =>{
+          return response;
+        }),
+        catchError(this.handleError)).subscribe((res) => {
+          if(res){
+            if(res.data == false){
+            resolve({ isEmailUnique: true });
+            // this._snackBar.open("Access PIN already in use", "X", {
+            // duration: 2000,
+            // verticalPosition: 'top',
+            // panelClass : ['red-snackbar']
+            // });
+            }else{
+            resolve(null);
+            }
+          }
+        });
+      }, 500);
+    });
+  }
   sendEmailVerification(staffId){
     let requestObject={
       "staff_id":staffId

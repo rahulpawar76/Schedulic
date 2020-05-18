@@ -55,6 +55,7 @@
                         <span class="error-wrap" *ngIf="StaffCreate.get('email').touched || StaffCreate.get('email').dirty || formSubmitclicked">
               <small *ngIf="StaffCreate.get('email').hasError('required')" class="error">Email Is required</small>
               <small *ngIf="StaffCreate.get('email').hasError('pattern')" class="error">Email Address Is invalid</small>
+              <small *ngIf="StaffCreate.get('email').hasError('isEmailUnique')" class="error">Email Address Is already used</small>
             </span>
                         <mat-form-field class="bottom-border-field">
                             <mat-label>Address</mat-label>

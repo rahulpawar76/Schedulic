@@ -153,6 +153,7 @@ export class FrontbookingComponent implements OnInit {
   reference_id:any;
   transactionId:any=null;
   paymentDateTime:any;
+  PayUMoneyCredentials:any;
   loadAPI: Promise<any>;
   isFound:boolean=false;
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
@@ -340,11 +341,9 @@ export class FrontbookingComponent implements OnInit {
         
         this.currencySymbolFormat = this.settingsArr.currency_format;
         console.log(this.currencySymbolFormat);
-        
-        this.PayUMoney.key= JSON.parse(this.settingsArr.payUmoney_settings.merchant_key);
-        this.PayUMoney.salt=JSON.parse(this.settingsArr.payUmoney_settings.salt_key);
-        alert(this.PayUMoney.key)
-        alert(this.PayUMoney.salt)
+        this.PayUMoneyCredentials = JSON.parse(this.settingsArr.payUmoney_settings);
+        this.PayUMoney.key= this.PayUMoneyCredentials.merchant_key;
+        this.PayUMoney.salt=this.PayUMoneyCredentials.salt_key;
         // this.PayUMoney.key= 'fT65jM3Y';
         // this.PayUMoney.salt='tDFEAoufm9';
 
@@ -2465,7 +2464,6 @@ export class FrontbookingComponent implements OnInit {
         if(response.data == true){
           this.isLoader=false;
           if(this.thankYou.status == 'true'){
-            //alert(this.thankYou.status);
             window.location.href = this.thankYou.page_link;
           }else if(this.thankYou.status == 'false'){
             
