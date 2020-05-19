@@ -63,6 +63,7 @@ export class AppComponent implements AfterViewInit {
   loggedIn: boolean;
   isAllowed:boolean=true;
   isSignOut:boolean=true;
+  activeSettingMenu:any;
   @ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
 
   closePopover() {
@@ -187,7 +188,8 @@ export class AppComponent implements AfterViewInit {
   }
 
   fnPostUrl(menuItem) {
-    this.postUrl = menuItem
+    console.log(menuItem);
+    this.postUrl = menuItem;
   }
 
 
@@ -308,42 +310,53 @@ export class AppComponent implements AfterViewInit {
   }
   // Setting Menus
   MySettingsNav() {
+    this.activeSettingMenu="services";
     this.router.navigate(['/admin/settings']);
   }
   MySettingsStaffNav() {
+    this.activeSettingMenu="staff";
     this.router.navigate(['/admin/settings/staff']);
   }
   MySettingsServicesNav() {
+    this.activeSettingMenu="services";
     this.router.navigate(['/admin/settings/services']);
   }
   MySettingsBusinessHoursNav() {
+    this.activeSettingMenu="bussiness-hours";
     this.router.navigate(['/admin/settings/business-hours']);
   }
   MySettingsProfileNav() {
+    this.activeSettingMenu="services";
     this.router.navigate(['/admin/settings/setting-my-profile']);
   }
   MySettingsCompanyDetailsNav() {
+    this.activeSettingMenu="company-details";
     this.router.navigate(['/admin/settings/company-details']);
   }
   MySettingsPaymentGatewayNav() {
+    this.activeSettingMenu="payment-gateway";
     this.router.navigate(['/admin/settings/payment-gateway']);
   }
   MySettingsPaymentRulesNav() {
+    this.activeSettingMenu="payment-rules";
     this.router.navigate(['/admin/settings/payment-rules']);
   }
   MySettingsBookingRulesNav() {
+    this.activeSettingMenu="booking-rules";
     this.router.navigate(['/admin/settings/booking-rules']);
   }
   MySettingAlertsNav() {
+    this.activeSettingMenu="alert-rules";
     this.router.navigate(['/admin/settings/alert-settings']);
   }
   MySettingsApperenceNav() {
+    this.activeSettingMenu="appearance";
     this.router.navigate(['/admin/settings/appearance']);
   }
   MySettingsPostalCodesNav() {
+    this.activeSettingMenu="postal-code";
     this.router.navigate(['/admin/settings/postalcode']);
   }
-
 
 
   /*StaffDashboard Navigation*/
@@ -589,8 +602,10 @@ export class AppComponent implements AfterViewInit {
   openNotificationDialog() {
     this.isLoaderAdmin = true;
     let headers;
+    let userId;
     if (this.currentUser.user_type == "A") {
       this.userType = "admin";
+      userId = this.businessId;
       headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'admin-id': JSON.stringify(this.currentUser.user_id),
@@ -598,6 +613,7 @@ export class AppComponent implements AfterViewInit {
       });
     } else if (this.currentUser.user_type == "SM") {
       this.userType = "staff";
+      userId = JSON.stringify(this.currentUser.user_id);
       headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'staff-id': JSON.stringify(this.currentUser.user_id),
@@ -605,6 +621,7 @@ export class AppComponent implements AfterViewInit {
       });
     } else if (this.currentUser.user_type == "C") {
       this.userType = "customer";
+      userId = JSON.stringify(this.currentUser.user_id);
       headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'customer-id': JSON.stringify(this.currentUser.user_id),
@@ -612,7 +629,7 @@ export class AppComponent implements AfterViewInit {
       });
     }
     let requestObject = {
-      "user_id": JSON.stringify(this.currentUser.user_id),
+      "user_id": userId,
       "user_type": this.userType
     };
     this.CommonService.openNotificationDialog(requestObject, headers).subscribe((response: any) => {
@@ -761,7 +778,7 @@ export class DialogNotification {
       this.businessId = localStorage.getItem('business_id');
     }
     this.notifications = this.data.fulldata
-    this.notifications = this.notifications.sort(this.dynamicSort("booking_date"))
+    // this.notifications = this.notifications.sort(this.dynamicSort("booking_date"))
     this.notifications.forEach((element) => {
       var todayDateTime = new Date();
       //element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);

@@ -121,8 +121,8 @@ export class myCreateNewBusinessDialog {
     this.getTimeZone();
 
     this.createBusiness = this._formBuilder.group({
-      business_name : ['', Validators.required],
-      business_address : ['', Validators.required],
+      business_name : ['', [Validators.required,Validators.minLength(2),Validators.maxLength(20)]],
+      business_address : ['', [Validators.required,Validators.minLength(2),Validators.maxLength(20)]],
       business_country : ['', Validators.required],
       business_region : ['', Validators.required],
       business_timezone : ['', Validators.required],

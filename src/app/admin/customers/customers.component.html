@@ -99,7 +99,7 @@
                                         <mat-icon class="mr-4" matPrefix>email</mat-icon>
                                         <input matInput formControlName="cus_email" placeholder="Enter Your Email">  
                                     </mat-form-field>  
-                                    <span class="error-wrap" *ngIf="createNewCustomer.get('cus_email').dirty || createNewCustomer.get('cus_email').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_email').hasError('required')" class="error">Email Is required</small><small *ngIf="createNewCustomer.get('cus_email').hasError('pattern')" class="error">Invalid Email Address</small><small *ngIf="createNewCustomer.get('cus_email').hasError('isEmailUnique')" class="error">Email address already exist</small></span>  
+                                    <span class="error-wrap" *ngIf="createNewCustomer.get('cus_email').dirty || createNewCustomer.get('cus_email').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_email').hasError('required')" class="error">Email Is required</small><small *ngIf="createNewCustomer.get('cus_email').hasError('pattern')" class="error">Invalid Email Address</small><small *ngIf="createNewCustomer.get('cus_email').hasError('isEmailUnique') || createNewCustomer.get('cus_email').hasError('isEmailUniqueForEdit')" class="error">Email address already exist</small></span>  
                             </div>     
                             <div class="col-lg-6 col-12 col-md-6 bottom-border-field">                     
                                 <mat-form-field>

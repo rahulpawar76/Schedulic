@@ -146,27 +146,27 @@
                             <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-workspace' }" (click)="myWorkSpaceNav(); fnPostUrl('my-workspace');">
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-bag.png"></div>
                             </mat-list-item>
-                            <mat-list-item role="listitem">
-                                <div class="common-menu" [ngClass]="{'active': postUrl == 'my-appointment' }" (click)="MyAppointmentNav(); fnPostUrl('my-appointment');"><img src="/assets/images/admin/admin-menu-calendar.png">
+                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-appointment' }" (click)="MyAppointmentNav(); fnPostUrl('my-appointment');">
+                                <div class="common-menu"><img src="/assets/images/admin/admin-menu-calendar.png">
                                 </div>
                             </mat-list-item>
-                            <mat-list-item role="listitem">
-                                <div class="common-menu" [ngClass]="{'active': postUrl == 'my-customers' }" (click)="MyCustomerNav(); fnPostUrl('my-customers');"><img src="/assets/images/admin/admin-menu-user.png">
+                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-customers' }" (click)="MyCustomerNav(); fnPostUrl('my-customers');">
+                                <div class="common-menu"><img src="/assets/images/admin/admin-menu-user.png">
                                 </div>
                             </mat-list-item>
-                            <mat-list-item role="listitem">
-                                <div class="common-menu" [ngClass]="{'active': postUrl == 'my-reports' }" (click)="MyReportsNav(); fnPostUrl('my-reports');"><img src="/assets/images/admin/admin-menu-statistics.png"></div>
+                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-reports' }" (click)="MyReportsNav(); fnPostUrl('my-reports');">
+                                <div class="common-menu"><img src="/assets/images/admin/admin-menu-statistics.png"></div>
                             </mat-list-item>
-                            <mat-list-item role="listitem">
-                                <div class="common-menu" [ngClass]="{'active': postUrl == 'my-discountCoupon' }" (click)="MyDiscountCouponNav(); fnPostUrl('my-discountCoupon');"><img src="/assets/images/admin/admin-menu-couon.png"></div>
+                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-discountCoupon' }" (click)="MyDiscountCouponNav(); fnPostUrl('my-discountCoupon');">
+                                <div class="common-menu"><img src="/assets/images/admin/admin-menu-couon.png"></div>
                             </mat-list-item>
                         </div>
                         <div class="bottom_admin_menu">
-                            <mat-list-item role="listitem">
-                                <div (click)="MySettingsNav(); fnPostUrl('my-settings');" [ngClass]="{'active': postUrl == 'my-settings' }" class="common-menu"><img src="/assets/images/admin/admin-menu-settings.png"></div>
+                            <mat-list-item role="listitem" (click)="MySettingsNav(); fnPostUrl('my-settings');" [ngClass]="{'active': postUrl == 'my-settings' }">
+                                <div class="common-menu"><img src="/assets/images/admin/admin-menu-settings.png"></div>
                             </mat-list-item>
-                            <mat-list-item role="listitem">
-                                <div (click)="MyProfileNav(); fnPostUrl('my-profile');" [ngClass]="{'active': postUrl == 'my-profile' }" class="common-menu"><img src="/assets/images/admin/admin-menu-user-2.png"></div>
+                            <mat-list-item role="listitem" (click)="MyProfileNav(); fnPostUrl('my-profile');" [ngClass]="{'active': postUrl == 'my-profile' }">
+                                <div class="common-menu"><img src="/assets/images/admin/admin-menu-user-2.png"></div>
                             </mat-list-item>
                         </div>
                     </mat-drawer>
@@ -179,28 +179,28 @@
                                             <mat-icon aria-hidden="false" class="customer-drawer-leftarrow ml-auto">arrow_back</mat-icon>
                                         </div>
                                         <h6>Resource Management</h6>
-                                        <div (click)="MySettingsServicesNav()" class="d-flex setting-menu-item">
+                                        <div (click)="MySettingsServicesNav()" class="d-flex setting-menu-item" [ngClass]="{'setting-menu-active': activeSettingMenu == 'services'}">
                                             <div class="menu-icon">
                                                 <img class="normal" src="../../../../assets/images/admin/settings-menu/service.png" />
                                                 <img class="colored" src="../../../../assets/images/admin/settings-menu/service-color.png" />
                                             </div>
                                             <p>Services</p>
                                         </div>
-                                        <div (click)="MySettingsStaffNav()" class="d-flex setting-menu-item">
+                                        <div (click)="MySettingsStaffNav()" class="d-flex setting-menu-item" [ngClass]="{'setting-menu-active': activeSettingMenu == 'staff'}">
                                             <div class="menu-icon">
                                                 <img class="normal" src="../../../../assets/images/admin/settings-menu/staff.png" />
                                                 <img class="colored" src="../../../../assets/images/admin/settings-menu/staff-color.png" />
                                             </div>
                                             <p>Staff</p>
                                         </div>
-                                        <div (click)="MySettingsBusinessHoursNav()" class="d-flex setting-menu-item">
+                                        <div (click)="MySettingsBusinessHoursNav()" class="d-flex setting-menu-item" [ngClass]="{'setting-menu-active': activeSettingMenu == 'bussiness-hours'}">
                                             <div class="menu-icon">
                                                 <img class="normal" src="../../../../assets/images/admin/settings-menu/business-hours.png" />
                                                 <img class="colored" src="../../../../assets/images/admin/settings-menu/business-hours-color.png" />
                                             </div>
                                             <p>Business Hours</p>
                                         </div>
-                                        <div (click)="MySettingsPostalCodesNav()" class="d-flex setting-menu-item">
+                                        <div (click)="MySettingsPostalCodesNav()" class="d-flex setting-menu-item" [ngClass]="{'setting-menu-active': activeSettingMenu == 'postal-code'}">
                                             <div class="menu-icon">
                                                 <img class="normal" src="../../../../assets/images/admin/settings-menu/postalcode.png" />
                                                 <img class="colored" src="../../../../assets/images/admin/settings-menu/postalcode-color.png" />
@@ -215,7 +215,7 @@
                       </div>
                       <p>My Profile</p>
                       </div> -->
-                                        <div (click)="MySettingsCompanyDetailsNav()" class="d-flex setting-menu-item">
+                                        <div (click)="MySettingsCompanyDetailsNav()" class="d-flex setting-menu-item" [ngClass]="{'setting-menu-active': activeSettingMenu == 'company-details'}">
                                             <div class="menu-icon">
                                                 <img class="normal" src="../../../../assets/images/admin/settings-menu/companydetails.png" />
                                                 <img class="colored" src="../../../../assets/images/admin/settings-menu/companydetails-color.png" />
@@ -223,14 +223,14 @@
                                             <p>Company Details</p>
                                         </div>
                                         <h6 class="pt-3">Payment</h6>
-                                        <div (click)="MySettingsPaymentGatewayNav()" class="d-flex setting-menu-item">
+                                        <div (click)="MySettingsPaymentGatewayNav()" class="d-flex setting-menu-item" [ngClass]="{'setting-menu-active': activeSettingMenu == 'payment-gateway'}">
                                             <div class="menu-icon">
                                                 <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentgateway.png" />
                                                 <img class="colored" src="../../../../assets/images/admin/settings-menu/paymentgateway-color.png" />
                                             </div>
                                             <p>Payment Gateway</p>
                                         </div>
-                                        <div (click)="MySettingsPaymentRulesNav()" class="d-flex setting-menu-item">
+                                        <div (click)="MySettingsPaymentRulesNav()" class="d-flex setting-menu-item" [ngClass]="{'setting-menu-active': activeSettingMenu == 'payment-rules'}">
                                             <div class="menu-icon">
                                                 <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentrules.png" />
                                                 <img class="colored" src="../../../../assets/images/admin/settings-menu/paymentrules-color.png" />
@@ -238,21 +238,21 @@
                                             <p>Payment Rules</p>
                                         </div>
                                         <h6 class="pt-3">General Setting</h6>
-                                        <div (click)="MySettingsApperenceNav()" class="d-flex setting-menu-item">
+                                        <div (click)="MySettingsApperenceNav()" class="d-flex setting-menu-item" [ngClass]="{'setting-menu-active': activeSettingMenu == 'appearance'}">
                                             <div class="menu-icon">
                                                 <img class="normal" src="../../../../assets/images/admin/settings-menu/appearance.png" />
                                                 <img class="colored" src="../../../../assets/images/admin/settings-menu/appearance-color.png" />
                                             </div>
                                             <p>Appearance</p>
                                         </div>
-                                        <div (click)="MySettingsBookingRulesNav()" class="d-flex setting-menu-item">
+                                        <div (click)="MySettingsBookingRulesNav()" class="d-flex setting-menu-item" [ngClass]="{'setting-menu-active': activeSettingMenu == 'booking-rules'}">
                                             <div class="menu-icon">
                                                 <img class="normal" src="../../../../assets/images/admin/settings-menu/bookingrules.png" />
                                                 <img class="colored" src="../../../../assets/images/admin/settings-menu/bookingrules-color.png" />
                                             </div>
                                             <p>Booking Rules</p>
                                         </div>
-                                        <div (click)="MySettingAlertsNav()" class="d-flex setting-menu-item">
+                                        <div (click)="MySettingAlertsNav()" class="d-flex setting-menu-item" [ngClass]="{'setting-menu-active': activeSettingMenu == 'alert-rules'}">
                                             <div class="menu-icon">
                                                 <img class="normal" src="../../../../assets/images/admin/settings-menu/alert.png" />
                                                 <img class="colored" src="../../../../assets/images/admin/settings-menu/alert-color.png" />

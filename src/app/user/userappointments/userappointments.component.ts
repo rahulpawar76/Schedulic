@@ -325,7 +325,6 @@ getCompletedAppointments(): void{
     this.router.navigate(['/booking']);
   }
   customerSearchAppointment(){
-    alert(this.search.keyword);
     if(this.search.keyword.length > 2){
       let requestObject = {
         "search":this.search.keyword,
@@ -394,6 +393,7 @@ export class DialogOverviewExampleDialog {
           verticalPosition:'bottom',
           panelClass :['green-snackbar']
           });
+        this.dialogRef.close();
       }
     })
   }

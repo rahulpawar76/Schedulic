@@ -29,7 +29,8 @@ export class AppointmentComponent implements OnInit {
   adminSettings : boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-  
+  startDate:any;
+  endDate:any;
   animal: any;
   businessId: any;
   allAppointments:any;
@@ -56,10 +57,12 @@ export class AppointmentComponent implements OnInit {
     ) {
       localStorage.setItem('isBusiness', 'false');
       this.businessId=localStorage.getItem('business_id');
-      this.durationType = 'month';
+      this.durationType = 'daily';
       this.selectedServices =  'all';
+      this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
+      this.endDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
       this.fnGetSettingValue();
-      this.getAllAppointments(this.durationType,this.selectedServices);
+      this.getAllAppointments(this.selectedServices);
       this.getAllServices();
       
       this.dtOptions = {
@@ -116,17 +119,222 @@ export class AppointmentComponent implements OnInit {
 
   selectdurationType(type){
     this.durationType = type;
-    this.getAllAppointments(this.durationType,this.selectedServices);
+
+    if(this.durationType=='daily'){
+      console.log(this.startDate);
+      
+      console.log(this.endDate);
+      this.endDate=this.startDate;
+      console.log(this.endDate);
+    }
+
+    if(this.durationType=='week'){
+      console.log(this.startDate);
+      
+      console.log(this.endDate);
+      let dateEnd = new Date(this.startDate);
+      dateEnd.setDate( dateEnd.getDate() + 6 );
+      this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
+      console.log(this.endDate);
+    }
+
+    if(this.durationType=='month'){
+      console.log(this.startDate);
+      
+      console.log(this.endDate);
+      let dateEnd = new Date(this.startDate);
+      let monthEnd = dateEnd.getMonth() + 1;
+      let yearEnd = dateEnd.getFullYear();
+      console.log(yearEnd);
+      let addDaysToEndDate=0;
+      if(monthEnd == 1 || monthEnd == 3  || monthEnd == 5 || monthEnd == 7 || monthEnd == 8 || monthEnd == 10 || monthEnd == 12){
+        addDaysToEndDate=30;
+      }else if(monthEnd == 2){
+        if(yearEnd%4 == 0){
+          addDaysToEndDate=28;
+        }else{
+          addDaysToEndDate=27;
+        }
+      }else{
+        addDaysToEndDate=29;
+      }
+      dateEnd.setDate( dateEnd.getDate() + addDaysToEndDate );
+      this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
+      console.log(this.endDate);
+    }
+    this.getAllAppointments(this.selectedServices);
   }
 
   selectService(service){
     this.selectedServices = service;
-    this.getAllAppointments(this.durationType,this.selectedServices);
+    this.getAllAppointments(this.selectedServices);
   }
 
-  getAllAppointments(durationType,services){
+  fnPrev(){
+    if(this.durationType=='daily'){
+      console.log(this.startDate);
+      let dateStart = new Date(this.startDate)
+      let dateEnd = new Date(this.startDate)
+      dateStart.setDate( dateStart.getDate() - 1 );
+      this.startDate=this.datePipe.transform(dateStart,"dd MMM yyyy");
+      console.log(this.startDate);
+      
+      console.log(this.endDate);
+      dateEnd.setDate( dateEnd.getDate() - 1 );
+      this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
+      console.log(this.endDate);
+    }
+    if(this.durationType=='week'){
+      console.log(this.startDate);
+      let dateStart = new Date(this.startDate)
+      dateStart.setDate( dateStart.getDate() - 7 );
+      this.startDate=this.datePipe.transform(dateStart,"dd MMM yyyy");
+      console.log(this.startDate);
+      
+      console.log(this.endDate);
+      let dateEnd = new Date(this.startDate)
+      dateEnd.setDate( dateEnd.getDate() + 6 );
+      this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
+      console.log(this.endDate);
+    }
+    if(this.durationType=='month'){
+      console.log(this.startDate);
+      let dateStart = new Date(this.startDate);
+
+      let monthStart = dateStart.getMonth();
+      let yearStart = dateStart.getFullYear();
+      console.log(monthStart);
+      console.log(yearStart);
+      let addDaysToStartDate=0;
+      if(monthStart == 0 || monthStart == 1 || monthStart == 3  || monthStart == 5 || monthStart == 7 || monthStart == 8 || monthStart == 10 || monthStart == 12){
+        addDaysToStartDate=31;
+      }else if(monthStart == 2){
+        if(yearStart%4 == 0){
+          addDaysToStartDate=29;
+        }else{
+          addDaysToStartDate=28;
+        }
+      }else{
+        addDaysToStartDate=30;
+      }
+
+      dateStart.setDate( dateStart.getDate() - addDaysToStartDate );
+      this.startDate=this.datePipe.transform(dateStart,"dd MMM yyyy");
+      console.log(this.startDate);
+      
+      console.log(this.endDate);
+      let dateEnd = new Date(this.startDate);
+
+      let monthEnd = dateEnd.getMonth() + 1;
+      let yearEnd = dateEnd.getFullYear();
+      console.log(yearEnd);
+      let addDaysToEndDate=0;
+      if(monthEnd == 1 || monthEnd == 3  || monthEnd == 5 || monthEnd == 7 || monthEnd == 8 || monthEnd == 10 || monthEnd == 12){
+        addDaysToEndDate=30;
+      }else if(monthEnd == 2){
+        if(yearEnd%4 == 0){
+          addDaysToEndDate=28;
+        }else{
+          addDaysToEndDate=27;
+        }
+      }else{
+        addDaysToEndDate=29;
+      }
+
+      dateEnd.setDate( dateEnd.getDate() + addDaysToEndDate );
+      this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
+      console.log(this.endDate);
+    }
+
+    this.getAllAppointments(this.selectedServices);
+  }
+
+  fnNext(){
+    if(this.durationType=='daily'){
+      console.log(this.startDate);
+      let dateStart = new Date(this.startDate)
+      let dateEnd = new Date(this.startDate)
+      dateStart.setDate( dateStart.getDate() + 1 );
+      this.startDate=this.datePipe.transform(dateStart,"dd MMM yyyy");
+      console.log(this.startDate);
+      
+      console.log(this.endDate);
+      dateEnd.setDate( dateEnd.getDate() + 1 );
+      this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
+      console.log(this.endDate);
+    }
+    if(this.durationType=='week'){
+      console.log(this.startDate);
+      let dateStart = new Date(this.startDate)
+      dateStart.setDate( dateStart.getDate() + 7 );
+      this.startDate=this.datePipe.transform(dateStart,"dd MMM yyyy");
+      console.log(this.startDate);
+      
+      console.log(this.endDate);
+      let dateEnd = new Date(this.startDate)
+      dateEnd.setDate( dateEnd.getDate() + 6 );
+      this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
+      console.log(this.endDate);
+    }
+    if(this.durationType=='month'){
+      console.log(this.startDate);
+      let dateStart = new Date(this.startDate);
+
+      let monthStart = dateStart.getMonth() + 1;
+      let yearStart = dateStart.getFullYear();
+      console.log(yearStart);
+      let addDaysToStartDate=0;
+      if(monthStart == 1 || monthStart == 3  || monthStart == 5 || monthStart == 7 || monthStart == 8 || monthStart == 10 || monthStart == 12){
+        addDaysToStartDate=31;
+      }else if(monthStart == 2){
+        if(yearStart%4 == 0){
+          addDaysToStartDate=29;
+        }else{
+          addDaysToStartDate=28;
+        }
+      }else{
+        addDaysToStartDate=30;
+      }
+
+      dateStart.setDate( dateStart.getDate() + addDaysToStartDate );
+      this.startDate=this.datePipe.transform(dateStart,"dd MMM yyyy");
+      console.log(this.startDate);
+      
+      console.log(this.endDate);
+      let dateEnd = new Date(this.startDate);
+
+      let monthEnd = dateEnd.getMonth() + 1;
+      let yearEnd = dateEnd.getFullYear();
+      console.log(yearEnd);
+      let addDaysToEndDate=0;
+      if(monthEnd == 1 || monthEnd == 3  || monthEnd == 5 || monthEnd == 7 || monthEnd == 8 || monthEnd == 10 || monthEnd == 12){
+        addDaysToEndDate=30;
+      }else if(monthEnd == 2){
+        if(yearEnd%4 == 0){
+          addDaysToEndDate=28;
+        }else{
+          addDaysToEndDate=27;
+        }
+      }else{
+        addDaysToEndDate=29;
+      }
+
+      dateEnd.setDate( dateEnd.getDate() + addDaysToEndDate );
+      this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
+      console.log(this.endDate);
+    }
+    this.getAllAppointments(this.selectedServices);
+  }
+
+  getAllAppointments(services){
     this.isLoaderAdmin = true;
-    this.AdminService.getAllAppointments(durationType,services).subscribe((response:any) => {
+    let requestObject = {
+        'business_id' : this.businessId,
+        'start_date' : this.startDate,
+        'end_date' : this.endDate,
+        'services' : services
+    };
+    this.AdminService.getAllAppointments(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.allAppointments = response.response
         console.log( this.allAppointments);
@@ -139,7 +347,7 @@ export class AppointmentComponent implements OnInit {
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
-        this.allAppointments = ''
+        this.allAppointments = [];
         this.isLoaderAdmin = false;
       }
     })
@@ -167,7 +375,7 @@ export class AppointmentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      //this.getAllAppointments(this.durationType,this.selectedServices);
+      //this.getAllAppointments(this.selectedServices);
     });
   }
 
@@ -180,7 +388,7 @@ export class AppointmentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      // this.getAllAppointments(this.durationType,this.selectedServices);
+      // this.getAllAppointments(this.selectedServices);
     });
   }
 
@@ -193,7 +401,7 @@ export class AppointmentComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.animal = result;
-      //this.getAllAppointments(this.durationType,this.selectedServices);
+      //this.getAllAppointments(this.selectedServices);
     });
   }
 
@@ -225,7 +433,7 @@ export class AppointmentComponent implements OnInit {
         });
         this.selectedValue = undefined;
         this.orderItemsIdArr.length = 0;
-        this.getAllAppointments(this.durationType,this.selectedServices);
+        this.getAllAppointments(this.selectedServices);
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
@@ -244,7 +452,7 @@ export class AppointmentComponent implements OnInit {
           panelClass :['green-snackbar']
         });
         this.orderItemsIdArr.length = 0;
-        this.getAllAppointments(this.durationType,this.selectedServices);
+        this.getAllAppointments(this.selectedServices);
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
@@ -263,7 +471,7 @@ export class AppointmentComponent implements OnInit {
           panelClass :['green-snackbar']
         });
         this.orderItemsIdArr.length = 0;
-        this.getAllAppointments(this.durationType,this.selectedServices);
+        this.getAllAppointments(this.selectedServices);
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
@@ -491,6 +699,15 @@ export class DialogAddNewAppointment {
     });
   }
 
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
+  }
+  
   fnGetSettingValue(){
     let requestObject = {
       "business_id":this.bussinessId

@@ -11,6 +11,8 @@ import { AdminSettingsService } from '../_services/admin-settings.service';
 import { DatePipe} from '@angular/common';
 import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { HttpParams, HttpHeaders } from '@angular/common/http';
+import { environment } from '@environments/environment';
 
 export interface DialogData {
   selectedStaffId: any;
@@ -53,7 +55,7 @@ export class StaffComponent implements OnInit {
   newStaffData: any;
   updateStaffData: any;
   editStaffId: any;
-
+  validationArr:any=[];
 
   
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
@@ -175,11 +177,60 @@ export class StaffComponent implements OnInit {
     this.StaffCreate = this._formBuilder.group({
       firstname : ['',[ Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
       lastname : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
-      address : ['', [Validators.required,Validators.minLength(3)]],
-      email : ['', [Validators.required,Validators.pattern(this.emailFormat)]],
+      address : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+      email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
       phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
-      description : [''],
+      description : ['',Validators.maxLength(255)],
       staff_id : [''],
+    });
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    return throwError('Error! something went wrong.');
+    //return error.error ? error.error : error.statusText;
+  }
+
+  isEmailUnique(control: FormControl) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+        return this.http.post(`${environment.apiUrl}/verify-email`,{ emailid: control.value },{headers:headers}).pipe(map((response : any) =>{
+          return response;
+        }),
+        catchError(this.handleError)).subscribe((res) => {
+          if(res){
+            if(res.data == false){
+            resolve({ isEmailUnique: true });
+            }else{
+            resolve(null);
+            }
+          }
+        });
+      }, 500);
+    });
+  }
+
+  isEmailUniqueForEdit(control: FormControl) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+        return this.http.post(`${environment.apiUrl}/check-emailid`,{ emailid: control.value,customer_id:parseInt(this.editStaffId) },{headers:headers}).pipe(map((response : any) =>{
+          return response;
+        }),
+        catchError(this.handleError)).subscribe((res) => {
+          if(res){
+            if(res.data == false){
+            resolve({ isEmailUniqueForEdit: true });
+            }else{
+            resolve(null);
+            }
+          }
+        });
+      }, 500);
     });
   }
 
@@ -209,6 +260,15 @@ export class StaffComponent implements OnInit {
     })
   }
 
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
+  }
+  
   getAllStaff() {
     this.isLoaderAdmin = true;
     this.adminSettingsService.getAllStaff().subscribe((response: any) => {
@@ -290,6 +350,7 @@ export class StaffComponent implements OnInit {
       if (response.data == true) {
         this.singleStaffDetail = response.response
         console.log(this.singleStaffDetail);
+        this.selectedServiceNewStaff=[];
         this.singleStaffDetail.staff[0].services.forEach(element => {
           // this.selectedServicesArr.push(element.id);
           this.selectedServiceNewStaff.push(element.id);
@@ -639,7 +700,15 @@ export class StaffComponent implements OnInit {
     this.singleStaffView = false;
     this.isLoaderAdmin = false;
     this.selectedServiceNewStaff=[];
-    
+    this.StaffCreate = this._formBuilder.group({
+      firstname : ['',[ Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
+      lastname : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
+      address : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+      email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
+      phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      description : ['',Validators.maxLength(255)],
+      staff_id : [''],
+    });  
     this.getCateServiceList();
   }
 
@@ -683,7 +752,12 @@ export class StaffComponent implements OnInit {
         console.log(this.updateStaffData);
         this.updateStaff(this.updateStaffData);
       }else{
-        console.log(this.StaffCreate.valid);
+        this.StaffCreate.get('firstname').markAsTouched();
+        this.StaffCreate.get('lastname').markAsTouched();
+        this.StaffCreate.get('email').markAsTouched();
+        this.StaffCreate.get('phone').markAsTouched();
+        this.StaffCreate.get('address').markAsTouched();
+        this.StaffCreate.get('description').markAsTouched();
       }
     }
     else{ 
@@ -700,6 +774,13 @@ export class StaffComponent implements OnInit {
         }
         console.log(this.newStaffData);
         this.createNewStaff(this.newStaffData);
+      }else{
+        this.StaffCreate.get('firstname').markAsTouched();
+        this.StaffCreate.get('lastname').markAsTouched();
+        this.StaffCreate.get('email').markAsTouched();
+        this.StaffCreate.get('phone').markAsTouched();
+        this.StaffCreate.get('address').markAsTouched();
+        this.StaffCreate.get('description').markAsTouched();
       }
     }
   }
@@ -768,6 +849,26 @@ export class StaffComponent implements OnInit {
     this.addStaffPage = true;
     this.staffListPage = false;
     this.singleStaffView = false;
+
+    // this.validationArr=this.isEmailUnique.bind(this);
+    // this.StaffCreate.get('email').clearValidators();
+    // this.StaffCreate.controls['email'].setValidators([this.singleStaffDetail.staff[0].email,[Validators.required,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)]); 
+    // this.StaffCreate.controls['email'].setValidators([Validators.required,Validators.email,Validators.pattern(this.emailFormat),this.isEmailUnique.bind(this)]);
+
+
+    //this.StaffCreate.controls['email'].setValidators([[Validators.required,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)]);
+    // this.StaffCreate.controls['email'].updateValueAndValidity();
+
+    this.StaffCreate = this._formBuilder.group({
+      firstname : ['',[ Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
+      lastname : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
+      address : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+      email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUniqueForEdit.bind(this)],
+      phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      description : ['',Validators.maxLength(255)],
+      staff_id : [''],
+    });
+
     this.StaffCreate.controls['firstname'].setValue(this.singleStaffDetail.staff[0].firstname);
     this.StaffCreate.controls['lastname'].setValue(this.singleStaffDetail.staff[0].lastname);
     this.StaffCreate.controls['phone'].setValue(this.singleStaffDetail.staff[0].phone);
@@ -775,6 +876,9 @@ export class StaffComponent implements OnInit {
     this.StaffCreate.controls['description'].setValue(this.singleStaffDetail.staff[0].description);
     this.StaffCreate.controls['email'].setValue(this.singleStaffDetail.staff[0].email);
     this.StaffCreate.controls['staff_id'].setValue(staffId);
+
+    
+
     this.getCateServiceList();
     this.isLoaderAdmin = false;
   }

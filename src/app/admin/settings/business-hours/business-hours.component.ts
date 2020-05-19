@@ -238,15 +238,19 @@ export class BusinessHoursComponent implements OnInit {
   }
 
   fnApplyToAll(){
-    if(!this.mondayOn){
-      return false;
-    }
-    if(this.formSetWorkingHours.get("mondayToggle").value){
+    // if(!this.mondayOn){
+    //   return false;
+    // }
+    // if(this.formSetWorkingHours.get("mondayToggle").value){
       if(this.formSetWorkingHours.get("mondayStartTime").value == '' || this.formSetWorkingHours.get("mondayEndTime").value == '' || this.formSetWorkingHours.get("mondayStartTime").value == null || this.formSetWorkingHours.get("mondayEndTime").value == null){
-        alert();
+        this.snackBar.open("Start & End Time can not be empty", "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass : ['red-snackbar']
+        });
         return false;
       }
-    }
+    // }
     let requestObject={
       "business_id":this.businessId,
       "start_time":this.formSetWorkingHours.get("mondayStartTime").value,

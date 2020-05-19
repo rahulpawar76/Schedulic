@@ -599,4 +599,10 @@
      .view-btn{
                 background-color: #f1f5f8;
             }
-    
+.ellipsis {
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+width: 220px;
+}
+

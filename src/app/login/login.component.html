@@ -22,7 +22,7 @@
                         </mat-card-title>
                         <div class="input-wrap my-3">
                             <input type="text" formControlName="email" placeholder="Email" class="common-input form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                            <span class="error-wrap" *ngIf="loginForm.get('email').dirty || loginForm.get('email').touched || formSubmitclicked"><small *ngIf="loginForm.get('email').hasError('required')" class="error">Email Is required</small></span>
+                            <span class="error-wrap" *ngIf="loginForm.get('email').dirty || loginForm.get('email').touched || formSubmitclicked"><small *ngIf="loginForm.get('email').hasError('required')" class="error">Email Is required</small><small *ngIf="loginForm.get('email').hasError('email') || loginForm.get('email').hasError('pattern')" class="error">Enter a valid email address</small></span>
                         </div>
 
                         <div class="input-wrap my-3">

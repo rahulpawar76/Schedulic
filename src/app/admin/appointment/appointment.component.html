@@ -32,9 +32,10 @@
                 <div class="col-lg-4 col-12 col-md-4 col-sm-12 d-flex header-date">
                     <div id="head-date" class=" .offset-lg-4">
                         <div class="d-flex">
-                            <button class="date-btn pr-2"><i class="fa fa-angle-left date-icon" aria-hidden="true"></i></button>
-                            <p class="date-para pr-2">22 Oct 2019</p>
-                            <button  class="date-btn"><i class="fa fa-angle-right date-icon" aria-hidden="true"></i></button>
+                            <button class="date-btn pr-2" (click)="fnPrev()"><i class="fa fa-angle-left date-icon" aria-hidden="true"></i></button>
+                            <p class="date-para pr-2">{{startDate}}</p>
+                            <p class="date-para pr-2" *ngIf="durationType != 'daily'"> - {{endDate | date:'dd MMM yyyy'}}</p>
+                            <button  class="date-btn"><i class="fa fa-angle-right date-icon" aria-hidden="true" (click)="fnNext()"></i></button>
                         </div>
                     </div>
                 </div>
@@ -77,8 +78,8 @@
                         <p>{{allAppointmentsData.booking_time}}</p>
                     </td>
                     <td>
-                        <p>{{allAppointmentsData.customer.fullname}}</p>
-                        <p>Phone No: {{allAppointmentsData.customer.phone}}</p>
+                        <p>{{allAppointmentsData.customer?allAppointmentsData.customer.fullname:''}}</p>
+                        <p>Phone No: {{allAppointmentsData.customer?allAppointmentsData.customer.phone:''}}</p>
                     </td>
                     <td> 
                         <p>{{allAppointmentsData.service.service_name}}</p>

@@ -114,12 +114,8 @@ export class AdminService {
 
     // Appointment Module
 
-    getAllAppointments(durationType,services){
-        let requestObject = {
-            'business_id' : this.businessId,
-            'duration_type' : durationType,
-            'services' : services
-        };
+    getAllAppointments(requestObject){
+        
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -715,6 +711,18 @@ export class AdminService {
             'Content-Type': 'application/json'
         });
         return this.http.post(`${environment.apiUrl}/logs-list`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    saveBookingNotes(requestObject){
+        let headers = new HttpHeaders({
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/booking-note-update`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;
         }),

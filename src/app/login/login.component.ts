@@ -52,8 +52,9 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
+        let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
         this.loginForm = this.formBuilder.group({
-            email: ['', Validators.required],
+            email: ['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
             password: ['', Validators.required]
         });
         

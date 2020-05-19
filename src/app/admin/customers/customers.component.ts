@@ -160,35 +160,19 @@ export class CustomersComponent implements OnInit {
   ngOnInit() {
     this.fnGetSettings();
     this.getAllCustomers();
-    if(this.existingUserId != ''){
-      this.createNewCustomer = this._formBuilder.group({
-        cus_fullname : ['', Validators.required],
-        cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
-        cus_phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
-        cus_officenumber : ['', [Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
-        cus_homenumber : ['', [Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
-        cus_address : ['', Validators.required],
-        cus_state : ['', [Validators.required,Validators.minLength(2)]],
-        cus_city : ['', [Validators.required,Validators.minLength(2)]],
-        cus_zip : ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
-        customer_id : ['']
-      });
-    }
-    else{
-      this.createNewCustomer = this._formBuilder.group({
-        cus_fullname : ['', Validators.required],
-        cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],
-        this.isEmailUnique.bind(this)],
-        cus_phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
-        cus_officenumber : ['', [Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
-        cus_homenumber : ['', [Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
-        cus_address : ['', Validators.required],
-        cus_state : ['', Validators.required],
-        cus_city : ['', Validators.required],
-        cus_zip : ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
-        customer_id : ['']
-      });
-    }
+    
+    this.createNewCustomer = this._formBuilder.group({
+      cus_fullname : ['', Validators.required],
+      cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
+      cus_phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      cus_officenumber : ['', [Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      cus_homenumber : ['', [Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      cus_address : ['', Validators.required],
+      cus_state : ['', Validators.required],
+      cus_city : ['', Validators.required],
+      cus_zip : ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+      customer_id : ['']
+    });
 
     this.formPayment = this._formBuilder.group({
       paymentAmount : [null, [Validators.required,Validators.pattern(this.onlynumeric)]],
@@ -269,6 +253,7 @@ export class CustomersComponent implements OnInit {
           "zip" : this.createNewCustomer.get('cus_zip').value,
           'image': this.customerImageUrl
         }
+      this.customerUpdate(this.existingCustomerData);
     } else{
         this.createNewCustomer.get('cus_fullname').markAsTouched();
         this.createNewCustomer.get('cus_email').markAsTouched();
@@ -280,10 +265,9 @@ export class CustomersComponent implements OnInit {
         this.createNewCustomer.get('cus_city').markAsTouched();
         this.createNewCustomer.get('cus_zip').markAsTouched();
     }
-    this.customerUpdate(this.existingCustomerData);
   }
   else{
-      if(this.createNewCustomer.valid){
+    if(this.createNewCustomer.valid){
         this.newCustomerData ={
           "business_id" : this.businessId,
           "fullname" : this.createNewCustomer.get('cus_fullname').value,
@@ -296,6 +280,7 @@ export class CustomersComponent implements OnInit {
           "city" : this.createNewCustomer.get('cus_city').value,
           "zip" : this.createNewCustomer.get('cus_zip').value,
         }
+      this.fnCreateNewCustomer(this.newCustomerData);
     }else{
         this.createNewCustomer.get('cus_fullname').markAsTouched();
         this.createNewCustomer.get('cus_email').markAsTouched();
@@ -307,7 +292,6 @@ export class CustomersComponent implements OnInit {
         this.createNewCustomer.get('cus_city').markAsTouched();
         this.createNewCustomer.get('cus_zip').markAsTouched();
     }
-    this.fnCreateNewCustomer(this.newCustomerData);
   }
 }
 
@@ -353,6 +337,18 @@ customerUpdate(existingCustomerData){
   fnAddNewCustomer(){
     this.newCustomer = true;
     this.fullDetailsOfCustomer = false;
+    this.createNewCustomer = this._formBuilder.group({
+      cus_fullname : ['', Validators.required],
+      cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
+      cus_phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      cus_officenumber : ['', [Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      cus_homenumber : ['', [Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      cus_address : ['', Validators.required],
+      cus_state : ['', Validators.required],
+      cus_city : ['', Validators.required],
+      cus_zip : ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+      customer_id : ['']
+    });
     this.createNewCustomer.controls['customer_id'].setValue(null);
     this.createNewCustomer.controls['cus_fullname'].setValue(null);
     this.createNewCustomer.controls['cus_email'].setValue(null);
@@ -459,6 +455,18 @@ customerUpdate(existingCustomerData){
     this.fullDetailsOfCustomer = false;
     this.isLoaderAdmin = true;
     console.log(this.customerPersonalDetails);
+    this.createNewCustomer = this._formBuilder.group({
+      cus_fullname : ['', Validators.required],
+      cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUniqueForEdit.bind(this)],
+      cus_phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      cus_officenumber : ['', [Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      cus_homenumber : ['', [Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      cus_address : ['', Validators.required],
+      cus_state : ['', Validators.required],
+      cus_city : ['', Validators.required],
+      cus_zip : ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+      customer_id : ['']
+    });
     this.createNewCustomer.controls['customer_id'].setValue(this.existingUserId);
     this.createNewCustomer.controls['cus_fullname'].setValue(this.customerPersonalDetails.fullname);
     this.createNewCustomer.controls['cus_email'].setValue(this.customerPersonalDetails.email);
@@ -486,6 +494,28 @@ customerUpdate(existingCustomerData){
           if(res){
             if(res.data == false){
             resolve({ isEmailUnique: true });
+            }else{
+            resolve(null);
+            }
+          }
+        });
+      }, 500);
+    });
+  }
+
+  isEmailUniqueForEdit(control: FormControl) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+        return this.http.post(`${environment.apiUrl}/check-emailid`,{ emailid: control.value,customer_id:this.existingUserId },{headers:headers}).pipe(map((response : any) =>{
+          return response;
+        }),
+        catchError(this.handleError)).subscribe((res) => {
+          if(res){
+            if(res.data == false){
+            resolve({ isEmailUniqueForEdit: true });
             }else{
             resolve(null);
             }

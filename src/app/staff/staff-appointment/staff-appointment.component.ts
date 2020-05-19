@@ -457,7 +457,11 @@ export class StaffAppointmentComponent implements OnInit {
           }
         }
         for(var i=0; i<this.workingHoursOffDaysList.length; i++){
+          if(this.offDaysList.length>0){
             temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
+          }else{
+            temp=(d.getDay() !== this.workingHoursOffDaysList[i]);
+          }
         }
         //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
         return temp;
@@ -562,6 +566,15 @@ export class StaffAppointmentComponent implements OnInit {
     (err) =>{
       console.log(err)
     })
+  }
+
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
   }
 
     onNoClick(): void {
