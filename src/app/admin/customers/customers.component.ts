@@ -1057,7 +1057,7 @@ fnCancelAppointment(){
 }
   
 rescheduleAppointment(){
-  const dialogRef = this.dialog.open(InterruptedReschedule, {
+  const dialogRef = this.dialog.open(InterruptedReschedulecustomer, {
     height: '700px',
     data : {appointmentDetails: this.detailsData}
   });
@@ -1077,7 +1077,7 @@ rescheduleAppointment(){
   templateUrl: '../_dialogs/interrupted-reschedule-dialog.html',
   providers: [DatePipe]
 })
-export class InterruptedReschedule {
+export class InterruptedReschedulecustomer {
   formAppointmentRescheduleAdmin:FormGroup;
   appointmentDetails:any;
   businessId:any;
@@ -1088,7 +1088,7 @@ export class InterruptedReschedule {
   timeSlotArr:any= [];
   availableStaff:any= [];
   constructor(
-    public dialogRef: MatDialogRef<InterruptedReschedule>,
+    public dialogRef: MatDialogRef<InterruptedReschedulecustomer>,
     private datePipe: DatePipe,
     private _formBuilder: FormBuilder,
     private http: HttpClient,

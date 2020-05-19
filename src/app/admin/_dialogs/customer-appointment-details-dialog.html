@@ -9,8 +9,8 @@
           </button>
                 </div>
                 <div class="appodetails">
-                    <label class="greenfont pt-2 pointer d-flex align-items-center" (click)="rescheduleAppointment()" *ngIf="appointmentDetails.booking_date_time && minReschedulingTime.getTime() < appointmentDetails.booking_date_time.getTime()"><i class="fa fa-repeat repeat pr-1"></i>Reschedule</label>
-                    <label class="fontred  pt-2 pl-2 pointer d-flex align-items-center" (click)="fnCancelAppointment()" *ngIf="appointmentDetails.booking_date_time && cancellationBufferTime.getTime() < appointmentDetails.booking_date_time.getTime()"><i class="fa fa-times-circle-o pr-1"></i>Cancel</label>
+                    <label class="greenfont pt-2 pointer d-flex align-items-center" (click)="rescheduleAppointment()" *ngIf="detailsData.booking_date_time && minReschedulingTime.getTime() < detailsData.booking_date_time.getTime()"><i class="fa fa-repeat repeat pr-1"></i>Reschedule</label>
+                    <label class="fontred  pt-2 pl-2 pointer d-flex align-items-center" (click)="fnCancelAppointment()" *ngIf="detailsData.booking_date_time && cancellationBufferTime.getTime() < detailsData.booking_date_time.getTime()"><i class="fa fa-times-circle-o pr-1"></i>Cancel</label>
 
                     <button mat-raised-button color="primary" (click)="fnConfirmAppointment($event)" *ngIf="detailsData.order_status == 'P'" type="button" class="d-block btn-primary float-right paybtn">Confirm</button>
                 </div>

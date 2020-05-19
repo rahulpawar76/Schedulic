@@ -47,7 +47,7 @@ export class UserappointmentsComponent implements OnInit {
   search = {
     keyword: ""
   };
-  openedTab :any = 0;
+  openedTab :any = 'new';
   
   creditcardform = false;
   showPaypalButtons = false;
@@ -93,6 +93,7 @@ export class UserappointmentsComponent implements OnInit {
     private datePipe: DatePipe,
     private authenticationService: AuthenticationService
     ) {
+    this.customerId=this.authenticationService.currentUserValue.user_id
     this.bussinessId=this.authenticationService.currentUserValue.business_id;
     this.cardForm = this._formBuilder.group({
       cardHolderName: ['',[Validators.required]],
@@ -326,7 +327,14 @@ getCompletedAppointments(): void{
      });
   }
   fnTabValue(event){
-    this.openedTab = event;
+    this.search.keyword = null;
+    if(event == 0){
+      this.openedTab = 'new';
+    }else if(event == 1){
+      this.openedTab = 'cancel';
+    }else if(event == 2){
+      this.openedTab = 'completed';
+    }
   }
   payAppoint(index){
     this.appointDetailForPayment = this.appointmentData[index];
@@ -664,28 +672,55 @@ getCompletedAppointments(): void{
     this.router.navigate(['/booking']);
   }
   customerSearchAppointment(){
-    alert(this.search.keyword);
-    if(this.search.keyword.length > 2){
+    this.isLoader=true;
+    if(this.search.keyword.length > 1){
       let requestObject = {
         "search":this.search.keyword,
         "customer_id":this.customerId,
-        "business_id":this.bussinessId
+        "business_id":this.bussinessId,
+        "booking_type" : this.openedTab
       }
       console.log(requestObject);
       this.UserService.customerSearchAppointment(requestObject).subscribe((response:any) =>{
         if(response.data == true){
-          this.appointmentData = response.response;
-          this.appointmentData.forEach( (element) => {
-            element.bookingDateTime = new Date(element.booking_date+" "+element.booking_time);
-            element.booking_timeForLabel = this.datePipe.transform(element.bookingDateTime,"hh:mm a");
-            element.booking_dateForLabel = this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
-            element.created_atForLabel = this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a");
-    
-            var dateTemp = new Date(this.datePipe.transform(element.bookingDateTime,"dd MMM yyyy hh:mm a"));
-            dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
-            element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
-    
-          });
+          if(this.openedTab == 'new'){
+            this.appointmentData = response.response;
+            console.log(this.appointmentData)
+            this.appointmentData.forEach( (element) => {
+              element.bookingDateTime = new Date(element.booking_date+" "+element.booking_time);
+              element.booking_timeForLabel = this.datePipe.transform(element.bookingDateTime,"hh:mm a");
+              element.booking_dateForLabel = this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
+              element.created_atForLabel = this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a");
+      
+              var dateTemp = new Date(this.datePipe.transform(element.bookingDateTime,"dd MMM yyyy hh:mm a"));
+              dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+              element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+      
+            });
+          }else if(this.openedTab == 'cancel'){
+            this.cancelAppointmentData = response.response;
+            this.cancelAppointmentData.forEach( (element) => {
+              element.booking_timeForLabel = this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+              element.booking_dateForLabel = this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
+              element.created_atForLabel = this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a");
+      
+              var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"dd MMM yyyy hh:mm a"));
+              dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+              element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+            });
+          }else if(this.openedTab == 'completed'){
+            this.completedAppointmentData = response.response;
+            this.completedAppointmentData.forEach( (element) => {
+              element.booking_timeForLabel = this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+              element.booking_dateForLabel = this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
+              element.created_atForLabel = this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a");
+
+              var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"dd MMM yyyy hh:mm a"));
+              dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+              element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+            });
+          }
+          this.isLoader=false;
         }
         else if(response.data == false){
           this._snackBar.open(response.response, "X", {
@@ -694,8 +729,16 @@ getCompletedAppointments(): void{
             panelClass :['red-snackbar']
           });
           this.appointmentData = [];
+          this.cancelAppointmentData = [];
+          this.completedAppointmentData = [];
+          this.isLoader=false;
         }
       })
+    }else{
+      this.getAllAppointments();
+      this.getCancelAppointments();
+      this.getCompletedAppointments();
+      this.isLoader=false;
     }
     
   }
@@ -804,6 +847,7 @@ export class DialogCancelReason {
 	export class DialogInvoiceDialog {
     myAppoDetailData: any;
     bussinessId:any;
+    tax:any;
     businessData:any;
     settingsArr: any;
     currencySymbol:any;
@@ -818,6 +862,7 @@ export class DialogCancelReason {
       private _snackBar: MatSnackBar,
 	    @Inject(MAT_DIALOG_DATA) public data: any) {
         this.myAppoDetailData = this.data.fulldata;
+        this.tax = JSON.parse(this.myAppoDetailData.tax)
         this.myAppoDetailData.invoice_date=this.datePipe.transform(new Date(), 'dd/MM/yyyy');
         this.myAppoDetailData.invoiceNumber = "2"+this.myAppoDetailData.id+this.datePipe.transform(new Date(),"yyyy/MM/dd");
         console.log(this.myAppoDetailData);
