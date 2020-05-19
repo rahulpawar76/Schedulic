@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, from } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { environment } from '@environments/environment';
 import { AuthenticationService } from '@app/_services';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -112,6 +113,7 @@ export class CustomersComponent implements OnInit {
   }
   order_taxAmountArr=[];
   customerPaymentIndex:number;
+  customerDetailId : any;
   constructor(
     public dialog: MatDialog,
     private AdminService: AdminService,
@@ -367,6 +369,7 @@ customerUpdate(existingCustomerData){
 
   
   fnSelectCustomer(customer_id){
+    this.customerDetailId= customer_id;
     this.isLoaderAdmin = true;
     this.AdminService.getCustomersDetails(customer_id).subscribe((response:any) => {
       if(response.data == true){
@@ -678,7 +681,7 @@ customerUpdate(existingCustomerData){
      });
       dialogRef.afterClosed().subscribe(result => {
        this.animal = result;
-      //this.getPendingAppointments();
+      this.fnSelectCustomer(this.customerDetailId);
      
       });
 
@@ -969,18 +972,36 @@ customerUpdate(existingCustomerData){
 @Component({
   selector: 'customer-appointment-details-dialog',
   templateUrl: '../_dialogs/customer-appointment-details-dialog.html',
+  providers: [DatePipe]
 })
 export class CustomerAppointmentDetailsDialog {
   detailsData: any;
   activityLog: any=[];
+  businessId:any;
+  settingsArr:any;
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;
+  cancellationBufferTime:any;
+  minReschedulingTime:any;
+
 constructor(
+  public dialog: MatDialog,
   public dialogRef: MatDialogRef<CustomerAppointmentDetailsDialog>,
-  public adminService: AdminService,
+  private AdminService: AdminService,
+  private _formBuilder:FormBuilder,
+  private _snackBar: MatSnackBar,
+  private http: HttpClient,
+  private datePipe: DatePipe,
   @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+    this.fnGetSettingValue();
 
     this.detailsData =  this.data.fulldata;
     console.log(this.detailsData);
     this.fnGetActivityLog(this.detailsData.id);
+    if(localStorage.getItem('business_id')){
+      this.businessId = localStorage.getItem('business_id');
+    }
   }
 
 onNoClick(): void {
@@ -991,7 +1012,7 @@ fnGetActivityLog(orderItemId){
     let requestObject = {
       "order_item_id":orderItemId
     };
-    this.adminService.getActivityLog(requestObject).subscribe((response:any) => {
+    this.AdminService.getActivityLog(requestObject).subscribe((response:any) => {
       if(response.data == true){
         console.log(response.response);
         this.activityLog=response.response;
@@ -1001,6 +1022,252 @@ fnGetActivityLog(orderItemId){
       }
     })
   }
+
+fnGetSettingValue(){
+  let requestObject = {
+    "business_id":this.businessId
+  };
+  this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
+    if(response.data == true){
+      this.settingsArr=response.response;
+      console.log(this.settingsArr);
+
+      this.currencySymbol = this.settingsArr.currency;
+      console.log(this.currencySymbol);
+      
+      this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+      console.log(this.currencySymbolPosition);
+      
+      this.currencySymbolFormat = this.settingsArr.currency_format;
+      console.log(this.currencySymbolFormat);
+      
+      let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
+      let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
+      console.log(cancellation_buffer_time);
+      console.log(min_rescheduling_time);
+     
+      this.cancellationBufferTime = new Date();
+      this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
+      console.log("cancellationBufferTime - "+this.cancellationBufferTime);
+
+      this.minReschedulingTime = new Date();
+      this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
+      console.log("minReschedulingTime - "+this.minReschedulingTime);
+    }
+    else if(response.data == false){
+      
+    }
+  })
+}
+
+fnConfirmAppointment(){
+  let requestObject = {
+   "order_item_id":JSON.stringify(this.detailsData.id),
+   "status":"CNF"
+  };
+  this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+    if(response.data == true){
+      this._snackBar.open(response.response, "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['green-snackbar']
+        });
+        this.dialogRef.close();
+    }
+    else if(response.data == false){
+      this._snackBar.open(response.response, "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+        });
+    }
+  })
+}
+fnCancelAppointment(){
+  let requestObject = {
+   "order_item_id":JSON.stringify(this.detailsData.id),
+   "status":"C"
+  };
+  this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+    if(response.data == true){
+      this._snackBar.open(response.response, "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['green-snackbar']
+        });
+        this.dialogRef.close();
+    }
+    else if(response.data == false){
+      this._snackBar.open(response.response, "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+        });
+    }
+  })
+}
+  
+rescheduleAppointment(){
+  const dialogRef = this.dialog.open(InterruptedReschedulecustomer, {
+    height: '700px',
+    data : {appointmentDetails: this.detailsData}
+  });
+    
+  dialogRef.afterClosed().subscribe(result => {
+    //this.fnGetAllAppointmentsByCategoryAndStatus();
+  });
+}
+
+}
+
+
+
+
+@Component({
+  selector: 'interrupted-reschedule-dialog',
+  templateUrl: '../_dialogs/interrupted-reschedule-dialog.html',
+  providers: [DatePipe]
+})
+export class InterruptedReschedulecustomer {
+  formAppointmentRescheduleAdmin:FormGroup;
+  appointmentDetails:any;
+  businessId:any;
+  selectedDate:any;
+  selectedTimeSlot:any;
+  selectedStaff:any;
+  minDate = new Date(2000, 0, 1);
+  timeSlotArr:any= [];
+  availableStaff:any= [];
+  constructor(
+    public dialogRef: MatDialogRef<InterruptedReschedulecustomer>,
+    private datePipe: DatePipe,
+    private _formBuilder: FormBuilder,
+    private http: HttpClient,
+    private adminService: AdminService,
+    private _snackBar: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+
+      this.businessId=localStorage.getItem('business_id');
+      this.appointmentDetails=this.data.appointmentDetails;
+      this.formAppointmentRescheduleAdmin = this._formBuilder.group({
+        rescheduleDate: ['', Validators.required],
+        rescheduleTime: ['', Validators.required],
+        rescheduleStaff: ['', Validators.required],
+        rescheduleNote: ['', Validators.required],
+      });
+  }
+
+  
+  fnDateChange(event:MatDatepickerInputEvent<Date>) {
+      console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
+      let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
+      this.formAppointmentRescheduleAdmin.controls['rescheduleTime'].setValue(null);
+      this.formAppointmentRescheduleAdmin.controls['rescheduleStaff'].setValue(null);
+      this.timeSlotArr= [];
+      this.availableStaff= [];
+      this.selectedDate=date;
+      this.fnGetTimeSlots(date);
+    }
+
+  fnGetTimeSlots(selectedDate){
+    let requestObject = {
+      "business_id":this.businessId,
+      "selected_date":selectedDate
+    };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    this.http.post(`${environment.apiUrl}/list-availabel-timings`,requestObject,{headers:headers} ).pipe(
+      map((res) => {
+        return res;
+      }),
+     // catchError(this.handleError)
+      ).subscribe((response:any) => {
+        if(response.data == true){
+          this.timeSlotArr=response.response;
+          console.log(this.timeSlotArr);
+        }
+        else{
+        }
+      },
+      (err) =>{
+        console.log(err)
+      })
+    }
+   
+    fnChangeTimeSlot(selectedTimeSlot){
+      console.log(selectedTimeSlot);
+      this.formAppointmentRescheduleAdmin.controls['rescheduleStaff'].setValue(null);
+      this.selectedTimeSlot=selectedTimeSlot;
+      this.fnGetStaff(selectedTimeSlot);
+    }
+
+    fnGetStaff(selectedTimeSlot){
+      let requestObject = {
+        "postal_code":this.appointmentDetails.postalCode,
+        "business_id":this.businessId,
+        "service_id":JSON.stringify(this.appointmentDetails.serviceId),
+        "book_date":this.selectedDate,
+        "book_time":this.selectedTimeSlot
+      };
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+
+      this.http.post(`${environment.apiUrl}/service-staff`,requestObject,{headers:headers} ).pipe(
+        map((res) => {
+          return res;
+        }),
+        //catchError(this.handleError)
+      ).subscribe((response:any) => {
+        if(response.data == true){
+            this.availableStaff = response.response;
+            console.log(JSON.stringify(this.availableStaff));
+        }
+        else{
+          this.availableStaff.length=0;
+        }
+        },
+        (err) =>{
+          console.log(err)
+        })
+      }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+formRescheduleSubmit(){
+  if(this.formAppointmentRescheduleAdmin.invalid){
+    return false;
+  }
+
+  let requestObject = {
+   "order_item_id":JSON.stringify(this.appointmentDetails.id),
+   "staff_id":this.formAppointmentRescheduleAdmin.get('rescheduleStaff').value,
+   "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value),"yyyy-MM-dd"),
+   "book_time":this.formAppointmentRescheduleAdmin.get('rescheduleTime').value,
+   "book_notes":this.formAppointmentRescheduleAdmin.get('rescheduleNote').value
+  };
+  this.adminService.rescheduleAppointment(requestObject).subscribe((response:any) =>{
+    if(response.data == true){
+      this._snackBar.open("Appointment Rescheduled", "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['green-snackbar']
+        });
+        this.dialogRef.close();
+   }
+    else if(response.data == false){
+      this._snackBar.open("Appointment not Rescheduled", "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+        });
+    }
+  })
+}
 
 }
 
@@ -1061,7 +1328,7 @@ export class DialogAddNewNote {
 
       if(localStorage.getItem('business_id')){
         this.businessId = localStorage.getItem('business_id');
-    }
+      }
     }
 
   onNoClick(): void {
@@ -1168,6 +1435,7 @@ constructor(
       this.dialogRef.close(this.profileImage);
     }
     ngOnInit() {
+      alert();
       this.uploadForm = this._formBuilder.group({
         profile: ['']
       });
@@ -1190,6 +1458,7 @@ onFileChange(event) {
   }
 }
 uploadImage() {
+  alert(this.imageSrc);
   this.profileImage = this.imageSrc
   this.dialogRef.close(this.profileImage);
 }
@@ -1257,19 +1526,27 @@ onNoClick(): void {
       service_cost:'',
       service_subtotal:'',
       service_discount:'',
-      service_netCost:'',
+      service_netCost:'', 
+      invoiceNumber:'', 
     }
     serviceTaxArr:[];
     settingsArr:any=[];
     currencySymbol:any;
     currencySymbolPosition:any;
     currencySymbolFormat:any;
+    bussinessId:any;
+    businessData:any;
     constructor(
       public dialogRef: MatDialogRef<DialogInvoiceDialog>,
+      private authenticationService: AuthenticationService,
+      private AdminService: AdminService,
       public datePipe: DatePipe,
+      private _snackBar: MatSnackBar,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.settingsArr = this.data.setting;
-        console.log(this.settingsArr);
+        console.log(this.settingsArr);  
+        this.bussinessId=this.authenticationService.currentUserValue.business_id;
+        this.getBusinessDetail();
 
         this.currencySymbol = this.settingsArr.currency;
         console.log(this.currencySymbol);
@@ -1282,6 +1559,8 @@ onNoClick(): void {
         this.paymentInfo.invoice_date=this.datePipe.transform(new Date(), 'dd/MM/yyyy');
         this.paymentData = this.data.fulldata;
         console.log(this.paymentData);
+        
+        this.paymentInfo.invoiceNumber = "2"+this.paymentData.id+this.datePipe.transform(new Date(),"yyyy/MM/dd");
         this.paymentInfo.customer_name=this.paymentData.get_customer.fullname;
         this.paymentInfo.customer_address=this.paymentData.get_customer.address;
         this.paymentInfo.customer_city=this.paymentData.get_customer.city;
@@ -1300,6 +1579,24 @@ onNoClick(): void {
 
     onNoClick(): void {
       this.dialogRef.close();
+    } 
+    getBusinessDetail(){
+      let requestObject = {
+        "business_id":this.bussinessId
+      };
+      this.AdminService.getBusinessDetail(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.businessData=response.response;
+          console.log(this.businessData);
+        }
+        else if(response.data == false){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+        }
+      })
     }
 
     fnPrint(){

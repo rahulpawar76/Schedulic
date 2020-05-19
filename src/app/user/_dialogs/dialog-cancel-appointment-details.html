@@ -1,67 +1,66 @@
-<mat-sidenav-container class = "tp-container">
-   <mat-sidenav mode = "side" opened>
-<div class="modal-dialog mt-0 mb-0" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title">Appointment Details</h5>
-        <button type="button" (click)="onNoClick()" class="close" data-dismiss="modal" aria-label="Close">
+<mat-sidenav-container class="tp-container">
+    <mat-sidenav mode="side" opened>
+        <div class="modal-dialog mt-0 mb-0" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Appointment Details</h5>
+                    <button type="button" (click)="onNoClick()" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-    </div>
+                </div>
 
-   
-    <div class="modal-body modal-bcolor">
-      
-      <p class="mb-0 font-weight-bold"> {{myAppoDetailData.booking_dateForLabel}}</p>
-      <p>Booked On: {{myAppoDetailData.created_atForLabel}}</p>
 
-      <p class="mb-0">Service</p>
-      <!-- <p class="font-weight-bold">{{myAppoDetailData.service.service_name}}($ {{myAppoDetailData.service.service_cost}})</p> -->
-      <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{myAppoDetailData.service.service_name}}({{currencySymbol| currencySymbol:'wide'}} {{ myAppoDetailData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</p>
-      <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{myAppoDetailData.service.service_name}}({{ myAppoDetailData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}})</p>
-      <p class="mb-0">Time</p>
-      <p class="font-weight-bold">{{myAppoDetailData.booking_timeForLabel}} - {{myAppoDetailData.booking_time_to}} ({{myAppoDetailData.service.service_time}})</p>
-     
-      <div class="d-flex">
-      
-        <div class="pl-0">
-        <p class="mb-0">Order By</p>
-        <p class="font-weight-bold text-capitalize">{{myAppoDetailData.order_by}}</p>
-      </div>
-      <div class="pl-5">  
-        <p class="mb-0">Status</p>
-        <p class="font-weight-bold text-capitalize">Canceled</p>
-      </div>
-    
-    </div>
-    <div>
-      <p class="mb-0">Staff</p>
-      <p class="mb-0 font-weight-bold" *ngIf="myAppoDetailData.staff_id == null">Not Assigned</p>
-      <div class="" *ngIf="myAppoDetailData.staff_id != null">
-        <p class="mb-0 font-weight-bold text-capitalize">{{myAppoDetailData.staff.firstname}} {{myAppoDetailData.staff.lastname}}</p>
-        <p class="mb-0">Phone NO:{{myAppoDetailData.staff.phone}}</p>
-      </div>
-    </div>
-     </div>    
-     <mat-card class="card-body-marginn booking-detail-main mb-0">
-       <h6 class="text-left mb-3">Booking Details</h6>
-       <div class="row align-items-center">
-        <p class="customer-profile-img">SP</p>
-        <div class="customer-name pr-3">
-          <p class="font-weight-bold mb-0">{{myAppoDetailData.customer.fullname}}</p>
-          <p class="address-fontsize mb-0">{{myAppoDetailData.customer.email}}</p>
+                <div class="modal-body modal-bcolor">
+
+                    <p class="mb-0 font-weight-bold"> {{myAppoDetailData.booking_dateForLabel}}</p>
+                    <p>Booked On: {{myAppoDetailData.created_atForLabel}}</p>
+
+                    <p class="mb-0">Service</p>
+                    <!-- <p class="font-weight-bold">{{myAppoDetailData.service.service_name}}($ {{myAppoDetailData.service.service_cost}})</p> -->
+                    <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{myAppoDetailData.service.service_name}}({{currencySymbol| currencySymbol:'wide'}} {{ myAppoDetailData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</p>
+                    <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{myAppoDetailData.service.service_name}}({{ myAppoDetailData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}})</p>
+                    <p class="mb-0">Time</p>
+                    <p class="font-weight-bold">{{myAppoDetailData.booking_timeForLabel}} - {{myAppoDetailData.booking_time_to}} ({{myAppoDetailData.service.service_time}})</p>
+
+                    <div class="d-flex">
+                        <div class="pl-0">
+                            <p class="mb-0">Order By</p>
+                            <p class="font-weight-bold text-capitalize">{{myAppoDetailData.order_by}}</p>
+                        </div>
+                        <div class="pl-5">
+                            <p class="mb-0">Status</p>
+                            <p class="font-weight-bold text-capitalize">Canceled</p>
+                        </div>
+
+                    </div>
+                    <div>
+                        <p class="mb-0">Staff</p>
+                        <p class="mb-0 font-weight-bold" *ngIf="myAppoDetailData.staff_id == null">Not Assigned</p>
+                        <div class="" *ngIf="myAppoDetailData.staff_id != null && myAppoDetailData.staff">
+                            <p class="mb-0 font-weight-bold text-capitalize">{{myAppoDetailData.staff.firstname}} {{myAppoDetailData.staff.lastname}}</p>
+                            <p class="mb-0">Phone NO:{{myAppoDetailData.staff.phone}}</p>
+                        </div>
+                    </div>
+                </div>
+                <mat-card class="card-body-marginn booking-detail-main mb-0">
+                    <h6 class="text-left mb-3">Booking Details</h6>
+                    <div class="row align-items-center">
+                        <p class="customer-profile-img">SP</p>
+                        <div class="customer-name pr-3">
+                            <p class="font-weight-bold mb-0">{{myAppoDetailData.customer.fullname}}</p>
+                            <p class="address-fontsize mb-0">{{myAppoDetailData.customer.email}}</p>
+                        </div>
+                    </div>
+                    <p class=" address-fontsize"><i class="fa fa-phone pr-3 bluephone"></i>{{myAppoDetailData.customer.phone}}</p>
+                    <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i>{{myAppoDetailData.customer.address}}</p>
+                    <p class="pl-4 address-fontsize">{{myAppoDetailData.customer.city}}, {{myAppoDetailData.customer.state}}, {{myAppoDetailData.customer.zip}}</p>
+                </mat-card>
+                <div  class="pl-4 pt-2 bottom-border">
+                    <h6>Activity Log</h6>
+                    <div *ngFor="let log of activityLog">{{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - {{log.status=='P'?'Pending':''}}{{log.status=='CNF'?'Confirm':''}}{{log.status=='AC'?'Accepted':''}}{{log.status=='OW'?'On The Way':''}}{{log.status=='WS'?'Work Started':''}}{{log.status=='RSA'?'Rescheduled By Admin':''}}{{log.status=='RSS'?'Rescheduled By Staff':''}}{{log.status=='RSC'?'Rescheduled By Client':''}}{{log.status=='ITR'?'Intrupted':''}}{{log.status=='C'?'Cancelled':''}}{{log.status=='CC'?'Cancelled By Client':''}}{{log.status=='R'?'Rejected':''}}{{log.status=='CO'?'Completed':''}}
+                    </div>
+                </div>
+            </div>
         </div>
-
-      </div>
-        <p class=" address-fontsize"><i class="fa fa-phone pr-3 bluephone"></i>{{myAppoDetailData.customer.phone}}</p>
-        <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i>{{myAppoDetailData.customer.address}}</p>
-        <p class="pl-4 address-fontsize">{{myAppoDetailData.customer.city}}, {{myAppoDetailData.customer.state}}, {{myAppoDetailData.customer.zip}}</p>
-    </mat-card>
-      <div  class="pl-4 pt-2 bottom-border">
-      <h6>Activity Log</h6>
-      <div *ngFor="let log of activityLog">{{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - {{log.status=='P'?'Pending':''}}{{log.status=='CNF'?'Confirm':''}}{{log.status=='AC'?'Accepted':''}}{{log.status=='OW'?'On The Way':''}}{{log.status=='WS'?'Work Started':''}}{{log.status=='RSA'?'Rescheduled By Admin':''}}{{log.status=='RSS'?'Rescheduled By Staff':''}}{{log.status=='RSC'?'Rescheduled By Client':''}}{{log.status=='ITR'?'Intrupted':''}}{{log.status=='C'?'Cancelled':''}}{{log.status=='CC'?'Cancelled By Client':''}}{{log.status=='R'?'Rejected':''}}{{log.status=='CO'?'Completed':''}}</div>
-      </div>
-    </div>
-  </div>
-</mat-sidenav>
+    </mat-sidenav>
 </mat-sidenav-container>

@@ -280,6 +280,11 @@ export class ServicesComponent implements OnInit {
             }
             else if (response.data == false) {
                 this.categoryServicesList = [];
+                if (response.response == 'service not found') {
+                    this.servicesList = false;
+                    this.selectedCategoryDetails = this.allCetegoryList[index]
+                    this.selectCategoryPage = 'notservices';
+                }
                 this.isLoaderAdmin = false;
             }
         })

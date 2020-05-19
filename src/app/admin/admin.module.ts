@@ -34,6 +34,7 @@ import { DialogViewReview } from './customers/customers.component';
 import {DialogImportFileUpload} from './customers/customers.component';
 import { DiscountCouponComponent } from './discount-coupon/discount-coupon.component';
 import { InterruptedReschedule } from './my-work-space/my-work-space.component';
+import { InterruptedReschedulecustomer } from './customers/customers.component';
 import { MyProfileComponent } from './settings-my-profile/settings-my-profile.component';
 import { PendingAppointmentDetailsDialog } from './appointment-live/appointment-live.component';
 import { NotAssignedAppointmentDetailsDialog } from './appointment-live/appointment-live.component';
@@ -71,6 +72,7 @@ import { CustomerAppointmentDetailsDialog } from './customers/customers.componen
     DialogViewReview,
     DialogImportFileUpload,
     InterruptedReschedule,
+    InterruptedReschedulecustomer,
     DiscountCouponComponent,
     DialogMyProfileImageUpload,
     DialogCustomerImageUpload,
@@ -108,7 +110,7 @@ import { CustomerAppointmentDetailsDialog } from './customers/customers.componen
   ],
   entryComponents: [myCreateNewBusinessDialog,DialogAddNewAppointment,DialogNewAppointment,
     DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,
-    DialogViewReview,InterruptedReschedule,PendingAppointmentDetailsDialog,
+    DialogViewReview,InterruptedReschedule,InterruptedReschedulecustomer,PendingAppointmentDetailsDialog,
     NotAssignedAppointmentDetailsDialog,OnTheWayAppointmentDetailsDialog,
     WorkStartedAppointmentDetailsDialog,DialogImportFileUpload,DialogMyProfileImageUpload,
     DialogCustomerImageUpload,DialogCouponDetails,CustomerAppointmentDetailsDialog,RescheduleAppointment,DialogInvoiceDialog],

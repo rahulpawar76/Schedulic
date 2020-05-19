@@ -77,6 +77,17 @@
                     </div>
 
                 </div>
+                <div class="table_pagination">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end">
+                        <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
             <!-- create new category -->
             <div *ngIf="createNewCategoryPage">
@@ -456,7 +467,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-8 col-8 col-md-8 d-flex">
+                            <div class="col-xl-8 col-lg-12 col-12 col-md-12 d-flex">
                                 <div class="ml-3 justify-content-center " (click)="serviceImage()">
                                     <div class="services-customer-profile-background profile-img-wrap mr-3 mt-5">
                                         <img *ngIf="!editServiceId" src="/assets/images/admin/picture.png" class="service-profile-image-admin">
@@ -542,7 +553,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-8 col-md-8 d-flex">
+                            <div class="col-xl-4 col-lg-12 col-12 col-md-12 d-flex">
                                 <div class="border p-3">
                                     <!-- <div class="d-flex">
                                 <h6> staff for this service</h6>

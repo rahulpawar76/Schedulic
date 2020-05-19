@@ -642,3 +642,38 @@ $calendarsize: 10px;
     margin: 0;
     max-height: 85%;
 }
+.icon_size{
+    font-size: 25px !important;
+    width: 28px;
+    text-align: center;
+}
+.table_pagination{
+    margin: 15px 0;
+    ul.pagination li a{
+        border: none;
+        background: transparent;
+        color: #333;
+    }
+    ul.pagination .page-item.active .page-link,
+    ul.pagination .page-item:hover .page-link{
+        color: #007bff;
+        background: transparent;
+    }
+    ul.pagination li a i.arrow-icon{
+        border: 1px solid #333;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        font-size: 19px;
+        line-height: 1.5;
+        color: #333;
+        top: -6px;
+        position: relative;
+    }
+    ul.pagination li a i.arrow-icon:hover{
+        border-color: #007bff;
+        color: #007bff;
+    }
+}
+

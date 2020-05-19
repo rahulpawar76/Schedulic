@@ -1,260 +1,256 @@
 @import "variables";
+.content-main {
+    margin-top: 63px;
+    position: relative;
+}
 
-.content-main{
-     margin-top: 63px;
-     position: relative;
+.right-button-wrapp {
+    height: 100%;
+    border-radius: 0;
+    background-color: $bgblue;
+    margin: 0px;
 }
-.right-button-wrapp{
-      height: 100%;
-      border-radius: 0;
-      background-color: $bgblue;
-      margin: 0px;
-}
-::ng-deep .mat-tab-label-container{
-  .mat-tab-list{
-    .mat-tab-labels{
-      background-color: $tab-colors !important;
-      height: 63px;
-      align-items: center;  
-        .mat-tab-label-active{
-          background-color: #fff !important;
-          height: 63px;
+
+::ng-deep .mat-tab-label-container {
+    .mat-tab-list {
+        .mat-tab-labels {
+            background-color: $tab-colors !important;
+            height: 63px;
+            align-items: center;
+            .mat-tab-label-active {
+                background-color: #fff !important;
+                height: 63px;
+            }
         }
-      }
     }
-  }
-::ng-deep .main-invoice-wrap{
-  position: relative;
-  .modal-header{
-    position: absolute !important;
-    z-index: 1;
-    right: 10px;
-    top: 5px;
-    padding: 5px;
-    display: block;
-    height: 50px;
-    width: 50px;
-    text-align: center;
-    .close{
-      padding: 0;
-      margin: 0;
-      float: none;
+}
+
+::ng-deep .main-invoice-wrap {
+    position: relative;
+    .modal-header {
+        position: absolute !important;
+        z-index: 1;
+        right: 10px;
+        top: 5px;
+        padding: 5px;
+        display: block;
+        height: 50px;
+        width: 50px;
+        text-align: center;
+        .close {
+            padding: 0;
+            margin: 0;
+            float: none;
+        }
     }
-  }
 }
 
-::ng-deep .mat-dialog-container{
-  padding: 0 !important;
-}
-::ng-deep .modal-info{
-  margin: 0 !important;
+::ng-deep .mat-dialog-container {
+    padding: 0 !important;
 }
 
- ::ng-deep .ratedetails{
-  border-radius: 50px;
-  float: right;
+::ng-deep .modal-info {
+    margin: 0 !important;
 }
 
-  /*Common model Background Color*/
-::ng-deep .modal-bcolor{
-  background-color: $bg-darkblue;
-  .header-margins{
-    padding: 0;
-  }
-
+ ::ng-deep .ratedetails {
+    border-radius: 50px;
+    float: right;
 }
 
 
+/*Common model Background Color*/
+
+::ng-deep .modal-bcolor {
+    background-color: $bg-darkblue;
+    .header-margins {
+        padding: 0;
+    }
+}
 
 
 /*My Appointments css*/
 
-.bookings-details-main{
-  .single-booking{
-    .card{
-      /*margin: 20px;*/
-      label{
-         margin-bottom: 0;
-      }
-      p{
-        margin-bottom: 0;
-        font-size: 0.9rem;;
-      }
-      .buttons{
-        margin-left: auto;
-        .details{
-            padding: 3px 1.75rem;
-            margin: 5px 0;
-            width: 140px;
-            margin-right: 0 !important;
-            font-weight: 300;
-            margin-left:auto;
-            float:right;
+.bookings-details-main {
+    .single-booking {
+        .card {
+            /*margin: 20px;*/
+            label {
+                margin-bottom: 0;
+            }
+            p {
+                margin-bottom: 0;
+                font-size: 0.9rem;
+                ;
+            }
+            .buttons {
+                margin-left: auto;
+                .details {
+                    padding: 3px 1.75rem;
+                    margin: 5px 0;
+                    width: 140px;
+                    margin-right: 0 !important;
+                    font-weight: 300;
+                    margin-left: auto;
+                    float: right;
+                }
+                .details-btn {
+                    background-color: $btnlightgrey;
+                    margin: 5px 0;
+                    float: right;
+                }
+                .reschedule-btn {
+                    background-color: $btnlightblue;
+                    float: right;
+                    margin: 5px 0;
+                }
+                .cancel-btn {
+                    background-color: $btnlightred;
+                    float: right;
+                    margin: 5px 0;
+                }
+                .pay-btn {
+                    background-color: $btnlightgreen;
+                    float: right;
+                    margin: 5px 0;
+                }
+                .invoice-btn {
+                    background-color: $lightbtn;
+                    float: right;
+                    margin: 5px 0;
+                }
+                .rate-btn {
+                    background-color: $btnlightblue;
+                    float: right;
+                    margin: 5px 0;
+                }
+                .invoice-light-btn {
+                    background-color: #fabb88;
+                    float: right;
+                    margin: 5px 0;
+                }
+            }
         }
-        .details-btn{
-            background-color: $btnlightgrey;
-            margin: 5px 0;
-            float:right;
-        }
-        .reschedule-btn{
-            background-color: $btnlightblue;
-            float:right;
-            margin: 5px 0;
-        }
-        .cancel-btn{
-            background-color: $btnlightred;
-            float:right;
-            margin: 5px 0;
-        }
-        .pay-btn{
-            background-color: $btnlightgreen;
-            float:right;
-            margin: 5px 0;
-        }
-        .invoice-btn{
-            background-color: $lightbtn;
-            float:right;
-            margin: 5px 0;
-        }
-        .rate-btn{
-            background-color: $btnlightblue;
-            float:right;
-            margin: 5px 0;
-        }
-        .invoice-light-btn{
-            background-color:#fabb88;
-            float:right;
-            margin: 5px 0;
-        }
-      }
     }
-  }
-}
-::ng-deep .statick-rating{
-  pointer-events: none;
-  .star-rating{
-    label{
-      font-size: 20px;
-    }
-  }
 }
 
-::ng-deep .d-block{
-   
+::ng-deep .statick-rating {
+    pointer-events: none;
+    .star-rating {
+        label {
+            font-size: 20px;
+        }
+    }
+}
+
+::ng-deep .d-block {
     margin-top: 0 !important;
-   // border-radius: 25px;
+    // border-radius: 25px;
     width: 130px;
     /*margin: inherit;*/
-  }
-
-::ng-deep .footer-content{
-  justify-content: end;
 }
+
+::ng-deep .footer-content {
+    justify-content: end;
+}
+
 
 /*For Invoice Dialog*/
 
-::ng-deep .invoice-width1{
+::ng-deep .invoice-width1 {
     border-radius: 25px;
     width: 140px;
-    background-color: $bgdarkblue;   
-    &:hover{
-    background-color: $bgdarkblue;   
-        }
-
-
+    background-color: $bgdarkblue;
+    &:hover {
+        background-color: $bgdarkblue;
+    }
 }
 
-::ng-deep .invoice-width2{
+::ng-deep .invoice-width2 {
     border-radius: 25px;
     width: 140px;
     background-color: $bgdarkorange;
-    &:hover{
-      background-color: $bgdarkorange;
+    &:hover {
+        background-color: $bgdarkorange;
     }
-     i{
-          color:white;
-        }
-
+    i {
+        color: white;
+    }
 }
-::ng-deep .invoice-width3{
+
+::ng-deep .invoice-width3 {
     border-radius: 25px;
     width: 140px;
     background-color: $bgdarkgreen;
-    &:hover{
-      background-color: $bgdarkgreen;
-
+    &:hover {
+        background-color: $bgdarkgreen;
     }
-
-
-}
-::ng-deep .fieldcolor{
-  color: cornflowerblue;
-  
 }
 
-::ng-deep .side-header{
-     background-color: $bgblue;
-  }
+::ng-deep .fieldcolor {
+    color: cornflowerblue;
+}
 
-::ng-deep .header-color
-  {
-    background-color:$bg-header;
+::ng-deep .side-header {
+    background-color: $bgblue;
+}
+
+::ng-deep .header-color {
+    background-color: $bg-header;
     margin: 0px;
-    font-size: 13px; 
-  }
-
-::ng-deep .content-wrap{
-  font-size: 13px; 
+    font-size: 13px;
 }
 
-::ng-deep .subcolor-title{
-  color: #1174f6;
-
+::ng-deep .content-wrap {
+    font-size: 13px;
 }
 
-::ng-deep .container{
-   padding: 0 !important;
-   ::ng-deep .card{padding: 0;}
+::ng-deep .subcolor-title {
+    color: #1174f6;
+}
+
+::ng-deep .container {
+    padding: 0 !important;
+     ::ng-deep .card {
+        padding: 0;
+    }
 }
 
 
 /*Complete Appointment Dialog*/
 
-.card-body-marginn{
-  margin-bottom: auto;
+.card-body-marginn {
+    margin-bottom: auto;
 }
 
-
-
-
-::ng-deep .address-fontsize{
-    font-size: 13px; 
-    .bluephone{
-      color: #1172f4;
+::ng-deep .address-fontsize {
+    font-size: 13px;
+    .bluephone {
+        color: #1172f4;
     }
-    .bluemap{
-      color: #1172f4;
+    .bluemap {
+        color: #1172f4;
     }
 }
 
-::ng-deep .complete-invoice-btnwidth{
+::ng-deep .complete-invoice-btnwidth {
     border-radius: 20px;
     width: 120px;
-    background-color:$bgdarkorange;
+    background-color: $bgdarkorange;
     color: $fourth;
-    &:hover{
-        background-color:$bgdarkorange;
+    &:hover {
+        background-color: $bgdarkorange;
         color: $fourth;
     }
 }
 
-::ng-deep .complete-rate-btnwidth{
-      border-radius: 20px;
-      width: 120px;
-      background-color:$bgdarkblue;
-      color: $fourth;
-       &:hover{
-        background-color:$bgdarkblue;
+::ng-deep .complete-rate-btnwidth {
+    border-radius: 20px;
+    width: 120px;
+    background-color: $bgdarkblue;
+    color: $fourth;
+    &:hover {
+        background-color: $bgdarkblue;
         color: $fourth;
     }
 }
@@ -263,15 +259,15 @@
 /* All Userdashboard Dialog Container*/
 
 ::ng-deep .tp-container {
-   position: absolute;
-   top: 0;
-   bottom: 0;
-   right: 0;
-   background: #eee;
-   width: 350px;
-   .mat-drawer{
-     width: 350px;
-   }
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: #eee;
+    width: 350px;
+    .mat-drawer {
+        width: 350px;
+    }
 }
 
 
@@ -282,202 +278,218 @@
   
 }*/
 
-#search_container_userappo{
-  position: absolute;
-  top: 0px;
-  z-index: 10;
-  right: 50px;
-  height: 63px;
-  .search-input-container{
-    position: relative;
-    .before-search{
-      position: absolute;
-      line-height: 1.93;
-      left: 15px;
+#search_container_userappo {
+    position: absolute;
+    top: 0px;
+    z-index: 10;
+    right: 50px;
+    height: 63px;
+    .search-input-container {
+        position: relative;
+        .before-search {
+            position: absolute;
+            line-height: 1.93;
+            left: 15px;
+        }
+        .searchbox_userappo {
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: $fs-12;
+            text-indent: 15px;
+        }
     }
-    .searchbox_userappo{
-      padding: 8px 20px;
-      border-radius: 20px;
-      font-size: $fs-12;
-      text-indent: 15px;
+    .btnappoint_userappo {
+        border-radius: 50px;
+        margin-left: 20px;
+        padding: 8px 20px;
+        font-size: 12px;
     }
-  }
-  .btnappoint_userappo{
-    border-radius: 50px;
-    margin-left: 20px;
-    padding: 8px 20px;
-    font-size: 12px;
-
-  }
-
 }
 
-
-@media only screen and(max-width: 767px){
-  #search_container_userappo{
-    display: none;
-  }
-  ::ng-deep #cdk-overlay-pane{
-    max-width: 95vw !important;
-  }
+@media only screen and(max-width: 767px) {
+    #search_container_userappo {
+        display: none;
+    }
+     ::ng-deep #cdk-overlay-pane {
+        max-width: 95vw !important;
+    }
 }
+
 
 /*my appointment details*/
 
-::ng-deep .appodetails{
+::ng-deep .appodetails {
     margin: 15px;
     display: flex;
     align-items: center;
-    flex-wrap: wrap;       
-  .fontred{
-    color: red;
-    margin: 0 22px 0 5px;
-    .circle{
-    margin: 8px;
-  }
-  }
-  .greenfont{
-    color: green;
-    .repeat{
-    margin: 8px;
-  }
-  }
-
-  .paybtn{
-    border-radius: 50px;
-    width: 100px;
-    height: 34px;
-  }
-
+    flex-wrap: wrap;
+    .fontred {
+        color: red;
+        margin: 0 15x 0 5px;
+        .circle {
+            margin: 8px;
+        }
+    }
+    .greenfont {
+        color: green;
+        .repeat {
+            margin: 8px;
+        }
+    }
+    .paybtn {
+        border-radius: 50px;
+        width: 100px;
+        height: 34px;
+    }
 }
-::ng-deep .booking-detail-main{
-  .customer-profile-img{
-    border-radius: 100%;
-    height: 60px;
-    width: 60px;
-    background-color: #1172f4;
-    color: white;
-    text-align: center;
-    padding: 14px;
-    line-height: 2;
-    display: block;
-    margin: 10px;
-  }
-  .customer-name{
-    width: calc(100% - 80px);
-  }
+
+::ng-deep .booking-detail-main {
+    .customer-profile-img {
+        border-radius: 100%;
+        height: 60px;
+        width: 60px;
+        background-color: #1172f4;
+        color: white;
+        text-align: center;
+        padding: 14px;
+        line-height: 2;
+        display: block;
+        margin: 10px;
+    }
+    .customer-name {
+        width: calc(100% - 80px);
+    }
 }
 
 // star ratting
-
 ::ng-deep .star-rating {
-  display:flex;
-  flex-direction: row-reverse;
-  font-size:1.5em;
-  justify-content:center;
-  padding:0 .2em;
-  text-align:center;
-  width:auto;
-  input {
-    display:none;
-  }
-  label {
-    color:#ccc;
-    cursor:pointer;
-    font-size: 70px;
-    padding: 5px;
-  }
-  input[type="radio"]:checked ~ label{
-    color:#f90;
-  }
+    display: flex;
+    flex-direction: row-reverse;
+    font-size: 1.5em;
+    justify-content: center;
+    padding: 0 .2em;
+    text-align: center;
+    width: auto;
+    input {
+        display: none;
+    }
+    label {
+        color: #ccc;
+        cursor: pointer;
+        font-size: 70px;
+        padding: 5px;
+    }
+    input[type="radio"]:checked~label {
+        color: #f90;
+    }
 }
 
 .field-list {
-  [class*="col-"] {
-      margin: 10px 0;
-  }
-  label {
-      display: block;
-      margin-bottom: 0px;
-      font-size: 18px;
-  }
-  .common-input {
-      display: block;
-      width: 100%;
-      padding: 8px 10px;
-      border-radius: 5px;
-      border: 1px solid #e4e3e3;
-      font-size: $fs-16;
-      transition: all 0.3s;
-      &:focus {
-          box-shadow: $shadow;
-      }
-  }
+    [class*="col-"] {
+        margin: 10px 0;
+    }
+    label {
+        display: block;
+        margin-bottom: 0px;
+        font-size: 18px;
+    }
+    .common-input {
+        display: block;
+        width: 100%;
+        padding: 8px 10px;
+        border-radius: 5px;
+        border: 1px solid #e4e3e3;
+        font-size: $fs-16;
+        transition: all 0.3s;
+        &:focus {
+            box-shadow: $shadow;
+        }
+    }
 }
 
 .bottom-ctn-btn {
-  //text-align: right;
-  margin-right: 10px;
-  .continue-btn {
-      font-size: $fs-20;
-      background-color:$primary-color;
-      padding-left: 35px;
-      padding-top: 6px;
-      padding-right: 30px;
-      padding-bottom: 6px;
-      margin-right: 50px;
-      margin: 18px 0 0 21px;
-      color: #fff;
-      border-radius: 50px;
-  }
+    //text-align: right;
+    margin-right: 10px;
+    .continue-btn {
+        font-size: $fs-20;
+        background-color: $primary-color;
+        padding-left: 35px;
+        padding-top: 6px;
+        padding-right: 30px;
+        padding-bottom: 6px;
+        margin-right: 50px;
+        margin: 18px 0 0 21px;
+        color: #fff;
+        border-radius: 50px;
+    }
 }
+
 #payment_method {
-  .single-pay {
-      background-color: #f3f3f3;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      box-shadow: $shadow;
-      .payment-gtw-icon {
-          margin-left: auto;
-          float: right;
-      }
-      &.payment-radio {
-           ::ng-deep .mat-radio-label {
-              margin-bottom: 0;
-              font-size: 22px;
-              font-weight: 500;
-              .mat-radio-outer-circle {
-                  border-color: #acacac;
-                  width: 25px;
-                  height: 25px;
-                  top: -3px;
-              }
-              .mat-radio-inner-circle {
-                  width: 25px;
-                  height: 25px;
-                  top: -3px;
-              }
-              .mat-radio-label-content {
-                  margin-left: 15px;
-                  ;
-                  width: 100%;
-                  display: flex;
-              }
-          }
-      }
-      &.mat-radio-checked {
-          background-color: $text-bg;
-      }
-  }
-  .credit-card-form {
-      .right-side {
-          text-align: center;
-          img {
-              max-width: 300px;
-              margin: 20px 0;
-          }
-      }
-      box-shadow: $shadow;
-  }
+    .single-pay {
+        background-color: #f3f3f3;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        box-shadow: $shadow;
+        .payment-gtw-icon {
+            margin-left: auto;
+            float: right;
+        }
+        &.payment-radio {
+             ::ng-deep .mat-radio-label {
+                margin-bottom: 0;
+                font-size: 22px;
+                font-weight: 500;
+                .mat-radio-outer-circle {
+                    border-color: #acacac;
+                    width: 25px;
+                    height: 25px;
+                    top: -3px;
+                }
+                .mat-radio-inner-circle {
+                    width: 25px;
+                    height: 25px;
+                    top: -3px;
+                }
+                .mat-radio-label-content {
+                    margin-left: 15px;
+                    ;
+                    width: 100%;
+                    display: flex;
+                }
+            }
+        }
+        &.mat-radio-checked {
+            background-color: $text-bg;
+        }
+    }
+    .credit-card-form {
+        .right-side {
+            text-align: center;
+            img {
+                max-width: 300px;
+                margin: 20px 0;
+            }
+        }
+        box-shadow: $shadow;
+    }
+}
+
+.payment-bk-btn {
+    background-color: #e0e0e0;
+    border-radius: 50px;
+}
+
+.payumoney-logo-width {
+    width: 147px;
+}
+
+.credit-card-form.field-list .error-wrap {
+    bottom: unset;
+}
+
+@media only screen and (max-width: 767px) {
+    .appodetails {
+        margin: 10px;
+    }
 }

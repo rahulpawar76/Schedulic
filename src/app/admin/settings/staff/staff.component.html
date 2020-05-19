@@ -77,40 +77,40 @@
               *ngIf="StaffCreate.get('description').touched || StaffCreate.get('description').dirty || formSubmitclicked">
               <small *ngIf="StaffCreate.get('description').hasError('required')" class="error">Description Is required</small>
             </span> -->
-            <input type="hidden" formControlName="staff_id" />
-          </div>
-          <div class="col-lg-4 col-md-4 col-12 text-center border-right">
-            <div class="upload-document-top-margin">
-              <div class="d-flex">
-                <h6>Upload Documents</h6>
-                <i class="fa fa-question-circle uploaddocument-icon" aria-hidden="true"></i>
-              </div>
-              <div class="upload-files">
-                <mat-icon aria-hidden="false" class="uploadfile-icon">cloud_upload</mat-icon>
-                <p>.PDF .JPG .PNG .DOC</p>
-                <p>Drag & drop your files here</p>
-                <div>
-                  <button mat-button class="upload-btn">Upload Files</button>
-                </div>
-              </div>
-              <div class="d-flex mt-3">
-                <div class="pan-card file-border d-flex mr-2">
-                  <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
-                  <p class="pr-1 mb-0 mr-3">PAN card.pdf</p>
-                  <mat-icon aria-hidden="false">cancel</mat-icon>
-                </div>
-                <div class="adhar-card file-border d-flex">
-                  <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
-                  <p class="pr-1 mb-0 mb-2">Adhar card.jpg</p>
-                  <mat-icon aria-hidden="false">cancel</mat-icon>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-4 col-12 select-service">
-             <div>
-          <button mat-button (click)="fnDeleteStaff()" class="staff-delete-btn pl-2 ml-3 mt-2">
+                        <input type="hidden" formControlName="staff_id" />
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12 text-center border-right">
+                        <div class="upload-document-top-margin">
+                            <div class="d-flex">
+                                <h6>Upload Documents</h6>
+                                <i class="fa fa-question-circle uploaddocument-icon" aria-hidden="true"></i>
+                            </div>
+                            <div class="upload-files">
+                                <mat-icon aria-hidden="false" class="uploadfile-icon">cloud_upload</mat-icon>
+                                <p>.PDF .JPG .PNG .DOC</p>
+                                <p>Drag & drop your files here</p>
+                                <div>
+                                    <button mat-button class="upload-btn">Upload Files</button>
+                                </div>
+                            </div>
+                            <div class="d-flex mt-3">
+                                <div class="pan-card file-border d-flex mr-2">
+                                    <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
+                                    <p class="pr-1 mb-0 mr-3">PAN card.pdf</p>
+                                    <mat-icon aria-hidden="false">cancel</mat-icon>
+                                </div>
+                                <div class="adhar-card file-border d-flex">
+                                    <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
+                                    <p class="pr-1 mb-0 mb-2">Adhar card.jpg</p>
+                                    <mat-icon aria-hidden="false">cancel</mat-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-12 select-service">
+                        <div>
+                            <button mat-button (click)="fnDeleteStaff()" class="staff-delete-btn pl-2 ml-3 mt-2">
             <mat-icon aria-hidden="false">delete</mat-icon>Delete
           </button>
                         </div>
@@ -287,6 +287,19 @@
                         </div>
 
                     </div>
+
+                    <div class="table_pagination">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-end">
+                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -379,14 +392,19 @@
                         <h6>Email Verification</h6>
                         <div class="d-flex">
                             <p class="mb-0 pr-2">{{singleStaffDetail.staff[0].email}}</p>
-                            <button mat-button class="verified-button">Not Verified</button>
+                            <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
+                                <mat-chip *ngIf="singleStaffDetail.staff[0].email_verification_status == 'N'" selected class="verified-button">Not Verified</mat-chip>
+                                <mat-chip *ngIf="singleStaffDetail.staff[0].email_verification_status == 'Y'" selected class="btn-green">Verified</mat-chip>
+                            </mat-chip-list>
+                            <!-- <button mat-button class="verified-button">Not Verified</button>
+                            <button mat-button class="verified-button">Not Verified</button> -->
                         </div>
                     </div>
-                    <div class="ml-auto">
-                        <button mat-button class="send-mail-button">
-              <mat-icon aria-hidden="false">send</mat-icon>
-              Send Email
-            </button>
+                    <div *ngIf="singleStaffDetail.staff[0].email_verification_status == 'N'" class="ml-auto">
+                        <button (click)="sendEmailVerification(singleStaffDetail.staff[0].id)" mat-button class="send-mail-button">
+                            <mat-icon aria-hidden="false">send</mat-icon>
+                            Send Email
+                        </button>
                     </div>
                 </div>
                 <div class="bottom-border d-flex">
@@ -394,11 +412,14 @@
                         <h6>Phone Number Verification</h6>
                         <div class="d-flex">
                             <p class="mb-0 pr-2">{{singleStaffDetail.staff[0].phone}}</p>
-                            <button mat-button class="verified-button">Not Verified</button>
+                            <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
+                                <mat-chip *ngIf="singleStaffDetail.staff[0].phone_verification_status == 'N'" selected class="verified-button">Not Verified</mat-chip>
+                                <mat-chip *ngIf="singleStaffDetail.staff[0].phone_verification_status == 'Y'" selected class="btn-green">Verified</mat-chip>
+                            </mat-chip-list>
                         </div>
                     </div>
-                    <div class="ml-auto">
-                        <button mat-button class="sms-verification-button">
+                    <div *ngIf="singleStaffDetail.staff[0].phone_verification_status == 'N'" class="ml-auto">
+                        <button (click)="sendPhoneVerification(singleStaffDetail.staff[0].id)" mat-button class="sms-verification-button">
               <mat-icon aria-hidden="false">send</mat-icon>
               SMS Verification Link
             </button>
@@ -542,7 +563,7 @@
                                                 <p (click)="fnApplyToAll()" *ngIf="mondayOn" class="mt-3"> Apply to all </p>
                                             </div>
                                             <div class="" fxFlex="20">
-                                                <button mat-button class="staff-reset-btn" (click)="fnWorkingHoursResetToDefault()">Reset to
+                                                <button mat-button class="staff-reset-btn mr-1" (click)="fnWorkingHoursResetToDefault()">Reset to
                           Default</button>
                                             </div>
                                         </div>

@@ -1,277 +1,341 @@
 #staff {
-  margin-left: 0 !important;
-  .mat-icon {
-    line-height: 1.5;
-  }
-  .leftarrow-icon {
-    // margin-left: auto;
-    display: flex;
-    .customer-drawer-leftarrow {
-      padding: 4px 8px;
-      height: auto;
-      width: auto;
-      text-align: center;
-      background-color: #dedede;
-      margin-left: auto;
+    margin-left: 0 !important;
+    .mat-icon {
+        line-height: 1.5;
     }
-  }
-  .payment-icon {
-    width: 24px;
-    height: 24px;
-    line-height: 1.5;
-    font-size: 14px;
-  }
-  .add-staff {
-    width: 100%;
-    // height: 100px;
-    border-radius: 73px;
-  }
-  .upload-document-top-margin {
-    margin-top: 30px;
-    .uploaddocument-icon {
-      line-height: 1.2;
-      padding-left: 5px;
-    }
-    .upload-files {
-      border: 2px dotted gray;
-      padding: 15px 15px;
-      .uploadfile-icon {
-        color: blue;
-        font-size: 30px;
-      }
-      .upload-btn {
-        width: 137px;
-        height: 35px;
-        border-radius: 17px;
-        background-color: #1173f4;
-        border: 2px solid #1173f4;
-        color: white;
-      }
-    }
-    .file-border {
-      border: 1px solid gray;
-      border-radius: 5px;
-    }
-    .pan-card {
-      width: 50%;
-    }
-    .adhar-card {
-      width: 50%;
-    }
-  }
-  .staff-delete-btn {
-    width: 90px;
-    height: 34px;
-    border-radius: 28px;
-    background-color: #ff0000;
-    color: white;
-    margin-left: auto;
-  }
-  ::ng-deep .mat-expansion-panel-body {
-    margin-left: 25px;
-    padding-bottom: 0px;
-    color: blue;
-  }
-  ::ng-deep .mat-checkbox {
-    color: blue;
-  }
-  ::ng-deep .mat-checkbox-layout {
-    margin-bottom: 0px;
-  }
-  // ::ng-deep .mat-expansion-panel-header {
-  //   height: 25px !important;
-  //   background-color: #e8f2fe;
-  //   color: blue;
-  // }
-  .staff-cancel-btn {
-    width: 128px;
-    height: 37px;
-    border-radius: 7px;
-    background-color: #dddddd;
-    margin-left: auto;
-  }
-  .staff-save-btn {
-    width: 137px;
-    height: 37px;
-    border-radius: 7px;
-    background-color: #1173f4;
-  }
-  .staff-add-btn {
-    border-radius: 26px;
-    background-color: #1173f4;
-    color: white;
-    right: 50px;
-    z-index: 4;
-    position: absolute;
-    height: 35px;
-    width: 135px;
-    height: 37px;
-  }
-  .dropdown {
-    width: 30%;
-  }
-
-  .searchbox {
-    margin-left: auto;
-    .search_input-staff {
-      height: 39px;
-      padding-top: 3px;
-      .has-search .form-control {
-        padding-left: 2.375rem;
-        //width: 60%;
-      }
-      .has-search .form-control-feedback {
-        position: absolute;
-        z-index: 2;
-        display: block;
-        width: 2.375rem;
-        height: 1rem;
-        line-height: 2rem;
-        text-align: center;
-        pointer-events: none;
-        color: black;
-        .verticalLine {
-          &:after {
-            content: "";
-            position: absolute;
-            top: 58%;
-            right: 0;
-            width: 1px;
-            height: 100%;
-            background: #dfc0c0;
-          }
+    .leftarrow-icon {
+        // margin-left: auto;
+        display: flex;
+        .customer-drawer-leftarrow {
+            padding: 4px 8px;
+            height: auto;
+            width: auto;
+            text-align: center;
+            background-color: #dedede;
+            margin-left: auto;
         }
-      }
-      ::placeholder {
-        font-size: 12px;
-      }
-      .searchbox_staff {
-        border-radius: 20px;
-        height: 34px;
-      }
     }
-  }
-  .staff-profile-width {
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-  }
-  .review-star {
-    color: #ffa801;
-    line-height: 1.4;
-  }
-  .staff-mail-icon {
-    color:#1173f4;
-  }
-  .staff-call-icon {
-    color:#1173f4;
-  }
-  .staff-btn {
-    margin-left: auto;
-    height: max-content;
-    display: flex;
-    .staff-edit-btn {
-      width: 103px;
-      height: 37px;
-      border-radius: 21px;
-      background-color: #1173f4;
-      color: white;
+    .payment-icon {
+        width: 24px;
+        height: 24px;
+        line-height: 1.5;
+        font-size: 14px;
+    }
+    .add-staff {
+        width: 100%;
+        // height: 100px;
+        border-radius: 73px;
+    }
+    .upload-document-top-margin {
+        margin-top: 30px;
+        .uploaddocument-icon {
+            line-height: 1.2;
+            padding-left: 5px;
+        }
+        .upload-files {
+            border: 2px dotted gray;
+            padding: 15px 15px;
+            .uploadfile-icon {
+                color: blue;
+                font-size: 30px;
+            }
+            .upload-btn {
+                width: 137px;
+                height: 35px;
+                border-radius: 17px;
+                background-color: #1173f4;
+                border: 2px solid #1173f4;
+                color: white;
+            }
+        }
+        .file-border {
+            border: 1px solid gray;
+            border-radius: 5px;
+        }
+        .pan-card {
+            width: 50%;
+        }
+        .adhar-card {
+            width: 50%;
+        }
     }
     .staff-delete-btn {
-      width: 129px;
-      height: 37px;
-      border-radius: 21px;
+        width: 90px;
+        height: 34px;
+        border-radius: 28px;
+        background-color: #ff0000;
+        color: white;
+        margin-left: auto;
     }
-
-    .staff-back-btn {
-      width: 103px;
-      height: 37px;
-      border-radius: 21px;
-      background-color: #1173f4;
-      color: white;
+     ::ng-deep .mat-expansion-panel-body {
+        margin-left: 25px;
+        padding-bottom: 0px;
+        color: blue;
     }
-
-
-  }
-  .bottom-border {
-    border-bottom: 1px solid #dbdbdb;
-    padding: 16px 0px;
-  }
-  .bottom-border-last {
-    border-bottom: none;
-    padding: 16px 0px;
-  }
-  .verified-button {
-    width: 108px;
-    height: 26px;
-    border-radius: 17px;
-    background-color: #ee4059;
-    line-height: 1;
-    color: white;
-  }
-  .send-mail-button {
-    width: 157px;
-    height: 37px;
-    border-radius: 26px;
-    background-color: #a8ceff;
-  }
-  .sms-verification-button {
-    width: 210px;
-    height: 37px;
-    border-radius: 26px;
-    background-color: #a8ceff;
-  }
-  .file-border {
-    border: 1px solid gray;
-    border-radius: 5px;
-    padding: 10px;
-  }
-  .reset-button {
-    width: 167px;
-    height: 37px;
-    border-radius: 26px;
-    background-color: #a8ceff;
-    color: #378af6;
-  }
-  .time-off-button {
-    width: 120px;
-    height: 37px;
-    border-radius: 26px;
-    background-color: #a8ceff;
-    padding-left: 0;
-    padding-right: 8px;
-    color: #378af6;
-  }
-  .calendar-background {
-    background-color: #e8f2fe;
-    padding: 13px;
-    width: 50px;
-    height: 50px;
-    border-radius: 36px;
-    .staff-calendar-image {
-      height: 24px;
-      width: 24px;
+     ::ng-deep .mat-checkbox {
+        color: blue;
     }
-  }
-  .remove-button {
-    width: 142px;
-    height: 37px;
-    border-radius: 26px;
-    background-color: #ff0000;
-  }
-  .blue-font {
-    color: #1173f4;
-  }
-  .example-list {
-    width: 100%;
-    border: solid 1px #ccc;
-    display: block;
-    background: white;
-    border-radius: 4px;
-    overflow: hidden;
-  }
+     ::ng-deep .mat-checkbox-layout {
+        margin-bottom: 0px;
+    }
+    // ::ng-deep .mat-expansion-panel-header {
+    //   height: 25px !important;
+    //   background-color: #e8f2fe;
+    //   color: blue;
+    // }
+    .staff-cancel-btn {
+        width: 128px;
+        height: 37px;
+        border-radius: 7px;
+        background-color: #dddddd;
+        margin-left: auto;
+    }
+    .staff-save-btn {
+        width: 137px;
+        height: 37px;
+        border-radius: 7px;
+        background-color: #1173f4;
+    }
+    .staff-add-btn {
+        border-radius: 26px;
+        background-color: #1173f4;
+        color: white;
+        right: 50px;
+        z-index: 4;
+        position: absolute;
+        height: 35px;
+        width: 135px;
+        height: 37px;
+    }
+    .dropdown {
+        width: 30%;
+    }
+    .searchbox {
+        margin-left: auto;
+        .search_input-staff {
+            height: 39px;
+            padding-top: 3px;
+            .has-search .form-control {
+                padding-left: 2.375rem;
+                //width: 60%;
+            }
+            .has-search .form-control-feedback {
+                position: absolute;
+                z-index: 2;
+                display: block;
+                width: 2.375rem;
+                height: 1rem;
+                line-height: 2rem;
+                text-align: center;
+                pointer-events: none;
+                color: black;
+                .verticalLine {
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        top: 58%;
+                        right: 0;
+                        width: 1px;
+                        height: 100%;
+                        background: #dfc0c0;
+                    }
+                }
+            }
+             ::placeholder {
+                font-size: 12px;
+            }
+            .searchbox_staff {
+                border-radius: 20px;
+                height: 34px;
+            }
+        }
+    }
+    .staff-profile-width {
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+    }
+    .review-star {
+        color: #ffa801;
+        line-height: 1.4;
+    }
+    .staff-mail-icon {
+        color: #1173f4;
+    }
+    .staff-call-icon {
+        color: #1173f4;
+    }
+    .staff-btn {
+        margin-left: auto;
+        height: max-content;
+        display: flex;
+        .staff-edit-btn {
+            width: 103px;
+            height: 37px;
+            border-radius: 21px;
+            background-color: #1173f4;
+            color: white;
+        }
+        .staff-delete-btn {
+            width: 129px;
+            height: 37px;
+            border-radius: 21px;
+        }
+        .staff-back-btn {
+            width: 103px;
+            height: 37px;
+            border-radius: 21px;
+            background-color: #1173f4;
+            color: white;
+        }
+    }
+    .bottom-border {
+        border-bottom: 1px solid #dbdbdb;
+        padding: 16px 0px;
+    }
+    .bottom-border-last {
+        border-bottom: none;
+        padding: 16px 0px;
+    }
+    .verified-button {
+        width: 108px;
+        height: 26px;
+        border-radius: 17px;
+        background-color: #ee4059 !important;
+        line-height: 1;
+        color: white;
+    }
+    .send-mail-button {
+        width: 157px;
+        height: 37px;
+        border-radius: 26px;
+        background-color: #a8ceff;
+    }
+    .sms-verification-button {
+        width: 210px;
+        height: 37px;
+        border-radius: 26px;
+        background-color: #a8ceff;
+    }
+    .file-border {
+        border: 1px solid gray;
+        border-radius: 5px;
+        padding: 10px;
+    }
+    .reset-button {
+        width: 167px;
+        height: 37px;
+        border-radius: 26px;
+        background-color: #a8ceff;
+        color: #378af6;
+    }
+    .time-off-button {
+        width: 120px;
+        height: 37px;
+        border-radius: 26px;
+        background-color: #a8ceff;
+        padding-left: 0;
+        padding-right: 8px;
+        color: #378af6;
+    }
+    .calendar-background {
+        background-color: #e8f2fe;
+        padding: 13px;
+        width: 50px;
+        height: 50px;
+        border-radius: 36px;
+        .staff-calendar-image {
+            height: 24px;
+            width: 24px;
+        }
+    }
+    .remove-button {
+        width: 142px;
+        height: 37px;
+        border-radius: 26px;
+        background-color: #ff0000;
+    }
+    .blue-font {
+        color: #1173f4;
+    }
+    .example-list {
+        width: 100%;
+        border: solid 1px #ccc;
+        display: block;
+        background: white;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    .example-box {
+        padding: 20px 10px;
+        border-bottom: solid 1px #ccc;
+        color: rgba(0, 0, 0, 0.87);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+        background: white;
+        font-size: 14px;
+        &.header-background {
+            background-color: #f7f7f7;
+        }
+        .check-icon-background {
+            background-color: #737373;
+            border-radius: 100%;
+            padding: 0px 4px;
+            // width: 31px;
+            // height: 31px;
+            // border-radius: 16px;
+            // background-color: #1173f4;
+        }
+        .staff-details-width {
+            width: 50px;
+            height: 50px;
+            border-radius: 34px;
+            background-color: #11acf4;
+        }
+    }
+    .dropdown-width {
+        width: 30%;
+    }
+    .workinghour-dropdown {
+        width: 40%;
+    }
+    .to-center {
+        line-height: 5;
+        margin: 0px 10px;
+    }
+    .staff-reset-btn {
+        width: 170px;
+        height: 37px;
+        border-radius: 26px;
+        background-color: #a8ceff;
+        color: #1173f4;
+    }
+    .staff-Hours-btn {
+        width: 120px;
+        height: 32px;
+        border-radius: 26px;
+        background-color: #a8ceff;
+        color: #1173f4;
+        margin: 5px;
+    }
+    .staff-addbreak-btn {
+        width: 105px;
+        height: 37px;
+        border-radius: 26px;
+        background-color: #39b54a;
+        color: white;
+    }
+    .staff-delete-icon {
+        color: #e72a2a;
+        font-size: 20px;
+        line-height: 2;
+    }
+}
 
-  .example-box {
+.staff-list-row {
     padding: 20px 10px;
     border-bottom: solid 1px #ccc;
     color: rgba(0, 0, 0, 0.87);
@@ -283,199 +347,131 @@
     background: white;
     font-size: 14px;
     &.header-background {
-      background-color: #f7f7f7;
+        background-color: #f7f7f7;
     }
     .check-icon-background {
-      background-color: #737373;
-      border-radius: 100%;
-      padding: 0px 4px;
-      // width: 31px;
-      // height: 31px;
-      // border-radius: 16px;
-      // background-color: #1173f4;
+        background-color: #737373;
+        border-radius: 100%;
+        padding: 0px 4px;
+        // width: 31px;
+        // height: 31px;
+        // border-radius: 16px;
+        // background-color: #1173f4;
     }
-    .staff-details-width {
-      width: 50px;
-      height: 50px;
-      border-radius: 34px;
-      background-color: #11acf4;
+    .staff-img {
+        border-radius: 100%;
+        height: 70px;
+        width: 70px;
+        float: left;
+        overflow: hidden;
+        margin-right: 10px;
+        img {
+            width: 100%;
+            height: auto;
+            min-height: 70px;
+        }
     }
-  }
-  .dropdown-width {
-    width: 30%;
-  }
-  .workinghour-dropdown {
-    width: 40%;
-  }
-  .to-center {
-    line-height: 5;
-    margin: 0px 10px;
-  }
-  .staff-reset-btn {
-    width: 170px;
-    height: 37px;
-    border-radius: 26px;
-    background-color: #a8ceff;
-    color: #1173f4;
-  }
-  .staff-Hours-btn {
-    width: 120px;
-    height: 32px;
-    border-radius: 26px;
-    background-color: #a8ceff;
-    color: #1173f4;
-    margin:5px;
-  }
-  .staff-addbreak-btn {
-    width: 105px;
-    height: 37px;
-    border-radius: 26px;
-    background-color: #39b54a;
-    color: white;
-  }
-  .staff-delete-icon {
-    color: #e72a2a;
-    font-size: 20px;
-    line-height: 2;
-  }
-}
-
-.staff-list-row {
-  padding: 20px 10px;
-  border-bottom: solid 1px #ccc;
-  color: rgba(0, 0, 0, 0.87);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-  background: white;
-  font-size: 14px;
-  &.header-background {
-    background-color: #f7f7f7;
-  }
-  .check-icon-background {
-    background-color: #737373;
-    border-radius: 100%;
-    padding: 0px 4px;
-    // width: 31px;
-    // height: 31px;
-    // border-radius: 16px;
-    // background-color: #1173f4;
-  }
-  .staff-img {
-    border-radius: 100%;
-    height: 70px;
-    width: 70px;
-    float: left;
-    overflow: hidden;
-    margin-right: 10px;
-    img {
-      width: 100%;
-      height: auto;
-      min-height: 70px;
+    .staff-data {
+        float: left;
+        h5 {
+            font-size: 20px;
+            text-align: left;
+            margin-bottom: 5px;
+            color: #000;
+        }
+        .statick-rating .star-rating label {
+            line-height: 1;
+        }
     }
-  }
-  .staff-data {
-    float: left;
-    h5 {
-      font-size: 20px;
-      text-align: left;
-      margin-bottom: 5px;
-      color: #000;
-    }
-    .statick-rating .star-rating label {
-      line-height: 1;
-    }
-  }
 }
 
 .delete-box {
-  font-size: 20px;
-  color: red;
+    font-size: 20px;
+    color: red;
 }
+
 
 /*Image Upload*/
 
 ::ng-deep .file-upload {
-  background-color: #ffffff;
-
-  margin: 0 auto;
-  padding: 20px;
-  .image-upload-wrap {
-    margin-top: 20px;
-    border: 2px dashed #03a9f4;
-    position: relative;
-    padding: 30px 0;
-    .fileuploadinput {
-      position: absolute;
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      outline: none;
-      opacity: 0;
-      cursor: pointer;
+    background-color: #ffffff;
+    margin: 0 auto;
+    padding: 20px;
+    .image-upload-wrap {
+        margin-top: 20px;
+        border: 2px dashed #03a9f4;
+        position: relative;
+        padding: 30px 0;
+        .fileuploadinput {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            outline: none;
+            opacity: 0;
+            cursor: pointer;
+        }
     }
-  }
-  .drag-text {
-    text-align: center;
-    h6 {
-      font-size: 18px;
+    .drag-text {
+        text-align: center;
+        h6 {
+            font-size: 18px;
+        }
+        h3 {
+            font-size: 14px;
+        }
     }
-    h3 {
-      font-size: 14px;
+    .imgbtn {
+        margin: 15px auto;
+        display: table;
+        padding: 8px 16px;
+        border-radius: 50px;
     }
-  }
-  .imgbtn {
-    margin: 15px auto;
-    display: table;
-    padding: 8px 16px;
-    border-radius: 50px;
-  }
 }
 
 .profile-img-wrap {
-  border-radius: 100%;
-  height: 120px;
-  max-width: 120px;
-  overflow: hidden;
-  position: relative;
-  transition: 0.3s all;
-  cursor: pointer;
-  &:hover .camera-alt {
-    transition: 0.3s all;
-    display: flex;
-  }
-  .customer-profile-img {
-    width: 100%;
-    height: 100%;
-  }
-  .camera-alt {
-    display: none;
-    position: absolute;
-    top: 0;
     border-radius: 100%;
-    width: 100%;
-    height: 100%;
-    background-color: #00000070;
-    justify-content: center;
-    align-items: center;
-    i {
-      font-size: 45px;
-      width: auto;
-      color: #ffffff;
+    height: 120px;
+    max-width: 120px;
+    overflow: hidden;
+    position: relative;
+    transition: 0.3s all;
+    cursor: pointer;
+    &:hover .camera-alt {
+        transition: 0.3s all;
+        display: flex;
     }
-  }
-}
-::ng-deep .upload-preview-img {
-  max-width: 200px;
-  margin: 0 auto;
-  display: table;
+    .customer-profile-img {
+        width: 100%;
+        height: 100%;
+    }
+    .camera-alt {
+        display: none;
+        position: absolute;
+        top: 0;
+        border-radius: 100%;
+        width: 100%;
+        height: 100%;
+        background-color: #00000070;
+        justify-content: center;
+        align-items: center;
+        i {
+            font-size: 45px;
+            width: auto;
+            color: #ffffff;
+        }
+    }
 }
 
-.form_field_checkbox{
-    ::ng-deep .mat-checkbox-layout{
+::ng-deep .upload-preview-img {
+    max-width: 200px;
+    margin: 0 auto;
+    display: table;
+}
+
+.form_field_checkbox {
+     ::ng-deep .mat-checkbox-layout {
         background-color: #ffffff;
         border: 1px solid #fff;
         border-radius: 50%;
@@ -484,89 +480,87 @@
         width: 30px;
         margin: 4px;
         background-color: #e4e4e4;
-        .mat-checkbox-frame{
+        .mat-checkbox-frame {
             border: 0;
         }
-        .mat-checkbox-inner-container{
+        .mat-checkbox-inner-container {
             height: 100%;
             width: 100%;
-        }   
-        svg{
-            path{ 
+        }
+        svg {
+            path {
                 stroke: #007bff !important;
             }
         }
-        .mat-checkbox-background{
+        .mat-checkbox-background {
             background-color: transparent;
         }
     }
 }
-.detail-left-side{
-  width: calc(100% - 50px);
-}
-.action-right-side{
-  width:50px;
-}
-.select-service{
-  //max-width: 400px;
-  margin-left: auto;
-  .select-service-accordian{
-      ::ng-deep .mat-expansion-panel-header{
-          background-color: #e8f2fe;
-          color: blue;
-      }
-      .service-title{
 
-      }
-     
-  }
-   .staff-delete-btn {
-    border-radius: 26px;
-    background-color: #fe0000;
-    color: white;
-    right: 50px;
-    z-index: 4;
-    position: absolute;
-    height: 35px;
-    width: 135px;
-    height: 37px;
+.detail-left-side {
+    width: calc(100% - 50px);
+}
 
-      }
+.action-right-side {
+    width: 50px;
+}
+
+.select-service {
+    //max-width: 400px;
+    margin-left: auto;
+    .select-service-accordian {
+         ::ng-deep .mat-expansion-panel-header {
+            background-color: #e8f2fe;
+            color: blue;
+            right: -10px;
+            position: relative;
+        }
+        .service-title {}
+    }
+    .staff-delete-btn {
+        border-radius: 26px;
+        background-color: #fe0000;
+        color: white;
+        right: 50px;
+        z-index: 4;
+        position: absolute;
+        height: 35px;
+        width: 135px;
+        height: 37px;
+    }
 }
 
 ::ng-deep .tp-container {
-        position: absolute;
-        top: 0;
-        bottom: 0;   
-        right: 0;
-        background: #eee;
-        width: 400px;
-        .appodetails{
-            margin: 15px;
-            
-        .fontred{
-              color: red;
-              .circle{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: #eee;
+    width: 400px;
+    .appodetails {
+        margin: 15px;
+        .fontred {
+            color: red;
+            .circle {
                 margin: 8px;
-              }
+            }
         }
-        .assignto{
-          width: 30%;
+        .assignto {
+            width: 30%;
         }
-        .greenfont{
+        .greenfont {
             color: green;
-          .repeat{
-            margin: 8px;
-          }
+            .repeat {
+                margin: 8px;
+            }
         }
-        .paybtn{
-          border-radius: 50px;
-          width: 100px;
+        .paybtn {
+            border-radius: 50px;
+            width: 100px;
         }
-    
-      }
-      
     }
+}
 
     ::ng-deep .booking-detail-main{
         .customer-profile-img{
@@ -599,10 +593,18 @@
      .view-btn{
                 background-color: #f1f5f8;
             }
-.ellipsis {
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-width: 220px;
-}
+    .ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 220px;
+    }
 
+            .mat-drawer-content{
+              display: initial !important;
+            }
+            
+            .btn-green {
+                background-color: #28a745!important;
+                color: #fff!important;
+            }

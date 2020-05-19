@@ -177,7 +177,7 @@ export class StaffService {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'staff-id' : this.staffId,
-        'api-token' : this.staffToken
+      'api-token' : this.staffToken
       
     });
     return this.http.post(`${environment.apiUrl}/staff-ongoing-bookings`,requestObject,{headers:headers}).pipe(
@@ -196,7 +196,7 @@ export class StaffService {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'staff-id' : this.staffId,
-        'api-token' : this.staffToken
+      'api-token' : this.staffToken
       
     });
     return this.http.post(`${environment.apiUrl}/staff-update-bookings`,requestObject,{headers:headers}).pipe(
@@ -281,6 +281,7 @@ export class StaffService {
           }),
           catchError(this.handleError));
   }
+
   getActivityLog(requestObject){
       let headers = new HttpHeaders({
           'staff-id' : this.staffId,
@@ -292,6 +293,29 @@ export class StaffService {
           return res;
       }),
       catchError(this.handleError));
+    }
+
+  staffPayment(requestObject) {
+      let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'staff-id' : this.staffId,
+          'api-token' : this.staffToken 
+      });
+      return this.http.post(`${environment.apiUrl}/staff-payment-update`, requestObject, { headers: headers }).pipe(
+          map((res) => {
+              return res;
+          }),
+          catchError(this.handleError));
+  }
+  fncheckavailcoupon(requestObject) {
+      let headers = new HttpHeaders({
+          'Content-Type': 'application/json'
+      });
+      return this.http.post(`${environment.apiUrl}/check-discount-coupon`, requestObject, { headers: headers }).pipe(
+          map((res) => {
+              return res;
+          }),
+          catchError(this.handleError));
   }
 
 }

@@ -215,27 +215,31 @@ export class StaffAppointmentComponent implements OnInit {
     }
   }
 
-  changeBookingStatus(order_item_id, status){
-    this.StaffService.changeStatus(order_item_id, status, this.notes).subscribe((response:any) =>{
-      if(response.data == true){
-        this._snackBar.open("Appointment Updated", "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['green-snackbar']
-        });
-        
-        this.getNewAppointment();
-        this.getCompletedAppointment();
-        this.getOnGoingAppointment();
-      }
-      else if(response.data == false) {
-        this._snackBar.open("Appointment Not Updated", "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['red-snackbar']
-        }); 
-      }
-    })
+  changeBookingStatus(order_item_id, status, index){
+    if(status == 'CO' && this.onGoingAppointmentData[index].payment.payment_status == 'unpaid'){
+      this.OnlinePaymentMode(index);
+    }else {
+      this.StaffService.changeStatus(order_item_id, status, this.notes).subscribe((response:any) =>{
+        if(response.data == true){
+          this._snackBar.open("Appointment Updated", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+          
+          this.getNewAppointment();
+          this.getCompletedAppointment();
+          this.getOnGoingAppointment();
+        }
+        else if(response.data == false) {
+          this._snackBar.open("Appointment Not Updated", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          }); 
+        }
+      })
+    }
   }
 
 
@@ -323,9 +327,10 @@ export class StaffAppointmentComponent implements OnInit {
      });
   }
 
-   OnlinePaymentMode() {
+   OnlinePaymentMode(index) {
     const dialogRef = this.dialog.open(DialogOnlinePaymentMode, {
       width: '500px',
+      data : {fuldata: this.onGoingAppointmentData[index]}
       
     });
 
@@ -344,18 +349,6 @@ export class StaffAppointmentComponent implements OnInit {
        this.animal = result;
      });
   }
-
-  OnlinePaymentDetails() {
-    const dialogRef = this.dialog.open(DialogOnlinePaymentDetails, {
-      width: '500px',
-      
-    });
-
-     dialogRef.afterClosed().subscribe(result => {
-       this.animal = result;
-     });
-  }
-
 
 
 }
@@ -1947,13 +1940,38 @@ export class StaffAppointmentComponent implements OnInit {
       templateUrl: '../_dialogs/online-payment-mode.html',
   })
   export class DialogOnlinePaymentMode {
-
+    animal: any;
+    paymentMethod:any = "Cash";
+    appointDetailData:any;
     constructor(
       public dialogRef: MatDialogRef<DialogOnlinePaymentMode>,
-      @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+      public dialog: MatDialog,
+      private StaffService: StaffService,
+      private _snackBar: MatSnackBar,
+      @Inject(MAT_DIALOG_DATA) public data: any) {
+        this.appointDetailData = this.data.fuldata;
+      }
 
     onNoClick(): void {
       this.dialogRef.close();
+    }
+    nextToPayment(){
+      this.OnlinePaymentDetails(this.paymentMethod);
+    }
+    fnPaymentMethod(paymentMethod){
+      this.paymentMethod = paymentMethod
+    }
+    OnlinePaymentDetails(paymentMethod) {
+      const dialogRef = this.dialog.open(DialogOnlinePaymentDetails, {
+        width: '500px',
+        data: {paymentMethod :paymentMethod,appointDetailData: this.appointDetailData}
+        
+      });
+  
+       dialogRef.afterClosed().subscribe(result => {
+         this.animal = result;
+       });
+       this.dialogRef.close();
     }
 
   }
@@ -1977,17 +1995,207 @@ export class StaffAppointmentComponent implements OnInit {
    @Component({
       selector: 'online-payment-details',
       templateUrl: '../_dialogs/online-payment-details.html',
+      providers: [DatePipe]
   })
   export class DialogOnlinePaymentDetails {
-
+    appointDetailData:any;
+    paymentMethod:any;
+    staffPaymentNote:any;
+    appointTax:any
+    bussinessId:any;
+    settingsArr:any;
+    currencySymbol:any;
+    currencySymbolPosition:any;
+    currencySymbolFormat:any;
+    closecoupon: string = "default"; 
+    coupon = {
+      couponcode_val: ""
+    };
+    couponIcon:any="check";
+    isReadOnly:any="";
+    showCouponError:boolean=false;
+    couponErrorMessage:any;
+    orderDiscount:any;
+    taxType:any='P';
+    finalOrderDiscount:any;
+    couponType:any;
+    couponValue:any;
     constructor(
       public dialogRef: MatDialogRef<DialogOnlinePaymentDetails>,
-      @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+      private StaffService: StaffService,
+      private _snackBar: MatSnackBar,
+      private datePipe: DatePipe,
+      private authenticationService : AuthenticationService,
+      @Inject(MAT_DIALOG_DATA) public data: any) {
+        this.appointDetailData = this.data.appointDetailData;
+        this.appointTax = JSON.parse(this.appointDetailData.tax);
+        console.log(this.appointDetailData);
+        this.paymentMethod = this.data.paymentMethod;
+        this.couponType = this.appointDetailData.discount_type
+        this.couponValue = this.appointDetailData.discount_value
+        this.orderDiscount = this.appointDetailData.discount
+        this.bussinessId=this.authenticationService.currentUserValue.business_id
+        this.fnGetSettingValue();
+      }
 
     onNoClick(): void {
       this.dialogRef.close();
     }
+    fnGetSettingValue(){
+      let requestObject = {
+        "business_id":this.bussinessId
+      };
+      this.StaffService.getSettingValue(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.settingsArr=response.response;
+          console.log(this.settingsArr);
 
+          this.currencySymbol = this.settingsArr.currency;
+          console.log(this.currencySymbol);
+          
+          this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+          console.log(this.currencySymbolPosition);
+          
+          this.currencySymbolFormat = this.settingsArr.currency_format;
+          console.log(this.currencySymbolFormat);
+        }
+        else if(response.data == false){
+          
+        }
+      })
+    }
+      // coupon code
+    fncheckcouponcodebtn(couponStatus){
+      if(this.coupon.couponcode_val == ''){
+        this.closecoupon = 'invalid';
+        this.couponIcon="check";
+        this.isReadOnly="";
+        return false;
+
+      }
+      this.fncheckavailcoupon(couponStatus);
+    }
+    fncheckavailcoupon(couponStatus){
+      let requestObject ={
+        "business_id" : this.bussinessId,
+        "service_id" : this.appointDetailData.service.id,
+        "coupon_code" : this.coupon.couponcode_val,
+      }
+      this.StaffService.fncheckavailcoupon(requestObject).subscribe((response:any) =>{
+        if(response.data == true){
+          console.log(response.response)
+          let couponType = response.response.coupon_type;
+          let couponValue = response.response.coupon_value;
+          if(couponType == 'P'){
+            this.orderDiscount = (this.appointDetailData.subtotal*parseInt(couponValue))/100;
+          }else{
+            this.orderDiscount = parseInt(couponValue);
+          }
+          var serviceAmountAfterDiscount= this.appointDetailData.subtotal - this.orderDiscount;
+            var serviceTaxAmount=0;
+            let taxMain=[];
+            this.appointTax.forEach((element) => {
+              let taxTemp={
+                value:0,
+                name:'',
+                amount:0
+              }
+              console.log(element.name+" ---- "+element.value);
+              if(this.taxType == "P"){
+                taxTemp.value= element.value;
+                taxTemp.name= element.name;
+                taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+                serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+              }else{
+                taxTemp.value= element.value;
+                taxTemp.name= element.name;
+                taxTemp.amount=  element.value;
+                serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+              }
+              taxMain.push(taxTemp);
+              this.appointDetailData.tax=JSON.stringify(taxMain);
+              console.log(this.appointDetailData.tax);
+            });
+            this.appointTax = taxMain;
+            this.couponType = couponType
+            this.couponValue = couponValue
+            this.appointDetailData.total_cost=serviceAmountAfterDiscount+serviceTaxAmount;
+
+            console.log(this.appointDetailData);
+          this._snackBar.open("Coupon Code Applied", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+          this.couponIcon="close";
+          this.closecoupon = 'valid';
+          this.isReadOnly="readonly";
+          this.showCouponError=false;
+          this.couponErrorMessage="";
+        }
+        else if(response.data == false){
+          this.closecoupon = 'invalid';
+          this.couponIcon="check";
+          this.isReadOnly="";
+          this.showCouponError=true;
+          this.couponErrorMessage=response.response;
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+        }
+      })  
+    }
+    confirmCashPayment(){
+        let orders = {
+          "tex" : this.appointDetailData.tax,
+          "discount_type":this.couponType,
+          "discount_value":this.couponValue,
+          "discount" : this.orderDiscount,
+          "nettotal" : this.appointDetailData.total_cost
+        }
+        let orderItems  = {
+          "tex" : this.appointDetailData.tax,
+          "discount_type":this.couponType,
+          "discount_value":this.couponValue,
+          "discount" : this.orderDiscount,
+          "nettotal" : this.appointDetailData.total_cost
+        }
+        let payment  = {
+          "payment_date" : this.datePipe.transform(new Date(),"yyyy/MM/dd"),
+          "payment_method" : this.paymentMethod,
+          "amount" : this.appointDetailData.total_cost,
+          "payment_notes" : this.staffPaymentNote,
+        }
+        let requestObject ={
+          "order_item_id" : this.appointDetailData.id,
+          "orders" : orders,
+          "orderItem" : orderItems,
+          "payment" : payment
+        }
+        console.log(requestObject);
+        this.StaffService.staffPayment(requestObject).subscribe((response:any) =>{
+          if(response.data == true){
+            this._snackBar.open(response.response, "X", {
+              duration: 2000,
+              verticalPosition:'top',
+              panelClass :['red-snackbar']
+            });
+            this.dialogRef.close();
+          }
+          else if(response.data == false){
+            this._snackBar.open(response.response, "X", {
+              duration: 2000,
+              verticalPosition:'top',
+              panelClass :['red-snackbar']
+            });
+          }
+        })  
+      }
+      cancelPayment(){
+        this.dialogRef.close();
+      }
   }
 
 

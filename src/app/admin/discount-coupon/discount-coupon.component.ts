@@ -39,7 +39,7 @@ export class DiscountCouponComponent implements OnInit {
   valid_till : any;
   selectedService : any = [];
   categoryServiceList : any;
-  
+  minDate = new Date();
   discountCoupon: FormGroup;
 
 

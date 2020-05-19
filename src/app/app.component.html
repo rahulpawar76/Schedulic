@@ -32,7 +32,7 @@
                     <span class="example-fill-remaining-space">
           </span>
                     <span class="f13">
-            <mat-slide-toggle (change)="staffAvaibility($event.checked)" class="slidetoggle">Availability</mat-slide-toggle>
+            <mat-slide-toggle [checked]="currentUser.status == 'E'" (change)="staffAvaibility($event.checked)" class="slidetoggle">Availability</mat-slide-toggle>
             <button  mat-stroked-button class="bellborder bell-color ml-3" (click)="openNotificationDialog()">
             <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
             </button> 

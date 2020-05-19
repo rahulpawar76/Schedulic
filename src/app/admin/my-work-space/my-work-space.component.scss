@@ -39,8 +39,14 @@
     .left-border {
         border-left: 1px solid #dedede;
     }
+    
 }
-
+#Appoinment-Details {
+    background: #fff;
+}
+#Appoinment-Details .title-main{
+    margin-top: 15px;
+}
 @media only screen and (min-device-width: 360px) and (max-device-width: 825px) and (orientation: landscape) {
     .align-center {
         padding-left: 0 !important;
@@ -113,12 +119,13 @@
         width: 30%
     }
     .search_input-appoint {
-        width: 60%;
+        width: 100%;
         height: 32px;
+        padding: 0px 10px;
     }
     .filter-btn-appoint {
         width: 20%;
-        margin-left: 20px;
+        margin-left: auto;
         .filter-btn {
             border-radius: 3px;
             background-color: rgba(178, 178, 178, 0.5019607843137255);
@@ -391,6 +398,7 @@
             width: unset !important;
         }
     }
+    
     #admin-book-appointment {
         .row {
             mat-card {

@@ -153,6 +153,7 @@ export class FrontbookingComponent implements OnInit {
   reference_id:any;
   transactionId:any=null;
   paymentDateTime:any;
+  PayUMoneyCredentials:any;
   loadAPI: Promise<any>;
   isFound:boolean=false;
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
@@ -340,9 +341,11 @@ export class FrontbookingComponent implements OnInit {
         
         this.currencySymbolFormat = this.settingsArr.currency_format;
         console.log(this.currencySymbolFormat);
-
-        this.PayUMoney.key= 'fT65jM3Y';
-        this.PayUMoney.salt='tDFEAoufm9';
+        this.PayUMoneyCredentials = JSON.parse(this.settingsArr.payUmoney_settings);
+        this.PayUMoney.key= this.PayUMoneyCredentials.merchant_key;
+        this.PayUMoney.salt=this.PayUMoneyCredentials.salt_key;
+        // this.PayUMoney.key= 'fT65jM3Y';
+        // this.PayUMoney.salt='tDFEAoufm9';
 
         this.termsConditions = JSON.parse(this.settingsArr.terms_condition);
         if(this.termsConditions.status == 'false'){
@@ -2256,6 +2259,10 @@ export class FrontbookingComponent implements OnInit {
         catchError(this.handleError)
       ).subscribe((response:any) => {
         if(response.data == true){
+          let digit5= Math.floor(Math.random()*90000) + 10000;
+        this.reference_id="2_"+digit5+"_"+ this.datePipe.transform(new Date(),"yyyy/MM/dd") ;
+          this.transactionId = response.response.id 
+          this.paymentDateTime = this. datePipe.transform(new Date(),"yyyy/MM/dd");
           this.isLoader=false;
           this.fnAppointmentBooking();
       }
@@ -2457,7 +2464,6 @@ export class FrontbookingComponent implements OnInit {
         if(response.data == true){
           this.isLoader=false;
           if(this.thankYou.status == 'true'){
-            //alert(this.thankYou.status);
             window.location.href = this.thankYou.page_link;
           }else if(this.thankYou.status == 'false'){
             
@@ -2500,8 +2506,8 @@ export class FrontbookingComponent implements OnInit {
       this.PayUMoney.email= this.customerEmail,
       this.PayUMoney.phone= this.customerPhone,
       this.PayUMoney.productinfo= 'Product Description';
-      this.PayUMoney.surl= 'http://localhost:4200/';
-      this.PayUMoney.furl= 'http://localhost:4200/';
+      this.PayUMoney.surl= environment.urlForLink;
+      this.PayUMoney.furl= environment.urlForLink;
       this.PayUMoney.mode='dropout';// non-mandatory for Customized Response Handling
       this.PayUMoney.udf1='';
       this.PayUMoney.udf2='';

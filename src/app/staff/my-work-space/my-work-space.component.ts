@@ -109,8 +109,6 @@ export class MyWorkSpaceComponent implements OnInit {
      dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
      });
-
-    alert(index);
   }
 
 }

@@ -1,5 +1,5 @@
 <div class="container-fluid sub-container" id="appointment">
-    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif"/></div>
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
     <div class="row">
         <div class="appointment-header col-12">
             <div class="d-flex mt-2 mb-2  mr-4 col-12 header-content">
@@ -13,7 +13,7 @@
                         </mat-select>
                     </mat-form-field>
 
-                    <mat-form-field  class="appoint-service mr-2 bottom-border-field">
+                    <mat-form-field class="appoint-service mr-2 bottom-border-field">
                         <mat-label>All Services</mat-label>
                         <mat-select (selectionChange)="selectService($event.value)">
                             <mat-option value="all">All</mat-option>
@@ -21,13 +21,13 @@
                         </mat-select>
                     </mat-form-field>
 
-                    <mat-form-field  class="appoint-action bottom-border-field">
+                    <mat-form-field class="appoint-action bottom-border-field">
                         <mat-label>Actions</mat-label>
                         <mat-select [disabled]="orderItemsIdArr.length == 0" [(ngModel)]="selectedValue" (selectionChange)="fnAppointAction($event.value)">
                             <mat-option value="AC">Confirm</mat-option>
-                            <mat-option value="C">Cancel</mat-option>                        
+                            <mat-option value="C">Cancel</mat-option>
                         </mat-select>
-                    </mat-form-field> 
+                    </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-12 col-md-4 col-sm-12 d-flex header-date">
                     <div id="head-date" class=" .offset-lg-4">
@@ -50,28 +50,33 @@
                     </div>   -->
                     <div class="">
                         <button (click)="addAppointment()" class="addAppointment-head-btn mt-1">Add Appointment </button>
-                    </div> 
+                    </div>
                 </div>
-            </div>            
+            </div>
         </div>
         <div class="col-12" id="Appointment-dataTable">
             <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="row-border hover">
                 <thead>
-                  <tr>
-                    <th><mat-checkbox [(ngModel)]="selectAll" (change)="checkAll()"></mat-checkbox></th>
-                    <th>Date & Time</th>
-                    <th>Customer</th>
-                    <th>Service</th>
-                    <th>Staff</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
+                    <tr>
+                        <th>
+                            <!-- <mat-checkbox [(ngModel)]="selectAll" (change)="checkAll()"></mat-checkbox> -->
+                        </th>
+                        <th>Date & Time</th>
+                        <th>Customer</th>
+                        <th>Service</th>
+                        <th>Staff</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
                 </thead>
                 <tbody>
-                  <tr  (click)="fnOpenDetails()" *ngFor="let allAppointmentsData of allAppointments; let i=index">
-                    <td>
+                    <tr (click)="fnOpenDetails()" *ngFor="let allAppointmentsData of allAppointments; let i=index">
+                        <!-- <td>
                         <mat-checkbox [(ngModel)]="allAppointmentsData.checked" (change)="fnAddOrderId($event.checked, allAppointmentsData.id)" class=""></mat-checkbox>
+                    </td>-->
+                    <td>
+                        <mat-checkbox (change)="fnAddOrderId($event.checked, allAppointmentsData.id)" class=""></mat-checkbox>
                     </td>
                     <td>
                         <p>{{allAppointmentsData.booking_date}},</p>
@@ -116,7 +121,7 @@
                     </td>
                   </tr>
                 </tbody>
-                </table>
+            </table>
         </div>
     </div>
 </div>

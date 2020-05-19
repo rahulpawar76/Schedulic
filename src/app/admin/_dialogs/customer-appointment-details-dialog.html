@@ -1,61 +1,70 @@
-
-<mat-sidenav-container class = "tp-container">
-    <mat-sidenav class="w-100" mode = "side" opened>
-<div class="modal-dialog mt-0 mb-0" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Appointment Details</h5>
-          <button type="button" (click)="onNoClick()" class="close" data-dismiss="modal" aria-label="Close">
+<mat-sidenav-container class="tp-container">
+    <mat-sidenav class="w-100" mode="side" opened>
+        <div class="modal-dialog mt-0 mb-0" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Appointment Details</h5>
+                    <button type="button" (click)="onNoClick()" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-      </div>
-      <div class="appodetails">
-        <label class="greenfont"><i class="fa fa-repeat repeat"></i>Reschedule</label>
-        <label class="fontred"><i class="fa fa-times-circle-o circle"></i>Cancel</label>
-  
-         <button mat-button type="button" class="d-block btn-primary float-right paybtn">Confirm</button>
-      </div>
-  
-      <div class="modal-body modal-bcolor">
-        <p class="mb-0 font-weight-bold">{{detailsData.booking_date}}</p>
-        <p>Booked On:{{detailsData.created_at}} </p>
-  
-        <p class="mb-0">Service</p>
-        <p class="font-weight-bold">{{detailsData.service.service_name}}(${{detailsData.total_cost}})</p>
-        <p class="mb-0">Time</p>
-        <p class="font-weight-bold">{{detailsData.booking_time}}</p>
-       
-        <div class="d-flex">
-        
-          <div class="pl-0">
-          <p class="mb-0">Order By</p>
-          <p class="font-weight-bold">{{detailsData.order_by}}</p>
-        </div>
-        <div class="pl-5">  
-          <p class="mb-0">Status</p>
-          <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'P'">Waiting For Confirmation</p>
-          <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'AC'">Confirm</p>
-          <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'RSA'">Rescheduled By Admin</p>
-          <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'RSS'">Rescheduled</p>
-          <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'RSC'">Rescheduled By Customer</p>
-          <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'R'">Rejected</p>
-        </div>
+                </div>
+                <div class="appodetails">
+                    <label class="greenfont pt-2 pointer d-flex align-items-center" (click)="rescheduleAppointment()" *ngIf="detailsData.booking_date_time && minReschedulingTime.getTime() < detailsData.booking_date_time.getTime()"><i class="fa fa-repeat repeat pr-1"></i>Reschedule</label>
+                    <label class="fontred  pt-2 pl-2 pointer d-flex align-items-center" (click)="fnCancelAppointment()" *ngIf="detailsData.booking_date_time && cancellationBufferTime.getTime() < detailsData.booking_date_time.getTime()"><i class="fa fa-times-circle-o pr-1"></i>Cancel</label>
 
-        <div class="">
-            <p class="mb-0">Staff</p>
-            <p class="mb-0 pl-2">--</p>
-        </div>
+                    <button mat-raised-button color="primary" (click)="fnConfirmAppointment($event)" *ngIf="detailsData.order_status == 'P'" type="button" class="d-block btn-primary float-right paybtn">Confirm</button>
+                </div>
+
+                <div class="modal-body modal-bcolor">
+                    <p class="mb-0 font-weight-bold">{{detailsData.booking_date}}</p>
+                    <p>Booked On:{{detailsData.created_at}} </p>
+
+                    <p class="mb-0">Service</p>
+                    <h6 class="mb-0 pt-2" *ngIf="currencySymbolPosition=='left'">{{detailsData.service_name}}({{detailsData.categoryName}}) : {{currencySymbol| currencySymbol:'wide'}} {{ detailsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
+                    <h6 class="mb-0 pt-2" *ngIf="currencySymbolPosition=='right'">{{detailsData.service_name}}({{detailsData.categoryName}}) : {{ detailsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6>
+                    <!-- <p class="font-weight-bold">{{detailsData.service.service_name}}(${{detailsData.total_cost}})</p> -->
+                    <p class="mb-0">Time</p>
+                    <p class="font-weight-bold">{{detailsData.booking_time}}</p>
+
+                    <div class="d-flex">
+
+                        <div class="pl-0">
+                            <p class="mb-0">Order By</p>
+                            <p class="font-weight-bold">{{detailsData.order_by}}</p>
+                        </div>
+                        <div class="pl-5">
+                            <p class="mb-0">Status</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'P'">Waiting For Confirmation</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'CNF'">Confirm</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'AC'">Accepted</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'RSA'">Rescheduled By Admin</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'RSS'">Rescheduled</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'RSC'">Rescheduled By Customer</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'R'">Rejected</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'C'">Cancelled</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'CC'">Cancelled</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'OW'">On The Way</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'WS'">Work Started</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'CO'">Completed</p>
+                        </div>
+
+                        <div class="">
+                            <p class="mb-0">Staff</p>
+                            <p class="mb-0 pl-2">--</p>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <mat-card class="card-body-marginn booking-detail-main mb-0">
+
+
+                    <p>Appointment Notes</p>
+                    <textarea class="form-control mb-2" placeholder="Note here"></textarea>
+                </mat-card>
+
       
-      </div>
-     
-   
-       </div>    
-       <mat-card class="card-body-marginn booking-detail-main mb-0">
-       
-          
-          <p>Appointment Notes</p>
-          <textarea class="form-control mb-2" placeholder="Note here"></textarea>
-      </mat-card>
 
       <div  class="pl-4 pt-2 bottom-border">
       <h6>Activity Log</h6>
@@ -64,5 +73,6 @@
         
       </div>
     </div>
+
     </mat-sidenav>
-    </mat-sidenav-container>
+</mat-sidenav-container>
