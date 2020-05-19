@@ -113,6 +113,7 @@ export class CustomersComponent implements OnInit {
   }
   order_taxAmountArr=[];
   customerPaymentIndex:number;
+  customerDetailId : any;
   constructor(
     public dialog: MatDialog,
     private AdminService: AdminService,
@@ -372,6 +373,7 @@ customerUpdate(existingCustomerData){
 
   
   fnSelectCustomer(customer_id){
+    this.customerDetailId= customer_id;
     this.isLoaderAdmin = true;
     this.AdminService.getCustomersDetails(customer_id).subscribe((response:any) => {
       if(response.data == true){
@@ -649,7 +651,7 @@ customerUpdate(existingCustomerData){
      });
       dialogRef.afterClosed().subscribe(result => {
        this.animal = result;
-      //this.getPendingAppointments();
+      this.fnSelectCustomer(this.customerDetailId);
      
       });
 
@@ -1023,6 +1025,7 @@ fnConfirmAppointment(){
         verticalPosition:'top',
         panelClass :['green-snackbar']
         });
+        this.dialogRef.close();
     }
     else if(response.data == false){
       this._snackBar.open(response.response, "X", {
@@ -1045,6 +1048,7 @@ fnCancelAppointment(){
         verticalPosition:'top',
         panelClass :['green-snackbar']
         });
+        this.dialogRef.close();
     }
     else if(response.data == false){
       this._snackBar.open(response.response, "X", {
