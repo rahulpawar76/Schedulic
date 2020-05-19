@@ -562,39 +562,42 @@
     }
 }
 
- ::ng-deep .booking-detail-main {
-    .customer-profile-img {
-        border-radius: 100%;
-        height: 60px;
-        width: 60px;
-        background-color: #1172f4;
-        color: white;
-        text-align: center;
-        padding: 14px;
-        line-height: 2;
-        display: block;
-        margin: 10px;
-    }
-    .customer-name {
-        width: calc(100% - 80px);
-    }
-}
-
-.address-fontsize {
-    font-size: 13px;
-    .bluephone {
-        color: #1172f4;
-    }
-    .bluemap {
-        color: #1172f4;
-    }
-}
-
-.view-btn {
-    background-color: #f1f5f8;
-}
-
-.btn-green {
-    background-color: #28a745!important;
-    color: #fff!important;
-}
+    ::ng-deep .booking-detail-main{
+        .customer-profile-img{
+          border-radius: 100%;
+          height: 60px;
+          width: 60px;
+          background-color: #1172f4;
+          color: white;
+          text-align: center;
+          padding: 14px;
+          line-height: 2;
+          display: block;
+          margin: 10px;
+        }
+        .customer-name{
+          width: calc(100% - 80px);
+        }
+      }
+      
+      
+       .address-fontsize{
+          font-size: 13px; 
+          .bluephone{
+            color: #1172f4;
+          }
+          .bluemap{
+            color: #1172f4;
+          }
+      }
+     .view-btn{
+                background-color: #f1f5f8;
+            }
+            .mat-drawer-content{
+              display: initial !important;
+            }
+            
+            .btn-green {
+                background-color: #28a745!important;
+                color: #fff!important;
+            }
