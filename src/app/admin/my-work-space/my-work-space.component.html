@@ -1,4 +1,5 @@
 <div class="container-fluid sub-container">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
     <div id="admin-book-appointment">
         <div class="row">
             <mat-card class="mt-4 mb-4" *ngIf="revenue != null && revenue != undefined">
@@ -67,7 +68,7 @@
                         <form class="search_input-appoint">
                             <div class="form-group has-search">
                                 <span class="fa fa-search form-control-feedback"></span>
-                                <input type="text" class="form-control searchbox_appointment" placeholder="Service, Staff, Customer">
+                                <input name="searchKeyword" [(ngModel)]="search.keyword" (keyup)="todayBookingSearch($event)" type="text" class="form-control searchbox_appointment" placeholder="Service, Staff, Customer">
                             </div>
                         </form>
                         <div class="filter-btn-appoint">

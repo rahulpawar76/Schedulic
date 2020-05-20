@@ -36,7 +36,7 @@ export class CustomersComponent implements OnInit {
   adminSettings : boolean = false;
   dtOptions: any = {};
   animal: any;
-  allCustomers: any;
+  allCustomers: any =[];
   customersDetails: any;
   customerLastbooking:any;
   customerPersonalDetails: any;
@@ -59,6 +59,9 @@ export class CustomersComponent implements OnInit {
   addNewTag: boolean = false;
   tagsnew: any=[];
   customerImageUrl:any;
+  search = {
+    keyword: ""
+  };
   
 
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
@@ -232,11 +235,7 @@ export class CustomersComponent implements OnInit {
     this.AdminService.getAllCustomers().subscribe((response:any) => {
       if(response.data == true){
         this.allCustomers = response.response;
-       
         this.allCustomers.forEach( (element) => {
-          // var str = element.fullname;
-          // var matches = str.match(/\b(\w)/g); 
-          // element.initials = matches.join(''); 
           var splitted = element.fullname.split(" ",2);
           element.initials='';
           splitted.forEach( (element2) => {
@@ -247,7 +246,7 @@ export class CustomersComponent implements OnInit {
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
-        this.allCustomers = ''
+        this.allCustomers = [];
         this.isLoaderAdmin = false;
       }
     })
@@ -936,6 +935,43 @@ customerUpdate(existingCustomerData){
      dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
      });
+  }
+  
+  customerSearch(event){
+    this.isLoaderAdmin=true;
+    if(this.search.keyword.length > 1){
+      let requestObject = {
+        "search":this.search.keyword,
+        "business_id":this.businessId,
+      }
+      console.log(requestObject);
+      this.AdminService.customerSearch(requestObject).subscribe((response:any) =>{
+        if(response.data == true){
+          this.allCustomers = response.response;
+          this.allCustomers.forEach( (element) => {
+            var splitted = element.fullname.split(" ",2);
+            element.initials='';
+            splitted.forEach( (element2) => {
+              element.initials=element.initials+element2.charAt(0);
+            });
+          });
+          this.fnSelectCustomer(this.allCustomers[0].id);
+          this.isLoaderAdmin=false;
+        }
+        else if(response.data == false){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+          this.allCustomers = [];
+          this.isLoaderAdmin=false;
+        }
+      })
+    }else{
+      this.getAllCustomers();
+      this.isLoaderAdmin=false;
+    }
   }
 }
 
