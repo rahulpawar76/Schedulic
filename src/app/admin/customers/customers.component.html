@@ -37,7 +37,7 @@
                     <form class="serch_input-appoint">
                         <div class="form-group has-search">
                             <span class="fa fa-search form-control-feedback verticalLine"></span>
-                            <input type="text" class="form-control searchbox_appointment " placeholder="Search Customer">
+                            <input name="searchKeyword" [(ngModel)]="search.keyword" (keyup)="customerSearch($event)" type="text" class="form-control searchbox_appointment " placeholder="Search Customer">
                         </div>
                     </form>
                 </div>

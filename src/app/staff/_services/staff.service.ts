@@ -302,5 +302,17 @@ export class StaffService {
           }),
           catchError(this.handleError));
   }
+  staffSearchAppointment(requestObject) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'staff-id' : this.staffId,
+      'api-token' : this.staffToken 
+    });
+    return this.http.post(`${environment.apiUrl}/staff-booking-search`, requestObject, { headers: headers }).pipe(
+      map((res) => {
+          return res;
+      }),
+    catchError(this.handleError));
+  }
 
 }

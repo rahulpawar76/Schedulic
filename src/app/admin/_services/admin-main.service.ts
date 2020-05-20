@@ -19,7 +19,7 @@ export class AdminService {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     localStorage.setItem('isBusiness', 'false');
     if(localStorage.getItem('business_id')){
-      this.businessId = localStorage.getItem('business_id');
+        this.businessId=localStorage.getItem('business_id');
     }
   }  
     private handleError(error: HttpErrorResponse) {
@@ -715,6 +715,30 @@ export class AdminService {
             'Content-Type': 'application/json'
         });
         return this.http.post(`${environment.apiUrl}/get-business`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    todayBookingSearch(requestObject){
+        let headers = new HttpHeaders({
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/search-todays-booking`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    customerSearch(requestObject){
+        let headers = new HttpHeaders({
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/search-customer`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;
         }),
