@@ -676,4 +676,51 @@ $calendarsize: 10px;
         color: #007bff;
     }
 }
-
+.starting_page{
+    max-width: 960px;
+    margin: auto;
+    .mat-card{
+        border-radius: 10px;
+    }
+    .max_width{
+        max-width: 500px;
+        margin: auto;
+    }
+    .img_icon{
+        max-width: 150px;
+    }
+    .title{
+        color: #003b7f;
+        font-size: 24px;
+        margin: 5px 0 15px;
+        font-weight: 500;
+    }
+    .des-text{
+        padding: 0 20px;
+        margin: 20px 0;
+    }
+    .started-btn{
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 4px;
+        padding: 13px 15px;
+        font-size: 16px;
+        letter-spacing: 0.5px;
+        width: 220px;
+        display: block;
+        margin: auto;
+        font-weight: 500;
+    }
+    .started-btn:hover{
+        text-decoration: none;
+        background-color: #025cbe;
+        transition: all;
+    }
+    .bottom-title{
+        font-size: 14px;
+    }
+    .color-blue{
+        color: #007bff;
+        text-decoration: none;
+    }
+}

@@ -44,6 +44,12 @@ export class StaffAppointmentComponent implements OnInit {
   currencySymbol:any;
   currencySymbolPosition:any;
   currencySymbolFormat:any;
+  isLoader:boolean= false;
+  openedTab : any = 'new';
+  search = {
+    keyword: ""
+  };
+  staffId:any;
 
   statuses: status[] = [
     {value: 'OW', viewValue: 'On The Way',statuses:''},
@@ -60,6 +66,7 @@ export class StaffAppointmentComponent implements OnInit {
     
     ) { 
       this.bussinessId=this.authenticationService.currentUserValue.business_id
+      this.staffId = this.authenticationService.currentUserValue.user_id
      }
 
   ngOnInit() {
@@ -70,6 +77,7 @@ export class StaffAppointmentComponent implements OnInit {
   }
 
   fnGetSettingValue(){
+    this.isLoader=true;
     let requestObject = {
       "business_id":this.bussinessId
     };
@@ -104,9 +112,11 @@ export class StaffAppointmentComponent implements OnInit {
         
       }
     })
+    this.isLoader=false;
   }
 
   getNewAppointment(){
+    this.isLoader=true;
     this.StaffService.getNewAppointment().subscribe((response:any) =>{
       if(response.data == true){
         this.newAppointmentData = response.response;
@@ -128,8 +138,10 @@ export class StaffAppointmentComponent implements OnInit {
         this.newAppointmentData = '';
       }
     })
+    this.isLoader=false;
   }
   getCompletedAppointment(){
+    this.isLoader=true;
     this.StaffService.getCompletedAppointment().subscribe((response:any) =>{
       if(response.data == true){
         this.completedAppointmentData = response.response;
@@ -152,8 +164,10 @@ export class StaffAppointmentComponent implements OnInit {
         this.completedAppointmentData = '';
       }
     })
+    this.isLoader=false;
   }
   getOnGoingAppointment(){
+    this.isLoader=true;
     this.StaffService.getOnGoingAppointment().subscribe((response:any) =>{
       if(response.data == true){
         this.onGoingAppointmentData = response.response;
@@ -178,6 +192,7 @@ export class StaffAppointmentComponent implements OnInit {
         this.onGoingAppointmentData = '';
       }
     })
+    this.isLoader=false;
   }
    someMethod(booking_id, status): void {
     if(status == 'OW'){
@@ -216,6 +231,7 @@ export class StaffAppointmentComponent implements OnInit {
   }
 
   changeBookingStatus(order_item_id, status, index){
+    this.isLoader=true;
     if(status == 'CO' && this.onGoingAppointmentData[index].payment.payment_status == 'unpaid'){
       this.OnlinePaymentMode(index);
     }else {
@@ -239,6 +255,7 @@ export class StaffAppointmentComponent implements OnInit {
           }); 
         }
       })
+      this.isLoader=false;
     }
   }
 
@@ -349,6 +366,104 @@ export class StaffAppointmentComponent implements OnInit {
        this.animal = result;
      });
   }
+  fnTabValue(event){
+    this.search.keyword = null;
+    if(event == 0){
+      this.openedTab = 'new';
+    }else if(event == 1){
+      this.openedTab = 'ongoing';
+    }else if(event == 2){
+      this.openedTab = 'completed';
+    }
+  }
+
+  staffSearchAppointment(){
+    this.isLoader=true;
+    if(this.search.keyword.length > 1){
+      let requestObject = {
+        "search":this.search.keyword,
+        "staff_id":this.staffId,
+        "business_id":this.bussinessId,
+        "booking_type" : this.openedTab
+      }
+      console.log(requestObject);
+      this.StaffService.staffSearchAppointment(requestObject).subscribe((response:any) =>{
+        if(response.data == true){
+          if(this.openedTab == 'new'){
+            this.newAppointmentData = response.response;
+            console.log( this.newAppointmentData);
+            this.newAppointmentData.forEach( (element) => {
+              var todayDateTime = new Date();
+              element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
+              var dateTemp = new Date(this.datePipe.transform(element.booking_date_time,"dd MMM yyyy hh:mm a"));
+              dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+              var temp = dateTemp.getTime() - todayDateTime.getTime();
+              element.timeToService=(temp/3600000).toFixed();
+              element.booking_timeForLabel=this.datePipe.transform(element.booking_date_time,"hh:mm a")
+              element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+              element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
+              element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+            });
+           
+          }else if(this.openedTab == 'ongoing'){
+            this.onGoingAppointmentData = response.response;
+            this.onGoingAppointmentData.forEach( (element) => {
+              var todayDateTime = new Date();
+              element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
+              var dateTemp = new Date(this.datePipe.transform(element.booking_date_time,"dd MMM yyyy hh:mm a"));
+              var dateTemp2 = new Date(this.datePipe.transform(element.booking_date_time,"dd MMM yyyy hh:mm a"));
+              dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+              var temp = dateTemp.getTime() - todayDateTime.getTime();
+              element.timeToService=(temp/3600000).toFixed();
+              dateTemp2.setMinutes( dateTemp2.getMinutes());
+              var serviceTimeTamp =  dateTemp2.getTime() - todayDateTime.getTime();
+              element.timeToServiceDecimal=(serviceTimeTamp/60000).toFixed();
+              element.booking_timeForLabel=this.datePipe.transform(element.booking_date_time,"hh:mm a")
+              element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+              element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
+              element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+            });
+            
+          }else if(this.openedTab == 'completed'){
+            this.completedAppointmentData = response.response;
+            this.completedAppointmentData.forEach( (element) => {
+              var todayDateTime = new Date();
+              element.booking_timeForLabel=element.booking_date+" "+element.booking_time;
+              var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_timeForLabel),"dd MMM yyyy hh:mm a"));
+              dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+              var temp = dateTemp.getTime() - todayDateTime.getTime();
+              element.timeToService=(temp/3600000).toFixed();
+              element.booking_timeForLabel=this.datePipe.transform(new Date(element.booking_timeForLabel),"hh:mm a")
+              element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+              element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
+              element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+              element.updated_atDateForLabel=this.datePipe.transform(new Date(element.updated_at),"dd MMM yyyy")
+              element.updated_atTimeForLabel=this.datePipe.transform(new Date(element.updated_at),"hh:mm a")
+            });
+          }
+          this.isLoader=false;
+        }
+        else if(response.data == false){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+          this.newAppointmentData = [];
+          this.onGoingAppointmentData = [];
+          this.completedAppointmentData = [];
+          this.isLoader=false;
+        }
+      })
+    }else{
+      this.getNewAppointment();
+      this.getCompletedAppointment();
+      this.getOnGoingAppointment();
+      this.isLoader=false;
+    }
+    
+  }
+
 
 
 }

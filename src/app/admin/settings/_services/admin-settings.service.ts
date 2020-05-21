@@ -1527,7 +1527,31 @@ export class AdminSettingsService {
             'api-token' : this.adminToken,
             'Content-Type': 'application/json'
         });
-        return this.http.post(`${environment.apiUrl}/send-verification-phone`,requestObject,{headers:headers}).pipe(
+        return this.http.post(`${environment.apiUrl}/send-verification-sms`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    postalCodeSearch(requestObject){
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/search-postal-code`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    staffSearch(requestObject){
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/search-staff`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;
         }),

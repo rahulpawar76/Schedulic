@@ -1,280 +1,85 @@
 <div class="content-main">
-    <mat-tab-group  mat-align-tabs="start">
+    <mat-tab-group mat-align-tabs="start">
         <mat-tab label="Pending">
             <div class="pendingnotes d-flex">
-              <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum
-                generator,Lorem Ipsum,giving information on its origins.</p>
-            <div class="col-2 pendingborder appoint-head" >
-                <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
-                <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
-            </div>
-
-            <div class="appoint-head" style="margin: 0 20px 0 20px;">
-                <label class="mb-0 pendingdate">{{todayTime}}</label>
-                <p class="appoint-time-zone"style="text-align: right;">{{todayPeriod}}</p>
-            </div>
-            </div>
-            <div class="col-12 p-0">
-                <mat-card class="table-background">
-                  <div class="">
-                    <div class="Pending-table">
-                        <div class="main-table-content main-cust-table-content">
-                            <div class="" >
-                                <div class="main-table-head" fxLayout="row">
-                                    <div class="" fxFlex="20">Services</div>
-                                    <div class="" fxFlex="25">Customer</div>
-                                    <div class="" fxFlex="25">Staff</div>
-                                    <div class="" fxFlex="10">Amount</div>
-                                    <div class="" fxFlex="10">Date</div>
-                                    <div class="" fxFlex="10">Time</div>
-                                </div>
-                                <div class="content" class="appointment-live-list"  >
-                                    <div (click) ="fnOpenDetails(i)" *ngFor="let pendingAppointments of pendingAppointments; let i=index" class="appointment-live-list-details">
-                                        <div class="" fxFlex="20">
-                                          <p class="mb-0">{{pendingAppointments.service.service_name}}</p>
-                                        </div>
-                                        <div class=" " fxFlex="25">
-                                          <p class="mb-0">{{pendingAppointments.customer.fullname}}</p>
-                                          <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{pendingAppointments.customer.phone}}</p>
-                                          <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.customer.email}}</p>
-                                        </div>
-                                        <div *ngIf="pendingAppointments.staff != null" class="" fxFlex="25">
-                                          <p class="mb-0">Raj Kumar</p>
-                                          <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
-                                          <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
-                                        </div>
-                                        <div *ngIf="pendingAppointments.staff == null" class="" fxFlex="25">
-                                          <p class="mb-0">Not Assigned</p>
-                                        
-                                        </div>
-                                        <!-- <div class="" fxFlex="10">
-                                          {{pendingAppointments.total_cost}}
-                                        </div> -->
-                                        <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
-                                        </div>
-                                        <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
-                                        </div>
-                                        <div class="" fxFlex="10">
-                                          {{pendingAppointments.booking_date}}
-                                        </div>
-                                        <div class="" fxFlex="10">
-                                          {{pendingAppointments.booking_time}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> 
-                    </div> 
-                </div>
-                </mat-card>
-            </div>
-        </mat-tab>
-
-        <mat-tab label="Not Assigned" class="notassignedlabel">
-            <div class="pendingnotes d-flex">
-              <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum
-                generator,Lorem Ipsum,giving information on its origins.</p>
-            <div class="col-2 pendingborder appoint-head" >
-                <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
-                <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
-            </div>
-
-            <div class="appoint-head" style="margin: 0 20px 0 20px;">
-                <label class="mb-0 pendingdate">{{todayTime}}</label>
-                <p class="appoint-time-zone"style="text-align: right;">{{todayPeriod}}</p>
-            </div>
-            </div>
-            <div class="col-12" >
-              <div class="">
-                <div class="main-table-head" fxLayout="row">
-                    <div class="" fxFlex="20">Services</div>
-                    <div class="" fxFlex="25">Customer</div>
-                    <div class="" fxFlex="25">Staff</div>
-                    <div class="" fxFlex="10">Amount</div>
-                    <div class="" fxFlex="10">Date</div>
-                    <div class="" fxFlex="10">Time</div>
-                </div>
-                <div class="content" class="appointment-live-list" >
-                    <div (click) ="fnOpenNotAssignedDetails(i)" *ngFor="let notAssignedAppointments of notAssignedAppointments; let i=index" class="appointment-live-list-details">
-                        <div class="" fxFlex="20">
-                          <p class="mb-0">{{notAssignedAppointments.service.service_name}}</p>
-                        </div>
-                        <div class=" " fxFlex="25">
-                          <p class="mb-0">{{notAssignedAppointments.customer.fullname}}</p>
-                          <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{notAssignedAppointments.customer.phone}}</p>
-                          <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{notAssignedAppointments.customer.email}}</p>
-                        </div>
-                        <div *ngIf="pendingAppointments.staff != null" class="" fxFlex="25">
-                          <p class="mb-0">Raj Kumar</p>
-                          <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
-                          <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
-                        </div>
-                        <div *ngIf="notAssignedAppointments.staff == null" class="" fxFlex="25">
-                          <p class="mb-0">Not Assigned</p>
-                        </div>
-                        <!-- <div class="" fxFlex="10">
-                          {{notAssignedAppointments.total_cost}}
-                        </div> -->
-                        <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ notAssignedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
-                        </div>
-                        <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ notAssignedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
-                        </div>
-                        <div class="" fxFlex="10">
-                          {{notAssignedAppointments.booking_date}}
-                        </div>
-                        <div class="" fxFlex="10">
-                          {{notAssignedAppointments.booking_time}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-
-        </mat-tab>
-        <div class="pendingnotes d-flex">
-          <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum
-            generator,Lorem Ipsum,giving information on its origins.</p>
-        <div class="col-2 pendingborder appoint-head" >
-            <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
-            <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
-        </div>
-
-        <div class="appoint-head" style="margin: 0 20px 0 20px;">
-            <label class="mb-0 pendingdate">{{todayTime}}</label>
-            <p class="appoint-time-zone"style="text-align: right;">{{todayPeriod}}</p>
-        </div>
-        </div>
-        <div class="col-12" >
-          <div class="">
-            <div class="main-table-head" fxLayout="row">
-                <div class="" fxFlex="20">Services</div>
-                <div class="" fxFlex="25">Customer</div>
-                <div class="" fxFlex="25">Staff</div>
-                <div class="" fxFlex="10">Amount</div>
-                <div class="" fxFlex="10">Date</div>
-                <div class="" fxFlex="10">Time</div>
-            </div>
-            <div class="content" class="appointment-live-list">
-                <div *ngFor="let pendingAppointments of pendingAppointments; let i=index" class="appointment-live-list-details ">
-                    <div class="" fxFlex="20">
-                      <p class="mb-0">{{pendingAppointments.service.service_name}}</p>
-                    </div>
-                    <div class=" " fxFlex="25">
-                      <p class="mb-0">{{pendingAppointments.customer.fullname}}</p>
-                      <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{pendingAppointments.customer.phone}}</p>
-                      <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.customer.email}}</p>
-                    </div>
-                    <div *ngIf="pendingAppointments.staff != null" class="" fxFlex="25">
-                      <p class="mb-0">Raj Kumar</p>
-                      <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
-                      <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
-                    </div>
-                    <div *ngIf="pendingAppointments.staff == null" class="" fxFlex="25">
-                      <p class="mb-0">Not Assigned</p>
-                    
-                    </div>
-                    <!-- <div class="" fxFlex="10">
-                      {{pendingAppointments.total_cost}}
-                    </div> -->
-                    <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
-                    </div>
-                    <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
-                    </div>
-                    <div class="" fxFlex="10">
-                      {{pendingAppointments.booking_date}}
-                    </div>
-                    <div class="" fxFlex="10">
-                      {{pendingAppointments.booking_time}}
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-
-        <mat-tab label="On The Way" class="onthewaylabel">
-            <div class="pendingnotes d-flex">
-                <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum
-                    generator,Lorem Ipsum,giving information on its origins.</p>
-                <div class="col-2 pendingborder appoint-head" >
+                <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
+                <div class="col-2 pendingborder appoint-head">
                     <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
                     <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
                 </div>
 
                 <div class="appoint-head" style="margin: 0 20px 0 20px;">
                     <label class="mb-0 pendingdate">{{todayTime}}</label>
-                    <p class="appoint-time-zone"style="text-align: right;">{{todayPeriod}}</p>
+                    <p class="appoint-time-zone" style="text-align: right;">{{todayPeriod}}</p>
                 </div>
-
             </div>
-            <div class="col-12" >
-              <div class="">
-                <div class="main-table-head" fxLayout="row">
-                    <div class="" fxFlex="20">Services</div>
-                    <div class="" fxFlex="25">Customer</div>
-                    <div class="" fxFlex="25">Staff</div>
-                    <div class="" fxFlex="10">Amount</div>
-                    <div class="" fxFlex="10">Date</div>
-                    <div class="" fxFlex="10">Time</div>
-                </div>
-                <div class="content" *ngIf="onTheWayAppointments != 'no booking found'" class="appointment-live-list">
-                    <div (click) ="fnOpenOnTheWayDetails(i)" *ngFor="let onTheWayAppointments of onTheWayAppointments; let i=index" class="appointment-live-list-details">
-                        <div class="" fxFlex="20">
-                          <p class="mb-0">{{onTheWayAppointments.service.service_name}}</p>
-                        </div>
-                        <div class=" " fxFlex="25">
-                          <p class="mb-0">{{onTheWayAppointments.customer.fullname}}</p>
-                          <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{onTheWayAppointments.customer.phone}}</p>
-                          <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{onTheWayAppointments.customer.email}}</p>
-                        </div>
-                        <div *ngIf="onTheWayAppointments.staff != null" class="" fxFlex="25">
-                          <p class="mb-0">Raj Kumar</p>
-                          <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
-                          <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
-                        </div>
-                        <div *ngIf="onTheWayAppointments.staff == null" class="" fxFlex="25">
-                          <p class="mb-0">Not Assigned</p>
-                        </div><!-- 
-                        <div class="" fxFlex="10">
-                          {{onTheWayAppointments.total_cost}}
-                        </div> -->
-                        <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ onTheWayAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
-                        </div>
-                        <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ onTheWayAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
-                        </div>
-                        <div class="" fxFlex="10">
-                          {{onTheWayAppointments.booking_date}}
-                        </div>
-                        <div class="" fxFlex="10">
-                          {{onTheWayAppointments.booking_time}}
+            <div class="col-12 p-0">
+                <mat-card class="table-background">
+                    <div class="Pending-table">
+                        <div class="main-table-content main-cust-table-content">
+                            <div class="main-table-head" fxLayout="row">
+                                <div class="" fxFlex="20">Services</div>
+                                <div class="" fxFlex="25">Customer</div>
+                                <div class="" fxFlex="25">Staff</div>
+                                <div class="" fxFlex="10">Amount</div>
+                                <div class="" fxFlex="10">Date</div>
+                                <div class="" fxFlex="10">Time</div>
+                            </div>
+                            <div class="content" class="appointment-live-list">
+                                <div (click)="fnOpenDetails(i)" *ngFor="let pendingAppointments of pendingAppointments; let i=index" class="appointment-live-list-details">
+                                    <div class="" fxFlex="20">
+                                        <p class="mb-0">{{pendingAppointments.service.service_name}}</p>
+                                    </div>
+                                    <div class=" " fxFlex="25">
+                                        <p class="mb-0">{{pendingAppointments.customer.fullname}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{pendingAppointments.customer.phone}}</p>
+                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.customer.email}}</p>
+                                    </div>
+                                    <div *ngIf="pendingAppointments.staff != null" class="" fxFlex="25">
+                                        <p class="mb-0">Raj Kumar</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
+                                    </div>
+                                    <div *ngIf="pendingAppointments.status == 'P'" class="" fxFlex="25">
+                                        <p class="mb-0">Pending</p>
+
+                                    </div>
+                                    <!-- <div class="" fxFlex="10">
+                                          {{pendingAppointments.total_cost}}
+                                        </div> -->
+                                    <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                    </div>
+                                    <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
+                                    </div>
+                                    <div class="" fxFlex="10">
+                                        {{pendingAppointments.booking_date}}
+                                    </div>
+                                    <div class="" fxFlex="10">
+                                        {{pendingAppointments.booking_time}}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="content" *ngIf="onTheWayAppointments == 'no booking found'" class="appointment-live-list text-center p-5 no-found">
-                  {{onTheWayAppointments}}
-                </div>
+                </mat-card>
             </div>
-            </div>
-
         </mat-tab>
-        
-        <mat-tab label="Work Started" class="workstartedlabel">
+
+        <mat-tab label="Not Assigned" class="notassignedlabel">
             <div class="pendingnotes d-flex">
-              <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum
-                generator,Lorem Ipsum,giving information on its origins.</p>
-            <div class="col-2 pendingborder appoint-head" >
-                <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
-                <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
-            </div>
+                <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
+                <div class="col-2 pendingborder appoint-head">
+                    <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
+                    <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
+                </div>
 
-            <div class="appoint-head" style="margin: 0 20px 0 20px;">
-                <label class="mb-0 pendingdate">{{todayTime}}</label>
-                <p class="appoint-time-zone"style="text-align: right;">{{todayPeriod}}</p>
+                <div class="appoint-head" style="margin: 0 20px 0 20px;">
+                    <label class="mb-0 pendingdate">{{todayTime}}</label>
+                    <p class="appoint-time-zone" style="text-align: right;">{{todayPeriod}}</p>
+                </div>
             </div>
-
-            </div>
-            <div class="" >
-                <mat-card>
-                  <div class="">
+            <div class="col-12">
+                <div class="">
                     <div class="main-table-head" fxLayout="row">
                         <div class="" fxFlex="20">Services</div>
                         <div class="" fxFlex="25">Customer</div>
@@ -284,36 +89,223 @@
                         <div class="" fxFlex="10">Time</div>
                     </div>
                     <div class="content" class="appointment-live-list">
-                        <div (click) ="fnOpenWorkStartedDetails(i)" *ngFor="let workStartedAppointments of workStartedAppointments; let i=index" class="appointment-live-list-details">
+                        <div (click)="fnOpenNotAssignedDetails(i)" *ngFor="let notAssignedAppointments of notAssignedAppointments; let i=index" class="appointment-live-list-details">
                             <div class="" fxFlex="20">
-                              <p class="mb-0">{{workStartedAppointments.service.service_name}}</p>
+                                <p class="mb-0">{{notAssignedAppointments.service.service_name}}</p>
                             </div>
                             <div class=" " fxFlex="25">
-                              <p class="mb-0">{{workStartedAppointments.customer.fullname}}</p>
-                              <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{workStartedAppointments.customer.phone}}</p>
-                              <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.customer.email}}</p>
+                                <p class="mb-0">{{notAssignedAppointments.customer.fullname}}</p>
+                                <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{notAssignedAppointments.customer.phone}}</p>
+                                <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{notAssignedAppointments.customer.email}}</p>
                             </div>
-                            <div *ngIf="workStartedAppointments.staff != null" class="" fxFlex="25">
-                              <p class="mb-0">Raj Kumar</p>
-                              <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
-                              <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
+                            <div *ngIf="pendingAppointments.staff != null" class="" fxFlex="25">
+                                <p class="mb-0">Raj Kumar</p>
+                                <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                                <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
                             </div>
-                            <div *ngIf="workStartedAppointments.staff == null" class="" fxFlex="25">
-                              <p class="mb-0">Not Assigned</p>
+                            <div *ngIf="notAssignedAppointments.staff == null" class="" fxFlex="25">
+                                <p class="mb-0">Not Assigned</p>
+                            </div>
+                            <!-- <div class="" fxFlex="10">
+                          {{notAssignedAppointments.total_cost}}
+                        </div> -->
+                            <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ notAssignedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                            </div>
+                            <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ notAssignedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
                             </div>
                             <div class="" fxFlex="10">
-                              {{workStartedAppointments.total_cost}}
+                                {{notAssignedAppointments.booking_date}}
                             </div>
                             <div class="" fxFlex="10">
-                              {{workStartedAppointments.booking_date}}
-                            </div>
-                            <div class="" fxFlex="10">
-                              {{workStartedAppointments.booking_time}}
+                                {{notAssignedAppointments.booking_time}}
                             </div>
                         </div>
                     </div>
                 </div>
-                    </mat-card>
+            </div>
+
+        </mat-tab>
+        <div class="pendingnotes d-flex">
+            <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
+            <div class="col-2 pendingborder appoint-head">
+                <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
+                <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
+            </div>
+
+            <div class="appoint-head" style="margin: 0 20px 0 20px;">
+                <label class="mb-0 pendingdate">{{todayTime}}</label>
+                <p class="appoint-time-zone" style="text-align: right;">{{todayPeriod}}</p>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="">
+                <div class="main-table-head" fxLayout="row">
+                    <div class="" fxFlex="20">Services</div>
+                    <div class="" fxFlex="25">Customer</div>
+                    <div class="" fxFlex="25">Staff</div>
+                    <div class="" fxFlex="10">Amount</div>
+                    <div class="" fxFlex="10">Date</div>
+                    <div class="" fxFlex="10">Time</div>
+                </div>
+                <div class="content" class="appointment-live-list">
+                    <div *ngFor="let pendingAppointments of pendingAppointments; let i=index" class="appointment-live-list-details ">
+                        <div class="" fxFlex="20">
+                            <p class="mb-0">{{pendingAppointments.service.service_name}}</p>
+                        </div>
+                        <div class=" " fxFlex="25">
+                            <p class="mb-0">{{pendingAppointments.customer.fullname}}</p>
+                            <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{pendingAppointments.customer.phone}}</p>
+                            <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.customer.email}}</p>
+                        </div>
+                        <div *ngIf="pendingAppointments.staff != null" class="" fxFlex="25">
+                            <p class="mb-0">Raj Kumar</p>
+                            <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                            <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
+                        </div>
+                        <div *ngIf="pendingAppointments.staff == null" class="" fxFlex="25">
+                            <p class="mb-0">Not Assigned</p>
+
+                        </div>
+                        <!-- <div class="" fxFlex="10">
+                      {{pendingAppointments.total_cost}}
+                    </div> -->
+                        <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                        </div>
+                        <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
+                        </div>
+                        <div class="" fxFlex="10">
+                            {{pendingAppointments.booking_date}}
+                        </div>
+                        <div class="" fxFlex="10">
+                            {{pendingAppointments.booking_time}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <mat-tab label="On The Way" class="onthewaylabel">
+            <div class="pendingnotes d-flex">
+                <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
+                <div class="col-2 pendingborder appoint-head">
+                    <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
+                    <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
+                </div>
+
+                <div class="appoint-head" style="margin: 0 20px 0 20px;">
+                    <label class="mb-0 pendingdate">{{todayTime}}</label>
+                    <p class="appoint-time-zone" style="text-align: right;">{{todayPeriod}}</p>
+                </div>
+
+            </div>
+            <div class="col-12">
+                <div class="">
+                    <div class="main-table-head" fxLayout="row">
+                        <div class="" fxFlex="20">Services</div>
+                        <div class="" fxFlex="25">Customer</div>
+                        <div class="" fxFlex="25">Staff</div>
+                        <div class="" fxFlex="10">Amount</div>
+                        <div class="" fxFlex="10">Date</div>
+                        <div class="" fxFlex="10">Time</div>
+                    </div>
+                    <div class="content" *ngIf="onTheWayAppointments != 'no booking found'" class="appointment-live-list">
+                        <div (click)="fnOpenOnTheWayDetails(i)" *ngFor="let onTheWayAppointments of onTheWayAppointments; let i=index" class="appointment-live-list-details">
+                            <div class="" fxFlex="20">
+                                <p class="mb-0">{{onTheWayAppointments.service.service_name}}</p>
+                            </div>
+                            <div class=" " fxFlex="25">
+                                <p class="mb-0">{{onTheWayAppointments.customer.fullname}}</p>
+                                <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{onTheWayAppointments.customer.phone}}</p>
+                                <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{onTheWayAppointments.customer.email}}</p>
+                            </div>
+                            <div *ngIf="onTheWayAppointments.staff != null" class="" fxFlex="25">
+                                <p class="mb-0">Raj Kumar</p>
+                                <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                                <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
+                            </div>
+                            <div *ngIf="onTheWayAppointments.staff == null" class="" fxFlex="25">
+                                <p class="mb-0">Not Assigned</p>
+                            </div>
+                            <!-- 
+                        <div class="" fxFlex="10">
+                          {{onTheWayAppointments.total_cost}}
+                        </div> -->
+                            <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ onTheWayAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                            </div>
+                            <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ onTheWayAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
+                            </div>
+                            <div class="" fxFlex="10">
+                                {{onTheWayAppointments.booking_date}}
+                            </div>
+                            <div class="" fxFlex="10">
+                                {{onTheWayAppointments.booking_time}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content" *ngIf="onTheWayAppointments == 'no booking found'" class="appointment-live-list text-center p-5 no-found">
+                        {{onTheWayAppointments}}
+                    </div>
+                </div>
+            </div>
+
+        </mat-tab>
+
+        <mat-tab label="Work Started" class="workstartedlabel">
+            <div class="pendingnotes d-flex">
+                <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
+                <div class="col-2 pendingborder appoint-head">
+                    <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
+                    <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
+                </div>
+
+                <div class="appoint-head" style="margin: 0 20px 0 20px;">
+                    <label class="mb-0 pendingdate">{{todayTime}}</label>
+                    <p class="appoint-time-zone" style="text-align: right;">{{todayPeriod}}</p>
+                </div>
+
+            </div>
+            <div class="">
+                <mat-card>
+                    <div class="">
+                        <div class="main-table-head" fxLayout="row">
+                            <div class="" fxFlex="20">Services</div>
+                            <div class="" fxFlex="25">Customer</div>
+                            <div class="" fxFlex="25">Staff</div>
+                            <div class="" fxFlex="10">Amount</div>
+                            <div class="" fxFlex="10">Date</div>
+                            <div class="" fxFlex="10">Time</div>
+                        </div>
+                        <div class="content" class="appointment-live-list">
+                            <div (click)="fnOpenWorkStartedDetails(i)" *ngFor="let workStartedAppointments of workStartedAppointments; let i=index" class="appointment-live-list-details">
+                                <div class="" fxFlex="20">
+                                    <p class="mb-0">{{workStartedAppointments.service.service_name}}</p>
+                                </div>
+                                <div class=" " fxFlex="25">
+                                    <p class="mb-0">{{workStartedAppointments.customer.fullname}}</p>
+                                    <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{workStartedAppointments.customer.phone}}</p>
+                                    <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.customer.email}}</p>
+                                </div>
+                                <div *ngIf="workStartedAppointments.staff != null" class="" fxFlex="25">
+                                    <p class="mb-0">Raj Kumar</p>
+                                    <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:1234567890</p>
+                                    <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:rajkumar@gmail.com</p>
+                                </div>
+                                <div *ngIf="workStartedAppointments.staff == null" class="" fxFlex="25">
+                                    <p class="mb-0">Not Assigned</p>
+                                </div>
+                                <div class="" fxFlex="10">
+                                    {{workStartedAppointments.total_cost}}
+                                </div>
+                                <div class="" fxFlex="10">
+                                    {{workStartedAppointments.booking_date}}
+                                </div>
+                                <div class="" fxFlex="10">
+                                    {{workStartedAppointments.booking_time}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
             </div>
 
         </mat-tab>
@@ -380,5 +372,3 @@
           </div>
         </div> -->
 </div>
-
-

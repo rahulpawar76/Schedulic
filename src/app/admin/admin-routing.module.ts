@@ -11,6 +11,7 @@ import { MyProfileComponent } from './settings-my-profile/settings-my-profile.co
 import { ReportsComponent } from './reports/reports.component';
 import { AppointmentLiveComponent } from './appointment-live/appointment-live.component';
 import { DiscountCouponComponent } from './discount-coupon/discount-coupon.component';
+import { SupportComponent } from './support/support.component';
 
 //import { Role } from '@app/_models';
 //import { AuthGuard } from '@app/_helpers';
@@ -56,6 +57,11 @@ const routes: Routes = [
   {
     path: 'my-discountcoupon',
     component: DiscountCouponComponent 
+
+  },
+  {
+    path: 'support',
+    component: SupportComponent 
 
   },
   {
