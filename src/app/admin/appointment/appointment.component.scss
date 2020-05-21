@@ -134,7 +134,6 @@
             padding: 5px;
         }
     }
-    
 }
 
 // <!----- new-appointment-dialog---->
@@ -244,6 +243,7 @@
         color: #1172f4;
     }
 }
-::ng-deep .mat-form-field-underline {
-    display: none;
-  }
+
+// ::ng-deep .mat-form-field-underline {
+//     display: none;
+//   }

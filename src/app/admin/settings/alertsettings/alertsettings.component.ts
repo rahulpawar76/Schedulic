@@ -1302,7 +1302,6 @@ fnAppointmentsReminderSMS(event){
     })
   }
   fnSaveSmsTemp(tempId){
-    alert(tempId);
     if(tempId == this.cusSmsTemData[0].id){
       let requestObject = {
         "template_id" : tempId,
