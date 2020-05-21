@@ -20,8 +20,8 @@
                         </mat-form-field>
                         <span class="error-wrap" *ngIf="StaffCreate.get('firstname').touched || StaffCreate.get('firstname').dirty || formSubmitclicked">
                 <small *ngIf="StaffCreate.get('firstname').hasError('required')" class="error">First Name Is required</small>
-                <small *ngIf="StaffCreate.get('firstname').hasError('minlength') || StaffCreate.get('firstname').hasError('maxlength')"class="error">Name must be at least 3 character</small>
-                <small *ngIf="StaffCreate.get('firstname').hasError('minlength') || StaffCreate.get('firstname').hasError('maxlength')"class="error">Name must be at least 11 character.</small>
+                <small *ngIf="StaffCreate.get('firstname').hasError('minlength')"class="error">Name must be at least 3 character</small>
+                <small *ngIf="StaffCreate.get('firstname').hasError('maxlength') "class="error">Name must be at least 11 character.</small>
             </span>
 
                         <mat-form-field class="bottom-border-field">
@@ -37,7 +37,7 @@
                         <mat-form-field class="bottom-border-field">
                             <mat-label>Mobile</mat-label>
                             <mat-icon class="mr-4" matPrefix>call</mat-icon>
-                            <input formControlName="phone" matInput placeholder="Enter Your number">
+                            <input formControlName="phone" matInput placeholder="Enter Your number" (keypress)="numberOnly($event)">
                         </mat-form-field>
                         <span class="error-wrap" *ngIf="StaffCreate.get('phone').touched || StaffCreate.get('phone').dirty || formSubmitclicked">
               <small *ngIf="StaffCreate.get('phone').hasError('required')" class="error">Mobile Number Is
@@ -55,7 +55,7 @@
                         <span class="error-wrap" *ngIf="StaffCreate.get('email').touched || StaffCreate.get('email').dirty || formSubmitclicked">
               <small *ngIf="StaffCreate.get('email').hasError('required')" class="error">Email Is required</small>
               <small *ngIf="StaffCreate.get('email').hasError('pattern')" class="error">Email Address Is invalid</small>
-              <small *ngIf="StaffCreate.get('email').hasError('isEmailUnique')" class="error">Email Address Is already used</small>
+              <small *ngIf="StaffCreate.get('email').hasError('isEmailUnique') || StaffCreate.get('email').hasError('isEmailUniqueForEdit')" class="error">Email Address is already registered</small>
             </span>
                         <mat-form-field class="bottom-border-field">
                             <mat-label>Address</mat-label>
@@ -64,11 +64,15 @@
                         <span class="error-wrap" *ngIf="StaffCreate.get('address').touched || StaffCreate.get('address').dirty || formSubmitclicked">
               <small *ngIf="StaffCreate.get('address').hasError('required')" class="error">Address Is required</small>
               <small *ngIf="StaffCreate.get('address').hasError('minlength')" class="error">Address must be at least 3 character.</small>
+              <small *ngIf="StaffCreate.get('address').hasError('maxlength')" class="error">Address can not be greater than 255 character.</small>
             </span>
                         <mat-form-field class="bottom-border-field">
                             <mat-label>Description</mat-label>
                             <textarea formControlName="description" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="7"></textarea>
                         </mat-form-field>
+                        <span class="error-wrap" *ngIf="StaffCreate.get('description').touched || StaffCreate.get('description').dirty || formSubmitclicked">
+                        <small *ngIf="StaffCreate.get('description').hasError('maxlength')" class="error">Description can not be greater than 255 character.</small>
+                        </span>
                         <!-- <span class="error-wrap"
               *ngIf="StaffCreate.get('description').touched || StaffCreate.get('description').dirty || formSubmitclicked">
               <small *ngIf="StaffCreate.get('description').hasError('required')" class="error">Description Is required</small>
@@ -220,7 +224,7 @@
                                             <img src="{{allStaffList.image}}">
                                         </div>
                                         <div class="staff-data">
-                                            <h5>{{allStaffList.firstname}} {{allStaffList.lastname}}</h5>
+                                            <h5 class="ellipsis">{{allStaffList.firstname}} {{allStaffList.lastname}}</h5>
                                             <div class="d-flex statick-rating w-100">
                                                 <div class="star-rating" *ngIf="allStaffList.avg_ratings.length == 0">
                                                     <input type="radio" id="5-stars_{{allStaffList.id}}" name="rating_2" value="5" />
@@ -432,7 +436,7 @@
                                 <div class="content" class="example-list">
                                     <div *ngFor="let staffService of singleStaffDetail.services; let i=index" class="example-box">
                                         <div class="custom_check_main" fxFlex="10">
-                                            <mat-checkbox [checked]="selectedServiceNewStaff.indexOf(staffService.id) > -1" (change)="fnAssignServiceToStaff($event.checked, staffService.id)" class="form_field_checkbox" [checked]="selectedServicesArr.indexOf(staffService.id) >-1">
+                                            <mat-checkbox (change)="fnAssignServiceToStaff($event.checked, staffService.id)" class="form_field_checkbox" [checked]="selectedServiceNewStaff.indexOf(staffService.id) >-1">
                                             </mat-checkbox>
                                         </div>
                                         <div class="" fxFlex="40">

@@ -99,7 +99,7 @@
                   <p class="mb-0 x-small"><i class="fa fa-user-o pr-2"></i>{{notifications.customer.fullname}}
                 </div>
                 <div class="col-6 ">
-                  <p class="mb-0 x-small"><i class="fa fa-briefcase pr-2"></i>{{notifications.staff.firstname}} {{notifications.staff.lastname}}</p>
+                  <p class="mb-0 x-small"><i class="fa fa-briefcase pr-2"></i>{{notifications.staff?notifications.staff.firstname:''}} {{notifications.staff?notifications.staff.lastname:''}}</p>
                   <p class="mb-0 x-small"><i class="material-icons pr-2">calendar_today</i>{{notifications.booking_date}}</p>
                   <p class="mb-0 x-small"><i class="material-icons pr-2">access_alarm</i>{{notifications.booking_time}}
                   </p>

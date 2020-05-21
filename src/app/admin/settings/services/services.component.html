@@ -196,6 +196,7 @@
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createSubCategory.get('subcategory_name').touched || createSubCategory.get('subcategory_name').dirty">
                                     <small *ngIf="createSubCategory.get('subcategory_name').hasError('required')" class="error">Sub Category Name Is required</small>
+                                    <small *ngIf="createSubCategory.get('subcategory_name').hasError('maxlength')" class="error">Sub Category length can not be graeter than 255 characters</small>
                                 </span>
                                     </div>
                                     <div class="mt-2 text-center">
@@ -204,6 +205,7 @@
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createSubCategory.get('subcategory_description').touched || createSubCategory.get('subcategory_description').dirty">
                                     <small *ngIf="createSubCategory.get('subcategory_description').hasError('required')" class="error">Sub Category Description Is required</small>
+                                    <small *ngIf="createSubCategory.get('subcategory_description').hasError('maxlength')" class="error">Description length can not be graeter than 255 characters</small>
                                 </span>
                                     </div>
                                 </div>
@@ -482,6 +484,7 @@
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_name').touched || createService.get('service_name').dirty">
                                         <small *ngIf="createService.get('service_name').hasError('required')" class="error">Service Name Is required</small>
+                                        <small *ngIf="createService.get('service_name').hasError('maxlength')" class="error">Service Name length cannot be greater than 255 characters</small>
                                     </span>
                                     </div>
                                     <div class="mt-2 text-center">
@@ -490,6 +493,7 @@
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_description').touched || createService.get('service_description').dirty">
                                         <small *ngIf="createService.get('service_description').hasError('required')" class="error">Service Description Is required</small>
+                                        <small *ngIf="createService.get('service_description').hasError('maxlength')" class="error">Description length cannot be greater than 255 characters</small>
                                     </span>
                                     </div>
                                     <div class="mt-2 text-center">

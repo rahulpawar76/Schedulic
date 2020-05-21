@@ -27,12 +27,12 @@
           <small *ngIf="formAddNewAppointmentStaffStep1.get('customerEmail').hasError('required')" class="error">Email Is required</small><small *ngIf="formAddNewAppointmentStaffStep1.get('customerEmail').hasError('email') || formAddNewAppointmentStaffStep1.get('customerEmail').hasError('pattern')" class="error">Enter a valid email</small><small *ngIf="formAddNewAppointmentStaffStep1.get('customerEmail').hasError('isEmailUnique')" class="error">Email already in use</small>
         </span>
 
-                <mat-form-field class="form-group  bottom-border-field">
-                    <mat-label>Customer Contact Number</mat-label>
-                    <mat-icon matPrefix><i class="fa fa-phone"></i></mat-icon>
-                    <input matInput formControlName="customerPhone" placeholder="Enter Customer Contact Number">
-                </mat-form-field>
-                <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').dirty || formAddNewAppointmentStaffStep1.get('customerPhone').touched || formSubmitclicked">
+        <mat-form-field class="form-group  bottom-border-field">
+          <mat-label>Customer Contact Number</mat-label>
+          <mat-icon matPrefix><i class="fa fa-phone"></i></mat-icon>
+          <input type="text" matInput formControlName="customerPhone" placeholder="Enter Customer Contact Number" (keypress)="numberOnly($event)">
+        </mat-form-field>
+        <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').dirty || formAddNewAppointmentStaffStep1.get('customerPhone').touched || formSubmitclicked">
           <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('required')" class="error">Phone Is required</small>
           <small *ngIf=" formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern')" class="error">Enter a valid Phone</small>
           <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerPhone').hasError('maxlength')" class="error">Phone number should be 10 to 15 digits long</small>

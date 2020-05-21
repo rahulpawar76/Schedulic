@@ -124,8 +124,8 @@ export class ServicesComponent implements OnInit {
         this.fnstaffList();
 
         this.createSubCategory = this._formBuilder.group({
-            subcategory_name: ['', Validators.required],
-            subcategory_description: ['',Validators.required],
+            subcategory_name: ['',  [Validators.required,Validators.maxLength(255)]],
+            subcategory_description: ['', [Validators.required,Validators.maxLength(255)]],
             subcategory_id: [''],
         });
         this.createCategory = this._formBuilder.group({
@@ -134,8 +134,8 @@ export class ServicesComponent implements OnInit {
             category_id: [''],
         });
         this.createService = this._formBuilder.group({
-            service_name: ['', Validators.required],
-            service_description: ['', Validators.required],
+            service_name: ['', [Validators.required,Validators.maxLength(255)]],
+            service_description: ['',  [Validators.required,Validators.maxLength(255)]],
             service_cost: ['', [Validators.required, Validators.pattern(this.onlynumeric)]],
             service_duration: ['', [Validators.required, Validators.pattern(this.onlynumeric)]],
             service_unit: ['', [Validators.required, Validators.pattern(this.onlynumeric)]],
@@ -201,7 +201,7 @@ export class ServicesComponent implements OnInit {
                 this.isLoaderAdmin = false;
             }
             else if (response.data == false) {
-                this.allServicesList = '';
+                this.allServicesList = [];
                 this.isLoaderAdmin = false;
             }
         })
@@ -216,7 +216,7 @@ export class ServicesComponent implements OnInit {
                 this.isLoaderAdmin = false;
             }
             else if (response.data == false) {
-                this.allCetegoryList = '';
+                this.allCetegoryList = [];
                 this.isLoaderAdmin = false;
             }
         })
@@ -230,7 +230,7 @@ export class ServicesComponent implements OnInit {
                 // this.isLoaderAdmin = false;
             }
             else {
-                // this.staffList = '';
+                 this.staffList = [];
                 // this.isLoaderAdmin = false;
             }
         })
@@ -279,6 +279,7 @@ export class ServicesComponent implements OnInit {
                 this.isLoaderAdmin = false;
             }
             else if (response.data == false) {
+                this.categoryServicesList = [];
                 if (response.response == 'service not found') {
                     this.servicesList = false;
                     this.selectedCategoryDetails = this.allCetegoryList[index]
@@ -696,7 +697,7 @@ export class ServicesComponent implements OnInit {
                 this.isLoaderAdmin = false;
             }
             else if (response.data == false) {
-                this.categoryServicesList = '';
+                this.categoryServicesList = [];
                 this.isLoaderAdmin = false;
             }
         })
@@ -782,6 +783,12 @@ export class ServicesComponent implements OnInit {
                    
                 }
                 this.updateService(this.updateServiceData);
+            }else{
+                this.createService.get('service_name').markAsTouched();
+                this.createService.get('service_description').markAsTouched();
+                this.createService.get('service_cost').markAsTouched();
+                this.createService.get('service_duration').markAsTouched();
+                this.createService.get('service_unit').markAsTouched();
             }
 
         }
@@ -818,6 +825,12 @@ export class ServicesComponent implements OnInit {
                     }
                 }
                 this.createNewService(this.newServiceData);
+            }else{
+                this.createService.get('service_name').markAsTouched();
+                this.createService.get('service_description').markAsTouched();
+                this.createService.get('service_cost').markAsTouched();
+                this.createService.get('service_duration').markAsTouched();
+                this.createService.get('service_unit').markAsTouched();
             }
         }
     }

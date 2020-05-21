@@ -16,6 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '@environments/environment';
 import { MdePopoverTrigger } from '@material-extended/mde';
 import { AuthService, FacebookLoginProvider,GoogleLoginProvider, SocialUser } from 'angularx-social-login';
+import { first } from 'rxjs/operators';
 
 
 import {
@@ -60,7 +61,9 @@ export class AppComponent implements AfterViewInit {
   isLoaderAdmin: boolean = false;
   user: SocialUser;
   loggedIn: boolean;
-
+  isAllowed:boolean=true;
+  isSignOut:boolean=true;
+  activeSettingMenu:any;
   @ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
 
   closePopover() {
@@ -89,7 +92,7 @@ export class AppComponent implements AfterViewInit {
   timer: any = 0;
   settingsArr: any;
   appearenceColor: any=[];
-
+  loginForm: FormGroup;
   constructor(
     private http: HttpClient,
     public router: Router,
@@ -185,7 +188,8 @@ export class AppComponent implements AfterViewInit {
   }
 
   fnPostUrl(menuItem) {
-    this.postUrl = menuItem
+    console.log(menuItem);
+    this.postUrl = menuItem;
   }
 
 
@@ -306,42 +310,53 @@ export class AppComponent implements AfterViewInit {
   }
   // Setting Menus
   MySettingsNav() {
+    this.activeSettingMenu="services";
     this.router.navigate(['/admin/settings']);
   }
   MySettingsStaffNav() {
+    this.activeSettingMenu="staff";
     this.router.navigate(['/admin/settings/staff']);
   }
   MySettingsServicesNav() {
+    this.activeSettingMenu="services";
     this.router.navigate(['/admin/settings/services']);
   }
   MySettingsBusinessHoursNav() {
+    this.activeSettingMenu="bussiness-hours";
     this.router.navigate(['/admin/settings/business-hours']);
   }
   MySettingsProfileNav() {
+    this.activeSettingMenu="services";
     this.router.navigate(['/admin/settings/setting-my-profile']);
   }
   MySettingsCompanyDetailsNav() {
+    this.activeSettingMenu="company-details";
     this.router.navigate(['/admin/settings/company-details']);
   }
   MySettingsPaymentGatewayNav() {
+    this.activeSettingMenu="payment-gateway";
     this.router.navigate(['/admin/settings/payment-gateway']);
   }
   MySettingsPaymentRulesNav() {
+    this.activeSettingMenu="payment-rules";
     this.router.navigate(['/admin/settings/payment-rules']);
   }
   MySettingsBookingRulesNav() {
+    this.activeSettingMenu="booking-rules";
     this.router.navigate(['/admin/settings/booking-rules']);
   }
   MySettingAlertsNav() {
+    this.activeSettingMenu="alert-rules";
     this.router.navigate(['/admin/settings/alert-settings']);
   }
   MySettingsApperenceNav() {
+    this.activeSettingMenu="appearance";
     this.router.navigate(['/admin/settings/appearance']);
   }
   MySettingsPostalCodesNav() {
+    this.activeSettingMenu="postal-code";
     this.router.navigate(['/admin/settings/postalcode']);
   }
-
 
 
   /*StaffDashboard Navigation*/
@@ -363,12 +378,97 @@ export class AppComponent implements AfterViewInit {
   }
 
   logout() {
+    // this.authService.signOut();
     this.authenticationService.logout();
     if (this.timer) {
       clearTimeout(this.timer);
       this.timer = 0;
     }
     this.router.navigate(['/login']);
+  }
+
+  logout2(callGoogleSignOut) {
+    this.isSignOut=false;
+    if(callGoogleSignOut && this.authenticationService.currentUserValue && (this.authenticationService.currentUserValue.google_id || this.authenticationService.currentUserValue.facebook_id)){
+      this.authService.signOut();
+    }
+    setTimeout(() => {
+      this.fnTemp();
+    },3000)
+  }
+
+  fnTemp(){
+    this.authenticationService.logout();
+    if (this.timer) {
+      clearTimeout(this.timer);
+      this.timer = 0;
+    }
+    this.isAllowed=true;
+    this.router.navigate(['/login']);
+  }
+
+  fnCheckLoginStatus(){
+    // alert(JSON.stringify(this.authenticationService.currentUserValue)); 
+    if(this.authenticationService.currentUserValue.google_id){
+        this.authService.authState.subscribe((user) => {
+            this.user = user;
+            this.loggedIn = (user != null);
+            // alert(JSON.stringify(this.authenticationService.currentUserValue));
+            if(this.authenticationService.currentUserValue){
+              if(this.user && this.user.provider == "GOOGLE" && this.user.id == this.authenticationService.currentUserValue.google_id){
+                  console.log(this.user);
+                  console.log(this.loggedIn);
+                  if(this.authenticationService.currentUserValue.user_type == Role.Admin){
+                      this.router.navigate(["admin"]);
+                  }else if(this.authenticationService.currentUserValue.user_type == Role.Staff){
+                      this.router.navigate(["staff"]);
+                  }else if(Role.Customer){
+                      this.router.navigate(["user"]);
+                  }
+              }else{
+                  console.log(this.user);
+                  console.log(this.loggedIn);
+                  if(this.isSignOut){
+                    this.logout2(false);
+                  }
+                  return false;
+              }
+            }
+        });
+    }
+    if(this.authenticationService.currentUserValue.facebook_id){
+        this.authService.authState.subscribe((user) => {
+            this.user = user;
+            this.loggedIn = (user != null);
+            if(this.user && this.user.provider == "FACEBOOK" && this.user.id == this.authenticationService.currentUserValue.facebook_id){
+                console.log(this.user);
+                console.log(this.loggedIn);
+                if(this.authenticationService.currentUserValue.user_type == Role.Admin){
+                    this.router.navigate(["admin"]);
+                }else if(this.authenticationService.currentUserValue.user_type == Role.Staff){
+                    this.router.navigate(["staff"]);
+                }else if(Role.Customer){
+                    this.router.navigate(["user"]);
+                }
+            }else{
+                console.log(this.user);
+                console.log(this.loggedIn);
+                if(this.isSignOut){
+                  this.logout2(false);
+                }
+                return false;
+            }
+        });
+    }
+    if(!this.authenticationService.currentUserValue.google_id && !this.authenticationService.currentUserValue.facebook_id){
+      if(this.authenticationService.currentUserValue.user_type == Role.Admin){
+          this.router.navigate(["admin"]);
+      }else if(this.authenticationService.currentUserValue.user_type == Role.Staff){
+          this.router.navigate(["staff"]);
+      }else if(Role.Customer){
+          this.router.navigate(["user"]);
+      }
+    }
   }
 
   initiateTimeout() {
@@ -389,16 +489,123 @@ export class AppComponent implements AfterViewInit {
     this.router.navigate(['/user']);
   }
 
+  signInWithGoogle(loginForm): void {
+    this.loginForm=loginForm;
+    console.log(this.loginForm);
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
 
+  fnCheckAuthState(){
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = (user != null);
+      if(this.user){
+        console.log(this.user);
+        console.log(this.loggedIn);
+        if(this.isAllowed){
+          this.fnLoginWithGoogleFacebook(this.user);
+        }
+      }else{
+        console.log(this.user);
+        console.log(this.loggedIn);
+      }
+    });
+  }
 
+  fnLoginWithGoogleFacebook(user){
+    this.isAllowed=false;
+    this.authenticationService.loginWithGoogleFacebook(user.id,user.email,user.provider).pipe(first()).subscribe(data => {
+      if(data.idExists == true){
+        if(data.userData.user_type == "A"){
+          this.router.navigate(["admin"]);
+        }else if(data.userData.user_type == "SM"){
+          this.router.navigate(["staff"]);
+        }else{
+          this.router.navigate(["user"]);
+        }
+
+        this.initiateTimeout();
+      
+      }else if(data.idExists == false && data.emailExists == true){
+        this.signOut();
+        this.isAllowed=true;
+        this._snackBar.open("It seems that you already have account with GoAppointment", "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass: ['red-snackbar']
+        });
+        //this.error = "It seems that you already have account with GoAppointment";
+        this.loginForm.controls['email'].setValue(data.userData.email);
+        //this.dataLoaded = true;
+      }else if(data.idExists == false && data.emailExists == false){
+        console.log(user);
+        this.fnSignup(user);
+      }
+    },
+    error => {
+      this._snackBar.open("Database Connection Error", "X", {
+        duration: 2000,
+        verticalPosition: 'bottom',
+        panelClass: ['red-snackbar']
+      }); 
+      // this.error = "Database Connection Error"; 
+      // this.dataLoaded = true;  
+    });
+  }
+
+  fnSignup(user_data){
+    let signUpUserObj={
+      "password":"",
+      "firstname":user_data.firstName,
+      "lastname":user_data.lastName,
+      "phone":"",
+      "email":user_data.email,
+      "address":"",
+      "zip":"",
+      "state":"",
+      "city":"",
+      "country":"",
+      "google_id":user_data.provider=="GOOGLE"?user_data.id:null,
+      "facebook_id":user_data.provider=="FACEBOOK"?user_data.id:null
+    }
+    console.log(signUpUserObj);
+    // .subscribe((response: any) => 
+    this.authenticationService.signup(signUpUserObj).pipe(first()).subscribe(data => {
+      if(data.data == true){
+        this.fnLoginWithGoogleFacebook(user_data);
+      }else{
+        this._snackBar.open("Unable to signin with "+user_data.provider, "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass: ['red-snackbar']
+        });
+          // this.error = "Unable to signin with "+user_data.provider; 
+          // this.dataLoaded = true;
+      }
+    },
+    error => { 
+      this._snackBar.open("Database Connection Error", "X", {
+        duration: 2000,
+        verticalPosition: 'bottom',
+        panelClass: ['red-snackbar']
+      });
+      // this.error = "Database Connection Error"; 
+      // this.dataLoaded = true;  
+    });
+  }
+
+  signOut(): void {
+    this.authService.signOut();
+  }
   /*For notification Dialog*/
-
 
   openNotificationDialog() {
     this.isLoaderAdmin = true;
     let headers;
+    let userId;
     if (this.currentUser.user_type == "A") {
       this.userType = "admin";
+      userId = this.businessId;
       headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'admin-id': JSON.stringify(this.currentUser.user_id),
@@ -406,6 +613,7 @@ export class AppComponent implements AfterViewInit {
       });
     } else if (this.currentUser.user_type == "SM") {
       this.userType = "staff";
+      userId = JSON.stringify(this.currentUser.user_id);
       headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'staff-id': JSON.stringify(this.currentUser.user_id),
@@ -413,6 +621,7 @@ export class AppComponent implements AfterViewInit {
       });
     } else if (this.currentUser.user_type == "C") {
       this.userType = "customer";
+      userId = JSON.stringify(this.currentUser.user_id);
       headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'customer-id': JSON.stringify(this.currentUser.user_id),
@@ -420,7 +629,7 @@ export class AppComponent implements AfterViewInit {
       });
     }
     let requestObject = {
-      "user_id": JSON.stringify(this.currentUser.user_id),
+      "user_id": userId,
       "user_type": this.userType
     };
     this.CommonService.openNotificationDialog(requestObject, headers).subscribe((response: any) => {
@@ -569,7 +778,7 @@ export class DialogNotification {
       this.businessId = localStorage.getItem('business_id');
     }
     this.notifications = this.data.fulldata
-    this.notifications = this.notifications.sort(this.dynamicSort("booking_date"))
+    // this.notifications = this.notifications.sort(this.dynamicSort("booking_date"))
     this.notifications.forEach((element) => {
       var todayDateTime = new Date();
       //element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
@@ -620,7 +829,6 @@ export class DialogNotification {
   }
  
    notificationAppointment(index) {
-     alert()
     const dialogRef = this.dialog.open(DialogNotificationAppointment, {
       width: '500px',
       data : { fulldata : this.notifications[index] }
@@ -702,6 +910,7 @@ export class DialogLogoutAppointment {
     public dialogRef: MatDialogRef<DialogLogoutAppointment>,
     public router: Router,
     private authenticationService: AuthenticationService,
+    private authService: AuthService,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   onNoClick(): void {
@@ -709,6 +918,14 @@ export class DialogLogoutAppointment {
   }
 
   logout() {
+    //this.authService.signOut();
+    this.dialogRef.close();
+    setTimeout(() => {
+      this.fnTemp();
+    },3000)
+  }
+
+  fnTemp(){
     this.authenticationService.logout();
     if (this.timer) {
       clearTimeout(this.timer);
@@ -716,8 +933,9 @@ export class DialogLogoutAppointment {
     }
     this.router.navigate(['/login']);
 
-    this.dialogRef.close();
+    
   }
+
   closePopup() {
     this.dialogRef.close();
   }

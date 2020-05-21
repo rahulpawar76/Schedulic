@@ -51,7 +51,8 @@ export class MyWorkSpaceComponent implements OnInit {
     timeToService: "",
     categoryName: "",
     initials: "",
-    service_name: ""
+    service_name: "",
+    bookingNotes: ""
   };
   categories:any=[];
   businessId:any;
@@ -71,6 +72,9 @@ export class MyWorkSpaceComponent implements OnInit {
   currencySymbol:any;
   currencySymbolPosition:any;
   currencySymbolFormat:any;
+  
+  activityLog:any=[];
+  startWorkSpacePage : boolean = true;
   constructor(
     public dialog: MatDialog,
     private http: HttpClient,
@@ -82,7 +86,7 @@ export class MyWorkSpaceComponent implements OnInit {
     private datePipe: DatePipe) {
     //this.appComponent.settingsModule(this.adminSettings);
     localStorage.setItem('isBusiness', 'false');
-    this.businessId=this.authenticationService.currentUserValue.business_id
+    this.businessId=localStorage.getItem('business_id');
    }
 
   ngOnInit() {
@@ -132,13 +136,43 @@ export class MyWorkSpaceComponent implements OnInit {
     })
   }
 
-  fnOpenNote(event){
-    if(event == true){
+  fnOpenNote(){
+    if(this.formSettingPage == false){
       this.formSettingPage = true;
-    }else if(event == false){
+    }else{
       this.formSettingPage = false;
     }
 
+  }
+
+  fnSaveBookingNotes(orderItemId){
+    console.log(this.appointmentDetails.bookingNotes);
+    if(this.appointmentDetails.bookingNotes == undefined || this.appointmentDetails.bookingNotes == ""){
+      return false;
+    }
+    let requestObject = {
+      "order_item_id":orderItemId,
+      "booking_notes":this.appointmentDetails.bookingNotes
+    };
+    this.adminService.saveBookingNotes(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open("Booking Notes Updated", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.appointmentDetails.bookingNotes="";
+        this.formSettingPage = false;
+        this.fnGetAllAppointmentsByCategoryAndStatus();
+      }
+      else if(response.data == false){
+        this._snackBar.open("Booking Notes not Updated", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+      }
+    })
   }
 
   dynamicSort(property) {
@@ -216,6 +250,9 @@ export class MyWorkSpaceComponent implements OnInit {
         this.appointmentDetails.customerPhone=this.appointments[0].customer.phone;
         this.appointmentDetails.customerAddress=this.appointments[0].customer.address+" "+this.appointments[0].customer.city+" "+this.appointments[0].customer.state+" "+this.appointments[0].customer.zip;
         this.appointmentDetails.postalCode=this.appointments[0].postal_code;
+        this.formSettingPage = false;
+        this.appointmentDetails.bookingNotes=this.appointments[0].booking_notes;
+        this.fnGetActivityLog(this.appointmentDetails.id);
         if(this.appointmentDetails.order_status == "CNF" && this.appointments[0].staff_id == null){
           this.selectedStaff=null;
           this.availableStaff.length=0;
@@ -262,12 +299,30 @@ export class MyWorkSpaceComponent implements OnInit {
         this.appointmentDetails.customerPhone=this.appointments[i].customer.phone;
         this.appointmentDetails.customerAddress=this.appointments[i].customer.address+" "+this.appointments[i].customer.city+" "+this.appointments[i].customer.state+" "+this.appointments[i].customer.zip;
         this.appointmentDetails.postalCode=this.appointments[i].customer.zip;
+        this.formSettingPage = false;
+        this.appointmentDetails.bookingNotes=this.appointments[i].booking_notes;
+        this.fnGetActivityLog(this.appointmentDetails.id);
         if(this.appointmentDetails.order_status == "CNF" && this.appointments[i].staff_id == null){
         this.selectedStaff=null;
         this.availableStaff.length=0;
           this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId,this.appointmentDetails.postalCode);
         }
         
+  }
+
+  fnGetActivityLog(orderItemId){
+    let requestObject = {
+      "order_item_id":orderItemId
+    };
+    this.adminService.getActivityLog(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        console.log(response.response);
+        this.activityLog=response.response;
+      }
+      else if(response.data == false){
+        this.activityLog=[];
+      }
+    })
   }
 
   fnGetStaff(booking_date,booking_time,serviceId,postal_code){
@@ -341,6 +396,10 @@ export class MyWorkSpaceComponent implements OnInit {
       if(response.data == true){
         this.categories=response.response;
         this.fnGetAllAppointmentsByCategoryAndStatus();
+        this.startWorkSpacePage = false;
+      }
+      else {
+        this.startWorkSpacePage = true;
       }
     },
       (err) => {
@@ -370,12 +429,14 @@ export class MyWorkSpaceComponent implements OnInit {
   fnOnClickCategory(categoryId,categoryName){
     this.selectedCategoryId=categoryId;
     this.selectedCategoryName=categoryName;
+    this.formSettingPage = false;
     this.fnGetTodayRevenue();
     this.fnGetAllAppointmentsByCategoryAndStatus();
   }
 
   fnOnClickStatus(event){
     this.selectedStatus=event.value;
+    this.formSettingPage = false;
     this.fnGetAllAppointmentsByCategoryAndStatus();
   }
   
@@ -564,7 +625,7 @@ export class MyWorkSpaceComponent implements OnInit {
     selectedDate:any;
     selectedTimeSlot:any;
     selectedStaff:any;
-    minDate = new Date(2000, 0, 1);
+    minDate = new Date();
     timeSlotArr:any= [];
     availableStaff:any= [];
     constructor(

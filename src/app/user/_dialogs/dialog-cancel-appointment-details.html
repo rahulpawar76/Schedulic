@@ -23,7 +23,6 @@
                     <p class="font-weight-bold">{{myAppoDetailData.booking_timeForLabel}} - {{myAppoDetailData.booking_time_to}} ({{myAppoDetailData.service.service_time}})</p>
 
                     <div class="d-flex">
-
                         <div class="pl-0">
                             <p class="mb-0">Order By</p>
                             <p class="font-weight-bold text-capitalize">{{myAppoDetailData.order_by}}</p>
@@ -51,13 +50,16 @@
                             <p class="font-weight-bold mb-0">{{myAppoDetailData.customer.fullname}}</p>
                             <p class="address-fontsize mb-0">{{myAppoDetailData.customer.email}}</p>
                         </div>
-
                     </div>
                     <p class=" address-fontsize"><i class="fa fa-phone pr-3 bluephone"></i>{{myAppoDetailData.customer.phone}}</p>
                     <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i>{{myAppoDetailData.customer.address}}</p>
                     <p class="pl-4 address-fontsize">{{myAppoDetailData.customer.city}}, {{myAppoDetailData.customer.state}}, {{myAppoDetailData.customer.zip}}</p>
                 </mat-card>
-
+                <div  class="pl-4 pt-2 bottom-border">
+                    <h6>Activity Log</h6>
+                    <div *ngFor="let log of activityLog">{{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - {{log.status=='P'?'Pending':''}}{{log.status=='CNF'?'Confirm':''}}{{log.status=='AC'?'Accepted':''}}{{log.status=='OW'?'On The Way':''}}{{log.status=='WS'?'Work Started':''}}{{log.status=='RSA'?'Rescheduled By Admin':''}}{{log.status=='RSS'?'Rescheduled By Staff':''}}{{log.status=='RSC'?'Rescheduled By Client':''}}{{log.status=='ITR'?'Intrupted':''}}{{log.status=='C'?'Cancelled':''}}{{log.status=='CC'?'Cancelled By Client':''}}{{log.status=='R'?'Rejected':''}}{{log.status=='CO'?'Completed':''}}
+                    </div>
+                </div>
             </div>
         </div>
     </mat-sidenav>

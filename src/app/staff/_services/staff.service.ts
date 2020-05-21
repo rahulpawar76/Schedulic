@@ -143,7 +143,7 @@ export class StaffService {
     let headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'staff-id' : this.staffId,
-        'api-token' : this.staffToken 
+        'api-token' : this.staffToken
     });
     return this.http.post(`${environment.apiUrl}/staff-new-bookings`,requestObject,{headers:headers}).pipe(
     map((res) => {
@@ -160,8 +160,8 @@ export class StaffService {
     };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'staff-id' : this.staffId,
-      'api-token' : this.staffToken 
+        'staff-id' : this.staffId,
+        'api-token' : this.staffToken
     });
     return this.http.post(`${environment.apiUrl}/staff-booking`,requestObject,{headers:headers}).pipe(
     map((res) => {
@@ -177,7 +177,7 @@ export class StaffService {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'staff-id' : this.staffId,
-      'api-token' : this.staffToken 
+      'api-token' : this.staffToken
       
     });
     return this.http.post(`${environment.apiUrl}/staff-ongoing-bookings`,requestObject,{headers:headers}).pipe(
@@ -196,7 +196,7 @@ export class StaffService {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'staff-id' : this.staffId,
-      'api-token' : this.staffToken 
+      'api-token' : this.staffToken
       
     });
     return this.http.post(`${environment.apiUrl}/staff-update-bookings`,requestObject,{headers:headers}).pipe(
@@ -274,12 +274,27 @@ export class StaffService {
           'staff-id' : this.staffId,
           'api-token' : this.staffToken 
       });
+      console.log(this.staffId+" "+this.staffToken);
       return this.http.post(`${environment.apiUrl}/get-setting-value`, requestObject, { headers: headers }).pipe(
           map((res) => {
               return res;
           }),
           catchError(this.handleError));
   }
+
+  getActivityLog(requestObject){
+      let headers = new HttpHeaders({
+          'staff-id' : this.staffId,
+          'api-token' : this.staffToken,
+          'Content-Type': 'application/json'
+      });
+      return this.http.post(`${environment.apiUrl}/logs-list`,requestObject,{headers:headers}).pipe(
+      map((res) => {
+          return res;
+      }),
+      catchError(this.handleError));
+    }
+
   staffPayment(requestObject) {
       let headers = new HttpHeaders({
           'Content-Type': 'application/json',

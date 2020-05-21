@@ -565,7 +565,11 @@ export class StaffAppointmentComponent implements OnInit {
           }
         }
         for(var i=0; i<this.workingHoursOffDaysList.length; i++){
+          if(this.offDaysList.length>0){
             temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
+          }else{
+            temp=(d.getDay() !== this.workingHoursOffDaysList[i]);
+          }
         }
         //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
         return temp;
@@ -670,6 +674,15 @@ export class StaffAppointmentComponent implements OnInit {
     (err) =>{
       console.log(err)
     })
+  }
+
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
   }
 
     onNoClick(): void {
@@ -1718,6 +1731,7 @@ export class StaffAppointmentComponent implements OnInit {
     currencySymbol:any;
     currencySymbolPosition:any;
     currencySymbolFormat:any;
+    activityLog:any=[];
     constructor(
       public dialogRef: MatDialogRef<DialogStaffMyAppointmentDetails>,
       private StaffService: StaffService,
@@ -1725,12 +1739,28 @@ export class StaffAppointmentComponent implements OnInit {
       private authenticationService: AuthenticationService,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.detailData =  this.data.fulldata;
+        this.fnGetActivityLog(this.detailData.id);
         this.bussinessId=this.authenticationService.currentUserValue.business_id
         console.log(this.detailData);
         this.fnGetSettingValue();
       }
     onNoClick(): void {
       this.dialogRef.close();
+    }
+
+    fnGetActivityLog(orderItemId){
+      let requestObject = {
+        "order_item_id":orderItemId
+      };
+      this.StaffService.getActivityLog(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          console.log(response.response);
+          this.activityLog=response.response;
+        }
+        else if(response.data == false){
+          this.activityLog=[];
+        }
+      })
     }
     fnGetSettingValue(){
       let requestObject = {
@@ -1812,6 +1842,7 @@ export class StaffAppointmentComponent implements OnInit {
   currencySymbolFormat:any;
   booking_date_time:any;
   timeToServiceDecimal:any;
+  activityLog:any=[];
     constructor(
       public dialogRef: MatDialogRef<OnGoingAppointmentDetails>,
       public dialog: MatDialog,
@@ -1822,6 +1853,7 @@ export class StaffAppointmentComponent implements OnInit {
 
         this.appoDetail = this.data.fuldata;
         console.log(this.appoDetail);
+        this.fnGetActivityLog(this.appoDetail.id);
         this.bussinessId=this.authenticationService.currentUserValue.business_id
         this.fnGetSettingValue();
          var todayDateTime = new Date();
@@ -1843,6 +1875,21 @@ export class StaffAppointmentComponent implements OnInit {
 
     onNoClick(): void {
       this.dialogRef.close();
+    }
+
+    fnGetActivityLog(orderItemId){
+      let requestObject = {
+        "order_item_id":orderItemId
+      };
+      this.StaffService.getActivityLog(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          console.log(response.response);
+          this.activityLog=response.response;
+        }
+        else if(response.data == false){
+          this.activityLog=[];
+        }
+      })
     }
     fnGetSettingValue(){
       let requestObject = {
@@ -1928,6 +1975,7 @@ export class StaffAppointmentComponent implements OnInit {
     currencySymbol:any;
     currencySymbolPosition:any;
     currencySymbolFormat:any;
+    activityLog:any=[];
     constructor(
       private authenticationService:AuthenticationService,
       private StaffService:StaffService,
@@ -1935,6 +1983,7 @@ export class StaffAppointmentComponent implements OnInit {
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.detailData = this.data.fuldata;
         console.log(this.detailData);
+        this.fnGetActivityLog(this.detailData.id);
         this.bussinessId=this.authenticationService.currentUserValue.business_id
         this.fnGetSettingValue();
       }
@@ -1962,6 +2011,21 @@ export class StaffAppointmentComponent implements OnInit {
         }
         else if(response.data == false){
           
+        }
+      })
+    }
+
+    fnGetActivityLog(orderItemId){
+      let requestObject = {
+        "order_item_id":orderItemId
+      };
+      this.StaffService.getActivityLog(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          console.log(response.response);
+          this.activityLog=response.response;
+        }
+        else if(response.data == false){
+          this.activityLog=[];
         }
       })
     }
