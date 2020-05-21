@@ -71,6 +71,7 @@ export class MyWorkSpaceComponent implements OnInit {
   currencySymbol:any;
   currencySymbolPosition:any;
   currencySymbolFormat:any;
+  startWorkSpacePage : boolean = true;
   constructor(
     public dialog: MatDialog,
     private http: HttpClient,
@@ -82,7 +83,7 @@ export class MyWorkSpaceComponent implements OnInit {
     private datePipe: DatePipe) {
     //this.appComponent.settingsModule(this.adminSettings);
     localStorage.setItem('isBusiness', 'false');
-    this.businessId=this.authenticationService.currentUserValue.business_id
+    this.businessId=localStorage.getItem('business_id');
    }
 
   ngOnInit() {
@@ -341,6 +342,10 @@ export class MyWorkSpaceComponent implements OnInit {
       if(response.data == true){
         this.categories=response.response;
         this.fnGetAllAppointmentsByCategoryAndStatus();
+        this.startWorkSpacePage = false;
+      }
+      else {
+        this.startWorkSpacePage = true;
       }
     },
       (err) => {
