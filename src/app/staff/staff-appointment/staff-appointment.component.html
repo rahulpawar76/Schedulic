@@ -159,7 +159,7 @@
     <form class="form-inline" id="search_container_staffappo">
         <div class="search-input-container">
             <i class="fa fa-search before-search"></i>
-            <input name="searchKeyword" [(ngModel)]="search.keyword" (keyup)="staffSearchAppointment($event)" class="form-control searchbox_staffappo" type="text" placeholder="Search Appointment">
+            <input name="searchKeyword" [(ngModel)]="search.keyword" (keyup)="staffSearchAppointment()" class="form-control searchbox_staffappo" type="text" placeholder="Search Appointment">
         </div>
         <button type="button" class="btn btn-primary btnappoint_staffappo" (click)="AddAppointment()">Add Appointment</button>
 

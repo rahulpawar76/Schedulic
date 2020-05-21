@@ -190,28 +190,11 @@
                     <form class="search_input-staff">
                         <div class="form-group has-search">
                             <span class="fa fa-search form-control-feedback verticalLine"></span>
-                            <input type="text" class="form-control searchbox_staff " placeholder="Search by email or name">
+                            <input name="searchStaff" [(ngModel)]="search.staff" (keyup)="staffSearch()" type="text" class="form-control searchbox_staff " placeholder="Search by email or name">
                         </div>
                     </form>
                 </div>
             </div>
-
-            <!-- <table  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="">
-                <thead>
-                    <tr>
-                    <th>ID</th>
-                    <th>First name</th>
-                    <th>Last name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <td>zxcv</td>
-                    <td>sdfg</td>
-                    <td>sdfg</td>
-                    </tr>
-                </tbody>
-            </table> -->
 
             <div class="w-100" id="" *ngIf="allStaffList != ''">
                 <div class="postalcode-table">
@@ -287,11 +270,11 @@
                     <div class="table_pagination">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-end">
-                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                                <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
                             </ul>
                         </nav>
                     </div>
@@ -485,7 +468,7 @@
                         <form class="search_input-staff">
                             <div class="form-group has-search">
                                 <span class="fa fa-search form-control-feedback verticalLine"></span>
-                                <input type="text" class="form-control searchbox_staff " placeholder="Search postal code or area">
+                                <input name="searchPostalCode" [(ngModel)]="search.postalCode" (keyup)="postalCodeSearch()" type="text" class="form-control searchbox_staff " placeholder="Search postal code or area">
                             </div>
                         </form>
                     </div>

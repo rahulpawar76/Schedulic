@@ -40,6 +40,10 @@ export class StaffComponent implements OnInit {
   progress: any;
   singleStaffDataRating: any;
   singleStaffIndex: any;
+  search ={
+    postalCode :"",
+    staff : ""
+  }
 
   addStaffPageValid:FormGroup;
   selectedServicesArr: any = [];
@@ -1790,6 +1794,64 @@ export class StaffComponent implements OnInit {
         });
       }
     })
+  }
+
+  postalCodeSearch(){
+    this.isLoaderAdmin=true;
+    if(this.search.postalCode.length > 1){
+      let requestObject = {
+        "search":this.search.postalCode,
+        "business_id":this.businessId,
+      }
+      console.log(requestObject);
+      this.adminSettingsService.postalCodeSearch(requestObject).subscribe((response:any) =>{
+        if(response.data == true){
+          this.singleStaffDetail.postalCode = response.response;
+          this.isLoaderAdmin=false;
+        }
+        else if(response.data == false){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+          this.singleStaffDetail.postalCode = [];
+          this.isLoaderAdmin=false;
+        }
+      })
+    }else{
+      this.fnViewSingleStaff(this.selectedStaffId,this.singleStaffIndex);
+      this.isLoaderAdmin=false;
+    }
+  }
+
+  staffSearch(){
+    this.isLoaderAdmin=true;
+    if(this.search.staff.length > 1){
+      let requestObject = {
+        "search":this.search.staff,
+        "business_id":this.businessId,
+      }
+      console.log(requestObject);
+      this.adminSettingsService.staffSearch(requestObject).subscribe((response:any) =>{
+        if(response.data == true){
+          this.allStaffList = response.response;
+          this.isLoaderAdmin=false;
+        }
+        else if(response.data == false){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+          this.allStaffList = [];
+          this.isLoaderAdmin=false;
+        }
+      })
+    }else{
+      this.getAllStaff();
+      this.isLoaderAdmin=false;
+    }
   }
 
 }
