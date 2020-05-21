@@ -49,6 +49,7 @@ import { SharedModule } from '../shared.module';
 import { DialogCouponDetails } from './discount-coupon/discount-coupon.component';
 
 import { CustomerAppointmentDetailsDialog } from './customers/customers.component';
+import { SupportComponent } from './support/support.component';
 
 
 
@@ -83,7 +84,8 @@ import { CustomerAppointmentDetailsDialog } from './customers/customers.componen
     RescheduleAppointment,
     DialogAllAppointmentDetails,
     DialogCouponDetails,
-    CustomerAppointmentDetailsDialog
+    CustomerAppointmentDetailsDialog,
+    SupportComponent
     ],
   imports: [
     CommonModule,
