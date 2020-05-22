@@ -3,7 +3,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
 import { AuthenticationService } from '@app/_services';
 import { Role } from '../_models';
 import { AuthService, FacebookLoginProvider,GoogleLoginProvider, SocialUser } from 'angularx-social-login';
-
+ 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate  {
     constructor(
