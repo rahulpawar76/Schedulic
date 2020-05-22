@@ -44,7 +44,8 @@ import { SharedModule } from '../../shared.module';
 
 import { DialogStaffViewReview } from './staff/staff.component';
 
-
+import { DndDirective } from './direcitves/dnd.directive';
+import { ProgressComponent } from './components/progress/progress.component';
 
 
 
@@ -75,6 +76,8 @@ enableRipple(true);
     DialogDataExampleDialog,
     DialogStaffViewReview,
     DialogPreviewEmailTemp,
+    DndDirective,
+    ProgressComponent
   ],
   imports: [
       CommonModule,
