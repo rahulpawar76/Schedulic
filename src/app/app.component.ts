@@ -84,7 +84,7 @@ export class AppComponent implements AfterViewInit {
 
   ngAfterViewInit() {
   }
-
+ 
   // myRoute: string;
   currentUser: User;
   selectedSessionId: any;

@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { AppComponent } from '@app/app.component';
+import { ExportToCsv } from 'export-to-csv';
 //import { IgxExcelExporterService, IgxExcelExporterOptions } from "igniteui-angular";
 
 
@@ -117,6 +118,9 @@ export class CustomersComponent implements OnInit {
   order_taxAmountArr=[];
   customerPaymentIndex:number;
   customerDetailId : any;
+
+
+
   constructor(
     public dialog: MatDialog,
     private AdminService: AdminService,
@@ -185,7 +189,6 @@ export class CustomersComponent implements OnInit {
       paymentMode : ['Cash', [Validators.required]],
       paymentNote : ['', [Validators.required]],
     });
-  
   }
 
   fnGetSettings(){
@@ -280,6 +283,7 @@ export class CustomersComponent implements OnInit {
           "state" : this.createNewCustomer.get('cus_state').value,
           "city" : this.createNewCustomer.get('cus_city').value,
           "zip" : this.createNewCustomer.get('cus_zip').value,
+          'image': this.customerImageUrl
         }
       this.fnCreateNewCustomer(this.newCustomerData);
     }else{
@@ -563,7 +567,6 @@ customerUpdate(existingCustomerData){
   }
   
   viewReviewDetail(index, OrderId){
-    //alert(OrderId);
     this.isLoaderAdmin = true;
     this.AdminService.viewReviewDetail(OrderId).subscribe((response:any) => {
       if(response.data == true){
@@ -626,23 +629,36 @@ customerUpdate(existingCustomerData){
     }
   }
 
-  // fnExportCustomer(exportType){
-  //   if(exportType == 'all'){
-  //     this.excelExportService.exportData(this.allCustomers, new IgxExcelExporterOptions("MyCustomers"));
-  //   }else if(exportType == 'selected'){
-  //     this.AdminService.fnExportCustomer(this.selectedCustomerId).subscribe((response:any) => {
-  //       if(response.data == true){
-  //         this.selectedCustomerArr = response.response
-  //         this.excelExportService.exportData(this.selectedCustomerArr, new IgxExcelExporterOptions("MyCustomers"));
-  //         this.selectedCustomerId.length = 0;
-  //         this.isLoaderAdmin = false;
-  //       }
-  //       else if(response.data == false){
-  //         this.isLoaderAdmin = false;
-  //       }
-  //     })
-  //   }
-  // }
+  fnExportCustomer(exportType){
+    const options = { 
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalSeparator: '.',
+      showLabels: true, 
+      showTitle: true,
+      title: 'My Awesome CSV',
+      useTextFile: false,
+      useBom: true,
+      useKeysAsHeaders: true,
+      // headers: ['Column 1', 'Column 2', etc...] <-- Won't work with useKeysAsHeaders present!
+    };
+    const csvExporter = new ExportToCsv(options);
+    if(exportType == 'all'){
+      csvExporter.generateCsv(this.allCustomers);
+    }else if(exportType == 'selected'){
+      this.AdminService.fnExportCustomer(this.selectedCustomerId).subscribe((response:any) => {
+        if(response.data == true){
+          this.selectedCustomerArr = response.response
+          csvExporter.generateCsv(this.selectedCustomerArr);
+          this.selectedCustomerId.length = 0;
+          this.isLoaderAdmin = false;
+        }
+        else if(response.data == false){
+          this.isLoaderAdmin = false;
+        }
+      })
+    }
+  }
   customerImage() {
     const dialogRef = this.dialog.open(DialogCustomerImageUpload, {
       width: '500px',
@@ -1471,7 +1487,6 @@ constructor(
       this.dialogRef.close(this.profileImage);
     }
     ngOnInit() {
-      alert();
       this.uploadForm = this._formBuilder.group({
         profile: ['']
       });
@@ -1494,7 +1509,6 @@ onFileChange(event) {
   }
 }
 uploadImage() {
-  alert(this.imageSrc);
   this.profileImage = this.imageSrc
   this.dialogRef.close(this.profileImage);
 }
