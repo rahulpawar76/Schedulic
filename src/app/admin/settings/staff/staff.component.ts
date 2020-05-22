@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { Subject, from } from 'rxjs';
 import { map, catchError } from "rxjs/operators";
 import { throwError } from "rxjs";
@@ -24,6 +24,8 @@ export interface DialogData {
   providers: [DatePipe]
 })
 export class StaffComponent implements OnInit {
+  @ViewChild("fileDropRef", { static: false }) fileDropEl: ElementRef;
+  files: any[] = [];
   animal: any;
   isLoaderAdmin: boolean = false;
   StaffCreate: FormGroup;
@@ -131,8 +133,64 @@ export class StaffComponent implements OnInit {
   currencySymbol:any;
   currencySymbolPosition:any;
   currencySymbolFormat:any;
-
   reviewOrderData : any;
+
+
+/**
+   * on file drop handler
+   */
+  onFileDropped($event) {
+    this.prepareFilesList($event);  
+  }
+ 
+  fileBrowseHandler(files) {
+    this.prepareFilesList(files);
+  }
+ 
+  deleteFile(index: number) {
+    if (this.files[index].progress < 100) {
+      console.log("Upload in progress.");
+      return;
+    }
+    this.files.splice(index, 1);
+  }
+  
+  uploadFilesSimulator(index: number) {
+    setTimeout(() => {
+      if (index === this.files.length) {
+        return;
+      } else {
+        const progressInterval = setInterval(() => {
+          if (this.files[index].progress === 100) {
+            clearInterval(progressInterval);
+            this.uploadFilesSimulator(index + 1);
+          } else {
+            this.files[index].progress += 5;
+          }
+        }, 200);
+      }
+    }, 1000);
+  }
+
+  prepareFilesList(files: Array<any>) {
+    for (const item of files) {
+      item.progress = 0;
+      this.files.push(item);
+    }
+    this.fileDropEl.nativeElement.value = "";
+    this.uploadFilesSimulator(0);   
+  }
+
+  formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) {
+      return "0 Bytes";
+    }
+    const k = 1024;
+    const dm = decimals <= 0 ? 0 : decimals;
+    const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+  }
 
   constructor(
     public dialog: MatDialog,
@@ -742,18 +800,36 @@ export class StaffComponent implements OnInit {
     console.log(this.StaffCreate.get('staff_id').value);
     if(this.StaffCreate.get('staff_id').value != ''){
       if(this.StaffCreate.valid){
-        this.updateStaffData = {
-          "staff_id" : this.StaffCreate.get('staff_id').value,
-          "firstname" : this.StaffCreate.get('firstname').value,
-          "lastname" : this.StaffCreate.get('lastname').value,
-          "email" : this.StaffCreate.get('email').value,
-          "phone" : this.StaffCreate.get('phone').value,
-          "address" : this.StaffCreate.get('address').value,
-          "servicelist" : this.selectedServiceNewStaff,
-          "image" : this.staffImageUrl,
-        }
-        console.log(this.updateStaffData);
-        this.updateStaff(this.updateStaffData);
+        // New code by RJ
+            let formData = new FormData();
+            var i=0;
+            this.files.forEach(element => {
+              formData.append('document[]', this.files[i]); 
+              i++;
+            });
+            formData.append('staff_id', this.StaffCreate.get('staff_id').value);
+            formData.append('firstname', this.StaffCreate.get('firstname').value);
+            formData.append('lastname', this.StaffCreate.get('lastname').value);
+            formData.append('email', this.StaffCreate.get('email').value);
+            formData.append('phone', this.StaffCreate.get('phone').value);
+            formData.append('address', this.StaffCreate.get('address').value);
+            formData.append('servicelist', this.selectedServiceNewStaff);
+            formData.append('image', this.staffImageUrl);
+
+
+        // this.updateStaffData = {
+        //   "staff_id" : this.StaffCreate.get('staff_id').value,
+        //   "firstname" : this.StaffCreate.get('firstname').value,
+        //   "lastname" : this.StaffCreate.get('lastname').value,
+        //   "email" : this.StaffCreate.get('email').value,
+        //   "phone" : this.StaffCreate.get('phone').value,
+        //   "address" : this.StaffCreate.get('address').value,
+        //   "servicelist" : this.selectedServiceNewStaff,
+        //   "image" : this.staffImageUrl,
+        // }
+        // console.log(this.updateStaffData);
+        // this.updateStaff(this.updateStaffData);
+        this.updateStaff(formData);
       }else{
         this.StaffCreate.get('firstname').markAsTouched();
         this.StaffCreate.get('lastname').markAsTouched();
@@ -765,18 +841,36 @@ export class StaffComponent implements OnInit {
     }
     else{ 
       if(this.StaffCreate.valid){
-        this.newStaffData = {
-          "business_id" : this.businessId,
-          "firstname" : this.StaffCreate.get('firstname').value,
-          "lastname" : this.StaffCreate.get('lastname').value,
-          "email" : this.StaffCreate.get('email').value,
-          "phone" : this.StaffCreate.get('phone').value,
-          "address" : this.StaffCreate.get('address').value,
-          "servicelist" : this.selectedServiceNewStaff,
-          "image" : this.staffImageUrl,
-        }
-        console.log(this.newStaffData);
-        this.createNewStaff(this.newStaffData);
+
+        let formData = new FormData();
+        var i=0;
+        this.files.forEach(element => {
+          formData.append('document[]', this.files[i]); 
+          i++;
+        });
+        
+        formData.append('business_id', this.businessId);        
+        formData.append('firstname', this.StaffCreate.get('firstname').value);
+        formData.append('lastname', this.StaffCreate.get('lastname').value);
+        formData.append('email', this.StaffCreate.get('email').value);
+        formData.append('phone', this.StaffCreate.get('phone').value);
+        formData.append('address', this.StaffCreate.get('address').value);
+        formData.append('servicelist', this.selectedServiceNewStaff);
+        formData.append('image', this.staffImageUrl);
+
+        // this.newStaffData = {
+        //   "business_id" : this.businessId,
+        //   "firstname" : this.StaffCreate.get('firstname').value,
+        //   "lastname" : this.StaffCreate.get('lastname').value,
+        //   "email" : this.StaffCreate.get('email').value,
+        //   "phone" : this.StaffCreate.get('phone').value,
+        //   "address" : this.StaffCreate.get('address').value,
+        //   "servicelist" : this.selectedServiceNewStaff,
+        //   "image" : this.staffImageUrl,
+        // }
+        // console.log(this.newStaffData);
+        // this.createNewStaff(this.newStaffData);
+         this.createNewStaff(formData);
       }else{
         this.StaffCreate.get('firstname').markAsTouched();
         this.StaffCreate.get('lastname').markAsTouched();
@@ -866,7 +960,7 @@ export class StaffComponent implements OnInit {
       firstname : ['',[ Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
       lastname : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
       address : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
-      email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUniqueForEdit.bind(this)],
+      email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
       phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
       description : ['',Validators.maxLength(255)],
       staff_id : [''],
