@@ -1207,8 +1207,7 @@ export class AdminSettingsService {
     }
     
     createNewStaff(newStaffData) {
-        let headers = new HttpHeaders({
-            'Content-Type': 'application/json',
+        let headers = new HttpHeaders({             
             'admin-id': this.adminId,
             'api-token': this.adminToken
         });
@@ -1236,8 +1235,7 @@ export class AdminSettingsService {
     }
     
     updateStaff(updateStaffData) {
-        let headers = new HttpHeaders({
-            'Content-Type': 'application/json',
+        let headers = new HttpHeaders({           
             'admin-id': this.adminId,
             'api-token': this.adminToken
         });
