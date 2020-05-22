@@ -866,7 +866,7 @@ export class StaffComponent implements OnInit {
       firstname : ['',[ Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
       lastname : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
       address : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
-      email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUniqueForEdit.bind(this)],
+      email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
       phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
       description : ['',Validators.maxLength(255)],
       staff_id : [''],
@@ -879,7 +879,6 @@ export class StaffComponent implements OnInit {
     this.StaffCreate.controls['description'].setValue(this.singleStaffDetail.staff[0].description);
     this.StaffCreate.controls['email'].setValue(this.singleStaffDetail.staff[0].email);
     this.StaffCreate.controls['staff_id'].setValue(staffId);
-
     
 
     this.getCateServiceList();
@@ -896,8 +895,8 @@ export class StaffComponent implements OnInit {
  fnCancelStaff(){
 
     this.addStaffPage = false;
-    this.staffListPage = false;
-    this.singleStaffView = true;
+    this.staffListPage = true;
+    this.singleStaffView = false;
     
    
  }
