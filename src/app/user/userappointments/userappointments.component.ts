@@ -168,11 +168,11 @@ getAllAppointments(): void{
       });
     }
     else if(response.data == false){
-      this._snackBar.open(response.response, "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['red-snackbar']
-      });
+      // this._snackBar.open(response.response, "X", {
+      //   duration: 2000,
+      //   verticalPosition:'top',
+      //   panelClass :['red-snackbar']
+      // });
       this.appointmentData = [];
     }
   })
@@ -193,11 +193,11 @@ getCancelAppointments(): void{
       });
     }
     else if(response.data == false){
-      this._snackBar.open(response.response, "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['red-snackbar']
-      });
+      // this._snackBar.open(response.response, "X", {
+      //   duration: 2000,
+      //   verticalPosition:'top',
+      //   panelClass :['red-snackbar']
+      // });
       this.cancelAppointmentData = '';
     }
   })
@@ -218,11 +218,11 @@ getCompletedAppointments(): void{
       });
     }
     else if(response.data == false){
-      this._snackBar.open(response.response, "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['red-snackbar']
-      });
+      // this._snackBar.open(response.response, "X", {
+      //   duration: 2000,
+      //   verticalPosition:'top',
+      //   panelClass :['red-snackbar']
+      // });
       this.completedAppointmentData = '';
     }
   })

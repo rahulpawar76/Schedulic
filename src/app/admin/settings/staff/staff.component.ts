@@ -12,6 +12,7 @@ import { AdminSettingsService } from '../_services/admin-settings.service';
 import { DatePipe} from '@angular/common';
 import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { environment } from '@environments/environment';
 
 export interface DialogData {
   selectedStaffId: any;
@@ -133,7 +134,15 @@ export class StaffComponent implements OnInit {
   currencySymbolFormat:any;
 
   reviewOrderData : any;
-
+  staffApiUrl : any;
+  current_page : any;
+  first_page_url : any;
+  last_page : any;
+  last_page_url : any;
+  next_page_url : any;
+  prev_page_url : any;
+  path : any;
+  
   constructor(
     public dialog: MatDialog,
     private _formBuilder: FormBuilder,
@@ -174,6 +183,7 @@ export class StaffComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.staffApiUrl=environment.apiUrl+"/staff-list-with-review";
     this.fnGetSettings();
     this.getAllStaff();
 
@@ -271,12 +281,46 @@ export class StaffComponent implements OnInit {
     return true;
 
   }
-  
+
+  arrayOne(n: number): any[] {
+    return Array(n);
+  }
+
+  prevPage(api_url){
+    this.staffApiUrl=api_url;
+    console.log(this.staffApiUrl);
+    if(this.staffApiUrl){
+      this.getAllStaff();
+    }
+  }
+  nextPage(api_url){
+    this.staffApiUrl=api_url;
+    console.log(this.staffApiUrl);
+    if(this.staffApiUrl){
+      this.getAllStaff();
+    }
+  }
+  navigateToPageNumber(index){
+    this.staffApiUrl=this.path+'?page='+index;
+    console.log(this.staffApiUrl);
+    if(this.staffApiUrl){
+      this.getAllStaff();
+    }
+  }
+
   getAllStaff() {
     this.isLoaderAdmin = true;
-    this.adminSettingsService.getAllStaff().subscribe((response: any) => {
+    this.adminSettingsService.getAllStaff(this.staffApiUrl).subscribe((response: any) => {
       if (response.data == true) {
-        this.allStaffList = response.response
+        this.current_page = response.response.current_page;
+        this.first_page_url = response.response.first_page_url;
+        this.last_page = response.response.last_page;
+        this.last_page_url = response.response.last_page_url;
+        this.next_page_url = response.response.next_page_url;
+        this.prev_page_url = response.response.prev_page_url;
+        this.path = response.response.path;
+        this.allStaffList = response.response.data;
+
         console.log(this.allStaffList);
         this.isLoaderAdmin = false;
       }

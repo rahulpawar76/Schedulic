@@ -637,7 +637,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     // Staff Module
-    getAllStaff() {
+    getAllStaff(api_url) {
         let requestObject = {
             'business_id': this.businessId,
         };
@@ -646,7 +646,7 @@ export class AdminSettingsService {
             'admin-id': this.adminId,
             'api-token': this.adminToken
         });
-        return this.http.post(`${environment.apiUrl}/staff-list-with-review`, requestObject, { headers: headers }).pipe(
+        return this.http.post(`${api_url}`, requestObject, { headers: headers }).pipe(
             map((res) => {
                 return res;
             }),
