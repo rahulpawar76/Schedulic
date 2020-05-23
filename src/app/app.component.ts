@@ -43,7 +43,6 @@ export interface DialogData {
   //animations: [slideInAnimation]
 })
 
-
 export class AppComponent implements AfterViewInit {
 
   showSuccess: any;

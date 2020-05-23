@@ -20,12 +20,22 @@ export class PostalcodesComponent implements OnInit {
   postalCodeList:any;
   changePostalCodeStatusObject:any;
   selectedValue:any;
+  isLoaderAdmin:boolean = false;
   arr:any=[];
+  businessId:any;
+  
+  search ={
+    postalCode :"",
+  }
+
   constructor(public dialog: MatDialog,
     public adminSettingsService : AdminSettingsService,
     private _snackBar: MatSnackBar,
     ) {
     this.fnGetPostalCodeList();
+    if (localStorage.getItem('business_id')) {
+      this.businessId = localStorage.getItem('business_id');
+    }
   }
 
   ngOnInit() {}
@@ -164,6 +174,35 @@ export class PostalcodesComponent implements OnInit {
 
     
   }
+  postalCodeSearch(){
+    this.isLoaderAdmin=true;
+    if(this.search.postalCode.length > 1){
+      let requestObject = {
+        "search":this.search.postalCode,
+        "business_id":this.businessId,
+      }
+      console.log(requestObject);
+      this.adminSettingsService.postalCodeSearch(requestObject).subscribe((response:any) =>{
+        if(response.data == true){
+          this.postalCodeList = response.response;
+          this.isLoaderAdmin=false;
+        }
+        else if(response.data == false){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+          this.postalCodeList = [];
+          this.isLoaderAdmin=false;
+        }
+      })
+    }else{
+      this.fnGetPostalCodeList();
+      this.isLoaderAdmin=false;
+    }
+  }
+
 }
 
 @Component({
