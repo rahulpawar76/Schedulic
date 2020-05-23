@@ -358,7 +358,8 @@ export class AlertsettingsComponent implements OnInit {
       adminNumber: ['', [Validators.required]]
     });
     this.textLocal = this._formBuilder.group({
-      apiKey: ['', [Validators.required]]
+      apiKey: ['', [Validators.required]],
+      adminNumber: ['', [Validators.required]]
     });
  
   } 
@@ -435,6 +436,7 @@ export class AlertsettingsComponent implements OnInit {
           if(response.response.textlocal_setting){
             this.textLocalSettingValue = JSON.parse(response.response.textlocal_setting);
             this.textLocal.controls['apiKey'].setValue(this.textLocalSettingValue.api_key);
+            this.textLocal.controls['adminNumber'].setValue(this.textLocalSettingValue.admin_number);
           }
 
       }
@@ -1535,6 +1537,7 @@ fnAppointmentsReminderSMS(event){
     this.textLocalStatus = event;
     let textLocalSetting = {
       "api_key":this.textLocal.get("apiKey").value,
+      "admin_number" : this.textLocal.get("adminNumber").value,
       "status":this.textLocalStatus,
     }
 
@@ -1550,6 +1553,7 @@ fnAppointmentsReminderSMS(event){
     if(this.textLocal.valid){
       let textLocalSetting = {
         "api_key":this.textLocal.get("apiKey").value,
+        "admin_number" : this.textLocal.get("adminNumber").value,
         "status":this.textLocalStatus,
       }
 
