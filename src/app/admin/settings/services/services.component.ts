@@ -100,6 +100,16 @@ export class ServicesComponent implements OnInit {
     currencySymbolFormat:any;
 
     onlynumeric = /^-?(0|[1-9]\d*)?$/
+    
+    staffApiUrl : any;
+    current_page : any;
+    first_page_url : any;
+    last_page : any;
+    last_page_url : any;
+    next_page_url : any;
+    prev_page_url : any;
+    path : any;
+
     constructor(
         // private userService: UserService,
 
@@ -118,6 +128,7 @@ export class ServicesComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.staffApiUrl=environment.apiUrl+"/staff-list-with-review";
         this.fnGetSettings();
         this.fnAllCategory();
         this.fnAllServices();

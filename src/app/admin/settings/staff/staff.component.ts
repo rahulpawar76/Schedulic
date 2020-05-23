@@ -345,14 +345,7 @@ export class StaffComponent implements OnInit {
     return Array(n);
   }
 
-  prevPage(api_url){
-    this.staffApiUrl=api_url;
-    console.log(this.staffApiUrl);
-    if(this.staffApiUrl){
-      this.getAllStaff();
-    }
-  }
-  nextPage(api_url){
+  navigateTo(api_url){
     this.staffApiUrl=api_url;
     console.log(this.staffApiUrl);
     if(this.staffApiUrl){
