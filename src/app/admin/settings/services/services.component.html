@@ -17,18 +17,18 @@
                 <h5 class="ml-3">Category ({{allCategoryCount}})</h5>
                 <i class="material-icons add-icon pointer" (click)="fnCreateNewCategory()">add_circle</i>
             </div>
-            <div class="single-box" (click)="fnAllServices()">
+            <div class="single-box" (click)="fnAllServicesNavigation()">
                 <p class="ml-4 mb-0">All Services ({{allServiceCount}})</p>
             </div>
             <mat-accordion class="category-list" cdkDropList (cdkDropListDropped)="drop($event)">
                 <mat-expansion-panel class="category-main" cdkDragHandle *ngFor="let allCetegoryList of allCetegoryList; let i=index">
                     <mat-expansion-panel-header>
                         <mat-panel-title class="service-title">
-                            <p (click)="fnSelectCategory(allCetegoryList.id,i)" class="category-title mb-0">{{allCetegoryList.category_title}}</p>
+                            <p (click)="fnSelectCategoryNavigation(allCetegoryList.id,i)" class="category-title mb-0">{{allCetegoryList.category_title}}</p>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div *ngIf="allCetegoryList.subcategory != ''">
-                        <div (click)="fnSelectSubCategory(subcategoryList.id,i)" class="my-2" *ngFor="let subcategoryList of allCetegoryList.subcategory; let i=index">
+                        <div (click)="fnSelectSubCategoryNavigate(subcategoryList.id,i)" class="my-2" *ngFor="let subcategoryList of allCetegoryList.subcategory; let i=index">
                             <p class="single-box sub-category-title mb-0">{{subcategoryList.sub_category_name}}</p>
                         </div>
                     </div>
@@ -77,7 +77,20 @@
                     </div>
 
                 </div>
+
                 <div class="table_pagination">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item" (click)="navigateTo(first_page_url,'service')"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                            <li class="page-item" (click)="navigateTo(prev_page_url,'service')"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                            <li class="page-item" [ngClass]="{'active':current_page == i+1}" *ngFor="let pagenumber of arrayOne(last_page); let i = index;" (click)="navigateToPageNumber(i+1,'service')"><a class="page-link">{{i+1}}</a></li>
+                            <li class="page-item" (click)="navigateTo(next_page_url,'service')"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                            <li class="page-item" (click)="navigateTo(last_page_url,'service')"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <!-- <div class="table_pagination">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">
                         <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
@@ -87,7 +100,7 @@
                         <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
                         </ul>
                     </nav>
-                </div>
+                </div> -->
             </div>
             <!-- create new category -->
             <div *ngIf="createNewCategoryPage">
@@ -328,6 +341,18 @@
                         </div>
 
                     </div>
+
+                    <div class="table_pagination">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-end">
+                                <li class="page-item" (click)="navigateTo(first_page_url,'category')"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                <li class="page-item" (click)="navigateTo(prev_page_url,'category')"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                                <li class="page-item" [ngClass]="{'active':current_page == i+1}" *ngFor="let pagenumber of arrayOne(last_page); let i = index;" (click)="navigateToPageNumber(i+1,'category')"><a class="page-link">{{i+1}}</a></li>
+                                <li class="page-item" (click)="navigateTo(next_page_url,'category')"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                                <li class="page-item" (click)="navigateTo(last_page_url,'category')"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
                 <div *ngIf="selectCategoryPage == 'notservices'" class="d-flex flex-wrap main-subcategory-content">
                     <mat-card class="col-lg-4 col-md-6 col-sm-12 text-center AddSubcategory-matcard pointer">
@@ -436,6 +461,17 @@
                             </div>
                         </div>
 
+                    </div>
+                    <div class="table_pagination">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-end">
+                                <li class="page-item" (click)="navigateTo(first_page_url,'subcategory')"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                <li class="page-item" (click)="navigateTo(prev_page_url,'subcategory')"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                                <li class="page-item" [ngClass]="{'active':current_page == i+1}" *ngFor="let pagenumber of arrayOne(last_page); let i = index;" (click)="navigateToPageNumber(i+1,'subcategory')"><a class="page-link">{{i+1}}</a></li>
+                                <li class="page-item" (click)="navigateTo(next_page_url,'subcategory')"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                                <li class="page-item" (click)="navigateTo(last_page_url,'subcategory')"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
                 <div *ngIf="singleSubCategoryPage == 'notservices'" class="d-flex flex-wrap main-subcategory-content">

@@ -12,7 +12,6 @@ import { AdminSettingsService } from '../_services/admin-settings.service';
 import { DatePipe} from '@angular/common';
 import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { environment } from '@environments/environment';
 
 export interface DialogData {
   selectedStaffId: any;

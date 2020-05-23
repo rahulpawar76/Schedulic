@@ -44,7 +44,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
 
-    fnAllServices() {
+    fnAllServices(api_url) {
         let requestObject = {
             'business_id': this.businessId,
         };
@@ -53,7 +53,7 @@ export class AdminSettingsService {
             'admin-id': this.adminId,
             'api-token': this.adminToken
         });
-        return this.http.post(`${environment.apiUrl}/admin-service-list`, requestObject, { headers: headers }).pipe(
+        return this.http.post(`${api_url}`, requestObject, { headers: headers }).pipe(
             map((res) => {
                 return res;
             }),
@@ -177,7 +177,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
 
-    getServiceForCategoiry(categoryId, filter) {
+    getServiceForCategoiry(categoryId, filter,api_url) {
         let requestObject = {
             'business_id': this.businessId,
             'category_id': categoryId,
@@ -189,7 +189,7 @@ export class AdminSettingsService {
             'admin-id': this.adminId,
             'api-token': this.adminToken
         });
-        return this.http.post(`${environment.apiUrl}/list-service`, requestObject, { headers: headers }).pipe(
+        return this.http.post(`${api_url}`, requestObject, { headers: headers }).pipe(
             map((res) => {
                 return res;
             }),
@@ -296,7 +296,7 @@ export class AdminSettingsService {
             }),
             catchError(this.handleError));
     }
-    getServiceForSubCategoiry(subCategoryId, filter) {
+    getServiceForSubCategoiry(subCategoryId, filter,api_url) {
         let requestObject = {
             'business_id': this.businessId,
             'sub_category_id': subCategoryId,
@@ -308,7 +308,7 @@ export class AdminSettingsService {
             'admin-id': this.adminId,
             'api-token': this.adminToken
         });
-        return this.http.post(`${environment.apiUrl}/list-subcategory-service`, requestObject, { headers: headers }).pipe(
+        return this.http.post(`${api_url}`, requestObject, { headers: headers }).pipe(
             map((res) => {
                 return res;
             }),
