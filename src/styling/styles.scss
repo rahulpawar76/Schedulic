@@ -624,7 +624,7 @@ $calendarsize: 10px;
 .loader-main {
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     left: 0px;
     top: 0%;
     z-index: 10;
@@ -642,24 +642,26 @@ $calendarsize: 10px;
     margin: 0;
     max-height: 85%;
 }
-.icon_size{
+
+.icon_size {
     font-size: 25px !important;
     width: 28px;
     text-align: center;
 }
-.table_pagination{
+
+.table_pagination {
     margin: 15px 0;
-    ul.pagination li a{
+    ul.pagination li a {
         border: none;
         background: transparent;
         color: #333;
     }
     ul.pagination .page-item.active .page-link,
-    ul.pagination .page-item:hover .page-link{
+    ul.pagination .page-item:hover .page-link {
         color: #007bff;
         background: transparent;
     }
-    ul.pagination li a i.arrow-icon{
+    ul.pagination li a i.arrow-icon {
         border: 1px solid #333;
         border-radius: 50%;
         width: 30px;
@@ -671,35 +673,36 @@ $calendarsize: 10px;
         top: -6px;
         position: relative;
     }
-    ul.pagination li a i.arrow-icon:hover{
+    ul.pagination li a i.arrow-icon:hover {
         border-color: #007bff;
         color: #007bff;
     }
 }
-.starting_page{
+
+.starting_page {
     max-width: 960px;
     margin: auto;
-    .mat-card{
+    .mat-card {
         border-radius: 10px;
     }
-    .max_width{
+    .max_width {
         max-width: 500px;
         margin: auto;
     }
-    .img_icon{
+    .img_icon {
         max-width: 150px;
     }
-    .title{
+    .title {
         color: #003b7f;
         font-size: 24px;
         margin: 5px 0 15px;
         font-weight: 500;
     }
-    .des-text{
+    .des-text {
         padding: 0 20px;
         margin: 20px 0;
     }
-    .started-btn{
+    .started-btn {
         background-color: #007bff;
         color: #fff;
         border-radius: 4px;
@@ -711,15 +714,15 @@ $calendarsize: 10px;
         margin: auto;
         font-weight: 500;
     }
-    .started-btn:hover{
+    .started-btn:hover {
         text-decoration: none;
         background-color: #025cbe;
         transition: all;
     }
-    .bottom-title{
+    .bottom-title {
         font-size: 14px;
     }
-    .color-blue{
+    .color-blue {
         color: #007bff;
         text-decoration: none;
     }

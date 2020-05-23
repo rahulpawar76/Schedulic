@@ -2657,6 +2657,16 @@
                                                             </mat-form-field>
                                                         </div>
                                                     </div>
+                                                    <div class="">
+                                                        <div class="mx-2" fxFlex="20">
+                                                            <label class="payment-label">Admin Number</label>
+                                                        </div>
+                                                        <div class="mx-2" fxFlex="80">
+                                                            <mat-form-field class="example-full-width bottom-border-field">
+                                                                <input formControlName="adminNumber" matInput placeholder="" value="">
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
                                                     <span class="w-100 error-wrap" *ngIf="textLocal.get('apiKey').dirty || textLocal.get('apiKey').touched">
                                                         <small *ngIf="textLocal.get('apiKey').hasError('required')" class="error">Api Key Is required</small>
                                                     </span>
