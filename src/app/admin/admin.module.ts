@@ -22,7 +22,7 @@ import { MyWorkSpaceComponent } from './my-work-space/my-work-space.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { DataTablesModule } from 'angular-datatables';
 import { DialogAddNewAppointment } from './appointment/appointment.component';
-import { DialogNewAppointment } from './appointment/appointment.component';
+// import { DialogNewAppointment } from './appointment/appointment.component';
 import { CustomersComponent } from './customers/customers.component';
 import { DialogInvoiceDialog } from './customers/customers.component';
 import { DialogNewCustomerAppointment } from './customers/customers.component';
@@ -61,7 +61,7 @@ import { SupportComponent } from './support/support.component';
     MyWorkSpaceComponent,
     AppointmentComponent,
     DialogAddNewAppointment,
-    DialogNewAppointment,
+    // DialogNewAppointment,
     CustomersComponent,
     DialogInvoiceDialog,
     DialogNewCustomerAppointment,
@@ -110,7 +110,7 @@ import { SupportComponent } from './support/support.component';
   providers: [ 
     // IgxExcelExporterService 
   ],
-  entryComponents: [myCreateNewBusinessDialog,DialogAddNewAppointment,DialogNewAppointment,
+  entryComponents: [myCreateNewBusinessDialog,DialogAddNewAppointment,
     DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,
     DialogViewReview,InterruptedReschedule,InterruptedReschedulecustomer,PendingAppointmentDetailsDialog,
     NotAssignedAppointmentDetailsDialog,OnTheWayAppointmentDetailsDialog,
