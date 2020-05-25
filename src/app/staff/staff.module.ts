@@ -21,7 +21,7 @@ import { DialogWorkStarted } from './staff-appointment/staff-appointment.compone
 import { DialogInterrupted } from './staff-appointment/staff-appointment.component';
 import { InterruptedReschedule } from './staff-appointment/staff-appointment.component';
 import { DialogAddNewAppointment } from './staff-appointment/staff-appointment.component';
-import { DialogNewAppointment } from './staff-appointment/staff-appointment.component';
+// import { DialogNewAppointment } from './staff-appointment/staff-appointment.component';
 import { DialogStaffMyAppointmentDetails } from './staff-appointment/staff-appointment.component';
 import { MyWorkSpaceComponent } from './my-work-space/my-work-space.component';
 import { OnGoingAppointmentDetails } from './staff-appointment/staff-appointment.component';
@@ -46,7 +46,7 @@ import { SharedModule } from '../shared.module';
 		DialogInterrupted,
 		InterruptedReschedule,
 		DialogAddNewAppointment,
-		DialogNewAppointment,
+		// DialogNewAppointment,
 		DialogStaffMyAppointmentDetails,
 		OnGoingAppointmentDetails,
 		CompleteAppointmentDetails,
@@ -76,7 +76,7 @@ import { SharedModule } from '../shared.module';
     FormsModule
   ],
   entryComponents: [DialogONTheWay,DialogWorkStarted,DialogInterrupted,
-    InterruptedReschedule,DialogAddNewAppointment,DialogNewAppointment,
+    InterruptedReschedule,DialogAddNewAppointment,
     DialogStaffMyAppointmentDetails,OnGoingAppointmentDetails,CompleteAppointmentDetails,
     DialogCashPaymentMode,DialogOnlinePaymentMode,DialogCashPaymentDetails,
     DialogOnlinePaymentDetails,DialogStaffImageUpload,DialogTodayAppointmentDetail],
