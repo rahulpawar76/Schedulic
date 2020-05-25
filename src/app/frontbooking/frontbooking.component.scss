@@ -570,9 +570,9 @@
                             }
                             .mat-radio-label-content {
                                 margin-left: 15px;
-                                ;
                                 width: 100%;
                                 display: flex;
+                                align-items: center;
                             }
                         }
                     }
@@ -834,7 +834,6 @@ input:focus {
  ::ng-deep .mat-radio-button.mat-radio-checked .mat-radio-outer-circle {
     border-color: $front-primary-color !important;
 }
-
 
 //  for Mobile
 @media only screen and (max-width: 767px) {

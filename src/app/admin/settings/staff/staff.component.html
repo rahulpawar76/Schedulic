@@ -85,7 +85,7 @@
                                 <h6>Upload Documents</h6>
                                 <i class="fa fa-question-circle uploaddocument-icon" aria-hidden="true"></i>
                             </div>
-                           <!--  <div class="upload-files">
+                            <!--  <div class="upload-files">
                                 <mat-icon aria-hidden="false" class="uploadfile-icon">cloud_upload</mat-icon>
                                 <p>.PDF .JPG .PNG .DOC</p>
                                 <p>Drag & drop your files here</p>
@@ -93,33 +93,33 @@
                                     <button mat-button class="upload-btn">Upload Files</button>
                                 </div>
                             </div> -->
-    <div class="container" appDnd (fileDropped)="onFileDropped($event)">
-  <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target.files)" />
-  <img src="assets/img/dnd/ic-upload-file.svg" alt="">   
-  <p>Drag & drop your files here</p>
-  <h3>or</h3>
-  <label for="fileDropRef">Browse for file</label>
-</div>
+                            <div class="container" appDnd (fileDropped)="onFileDropped($event)">
+                                <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target.files)" />
+                                <img src="assets/img/dnd/ic-upload-file.svg" alt="">
+                                <p>Drag & drop your files here</p>
+                                <h3>or</h3>
+                                <label for="fileDropRef">Browse for file</label>
+                            </div>
 
-<div class="files-list">
-  <div class="single-file" *ngFor="let file of files; let i = index">
-    <img src="assets/img/dnd/ic-file.svg" width="45px" alt="file">
-    <div class="info">
-      <h4 class="name">
-        {{ file?.name }}
-      </h4>
-      <p class="size">
-        {{ formatBytes(file?.size) }}
-      </p>
-      <app-progress [progress]="file?.progress"></app-progress>
-    </div>
-    <img src="assets/img/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file" (click)="deleteFile(i)">
-  </div>
-</div>
+                            <div class="files-list">
+                                <div class="single-file" *ngFor="let file of files; let i = index">
+                                    <img src="assets/img/dnd/ic-file.svg" width="45px" alt="file">
+                                    <div class="info">
+                                        <h4 class="name">
+                                            {{ file?.name }}
+                                        </h4>
+                                        <p class="size">
+                                            {{ formatBytes(file?.size) }}
+                                        </p>
+                                        <app-progress [progress]="file?.progress"></app-progress>
+                                    </div>
+                                    <img src="assets/img/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file" (click)="deleteFile(i)">
+                                </div>
+                            </div>
 
                             <div class="d-flex mt-3">
 
-                               <!--  <div class="pan-card file-border d-flex mr-2">
+                                <!--  <div class="pan-card file-border d-flex mr-2">
                                     <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
                                     <p class="pr-1 mb-0 mr-3">PAN card.pdf</p>
                                     <mat-icon aria-hidden="false">cancel</mat-icon>
@@ -435,15 +435,18 @@
                 </div>
                 <div class="bottom-border-last">
                     <h6>Documents</h6>
-                    <div class="d-flex mt-3">
-                        <div class="pan-card file-border d-flex mr-2">
+                    <div *ngIf="singleStaffDetail.staff[0].getdocument" class="d-flex mt-3">
+                        <div *ngFor="let staffDocument of singleStaffDetail.staff[0].getdocument" class="pan-card file-border d-flex mr-2">
                             <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
-                            <p class="pr-1 mb-0">PAN card.pdf</p>
+                            <p class="pr-1 mb-0">{{staffDocument.documents}}</p>
                         </div>
-                        <div class="adhar-card file-border d-flex">
+                        <!-- <div class="adhar-card file-border d-flex">
                             <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
                             <p class="pr-1 mb-0">Adhar card.jpg</p>
-                        </div>
+                        </div> -->
+                    </div>
+                    <div *ngIf="!singleStaffDetail.staff[0].getdocument" class="d-flex mt-3">
+                        No Document Available
                     </div>
                 </div>
             </mat-tab>

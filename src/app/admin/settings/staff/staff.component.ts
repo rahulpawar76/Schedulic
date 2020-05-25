@@ -12,7 +12,6 @@ import { AdminSettingsService } from '../_services/admin-settings.service';
 import { DatePipe} from '@angular/common';
 import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { environment } from '@environments/environment';
 
 export interface DialogData {
   selectedStaffId: any;
@@ -867,6 +866,7 @@ export class StaffComponent implements OnInit {
         // }
         // console.log(this.updateStaffData);
         // this.updateStaff(this.updateStaffData);
+
         this.updateStaff(formData);
       }else{
         this.StaffCreate.get('firstname').markAsTouched();

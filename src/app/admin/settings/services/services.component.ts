@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { environment } from '@environments/environment';
 import { AuthenticationService } from '@app/_services';
 import { AdminSettingsService } from '../_services/admin-settings.service'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
