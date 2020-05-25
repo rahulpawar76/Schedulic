@@ -6,56 +6,104 @@
           <span aria-hidden="true" class="white-text">&times;</span>
         </button>
       </div>
-      <div class="modal-body">         
-               <div class="row">
-            <div class="col-6">
-          <label class="mb-0">Category</label>
-          <mat-select class="form-control formcontrol">
-             <mat-option value="option">Select Category</mat-option>
-          </mat-select>
-           
-          </div>
-          <div class="col-6 mb-3">
-          <label class="mb-0">Service</label>
-          <mat-select class="form-control formcontrol">
-             <mat-option value="option">Select Service</mat-option>
-          </mat-select>
-          </div>
-          </div>
-         
-        
-          <label class="mb-0">Select Date</label>
-           <div class="input-group mb-3">
-             <div class="input-group-prepend">
+      <div class="modal-body">
+            <form [formGroup]="formAddNewAppointmentStaffStep2">
+
+                <label class="mb-1">Postal Code</label>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
                     <div class="input-group-text"><i class="fa fa-calendar"></i>
                     </div>
-                 </div>
-            <input type="date" class="form-control formcontrol">
-          </div>
-        
-      
-          <label class="mb-0">Select Time</label>
-           <div class="input-group mb-3">
-             <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="fa fa-clock-o"></i>
+                  </div>
+                  <input mat-input placeholder="Enter Postal Code" class="form-control formcontrol" formControlName="customerPostalCode">
+                  <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').dirty || formAddNewAppointmentStaffStep2.get('customerPostalCode').touched || formSubmitclicked">
+                    <small *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('required')" class="error">PostalCode Is required</small>
+                    <small *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('minlength')" class="error">Enter a Valid Postal Code</small>
+                    <small *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('isPostalcodeValid')" class="error">We do not provide service at this location</small>
+                  </span>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label class="mb-1">Category</label>
+                        <mat-select [(value)]="selectedCatId" (selectionChange)="fnSelectCat($event.value)" class="form-control formcontrol" formControlName="customerCategory" [disabled]="disableCategory">
+                            <mat-option *ngFor="let cat of catdata" value="{{cat.id}}">{{cat.category_title}}</mat-option>
+                            <mat-option *ngIf="catdata && catdata.length==0" disabled>No Category Available</mat-option>
+                        </mat-select>
+                        <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerCategory').dirty || formAddNewAppointmentStaffStep2.get('customerCategory').touched || formSubmitclicked">
+              <small *ngIf="formAddNewAppointmentStaffStep2.get('customerCategory').hasError('required')" class="error">Category Is required</small>
+            </span>
                     </div>
-                 </div>
-            <input type="time" class="form-control formcontrol">
-          </div>      
 
-          <mat-form-field appearance="outline" id="new-appointment">
-            <mat-icon matPrefix class="pr-2 people-icon">people_alt</mat-icon>
-            <mat-label>Select Staff</mat-label>
-            <mat-select>
-              <mat-option>None</mat-option>
-              <mat-option value="option1">Option 1</mat-option>
-              <mat-option value="option2">Option 2</mat-option>
-              <mat-option value="option3">Option 3</mat-option>
-            </mat-select>
-          </mat-form-field>
-              <button class="d-block btn btn-primary addbtn ml-2">Create</button>
-              <button class="d-block btn btn-secondary addbtn float-right">Back</button>
+                    <div class="col-6 mb-3" *ngIf="showSubCatDropDown">
+                        <label class="mb-1">Sub Category</label>
+                        <mat-select class="form-control formcontrol" [(value)]="selectedSubCatId" (selectionChange)="fnSelectSubCat($event.value)" formControlName="customerSubCategory" [disabled]="disableSubCategory">
+                            <mat-option *ngFor="let subcat of subcatdata" value="{{subcat.id}}">{{subcat.sub_category_name}}</mat-option>
+                            <mat-option *ngIf="subcatdata.length==0" disabled>No Sub-Category Available</mat-option>
+                        </mat-select>
+                        <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerSubCategory').dirty || formAddNewAppointmentStaffStep2.get('customerSubCategory').touched || formSubmitclicked">
+              <small *ngIf="formAddNewAppointmentStaffStep2.get('customerSubCategory').hasError('required')" class="error">SubCategory Is required</small>
+            </span>
+                    </div>
 
-      </div>
+                    <div [ngClass]="showSubCatDropDown?'col-12 mb-3':'col-6 mb-3'">
+                        <label class="mb-1">Service</label>
+                        <mat-select class="form-control formcontrol" [(value)]="selectedServiceId" (selectionChange)="fnSelectService($event.value)" formControlName="customerService" [disabled]="disableService">
+                            <mat-option *ngFor="let service of serviceData" value="{{service.id}}">{{service.service_name}}</mat-option>
+                            <mat-option *ngIf="serviceData.length==0" disabled>No Service Available</mat-option>
+                        </mat-select>
+                        <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerService').dirty || formAddNewAppointmentStaffStep2.get('customerService').touched || formSubmitclicked">
+              <small *ngIf="formAddNewAppointmentStaffStep2.get('customerService').hasError('required')" class="error">Service Is required</small>
+            </span>
+                    </div>
+                </div>
+
+                <label class="mb-1">Select Date</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i>
+                        </div>
+                    </div>
+                    <input mat-input [min]="minDate" [max]="maxDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="Choose a date" class="form-control formcontrol" (click)="picker.open()" (dateChange)="fnDateChange($event)" formControlName="customerDate"
+                        readonly>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerDate').dirty || formAddNewAppointmentStaffStep2.get('customerDate').touched || formSubmitclicked">
+            <small *ngIf="formAddNewAppointmentStaffStep2.get('customerDate').hasError('required')" class="error">Date Is required</small>
+          </span>
+                </div>
+
+                <label class="mb-1">Select Time</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-clock-o"></i>
+                        </div>
+                    </div>
+                    <mat-select class="form-control formcontrol" [disabled]="" formControlName="customerTime" (selectionChange)="fnSelectTime($event.value)">
+                        <mat-option *ngFor="let slot of timeSlotArr; let i=index;" value="{{slot}}">{{timeSlotArrForLabel[i]}}</mat-option>
+                        <mat-option *ngIf="timeSlotArr.length==0" disabled>No Time Slot Available</mat-option>
+                    </mat-select>
+                    <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerTime').dirty || formAddNewAppointmentStaffStep2.get('customerTime').touched || formSubmitclicked">
+            <small *ngIf="formAddNewAppointmentStaffStep2.get('customerTime').hasError('required')" class="error">Time is required</small>
+          </span>
+                </div>
+
+                <label class="mb-1">Select Staff</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-user-o"></i>
+                        </div>
+                    </div>
+                    <mat-select class="form-control formcontrol" [disabled]="" formControlName="customerStaff" (selectionChange)="fnSelectStaff($event.value)">
+                        <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">{{staff.name}}</mat-option>
+                        <mat-option *ngIf="availableStaff.length==0" disabled>No Staff Available</mat-option>
+                    </mat-select>
+                    <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerStaff').dirty || formAddNewAppointmentStaffStep2.get('customerStaff').touched || formSubmitclicked">
+            <small *ngIf="formAddNewAppointmentStaffStep2.get('customerStaff').hasError('required')" class="error">Staff is required</small>
+          </span>
+                </div>
+                <button class="d-block btn btn-primary addbtn ml-2" (click)="fnNewAppointmentStep2()">Create</button>
+                <button class="d-block btn btn-secondary addbtn float-right" (click)="onBackClick()">Back</button>
+            </form>
+        </div>
     </div>
   </div>
