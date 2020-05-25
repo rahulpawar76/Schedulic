@@ -84,6 +84,7 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit() {
   }
  
+  pageHeading: string;
   // myRoute: string;
   currentUser: User;
   selectedSessionId: any;
@@ -92,6 +93,7 @@ export class AppComponent implements AfterViewInit {
   settingsArr: any;
   appearenceColor: any=[];
   loginForm: FormGroup;
+  
   constructor(
     private http: HttpClient,
     public router: Router,
@@ -101,6 +103,7 @@ export class AppComponent implements AfterViewInit {
     private CommonService: CommonService,
     private authService: AuthService
   ) {
+    
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     if (localStorage.getItem('business_id')) {
       this.businessId = localStorage.getItem('business_id');
@@ -145,6 +148,7 @@ export class AppComponent implements AfterViewInit {
   isSettingsModule(url?: string) {
     const mod = this.cleanUrl(url || this.currentUrl);
     console.log(mod);
+    this.pageHeading = this.authenticationService.pageName(mod);
     if (mod == "settings") {
       this.adminSettings = "settings";
     }

@@ -43,7 +43,7 @@
                 </mat-toolbar-row>
                 <mat-toolbar-row *ngIf="isAdminUser()">
                     <!-- <div class="logo"><a><img src="/assets/img/logo.png"></a></div>  -->
-                    <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
+                    <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>{{pageHeading}}</a></div>
                     <span class="example-fill-remaining-space">
             <div class="selected-business-btn-main">
               <button mat-button color="primary" class="text-capitalize" *ngIf="isBusinessSelected() && !isBusiness()">Business : {{selectedBusinessName}}</button>

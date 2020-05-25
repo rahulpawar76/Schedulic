@@ -99,4 +99,19 @@ export class AuthenticationService {
         this.currentUserSubject.next(null);
         console.log(this.currentUserValue);
     }
+    pageName(name){
+        if(name=='my-appoi'){
+            return 'My Appointments'
+        }else if(name=='my-works'){
+            return 'My Workspace';
+        }else if(name=='my-custo'){
+            return 'My Customer';
+        }else if(name=='my-repor'){
+            return 'My Reports';
+        }else if(name=='my-disco'){
+            return 'My Discount Coupon';
+        }else if(name=='settings'){
+            return 'My Settings';
+        }
+    }
 }
