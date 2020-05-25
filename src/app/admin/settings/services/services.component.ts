@@ -9,7 +9,6 @@ import { environment } from '@environments/environment';
 import { AuthenticationService } from '@app/_services';
 import { AdminSettingsService } from '../_services/admin-settings.service'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { environment } from '@environments/environment';
 
 export interface DialogData {
     animal: string;
