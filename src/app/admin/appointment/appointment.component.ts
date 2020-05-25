@@ -1696,22 +1696,7 @@ export class DialogAddNewAppointment {
 }
 
 
-@Component({
-  selector: 'new-appointment',
-  templateUrl: '../_dialogs/new-appointment.html',
-})
-export class DialogNewAppointment {
 
-constructor(
-  public dialogRef: MatDialogRef<DialogNewAppointment>,
-  @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-
-onNoClick(): void {
-  this.dialogRef.close();
-}
-
-
-}
 @Component({
   selector: 'allappointment-listing-details',
   templateUrl: '../_dialogs/allappointment-listing-details.html',
