@@ -9,7 +9,7 @@ import { environment } from '@environments/environment';
 import { AuthenticationService } from '@app/_services';
 import { AdminSettingsService } from '../_services/admin-settings.service'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
+import { environment } from '@environments/environment';
 
 export interface DialogData {
     animal: string;
@@ -101,7 +101,9 @@ export class ServicesComponent implements OnInit {
 
     onlynumeric = /^-?(0|[1-9]\d*)?$/
     
-    staffApiUrl : any;
+    serviceApiUrl1 : any;
+    serviceApiUrl2 : any;
+    serviceApiUrl3 : any;
     current_page : any;
     first_page_url : any;
     last_page : any;
@@ -110,6 +112,8 @@ export class ServicesComponent implements OnInit {
     prev_page_url : any;
     path : any;
 
+    selectedCategoryID:any;
+    selectedSubCategoryID:any;
     constructor(
         // private userService: UserService,
 
@@ -128,10 +132,14 @@ export class ServicesComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.staffApiUrl=environment.apiUrl+"/staff-list-with-review";
+        this.serviceApiUrl1=environment.apiUrl+"/admin-service-list";
+        this.serviceApiUrl2=environment.apiUrl+"/list-service";
+        this.serviceApiUrl3=environment.apiUrl+"/list-subcategory-service";
+
+
         this.fnGetSettings();
         this.fnAllCategory();
-        this.fnAllServices();
+        this.fnAllServicesNavigation();
         this.fnstaffList();
 
         this.createSubCategory = this._formBuilder.group({
@@ -191,6 +199,46 @@ export class ServicesComponent implements OnInit {
          this.servicesList = true;
     }
 
+    arrayOne(n: number): any[] {
+        return Array(n);
+    }
+
+    navigateTo(api_url,type){
+        console.log(api_url);
+        if(api_url && type=="service"){
+            this.serviceApiUrl1=api_url;
+            this.fnAllServices();
+        }
+        if(api_url && type=="category"){
+            this.serviceApiUrl2=api_url;
+            this.fnSelectCategory(this.selectedCategoryID,this.selectedCategoryIndex);
+        }
+        if(api_url && type=="subcategory"){
+            this.serviceApiUrl3=api_url;
+            this.fnSelectSubCategory(this.selectedSubCategoryID,this.selectedSubCategoryIndex);
+        }
+    }
+    navigateToPageNumber(index,type){
+        console.log(index);
+        if(index && type=="service"){
+            this.serviceApiUrl1=this.path+'?page='+index;
+            this.fnAllServices();
+        }
+        if(index && type=="category"){
+            this.serviceApiUrl2=this.path+'?page='+index;
+            this.fnSelectCategory(this.selectedCategoryID,this.selectedCategoryIndex);
+        }
+        if(index && type=="subcategory"){
+            this.serviceApiUrl3=this.path+'?page='+index;
+            this.fnSelectSubCategory(this.selectedSubCategoryID,this.selectedSubCategoryIndex);
+        }
+    }
+
+    fnAllServicesNavigation(){
+        this.serviceApiUrl1=environment.apiUrl+"/admin-service-list";
+        this.fnAllServices();   
+    }
+
     fnAllServices() {
         this.isLoaderAdmin = true;
         this.createNewCategoryPage = false;
@@ -200,9 +248,16 @@ export class ServicesComponent implements OnInit {
         this.selectCategoryPage = '';
         this.subCategoryPage = false;
         this.addNewServicePage = false;
-        this.adminSettingsService.fnAllServices().subscribe((response: any) => {
+        this.adminSettingsService.fnAllServices(this.serviceApiUrl1).subscribe((response: any) => {
             if (response.data == true) {
-                this.allServicesList = response.response
+                this.allServicesList = response.response.data;
+                this.current_page = response.response.current_page;
+                this.first_page_url = response.response.first_page_url;
+                this.last_page = response.response.last_page;
+                this.last_page_url = response.response.last_page_url;
+                this.next_page_url = response.response.next_page_url;
+                this.prev_page_url = response.response.prev_page_url;
+                this.path = response.response.path;
                 if (this.allServicesList != '') {
                     this.servicesList = true;
                     this.allServiceCount = this.allServicesList.length
@@ -267,20 +322,32 @@ export class ServicesComponent implements OnInit {
         moveItemInArray(this.allServicesList, event.previousIndex, event.currentIndex);
     }
 
+    fnSelectCategoryNavigation(categoryId, index){
+        this.serviceApiUrl2=environment.apiUrl+"/list-service";
+        this.fnSelectCategory(categoryId, index);  
+    }
 
     fnSelectCategory(categoryId, index) {
         this.isLoaderAdmin = true;
         this.createNewSubCategoryPage = false;
+        this.selectedCategoryID = categoryId
         this.selectedCategoryIndex = index
         this.createNewCategoryPage = false;
         this.createNewServicePage = false;
-        this.adminSettingsService.getServiceForCategoiry(categoryId, this.service_filter).subscribe((response: any) => {
+        this.adminSettingsService.getServiceForCategoiry(categoryId, this.service_filter,this.serviceApiUrl2).subscribe((response: any) => {
             if (response.data == true) {
-                this.categoryServicesList = response.response
+                this.categoryServicesList = response.response.data;
+                this.current_page = response.response.current_page;
+                this.first_page_url = response.response.first_page_url;
+                this.last_page = response.response.last_page;
+                this.last_page_url = response.response.last_page_url;
+                this.next_page_url = response.response.next_page_url;
+                this.prev_page_url = response.response.prev_page_url;
+                this.path = response.response.path;
                 if (this.categoryServicesList != '' && this.categoryServicesList != 'service not found') {
                     this.servicesList = false;
                     this.selectCategoryPage = 'services';
-                    this.selectedCategoryDetails = this.allCetegoryList[index]
+                    this.selectedCategoryDetails = this.allCetegoryList[index];
                 } else if (this.categoryServicesList == 'service not found') {
                     this.servicesList = false;
                     this.selectedCategoryDetails = this.allCetegoryList[index]
@@ -685,14 +752,28 @@ export class ServicesComponent implements OnInit {
         }
 
     }
+
+    fnSelectSubCategoryNavigate(subCategoryId, index){
+        this.serviceApiUrl3=environment.apiUrl+"/list-subcategory-service";;
+       this.fnSelectSubCategory(subCategoryId, index); 
+    }
+
     fnSelectSubCategory(subCategoryId, index) {
         this.isLoaderAdmin = true;
         this.createNewSubCategoryPage = false;
         this.createNewCategoryPage = false;
+        this.selectedSubCategoryID = subCategoryId;
         this.selectedSubCategoryIndex = index;
-        this.adminSettingsService.getServiceForSubCategoiry(subCategoryId, this.subcategory_service_filter).subscribe((response: any) => {
+        this.adminSettingsService.getServiceForSubCategoiry(subCategoryId, this.subcategory_service_filter,this.serviceApiUrl3).subscribe((response: any) => {
             if (response.data == true) {
-                this.subCategoryServicesList = response.response
+                this.subCategoryServicesList = response.response.data;
+                this.current_page = response.response.current_page;
+                this.first_page_url = response.response.first_page_url;
+                this.last_page = response.response.last_page;
+                this.last_page_url = response.response.last_page_url;
+                this.next_page_url = response.response.next_page_url;
+                this.prev_page_url = response.response.prev_page_url;
+                this.path = response.response.path;
                 if (this.subCategoryServicesList != '' && this.subCategoryServicesList != 'service not found') {
                     this.servicesList = false;
                     this.singleSubCategoryPage = 'services';
