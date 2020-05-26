@@ -13,16 +13,15 @@
                         <a><img src="/assets/img/logo.png"></a>
                     </div>
                     <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
-                    <span class="example-fill-remaining-space">
-          </span>
+                    <span class="example-fill-remaining-space"></span>
                     <span class="f13">
-            <button  mat-stroked-button class="bellborder bell-color ml-3" (click)="openNotificationDialog()">
-            <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
-            </button> 
-            <mat-button-toggle class="toggleborder" (click)="drawer.toggle()">
-              <i class="fa fa-bars toggle-color" aria-hidden="true"></i>
-            </mat-button-toggle>
-          </span>
+                        <button  mat-stroked-button class="bellborder bell-color ml-3" (click)="openNotificationDialog()">
+                        <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
+                        </button> 
+                        <mat-button-toggle class="toggleborder" (click)="drawer.toggle()">
+                        <i class="fa fa-bars toggle-color" aria-hidden="true"></i>
+                        </mat-button-toggle>
+                    </span>
                 </mat-toolbar-row>
                 <mat-toolbar-row *ngIf="isStaffUser()">
                     <div class="logo">
@@ -143,29 +142,29 @@
                                     </mde-popover>
                                 </div>
                             </mat-list-item>
-                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-workspace' }" (click)="myWorkSpaceNav(); fnPostUrl('my-workspace');">
+                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-workspace' }" class="{{pageHeading=='My Workspace'?'active':''}}" (click)="myWorkSpaceNav(); fnPostUrl('my-workspace');">
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-bag.png"></div>
                             </mat-list-item>
-                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-appointment' }" (click)="MyAppointmentNav(); fnPostUrl('my-appointment');">
+                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-appointment' }" class="{{pageHeading=='My Appointments'?'active':''}}" (click)="MyAppointmentNav(); fnPostUrl('my-appointment');">
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-calendar.png">
                                 </div>
                             </mat-list-item>
-                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-customers' }" (click)="MyCustomerNav(); fnPostUrl('my-customers');">
+                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-customers' }" class="{{pageHeading=='My Customer'?'active':''}}" (click)="MyCustomerNav(); fnPostUrl('my-customers');">
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-user.png">
                                 </div>
                             </mat-list-item>
-                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-reports' }" (click)="MyReportsNav(); fnPostUrl('my-reports');">
+                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-reports' }" class="{{pageHeading=='My Reports'?'active':''}}" (click)="MyReportsNav(); fnPostUrl('my-reports');">
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-statistics.png"></div>
                             </mat-list-item>
-                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-discountCoupon' }" (click)="MyDiscountCouponNav(); fnPostUrl('my-discountCoupon');">
+                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-discountCoupon' }" class="{{pageHeading=='My Discount Coupon'?'active':''}}" (click)="MyDiscountCouponNav(); fnPostUrl('my-discountCoupon');">
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-couon.png"></div>
                             </mat-list-item>
                         </div>
                         <div class="bottom_admin_menu">
-                            <mat-list-item role="listitem" (click)="MySettingsNav(); fnPostUrl('my-settings');" [ngClass]="{'active': postUrl == 'my-settings' }">
+                            <mat-list-item role="listitem" (click)="MySettingsNav(); fnPostUrl('my-settings');" class="{{pageHeading=='My Settings'?'active':''}}" [ngClass]="{'active': postUrl == 'my-settings' }">
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-settings.png"></div>
                             </mat-list-item>
-                            <mat-list-item role="listitem" (click)="MyProfileNav(); fnPostUrl('my-profile');" [ngClass]="{'active': postUrl == 'my-profile' }">
+                            <mat-list-item role="listitem" (click)="MyProfileNav(); fnPostUrl('my-profile');" class="{{pageHeading=='My Profile'?'active':''}}" [ngClass]="{'active': postUrl == 'my-profile' }">
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-user-2.png"></div>
                             </mat-list-item>
                         </div>
