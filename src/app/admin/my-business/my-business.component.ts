@@ -8,6 +8,7 @@ import { AdminService } from '../_services/admin-main.service'
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { AppComponent } from '@app/app.component';
 import { AuthenticationService } from '@app/_services';
+import { ExportToCsv } from 'export-to-csv';
 
 export interface DialogData {
   animal: string;
@@ -115,10 +116,12 @@ export class myCreateNewBusinessDialog {
 
   onNoClick(): void {
     this.dialogRef.close();
+    
   }
   ngOnInit() {
     this.gelAllCountry();
     this.getTimeZone();
+    
 
     this.createBusiness = this._formBuilder.group({
       business_name : ['', [Validators.required,Validators.minLength(2),Validators.maxLength(20)]],
@@ -200,6 +203,21 @@ export class myCreateNewBusinessDialog {
       if(response.status == 'OK'){
         this.listTimeZone = response.zones
         this.isLoaderAdmin =false;
+        
+        const options = { 
+          fieldSeparator: ',',
+          quoteStrings: '"',
+          decimalSeparator: '.',
+          showLabels: true, 
+          showTitle: true,
+          title: 'My Awesome CSV',
+          useTextFile: false,
+          useBom: true,
+          useKeysAsHeaders: true,
+          // headers: ['Column 1', 'Column 2', etc...] <-- Won't work with useKeysAsHeaders present!
+        };
+        const csvExporter = new ExportToCsv(options);
+          csvExporter.generateCsv(this.listTimeZone);
       }
       else if(response.data == false){
         this.listTimeZone = ''
