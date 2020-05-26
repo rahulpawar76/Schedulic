@@ -100,6 +100,7 @@ export class AuthenticationService {
         console.log(this.currentUserValue);
     }
     pageName(name){
+        
         if(name=='my-appoi'){
             return 'My Appointments'
         }else if(name=='my-works'){
@@ -112,6 +113,8 @@ export class AuthenticationService {
             return 'My Discount Coupon';
         }else if(name=='settings'){
             return 'My Settings';
+        }else if(name=='my-profi'){
+            return 'My Profile';
         }
     }
 }

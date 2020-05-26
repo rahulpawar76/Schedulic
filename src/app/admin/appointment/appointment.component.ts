@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild,AfterViewInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AdminService } from '../_services/admin-main.service';
 import { Subject } from 'rxjs';
@@ -12,11 +12,27 @@ import { Router, RouterOutlet } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
 import { AppComponent } from '@app/app.component';
 import { Observable, throwError } from 'rxjs';
+import { AuthenticationService } from '@app/_services';
+import { DataTableDirective } from 'angular-datatables';
 
 export interface DialogData {
   animal: string;
   name: string;
 }
+
+// class Person {
+//   id: number;
+//   firstName: string;
+//   lastName: string;
+// }
+
+class DataTablesResponse {
+  data: any[];
+  draw: number;
+  recordsFiltered: number;
+  recordsTotal: number;
+}
+
 
 @Component({
   selector: 'app-appointment',
@@ -26,8 +42,14 @@ export interface DialogData {
 })
 
 export class AppointmentComponent implements OnInit {
+ // persons: Person[];
+ datatableElement: DataTableDirective;
+
+  currentUser : any;
   adminSettings : boolean = false;
   dtOptions: DataTables.Settings = {};
+  dtOptions1: DataTables.Settings = {};
+
   dtTrigger: Subject<any> = new Subject();
   startDate:any;
   endDate:any;
@@ -48,12 +70,26 @@ export class AppointmentComponent implements OnInit {
   currencySymbol:any;
   currencySymbolPosition:any;
   currencySymbolFormat:any;
+
+  search:any;
+  
+  current_page : any;
+  first_page_url : any;
+  last_page : any;
+  last_page_url : any;
+  next_page_url : any;
+  prev_page_url : any;
+  path : any;
+  staffApiUrl:any =  `${environment.apiUrl}/admin-booking-listing`;
+
   constructor(
     public dialog: MatDialog,
     private AdminService: AdminService,
     private datePipe: DatePipe,
     private appComponent : AppComponent,
     private _snackBar: MatSnackBar,
+    private http: HttpClient,
+    private authenticationService:AuthenticationService
     ) {
       localStorage.setItem('isBusiness', 'false');
       this.businessId=localStorage.getItem('business_id');
@@ -62,23 +98,30 @@ export class AppointmentComponent implements OnInit {
       this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
       this.endDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
       this.fnGetSettingValue();
-      this.getAllAppointments(this.selectedServices);
+      this.getAllAppointments();
       this.getAllServices();
       
-      this.dtOptions = {
-        // Use this attribute to enable the responsive extension
-        responsive: true,
-      };
-     }
+      // this.dtOptions = {
+      //   // Use this attribute to enable the responsive extension
+      //   responsive: true,
+      // };
+      this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+
+  }
 
   ngOnInit() {
-    
+
   }
+
+ 
+  
 
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
+
+  
 
   fnGetSettingValue(){
     let requestObject = {
@@ -162,12 +205,12 @@ export class AppointmentComponent implements OnInit {
       this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
       console.log(this.endDate);
     }
-    this.getAllAppointments(this.selectedServices);
+    this.getAllAppointments();
   }
 
   selectService(service){
     this.selectedServices = service;
-    this.getAllAppointments(this.selectedServices);
+    this.getAllAppointments();
   }
 
   fnPrev(){
@@ -246,7 +289,7 @@ export class AppointmentComponent implements OnInit {
       console.log(this.endDate);
     }
 
-    this.getAllAppointments(this.selectedServices);
+    this.getAllAppointments();
   }
 
   fnNext(){
@@ -323,41 +366,81 @@ export class AppointmentComponent implements OnInit {
       this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
       console.log(this.endDate);
     }
-    this.getAllAppointments(this.selectedServices);
+    // this.getAllAppointments(this.selectedServices);
+    this.getAllAppointments();
+  }
+  
+  Search(value){
+    this.search = value
+    this.getAllAppointments()
   }
 
-  getAllAppointments(services){
+  getAllAppointments(){
+
     this.isLoaderAdmin = true;
     let requestObject = {
         'business_id' : this.businessId,
         'start_date' : this.startDate,
         'end_date' : this.endDate,
-        'services' : services
+        'services' : this.selectedServices,
+        'search' : this.search
     };
-    this.AdminService.getAllAppointments(requestObject).subscribe((response:any) => {
+
+    this.AdminService.getAllAppointmentsData(this.staffApiUrl,requestObject).subscribe((response:any) => {
       if(response.data == true){
+        
         this.allAppointments = response.response
-        console.log( this.allAppointments);
+        this.current_page = response.response.current_page;
+        this.first_page_url = response.response.first_page_url;
+        this.last_page = response.response.last_page;
+        this.last_page_url = response.response.last_page_url;
+        this.next_page_url = response.response.next_page_url;
+        this.prev_page_url = response.response.prev_page_url;
+        this.path = response.response.path;
+
+        this.allAppointments = response.response.data;
+        this.isLoaderAdmin = false;
+
         this.allAppointments.forEach( (element) => { 
           element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
           element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
           element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
         });
+
         this.dtTrigger.next();
         this.isLoaderAdmin = false;
-      }
-      else if(response.data == false){
+
+      }else if(response.data == false){
         this.allAppointments = [];
         this.isLoaderAdmin = false;
       }
-    })
+    });
+
+  }
+
+  navigateTo(api_url){
+    this.staffApiUrl=api_url;
+    if(this.staffApiUrl){
+      this.getAllAppointments();
+    }
+  }
+  navigateToPageNumber(index){
+    this.staffApiUrl=this.path+'?page='+index;
+    console.log(this.staffApiUrl);
+    if(this.staffApiUrl){
+      this.getAllAppointments();
+    }
+  }
+  
+  arrayOne(n: number): any[] {
+    return Array(n);
   }
 
   getAllServices(){
     this.isLoaderAdmin = true;
     this.AdminService.getAllServices().subscribe((response:any) => {
       if(response.data == true){
-        this.allservices = response.response
+        this.allservices = response.response.data;
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
@@ -433,7 +516,8 @@ export class AppointmentComponent implements OnInit {
         });
         this.selectedValue = undefined;
         this.orderItemsIdArr.length = 0;
-        this.getAllAppointments(this.selectedServices);
+        //this.getAllAppointments(this.selectedServices);
+        this.getAllAppointments();
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
@@ -452,7 +536,7 @@ export class AppointmentComponent implements OnInit {
           panelClass :['green-snackbar']
         });
         this.orderItemsIdArr.length = 0;
-        this.getAllAppointments(this.selectedServices);
+        this.getAllAppointments();
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
@@ -471,7 +555,7 @@ export class AppointmentComponent implements OnInit {
           panelClass :['green-snackbar']
         });
         this.orderItemsIdArr.length = 0;
-        this.getAllAppointments(this.selectedServices);
+        this.getAllAppointments();
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){

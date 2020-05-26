@@ -40,14 +40,14 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-12 col-md-4 col-sm-12 d-flex justify-content-end">
-                    <!-- <div class="searchbox mr-2">
+                    <div class="searchbox mr-2">
                         <form class="serch_input-appoint">							
                             <div class="form-group has-search">
                                 <span class="fa fa-search form-control-feedback verticalLine"></span>
-                                <input type="text" class="form-control searchbox_appointment " placeholder="Customer,Service Staff,Status">
+                                <input type="text" class="form-control searchbox_appointment"   (keyup)="Search($event.target.value)" placeholder="Customer,Service Staff">
                             </div>												
                         </form>
-                    </div>   -->
+                    </div>  
                     <div class="">
                         <button (click)="addAppointment()" class="addAppointment-head-btn mt-1">Add Appointment </button>
                     </div>
@@ -55,73 +55,182 @@
             </div>
         </div>
         <div class="col-12" id="Appointment-dataTable">
-            <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="row-border hover">
-                <thead>
-                    <tr>
-                        <th>
-                            <!-- <mat-checkbox [(ngModel)]="selectAll" (change)="checkAll()"></mat-checkbox> -->
-                        </th>
-                        <th>Date & Time</th>
-                        <th>Customer</th>
-                        <th>Service</th>
-                        <th>Staff</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr (click)="fnOpenDetails()" *ngFor="let allAppointmentsData of allAppointments; let i=index">
-                        <!-- <td>
-                        <mat-checkbox [(ngModel)]="allAppointmentsData.checked" (change)="fnAddOrderId($event.checked, allAppointmentsData.id)" class=""></mat-checkbox>
-                    </td>-->
-                    <td>
-                        <mat-checkbox (change)="fnAddOrderId($event.checked, allAppointmentsData.id)" class=""></mat-checkbox>
-                    </td>
-                    <td>
-                        <p>{{allAppointmentsData.booking_date}},</p>
-                        <p>{{allAppointmentsData.booking_time}}</p>
-                    </td>
-                    <td>
-                        <p>{{allAppointmentsData.customer?allAppointmentsData.customer.fullname:''}}</p>
-                        <p>Phone No: {{allAppointmentsData.customer?allAppointmentsData.customer.phone:''}}</p>
-                    </td>
-                    <td> 
-                        <p>{{allAppointmentsData.service.service_name}}</p>
-                    </td>
-                    <td *ngIf="allAppointmentsData.staff != null"> 
-                        <p class="text-capitalize">{{allAppointmentsData.staff.firstname}} {{allAppointmentsData.staff.lastname}}</p>
-                        <p>Phone No: {{allAppointmentsData.staff.phone}}</p>
-                    </td>
-                    <td *ngIf="allAppointmentsData.staff == null"> 
-                        <p class="text-capitalize">Staff Not Assigned</p>
-                    </td>
-                    <!-- <td>$ {{allAppointmentsData.total_cost}}</td> -->
-                    <td *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ allAppointmentsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>
-                    <td *ngIf="currencySymbolPosition=='right'">{{ allAppointmentsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</td>
-                    <td>
-                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'P'">Waiting For Confirmation</p>
-                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'CNF'">Confirm</p>
-                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'AC'">Accepted</p>
-                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'RSA'">Rescheduled By Admin</p>
-                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'RSS'">Rescheduled By Staff</p>
-                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'RSC'">Rescheduled By Customer</p>
-                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'R'">Rejected</p>
-                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'OW'">On The Way</p>
-                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'WS'">Work Started</p>
-                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'ITR'">Interrupted</p>
-                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'CO'">Completed</p>
-                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'CC'">Cancelled By Customer</p>
-                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'C'">Cancelled</p>
-                    </td>
-                    <td> 
-                        <button (click)="fnEditAppointment(i)" class="appointment-edit-btn mr-1" *ngIf="allAppointmentsData.order_status != 'C' && allAppointmentsData.order_status != 'CC' && allAppointmentsData.order_status != 'CO' && minReschedulingTime.getTime() < allAppointmentsData.booking_date_time.getTime()"><i class="material-icons appointment-icon">edit</i></button>
-                        <button *ngIf="allAppointmentsData.order_status !== 'C' && allAppointmentsData.order_status !== 'CC' && allAppointmentsData.order_status !== 'CO' && cancellationBufferTime.getTime() < allAppointmentsData.booking_date_time.getTime()" (click)="cancelAppointment('C', allAppointmentsData.id)" class="appointment-cancel-btn mr-1"><i class="material-icons appointment-icon">close</i></button>
-                        <button *ngIf="allAppointmentsData.order_status == 'P'" (click)="confirmAppointment('AC', allAppointmentsData.id)" class="appointment-confirm-btn mr-1"><i class="material-icons appointment-icon">done</i></button>
-                    </td>
-                  </tr>
-                </tbody>
-            </table>
+
+            <div class="w-100" id="" *ngIf="allStaffList != ''">
+                <div class="postalcode-table">
+                    <div class="main-table-content main-cust-table-content">
+                        <div class="">
+                            <div class="heads main-heading-content staff-list-row header-background " fxLayout="row">
+                                <div class="text-left" fxFlex="10">#</div>
+                                <div class="text-left" fxFlex="20">Date & Time</div>
+                                <div class="text-left" fxFlex="15">Customer</div>
+                                <div class="text-left" fxFlex="15">Service</div>
+                                <div class="text-left" fxFlex="10">Staff</div>
+                                <div class="text-left" fxFlex="10">Amount</div>
+                                <div class="text-left" fxFlex="10">Status</div>
+                                <div class="text-left" fxFlex="10">Action</div>
+                            </div>
+                            <div class="content" class="staff-list">
+                                <div class="staff-list-row" *ngFor="let allAppointmentsData of allAppointments; let i=index">
+
+                                    <div class="text-left" fxFlex="10">
+                                        <mat-checkbox (change)="fnAddOrderId($event.checked, allAppointmentsData.id)" class=""></mat-checkbox>
+                                    </div>
+
+                                    <div class="text-left" fxFlex="20" (click)="fnOpenDetails()">
+                                        <p>{{allAppointmentsData.booking_date}},</p>
+                                        <p>{{allAppointmentsData.booking_time}}</p>
+                                    </div>
+
+                                    <div class="text-left" fxFlex="15" >
+                                        <p>{{allAppointmentsData.customer?allAppointmentsData.customer.fullname:''}}</p>
+                                        <p>Phone No: {{allAppointmentsData.customer?allAppointmentsData.customer.phone:''}}</p>
+                                    </div>
+
+                                    <div class="text-left" fxFlex="15" >
+                                        <p>{{allAppointmentsData.service.service_name}}</p>
+                                    </div>
+
+                                    <div class="text-left" fxFlex="10"  *ngIf="allAppointmentsData.staff != null"> 
+                                        <p class="text-capitalize">{{allAppointmentsData.staff.firstname}} {{allAppointmentsData.staff.lastname}}</p>
+                                        <p>Phone No: {{allAppointmentsData.staff.phone}}</p>
+                                    </div>
+                                    <div class="text-left" fxFlex="10"  *ngIf="allAppointmentsData.staff == null"> 
+                                        <p class="text-capitalize">Staff Not Assigned</p>
+                                    </div>
+
+                                    <div class="text-left" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ allAppointmentsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</div>
+                                    <div class="text-left" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ allAppointmentsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
+
+
+                                    <div class="text-left" fxFlex="10">
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'P'">Waiting For Confirmation</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'CNF'">Confirm</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'AC'">Accepted</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'RSA'">Rescheduled By Admin</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'RSS'">Rescheduled By Staff</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'RSC'">Rescheduled By Customer</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'R'">Rejected</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'OW'">On The Way</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'WS'">Work Started</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'ITR'">Interrupted</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'CO'">Completed</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'CC'">Cancelled By Customer</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'C'">Cancelled</p>
+                                    </div>
+
+                                    <div class="text-left" fxFlex="10" > 
+                                        <button (click)="fnEditAppointment(i)" class="appointment-edit-btn mr-1" *ngIf="allAppointmentsData.order_status != 'C' && allAppointmentsData.order_status != 'CC' && allAppointmentsData.order_status != 'CO' && minReschedulingTime.getTime() < allAppointmentsData.booking_date_time.getTime()"><i class="material-icons appointment-icon">edit</i></button>
+                                        <button *ngIf="allAppointmentsData.order_status !== 'C' && allAppointmentsData.order_status !== 'CC' && allAppointmentsData.order_status !== 'CO' && cancellationBufferTime.getTime() < allAppointmentsData.booking_date_time.getTime()" (click)="cancelAppointment('C', allAppointmentsData.id)" class="appointment-cancel-btn mr-1"><i class="material-icons appointment-icon">close</i></button>
+                                        <button *ngIf="allAppointmentsData.order_status == 'P'" (click)="confirmAppointment('AC', allAppointmentsData.id)" class="appointment-confirm-btn mr-1"><i class="material-icons appointment-icon">done</i></button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="table_pagination">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-end">
+                                <li class="page-item" (click)="navigateTo(first_page_url)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                <li class="page-item" (click)="navigateTo(prev_page_url)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                                <li class="page-item" [ngClass]="{'active':current_page == i+1}" *ngFor="let pagenumber of arrayOne(last_page); let i = index;" (click)="navigateToPageNumber(i+1)"><a class="page-link">{{i+1}}</a></li>
+                                <li class="page-item" (click)="navigateTo(next_page_url)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                                <li class="page-item" (click)="navigateTo(last_page_url)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+
+             <!-- <div class="w-100" id="" *ngIf="allStaffList != ''">
+                <div class="postalcode-table">
+                    <div class="main-table-content main-cust-table-content">
+                        <table  class="row-border hover datatable">
+                            <thead>
+                              <tr>
+                                <th>#</th>
+                                <th>Date & Time</th>
+                                <th>Customer</th>
+                                <th>Service</th>
+                                <th>Staff</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                              </tr>
+                            </thead>
+                            <tbody *ngIf="allAppointments?.length != 0">
+                                <tr *ngFor="let allAppointmentsData of allAppointments">
+                                    <td>
+                                        <mat-checkbox (change)="fnAddOrderId($event.checked, allAppointmentsData.id)" class=""></mat-checkbox>
+                                    </td>
+                                    <td (click)="fnOpenDetails()">
+                                        <p>{{allAppointmentsData.booking_date}},</p>
+                                        <p>{{allAppointmentsData.booking_time}}</p>
+                                    </td>
+                                    <td>
+                                        <p>{{allAppointmentsData.customer?allAppointmentsData.customer.fullname:''}}</p>
+                                        <p>Phone No: {{allAppointmentsData.customer?allAppointmentsData.customer.phone:''}}</p>
+                                    </td>
+                                    <td> 
+                                        <p>{{allAppointmentsData.service.service_name}}</p>
+                                    </td>
+                                    <td *ngIf="allAppointmentsData.staff != null"> 
+                                        <p class="text-capitalize">{{allAppointmentsData.staff.firstname}} {{allAppointmentsData.staff.lastname}}</p>
+                                        <p>Phone No: {{allAppointmentsData.staff.phone}}</p>
+                                    </td>
+                                    <td *ngIf="allAppointmentsData.staff == null"> 
+                                        <p class="text-capitalize">Staff Not Assigned</p>
+                                    </td>
+                                    <td *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ allAppointmentsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>
+                                    <td *ngIf="currencySymbolPosition=='right'">{{ allAppointmentsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</td>
+                                    
+                                    <td>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'P'">Waiting For Confirmation</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'CNF'">Confirm</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'AC'">Accepted</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'RSA'">Rescheduled By Admin</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'RSS'">Rescheduled By Staff</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'RSC'">Rescheduled By Customer</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'R'">Rejected</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'OW'">On The Way</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'WS'">Work Started</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'ITR'">Interrupted</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'CO'">Completed</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'CC'">Cancelled By Customer</p>
+                                        <p class="text-capitalize" *ngIf="allAppointmentsData.order_status == 'C'">Cancelled</p>
+                                    </td>
+                                    <td> 
+                                        
+                                        <button (click)="fnEditAppointment(i)" class="appointment-edit-btn mr-1" *ngIf="allAppointmentsData.order_status != 'C' && allAppointmentsData.order_status != 'CC' && allAppointmentsData.order_status != 'CO' && minReschedulingTime.getTime() < allAppointmentsData.booking_date_time.getTime()"><i class="material-icons appointment-icon">edit</i></button>
+                                        <button *ngIf="allAppointmentsData.order_status !== 'C' && allAppointmentsData.order_status !== 'CC' && allAppointmentsData.order_status !== 'CO' && cancellationBufferTime.getTime() < allAppointmentsData.booking_date_time.getTime()" (click)="cancelAppointment('C', allAppointmentsData.id)" class="appointment-cancel-btn mr-1"><i class="material-icons appointment-icon">close</i></button>
+                                        <button *ngIf="allAppointmentsData.order_status == 'P'" (click)="confirmAppointment('AC', allAppointmentsData.id)" class="appointment-confirm-btn mr-1"><i class="material-icons appointment-icon">done</i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="allAppointments?.length == 0">
+                              <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                              </tr>
+                            <tbody>
+                        </table>
+                    </div>
+                    <div class="table_pagination">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-end">
+                                <li class="page-item" (click)="navigateTo(first_page_url)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                <li class="page-item" (click)="navigateTo(prev_page_url)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                                <li class="page-item" [ngClass]="{'active':current_page == i+1}" *ngFor="let pagenumber of arrayOne(last_page); let i = index;" (click)="navigateToPageNumber(i+1)"><a class="page-link">{{i+1}}</a></li>
+                                <li class="page-item" (click)="navigateTo(next_page_url)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                                <li class="page-item" (click)="navigateTo(last_page_url)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>  -->
         </div>
     </div>
 </div>
