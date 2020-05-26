@@ -360,6 +360,7 @@ export class ServicesComponent implements OnInit {
                 if (response.response == 'service not found') {
                     this.servicesList = false;
                     this.selectedCategoryDetails = this.allCetegoryList[index]
+                    console.log(this.selectedCategoryDetails);
                     this.selectCategoryPage = 'notservices';
                 }
                 this.isLoaderAdmin = false;
@@ -777,10 +778,10 @@ export class ServicesComponent implements OnInit {
                     this.servicesList = false;
                     this.singleSubCategoryPage = 'services';
                     this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedCategoryIndex].subcategory[index]
-                    console.log(this.selectedSubCategoryDetails);
                 } else if (this.subCategoryServicesList == 'service not found') {
                     this.servicesList = false;
                     this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedCategoryIndex].subcategory[index]
+                    this.selectCategoryPage = '';
                     this.singleSubCategoryPage = 'notservices';
                 }
                 this.selectCategoryPage = '';
@@ -788,7 +789,15 @@ export class ServicesComponent implements OnInit {
                 this.isLoaderAdmin = false;
             }
             else if (response.data == false) {
+                if (response.response == 'service not found') {
+                    alert(response.response)
+                    this.servicesList = false;
+                    this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedCategoryIndex].subcategory[index]
+                    this.selectCategoryPage = '';
+                    this.singleSubCategoryPage = 'notservices';
+                }
                 this.categoryServicesList = [];
+                this.createNewServicePage = false;
                 this.isLoaderAdmin = false;
             }
         })
@@ -856,7 +865,6 @@ export class ServicesComponent implements OnInit {
         }
     }
     fnCreateServiceSubmit() {
-        alert(this.createService.get('service_id').value)
         if (this.createService.get('service_id').value != null && this.createService.get('service_id').value != '') {
             if (this.createService.valid) {
                 this.updateServiceData = {
