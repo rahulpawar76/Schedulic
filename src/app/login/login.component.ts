@@ -112,4 +112,7 @@ export class LoginComponent implements OnInit {
     signInWithGoogle(): void {
         this.appComponent.signInWithGoogle(this.loginForm);
     }
+    signInWithFB(): void {
+        // this.appComponent.signInWithFB(this.loginForm);
+    }
 }
