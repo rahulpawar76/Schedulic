@@ -50,7 +50,10 @@
                 <div class="main-table-content main-cust-table-content">
                     <div *ngIf="categoryServicesList != ''" class="">
                         <div class="heads main-heading-content drageble " fxLayout="row">
-                            <div class="" fxFlex="30">Service</div>
+                            <div class="" fxFlex="5">
+                                <mat-checkbox  [checked]="selectAll"  (change)="checkAll($event)" class=""></mat-checkbox>
+                            </div>
+                            <div class="" fxFlex="25">Service</div>
                             <div class="" fxFlex="15">Duration</div>
                             <div class="" fxFlex="13">price</div>
                             <div class="" fxFlex="10">Unit</div>
@@ -60,6 +63,9 @@
                         </div>
                         <div class="content" class="drageble-list" cdkDropList (cdkDropListDropped)="drop($event)">
                             <div class="drageble-box" *ngFor="let allServicesList of allServicesList; let i=index" cdkDrag fxLayout="row">
+                                <div class="text-left" fxFlex="5">
+                                    <mat-checkbox [checked]="allServicesList.is_selected" (change)="fnAddStaffId($event.checked,allServicesList.id,i)"></mat-checkbox>
+                                </div>
                                 <div class="" fxFlex="30">{{allServicesList.service_name}}</div>
                                 <div class="" fxFlex="15">{{allServicesList.service_time}}</div>
                                 <!-- <div class="" fxFlex="13">$ {{allServicesList.service_cost}}</div> -->
@@ -309,7 +315,9 @@
                     <div class="main-table-content main-cust-table-content">
                         <div *ngIf="categoryServicesList != ''" class="">
                             <div class="heads main-heading-content drageble " fxLayout="row">
-                                <div class="" fxFlex="5"></div>
+                                <div class="" fxFlex="5">
+                                    <mat-checkbox  [checked]="selectAllCategory"  (change)="checkAllCategory($event)" class=""></mat-checkbox>
+                                </div>
                                 <div class="" fxFlex="30">Service</div>
                                 <div class="" fxFlex="15">Duration</div>
                                 <div class="" fxFlex="10">price</div>
@@ -321,7 +329,7 @@
                             <div class="content" class="drageble-list" cdkDropList (cdkDropListDropped)="dropCategory($event)">
                                 <div class="drageble-box" *ngFor="let categoryServicesList of categoryServicesList; let i=index" cdkDrag fxLayout="row">
                                     <div class="" fxFlex="5">
-                                        <mat-checkbox (change)="fnActionServiceId($event.checked,categoryServicesList.id)"></mat-checkbox>
+                                        <mat-checkbox  [checked]="categoryServicesList.is_selected" (change)="fnActionServiceId($event.checked,categoryServicesList.id,i); "></mat-checkbox>
                                     </div>
                                     <div class="" fxFlex="30">{{categoryServicesList.service_name}}</div>
                                     <div class="" fxFlex="15">{{categoryServicesList.service_time}}</div>
@@ -430,7 +438,9 @@
                     <div class="main-table-content main-cust-table-content">
                         <div *ngIf="subCategoryServicesList != ''" class="">
                             <div class="heads main-heading-content drageble" fxLayout="row">
-                                <div class="" fxFlex="5"></div>
+                                <div class="" fxFlex="5">
+                                    <mat-checkbox  [checked]="selectAllSubCat"  (change)="checkAllSubcat($event)" class=""></mat-checkbox>
+                                </div>
                                 <div class="" fxFlex="30">Service</div>
                                 <div class="" fxFlex="15">Duration</div>
                                 <div class="" fxFlex="10">price</div>
@@ -442,7 +452,7 @@
                             <div class="content" class="drageble-list" cdkDropList (cdkDropListDropped)="dropSubCategory($event)">
                                 <div class="drageble-box" *ngFor="let subCategoryServicesList of subCategoryServicesList; let i=index" cdkDrag fxLayout="row">
                                     <div class="" fxFlex="5">
-                                        <mat-checkbox (change)="fnActionServiceId($event.checked,subCategoryServicesList.id)"></mat-checkbox>
+                                        <mat-checkbox [checked]="subCategoryServicesList.is_selected" (change)="fnAddStaffIdSub($event.checked,subCategoryServicesList.id,i)"></mat-checkbox>
                                     </div>
                                     <div class="" fxFlex="30">{{subCategoryServicesList.service_name}}</div>
                                     <div class="" fxFlex="15">{{subCategoryServicesList.service_time}}</div>

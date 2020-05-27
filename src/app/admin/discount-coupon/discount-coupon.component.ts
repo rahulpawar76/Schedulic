@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { DatePipe} from '@angular/common';
 import { AppComponent } from '@app/app.component'
+import { environment } from '@environments/environment';
 
 export interface DialogData {
   animal: string;
@@ -45,7 +46,17 @@ export class DiscountCouponComponent implements OnInit {
 
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^-?(0|[1-9]\d*)?$/
- 
+  search:any;
+  
+  current_page : any;
+  first_page_url : any;
+  last_page : any;
+  last_page_url : any;
+  next_page_url : any;
+  prev_page_url : any;
+  path : any;
+  discountApiUrl:any =  `${environment.apiUrl}/discount-coupon-list`;
+
   
   constructor(
     private AdminService: AdminService,
@@ -64,7 +75,7 @@ export class DiscountCouponComponent implements OnInit {
 
   ngOnInit() {
     this.couponListFilter = 'All';
-    this.getAllCouponCode(this.couponListFilter);
+    this.getAllCouponCode();
 
     this.discountCoupon = this._formBuilder.group({
       coupan_name : ['', [Validators.required,Validators.maxLength(8)]],
@@ -84,19 +95,41 @@ export class DiscountCouponComponent implements OnInit {
     this.dtTrigger.unsubscribe();
   }
 
+  Search(value){
+    this.search = value
+    this.discountApiUrl= `${environment.apiUrl}/discount-coupon-list`;
+    this.getAllCouponCode();
+  }
 
-  getAllCouponCode(couponListFilter){
+  getAllCouponCode(){
+
     this.isLoaderAdmin = true;
-    this.AdminService.getAllCouponCode(couponListFilter).subscribe((response:any) => {
+    let requestObject = {
+      'business_id': this.businessId,
+      'filter' : this.couponListFilter,   
+      'search' : this.search   
+    };
+
+    this.AdminService.getAllCouponCode(this.discountApiUrl,requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.allCouponCode = response.response
+        
+        this.current_page = response.response.current_page;
+        this.first_page_url = response.response.first_page_url;
+        this.last_page = response.response.last_page;
+        this.last_page_url = response.response.last_page_url;
+        this.next_page_url = response.response.next_page_url;
+        this.prev_page_url = response.response.prev_page_url;
+        this.path = response.response.path;
+
+        this.allCouponCode = response.response.data;
+
+        
         this.allCouponCode.forEach((element) => {
           element.coupon_valid_from=this.datePipe.transform(new Date(element.coupon_valid_from),"MMM d, y")
           element.coupon_valid_till=this.datePipe.transform(new Date(element.coupon_valid_till),"MMM d, y")
           element.created_at=this.datePipe.transform(new Date(element.created_at),"MMM d, y")
         });
         console.log(this.allCouponCode);
-        
         this.dtTrigger.next();
         this.isLoaderAdmin = false;
       }
@@ -105,6 +138,25 @@ export class DiscountCouponComponent implements OnInit {
         this.isLoaderAdmin = false;
       }
     })
+  }
+   
+  
+  navigateTo(api_url){
+    this.discountApiUrl=api_url;
+    if(this.discountApiUrl){
+      this.getAllCouponCode();
+    }
+  }
+
+  navigateToPageNumber(index){
+    this.discountApiUrl=this.path+'?page='+index;
+    if(this.discountApiUrl){
+      this.getAllCouponCode();
+    }
+  }
+  
+  arrayOne(n: number): any[] {
+    return Array(n);
   }
 
   fnCreateCouponSubmit(){
@@ -149,7 +201,8 @@ export class DiscountCouponComponent implements OnInit {
 
   fnStatusChange(status){
     this.couponListFilter = status;
-    this.getAllCouponCode(this.couponListFilter);
+    this.discountApiUrl= `${environment.apiUrl}/discount-coupon-list`;
+    this.getAllCouponCode();
   }
   changeCouponStaus(event,coupon_id){
     this.isLoaderAdmin = true;
@@ -167,7 +220,7 @@ export class DiscountCouponComponent implements OnInit {
           panelClass :['green-snackbar']
         });
         
-    this.getAllCouponCode(this.couponListFilter);
+    this.getAllCouponCode();
     this.isLoaderAdmin = false;
       }
       else if(response.data == false){
@@ -217,7 +270,7 @@ export class DiscountCouponComponent implements OnInit {
      dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.animal = result;
-    this.getAllCouponCode(this.couponListFilter);
+      this.getAllCouponCode();
      });
 
   }
