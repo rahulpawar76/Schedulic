@@ -33,7 +33,7 @@
                                     <input formControlName="apiUsername" matInput placeholder="" value="">
                                 </mat-form-field>
                                 <span class="w-100 error-wrap" *ngIf="paypal.get('apiUsername').dirty || paypal.get('apiUsername').touched">
-                                    <small *ngIf="paypal.get('apiUsername').hasError('required')" class="error">API Username Is required</small>
+                                    <small *ngIf="paypal.get('apiUsername').hasError('required')" class="error">API username is required</small>
                                 </span>
                             </div>
                             <div class="d-flex flex-wrap">
@@ -42,7 +42,7 @@
                                     <input formControlName="apiPassword" class="ml-auto" matInput placeholder="" value="">
                                 </mat-form-field>
                                 <span class="w-100 error-wrap" *ngIf="paypal.get('apiPassword').dirty || paypal.get('apiPassword').touched">
-                                    <small *ngIf="paypal.get('apiPassword').hasError('required')" class="error">API Username Is required</small>
+                                    <small *ngIf="paypal.get('apiPassword').hasError('required')" class="error">API password is required</small>
                                 </span>
                             </div>
                             <div class="d-flex flex-wrap">
@@ -51,7 +51,7 @@
                                     <input formControlName="signature" matInput placeholder="" value="">
                                 </mat-form-field>
                                 <span class="w-100 error-wrap" *ngIf="paypal.get('signature').dirty || paypal.get('signature').touched">
-                                    <small *ngIf="paypal.get('signature').hasError('required')" class="error">API Username Is required</small>
+                                    <small *ngIf="paypal.get('signature').hasError('required')" class="error">Signature is required</small>
                                 </span>
                             </div>
                             <!-- <div class="d-flex flex-wrap">
@@ -101,7 +101,7 @@
                                     <input formControlName="secretKey" matInput placeholder="" value="">
                                 </mat-form-field>
                                 <span class="w-100 error-wrap" *ngIf="stripe.get('secretKey').dirty || stripe.get('secretKey').touched">
-                                    <small *ngIf="stripe.get('secretKey').hasError('required')" class="error">Secret Key Is required</small>
+                                    <small *ngIf="stripe.get('secretKey').hasError('required')" class="error">Secret key is required</small>
                                 </span>
                             </div>
                             <div class="d-flex flex-wrap">
@@ -110,7 +110,7 @@
                                     <input formControlName="publishableKey" class="ml-auto" matInput placeholder="" value="">
                                 </mat-form-field>
                                 <span class="w-100 error-wrap" *ngIf="stripe.get('publishableKey').dirty || stripe.get('publishableKey').touched">
-                                    <small *ngIf="stripe.get('publishableKey').hasError('required')" class="error">Secret Key Is required</small>
+                                    <small *ngIf="stripe.get('publishableKey').hasError('required')" class="error">Publishable key is required</small>
                                 </span>
                             </div>
                             <div class="">
@@ -295,7 +295,7 @@
                                     <input formControlName="merchantKey" matInput placeholder="" value="">
                                 </mat-form-field>
                                 <span class="w-100 error-wrap" *ngIf="payumoney.get('merchantKey').dirty || payumoney.get('merchantKey').touched">
-                                    <small *ngIf="payumoney.get('merchantKey').hasError('required')" class="error">Merchant Key Is required</small>
+                                    <small *ngIf="payumoney.get('merchantKey').hasError('required')" class="error">Merchant key is required</small>
                                 </span>
                             </div>
                             <div class="d-flex flex-wrap">
@@ -304,7 +304,7 @@
                                     <input formControlName="saltKey" class="ml-auto" matInput placeholder="" value="">
                                 </mat-form-field>
                                 <span class="w-100 error-wrap" *ngIf="payumoney.get('saltKey').dirty || payumoney.get('saltKey').touched">
-                                    <small *ngIf="payumoney.get('saltKey').hasError('required')" class="error">Salt Key Is required</small>
+                                    <small *ngIf="payumoney.get('saltKey').hasError('required')" class="error">Salt key is required</small>
                                 </span>
                             </div>
                             <div class="">
@@ -342,7 +342,7 @@
                                     <input formControlName="bankName" matInput placeholder="" value="">
                                 </mat-form-field>
                                 <span class="w-100 error-wrap" *ngIf="bankTransfer.get('bankName').dirty || bankTransfer.get('bankName').touched">
-                                    <small *ngIf="bankTransfer.get('bankName').hasError('required')" class="error">API Username Is required</small>
+                                    <small *ngIf="bankTransfer.get('bankName').hasError('required')" class="error">Bank name is required</small>
                                 </span>
                             </div>
                             <div class="d-flex flex-wrap">
@@ -351,7 +351,7 @@
                                     <input formControlName="accountName" class="ml-auto" matInput placeholder="" value="">
                                 </mat-form-field>
                                 <span class="w-100 error-wrap" *ngIf="bankTransfer.get('accountName').dirty || bankTransfer.get('accountName').touched">
-                                    <small *ngIf="bankTransfer.get('accountName').hasError('required')" class="error">API Username Is required</small>
+                                    <small *ngIf="bankTransfer.get('accountName').hasError('required')" class="error">Account name is required</small>
                                 </span>
                             </div>
                             <div class="d-flex flex-wrap">
@@ -360,7 +360,7 @@
                                     <input formControlName="accountNumber" matInput placeholder="" value="">
                                 </mat-form-field>
                                 <span class="w-100 error-wrap" *ngIf="bankTransfer.get('accountNumber').dirty || bankTransfer.get('accountNumber').touched">
-                                    <small *ngIf="bankTransfer.get('accountNumber').hasError('required')" class="error">API Username Is required</small>
+                                    <small *ngIf="bankTransfer.get('accountNumber').hasError('required')" class="error">Account number is required</small>
                                 </span>
                             </div>
                             <div class="d-flex flex-wrap">
@@ -375,7 +375,7 @@
                                     <input formControlName="IFSCCode" class="ml-auto" matInput placeholder="" value="">
                                 </mat-form-field>
                                 <span class="w-100 error-wrap" *ngIf="bankTransfer.get('IFSCCode').dirty || bankTransfer.get('IFSCCode').touched">
-                                    <small *ngIf="bankTransfer.get('IFSCCode').hasError('required')" class="error">API Username Is required</small>
+                                    <small *ngIf="bankTransfer.get('IFSCCode').hasError('required')" class="error">IFSC code is required</small>
                                 </span>
                             </div>
                             <div class="d-flex flex-wrap">

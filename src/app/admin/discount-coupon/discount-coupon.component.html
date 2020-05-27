@@ -105,7 +105,7 @@
                                 <input matInput maxlength="8" formControlName="coupan_name" placeholder="Christmas Offer">
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="discountCoupon.get('coupan_name').touched || discountCoupon.get('coupan_name').dirty || formSubmitclicked">
-                  <small *ngIf="discountCoupon.get('coupan_name').hasError('required')" class="error">Coupon Name Is required</small>
+                  <small *ngIf="discountCoupon.get('coupan_name').hasError('required')" class="error">Coupon name is required</small>
                   <small *ngIf="discountCoupon.get('coupan_name').hasError('maxlength')" class="error">Name must be at least 8 character.</small>
                 
                 </span>
@@ -118,9 +118,9 @@
                                 <input matInput formControlName="max_redemption" placeholder="CHRISTMAS400">
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="discountCoupon.get('max_redemption').touched || discountCoupon.get('max_redemption').dirty || formSubmitclicked">
-                  <small *ngIf="discountCoupon.get('max_redemption').hasError('required')" class="error">Maximum Redemptions Is required</small>
-                  <small *ngIf="discountCoupon.get('max_redemption').hasError('maxlength')" class="error">Maximum Redemptions must be at least 2 character.</small>
-                  <small *ngIf="discountCoupon.get('max_redemption').hasError('pattern')" class="error">Maximum Redemptions Should be only in Numbers</small>
+                  <small *ngIf="discountCoupon.get('max_redemption').hasError('required')" class="error">Maximum redemptions is required</small>
+                  <small *ngIf="discountCoupon.get('max_redemption').hasError('maxlength')" class="error">Maximum redemptions must be at least 2 character.</small>
+                  <small *ngIf="discountCoupon.get('max_redemption').hasError('pattern')" class="error">Maximum redemptions should be only in numbers</small>
                 </span>
                         </div>
 
@@ -131,8 +131,8 @@
                                 <input matInput maxlength="8" formControlName="coupon_code" placeholder="Christmas Offer">
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="discountCoupon.get('coupon_code').touched || discountCoupon.get('coupon_code').dirty || formSubmitclicked">
-                  <small *ngIf="discountCoupon.get('coupon_code').hasError('required')" class="error">Coupon Code Is required</small>   
-                  <small *ngIf="discountCoupon.get('coupon_code').hasError('maxlength')" class="error">Coupon Codemust be at least 8 character.</small>
+                  <small *ngIf="discountCoupon.get('coupon_code').hasError('required')" class="error">Coupon code is required</small>   
+                  <small *ngIf="discountCoupon.get('coupon_code').hasError('maxlength')" class="error">Coupon codemust be at least 8 character.</small>
                 
                 </span>
                         </div>
@@ -145,7 +145,7 @@
                                 <mat-datepicker #valid_from_picker></mat-datepicker>
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="discountCoupon.get('valid_from').touched || discountCoupon.get('valid_from').dirty || formSubmitclicked">
-                  <small *ngIf="discountCoupon.get('valid_from').hasError('required')" class="error"> Is required</small>           
+                  <small *ngIf="discountCoupon.get('valid_from').hasError('required')" class="error">Valid from is required</small>           
                 </span>
                         </div>
 
@@ -162,7 +162,7 @@
                                 </mat-select>
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="discountCoupon.get('discount_type').touched || discountCoupon.get('discount_type').dirty || formSubmitclicked">
-                  <small *ngIf="discountCoupon.get('discount_type').hasError('required')" class="error"> Discount Type Is required</small>           
+                  <small *ngIf="discountCoupon.get('discount_type').hasError('required')" class="error"> Discount type is required</small>           
                 </span>
                         </div>
 
@@ -173,8 +173,8 @@
                                 <input matInput formControlName="discount_value" placeholder="Value">
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="discountCoupon.get('discount_value').touched || discountCoupon.get('discount_value').dirty || formSubmitclicked">
-                  <small *ngIf="discountCoupon.get('discount_value').hasError('required')" class="error">Discount Value Is required</small>
-                  <small *ngIf="discountCoupon.get('discount_value').hasError('pattern')" class="error">Discount Value Should be only in Numbers</small>
+                  <small *ngIf="discountCoupon.get('discount_value').hasError('required')" class="error">Discount value is required</small>
+                  <small *ngIf="discountCoupon.get('discount_value').hasError('pattern')" class="error">Discount value should be only in numbers</small>
                 </span>
                         </div>
 
@@ -186,7 +186,7 @@
                                 <mat-datepicker #valid_till_picker></mat-datepicker>
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="discountCoupon.get('valid_till').touched || discountCoupon.get('valid_till').dirty || formSubmitclicked">
-                  <small *ngIf="discountCoupon.get('valid_till').hasError('required')" class="error"> Till Date Is required</small>           
+                  <small *ngIf="discountCoupon.get('valid_till').hasError('required')" class="error"> Till date is required</small>           
                 </span>
                         </div>
                     </div>

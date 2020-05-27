@@ -19,7 +19,7 @@
                             <input formControlName="firstname" matInput placeholder="Enter Your First Name">
                         </mat-form-field>
                         <span class="error-wrap" *ngIf="StaffCreate.get('firstname').touched || StaffCreate.get('firstname').dirty || formSubmitclicked">
-                <small *ngIf="StaffCreate.get('firstname').hasError('required')" class="error">First Name Is required</small>
+                <small *ngIf="StaffCreate.get('firstname').hasError('required')" class="error">Firstname is required</small>
                 <small *ngIf="StaffCreate.get('firstname').hasError('minlength')"class="error">Name must be at least 3 character</small>
                 <small *ngIf="StaffCreate.get('firstname').hasError('maxlength') "class="error">Name must be at least 11 character.</small>
             </span>
@@ -30,7 +30,7 @@
                             <input formControlName="lastname" matInput placeholder="Enter Your Last Name">
                         </mat-form-field>
                         <span class="error-wrap" *ngIf="StaffCreate.get('lastname').touched || StaffCreate.get('lastname').dirty || formSubmitclicked">
-              <small *ngIf="StaffCreate.get('lastname').hasError('required')" class="error">Last Name Is required</small>
+              <small *ngIf="StaffCreate.get('lastname').hasError('required')" class="error">Lastname is required</small>
               <small *ngIf="StaffCreate.get('lastname').hasError('minlength') || StaffCreate.get('lastname').hasError('maxlength')"class="error">Name must be at least 3 character</small>
               <small *ngIf="StaffCreate.get('lastname').hasError('minlength') || StaffCreate.get('lastname').hasError('maxlength')"class="error">Name must be at least 11 character.</small>
             </span>
@@ -40,12 +40,10 @@
                             <input formControlName="phone" matInput placeholder="Enter Your number" (keypress)="numberOnly($event)">
                         </mat-form-field>
                         <span class="error-wrap" *ngIf="StaffCreate.get('phone').touched || StaffCreate.get('phone').dirty || formSubmitclicked">
-              <small *ngIf="StaffCreate.get('phone').hasError('required')" class="error">Mobile Number Is
-                required</small>
-              <small *ngIf="StaffCreate.get('phone').hasError('pattern')" class="error">Mobile Number is Should be
-                Numeric</small>
+              <small *ngIf="StaffCreate.get('phone').hasError('required')" class="error">Mobile number is required</small>
+              <small *ngIf="StaffCreate.get('phone').hasError('pattern')" class="error">Mobile number is should be numeric</small>
               <small *ngIf="StaffCreate.get('phone').hasError('minlength') || StaffCreate.get('phone').hasError('maxlength')"
-                class="error">Mobile Number is Should be 10 Digit</small>
+                class="error">Mobile number is should be 10 digit</small>
             </span>
                         <mat-form-field class="bottom-border-field">
                             <mat-label>Email</mat-label>
@@ -53,16 +51,16 @@
                             <input formControlName="email" matInput placeholder="Enter Your Email">
                         </mat-form-field>
                         <span class="error-wrap" *ngIf="StaffCreate.get('email').touched || StaffCreate.get('email').dirty || formSubmitclicked">
-              <small *ngIf="StaffCreate.get('email').hasError('required')" class="error">Email Is required</small>
-              <small *ngIf="StaffCreate.get('email').hasError('pattern')" class="error">Email Address Is invalid</small>
-              <small *ngIf="StaffCreate.get('email').hasError('isEmailUnique') || StaffCreate.get('email').hasError('isEmailUniqueForEdit')" class="error">Email Address is already registered</small>
+              <small *ngIf="StaffCreate.get('email').hasError('required')" class="error">Email is required</small>
+              <small *ngIf="StaffCreate.get('email').hasError('pattern')" class="error">Email address is invalid</small>
+              <small *ngIf="StaffCreate.get('email').hasError('isEmailUnique') || StaffCreate.get('email').hasError('isEmailUniqueForEdit')" class="error">Email address is already registered</small>
             </span>
                         <mat-form-field class="bottom-border-field">
                             <mat-label>Address</mat-label>
                             <input formControlName="address" matInput placeholder="Enter Your address">
                         </mat-form-field>
                         <span class="error-wrap" *ngIf="StaffCreate.get('address').touched || StaffCreate.get('address').dirty || formSubmitclicked">
-              <small *ngIf="StaffCreate.get('address').hasError('required')" class="error">Address Is required</small>
+              <small *ngIf="StaffCreate.get('address').hasError('required')" class="error">Address is required</small>
               <small *ngIf="StaffCreate.get('address').hasError('minlength')" class="error">Address must be at least 3 character.</small>
               <small *ngIf="StaffCreate.get('address').hasError('maxlength')" class="error">Address can not be greater than 255 character.</small>
             </span>
@@ -75,7 +73,7 @@
                         </span>
                         <!-- <span class="error-wrap"
               *ngIf="StaffCreate.get('description').touched || StaffCreate.get('description').dirty || formSubmitclicked">
-              <small *ngIf="StaffCreate.get('description').hasError('required')" class="error">Description Is required</small>
+              <small *ngIf="StaffCreate.get('description').hasError('required')" class="error">Description is required</small>
             </span> -->
                         <input type="hidden" formControlName="staff_id" />
                     </div>
