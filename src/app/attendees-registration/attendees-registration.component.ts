@@ -82,6 +82,12 @@ export class AttendeesRegistrationComponent implements OnInit {
 			(err) =>{
 			  console.log(err)
 			})
+		}else{
+			this._snackBar.open("Please Enter Velid Info", "X", {
+				duration: 2000,
+				verticalPosition: 'top',
+				panelClass : ['red-snackbar']
+			});
 		}
 		
 	}

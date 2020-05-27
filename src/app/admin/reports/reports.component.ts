@@ -4,6 +4,7 @@ import { AdminService } from '../_services/admin-main.service';
 import { AppComponent } from '@app/app.component';
 import { DatePipe} from '@angular/common';
 import { NgbDateParserFormatter, NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
+import { ExportToCsv } from 'export-to-csv';
 //import moment from 'moment';
 
 @Component({
@@ -39,14 +40,16 @@ export class ReportsComponent implements OnInit {
   salesReportTotalRevenue : any;
   
   customerReport : any;
-
+  search = {
+    keyword: ""
+  };
   isAppointmentReport : boolean = true;
   isSalesReport : boolean = false;
   isCustomerReport : boolean = false;
   adminSettings: boolean = false;
   isAppointmentsGroupBy:boolean =false;
   isSalesGroupBy:boolean =false;
-  
+  searchValue:any;
   AllCustomerReportsList:any;
   CustomerReportsList:any;
   options={
@@ -181,6 +184,7 @@ export class ReportsComponent implements OnInit {
       'report_filter':this.reportFilter,
       'start_date':this.selectedStartDate,
       'end_date': this.selectedEndDate,
+      'search': this.search.keyword,
     };
     this.adminService.getAppointmentsReports(requestObject).subscribe((response:any) => {
       if(response.data == true){
@@ -214,6 +218,7 @@ export class ReportsComponent implements OnInit {
       'group_filter':this.reportFilter,
       'start_date':this.selectedStartDate,
       'end_date': this.selectedEndDate,
+      'search': this.search.keyword,
     };
 
     this.adminService.getSalesReports(requestObject).subscribe((response:any) => {
@@ -263,6 +268,7 @@ export class ReportsComponent implements OnInit {
             'start_date': this.selectedStartDate,
             'end_date':this.selectedEndDate,
             'filter':this.createdByFilter,
+            'search': this.search.keyword,
         };
     this.adminService.getCustomerReports(requestObject).subscribe((response:any) => {
       if(response.data == true){
@@ -282,15 +288,75 @@ export class ReportsComponent implements OnInit {
     this.isAppointmentReport = true;
     this.isSalesReport = false;
     this.isCustomerReport = false;
+    this.search.keyword = '';
   }
   fnsalesReport(){
     this.isAppointmentReport = false;
     this.isSalesReport = true;
     this.isCustomerReport = false;
+    this.search.keyword = '';
   }
   fncustomerReport(){
     this.isAppointmentReport = false;
     this.isSalesReport = false;
     this.isCustomerReport = true;
+    this.search.keyword = '';
   }
+
+  searchReport(){
+      this.fnGetAppointmentsReport();
+      this.fnGetSalesReport();
+      this.fnGetCustomerReport();
+  }
+  fnPrint(){
+    if(this.isAppointmentReport){
+      const printContent = document.getElementById("appointment_listing");
+      const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
+      WindowPrt.document.write(printContent.innerHTML);
+      WindowPrt.document.close();
+      WindowPrt.focus();
+      WindowPrt.print();
+    }else if(this.isSalesReport){
+      const printContent = document.getElementById("sales_report");
+      const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
+      WindowPrt.document.write(printContent.innerHTML);
+      WindowPrt.document.close();
+      WindowPrt.focus();
+      WindowPrt.print();
+    }else if(this.isCustomerReport){
+      const printContent = document.getElementById("customer_report");
+      const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
+      WindowPrt.document.write(printContent.innerHTML);
+      WindowPrt.document.close();
+      WindowPrt.focus();
+      WindowPrt.print();
+    }
+    
+    // WindowPrt.close();
+  }
+
+  downloadRepoer(){ 
+    const options = { 
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalSeparator: '.',
+      showLabels: true, 
+      showTitle: true,
+      title: 'Reports',
+      useTextFile: false,
+      useBom: true,
+      useKeysAsHeaders: true,
+      // headers: ['Column 1', 'Column 2', etc...] <-- Won't work with useKeysAsHeaders present!
+    };
+    const csvExporter = new ExportToCsv(options);
+    if(this.isAppointmentReport && this.appointmentReport != ''){
+      csvExporter.generateCsv(this.appointmentReport);
+    }else if(this.isSalesReport && this.salesReport != ''){
+      csvExporter.generateCsv(this.salesReport);
+    }else if(this.isCustomerReport && this.customerReport != ''){
+      csvExporter.generateCsv(this.customerReport);
+    }
+  }
+
+
 }
