@@ -230,7 +230,9 @@
                     <div class="main-table-content main-cust-table-content">
                         <div class="">
                             <div class="heads main-heading-content staff-list-row header-background " fxLayout="row">
-                                <div class="text-left" fxFlex="5"></div>
+                                <div class="text-left" fxFlex="5">
+                                    <mat-checkbox  [checked]="selectAll"  (change)="checkAll($event)" class=""></mat-checkbox>
+                                </div>
                                 <div class="text-left" fxFlex="30">Name</div>
                                 <div class="text-left" fxFlex="20">Email</div>
                                 <div class="text-left" fxFlex="20">Mobile</div>
@@ -242,7 +244,7 @@
                             <div class="content" class="staff-list">
                                 <div class="staff-list-row" *ngFor="let allStaffList of allStaffList; let i=index">
                                     <div class="text-left" fxFlex="5">
-                                        <mat-checkbox (change)="fnAddStaffId($event.checked,allStaffList.id)"></mat-checkbox>
+                                        <mat-checkbox [checked]="allStaffList.is_selected" (change)="fnAddStaffId($event.checked,allStaffList.id,i)"></mat-checkbox>
                                     </div>
                                     <div class="text-left" fxFlex="30">
                                         <div class="staff-img">

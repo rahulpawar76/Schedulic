@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild,AfterViewInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild,AfterViewInit,ChangeDetectorRef } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AdminService } from '../_services/admin-main.service';
 import { Subject } from 'rxjs';
@@ -18,19 +18,6 @@ import { DataTableDirective } from 'angular-datatables';
 export interface DialogData {
   animal: string;
   name: string;
-}
-
-// class Person {
-//   id: number;
-//   firstName: string;
-//   lastName: string;
-// }
-
-class DataTablesResponse {
-  data: any[];
-  draw: number;
-  recordsFiltered: number;
-  recordsTotal: number;
 }
 
 
@@ -89,7 +76,8 @@ export class AppointmentComponent implements OnInit {
     private appComponent : AppComponent,
     private _snackBar: MatSnackBar,
     private http: HttpClient,
-    private authenticationService:AuthenticationService
+    private authenticationService:AuthenticationService,
+    private change:ChangeDetectorRef
     ) {
       localStorage.setItem('isBusiness', 'false');
       this.businessId=localStorage.getItem('business_id');
@@ -205,11 +193,14 @@ export class AppointmentComponent implements OnInit {
       this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
       console.log(this.endDate);
     }
+    this.staffApiUrl =  `${environment.apiUrl}/admin-booking-listing`;
+
     this.getAllAppointments();
   }
 
   selectService(service){
     this.selectedServices = service;
+    this.staffApiUrl =  `${environment.apiUrl}/admin-booking-listing`;
     this.getAllAppointments();
   }
 
@@ -288,6 +279,7 @@ export class AppointmentComponent implements OnInit {
       this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
       console.log(this.endDate);
     }
+    this.staffApiUrl =  `${environment.apiUrl}/admin-booking-listing`;
 
     this.getAllAppointments();
   }
@@ -367,11 +359,13 @@ export class AppointmentComponent implements OnInit {
       console.log(this.endDate);
     }
     // this.getAllAppointments(this.selectedServices);
+    this.staffApiUrl =  `${environment.apiUrl}/admin-booking-listing`;
     this.getAllAppointments();
   }
   
   Search(value){
     this.search = value
+    this.staffApiUrl =  `${environment.apiUrl}/admin-booking-listing`;
     this.getAllAppointments()
   }
 
@@ -400,15 +394,21 @@ export class AppointmentComponent implements OnInit {
 
         this.allAppointments = response.response.data;
         this.isLoaderAdmin = false;
+        
 
         this.allAppointments.forEach( (element) => { 
           element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
           element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
           element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+          element.is_selected = false;
+
         });
 
+        this.selectAll  = false;
+        
         this.dtTrigger.next();
         this.isLoaderAdmin = false;
+        this.change.detectChanges();
 
       }else if(response.data == false){
         this.allAppointments = [];
@@ -426,7 +426,6 @@ export class AppointmentComponent implements OnInit {
   }
   navigateToPageNumber(index){
     this.staffApiUrl=this.path+'?page='+index;
-    console.log(this.staffApiUrl);
     if(this.staffApiUrl){
       this.getAllAppointments();
     }
@@ -488,21 +487,27 @@ export class AppointmentComponent implements OnInit {
     });
   }
 
-  fnAddOrderId(event, orderId){
+  fnAddOrderId(event, orderId,i){
+
     if(event == true){
       this.orderItemsIdArr.push(orderId);
+      this.allAppointments[i].is_selected = true;
+
     }else if(event == false){
+      this.allAppointments[i].is_selected = false;
+
       const index = this.orderItemsIdArr.indexOf(orderId, 0);
       if (index > -1) {
           this.orderItemsIdArr.splice(index, 1);
       }
     }
-    console.log(this.orderItemsIdArr);
-    if (this.allAppointments.every(a => a.checked)) {
+
+   if (this.orderItemsIdArr.length == this.allAppointments.length ) {
       this.selectAll = true;
     } else {
       this.selectAll = false;
     }
+    console.log(this.orderItemsIdArr);
   }
 
   fnAppointAction(status){
@@ -517,6 +522,7 @@ export class AppointmentComponent implements OnInit {
         this.selectedValue = undefined;
         this.orderItemsIdArr.length = 0;
         //this.getAllAppointments(this.selectedServices);
+        this.staffApiUrl =  `${environment.apiUrl}/admin-booking-listing`;
         this.getAllAppointments();
         this.isLoaderAdmin = false;
       }
@@ -564,18 +570,31 @@ export class AppointmentComponent implements OnInit {
     })
   }
 
-  // checkAll(){
-  //   if (this.selectAll === true) {
-  //     this.allAppointments.map((appoint) => {
-  //       appoint.checked = true;
-  //     });
+  checkAll(event){
 
-  //   } else {
-  //     this.allAppointments.map((appoint) => {
-  //       appoint.checked = false;
-  //     });
-  //   }
-  // }
+    this.orderItemsIdArr = [];
+    
+
+    for (let i = 0; i < this.allAppointments.length; i++) {
+
+      const item = this.allAppointments[i];
+      item.is_selected = event.checked;
+
+      if(event.checked){
+        this.orderItemsIdArr.push(item.id)
+      }
+        
+    }
+
+    if(event.checked){
+      this.selectAll = true;
+    }else{
+      this.selectAll = false;
+    }
+
+    console.log(this.orderItemsIdArr);
+
+  }
 
 }
 
@@ -1784,12 +1803,14 @@ export class DialogAddNewAppointment {
 @Component({
   selector: 'allappointment-listing-details',
   templateUrl: '../_dialogs/allappointment-listing-details.html',
+  providers: [DatePipe]
 })
 export class DialogAllAppointmentDetails {
 
 constructor(
   public dialogRef: MatDialogRef<DialogAllAppointmentDetails>,
-  @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  @Inject(MAT_DIALOG_DATA) public data: DialogData
+  ) {}
 
 onNoClick(): void {
   this.dialogRef.close();

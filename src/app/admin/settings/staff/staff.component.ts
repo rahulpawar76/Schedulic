@@ -142,7 +142,7 @@ export class StaffComponent implements OnInit {
   next_page_url : any;
   prev_page_url : any;
   path : any;
-  
+  selectAll:boolean =false;
 
 
 /**
@@ -239,6 +239,8 @@ export class StaffComponent implements OnInit {
       sundayEndTime: [this.timeSlotList[this.timeSlotList.length - 1].long],
     })
   }
+  
+  
 
   ngOnInit() {
     this.staffApiUrl=environment.apiUrl+"/staff-list-with-review";
@@ -372,7 +374,11 @@ export class StaffComponent implements OnInit {
         this.path = response.response.path;
         this.allStaffList = response.response.data;
 
-        console.log(this.allStaffList);
+        this.allStaffList.forEach( (element) => { 
+          element.is_selected = false;
+        });
+        this.selectAll = false;
+
         this.isLoaderAdmin = false;
       }
       else if (response.data == false) {
@@ -382,17 +388,50 @@ export class StaffComponent implements OnInit {
     })
   }
 
-  fnAddStaffId(event, staffId) {
+  fnAddStaffId(event, staffId,i) {
     if (event == true) {
       this.staffActionId.push(staffId)
-    }
-    else if (event == false) {
+      this.allStaffList[i].is_selected = true;
+
+    }else if (event == false) {
+      this.allStaffList[i].is_selected = false;
+
       const index = this.staffActionId.indexOf(staffId, 0);
       if (index > -1) {
         this.staffActionId.splice(index, 1);
       }
     }
+    
+    if (this.staffActionId.length == this.allStaffList.length ) {
+      this.selectAll = true;
+    } else {
+      this.selectAll = false;
+    }
+    console.log(this.staffActionId);
   }
+  
+  checkAll(event){
+    
+    this.staffActionId =[];
+
+    for (let i = 0; i < this.allStaffList.length; i++) {
+      const item = this.allStaffList[i];
+      item.is_selected = event.checked;
+      if(event.checked){
+        this.staffActionId.push(item.id)
+      }
+    }
+    
+    console.log(this.staffActionId);
+
+    if(event.checked){
+      this.selectAll = true;
+    }else{
+      this.selectAll = false;
+    }
+
+  }
+  
   fnActionStaff(action) {
     this.isLoaderAdmin = true;
     this.adminSettingsService.fnActionStaff(action, this.staffActionId).subscribe((response: any) => {
