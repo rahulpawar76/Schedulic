@@ -13,7 +13,7 @@
                         <label class="greenfont pointer" (click)="rescheduleAppointment()"><i class="fa fa-repeat repeat"></i>Reschedule</label>
                         <label class="fontred pointer" (click)="cancelAppo(myAppoDetailData.id)"><i class="fa fa-times-circle-o circle"></i>Cancel</label>
                     </div>
-                    <button mat-button type="button" class="d-block btn-primary float-right paybtn">Pay</button>
+                    <button type="button" class="d-block btn-primary m-l-a paybtn">Pay</button>
                 </div>
 
                 <div class="modal-body modal-bcolor">
@@ -51,7 +51,7 @@
                         <p class="mb-0 font-weight-bold" *ngIf="myAppoDetailData.staff_id == null">Not Assigned</p>
                         <div class="" *ngIf="myAppoDetailData.staff_id != null">
                             <p class="mb-0 font-weight-bold text-capitalize">{{myAppoDetailData.staff.firstname}} {{myAppoDetailData.staff.lastname}}</p>
-                            <p class="mb-0">Phone NO:{{myAppoDetailData.staff.phone}}</p>
+                            <p class="mb-0">Phone No:{{myAppoDetailData.staff.phone}}</p>
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                     <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i>{{myAppoDetailData.customer.address}}</p>
                     <p class="pl-4 address-fontsize">{{myAppoDetailData.customer.city}}, {{myAppoDetailData.customer.state}}, {{myAppoDetailData.customer.zip}}</p>
                 </mat-card>
-                <div  class="pl-4 pt-2 bottom-border">
+                <div  class="p-1-5 bottom-border">
                     <h6>Activity Log</h6>
                     <div *ngFor="let log of activityLog">{{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - {{log.status=='P'?'Pending':''}}{{log.status=='CNF'?'Confirm':''}}{{log.status=='AC'?'Accepted':''}}{{log.status=='OW'?'On The Way':''}}{{log.status=='WS'?'Work Started':''}}{{log.status=='RSA'?'Rescheduled By Admin':''}}{{log.status=='RSS'?'Rescheduled By Staff':''}}{{log.status=='RSC'?'Rescheduled By Client':''}}{{log.status=='ITR'?'Intrupted':''}}{{log.status=='C'?'Cancelled':''}}{{log.status=='CC'?'Cancelled By Client':''}}{{log.status=='R'?'Rejected':''}}{{log.status=='CO'?'Completed':''}}</div>
                 </div>

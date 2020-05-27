@@ -82,6 +82,12 @@ export class AttendeesRegistrationComponent implements OnInit {
 			(err) =>{
 			  console.log(err)
 			})
+		}else{
+			this.signUpForm.get("firstName").markAsTouched();
+			this.signUpForm.get("lastName").markAsTouched();
+			this.signUpForm.get("phonenumber").markAsTouched();
+			this.signUpForm.get("email").markAsTouched();
+			this.signUpForm.get("password").markAsTouched();
 		}
 		
 	}

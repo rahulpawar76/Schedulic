@@ -13,6 +13,7 @@ import { AppComponent } from '@app/app.component';
 import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { Meta } from '@angular/platform-browser';
+import { Router, RouterOutlet } from '@angular/router';
 // import { DOCUMENT } from '@angular/platform-browser';
 // import { DOCUMENT } from '@angular/common',
 import { sha512 as sha512 } from 'js-sha512';
@@ -191,6 +192,7 @@ export class FrontbookingComponent implements OnInit {
     private datePipe: DatePipe,
     private meta: Meta,
     private renderer2: Renderer2,
+    public router: Router,
     @Inject(DOCUMENT) private _document
     
   ) { 
@@ -534,6 +536,10 @@ export class FrontbookingComponent implements OnInit {
     localStorage.clear();
     this.authenticationService.currentUserSubject.next(null);
     window.location.reload();
+  }
+  
+  fnViewDashboard(){
+    this.router.navigate(['/user']);
   }
 
   // postal code
@@ -2469,9 +2475,9 @@ export class FrontbookingComponent implements OnInit {
             
             this.thankYouScreen=true;
             this.paymentScreen=false;
-          // setTimeout(() => {
-          //   window.location.reload();
-          // }, 2000);
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
         }
       }
         else{
