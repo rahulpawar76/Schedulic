@@ -115,10 +115,12 @@ export class myCreateNewBusinessDialog {
 
   onNoClick(): void {
     this.dialogRef.close();
+    
   }
   ngOnInit() {
     this.gelAllCountry();
     this.getTimeZone();
+    
 
     this.createBusiness = this._formBuilder.group({
       business_name : ['', [Validators.required,Validators.minLength(2),Validators.maxLength(20)]],
@@ -197,9 +199,10 @@ export class myCreateNewBusinessDialog {
   getTimeZone(){
     this.isLoaderAdmin =true;
     this.AdminService.getTimeZone().subscribe((response:any) => {
-      if(response.status == 'OK'){
-        this.listTimeZone = response.zones
+      if(response.data == true){
+        this.listTimeZone = response.response
         this.isLoaderAdmin =false;
+        
       }
       else if(response.data == false){
         this.listTimeZone = ''

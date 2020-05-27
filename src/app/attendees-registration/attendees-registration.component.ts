@@ -67,8 +67,9 @@ export class AttendeesRegistrationComponent implements OnInit {
 				this._snackBar.open("Account Succesfulli Created", "X", {
 					duration: 2000,
 					verticalPosition: 'top',
-					panelClass : ['red-snackbar']
+					panelClass : ['green-snackbar']
 					});
+					this.router.navigate(["login"]);
 			  }else{
 				this._snackBar.open(response.response, "X", {
 					duration: 2000,

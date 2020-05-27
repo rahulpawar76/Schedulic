@@ -247,3 +247,25 @@
 // ::ng-deep .mat-form-field-underline {
 //     display: none;
 //   }
+
+.header-background {
+    background-color: #f7f7f7 !important;
+}
+
+.staff-list-row {
+    padding: 20px 10px;
+    border-bottom: solid 1px #ccc;
+    color: rgba(0, 0, 0, 0.87);
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    box-sizing: border-box;
+    background: white;
+    font-size: 14px;
+}

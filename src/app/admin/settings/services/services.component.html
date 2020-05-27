@@ -280,7 +280,7 @@
                             </div>
                         </div>
                         <div class="ml-auto">
-                            <button mat-button *ngIf="categoryServicesList[0].sub_category_id != null" (click)="fnCreateNewSubCategoryPage(selectedCategoryDetails.id)" class="addservice-btn d-block ml-auto">Add Sub Category</button>
+                            <button mat-button *ngIf="categoryServicesList != '' && categoryServicesList[0].sub_category_id != null" (click)="fnCreateNewSubCategoryPage(selectedCategoryDetails.id)" class="addservice-btn d-block ml-auto">Add Sub Category</button>
                             <div class="mt-2 d-flex">
                                 <mat-form-field *ngIf="categoryServicesList != ''" class=" bottom-border-field mt-3">
                                     <mat-label>Filter</mat-label>
