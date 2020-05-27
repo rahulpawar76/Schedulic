@@ -64,7 +64,7 @@ export class AttendeesRegistrationComponent implements OnInit {
 			catchError(this.handleError)
 			).subscribe((response:any) => {
 			  if(response.data == true){
-				this._snackBar.open("Account Succesfulli Created", "X", {
+				this._snackBar.open("Account Succesfully Created", "X", {
 					duration: 2000,
 					verticalPosition: 'top',
 					panelClass : ['green-snackbar']
