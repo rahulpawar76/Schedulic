@@ -29,7 +29,7 @@ export class AttendeesRegistrationComponent implements OnInit {
 		this.signUpForm = this._formBuilder.group({
 			firstName: ['',[Validators.required]],
 			lastName: ['',[Validators.required]],
-			email: ['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
+			email: ['',[Validators.required,Validators.email,Validators.pattern(emailPattern)],this.isEmailUnique.bind(this)],
 			phonenumber: ['',[Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(onlynumeric)]],
 			password: ['',[Validators.required,Validators.minLength(10)]],
 		});
@@ -93,5 +93,26 @@ export class AttendeesRegistrationComponent implements OnInit {
 	login(){
         this.router.navigate(["login"]);
 	}
+	isEmailUnique(control: FormControl) {
+		return new Promise((resolve, reject) => {
+		  setTimeout(() => {
+			let headers = new HttpHeaders({
+			  'Content-Type': 'application/json',
+			});
+			return this.http.post(`${environment.apiUrl}/verify-email`,{ emailid: control.value },{headers:headers}).pipe(map((response : any) =>{
+			  return response;
+			}),
+			catchError(this.handleError)).subscribe((res) => {
+			  if(res){
+				if(res.data == false){
+				resolve({ isEmailUnique: true });
+				}else{
+				resolve(null);
+				}
+			  }
+			});
+		  }, 500);
+		});
+	  }
 
 }
