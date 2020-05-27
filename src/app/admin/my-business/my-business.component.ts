@@ -129,7 +129,7 @@ export class myCreateNewBusinessDialog {
       business_region : ['', Validators.required],
       business_timezone : ['', Validators.required],
       business_city : ['', Validators.required],
-      business_zip : ['', [Validators.required,Validators.pattern(this.onlynumeric)]]
+      business_zip : ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(6)]]
     });
 
   }

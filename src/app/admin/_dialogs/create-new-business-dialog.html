@@ -90,7 +90,8 @@
                                 </mat-form-field>
                                 <span class="error-wrap" *ngIf="createBusiness.get('business_zip').dirty || createBusiness.get('business_zip').touched">
                            <small *ngIf="createBusiness.get('business_zip').hasError('required')" class="error">Zipcode Is required</small> 
-                           <small *ngIf="createBusiness.get('business_zip').hasError('pattern')" class="error">Enter valid Zipcode</small></span>
+                           <small *ngIf="createBusiness.get('business_zip').hasError('pattern')" class="error">Enter valid Zipcode</small>
+                           <small *ngIf="createBusiness.get('business_zip').hasError('minlength') || createBusiness.get('business_zip').hasError('maxlength')" class="error">Zipcode Must be 6 Digit</small></span>
                             </div>
                         </div>
                         <div class="text-center pt-2">

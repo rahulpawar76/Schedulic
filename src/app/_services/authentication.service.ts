@@ -115,6 +115,8 @@ export class AuthenticationService {
             return 'My Settings';
         }else if(name=='my-profi'){
             return 'My Profile';
+        }else if(name=='my-busin'){
+            return 'My Business';
         }
     }
 }
