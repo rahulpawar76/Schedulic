@@ -348,8 +348,8 @@ export class BusinessHoursComponent implements OnInit {
   fnGetTimeZone(){
     this.adminSettingsService.getTimeZone().subscribe((response:any) => {
       
-    if(response.status == "OK"){
-      this.timeZoneList = response.zones;
+    if(response.data == true){
+      this.timeZoneList = response.response;
         console.log(this.timeZoneList)
       // // this.timeZoneList.forEach(element => {\
       //   var aestTime = new Date().toLocaleString("en-US", {timeZone: "Australia/Brisbane"});

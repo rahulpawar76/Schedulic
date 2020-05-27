@@ -24,6 +24,9 @@ export class CompanyDetailsComponent implements OnInit {
   allStates: any;
   allCities: any;
   businessId: any;
+  selectedCountry: any;
+  selectedState: any;
+  selectedCity: any;
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^-?(0|[1-9]\d*)?$/
   constructor(
@@ -65,16 +68,19 @@ export class CompanyDetailsComponent implements OnInit {
       if(response.data == true){
         this.companyDetailsData = response.response;
         console.log(this.companyDetailsData);
-        this.selectCountry(this.companyDetailsData.country);
+        this.selectCountry(this.companyDetailsData.country.id);
+        // this.selectedCountry = this.companyDetailsData.country.name
+        // this.selectedState = this.companyDetailsData.state.name
+        // this.selectedCity = this.companyDetailsData.city.name
         this.selectStates(this.companyDetailsData.state);
         this.companyDetails.controls['company_name'].setValue(this.companyDetailsData.business_name);
         this.companyDetails.controls['comp_email'].setValue(this.companyDetailsData.email);
         this.companyDetails.controls['comp_website'].setValue(this.companyDetailsData.website);
         this.companyDetails.controls['comp_mobile'].setValue(this.companyDetailsData.phone);
-        this.companyDetails.controls['country'].setValue(this.companyDetailsData.country);
+        this.companyDetails.controls['country'].setValue(JSON.stringify(this.companyDetailsData.country.id));
         this.companyDetails.controls['comp_address'].setValue(this.companyDetailsData.address);
-        this.companyDetails.controls['city'].setValue(this.companyDetailsData.city);
-        this.companyDetails.controls['state'].setValue(this.companyDetailsData.state);
+        this.companyDetails.controls['city'].setValue(JSON.stringify(this.companyDetailsData.city.id));
+        this.companyDetails.controls['state'].setValue(JSON.stringify(this.companyDetailsData.state.id));
         this.companyDetails.controls['zip_code'].setValue(this.companyDetailsData.zipcode);
         this.companyDetails.controls['comp_decs'].setValue(this.companyDetailsData.description);
         this.companyDetails.controls['comp_status'].setValue(this.companyDetailsData.status=="E"?true:false);

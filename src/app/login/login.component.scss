@@ -144,3 +144,12 @@
         }
     }
 }
+
+.required-field::after {
+    right: -8px;
+    content: "*";
+    color: #ef6353;
+    font-size: 20px;
+    position: absolute;
+    top: -5px;
+}

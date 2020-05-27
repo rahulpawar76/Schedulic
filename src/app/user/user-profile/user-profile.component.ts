@@ -68,6 +68,7 @@ export class UserProfileComponent implements OnInit {
      dialogRef.afterClosed().subscribe(result => {
        if(result != undefined){
         this.profileUrl = result;
+        this.profiledata.image=result;
         console.log(result);
        }
       
@@ -124,7 +125,7 @@ onSubmit(event){
         });
         this.getUserProfileData();
       }else{
-        this._snackBar.open("Profile Not Updated", "X", {
+        this._snackBar.open("Unable to update profile", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['red-snackbar']

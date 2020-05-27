@@ -727,3 +727,16 @@ $calendarsize: 10px;
         text-decoration: none;
     }
 }
+.m-l-a{
+    margin-left: auto;
+}
+.p-1-5{
+    padding: 1.5rem !important
+}
+.btn:focus,
+.btn.focus,
+button:focus {
+    border-color: transparent !important;
+    box-shadow: unset !important;
+    outline: 0 !important;
+}

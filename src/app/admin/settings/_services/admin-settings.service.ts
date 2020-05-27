@@ -37,7 +37,7 @@ export class AdminSettingsService {
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
         });
-        return this.http.post(`http://api.timezonedb.com/v2.1/list-time-zone?key=L1US8PRRVKYX&format=json`, { headers: headers }).pipe(
+        return this.http.post(`${environment.apiUrl}/get-timezone`, { headers: headers }).pipe(
             map((res) => {
                 return res;
             }),

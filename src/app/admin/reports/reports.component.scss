@@ -1,129 +1,174 @@
 @import "variables";
-::ng-deep .mat-drawer-container .example-container{
+::ng-deep .mat-drawer-container .example-container {
     margin-top: 65px !important;
     padding-left: 0px;
     padding-right: 0px;
-    .mat-drawer{
+    .mat-drawer {
         width: 258px !important;
     }
-    .mat-drawer-content{
+    .mat-drawer-content {
         margin-left: 258px;
     }
 }
-::ng-deep .mat-drawer-container .example-container .mat-drawer{
+
+::ng-deep .mat-drawer-container .example-container .mat-drawer {
     background-color: #fafafa;
 }
-::ng-deep .mat-drawer-container .example-container .mat-drawer-content{
+
+::ng-deep .mat-drawer-container .example-container .mat-drawer-content {
     background-color: white;
 }
 
-.leftarrow-icon{
+.leftarrow-icon {
     // margin-left: auto;
     display: flex;
-    .customer-drawer-leftarrow{
+    .customer-drawer-leftarrow {
         padding: 4px 8px;
         height: auto;
         width: auto;
         text-align: center;
         background-color: #dedede;
-            margin-left: auto;
+        margin-left: auto;
     }
-    
 }
-.cust-reports{
-    margin: 2px;;
+
+.cust-reports {
+    margin: 2px;
+    ;
     font-size: 18px;
 }
-.cust-icons{
+
+.cust-icons {
     font-size: 20px;
-    .cust-search{
+    .cust-search {
         margin: 20px 15px;
     }
-    .cust-print{
+    .cust-print {
         margin: 20px 15px;
     }
-    .cust-download{
+    .cust-download {
         margin: 20px 15px;
     }
 }
-.main-cust-table-content{
+
+.main-cust-table-content {
     padding: 0;
-
 }
 
-.main-custmer-content{
+.main-custmer-content {
     padding: 0px 10px 10px;
     background-color: lightblue;
-   
 }
 
-#Customer-Listing{
+#Customer-Listing {
     text-align: center;
     padding: 15px;
-
-    .custreports{
+    .custreports {
         font-size: 18px;
         font-weight: bold;
     }
-    .custrecords{
+    .custrecords {
         font-size: 16px;
         font-weight: bold;
-        
     }
-    .main-table-content{
+    .main-table-content {
         padding: 0;
-       
     }
-   
 }
-.main-heading-content{
+
+.main-heading-content {
     background-color: #fabb88;
 }
 
-
-.mat-list-icon{
-    color:$iconcolors;
+.mat-list-icon {
+    color: $iconcolors;
 }
 
-.matlist{
+.matlist {
     display: block !important;
     height: 60px !important;
     width: 100% !important;
     padding: 5px 0 !important;
-     &:hover{
-             background-color: $bgblue;
-        }
+    &:hover {
+        background-color: $bgblue;
+    }
 }
 
-.menuitem{
-    color:#325c98;
+.menuitem {
+    color: #325c98;
     padding-top: 4px;
-    &:focus{
-            outline:none; 
-            }           
+    &:focus {
+        outline: none;
+    }
 }
-.mat-list-item{
-     &:hover{
-                background-color: $bgblue;
-                color: #295792;
-            }
+
+.mat-list-item {
+    &:hover {
+        background-color: $bgblue;
+        color: #295792;
+    }
 }
-.saleschart{
+
+.saleschart {
     margin: 0 14px;
     font-size: 23px;
-   
 }
-.custchart{
+
+.custchart {
     font-size: 24px;
     margin: 0 17px;
+}
 
+.salesreportsimg {
+    color: $iconcolors;
 }
-.salesreportsimg{
-    color:$iconcolors;
-}
-.pointer{
+
+.pointer {
     cursor: pointer;
 }
-.md-drppicker{
-    width:610px !important;
+
+.md-drppicker {
+    width: 610px !important;
+}
+
+.searchbox {
+    width: 59%;
+    display: flex;
+    align-items: center;
+    .serch_input-appoint {
+        height: 39px;
+        padding-top: 3px;
+        .has-search .form-control {
+            padding-left: 2.375rem;
+        }
+        .has-search .form-control-feedback {
+            position: absolute;
+            z-index: 2;
+            display: block;
+            width: 2.375rem;
+            height: 1rem;
+            line-height: 2rem;
+            text-align: center;
+            pointer-events: none;
+            color: black;
+            .verticalLine {
+                &:after {
+                    content: "";
+                    position: absolute;
+                    top: 58%;
+                    right: 0;
+                    width: 1px;
+                    height: 100%;
+                    background: #dfc0c0;
+                }
+            }
+        }
+         ::placeholder {
+            font-size: 12px;
+        }
+        .searchbox_appointment {
+            border-radius: 20px;
+            height: 34px;
+        }
+    }
 }
