@@ -494,6 +494,12 @@ export class AppComponent implements AfterViewInit {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
+  // signInWithFB(loginForm): void {
+  //   this.loginForm=loginForm;
+  //   console.log(this.loginForm);
+  //   this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  // }
+
   fnCheckAuthState(){
     this.authService.authState.subscribe((user) => {
       this.user = user;
