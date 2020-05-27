@@ -8,7 +8,6 @@ import { AdminService } from '../_services/admin-main.service'
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { AppComponent } from '@app/app.component';
 import { AuthenticationService } from '@app/_services';
-import { ExportToCsv } from 'export-to-csv';
 
 export interface DialogData {
   animal: string;
@@ -200,24 +199,10 @@ export class myCreateNewBusinessDialog {
   getTimeZone(){
     this.isLoaderAdmin =true;
     this.AdminService.getTimeZone().subscribe((response:any) => {
-      if(response.status == 'OK'){
-        this.listTimeZone = response.zones
+      if(response.data == true){
+        this.listTimeZone = response.response
         this.isLoaderAdmin =false;
         
-        const options = { 
-          fieldSeparator: ',',
-          quoteStrings: '"',
-          decimalSeparator: '.',
-          showLabels: true, 
-          showTitle: true,
-          title: 'My Awesome CSV',
-          useTextFile: false,
-          useBom: true,
-          useKeysAsHeaders: true,
-          // headers: ['Column 1', 'Column 2', etc...] <-- Won't work with useKeysAsHeaders present!
-        };
-        const csvExporter = new ExportToCsv(options);
-          csvExporter.generateCsv(this.listTimeZone);
       }
       else if(response.data == false){
         this.listTimeZone = ''
