@@ -50,7 +50,10 @@
                 <div class="main-table-content main-cust-table-content">
                     <div *ngIf="categoryServicesList != ''" class="">
                         <div class="heads main-heading-content drageble " fxLayout="row">
-                            <div class="" fxFlex="30">Service</div>
+                            <div class="" fxFlex="5">
+                                <mat-checkbox  [checked]="selectAll"  (change)="checkAll($event)" class=""></mat-checkbox>
+                            </div>
+                            <div class="" fxFlex="25">Service</div>
                             <div class="" fxFlex="15">Duration</div>
                             <div class="" fxFlex="13">price</div>
                             <div class="" fxFlex="10">Unit</div>
@@ -60,6 +63,9 @@
                         </div>
                         <div class="content" class="drageble-list" cdkDropList (cdkDropListDropped)="drop($event)">
                             <div class="drageble-box" *ngFor="let allServicesList of allServicesList; let i=index" cdkDrag fxLayout="row">
+                                <div class="text-left" fxFlex="5">
+                                    <mat-checkbox [checked]="allServicesList.is_selected" (change)="fnAddStaffId($event.checked,allServicesList.id,i)"></mat-checkbox>
+                                </div>
                                 <div class="" fxFlex="30">{{allServicesList.service_name}}</div>
                                 <div class="" fxFlex="15">{{allServicesList.service_time}}</div>
                                 <!-- <div class="" fxFlex="13">$ {{allServicesList.service_cost}}</div> -->
@@ -129,8 +135,8 @@
                                             <input matInput formControlName="category_name" placeholder="Enter Category Name">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createCategory.get('category_name').touched || createCategory.get('category_name').dirty">
-                                    <small *ngIf="createCategory.get('category_name').hasError('required')" class="error">Category Name Is required</small>
-                                    <small *ngIf="createCategory.get('category_name').hasError('maxlength')" class="error">Category Name may not be greater than 255 character.</small>
+                                    <small *ngIf="createCategory.get('category_name').hasError('required')" class="error">Category name is required</small>
+                                    <small *ngIf="createCategory.get('category_name').hasError('maxlength')" class="error">Category name may not be greater than 255 character.</small>
                                 </span>
                                     </div>
                                     <div class="mt-2 text-center">
@@ -138,8 +144,8 @@
                                             <textarea matInput formControlName="category_description" placeholder="Category Descriptions"></textarea>
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createCategory.get('category_description').touched || createCategory.get('category_description').dirty">
-                                    <small *ngIf="createCategory.get('category_description').hasError('required')" class="error">Category Description Is required</small>
-                                    <small *ngIf="createCategory.get('category_description').hasError('maxlength')" class="error">Category Description Name may not be greater than 255 character.</small>
+                                    <small *ngIf="createCategory.get('category_description').hasError('required')" class="error">Category description is required</small>
+                                    <small *ngIf="createCategory.get('category_description').hasError('maxlength')" class="error">Category description name may not be greater than 255 character.</small>
                                 
                                 </span>
                                     </div>
@@ -208,8 +214,8 @@
                                             <input matInput formControlName="subcategory_name" placeholder="Enter Sub Category Name">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createSubCategory.get('subcategory_name').touched || createSubCategory.get('subcategory_name').dirty">
-                                    <small *ngIf="createSubCategory.get('subcategory_name').hasError('required')" class="error">Sub Category Name Is required</small>
-                                    <small *ngIf="createSubCategory.get('subcategory_name').hasError('maxlength')" class="error">Sub Category length can not be graeter than 255 characters</small>
+                                    <small *ngIf="createSubCategory.get('subcategory_name').hasError('required')" class="error">Sub category name is required</small>
+                                    <small *ngIf="createSubCategory.get('subcategory_name').hasError('maxlength')" class="error">Sub category length can not be graeter than 255 characters</small>
                                 </span>
                                     </div>
                                     <div class="mt-2 text-center">
@@ -217,7 +223,7 @@
                                             <textarea matInput formControlName="subcategory_description" placeholder="Sub Category Descriptions"></textarea>
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createSubCategory.get('subcategory_description').touched || createSubCategory.get('subcategory_description').dirty">
-                                    <small *ngIf="createSubCategory.get('subcategory_description').hasError('required')" class="error">Sub Category Description Is required</small>
+                                    <small *ngIf="createSubCategory.get('subcategory_description').hasError('required')" class="error">Sub category description is required</small>
                                     <small *ngIf="createSubCategory.get('subcategory_description').hasError('maxlength')" class="error">Description length can not be graeter than 255 characters</small>
                                 </span>
                                     </div>
@@ -309,7 +315,9 @@
                     <div class="main-table-content main-cust-table-content">
                         <div *ngIf="categoryServicesList != ''" class="">
                             <div class="heads main-heading-content drageble " fxLayout="row">
-                                <div class="" fxFlex="5"></div>
+                                <div class="" fxFlex="5">
+                                    <mat-checkbox  [checked]="selectAllCategory"  (change)="checkAllCategory($event)" class=""></mat-checkbox>
+                                </div>
                                 <div class="" fxFlex="30">Service</div>
                                 <div class="" fxFlex="15">Duration</div>
                                 <div class="" fxFlex="10">price</div>
@@ -321,7 +329,7 @@
                             <div class="content" class="drageble-list" cdkDropList (cdkDropListDropped)="dropCategory($event)">
                                 <div class="drageble-box" *ngFor="let categoryServicesList of categoryServicesList; let i=index" cdkDrag fxLayout="row">
                                     <div class="" fxFlex="5">
-                                        <mat-checkbox (change)="fnActionServiceId($event.checked,categoryServicesList.id)"></mat-checkbox>
+                                        <mat-checkbox  [checked]="categoryServicesList.is_selected" (change)="fnActionServiceId($event.checked,categoryServicesList.id,i); "></mat-checkbox>
                                     </div>
                                     <div class="" fxFlex="30">{{categoryServicesList.service_name}}</div>
                                     <div class="" fxFlex="15">{{categoryServicesList.service_time}}</div>
@@ -430,7 +438,9 @@
                     <div class="main-table-content main-cust-table-content">
                         <div *ngIf="subCategoryServicesList != ''" class="">
                             <div class="heads main-heading-content drageble" fxLayout="row">
-                                <div class="" fxFlex="5"></div>
+                                <div class="" fxFlex="5">
+                                    <mat-checkbox  [checked]="selectAllSubCat"  (change)="checkAllSubcat($event)" class=""></mat-checkbox>
+                                </div>
                                 <div class="" fxFlex="30">Service</div>
                                 <div class="" fxFlex="15">Duration</div>
                                 <div class="" fxFlex="10">price</div>
@@ -442,7 +452,7 @@
                             <div class="content" class="drageble-list" cdkDropList (cdkDropListDropped)="dropSubCategory($event)">
                                 <div class="drageble-box" *ngFor="let subCategoryServicesList of subCategoryServicesList; let i=index" cdkDrag fxLayout="row">
                                     <div class="" fxFlex="5">
-                                        <mat-checkbox (change)="fnActionServiceId($event.checked,subCategoryServicesList.id)"></mat-checkbox>
+                                        <mat-checkbox [checked]="subCategoryServicesList.is_selected" (change)="fnAddStaffIdSub($event.checked,subCategoryServicesList.id,i)"></mat-checkbox>
                                     </div>
                                     <div class="" fxFlex="30">{{subCategoryServicesList.service_name}}</div>
                                     <div class="" fxFlex="15">{{subCategoryServicesList.service_time}}</div>
@@ -519,8 +529,8 @@
                                             <input matInput formControlName="service_name" placeholder="Enter Service Name">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_name').touched || createService.get('service_name').dirty">
-                                        <small *ngIf="createService.get('service_name').hasError('required')" class="error">Service Name Is required</small>
-                                        <small *ngIf="createService.get('service_name').hasError('maxlength')" class="error">Service Name length cannot be greater than 255 characters</small>
+                                        <small *ngIf="createService.get('service_name').hasError('required')" class="error">Service name is required</small>
+                                        <small *ngIf="createService.get('service_name').hasError('maxlength')" class="error">Service name length cannot be greater than 255 characters</small>
                                     </span>
                                     </div>
                                     <div class="mt-2 text-center">
@@ -528,7 +538,7 @@
                                             <textarea matInput formControlName="service_description" placeholder="Service Descriptions"></textarea>
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_description').touched || createService.get('service_description').dirty">
-                                        <small *ngIf="createService.get('service_description').hasError('required')" class="error">Service Description Is required</small>
+                                        <small *ngIf="createService.get('service_description').hasError('required')" class="error">Service description is required</small>
                                         <small *ngIf="createService.get('service_description').hasError('maxlength')" class="error">Description length cannot be greater than 255 characters</small>
                                     </span>
                                     </div>
@@ -541,8 +551,8 @@
                                             <input matInput formControlName="service_cost" placeholder="">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_cost').touched || createService.get('service_cost').dirty">
-                                        <small *ngIf="createService.get('service_cost').hasError('required')" class="error">Service Cost Is required</small>
-                                        <small *ngIf="createService.get('service_cost').hasError('pattern')" class="error">Service Cost Must be Numeric</small>
+                                        <small *ngIf="createService.get('service_cost').hasError('required')" class="error">Service cost is required</small>
+                                        <small *ngIf="createService.get('service_cost').hasError('pattern')" class="error">Service cost must be numeric</small>
                                     </span>
                                     </div>
                                     <div class="mt-2 text-center">
@@ -554,8 +564,8 @@
                                             <input matInput formControlName="service_duration" placeholder="">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_duration').touched || createService.get('service_duration').dirty">
-                                        <small *ngIf="createService.get('service_duration').hasError('required')" class="error">Service Duration Is required</small>
-                                        <small *ngIf="createService.get('service_duration').hasError('pattern')" class="error">Service Duration Must be Numeric</small>
+                                        <small *ngIf="createService.get('service_duration').hasError('required')" class="error">Service duration is required</small>
+                                        <small *ngIf="createService.get('service_duration').hasError('pattern')" class="error">Service duration must be numeric</small>
                                     </span>
                                     </div>
                                     <div class="mt-2 text-center">
@@ -567,8 +577,8 @@
                                             <input matInput formControlName="service_unit" placeholder="">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_unit').touched || createService.get('service_unit').dirty">
-                                        <small *ngIf="createService.get('service_unit').hasError('required')" class="error">Service Unit Is required</small>
-                                        <small *ngIf="createService.get('service_unit').hasError('pattern')" class="error">Service Unit Must be Numeric</small>
+                                        <small *ngIf="createService.get('service_unit').hasError('required')" class="error">Service unit is required</small>
+                                        <small *ngIf="createService.get('service_unit').hasError('pattern')" class="error">Service unit must be numeric</small>
                                     </span>
                                     </div>
                                     <div class="service-statustoggle" *ngIf="!editServiceId">

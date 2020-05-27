@@ -26,7 +26,7 @@
                                             <input formControlName="company_name" matInput placeholder="Company Name">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="companyDetails.get('company_name').dirty || companyDetails.get('company_name').touched">
-                    <small *ngIf="companyDetails.get('company_name').hasError('required')" class="error">Company Name Is required</small></span>
+                    <small *ngIf="companyDetails.get('company_name').hasError('required')" class="error">Company name is required</small></span>
 
                                     </div>
 
@@ -35,8 +35,8 @@
                                             <input formControlName="comp_email" matInput placeholder="Email">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="companyDetails.get('comp_email').dirty || companyDetails.get('comp_email').touched">
-                        <small *ngIf="companyDetails.get('comp_email').hasError('required')" class="error">Email Is required</small>
-                        <small *ngIf="companyDetails.get('comp_email').hasError('pattern')" class="error">Email Is Invalid</small>
+                        <small *ngIf="companyDetails.get('comp_email').hasError('required')" class="error">Email is required</small>
+                        <small *ngIf="companyDetails.get('comp_email').hasError('pattern')" class="error">Email is invalid</small>
                     </span>
                                     </div>
 
@@ -51,8 +51,8 @@
                                             <input formControlName="comp_mobile" matInput placeholder="Mobile">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="companyDetails.get('comp_mobile').dirty || companyDetails.get('comp_mobile').touched">
-                        <small *ngIf="companyDetails.get('comp_mobile').hasError('pattern')" class="error">Mobile Number Is Invalid</small>
-                        <small *ngIf="companyDetails.get('comp_mobile').hasError('minLength') || companyDetails.get('comp_mobile').hasError('maxLength')" class="error">Mobile Number Should be 10 Digit</small>
+                        <small *ngIf="companyDetails.get('comp_mobile').hasError('pattern')" class="error">Mobile number is invalid</small>
+                        <small *ngIf="companyDetails.get('comp_mobile').hasError('minLength') || companyDetails.get('comp_mobile').hasError('maxLength')" class="error">Mobile number should be 10 digit</small>
                     </span>
                                     </div>
                                 </div>
@@ -68,7 +68,7 @@
                                             </mat-select>
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="companyDetails.get('country').dirty || companyDetails.get('country').touched">
-                    <small *ngIf="companyDetails.get('country').hasError('required')" class="error">Country Is required</small></span>
+                    <small *ngIf="companyDetails.get('country').hasError('required')" class="error">Country is required</small></span>
 
                                     </div>
 
@@ -90,7 +90,7 @@
                                                 </mat-select>
                                             </mat-form-field>
                                             <span class="error-wrap d-flex" *ngIf="companyDetails.get('state').dirty || companyDetails.get('state').touched">
-                        <small *ngIf="companyDetails.get('state').hasError('required')" class="error">State Is required</small></span>
+                        <small *ngIf="companyDetails.get('state').hasError('required')" class="error">State is required</small></span>
 
                                         </div>
 
@@ -104,7 +104,7 @@
                                                 </mat-select>
                                             </mat-form-field>
                                             <span class="error-wrap d-flex" *ngIf="companyDetails.get('city').dirty || companyDetails.get('city').touched">
-                        <small *ngIf="companyDetails.get('city').hasError('required')" class="error">City Is required</small></span>
+                        <small *ngIf="companyDetails.get('city').hasError('required')" class="error">City is required</small></span>
                                         </div>
 
                                         <div class="mt-2 text-center col-3">
@@ -112,7 +112,7 @@
                                                 <input formControlName="zip_code" matInput placeholder="Zip">
                                             </mat-form-field>
                                             <span class="error-wrap d-flex" *ngIf="companyDetails.get('zip_code').dirty || companyDetails.get('zip_code').touched">
-                        <small *ngIf="companyDetails.get('zip_code').hasError('required')" class="error">Zip code Is required</small></span>
+                        <small *ngIf="companyDetails.get('zip_code').hasError('required')" class="error">Zip code is required</small></span>
                                         </div>
                                     </div>
 

@@ -24,7 +24,7 @@
                                 <input maxlength="8" formControlName="first_name" matInput placeholder="First Name">
                             </mat-form-field>
                             <span class="error-wrap d-flex" *ngIf="settingMyProfile.get('first_name').dirty || settingMyProfile.get('first_name').touched">
-                        <small *ngIf="settingMyProfile.get('first_name').hasError('required')" class="error">First Name Is required</small>
+                        <small *ngIf="settingMyProfile.get('first_name').hasError('required')" class="error">Firstname is required</small>
                         <small *ngIf="settingMyProfile.get('first_name').hasError('maxlength')" class="error">Name must be at least 8 character.</small>
                         
                         </span>
@@ -36,7 +36,7 @@
                                 <input maxlength="8" formControlName="last_name" matInput placeholder="Last Name">
                             </mat-form-field>
                             <span class="error-wrap d-flex" *ngIf="settingMyProfile.get('last_name').dirty || settingMyProfile.get('last_name').touched">
-                        <small *ngIf="settingMyProfile.get('last_name').hasError('required')" class="error">Last Name Is required</small>
+                        <small *ngIf="settingMyProfile.get('last_name').hasError('required')" class="error">Lastname is required</small>
                         <small *ngIf="settingMyProfile.get('last_name').hasError('maxlength')" class="error">Name must be at least 8 character.</small>
                         
                         </span>
@@ -48,8 +48,8 @@
                                 <input formControlName="email" matInput placeholder="Email">
                             </mat-form-field>
                             <span class="error-wrap d-flex" *ngIf="settingMyProfile.get('email').dirty || settingMyProfile.get('email').touched">
-                            <small *ngIf="settingMyProfile.get('email').hasError('required')" class="error">Email Is required</small>
-                            <small *ngIf="settingMyProfile.get('email').hasError('pattern')" class="error">Email Is Invalid</small>
+                            <small *ngIf="settingMyProfile.get('email').hasError('required')" class="error">Email is required</small>
+                            <small *ngIf="settingMyProfile.get('email').hasError('pattern')" class="error">Email is invalid</small>
                         </span>
                         </div>
 
@@ -59,9 +59,9 @@
                                 <input formControlName="mobile" matInput placeholder="Mobile">
                             </mat-form-field>
                             <span class="error-wrap d-flex" *ngIf="settingMyProfile.get('mobile').dirty || settingMyProfile.get('mobile').touched">
-                            <small *ngIf="settingMyProfile.get('mobile').hasError('required')" class="error">Mobile Number Is required</small>
-                            <small *ngIf="settingMyProfile.get('mobile').hasError('pattern')" class="error">Mobile Number Is Invalid</small>
-                            <small *ngIf="settingMyProfile.get('mobile').hasError('minLength') || settingMyProfile.get('mobile').hasError('maxLength')" class="error">Mobile Number Should be 10 Digit</small>
+                            <small *ngIf="settingMyProfile.get('mobile').hasError('required')" class="error">Mobile number is required</small>
+                            <small *ngIf="settingMyProfile.get('mobile').hasError('pattern')" class="error">Mobile number is invalid</small>
+                            <small *ngIf="settingMyProfile.get('mobile').hasError('minLength') || settingMyProfile.get('mobile').hasError('maxLength')" class="error">Mobile number should be 10 digit</small>
                         </span>
                         </div>
 

@@ -30,7 +30,7 @@
                   <input matInput formControlName="user_fullname" value="" placeholder="Enter Full Name" >
                 </mat-form-field>
               <span class="error-wrap" *ngIf="customerProfile.get('user_fullname').touched || customerProfile.get('user_fullname').dirty">
-                <small *ngIf="customerProfile.get('user_fullname').hasError('required')" class="error">Full Name Is required</small>
+                <small *ngIf="customerProfile.get('user_fullname').hasError('required')" class="error">Fullname is required</small>
              </span>
             </div>
           </div>
@@ -51,7 +51,7 @@
                 <input matInput formControlName="user_email" value="" placeholder="Enter Email" >
               </mat-form-field>
             <span class="error-wrap" *ngIf="customerProfile.get('user_email').touched || customerProfile.get('user_email').dirty">
-              <small *ngIf="customerProfile.get('user_email').hasError('required')" class="error">Email Is required</small>
+              <small *ngIf="customerProfile.get('user_email').hasError('required')" class="error">Email is required</small>
               <small *ngIf="customerProfile.get('user_email').hasError('pattern')" class="error">Enter valid email</small>
             </span>
           </div>
@@ -72,8 +72,8 @@
                   <input maxlength="10" matInput formControlName="user_phone"  value="" placeholder="Enter Mobile Number" type="number"> 
                 </mat-form-field>
                <span class="error-wrap" *ngIf="customerProfile.get('user_phone').touched || customerProfile.get('user_phone').dirty">
-                <small *ngIf="customerProfile.get('user_phone').hasError('required')" class="error">Phone number Is required</small>
-                <small *ngIf="customerProfile.get('user_phone').hasError('pattern')" class="error">Enter valid Phone Number</small>
+                <small *ngIf="customerProfile.get('user_phone').hasError('required')" class="error">Phone number is required</small>
+                <small *ngIf="customerProfile.get('user_phone').hasError('pattern')" class="error">Enter valid phone number</small>
                 <small *ngIf="customerProfile.get('user_phone').hasError('minlength') || customerProfile.get('user_phone').hasError('maxlength')" class="error">Phone number should be 10 digits long</small>
               </span>
             </div>
@@ -94,7 +94,7 @@
                 <input matInput formControlName="user_address"  value="" placeholder="Enter Address" >
               </mat-form-field>
             <span class="error-wrap" *ngIf="customerProfile.get('user_address').touched || customerProfile.get('user_address').dirty">
-              <small *ngIf="customerProfile.get('user_address').hasError('required')" class="error">Address Is required</small>
+              <small *ngIf="customerProfile.get('user_address').hasError('required')" class="error">Address is required</small>
            </span>
           </div>
           <div class="form-group row mt-3">
@@ -110,7 +110,7 @@
                   <input matInput formControlName="user_state"  value="" placeholder="State" >
                 </mat-form-field>
               <span class="error-wrap" *ngIf="customerProfile.get('user_state').touched || customerProfile.get('user_state').dirty">
-                <small *ngIf="customerProfile.get('user_state').hasError('required')" class="error">State Is required</small>
+                <small *ngIf="customerProfile.get('user_state').hasError('required')" class="error">State is required</small>
              </span>
             </div>
           </div>
@@ -126,7 +126,7 @@
                   <input matInput formControlName="user_city"  value="" placeholder="City" >
                 </mat-form-field>
               <span class="error-wrap" *ngIf="customerProfile.get('user_city').touched || customerProfile.get('user_city').dirty">
-                <small *ngIf="customerProfile.get('user_city').hasError('required')" class="error">City Is required</small>
+                <small *ngIf="customerProfile.get('user_city').hasError('required')" class="error">City is required</small>
              </span>
             </div>
           </div>
@@ -143,8 +143,8 @@
                   <input matInput formControlName="user_postalcode"  value="" placeholder="Postal Code" >
                 </mat-form-field>
               <span class="error-wrap" *ngIf="customerProfile.get('user_postalcode').touched || customerProfile.get('user_postalcode').dirty">
-                <small *ngIf="customerProfile.get('user_postalcode').hasError('required')" class="error">Postalcode Is required</small>
-                <small *ngIf="customerProfile.get('user_postalcode').hasError('pattern')" class="error">Enter valid Postalcode</small>
+                <small *ngIf="customerProfile.get('user_postalcode').hasError('required')" class="error">Postal code is required</small>
+                <small *ngIf="customerProfile.get('user_postalcode').hasError('pattern')" class="error">Enter valid postalcode</small>
              </span>
             </div>
           </div>
@@ -157,8 +157,8 @@
  
 </div>
 </mat-card>
-	<button mat-button (click)="onSubmit($event)" class="btn btn-primary user-btn" >Save</button>
-  <button mat-button class="btn btn-secondary user-btn">Cancel</button>
+	<button type="button" (click)="onSubmit($event)" class="btn btn-primary user-btn" >Save</button>
+  <!-- <button type="button" class="btn btn-secondary user-btn">Cancel</button> -->
   
     
 </form>  

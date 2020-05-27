@@ -1,4 +1,4 @@
-import { Component, OnInit,Inject  } from '@angular/core';
+import { Component, OnInit,Inject,ChangeDetectorRef  } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 //import { SettingsComponent } from '../settings.component';
@@ -29,7 +29,9 @@ export class ServicesComponent implements OnInit {
     subCategoryImageUrl:any;
     serviceImageUrl:any;
     animal: any;
-
+    ActionId: any = [];
+    staffActionIdSub:any = [];
+    selectAll:boolean =false;
     staffList:any;
 
 
@@ -110,12 +112,13 @@ export class ServicesComponent implements OnInit {
     next_page_url : any;
     prev_page_url : any;
     path : any;
-
+    selectAllCategory:boolean = false;
+    selectAllSubCat:boolean = false;
     selectedCategoryID:any;
     selectedSubCategoryID:any;
     constructor(
         // private userService: UserService,
-
+        public Change:ChangeDetectorRef,
         public dialog: MatDialog,
         private route: ActivatedRoute,
         private router: Router,
@@ -257,9 +260,18 @@ export class ServicesComponent implements OnInit {
                 this.next_page_url = response.response.next_page_url;
                 this.prev_page_url = response.response.prev_page_url;
                 this.path = response.response.path;
+                this.ActionId = [];
+                this.selectAllCategory = false;
+                this.selectAll  = false;
+
                 if (this.allServicesList != '') {
+
                     this.servicesList = true;
-                    this.allServiceCount = this.allServicesList.length
+                    this.allServiceCount = this.allServicesList.length;
+                    this.allServicesList.forEach( (element) => { 
+                        element.is_selected = false;
+                    });
+
                 } else if (this.allServicesList == '') {
                     this.servicesList = false;
                 }
@@ -271,6 +283,53 @@ export class ServicesComponent implements OnInit {
             }
         })
     }
+    
+    
+  fnAddStaffId(event, staffId,i) {
+
+    if (event == true) {
+      this.ActionId.push(staffId);
+      this.allServicesList[i].is_selected = true;
+
+    }else if (event == false) {
+        this.allServicesList[i].is_selected = false;
+
+      const index = this.ActionId.indexOf(staffId, 0);
+      if (index > -1) {
+        this.ActionId.splice(index, 1);
+      }
+    }
+    
+    if (this.ActionId.length == this.allServicesList.length ) {
+      this.selectAll = true;
+    } else {
+      this.selectAll = false;
+    }
+
+  }
+
+  checkAll(event){
+
+    this.ActionId = [];
+    for (let i = 0; i < this.allServicesList.length; i++) {
+      const item = this.allServicesList[i];
+      item.is_selected = event.checked;
+
+      if(event.checked){
+        this.ActionId.push(item.id)
+      }
+
+    }
+
+    if(event.checked){
+      this.selectAll = true;
+    }else{
+      this.selectAll = false;
+    }
+    console.log(this.ActionId);
+
+  }
+  
 
     fnAllCategory() {
         this.isLoaderAdmin = true;
@@ -343,6 +402,14 @@ export class ServicesComponent implements OnInit {
                 this.next_page_url = response.response.next_page_url;
                 this.prev_page_url = response.response.prev_page_url;
                 this.path = response.response.path;
+
+                this.categoryServicesList.forEach( (element) => { 
+                    element.is_selected = false;
+                });
+                this.selectAllCategory = false;
+                this.selectAll = false;
+                this.ActionId = [];
+
                 if (this.categoryServicesList != '' && this.categoryServicesList != 'service not found') {
                     this.servicesList = false;
                     this.selectCategoryPage = 'services';
@@ -703,16 +770,55 @@ export class ServicesComponent implements OnInit {
             }
         })
     }
-    fnActionServiceId(event, serviceId) {
+
+    fnActionServiceId(event, serviceId,i) {
+
         if (event == true) {
             this.actionServiceIdarr.push(serviceId);
+            this.categoryServicesList[i].is_selected = true;
         } else {
             const index = this.actionServiceIdarr.indexOf(serviceId, 0);
             if (index > -1) {
                 this.actionServiceIdarr.splice(index, 1);
             }
+            this.categoryServicesList[i].is_selected = false;
         }
+
+        if (this.actionServiceIdarr.length == this.categoryServicesList.length ) {
+            this.selectAllCategory = true;
+          } else {
+            this.selectAllCategory = false;
+          }
+          console.log(this.actionServiceIdarr);
+
     }
+    
+    checkAllCategory(event){
+        
+
+        this.actionServiceIdarr = [];
+        for (let i = 0; i < this.categoryServicesList.length; i++) {
+          const item = this.categoryServicesList[i];
+          item.is_selected = event.checked;
+          
+          if(event.checked){
+            this.actionServiceIdarr.push(item.id)
+          }
+        }
+    
+        if(event.checked){
+          this.selectAllCategory = true;
+        }else{
+          this.selectAllCategory = false;
+        }
+        
+        this.Change.detectChanges();
+    
+    }
+  
+      
+    
+
     fnServiceAction(action, categoryId, type) {
         if (this.actionServiceIdarr.length > 0) {
 
@@ -774,6 +880,13 @@ export class ServicesComponent implements OnInit {
                 this.next_page_url = response.response.next_page_url;
                 this.prev_page_url = response.response.prev_page_url;
                 this.path = response.response.path;
+
+                this.subCategoryServicesList.forEach( (element) => { 
+                    element.is_selected = false;
+                });
+                this.staffActionIdSub = [];
+                 this.selectAllSubCat = false;
+
                 if (this.subCategoryServicesList != '' && this.subCategoryServicesList != 'service not found') {
                     this.servicesList = false;
                     this.singleSubCategoryPage = 'services';
@@ -802,7 +915,52 @@ export class ServicesComponent implements OnInit {
             }
         })
     }
+    
+    fnAddStaffIdSub(event, staffId,i) {
+        if (event == true) {
+          this.staffActionIdSub.push(staffId)
+          this.subCategoryServicesList[i].is_selected = true;
+    
+        }else if (event == false) {
+          this.subCategoryServicesList[i].is_selected = false;
+    
+          const index = this.staffActionIdSub.indexOf(staffId, 0);
+          if (index > -1) {
+            this.staffActionIdSub.splice(index, 1);
+          }
+        }
+        
+        if (this.staffActionIdSub.length == this.subCategoryServicesList.length ) {
+          this.selectAllSubCat = true;
+        } else {
+          this.selectAllSubCat = false;
+        }
+        console.log(this.staffActionIdSub);
+    }
+      
+    checkAllSubcat(event){
+        
+        this.staffActionIdSub = [];
 
+        for (let i = 0; i < this.subCategoryServicesList.length; i++) {
+          const item = this.subCategoryServicesList[i];
+          item.is_selected = event.checked;
+          if(event.checked){
+            this.staffActionIdSub.push(item.id)
+          }
+        }
+        
+        console.log(this.staffActionIdSub);
+    
+        if(event.checked){
+          this.selectAllSubCat = true;
+        }else{
+          this.selectAllSubCat = false;
+        }
+    
+    }
+  
+      
     fnCreateNewServicePage(categoryId, type) {
         this.createService.controls['service_name'].setValue(null);
         this.createService.controls['service_description'].setValue(null);
@@ -1032,6 +1190,7 @@ export class ServicesComponent implements OnInit {
          this.assignedStaff.forEach(element => {
               this.assignStaffArr.push(element.id);
           });
+
         if (type == 'category') {
             this.createService.controls['service_id'].setValue(this.editServiceId);
             this.createService.controls['service_name'].setValue(this.categoryServicesList[index].service_name);

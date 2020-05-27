@@ -290,6 +290,7 @@ getCompletedAppointments(): void{
     const dialogRef = this.dialog.open(DialogMyAppointmentDetails, {
       
       height: '700px',
+      // disableClose: true,
       data: {fulldata: this.appointmentData[index],index:index}
 
     });
@@ -299,6 +300,11 @@ getCompletedAppointments(): void{
       this.getCancelAppointments();
       this.getCompletedAppointments();
      });
+    //  dialogRef.keydownEvents().subscribe(event => {
+    //     if (event.key === "Escape") {
+    //         dialogRef.close();
+    //     }
+    // });
   }
 
   details_dialog(index) {
@@ -380,7 +386,7 @@ getCompletedAppointments(): void{
   }
 
   stripePayment(){
-    this.isLoader=true;
+    
     if(this.cardForm.valid){
       let requestObject ={
         "name" : this.cardForm.get("cardHolderName").value,
@@ -390,6 +396,7 @@ getCompletedAppointments(): void{
         "cvc" : this.cardForm.get("cvvCode").value,
         "amount" : this.appointDetailForPayment.total_cost,
       }
+      this.isLoader=true;
       this.UserService.customerStripePayment(requestObject).subscribe((response:any) =>{
         if(response.data == true){
           let digit5= Math.floor(Math.random()*90000) + 10000;
@@ -408,6 +415,12 @@ getCompletedAppointments(): void{
         }
         this.isLoader=false;
       })  
+    }else{
+      this.cardForm.get("cardHolderName").markAsTouched();
+      this.cardForm.get("cardNumber").markAsTouched();
+      this.cardForm.get("expiryMonth").markAsTouched();
+      this.cardForm.get("expiryYear").markAsTouched();
+      this.cardForm.get("cvvCode").markAsTouched();
     }
   }
   

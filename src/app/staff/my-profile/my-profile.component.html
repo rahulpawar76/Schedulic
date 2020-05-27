@@ -20,7 +20,7 @@
                                     <input matInput formControlName="user_FirstName" value="" placeholder="Enter First Name">
                                 </mat-form-field>
                                 <span class="error-wrap" *ngIf="myProfile.get('user_FirstName').touched || myProfile.get('user_FirstName').dirty">
-									<small *ngIf="myProfile.get('user_FirstName').hasError('required')" class="error">First Name Is required</small>
+									<small *ngIf="myProfile.get('user_FirstName').hasError('required')" class="error">Firstname is required</small>
 								 </span>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                                     <input matInput formControlName="user_LastName" value="" placeholder="Enter Last Name">
                                 </mat-form-field>
                                 <span class="error-wrap" *ngIf="myProfile.get('user_LastName').touched || myProfile.get('user_LastName').dirty">
-									<small *ngIf="myProfile.get('user_LastName').hasError('required')" class="error">Last Name Is required</small>
+									<small *ngIf="myProfile.get('user_LastName').hasError('required')" class="error">Lastname is required</small>
 								 </span>
                             </div>
                         </div>
@@ -50,8 +50,8 @@
                                     <input matInput formControlName="user_Email" value="" placeholder="Enter Email">
                                 </mat-form-field>
                                 <span class="error-wrap" *ngIf="myProfile.get('user_Email').touched || myProfile.get('user_Email').dirty">
-									<small *ngIf="myProfile.get('user_Email').hasError('required')" class="error">Email Address Is required</small>
-									<small *ngIf="myProfile.get('user_Email').hasError('email') || myProfile.get('user_Email').hasError('emailFormat')" class="error">Email Address Is not valid</small>
+									<small *ngIf="myProfile.get('user_Email').hasError('required')" class="error">Email address is required</small>
+									<small *ngIf="myProfile.get('user_Email').hasError('email') || myProfile.get('user_Email').hasError('emailFormat')" class="error">Email address is not valid</small>
 								 </span>
                             </div>
                         </div>
@@ -66,9 +66,9 @@
                                     <input matInput formControlName="user_Mobile" value="" placeholder="Enter Mobile Number">
                                 </mat-form-field>
                                 <span class="error-wrap" *ngIf="myProfile.get('user_Mobile').touched || myProfile.get('user_Mobile').dirty">
-									<small *ngIf="myProfile.get('user_Mobile').hasError('required')" class="error">Mobile Number Is required</small>
-									<small *ngIf="myProfile.get('user_Mobile').hasError('minLength') || myProfile.get('user_Mobile').hasError('maxLength')" class="error">Mobile Number shoud be 10 digit</small>
-									<small *ngIf="myProfile.get('user_Mobile').hasError('onlynumeric')" class="error">Mobile Number shoud be Number only</small>
+									<small *ngIf="myProfile.get('user_Mobile').hasError('required')" class="error">Mobile number is required</small>
+									<small *ngIf="myProfile.get('user_Mobile').hasError('minLength') || myProfile.get('user_Mobile').hasError('maxLength')" class="error">Mobile number shoud be 10 digit</small>
+									<small *ngIf="myProfile.get('user_Mobile').hasError('onlynumeric')" class="error">Mobile number should be Number only</small>
 								 </span>
                             </div>
                         </div>

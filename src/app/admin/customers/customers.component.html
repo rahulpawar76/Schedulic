@@ -93,7 +93,7 @@
                                                 <mat-icon class="mr-4" matPrefix>person</mat-icon>
                                                 <input matInput formControlName="cus_fullname" placeholder="Enter Your First Name">
                                             </mat-form-field>
-                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_fullname').dirty || createNewCustomer.get('cus_fullname').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_fullname').hasError('required')" class="error">Full Name Is required</small></span>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_fullname').dirty || createNewCustomer.get('cus_fullname').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_fullname').hasError('required')" class="error">Fullname is required</small></span>
                                         </div>
                                         <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
                                             <mat-form-field>
@@ -101,7 +101,7 @@
                                                 <mat-icon class="mr-4" matPrefix>email</mat-icon>
                                                 <input matInput formControlName="cus_email" placeholder="Enter Your Email">
                                             </mat-form-field>
-                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_email').dirty || createNewCustomer.get('cus_email').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_email').hasError('required')" class="error">Email Is required</small><small *ngIf="createNewCustomer.get('cus_email').hasError('pattern')" class="error">Invalid Email Address</small><small *ngIf="createNewCustomer.get('cus_email').hasError('isEmailUnique') || createNewCustomer.get('cus_email').hasError('isEmailUniqueForEdit')" class="error">Email address already exist</small></span>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_email').dirty || createNewCustomer.get('cus_email').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_email').hasError('required')" class="error">Email is required</small><small *ngIf="createNewCustomer.get('cus_email').hasError('pattern')" class="error">Invalid email address</small><small *ngIf="createNewCustomer.get('cus_email').hasError('isEmailUnique') || createNewCustomer.get('cus_email').hasError('isEmailUniqueForEdit')" class="error">Email address already exists</small></span>
                                         </div>
                                         <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
                                             <mat-form-field>
@@ -109,7 +109,7 @@
                                                 <mat-icon class="mr-4" matPrefix>call</mat-icon>
                                                 <input matInput formControlName="cus_phone" placeholder="Enter Your number">
                                             </mat-form-field>
-                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_phone').dirty || createNewCustomer.get('cus_phone').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_phone').hasError('required')" class="error">Contact Number Is required</small><small *ngIf="createNewCustomer.get('cus_phone').hasError('pattern')" class="error">Contact Number Should in numbers</small><small *ngIf="createNewCustomer.get('cus_phone').hasError('minlength') || createNewCustomer.get('cus_phone').hasError('maxlength')" class="error">Contact Number Should only 10 digits</small></span>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_phone').dirty || createNewCustomer.get('cus_phone').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_phone').hasError('required')" class="error">Contact number is required</small><small *ngIf="createNewCustomer.get('cus_phone').hasError('pattern')" class="error">Contact number should be in numbers</small><small *ngIf="createNewCustomer.get('cus_phone').hasError('minlength') || createNewCustomer.get('cus_phone').hasError('maxlength')" class="error">Contact number should only 10 digits</small></span>
                                         </div>
                                         <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
                                             <mat-form-field>
@@ -117,7 +117,7 @@
                                                 <mat-icon class="mr-4" matPrefix>format_list_numbered</mat-icon>
                                                 <input matInput formControlName="cus_officenumber" placeholder="Enter Your number">
                                             </mat-form-field>
-                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_officenumber').dirty || createNewCustomer.get('cus_officenumber').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_officenumber').hasError('pattern')" class="error">Office Phone Should in numbers</small><small *ngIf="createNewCustomer.get('cus_officenumber').hasError('minlength') || createNewCustomer.get('cus_officenumber').hasError('maxlength')" class="error">Office Phone Should only 10 digits</small></span>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_officenumber').dirty || createNewCustomer.get('cus_officenumber').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_officenumber').hasError('pattern')" class="error">Office phone should in numbers</small><small *ngIf="createNewCustomer.get('cus_officenumber').hasError('minlength') || createNewCustomer.get('cus_officenumber').hasError('maxlength')" class="error">Office phone should only 10 digits</small></span>
                                         </div>
                                         <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
                                             <mat-form-field>
@@ -126,7 +126,7 @@
                                                 <input matInput formControlName="cus_homenumber" placeholder="Enter Your number">
                                             </mat-form-field>
 
-                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_homenumber').dirty || createNewCustomer.get('cus_homenumber').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_homenumber').hasError('pattern')" class="error">Home Phone Should in numbers</small><small *ngIf="createNewCustomer.get('cus_homenumber').hasError('minlength') || createNewCustomer.get('cus_homenumber').hasError('maxlength')" class="error">Home Phone Should only 10 digits</small></span>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_homenumber').dirty || createNewCustomer.get('cus_homenumber').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_homenumber').hasError('pattern')" class="error">Home phone should in numbers</small><small *ngIf="createNewCustomer.get('cus_homenumber').hasError('minlength') || createNewCustomer.get('cus_homenumber').hasError('maxlength')" class="error">Home phone should only 10 digits</small></span>
                                         </div>
                                         <div class="col-lg-12 col-12 col-md-12 bottom-border-field">
                                             <mat-form-field>
@@ -134,7 +134,7 @@
                                                 <mat-icon class="mr-4" matPrefix>location_on</mat-icon>
                                                 <input matInput formControlName="cus_address" placeholder="Enter Your address">
                                             </mat-form-field>
-                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_address').dirty || createNewCustomer.get('cus_address').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_address').hasError('required')" class="error">Address Is required</small></span>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_address').dirty || createNewCustomer.get('cus_address').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_address').hasError('required')" class="error">Address is required</small></span>
                                         </div>
                                         <div class="col-lg-4 col-12 col-md-4 bottom-border-field">
                                             <mat-form-field>
@@ -142,7 +142,7 @@
                                                 <input matInput formControlName="cus_state" placeholder="">
                                             </mat-form-field>
                                             <span class="error-wrap" *ngIf="createNewCustomer.get('cus_state').dirty || createNewCustomer.get('cus_state').touched || formSubmitclicked">
-                                <small *ngIf="createNewCustomer.get('cus_state').hasError('required')" class="error">State Is required</small>
+                                <small *ngIf="createNewCustomer.get('cus_state').hasError('required')" class="error">State is required</small>
                                 <small *ngIf="createNewCustomer.get('cus_state').hasError('minlength') " class="error">State must be at least 2 character.</small>
                                 
                                 </span>
@@ -152,7 +152,7 @@
                                                 <mat-label>City</mat-label>
                                                 <input matInput formControlName="cus_city" placeholder="">
                                             </mat-form-field>
-                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_city').dirty || createNewCustomer.get('cus_city').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_city').hasError('required')" class="error">City Is required</small>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_city').dirty || createNewCustomer.get('cus_city').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_city').hasError('required')" class="error">City is required</small>
                                 <small *ngIf="createNewCustomer.get('cus_city').hasError('minlength') " class="error">City must be at least 2 character.</small>
                                 
                                 </span>
@@ -162,7 +162,7 @@
                                                 <mat-label>Zip</mat-label>
                                                 <input matInput formControlName="cus_zip" placeholder="">
                                             </mat-form-field>
-                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_zip').dirty || createNewCustomer.get('cus_zip').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_zip').hasError('required')" class="error">Zipcode Is required</small><small *ngIf="createNewCustomer.get('cus_zip').hasError('pattern')" class="error">Zipcode Should in numbers</small></span>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_zip').dirty || createNewCustomer.get('cus_zip').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_zip').hasError('required')" class="error">Zipcode is required</small><small *ngIf="createNewCustomer.get('cus_zip').hasError('pattern')" class="error">Zipcode should in numbers</small></span>
                                         </div>
                                         <input type="hidden" formControlName="customer_id">
                                     </div>
@@ -421,13 +421,13 @@
                                                         <mat-radio-button value="Cash">Cash</mat-radio-button>
                                                         <mat-radio-button value="Online">Online</mat-radio-button>
                                                     </mat-radio-group>
-                                                    <span class="error-wrap" *ngIf="formPayment.get('paymentMode').dirty || formPayment.get('paymentMode').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentMode').hasError('required')" class="error">Payment Mode is required</small></span>
+                                                    <span class="error-wrap" *ngIf="formPayment.get('paymentMode').dirty || formPayment.get('paymentMode').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentMode').hasError('required')" class="error">Payment mode is required</small></span>
                                                 </div>
                                                 <div>
                                                     <div class="form-group col-lg-6 col-12 col-md-6">
                                                         <h6 for="comment">Note</h6>
                                                         <textarea class="form-control" rows="3" id="comment" placeholder="Enter Payment Note" formControlName="paymentNote"></textarea>
-                                                        <span class="error-wrap" *ngIf="formPayment.get('paymentNote').dirty || formPayment.get('paymentNote').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentNote').hasError('required')" class="error">Payment Note is required</small></span>
+                                                        <span class="error-wrap" *ngIf="formPayment.get('paymentNote').dirty || formPayment.get('paymentNote').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentNote').hasError('required')" class="error">Payment note is required</small></span>
                                                     </div>
                                                 </div>
                                             </div>

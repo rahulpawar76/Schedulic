@@ -285,28 +285,30 @@
                             <i class="fa fa-phone Appoinment-icon"></i>
                             <p class="pl-3 pt-0 mb-0">{{appointmentDetails.customerPhone}}</p>
                         </div>
-                        <div class="pl-4 d-flex pt-2">
-                            <img class="map-icon" src="../../assets/images/admin/map.png" />
-                            <h6 class="pl-3 pt-0 mb-0">{{appointmentDetails.customerAddress}}</h6>
-                        </div>
-                        <div class="pl-4 pt-2 bottom-border">
-                            <h6 (click)="fnOpenNote()" class="pointer w-fc">Note<i class="fa fa-plus-circle pl-2 note-icon"></i></h6>
-                            <mat-form-field class="bottom-border-field" *ngIf="formSettingPage">
-                                <mat-label>Notes</mat-label>
-                                <textarea rows="5" matInput [(ngModel)]="appointmentDetails.bookingNotes" placeholder="Type Note Description Here"></textarea>
-                            </mat-form-field>
-                            <button mat-button type="button" class="Reschedulebtn accept-btn d-block" *ngIf="formSettingPage" (click)="fnSaveBookingNotes(appointmentDetails.id)">Save</button>
-                        </div>
-                        <div class="pl-4 pt-2 bottom-border">
-                            <h6>Activity Log</h6>
-                            <div *ngFor="let log of activityLog">{{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - {{log.status=='P'?'Pending':''}}{{log.status=='CNF'?'Confirm':''}}{{log.status=='AC'?'Accepted':''}}{{log.status=='OW'?'On The Way':''}}{{log.status=='WS'?'Work
-                                Started':''}}{{log.status=='RSA'?'Rescheduled By Admin':''}}{{log.status=='RSS'?'Rescheduled By Staff':''}}{{log.status=='RSC'?'Rescheduled By Client':''}}{{log.status=='ITR'?'Intrupted':''}}{{log.status=='C'?'Cancelled':''}}{{log.status=='CC'?'Cancelled
-                                By Client':''}}{{log.status=='R'?'Rejected':''}}{{log.status=='CO'?'Completed':''}}</div>
-                        </div>
-
+                      <div class="d-flex pl-4 pt-2">
+                        <i class="fa fa-phone Appoinment-icon"></i>
+                        <p class="pl-3 pt-0 mb-0">{{appointmentDetails.customerPhone}}</p>
+                      </div>
+                      <div class="pl-4 d-flex pt-2">
+                        <img class="map-icon" src="../../assets/images/admin/map.png" />
+                        <h6 class="pl-3 pt-0 mb-0">{{appointmentDetails.customerAddress}}</h6>
+                      </div>
+                      <div  class="p-1-5 bottom-border">
+                          <h6 (click)="fnOpenNote()" class="pointer w-fc">Note<i class="fa fa-plus-circle pl-2 note-icon"></i></h6>
+                          <mat-form-field class="bottom-border-field" *ngIf="formSettingPage">
+                            <mat-label>Notes</mat-label>
+                            <textarea rows="5" matInput [(ngModel)]="appointmentDetails.bookingNotes" placeholder="Type Note Description Here"></textarea>
+                          </mat-form-field>
+                          <button mat-button type="button" class="Reschedulebtn accept-btn d-block" *ngIf="formSettingPage" (click)="fnSaveBookingNotes(appointmentDetails.id)">Save</button>
+                      </div>
+                      <div  class="p-1-5 bottom-border">
+                          <h6>Activity Log</h6>
+                          <div *ngFor="let log of activityLog">{{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - {{log.status=='P'?'Pending':''}}{{log.status=='CNF'?'Confirm':''}}{{log.status=='AC'?'Accepted':''}}{{log.status=='OW'?'On The Way':''}}{{log.status=='WS'?'Work Started':''}}{{log.status=='RSA'?'Rescheduled By Admin':''}}{{log.status=='RSS'?'Rescheduled By Staff':''}}{{log.status=='RSC'?'Rescheduled By Client':''}}{{log.status=='ITR'?'Intrupted':''}}{{log.status=='C'?'Cancelled':''}}{{log.status=='CC'?'Cancelled By Client':''}}{{log.status=='R'?'Rejected':''}}{{log.status=='CO'?'Completed':''}}</div>
+                      </div>
                     </div>
                 </mat-card>
             </div>
 
         </div>
     </div>
+</div>

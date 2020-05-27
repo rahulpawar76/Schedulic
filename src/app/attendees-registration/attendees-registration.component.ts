@@ -83,13 +83,12 @@ export class AttendeesRegistrationComponent implements OnInit {
 			  console.log(err)
 			})
 		}else{
-			this._snackBar.open("Please Enter Velid Info", "X", {
-				duration: 2000,
-				verticalPosition: 'top',
-				panelClass : ['red-snackbar']
-			});
+			this.signUpForm.get("firstName").markAsTouched();
+			this.signUpForm.get("lastName").markAsTouched();
+			this.signUpForm.get("phonenumber").markAsTouched();
+			this.signUpForm.get("email").markAsTouched();
+			this.signUpForm.get("password").markAsTouched();
 		}
-		
 	}
 	login(){
         this.router.navigate(["login"]);

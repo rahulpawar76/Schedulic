@@ -131,6 +131,7 @@
                         box-shadow: 2px 2px 6px #3d3d3d60 !important;
                         transition: all 0.3s;
                         border: 3px solid transparent;
+                        overflow: hidden;
                         .service-img-main {
                             width: 120px;
                             height: 120px;
@@ -872,9 +873,12 @@ input:focus {
     }
     .logout-btn {
         display: block;
-        margin-left: auto;
+        /*margin-left: auto;*/
         font-size: 16px;
         padding: 0px 30px;
+    }
+    .ml-a{
+        margin-left: auto;
     }
 }
 

@@ -14,7 +14,7 @@
                   <input formControlName="tax_name" matInput placeholder="Name" value="">
                 </mat-form-field>
                 <span class="error-wrap" *ngIf="taxAdd.get('tax_name').touched || taxAdd.get('tax_name').dirty">
-                    <small *ngIf="taxAdd.get('tax_name').hasError('required')" class="error">Tax Name Is required</small>
+                    <small *ngIf="taxAdd.get('tax_name').hasError('required')" class="error">Tax name is required</small>
                  </span>
 
                 <mat-form-field class="example-full-width bottom-border-field">
@@ -23,8 +23,8 @@
                     <input formControlName="tax_per" matInput placeholder="Name" value="">
                   </mat-form-field>
                   <span class="error-wrap" *ngIf="taxAdd.get('tax_per').touched || taxAdd.get('tax_per').dirty">
-                    <small *ngIf="taxAdd.get('tax_per').hasError('required')" class="error">Tax Per Is required</small>
-			        <small *ngIf="taxAdd.get('tax_per').hasError('pattern')" class="error"> Number should be Number only</small>
+                    <small *ngIf="taxAdd.get('tax_per').hasError('required')" class="error">Tax per is required</small>
+			        <small *ngIf="taxAdd.get('tax_per').hasError('pattern')" class="error"> Number should be number only</small>
                  </span>
             </form>
         </div>
