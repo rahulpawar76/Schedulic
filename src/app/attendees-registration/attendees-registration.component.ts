@@ -88,6 +88,11 @@ export class AttendeesRegistrationComponent implements OnInit {
 			this.signUpForm.get("phonenumber").markAsTouched();
 			this.signUpForm.get("email").markAsTouched();
 			this.signUpForm.get("password").markAsTouched();
+			this._snackBar.open("Please Enter Valid Info", "X", {
+				duration: 2000,
+				verticalPosition: 'top',
+				panelClass : ['red-snackbar']
+			});
 		}
 		
 	}

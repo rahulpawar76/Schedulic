@@ -77,10 +77,10 @@ export class CompanyDetailsComponent implements OnInit {
         this.companyDetails.controls['comp_email'].setValue(this.companyDetailsData.email);
         this.companyDetails.controls['comp_website'].setValue(this.companyDetailsData.website);
         this.companyDetails.controls['comp_mobile'].setValue(this.companyDetailsData.phone);
-        this.companyDetails.controls['country'].setValue(this.companyDetailsData.country.name);
+        this.companyDetails.controls['country'].setValue(JSON.stringify(this.companyDetailsData.country.id));
         this.companyDetails.controls['comp_address'].setValue(this.companyDetailsData.address);
-        this.companyDetails.controls['city'].setValue(this.companyDetailsData.city.name);
-        this.companyDetails.controls['state'].setValue(this.companyDetailsData.state.name);
+        this.companyDetails.controls['city'].setValue(JSON.stringify(this.companyDetailsData.city.id));
+        this.companyDetails.controls['state'].setValue(JSON.stringify(this.companyDetailsData.state.id));
         this.companyDetails.controls['zip_code'].setValue(this.companyDetailsData.zipcode);
         this.companyDetails.controls['comp_decs'].setValue(this.companyDetailsData.description);
         this.companyDetails.controls['comp_status'].setValue(this.companyDetailsData.status=="E"?true:false);
