@@ -61,8 +61,8 @@
                         <div class="">
                             <div class="heads main-heading-content staff-list-row header-background " fxLayout="row">
                                 <div class="text-left" fxFlex="10">
-                                    
-                                    <mat-checkbox  [checked]="selectAll"  (change)="checkAll($event)" class=""></mat-checkbox>
+
+                                    <mat-checkbox [checked]="selectAll" (change)="checkAll($event)" class=""></mat-checkbox>
                                 </div>
                                 <div class="text-left" fxFlex="20">Date & Time</div>
                                 <div class="text-left" fxFlex="15">Customer</div>
@@ -79,7 +79,7 @@
                                         <mat-checkbox [checked]="allAppointmentsData.is_selected" (change)="fnAddOrderId($event.checked, allAppointmentsData.id,i)" class=""></mat-checkbox>
                                     </div>
 
-                                    <div class="text-left" fxFlex="20" (click)="fnOpenDetails()">
+                                    <div class="text-left" fxFlex="20" (click)="fnOpenDetails(i)">
                                         <p>{{allAppointmentsData.booking_date}},</p>
                                         <p>{{allAppointmentsData.booking_time}}</p>
                                     </div>

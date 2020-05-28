@@ -3,8 +3,8 @@
     font-family: '{{appearenceColor.font}}', sans-serif !important;
   } */
 </style>
-<mat-drawer-container class="main-container">
-    <mat-drawer-content>
+<mat-drawer-container [ngClass]="{'main-container-top': isFront()}" class="main-container">
+    <mat-drawer-content [ngClass]="{'main-content-top': isFront()}" class="">
         <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
         <main fxLayout="column" fxLayoutGap="0">
             <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser() && !isBusiness()}" color="primary" class="toolbar menu-comman" *ngIf="isLogin() && !isFront()">
