@@ -604,6 +604,7 @@ export class AppointmentComponent implements OnInit {
   providers: [DatePipe]
 })
 export class DialogAddNewAppointment {
+  
   formAddNewAppointmentStaffStep1:FormGroup;
   formAddNewAppointmentStaffStep2:FormGroup;
   secondStep:boolean = false;
@@ -1900,7 +1901,7 @@ constructor(
   }
 
   fnRescheduleAppointment(){
-    const dialogRef = this.dialog.open(InterruptedReschedulecustomer, {
+    const dialogRef = this.dialog.open(RescheduleAppointAdmin, {
       height: '700px',
      data : {appointmentDetails: this.detailsData}
     });
@@ -1968,7 +1969,7 @@ constructor(
   templateUrl: '../_dialogs/interrupted-reschedule-dialog.html',
   providers: [DatePipe]
 })
-export class InterruptedReschedulecustomer {
+export class RescheduleAppointAdmin {
   formAppointmentRescheduleAdmin:FormGroup;
   appointmentDetails:any;
   businessId:any;
@@ -1979,7 +1980,7 @@ export class InterruptedReschedulecustomer {
   timeSlotArr:any= [];
   availableStaff:any= [];
   constructor(
-    public dialogRef: MatDialogRef<InterruptedReschedulecustomer>,
+    public dialogRef: MatDialogRef<RescheduleAppointAdmin>,
     private datePipe: DatePipe,
     private _formBuilder: FormBuilder,
     private http: HttpClient,
@@ -2078,36 +2079,36 @@ export class InterruptedReschedulecustomer {
     this.dialogRef.close();
   }
 
-formRescheduleSubmit(){
-  if(this.formAppointmentRescheduleAdmin.invalid){
-    return false;
-  }
-
-  let requestObject = {
-   "order_item_id":JSON.stringify(this.appointmentDetails.id),
-   "staff_id":this.formAppointmentRescheduleAdmin.get('rescheduleStaff').value,
-   "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value),"yyyy-MM-dd"),
-   "book_time":this.formAppointmentRescheduleAdmin.get('rescheduleTime').value,
-   "book_notes":this.formAppointmentRescheduleAdmin.get('rescheduleNote').value
-  };
-  this.adminService.rescheduleAppointment(requestObject).subscribe((response:any) =>{
-    if(response.data == true){
-      this._snackBar.open("Appointment Rescheduled", "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['green-snackbar']
-        });
-        this.dialogRef.close();
-   }
-    else if(response.data == false){
-      this._snackBar.open("Appointment not Rescheduled", "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['red-snackbar']
-        });
+  formRescheduleSubmit(){
+    if(this.formAppointmentRescheduleAdmin.invalid){
+      return false;
     }
-  })
-}
+
+    let requestObject = {
+    "order_item_id":JSON.stringify(this.appointmentDetails.id),
+    "staff_id":this.formAppointmentRescheduleAdmin.get('rescheduleStaff').value,
+    "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value),"yyyy-MM-dd"),
+    "book_time":this.formAppointmentRescheduleAdmin.get('rescheduleTime').value,
+    "book_notes":this.formAppointmentRescheduleAdmin.get('rescheduleNote').value
+    };
+    this.adminService.rescheduleAppointment(requestObject).subscribe((response:any) =>{
+      if(response.data == true){
+        this._snackBar.open("Appointment Rescheduled", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+          });
+          this.dialogRef.close();
+    }
+      else if(response.data == false){
+        this._snackBar.open("Appointment not Rescheduled", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+          });
+      }
+    })
+  }
 
 }
 
