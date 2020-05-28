@@ -425,8 +425,6 @@ export class StaffComponent implements OnInit {
       }
     }
     
-    console.log(this.staffActionId);
-
     if(event.checked){
       this.selectAll = true;
     }else{
@@ -857,12 +855,21 @@ export class StaffComponent implements OnInit {
     this.adminSettingsService.getCateServiceList().subscribe((response:any) => {
       if(response.data == true){
         this.categoryServiceList = response.response;
+
         this.categoryServiceList.forEach(element => {
           element.is_selected  = false;
           element.subcategory.forEach(subelement => {
             subelement.is_selected = false;
             subelement.services.forEach(serviceselement => {
+              
               serviceselement.is_selected = false;
+
+              const index = this.selectedServiceNewStaff.indexOf(serviceselement.id, 0);
+              if (index > -1) {
+                serviceselement.is_selected = true;
+              }
+
+
             });
           });
         });
@@ -976,10 +983,11 @@ export class StaffComponent implements OnInit {
         //   this.categoryServiceChecksubCatId.push({'id':subelement.id})
         // }
         subelement.services.forEach(serviceselement => {
-          if(subelement.is_selected == true){
+          if(serviceselement.is_selected == true){
             this.categoryServiceCheckServiceId.push(serviceselement.id)
           }
         });
+
       });
 
     });

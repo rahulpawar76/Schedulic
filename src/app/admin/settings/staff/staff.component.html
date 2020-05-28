@@ -138,7 +138,7 @@
           </button>
                         </div>
                         <mat-card>
-                            <h6>Select Service</h6>
+                            <h6>Select Service {{selectedServiceNewStaff}} </h6>
                             <mat-form-field class="pb-3 bottom-border-field">
                                 <mat-label>Outline form field</mat-label>
                                 <input matInput placeholder="Category,Subcategory,Service">
@@ -159,7 +159,9 @@
                                             </mat-panel-title>
                                         </mat-expansion-panel-header>
                                         <div *ngFor="let serviceList of subcategoryList.services; let service_index=index" class="py-3">
-                                            <mat-checkbox [checked]="serviceList.is_selected" (change)="checkServie($event,'service',i,sub_index,service_index)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) > -1" checked="true">{{serviceList.service_name}}</mat-checkbox>
+
+                                            <mat-checkbox [checked]="serviceList.is_selected" (change)="checkServie($event,'service',i,sub_index,service_index)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) > -1" checked="true">{{serviceList.service_name}} </mat-checkbox>
+                                            
                                             <mat-checkbox [checked]="serviceList.is_selected" (change)="checkServie($event,'service',i,sub_index,service_index)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) < 0">{{serviceList.service_name}}</mat-checkbox>
 
                                             <!-- <mat-checkbox [checked]="serviceList.is_selected" (change)="fnCheckService($event.checked,serviceList.id)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) > -1" checked="true">{{serviceList.service_name}}</mat-checkbox>
