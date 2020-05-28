@@ -1331,13 +1331,66 @@ formRescheduleSubmit(){
 })
 export class DialogImportFileUpload {
 
+fileToUpload:any;
+isLoaderAdmin : boolean = false;
+
 constructor(
   public dialogRef: MatDialogRef<DialogImportFileUpload>,
+  public http: HttpClient,
+  private _snackBar: MatSnackBar,
   @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
 onNoClick(): void {
   this.dialogRef.close();
 }
+private handleError(error: HttpErrorResponse) {
+  return throwError('Error! something went wrong.');
+}
+
+handleFileInput(files): void {
+
+  this.fileToUpload = files.item(0);
+
+
+  if(this.fileToUpload.type != "application/vnd.ms-excel"){
+
+    this._snackBar.open("Please select CSV file", "X", {
+      duration: 2000,
+      verticalPosition:'top',
+      panelClass :['red-snackbar']
+    });
+    return;
+  }
+
+  //this.isLoaderAdmin = true;
+  const formData: FormData = new FormData();
+  formData.append('file', this.fileToUpload);
+  formData.append('business_id',JSON.parse(localStorage.getItem('business_id')));
+
+  
+  this.http.post(`${environment.apiUrl}/customer-import`,formData ).pipe(map((response : any) =>{
+
+    if(response.data  == true){
+
+      this._snackBar.open("CSV file is uploaded", "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['green-snackbar']
+      });
+
+      this.dialogRef.close();
+
+     }
+     //this.isLoaderAdmin = false;
+  }),catchError(this.handleError)).subscribe((res) => {
+    console.log(res);
+   // this.isLoaderAdmin = false;
+  });
+
+
+  
+}
+
 
 }
 
