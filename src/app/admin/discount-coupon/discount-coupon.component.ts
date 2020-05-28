@@ -179,7 +179,7 @@ export class DiscountCouponComponent implements OnInit {
         "valid_till" : this.valid_till,
         "discount_type" : this.discountCoupon.get('discount_type').value,
         "discount" : this.discountCoupon.get('discount_value').value,
-        "services" : this.selectedService
+        "services" : this.categoryServiceCheckServiceId
       }
       this.createNewCouponCode(this.createdCouponCodeData);
     }
@@ -195,6 +195,8 @@ export class DiscountCouponComponent implements OnInit {
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
+        this.couponCodeListing = true;
+        this.addNewCouponCode = false;
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
@@ -359,7 +361,7 @@ export class DiscountCouponComponent implements OnInit {
         // }
         subelement.services.forEach(serviceselement => {
           if(subelement.is_selected == true){
-            this.categoryServiceCheckServiceId.push({'id':serviceselement.id})
+            this.categoryServiceCheckServiceId.push(serviceselement.id)
           }
         });
       });

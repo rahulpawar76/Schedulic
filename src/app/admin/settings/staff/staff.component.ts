@@ -977,7 +977,7 @@ export class StaffComponent implements OnInit {
         // }
         subelement.services.forEach(serviceselement => {
           if(subelement.is_selected == true){
-            this.categoryServiceCheckServiceId.push({'id':serviceselement.id})
+            this.categoryServiceCheckServiceId.push(serviceselement.id)
           }
         });
       });
@@ -1018,7 +1018,7 @@ export class StaffComponent implements OnInit {
             formData.append('email', this.StaffCreate.get('email').value);
             formData.append('phone', this.StaffCreate.get('phone').value);
             formData.append('address', this.StaffCreate.get('address').value);
-            formData.append('servicelist', this.selectedServiceNewStaff);
+            formData.append('servicelist', this.categoryServiceCheckServiceId);
             formData.append('image', this.staffImageUrl);
 
 
@@ -1061,7 +1061,7 @@ export class StaffComponent implements OnInit {
         formData.append('email', this.StaffCreate.get('email').value);
         formData.append('phone', this.StaffCreate.get('phone').value);
         formData.append('address', this.StaffCreate.get('address').value);
-        formData.append('servicelist', this.selectedServiceNewStaff);
+        formData.append('servicelist', this.categoryServiceCheckServiceId);
         formData.append('image', this.staffImageUrl);
 
         // this.newStaffData = {
