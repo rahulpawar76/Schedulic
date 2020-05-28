@@ -144,6 +144,9 @@ export class StaffComponent implements OnInit {
   path : any;
   selectAll:boolean =false;
 
+  categoryServiceCheckCatId: any = [];
+  categoryServiceChecksubCatId: any = [];
+  categoryServiceCheckServiceId: any = [];
 
 /**
    * on file drop handler
@@ -957,6 +960,35 @@ export class StaffComponent implements OnInit {
       }
     }
 
+
+    // this.categoryServiceCheckCatId = [];
+    // this.categoryServiceChecksubCatId = [];
+    this.categoryServiceCheckServiceId = [];
+
+    this.categoryServiceList.forEach(element => {
+
+      // if(element.is_selected==true){
+      //   this.categoryServiceCheckCatId.push({'id':element.id});
+      // }
+
+      element.subcategory.forEach(subelement => {
+        // if(subelement.is_selected == true){
+        //   this.categoryServiceChecksubCatId.push({'id':subelement.id})
+        // }
+        subelement.services.forEach(serviceselement => {
+          if(subelement.is_selected == true){
+            this.categoryServiceCheckServiceId.push({'id':serviceselement.id})
+          }
+        });
+      });
+
+    });
+
+    // console.log(this.categoryServiceCheckCatId);
+    // console.log(this.categoryServiceChecksubCatId);
+    console.log(this.categoryServiceCheckServiceId);
+
+    
   }
 
   fnCheckService(event,serviceId){
