@@ -21,10 +21,10 @@
                     <p>Booked On: {{detailsData.created_atForLabel}}</p>
 
                     <p class="mb-0">Service</p>
-                    <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{detailData.service.service_name}}({{currencySymbol| currencySymbol:'wide'}} {{ detailData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</p>
-                    <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{detailData.service.service_name}}({{ detailData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}})</p>
+                    <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{detailsData.service.service_name}}({{currencySymbol| currencySymbol:'wide'}} {{ detailsData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</p>
+                    <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{detailsData.service.service_name}}({{ detailsData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}})</p>
                     <p class="mb-0">Time</p>
-                    <p class="font-weight-bold">{{detailData.booking_timeForLabel}} - {{detailData.booking_time_to}} ({{detailData.service_time}})</p>
+                    <p class="font-weight-bold">{{detailsData.booking_timeForLabel}} - {{detailsData.booking_time_to}} ({{detailsData.service_time}})</p>
 
                     <div class="d-flex">
 
@@ -40,6 +40,9 @@
                             <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'RSA'">Rescheduled By Admin</p>
                             <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'RSS'">Rescheduled</p>
                             <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'RSC'">Rescheduled By Customer</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'R'">Rejected</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'C'">Cancelled</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'CC'">Cancelled By Customer</p>
                             <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'R'">Rejected</p>
                         </div>
 

@@ -1831,18 +1831,16 @@ constructor(
     console.log(this.detailsData);
     
     this.fnGetActivityLog(this.detailsData.id);
-    this.detailsData.forEach( (element) => {
       var todayDateTime = new Date();
-      element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
-      var dateTemp = new Date(this.datePipe.transform(element.booking_date_time,"dd MMM yyyy hh:mm a"));
-      dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+      this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
+      var dateTemp = new Date(this.datePipe.transform(this.detailsData.booking_date_time,"dd MMM yyyy hh:mm a"));
+      dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(this.detailsData.service_time) );
       var temp = dateTemp.getTime() - todayDateTime.getTime();
-      element.timeToService=(temp/3600000).toFixed();
-      element.booking_timeForLabel=this.datePipe.transform(element.booking_date_time,"hh:mm a")
-      element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
-      element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
-      element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
-    });
+      this.detailsData.timeToService=(temp/3600000).toFixed();
+      this.detailsData.booking_timeForLabel=this.datePipe.transform(this.detailsData.booking_date_time,"hh:mm a")
+      this.detailsData.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+      this.detailsData.booking_dateForLabel=this.datePipe.transform(new Date(this.detailsData.booking_date),"dd MMM yyyy")
+      this.detailsData.created_atForLabel=this.datePipe.transform(new Date(this.detailsData.created_at),"dd MMM yyyy @ hh:mm a")
   }
   onNoClick(): void {
     this.dialogRef.close();
