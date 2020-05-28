@@ -20,7 +20,6 @@ export class AdminService {
     localStorage.setItem('isBusiness', 'false');
     if(localStorage.getItem('business_id')){
         this.businessId=localStorage.getItem('business_id');
-        alert(this.businessId);
     }
   }  
     private handleError(error: HttpErrorResponse) {
