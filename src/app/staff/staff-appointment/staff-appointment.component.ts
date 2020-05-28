@@ -2079,24 +2079,24 @@ export class StaffAppointmentComponent implements OnInit {
     }
     confirmCashPayment(){
         let orders = {
-          "tex" : this.appointDetailData.tax,
+          "tax" : this.appointDetailData.tax,
           "discount_type":this.couponType,
           "discount_value":this.couponValue,
           "discount" : this.orderDiscount,
           "nettotal" : this.appointDetailData.total_cost
         }
         let orderItems  = {
-          "tex" : this.appointDetailData.tax,
+          "tax" : this.appointDetailData.tax,
           "discount_type":this.couponType,
           "discount_value":this.couponValue,
           "discount" : this.orderDiscount,
           "nettotal" : this.appointDetailData.total_cost
         }
         let payment  = {
-          "payment_date" : this.datePipe.transform(new Date(),"yyyy/MM/dd"),
+          "payment_datetime" : this.datePipe.transform(new Date(),"yyyy/MM/dd hh::mm"),
           "payment_method" : this.paymentMethod,
           "amount" : this.appointDetailData.total_cost,
-          "payment_notes" : this.staffPaymentNote,
+          "paymentnotes" : this.staffPaymentNote,
         }
         let requestObject ={
           "order_item_id" : this.appointDetailData.id,
