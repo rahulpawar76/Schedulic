@@ -40,6 +40,11 @@ export class DiscountCouponComponent implements OnInit {
   valid_till : any;
   selectedService : any = [];
   categoryServiceList : any;
+  
+  categoryServiceCheckCatId: any = [];
+  categoryServiceChecksubCatId: any = [];
+  categoryServiceCheckServiceId: any = [];
+
   minDate = new Date();
   discountCoupon: FormGroup;
 
@@ -254,7 +259,6 @@ export class DiscountCouponComponent implements OnInit {
   }
   
   checkServie(event,type,index,sub_index=null,service_index=null){
-    console.log(type);
 
     if(type=='category'){
         if(event.checked == true) {  this.categoryServiceList[index].is_selected=true; }else{ this.categoryServiceList[index].is_selected=false; }
@@ -337,6 +341,34 @@ export class DiscountCouponComponent implements OnInit {
         this.categoryServiceList[index].is_selected = false;
       }
     }
+
+   
+    // this.categoryServiceCheckCatId = [];
+    // this.categoryServiceChecksubCatId = [];
+    this.categoryServiceCheckServiceId = [];
+
+    this.categoryServiceList.forEach(element => {
+
+      // if(element.is_selected==true){
+      //   this.categoryServiceCheckCatId.push({'id':element.id});
+      // }
+
+      element.subcategory.forEach(subelement => {
+        // if(subelement.is_selected == true){
+        //   this.categoryServiceChecksubCatId.push({'id':subelement.id})
+        // }
+        subelement.services.forEach(serviceselement => {
+          if(subelement.is_selected == true){
+            this.categoryServiceCheckServiceId.push({'id':serviceselement.id})
+          }
+        });
+      });
+
+    });
+
+    // console.log(this.categoryServiceCheckCatId);
+    // console.log(this.categoryServiceChecksubCatId);
+    console.log(this.categoryServiceCheckServiceId);
 
   }
 
