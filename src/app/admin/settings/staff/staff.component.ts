@@ -1128,8 +1128,9 @@ export class StaffComponent implements OnInit {
     })
   }
   fnDeleteStaff(staffId){
+    this.selectedStaffId = staffId
     this.isLoaderAdmin = true;
-    this.adminSettingsService.fnDeleteStaff(staffId).subscribe((response:any) => {
+    this.adminSettingsService.fnDeleteStaff(this.selectedStaffId).subscribe((response:any) => {
         if(response.data == true){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
