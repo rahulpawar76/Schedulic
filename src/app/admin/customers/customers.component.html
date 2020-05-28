@@ -18,7 +18,7 @@
 
             </div>
         </div>
-        <mat-drawer-container class="w-100">
+        <mat-drawer-container *ngIf="allCustomers != ''" class="w-100">
             <mat-drawer mode="side" opened id="Customer-list" class="pl-0 pr-0" style="width:300px">
                 <div class="leftarrow-icon">
                     <mat-icon aria-hidden="false" class="customer-drawer-leftarrow">arrow_back</mat-icon>
@@ -51,6 +51,7 @@
                         <p>{{allCustomers.email}}</p>
                     </div>
                 </div>
+
             </mat-drawer>
 
             <mat-drawer-content class="pl-0 pr-0" style="margin-left: 300px;">
