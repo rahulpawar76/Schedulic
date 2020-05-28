@@ -255,8 +255,8 @@ export class StaffAppointmentComponent implements OnInit {
           }); 
         }
       })
-      this.isLoader=false;
     }
+    this.isLoader=false;
   }
 
 
@@ -643,8 +643,8 @@ export class StaffAppointmentComponent implements OnInit {
       else if(response.data == false){
         
       }
-      this.isLoaderAdmin = false;
     })
+    this.isLoaderAdmin = false;
   }
 
   fnGetOffDays(){
