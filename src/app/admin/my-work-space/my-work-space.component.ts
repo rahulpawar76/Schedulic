@@ -352,7 +352,6 @@ export class MyWorkSpaceComponent implements OnInit {
       };
     this.adminService.assignStaffToOrder(requestObject).subscribe((response:any) => 
     {
-      alert(JSON.stringify(response));
       if(response.data == true){
           this._snackBar.open("Staff Assigned", "X", {
             duration: 2000,
@@ -396,7 +395,10 @@ export class MyWorkSpaceComponent implements OnInit {
     )
   }
   goToFront(){
-    this.router.navigate(['/booking/']);
+    this.router.navigate(['/admin/settings/services/']);
+  }
+  goToSupport(){
+    this.router.navigate(['/admin/support/']);
   }
 
   fnGetTodayRevenue(){
