@@ -32,6 +32,7 @@ export class MyProfileComponent implements OnInit {
 
  emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
  onlynumeric = /^-?(0|[1-9]\d*)?$/
+ isLoader : boolean=true;
 
   constructor(
     public dialog: MatDialog, private http: HttpClient,
@@ -59,6 +60,7 @@ export class MyProfileComponent implements OnInit {
     this.StaffService.getProfiledata().subscribe((response:any) => 
     {
       if(response.data == true){
+        this.isLoader=false;
         this.profiledata = response.response;
         this.myProfile.controls['user_FirstName'].setValue(this.profiledata.firstname);
         this.myProfile.controls['user_LastName'].setValue(this.profiledata.lastname);
@@ -66,6 +68,7 @@ export class MyProfileComponent implements OnInit {
         this.myProfile.controls['user_Mobile'].setValue(this.profiledata.phone);
       }
       else if(response.data == false){
+        this.isLoader=false;
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -80,6 +83,7 @@ export class MyProfileComponent implements OnInit {
   }
   onSubmit(event){
     if(this.myProfile.valid){
+      this.isLoader=true;
       this.updatedprofiledata ={
         "staff_id" : this.staffId,
         "firstname" : this.myProfile.get('user_FirstName').value,

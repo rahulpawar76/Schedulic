@@ -145,18 +145,18 @@ export class ServicesComponent implements OnInit {
         this.fnstaffList();
 
         this.createSubCategory = this._formBuilder.group({
-            subcategory_name: ['',  [Validators.required,Validators.maxLength(255)]],
-            subcategory_description: ['', [Validators.required,Validators.maxLength(255)]],
+            subcategory_name: ['',  [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+            subcategory_description: ['', [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
             subcategory_id: [''],
         });
         this.createCategory = this._formBuilder.group({
-            category_name: ['', [Validators.required,Validators.maxLength(255)]],
-            category_description: ['', [Validators.required,Validators.maxLength(255)]],
+            category_name: ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+            category_description: ['', [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
             category_id: [''],
         });
         this.createService = this._formBuilder.group({
-            service_name: ['', [Validators.required,Validators.maxLength(255)]],
-            service_description: ['',  [Validators.required,Validators.maxLength(255)]],
+            service_name: ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+            service_description: ['',  [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
             service_cost: ['', [Validators.required, Validators.pattern(this.onlynumeric)]],
             service_duration: ['', [Validators.required, Validators.pattern(this.onlynumeric)]],
             service_unit: ['', [Validators.required, Validators.pattern(this.onlynumeric)]],

@@ -291,7 +291,7 @@ export class StaffComponent implements OnInit {
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
         });
-        return this.http.post(`${environment.apiUrl}/check-emailid`,{ emailid: control.value,customer_id:parseInt(this.editStaffId) },{headers:headers}).pipe(map((response : any) =>{
+        return this.http.post(`${environment.apiUrl}/check-staff-emailid`,{ emailid: control.value,staff_id:parseInt(this.editStaffId) },{headers:headers}).pipe(map((response : any) =>{
           return response;
         }),
         catchError(this.handleError)).subscribe((res) => {
@@ -382,7 +382,7 @@ export class StaffComponent implements OnInit {
         this.isLoaderAdmin = false;
       }
       else if (response.data == false) {
-        this.allStaffList = '';
+        this.allStaffList = [];
         this.isLoaderAdmin = false;
       }
     })
@@ -837,6 +837,7 @@ export class StaffComponent implements OnInit {
     this.singleStaffView = false;
     this.isLoaderAdmin = false;
     this.selectedServiceNewStaff=[];
+    this.editStaffId=null;
     this.StaffCreate = this._formBuilder.group({
       firstname : ['',[ Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
       lastname : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
@@ -1023,7 +1024,7 @@ export class StaffComponent implements OnInit {
     this.addStaffPage = true;
     this.staffListPage = false;
     this.singleStaffView = false;
-
+    this.selectedServiceNewStaff=[];
     // this.validationArr=this.isEmailUnique.bind(this);
     // this.StaffCreate.get('email').clearValidators();
     // this.StaffCreate.controls['email'].setValidators([this.singleStaffDetail.staff[0].email,[Validators.required,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)]); 
@@ -1037,7 +1038,7 @@ export class StaffComponent implements OnInit {
       firstname : ['',[ Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
       lastname : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
       address : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
-      email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
+      email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUniqueForEdit.bind(this)],
       phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
       description : ['',Validators.maxLength(255)],
       staff_id : [''],
@@ -1050,7 +1051,12 @@ export class StaffComponent implements OnInit {
     this.StaffCreate.controls['description'].setValue(this.singleStaffDetail.staff[0].description);
     this.StaffCreate.controls['email'].setValue(this.singleStaffDetail.staff[0].email);
     this.StaffCreate.controls['staff_id'].setValue(staffId);
-    
+    this.singleStaffDetail.staff[0].services.forEach(element => {
+      // this.selectedServicesArr.push(element.id);
+      this.selectedServiceNewStaff.push(element.id);
+    });
+    console.log("selectedServiceNewStaff");
+    console.log(this.selectedServiceNewStaff);
 
     this.getCateServiceList();
     this.isLoaderAdmin = false;
@@ -1102,6 +1108,7 @@ export class StaffComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result != undefined) {
         this.staffImageUrl = result;
+        this.singleStaffDetail.staff[0].image=result;
       }
     });
   }
@@ -2008,11 +2015,6 @@ export class StaffComponent implements OnInit {
           if(res){
             if(res.data == false){
             resolve({ isEmailUnique: true });
-            // this._snackBar.open("Access PIN already in use", "X", {
-            // duration: 2000,
-            // verticalPosition: 'top',
-            // panelClass : ['red-snackbar']
-            // });
             }else{
             resolve(null);
             }
@@ -2098,8 +2100,9 @@ export class StaffComponent implements OnInit {
   }
 
   staffSearch(){
-    this.isLoaderAdmin=true;
-    if(this.search.staff.length > 1){
+    
+    if(this.search.staff.length > 2){
+      this.isLoaderAdmin=true;
       let requestObject = {
         "search":this.search.staff,
         "business_id":this.businessId,
@@ -2107,7 +2110,20 @@ export class StaffComponent implements OnInit {
       console.log(requestObject);
       this.adminSettingsService.staffSearch(requestObject).subscribe((response:any) =>{
         if(response.data == true){
-          this.allStaffList = response.response;
+          this.current_page = response.response.current_page;
+          this.first_page_url = response.response.first_page_url;
+          this.last_page = response.response.last_page;
+          this.last_page_url = response.response.last_page_url;
+          this.next_page_url = response.response.next_page_url;
+          this.prev_page_url = response.response.prev_page_url;
+          this.path = response.response.path;
+          this.allStaffList = response.response.data;
+
+          this.allStaffList.forEach( (element) => { 
+            element.is_selected = false;
+          });
+          this.selectAll = false;
+
           this.isLoaderAdmin=false;
         }
         else if(response.data == false){

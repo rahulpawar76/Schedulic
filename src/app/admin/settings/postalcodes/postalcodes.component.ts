@@ -238,7 +238,7 @@ export class DialogAddPostalCode {
   fnGetStaffList(){
     this.adminSettingsService.getStaffList().subscribe((response:any) => {
       if(response.data == true){
-        this.staffList = response.response.data;
+        this.staffList = response.response;
       }
       else {
        this.staffList = [];
