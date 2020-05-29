@@ -106,29 +106,21 @@ export class MyWorkSpaceComponent implements OnInit {
     this.adminService.getSettingValue(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.settingsArr=response.response;
-        console.log(this.settingsArr);
 
         this.currencySymbol = this.settingsArr.currency;
-        console.log(this.currencySymbol);
         
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-        console.log(this.currencySymbolPosition);
         
         this.currencySymbolFormat = this.settingsArr.currency_format;
-        console.log(this.currencySymbolFormat);
         
         let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
         let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
-        console.log(cancellation_buffer_time);
-        console.log(min_rescheduling_time);
        
         this.cancellationBufferTime = new Date();
         this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
-        console.log("cancellationBufferTime - "+this.cancellationBufferTime);
 
         this.minReschedulingTime = new Date();
         this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
-        console.log("minReschedulingTime - "+this.minReschedulingTime);
       }
       else if(response.data == false){
         
@@ -146,7 +138,6 @@ export class MyWorkSpaceComponent implements OnInit {
   }
 
   fnSaveBookingNotes(orderItemId){
-    console.log(this.appointmentDetails.bookingNotes);
     if(this.appointmentDetails.bookingNotes == undefined || this.appointmentDetails.bookingNotes == ""){
       return false;
     }
@@ -316,7 +307,6 @@ export class MyWorkSpaceComponent implements OnInit {
     };
     this.adminService.getActivityLog(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        console.log(response.response);
         this.activityLog=response.response;
       }
       else if(response.data == false){
@@ -345,14 +335,12 @@ export class MyWorkSpaceComponent implements OnInit {
     ).subscribe((response:any) => {
       if(response.data == true){
         this.availableStaff = response.response;
-        console.log(JSON.stringify(this.availableStaff));
       }
       else{
         this.availableStaff.length=0;
       }
     },
     (err) =>{
-      console.log(err)
     })
   }
 
@@ -534,7 +522,6 @@ export class MyWorkSpaceComponent implements OnInit {
           "category":this.selectedCategoryId,
           "status_filter":this.selectedStatus
         }
-        console.log(requestObject);
         this.adminService.todayBookingSearch(requestObject).subscribe((response:any) =>{
           if(response.data == true){
             this.appointments=response.response;
@@ -652,7 +639,6 @@ export class MyWorkSpaceComponent implements OnInit {
 
     
     fnDateChange(event:MatDatepickerInputEvent<Date>) {
-        console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
         let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
         this.formAppointmentRescheduleAdmin.controls['rescheduleTime'].setValue(null);
         this.formAppointmentRescheduleAdmin.controls['rescheduleStaff'].setValue(null);
@@ -679,7 +665,6 @@ export class MyWorkSpaceComponent implements OnInit {
         ).subscribe((response:any) => {
           if(response.data == true){
             this.timeSlotArr=response.response;
-            console.log(this.timeSlotArr);
           }
           else{
           }
@@ -690,7 +675,6 @@ export class MyWorkSpaceComponent implements OnInit {
       }
      
       fnChangeTimeSlot(selectedTimeSlot){
-        console.log(selectedTimeSlot);
         this.formAppointmentRescheduleAdmin.controls['rescheduleStaff'].setValue(null);
         this.selectedTimeSlot=selectedTimeSlot;
         this.fnGetStaff(selectedTimeSlot);
@@ -716,7 +700,6 @@ export class MyWorkSpaceComponent implements OnInit {
         ).subscribe((response:any) => {
           if(response.data == true){
               this.availableStaff = response.response;
-              console.log(JSON.stringify(this.availableStaff));
           }
           else{
             this.availableStaff.length=0;

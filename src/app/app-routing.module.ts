@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 const routes: Routes = [
   {
     path: '', 
-    component: FrontbookingComponent 
+    component: LoginComponent 
   },
   {
     path: 'login', 

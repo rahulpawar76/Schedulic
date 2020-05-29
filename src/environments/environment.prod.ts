@@ -2,9 +2,9 @@ export const environment = {
     production: true,
 
     // Live Demo
-    apiUrl:         'http://goappointment.bi-team.in/goappointment_api/api',
-    authApiUrl:     'http://goappointment.bi-team.in/goappointment_api/api',
-    urlForLink :    'http://goappointment.bi-team.in',
+    apiUrl:         'https://api.schedulic.com/api',
+    authApiUrl:     'https://api.schedulic.com/api',
+    urlForLink :    'https://schedulic.com/app',
     tempApiUrl:     'https://aeci-demo.she-excellence.co.za/api/risk-api'
 
 };

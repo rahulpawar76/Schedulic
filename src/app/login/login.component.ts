@@ -7,6 +7,7 @@ import { AuthenticationService } from '@app/_services';
 import { LoaderService } from '@app/_services/loader.service';
 import { User, Role } from '../_models';
 import { AppComponent } from '../app.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 declare var google:any
 
 @Component({ 
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
+        private _snackBar: MatSnackBar,
         private authenticationService: AuthenticationService,
         private loaderService: LoaderService,
         private appComponent:AppComponent,
@@ -91,8 +93,17 @@ export class LoginComponent implements OnInit {
                     this.appComponent.initiateTimeout();
                     this.hideLoginForm = false;
                     
-                }else{
-                    this.error = "Email or Password is incorrect"; 
+                }else if(data.data == false){
+                    this._snackBar.open(data.response, "X", {
+                        duration: 2000,
+                        verticalPosition:'top',
+                        panelClass :['red-snackbar']
+                      });
+                    this.error = data.response; 
+                    this.dataLoaded = true;
+                }
+                else{
+                    this.error = "Database Connection Error"; 
                     this.dataLoaded = true;
                 }
             },
