@@ -56,7 +56,8 @@ export class StaffComponent implements OnInit {
   selectedStaffId: any;
   singlePostalCodeStatus: any;
   selectedValue: any;
-  categoryServiceList: any;
+  categoryServiceList: any=[];
+  categoryServiceListTemp: any=[];
   newStaffData: any;
   updateStaffData: any;
   editStaffId: any;
@@ -851,6 +852,36 @@ export class StaffComponent implements OnInit {
     this.getCateServiceList();
   }
 
+  searchService(event){
+    this.categoryServiceListTemp=[];
+    console.log(event.target.value);
+    this.categoryServiceList.forEach(element => {
+      if(element.category_title && element.category_title.toLowerCase().includes(event.target.value.toLowerCase())){
+        this.categoryServiceListTemp.push(element);
+        console.log(element.category_title);
+        return;
+      }
+      element.subcategory.forEach(subelement => {
+        if(subelement.sub_category_name && subelement.sub_category_name.toLowerCase().includes(event.target.value.toLowerCase())){
+          if(!this.categoryServiceListTemp.some((item) => item.id == element.id)){
+            this.categoryServiceListTemp.push(element);
+          }
+          console.log(subelement.sub_category_name);
+          return;
+        }
+        subelement.services.forEach(serviceselement => {
+          if(serviceselement.service_name && serviceselement.service_name.toLowerCase().includes(event.target.value.toLowerCase())){
+            if(!this.categoryServiceListTemp.some((item) => item.id == element.id)){
+              this.categoryServiceListTemp.push(element);
+            }
+            console.log(serviceselement.service_name);
+            return;
+          }
+        });
+      });
+    });
+  }
+
   getCateServiceList(){
     this.isLoaderAdmin = true;
     this.adminSettingsService.getCateServiceList().subscribe((response:any) => {
@@ -874,11 +905,13 @@ export class StaffComponent implements OnInit {
             });
           });
         });
+        this.categoryServiceListTemp=this.categoryServiceList;
 
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
         this.categoryServiceList = [];
+        this.categoryServiceListTemp = [];
         this.isLoaderAdmin = false;
       }
     })

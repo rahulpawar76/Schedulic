@@ -142,12 +142,12 @@
                             <h6>Select Service </h6>
                             <mat-form-field class="pb-3 bottom-border-field">
                                 <mat-label>Outline form field</mat-label>
-                                <input matInput placeholder="Category,Subcategory,Service">
+                                <input matInput placeholder="Category,Subcategory,Service" (keyup)="searchService($event);">
                                 <mat-icon matPrefix>search</mat-icon>
                             </mat-form-field>
 
                             <mat-accordion class="select-service-accordian">
-                                <mat-expansion-panel *ngFor="let categoryServiceListval of categoryServiceList; let i=index">
+                                <mat-expansion-panel *ngFor="let categoryServiceListval of categoryServiceListTemp; let i=index">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title class="service-title">
                                             <mat-checkbox (change)="checkServie($event,'category',i)" [checked]="categoryServiceListval.is_selected">{{categoryServiceListval.category_title}}</mat-checkbox>

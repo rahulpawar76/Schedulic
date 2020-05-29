@@ -15,8 +15,8 @@
                             <div class="col-lg-6 col-6 col-md-4  main-account-company-details">
                                 <div class="ml-3 justify-content-center d-flex ">
                                     <div class="account-my-profile-img-wrap profile-img-wrap" (click)="companyDetailsImage()">
-                                        <img *ngIf="!companyDetailsData.image" mat-card-avatar class="account-my-profile-img" src="/assets/images/admin/Layer6.png">
-                                        <img *ngIf="companyDetailsData.image" mat-card-avatar class="account-my-profile-img" src="{{companyDetailsData.image}}">
+                                        <img *ngIf="companyDetailsData && !companyDetailsData.image" mat-card-avatar class="account-my-profile-img" src="/assets/images/admin/Layer6.png">
+                                        <img *ngIf="companyDetailsData && companyDetailsData.image" mat-card-avatar class="account-my-profile-img" src="{{companyDetailsData.image}}">
                                         <div class="camera-alt"><i class="material-icons"> camera_alt</i></div>
                                     </div>
                                 </div>
@@ -27,7 +27,9 @@
                                             <input formControlName="company_name" matInput placeholder="Company Name">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="companyDetails.get('company_name').dirty || companyDetails.get('company_name').touched">
-                    <small *ngIf="companyDetails.get('company_name').hasError('required')" class="error">Company name is required</small></span>
+                                            <small *ngIf="companyDetails.get('company_name').hasError('required')" class="error">Company name is required</small>
+                                            <small *ngIf="companyDetails.get('company_name').hasError('minlength') || companyDetails.get('company_name').hasError('maxlength')" class="error">Company name must be between 3 to 255 characters</small>
+                                            <small *ngIf="companyDetails.get('company_name').hasError('whiteSpaceValidation')" class="error">Company name can not consist of white spaces</small></span>
 
                                     </div>
 
@@ -49,11 +51,11 @@
 
                                     <div class="mt-2 text-center mb-3">
                                         <mat-form-field class=" bottom-border-field">
-                                            <input formControlName="comp_mobile" matInput placeholder="Mobile">
+                                            <input formControlName="comp_mobile" matInput placeholder="Mobile" (keypress)="numberOnly($event)">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="companyDetails.get('comp_mobile').dirty || companyDetails.get('comp_mobile').touched">
                         <small *ngIf="companyDetails.get('comp_mobile').hasError('pattern')" class="error">Mobile number is invalid</small>
-                        <small *ngIf="companyDetails.get('comp_mobile').hasError('minLength') || companyDetails.get('comp_mobile').hasError('maxLength')" class="error">Mobile number should be 10 digit</small>
+                        <small *ngIf="companyDetails.get('comp_mobile').hasError('minlength') || companyDetails.get('comp_mobile').hasError('maxlength')" class="error">Mobile number should be 10 digit</small>
                     </span>
                                     </div>
                                 </div>
@@ -113,7 +115,7 @@
                                                 <input formControlName="zip_code" matInput placeholder="Zip">
                                             </mat-form-field>
                                             <span class="error-wrap d-flex" *ngIf="companyDetails.get('zip_code').dirty || companyDetails.get('zip_code').touched">
-                        <small *ngIf="companyDetails.get('zip_code').hasError('required')" class="error">Zip code is required</small></span>
+                        <small *ngIf="companyDetails.get('zip_code').hasError('required')" class="error">Zip code is required</small><small *ngIf="companyDetails.get('zip_code').hasError('minlength') || companyDetails.get('zip_code').hasError('maxlength')" class="error">Zip code must be between 5 to 10 characters</small></span>
                                         </div>
                                     </div>
 
@@ -134,9 +136,9 @@
 
                                     <div class="row">
                                         <div class="company-action-btn">
-                                            <div class="mx-2">
+                                            <!-- <div class="mx-2">
                                                 <button mat-button appearance="fill" class="company-cancel-btn">Cancel</button>
-                                            </div>
+                                            </div> -->
                                             <div class="mx-2">
                                                 <button mat-button type="submit" (click)="fnUpdateCompanyDetail()" appearance="fill" class="company-save-btn">Update</button>
                                             </div>

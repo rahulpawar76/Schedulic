@@ -14,12 +14,20 @@
               <mat-icon matPrefix><img class="normal" src="../../../../assets/images/admin/settings-menu/postalcode.png" /></mat-icon>
               <input matInput  placeholder="400101" formControlName="postalCode">
             </mat-form-field>
+            <span class="error-wrap" *ngIf="formCreatePostalCode.get('postalCode').touched || formCreatePostalCode.get('postalCode').dirty">
+                <small *ngIf="formCreatePostalCode.get('postalCode').hasError('required')" class="error">Postal code is required</small>
+                <small *ngIf="formCreatePostalCode.get('postalCode').hasError('minlength') || formCreatePostalCode.get('postalCode').hasError('maxlength')" class="error">Postal code length must be between 3 to 7 characters</small>
+             </span>
 
             <mat-form-field class=" bottom-border-field">
               <mat-label>Area</mat-label>
               <mat-icon matPrefix><i class="fa fa-map-marker icon-img icon_size" aria-hidden="true"></i></mat-icon>
               <input matInput  placeholder="Kandivali East" formControlName="postalCodeArea">
             </mat-form-field>
+            <span class="error-wrap" *ngIf="formCreatePostalCode.get('postalCodeArea').touched || formCreatePostalCode.get('postalCodeArea').dirty">
+                <small *ngIf="formCreatePostalCode.get('postalCodeArea').hasError('required')" class="error">Postal code area is required</small>
+                <small *ngIf="formCreatePostalCode.get('postalCodeArea').hasError('minlength') || formCreatePostalCode.get('postalCodeArea').hasError('maxlength')" class="error">Postal code area length must be between 3 to 7 characters</small>
+             </span>
 
             <mat-form-field class=" bottom-border-field">
               <mat-label>Staff</mat-label>
@@ -29,6 +37,9 @@
                 <mat-option *ngFor="let staff of staffList" value="{{staff.id}}">{{staff.firstname}} {{staff.lastname}}</mat-option>
               </mat-select>
             </mat-form-field>
+            <span class="error-wrap" *ngIf="formCreatePostalCode.get('postalCodeStaff').touched || formCreatePostalCode.get('postalCodeStaff').dirty">
+                <small *ngIf="formCreatePostalCode.get('postalCodeStaff').hasError('required')" class="error">Postal code staff is required</small>
+             </span>
           </form>
         <div class="mt-3">
             <button mat-button appearance="fill" (click)="onNoClick()"class=" postal-cancel-btn ml-2 mr-2">Cancel</button>

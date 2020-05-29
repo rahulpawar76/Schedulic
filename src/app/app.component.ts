@@ -161,6 +161,36 @@ export class AppComponent implements AfterViewInit {
     const url = this.getUrl(event);
     if (this.urlIsNew(url)) {
       this.currentUrl = url;
+      if(this.currentUrl == "/admin/settings/services"){
+        this.activeSettingMenu = "services";
+      }
+      if(this.currentUrl == "/admin/settings/staff"){
+        this.activeSettingMenu = "staff";
+      }
+      if(this.currentUrl == "/admin/settings/business-hours"){
+        this.activeSettingMenu = "bussiness-hours";
+      }
+      if(this.currentUrl == "/admin/settings/postalcode"){
+        this.activeSettingMenu = "postal-code";
+      }
+      if(this.currentUrl == "/admin/settings/company-details"){
+        this.activeSettingMenu = "company-details";
+      }
+      if(this.currentUrl == "/admin/settings/payment-gateway"){
+        this.activeSettingMenu = "payment-gateway";
+      }
+      if(this.currentUrl == "/admin/settings/payment-rules"){
+        this.activeSettingMenu = "payment-rules";
+      }
+      if(this.currentUrl == "/admin/settings/appearance"){
+        this.activeSettingMenu = "appearance";
+      }
+      if(this.currentUrl == "/admin/settings/booking-rules"){
+        this.activeSettingMenu = "booking-rules";
+      }
+      if(this.currentUrl == "/admin/settings/alert-settings"){
+        this.activeSettingMenu = "alert-rules";
+      }
       this.isSettingsModule(url);
     }
   }

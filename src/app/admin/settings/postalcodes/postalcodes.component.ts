@@ -17,7 +17,7 @@ export interface DialogData {
 
 export class PostalcodesComponent implements OnInit {
   adminSettings : boolean = true;
-  postalCodeList:any;
+  postalCodeList:any=[];
   changePostalCodeStatusObject:any;
   selectedValue:any;
   isLoaderAdmin:boolean = false;
@@ -188,11 +188,11 @@ export class PostalcodesComponent implements OnInit {
           this.isLoaderAdmin=false;
         }
         else if(response.data == false){
-          this._snackBar.open(response.response, "X", {
-            duration: 2000,
-            verticalPosition:'top',
-            panelClass :['red-snackbar']
-          });
+          // this._snackBar.open(response.response, "X", {
+          //   duration: 2000,
+          //   verticalPosition:'top',
+          //   panelClass :['red-snackbar']
+          // });
           this.postalCodeList = [];
           this.isLoaderAdmin=false;
         }
@@ -224,9 +224,9 @@ export class DialogAddPostalCode {
         this.fnGetStaffList();
     }
     this.formCreatePostalCode = this._formBuilder.group({
-      postalCode: ['', Validators.required],
-      postalCodeArea: ['', Validators.required],
-      postalCodeStaff: ['', Validators.required]
+      postalCode: ['', [Validators.required,Validators.minLength(3),Validators.maxLength(7)]],
+      postalCodeArea: ['', [Validators.required,Validators.minLength(3),Validators.maxLength(7)]],
+      postalCodeStaff: ['', [Validators.required]]
     });
   }
 

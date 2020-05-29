@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl,ValidatorFn } from '@angular/forms';
 import { AdminSettingsService } from '../_services/admin-settings.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -29,6 +29,9 @@ export class CompanyDetailsComponent implements OnInit {
   selectedCity: any;
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^-?(0|[1-9]\d*)?$/
+  trimValidator:ValidatorFn;
+  websiteUrl = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?'
+  websiteUrl2 = '/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/'
   constructor(
     private _formBuilder:FormBuilder,
     public dialog: MatDialog,
@@ -41,26 +44,62 @@ export class CompanyDetailsComponent implements OnInit {
       }
    }
 
+  //  this.trimValidator(control: FormControl) => {
+  //   if (control.value.startsWith(' ')) {
+  //     return {
+  //       'trimError': { value: 'control has leading whitespace' }
+  //     };
+  //   }
+  //   if (control.value.endsWith(' ')) {
+  //     return {
+  //       'trimError': { value: 'control has trailing whitespace' }
+  //     };
+  //   }
+
+  //   return null;
+  // };
+
   ngOnInit() {
     this.gelAllCountry();
     this.getCompanyDetails();
     this.companyDetails = this._formBuilder.group({
-      company_name : ['', Validators.required],
+      company_name : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)],this.whiteSpaceValidation.bind(this)],
       comp_email : ['',[Validators.pattern(this.emailFormat)]],
-      comp_website : [''],
+      comp_website : ['',[Validators.pattern("(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?")]],
       comp_mobile : ['',[Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
       country:['', Validators.required],
       comp_address:['', Validators.required],
       city:['', Validators.required],
       state:['', Validators.required],
-      zip_code:['', Validators.required],
+      zip_code:['', [Validators.required,Validators.minLength(5),Validators.maxLength(10)]],
       comp_decs:[''],
       comp_status:[false],
       comp_private_status:[false],
     });
   }
 
+  whiteSpaceValidation(control: FormControl) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if(control.value.trim().length == 0){
+          resolve({ whiteSpaceValidation: true });
+          // return false;
+        }else{
+          // return true;
+          resolve(null);
+        }
+      }, 500);
+    });
+  }
 
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
+  }
 
   getCompanyDetails(){
 
@@ -103,6 +142,12 @@ export class CompanyDetailsComponent implements OnInit {
     })
   }
   selectCountry(country_id){
+    this.companyDetails.controls['comp_address'].setValue(null);
+    this.companyDetails.controls['city'].setValue(null);
+    this.companyDetails.controls['state'].setValue(null);
+    this.allStates = [];
+    this.allStates = [];
+    this.allCities = [];
     this.adminSettingsService.gelAllState(country_id).subscribe((response:any) => {
       if(response.data == true){
         this.allStates = response.response
@@ -113,9 +158,11 @@ export class CompanyDetailsComponent implements OnInit {
     })
   }
   selectStates(state_id){
+    this.companyDetails.controls['city'].setValue(null);
+    this.allCities = [];
     this.adminSettingsService.gelAllCities(state_id).subscribe((response:any) => {
-      if(response.data == true){
-        this.allCities = response.response
+      if(response.data == true && response.response!="no city found"){
+        this.allCities = response.response;
       }
       else if(response.data == false){
         this.allCities = [];
