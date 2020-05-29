@@ -144,6 +144,9 @@ export class StaffComponent implements OnInit {
   path : any;
   selectAll:boolean =false;
 
+  categoryServiceCheckCatId: any = [];
+  categoryServiceChecksubCatId: any = [];
+  categoryServiceCheckServiceId: any = [];
 
 /**
    * on file drop handler
@@ -422,8 +425,6 @@ export class StaffComponent implements OnInit {
       }
     }
     
-    console.log(this.staffActionId);
-
     if(event.checked){
       this.selectAll = true;
     }else{
@@ -854,8 +855,26 @@ export class StaffComponent implements OnInit {
     this.isLoaderAdmin = true;
     this.adminSettingsService.getCateServiceList().subscribe((response:any) => {
       if(response.data == true){
-        this.categoryServiceList = response.response
-        console.log(this.categoryServiceList);
+        this.categoryServiceList = response.response;
+
+        this.categoryServiceList.forEach(element => {
+          element.is_selected  = false;
+          element.subcategory.forEach(subelement => {
+            subelement.is_selected = false;
+            subelement.services.forEach(serviceselement => {
+              
+              serviceselement.is_selected = false;
+
+              const index = this.selectedServiceNewStaff.indexOf(serviceselement.id, 0);
+              if (index > -1) {
+                serviceselement.is_selected = true;
+              }
+
+
+            });
+          });
+        });
+
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
@@ -864,6 +883,123 @@ export class StaffComponent implements OnInit {
       }
     })
   }
+  
+  checkServie(event,type,index,sub_index=null,service_index=null){
+
+    if(type=='category'){
+        if(event.checked == true) {  this.categoryServiceList[index].is_selected=true; }else{ this.categoryServiceList[index].is_selected=false; }
+
+        this.categoryServiceList[index].subcategory.forEach(subelement => {
+          if(event.checked == true) {  
+            subelement.is_selected=true;
+           }else{ 
+            subelement.is_selected=false;
+          }
+          subelement.services.forEach(serviceselement => {
+            if(event.checked == true) {  serviceselement.is_selected=true; }else{ serviceselement.is_selected=false; }
+          });
+        });
+    }
+    
+    if(type=='subcategory'){
+
+      if(event.checked == true) { 
+         this.categoryServiceList[index].subcategory[sub_index].is_selected=true;
+      }else{ 
+        this.categoryServiceList[index].subcategory[sub_index].is_selected=false;
+      }
+
+      this.categoryServiceList[index].subcategory[sub_index].services.forEach(serviceselement => {
+        if(event.checked == true) {  serviceselement.is_selected=true; }else{ serviceselement.is_selected=false; }
+      });
+
+      var category_i = 0;
+
+      this.categoryServiceList[index].subcategory.forEach(element => {
+          if(element.is_selected == true){
+            category_i++;
+          }
+      });
+
+      if(category_i == this.categoryServiceList[index].subcategory.length){
+        this.categoryServiceList[index].is_selected = true;
+      }else{
+        this.categoryServiceList[index].is_selected = false;
+      }
+      
+      
+      
+    }
+
+    if(type=='service'){
+
+      if(event.checked == true) { 
+        this.categoryServiceList[index].subcategory[sub_index].services[service_index].is_selected=true;
+      }else{ 
+        this.categoryServiceList[index].subcategory[sub_index].services[service_index].is_selected=false;
+      }
+
+      var subcategory_i = 0;
+
+      this.categoryServiceList[index].subcategory[sub_index].services.forEach(serviceselement => {
+        if(serviceselement.is_selected==true){
+          subcategory_i++;
+        }
+      });
+      
+      if(subcategory_i == this.categoryServiceList[index].subcategory[sub_index].services.length){
+        this.categoryServiceList[index].subcategory[sub_index].is_selected = true;
+      }else{
+        this.categoryServiceList[index].subcategory[sub_index].is_selected = false;
+      }
+
+      
+      var category_i = 0;
+      this.categoryServiceList[index].subcategory.forEach(element => {
+          if(element.is_selected == true){
+            category_i++;
+          }
+      });
+
+      if(category_i == this.categoryServiceList[index].subcategory.length){
+        this.categoryServiceList[index].is_selected = true;
+      }else{
+        this.categoryServiceList[index].is_selected = false;
+      }
+    }
+
+
+    // this.categoryServiceCheckCatId = [];
+    // this.categoryServiceChecksubCatId = [];
+    this.categoryServiceCheckServiceId = [];
+
+    this.categoryServiceList.forEach(element => {
+
+      // if(element.is_selected==true){
+      //   this.categoryServiceCheckCatId.push({'id':element.id});
+      // }
+
+      element.subcategory.forEach(subelement => {
+        // if(subelement.is_selected == true){
+        //   this.categoryServiceChecksubCatId.push({'id':subelement.id})
+        // }
+        subelement.services.forEach(serviceselement => {
+          if(serviceselement.is_selected == true){
+            this.categoryServiceCheckServiceId.push(serviceselement.id)
+          }
+        });
+
+      });
+
+    });
+
+    // console.log(this.categoryServiceCheckCatId);
+    // console.log(this.categoryServiceChecksubCatId);
+    console.log(this.categoryServiceCheckServiceId);
+
+    
+  }
+
   fnCheckService(event,serviceId){
     if(event == true){
       this.selectedServiceNewStaff.push(serviceId) 
@@ -873,6 +1009,7 @@ export class StaffComponent implements OnInit {
     }
     console.log(this.selectedServiceNewStaff);
   }
+
   fnSubmitCreateStaff(){
     console.log(this.StaffCreate.get('staff_id').value);
     if(this.StaffCreate.get('staff_id').value != ''){
@@ -890,7 +1027,7 @@ export class StaffComponent implements OnInit {
             formData.append('email', this.StaffCreate.get('email').value);
             formData.append('phone', this.StaffCreate.get('phone').value);
             formData.append('address', this.StaffCreate.get('address').value);
-            formData.append('servicelist', this.selectedServiceNewStaff);
+            formData.append('servicelist', this.categoryServiceCheckServiceId);
             formData.append('image', this.staffImageUrl);
 
 
@@ -933,7 +1070,7 @@ export class StaffComponent implements OnInit {
         formData.append('email', this.StaffCreate.get('email').value);
         formData.append('phone', this.StaffCreate.get('phone').value);
         formData.append('address', this.StaffCreate.get('address').value);
-        formData.append('servicelist', this.selectedServiceNewStaff);
+        formData.append('servicelist', this.categoryServiceCheckServiceId);
         formData.append('image', this.staffImageUrl);
 
         // this.newStaffData = {
@@ -1000,8 +1137,9 @@ export class StaffComponent implements OnInit {
     })
   }
   fnDeleteStaff(staffId){
+    this.selectedStaffId = staffId
     this.isLoaderAdmin = true;
-    this.adminSettingsService.fnDeleteStaff(staffId).subscribe((response:any) => {
+    this.adminSettingsService.fnDeleteStaff(this.selectedStaffId).subscribe((response:any) => {
         if(response.data == true){
           this._snackBar.open(response.response, "X", {
             duration: 2000,

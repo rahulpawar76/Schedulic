@@ -407,6 +407,9 @@ export class MyWorkSpaceComponent implements OnInit {
       }
     )
   }
+  goToFront(){
+    this.router.navigate(['/booking/']);
+  }
 
   fnGetTodayRevenue(){
 

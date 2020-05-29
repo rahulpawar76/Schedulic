@@ -276,23 +276,21 @@
                         </mat-form-field>
 
                         <mat-accordion class="select-service-accordian">
-                            <mat-expansion-panel *ngFor="let categoryServiceList of categoryServiceList; let i=index">
+                            <mat-expansion-panel *ngFor="let categoryServiceListval of categoryServiceList; let i=index">
                                 <mat-expansion-panel-header>
                                     <mat-panel-title class="service-title">
-                                        <mat-checkbox>{{categoryServiceList.category_title}}</mat-checkbox>
+                                        <mat-checkbox (change)="checkServie($event,'category',i)" [checked]="categoryServiceListval.is_selected">{{categoryServiceListval.category_title}}</mat-checkbox>
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
-                                <!-- <div class="py-3">
-              <mat-checkbox>SubCategory Name</mat-checkbox> 
-            </div> -->
-                                <mat-expansion-panel class="my-3" *ngFor="let subcategoryList of categoryServiceList.subcategory; let i=index">
+                                <mat-expansion-panel class="my-3" *ngFor="let subcategoryList of categoryServiceListval.subcategory; let sub_index=index">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
-                                            <mat-checkbox>{{subcategoryList.sub_category_name}}</mat-checkbox>
+                                            <mat-checkbox  (change)="checkServie($event,'subcategory',i,sub_index)"  [checked]="subcategoryList.is_selected" >{{subcategoryList.sub_category_name}}</mat-checkbox>
                                         </mat-panel-title>
                                     </mat-expansion-panel-header>
-                                    <div *ngFor="let serviceList of subcategoryList.services; let i=index" class="py-3">
-                                        <mat-checkbox (change)="fnCheckService($event.checked,serviceList.id)">{{serviceList.service_name}}</mat-checkbox>
+                                    <div *ngFor="let serviceList of subcategoryList.services; let service_index=index" class="py-3">
+                                        <mat-checkbox [checked]="serviceList.is_selected" (change)="checkServie($event,'service',i,sub_index,service_index)" >{{serviceList.service_name}}</mat-checkbox>
+                                        <!-- <mat-checkbox (change)="fnCheckService($event.checked,serviceList.id)">{{serviceList.service_name}}</mat-checkbox> -->
                                     </div>
                                 </mat-expansion-panel>
                             </mat-expansion-panel>

@@ -13,7 +13,6 @@
                         <label class="greenfont pointer" (click)="rescheduleAppointment()"><i class="fa fa-repeat repeat"></i>Reschedule</label>
                         <label class="fontred pointer" (click)="cancelAppo(myAppoDetailData.id)"><i class="fa fa-times-circle-o circle"></i>Cancel</label>
                     </div>
-                    <button type="button" class="d-block btn-primary m-l-a paybtn">Pay</button>
                 </div>
 
                 <div class="modal-body modal-bcolor">
@@ -56,21 +55,23 @@
                     </div>
                 </div>
                 <mat-card class="card-body-marginn booking-detail-main mb-0">
-                  <h6 class="text-left mb-3">Booking Details</h6>
-                  <div class="row align-items-center">
-                      <p class="customer-profile-img">SP</p>
-                      <div class="customer-name pr-3">
-                          <p class="font-weight-bold mb-0">{{myAppoDetailData.customer.fullname}}</p>
-                          <p class="address-fontsize mb-0">{{myAppoDetailData.customer.email}}</p>
-                      </div>
+                    <h6 class="text-left mb-3">Booking Details</h6>
+                    <div class="row align-items-center">
+                        <p class="customer-profile-img">SP</p>
+                        <div class="customer-name pr-3">
+                            <p class="font-weight-bold mb-0">{{myAppoDetailData.customer.fullname}}</p>
+                            <p class="address-fontsize mb-0">{{myAppoDetailData.customer.email}}</p>
+                        </div>
                     </div>
                     <p class=" address-fontsize"><i class="fa fa-phone pr-3 bluephone"></i>{{myAppoDetailData.customer.phone}}</p>
                     <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i>{{myAppoDetailData.customer.address}}</p>
                     <p class="pl-4 address-fontsize">{{myAppoDetailData.customer.city}}, {{myAppoDetailData.customer.state}}, {{myAppoDetailData.customer.zip}}</p>
                 </mat-card>
-                <div  class="p-1-5 bottom-border">
+                <div class="p-1-5 bottom-border">
                     <h6>Activity Log</h6>
-                    <div *ngFor="let log of activityLog">{{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - {{log.status=='P'?'Pending':''}}{{log.status=='CNF'?'Confirm':''}}{{log.status=='AC'?'Accepted':''}}{{log.status=='OW'?'On The Way':''}}{{log.status=='WS'?'Work Started':''}}{{log.status=='RSA'?'Rescheduled By Admin':''}}{{log.status=='RSS'?'Rescheduled By Staff':''}}{{log.status=='RSC'?'Rescheduled By Client':''}}{{log.status=='ITR'?'Intrupted':''}}{{log.status=='C'?'Cancelled':''}}{{log.status=='CC'?'Cancelled By Client':''}}{{log.status=='R'?'Rejected':''}}{{log.status=='CO'?'Completed':''}}</div>
+                    <div *ngFor="let log of activityLog">{{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - {{log.status=='P'?'Pending':''}}{{log.status=='CNF'?'Confirm':''}}{{log.status=='AC'?'Accepted':''}}{{log.status=='OW'?'On The Way':''}}{{log.status=='WS'?'Work
+                        Started':''}}{{log.status=='RSA'?'Rescheduled By Admin':''}}{{log.status=='RSS'?'Rescheduled By Staff':''}}{{log.status=='RSC'?'Rescheduled By Client':''}}{{log.status=='ITR'?'Intrupted':''}}{{log.status=='C'?'Cancelled':''}}{{log.status=='CC'?'Cancelled
+                        By Client':''}}{{log.status=='R'?'Rejected':''}}{{log.status=='CO'?'Completed':''}}</div>
                 </div>
             </div>
         </div>

@@ -19,7 +19,7 @@
                             </div>
                             <div class="input-wrap col-12 col-lg-6 col-sm-12 float-left my-3 required-field">
                                 <input type="email" formControlName="email" placeholder="Email" class="common-input form-control" />
-                                <span class="error-wrap" *ngIf="signUpForm.get('email').dirty || signUpForm.get('email').touched"><small *ngIf="signUpForm.get('email').hasError('required')" class="error">Email is required</small><small *ngIf="signUpForm.get('email').hasError('pattern')" class="error">Enter valid email</small></span>
+                                <span class="error-wrap" *ngIf="signUpForm.get('email').dirty || signUpForm.get('email').touched"><small *ngIf="signUpForm.get('email').hasError('required')" class="error">Email is required</small><small *ngIf="signUpForm.get('email').hasError('pattern')" class="error">Enter valid email</small><small *ngIf="signUpForm.get('email').hasError('isEmailUnique')" class="error">Email is already exists</small></span>
                             </div>
                             <div class="input-wrap col-12 col-lg-6 col-sm-12 float-left my-3 required-field">
                                 <input type="text" formControlName="phonenumber" placeholder="Phone Number" class="common-input form-control" />
