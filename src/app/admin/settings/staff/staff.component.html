@@ -5,7 +5,8 @@
             <form [formGroup]="StaffCreate">
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-12  border-right">
-                        <h6>Add Staff</h6>
+                        <h6 *ngIf="!editStaffId">Add Staff</h6>
+                        <h6 *ngIf="editStaffId">Edit Staff</h6>
                         <div class="d-flex profile-img-wrap" (click)="staffImage()">
                             <img class="add-staff mx-auto" *ngIf="!editStaffId" src="/assets/images/admin/Layer-3.png">
                             <img class="add-staff mx-auto" *ngIf="editStaffId" src="{{this.singleStaffDetail.staff[0].image}}">
@@ -20,8 +21,8 @@
                         </mat-form-field>
                         <span class="error-wrap" *ngIf="StaffCreate.get('firstname').touched || StaffCreate.get('firstname').dirty || formSubmitclicked">
                 <small *ngIf="StaffCreate.get('firstname').hasError('required')" class="error">Firstname is required</small>
-                <small *ngIf="StaffCreate.get('firstname').hasError('minlength')"class="error">Name must be at least 3 character</small>
-                <small *ngIf="StaffCreate.get('firstname').hasError('maxlength') "class="error">Name must be at least 11 character.</small>
+                <small *ngIf="StaffCreate.get('firstname').hasError('minlength') || StaffCreate.get('firstname').hasError('maxlength')"class="error">Firstname must be between 3-11 character</small>
+                <!-- <small *ngIf="StaffCreate.get('firstname').hasError('maxlength') "class="error">Firstname must be at least 11 character.</small> -->
             </span>
 
                         <mat-form-field class="bottom-border-field">
@@ -31,8 +32,8 @@
                         </mat-form-field>
                         <span class="error-wrap" *ngIf="StaffCreate.get('lastname').touched || StaffCreate.get('lastname').dirty || formSubmitclicked">
               <small *ngIf="StaffCreate.get('lastname').hasError('required')" class="error">Lastname is required</small>
-              <small *ngIf="StaffCreate.get('lastname').hasError('minlength') || StaffCreate.get('lastname').hasError('maxlength')"class="error">Name must be at least 3 character</small>
-              <small *ngIf="StaffCreate.get('lastname').hasError('minlength') || StaffCreate.get('lastname').hasError('maxlength')"class="error">Name must be at least 11 character.</small>
+              <small *ngIf="StaffCreate.get('lastname').hasError('minlength') || StaffCreate.get('lastname').hasError('maxlength')"class="error">Lastname must be between 3-11 character</small>
+              <!-- <small *ngIf="StaffCreate.get('lastname').hasError('minlength') || StaffCreate.get('lastname').hasError('maxlength')"class="error">Lastname must be at least 11 character.</small> -->
             </span>
                         <mat-form-field class="bottom-border-field">
                             <mat-label>Mobile</mat-label>
@@ -43,7 +44,7 @@
               <small *ngIf="StaffCreate.get('phone').hasError('required')" class="error">Mobile number is required</small>
               <small *ngIf="StaffCreate.get('phone').hasError('pattern')" class="error">Mobile number is should be numeric</small>
               <small *ngIf="StaffCreate.get('phone').hasError('minlength') || StaffCreate.get('phone').hasError('maxlength')"
-                class="error">Mobile number is should be 10 digit</small>
+                class="error">Mobile number should be 10 digits long</small>
             </span>
                         <mat-form-field class="bottom-border-field">
                             <mat-label>Email</mat-label>
@@ -133,20 +134,20 @@
 
                     <div class="col-lg-4 col-md-4 col-12 select-service">
                         <div>
-                            <button mat-button (click)="fnDeleteStaff()" class="staff-delete-btn pl-2 ml-3 mt-2">
-            <mat-icon aria-hidden="false">delete</mat-icon>Delete
-          </button>
+                            <button mat-button *ngIf="editStaffId" (click)="fnDeleteStaff()" class="staff-delete-btn pl-2 ml-3 mt-2">
+                            <mat-icon aria-hidden="false">delete</mat-icon>Delete
+                        </button>
                         </div>
                         <mat-card>
                             <h6>Select Service </h6>
                             <mat-form-field class="pb-3 bottom-border-field">
                                 <mat-label>Outline form field</mat-label>
-                                <input matInput placeholder="Category,Subcategory,Service">
+                                <input matInput placeholder="Category,Subcategory,Service" (keyup)="searchService($event);">
                                 <mat-icon matPrefix>search</mat-icon>
                             </mat-form-field>
 
                             <mat-accordion class="select-service-accordian">
-                                <mat-expansion-panel *ngFor="let categoryServiceListval of categoryServiceList; let i=index">
+                                <mat-expansion-panel *ngFor="let categoryServiceListval of categoryServiceListTemp; let i=index">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title class="service-title">
                                             <mat-checkbox (change)="checkServie($event,'category',i)" [checked]="categoryServiceListval.is_selected">{{categoryServiceListval.category_title}}</mat-checkbox>
@@ -202,11 +203,12 @@
                 <h5>Staff</h5>
                 <div>
                     <button mat-button (click)="fnAddNewStaff()" class="staff-add-btn pl-0">
-            <mat-icon aria-hidden="false">add</mat-icon>Add Staff
-          </button>
+                        <mat-icon aria-hidden="false">add</mat-icon>Add Staff
+                    </button>
                 </div>
             </div>
-            <p class="w-100">Staff/team members are required to deliver services to your customers. you can define rights/permissions, and the services they can perform.</p>
+            <p  class="w-100 mb-3 d-flex">Staff/team members are required to deliver services to your customers. you can define rights/permissions, and the services they can perform.</p>
+
             <div class="w-100 mb-3 d-flex">
                 <mat-form-field class="dropdown bottom-border-field mt-0">
                     <mat-label>Action</mat-label>
@@ -253,7 +255,7 @@
                                         <div class="staff-data">
                                             <h5 class="ellipsis">{{allStaffList.firstname}} {{allStaffList.lastname}}</h5>
                                             <div class="d-flex statick-rating w-100">
-                                                <div class="star-rating" *ngIf="allStaffList.avg_ratings.length == 0">
+                                                <div class="star-rating" *ngIf="allStaffList.avg_ratings && allStaffList.avg_ratings.length == 0">
                                                     <input type="radio" id="5-stars_{{allStaffList.id}}" name="rating_2" value="5" />
                                                     <label for="5-stars_{{allStaffList.id}}" class="star">&#9733;</label>
                                                     <input type="radio" id="4-stars_{{allStaffList.id}}" name="rating_2" value="4" />
@@ -265,7 +267,7 @@
                                                     <input type="radio" id="1-star_{{allStaffList.id}}" name="rating_2" value="1" />
                                                     <label for="1-star_{{allStaffList.id}}" class="star">&#9733;</label>
                                                 </div>
-                                                <div class="star-rating" *ngIf="allStaffList.avg_ratings.length != 0">
+                                                <div class="star-rating" *ngIf="allStaffList.avg_ratings && allStaffList.avg_ratings.length != 0">
                                                     <input type="radio" [checked]="allStaffList.avg_ratings[0].aggregate == '5'" id="5-stars_{{allStaffList.id}}" name="rating_2" value="5" />
                                                     <label for="5-stars_{{allStaffList.id}}" class="star">&#9733;</label>
                                                     <input [checked]="allStaffList.avg_ratings[0].aggregate == '4'" type="radio" id="4-stars_{{allStaffList.id}}" name="rating_2" value="4" />

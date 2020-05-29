@@ -527,6 +527,7 @@ input:focus {
         cursor: pointer;
         font-size: 70px;
         padding: 5px;
+        padding-left: 1px;
     }
     input[type="radio"]:checked~label {
         color: #f90;

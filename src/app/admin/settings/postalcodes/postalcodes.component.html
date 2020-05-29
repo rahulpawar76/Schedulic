@@ -57,6 +57,7 @@
                                     </div>
                                     <div class="text-center pointer" fxFlex="10" (click)="fnDeletePostalCode(postalCode.id)"><i class="fa fa-trash-o delete-box"></i></div>
                                 </div>
+                                <div class="postalcode-box" *ngIf="postalCodeList.length == 0">No Postal Code Available</div>
                             </div>
                         </div>
 

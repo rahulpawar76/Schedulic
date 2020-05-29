@@ -871,50 +871,50 @@ export class BusinessHoursComponent implements OnInit {
 
   fnShowAddBreakForm(day){
     if(day == "Monday"){
-      this.selectedStartTimeMonday=this.timeSlotList[0].long;
-      this.selectedEndTimeMonday=this.timeSlotList[this.timeSlotList.length-1].long;
+      this.selectedStartTimeMonday=this.formSetWorkingHours.get("mondayStartTime").value;
+      this.selectedEndTimeMonday=this.formSetWorkingHours.get("mondayEndTime").value;
       this.showMondayAddForm=this.showMondayAddForm==true?false:true;
       this.mondayBreakStartTimeIndex=0;
       this.mondayBreakEndTimeIndex=this.timeSlotList.length-1;
     }
     if(day == "Tuesday"){
-      this.selectedStartTimeTuesday=this.timeSlotList[0].long;
-      this.selectedEndTimeTuesday=this.timeSlotList[this.timeSlotList.length-1].long;
+      this.selectedStartTimeTuesday=this.formSetWorkingHours.get("tuesdayStartTime").value;
+      this.selectedEndTimeTuesday=this.formSetWorkingHours.get("tuesdayEndTime").value;
       this.showTuesdayAddForm=this.showTuesdayAddForm==true?false:true;
       this.tuesdayBreakStartTimeIndex=0;
       this.tuesdayBreakEndTimeIndex=this.timeSlotList.length-1;
     }
     if(day == "Wednesday"){
-      this.selectedStartTimeWednesday=this.timeSlotList[0].long;
-      this.selectedEndTimeWednesday=this.timeSlotList[this.timeSlotList.length-1].long;
+      this.selectedStartTimeWednesday=this.formSetWorkingHours.get("wednesdayStartTime").value;
+      this.selectedEndTimeWednesday=this.formSetWorkingHours.get("wednesdayEndTime").value;
       this.showWednesdayAddForm=this.showWednesdayAddForm==true?false:true;
       this.wednesdayBreakStartTimeIndex=0;
       this.wednesdayBreakEndTimeIndex=this.timeSlotList.length-1;
     }
     if(day == "Thursday"){
-      this.selectedStartTimeThursday=this.timeSlotList[0].long;
-      this.selectedEndTimeThursday=this.timeSlotList[this.timeSlotList.length-1].long;
+      this.selectedStartTimeThursday=this.formSetWorkingHours.get("thursdayStartTime").value;
+      this.selectedEndTimeThursday=this.formSetWorkingHours.get("thursdayEndTime").value;
       this.showThursdayAddForm=this.showThursdayAddForm==true?false:true;
       this.thursdayBreakStartTimeIndex=0;
       this.thursdayBreakEndTimeIndex=this.timeSlotList.length-1;
     }
     if(day == "Friday"){
-      this.selectedStartTimeFriday=this.timeSlotList[0].long;
-      this.selectedEndTimeFriday=this.timeSlotList[this.timeSlotList.length-1].long;
+      this.selectedStartTimeFriday=this.formSetWorkingHours.get("fridayStartTime").value;
+      this.selectedEndTimeFriday=this.formSetWorkingHours.get("fridayEndTime").value;
       this.showFridayAddForm=this.showFridayAddForm==true?false:true;
       this.fridayBreakStartTimeIndex=0;
       this.fridayBreakEndTimeIndex=this.timeSlotList.length-1;
     }
     if(day == "Saturday"){
-      this.selectedStartTimeSaturday=this.timeSlotList[0].long;
-      this.selectedEndTimeSaturday=this.timeSlotList[this.timeSlotList.length-1].long;
+      this.selectedStartTimeSaturday=this.formSetWorkingHours.get("saturdayStartTime").value;
+      this.selectedEndTimeSaturday=this.formSetWorkingHours.get("saturdayEndTime").value;
       this.showSaturdayAddForm=this.showSaturdayAddForm==true?false:true;
       this.saturdayBreakStartTimeIndex=0;
       this.saturdayBreakEndTimeIndex=this.timeSlotList.length-1;
     }
     if(day == "Sunday"){
-      this.selectedStartTimeSunday=this.timeSlotList[0].long;
-      this.selectedEndTimeSunday=this.timeSlotList[this.timeSlotList.length-1].long;
+      this.selectedStartTimeSunday=this.formSetWorkingHours.get("sundayStartTime").value;
+      this.selectedEndTimeSunday=this.formSetWorkingHours.get("sundayEndTime").value;
       this.showSundayAddForm=this.showSundayAddForm==true?false:true;
       this.sundayBreakStartTimeIndex=0;
       this.sundayBreakEndTimeIndex=this.timeSlotList.length-1;
