@@ -68,8 +68,8 @@ export class MyBusinessComponent implements OnInit {
   }
   fnSelectBusiness(business_id,busisness_name){
 
-     localStorage.setItem('business_id', business_id);
-    // localStorage.setItem('business_id', '2');
+     // localStorage.setItem('business_id', business_id);
+    localStorage.setItem('business_id', '2');
     localStorage.setItem('business_name', busisness_name);
     this.router.navigate(['/admin/my-workspace']);
   }
