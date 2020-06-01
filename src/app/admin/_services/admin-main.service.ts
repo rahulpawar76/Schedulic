@@ -783,6 +783,18 @@ export class AdminService {
         }),
         catchError(this.handleError));
     }
+    sendInvoiceEmail(requestObject){
+      let headers = new HttpHeaders({
+        'admin-id' : JSON.stringify(this.currentUser.user_id),
+        'api-token' : this.currentUser.token,
+        // 'Content-Type': 'application/pdf'
+      });
+      return this.http.post(`${environment.apiUrl}/send-invoice`,requestObject,{headers:headers}).pipe(
+      map((res) => {
+          return res;
+      }),
+      catchError(this.handleError));
+    }
     
 
 }

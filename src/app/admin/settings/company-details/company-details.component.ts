@@ -199,8 +199,6 @@ export class CompanyDetailsComponent implements OnInit {
       }
       
     }
-    //this.CompanyDetail(this.updateCompanyDetailsData);
-    console.log(this.updateCompanyDetailsData);
     this.fnupdateBusineData(this.updateCompanyDetailsData);
   }
 
@@ -212,9 +210,14 @@ export class CompanyDetailsComponent implements OnInit {
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
+        this.getCompanyDetails();
       }
       else if(response.data == false){
-        this.allCities = ''
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
       }
     })
   }

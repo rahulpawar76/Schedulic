@@ -681,6 +681,10 @@
     }
 }
 
+.customer-bottom-area {
+    height: calc(100% - 87px);
+}
+
 .tags-input mat-chip mat-icon {
     padding-right: 0;
     border-right: 0;

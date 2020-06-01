@@ -18,7 +18,7 @@
 
             </div>
         </div>
-        <mat-drawer-container class="w-100">
+        <mat-drawer-container class="w-100 customer-bottom-area">
             <mat-drawer mode="side" opened id="Customer-list" class="pl-0 pr-0" style="width:300px">
                 <div class="leftarrow-icon">
                     <mat-icon aria-hidden="false" class="customer-drawer-leftarrow">arrow_back</mat-icon>
@@ -264,7 +264,7 @@
                                     </div>
                                     <div class="lastBookedService">
                                         <h6>LAST BOOKED SERVICE</h6>
-                                        <p>{{customersDetails.lastBooking?customersDetails.lastBooking.service.service_name:''}} {{customersDetails.lastBooking?(customersDetails.lastBooking.service.category.category_title):''}}</p>
+                                        <p>{{customersDetails.lastBooking?customersDetails.lastBooking.service.service_name:''}} {{customersDetails.lastBooking && customersDetails.lastBooking.service && customersDetails.lastBooking.service.category && customersDetails.lastBooking.service.category.category_title?(customersDetails.lastBooking.service.category.category_title):''}}</p>
                                     </div>
 
                                 </div>
@@ -388,7 +388,7 @@
                                             <td class="text-capitalize">
                                                 <button mat-button appearance="fill" class="view-btn ml-2" (click)="invoice(i)"><mat-icon class="" aria-hidden="false">description</mat-icon></button>
                                                 <button mat-button appearance="fill" class="view-btn ml-2" (click)="fnShowPaymentForm(i,null,null)"><mat-icon class="" aria-hidden="false">edit</mat-icon></button>
-                                                <button mat-button appearance="fill" class="view-btn ml-2"><mat-icon class="" aria-hidden="false">print</mat-icon></button>
+                                                <!-- <button mat-button appearance="fill" class="view-btn ml-2"><mat-icon class="" aria-hidden="false">print</mat-icon></button> -->
                                             </td>
                                         </tr>
                                     </tbody>

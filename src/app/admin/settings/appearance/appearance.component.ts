@@ -157,7 +157,9 @@ export class AppearanceComponent implements OnInit {
     this.AdminSettingsService.getSettingsValue().subscribe((response:any)=>{
       if(response.data == true && response.response.lenght > 0){
         this.settingData = response.response
-       // console.log(this.settingData);
+        console.log(this.settingData);
+        if(this.settingData.appearance){
+          
         this.getAppearanceData = JSON.parse(this.settingData.appearance); 
         //this.gradientColorDb = this.getAppearanceData.pri_gradient.split(",", 2)
         // console.log(this.gradientColorDb)
@@ -168,7 +170,10 @@ export class AppearanceComponent implements OnInit {
         this.textcolor = this.getAppearanceData.text_color;
         this.textbgcolor = this.getAppearanceData.text_bgcolor;
         this.Appearance.controls['font'].setValue(this.getAppearanceData.font);
-        this.formArr=JSON.parse(this.settingData.form_settings);
+        }
+        if(this.settingData.form_settings){
+          this.formArr=JSON.parse(this.settingData.form_settings);
+        }
       }
     })
   }

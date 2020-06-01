@@ -1,4 +1,3 @@
-
 <mat-drawer-content id="booking-rules" class="ml-0">
     <mat-card>
         <h5>Booking Rules</h5>
@@ -21,7 +20,7 @@
                                         <p class="mb-0">Minimum advance notice do you need before a client books an appointment?</p>
                                     </div>
                                     <div class="" fxFlex="12">
-                                        
+
                                     </div>
                                     <div class=" mx-2" fxFlex="12">
                                         <mat-form-field class="bottom-border-field">
@@ -332,10 +331,10 @@
                                         <p class="mb-0">e.g 15 min slots will show open slots at 8:00, 8:15, 8:30 etc</p>
                                     </div>
                                     <div class="" fxFlex="12">
-                                        
+
                                     </div>
                                     <div class=" mx-2" fxFlex="12">
-                                        
+
                                     </div>
                                     <div class=" mx-2" fxFlex="12">
                                         <mat-form-field class="bottom-border-field">
@@ -443,7 +442,7 @@
                                         <p class="mb-0">Minimum notice required for Cancellation an appointment</p>
                                     </div>
                                     <div class="" fxFlex="12">
-                                        
+
                                     </div>
                                     <div class=" mx-2" fxFlex="12">
                                         <mat-form-field class="bottom-border-field">
@@ -589,7 +588,7 @@
                                         <p class="mb-0">Minimum notice required for rescheduleing an appointment</p>
                                     </div>
                                     <div class="" fxFlex="12">
-                                        
+
                                     </div>
                                     <div class=" mx-2" fxFlex="12">
                                         <mat-form-field class="bottom-border-field">
@@ -731,13 +730,13 @@
                             </div>
                         </div>
                     </div>
-                </div> 
-            </div> 
+                </div>
+            </div>
         </mat-card>
         <mat-card class="matcard-space">
             <div class="d-flex">
                 <div>
-                    <h6>Staff List</h6>
+                    <h6>Customer Login</h6>
                     <p class="mb-0">Create an exclusive profile with a username and password for your customer.</p>
                     <p class="mb-0">Mandatory Customer Login will reduce duplicate contacts from your booking page.</p>
                 </div>
@@ -802,8 +801,8 @@
                 </div>
                 <div class="example-form" *ngIf="termsConditionsStatusValue=='true'">
                     <mat-form-field class="example-full-width bottom-border-field">
-                      <!-- <mat-label></mat-label> -->
-                      <input matInput placeholder="Add a label to your Terms & Conditions." [ngModel]="termsConditionsLabelValue" (ngModelChange)="setTermConditionsLabelValue($event)" maxlength="150">
+                        <!-- <mat-label></mat-label> -->
+                        <input matInput placeholder="Add a label to your Terms & Conditions." [ngModel]="termsConditionsLabelValue" (ngModelChange)="setTermConditionsLabelValue($event)" maxlength="150">
                     </mat-form-field>
                     <div class="d-flex example-full-width ">
                         <mat-hint class="ml-auto"><i>maximum characters allowed<span class="text-danger"> 150</span></i></mat-hint>
@@ -811,8 +810,8 @@
                 </div>
                 <div class="example-form" *ngIf="termsConditionsStatusValue=='true'">
                     <mat-form-field class="example-full-width bottom-border-field">
-                      <!-- <mat-label></mat-label> -->
-                      <input matInput placeholder="Add a link to your Terms & Conditions." [ngModel]="termsConditionsPageLinkValue" (ngModelChange)="setTermConditionsPageLinkValue($event)">
+                        <!-- <mat-label></mat-label> -->
+                        <input matInput placeholder="Add a link to your Terms & Conditions." [ngModel]="termsConditionsPageLinkValue" (ngModelChange)="setTermConditionsPageLinkValue($event)">
                     </mat-form-field>
                     <div class="d-flex example-full-width ">
                         <mat-hint class="ml-auto"><i>Link will open in a new browser window</i></mat-hint>
@@ -820,7 +819,7 @@
                 </div>
                 <div class="example-form" *ngIf="termsConditionsStatusValue=='true'">
                     <div class="d-flex example-full-width ">
-                        <button mat-button class="staff-reset-btn"  (click)="fnSaveTermsConditionsValues()">Save</button>
+                        <button mat-button class="staff-reset-btn" (click)="fnSaveTermsConditionsValues()">Save</button>
                     </div>
                 </div>
             </mat-card>
@@ -837,9 +836,9 @@
                     </div>
                 </div>
                 <div class="example-form" *ngIf="privacyPolicyStatusValue=='true'">
-                  <p>Display as hyperlink text  next to a checkbox that the user must accept.</p>
+                    <p>Display as hyperlink text next to a checkbox that the user must accept.</p>
                     <mat-form-field class="example-full-width bottom-border-field">
-                      <input matInput  placeholder="Add a label to your Privacy Policy." [ngModel]="privacyPolicyLabelValue" (ngModelChange)="setPrivacyPolicyLabelValue($event)" maxlength="150">
+                        <input matInput placeholder="Add a label to your Privacy Policy." [ngModel]="privacyPolicyLabelValue" (ngModelChange)="setPrivacyPolicyLabelValue($event)" maxlength="150">
                     </mat-form-field>
                     <div class="d-flex example-full-width ">
                         <mat-hint class="ml-auto"><i>maximum characters allowed<span class="text-danger"> 150</span></i></mat-hint>
@@ -847,7 +846,7 @@
                 </div>
                 <div class="example-form" *ngIf="privacyPolicyStatusValue=='true'">
                     <mat-form-field class="example-full-width bottom-border-field">
-                      <input matInput  placeholder="Add a label to your Privacy Policy." [ngModel]="privacyPolicyPageLinkValue" (ngModelChange)="setPrivacyPolicyPageLinkValue($event)">
+                        <input matInput placeholder="Add a label to your Privacy Policy." [ngModel]="privacyPolicyPageLinkValue" (ngModelChange)="setPrivacyPolicyPageLinkValue($event)">
                     </mat-form-field>
                     <div class="d-flex example-full-width ">
                         <mat-hint class="ml-auto"><i>Link will open in a new browser window</i></mat-hint>
@@ -855,7 +854,7 @@
                 </div>
                 <div class="example-form" *ngIf="privacyPolicyStatusValue=='true'">
                     <div class="d-flex example-full-width ">
-                        <button  mat-button class="staff-reset-btn" (click)="fnSavePrivacyPolicyValues()">Save</button>
+                        <button mat-button class="staff-reset-btn" (click)="fnSavePrivacyPolicyValues()">Save</button>
                     </div>
                 </div>
             </mat-card>
@@ -873,7 +872,7 @@
                 </div>
                 <div class="example-form" *ngIf="thankyouPageStatusValue=='true'">
                     <mat-form-field class="example-full-width bottom-border-field">
-                      <input matInput  placeholder="Add a link to your Thank You page" [ngModel]="thankyouPageLinkValue" (ngModelChange)="setThankyouPageLinkValue($event)">
+                        <input matInput placeholder="Add a link to your Thank You page" [ngModel]="thankyouPageLinkValue" (ngModelChange)="setThankyouPageLinkValue($event)">
                     </mat-form-field>
                 </div>
                 <div class="example-form" *ngIf="thankyouPageStatusValue=='true'">

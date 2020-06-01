@@ -51,7 +51,7 @@
                     <div class="">
                         <div class="heads main-heading-content drageble " fxLayout="row">
                             <div class="" fxFlex="5">
-                                <mat-checkbox  [checked]="selectAll"  (change)="checkAll($event)" class=""></mat-checkbox>
+                                <mat-checkbox [checked]="selectAll" (change)="checkAll($event)" class=""></mat-checkbox>
                             </div>
                             <div class="" fxFlex="25">Service</div>
                             <div class="" fxFlex="15">Duration</div>
@@ -323,7 +323,7 @@
                         <div *ngIf="categoryServicesList != ''" class="">
                             <div class="heads main-heading-content drageble " fxLayout="row">
                                 <div class="" fxFlex="5">
-                                    <mat-checkbox  [checked]="selectAllCategory"  (change)="checkAllCategory($event)" class=""></mat-checkbox>
+                                    <mat-checkbox [checked]="selectAllCategory" (change)="checkAllCategory($event)" class=""></mat-checkbox>
                                 </div>
                                 <div class="" fxFlex="30">Service</div>
                                 <div class="" fxFlex="15">Duration</div>
@@ -336,7 +336,7 @@
                             <div class="content" class="drageble-list" cdkDropList (cdkDropListDropped)="dropCategory($event)">
                                 <div class="drageble-box" *ngFor="let categoryServicesList of categoryServicesList; let i=index" cdkDrag fxLayout="row">
                                     <div class="" fxFlex="5">
-                                        <mat-checkbox  [checked]="categoryServicesList.is_selected" (change)="fnActionServiceId($event.checked,categoryServicesList.id,i); "></mat-checkbox>
+                                        <mat-checkbox [checked]="categoryServicesList.is_selected" (change)="fnActionServiceId($event.checked,categoryServicesList.id,i); "></mat-checkbox>
                                     </div>
                                     <div class="wrap-column" fxFlex="30">{{categoryServicesList.service_name}}</div>
                                     <div class="wrap-column" fxFlex="15">{{categoryServicesList.service_time}}</div>
@@ -446,7 +446,7 @@
                         <div *ngIf="subCategoryServicesList != ''" class="">
                             <div class="heads main-heading-content drageble" fxLayout="row">
                                 <div class="" fxFlex="5">
-                                    <mat-checkbox  [checked]="selectAllSubCat"  (change)="checkAllSubcat($event)" class=""></mat-checkbox>
+                                    <mat-checkbox [checked]="selectAllSubCat" (change)="checkAllSubcat($event)" class=""></mat-checkbox>
                                 </div>
                                 <div class="" fxFlex="30">Service</div>
                                 <div class="" fxFlex="15">Duration</div>
@@ -553,9 +553,7 @@
                                     </div>
                                     <div class="mt-2 text-center">
                                         <mat-form-field class=" bottom-border-field">
-                                            <mat-icon matPrefix><i class="material-icons">
-                                            attach_money
-                                            </i></mat-icon>
+                                            <mat-icon matPrefix>{{currencySymbol}}</mat-icon>
                                             <mat-label>Sevice Cost</mat-label>
                                             <input matInput formControlName="service_cost" placeholder="">
                                         </mat-form-field>
@@ -625,7 +623,7 @@
                                         {{staffList.username}} {{staffList.lastname}} <i class="material-icons minus-icon pointer" >remove_circle_outline</i>  
                                     </mat-list-item> 
                                </mat-list> -->
-                                    <div>
+                                    <div *ngIf="staffList != ''">
                                         <div class="drageble-box" *ngFor="let staffList of staffList" fxLayout="row">
                                             <div class="" fxFlex="90">
                                                 <mat-checkbox (change)="fnAssignStaffToService($event.checked, staffList.id)" [checked]="assignStaffArr.indexOf(staffList.id) > -1">{{staffList.firstname}} {{staffList.lastname}}</mat-checkbox>
@@ -633,6 +631,7 @@
                                             <!-- <div class="" fxFlex="10"> <i class="material-icons minus-icon pointer" >remove_circle_outline</i></div> -->
                                         </div>
                                     </div>
+                                    <h3 *ngIf="staffList == ''">No Staff Found</h3>
 
                                 </div>
                             </div>

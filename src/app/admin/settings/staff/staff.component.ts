@@ -1077,7 +1077,7 @@ export class StaffComponent implements OnInit {
         // }
         // console.log(this.updateStaffData);
         // this.updateStaff(this.updateStaffData);
-
+        
         this.updateStaff(formData);
       }else{
         this.StaffCreate.get('firstname').markAsTouched();
