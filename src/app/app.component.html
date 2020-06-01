@@ -52,8 +52,8 @@
             <button mat-raised-button color="warn" *ngIf="!isBusiness()" (click)="MyLiveAppointmentNav()">Live</button>
             <button mat-button color="primary" (click)="MyBusinessNav()">My Businesses</button>
             <span class="profile-head">
-                <div class="customer-profile-img m-2 float-left overflow-hidden">
-                    <img class="w-100" src="{{currentUser.image}}">
+                <div class="customer-profile-img m-2 float-left overflow-hidden" data="aaa">
+                    <img class="w-100" src="{{currentUser.image}}" onerror="this.src='../assets/img/user.png';" >
                 </div>
               <p class="font-weight-bold my-2 p-1" *ngIf="currentUser.full_name">{{currentUser.full_name}}</p>
             </span>

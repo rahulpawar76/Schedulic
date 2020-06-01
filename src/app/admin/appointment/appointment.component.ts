@@ -116,27 +116,22 @@ export class AppointmentComponent implements OnInit {
       "business_id":this.businessId
     };
     this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
-      if(response.data == true){
+     
+      
+      if(response.data == true && response.response.length > 0){
         this.settingsArr=response.response;
-        console.log(this.settingsArr);
 
         this.currencySymbol = this.settingsArr.currency;
-        console.log(this.currencySymbol);
         
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-        console.log(this.currencySymbolPosition);
         
         this.currencySymbolFormat = this.settingsArr.currency_format;
-        console.log(this.currencySymbolFormat);
         
         let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
         let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
-        console.log(cancellation_buffer_time);
-        console.log(min_rescheduling_time);
        
         this.cancellationBufferTime = new Date();
         this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
-        console.log("cancellationBufferTime - "+this.cancellationBufferTime);
 
         this.minReschedulingTime = new Date();
         this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
@@ -152,31 +147,20 @@ export class AppointmentComponent implements OnInit {
     this.durationType = type;
 
     if(this.durationType=='daily'){
-      console.log(this.startDate);
-      
-      console.log(this.endDate);
+
       this.endDate=this.startDate;
-      console.log(this.endDate);
     }
 
     if(this.durationType=='week'){
-      console.log(this.startDate);
-      
-      console.log(this.endDate);
       let dateEnd = new Date(this.startDate);
       dateEnd.setDate( dateEnd.getDate() + 6 );
       this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
-      console.log(this.endDate);
     }
 
     if(this.durationType=='month'){
-      console.log(this.startDate);
-      
-      console.log(this.endDate);
       let dateEnd = new Date(this.startDate);
       let monthEnd = dateEnd.getMonth() + 1;
       let yearEnd = dateEnd.getFullYear();
-      console.log(yearEnd);
       let addDaysToEndDate=0;
       if(monthEnd == 1 || monthEnd == 3  || monthEnd == 5 || monthEnd == 7 || monthEnd == 8 || monthEnd == 10 || monthEnd == 12){
         addDaysToEndDate=30;
@@ -191,7 +175,6 @@ export class AppointmentComponent implements OnInit {
       }
       dateEnd.setDate( dateEnd.getDate() + addDaysToEndDate );
       this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
-      console.log(this.endDate);
     }
     this.staffApiUrl =  `${environment.apiUrl}/admin-booking-listing`;
 
@@ -206,39 +189,28 @@ export class AppointmentComponent implements OnInit {
 
   fnPrev(){
     if(this.durationType=='daily'){
-      console.log(this.startDate);
       let dateStart = new Date(this.startDate)
       let dateEnd = new Date(this.startDate)
       dateStart.setDate( dateStart.getDate() - 1 );
       this.startDate=this.datePipe.transform(dateStart,"dd MMM yyyy");
-      console.log(this.startDate);
       
-      console.log(this.endDate);
       dateEnd.setDate( dateEnd.getDate() - 1 );
       this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
-      console.log(this.endDate);
     }
     if(this.durationType=='week'){
-      console.log(this.startDate);
       let dateStart = new Date(this.startDate)
       dateStart.setDate( dateStart.getDate() - 7 );
       this.startDate=this.datePipe.transform(dateStart,"dd MMM yyyy");
-      console.log(this.startDate);
       
-      console.log(this.endDate);
       let dateEnd = new Date(this.startDate)
       dateEnd.setDate( dateEnd.getDate() + 6 );
       this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
-      console.log(this.endDate);
     }
     if(this.durationType=='month'){
-      console.log(this.startDate);
       let dateStart = new Date(this.startDate);
 
       let monthStart = dateStart.getMonth();
       let yearStart = dateStart.getFullYear();
-      console.log(monthStart);
-      console.log(yearStart);
       let addDaysToStartDate=0;
       if(monthStart == 0 || monthStart == 1 || monthStart == 3  || monthStart == 5 || monthStart == 7 || monthStart == 8 || monthStart == 10 || monthStart == 12){
         addDaysToStartDate=31;
@@ -254,14 +226,11 @@ export class AppointmentComponent implements OnInit {
 
       dateStart.setDate( dateStart.getDate() - addDaysToStartDate );
       this.startDate=this.datePipe.transform(dateStart,"dd MMM yyyy");
-      console.log(this.startDate);
       
-      console.log(this.endDate);
       let dateEnd = new Date(this.startDate);
 
       let monthEnd = dateEnd.getMonth() + 1;
       let yearEnd = dateEnd.getFullYear();
-      console.log(yearEnd);
       let addDaysToEndDate=0;
       if(monthEnd == 1 || monthEnd == 3  || monthEnd == 5 || monthEnd == 7 || monthEnd == 8 || monthEnd == 10 || monthEnd == 12){
         addDaysToEndDate=30;
@@ -277,7 +246,6 @@ export class AppointmentComponent implements OnInit {
 
       dateEnd.setDate( dateEnd.getDate() + addDaysToEndDate );
       this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
-      console.log(this.endDate);
     }
     this.staffApiUrl =  `${environment.apiUrl}/admin-booking-listing`;
 
@@ -286,38 +254,28 @@ export class AppointmentComponent implements OnInit {
 
   fnNext(){
     if(this.durationType=='daily'){
-      console.log(this.startDate);
       let dateStart = new Date(this.startDate)
       let dateEnd = new Date(this.startDate)
       dateStart.setDate( dateStart.getDate() + 1 );
       this.startDate=this.datePipe.transform(dateStart,"dd MMM yyyy");
-      console.log(this.startDate);
       
-      console.log(this.endDate);
       dateEnd.setDate( dateEnd.getDate() + 1 );
       this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
-      console.log(this.endDate);
     }
     if(this.durationType=='week'){
-      console.log(this.startDate);
       let dateStart = new Date(this.startDate)
       dateStart.setDate( dateStart.getDate() + 7 );
       this.startDate=this.datePipe.transform(dateStart,"dd MMM yyyy");
-      console.log(this.startDate);
       
-      console.log(this.endDate);
       let dateEnd = new Date(this.startDate)
       dateEnd.setDate( dateEnd.getDate() + 6 );
       this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
-      console.log(this.endDate);
     }
     if(this.durationType=='month'){
-      console.log(this.startDate);
       let dateStart = new Date(this.startDate);
 
       let monthStart = dateStart.getMonth() + 1;
       let yearStart = dateStart.getFullYear();
-      console.log(yearStart);
       let addDaysToStartDate=0;
       if(monthStart == 1 || monthStart == 3  || monthStart == 5 || monthStart == 7 || monthStart == 8 || monthStart == 10 || monthStart == 12){
         addDaysToStartDate=31;
@@ -333,14 +291,11 @@ export class AppointmentComponent implements OnInit {
 
       dateStart.setDate( dateStart.getDate() + addDaysToStartDate );
       this.startDate=this.datePipe.transform(dateStart,"dd MMM yyyy");
-      console.log(this.startDate);
       
-      console.log(this.endDate);
       let dateEnd = new Date(this.startDate);
 
       let monthEnd = dateEnd.getMonth() + 1;
       let yearEnd = dateEnd.getFullYear();
-      console.log(yearEnd);
       let addDaysToEndDate=0;
       if(monthEnd == 1 || monthEnd == 3  || monthEnd == 5 || monthEnd == 7 || monthEnd == 8 || monthEnd == 10 || monthEnd == 12){
         addDaysToEndDate=30;
@@ -356,7 +311,6 @@ export class AppointmentComponent implements OnInit {
 
       dateEnd.setDate( dateEnd.getDate() + addDaysToEndDate );
       this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
-      console.log(this.endDate);
     }
     // this.getAllAppointments(this.selectedServices);
     this.staffApiUrl =  `${environment.apiUrl}/admin-booking-listing`;
@@ -507,7 +461,6 @@ export class AppointmentComponent implements OnInit {
     } else {
       this.selectAll = false;
     }
-    console.log(this.orderItemsIdArr);
   }
 
   fnAppointAction(status){
@@ -592,7 +545,6 @@ export class AppointmentComponent implements OnInit {
       this.selectAll = false;
     }
 
-    console.log(this.orderItemsIdArr);
 
   }
 
@@ -714,13 +666,13 @@ export class DialogAddNewAppointment {
       this.bussinessId=JSON.parse(localStorage.getItem('business_id'));
       
     }
-    console.log(this.appointmentData);
+//    console.log(this.appointmentData);
     this.adminId=(JSON.parse(localStorage.getItem('currentUser'))).user_id
     this.token=(JSON.parse(localStorage.getItem('currentUser'))).token
     
-    console.log(this.adminId);
-    console.log(this.token);
-    console.log(this.bussinessId);
+    // console.log(this.adminId);
+    // console.log(this.token);
+    // console.log(this.bussinessId);
 
     this.subcatdata=[];
     this.serviceData=[];
@@ -744,7 +696,7 @@ export class DialogAddNewAppointment {
       customerTime: [this.appointmentData.booking_time, Validators.required],
       customerStaff: [this.appointmentData.staff, Validators.required]
     });
-    console.log("ar "+this.formAddNewAppointmentStaffStep2.get('customerDate').value);
+ //   console.log("ar "+this.formAddNewAppointmentStaffStep2.get('customerDate').value);
     this.fnGetSettingValue();
     this.fnGetTaxDetails();
     this.fnGetOffDays();
@@ -817,9 +769,9 @@ export class DialogAddNewAppointment {
       "business_id":this.bussinessId
     };
     this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
-      if(response.data == true){
+      if(response.data == true && response.response.length > 0){
         this.settingsArr=response.response;
-        console.log(this.settingsArr);
+        
         this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
         this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
         

@@ -171,19 +171,20 @@ export class ServicesComponent implements OnInit {
       };
 
     this.adminSettingsService.getSettingValue(requestObject).subscribe((response:any) => {
-      if(response.data == true){
+      if(response.data == true && response.response.length > 0){
         this.settingsArr = response.response;
-        console.log(this.settingsArr);
+      //  console.log(this.settingsArr);
 
         this.currencySymbol = this.settingsArr.currency;
-        console.log(this.currencySymbol);
+      //  console.log(this.currencySymbol);
         
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-        console.log(this.currencySymbolPosition);
+      //  console.log(this.currencySymbolPosition);
         
         this.currencySymbolFormat = this.settingsArr.currency_format;
-        console.log(this.currencySymbolFormat);
+      //  console.log(this.currencySymbolFormat);
       }else{
+
       }
       },
       (err) =>{
@@ -334,9 +335,9 @@ export class ServicesComponent implements OnInit {
     fnAllCategory() {
         this.isLoaderAdmin = true;
         this.adminSettingsService.fnAllCategory().subscribe((response: any) => {
-            if (response.data == true) {
+            if (response.data == true && response.response.length > 0) {
                 this.allCetegoryList = response.response
-                this.allCategoryCount = this.allCetegoryList.length
+                this.allCategoryCount = this.allCetegoryList.length;
                 this.isLoaderAdmin = false;
             }
             else if (response.data == false) {

@@ -31,7 +31,7 @@
                   </div>
             </div>
             <div class="col-12" id="">
-                <div class="w-100" id="" *ngIf="allCouponCode != ''">
+                <div class="w-100" id="" >
                     <div class="postalcode-table">
                         <div class="main-table-content main-cust-table-content">
                             <div class="">
@@ -86,12 +86,15 @@
                                             </button>
                                         </div>
                                     </div>
+                                    <div class="staff-list-row" *ngIf="allCouponCode == ''">
+                                        <p class="mx-auto">Record not found</p>
+                                    </div>
                                 </div>
                             </div>
     
                         </div>
     
-                        <div class="table_pagination">
+                        <div class="table_pagination" *ngIf="allCouponCode != ''">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
                                     <li class="page-item" (click)="navigateTo(first_page_url)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>

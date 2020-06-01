@@ -56,7 +56,7 @@ export class PaymentrulesComponent implements OnInit {
         this.selectedCurrency = response.response.currency;
         this.selectedCurrencyPosition = response.response.currency_symbol_position;
         this.selectedCurrencyFormat = response.response.currency_format;
-        console.log(this.taxesData);
+     //   console.log(this.taxesData);
       }
     })
   }
@@ -65,7 +65,7 @@ export class PaymentrulesComponent implements OnInit {
     this.AdminSettingsService.getAllTax().subscribe((response: any) => {
       if (response.data == true) {
         this.taxesData = response.response;
-        console.log(this.taxesData);
+       // console.log(this.taxesData);
       }
     })
   }
@@ -95,7 +95,7 @@ export class PaymentrulesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+     // console.log('The dialog was closed');
       this.getAllTax();
       this.animal = result;
     });
@@ -104,7 +104,7 @@ export class PaymentrulesComponent implements OnInit {
   getAllCurrencies() {
     this.AdminSettingsService.getAllCurrencies().subscribe((response: any) => {
       this.currenciesData = response.response;
-      console.log(this.currenciesData);
+     // console.log(this.currenciesData);
     })
   }
   fnChangeCurrency(currencyCode) {

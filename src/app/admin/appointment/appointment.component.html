@@ -55,7 +55,7 @@
             </div>
         </div>
         <div class="col-12" id="Appointment-dataTable">
-            <div class="w-100" id="" *ngIf="allAppointments != ''">
+            <div class="w-100" id="">
                 <div class="postalcode-table">
                     <div class="main-table-content main-cust-table-content">
                         <div class="">
@@ -74,16 +74,13 @@
                             </div>
                             <div class="content" class="staff-list">
                                 <div class="staff-list-row" *ngFor="let allAppointmentsData of allAppointments; let i=index">
-
                                     <div class="text-left" fxFlex="10">
                                         <mat-checkbox [checked]="allAppointmentsData.is_selected" (change)="fnAddOrderId($event.checked, allAppointmentsData.id,i)" class=""></mat-checkbox>
                                     </div>
-
                                     <div class="text-left" fxFlex="20" (click)="fnOpenDetails(i)">
                                         <p>{{allAppointmentsData.booking_date}},</p>
                                         <p>{{allAppointmentsData.booking_time}}</p>
                                     </div>
-
                                     <div class="text-left" fxFlex="15">
                                         <p>{{allAppointmentsData.customer?allAppointmentsData.customer.fullname:''}}</p>
                                         <p>Phone No: {{allAppointmentsData.customer?allAppointmentsData.customer.phone:''}}</p>
@@ -129,12 +126,15 @@
                                     </div>
 
                                 </div>
+                                <div class="staff-list-row"  *ngIf="allAppointments ==''">
+                                    <p class="mx-auto">Record not found</p>
+                                </div>
                             </div>
                         </div>
 
                     </div>
 
-                    <div class="table_pagination">
+                    <div class="table_pagination"  *ngIf="allAppointments != ''">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-end">
                                 <li class="page-item" (click)="navigateTo(first_page_url)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>

@@ -53,7 +53,6 @@ export class MyBusinessComponent implements OnInit {
 
   ngOnInit() {
     this.getAllBusiness();
-    console.log(this.currentUser)
   }
 
   getAllBusiness(){

@@ -108,9 +108,9 @@ export class AppComponent implements AfterViewInit {
     if (localStorage.getItem('business_id')) {
       this.businessId = localStorage.getItem('business_id');
     }
-    console.log("businessId-- "+localStorage.getItem('business_id'));
-    console.log("businessId-- "+this.businessId);
-    console.log(this.currentUser);
+    // console.log("businessId-- "+localStorage.getItem('business_id'));
+    // console.log("businessId-- "+this.businessId);
+    // console.log(this.currentUser);
   }
   private handleError(error: HttpErrorResponse) {
     console.log(error);
@@ -147,7 +147,7 @@ export class AppComponent implements AfterViewInit {
 
   isSettingsModule(url?: string) {
     const mod = this.cleanUrl(url || this.currentUrl);
-    console.log(mod);
+//    console.log(mod);
     this.pageHeading = this.authenticationService.pageName(mod);
     if (mod == "settings") {
       this.adminSettings = "settings";
@@ -206,11 +206,11 @@ export class AppComponent implements AfterViewInit {
   }
 
   private cleanUrl(url: string) {
-    console.log(url);
+  //  console.log(url);
     if (url) {
       let cleanUrl = url.substr(1);
       const slashIndex = cleanUrl.indexOf("/");
-      console.log(slashIndex);
+     // console.log(slashIndex);
       if (slashIndex >= 0) {
         cleanUrl = cleanUrl.substr(slashIndex + 1, 8);
         return cleanUrl;
@@ -505,7 +505,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   initiateTimeout() {
-    console.log('initiateTimeout');
+  //  console.log('initiateTimeout');
     let that = this
     that.timer = setTimeout(function () {
       that.logout()
@@ -544,14 +544,14 @@ export class AppComponent implements AfterViewInit {
       this.user = user;
       this.loggedIn = (user != null);
       if(this.user){
-        console.log(this.user);
-        console.log(this.loggedIn);
+        // console.log(this.user);
+        // console.log(this.loggedIn);
         if(this.isAllowed){
           this.fnLoginWithGoogleFacebook(this.user);
         }
       }else{
-        console.log(this.user);
-        console.log(this.loggedIn);
+        // console.log(this.user);
+        // console.log(this.loggedIn);
       }
     });
   }

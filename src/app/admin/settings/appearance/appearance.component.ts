@@ -155,9 +155,9 @@ export class AppearanceComponent implements OnInit {
 
   getSettingValue(){
     this.AdminSettingsService.getSettingsValue().subscribe((response:any)=>{
-      if(response.data == true){
+      if(response.data == true && response.response.lenght > 0){
         this.settingData = response.response
-        console.log(this.settingData);
+       // console.log(this.settingData);
         this.getAppearanceData = JSON.parse(this.settingData.appearance); 
         //this.gradientColorDb = this.getAppearanceData.pri_gradient.split(",", 2)
         // console.log(this.gradientColorDb)

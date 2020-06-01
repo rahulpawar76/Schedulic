@@ -104,7 +104,9 @@ export class MyWorkSpaceComponent implements OnInit {
       "business_id":this.businessId
     };
     this.adminService.getSettingValue(requestObject).subscribe((response:any) => {
-      if(response.data == true){
+
+      if(response.data == true && response.response.length > 0){
+        console.log("=====");
         this.settingsArr=response.response;
 
         this.currencySymbol = this.settingsArr.currency;

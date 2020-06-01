@@ -71,24 +71,25 @@ export class PaymentgatewayComponent implements OnInit {
   }
   getSettingsValue(){
     this.adminSettingsService.getSettingsValue().subscribe((response:any) => {
-        if(response.data == true){
+        console.log(response.response);
+        if(response.data == true && response.response.length > 0){
           this.settingsValue = response.response;
-          console.log(this.settingsValue);
+//          console.log(this.settingsValue);
           this.paypalSettingValue = JSON.parse(this.settingsValue.pay_pal_settings);
-          console.log(this.paypalSettingValue);
+  //        console.log(this.paypalSettingValue);
           this.paypal.controls['apiUsername'].setValue(this.paypalSettingValue.api_username);
           this.paypal.controls['apiPassword'].setValue(this.paypalSettingValue.api_password);
           this.paypal.controls['signature'].setValue(this.paypalSettingValue.signature);
           this.stripeSettingValue = JSON.parse(this.settingsValue.stripe_settings);
-          console.log(this.stripeSettingValue);
+       //   console.log(this.stripeSettingValue);
           this.stripe.controls['secretKey'].setValue(this.stripeSettingValue.secret_key);
           this.stripe.controls['publishableKey'].setValue(this.stripeSettingValue.publishable_key);
           this.payUMoneySettingValue = JSON.parse(this.settingsValue.payUmoney_settings);
-          console.log(this.payUMoneySettingValue);
+        //  console.log(this.payUMoneySettingValue);
           this.payumoney.controls['merchantKey'].setValue(this.payUMoneySettingValue.merchant_key);
           this.payumoney.controls['saltKey'].setValue(this.payUMoneySettingValue.salt_key);
           this.bankTransferSettingValue = JSON.parse(this.settingsValue.bank_transfer);
-          console.log(this.bankTransferSettingValue);
+         // console.log(this.bankTransferSettingValue);
           this.bankTransfer.controls['bankName'].setValue(this.bankTransferSettingValue.bank_name);
           this.bankTransfer.controls['accountName'].setValue(this.bankTransferSettingValue.account_name);
           this.bankTransfer.controls['accountNumber'].setValue(this.bankTransferSettingValue.account_number);
