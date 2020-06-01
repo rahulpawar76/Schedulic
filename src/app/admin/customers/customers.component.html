@@ -264,7 +264,7 @@
                                     </div>
                                     <div class="lastBookedService">
                                         <h6>LAST BOOKED SERVICE</h6>
-                                        <p>{{customersDetails.lastBooking?customersDetails.lastBooking.service.service_name:''}} {{customersDetails.lastBooking?(customersDetails.lastBooking.service.category.category_title):''}}</p>
+                                        <p>{{customersDetails.lastBooking?customersDetails.lastBooking.service.service_name:''}} {{customersDetails.lastBooking && customersDetails.lastBooking.service && customersDetails.lastBooking.service.category && customersDetails.lastBooking.service.category.category_title?(customersDetails.lastBooking.service.category.category_title):''}}</p>
                                     </div>
 
                                 </div>

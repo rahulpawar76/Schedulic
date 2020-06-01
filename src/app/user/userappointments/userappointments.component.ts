@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { UserService } from '../_services/user.service';
@@ -13,6 +13,8 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { AuthenticationService } from '@app/_services';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { sha512 as sha512 } from 'js-sha512';
+import * as domtoimage from 'dom-to-image';
+import * as jspdf from 'jspdf';
 
 
 export interface DialogData {
@@ -868,7 +870,8 @@ export class DialogCancelReason {
     currencySymbol:any;
     currencySymbolPosition:any;
     currencySymbolFormat:any;
-
+    eventName: any;
+    // @ViewChild('printInvoice') content: ElementRef;  
 	  constructor(
 	    public dialogRef: MatDialogRef<DialogInvoiceDialog>,
       private authenticationService: AuthenticationService,
@@ -943,6 +946,142 @@ export class DialogCancelReason {
       WindowPrt.print();
       // WindowPrt.close();
     }
+
+    // public SavePDF(): void {  
+    //   let content=this.content.nativeElement;  
+    //   let doc = new jspdf();  
+    //   let _elementHandlers =  
+    //   {  
+    //     '#editor':function(element,renderer){  
+    //       return true;  
+    //     }  
+    //   };  
+    //   doc.fromHTML(content.innerHTML,15,15,{  
+    
+    //     'width':190,  
+    //     'elementHandlers':_elementHandlers  
+    //   });  
+    
+    //   doc.save('test.pdf');  
+    // }  
+
+    public captureScreen() {
+      // this.loader = true;
+      let setLable = "invoice";
+      if (!document.getElementById('printInvoice')) {
+        // this.loader = false;
+        return false;
+      }
+      let data = document.getElementById('printInvoice');
+      let HTML_Width = document.getElementById('printInvoice').offsetWidth;
+      let HTML_Height = document.getElementById('printInvoice').clientHeight;
+      let top_left_margin = 35;
+      let PDF_Width = HTML_Width + (top_left_margin * 2);
+      let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+      let canvas_image_width = HTML_Width;
+      let canvas_image_height = HTML_Height;
+
+      let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+      let today = Date.now();
+      let that = this;
+      // html2canvas(data).then(function(canvas) {
+      //   canvas.getContext('2d');
+      //   let imgData = canvas.toDataURL("image/jpeg", 1.0);
+      //   let pdf = new jspdf('p', 'pt',  [PDF_Width, PDF_Height]);
+      //     pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
+
+      //   pdf.text(30, 30, setLable);
+      //   for (let i = 1; i <= totalPDFPages; i++) {
+      //     pdf.addPage(PDF_Width, PDF_Height);
+      //     pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+      //   }
+
+      //     pdf.save("PracticesAssessmentResults_"+today+".pdf");
+      //     that.loader=false;
+      //     });
+      domtoimage.toPng(document.getElementById('printInvoice'))
+        .then(function (blob) {
+          var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
+          pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+          for (let i = 1; i <= totalPDFPages; i++) {
+            pdf.addPage(PDF_Width, PDF_Height);
+            pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+          }
+          pdf.save("invoice_" + today + ".pdf");
+          // that.loader = false;
+        });
+    }
+
+    fnSendInvoiceEmail(){
+      let setLable = "invoice";
+      if (!document.getElementById('printInvoice')) {
+        // this.loader = false;
+        return false;
+      }
+      let data = document.getElementById('printInvoice');
+      let HTML_Width = document.getElementById('printInvoice').offsetWidth;
+      let HTML_Height = document.getElementById('printInvoice').clientHeight;
+      let top_left_margin = 35;
+      let PDF_Width = HTML_Width + (top_left_margin * 2);
+      let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+      let canvas_image_width = HTML_Width;
+      let canvas_image_height = HTML_Height;
+
+      let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+      let today = Date.now();
+      let that = this;
+      var formData = new FormData();
+      domtoimage.toPng(document.getElementById('printInvoice'))
+        .then(function (blob) {
+          var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
+          pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+          for (let i = 1; i <= totalPDFPages; i++) {
+            pdf.addPage(PDF_Width, PDF_Height);
+            pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+          }
+          console.log(pdf);
+          // pdf.save("invoice_" + today + ".pdf");
+          // that.loader = false;
+          setTimeout(() => { 
+            
+            // formData.append('data' , pdf);
+            formData.append('invoice_pdf', pdf);
+            // formData.append('email', that.myAppoDetailData.customer.email);
+            formData.append('email', "akie.5609@gmail.com");
+             alert(JSON.stringify(formData));
+              console.log(formData);
+              that.UserService.sendInvoiceEmail(formData).subscribe((response:any) => {
+                if(response.data == true){
+                  
+                }
+                else if(response.data == false){
+                  // this._snackBar.open(response.response, "X", {
+                  //   duration: 2000,
+                  //   verticalPosition:'top',
+                  //   panelClass :['red-snackbar']
+                  // });
+                }
+              })
+          }, 3000);
+        });
+        // setTimeout(() => { 
+        //     this.UserService.sendInvoiceEmail(formData).subscribe((response:any) => {
+        //       if(response.data == true){
+                
+        //       }
+        //       else if(response.data == false){
+        //         // this._snackBar.open(response.response, "X", {
+        //         //   duration: 2000,
+        //         //   verticalPosition:'top',
+        //         //   panelClass :['red-snackbar']
+        //         // });
+        //       }
+        //     })
+        //   }, 4000);
+        
+    }
+
+
 
 	}
 

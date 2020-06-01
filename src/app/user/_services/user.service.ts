@@ -225,5 +225,17 @@ export class UserService {
     }),
     catchError(this.handleError));
   }
+  sendInvoiceEmail(requestObject){
+      let headers = new HttpHeaders({
+	    'Content-Type': 'application/pdf',
+				"customer-id":JSON.stringify(this.userId),
+				"api-token":this.token
+      });
+      return this.http.post(`${environment.apiUrl}/send-invoice`,requestObject,{headers:headers}).pipe(
+      map((res) => {
+          return res;
+      }),
+      catchError(this.handleError));
+  }
 
 }

@@ -1555,5 +1555,4 @@ export class AdminSettingsService {
         }),
         catchError(this.handleError));
     }
-    
 }

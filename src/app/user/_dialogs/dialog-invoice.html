@@ -5,18 +5,18 @@
         <span aria-hidden="true" class="white-text">&times;</span>
         </button>
         </div>
-        <div class="col-12 col-lg-9 col-sm-9 col-md-9" id="printInvoice">
+        <div class="col-12 col-lg-9 col-sm-9 col-md-9" id="printInvoice" #printInvoice>
             <mat-card class="card">
                 <div class="card-body p-0">
 
                     <div class="row p-3 header-color">
 
                         <div class="col-12 col-lg-2 col-sm-4">
-                            <img src="{{businessData.image}}" style="width:80px;height: 90px">
+                            <img *ngIf="businessData && businessData.image" src="{{businessData.image}}" style="width:80px;height: 90px">
                         </div>
                         <div class="col-6 col-lg-6 col-sm-4 p-0">
-                            <p class="mb-0 pl-0 font-weight-bold fontfamily">{{businessData.business_name}}</p>
-                            <p class="mb-0">{{businessData.business_name}}</p>
+                            <p *ngIf="businessData && businessData.business_name" class="mb-0 pl-0 font-weight-bold fontfamily">{{businessData.business_name}}</p>
+                            <p *ngIf="businessData && businessData.business_name" class="mb-0">{{businessData.business_name}}</p>
                             <!-- <p class="mb-0">48436 Gaines,Bhayandar(west)</p>
                             <p class="mb-0">Thane-401101,Maharashtra,india.</p> -->
                         </div>
@@ -24,8 +24,8 @@
                             <h5 class="text-right">
                                 <p class="font-weight-bold mb-1 subcolor-title">INVOICE</p>
                             </h5>
-                            <p class="mb-0">Phone No. {{businessData.phone}}</p>
-                            <p class="mb-1">Email: {{businessData.email}}</p>
+                            <p *ngIf="businessData && businessData.phone" class="mb-0">Phone No. {{businessData.phone}}</p>
+                            <p *ngIf="businessData && businessData.phone" class="mb-1">Email: {{businessData.email}}</p>
                         </div>
 
                     </div>
@@ -110,9 +110,9 @@
 
                 <button (click)="fnPrint()" class="btn btn-primary invoice-width1 my-2"><i class="material-icons float-left ">local_printshop</i>Print</button>
 
-                <button class="btn btn-warning invoice-width2 my-2 text-white"><i class="material-icons float-left">drafts</i>Email</button>
+                <button (click)="fnSendInvoiceEmail()" class="btn btn-warning invoice-width2 my-2 text-white"><i class="material-icons float-left">drafts</i>Email</button>
 
-                <button class="btn btn-success invoice-width3 my-2"><i class="material-icons float-left ">save_alt</i>Download</button>
+                <button class="btn btn-success invoice-width3 my-2" (click)="captureScreen()"><i class="material-icons float-left ">save_alt</i>Download</button>
             </mat-card>
         </div>
     </div>
