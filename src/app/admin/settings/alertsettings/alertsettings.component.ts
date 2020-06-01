@@ -384,14 +384,16 @@ export class AlertsettingsComponent implements OnInit {
   getSettingsValue(){
   this.adminSettingsService.getSettingsValue().subscribe((response:any) => {
       if(response.data == true){
-        console.log(response.response)
-        this.emailAlertCustomer = JSON.parse(response.response.email_alert_settings_customer)
-        this.fnConvertMins(this.emailAlertCustomer.reminder_lead_time);
+        if(response.response.email_alert_settings_customer){
+          this.emailAlertCustomer = JSON.parse(response.response.email_alert_settings_customer)
+          this.fnConvertMins(this.emailAlertCustomer.reminder_lead_time);
           this.emailAlertCustomerDays=this.Days;
           this.emailAlertCustomerHours=this.Hours;
           this.emailAlertCustomerMinutes=this.Minutes;
           this.appointmentsReminder = this.emailAlertCustomer.status;
           this.emailCustomerAppointment =  JSON.parse(this.emailAlertCustomer.appointment);
+        }
+        if(response.response.email_alert_settings_staff){
           this.emailAlertStaff = JSON.parse(response.response.email_alert_settings_staff)
           this.fnConvertMins(this.emailAlertStaff.reminder_lead_time);
           this.emailAlertStaffDays=this.Days;
@@ -399,6 +401,8 @@ export class AlertsettingsComponent implements OnInit {
           this.emailAlertStaffMinutes=this.Minutes;
           this.appointmentsReminderStaff = this.emailAlertStaff.status;
           this.emailStaffAppointment =  JSON.parse(this.emailAlertStaff.appointment);
+        }
+        if(response.response.email_alert_settings_admin){
           this.emailAlertAdmin = JSON.parse(response.response.email_alert_settings_admin)
           this.fnConvertMins(this.emailAlertAdmin.reminder_lead_time);
           this.emailAlertAdminDays=this.Days;
@@ -409,14 +413,19 @@ export class AlertsettingsComponent implements OnInit {
            this.adminEmailForAlert.controls['alertEmail'].setValue(this.emailAlertAdmin.admin_mail);
           }
           this.emailAdminAppointment =  JSON.parse(this.emailAlertAdmin.appointment);
-          
+        }
+        if(response.response.customize_email_alert){
           this.customizeEmailAlertData = JSON.parse(response.response.customize_email_alert)
           console.log(this.customizeEmailAlertData);
           if(this.customizeEmailAlertData){
             this.customizeAlert.controls['senderName'].setValue(this.customizeEmailAlertData.sender_name);
             this.customizeAlert.controls['emailSignature'].setValue(this.customizeEmailAlertData.email_signature);
           }
+        }
+        if(response.response.email_alert_settings_customer){
           this.emailAlertCustomer = JSON.parse(response.response.email_alert_settings_customer)
+        }
+        if(response.response.sms_sending_settings){
           this.smsAlertsSetting = JSON.parse(response.response.sms_sending_settings)
           console.log(this.smsAlertsSetting);
           this.fnConvertMins(this.smsAlertsSetting.time);
@@ -426,6 +435,8 @@ export class AlertsettingsComponent implements OnInit {
           this.appointmentsReminderSMS = this.smsAlertsSetting.reminder_status;
           this.smsAppointment = JSON.parse(this.smsAlertsSetting.when);
           this.smsAlertWho = JSON.parse(this.smsAlertsSetting.who);
+        }
+         
           if(response.response.twilo_setting){
             this.twilioSettingValue = JSON.parse(response.response.twilo_setting);
             this.twilio.controls['accountSID'].setValue(this.twilioSettingValue.account_sid);
@@ -441,7 +452,11 @@ export class AlertsettingsComponent implements OnInit {
 
       }
       else{
-       
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
       }
     })
   }

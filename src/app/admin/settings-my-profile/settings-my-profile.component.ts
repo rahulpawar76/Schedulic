@@ -81,6 +81,13 @@ export class MyProfileComponent implements OnInit {
         });
         this.getMyProfileDetails();
       }
+      else{
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+      }
     })
   }
 

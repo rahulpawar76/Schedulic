@@ -120,26 +120,37 @@ export class BookingrulesComponent implements OnInit {
       if(response.data == true){
         this.settingsArr=response.response;
         console.log(JSON.parse(this.settingsArr.appearance));
-        this.fnConvertMins(this.settingsArr.min_advance_booking_time);
-        this.minAdvBookingTimeDays=this.Days;
-        this.minAdvBookingTimeHours=this.Hours;
-        this.minAdvBookingTimeMinutes=this.Minutes;
-        this.fnConvertMins(this.settingsArr.max_advance_booking_time);
-        this.maxAdvBookingTimeMonths=this.Months;
-        this.maxAdvBookingTimeDays=this.Days;
-        this.maxAdvBookingTimeHours=this.Hours;
-        this.maxAdvBookingTimeMinutes=this.Minutes;
-        this.fnConvertMins(this.settingsArr.time_interval_slots);
-        this.timeIntervalHours=this.Hours;
-        this.timeIntervalMinutes=this.Minutes;
-        this.fnConvertMins(this.settingsArr.cancellation_buffer_time);
-        this.cancellationBufferTimeDays=this.Days;
-        this.cancellationBufferTimeHours=this.Hours;
-        this.cancellationBufferTimeMinutes=this.Minutes;
-        this.fnConvertMins(this.settingsArr.min_reseduling_time);
-        this.minResedulingTimeDays=this.Days;
-        this.minResedulingTimeHours=this.Hours;
-        this.minResedulingTimeMinutes=this.Minutes;
+        if(this.settingsArr.min_advance_booking_time){
+          this.fnConvertMins(this.settingsArr.min_advance_booking_time);
+          this.minAdvBookingTimeDays=this.Days;
+          this.minAdvBookingTimeHours=this.Hours;
+          this.minAdvBookingTimeMinutes=this.Minutes;
+        }
+        if(this.settingsArr.max_advance_booking_time){
+          this.fnConvertMins(this.settingsArr.max_advance_booking_time);
+          this.maxAdvBookingTimeMonths=this.Months;
+          this.maxAdvBookingTimeDays=this.Days;
+          this.maxAdvBookingTimeHours=this.Hours;
+          this.maxAdvBookingTimeMinutes=this.Minutes;
+        }
+        if(this.settingsArr.time_interval_slots){
+          this.fnConvertMins(this.settingsArr.time_interval_slots);
+          this.timeIntervalHours=this.Hours;
+          this.timeIntervalMinutes=this.Minutes;
+        }
+        if(this.settingsArr.cancellation_buffer_time){
+          this.fnConvertMins(this.settingsArr.cancellation_buffer_time);
+          this.cancellationBufferTimeDays=this.Days;
+          this.cancellationBufferTimeHours=this.Hours;
+          this.cancellationBufferTimeMinutes=this.Minutes;
+        }
+        if(this.settingsArr.min_reseduling_time){
+          this.fnConvertMins(this.settingsArr.min_reseduling_time);
+          this.minResedulingTimeDays=this.Days;
+          this.minResedulingTimeHours=this.Hours;
+          this.minResedulingTimeMinutes=this.Minutes;
+        }
+        
 
        // // if(this.settingsArr.min_advance_booking_time >= 1440){
        //    let min_advance_booking_time=this.settingsArr.min_advance_booking_time;
@@ -166,24 +177,41 @@ export class BookingrulesComponent implements OnInit {
        //  //   let RAD = min_advance_booking_time%(24*60);
        //  //   alert(RAD);
        //  // }
-
-        this.customerLoginValue=this.settingsArr.customer_login;
-        this.staffListOnFrontValue=JSON.parse(this.settingsArr.staff_list_on_front).status;
-        console.log(JSON.parse(this.settingsArr.staff_list_on_front).status);
-        this.appAutoConfirmValue=JSON.parse(this.settingsArr.auto_confirm_setting).appointment_auto_confirm;
-        this.autoAssignStaffValue=JSON.parse(this.settingsArr.auto_confirm_setting).auto_assign_to_staff;
-        this.customerAllowStaffRatingValue=this.settingsArr.customer_allow_for_staff_rating;
-        this.termsConditionsStatusValue=JSON.parse(this.settingsArr.terms_condition).status;
-        this.termsConditionsLabelValue=JSON.parse(this.settingsArr.terms_condition).label;
-        this.termsConditionsPageLinkValue=JSON.parse(this.settingsArr.terms_condition).page_link;
-        this.privacyPolicyStatusValue=JSON.parse(this.settingsArr.privacy_policy).status;
-        this.privacyPolicyLabelValue=JSON.parse(this.settingsArr.privacy_policy).label;
-        this.privacyPolicyPageLinkValue=JSON.parse(this.settingsArr.privacy_policy).page_link;
-        this.thankyouPageStatusValue=JSON.parse(this.settingsArr.thank_you).status;
-        this.thankyouPageLinkValue=JSON.parse(this.settingsArr.thank_you).page_link;
+        if(this.settingsArr.customer_login){
+          this.customerLoginValue=this.settingsArr.customer_login;
+        }
+        if(this.settingsArr.staff_list_on_front){
+          this.staffListOnFrontValue=JSON.parse(this.settingsArr.staff_list_on_front).status;
+        }
+        if(this.settingsArr.auto_confirm_setting){
+          this.appAutoConfirmValue=JSON.parse(this.settingsArr.auto_confirm_setting).appointment_auto_confirm;
+          this.autoAssignStaffValue=JSON.parse(this.settingsArr.auto_confirm_setting).auto_assign_to_staff;
+        }
+        if(this.settingsArr.customer_allow_for_staff_rating){
+          this.customerAllowStaffRatingValue=this.settingsArr.customer_allow_for_staff_rating;
+        }
+        if(this.settingsArr.terms_condition){
+          this.termsConditionsStatusValue=JSON.parse(this.settingsArr.terms_condition).status;
+          this.termsConditionsLabelValue=JSON.parse(this.settingsArr.terms_condition).label;
+          this.termsConditionsPageLinkValue=JSON.parse(this.settingsArr.terms_condition).page_link;
+        }
+        if(this.settingsArr.privacy_policy){
+          this.privacyPolicyStatusValue=JSON.parse(this.settingsArr.privacy_policy).status;
+          this.privacyPolicyLabelValue=JSON.parse(this.settingsArr.privacy_policy).label;
+          this.privacyPolicyPageLinkValue=JSON.parse(this.settingsArr.privacy_policy).page_link;
+        }
+        if(this.settingsArr.thank_you){
+          this.thankyouPageStatusValue=JSON.parse(this.settingsArr.thank_you).status;
+          this.thankyouPageLinkValue=JSON.parse(this.settingsArr.thank_you).page_link;
+        }
       }
       else{
        
+        this.snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'bottom',
+          panelClass : ['red-snackbar']
+        });
       }
     })
   }

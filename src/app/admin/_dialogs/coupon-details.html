@@ -1,70 +1,69 @@
-
-<mat-sidenav-container class = "tp-container">
-    <mat-sidenav class="w-100" mode = "side" opened>
-<div class="modal-dialog mt-0 mb-0" role="document">
-    <div class="modal-content">
-      <div class="modal-header ">
-        <h5 class="modal-title">Coupon Details</h5>
-          <button type="button" (click)="onNoClick()" class="close" data-dismiss="modal" aria-label="Close">
+<mat-sidenav-container class="tp-container">
+    <mat-sidenav class="w-100" mode="side" opened>
+        <div class="modal-dialog mt-0 mb-0" role="document">
+            <div class="modal-content">
+                <div class="modal-header ">
+                    <h5 class="modal-title">Coupon Details</h5>
+                    <button type="button" (click)="onNoClick()" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-      </div>
-      <div class="appodetails">
-        <label class="font-weight-bold" *ngIf="detailsData.status == 'Active' || detailsData.status == 'Inactive'">Status</label>
-   
-       <mat-slide-toggle (change)="changeCouponStaus($event, detailsData.id)" [checked]="detailsData.status == 'Active'" class="float-right" ></mat-slide-toggle>
-       
-      </div>
- 
-      <div class="modal-body ">
-        <p class="mb-0 ">Title</p>
-        <p class="mb-3 font-weight-bold">{{detailsData.coupon_title}}</p>
-       
-        <div class="d-flex">
-              <div class="pl-0">
-              <p class="mb-0">Code</p>
-              <p class="font-weight-bold couponCode">{{detailsData.coupon_code}}</p>
-            </div>
-            <div class="pl-5">  
-              <p class="mb-0 ">Discount</p>
-              <p class="font-weight-bold" *ngIf="detailsData.coupon_type == 'P'">{{detailsData.coupon_value}}%</p>
-              <p class="font-weight-bold" *ngIf="detailsData.coupon_type == 'F'">${{detailsData.coupon_value}}</p>
-            </div>
-      </div>
-      <hr>
+                </div>
+                <div class="appodetails">
+                    <label class="font-weight-bold" *ngIf="detailsData.status == 'Active' || detailsData.status == 'Inactive'">Status</label>
+
+                    <mat-slide-toggle *ngIf="!detailsData.status" (change)="changeCouponStaus($event, detailsData.id)" [checked]="detailsData.status == 'Scheduled'" class="float-right"></mat-slide-toggle>
+
+                </div>
+
+                <div class="modal-body ">
+                    <p class="mb-0 ">Title</p>
+                    <p class="mb-3 font-weight-bold">{{detailsData.coupon_title}}</p>
+
+                    <div class="d-flex">
+                        <div class="pl-0">
+                            <p class="mb-0">Code</p>
+                            <p class="font-weight-bold couponCode">{{detailsData.coupon_code}}</p>
+                        </div>
+                        <div class="pl-5">
+                            <p class="mb-0 ">Discount</p>
+                            <p class="font-weight-bold" *ngIf="detailsData.coupon_type == 'P'">{{detailsData.coupon_value}}%</p>
+                            <p class="font-weight-bold" *ngIf="detailsData.coupon_type == 'F'">${{detailsData.coupon_value}}</p>
+                        </div>
+                    </div>
+                    <hr>
 
 
-      <p class="mb-0 ">Applies to</p>
-      <span class="font-weight-bold" *ngFor="let serviceList of couponCodeDetail.services; let i=index;">
+                    <p class="mb-0 ">Applies to</p>
+                    <span class="font-weight-bold" *ngFor="let serviceList of couponCodeDetail.services; let i=index;">
         {{serviceList.service_name}}, 
       </span>
-      <p class="mb-4 "></p>
-      <div class="d-flex">
-          <div class="pl-0">
-          <p class="mb-0">Valid From</p>
-          <p class="font-weight-bold">{{detailsData.coupon_valid_from}}</p>
+                    <p class="mb-4 "></p>
+                    <div class="d-flex">
+                        <div class="pl-0">
+                            <p class="mb-0">Valid From</p>
+                            <p class="font-weight-bold">{{detailsData.coupon_valid_from}}</p>
+                        </div>
+                        <div class="pl-5 ">
+                            <p class="mb-0 w-100 ">Valid Till</p>
+                            <p class="font-weight-bold">{{detailsData.coupon_valid_till}}</p>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="d-flex">
+
+                        <div class="pl-0">
+                            <p class="mb-0">Maximum Redemptions</p>
+                            <p class="font-weight-bold">{{detailsData.coupon_max_redemptions}}</p>
+                        </div>
+                        <div class="pl-5">
+                            <p class="mb-0">Used</p>
+                            <p class="font-weight-bold">{{detailsData.coupon_used}}</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="pl-5 ">  
-          <p class="mb-0 w-100 ">Valid Till</p>
-          <p class="font-weight-bold">{{detailsData.coupon_valid_till}}</p>
-        </div>
-      </div>
-      <hr>
-    
-      <div class="d-flex">
-          
-        <div class="pl-0">
-          <p class="mb-0">Maximum Redemptions</p>
-          <p class="font-weight-bold">{{detailsData.coupon_max_redemptions}}</p>
-        </div>
-        <div class="pl-5">  
-          <p class="mb-0">Used</p>
-          <p class="font-weight-bold">{{detailsData.coupon_used}}</p>
-        </div>
-      
-      </div>
-       </div>         
-      </div>
-    </div>
-  </mat-sidenav>
+    </mat-sidenav>
 </mat-sidenav-container>

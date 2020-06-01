@@ -196,6 +196,7 @@ export class DiscountCouponComponent implements OnInit {
           panelClass :['green-snackbar']
         });
         this.couponCodeListing = true;
+        this.getAllCouponCode();
         this.addNewCouponCode = false;
         this.isLoaderAdmin = false;
       }
@@ -441,6 +442,7 @@ getServiceListForCoupon(){
   this.AdminService.getServiceListForCoupon(this.couponId).subscribe((response:any) => {
     if(response.data == true){
         this.couponCodeDetail = response.response
+        console.log(this.couponCodeDetail);
       this.isLoaderAdmin = false;
     }
     else if(response.data == false){
