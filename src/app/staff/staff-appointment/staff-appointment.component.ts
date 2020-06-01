@@ -2104,7 +2104,7 @@ export class StaffAppointmentComponent implements OnInit {
           "orderItem" : orderItems,
           "payment" : payment
         }
-        console.log(requestObject);
+        console.log(this.appointDetailData.tax);
         this.StaffService.staffPayment(requestObject).subscribe((response:any) =>{
           if(response.data == true){
             this._snackBar.open(response.response, "X", {

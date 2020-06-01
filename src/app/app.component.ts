@@ -524,8 +524,13 @@ export class AppComponent implements AfterViewInit {
 
   signInWithGoogle(loginForm): void {
     this.loginForm=loginForm;
-    console.log(this.loginForm);
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(res=>{
+      console.log("GOOOG");
+      console.log(res);
+      
+      this.fnLoginWithGoogleFacebook(res);
+    });
+
   }
 
   // signInWithFB(loginForm): void {
