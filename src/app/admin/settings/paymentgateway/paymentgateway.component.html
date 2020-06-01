@@ -12,7 +12,7 @@
                                     <img src="/assets/images/admin/paypal.png" class="payment-image">
                                 </div>
                                 <div class="payment-toggle-btn">
-                                    <mat-slide-toggle *ngIf="paypalSettingValue" [checked]="paypalSettingValue.status" (change)="fnPaypalStatus($event.checked)" class=""></mat-slide-toggle>
+                                    <mat-slide-toggle [checked]="paypalStatus" (change)="fnPaypalStatus($event.checked)" class=""></mat-slide-toggle>
                                 </div>
                             </div>
                             <div>
@@ -28,6 +28,15 @@
                     <div class="top-border">
                         <form [formGroup]="paypal" class="example-form payment-gateway-form ml-auto">
                             <div class="d-flex flex-wrap">
+                                <label class="payment-label">Client Id</label>
+                                <mat-form-field class="example-full-width bottom-border-field">
+                                    <input formControlName="clientId" matInput placeholder="" value="">
+                                </mat-form-field>
+                                <span class="w-100 error-wrap" *ngIf="paypal.get('clientId').dirty || paypal.get('clientId').touched">
+                                    <small *ngIf="paypal.get('clientId').hasError('required')" class="error">Client Id is required</small>
+                                </span>
+                            </div>
+                            <!-- <div class="d-flex flex-wrap">
                                 <label class="payment-label">API Username</label>
                                 <mat-form-field class="example-full-width bottom-border-field">
                                     <input formControlName="apiUsername" matInput placeholder="" value="">
@@ -53,14 +62,14 @@
                                 <span class="w-100 error-wrap" *ngIf="paypal.get('signature').dirty || paypal.get('signature').touched">
                                     <small *ngIf="paypal.get('signature').hasError('required')" class="error">Signature is required</small>
                                 </span>
-                            </div>
+                            </div> -->
                             <!-- <div class="d-flex flex-wrap">
                                 <label class="">Paypal guest payment</label>
                                 <mat-slide-toggle *ngIf="paypalSettingValue" [checked]="paypalSettingValue.paypal_guest_payment" (change)="fnPaypalGuest($event.checked)" class="ml-auto"></mat-slide-toggle>
                             </div> -->
                             <div class="d-flex flex-wrap mt-3">
                                 <label class="">Test Mode</label>
-                                <mat-slide-toggle *ngIf="paypalSettingValue" [checked]="paypalSettingValue.text_mode" (change)="fnPaypalTest($event.checked)" class="ml-auto"></mat-slide-toggle>
+                                <mat-slide-toggle [checked]="paypalTestStatus" (change)="fnPaypalTest($event.checked)" class="ml-auto"></mat-slide-toggle>
                             </div>
                             <div class="">
                                 <button mat-button class="float-right save-btn my-3" (click)="fnSubmitPaypal()">Save</button>
@@ -80,7 +89,7 @@
                                     <img src="/assets/images/admin/stripe.png" class="payment-image">
                                 </div>
                                 <div class="payment-toggle-btn">
-                                    <mat-slide-toggle *ngIf="stripeSettingValue" [checked]="stripeSettingValue.status" (change)="fnStripeStatus($event.checked)" class=""></mat-slide-toggle>
+                                    <mat-slide-toggle [checked]="stripeStatus" (change)="fnStripeStatus($event.checked)" class=""></mat-slide-toggle>
                                 </div>
                             </div>
                             <div>
@@ -274,7 +283,7 @@
                                     <img src="/assets/images/admin/payumoney.png" class="payment-image">
                                 </div>
                                 <div class="payment-toggle-btn">
-                                    <mat-slide-toggle *ngIf="payUMoneySettingValue" [checked]="payUMoneySettingValue.status" (change)="fnPayumoneyStatus($event.checked)" class=""></mat-slide-toggle>
+                                    <mat-slide-toggle [checked]="payumoneyStatus" (change)="fnPayumoneyStatus($event.checked)" class=""></mat-slide-toggle>
                                 </div>
                             </div>
                             <div>
@@ -325,7 +334,7 @@
                                     <img src="/assets/images/admin/banktransfer.png" class="payment-image">
                                 </div>
                                 <div class="payment-toggle-btn">
-                                    <mat-slide-toggle *ngIf="bankTransferSettingValue" [checked]="bankTransferSettingValue.status" (change)="fnBankTransferStatus($event.checked)" class=""></mat-slide-toggle>
+                                    <mat-slide-toggle [checked]="bankTransferStatus" (change)="fnBankTransferStatus($event.checked)" class=""></mat-slide-toggle>
                                 </div>
                             </div>
                             <div>

@@ -48,9 +48,10 @@ export class PaymentgatewayComponent implements OnInit {
   ngOnInit() {
     this.getSettingsValue();
     this.paypal = this._formBuilder.group({
-      apiUsername: ['',[Validators.required]],
-      apiPassword: ['',[Validators.required]],
-      signature: ['',[Validators.required]]
+      clientId: ['',[Validators.required]],
+      // apiUsername: ['',[Validators.required]],
+      // apiPassword: ['',[Validators.required]],
+      // signature: ['',[Validators.required]]
     });
     this.stripe = this._formBuilder.group({
       secretKey: ['',[Validators.required]],
@@ -75,22 +76,29 @@ export class PaymentgatewayComponent implements OnInit {
           this.settingsValue = response.response;
           if(this.settingsValue.pay_pal_settings){
             this.paypalSettingValue = JSON.parse(this.settingsValue.pay_pal_settings);
-            this.paypal.controls['apiUsername'].setValue(this.paypalSettingValue.api_username);
-            this.paypal.controls['apiPassword'].setValue(this.paypalSettingValue.api_password);
-            this.paypal.controls['signature'].setValue(this.paypalSettingValue.signature);
+            this.paypalStatus = this.paypalSettingValue.status
+            this.paypalTestStatus = this.paypalSettingValue.test_mode
+            this.paypal.controls['clientId'].setValue(this.paypalSettingValue.client_id)
+            // this.paypalSettingValue = JSON.parse(this.settingsValue.pay_pal_settings);
+            // this.paypal.controls['apiUsername'].setValue(this.paypalSettingValue.api_username);
+            // this.paypal.controls['apiPassword'].setValue(this.paypalSettingValue.api_password);
+            // this.paypal.controls['signature'].setValue(this.paypalSettingValue.signature);
           }
           if(this.settingsValue.stripe_settings){
             this.stripeSettingValue = JSON.parse(this.settingsValue.stripe_settings);
+            this.stripeStatus = this.stripeSettingValue.status
             this.stripe.controls['secretKey'].setValue(this.stripeSettingValue.secret_key);
             this.stripe.controls['publishableKey'].setValue(this.stripeSettingValue.publishable_key);
           }
           if(this.settingsValue.payUmoney_settings){
             this.payUMoneySettingValue = JSON.parse(this.settingsValue.payUmoney_settings);
+            this.payumoneyStatus = this.payUMoneySettingValue.status
             this.payumoney.controls['merchantKey'].setValue(this.payUMoneySettingValue.merchant_key);
             this.payumoney.controls['saltKey'].setValue(this.payUMoneySettingValue.salt_key);
           }
           if(this.settingsValue.bank_transfer){
             this.bankTransferSettingValue = JSON.parse(this.settingsValue.bank_transfer);
+            this.bankTransferStatus = this.bankTransferSettingValue.status
             this.bankTransfer.controls['bankName'].setValue(this.bankTransferSettingValue.bank_name);
             this.bankTransfer.controls['accountName'].setValue(this.bankTransferSettingValue.account_name);
             this.bankTransfer.controls['accountNumber'].setValue(this.bankTransferSettingValue.account_number);
@@ -112,11 +120,12 @@ export class PaymentgatewayComponent implements OnInit {
   fnPaypalStatus(event){
     this.paypalStatus = event;
     let PaypalSetting = {
-      "api_username":this.paypal.get('apiUsername').value,
-      "api_password":this.paypal.get('apiPassword').value,
-      "signature":this.paypal.get('signature').value,
-      "paypal_guest_payment":this.paypalGuestStatus,
-      "text_mode":this.paypalTestStatus,
+      "client_id":this.paypal.get('clientId').value,
+      // "api_username":this.paypal.get('apiUsername').value,
+      // "api_password":this.paypal.get('apiPassword').value,
+      // "signature":this.paypal.get('signature').value,
+      // "paypal_guest_payment":this.paypalGuestStatus,
+      "test_mode":this.paypalTestStatus,
       "status" : this.paypalStatus
       
     }
@@ -138,11 +147,12 @@ export class PaymentgatewayComponent implements OnInit {
   fnSubmitPaypal(){
     if(this.paypal.valid){
       let PaypalSetting = {
-        "api_username":this.paypal.get('apiUsername').value,
-        "api_password":this.paypal.get('apiPassword').value,
-        "signature":this.paypal.get('signature').value,
-        "paypal_guest_payment":this.paypalGuestStatus,
-        "text_mode":this.paypalTestStatus,
+        "client_id":this.paypal.get('clientId').value,
+        // "api_username":this.paypal.get('apiUsername').value,
+        // "api_password":this.paypal.get('apiPassword').value,
+        // "signature":this.paypal.get('signature').value,
+        // "paypal_guest_payment":this.paypalGuestStatus,
+        "test_mode":this.paypalTestStatus,
         "status" : this.paypalStatus
         
       }

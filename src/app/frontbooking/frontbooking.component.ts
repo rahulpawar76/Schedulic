@@ -155,6 +155,7 @@ export class FrontbookingComponent implements OnInit {
   transactionId:any=null;
   paymentDateTime:any;
   PayUMoneyCredentials:any;
+  paypalSetting:any;
   loadAPI: Promise<any>;
   isFound:boolean=false;
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
@@ -203,7 +204,6 @@ export class FrontbookingComponent implements OnInit {
 
     this.AppComponent.setcompanycolours("2");
     localStorage.setItem('isFront', "true");
-    this.fnGetSettings();
     const current = new Date();
     const nextmonth = new Date();
     this.minDate = {
@@ -257,7 +257,7 @@ export class FrontbookingComponent implements OnInit {
   
 
   ngOnInit() {
-    this.initConfig();
+    this.fnGetSettings();
 
     if(this.authenticationService.currentUserValue && this.authenticationService.currentUserValue.user_type == "C"){
       this.isLoggedIn=true;
@@ -346,6 +346,11 @@ export class FrontbookingComponent implements OnInit {
         this.PayUMoneyCredentials = JSON.parse(this.settingsArr.payUmoney_settings);
         this.PayUMoney.key= this.PayUMoneyCredentials.merchant_key;
         this.PayUMoney.salt=this.PayUMoneyCredentials.salt_key;
+        
+      if(this.settingsArr.pay_pal_settings){
+        this.paypalSetting = JSON.parse(this.settingsArr.pay_pal_settings)
+
+      }
         // this.PayUMoney.key= 'fT65jM3Y';
         // this.PayUMoney.salt='tDFEAoufm9';
 
@@ -2135,6 +2140,7 @@ export class FrontbookingComponent implements OnInit {
         this.taxAmount=this.taxAmount+element.amount;
       });
     this.summaryScreen = false;
+    this.initConfig();
     this.paymentScreen =true;
   }
   
@@ -2289,10 +2295,9 @@ export class FrontbookingComponent implements OnInit {
   }
 
   private initConfig(): void {
-
       this.payPalConfig = {
       currency: this.currencySymbol,
-      clientId: 'AfM8281lH1hKV3Hk_RRwe5gT95do6JeBc9X3KUBSW6407yMP1nJoY820GscNd4gNP8q8fAnrZoEyayL7',
+      clientId: this.paypalSetting.client_id,
       // clientId: 'AbwWitbWZcWZGJdguSL2wb-XcgF8KGTHps1c_w9u9t0CMN2uUoBTDSpU5NFJa5qnfN_YYaG_k-9OKfk8',
       // clientId: 'sb',
       createOrderOnClient: (data) => <ICreateOrderRequest>{
