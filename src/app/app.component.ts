@@ -108,9 +108,6 @@ export class AppComponent implements AfterViewInit {
     if (localStorage.getItem('business_id')) {
       this.businessId = localStorage.getItem('business_id');
     }
-    console.log("businessId-- "+localStorage.getItem('business_id'));
-    console.log("businessId-- "+this.businessId);
-    console.log(this.currentUser);
   }
   private handleError(error: HttpErrorResponse) {
     console.log(error);
@@ -147,7 +144,6 @@ export class AppComponent implements AfterViewInit {
 
   isSettingsModule(url?: string) {
     const mod = this.cleanUrl(url || this.currentUrl);
-    console.log(mod);
     this.pageHeading = this.authenticationService.pageName(mod);
     if (mod == "settings") {
       this.adminSettings = "settings";
@@ -206,11 +202,9 @@ export class AppComponent implements AfterViewInit {
   }
 
   private cleanUrl(url: string) {
-    console.log(url);
     if (url) {
       let cleanUrl = url.substr(1);
       const slashIndex = cleanUrl.indexOf("/");
-      console.log(slashIndex);
       if (slashIndex >= 0) {
         cleanUrl = cleanUrl.substr(slashIndex + 1, 8);
         return cleanUrl;
@@ -221,7 +215,6 @@ export class AppComponent implements AfterViewInit {
   }
 
   fnPostUrl(menuItem) {
-    console.log(menuItem);
     this.postUrl = menuItem;
   }
 
@@ -449,8 +442,6 @@ export class AppComponent implements AfterViewInit {
             // alert(JSON.stringify(this.authenticationService.currentUserValue));
             if(this.authenticationService.currentUserValue){
               if(this.user && this.user.provider == "GOOGLE" && this.user.id == this.authenticationService.currentUserValue.google_id){
-                  console.log(this.user);
-                  console.log(this.loggedIn);
                   if(this.authenticationService.currentUserValue.user_type == Role.Admin){
                       this.router.navigate(["admin"]);
                   }else if(this.authenticationService.currentUserValue.user_type == Role.Staff){
@@ -459,8 +450,6 @@ export class AppComponent implements AfterViewInit {
                       this.router.navigate(["user"]);
                   }
               }else{
-                  console.log(this.user);
-                  console.log(this.loggedIn);
                   if(this.isSignOut){
                     this.logout2(false);
                   }
@@ -474,8 +463,6 @@ export class AppComponent implements AfterViewInit {
             this.user = user;
             this.loggedIn = (user != null);
             if(this.user && this.user.provider == "FACEBOOK" && this.user.id == this.authenticationService.currentUserValue.facebook_id){
-                console.log(this.user);
-                console.log(this.loggedIn);
                 if(this.authenticationService.currentUserValue.user_type == Role.Admin){
                     this.router.navigate(["admin"]);
                 }else if(this.authenticationService.currentUserValue.user_type == Role.Staff){
@@ -484,8 +471,6 @@ export class AppComponent implements AfterViewInit {
                     this.router.navigate(["user"]);
                 }
             }else{
-                console.log(this.user);
-                console.log(this.loggedIn);
                 if(this.isSignOut){
                   this.logout2(false);
                 }
@@ -505,7 +490,6 @@ export class AppComponent implements AfterViewInit {
   }
 
   initiateTimeout() {
-    console.log('initiateTimeout');
     let that = this
     that.timer = setTimeout(function () {
       that.logout()
@@ -525,8 +509,6 @@ export class AppComponent implements AfterViewInit {
   signInWithGoogle(loginForm): void {
     this.loginForm=loginForm;
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(res=>{
-      console.log("GOOOG");
-      console.log(res);
       
       this.fnLoginWithGoogleFacebook(res);
     });
@@ -535,7 +517,6 @@ export class AppComponent implements AfterViewInit {
 
   // signInWithFB(loginForm): void {
   //   this.loginForm=loginForm;
-  //   console.log(this.loginForm);
   //   this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
   // }
 
@@ -544,14 +525,10 @@ export class AppComponent implements AfterViewInit {
       this.user = user;
       this.loggedIn = (user != null);
       if(this.user){
-        console.log(this.user);
-        console.log(this.loggedIn);
         if(this.isAllowed){
           this.fnLoginWithGoogleFacebook(this.user);
         }
       }else{
-        console.log(this.user);
-        console.log(this.loggedIn);
       }
     });
   }
@@ -582,8 +559,6 @@ export class AppComponent implements AfterViewInit {
         this.loginForm.controls['email'].setValue(data.userData.email);
         //this.dataLoaded = true;
       }else if(data.idExists == false && data.emailExists == false){
-        console.log(user);
-        this.fnSignup(user);
       }
     },
     error => {
@@ -612,7 +587,6 @@ export class AppComponent implements AfterViewInit {
       "google_id":user_data.provider=="GOOGLE"?user_data.id:null,
       "facebook_id":user_data.provider=="FACEBOOK"?user_data.id:null
     }
-    console.log(signUpUserObj);
     // .subscribe((response: any) => 
     this.authenticationService.signup(signUpUserObj).pipe(first()).subscribe(data => {
       if(data.data == true){
@@ -684,7 +658,6 @@ export class AppComponent implements AfterViewInit {
           data: { fulldata: this.notificationData }
         });
         dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
           this.animal = result;
         });
         this.isLoaderAdmin = false;
@@ -745,9 +718,7 @@ export class AppComponent implements AfterViewInit {
     ).subscribe((response: any) => {
       if (response.data == true) {
         this.settingsArr = response.response;
-        //console.log(this.settingsArr);
         // this.appearenceColor = JSON.parse(this.settingsArr.appearance)
-        // console.log(this.appearenceColor)
         localStorage.companycolours = this.settingsArr.appearance;
         this.update_SCSS_var();
       }
@@ -782,7 +753,6 @@ export class AppComponent implements AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.animal = result;
     });
   }
@@ -834,7 +804,6 @@ export class DialogNotification {
       element.booking_date = this.datePipe.transform(new Date(element.booking_date), "dd MMM yyyy");
       element.booking_time = this.datePipe.transform(new Date(element.booking_date + " " + element.booking_time), "hh:mm a");
     });
-    console.log(this.notifications)
   }
 
   fnViewNotification(index, orderId){
@@ -880,7 +849,6 @@ export class DialogNotification {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.animal = result;
     });
   }
@@ -922,7 +890,6 @@ export class DialogNotificationAppointment {
     private authenticationService: AuthenticationService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.myAppoDetailData = this.data.fulldata
-      console.log(this.myAppoDetailData)
         this.bookingDateTime = new Date(this.myAppoDetailData.booking_date+" "+this.myAppoDetailData.booking_time);
         this.booking_timeForLabel = this.datePipe.transform(this.bookingDateTime,"hh:mm a");
         this.booking_dateForLabel = this.datePipe.transform(new Date(this.myAppoDetailData.booking_date),"dd MMM yyyy");

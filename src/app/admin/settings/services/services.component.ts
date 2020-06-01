@@ -173,16 +173,12 @@ export class ServicesComponent implements OnInit {
     this.adminSettingsService.getSettingValue(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.settingsArr = response.response;
-        console.log(this.settingsArr);
 
         this.currencySymbol = this.settingsArr.currency;
-        console.log(this.currencySymbol);
         
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-        console.log(this.currencySymbolPosition);
         
         this.currencySymbolFormat = this.settingsArr.currency_format;
-        console.log(this.currencySymbolFormat);
       }else{
       }
       },
@@ -206,7 +202,6 @@ export class ServicesComponent implements OnInit {
     }
 
     navigateTo(api_url,type){
-        console.log(api_url);
         if(api_url && type=="service"){
             this.serviceApiUrl1=api_url;
             this.fnAllServices();
@@ -221,7 +216,6 @@ export class ServicesComponent implements OnInit {
         }
     }
     navigateToPageNumber(index,type){
-        console.log(index);
         if(index && type=="service"){
             this.serviceApiUrl1=this.path+'?page='+index;
             this.fnAllServices();
@@ -326,7 +320,6 @@ export class ServicesComponent implements OnInit {
     }else{
       this.selectAll = false;
     }
-    console.log(this.ActionId);
 
   }
   
@@ -427,7 +420,6 @@ export class ServicesComponent implements OnInit {
                 if (response.response == 'service not found') {
                     this.servicesList = false;
                     this.selectedCategoryDetails = this.allCetegoryList[index]
-                    console.log(this.selectedCategoryDetails);
                     this.selectCategoryPage = 'notservices';
                 }
                 this.isLoaderAdmin = false;
@@ -691,7 +683,6 @@ export class ServicesComponent implements OnInit {
         })
     }
     editCategory(editCategoryId) {
-        console.log(this.selectedCategoryDetails)
         this.editCategoryId = editCategoryId
         this.selectCategoryPage = '';
         this.createNewCategoryPage = true;
@@ -789,7 +780,6 @@ export class ServicesComponent implements OnInit {
           } else {
             this.selectAllCategory = false;
           }
-          console.log(this.actionServiceIdarr);
 
     }
     
@@ -803,6 +793,7 @@ export class ServicesComponent implements OnInit {
           
           if(event.checked){
             this.actionServiceIdarr.push(item.id)
+            
           }
         }
     
@@ -811,8 +802,9 @@ export class ServicesComponent implements OnInit {
         }else{
           this.selectAllCategory = false;
         }
+        console.log(this.actionServiceIdarr);
         
-        this.Change.detectChanges();
+        //this.Change.detectChanges();
     
     }
   
@@ -820,8 +812,9 @@ export class ServicesComponent implements OnInit {
     
 
     fnServiceAction(action, categoryId, type) {
+        console.log(this.actionServiceIdarr);
         if (this.actionServiceIdarr.length > 0) {
-
+            console.log(this.actionServiceIdarr);
             this.adminSettingsService.fnServiceAction(this.actionServiceIdarr, action).subscribe((response: any) => {
                 if (response.data == true) {
                     this._snackBar.open("Status Updated", "X", {
@@ -903,7 +896,6 @@ export class ServicesComponent implements OnInit {
             }
             else if (response.data == false) {
                 if (response.response == 'service not found') {
-                    alert(response.response)
                     this.servicesList = false;
                     this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedCategoryIndex].subcategory[index]
                     this.selectCategoryPage = '';
@@ -935,7 +927,6 @@ export class ServicesComponent implements OnInit {
         } else {
           this.selectAllSubCat = false;
         }
-        console.log(this.staffActionIdSub);
     }
       
     checkAllSubcat(event){
@@ -947,10 +938,11 @@ export class ServicesComponent implements OnInit {
           item.is_selected = event.checked;
           if(event.checked){
             this.staffActionIdSub.push(item.id)
+            this.actionServiceIdarr =  this.staffActionIdSub
+            console.log(this.actionServiceIdarr)
           }
         }
         
-        console.log(this.staffActionIdSub);
     
         if(event.checked){
           this.selectAllSubCat = true;
@@ -1186,7 +1178,6 @@ export class ServicesComponent implements OnInit {
         this.singleSubCategoryPage = '';
         this.assignedStaff = this.categoryServicesList[index].staffs;
         
-        console.log(this.assignedStaff)
          this.assignedStaff.forEach(element => {
               this.assignStaffArr.push(element.id);
           });
@@ -1253,7 +1244,6 @@ export class ServicesComponent implements OnInit {
          dialogRef.afterClosed().subscribe(result => {
             if(result != undefined){
                 this.categoryImageUrl = result;
-                console.log(result);
                }
          });
       }
@@ -1266,7 +1256,6 @@ export class ServicesComponent implements OnInit {
          dialogRef.afterClosed().subscribe(result => {
             if(result != undefined){
                 this.subCategoryImageUrl = result;
-                console.log(result);
                }
          });
       }
@@ -1279,7 +1268,6 @@ export class ServicesComponent implements OnInit {
          dialogRef.afterClosed().subscribe(result => {
             if(result != undefined){
                 this.serviceImageUrl = result;
-                console.log(result);
                }
          });
       }
