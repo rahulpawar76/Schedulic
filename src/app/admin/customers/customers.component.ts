@@ -1093,31 +1093,31 @@ fnGetSettingValue(){
     "business_id":this.businessId
   };
   this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
-    if(response.data == true){
+    if(response.data == true && response.response.length > 0){
       this.settingsArr=response.response;
-      console.log(this.settingsArr);
+     // console.log(this.settingsArr);
 
       this.currencySymbol = this.settingsArr.currency;
-      console.log(this.currencySymbol);
+      //console.log(this.currencySymbol);
       
       this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-      console.log(this.currencySymbolPosition);
+      //console.log(this.currencySymbolPosition);
       
       this.currencySymbolFormat = this.settingsArr.currency_format;
-      console.log(this.currencySymbolFormat);
+     // console.log(this.currencySymbolFormat);
       
       let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
       let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
-      console.log(cancellation_buffer_time);
-      console.log(min_rescheduling_time);
+     // console.log(cancellation_buffer_time);
+    //  console.log(min_rescheduling_time);
      
       this.cancellationBufferTime = new Date();
       this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
-      console.log("cancellationBufferTime - "+this.cancellationBufferTime);
+     // console.log("cancellationBufferTime - "+this.cancellationBufferTime);
 
       this.minReschedulingTime = new Date();
       this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
-      console.log("minReschedulingTime - "+this.minReschedulingTime);
+    //  console.log("minReschedulingTime - "+this.minReschedulingTime);
     }
     else if(response.data == false){
       

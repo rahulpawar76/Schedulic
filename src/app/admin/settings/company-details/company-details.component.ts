@@ -119,7 +119,7 @@ export class CompanyDetailsComponent implements OnInit {
         this.companyDetails.controls['country'].setValue(JSON.stringify(this.companyDetailsData.country.id));
         this.companyDetails.controls['comp_address'].setValue(this.companyDetailsData.address);
         this.companyDetails.controls['city'].setValue(JSON.stringify(this.companyDetailsData.city.id));
-        this.companyDetails.controls['state'].setValue(JSON.stringify(this.companyDetailsData.state.id));
+        this.companyDetails.controls['state'].setValue(JSON.stringify(this.companyDetailsData.state!=null ? this.companyDetailsData.state.id : ''));
         this.companyDetails.controls['zip_code'].setValue(this.companyDetailsData.zipcode);
         this.companyDetails.controls['comp_decs'].setValue(this.companyDetailsData.description);
         this.companyDetails.controls['comp_status'].setValue(this.companyDetailsData.status=="E"?true:false);
@@ -148,6 +148,11 @@ export class CompanyDetailsComponent implements OnInit {
     this.allStates = [];
     this.allStates = [];
     this.allCities = [];
+
+    if(country_id == null || country_id == ''){
+      return;
+    }
+
     this.adminSettingsService.gelAllState(country_id).subscribe((response:any) => {
       if(response.data == true){
         this.allStates = response.response
@@ -160,6 +165,11 @@ export class CompanyDetailsComponent implements OnInit {
   selectStates(state_id){
     this.companyDetails.controls['city'].setValue(null);
     this.allCities = [];
+
+    if(state_id == null || state_id == ''){
+      console.log("=====");
+      return;
+    }
     this.adminSettingsService.gelAllCities(state_id).subscribe((response:any) => {
       if(response.data == true && response.response!="no city found"){
         this.allCities = response.response;

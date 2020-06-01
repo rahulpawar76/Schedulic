@@ -317,19 +317,20 @@ export class StaffComponent implements OnInit {
     };
 
   this.adminSettingsService.getSettingValue(requestObject).subscribe((response:any) => {
-    if(response.data == true){
+    if(response.data == true && response.response.length > 0){
       this.settingsArr = response.response;
-      console.log(this.settingsArr);
+     // console.log(this.settingsArr);
 
       this.currencySymbol = this.settingsArr.currency;
-      console.log(this.currencySymbol);
+      //console.log(this.currencySymbol);
       
       this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-      console.log(this.currencySymbolPosition);
+      //console.log(this.currencySymbolPosition);
       
       this.currencySymbolFormat = this.settingsArr.currency_format;
-      console.log(this.currencySymbolFormat);
+     // console.log(this.currencySymbolFormat);
     }else{
+
     }
     },
     (err) =>{
@@ -1298,7 +1299,7 @@ export class StaffComponent implements OnInit {
     }
   
     this.timeSlotList=result;
-    console.log(this.timeSlotList[0]);
+    //console.log(this.timeSlotList[0]);
   }
 
   timeString(time){
@@ -1324,7 +1325,7 @@ export class StaffComponent implements OnInit {
   }
 
   fnChangeToggle(event,day){
-    console.log(event);
+//    console.log(event);
     if(day=="Monday"){
       this.mondayOn=event.checked;
     }
@@ -1351,8 +1352,8 @@ export class StaffComponent implements OnInit {
   }
 
   fnOnChangeStartTimeWorkingHour(event,day){
-    console.log(event);
-    console.log(day);
+    // console.log(event);
+    // console.log(day);
     if(day == 'Monday'){
       for(var i=0; i<this.timeSlotList.length; i++){
         if(this.timeSlotList[i].long==event.value){
@@ -1433,8 +1434,8 @@ export class StaffComponent implements OnInit {
   }
 
   fnOnChangeEndTimeWorkingHour(event,day){
-    console.log(event);
-    console.log(day);
+    // console.log(event);
+    // console.log(day);
     if(day == 'Monday'){
       for(var i=0; i<this.timeSlotList.length; i++){
         if(this.timeSlotList[i].long==event.value){
@@ -1493,7 +1494,7 @@ export class StaffComponent implements OnInit {
   }
 
   fnFormBuild(mondayOn,tuesdayOn,wednesdayOn,thursdayOn,fridayOn,saturdayOn,sundayOn){
-    console.log(mondayOn+"--"+tuesdayOn+"--"+wednesdayOn+"--"+thursdayOn+"--"+fridayOn+"--"+saturdayOn+"--"+sundayOn);
+   // console.log(mondayOn+"--"+tuesdayOn+"--"+wednesdayOn+"--"+thursdayOn+"--"+fridayOn+"--"+saturdayOn+"--"+sundayOn);
     this.formSetWorkingHours = this._formBuilder.group({
       mondayToggle: [this.formSetWorkingHours.get("mondayToggle").value?true:false,mondayOn?Validators.required:''],
       mondayStartTime: [this.formSetWorkingHours.get("mondayStartTime").value,mondayOn?Validators.required:''],
@@ -1587,12 +1588,12 @@ export class StaffComponent implements OnInit {
       offday:this.formSetWorkingHours.get("sundayToggle").value?"N":"Y"
     };
     workingHoursArray.push(workingHoursTempArray);
-    console.log(JSON.stringify(workingHoursArray));
+   // console.log(JSON.stringify(workingHoursArray));
     let requestObject={
       "staff_id":this.selectedStaffId,
       "workingHour":workingHoursArray
     }
-    console.log(JSON.stringify(requestObject));
+   // console.log(JSON.stringify(requestObject));
 
     this.adminSettingsService.createWorkingHoursStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
@@ -1630,7 +1631,7 @@ export class StaffComponent implements OnInit {
       "end_time":this.formSetWorkingHours.get("mondayEndTime").value,
       "off_day":this.formSetWorkingHours.get("mondayToggle").value?"N":"Y"
     }
-    console.log(JSON.stringify(requestObject));
+   // console.log(JSON.stringify(requestObject));
     
     this.adminSettingsService.applyToAllStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
@@ -1731,8 +1732,8 @@ export class StaffComponent implements OnInit {
   }
 
   fnOnChangeStartTimeBreak(event,day){
-    console.log(event);
-    console.log(day);
+    // console.log(event);
+    // console.log(day);
     if(day == 'Monday'){
       for(var i=0; i<this.timeSlotList.length; i++){
         if(this.timeSlotList[i].long==event.value){
@@ -1813,8 +1814,8 @@ export class StaffComponent implements OnInit {
   }
 
   fnOnChangeEndTimeBreak(event,day){
-    console.log(event);
-    console.log(day);
+    // console.log(event);
+    // console.log(day);
     if(day == 'Monday'){
       for(var i=0; i<this.timeSlotList.length; i++){
         if(this.timeSlotList[i].long==event.value){
@@ -1889,7 +1890,7 @@ export class StaffComponent implements OnInit {
         "end_time":this.selectedEndTimeMonday,
         "dayNumber":"1"
       }
-      console.log(requestObject);
+     // console.log(requestObject);
     }
     if(day == "Tuesday"){
       if(this.selectedStartTimeTuesday==null || this.selectedEndTimeTuesday==null){

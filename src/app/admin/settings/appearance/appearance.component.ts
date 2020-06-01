@@ -155,7 +155,7 @@ export class AppearanceComponent implements OnInit {
 
   getSettingValue(){
     this.AdminSettingsService.getSettingsValue().subscribe((response:any)=>{
-      if(response.data == true){
+      if(response.data == true && response.response.lenght > 0){
         this.settingData = response.response
         console.log(this.settingData);
         if(this.settingData.appearance){

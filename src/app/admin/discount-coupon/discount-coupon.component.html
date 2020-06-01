@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="col-12" id="">
-                <div class="w-100" id="" *ngIf="allCouponCode != ''">
+                <div class="w-100" id="" >
                     <div class="postalcode-table">
                         <div class="main-table-content main-cust-table-content">
                             <div class="">
@@ -85,6 +85,9 @@
                                                 <mat-icon class="text-white ml-2">visibility</mat-icon>
                                             </button>
                                         </div>
+                                    </div>
+                                    <div class="staff-list-row" *ngIf="allCouponCode == ''">
+                                        <p class="mx-auto">Record not found</p>
                                     </div>
                                 </div>
                             </div>

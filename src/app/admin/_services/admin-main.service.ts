@@ -34,13 +34,13 @@ export class AdminService {
     //   Business Module
     getAllBusiness(){
         let requestObject = {
+            'admin_id' : JSON.stringify(this.currentUser.user_id),
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
             'api-token' : this.currentUser.token
         });
-        console.log(headers);
         return this.http.post(`${environment.apiUrl}/list-business`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;

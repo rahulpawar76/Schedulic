@@ -1,6 +1,6 @@
 <mat-drawer-content id="services" class="ml-0">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
-    <mat-drawer-container class="h-100">
+    <mat-drawer-container class="h-100" data-aa="">
         <mat-drawer [disableClose]="true" mode="side" opened class="category-sidebar" style="width:250px; background-color: #f8fbff;">
             <!-- <mat-list role="list">
                 <div  class="pl-2 bottom-border d-flex">
@@ -14,11 +14,11 @@
                 </div>
             </mat-list> -->
             <div class="my-2 bottom-border d-flex">
-                <h5 class="ml-3">Category ({{allCategoryCount}})</h5>
+                <h5 class="ml-3">Category ({{allCategoryCount ? allCategoryCount : 0}})</h5>
                 <i class="material-icons add-icon pointer" (click)="fnCreateNewCategory()">add_circle</i>
             </div>
             <div class="single-box" (click)="fnAllServicesNavigation()">
-                <p class="ml-4 mb-0">All Services ({{allServiceCount}})</p>
+                <p class="ml-4 mb-0">All Services ({{allServiceCount ? allServiceCount : 0}})</p>
             </div>
             <mat-accordion class="category-list" cdkDropList (cdkDropListDropped)="drop($event)">
                 <mat-expansion-panel class="category-main" cdkDragHandle *ngFor="let allCetegoryList of allCetegoryList; let i=index">
@@ -48,7 +48,7 @@
         <mat-drawer-content>
             <div class="" *ngIf="servicesList" class="service-listing">
                 <div class="main-table-content main-cust-table-content">
-                    <div *ngIf="categoryServicesList != ''" class="">
+                    <div class="">
                         <div class="heads main-heading-content drageble " fxLayout="row">
                             <div class="" fxFlex="5">
                                 <mat-checkbox [checked]="selectAll" (change)="checkAll($event)" class=""></mat-checkbox>
@@ -79,12 +79,15 @@
                                 </div>
                                 <div class="" fxFlex="10" cdkDragHandle class="handler"><i class="fa fa-arrows" aria-hidden="true"></i></div>
                             </div>
+                            <div class="drageble-box row" *ngIf="allServicesList == ''">
+                                <p class="mx-auto">record not found</p>
+                            </div>
                         </div>
                     </div>
 
                 </div>
 
-                <div class="table_pagination">
+                <div class="table_pagination" *ngIf="allServicesList != ''" >
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">
                             <li class="page-item" (click)="navigateTo(first_page_url,'service')"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>

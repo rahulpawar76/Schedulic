@@ -97,7 +97,7 @@ export class AuthenticationService {
         // localStorage.removeItem('tokenID');
         // localStorage.clear();
         this.currentUserSubject.next(null);
-        console.log(this.currentUserValue);
+     //   console.log(this.currentUserValue);
     }
     pageName(name){
         
