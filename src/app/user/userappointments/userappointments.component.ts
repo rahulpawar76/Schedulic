@@ -1048,37 +1048,25 @@ export class DialogCancelReason {
             formData.append('invoice_pdf', pdf);
             // formData.append('email', that.myAppoDetailData.customer.email);
             formData.append('email', "akie.5609@gmail.com");
-             alert(JSON.stringify(formData));
               console.log(formData);
               that.UserService.sendInvoiceEmail(formData).subscribe((response:any) => {
                 if(response.data == true){
-                  
+                  that._snackBar.open(response.response, "X", {
+                    duration: 2000,
+                    verticalPosition:'top',
+                    panelClass :['green-snackbar']
+                  });
                 }
                 else if(response.data == false){
-                  // this._snackBar.open(response.response, "X", {
-                  //   duration: 2000,
-                  //   verticalPosition:'top',
-                  //   panelClass :['red-snackbar']
-                  // });
+                  that._snackBar.open(response.response, "X", {
+                    duration: 2000,
+                    verticalPosition:'top',
+                    panelClass :['red-snackbar']
+                  });
                 }
               })
           }, 3000);
         });
-        // setTimeout(() => { 
-        //     this.UserService.sendInvoiceEmail(formData).subscribe((response:any) => {
-        //       if(response.data == true){
-                
-        //       }
-        //       else if(response.data == false){
-        //         // this._snackBar.open(response.response, "X", {
-        //         //   duration: 2000,
-        //         //   verticalPosition:'top',
-        //         //   panelClass :['red-snackbar']
-        //         // });
-        //       }
-        //     })
-        //   }, 4000);
-        
     }
 
 

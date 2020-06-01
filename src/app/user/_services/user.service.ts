@@ -227,7 +227,7 @@ export class UserService {
   }
   sendInvoiceEmail(requestObject){
       let headers = new HttpHeaders({
-	    'Content-Type': 'application/pdf',
+	    // 'Content-Type': 'application/pdf',
 				"customer-id":JSON.stringify(this.userId),
 				"api-token":this.token
       });
