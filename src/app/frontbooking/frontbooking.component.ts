@@ -2624,7 +2624,7 @@ export class FrontbookingComponent implements OnInit {
           // the code you use to handle the integration errors goes here
         }
       }
-      bolt.launch( RequestData , Handler ); 
+      // bolt.launch( RequestData , Handler ); 
     }
 
     generateRequestHash(RequestData) {
