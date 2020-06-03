@@ -1178,8 +1178,9 @@ export class ServicesComponent implements OnInit {
         this.servicesList = false;
         this.selectCategoryPage = '';
         this.singleSubCategoryPage = '';
-       
-        this.assignedStaff = this.categoryServicesList[index].staffs;
+        if(this.categoryServicesList[index] && this.categoryServicesList[index].staffs){
+            this.assignedStaff = this.categoryServicesList[index].staffs;
+        }
         
          this.assignedStaff.forEach(element => {
               this.assignStaffArr.push(element.id);

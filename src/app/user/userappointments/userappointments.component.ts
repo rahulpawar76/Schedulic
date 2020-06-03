@@ -1575,6 +1575,18 @@ export class rescheduleAppointmentDialog {
         this.animal = result;
        });
     }
+    invoice() {
+    const dialogRef = this.dialog.open(DialogInvoiceDialog, {
+      width: '1000px',
+      height: 'auto',
+      data: {fulldata: this.myAppoDetailData}
+
+    });
+
+     dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+     });
+  }
 
   }
 

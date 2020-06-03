@@ -27,8 +27,8 @@ export class ReportsComponent implements OnInit {
   createdByFilter:any;
 
   appointmentReport : any=[];
-  appointmentReportTotalRecords : any;
-  appointmentReportExpectedRevenue : any;
+  appointmentReportTotalRecords : any=[];
+  appointmentReportExpectedRevenue : any=[];
   
   salesReport : any=[];
   salesReportTotalRecords : any;
@@ -205,8 +205,8 @@ export class ReportsComponent implements OnInit {
       }
       else if(response.data == false){
         this.appointmentReport = [];
-        this.appointmentReportTotalRecords = '';
-        this.appointmentReportExpectedRevenue = '';
+        this.appointmentReportTotalRecords = [];
+        this.appointmentReportExpectedRevenue = [];
       }
     })
   }
