@@ -61,27 +61,26 @@
                         <div class="">
                             <div class="heads main-heading-content staff-list-row header-background " fxLayout="row">
                                 <div class="text-left" fxFlex="10">
-
                                     <mat-checkbox [checked]="selectAll" (change)="checkAll($event)" class=""></mat-checkbox>
                                 </div>
-                                <div class="text-left" fxFlex="20">Date & Time</div>
-                                <div class="text-left" fxFlex="15">Customer</div>
+                                <div class="text-left" fxFlex="10">Date & Time</div>
+                                <div class="text-left" fxFlex="20">Customer</div>
                                 <div class="text-left" fxFlex="15">Service</div>
-                                <div class="text-left" fxFlex="10">Staff</div>
+                                <div class="text-left" fxFlex="15">Staff</div>
                                 <div class="text-left" fxFlex="10">Amount</div>
                                 <div class="text-left" fxFlex="10">Status</div>
                                 <div class="text-left" fxFlex="10">Action</div>
                             </div>
                             <div class="content" class="staff-list">
-                                <div class="staff-list-row" *ngFor="let allAppointmentsData of allAppointments; let i=index">
+                                <div class="staff-list-row {{fnOpenDetailsRow==i?'activeRow':''}}" *ngFor="let allAppointmentsData of allAppointments; let i=index">
                                     <div class="text-left" fxFlex="10">
                                         <mat-checkbox [checked]="allAppointmentsData.is_selected" (change)="fnAddOrderId($event.checked, allAppointmentsData.id,i)" class=""></mat-checkbox>
                                     </div>
-                                    <div class="text-left" fxFlex="20" (click)="fnOpenDetails(i)">
+                                    <div class="text-left" fxFlex="10" (click)="fnOpenDetails(i)">
                                         <p>{{allAppointmentsData.booking_date}},</p>
                                         <p>{{allAppointmentsData.booking_time}}</p>
                                     </div>
-                                    <div class="text-left" fxFlex="15">
+                                    <div class="text-left" fxFlex="20">
                                         <p>{{allAppointmentsData.customer?allAppointmentsData.customer.fullname:''}}</p>
                                         <p>Phone No: {{allAppointmentsData.customer?allAppointmentsData.customer.phone:''}}</p>
                                     </div>
@@ -90,16 +89,16 @@
                                         <p>{{allAppointmentsData.service.service_name}}</p>
                                     </div>
 
-                                    <div class="text-left" fxFlex="10" *ngIf="allAppointmentsData.staff != null">
+                                    <div class="text-left" fxFlex="15" *ngIf="allAppointmentsData.staff != null">
                                         <p class="text-capitalize">{{allAppointmentsData.staff.firstname}} {{allAppointmentsData.staff.lastname}}</p>
                                         <p>Phone No: {{allAppointmentsData.staff.phone}}</p>
                                     </div>
-                                    <div class="text-left" fxFlex="10" *ngIf="allAppointmentsData.staff == null">
+                                    <div class="text-left" fxFlex="15" *ngIf="allAppointmentsData.staff == null">
                                         <p class="text-capitalize">Staff Not Assigned</p>
                                     </div>
-
-                                    <div class="text-left" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ allAppointmentsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</div>
-                                    <div class="text-left" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ allAppointmentsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
+                                    <div class="text-left" fxFlex="10" *ngIf="currencySymbolPosition=='left'">- {{currencySymbol| currencySymbol:'wide'}} {{ allAppointmentsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</div>
+                                    <div class="text-left" fxFlex="10" *ngIf="currencySymbolPosition=='right'"> - {{ allAppointmentsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
+                                    <div class="text-left" fxFlex="10" *ngIf="!currencySymbolPosition">None</div>
 
 
                                     <div class="text-left" fxFlex="10">
@@ -119,9 +118,9 @@
                                     </div>
 
                                     <div class="text-left" fxFlex="10">
+                                        <!-- {{fncompereDate(allAppointmentsData.booking_date_time)}} -->
                                         <button (click)="fnEditAppointment(i)" class="appointment-edit-btn mr-1" *ngIf="allAppointmentsData.order_status != 'C' && allAppointmentsData.order_status != 'CC' && allAppointmentsData.order_status != 'CO' && minReschedulingTime.getTime() < allAppointmentsData.booking_date_time.getTime()"><i class="material-icons appointment-icon">edit</i></button>
-                                        <button *ngIf="allAppointmentsData.order_status !== 'C' && allAppointmentsData.order_status !== 'CC' && allAppointmentsData.order_status !== 'CO' && cancellationBufferTime.getTime() < allAppointmentsData.booking_date_time.getTime()" (click)="cancelAppointment('C', allAppointmentsData.id)"
-                                            class="appointment-cancel-btn mr-1"><i class="material-icons appointment-icon">close</i></button>
+                                        <button *ngIf="allAppointmentsData.order_status !== 'C' && allAppointmentsData.order_status !== 'CC' && allAppointmentsData.order_status !== 'CO' && cancellationBufferTime.getTime() < allAppointmentsData.booking_date_time.getTime()" (click)="cancelAppointment('C', allAppointmentsData.id)"class="appointment-cancel-btn mr-1"><i class="material-icons appointment-icon">close</i></button>
                                         <button *ngIf="allAppointmentsData.order_status == 'P'" (click)="confirmAppointment('AC', allAppointmentsData.id)" class="appointment-confirm-btn mr-1"><i class="material-icons appointment-icon">done</i></button>
                                     </div>
 

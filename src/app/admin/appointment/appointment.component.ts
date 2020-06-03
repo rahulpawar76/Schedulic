@@ -59,7 +59,7 @@ export class AppointmentComponent implements OnInit {
   currencySymbolFormat:any;
 
   search:any;
-  
+  fnOpenDetailsRow:any;
   current_page : any;
   first_page_url : any;
   last_page : any;
@@ -429,13 +429,15 @@ export class AppointmentComponent implements OnInit {
   }
 
   fnOpenDetails(index){
-    //return false;
+    this.fnOpenDetailsRow = index;
+
     const dialogRef = this.dialog.open(DialogAllAppointmentDetails, {
       width: '500px',
       data: {appointmentData: this.allAppointments[index]}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+     // console.log('The dialog was closed');
+     this.fnOpenDetailsRow=null;
       this.animal = result;
       this.getAllAppointments();
     });
@@ -545,6 +547,17 @@ export class AppointmentComponent implements OnInit {
       this.selectAll = false;
     }
 
+
+  }
+
+  fncompereDate(val){
+
+    var date1 = new Date();  
+    var  date2 = new Date(val);
+
+    if (date1>date2) return true;
+    else if (date1<date2) return false;
+   // else return true; 
 
   }
 
@@ -1749,6 +1762,9 @@ export class DialogAddNewAppointment {
       
     })
   }
+  
+  
+
 }
 
 
@@ -1912,7 +1928,6 @@ constructor(
       }
     })
   }
-
 
 
 }

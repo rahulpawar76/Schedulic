@@ -879,12 +879,13 @@ export class ServicesComponent implements OnInit {
                     element.is_selected = false;
                 });
                 this.staffActionIdSub = [];
-                 this.selectAllSubCat = false;
+                this.selectAllSubCat = false;
 
                 if (this.subCategoryServicesList != '' && this.subCategoryServicesList != 'service not found') {
                     this.servicesList = false;
                     this.singleSubCategoryPage = 'services';
-                    this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedCategoryIndex].subcategory[index]
+                    this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedSubCategoryIndex].subcategory[index];
+
                 } else if (this.subCategoryServicesList == 'service not found') {
                     this.servicesList = false;
                     this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedCategoryIndex].subcategory[index]
@@ -1177,6 +1178,7 @@ export class ServicesComponent implements OnInit {
         this.servicesList = false;
         this.selectCategoryPage = '';
         this.singleSubCategoryPage = '';
+       
         this.assignedStaff = this.categoryServicesList[index].staffs;
         
          this.assignedStaff.forEach(element => {

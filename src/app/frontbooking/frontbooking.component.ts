@@ -184,6 +184,10 @@ export class FrontbookingComponent implements OnInit {
     udf5:''
   }
 
+  paypalClientId:any="sb";
+  paypalTestMode:any;
+  paypalStatus:boolean=false;
+
   constructor(
     private _formBuilder: FormBuilder,
     private http: HttpClient,
@@ -279,7 +283,9 @@ export class FrontbookingComponent implements OnInit {
     
     this.serviceCount.length=0
     this.serviceCartArr.length=0
-    
+
+    // this.initConfig();
+
   }
 
   renderExternalScript(src: string): HTMLScriptElement {
@@ -351,6 +357,13 @@ export class FrontbookingComponent implements OnInit {
         
       if(this.settingsArr.pay_pal_settings){
         this.paypalSetting = JSON.parse(this.settingsArr.pay_pal_settings)
+        this.paypalTestMode = this.paypalSetting.test_mode;
+        if(this.paypalTestMode){
+          this.paypalClientId="sb";
+        }else{
+          this.paypalClientId = this.paypalSetting.client_id;
+        }
+        this.paypalStatus = this.paypalSetting.status;
 
       }
         
@@ -358,8 +371,7 @@ export class FrontbookingComponent implements OnInit {
         this.stripeSetting = JSON.parse(this.settingsArr.stripe_settings)
 
       }
-        // this.PayUMoney.key= 'fT65jM3Y';
-        // this.PayUMoney.salt='tDFEAoufm9';
+        
 
         this.termsConditions = JSON.parse(this.settingsArr.terms_condition);
         if(this.termsConditions.status == 'false'){
@@ -443,7 +455,7 @@ export class FrontbookingComponent implements OnInit {
         };
         this.staffOnFrontValue=JSON.parse(JSON.parse(this.settingsArr.staff_list_on_front).status)
         
-    this.initConfig();
+      this.initConfig();
       }else{
       }
       },
@@ -2254,7 +2266,9 @@ export class FrontbookingComponent implements OnInit {
       this.stripePayment();
     }
     if(this.paymentMethod == 'PayUMoney'){
-     this.fnPayUMoney();
+      if(this.PayUMoney.key!="" && this.PayUMoney.salt!=""){
+        this.fnPayUMoney();
+      }
     }
   }
   stripePayment(){
@@ -2305,8 +2319,8 @@ export class FrontbookingComponent implements OnInit {
   private initConfig(): void {
       this.payPalConfig = {
       currency: this.currencySymbol,
-      clientId: this.paypalSetting.client_id,
-      // clientId: 'AbwWitbWZcWZGJdguSL2wb-XcgF8KGTHps1c_w9u9t0CMN2uUoBTDSpU5NFJa5qnfN_YYaG_k-9OKfk8',
+      clientId: this.paypalClientId,
+      //clientId: 'AXQW9QFCurkFtIGNbnex8fp8oanZWUZFVhEmwU4GK39xbOzqetPmQj8wnju2U7yOvn9xBBojoqGsIWSh',
       // clientId: 'sb',
       createOrderOnClient: (data) => <ICreateOrderRequest>{
         intent: 'CAPTURE',
@@ -2359,6 +2373,34 @@ export class FrontbookingComponent implements OnInit {
           }
         ]
       },
+      // createOrderOnClient: (data) => <ICreateOrderRequest>{
+      //   intent: 'CAPTURE',
+      //   purchase_units: [
+      //     {
+      //       amount: {
+      //         currency_code: 'EUR',
+      //         value: '9.99',
+      //         breakdown: {
+      //           item_total: {
+      //             currency_code: 'EUR',
+      //             value: '9.99'
+      //           }
+      //         }
+      //       },
+      //       items: [
+      //         {
+      //           name: 'Enterprise Subscription',
+      //           quantity: '1',
+      //           category: 'DIGITAL_GOODS',
+      //           unit_amount: {
+      //             currency_code: 'EUR',
+      //             value: '9.99',
+      //           },
+      //         }
+      //       ]
+      //     }
+      //   ]
+      // },
       advanced: {
         commit: 'true'
       },
@@ -2518,7 +2560,7 @@ export class FrontbookingComponent implements OnInit {
      // Get Random Transaction Id
 
     fnPayUMoney(){
-      
+
       this.PayUMoney.txnid= this.getTxnId();
       this.PayUMoney.amount= this.serviceMainArr.netCost.toString();
       this.PayUMoney.firstname= this.customerFirstname;
@@ -2582,7 +2624,7 @@ export class FrontbookingComponent implements OnInit {
           // the code you use to handle the integration errors goes here
         }
       }
-      //bolt.launch( RequestData , Handler ); 
+      // bolt.launch( RequestData , Handler ); 
     }
 
     generateRequestHash(RequestData) {
