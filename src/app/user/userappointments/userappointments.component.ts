@@ -59,7 +59,7 @@ export class UserappointmentsComponent implements OnInit {
   paymentDateTime: any;
   paymentScreen: boolean = false;
   
-  public payPalConfig?: IPayPalConfig;
+  private payPalConfig?: IPayPalConfig;
   onlynumeric = /^-?(0|[1-9]\d*)?$/
 
   cardForm:FormGroup;
@@ -83,6 +83,15 @@ export class UserappointmentsComponent implements OnInit {
     udf4:'',
     udf5:''
   }
+  paypalSetting:any;
+  paypalTestMode:boolean = false;
+  paypalClientId: any;
+  paypalStatus:boolean = false;
+  
+  PayUMoneyCredentials:any;
+  payUmoneyStatus : boolean = false;
+  stripeSetting:any;
+  stripeStatus : boolean = false;
 
 
   constructor(
@@ -146,6 +155,27 @@ fnGetSettingValue(){
         this.minReschedulingTime = new Date();
         this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
         console.log("minReschedulingTime - "+this.minReschedulingTime);
+        if(this.settingsArr.pay_pal_settings){
+          this.paypalSetting = JSON.parse(this.settingsArr.pay_pal_settings)
+          this.paypalTestMode = this.paypalSetting.test_mode;
+          if(this.paypalTestMode){
+            this.paypalClientId="sb";
+          }else{
+            this.paypalClientId = this.paypalSetting.client_id;
+          }
+          this.paypalStatus = this.paypalSetting.status;
+  
+        }
+        if(this.settingsArr.payUmoney_settings){
+          this.PayUMoneyCredentials = JSON.parse(this.settingsArr.payUmoney_settings);
+          this.PayUMoney.key= this.PayUMoneyCredentials.merchant_key;
+          this.PayUMoney.salt=this.PayUMoneyCredentials.salt_key;
+          this.payUmoneyStatus=this.PayUMoneyCredentials.status;
+        }
+        if(this.settingsArr.stripe_settings){
+          this.stripeSetting = JSON.parse(this.settingsArr.stripe_settings)
+          this.stripeStatus = this.stripeSetting.status
+        }
       }
       else if(response.data == false){
         
@@ -348,6 +378,7 @@ getCompletedAppointments(): void{
     this.appointDetailForPayment = this.appointmentData[index];
     console.log(this.appointDetailForPayment);
     this.paymentScreen = true;
+    this.initConfig();
   }
   fnPaymentMethod(paymentMethod){
     console.log(paymentMethod);
@@ -430,7 +461,8 @@ getCompletedAppointments(): void{
 
     this.payPalConfig = {
     currency: this.currencySymbol,
-    clientId: 'AfM8281lH1hKV3Hk_RRwe5gT95do6JeBc9X3KUBSW6407yMP1nJoY820GscNd4gNP8q8fAnrZoEyayL7',
+    //clientId: 'AfM8281lH1hKV3Hk_RRwe5gT95do6JeBc9X3KUBSW6407yMP1nJoY820GscNd4gNP8q8fAnrZoEyayL7',
+    clientId: this.paypalClientId,
     // clientId: 'AbwWitbWZcWZGJdguSL2wb-XcgF8KGTHps1c_w9u9t0CMN2uUoBTDSpU5NFJa5qnfN_YYaG_k-9OKfk8',
     // clientId: 'sb',
     createOrderOnClient: (data) => <ICreateOrderRequest>{
@@ -484,6 +516,34 @@ getCompletedAppointments(): void{
         }
       ]
     },
+    // createOrderOnClient: (data) => <ICreateOrderRequest>{
+    //   intent: 'CAPTURE',
+    //   purchase_units: [
+    //     {
+    //       amount: {
+    //         currency_code: 'EUR',
+    //         value: '9.99',
+    //         breakdown: {
+    //           item_total: {
+    //             currency_code: 'EUR',
+    //             value: '9.99'
+    //           }
+    //         }
+    //       },
+    //       items: [
+    //         {
+    //           name: 'Enterprise Subscription',
+    //           quantity: '1',
+    //           category: 'DIGITAL_GOODS',
+    //           unit_amount: {
+    //             currency_code: 'EUR',
+    //             value: '9.99',
+    //           },
+    //         }
+    //       ]
+    //     }
+    //   ]
+    // },
     advanced: {
       commit: 'true'
     },
@@ -668,9 +728,10 @@ getCompletedAppointments(): void{
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
-          panelClass :['red-snackbar']
+          panelClass :['green-snackbar']
         });
         this.fnBackToPayment();
+        this.getAllAppointments();
       }
       else if(response.data == false){
         this._snackBar.open(response.response, "X", {
@@ -921,6 +982,7 @@ export class DialogCancelReason {
 
           this.currencySymbol = this.settingsArr.currency;
           console.log(this.currencySymbol);
+          
           
           this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
           console.log(this.currencySymbolPosition);

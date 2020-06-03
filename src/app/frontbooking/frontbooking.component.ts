@@ -157,6 +157,7 @@ export class FrontbookingComponent implements OnInit {
   PayUMoneyCredentials:any;
   paypalSetting:any;
   stripeSetting:any;
+  stripeStatus : boolean = false;
   loadAPI: Promise<any>;
   isFound:boolean=false;
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
@@ -183,6 +184,7 @@ export class FrontbookingComponent implements OnInit {
     udf4:'',
     udf5:''
   }
+  payUmoneyStatus : boolean = false;
 
   paypalClientId:any="sb";
   paypalTestMode:any;
@@ -284,8 +286,6 @@ export class FrontbookingComponent implements OnInit {
     this.serviceCount.length=0
     this.serviceCartArr.length=0
 
-    // this.initConfig();
-
   }
 
   renderExternalScript(src: string): HTMLScriptElement {
@@ -351,9 +351,12 @@ export class FrontbookingComponent implements OnInit {
         
         this.currencySymbolFormat = this.settingsArr.currency_format;
         console.log(this.currencySymbolFormat);
-        this.PayUMoneyCredentials = JSON.parse(this.settingsArr.payUmoney_settings);
-        this.PayUMoney.key= this.PayUMoneyCredentials.merchant_key;
-        this.PayUMoney.salt=this.PayUMoneyCredentials.salt_key;
+        if(this.settingsArr.payUmoney_settings){
+          this.PayUMoneyCredentials = JSON.parse(this.settingsArr.payUmoney_settings);
+          this.PayUMoney.key= this.PayUMoneyCredentials.merchant_key;
+          this.PayUMoney.salt=this.PayUMoneyCredentials.salt_key;
+          this.payUmoneyStatus=this.PayUMoneyCredentials.status;
+        }
         
       if(this.settingsArr.pay_pal_settings){
         this.paypalSetting = JSON.parse(this.settingsArr.pay_pal_settings)
@@ -369,7 +372,7 @@ export class FrontbookingComponent implements OnInit {
         
       if(this.settingsArr.stripe_settings){
         this.stripeSetting = JSON.parse(this.settingsArr.stripe_settings)
-
+        this.stripeStatus = this.stripeSetting.status
       }
         
 
