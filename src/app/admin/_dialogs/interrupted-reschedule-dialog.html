@@ -1,62 +1,62 @@
-<div class="modal-dialog modal-notify modal-info" role="document" >
+<div class="modal-dialog modal-notify modal-info" role="document">
     <div class="modal-content">
-      <div class="modal-header modal-bcolor-red">
-        <p class="heading lead  fontfamily" >Interrupted (Reschedule Appointment)</p>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+        <div class="modal-header modal-bcolor-red">
+            <p class="heading lead  fontfamily">Interrupted (Reschedule Appointment)</p>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
           <span aria-hidden="true" class="white-text">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="formAppointmentRescheduleAdmin">
-          <p class="mb-0">Service</p>
-          <p class="font-weight-bold">{{appointmentDetails.service_name}}</p>
-					<div class="row">
-						<div class="col-6">
-            <!-- <label class="mb-0">Select Date</label>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="formAppointmentRescheduleAdmin">
+                <p class="mb-0">Service</p>
+                <p class="font-weight-bold">{{appointmentDetails.service.service_name}}</p>
+                <div class="row">
+                    <div class="col-6">
+                        <!-- <label class="mb-0">Select Date</label>
             <div class="input-group">
               <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fa fa-calendar"></i>
                 </div>
               </div> -->
-              <!-- <input type="date" class="form-control formcontrol"> -->
-              <div>
-                <mat-form-field  class=" bottom-border-field">
-                  <mat-label>Select Date</mat-label>
-                   <!-- <input mat-input [min]="minDate" [matDatepicker]="picker" placeholder="Choose a date" formControlName="rescheduleDate" class="form-control formcontrol" (click)="picker.open()" (dateChange)="fnDateChange($event)"> -->
-                    <input matInput [min]="minDate" [matDatepicker]="picker"  placeholder="Choose a date" formControlName="rescheduleDate" (click)="picker.open()" (dateChange)="fnDateChange($event)">
-                    <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-            
-            </div>
-					</div>
-					<div class="col-6 mb-3">
-					<label class="mb-0">Select Time</label>
-					 <div class="input-group">
-						 <div class="input-group-prepend">
-          					<div class="input-group-text"><i class="fa fa-clock-o"></i>
-										</div>
-          			 </div>
-					  <!-- <input type="time" class="form-control formcontrol"> -->
-            <mat-select formControlName="rescheduleTime" class="form-control formcontrol" (selectionChange)="fnChangeTimeSlot($event.value)" [disabled]="">
-            <!-- <mat-option>None</mat-option> -->
-              <mat-option *ngFor="let slot of timeSlotArr" value="{{slot}}">{{slot}}</mat-option>
-            </mat-select>
-          </div>
-					</div>
-					  </div>
+                        <!-- <input type="date" class="form-control formcontrol"> -->
+                        <div>
+                            <mat-form-field class=" bottom-border-field">
+                                <mat-label>Select Date</mat-label>
+                                <!-- <input mat-input [min]="minDate" [matDatepicker]="picker" placeholder="Choose a date" formControlName="rescheduleDate" class="form-control formcontrol" (click)="picker.open()" (dateChange)="fnDateChange($event)"> -->
+                                <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="Choose a date" formControlName="rescheduleDate" (click)="picker.open()" (dateChange)="fnDateChange($event)">
+                                <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
 
-           <label>Staff</label>
-          <mat-select class="form-control formcontrol mb-3" formControlName="rescheduleStaff">
-            <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">
-              {{staff.name}}
-            </mat-option>
-          </mat-select>
-          <label class="mb-0">Add Note</label>
-          <textarea class="form-control mb-2" placeholder="Add Note" formControlName="rescheduleNote" ></textarea>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="mb-0">Select Time</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fa fa-clock-o"></i>
+                                </div>
+                            </div>
+                            <!-- <input type="time" class="form-control formcontrol"> -->
+                            <mat-select formControlName="rescheduleTime" class="form-control formcontrol" (selectionChange)="fnChangeTimeSlot($event.value)" [disabled]="">
+                                <!-- <mat-option>None</mat-option> -->
+                                <mat-option *ngFor="let slot of timeSlotArr" value="{{slot}}">{{slot}}</mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                </div>
 
-           <button class="d-block btn btn-primary addbtnred float-right" (click)='formRescheduleSubmit()' >Reschedule</button>
-         </form>
-      </div>
+                <label>Staff</label>
+                <mat-select class="form-control formcontrol mb-3" formControlName="rescheduleStaff">
+                    <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">
+                        {{staff.name}}
+                    </mat-option>
+                </mat-select>
+                <label class="mb-0">Add Note</label>
+                <textarea class="form-control mb-2" placeholder="Add Note" formControlName="rescheduleNote"></textarea>
+
+                <button class="d-block btn btn-primary addbtnred float-right" (click)='formRescheduleSubmit()'>Reschedule</button>
+            </form>
+        </div>
     </div>
-  </div>
+</div>

@@ -24,12 +24,10 @@
                     <mat-icon aria-hidden="false" class="customer-drawer-leftarrow">arrow_back</mat-icon>
                 </div>
                 <mat-form-field appearance="outline" class="my-2 all-customer-list col-lg-12 col-12 col-md-12">
-                    <mat-label>All Customers</mat-label>
-                    <mat-select>
+                    <mat-label>Action</mat-label>
+                    <mat-select (selectionChange)="fnMultiDeleteCustomer($event.value)">
                         <mat-option>None</mat-option>
-                        <mat-option value="option1">Option 1</mat-option>
-                        <mat-option value="option2">Option 2</mat-option>
-                        <mat-option value="option3">Option 3</mat-option>
+                        <mat-option value="delete">Delete</mat-option>
                     </mat-select>
                 </mat-form-field>
 
@@ -347,8 +345,8 @@
                                             <div class="d-flex">
                                                 <h6>{{customerNotes.note_subject}}</h6>
                                                 <div class="d-flex ml-auto">
-                                                    <mat-icon (click)="newAddNote(customerPersonalDetails.id,i)" class="add-note-subject-icon" aria-hidden="false">edit</mat-icon>
-                                                    <mat-icon class="add-note-subject-icon ml-2" aria-hidden="false">delete</mat-icon>
+                                                    <mat-icon (click)="newAddNote(customerPersonalDetails.id,i)" class="add-note-subject-icon pointer" aria-hidden="false">edit</mat-icon>
+                                                    <mat-icon (click)="fnDeleteNote(customerNotes.id)" class="add-note-subject-icon ml-2 pointer" aria-hidden="false">delete</mat-icon>
                                                 </div>
                                             </div>
                                             <div class="py-3">

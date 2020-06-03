@@ -236,6 +236,18 @@ export class AdminService {
         }),
         catchError(this.handleError));
     }
+    fnDeleteNote(requestObject){
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
+        });
+        return this.http.post(`${environment.apiUrl}/note-delete`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
     fncreateNewNote(createNewNoteData){
         // let requestObject = {
         //     'customer_id': customer_id,
@@ -727,6 +739,19 @@ export class AdminService {
         });
 
         return this.http.post(`${environment.apiUrl}/logs-list`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    fnMultiDeleteCustomer(requestObject){
+        let headers = new HttpHeaders({
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
+            'Content-Type': 'application/json'
+        });
+
+        return this.http.post(`${environment.apiUrl}/customer-multi-action`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;
         }),

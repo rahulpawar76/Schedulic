@@ -465,6 +465,32 @@ customerUpdate(existingCustomerData){
     }
   })
   }
+
+  fnDeleteNote(noteId){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      "note_id" : noteId
+    }
+  this.AdminService.fnDeleteNote(requestObject).subscribe((response:any) => {
+    if(response.data == true){
+      this._snackBar.open("Note Deleted", "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['green-snackbar']
+      });
+      this.getAllCustomers();
+      this.isLoaderAdmin = false;
+    }
+    else if(response.data == false){
+      this._snackBar.open(response.response, "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['green-snackbar']
+      });
+    this.isLoaderAdmin = false;
+    }
+  })
+  }
   
   editCustomer(customer_id){
     this.existingUserId = customer_id
@@ -672,6 +698,33 @@ customerUpdate(existingCustomerData){
       })
     }
   }
+  fnMultiDeleteCustomer(action){
+    let requestObject = {
+      "action" : action,
+      "customer_id" : this.selectedCustomerId
+    }
+    this.AdminService.fnMultiDeleteCustomer(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.selectedCustomerId.length = 0;
+        this.getAllCustomers();
+        this.isLoaderAdmin = false;
+      }
+      else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.isLoaderAdmin = false;
+      }
+    })
+  }
+
   customerImage() {
     const dialogRef = this.dialog.open(DialogCustomerImageUpload, {
       width: '500px',
@@ -1093,7 +1146,7 @@ fnGetSettingValue(){
     "business_id":this.businessId
   };
   this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
-    if(response.data == true && response.response.length > 0){
+    if(response.data == true && response.response != ''){
       this.settingsArr=response.response;
      // console.log(this.settingsArr);
 

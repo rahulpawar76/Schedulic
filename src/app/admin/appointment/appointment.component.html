@@ -44,7 +44,7 @@
                         <form class="serch_input-appoint">
                             <div class="form-group has-search">
                                 <span class="fa fa-search form-control-feedback verticalLine"></span>
-                                <input type="text" class="form-control searchbox_appointment" (keyup)="Search($event.target.value)" placeholder="Customer,Service Staff">
+                                <input type="text" class="form-control searchbox_appointment" (keyup)="Search($event.target.value)" placeholder="Customer,Service, Staff">
                             </div>
                         </form>
                     </div>
@@ -125,7 +125,7 @@
                                     </div>
 
                                 </div>
-                                <div class="staff-list-row"  *ngIf="allAppointments ==''">
+                                <div class="staff-list-row" *ngIf="allAppointments ==''">
                                     <p class="mx-auto">Record not found</p>
                                 </div>
                             </div>
@@ -133,7 +133,7 @@
 
                     </div>
 
-                    <div class="table_pagination"  *ngIf="allAppointments != ''">
+                    <div class="table_pagination" *ngIf="allAppointments != ''">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-end">
                                 <li class="page-item" (click)="navigateTo(first_page_url)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
