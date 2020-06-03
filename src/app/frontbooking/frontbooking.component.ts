@@ -156,8 +156,10 @@ export class FrontbookingComponent implements OnInit {
   paymentDateTime:any;
   PayUMoneyCredentials:any;
   paypalSetting:any;
+  stripeSetting:any;
   loadAPI: Promise<any>;
   isFound:boolean=false;
+  bolt:any;
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
   emailFormat = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
   onlynumeric = /^-?(0|[1-9]\d*)?$/
@@ -278,6 +280,9 @@ export class FrontbookingComponent implements OnInit {
     
     this.serviceCount.length=0
     this.serviceCartArr.length=0
+
+    this.initConfig();
+
   }
 
   renderExternalScript(src: string): HTMLScriptElement {
@@ -349,6 +354,11 @@ export class FrontbookingComponent implements OnInit {
         
       if(this.settingsArr.pay_pal_settings){
         this.paypalSetting = JSON.parse(this.settingsArr.pay_pal_settings)
+
+      }
+        
+      if(this.settingsArr.stripe_settings){
+        this.stripeSetting = JSON.parse(this.settingsArr.stripe_settings)
 
       }
         // this.PayUMoney.key= 'fT65jM3Y';
@@ -435,6 +445,8 @@ export class FrontbookingComponent implements OnInit {
           day: this.maximumAdvanceBookingDateTimeObject.getDate(),
         };
         this.staffOnFrontValue=JSON.parse(JSON.parse(this.settingsArr.staff_list_on_front).status)
+        
+    // this.initConfig();
       }else{
       }
       },
@@ -2140,7 +2152,6 @@ export class FrontbookingComponent implements OnInit {
         this.taxAmount=this.taxAmount+element.amount;
       });
     this.summaryScreen = false;
-    this.initConfig();
     this.paymentScreen =true;
   }
   
@@ -2297,8 +2308,7 @@ export class FrontbookingComponent implements OnInit {
   private initConfig(): void {
       this.payPalConfig = {
       currency: this.currencySymbol,
-      clientId: this.paypalSetting.client_id,
-      // clientId: 'AbwWitbWZcWZGJdguSL2wb-XcgF8KGTHps1c_w9u9t0CMN2uUoBTDSpU5NFJa5qnfN_YYaG_k-9OKfk8',
+      clientId: 'AXQW9QFCurkFtIGNbnex8fp8oanZWUZFVhEmwU4GK39xbOzqetPmQj8wnju2U7yOvn9xBBojoqGsIWSh',
       // clientId: 'sb',
       createOrderOnClient: (data) => <ICreateOrderRequest>{
         intent: 'CAPTURE',
@@ -2351,6 +2361,34 @@ export class FrontbookingComponent implements OnInit {
           }
         ]
       },
+      // createOrderOnClient: (data) => <ICreateOrderRequest>{
+      //   intent: 'CAPTURE',
+      //   purchase_units: [
+      //     {
+      //       amount: {
+      //         currency_code: 'EUR',
+      //         value: '9.99',
+      //         breakdown: {
+      //           item_total: {
+      //             currency_code: 'EUR',
+      //             value: '9.99'
+      //           }
+      //         }
+      //       },
+      //       items: [
+      //         {
+      //           name: 'Enterprise Subscription',
+      //           quantity: '1',
+      //           category: 'DIGITAL_GOODS',
+      //           unit_amount: {
+      //             currency_code: 'EUR',
+      //             value: '9.99',
+      //           },
+      //         }
+      //       ]
+      //     }
+      //   ]
+      // },
       advanced: {
         commit: 'true'
       },
@@ -2574,7 +2612,7 @@ export class FrontbookingComponent implements OnInit {
           // the code you use to handle the integration errors goes here
         }
       }
-      //bolt.launch( RequestData , Handler ); 
+      // bolt.launch( RequestData , Handler ); 
     }
 
     generateRequestHash(RequestData) {

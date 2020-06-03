@@ -423,7 +423,7 @@
                                                     <h6 for="comment">Type</h6>
                                                     <mat-radio-group class="radio-btn-wrapper" formControlName="paymentMode">
                                                         <mat-radio-button value="Cash">Cash</mat-radio-button>
-                                                        <mat-radio-button value="Online">Online</mat-radio-button>
+                                                        <mat-radio-button value="Stripe">Online</mat-radio-button>
                                                     </mat-radio-group>
                                                     <span class="error-wrap" *ngIf="formPayment.get('paymentMode').dirty || formPayment.get('paymentMode').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentMode').hasError('required')" class="error">Payment mode is required</small></span>
                                                 </div>
