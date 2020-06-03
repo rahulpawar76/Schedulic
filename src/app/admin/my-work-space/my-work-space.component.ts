@@ -608,8 +608,8 @@ export class MyWorkSpaceComponent implements OnInit {
 
 
 @Component({
-    selector: 'interrupted-reschedule-dialog',
-    templateUrl: '../_dialogs/interrupted-reschedule-dialog.html',
+    selector: 'interrupted-reschedule-dialog-workspace',
+    templateUrl: '../_dialogs/interrupted-reschedule-dialog-workspace.html',
     providers: [DatePipe]
   })
   export class InterruptedReschedule {
