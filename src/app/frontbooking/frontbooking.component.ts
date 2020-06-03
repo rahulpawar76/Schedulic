@@ -280,7 +280,8 @@ export class FrontbookingComponent implements OnInit {
     
     this.serviceCount.length=0
     this.serviceCartArr.length=0
-    // this.initConfig();
+
+    this.initConfig();
 
   }
 
@@ -445,7 +446,7 @@ export class FrontbookingComponent implements OnInit {
         };
         this.staffOnFrontValue=JSON.parse(JSON.parse(this.settingsArr.staff_list_on_front).status)
         
-        this.initConfig();
+    // this.initConfig();
       }else{
       }
       },
