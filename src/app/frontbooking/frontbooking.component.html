@@ -495,7 +495,7 @@
                     <img src="../../assets/icons/cash-symbol.png" class="payment-gtw-icon cash-payment" />
                 </mat-radio-button>
 
-                <mat-radio-button [checked]="paymentMethod == 'stripe'" (change)="fnPaymentMethod('stripe')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay2">Credit Card
+                <mat-radio-button *ngIf="stripeStatus" [checked]="paymentMethod == 'stripe'" (change)="fnPaymentMethod('stripe')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay2">Credit Card
                     <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" />
                 </mat-radio-button>
                 <div *ngIf="creditcardform">
@@ -540,10 +540,8 @@
                     </form>
                 </div>
 
-                <mat-radio-button [checked]="paymentMethod == 'Paypal'" (change)="fnPaymentMethod('Paypal')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay2"  *ngIf="paypalStatus">Paypal
-                    <!-- <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" /> -->
+                <mat-radio-button [checked]="paymentMethod == 'Paypal'" (change)="fnPaymentMethod('Paypal')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay3" *ngIf="paypalStatus">Paypal
                     <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_150x38.png" alt="PayPal" class="payment-gtw-icon cash-payment" />
-                    <!-- <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal"  class="payment-gtw-icon cash-payment"/> -->
                 </mat-radio-button>
                 <div *ngIf="showPaypalButtons" class="field-list mx-4 row credit-card-form ">
                     <div class="col-12 left-side col-lg-6">
@@ -554,7 +552,7 @@
                     </div>
                 </div>
 
-                <mat-radio-button [checked]="paymentMethod == 'PayUMoney'" (change)="fnPaymentMethod('PayUMoney')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay2">PayUMoney
+                <mat-radio-button *ngIf="payUmoneyStatus" [checked]="paymentMethod == 'PayUMoney'" (change)="fnPaymentMethod('PayUMoney')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay4">PayUMoney
                     <!-- <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" /> -->
                     <img src="../../assets/images/payumoney-logo.png" alt="PayPal" class="payment-gtw-icon cash-payment payumoney-logo-width" />
                     <!-- <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal"  class="payment-gtw-icon cash-payment"/> -->
