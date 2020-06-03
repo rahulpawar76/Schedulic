@@ -6,9 +6,9 @@ export const environment = {
     production: false,
     
  
-    apiUrl:         'http://goappointment.bi-team.in/goappointment_api/api',
+    apiUrl:         'https://api.schedulic.com/api',
     //apiUrl:         'http://localhost/angularjs/angularclient/api/she-excellence-ci-api',
-    authApiUrl:     'https://goappointment.bi-team.in/goappointment_api/api',
+    authApiUrl:     'https://api.schedulic.com/api',
     //authApiUrl:     'http://localhost/angularjs/angularclient/api/she-excellence-ci-api',
     urlForLink :    'http://localhost:4200',
 

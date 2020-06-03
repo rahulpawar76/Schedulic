@@ -10,7 +10,7 @@
                     <mat-icon matPrefix>{{selectedCurrency| currencySymbol:'wide'}}</mat-icon>
                     <mat-label>Select Currency</mat-label>
                     <mat-select (selectionChange)="fnChangeCurrency($event.value)" [(value)]="selectedCurrency">
-                      <mat-option *ngFor="let currenciesData of currenciesData; let i=index" value="{{currenciesData.CurrencyCode}}">{{currenciesData.CurrencyName}}</mat-option>
+                        <mat-option *ngFor="let currenciesData of currenciesData; let i=index" value="{{currenciesData.CurrencyCode}}">{{currenciesData.CurrencyName}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="bottom-border-field mr-2">
