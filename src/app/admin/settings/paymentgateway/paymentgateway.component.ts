@@ -73,7 +73,7 @@ export class PaymentgatewayComponent implements OnInit {
   getSettingsValue(){
     this.adminSettingsService.getSettingsValue().subscribe((response:any) => {
         console.log(response.response);
-        if(response.data == true && response.response.length > 0){
+        if(response.data == true && response.response != ''){
           this.settingsValue = response.response;
           if(this.settingsValue.pay_pal_settings){
             this.paypalSettingValue = JSON.parse(this.settingsValue.pay_pal_settings);

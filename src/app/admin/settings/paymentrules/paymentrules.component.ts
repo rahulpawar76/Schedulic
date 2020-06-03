@@ -173,8 +173,8 @@ export class DialogAddNewTax {
   }
   ngOnInit() {
     this.taxAdd = this._formBuilder.group({
-      tax_name: ['', Validators.required],
-      tax_per: ['', [Validators.required, Validators.pattern(this.onlynumeric)]],
+      tax_name: ['', Validators.required, Validators.maxLength(10)],
+      tax_per: ['', [Validators.required, Validators.pattern(this.onlynumeric), Validators.max(100)]],
 
     });
   }

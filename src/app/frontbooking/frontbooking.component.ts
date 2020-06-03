@@ -156,6 +156,7 @@ export class FrontbookingComponent implements OnInit {
   paymentDateTime:any;
   PayUMoneyCredentials:any;
   paypalSetting:any;
+  stripeSetting:any;
   loadAPI: Promise<any>;
   isFound:boolean=false;
   bolt:any;
@@ -279,7 +280,8 @@ export class FrontbookingComponent implements OnInit {
     
     this.serviceCount.length=0
     this.serviceCartArr.length=0
-    this.initConfig();
+    // this.initConfig();
+
   }
 
   renderExternalScript(src: string): HTMLScriptElement {
@@ -351,6 +353,11 @@ export class FrontbookingComponent implements OnInit {
         
       if(this.settingsArr.pay_pal_settings){
         this.paypalSetting = JSON.parse(this.settingsArr.pay_pal_settings)
+
+      }
+        
+      if(this.settingsArr.stripe_settings){
+        this.stripeSetting = JSON.parse(this.settingsArr.stripe_settings)
 
       }
         // this.PayUMoney.key= 'fT65jM3Y';
@@ -437,6 +444,8 @@ export class FrontbookingComponent implements OnInit {
           day: this.maximumAdvanceBookingDateTimeObject.getDate(),
         };
         this.staffOnFrontValue=JSON.parse(JSON.parse(this.settingsArr.staff_list_on_front).status)
+        
+        this.initConfig();
       }else{
       }
       },
