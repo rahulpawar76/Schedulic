@@ -744,3 +744,7 @@ button:focus,
     box-shadow: unset !important;
     outline: 0 !important;
 }
+.mydisbled .mat-form-field-wrapper{
+    background-color: #ddd;
+    opacity:0.7;
+}

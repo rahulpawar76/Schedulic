@@ -697,7 +697,7 @@ export class DialogAddNewAppointment {
       customerAddress: [this.appointmentData.address, Validators.required],
       customerState: [this.appointmentData.state, Validators.required],
       customerCity: [this.appointmentData.city, Validators.required],
-      customerPostalCode: [{ value: this.appointmentData.zip, disabled: this.disablePostalCode }, [Validators.required,Validators.pattern(onlynumeric)]],
+      customerPostalCode: [{ value: this.appointmentData.zip, disabled: this.disablePostalCode }, [Validators.required,Validators.minLength(5),Validators.maxLength(6),Validators.pattern(onlynumeric)]],
       //customerPostalCode: new FormControl({ value: this.appointmentData.zip, disabled: this.disablePostalCode },[Validators.required,Validators.pattern(onlynumeric)]),
     });
 
