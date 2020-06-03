@@ -16,6 +16,7 @@
                 </mat-form-field>
                 <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep1.get('customerFullName').dirty || formAddNewAppointmentStaffStep1.get('customerFullName').touched || formSubmitclicked">
           <small *ngIf="formAddNewAppointmentStaffStep1.get('customerFullName').hasError('required')" class="error">Fullname is required</small>
+          <small *ngIf="formAddNewAppointmentStaffStep1.get('customerFullName').hasError('maxlength')" class="error">Fullname should be maximum 12 letters</small>
         </span>
 
                 <mat-form-field class="form-group  bottom-border-field">
@@ -27,12 +28,12 @@
           <small *ngIf="formAddNewAppointmentStaffStep1.get('customerEmail').hasError('required')" class="error">Email is required</small><small *ngIf="formAddNewAppointmentStaffStep1.get('customerEmail').hasError('email') || formAddNewAppointmentStaffStep1.get('customerEmail').hasError('pattern')" class="error">Enter a valid email</small><small *ngIf="formAddNewAppointmentStaffStep1.get('customerEmail').hasError('isEmailUnique')" class="error">Email already in use</small>
         </span>
 
-        <mat-form-field class="form-group  bottom-border-field">
-          <mat-label>Customer Contact Number</mat-label>
-          <mat-icon matPrefix><i class="fa fa-phone"></i></mat-icon>
-          <input type="text" matInput formControlName="customerPhone" placeholder="Enter Customer Contact Number" (keypress)="numberOnly($event)">
-        </mat-form-field>
-        <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').dirty || formAddNewAppointmentStaffStep1.get('customerPhone').touched || formSubmitclicked">
+                <mat-form-field class="form-group  bottom-border-field">
+                    <mat-label>Customer Contact Number</mat-label>
+                    <mat-icon matPrefix><i class="fa fa-phone"></i></mat-icon>
+                    <input type="text" matInput formControlName="customerPhone" placeholder="Enter Customer Contact Number" (keypress)="numberOnly($event)">
+                </mat-form-field>
+                <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').dirty || formAddNewAppointmentStaffStep1.get('customerPhone').touched || formSubmitclicked">
           <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('required')" class="error">Phone is required</small>
           <small *ngIf=" formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern')" class="error">Enter a valid Phone</small>
           <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerPhone').hasError('maxlength')" class="error">Phone number should be 10 to 15 digits long</small>
@@ -80,9 +81,10 @@
                                 <input matInput formControlName="customerPostalCode" placeholder="Postal Code">
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep1.get('customerPostalCode').dirty || formAddNewAppointmentStaffStep1.get('customerPostalCode').touched || formSubmitclicked">
-                <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPostalCode').hasError('required')" class="error">Postal code is required</small>
-                <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPostalCode').hasError('pattern')" class="error">Enter a valid postal code</small>
-              </span>
+                                <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPostalCode').hasError('required')" class="error">Postal code is required</small>
+                                <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPostalCode').hasError('pattern')" class="error">Enter a valid postal code</small>
+                                <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPostalCode').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerPostalCode').hasError('maxlength')" class="error">Postal code shou;ld be 6 digit</small>
+                            </span>
                         </div>
                     </div>
 

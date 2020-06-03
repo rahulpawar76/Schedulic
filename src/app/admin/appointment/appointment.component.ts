@@ -118,7 +118,7 @@ export class AppointmentComponent implements OnInit {
     this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
      
       
-      if(response.data == true && response.response.length > 0){
+      if(response.data == true && response.response != ''){
         this.settingsArr=response.response;
 
         this.currencySymbol = this.settingsArr.currency;
@@ -411,7 +411,7 @@ export class AppointmentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      //this.getAllAppointments(this.selectedServices);
+      this.getAllAppointments();
     });
   }
 
@@ -424,7 +424,7 @@ export class AppointmentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      // this.getAllAppointments(this.selectedServices);
+      this.getAllAppointments();
     });
   }
 
@@ -437,7 +437,7 @@ export class AppointmentComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.animal = result;
-      //this.getAllAppointments(this.selectedServices);
+      this.getAllAppointments();
     });
   }
 
@@ -678,13 +678,13 @@ export class DialogAddNewAppointment {
     this.serviceData=[];
 
     this.formAddNewAppointmentStaffStep1 = this._formBuilder.group({
-      customerFullName: [this.appointmentData.fullName, Validators.required],
+      customerFullName: [this.appointmentData.fullName, [Validators.required, Validators.maxLength(12)]],
       customerEmail: [this.appointmentData.email,[Validators.required,Validators.email,Validators.pattern(emailPattern)], this.validationArr],
       customerPhone: [this.appointmentData.phone, [Validators.required,Validators.minLength(10),Validators.maxLength(15),Validators.pattern(onlynumeric)]],
       customerAddress: [this.appointmentData.address, Validators.required],
       customerState: [this.appointmentData.state, Validators.required],
       customerCity: [this.appointmentData.city, Validators.required],
-      customerPostalCode: [{ value: this.appointmentData.zip, disabled: this.disablePostalCode }, [Validators.required,Validators.pattern(onlynumeric)]],
+      customerPostalCode: [{ value: this.appointmentData.zip, disabled: this.disablePostalCode }, [Validators.required,Validators.pattern(onlynumeric),Validators.minLength(6),Validators.maxLength(6)]],
       //customerPostalCode: new FormControl({ value: this.appointmentData.zip, disabled: this.disablePostalCode },[Validators.required,Validators.pattern(onlynumeric)]),
     });
 
@@ -769,7 +769,7 @@ export class DialogAddNewAppointment {
       "business_id":this.bussinessId
     };
     this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
-      if(response.data == true && response.response.length > 0){
+      if(response.data == true && response.response != ''){
         this.settingsArr=response.response;
         
         this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
@@ -1782,6 +1782,7 @@ constructor(
     this.businessId=localStorage.getItem('business_id');
     this.detailsData =  this.data.appointmentData;
     console.log(this.detailsData);
+    this.fnGetSettingValue();
     
     this.fnGetActivityLog(this.detailsData.id);
       var todayDateTime = new Date();
@@ -1803,7 +1804,7 @@ constructor(
       "business_id":this.businessId
     };
     this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
-      if(response.data == true){
+      if(response.data == true && response.response != ''){
         this.settingsArr=response.response;
         console.log(this.settingsArr);
 
@@ -1830,7 +1831,7 @@ constructor(
         console.log("minReschedulingTime - "+this.minReschedulingTime);
       }
       else if(response.data == false){
-        
+        alert();
       }
     })
   }
@@ -1942,6 +1943,7 @@ export class RescheduleAppointAdmin {
 
       this.businessId=localStorage.getItem('business_id');
       this.appointmentDetails=this.data.appointmentDetails;
+      console.log(this.appointmentDetails);
       this.formAppointmentRescheduleAdmin = this._formBuilder.group({
         rescheduleDate: ['', Validators.required],
         rescheduleTime: ['', Validators.required],
@@ -1998,9 +2000,9 @@ export class RescheduleAppointAdmin {
 
     fnGetStaff(selectedTimeSlot){
       let requestObject = {
-        "postal_code":this.appointmentDetails.postalCode,
+        "postal_code":this.appointmentDetails.postal_code,
         "business_id":this.businessId,
-        "service_id":JSON.stringify(this.appointmentDetails.serviceId),
+        "service_id":JSON.stringify(this.appointmentDetails.service_id),
         "book_date":this.selectedDate,
         "book_time":this.selectedTimeSlot
       };

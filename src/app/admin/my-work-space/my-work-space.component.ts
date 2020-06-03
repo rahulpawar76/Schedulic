@@ -105,7 +105,7 @@ export class MyWorkSpaceComponent implements OnInit {
     };
     this.adminService.getSettingValue(requestObject).subscribe((response:any) => {
 
-      if(response.data == true && response.response.length > 0){
+      if(response.data == true && response.response != ''){
         console.log("=====");
         this.settingsArr=response.response;
 
