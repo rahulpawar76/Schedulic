@@ -715,28 +715,32 @@ export class DialogAddNewAppointment {
     this.fnGetOffDays();
 
     this.myFilter = (d: Date | null): boolean => {
-    // const day = (d || new Date()).getDay();
-    // const month = (d || new Date()).getMonth();
-    // Prevent Saturday and Sunday from being selected.
-    // return day !== 0 && day !== 6;
-    let temp:any;
-    let temp2:any;
-    if(this.offDaysList.length>0 || this.workingHoursOffDaysList.length>0){
-      for(var i=0; i<this.offDaysList.length; i++){
-        var offDay = new Date(this.offDaysList[i]);
-        if(i==0){
-         temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
-        }else{
-          temp=temp && (d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+      // const day = (d || new Date()).getDay();
+      // const month = (d || new Date()).getMonth();
+      // Prevent Saturday and Sunday from being selected.
+      // return day !== 0 && day !== 6;
+      let temp:any;
+      let temp2:any;
+      if(this.offDaysList.length>0 || this.workingHoursOffDaysList.length>0){
+        for(var i=0; i<this.offDaysList.length; i++){
+          var offDay = new Date(this.offDaysList[i]);
+          if(i==0){
+           temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+          }else{
+            temp=temp && (d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+          }
         }
-      }
-      for(var i=0; i<this.workingHoursOffDaysList.length; i++){
-          temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
-      }
-      //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
-      return temp;
+        for(var i=0; i<this.workingHoursOffDaysList.length; i++){
+          if(this.offDaysList.length>0){
+            temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
+          }else{
+            temp=(d.getDay() !== this.workingHoursOffDaysList[i]);
+          }
+        }
+        //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
+        return temp;
       }else{
-      return true;
+        return true;
       }
     }
   }
@@ -838,6 +842,36 @@ export class DialogAddNewAppointment {
         }else{
           this.workingHoursOffDaysList=[];
         }
+
+        this.myFilter = (d: Date | null): boolean => {
+        // const day = (d || new Date()).getDay();
+        // const month = (d || new Date()).getMonth();
+        // Prevent Saturday and Sunday from being selected.
+        // return day !== 0 && day !== 6;
+        let temp:any;
+        let temp2:any;
+        if(this.offDaysList.length>0 || this.workingHoursOffDaysList.length>0){
+          for(var i=0; i<this.offDaysList.length; i++){
+            var offDay = new Date(this.offDaysList[i]);
+            if(i==0){
+             temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+            }else{
+              temp=temp && (d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+            }
+          }
+          for(var i=0; i<this.workingHoursOffDaysList.length; i++){
+            if(this.offDaysList.length>0){
+              temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
+            }else{
+              temp=(d.getDay() !== this.workingHoursOffDaysList[i]);
+            }
+          }
+          //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
+          return temp;
+        }else{
+          return true;
+        }
+      }
       }
       else{
 
