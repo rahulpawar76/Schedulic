@@ -181,7 +181,7 @@ export class CustomersComponent implements OnInit {
       cus_address : ['', Validators.required],
       cus_state : ['', Validators.required],
       cus_city : ['', Validators.required],
-      cus_zip : ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+      cus_zip : ['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(5),Validators.maxLength(6)]],
       customer_id : ['']
     });
 
@@ -362,7 +362,7 @@ customerUpdate(existingCustomerData){
       cus_address : ['', Validators.required],
       cus_state : ['', Validators.required],
       cus_city : ['', Validators.required],
-      cus_zip : ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+      cus_zip : ['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(5),Validators.maxLength(6)]],
       customer_id : ['']
     });
     this.createNewCustomer.controls['customer_id'].setValue(null);
@@ -507,7 +507,7 @@ customerUpdate(existingCustomerData){
       cus_address : ['', Validators.required],
       cus_state : ['', Validators.required],
       cus_city : ['', Validators.required],
-      cus_zip : ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+      cus_zip : ['',[Validators.required,Validators.pattern(this.onlynumeric)],Validators.minLength(5),Validators.maxLength(6)],
       customer_id : ['']
     });
     this.createNewCustomer.controls['customer_id'].setValue(this.existingUserId);
