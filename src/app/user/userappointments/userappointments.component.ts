@@ -93,6 +93,8 @@ export class UserappointmentsComponent implements OnInit {
   stripeSetting:any;
   stripeStatus : boolean = false;
 
+  taxAmount:any=0;
+  taxAmountArr:any=[];
 
   constructor(
     public dialog: MatDialog,
@@ -108,10 +110,10 @@ export class UserappointmentsComponent implements OnInit {
     this.bussinessId=this.authenticationService.currentUserValue.business_id;
     this.cardForm = this._formBuilder.group({
       cardHolderName: ['',[Validators.required]],
-      cardNumber: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
-      expiryMonth: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
-      expiryYear: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
-      cvvCode: ['',[Validators.required]],
+      cardNumber: ['',[Validators.required,Validators.minLength(4),Validators.maxLength(20)]],
+      expiryMonth: ['',[Validators.required,Validators.minLength(2),Validators.maxLength(2)]],
+      expiryYear: ['',[Validators.required,Validators.minLength(4),Validators.maxLength(4)]],
+      cvvCode: ['',[Validators.required,Validators.minLength(2),Validators.maxLength(6)]],
     })
   }
 
@@ -123,6 +125,14 @@ ngOnInit() {
   this.getCompletedAppointments();
 }
 
+numberOnly(event): boolean {
+  const charCode = (event.which) ? event.which : event.keyCode;
+  if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+    return false;
+  }
+  return true;
+
+}
 fnGetSettingValue(){
     let requestObject = {
       "business_id":this.bussinessId
@@ -176,6 +186,7 @@ fnGetSettingValue(){
           this.stripeSetting = JSON.parse(this.settingsArr.stripe_settings)
           this.stripeStatus = this.stripeSetting.status
         }
+        this.initConfig();
       }
       else if(response.data == false){
         
@@ -378,7 +389,16 @@ getCompletedAppointments(): void{
     this.appointDetailForPayment = this.appointmentData[index];
     console.log(this.appointDetailForPayment);
     this.paymentScreen = true;
-    this.initConfig();
+    this.taxAmount=0;
+    if(this.appointDetailForPayment.tax){
+      this.taxAmountArr=JSON.parse(this.appointDetailForPayment.tax);
+      this.taxAmountArr.forEach(element=>{
+        this.taxAmount=this.taxAmount+element.amount;
+      });
+    }else{
+      this.taxAmount=0;
+      this.taxAmountArr=[];
+    }
   }
   fnPaymentMethod(paymentMethod){
     console.log(paymentMethod);
@@ -396,6 +416,8 @@ getCompletedAppointments(): void{
       this.paymentMethod="Paypal";
       this.transactionId=null;
       this.paymentDateTime=new Date();
+      let digit5= Math.floor(Math.random()*90000) + 10000;
+      this.reference_id="2_"+digit5+"_"+ this.datePipe.transform(new Date(),"yyyy/MM/dd") ;
     }
     if(paymentMethod == 'PayUMoney'){
       this.creditcardform =false;
@@ -461,10 +483,7 @@ getCompletedAppointments(): void{
 
     this.payPalConfig = {
     currency: this.currencySymbol,
-    //clientId: 'AfM8281lH1hKV3Hk_RRwe5gT95do6JeBc9X3KUBSW6407yMP1nJoY820GscNd4gNP8q8fAnrZoEyayL7',
     clientId: this.paypalClientId,
-    // clientId: 'AbwWitbWZcWZGJdguSL2wb-XcgF8KGTHps1c_w9u9t0CMN2uUoBTDSpU5NFJa5qnfN_YYaG_k-9OKfk8',
-    // clientId: 'sb',
     createOrderOnClient: (data) => <ICreateOrderRequest>{
       intent: 'CAPTURE',
       purchase_units: [
@@ -472,78 +491,37 @@ getCompletedAppointments(): void{
           reference_id: this.reference_id,
           amount: {
             currency_code: this.currencySymbol,
-            value: JSON.stringify(this.appointDetailForPayment.total_cost),
-            // breakdown: {
-            //   item_total: {
-            //     currency_code: this.currencySymbol,
-            //     value: JSON.stringify(this.serviceMainArr.subtotal)
-            //   },
-            //   tax_total : {
-            //     currency_code: this.currencySymbol,
-            //     value: JSON.stringify(this.taxAmount)
-            //   },
-            //   discount : {
-            //     currency_code: this.currencySymbol,
-            //     value: JSON.stringify(this.serviceMainArr.discount)
-            //   }
-            // }
+            value: this.appointDetailForPayment.total_cost,
+            breakdown: {
+              item_total: {
+                currency_code: this.currencySymbol,
+                value: this.appointDetailForPayment.subtotal
+              },
+              tax_total : {
+                currency_code: this.currencySymbol,
+                value: JSON.stringify(this.taxAmount)
+              },
+              discount : {
+                currency_code: this.currencySymbol,
+                value: this.appointDetailForPayment.discount
+              }
+            }
           },
-          items: this.appointDetailForPayment,
-          // items: [
-          //   {
-          //     name: 'Enterprise Subscription',
-          //     quantity: '1',
-          //     description : 'quantity 1',
-          //     category: 'DIGITAL_GOODS',
-          //    // tax:{currency_code:"USD", value:"1.00"},
-          //     unit_amount: {
-          //       currency_code: 'USD',
-          //       value: '8.99',
-          //     }
-          //   },
-          //   {
-          //     name: 'Enterprise Subscription2',
-          //     quantity: '1',
-          //     description : 'quantity 1',
-          //     category: 'DIGITAL_GOODS',
-          //    // tax:{currency_code:"USD", value:"1.00"},
-          //     unit_amount: {
-          //       currency_code: 'USD',
-          //       value: '8.99',
-          //     }
-          //   }
-          // ]
+          items: [
+            {
+              name: this.appointDetailForPayment.service.service_name,
+              quantity: '1',
+              description : 'Actual Quantity - '+JSON.stringify(this.appointDetailForPayment.service_qty),
+              category: 'DIGITAL_GOODS',
+              unit_amount: {
+                currency_code: this.currencySymbol,
+                value: this.appointDetailForPayment.subtotal,
+              }
+            }
+          ]
         }
       ]
     },
-    // createOrderOnClient: (data) => <ICreateOrderRequest>{
-    //   intent: 'CAPTURE',
-    //   purchase_units: [
-    //     {
-    //       amount: {
-    //         currency_code: 'EUR',
-    //         value: '9.99',
-    //         breakdown: {
-    //           item_total: {
-    //             currency_code: 'EUR',
-    //             value: '9.99'
-    //           }
-    //         }
-    //       },
-    //       items: [
-    //         {
-    //           name: 'Enterprise Subscription',
-    //           quantity: '1',
-    //           category: 'DIGITAL_GOODS',
-    //           unit_amount: {
-    //             currency_code: 'EUR',
-    //             value: '9.99',
-    //           },
-    //         }
-    //       ]
-    //     }
-    //   ]
-    // },
     advanced: {
       commit: 'true'
     },
@@ -732,6 +710,7 @@ getCompletedAppointments(): void{
         });
         this.fnBackToPayment();
         this.getAllAppointments();
+        this.cardForm.reset();
       }
       else if(response.data == false){
         this._snackBar.open(response.response, "X", {
@@ -848,6 +827,15 @@ export class DialogOverviewExampleDialog {
     this.ratingValueNo = event.srcElement.value
   }
   fnRatingSubmit(){
+    console.log(this.appoId);
+    console.log(this.ratingValueNo);
+    console.log(this.ratingTitle);
+    console.log(this.ratingDecreption);
+    if(this.appoId == undefined || this.ratingValueNo == undefined || this.ratingTitle == undefined || this.ratingDecreption == undefined)
+    {
+      return false;
+    }
+    
     this.ratingToAppointment(this.appoId,this.ratingValueNo,this.ratingTitle,this.ratingDecreption);
   }
   ratingToAppointment(appoId,ratingValueNo,ratingTitle,ratingDecreption): void{
@@ -1325,11 +1313,22 @@ export class DialogCancelReason {
 })
 export class rescheduleAppointmentDialog {
   myAppoDetailData: any;
+  businessId: any;
   minDate = new Date();
   formAppointmentReschedule: FormGroup;
   timeSlotArr:any= [];
   availableStaff:any= [];
   selectedDate:any;
+  maxDate = new Date();
+
+  myFilter:any;
+  offDaysList:any=[];
+  workingHoursOffDaysList:any=[];
+  settingsArr:any=[];
+  minimumAdvanceBookingTime:any;
+  maximumAdvanceBookingTime:any;
+  minimumAdvanceBookingDateTimeObject:any;
+  maximumAdvanceBookingDateTimeObject:any;
   constructor(
     public dialogRef: MatDialogRef<rescheduleAppointmentDialog>,
     private datePipe: DatePipe,
@@ -1339,14 +1338,46 @@ export class rescheduleAppointmentDialog {
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.myAppoDetailData = this.data.fulldata;
+      this.businessId = this.myAppoDetailData.business_id;
       console.log(JSON.stringify(this.myAppoDetailData));
-      //this.fnGetOffDays();
+      this.fnGetSettingValue();
+      this.fnGetOffDays();
+
+      this.myFilter = (d: Date | null): boolean => {
+        // const day = (d || new Date()).getDay();
+        // const month = (d || new Date()).getMonth();
+        // Prevent Saturday and Sunday from being selected.
+        // return day !== 0 && day !== 6;
+        let temp:any;
+        let temp2:any;
+        if(this.offDaysList.length>0 || this.workingHoursOffDaysList.length>0){
+          for(var i=0; i<this.offDaysList.length; i++){
+            var offDay = new Date(this.offDaysList[i]);
+            if(i==0){
+             temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+            }else{
+              temp=temp && (d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+            }
+          }
+          for(var i=0; i<this.workingHoursOffDaysList.length; i++){
+            if(this.offDaysList.length>0){
+              temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
+            }else{
+              temp=(d.getDay() !== this.workingHoursOffDaysList[i]);
+            }
+          }
+          //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
+          return temp;
+        }else{
+          return true;
+        }
+      }
       this.formAppointmentReschedule = this._formBuilder.group({
         rescheduleServiceId: ['', Validators.required],
         rescheduleDate: ['', Validators.required],
         rescheduleTime: ['', Validators.required],
         rescheduleStaff: ['', Validators.required],
-        rescheduleNote: [''],
+        rescheduleNote: ['', Validators.required],
       });
       this.formAppointmentReschedule.controls['rescheduleServiceId'].setValue(this.myAppoDetailData.service.id);
     }
@@ -1377,6 +1408,94 @@ export class rescheduleAppointmentDialog {
     //       console.log(err)
     //     })
     //   }
+
+    fnGetSettingValue(){
+      let requestObject = {
+        "business_id":this.businessId
+      };
+      this.userService.getSettingValue(requestObject).subscribe((response:any) => {
+        if(response.data == true && response.response != ''){
+          this.settingsArr=response.response;
+          
+          this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
+          this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
+          
+          this.minimumAdvanceBookingDateTimeObject = new Date();
+          this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
+          console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
+          this.minDate = this.minimumAdvanceBookingDateTimeObject;
+
+          this.maximumAdvanceBookingDateTimeObject = new Date();
+          this.maximumAdvanceBookingDateTimeObject.setMinutes( this.maximumAdvanceBookingDateTimeObject.getMinutes() + this.maximumAdvanceBookingTime );
+          console.log("maximumAdvanceBookingDateTimeObject - "+this.maximumAdvanceBookingDateTimeObject);
+          this.maxDate = this.maximumAdvanceBookingDateTimeObject;
+
+          // if(!this.data.appointmentData){
+          //   this.formAddNewAppointmentStaffStep2.controls['customerDate'].setValue(this.minimumAdvanceBookingDateTimeObject);
+          //   this.selectedDate = this.datePipe.transform(new Date(this.minimumAdvanceBookingDateTimeObject),"yyyy-MM-dd");
+          // }
+        }
+        else if(response.data == false){
+          
+        }
+      })
+    }
+
+    fnGetOffDays(){
+      let requestObject = {
+        "business_id":this.businessId
+      };
+      this.userService.getOffDays(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          if(response.response.holidays.length>0){
+            this.offDaysList = response.response.holidays;
+          }else{
+            this.offDaysList=[];
+          }
+          if(response.response.offday.length>0){
+            this.workingHoursOffDaysList = response.response.offday;
+          }else{
+            this.workingHoursOffDaysList=[];
+          }
+
+          this.myFilter = (d: Date | null): boolean => {
+          // const day = (d || new Date()).getDay();
+          // const month = (d || new Date()).getMonth();
+          // Prevent Saturday and Sunday from being selected.
+          // return day !== 0 && day !== 6;
+          let temp:any;
+          let temp2:any;
+          if(this.offDaysList.length>0 || this.workingHoursOffDaysList.length>0){
+            for(var i=0; i<this.offDaysList.length; i++){
+              var offDay = new Date(this.offDaysList[i]);
+              if(i==0){
+               temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+              }else{
+                temp=temp && (d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+              }
+            }
+            for(var i=0; i<this.workingHoursOffDaysList.length; i++){
+              if(this.offDaysList.length>0){
+                temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
+              }else{
+                temp=(d.getDay() !== this.workingHoursOffDaysList[i]);
+              }
+            }
+            //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
+            return temp;
+          }else{
+            return true;
+          }
+        }
+        }
+        else{
+
+        }
+      },
+      (err) =>{
+        console.log(err)
+      })
+    }
 
       fnDateChange(event: MatDatepickerInputEvent<Date>) {
         console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
@@ -1468,6 +1587,10 @@ export class rescheduleAppointmentDialog {
   }
   formRescheduleSubmit(){
     if(this.formAppointmentReschedule.invalid){
+      this.formAppointmentReschedule.get('rescheduleStaff').markAsTouched();
+      this.formAppointmentReschedule.get('rescheduleTime').markAsTouched();
+      this.formAppointmentReschedule.get('rescheduleNote').markAsTouched();
+      this.formAppointmentReschedule.get('rescheduleDate').markAsTouched();
       return false;
     }
 

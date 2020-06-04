@@ -4,7 +4,7 @@
         <h5>Payment Gateways</h5>
         <div class="row mx-0">
             <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
-                <mat-expansion-panel>
+                <mat-expansion-panel [expanded]="paypalStatus">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <div class="d-flex">
@@ -81,7 +81,7 @@
                 </mat-expansion-panel>
             </mat-accordion>
             <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
-                <mat-expansion-panel>
+                <mat-expansion-panel [expanded]="stripeStatus">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <div class="d-flex">
@@ -275,7 +275,7 @@
 
         <div class="row mx-0">
             <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
-                <mat-expansion-panel>
+                <mat-expansion-panel [expanded]="payumoneyStatus">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <div class="d-flex">
@@ -326,7 +326,7 @@
             </mat-accordion>
 
             <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
-                <mat-expansion-panel>
+                <mat-expansion-panel [expanded]="bankTransferStatus">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <div class="d-flex">

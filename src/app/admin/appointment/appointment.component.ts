@@ -103,7 +103,17 @@ export class AppointmentComponent implements OnInit {
 
   }
 
- 
+  dynamicSort(property) {
+    var sortOrder = 1;
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+    return function (a, b) {
+      var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+    }
+  }
   
 
   ngOnDestroy(): void {
@@ -339,7 +349,8 @@ export class AppointmentComponent implements OnInit {
     this.AdminService.getAllAppointmentsData(this.staffApiUrl,requestObject).subscribe((response:any) => {
       if(response.data == true){
         
-        this.allAppointments = response.response
+        //this.allAppointments = response.response
+        
         this.current_page = response.response.current_page;
         this.first_page_url = response.response.first_page_url;
         this.last_page = response.response.last_page;
@@ -357,8 +368,8 @@ export class AppointmentComponent implements OnInit {
           element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
           element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
           element.is_selected = false;
-
         });
+        this.allAppointments = this.allAppointments.sort(this.dynamicSort("booking_date"))
 
         this.selectAll  = false;
         
@@ -779,6 +790,7 @@ export class DialogAddNewAppointment {
     return throwError('Error! something went wrong.');
     //return error.error ? error.error : error.statusText;
   }
+
 
   isEmailUnique(control: FormControl) {
     return new Promise((resolve, reject) => {

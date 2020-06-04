@@ -418,8 +418,8 @@ customerUpdate(existingCustomerData){
         this.customerPayments = response.response.payment;
         console.log(this.customerPayments);
         this.customerPayments.forEach( (element) => { 
-          element.paymentDate=this.datePipe.transform(new Date(element.payment_date),"dd MMM yyyy");
-          element.paymentTime=this.datePipe.transform(new Date(element.payment_date),"hh:mm a");
+          element.paymentDate=this.datePipe.transform(new Date(element.updated_at),"dd MMM yyyy");
+          element.paymentTime=this.datePipe.transform(new Date(element.updated_at),"hh:mm a");
           element.orders.bookingDateTime=new Date(element.orders.booking_date+" "+element.orders.booking_time);
           element.orders.created_at=this.datePipe.transform(new Date(element.orders.created_at),"dd MMM yyyy @ hh:mm a");
           element.orders.bookingDateForLabel=this.datePipe.transform(new Date(element.orders.booking_date),"dd MMM yyyy");

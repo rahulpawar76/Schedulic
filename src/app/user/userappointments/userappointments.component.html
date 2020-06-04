@@ -201,9 +201,9 @@
                             </div>
                             <div class="col-12 mb-4">
                                 <label>Card Number</label>
-                                <input formControlName="cardNumber" class="common-input" type="text" />
+                                <input formControlName="cardNumber" class="common-input" type="text" (keypress)="numberOnly($event)" />
                                 <span class="error-wrap" *ngIf="cardForm.get('cardNumber').dirty || cardForm.get('cardNumber').touched"><small *ngIf="cardForm.get('cardNumber').hasError('required')" class="error">Card number is required</small>
-                                    <!-- <small *ngIf="cardForm.get('cardNumber').hasError('pattern)" class="error">Card Number should Numeric</small> -->
+                                <small *ngIf="cardForm.get('cardNumber').hasError('minlength') || cardForm.get('cardNumber').hasError('maxlength')" class="error">Card Number in invalid</small>
                                 </span>
                             </div>
 
@@ -211,20 +211,20 @@
                                 <label>Expiry Date</label>
                                 <div class="col-6 float-left mb-4 p-0">
                                     <label>Month</label>
-                                    <input formControlName="expiryMonth" class="common-input" type="text" />
-                                    <span class="error-wrap" *ngIf="cardForm.get('expiryMonth').dirty || cardForm.get('expiryMonth').touched"><small *ngIf="cardForm.get('expiryMonth').hasError('required')" class="error">Expiry month is required</small><small *ngIf="cardForm.get('expiryMonth').hasError('pattern')" class="error">Expiry month should numeric</small></span>
+                                    <input formControlName="expiryMonth" class="common-input" type="text" (keypress)="numberOnly($event)" />
+                                    <span class="error-wrap" *ngIf="cardForm.get('expiryMonth').dirty || cardForm.get('expiryMonth').touched"><small *ngIf="cardForm.get('expiryMonth').hasError('required')" class="error">Expiry month is required</small><small *ngIf="cardForm.get('expiryMonth').hasError('minlength') || cardForm.get('expiryMonth').hasError('maxlength')" class="error">Expiry month is invalid</small></span>
                                 </div>
                                 <div class="col-6 float-left mb-4 p-0">
                                     <label>Year</label>
-                                    <input formControlName="expiryYear" class="common-input" type="text" />
-                                    <span class="error-wrap" *ngIf="cardForm.get('expiryYear').dirty || cardForm.get('expiryYear').touched"><small *ngIf="cardForm.get('expiryYear').hasError('required')" class="error">Expiry year is required</small><small *ngIf="cardForm.get('expiryYear').hasError('pattern')" class="error">Expiry year should numeric</small></span>
+                                    <input formControlName="expiryYear" class="common-input" type="text" (keypress)="numberOnly($event)" />
+                                    <span class="error-wrap" *ngIf="cardForm.get('expiryYear').dirty || cardForm.get('expiryYear').touched"><small *ngIf="cardForm.get('expiryYear').hasError('required')" class="error">Expiry year is required</small><small *ngIf="cardForm.get('expiryYear').hasError('minlength') || cardForm.get('expiryYear').hasError('maxlength')" class="error">Expiry year is invalid</small></span>
                                 </div>
                             </div>
                             <div class="col-6 float-left mb-4">
                                 <label class="invisible">CVV Code</label>
                                 <label class="mt-2">CVV Code</label>
-                                <input formControlName="cvvCode" class="common-input" type="password" />
-                                <span class="error-wrap" *ngIf="cardForm.get('cvvCode').dirty || cardForm.get('cvvCode').touched"><small *ngIf="cardForm.get('cvvCode').hasError('required')" class="error">CVV code is required</small></span>
+                                <input formControlName="cvvCode" class="common-input" type="password" (keypress)="numberOnly($event)" />
+                                <span class="error-wrap" *ngIf="cardForm.get('cvvCode').dirty || cardForm.get('cvvCode').touched"><small *ngIf="cardForm.get('cvvCode').hasError('required')" class="error">CVV code is required</small><small *ngIf="cardForm.get('cvvCode').hasError('minlength') || cardForm.get('cvvCode').hasError('maxlength')" class="error">CVV code is invalid</small></span>
                             </div>
                         </div>
                         <div class="col-12 right-side col-lg-6">
@@ -233,7 +233,7 @@
                     </form>
                 </div>
 
-                <!-- <mat-radio-button *ngIf="paypalStatus" [checked]="paymentMethod == 'Paypal'" (change)="fnPaymentMethod('Paypal')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay2">Paypal
+                <mat-radio-button *ngIf="paypalStatus" [checked]="paymentMethod == 'Paypal'" (change)="fnPaymentMethod('Paypal')" class="col-12 w-auto mt-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay2">Paypal
                     <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_150x38.png" alt="PayPal" class="payment-gtw-icon cash-payment" />
                 </mat-radio-button>
                 <div *ngIf="showPaypalButtons" class="field-list mx-4 row credit-card-form ">
@@ -243,7 +243,7 @@
                     <div class="col-12 right-side col-lg-6">
                         <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_200x51.png" alt="PayPal" />
                     </div>
-                </div> -->
+                </div>
 
                 <mat-radio-button *ngIf="payUmoneyStatus" [checked]="paymentMethod == 'PayUMoney'" (change)="fnPaymentMethod('PayUMoney')" class="col-12 w-auto mt-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay2">PayUMoney
                     <!-- <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" /> -->
