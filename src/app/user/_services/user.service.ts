@@ -225,4 +225,17 @@ export class UserService {
       catchError(this.handleError));
   }
 
+  getOffDays(requestObject){
+      let headers = new HttpHeaders({
+					"customer-id":JSON.stringify(this.userId),
+					"api-token":this.token,
+          'Content-Type': 'application/json'
+      });
+      return this.http.post(`${environment.apiUrl}/list-holidays`,requestObject,{headers:headers}).pipe(
+      map((res) => {
+          return res;
+      }),
+      catchError(this.handleError));
+  }
+
 }

@@ -347,7 +347,6 @@ export class MyWorkSpaceComponent implements OnInit {
   }
 
   fnOnClickStaff(event){
-    alert(event.value);
     let requestObject = {
       "order_item_id":this.appointmentDetails.id,
       "staff_id":event.value
@@ -620,8 +619,17 @@ export class MyWorkSpaceComponent implements OnInit {
     selectedTimeSlot:any;
     selectedStaff:any;
     minDate = new Date();
+    maxDate = new Date();
     timeSlotArr:any= [];
     availableStaff:any= [];
+    myFilter:any;
+    offDaysList:any=[];
+    workingHoursOffDaysList:any=[];
+    settingsArr:any=[];
+    minimumAdvanceBookingTime:any;
+    maximumAdvanceBookingTime:any;
+    minimumAdvanceBookingDateTimeObject:any;
+    maximumAdvanceBookingDateTimeObject:any;
     constructor(
       public dialogRef: MatDialogRef<InterruptedReschedule>,
       private datePipe: DatePipe,
@@ -633,14 +641,134 @@ export class MyWorkSpaceComponent implements OnInit {
 
         this.businessId=localStorage.getItem('business_id');
         this.appointmentDetails=this.data.appointmentDetails;
+        console.log(this.appointmentDetails);
         this.formAppointmentRescheduleAdmin = this._formBuilder.group({
           rescheduleDate: ['', Validators.required],
           rescheduleTime: ['', Validators.required],
           rescheduleStaff: ['', Validators.required],
           rescheduleNote: ['', Validators.required],
         });
+        this.fnGetSettingValue();
+        this.fnGetOffDays();
+
+        this.myFilter = (d: Date | null): boolean => {
+          // const day = (d || new Date()).getDay();
+          // const month = (d || new Date()).getMonth();
+          // Prevent Saturday and Sunday from being selected.
+          // return day !== 0 && day !== 6;
+          let temp:any;
+          let temp2:any;
+          if(this.offDaysList.length>0 || this.workingHoursOffDaysList.length>0){
+            for(var i=0; i<this.offDaysList.length; i++){
+              var offDay = new Date(this.offDaysList[i]);
+              if(i==0){
+               temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+              }else{
+                temp=temp && (d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+              }
+            }
+            for(var i=0; i<this.workingHoursOffDaysList.length; i++){
+              if(this.offDaysList.length>0){
+                temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
+              }else{
+                temp=(d.getDay() !== this.workingHoursOffDaysList[i]);
+              }
+            }
+            //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
+            return temp;
+          }else{
+            return true;
+          }
+        }
     }
 
+    fnGetSettingValue(){
+      let requestObject = {
+        "business_id":this.businessId
+      };
+      this.adminService.getSettingValue(requestObject).subscribe((response:any) => {
+        if(response.data == true && response.response != ''){
+          this.settingsArr=response.response;
+          
+          this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
+          this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
+          
+          this.minimumAdvanceBookingDateTimeObject = new Date();
+          this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
+          console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
+          this.minDate = this.minimumAdvanceBookingDateTimeObject;
+
+          this.maximumAdvanceBookingDateTimeObject = new Date();
+          this.maximumAdvanceBookingDateTimeObject.setMinutes( this.maximumAdvanceBookingDateTimeObject.getMinutes() + this.maximumAdvanceBookingTime );
+          console.log("maximumAdvanceBookingDateTimeObject - "+this.maximumAdvanceBookingDateTimeObject);
+          this.maxDate = this.maximumAdvanceBookingDateTimeObject;
+
+          // if(!this.data.appointmentData){
+          //   this.formAddNewAppointmentStaffStep2.controls['customerDate'].setValue(this.minimumAdvanceBookingDateTimeObject);
+          //   this.selectedDate = this.datePipe.transform(new Date(this.minimumAdvanceBookingDateTimeObject),"yyyy-MM-dd");
+          // }
+        }
+        else if(response.data == false){
+          
+        }
+      })
+    }
+
+    fnGetOffDays(){
+      let requestObject = {
+        "business_id":this.businessId
+      };
+      this.adminService.getOffDays(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          if(response.response.holidays.length>0){
+            this.offDaysList = response.response.holidays;
+          }else{
+            this.offDaysList=[];
+          }
+          if(response.response.offday.length>0){
+            this.workingHoursOffDaysList = response.response.offday;
+          }else{
+            this.workingHoursOffDaysList=[];
+          }
+
+          this.myFilter = (d: Date | null): boolean => {
+          // const day = (d || new Date()).getDay();
+          // const month = (d || new Date()).getMonth();
+          // Prevent Saturday and Sunday from being selected.
+          // return day !== 0 && day !== 6;
+          let temp:any;
+          let temp2:any;
+          if(this.offDaysList.length>0 || this.workingHoursOffDaysList.length>0){
+            for(var i=0; i<this.offDaysList.length; i++){
+              var offDay = new Date(this.offDaysList[i]);
+              if(i==0){
+               temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+              }else{
+                temp=temp && (d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+              }
+            }
+            for(var i=0; i<this.workingHoursOffDaysList.length; i++){
+              if(this.offDaysList.length>0){
+                temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
+              }else{
+                temp=(d.getDay() !== this.workingHoursOffDaysList[i]);
+              }
+            }
+            //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
+            return temp;
+          }else{
+            return true;
+          }
+        }
+        }
+        else{
+
+        }
+      },
+      (err) =>{
+        console.log(err)
+      })
+    }
     
     fnDateChange(event:MatDatepickerInputEvent<Date>) {
         let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
@@ -720,6 +848,10 @@ export class MyWorkSpaceComponent implements OnInit {
 
   formRescheduleSubmit(){
     if(this.formAppointmentRescheduleAdmin.invalid){
+      this.formAppointmentRescheduleAdmin.get('rescheduleStaff').markAsTouched();
+      this.formAppointmentRescheduleAdmin.get('rescheduleTime').markAsTouched();
+      this.formAppointmentRescheduleAdmin.get('rescheduleNote').markAsTouched();
+      this.formAppointmentRescheduleAdmin.get('rescheduleDate').markAsTouched();
       return false;
     }
 
