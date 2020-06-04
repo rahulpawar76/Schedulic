@@ -675,9 +675,9 @@ export class AppComponent implements AfterViewInit {
   }
   staffAvaibility(event) {
     if (event == true) {
-      this.staffStatus = "E"
+      this.staffStatus = "N"
     } else {
-      this.staffStatus = "D"
+      this.staffStatus = "Y"
     }
     let requestObject = {
       "status": this.staffStatus,
@@ -689,6 +689,7 @@ export class AppComponent implements AfterViewInit {
     });
     this.CommonService.staffAvaibility(requestObject, headers).subscribe((response: any) => {
       if (response.data == true) {
+        this.currentUser.internal_staff=this.staffStatus;
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
