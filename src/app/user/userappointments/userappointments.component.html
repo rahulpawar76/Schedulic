@@ -233,7 +233,7 @@
                     </form>
                 </div>
 
-                <mat-radio-button *ngIf="paypalStatus" [checked]="paymentMethod == 'Paypal'" (change)="fnPaymentMethod('Paypal')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay2">Paypal
+                <mat-radio-button *ngIf="paypalStatus" [checked]="paymentMethod == 'Paypal'" (change)="fnPaymentMethod('Paypal')" class="col-12 w-auto mt-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay2">Paypal
                     <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_150x38.png" alt="PayPal" class="payment-gtw-icon cash-payment" />
                 </mat-radio-button>
                 <div *ngIf="showPaypalButtons" class="field-list mx-4 row credit-card-form ">

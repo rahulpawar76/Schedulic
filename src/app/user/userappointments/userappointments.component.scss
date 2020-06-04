@@ -72,6 +72,9 @@
 /*My Appointments css*/
 
 .bookings-details-main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
     .single-booking {
         .card {
             /*margin: 20px;*/

@@ -39,14 +39,16 @@
     .left-border {
         border-left: 1px solid #dedede;
     }
-    
 }
+
 #Appoinment-Details {
     background: #fff;
 }
-#Appoinment-Details .title-main{
+
+#Appoinment-Details .title-main {
     margin-top: 15px;
 }
+
 @media only screen and (min-device-width: 360px) and (max-device-width: 825px) and (orientation: landscape) {
     .align-center {
         padding-left: 0 !important;
@@ -171,7 +173,7 @@
     background-size: 120%;
     background-position: 60% 7%;
     height: 70vh;
-    //overflow-y: auto;
+    overflow-y: auto;
     overflow-x: visible;
     i {
         // line-height: 1.5;
@@ -179,6 +181,7 @@
     }
     .timeframe-main {
         padding-left: 50px;
+        padding-right: 25px;
     }
     .font-blue {
         color: #0089ff;
@@ -398,7 +401,6 @@
             width: unset !important;
         }
     }
-    
     #admin-book-appointment {
         .row {
             mat-card {
@@ -788,6 +790,6 @@
     display: none !important;
 }
 
-.w-fc{
+.w-fc {
     width: fit-content;
 }
