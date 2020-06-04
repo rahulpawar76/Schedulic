@@ -61,6 +61,7 @@ export class DiscountCouponComponent implements OnInit {
   prev_page_url : any;
   path : any;
   discountApiUrl:any =  `${environment.apiUrl}/discount-coupon-list`;
+  diccount_error:boolean=false;
 
   
   constructor(
@@ -164,12 +165,33 @@ export class DiscountCouponComponent implements OnInit {
     return Array(n);
   }
 
+  discount_check(){
+    var discount_type = this.discountCoupon.get('discount_type').value;
+    var discount_value = this.discountCoupon.get('discount_value').value; 
+
+    if(discount_type=='P' && discount_value > 100){
+      this.diccount_error = true;
+    }else{
+      this.diccount_error = false;
+    }
+  }
+
   fnCreateCouponSubmit(){
     if(this.discountCoupon.valid){
       this.valid_from = this.discountCoupon.get('valid_from').value;
       this.valid_till = this.discountCoupon.get('valid_till').value;
       this.valid_from=this.datePipe.transform(new Date(this.valid_from),"yyyy-MM-dd")
       this.valid_till=this.datePipe.transform(new Date(this.valid_till),"yyyy-MM-dd")
+
+      var discount_type = this.discountCoupon.get('discount_type').value;
+      var discount_value = this.discountCoupon.get('discount_value').value; 
+      if(discount_type=='P' && discount_value > 100){
+        this.diccount_error = true;
+        return;
+      }else{
+        this.diccount_error = false;
+      }
+
       this.createdCouponCodeData = {
         "business_id" : this.businessId,
         "coupon_name" : this.discountCoupon.get('coupan_name').value,

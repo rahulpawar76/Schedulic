@@ -827,6 +827,15 @@ export class DialogOverviewExampleDialog {
     this.ratingValueNo = event.srcElement.value
   }
   fnRatingSubmit(){
+    console.log(this.appoId);
+    console.log(this.ratingValueNo);
+    console.log(this.ratingTitle);
+    console.log(this.ratingDecreption);
+    if(this.appoId == undefined || this.ratingValueNo == undefined || this.ratingTitle == undefined || this.ratingDecreption == undefined)
+    {
+      return false;
+    }
+    
     this.ratingToAppointment(this.appoId,this.ratingValueNo,this.ratingTitle,this.ratingDecreption);
   }
   ratingToAppointment(appoId,ratingValueNo,ratingTitle,ratingDecreption): void{

@@ -24,8 +24,8 @@
                     <mat-form-field class="appoint-action bottom-border-field">
                         <mat-label>Actions</mat-label>
                         <mat-select [disabled]="orderItemsIdArr.length == 0" [(ngModel)]="selectedValue" (selectionChange)="fnAppointAction($event.value)">
-                            <mat-option value="AC">Confirm</mat-option>
-                            <mat-option value="C">Cancel</mat-option>
+                            <mat-option value="AC" *ngIf="!ConfirmError">Confirm</mat-option>
+                            <mat-option value="C" *ngIf="!cancelError">Cancel</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -118,7 +118,6 @@
                                     </div>
 
                                     <div class="text-left" fxFlex="10">
-                                        <!-- {{fncompereDate(allAppointmentsData.booking_date_time)}} -->
                                         <button (click)="fnEditAppointment(i)" class="appointment-edit-btn mr-1" *ngIf="allAppointmentsData.order_status != 'C' && allAppointmentsData.order_status != 'CC' && allAppointmentsData.order_status != 'CO' && minReschedulingTime.getTime() < allAppointmentsData.booking_date_time.getTime()"><i class="material-icons appointment-icon">edit</i></button>
                                         <button *ngIf="allAppointmentsData.order_status !== 'C' && allAppointmentsData.order_status !== 'CC' && allAppointmentsData.order_status !== 'CO' && cancellationBufferTime.getTime() < allAppointmentsData.booking_date_time.getTime()" (click)="cancelAppointment('C', allAppointmentsData.id)"
                                             class="appointment-cancel-btn mr-1"><i class="material-icons appointment-icon">close</i></button>
