@@ -68,6 +68,8 @@ export class AppointmentComponent implements OnInit {
   prev_page_url : any;
   path : any;
   staffApiUrl:any =  `${environment.apiUrl}/admin-booking-listing`;
+  cancelError:boolean = false;
+  ConfirmError:boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -145,7 +147,6 @@ export class AppointmentComponent implements OnInit {
 
         this.minReschedulingTime = new Date();
         this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
-        console.log("minReschedulingTime - "+this.minReschedulingTime);
       }
       else if(response.data == false){
         
@@ -336,6 +337,7 @@ export class AppointmentComponent implements OnInit {
   getAllAppointments(){
 
     this.isLoaderAdmin = true;
+    
     let requestObject = {
         'business_id' : this.businessId,
         'start_date' : this.startDate,
@@ -456,6 +458,9 @@ export class AppointmentComponent implements OnInit {
 
   fnAddOrderId(event, orderId,i){
 
+    this.cancelError=false;
+    this.ConfirmError=false;
+
     if(event == true){
       this.orderItemsIdArr.push(orderId);
       this.allAppointments[i].is_selected = true;
@@ -468,6 +473,20 @@ export class AppointmentComponent implements OnInit {
           this.orderItemsIdArr.splice(index, 1);
       }
     }
+
+    
+    for (let i = 0; i < this.allAppointments.length; i++) {
+      const item = this.allAppointments[i];
+      if(item.is_selected){
+        if(this.fncompereDate(item.booking_date_time) == true){
+          this.cancelError=true;
+        }
+        if(item.order_status != 'P'){
+          this.ConfirmError=true;
+        }
+      }
+    }
+
 
    if (this.orderItemsIdArr.length == this.allAppointments.length ) {
       this.selectAll = true;
@@ -539,17 +558,24 @@ export class AppointmentComponent implements OnInit {
   checkAll(event){
 
     this.orderItemsIdArr = [];
-    
+    this.cancelError=false;
+    this.ConfirmError=false;
 
     for (let i = 0; i < this.allAppointments.length; i++) {
-
       const item = this.allAppointments[i];
       item.is_selected = event.checked;
-
       if(event.checked){
+        
+        if(this.fncompereDate(item.booking_date_time) == true){
+          this.cancelError=true;
+        }
+
+        if(item.order_status != 'P'){
+          this.ConfirmError=true;
+        }
+
         this.orderItemsIdArr.push(item.id)
       }
-        
     }
 
     if(event.checked){
@@ -561,16 +587,20 @@ export class AppointmentComponent implements OnInit {
 
   }
 
-  fncompereDate(val){
+  fncompereDate(APPODate){
+    
+    var Now = new Date();  
+    var  APPO = new Date(APPODate);
+    Now.setMinutes(Now.getMinutes() + parseInt(this.settingsArr.cancellation_buffer_time));
 
-    var date1 = new Date();  
-    var  date2 = new Date(val);
-
-    if (date1>date2) return true;
-    else if (date1<date2) return false;
-   // else return true; 
+    if (Now>APPO){
+        return true;
+    }else if (Now<APPO){
+      return false;  
+    } 
 
   }
+
 
 }
 
