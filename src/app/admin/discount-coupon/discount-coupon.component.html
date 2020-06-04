@@ -247,12 +247,13 @@
                             <mat-form-field>
                                 <mat-label>Discount</mat-label>
                                 <mat-icon matPrefix><img src="../../../assets/images/admin/percentage.png" class=""></mat-icon>
-                                <input matInput formControlName="discount_value" placeholder="Value">
+                                <input (keyup)="discount_check()" matInput formControlName="discount_value" placeholder="Value">
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="discountCoupon.get('discount_value').touched || discountCoupon.get('discount_value').dirty || formSubmitclicked">
-                  <small *ngIf="discountCoupon.get('discount_value').hasError('required')" class="error">Discount value is required</small>
-                  <small *ngIf="discountCoupon.get('discount_value').hasError('pattern')" class="error">Discount value should be only in numbers</small>
-                </span>
+                                <small *ngIf="discountCoupon.get('discount_value').hasError('required')" class="error">Discount value is required</small>
+                                <small *ngIf="discountCoupon.get('discount_value').hasError('pattern')" class="error">Discount value should be only in numbers</small>
+                                <small *ngIf="diccount_error" class="error">Discount Maximum 100%</small>
+                            </span>
                         </div>
 
                         <div class=" form-group col-lg-6 col-12 col-sm-12 col-md-6  bottom-border-field">
