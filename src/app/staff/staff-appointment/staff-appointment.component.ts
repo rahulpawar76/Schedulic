@@ -116,8 +116,12 @@ export class StaffAppointmentComponent implements OnInit {
   }
 
   getNewAppointment(){
+    
+    let requestObject = {
+      'business_id': this.bussinessId,
+    };
     this.isLoader=true;
-    this.StaffService.getNewAppointment().subscribe((response:any) =>{
+    this.StaffService.getNewAppointment(requestObject).subscribe((response:any) =>{
       if(response.data == true){
         this.newAppointmentData = response.response;
         console.log( this.newAppointmentData);
@@ -141,8 +145,13 @@ export class StaffAppointmentComponent implements OnInit {
     this.isLoader=false;
   }
   getCompletedAppointment(){
+    let requestObject = {
+      'staff_id' : this.staffId,
+      'business_id': this.bussinessId,
+      'status': 'CO'
+    };
     this.isLoader=true;
-    this.StaffService.getCompletedAppointment().subscribe((response:any) =>{
+    this.StaffService.getCompletedAppointment(requestObject).subscribe((response:any) =>{
       if(response.data == true){
         this.completedAppointmentData = response.response;
         this.completedAppointmentData.forEach( (element) => {
@@ -167,8 +176,11 @@ export class StaffAppointmentComponent implements OnInit {
     this.isLoader=false;
   }
   getOnGoingAppointment(){
+    let requestObject = {
+      'business_id': this.bussinessId,
+    };
     this.isLoader=true;
-    this.StaffService.getOnGoingAppointment().subscribe((response:any) =>{
+    this.StaffService.getOnGoingAppointment(requestObject).subscribe((response:any) =>{
       if(response.data == true){
         this.onGoingAppointmentData = response.response;
         this.onGoingAppointmentData.forEach( (element) => {
@@ -235,7 +247,14 @@ export class StaffAppointmentComponent implements OnInit {
     if(status == 'CO' && this.onGoingAppointmentData[index].payment.payment_status == 'unpaid'){
       this.OnlinePaymentMode(index);
     }else {
-      this.StaffService.changeStatus(order_item_id, status, this.notes).subscribe((response:any) =>{
+      
+    let requestObject = {
+      'order_item_id': order_item_id,
+      'order_status': status,
+      'notes' : this.notes,
+      'staff_id' : this.staffId
+    };
+      this.StaffService.changeStatus(requestObject).subscribe((response:any) =>{
         if(response.data == true){
           this._snackBar.open("Appointment Updated", "X", {
             duration: 2000,
@@ -1241,13 +1260,18 @@ export class StaffAppointmentComponent implements OnInit {
     status: any;
     booking_id: any;
     notes: any;
+    bussinessId:any;
+    staffId:any;
     constructor(
       public dialogRef: MatDialogRef<DialogONTheWay>,
       public dialog: MatDialog,
       private StaffService: StaffService,
       private _snackBar: MatSnackBar,
+      private authenticationService:AuthenticationService,
       @Inject(MAT_DIALOG_DATA) public data: any) {
 
+        this.bussinessId=this.authenticationService.currentUserValue.business_id
+        this.staffId = this.authenticationService.currentUserValue.user_id
         this.status = this.data.status;
         this.booking_id = this.data.booking_id 
       }
@@ -1256,7 +1280,15 @@ export class StaffAppointmentComponent implements OnInit {
       this.dialogRef.close();
     }
     changeBookingStatus(order_item_id, status){
-      this.StaffService.changeStatus(order_item_id, status, this.notes).subscribe((response:any) =>{
+      
+    let requestObject = {
+      'order_item_id': order_item_id,
+      'order_status': status,
+      'notes' : this.notes,
+      'staff_id' : this.staffId
+    };
+      
+      this.StaffService.changeStatus(requestObject).subscribe((response:any) =>{
         if(response.data == true){
           this._snackBar.open("Appointment Updated", "X", {
             duration: 2000,
@@ -1289,13 +1321,19 @@ export class StaffAppointmentComponent implements OnInit {
     status: any;
     booking_id: any;
     notes: any;
+    bussinessId:any;
+    staffId:any;
     constructor(
       public dialogRef: MatDialogRef<DialogWorkStarted>,
       public dialog: MatDialog,
       private StaffService: StaffService,
       private _snackBar: MatSnackBar,
+      private authenticationService:AuthenticationService,
+      
       @Inject(MAT_DIALOG_DATA) public data: any) {
         
+        this.bussinessId=this.authenticationService.currentUserValue.business_id
+        this.staffId = this.authenticationService.currentUserValue.user_id
         this.status = this.data.status;
         this.booking_id = this.data.booking_id 
       }
@@ -1305,7 +1343,13 @@ export class StaffAppointmentComponent implements OnInit {
       
     }
     changeBookingStatus(order_item_id, status){
-      this.StaffService.changeStatus(order_item_id, status, this.notes).subscribe((response:any) =>{
+      let requestObject = {
+        'order_item_id': order_item_id,
+        'order_status': status,
+        'notes' : this.notes,
+        'staff_id' : this.staffId
+      };
+      this.StaffService.changeStatus(requestObject).subscribe((response:any) =>{
         if(response.data == true){
           this._snackBar.open("Appointment Updated", "X", {
             duration: 2000,
@@ -1547,6 +1591,7 @@ export class StaffAppointmentComponent implements OnInit {
     currencySymbolPosition:any;
     currencySymbolFormat:any;
     activityLog:any=[];
+    staffId:any
     constructor(
       public dialogRef: MatDialogRef<DialogStaffMyAppointmentDetails>,
       private StaffService: StaffService,
@@ -1556,6 +1601,7 @@ export class StaffAppointmentComponent implements OnInit {
         this.detailData =  this.data.fulldata;
         this.fnGetActivityLog(this.detailData.id);
         this.bussinessId=this.authenticationService.currentUserValue.business_id
+        this.staffId = this.authenticationService.currentUserValue.user_id
         console.log(this.detailData);
         this.fnGetSettingValue();
       }
@@ -1615,7 +1661,14 @@ export class StaffAppointmentComponent implements OnInit {
     }
     
     changeBookingStatus(order_item_id, status){
-      this.StaffService.changeStatus(order_item_id, status, this.notes).subscribe((response:any) =>{
+      
+    let requestObject = {
+      'order_item_id': order_item_id,
+      'order_status': status,
+      'notes' : this.notes,
+      'staff_id' : this.staffId
+    };
+      this.StaffService.changeStatus(requestObject).subscribe((response:any) =>{
         if(response.data == true){
           this._snackBar.open("Appointment Updated", "X", {
             duration: 2000,

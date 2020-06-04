@@ -20,8 +20,8 @@
                     <p>Booked On:{{detailsData.created_at}} </p>
 
                     <p class="mb-0">Service</p>
-                    <h6 class="mb-0 pt-2" *ngIf="currencySymbolPosition=='left'">{{detailsData.service_name}}({{detailsData.categoryName}}) : {{currencySymbol| currencySymbol:'wide'}} {{ detailsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
-                    <h6 class="mb-0 pt-2" *ngIf="currencySymbolPosition=='right'">{{detailsData.service_name}}({{detailsData.categoryName}}) : {{ detailsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6>
+                    <h6 class="mb-0 pt-2" *ngIf="currencySymbolPosition=='left'">{{detailsData.service.service_name}}({{detailsData.categoryName}}) : {{currencySymbol| currencySymbol:'wide'}} {{ detailsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
+                    <h6 class="mb-0 pt-2" *ngIf="currencySymbolPosition=='right'">{{detailsData.service.service_name}}({{detailsData.categoryName}}) : {{ detailsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6>
                     <!-- <p class="font-weight-bold">{{detailsData.service.service_name}}(${{detailsData.total_cost}})</p> -->
                     <p class="mb-0">Time</p>
                     <p class="font-weight-bold">{{detailsData.booking_time}}</p>
@@ -57,22 +57,24 @@
 
 
                 </div>
-                <mat-card class="card-body-marginn booking-detail-main mb-0">
+                <!-- <mat-card class="card-body-marginn booking-detail-main mb-0">
 
 
                     <p>Appointment Notes</p>
                     <textarea class="form-control mb-2" placeholder="Note here"></textarea>
-                </mat-card>
+                </mat-card> -->
 
-      
 
-      <div  class="p-1-5 bottom-border">
-      <h6>Activity Log</h6>
-      <div *ngFor="let log of activityLog">{{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - {{log.status=='P'?'Pending':''}}{{log.status=='CNF'?'Confirm':''}}{{log.status=='AC'?'Accepted':''}}{{log.status=='OW'?'On The Way':''}}{{log.status=='WS'?'Work Started':''}}{{log.status=='RSA'?'Rescheduled By Admin':''}}{{log.status=='RSS'?'Rescheduled By Staff':''}}{{log.status=='RSC'?'Rescheduled By Client':''}}{{log.status=='ITR'?'Intrupted':''}}{{log.status=='C'?'Cancelled':''}}{{log.status=='CC'?'Cancelled By Client':''}}{{log.status=='R'?'Rejected':''}}{{log.status=='CO'?'Completed':''}}</div>
-      </div>
-        
-      </div>
-    </div>
+
+                <div class="p-1-5 bottom-border">
+                    <h6>Activity Log</h6>
+                    <div *ngFor="let log of activityLog">{{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - {{log.status=='P'?'Pending':''}}{{log.status=='CNF'?'Confirm':''}}{{log.status=='AC'?'Accepted':''}}{{log.status=='OW'?'On The Way':''}}{{log.status=='WS'?'Work
+                        Started':''}}{{log.status=='RSA'?'Rescheduled By Admin':''}}{{log.status=='RSS'?'Rescheduled By Staff':''}}{{log.status=='RSC'?'Rescheduled By Client':''}}{{log.status=='ITR'?'Intrupted':''}}{{log.status=='C'?'Cancelled':''}}{{log.status=='CC'?'Cancelled
+                        By Client':''}}{{log.status=='R'?'Rejected':''}}{{log.status=='CO'?'Completed':''}}</div>
+                </div>
+
+            </div>
+        </div>
 
     </mat-sidenav>
 </mat-sidenav-container>

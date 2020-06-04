@@ -1112,14 +1112,15 @@ constructor(
   private http: HttpClient,
   private datePipe: DatePipe,
   @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-    this.fnGetSettingValue();
 
     this.detailsData =  this.data.fulldata;
     console.log(this.detailsData);
     this.fnGetActivityLog(this.detailsData.id);
     if(localStorage.getItem('business_id')){
       this.businessId = localStorage.getItem('business_id');
+      alert(this.businessId)
     }
+    this.fnGetSettingValue();
   }
 
 onNoClick(): void {
@@ -2492,7 +2493,9 @@ onNoClick(): void {
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.settingsArr = this.data.setting;
         console.log(this.settingsArr);  
-        this.bussinessId=this.authenticationService.currentUserValue.business_id;
+        // this.bussinessId=this.authenticationService.currentUserValue.business_id;
+        
+    this.bussinessId=JSON.parse(localStorage.getItem('business_id'));
         this.getBusinessDetail();
 
         this.currencySymbol = this.settingsArr.currency;

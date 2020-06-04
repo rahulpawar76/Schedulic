@@ -851,7 +851,13 @@ export class DialogOverviewExampleDialog {
     this.ratingToAppointment(this.appoId,this.ratingValueNo,this.ratingTitle,this.ratingDecreption);
   }
   ratingToAppointment(appoId,ratingValueNo,ratingTitle,ratingDecreption): void{
-    this.UserService.ratingToAppointment(appoId,ratingValueNo,ratingTitle,ratingDecreption).subscribe((response:any) =>{
+		let requestObject = {
+			"order_id":appoId,
+			"rating_title" : ratingTitle,
+			"rating" : ratingValueNo,
+			"review" : ratingDecreption,
+		};
+    this.UserService.ratingToAppointment(requestObject).subscribe((response:any) =>{
       if(response.data == true){
         this._snackBar.open("Review Submited", "X", {
           duration: 2000,
@@ -897,7 +903,11 @@ export class DialogCancelReason {
   }
 
   cancelAppointment(appoId,cancelReason): void{
-    this.UserService.cancelAppointment(appoId,cancelReason).subscribe((response:any) =>{
+		let requestObject = {
+			"order_item_id":appoId,
+			"cancel_notes" : cancelReason
+		};
+    this.UserService.cancelAppointment(requestObject).subscribe((response:any) =>{
       if(response.data == true){
         this._snackBar.open("Appointment Canceled", "X", {
           duration: 2000,

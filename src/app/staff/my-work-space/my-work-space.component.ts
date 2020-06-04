@@ -35,6 +35,7 @@ export class MyWorkSpaceComponent implements OnInit {
   currencySymbol:any;
   currencySymbolPosition:any;
   currencySymbolFormat:any;
+  staffId :any
   constructor(
     public dialog: MatDialog,
     private StaffService: StaffService,
@@ -42,6 +43,7 @@ export class MyWorkSpaceComponent implements OnInit {
     private datePipe: DatePipe
   ) {
     this.bussinessId=this.authenticationService.currentUserValue.business_id
+    this.staffId=JSON.stringify(this.authenticationService.currentUserValue.user_id);
   }
 
   ngOnInit() {
@@ -75,7 +77,11 @@ export class MyWorkSpaceComponent implements OnInit {
   }
 
   getTodayAppointment(){
-    this.StaffService.getTodayAppointment().subscribe((response:any) => {
+    let requestObject = {
+      'staff_id' : this.staffId,
+      'business_id': this.bussinessId
+    };
+    this.StaffService.getTodayAppointment(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.todayAppointmentData = response.response
         this.todayAppointmentData.forEach( (element) => {

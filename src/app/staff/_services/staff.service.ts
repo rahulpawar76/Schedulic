@@ -44,9 +44,6 @@ export class StaffService {
   }
 
   fnprofilesubmit(updatedprofiledata){
-    let requestObject = {
-        
-    };
     let headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'staff-id' : this.staffId,
@@ -136,10 +133,7 @@ export class StaffService {
   }
 
   // staff Appointments
-  getNewAppointment(){
-    let requestObject = {
-      'business_id': '2',
-    };
+  getNewAppointment(requestObject){
     let headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'staff-id' : this.staffId,
@@ -152,12 +146,7 @@ export class StaffService {
     catchError(this.handleError));
   }
 
-  getCompletedAppointment(){
-    let requestObject = {
-      'staff_id' : this.staffId,
-      'business_id': '2',
-      'status': 'CO'
-    };
+  getCompletedAppointment(requestObject){
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
         'staff-id' : this.staffId,
@@ -170,10 +159,7 @@ export class StaffService {
     catchError(this.handleError));
   }
 
-  getOnGoingAppointment(){
-    let requestObject = {
-      'business_id': '2',
-    };
+  getOnGoingAppointment(requestObject){
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'staff-id' : this.staffId,
@@ -186,13 +172,7 @@ export class StaffService {
     }),
     catchError(this.handleError));
   }
-  changeStatus(order_item_id, status, notes){
-    let requestObject = {
-      'order_item_id': order_item_id,
-      'order_status': status,
-      'notes' : notes,
-      'staff_id' : this.staffId
-    };
+  changeStatus(requestObject){
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'staff-id' : this.staffId,
@@ -207,11 +187,8 @@ export class StaffService {
   }
 
   // mywork-space
-  getTodayAppointment(){
-    let requestObject = {
-      'staff_id' : this.staffId,
-      'business_id': '2'
-    };
+  getTodayAppointment(requestObject){
+   
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'staff-id' : this.staffId,

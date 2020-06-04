@@ -391,6 +391,10 @@ export class DiscountCouponComponent implements OnInit {
     this.getCateServiceList();
   }
 
+  fnCancelNewCoupon(){
+    this.couponCodeListing = true;
+    this.addNewCouponCode = false;
+  }
   fnCouponDetails(index, CouponId){
     const dialogRef = this.dialog.open(DialogCouponDetails, {
       height: '700px',
@@ -450,7 +454,6 @@ getServiceListForCoupon(){
     }
   })
 }
-
 changeCouponStaus(event,coupon_id){
   this.isLoaderAdmin = true;
   if(event.checked == true){

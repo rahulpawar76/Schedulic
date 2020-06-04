@@ -9,9 +9,10 @@
           </button>
                 </div>
                 <div class="appodetails">
-                    <label class="font-weight-bold" *ngIf="detailsData.status == 'Active' || detailsData.status == 'Inactive'">Status</label>
+                    <label class="font-weight-bold">Status</label>
 
-                    <mat-slide-toggle *ngIf="!detailsData.status" (change)="changeCouponStaus($event, detailsData.id)" [checked]="detailsData.status == 'Scheduled'" class="float-right"></mat-slide-toggle>
+                    <mat-slide-toggle *ngIf="detailsData.status == 'Active' || detailsData.status == 'Inactive'" (change)="changeCouponStaus($event, detailsData.id)" [checked]="detailsData.status == 'Active'" class="float-right"></mat-slide-toggle>
+                    <label class="font-weight-bold" *ngIf="detailsData.status == 'Scheduled'">Scheduled</label>
 
                 </div>
 
@@ -32,11 +33,10 @@
                     </div>
                     <hr>
 
-
-                    <p class="mb-0 ">Applies to</p>
-                    <span class="font-weight-bold" *ngFor="let serviceList of couponCodeDetail.services; let i=index;">
-        {{serviceList.service_name}}, 
-      </span>
+                    <div *ngIf="couponCodeDetail && couponCodeDetail.services" class="">
+                        <p class="mb-0 ">Applies to</p>
+                        <span class="font-weight-bold" *ngFor="let serviceList of couponCodeDetail.services; let i=index;"> {{serviceList.service_name}},  </span>
+                    </div>
                     <p class="mb-4 "></p>
                     <div class="d-flex">
                         <div class="pl-0">

@@ -29,10 +29,7 @@ export class UserService {
 		return throwError('Error! something went wrong.');
 	}
 
-	getUserProfileData() {
-		let requestObject = {
-			"customer_id":JSON.stringify(this.userId)
-		};
+	getUserProfileData(requestObject) {
 		let headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			"customer-id":JSON.stringify(this.userId),
@@ -104,11 +101,7 @@ export class UserService {
 		}),
 		catchError(this.handleError));
 	}
-	cancelAppointment(appoId,cancelReason){
-		let requestObject = {
-			"order_item_id":appoId,
-			"cancel_notes" : cancelReason
-		};
+	cancelAppointment(requestObject){
 		let headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			"customer-id":JSON.stringify(this.userId),
@@ -120,13 +113,7 @@ export class UserService {
 		}),
 		catchError(this.handleError));
 	}
-	ratingToAppointment(appoId,ratingValueNo,ratingTitle,ratingDecreption){
-		let requestObject = {
-			"order_id":appoId,
-			"rating_title" : ratingTitle,
-			"rating" : ratingValueNo,
-			"review" : ratingDecreption,
-		};
+	ratingToAppointment(requestObject){
 		let headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			"customer-id":JSON.stringify(this.userId),

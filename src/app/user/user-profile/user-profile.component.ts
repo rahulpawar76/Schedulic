@@ -76,7 +76,10 @@ export class UserProfileComponent implements OnInit {
   }
 
 getUserProfileData(): void {
-  this.userService.getUserProfileData().subscribe((response:any) => 
+  let requestObject = {
+    "customer_id":JSON.stringify(this.userId)
+  };
+  this.userService.getUserProfileData(requestObject).subscribe((response:any) => 
   {
     if(response.data == true){
       this.profiledata = response.response;
