@@ -21,6 +21,7 @@ import { DialogCancelAppointmentDetails } from './userappointments';
 import { DialogCompleteAppointmentDetails } from './userappointments';
 import { DialogUserImageUpload } from './user-profile';
 import { SharedModule } from '../shared.module';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { SharedModule } from '../shared.module';
     NgxChartsModule,
     ProgressBarModule,
     HighchartsChartModule,
-    SharedModule
+    SharedModule,
+    NgxPayPalModule
   ],
   exports: [
     FormsModule

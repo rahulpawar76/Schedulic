@@ -163,7 +163,7 @@ export class FrontbookingComponent implements OnInit {
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
   emailFormat = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
   onlynumeric = /^-?(0|[1-9]\d*)?$/
-  public payPalConfig?: IPayPalConfig;
+  private payPalConfig?: IPayPalConfig;
   cardForm:FormGroup
 
   PayUMoney={
