@@ -191,7 +191,7 @@ export class StaffAppointmentComponent implements OnInit {
           dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
           var temp = dateTemp.getTime() - todayDateTime.getTime();
           element.timeToService=(temp/3600000).toFixed();
-           dateTemp2.setMinutes( dateTemp2.getMinutes());
+          dateTemp2.setMinutes( dateTemp2.getMinutes());
           var serviceTimeTamp =  dateTemp2.getTime() - todayDateTime.getTime();
           element.timeToServiceDecimal=(serviceTimeTamp/60000).toFixed();
           element.booking_timeForLabel=this.datePipe.transform(element.booking_date_time,"hh:mm a")
