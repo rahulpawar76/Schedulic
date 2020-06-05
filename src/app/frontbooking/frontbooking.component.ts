@@ -17,6 +17,7 @@ import { Router, RouterOutlet } from '@angular/router';
 // import { DOCUMENT } from '@angular/platform-browser';
 // import { DOCUMENT } from '@angular/common',
 import { sha512 as sha512 } from 'js-sha512';
+declare const PayUMoneylaunch: any;
 @Component({
   selector: 'app-frontbooking',
   templateUrl: './frontbooking.component.html',
@@ -205,7 +206,7 @@ export class FrontbookingComponent implements OnInit {
     
   ) { 
     meta.addTag({name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'});
-    this.renderExternalScript('https://sboxcheckout-static.citruspay.com/bolt/run/bolt.min.js').onload = () => {
+    this.renderExternalScript('https://checkout-static.citruspay.com/bolt/run/bolt.min.js').onload = () => {
       console.log('Google API Script loaded');
     }
 
@@ -2275,8 +2276,9 @@ export class FrontbookingComponent implements OnInit {
     }
   }
   stripePayment(){
-    this.isLoader = true;
+    
     if(this.cardForm.valid){
+      this.isLoader = true;
       let requestObject ={
         "name" : this.cardForm.get("cardHolderName").value,
         "number" : this.cardForm.get("cardNumber").value,
@@ -2284,6 +2286,7 @@ export class FrontbookingComponent implements OnInit {
         "exp_year" : this.cardForm.get("expiryYear").value,
         "cvc" : this.cardForm.get("cvvCode").value,
         "amount" : this.serviceMainArr.netCost,
+        "business_id" : 2,
       }
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
@@ -2316,6 +2319,12 @@ export class FrontbookingComponent implements OnInit {
         (err) =>{
           
         })
+    }else{
+      this.cardForm.get("cardHolderName").markAsTouched();
+      this.cardForm.get("cardNumber").markAsTouched();
+      this.cardForm.get("expiryMonth").markAsTouched();
+      this.cardForm.get("expiryYear").markAsTouched();
+      this.cardForm.get("cvvCode").markAsTouched();
     }
   }
 
@@ -2627,7 +2636,8 @@ export class FrontbookingComponent implements OnInit {
           // the code you use to handle the integration errors goes here
         }
       }
-      bolt.launch( RequestData , Handler ); 
+      PayUMoneylaunch(RequestData,Handler);
+      // bolt.launch( RequestData , Handler ); 
     }
 
     generateRequestHash(RequestData) {
