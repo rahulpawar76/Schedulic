@@ -17,8 +17,6 @@ import { Router, RouterOutlet } from '@angular/router';
 // import { DOCUMENT } from '@angular/platform-browser';
 // import { DOCUMENT } from '@angular/common',
 import { sha512 as sha512 } from 'js-sha512';
-declare const PayUMoneylaunch: any;
-
 @Component({
   selector: 'app-frontbooking',
   templateUrl: './frontbooking.component.html',
@@ -266,7 +264,6 @@ export class FrontbookingComponent implements OnInit {
   
 
   ngOnInit() {
-
     this.fnGetSettings();
 
     if(this.authenticationService.currentUserValue && this.authenticationService.currentUserValue.user_type == "C"){
@@ -2581,7 +2578,7 @@ export class FrontbookingComponent implements OnInit {
       this.PayUMoney.udf3='';
       this.PayUMoney.udf4='';
       this.PayUMoney.udf5='';
-
+      
       // #Where salt is available on the PayUMoney dashboard.
       var RequestData = {
         key: this.PayUMoney.key,
@@ -2596,11 +2593,11 @@ export class FrontbookingComponent implements OnInit {
         furl: this.PayUMoney.furl,
         // mode:this.PayUMoney.mode// non-mandatory for Customized Response Handling
       }
-      
       this.generateRequestHash(RequestData);
-
+      console.log(JSON.stringify(RequestData));
       var Handler = {
         responseHandler: (BOLT) => {
+          console.log(JSON.stringify(BOLT));
           if(BOLT && BOLT.response.txnStatus == "SUCCESS"){
             let generatedHash=this.generateResponseHash(BOLT.response);
             if(BOLT.response.hash == generatedHash){
@@ -2630,12 +2627,8 @@ export class FrontbookingComponent implements OnInit {
           // the code you use to handle the integration errors goes here
         }
       }
-
-      PayUMoneylaunch(RequestData,Handler);
-
-       // bolt.launch( RequestData , Handler ); 
+      bolt.launch( RequestData , Handler ); 
     }
-
 
     generateRequestHash(RequestData) {
       var string = RequestData.key + '|' + RequestData.txnid + '|' + RequestData.amount + '|' + RequestData.productinfo + '|' + RequestData.firstname + '|' + RequestData.email+'|'+this.PayUMoney.udf1+'|'+this.PayUMoney.udf2+'|'+this.PayUMoney.udf3+'|'+this.PayUMoney.udf4+'|'+this.PayUMoney.udf5+'|'+'|'+'|'+'|'+'|'+'|'+this.PayUMoney.salt;
