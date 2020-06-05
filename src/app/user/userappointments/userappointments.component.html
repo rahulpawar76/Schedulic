@@ -45,6 +45,7 @@
                                     <button mat-button class="d-block reschedule-btn" (click)="rescheduleAppointment(i)" *ngIf="appointmentData.bookingDateTime && minReschedulingTime && minReschedulingTime.getTime()<appointmentData.bookingDateTime.getTime()">Reschedule</button>
                                     <button mat-button class="d-block cancel-btn" (click)="cancelAppo(appointmentData.id)" *ngIf="cancellationBufferTime && appointmentData.bookingDateTime && cancellationBufferTime.getTime()<appointmentData.bookingDateTime.getTime()">Cancel</button>
                                     <button mat-button *ngIf="appointmentData.payment && appointmentData.payment.payment_status == 'unpaid'" (click)="payAppoint(i)" class="d-block pay-btn">Pay</button>
+                                    <button *ngIf="appointmentData.payment && appointmentData.payment.payment_status == 'paid'" mat-button class="d-block invoice-light-btn" (click)="invoice('newAppointment', i)">Invoice</button>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +136,7 @@
 
                                 <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons">
                                     <button mat-button class="d-block details-btn" (click)="complete_details_dialog(i)">Details</button>
-                                    <button mat-button class="d-block invoice-light-btn" (click)="invoice(i)">Invoice</button>
+                                    <button mat-button class="d-block invoice-light-btn" (click)="invoice('completedAppointment', i)">Invoice</button>
                                     <div class="" *ngIf="completedAppointmentData.rating == null && isCustomerAllowedForRatingStaff">
                                         <button mat-button class="d-block rate-btn" (click)="ratenow(completedAppointmentData.id)" id="">Rate Now</button>
                                     </div>
