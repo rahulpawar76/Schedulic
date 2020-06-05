@@ -330,6 +330,8 @@ getCompletedAppointments(): void{
   }
 
   MyAppointmentDetails(index){
+    console.log("====");
+    console.log(index);
     const dialogRef = this.dialog.open(DialogMyAppointmentDetails, {
       
       height: '700px',
@@ -1229,9 +1231,7 @@ export class DialogCancelReason {
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.myAppoDetailData = this.data.fulldata;
         this.fnGetActivityLog(this.myAppoDetailData.id);
-        console.log(this.myAppoDetailData)
         this.index = this.data.index;
-        console.log(this.index)
         this.bussinessId=this.authenticationService.currentUserValue.business_id;
         this.fnGetSettingValue();
       }
