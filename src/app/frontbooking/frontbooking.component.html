@@ -552,22 +552,23 @@
                     </div>
                 </div>
 
-                <mat-radio-button *ngIf="payUmoneyStatus" [checked]="paymentMethod == 'PayUMoney'" (change)="fnPaymentMethod('PayUMoney')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay4">PayUMoney
+                <mat-radio-button  [checked]="paymentMethod == 'PayUMoney'" (change)="fnPaymentMethod('PayUMoney')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay4">PayUMoney
                     <!-- <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" /> -->
                     <img src="../../assets/images/payumoney-logo.png" alt="PayPal" class="payment-gtw-icon cash-payment payumoney-logo-width" />
                     <!-- <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal"  class="payment-gtw-icon cash-payment"/> -->
                 </mat-radio-button>
-                <!-- <div *ngIf="showPayUMoneyButton" class="field-list mx-4 row credit-card-form "> -->
-                <!-- <div class="col-12 left-side col-lg-6">
+
+                <div *ngIf="showPayUMoneyButton" class="field-list mx-4 row credit-card-form ">
+                <div class="col-12 left-side col-lg-6">
                         <div class='pm-button'><a href='https://www.payumoney.com/sandbox/paybypayumoney/#/8C489717229C94CF81E97BB992F57B4D'><img src='https://www.payumoney.com/media/images/payby_payumoney/new_buttons/23.png' /></a></div> 
-                    </div> -->
-                <!-- <div class="col-12 left-side col-lg-6">
+                    </div>
+                <div class="col-12 left-side col-lg-6">
                         <div class='pm-button'><button (click)="fnPayUMoney()" mat-button class="round-btn continue-btn logout-btn"><img src='https://www.payumoney.com/media/images/payby_payumoney/new_buttons/23.png' /></button></div> 
                     </div>
                     <div class="col-12 right-side col-lg-6">
                         <img src='../../assets/images/payumoney-logo.png' />
                     </div>
-                </div> -->
+                </div>
             </mat-radio-group>
 
             <div class="bottom-ctn-btn">
