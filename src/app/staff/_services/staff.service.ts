@@ -191,8 +191,8 @@ export class StaffService {
    
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'staff-id' : this.staffId,
-      'api-token' : this.staffToken 
+      'staff-id' : requestObject.staff_id,
+      'api-token' : requestObject.staff_token 
     });
     return this.http.post(`${environment.apiUrl}/staff-today-bookings`,requestObject,{headers:headers}).pipe(
     map((res) => {
@@ -205,7 +205,8 @@ export class StaffService {
     
     let headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    "customer-id":JSON.stringify(this.staffId)
+      'staff-id' : this.staffId,
+      'api-token' : this.staffToken 
     });
     return this.http.post(`${environment.apiUrl}/staff-resedule-bookings`,requestObject,{headers:headers}).pipe(
     map((res) => {
@@ -305,6 +306,19 @@ export class StaffService {
           return res;
       }),
     catchError(this.handleError));
+  }
+
+  getBussinessOffDays(requestObject){
+      let headers = new HttpHeaders({
+          'staff-id' : this.staffId,
+          'api-token' : this.staffToken,
+          'Content-Type': 'application/json'
+      });
+      return this.http.post(`${environment.apiUrl}/list-holidays`,requestObject,{headers:headers}).pipe(
+      map((res) => {
+          return res;
+      }),
+      catchError(this.handleError));
   }
 
 }

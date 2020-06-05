@@ -334,7 +334,9 @@ export class StaffAppointmentComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
         this.status = result;
-        this.getOnGoingAppointment();
+        if(result && result.data){
+          this.getOnGoingAppointment();
+        }
         });
     // const dialogRef = this.dialog.open(InterruptedReschedule, {
     //   height: '700px',
@@ -1401,7 +1403,9 @@ export class StaffAppointmentComponent implements OnInit {
         });
           console.log(this.bookingData);
         dialogRef.afterClosed().subscribe(result => {
-        
+        if(result && result.data){
+          this.dialogRef.close({data:true});
+        }
         
         });
 
@@ -1437,29 +1441,189 @@ export class StaffAppointmentComponent implements OnInit {
   export class InterruptedReschedule {
     formAppointmentRescheduleStaff:FormGroup;
     myAppoDetailData:any;
+    businessId:any;
+    staffId:any;
     minDate = new Date();
     timeSlotArr:any= [];
     availableStaff:any= [];
+    maxDate = new Date();
+
+    myFilter:any;
+    offDaysList:any=[];
+    workingHoursOffDaysList:any=[];
+    settingsArr:any=[];
+    minimumAdvanceBookingTime:any;
+    maximumAdvanceBookingTime:any;
+    minimumAdvanceBookingDateTimeObject:any;
+    maximumAdvanceBookingDateTimeObject:any;
     constructor(
       public dialogRef: MatDialogRef<InterruptedReschedule>,
       private datePipe: DatePipe,
       private _formBuilder: FormBuilder,
       private http: HttpClient,
       private staffService: StaffService,
+      private authenticationService: AuthenticationService,
       private _snackBar: MatSnackBar,
       @Inject(MAT_DIALOG_DATA) public data: any) {
       this.myAppoDetailData=this.data.fulldata;
+      this.businessId=this.myAppoDetailData.business_id;
+      this.staffId = this.authenticationService.currentUserValue.user_id
+      console.log(this.businessId);
       this.formAppointmentRescheduleStaff = this._formBuilder.group({
         rescheduleServiceId: [this.myAppoDetailData.id, Validators.required],
         rescheduleDate: ['', Validators.required],
         rescheduleTime: ['', Validators.required],
         rescheduleStaff: [this.myAppoDetailData.staff_id, Validators.required],
-        rescheduleNote: [''],
+        rescheduleNote: ['', Validators.required],
       });
       this.formAppointmentRescheduleStaff.controls['rescheduleServiceId'].setValue(this.myAppoDetailData.service.id);
+      this.fnGetSettingValue();
+      this.fnGetOffDays();
+      this.myFilter = (d: Date | null): boolean => {
+          // const day = (d || new Date()).getDay();
+          // const month = (d || new Date()).getMonth();
+          // Prevent Saturday and Sunday from being selected.
+          // return day !== 0 && day !== 6;
+          let temp:any;
+          let temp2:any;
+          if(this.offDaysList.length>0 || this.workingHoursOffDaysList.length>0){
+            for(var i=0; i<this.offDaysList.length; i++){
+              var offDay = new Date(this.offDaysList[i]);
+              if(i==0){
+               temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+              }else{
+                temp=temp && (d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+              }
+            }
+            for(var i=0; i<this.workingHoursOffDaysList.length; i++){
+              if(this.offDaysList.length>0){
+                temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
+              }else{
+                temp=(d.getDay() !== this.workingHoursOffDaysList[i]);
+              }
+            }
+            //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
+            return temp;
+          }else{
+            return true;
+          }
+        }
     }
 
-    
+    fnGetSettingValue(){
+      let requestObject = {
+        "business_id":this.businessId
+      };
+      this.staffService.getSettingValue(requestObject).subscribe((response:any) => {
+        if(response.data == true && response.response != ''){
+          this.settingsArr=response.response;
+          
+          this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
+          this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
+          
+          this.minimumAdvanceBookingDateTimeObject = new Date();
+          this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
+          console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
+          this.minDate = this.minimumAdvanceBookingDateTimeObject;
+
+          this.maximumAdvanceBookingDateTimeObject = new Date();
+          this.maximumAdvanceBookingDateTimeObject.setMinutes( this.maximumAdvanceBookingDateTimeObject.getMinutes() + this.maximumAdvanceBookingTime );
+          console.log("maximumAdvanceBookingDateTimeObject - "+this.maximumAdvanceBookingDateTimeObject);
+          this.maxDate = this.maximumAdvanceBookingDateTimeObject;
+
+          // if(!this.data.appointmentData){
+          //   this.formAddNewAppointmentStaffStep2.controls['customerDate'].setValue(this.minimumAdvanceBookingDateTimeObject);
+          //   this.selectedDate = this.datePipe.transform(new Date(this.minimumAdvanceBookingDateTimeObject),"yyyy-MM-dd");
+          // }
+        }
+        else if(response.data == false){
+          
+        }
+      })
+    }
+
+    // fnGetOffDays(){
+    //   let requestObject = {
+    //     "business_id":this.businessId
+    //   };
+    //   this.staffService.getOffDays(requestObject).subscribe((response:any) => {
+    //     if(response.data == true){
+    //       if(response.response.holidays.length>0){
+    //         this.offDaysList = response.response.holidays;
+    //       }else{
+    //         this.offDaysList=[];
+    //       }
+    //       if(response.response.offday.length>0){
+    //         this.workingHoursOffDaysList = response.response.offday;
+    //       }else{
+    //         this.workingHoursOffDaysList=[];
+    //       }
+
+    //       this.myFilter = (d: Date | null): boolean => {
+    //       // const day = (d || new Date()).getDay();
+    //       // const month = (d || new Date()).getMonth();
+    //       // Prevent Saturday and Sunday from being selected.
+    //       // return day !== 0 && day !== 6;
+    //       let temp:any;
+    //       let temp2:any;
+    //       if(this.offDaysList.length>0 || this.workingHoursOffDaysList.length>0){
+    //         for(var i=0; i<this.offDaysList.length; i++){
+    //           var offDay = new Date(this.offDaysList[i]);
+    //           if(i==0){
+    //            temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+    //           }else{
+    //             temp=temp && (d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+    //           }
+    //         }
+    //         for(var i=0; i<this.workingHoursOffDaysList.length; i++){
+    //           if(this.offDaysList.length>0){
+    //             temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
+    //           }else{
+    //             temp=(d.getDay() !== this.workingHoursOffDaysList[i]);
+    //           }
+    //         }
+    //         //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
+    //         return temp;
+    //       }else{
+    //         return true;
+    //       }
+    //     }
+    //     }
+    //     else{
+
+    //     }
+    //   },
+    //   (err) =>{
+    //     console.log(err)
+    //   })
+    // }
+
+    fnGetOffDays(){
+      let requestObject = {
+        "business_id":this.businessId,
+        "staff_id":this.staffId
+      };
+      this.staffService.getOffDays(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          if(response.response.holidays.length>0){
+            this.offDaysList = response.response.holidays;
+          }else{
+            this.offDaysList=[];
+          }
+          if(response.response.offday.length>0){
+            this.workingHoursOffDaysList = response.response.offday;
+          }else{
+            this.workingHoursOffDaysList=[];
+          }
+        }
+        else{
+
+        }
+      },
+      (err) =>{
+        console.log(err)
+      })
+    }
     fnDateChange(event: MatDatepickerInputEvent<Date>) {
         console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
         let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
@@ -1536,6 +1700,10 @@ export class StaffAppointmentComponent implements OnInit {
     }
   formRescheduleSubmit(){
     if(this.formAppointmentRescheduleStaff.invalid){
+      this.formAppointmentRescheduleStaff.get('rescheduleStaff').markAsTouched();
+      this.formAppointmentRescheduleStaff.get('rescheduleTime').markAsTouched();
+      this.formAppointmentRescheduleStaff.get('rescheduleNote').markAsTouched();
+      this.formAppointmentRescheduleStaff.get('rescheduleDate').markAsTouched();
       return false;
     }
 
@@ -1559,7 +1727,7 @@ export class StaffAppointmentComponent implements OnInit {
           verticalPosition:'top',
           panelClass :['green-snackbar']
           });
-          this.dialogRef.close();
+          this.dialogRef.close({data:true});
      }
       else if(response.data == false){
         this._snackBar.open("Appointment not Rescheduled", "X", {

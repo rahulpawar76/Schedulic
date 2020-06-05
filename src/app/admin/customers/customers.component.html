@@ -60,7 +60,8 @@
                     <mat-card class="mb-0">
                         <div class="row">
                             <div class="col-lg-12">
-                                <h6>Add New Customer</h6>
+                                <h6 *ngIf="!existingUserId">Add New Customer</h6>
+                                <h6 *ngIf="existingUserId">Edit Customer</h6>
                             </div>
                         </div>
                         <form [formGroup]="createNewCustomer">
@@ -93,7 +94,7 @@
                                             <mat-form-field>
                                                 <mat-label>Full Name</mat-label>
                                                 <mat-icon class="mr-4" matPrefix>person</mat-icon>
-                                                <input matInput formControlName="cus_fullname" placeholder="Enter Your First Name">
+                                                <input matInput formControlName="cus_fullname" placeholder="Enter Your Full Name">
                                             </mat-form-field>
                                             <span class="error-wrap" *ngIf="createNewCustomer.get('cus_fullname').dirty || createNewCustomer.get('cus_fullname').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_fullname').hasError('required')" class="error">Fullname is required</small></span>
                                         </div>
@@ -164,7 +165,9 @@
                                                 <mat-label>Zip</mat-label>
                                                 <input matInput formControlName="cus_zip" placeholder="">
                                             </mat-form-field>
-                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_zip').dirty || createNewCustomer.get('cus_zip').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_zip').hasError('required')" class="error">Zipcode is required</small><small *ngIf="createNewCustomer.get('cus_zip').hasError('pattern')" class="error">Zipcode should in numbers</small></span>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_zip').dirty || createNewCustomer.get('cus_zip').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_zip').hasError('required')" class="error">Zipcode is required</small><small *ngIf="createNewCustomer.get('cus_zip').hasError('pattern')" class="error">Zipcode should in numbers</small>
+                                                <!-- <small *ngIf="createNewCustomer.get('cus_zip').hasError('minlength') || createNewCustomer.get('cus_zip').hasError('maxlength)" class="error">Zipcode should be 5 to 6 Digits</small> -->
+                                            </span>
                                         </div>
                                         <input type="hidden" formControlName="customer_id">
                                     </div>
