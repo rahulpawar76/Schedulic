@@ -243,8 +243,9 @@ export class StaffAppointmentComponent implements OnInit {
   }
 
   changeBookingStatus(order_item_id, status, index){
+    
     this.isLoader=true;
-    if(status == 'CO' && this.onGoingAppointmentData[index].payment.payment_status == 'unpaid'){
+    if(status == 'CO' && this.onGoingAppointmentData[index].payment!=null && this.onGoingAppointmentData[index].payment.payment_status == 'unpaid'){
       this.OnlinePaymentMode(index);
     }else {
       
