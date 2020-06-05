@@ -22,7 +22,7 @@
                         <input [min]="minDate" [max]="maxDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="Choose a date" formControlName="rescheduleDate" class="form-control formcontrol" (click)="picker.open()" (dateChange)="fnDateChange($event)" readonly="true">
                         <mat-datepicker #picker></mat-datepicker>
                     </div>
-                    <span class="error-wrap" *ngIf="formAppointmentReschedule.get('rescheduleDate').dirty || formAppointmentReschedule.get('rescheduleDate').touched || formSubmitclicked">
+                    <span class="error-wrap" *ngIf="formAppointmentReschedule.get('rescheduleDate').dirty || formAppointmentReschedule.get('rescheduleDate').touched">
                     <small *ngIf="formAppointmentReschedule.get('rescheduleDate').hasError('required')" class="error">Date is required</small>
                     </span>
                 </div>
@@ -38,7 +38,7 @@
                             <mat-option *ngFor="let slot of timeSlotArr" value="{{slot}}">{{slot}}</mat-option>
                         </mat-select>
                     </div>
-                    <span class="error-wrap" *ngIf="formAppointmentReschedule.get('rescheduleTime').dirty || formAppointmentReschedule.get('rescheduleTime').touched || formSubmitclicked">
+                    <span class="error-wrap" *ngIf="formAppointmentReschedule.get('rescheduleTime').dirty || formAppointmentReschedule.get('rescheduleTime').touched">
                     <small *ngIf="formAppointmentReschedule.get('rescheduleTime').hasError('required')" class="error">Time is required</small>
                     </span>
                 </div>
@@ -48,12 +48,12 @@
             <mat-select class="form-control formcontrol mb-3" formControlName="rescheduleStaff" >
                 <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">{{staff.name}}</mat-option>
             </mat-select>
-            <span class="error-wrap" *ngIf="formAppointmentReschedule.get('rescheduleStaff').dirty || formAppointmentReschedule.get('rescheduleStaff').touched || formSubmitclicked">
+            <span class="error-wrap" *ngIf="formAppointmentReschedule.get('rescheduleStaff').dirty || formAppointmentReschedule.get('rescheduleStaff').touched">
             <small *ngIf="formAppointmentReschedule.get('rescheduleStaff').hasError('required')" class="error">Staff is required</small>
             </span>
             <label class="mb-0">Add Note</label>
             <textarea class="form-control mb-2" placeholder="Add Note" formControlName="rescheduleNote" ></textarea>
-            <span class="error-wrap" *ngIf="formAppointmentReschedule.get('rescheduleNote').dirty || formAppointmentReschedule.get('rescheduleNote').touched || formSubmitclicked">
+            <span class="error-wrap" *ngIf="formAppointmentReschedule.get('rescheduleNote').dirty || formAppointmentReschedule.get('rescheduleNote').touched">
             <small *ngIf="formAppointmentReschedule.get('rescheduleNote').hasError('required')" class="error">Note is required</small>
             </span>
             <button class="d-block btn btn-primary addbtnred float-right" (click)='formRescheduleSubmit()'>Reschedule</button>
