@@ -71,6 +71,23 @@ export class AppointmentComponent implements OnInit {
   cancelError:boolean = false;
   ConfirmError:boolean = false;
 
+  options: any = {
+    autoApply: false,
+    alwaysShowCalendars: false,
+    showCancel: false,
+    showClearButton: false,
+    linkedCalendars: true,
+    singleDatePicker: false,
+    showWeekNumbers: false,
+    showISOWeekNumbers: false,
+    customRangeDirection: true,
+    lockStartDate: false,
+    closeOnAutoApply: true
+  };
+
+  selected: { CustomestartDate, CustomeendDate };
+  
+
   constructor(
     public dialog: MatDialog,
     private AdminService: AdminService,
@@ -156,6 +173,8 @@ export class AppointmentComponent implements OnInit {
 
   selectdurationType(type){
     this.durationType = type;
+  
+    this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
 
     if(this.durationType=='daily'){
 
@@ -191,6 +210,21 @@ export class AppointmentComponent implements OnInit {
 
     this.getAllAppointments();
   }
+
+  customeRange(data) {
+   
+
+    if (data.startDate == null || data.endDate == null) {
+      console.log("==");
+      return;
+    }else{
+      this.startDate = this.datePipe.transform(new Date(data.startDate._d),"dd MMM yyyy");
+      this.endDate = this.datePipe.transform(new Date(data.endDate._d),"dd MMM yyyy");
+      this.getAllAppointments();
+
+    }
+  }
+
 
   selectService(service){
     this.selectedServices = service;

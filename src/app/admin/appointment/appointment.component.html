@@ -3,7 +3,7 @@
     <div class="row">
         <div class="appointment-header col-12">
             <div class="d-flex mt-2 mb-2  mr-4 col-12 header-content">
-                <div class="col-lg-4 col-12 col-md-4 col-sm-12 d-flex">
+                <div class="col-lg-3 col-12 col-md-3 col-sm-12 d-flex">
                     <mat-form-field class="appoint-daily mr-2 bottom-border-field">
                         <mat-label>All</mat-label>
                         <mat-select (selectionChange)="selectdurationType($event.value)">
@@ -29,7 +29,13 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-lg-4 col-12 col-md-4 col-sm-12 d-flex header-date">
+                <div class="col-lg-2 col-12 col-md-2 col-sm-12 d-flex">
+                    <input  
+                     ngxDaterangepickerMd [locale]="{applyLabel: 'Apply', format: 'DD/MM/YYYY'}" 
+                     [(ngModel)]="selected" placeholder="Search date" (change)="customeRange($event)" />
+                </div>
+
+                <div class="col-lg-3 col-12 col-md-3 col-sm-12 d-flex header-date">
                     <div id="head-date" class=" .offset-lg-4">
                         <div class="d-flex">
                             <button class="date-btn pr-2" (click)="fnPrev()"><i class="fa fa-angle-left date-icon" aria-hidden="true"></i></button>
