@@ -403,7 +403,7 @@ export class AppointmentComponent implements OnInit {
           element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
           element.is_selected = false;
         });
-        this.allAppointments = this.allAppointments.sort(this.dynamicSort("booking_date"))
+        // this.allAppointments = this.allAppointments.sort(this.dynamicSort("booking_date"))
 
         this.selectAll  = false;
         
