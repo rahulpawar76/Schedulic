@@ -388,7 +388,7 @@
                                             <td class="text-capitalize">{{payment.payment_status=='paid'?'Paid':'Pending'}}</td>
                                             <td class="text-capitalize">
                                                 <button mat-button appearance="fill" class="view-btn ml-2" (click)="invoice(i)"><mat-icon class="" aria-hidden="false">description</mat-icon></button>
-                                                <button mat-button appearance="fill" class="view-btn ml-2" (click)="fnShowPaymentForm(i,null,null)"><mat-icon class="" aria-hidden="false">edit</mat-icon></button>
+                                                <button mat-button *ngIf="payment.payment_status != 'paid'" appearance="fill" class="view-btn ml-2" (click)="fnShowPaymentForm(i,null,null)"><mat-icon class="" aria-hidden="false">edit</mat-icon></button>
                                                 <!-- <button mat-button appearance="fill" class="view-btn ml-2"><mat-icon class="" aria-hidden="false">print</mat-icon></button> -->
                                             </td>
                                         </tr>
@@ -409,7 +409,7 @@
                                                     <div class="form-group has-search">
                                                         <span class="fa fa-search form-control-feedback"></span>
                                                         <input type="text" class="form-control" placeholder="3000.00" formControlName="paymentAmount" (change)="fnOnChangeAmount($event)">
-                                                        <span class="error-wrap" *ngIf="formPayment.get('paymentAmount').dirty || formPayment.get('paymentAmount').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentAmount').hasError('required')" class="error">Amount is required</small><small *ngIf="formPayment.get('paymentAmount').hasError('pattern')" class="error">Enter valid amount</small></span>
+                                                        <span class="error-wrap" *ngIf="formPayment.get('paymentAmount').dirty || formPayment.get('paymentAmount').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentAmount').hasError('required')" class="error">Amount is required</small><small *ngIf="formPayment.get('paymentAmount').hasError('pattern')" class="error">Enter valid amount</small><small *ngIf="formPayment.get('paymentAmount').hasError('min')" class="error">Amount should grater then Original Amount</small></span>
                                                     </div>
                                                 </div>
                                                 <div class="searchbox col-lg-6 col-12 col-md-6  pb-2">

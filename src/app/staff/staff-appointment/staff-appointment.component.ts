@@ -2345,6 +2345,67 @@ export class StaffAppointmentComponent implements OnInit {
           }
         })  
       }
+
+      onlinePayment(){
+        let orders = {
+          // "tax" : this.appointDetailData.tax,
+          // "discount_type":this.couponType,
+          // "discount_value":this.couponValue,
+          // "discount" : this.orderDiscount,
+          // "nettotal" : this.appointDetailData.total_cost
+          "tax" :[{"value":"18","name":"SGST","amount":216},{"value":"15","name":"GST","amount":180}],
+          "discount_type":"p",
+          "discount_value":10,
+          "discount" : 100,
+          "nettotal" : "1000"
+        }
+        let orderItems  = {
+          // "tax" : this.appointDetailData.tax,
+          // "discount_type":this.couponType,
+          // "discount_value":this.couponValue,
+          // "discount" : this.orderDiscount,
+          // "nettotal" : this.appointDetailData.total_cost
+          "tax" :[{"value":"18","name":"SGST","amount":216},{"value":"15","name":"GST","amount":180}],
+          "discount_type":"p",
+          "discount_value":10,
+          "discount" : 100,
+          "nettotal" : "1000"
+        }
+        let payment  = {
+          "payment_datetime" : this.datePipe.transform(new Date(),"yyyy/MM/dd hh::mm"),
+          "payment_method" : this.paymentMethod,
+          "amount" : this.appointDetailData.total_cost,
+          "paymentnotes" : this.staffPaymentNote,
+        }
+        let requestObject ={
+          "order_item_id" : this.appointDetailData.id,
+          "orders" : orders,
+          "orderItem" : orderItems,
+          "payment" : payment,
+          // "email" : this.appointDetailData.customer.email,
+          "email" : "bikalpitbhadani@gmail.com",
+          "URL": environment.urlForLink+'/online-payment?order-item='+this.appointDetailData.id
+        }
+        console.log(requestObject);
+        this.StaffService.onlinePayment(requestObject).subscribe((response:any) =>{
+          if(response.data == true){
+            this._snackBar.open(response.response, "X", {
+              duration: 2000,
+              verticalPosition:'top',
+              panelClass :['red-snackbar']
+            });
+            this.dialogRef.close();
+          }
+          else if(response.data == false){
+            this._snackBar.open(response.response, "X", {
+              duration: 2000,
+              verticalPosition:'top',
+              panelClass :['red-snackbar']
+            });
+          }
+        })  
+      }
+
       cancelPayment(){
         this.dialogRef.close();
       }

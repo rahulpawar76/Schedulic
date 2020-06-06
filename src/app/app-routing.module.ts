@@ -7,6 +7,7 @@ import { LoginComponent } from './login';
 import { ForgotPasswordComponent } from './forgot-password';
 import { ResetPasswordComponent } from './reset-password';
 import { FrontbookingComponent } from './frontbooking';
+import { OnlinePaymentComponent } from './online-payment';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -34,6 +35,10 @@ const routes: Routes = [
   {
     path: 'booking', 
     component:  FrontbookingComponent,
+  },
+  {
+    path: 'online-payment', 
+    component:  OnlinePaymentComponent,
   },
 
   {
