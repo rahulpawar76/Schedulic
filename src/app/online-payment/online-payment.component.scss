@@ -1,0 +1,57 @@
+@import "variables";
+.online-payment-main {
+    display: flex;
+    justify-content: center;
+    .online-payment-form-wrap {
+        max-width: 900px;
+        margin: 20px;
+    }
+    .bottom-ctn-btn {
+        margin-left: auto;
+        margin-right: 10px;
+        .continue-btn {
+            font-size: $fs-20;
+            background-color: $primary-color;
+            padding-left: 35px;
+            padding-top: 6px;
+            padding-right: 30px;
+            padding-bottom: 6px;
+            margin: 18px;
+            color: #fff;
+            border-radius: 50px;
+        }
+    }
+    .credit-card-form {
+        .right-side {
+            text-align: center;
+            img {
+                max-width: 300px;
+                margin: 20px 0;
+            }
+        }
+        box-shadow: $shadow;
+    }
+}
+
+.field-list {
+    [class*="col-"] {
+        margin: 10px 0;
+    }
+    label {
+        display: block;
+        margin-bottom: 0px;
+        font-size: 18px;
+    }
+    .common-input {
+        display: block;
+        width: 100%;
+        padding: 8px 10px;
+        border-radius: 5px;
+        border: 1px solid #e4e3e3;
+        font-size: $fs-16;
+        transition: all 0.3s;
+        &:focus {
+            box-shadow: $shadow;
+        }
+    }
+}

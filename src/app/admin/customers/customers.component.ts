@@ -184,13 +184,12 @@ export class CustomersComponent implements OnInit {
       cus_zip : ['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(5),Validators.maxLength(6)]],
       customer_id : ['']
     });
-
-    this.formPayment = this._formBuilder.group({
-      paymentAmount : [null, [Validators.required,Validators.pattern(this.onlynumeric)]],
-      paymentDiscount : [null, [Validators.required,Validators.pattern(this.onlynumeric)]],
-      paymentMode : ['Cash', [Validators.required]],
-      paymentNote : ['', [Validators.required]],
-    });
+    // this.formPayment = this._formBuilder.group({
+    //   paymentAmount : [null, [Validators.required,Validators.pattern(this.onlynumeric),Validators.min(this.serviceMainArr.subtotal)]],
+    //   paymentDiscount : [null, [Validators.required,Validators.pattern(this.onlynumeric)]],
+    //   paymentMode : ['Cash', [Validators.required]],
+    //   paymentNote : ['', [Validators.required]],
+    // });
   }
 
   fnGetSettings(){
@@ -420,21 +419,24 @@ customerUpdate(existingCustomerData){
         this.customerPayments.forEach( (element) => { 
           element.paymentDate=this.datePipe.transform(new Date(element.updated_at),"dd MMM yyyy");
           element.paymentTime=this.datePipe.transform(new Date(element.updated_at),"hh:mm a");
-          element.orders.bookingDateTime=new Date(element.orders.booking_date+" "+element.orders.booking_time);
-          element.orders.created_at=this.datePipe.transform(new Date(element.orders.created_at),"dd MMM yyyy @ hh:mm a");
-          element.orders.bookingDateForLabel=this.datePipe.transform(new Date(element.orders.booking_date),"dd MMM yyyy");
-          element.orders.bookingTimeForLabel=this.datePipe.transform(element.orders.bookingDateTime,"hh:mm a");
-
-          var dateTemp = new Date(this.datePipe.transform(element.orders.bookingDateTime,"dd MMM yyyy hh:mm a"));
-          dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.orders.service_time) );
-          element.orders.bookingTimeTo=this.datePipe.transform(new Date(dateTemp),"hh:mm a");
-          let orderItemTempArr=[];
-          element.orders.order_items.forEach( (element2) => { 
-            if(element.orders.id!=element2.id){
-              orderItemTempArr.push(element2);
+          if(element.orders){
+            element.orders.bookingDateTime=new Date(element.orders.booking_date+" "+element.orders.booking_time);
+            element.orders.created_at=this.datePipe.transform(new Date(element.orders.created_at),"dd MMM yyyy @ hh:mm a");
+            if(element.orders.booking_date != null){
+              element.orders.bookingDateForLabel=this.datePipe.transform(new Date(element.orders.booking_date),"dd MMM yyyy");
             }
-          });
-          element.orders.order_items=orderItemTempArr;
+            element.orders.bookingTimeForLabel=this.datePipe.transform(element.orders.bookingDateTime,"hh:mm a");
+            var dateTemp = new Date(this.datePipe.transform(element.orders.bookingDateTime,"dd MMM yyyy hh:mm a"));
+            dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.orders.service_time) );
+            element.orders.bookingTimeTo=this.datePipe.transform(new Date(dateTemp),"hh:mm a");
+            let orderItemTempArr=[];
+            element.orders.order_items.forEach( (element2) => { 
+              if(element.orders.id!=element2.id){
+                orderItemTempArr.push(element2);
+              }
+            });
+            element.orders.order_items=orderItemTempArr;
+          }
         });
 
         this.isLoaderAdmin = false;
@@ -803,6 +805,13 @@ customerUpdate(existingCustomerData){
     this.taxAmountArr=JSON.parse(this.customerPayments[index].orders.tax);
     this.serviceMainArr.netCost=parseFloat(this.customerPayments[index].orders.total_cost);
     this.taxArr=JSON.parse(this.customerPayments[index].orders.tax);
+    
+    this.formPayment = this._formBuilder.group({
+      paymentAmount : [null, [Validators.required,Validators.pattern(this.onlynumeric),Validators.min(this.serviceMainArr.subtotal)]],
+      paymentDiscount : [null, [Validators.required,Validators.pattern(this.onlynumeric)]],
+      paymentMode : ['Cash', [Validators.required]],
+      paymentNote : ['', [Validators.required]],
+    });
     this.formPayment.controls['paymentAmount'].setValue(this.serviceMainArr.subtotal);
     this.formPayment.controls['paymentDiscount'].setValue(this.serviceMainArr.discount);
     console.log(this.serviceMainArr);
@@ -812,7 +821,7 @@ customerUpdate(existingCustomerData){
     this.serviceMainArr.order_id=this.customerPayments[index].orders.order_id;
     this.serviceMainArr.order_subtotal=parseFloat(this.customerPayments[index].orders.orders_info.sub_total);
     this.serviceMainArr.order_discount_type=this.customerPayments[index].orders.orders_info.discount_type;
-
+    
     if(this.customerPayments[index].orders.orders_info.discount_value!=null && this.customerPayments[index].orders.orders_info.discount_value !="null"){
       this.serviceMainArr.order_discount_value=parseFloat(this.customerPayments[index].orders.orders_info.discount_value);
     }else{
@@ -829,7 +838,6 @@ customerUpdate(existingCustomerData){
     this.serviceMainArr.paymentId=this.customerPayments[index].id;
     this.showPaymentForm=true;
     this.showPaymentTable=false;
-
   }
 
   fnOnChangeDiscount(event){
@@ -1118,7 +1126,6 @@ constructor(
     this.fnGetActivityLog(this.detailsData.id);
     if(localStorage.getItem('business_id')){
       this.businessId = localStorage.getItem('business_id');
-      alert(this.businessId)
     }
     this.fnGetSettingValue();
   }

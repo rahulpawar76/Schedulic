@@ -1,0 +1,50 @@
+<div class="loader-main" *ngIf="isLoader">
+    <img src="../../../assets/images/step-loader.gif" /></div>
+<div class="online-payment-main">
+
+    <div class="online-payment-form-wrap">
+        <form [formGroup]="cardForm" class="field-list mx-0 row credit-card-form ">
+            <div class="col-12 left-side mb-3 col-lg-6">
+                <div class="col-12 mb-4">
+                    <label>Card Holder Name</label>
+                    <input formControlName="cardHolderName" class="common-input" type="text" />
+                    <span class="error-wrap" *ngIf="cardForm.get('cardHolderName').dirty || cardForm.get('cardHolderName').touched"><small *ngIf="cardForm.get('cardHolderName').hasError('required')" class="error">Card holder name is required</small></span>
+                </div>
+                <div class="col-12 mb-4">
+                    <label>Card Number</label>
+                    <input formControlName="cardNumber" class="common-input" type="text" (keypress)="numberOnly($event)" />
+                    <span class="error-wrap" *ngIf="cardForm.get('cardNumber').dirty || cardForm.get('cardNumber').touched"><small *ngIf="cardForm.get('cardNumber').hasError('required')" class="error">Card number is required</small>
+                <small *ngIf="cardForm.get('cardNumber').hasError('minlength') || cardForm.get('cardNumber').hasError('maxlength')" class="error">Card Number in invalid</small>
+                </span>
+                </div>
+
+                <div class="col-6 float-left">
+                    <label>Expiry Date</label>
+                    <div class="col-6 float-left mb-4 p-0">
+                        <label>Month</label>
+                        <input formControlName="expiryMonth" class="common-input" type="text" (keypress)="numberOnly($event)" />
+                        <span class="error-wrap" *ngIf="cardForm.get('expiryMonth').dirty || cardForm.get('expiryMonth').touched"><small *ngIf="cardForm.get('expiryMonth').hasError('required')" class="error">Expiry month is required</small><small *ngIf="cardForm.get('expiryMonth').hasError('minlength') || cardForm.get('expiryMonth').hasError('maxlength')" class="error">Expiry month is invalid</small></span>
+                    </div>
+                    <div class="col-6 float-left mb-4 p-0">
+                        <label>Year</label>
+                        <input formControlName="expiryYear" class="common-input" type="text" (keypress)="numberOnly($event)" />
+                        <span class="error-wrap" *ngIf="cardForm.get('expiryYear').dirty || cardForm.get('expiryYear').touched"><small *ngIf="cardForm.get('expiryYear').hasError('required')" class="error">Expiry year is required</small><small *ngIf="cardForm.get('expiryYear').hasError('minlength') || cardForm.get('expiryYear').hasError('maxlength')" class="error">Expiry year is invalid</small></span>
+                    </div>
+                </div>
+                <div class="col-6 float-left mb-4">
+                    <label class="invisible">CVV Code</label>
+                    <label class="mt-2">CVV Code</label>
+                    <input formControlName="cvvCode" class="common-input" type="password" (keypress)="numberOnly($event)" />
+                    <span class="error-wrap" *ngIf="cardForm.get('cvvCode').dirty || cardForm.get('cvvCode').touched"><small *ngIf="cardForm.get('cvvCode').hasError('required')" class="error">CVV code is required</small><small *ngIf="cardForm.get('cvvCode').hasError('minlength') || cardForm.get('cvvCode').hasError('maxlength')" class="error">CVV code is invalid</small></span>
+                </div>
+            </div>
+            <div class="col-12 right-side col-lg-6">
+                <img src="../../assets/icons/credit-card.png" />
+            </div>
+
+            <div class="bottom-ctn-btn">
+                <button (click)="fnPayNow()" mat-button class="round-btn continue-btn proceed">Pay Now</button>
+            </div>
+        </form>
+    </div>
+</div>

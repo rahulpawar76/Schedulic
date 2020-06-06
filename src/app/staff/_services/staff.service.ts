@@ -274,16 +274,28 @@ export class StaffService {
     }
 
   staffPayment(requestObject) {
-      let headers = new HttpHeaders({
-          'Content-Type': 'application/json',
-          'staff-id' : this.staffId,
-          'api-token' : this.staffToken 
-      });
-      return this.http.post(`${environment.apiUrl}/staff-payment-update`, requestObject, { headers: headers }).pipe(
-          map((res) => {
-              return res;
-          }),
-          catchError(this.handleError));
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'staff-id' : this.staffId,
+        'api-token' : this.staffToken 
+    });
+    return this.http.post(`${environment.apiUrl}/staff-payment-update`, requestObject, { headers: headers }).pipe(
+      map((res) => {
+          return res;
+      }),
+    catchError(this.handleError));
+  }
+  onlinePayment(requestObject) {
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'staff-id' : this.staffId,
+        'api-token' : this.staffToken 
+    });
+    return this.http.post(`${environment.apiUrl}/send-payment-url`, requestObject, { headers: headers }).pipe(
+      map((res) => {
+          return res;
+      }),
+    catchError(this.handleError));
   }
   fncheckavailcoupon(requestObject) {
       let headers = new HttpHeaders({
