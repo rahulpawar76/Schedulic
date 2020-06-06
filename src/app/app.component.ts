@@ -105,10 +105,8 @@ export class AppComponent implements AfterViewInit {
     private authService: AuthService
   ) {
     
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    if(this.currentUser && this.currentUser.internal_staff){
-      this.internal_staff=this.currentUser.internal_staff;
-    }
+    this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
+    
     if (localStorage.getItem('business_id')) {
       this.businessId = localStorage.getItem('business_id');
     }
@@ -693,7 +691,8 @@ export class AppComponent implements AfterViewInit {
     });
     this.CommonService.staffAvaibility(requestObject, headers).subscribe((response: any) => {
       if (response.data == true) {
-        this.internal_staff=this.staffStatus;
+        this.currentUser.internal_staff=this.staffStatus;
+        // this.authenticationService.currentUserSubject.next(this.currentUser);
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
