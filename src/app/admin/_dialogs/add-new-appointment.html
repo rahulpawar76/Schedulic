@@ -90,8 +90,10 @@
                     </div>
                 </div>
                 
+                <!-- <div class="col-12 text-center mt-4"><h6>Appointment Address</h6></div>
+                <div class="col-12 text-center"><input type="checkbox" (change)="sameAddress($event)" /><label> &nbsp;&nbsp; Same as above</label></div> -->
                 <div class="col-12 text-center mt-4"><h6>Appointment Address</h6></div>
-                <div class="col-12 text-center"><input type="checkbox" (change)="sameAddress($event)"/><label> &nbsp;&nbsp; Same as above</label></div>
+                <div class="col-12 text-center"><mat-checkbox [checked]= "is_checked" class = "example-margin" (change)="sameAddress($event)"><label class="mb-0"> &nbsp;&nbsp; Same as above</label></mat-checkbox></div>
 
                 <mat-form-field class="form-group  bottom-border-field">
                     <mat-label>Address</mat-label>
@@ -138,6 +140,7 @@
                                 <small *ngIf="formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').hasError('required')" class="error"> Postal code is required</small>
                                 <small *ngIf="formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').hasError('pattern')" class="error"> Enter a valid postal code</small>
                                 <small *ngIf="formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').hasError('maxlength')" class="error">Postal code should be 6 digit</small>
+                                <small *ngIf="formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').hasError('isPostalcodeValid')" class="error">We do not provide service at this location</small>
                             </span>
                         </div>
                     </div> 

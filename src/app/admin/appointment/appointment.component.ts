@@ -711,6 +711,7 @@ export class DialogAddNewAppointment {
   disableService:boolean=false;
   dialogTitle:any="New Appointment";
   showSubCatDropDown=true;
+  is_checked:boolean=false;
   constructor(
     public dialogRef: MatDialogRef<DialogAddNewAppointment>,
     public dialog: MatDialog,
@@ -788,7 +789,7 @@ export class DialogAddNewAppointment {
       customerAppoAddress: [this.appointmentData.customerAppoAddress, [Validators.required]],
       customerAppoState: [this.appointmentData.customerAppoState, [Validators.required]],
       customerAppoCity: [this.appointmentData.customerAppoCity, [Validators.required]],
-      customerAppoPostalCode: [this.appointmentData.customerAppoPostalCode, [Validators.required,Validators.pattern(onlynumeric),Validators.minLength(6),Validators.maxLength(6)]],
+      customerAppoPostalCode: [this.appointmentData.customerAppoPostalCode, [Validators.required,Validators.pattern(onlynumeric),Validators.minLength(6),Validators.maxLength(6)],this.isPostalcodeValid.bind(this)],
 
       //customerPostalCode: new FormControl({ value: this.appointmentData.zip, disabled: this.disablePostalCode },[Validators.required,Validators.pattern(onlynumeric)]),
     });
@@ -865,6 +866,28 @@ export class DialogAddNewAppointment {
     });
   }
 
+  isPostalcodeValid(control: FormControl) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+        return this.http.post(`${environment.apiUrl}/postalcode-check`,{ business_id: this.bussinessId,postal_code:control.value },{headers:headers}).pipe(map((response : any) =>{
+          return response;
+        }),
+        catchError(this.handleError)).subscribe((res) => {
+          if(res){
+            if(res.data == false){
+            resolve({ isPostalcodeValid: true });
+            }else{
+            resolve(null);
+            }
+          }
+        });
+      }, 500);
+    });
+  }
+  
   numberOnly(event): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -985,13 +1008,12 @@ export class DialogAddNewAppointment {
     var customerState = this.formAddNewAppointmentStaffStep1.controls.customerState.value;
     var customerCity = this.formAddNewAppointmentStaffStep1.controls.customerCity.value;
     var customerPostalCode = this.formAddNewAppointmentStaffStep1.controls.customerPostalCode.value;
-    
-    var is_checked = values.currentTarget.checked;
-
-    this.formAddNewAppointmentStaffStep1.controls.customerAppoAddress.setValue(is_checked?customerAddress:'');
-    this.formAddNewAppointmentStaffStep1.controls.customerAppoState.setValue(is_checked?customerState:'');
-    this.formAddNewAppointmentStaffStep1.controls.customerAppoCity.setValue(is_checked?customerCity:'');
-    this.formAddNewAppointmentStaffStep1.controls.customerAppoPostalCode.setValue(is_checked?customerPostalCode:'');
+    console.log(values);
+    this.is_checked = values.checked;
+    this.formAddNewAppointmentStaffStep1.controls.customerAppoAddress.setValue(this.is_checked?customerAddress:'');
+    this.formAddNewAppointmentStaffStep1.controls.customerAppoState.setValue(this.is_checked?customerState:'');
+    this.formAddNewAppointmentStaffStep1.controls.customerAppoCity.setValue(this.is_checked?customerCity:'');
+    this.formAddNewAppointmentStaffStep1.controls.customerAppoPostalCode.setValue(this.is_checked?customerPostalCode:'');
 
 
   }
@@ -1748,11 +1770,14 @@ export class DialogAddNewAppointment {
     }
     this.netCost=amountAfterDiscount+amountAfterTax;
 
+
+
+
     console.log(this.taxAmountArr);
     console.log(JSON.stringify(serviceCartArrTemp));
     const currentDateTime = new Date();
     let requestObject = {
-      "postal_code": this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
+      "postal_code": this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').value,
       "business_id": this.bussinessId,
       "serviceInfo": serviceCartArrTemp,
       "customer_name": this.formAddNewAppointmentStaffStep1.get('customerFullName').value,

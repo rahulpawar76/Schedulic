@@ -186,7 +186,8 @@ export class MyWorkSpaceComponent implements OnInit {
     let requestObject = {
       "business_id":this.businessId,
       "category":this.selectedCategoryId,
-      "status_filter":this.selectedStatus
+      "status_filter":this.selectedStatus,
+      "booking_date":"2020-06-04"
     };
     this.adminService.getAllAppointmentsByCategoryAndStatus(requestObject).subscribe((response:any) => 
     {
