@@ -118,22 +118,34 @@ export class UserappointmentsComponent implements OnInit {
   }
 
 
-ngOnInit() {
-  this.fnGetSettingValue();
-  this.getAllAppointments();
-  this.getCancelAppointments();
-  this.getCompletedAppointments();
-}
-
-numberOnly(event): boolean {
-  const charCode = (event.which) ? event.which : event.keyCode;
-  if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-    return false;
+  ngOnInit() {
+    this.fnGetSettingValue();
+    this.getAllAppointments();
+    this.getCancelAppointments();
+    this.getCompletedAppointments();
   }
-  return true;
 
-}
-fnGetSettingValue(){
+  dynamicSort(property) {
+    var sortOrder = 1;
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+    return function (a, b) {
+      var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+    }
+  }
+
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
+  }
+  fnGetSettingValue(){
     let requestObject = {
       "business_id":this.bussinessId
     };
@@ -198,6 +210,7 @@ getAllAppointments(): void{
   this.UserService.getAllAppointments().subscribe((response:any) =>{
     if(response.data == true){
       this.appointmentData = response.response;
+      
       this.appointmentData.forEach( (element) => {
         element.bookingDateTime = new Date(element.booking_date+" "+element.booking_time);
         element.booking_timeForLabel = this.datePipe.transform(element.bookingDateTime,"hh:mm a");
@@ -209,13 +222,16 @@ getAllAppointments(): void{
         element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
 
       });
+      
+      this.appointmentData = this.appointmentData.sort(this.dynamicSort("created_at"))
+      alert("Hello")
     }
     else if(response.data == false){
-      // this._snackBar.open(response.response, "X", {
-      //   duration: 2000,
-      //   verticalPosition:'top',
-      //   panelClass :['red-snackbar']
-      // });
+      this._snackBar.open(response.response, "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+      });
       this.appointmentData = [];
     }
   })
@@ -316,17 +332,31 @@ getCompletedAppointments(): void{
      });
   }
 
-  invoice(index) {
+  invoice(appointmentType, index) {
+    if(appointmentType == 'newAppointment'){
+      
     const dialogRef = this.dialog.open(DialogInvoiceDialog, {
       width: '1000px',
       height: 'auto',
-      data: {fulldata: this.completedAppointmentData[index]}
-
+      data: {fulldata: this.appointmentData[index]}
     });
 
-     dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
      });
+    } else if(appointmentType == 'completedAppointment'){
+
+      const dialogRef = this.dialog.open(DialogInvoiceDialog, {
+        width: '1000px',
+        height: 'auto',
+        data: {fulldata: this.completedAppointmentData[index]}
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        this.animal = result;
+       });
+    }
+
   }
 
   MyAppointmentDetails(index){

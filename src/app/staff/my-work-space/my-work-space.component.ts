@@ -3,6 +3,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { StaffService } from '../_services/staff.service';
 import { DatePipe} from '@angular/common';
 import { AuthenticationService } from '@app/_services';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface status {
   
@@ -36,11 +37,14 @@ export class MyWorkSpaceComponent implements OnInit {
   currencySymbolPosition:any;
   currencySymbolFormat:any;
   staffId :any
+  notes:any;
+  isLoader:boolean= false;
   token :any
   constructor(
     public dialog: MatDialog,
     private StaffService: StaffService,
     private authenticationService: AuthenticationService,
+    private _snackBar: MatSnackBar,
     private datePipe: DatePipe
   ) {
     this.bussinessId=this.authenticationService.currentUserValue.business_id
@@ -76,6 +80,36 @@ export class MyWorkSpaceComponent implements OnInit {
         
       }
     })
+  }
+  changeBookingStatus(order_item_id, status){
+    alert(order_item_id+status)
+    this.isLoader=true;
+    let requestObject = {
+      'order_item_id': order_item_id,
+      'order_status': status,
+      'notes' : this.notes,
+      'staff_id' : this.staffId
+    };
+    
+      this.StaffService.changeStatus(requestObject).subscribe((response:any) =>{
+        if(response.data == true){
+          this._snackBar.open("Appointment Updated", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+          this.getTodayAppointment();
+          
+        }
+        else if(response.data == false) {
+          this._snackBar.open("Appointment Not Updated", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          }); 
+        }
+      })
+    this.isLoader=false;
   }
 
   getTodayAppointment(){

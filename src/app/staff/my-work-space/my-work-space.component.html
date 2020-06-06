@@ -1,14 +1,16 @@
 <div class="content-main work-space-main" id="my-work-space">
     <div class="bg-image"></div>
+    <div class="loader-main" *ngIf="isLoader">
+        <img src="../../../assets/images/step-loader.gif" /></div>
     <div class="container">
         <!-- <div class=" col-lg-3 col-md-12 col-sm-12 text-white">&nbsp;  </div> -->
         <div class="justify-content-center timeframe-main offset-lg-3 col-lg-6 col-md-12 col-sm-12 text-white">
             <div class="d-flex flex-wrap text-white cal-icon-main">
                 <img mat-card-avatar class="customer-profile-img text-center mr-2" src="../../assets/images/calendar-work-space.png">
                 <div class="beside-icon">
-                	<h4 class="">{{todayDate}}</h4>
-                	<h1 class="">Today</h1>
-                </div>	
+                    <h4 class="">{{todayDate}}</h4>
+                    <h1 class="">Today</h1>
+                </div>
             </div>
 
             <div class="work-service-bg-main">
@@ -45,6 +47,8 @@
                                 </div>
                             </div>
                             <div class="pr-4 Details-button-width">
+                                <button mat-button *ngIf="todayAppointmentData.order_status == 'CNF'" class="Details-button" (click)="changeBookingStatus(todayAppointmentData.id, 'AC')">Accept</button>
+                                <button mat-button *ngIf="todayAppointmentData.order_status == 'CNF'" class="Details-button" (click)="changeBookingStatus(todayAppointmentData.id, 'R')">Reject</button>
                                 <button mat-button class="Details-button" (click)="todayAppointmentDetail(i)">Details</button>
                             </div>
                         </div>
@@ -54,7 +58,7 @@
                 <div *ngIf="todayAppointmentData == ''" class="service-background">
                     <h2 class="text-center my-2">No Booking Today</h2>
                 </div>
-                
+
             </div>
         </div>
     </div>
