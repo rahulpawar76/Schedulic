@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ElementRef, ViewChild, ɵConsole } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { UserService } from '../_services/user.service';
@@ -1832,6 +1832,8 @@ export class rescheduleAppointmentDialog {
   disableService:boolean=false;
   dialogTitle:any="New Appointment";
   showSubCatDropDown=true;
+  valide_postal_code:boolean =false;
+  isLoader:boolean=false;
   constructor(
     private _formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<DialogNewCustomerAppointment>,
@@ -1840,8 +1842,10 @@ export class rescheduleAppointmentDialog {
     private http: HttpClient,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.customerDetails=this.data.customerDetails;
-    console.log(this.customerDetails);
+    
+      
+    //this.customerDetails=this.data.customerDetails;
+    
      this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
         customerPostalCode: ['', [Validators.required,Validators.minLength(6)],this.isPostalcodeValid.bind(this)],
         customerCategory: ['', Validators.required],
@@ -1849,12 +1853,19 @@ export class rescheduleAppointmentDialog {
         customerService: ['', [Validators.required]],
         customerDate: ['', Validators.required],
         customerTime: ['', Validators.required],
-        customerStaff: ['', Validators.required]
-      });
-      this.bussinessId=JSON.parse(localStorage.getItem('business_id'));
+        customerStaff: ['', Validators.required],
+        customerAppoAddress: ['', Validators.required],
+        customerAppoState: ['', Validators.required],
+        customerAppoCity: ['', Validators.required],
+     });
+
+      this.bussinessId=(JSON.parse(localStorage.getItem('currentUser'))).business_id;
       this.adminId=(JSON.parse(localStorage.getItem('currentUser'))).user_id;
       this.token=(JSON.parse(localStorage.getItem('currentUser'))).token;
-  
+
+      this.customerDetails = JSON.parse(localStorage.getItem('currentUser'));
+    
+
       this.fnGetSettingValue();
       this.fnGetTaxDetails();
       this.fnGetOffDays();
@@ -1904,8 +1915,11 @@ export class rescheduleAppointmentDialog {
           catchError(this.handleError)).subscribe((res) => {
             if(res){
               if(res.data == false){
-              resolve({ isPostalcodeValid: true });
+                this.valide_postal_code = false;
+                resolve({ isPostalcodeValid: true });
               }else{
+                this.valide_postal_code = true;
+
               resolve(null);
               }
             }
@@ -1913,7 +1927,24 @@ export class rescheduleAppointmentDialog {
         }, 500);
       });
     }
+    
+    sameAddress(values:any){
+    
+      var customerAddress = this.customerDetails.address;
+      var customerState = this.customerDetails.state;
+      var customerCity = this.customerDetails.city;
+      var customerPostalCode = this.customerDetails.zip;
   
+      var is_checked = values.checked;
+  
+      this.formAddNewAppointmentStaffStep2.controls.customerAppoAddress.setValue(is_checked?customerAddress:'');
+      this.formAddNewAppointmentStaffStep2.controls.customerAppoState.setValue(is_checked?customerState:'');
+      this.formAddNewAppointmentStaffStep2.controls.customerAppoCity.setValue(is_checked?customerCity:'');
+      this.formAddNewAppointmentStaffStep2.controls.customerPostalCode.setValue(is_checked?customerPostalCode:'');
+  
+  
+    }
+
     numberOnly(event): boolean {
       const charCode = (event.which) ? event.which : event.keyCode;
       if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -2450,7 +2481,12 @@ export class rescheduleAppointmentDialog {
     }
   
     fnNewAppointmentStep2(){
-  
+      
+      if(this.valide_postal_code == false){
+        this.formAddNewAppointmentStaffStep2.get('customerPostalCode').markAsTouched();
+        return false;
+      }
+
       if(this.formAddNewAppointmentStaffStep2.invalid){
         this.formAddNewAppointmentStaffStep2.get('customerPostalCode').markAsTouched();
         this.formAddNewAppointmentStaffStep2.get('customerCategory').markAsTouched();
@@ -2459,6 +2495,10 @@ export class rescheduleAppointmentDialog {
         this.formAddNewAppointmentStaffStep2.get('customerDate').markAsTouched();
         this.formAddNewAppointmentStaffStep2.get('customerTime').markAsTouched();
         this.formAddNewAppointmentStaffStep2.get('customerStaff').markAsTouched();
+        
+        this.formAddNewAppointmentStaffStep2.get('customerAppoAddress').markAsTouched();
+        this.formAddNewAppointmentStaffStep2.get('customerAppoState').markAsTouched();
+        this.formAddNewAppointmentStaffStep2.get('customerAppoCity').markAsTouched();
         return false;
       }
   
@@ -2515,6 +2555,10 @@ export class rescheduleAppointmentDialog {
         "appointment_state": this.customerDetails.state,
         "appointment_city": this.customerDetails.city,
         "appointment_zipcode": this.customerDetails.zip,
+        "customer_appointment_address": this.formAddNewAppointmentStaffStep2.get('customerAppoAddress').value,
+        "customer_appointment_state": this.formAddNewAppointmentStaffStep2.get('customerAppoState').value,
+        "customer_appointment_city": this.formAddNewAppointmentStaffStep2.get('customerAppoCity').value,
+        "customer_appointment_zipcode": this.formAddNewAppointmentStaffStep2.get('customerPostalCode').value,
         "coupon_code": '',
         "subtotal": serviceCartArrTemp[0].subtotal,
         "discount_type" : discount_type,
@@ -2526,37 +2570,37 @@ export class rescheduleAppointmentDialog {
         "payment_method": "Cash",
         "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd hh:mm:ss") 
       };
-      console.log(JSON.stringify(requestObject));
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        'api-token': this.token,
-        'admin-id': JSON.stringify(this.adminId),
+        // 'api-token': this.token,
+        // 'admin-id': JSON.stringify(this.adminId),
       });
-      this.http.post(`${environment.apiUrl}/order-create-check`,requestObject,{headers:headers} ).
-      pipe(
-      map((res) => {
+
+
+      this.isLoader = true;
+      this.http.post(`${environment.apiUrl}/order-create-check`,requestObject,{headers:headers}).pipe(map((res) => {
         return res;
-      }),
-      ).subscribe((response:any) => {
+      }),).subscribe((response:any) => {
         if(response.data == true){
+          this.isLoader = false;
           this._snackBar.open("Appointment created", "X", {
               duration: 2000,
               verticalPosition:'top',
               panelClass :['green-snackbar']
           });
           this.dialogRef.close({data:true});
-        }
-        else{
+        }else{
+          this.isLoader = false;
             this._snackBar.open("Appointment not created", "X", {
                 duration: 2000,
                 verticalPosition:'top',
                 panelClass :['red-snackbar']
             });
         }
-      },
-      (err) =>{
-        
-      })
+      },(err) =>{
+        this.isLoader = false;
+      });
+
     }
   
   }
