@@ -556,6 +556,11 @@ export class StaffAppointmentComponent implements OnInit {
         customerState: ['', Validators.required],
         customerCity: ['', Validators.required],
         customerPostalCode: ['',[Validators.required,Validators.pattern(onlynumeric)]],
+        customerAppoAddress: ['', [Validators.required]],
+        customerAppoState: ['', [Validators.required]],
+        customerAppoCity: ['', [Validators.required]],
+        customerAppoPostalCode: ['', [Validators.required,Validators.pattern(onlynumeric),Validators.minLength(6),Validators.maxLength(6)]],
+  
       });
 
       this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
@@ -707,9 +712,26 @@ export class StaffAppointmentComponent implements OnInit {
 
   }
 
-    onNoClick(): void {
-      this.dialogRef.close();
-    }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  
+  sameAddress(values:any){
+
+    var customerAddress = this.formAddNewAppointmentStaffStep1.controls.customerAddress.value;
+    var customerState = this.formAddNewAppointmentStaffStep1.controls.customerState.value;
+    var customerCity = this.formAddNewAppointmentStaffStep1.controls.customerCity.value;
+    var customerPostalCode = this.formAddNewAppointmentStaffStep1.controls.customerPostalCode.value;
+    
+    var is_checked = values.currentTarget.checked;
+
+    this.formAddNewAppointmentStaffStep1.controls.customerAppoAddress.setValue(is_checked?customerAddress:'');
+    this.formAddNewAppointmentStaffStep1.controls.customerAppoState.setValue(is_checked?customerState:'');
+    this.formAddNewAppointmentStaffStep1.controls.customerAppoCity.setValue(is_checked?customerCity:'');
+    this.formAddNewAppointmentStaffStep1.controls.customerAppoPostalCode.setValue(is_checked?customerPostalCode:'');
+
+
+  }
 
     fnNewAppointmentStep1(){
       if(this.formAddNewAppointmentStaffStep1.invalid){
@@ -720,6 +742,10 @@ export class StaffAppointmentComponent implements OnInit {
         this.formAddNewAppointmentStaffStep1.get('customerState').markAsTouched();
         this.formAddNewAppointmentStaffStep1.get('customerCity').markAsTouched();
         this.formAddNewAppointmentStaffStep1.get('customerPostalCode').markAsTouched();
+        this.formAddNewAppointmentStaffStep1.get('customerAppoAddress').markAsTouched();
+        this.formAddNewAppointmentStaffStep1.get('customerAppoState').markAsTouched();
+        this.formAddNewAppointmentStaffStep1.get('customerAppoCity').markAsTouched();
+        this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').markAsTouched();
         return false;
       }
 
@@ -1208,6 +1234,10 @@ export class StaffAppointmentComponent implements OnInit {
             "appointment_state": this.formAddNewAppointmentStaffStep1.get('customerState').value,
             "appointment_city": this.formAddNewAppointmentStaffStep1.get('customerCity').value,
             "appointment_zipcode": this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
+            "customer_appointment_address": this.formAddNewAppointmentStaffStep1.get('customerAppoAddress').value,
+            "customer_appointment_state": this.formAddNewAppointmentStaffStep1.get('customerAppoState').value,
+            "customer_appointment_city": this.formAddNewAppointmentStaffStep1.get('customerAppoCity').value,
+            "customer_appointment_zipcode": this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').value,
             "coupon_code": '',
             "subtotal": serviceCartArrTemp[0].totalCost,
             "discount_type" : null,

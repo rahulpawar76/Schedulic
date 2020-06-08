@@ -403,7 +403,7 @@ export class AppointmentComponent implements OnInit {
           element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
           element.is_selected = false;
         });
-        this.allAppointments = this.allAppointments.sort(this.dynamicSort("booking_date"))
+        // this.allAppointments = this.allAppointments.sort(this.dynamicSort("booking_date"))
 
         this.selectAll  = false;
         
@@ -699,6 +699,10 @@ export class DialogAddNewAppointment {
     booking_date:new Date(),
     booking_time:'',
     staff:'',
+    customerAppoAddress:'',
+    customerAppoState:'',
+    customerAppoCity:'',
+    customerAppoPostalCode:'',
   }
   validationArr:any=[];
   disablePostalCode:boolean=false;
@@ -707,6 +711,7 @@ export class DialogAddNewAppointment {
   disableService:boolean=false;
   dialogTitle:any="New Appointment";
   showSubCatDropDown=true;
+  is_checked:boolean=false;
   constructor(
     public dialogRef: MatDialogRef<DialogAddNewAppointment>,
     public dialog: MatDialog,
@@ -750,9 +755,16 @@ export class DialogAddNewAppointment {
       this.disableService=true;
       this.dialogTitle="Edit Appointment";
       this.validationArr=this.isEmailUnique.bind(this);
+
+      this.appointmentData.customerAppoAddress=this.data.appointmentData.orders_info.booking_address;
+      this.appointmentData.customerAppoState = this.data.appointmentData.orders_info.booking_state;
+      this.appointmentData.customerAppoCity =  this.data.appointmentData.orders_info.booking_city;
+      this.appointmentData.customerAppoPostalCode =  this.data.appointmentData.orders_info.booking_zipcode;
+
+      
     }else{
       this.bussinessId=JSON.parse(localStorage.getItem('business_id'));
-      
+
     }
 //    console.log(this.appointmentData);
     this.adminId=(JSON.parse(localStorage.getItem('currentUser'))).user_id
@@ -773,6 +785,12 @@ export class DialogAddNewAppointment {
       customerState: [this.appointmentData.state, Validators.required],
       customerCity: [this.appointmentData.city, Validators.required],
       customerPostalCode: [{ value: this.appointmentData.zip, disabled: this.disablePostalCode }, [Validators.required,Validators.pattern(onlynumeric),Validators.minLength(6),Validators.maxLength(6)]],
+     
+      customerAppoAddress: [this.appointmentData.customerAppoAddress, [Validators.required]],
+      customerAppoState: [this.appointmentData.customerAppoState, [Validators.required]],
+      customerAppoCity: [this.appointmentData.customerAppoCity, [Validators.required]],
+      customerAppoPostalCode: [this.appointmentData.customerAppoPostalCode, [Validators.required,Validators.pattern(onlynumeric),Validators.minLength(6),Validators.maxLength(6)],this.isPostalcodeValid.bind(this)],
+
       //customerPostalCode: new FormControl({ value: this.appointmentData.zip, disabled: this.disablePostalCode },[Validators.required,Validators.pattern(onlynumeric)]),
     });
 
@@ -848,6 +866,28 @@ export class DialogAddNewAppointment {
     });
   }
 
+  isPostalcodeValid(control: FormControl) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+        return this.http.post(`${environment.apiUrl}/postalcode-check`,{ business_id: this.bussinessId,postal_code:control.value },{headers:headers}).pipe(map((response : any) =>{
+          return response;
+        }),
+        catchError(this.handleError)).subscribe((res) => {
+          if(res){
+            if(res.data == false){
+            resolve({ isPostalcodeValid: true });
+            }else{
+            resolve(null);
+            }
+          }
+        });
+      }, 500);
+    });
+  }
+  
   numberOnly(event): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -962,6 +1002,22 @@ export class DialogAddNewAppointment {
     this.dialogRef.close();
   }
   
+  sameAddress(values:any){
+
+    var customerAddress = this.formAddNewAppointmentStaffStep1.controls.customerAddress.value;
+    var customerState = this.formAddNewAppointmentStaffStep1.controls.customerState.value;
+    var customerCity = this.formAddNewAppointmentStaffStep1.controls.customerCity.value;
+    var customerPostalCode = this.formAddNewAppointmentStaffStep1.controls.customerPostalCode.value;
+    console.log(values);
+    this.is_checked = values.checked;
+    this.formAddNewAppointmentStaffStep1.controls.customerAppoAddress.setValue(this.is_checked?customerAddress:'');
+    this.formAddNewAppointmentStaffStep1.controls.customerAppoState.setValue(this.is_checked?customerState:'');
+    this.formAddNewAppointmentStaffStep1.controls.customerAppoCity.setValue(this.is_checked?customerCity:'');
+    this.formAddNewAppointmentStaffStep1.controls.customerAppoPostalCode.setValue(this.is_checked?customerPostalCode:'');
+
+
+  }
+
   fnNewAppointment() {
     if(this.formAddNewAppointmentStaffStep1.invalid){
       this.formAddNewAppointmentStaffStep1.get('customerFullName').markAsTouched();
@@ -971,6 +1027,12 @@ export class DialogAddNewAppointment {
       this.formAddNewAppointmentStaffStep1.get('customerState').markAsTouched();
       this.formAddNewAppointmentStaffStep1.get('customerCity').markAsTouched();
       this.formAddNewAppointmentStaffStep1.get('customerPostalCode').markAsTouched();
+
+      this.formAddNewAppointmentStaffStep1.get('customerAppoAddress').markAsTouched();
+      this.formAddNewAppointmentStaffStep1.get('customerAppoState').markAsTouched();
+      this.formAddNewAppointmentStaffStep1.get('customerAppoCity').markAsTouched();
+      this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').markAsTouched();
+
       return false;
     }
     this.fnGetCategories(); 
@@ -1708,11 +1770,14 @@ export class DialogAddNewAppointment {
     }
     this.netCost=amountAfterDiscount+amountAfterTax;
 
+
+
+
     console.log(this.taxAmountArr);
     console.log(JSON.stringify(serviceCartArrTemp));
     const currentDateTime = new Date();
     let requestObject = {
-      "postal_code": this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
+      "postal_code": this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').value,
       "business_id": this.bussinessId,
       "serviceInfo": serviceCartArrTemp,
       "customer_name": this.formAddNewAppointmentStaffStep1.get('customerFullName').value,
@@ -1722,6 +1787,10 @@ export class DialogAddNewAppointment {
       "appointment_state": this.formAddNewAppointmentStaffStep1.get('customerState').value,
       "appointment_city": this.formAddNewAppointmentStaffStep1.get('customerCity').value,
       "appointment_zipcode": this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
+      "customer_appointment_address": this.formAddNewAppointmentStaffStep1.get('customerAppoAddress').value,
+      "customer_appointment_state": this.formAddNewAppointmentStaffStep1.get('customerAppoState').value,
+      "customer_appointment_city": this.formAddNewAppointmentStaffStep1.get('customerAppoCity').value,
+      "customer_appointment_zipcode": this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').value,
       "coupon_code": '',
       "subtotal": serviceCartArrTemp[0].subtotal,
       "discount_type" : discount_type,
@@ -1828,6 +1897,10 @@ export class DialogAddNewAppointment {
       "appointment_state": this.formAddNewAppointmentStaffStep1.get('customerState').value,
       "appointment_city": this.formAddNewAppointmentStaffStep1.get('customerCity').value,
       "appointment_zipcode": this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
+      "customer_appointment_address": this.formAddNewAppointmentStaffStep1.get('customerAppoAddress').value,
+      "customer_appointment_state": this.formAddNewAppointmentStaffStep1.get('customerAppoState').value,
+      "customer_appointment_city": this.formAddNewAppointmentStaffStep1.get('customerAppoCity').value,
+      "customer_appointment_zipcode": this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').value,
       "coupon_code": '',
       "subtotal": serviceCartArrTemp[0].subtotal,
       "discount_type" : discount_type,
@@ -1957,7 +2030,6 @@ constructor(
         console.log("minReschedulingTime - "+this.minReschedulingTime);
       }
       else if(response.data == false){
-        alert();
       }
     })
   }

@@ -191,6 +191,8 @@ export class FrontbookingComponent implements OnInit {
   paypalTestMode:any;
   paypalStatus:boolean=false;
 
+  postalCodeCondition=false;
+  customerLoginValue:boolean=false;
   constructor(
     private _formBuilder: FormBuilder,
     private http: HttpClient,
@@ -266,6 +268,7 @@ export class FrontbookingComponent implements OnInit {
 
   ngOnInit() {
     this.fnGetSettings();
+    this.fnIsPostalCodeAdded();
 
     if(this.authenticationService.currentUserValue && this.authenticationService.currentUserValue.user_type == "C"){
       this.isLoggedIn=true;
@@ -458,6 +461,7 @@ export class FrontbookingComponent implements OnInit {
           day: this.maximumAdvanceBookingDateTimeObject.getDate(),
         };
         this.staffOnFrontValue=JSON.parse(JSON.parse(this.settingsArr.staff_list_on_front).status)
+        this.customerLoginValue=JSON.parse(this.settingsArr.customer_login)
         
       this.initConfig();
       }else{
@@ -571,6 +575,10 @@ export class FrontbookingComponent implements OnInit {
   fnViewDashboard(){
     this.router.navigate(['/user']);
   }
+  
+  fnNavigateToLogin(){
+    this.router.navigate(['/login']);
+  }
 
   // postal code
   fnChangePostalCode(event){
@@ -627,6 +635,37 @@ export class FrontbookingComponent implements OnInit {
       })
   }
 
+  fnIsPostalCodeAdded(){
+    let requestObject = {
+      "business_id" : 2
+      };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    this.http.post(`${environment.apiUrl}/postal-code-enable-check`,requestObject,{headers:headers} ).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(this.handleError)
+    ).subscribe((response:any) => {
+      if(response.data == true){
+        this.postalCodeCondition = true;
+        // this.validpostalcode = 'invalid';
+        // this.postalCodeError = false;
+      }else{
+        this.postalCodeCondition = false;
+        this.validpostalcode = 'valid';
+        // this.postalCodeError = true;
+      }
+      },
+      (err) =>{
+        // this.validpostalcode = 'invalid';
+        // this.postalCodeError = true;
+        console.log(err)
+      })
+  }
+
   fnGetCategories(){
     this.isLoader=true;
     let requestObject = {
@@ -661,7 +700,7 @@ export class FrontbookingComponent implements OnInit {
 
   // Category
   fnCategory(event,id,categoryName){
-    if(this.booking.postalcode == ''){
+    if(this.booking.postalcode == '' && this.postalCodeCondition){
       this.validpostalcode = 'invalid';
       return false;
     }

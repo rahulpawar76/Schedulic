@@ -145,7 +145,7 @@ export class BusinessHoursComponent implements OnInit {
 
   fnCreateWorkingHours(){
     if(this.formSetWorkingHours.invalid){
-      alert();
+    
       return false;
     }
     let workingHoursArray:any=[];
