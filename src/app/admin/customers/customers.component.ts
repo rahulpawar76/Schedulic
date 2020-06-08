@@ -1650,6 +1650,9 @@ disableSubCategory:boolean=false;
 disableService:boolean=false;
 dialogTitle:any="New Appointment";
 showSubCatDropDown=true;
+valide_postal_code:boolean =false;
+isLoaderAdmin:boolean =false;
+
 constructor(
   private _formBuilder: FormBuilder,
   public dialogRef: MatDialogRef<DialogNewCustomerAppointment>,
@@ -1659,16 +1662,20 @@ constructor(
   private _snackBar: MatSnackBar,
   @Inject(MAT_DIALOG_DATA) public data: any) {
   this.customerDetails=this.data.customerDetails;
-  console.log(this.customerDetails);
-   this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
-      customerPostalCode: ['', [Validators.required,Validators.minLength(6)],this.isPostalcodeValid.bind(this)],
-      customerCategory: ['', Validators.required],
-      customerSubCategory: ['', [Validators.required]],
-      customerService: ['', [Validators.required]],
-      customerDate: ['', Validators.required],
-      customerTime: ['', Validators.required],
-      customerStaff: ['', Validators.required]
+
+    this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
+        customerPostalCode: ['', [Validators.required,Validators.minLength(6)],this.isPostalcodeValid.bind(this)],
+        customerCategory: ['', Validators.required],
+        customerSubCategory: ['', [Validators.required]],
+        customerService: ['', [Validators.required]],
+        customerDate: ['', Validators.required],
+        customerTime: ['', Validators.required],
+        customerStaff:['',Validators.required],
+        customerAppoAddress: ['', Validators.required],
+        customerAppoState: ['', Validators.required],
+        customerAppoCity: ['', Validators.required],
     });
+
     this.bussinessId=JSON.parse(localStorage.getItem('business_id'));
     this.adminId=(JSON.parse(localStorage.getItem('currentUser'))).user_id;
     this.token=(JSON.parse(localStorage.getItem('currentUser'))).token;
@@ -1705,6 +1712,23 @@ constructor(
     }
   }
 
+  sameAddress(values:any){
+    
+    var customerAddress = this.customerDetails.address;
+    var customerState = this.customerDetails.state;
+    var customerCity = this.customerDetails.city;
+    var customerPostalCode = this.customerDetails.zip;
+
+    var is_checked = values.checked;
+
+    this.formAddNewAppointmentStaffStep2.controls.customerAppoAddress.setValue(is_checked?customerAddress:'');
+    this.formAddNewAppointmentStaffStep2.controls.customerAppoState.setValue(is_checked?customerState:'');
+    this.formAddNewAppointmentStaffStep2.controls.customerAppoCity.setValue(is_checked?customerCity:'');
+    this.formAddNewAppointmentStaffStep2.controls.customerPostalCode.setValue(is_checked?customerPostalCode:'');
+
+
+  }
+
   private handleError(error: HttpErrorResponse) {
     return throwError('Error! something went wrong.');
     //return error.error ? error.error : error.statusText;
@@ -1722,9 +1746,11 @@ constructor(
         catchError(this.handleError)).subscribe((res) => {
           if(res){
             if(res.data == false){
+              this.valide_postal_code = false;
             resolve({ isPostalcodeValid: true });
             }else{
-            resolve(null);
+              this.valide_postal_code = true;
+              resolve(null);
             }
           }
         });
@@ -1746,7 +1772,7 @@ constructor(
       "business_id":this.bussinessId
     };
     this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
-      if(response.data == true){
+      if(response.data == true && response.response){
         this.settingsArr=response.response;
         console.log(this.settingsArr);
         this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
@@ -2265,6 +2291,11 @@ constructor(
 
   fnNewAppointmentStep2(){
 
+    if(this.valide_postal_code == false){
+      this.formAddNewAppointmentStaffStep2.get('customerPostalCode').markAsTouched();
+      return false;
+    }
+
     if(this.formAddNewAppointmentStaffStep2.invalid){
       this.formAddNewAppointmentStaffStep2.get('customerPostalCode').markAsTouched();
       this.formAddNewAppointmentStaffStep2.get('customerCategory').markAsTouched();
@@ -2273,6 +2304,11 @@ constructor(
       this.formAddNewAppointmentStaffStep2.get('customerDate').markAsTouched();
       this.formAddNewAppointmentStaffStep2.get('customerTime').markAsTouched();
       this.formAddNewAppointmentStaffStep2.get('customerStaff').markAsTouched();
+      
+      this.formAddNewAppointmentStaffStep2.get('customerAppoAddress').markAsTouched();
+      this.formAddNewAppointmentStaffStep2.get('customerAppoState').markAsTouched();
+      this.formAddNewAppointmentStaffStep2.get('customerAppoCity').markAsTouched();
+      
       return false;
     }
 
@@ -2329,6 +2365,10 @@ constructor(
       "appointment_state": this.customerDetails.state,
       "appointment_city": this.customerDetails.city,
       "appointment_zipcode": this.customerDetails.zip,
+      "customer_appointment_address": this.formAddNewAppointmentStaffStep2.get('customerAppoAddress').value,
+      "customer_appointment_state": this.formAddNewAppointmentStaffStep2.get('customerAppoState').value,
+      "customer_appointment_city": this.formAddNewAppointmentStaffStep2.get('customerAppoCity').value,
+      "customer_appointment_zipcode": this.formAddNewAppointmentStaffStep2.get('customerPostalCode').value,
       "coupon_code": '',
       "subtotal": serviceCartArrTemp[0].subtotal,
       "discount_type" : discount_type,
@@ -2346,30 +2386,34 @@ constructor(
       'api-token': this.token,
       'admin-id': JSON.stringify(this.adminId),
     });
-    this.http.post(`${environment.apiUrl}/order-create-check`,requestObject,{headers:headers} ).
-    pipe(
-    map((res) => {
+
+    this.isLoaderAdmin=true;
+
+
+    this.http.post(`${environment.apiUrl}/order-create-check`,requestObject,{headers:headers} ).pipe(map((res) => {
       return res;
-    }),
-    ).subscribe((response:any) => {
-      if(response.data == true){
+    }),).subscribe((response:any) => {
+
+      if(response.data == true){  
         this._snackBar.open("Appointment created", "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['green-snackbar']
         });
         this.dialogRef.close({data:true});
-      }
-      else{
+        this.isLoaderAdmin=false;
+
+      }else{
+
           this._snackBar.open("Appointment not created", "X", {
               duration: 2000,
               verticalPosition:'top',
               panelClass :['red-snackbar']
           });
+          this.isLoaderAdmin=false;
       }
-    },
-    (err) =>{
-      
+    },(err) =>{
+      this.isLoaderAdmin=false;
     })
   }
 

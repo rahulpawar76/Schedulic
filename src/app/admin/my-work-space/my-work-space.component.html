@@ -4,6 +4,11 @@
             <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
             <div id="admin-book-appointment">
                 <div class="row">
+                    <!-- <mat-card class="mt-4 mb-4">
+                        <input mat-input [matDatepicker]="picker" placeholder="Choose a date" class="form-control formcontrol" (click)="picker.open()" (dateChange)="fnDateChange($event)" readonly hidden="true">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-card> -->
                     <mat-card class="mt-4 mb-4" *ngIf="revenue != null && revenue != undefined">
                         <div class="col-lg-2 col-md-4 col-6 flex-align-center">
                             <h6 class="category">Category</h6>
@@ -11,8 +16,12 @@
                         </div>
                         <div class="col-lg-2 col-md-4 col-6  left-border flex-align-center">
                             <div class="d-flex">
-                                <i class="fa fa-calendar calender-icon calender-date pr-2" aria-hidden="true"></i>
-                                <p class="category font-blue pt-0">{{todayDate}}</p>
+                                <!-- <i class="fa fa-calendar calender-icon calender-date pr-2" aria-hidden="true"></i>
+                                <p class="category font-blue pt-0">{{todayDate}}</p> -->
+                                <mat-datepicker-toggle matSuffix [for]="picker" class=" calender-icon calender-date pr-2 mt-0"><i class="fa fa-calendar" aria-hidden="true"></i></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <input mat-input  [formControl]="date" [matDatepicker]="picker" class="form-control formcontrol date-input font-blue pointer" (click)="picker.open()" (dateChange)="fnDateChange($event)" readonly >
+                                <!-- <p class="category font-blue pt-0">{{todayDate}}</p> -->
                             </div>
                             <h6 class="font-blue pl-4 mb-0">Today</h6>
                         </div>
