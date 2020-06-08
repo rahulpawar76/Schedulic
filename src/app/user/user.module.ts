@@ -19,6 +19,8 @@ import { DialogMyAppointmentDetails } from './userappointments';
 import { rescheduleAppointmentDialog } from './userappointments';
 import { DialogCancelAppointmentDetails } from './userappointments';
 import { DialogCompleteAppointmentDetails } from './userappointments';
+import { DialogNewCustomerAppointment } from './userappointments';
+
 import { DialogUserImageUpload } from './user-profile';
 import { SharedModule } from '../shared.module';
 import { NgxPayPalModule } from 'ngx-paypal';
@@ -34,7 +36,8 @@ import { NgxPayPalModule } from 'ngx-paypal';
 		DialogCancelAppointmentDetails,
 		DialogCompleteAppointmentDetails,
     DialogUserImageUpload,
-    rescheduleAppointmentDialog
+    rescheduleAppointmentDialog,
+    DialogNewCustomerAppointment,
   ],
   imports: [
     CommonModule,
@@ -54,6 +57,6 @@ import { NgxPayPalModule } from 'ngx-paypal';
   exports: [
     FormsModule
   ],
-  entryComponents: [DialogOverviewExampleDialog,rescheduleAppointmentDialog,DialogCancelReason,DialogInvoiceDialog,DialogMyAppointmentDetails,DialogCancelAppointmentDetails,DialogCompleteAppointmentDetails,DialogUserImageUpload],
+  entryComponents: [DialogNewCustomerAppointment,DialogOverviewExampleDialog,rescheduleAppointmentDialog,DialogCancelReason,DialogInvoiceDialog,DialogMyAppointmentDetails,DialogCancelAppointmentDetails,DialogCompleteAppointmentDetails,DialogUserImageUpload],
 })
 export class UserModule { }

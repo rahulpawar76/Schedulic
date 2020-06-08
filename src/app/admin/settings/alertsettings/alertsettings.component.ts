@@ -174,6 +174,50 @@ export class AlertsettingsComponent implements OnInit {
   cusEmailTempl : any;
   twilioSettingValue : any;
   textLocalSettingValue : any
+  cusEmailTemplateStatus1: boolean = false;
+  cusEmailTemplateStatus2: boolean = false;
+  cusEmailTemplateStatus3: boolean = false;
+  cusEmailTemplateStatus4: boolean = false;
+  cusEmailTemplateStatus5: boolean = false;
+  cusEmailTemplateStatus6: boolean = false;
+  cusEmailTemplateStatus7: boolean = false;
+  adminEmailTemplateStatus1: boolean = false;
+  adminEmailTemplateStatus2: boolean = false;
+  adminEmailTemplateStatus3: boolean = false;
+  adminEmailTemplateStatus4: boolean = false;
+  adminEmailTemplateStatus5: boolean = false;
+  adminEmailTemplateStatus6: boolean = false;
+  adminEmailTemplateStatus7: boolean = false;
+  staffEmailTemplateStatus1: boolean = false;
+  staffEmailTemplateStatus2: boolean = false;
+  staffEmailTemplateStatus3: boolean = false;
+  staffEmailTemplateStatus4: boolean = false;
+  staffEmailTemplateStatus5: boolean = false;
+  staffEmailTemplateStatus6: boolean = false;
+  staffEmailTemplateStatus7: boolean = false;
+
+  cusSmsTemplateStatus1: boolean = false;
+  cusSmsTemplateStatus2: boolean = false;
+  cusSmsTemplateStatus3: boolean = false;
+  cusSmsTemplateStatus4: boolean = false;
+  cusSmsTemplateStatus5: boolean = false;
+  cusSmsTemplateStatus6: boolean = false;
+  cusSmsTemplateStatus7: boolean = false;
+  adminSmsTemplateStatus1: boolean = false;
+  adminSmsTemplateStatus2: boolean = false;
+  adminSmsTemplateStatus3: boolean = false;
+  adminSmsTemplateStatus4: boolean = false;
+  adminSmsTemplateStatus5: boolean = false;
+  adminSmsTemplateStatus6: boolean = false;
+  adminSmsTemplateStatus7: boolean = false;
+  staffSmsTemplateStatus1: boolean = false;
+  staffSmsTemplateStatus2: boolean = false;
+  staffSmsTemplateStatus3: boolean = false;
+  staffSmsTemplateStatus4: boolean = false;
+  staffSmsTemplateStatus5: boolean = false;
+  staffSmsTemplateStatus6: boolean = false;
+  staffSmsTemplateStatus7: boolean = false;  
+
   constructor(
     private appComponent : AppComponent,
     public adminSettingsService : AdminSettingsService,
@@ -781,6 +825,20 @@ fnAppointmentsReminderSMS(event){
         this.cusEmailTemplate5.controls['emailTemplate'].setValue(this.customerEmailTemData[4].email_message);
         this.cusEmailTemplate6.controls['emailTemplate'].setValue(this.customerEmailTemData[5].email_message);
         this.cusEmailTemplate7.controls['emailTemplate'].setValue(this.customerEmailTemData[6].email_message);
+        this.customerEmailTemData.forEach( (element) => { 
+          if(element.email_template_status == 'E'){
+            element.email_template_status = true;
+          }else if(element.email_template_status == 'D'){
+            element.email_template_status = false;
+          }
+        });
+        this.cusEmailTemplateStatus1 = this.customerEmailTemData[0].email_template_status;
+        this.cusEmailTemplateStatus2 = this.customerEmailTemData[1].email_template_status;
+        this.cusEmailTemplateStatus3 = this.customerEmailTemData[2].email_template_status;
+        this.cusEmailTemplateStatus4 = this.customerEmailTemData[3].email_template_status;
+        this.cusEmailTemplateStatus5 = this.customerEmailTemData[4].email_template_status;
+        this.cusEmailTemplateStatus6 = this.customerEmailTemData[5].email_template_status;
+        this.cusEmailTemplateStatus7 = this.customerEmailTemData[6].email_template_status;
       }
       else{
       this._snackBar.open(response.response, "X", {
@@ -1008,7 +1066,20 @@ fnAppointmentsReminderSMS(event){
         this.adminEmailTemplate5.controls['emailTemplate'].setValue(this.adminEmailTemData[4].email_message);
         this.adminEmailTemplate6.controls['emailTemplate'].setValue(this.adminEmailTemData[5].email_message);
         this.adminEmailTemplate7.controls['emailTemplate'].setValue(this.adminEmailTemData[6].email_message);
-        console.log(this.adminEmailTemData)
+        this.adminEmailTemData.forEach( (element) => { 
+          if(element.email_template_status == 'E'){
+            element.email_template_status = true;
+          }else if(element.email_template_status == 'D'){
+            element.email_template_status = false;
+          }
+        });
+        this.adminEmailTemplateStatus1 = this.adminEmailTemData[0].email_template_status;
+        this.adminEmailTemplateStatus2 = this.adminEmailTemData[1].email_template_status;
+        this.adminEmailTemplateStatus3 = this.adminEmailTemData[2].email_template_status;
+        this.adminEmailTemplateStatus4 = this.adminEmailTemData[3].email_template_status;
+        this.adminEmailTemplateStatus5 = this.adminEmailTemData[4].email_template_status;
+        this.adminEmailTemplateStatus6 = this.adminEmailTemData[5].email_template_status;
+        this.adminEmailTemplateStatus7 = this.adminEmailTemData[6].email_template_status;
       }
       else{
       this._snackBar.open(response.response, "X", {
@@ -1034,6 +1105,21 @@ fnAppointmentsReminderSMS(event){
         this.staffEmailTemplate5.controls['emailTemplate'].setValue(this.staffEmailTemData[4].email_message);
         this.staffEmailTemplate6.controls['emailTemplate'].setValue(this.staffEmailTemData[5].email_message);
         this.staffEmailTemplate7.controls['emailTemplate'].setValue(this.staffEmailTemData[6].email_message);
+        this.staffEmailTemData.forEach( (element) => { 
+          if(element.email_template_status == 'E'){
+            element.email_template_status = true;
+          }else if(element.email_template_status == 'D'){
+            element.email_template_status = false;
+          }
+        });
+        this.staffEmailTemplateStatus1 = this.staffEmailTemData[0].email_template_status;
+        this.staffEmailTemplateStatus2 = this.staffEmailTemData[1].email_template_status;
+        this.staffEmailTemplateStatus3 = this.staffEmailTemData[2].email_template_status;
+        this.staffEmailTemplateStatus4 = this.staffEmailTemData[3].email_template_status;
+        this.staffEmailTemplateStatus5 = this.staffEmailTemData[4].email_template_status;
+        this.staffEmailTemplateStatus6 = this.staffEmailTemData[5].email_template_status;
+        this.staffEmailTemplateStatus7 = this.staffEmailTemData[6].email_template_status;
+
         console.log(this.staffEmailTemData)
       }
       else{
@@ -1198,6 +1284,20 @@ fnAppointmentsReminderSMS(event){
         this.cusSmsTemplate5.controls['smsTemplate'].setValue(this.cusSmsTemData[4].sms_message);
         this.cusSmsTemplate6.controls['smsTemplate'].setValue(this.cusSmsTemData[5].sms_message);
         this.cusSmsTemplate7.controls['smsTemplate'].setValue(this.cusSmsTemData[6].sms_message);
+        this.cusSmsTemData.forEach( (element) => { 
+          if(element.sms_template_status == 'E'){
+            element.sms_template_status = true;
+          }else if(element.email_template_status == 'D'){
+            element.sms_template_status = false;
+          }
+        });
+        this.cusSmsTemplateStatus1 = this.cusSmsTemData[0].sms_template_status;
+        this.cusSmsTemplateStatus2 = this.cusSmsTemData[1].sms_template_status;
+        this.cusSmsTemplateStatus3 = this.cusSmsTemData[2].sms_template_status;
+        this.cusSmsTemplateStatus4 = this.cusSmsTemData[3].sms_template_status;
+        this.cusSmsTemplateStatus5 = this.cusSmsTemData[4].sms_template_status;
+        this.cusSmsTemplateStatus6 = this.cusSmsTemData[5].sms_template_status;
+        this.cusSmsTemplateStatus7 = this.cusSmsTemData[6].sms_template_status;
         console.log(this.cusSmsTemData);
       }
       else{
@@ -1225,6 +1325,20 @@ fnAppointmentsReminderSMS(event){
         this.staffSmsTemplate5.controls['smsTemplate'].setValue(this.staffSmsTemData[4].sms_message);
         this.staffSmsTemplate6.controls['smsTemplate'].setValue(this.staffSmsTemData[5].sms_message);
         this.staffSmsTemplate7.controls['smsTemplate'].setValue(this.staffSmsTemData[6].sms_message);
+        this.staffSmsTemData.forEach( (element) => { 
+          if(element.sms_template_status == 'E'){
+            element.sms_template_status = true;
+          }else if(element.email_template_status == 'D'){
+            element.sms_template_status = false;
+          }
+        });
+        this.staffSmsTemplateStatus1 = this.staffSmsTemData[0].sms_template_status;
+        this.staffSmsTemplateStatus2 = this.staffSmsTemData[1].sms_template_status;
+        this.staffSmsTemplateStatus3 = this.staffSmsTemData[2].sms_template_status;
+        this.staffSmsTemplateStatus4 = this.staffSmsTemData[3].sms_template_status;
+        this.staffSmsTemplateStatus5 = this.staffSmsTemData[4].sms_template_status;
+        this.staffSmsTemplateStatus6 = this.staffSmsTemData[5].sms_template_status;
+        this.staffSmsTemplateStatus7 = this.staffSmsTemData[6].sms_template_status;
         console.log(this.staffSmsTemData);
       }
       else{
@@ -1252,6 +1366,20 @@ fnAppointmentsReminderSMS(event){
         this.adminSmsTemplate5.controls['smsTemplate'].setValue(this.adminSmsTemData[4].sms_message);
         this.adminSmsTemplate6.controls['smsTemplate'].setValue(this.adminSmsTemData[5].sms_message);
         this.adminSmsTemplate7.controls['smsTemplate'].setValue(this.adminSmsTemData[6].sms_message);
+        this.adminSmsTemData.forEach( (element) => { 
+          if(element.sms_template_status == 'E'){
+            element.sms_template_status = true;
+          }else if(element.email_template_status == 'D'){
+            element.sms_template_status = false;
+          }
+        });
+        this.adminSmsTemplateStatus1 = this.adminSmsTemData[0].sms_template_status;
+        this.adminSmsTemplateStatus2 = this.adminSmsTemData[1].sms_template_status;
+        this.adminSmsTemplateStatus3 = this.adminSmsTemData[2].sms_template_status;
+        this.adminSmsTemplateStatus4 = this.adminSmsTemData[3].sms_template_status;
+        this.adminSmsTemplateStatus5 = this.adminSmsTemData[4].sms_template_status;
+        this.adminSmsTemplateStatus6 = this.adminSmsTemData[5].sms_template_status;
+        this.adminSmsTemplateStatus7 = this.adminSmsTemData[6].sms_template_status;
         console.log(this.adminSmsTemData);
       }
       else{

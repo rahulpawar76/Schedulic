@@ -213,13 +213,12 @@ export class AppointmentComponent implements OnInit {
 
   customeRange(data) {
    
-
     if (data.startDate == null || data.endDate == null) {
-      console.log("==");
       return;
     }else{
       this.startDate = this.datePipe.transform(new Date(data.startDate._d),"dd MMM yyyy");
       this.endDate = this.datePipe.transform(new Date(data.endDate._d),"dd MMM yyyy");
+      this.staffApiUrl =  `${environment.apiUrl}/admin-booking-listing`;
       this.getAllAppointments();
 
     }
@@ -712,6 +711,9 @@ export class DialogAddNewAppointment {
   dialogTitle:any="New Appointment";
   showSubCatDropDown=true;
   is_checked:boolean=false;
+  valide_postal_code:boolean =false;
+  isLoaderAdmin:boolean = false;
+
   constructor(
     public dialogRef: MatDialogRef<DialogAddNewAppointment>,
     public dialog: MatDialog,
@@ -878,9 +880,11 @@ export class DialogAddNewAppointment {
         catchError(this.handleError)).subscribe((res) => {
           if(res){
             if(res.data == false){
-            resolve({ isPostalcodeValid: true });
+              this.valide_postal_code = false;
+              resolve({ isPostalcodeValid: true });
             }else{
-            resolve(null);
+              this.valide_postal_code = true;
+              resolve(null);
             }
           }
         });
@@ -1008,8 +1012,9 @@ export class DialogAddNewAppointment {
     var customerState = this.formAddNewAppointmentStaffStep1.controls.customerState.value;
     var customerCity = this.formAddNewAppointmentStaffStep1.controls.customerCity.value;
     var customerPostalCode = this.formAddNewAppointmentStaffStep1.controls.customerPostalCode.value;
-    console.log(values);
+
     this.is_checked = values.checked;
+
     this.formAddNewAppointmentStaffStep1.controls.customerAppoAddress.setValue(this.is_checked?customerAddress:'');
     this.formAddNewAppointmentStaffStep1.controls.customerAppoState.setValue(this.is_checked?customerState:'');
     this.formAddNewAppointmentStaffStep1.controls.customerAppoCity.setValue(this.is_checked?customerCity:'');
@@ -1019,6 +1024,12 @@ export class DialogAddNewAppointment {
   }
 
   fnNewAppointment() {
+    
+    if(this.valide_postal_code == false){
+      this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').markAsTouched();
+      return false;
+    }
+
     if(this.formAddNewAppointmentStaffStep1.invalid){
       this.formAddNewAppointmentStaffStep1.get('customerFullName').markAsTouched();
       this.formAddNewAppointmentStaffStep1.get('customerEmail').markAsTouched();
@@ -1770,9 +1781,6 @@ export class DialogAddNewAppointment {
     }
     this.netCost=amountAfterDiscount+amountAfterTax;
 
-
-
-
     console.log(this.taxAmountArr);
     console.log(JSON.stringify(serviceCartArrTemp));
     const currentDateTime = new Date();
@@ -1808,12 +1816,10 @@ export class DialogAddNewAppointment {
       'api-token': this.token,
       'admin-id': JSON.stringify(this.adminId),
     });
-    this.http.post(`${environment.apiUrl}/order-create-check`,requestObject,{headers:headers} ).
-    pipe(
-    map((res) => {
+    this.isLoaderAdmin = true;
+    this.http.post(`${environment.apiUrl}/order-create-check`,requestObject,{headers:headers} ).pipe(map((res) => {
       return res;
-    }),
-    ).subscribe((response:any) => {
+    }),).subscribe((response:any) => {
       if(response.data == true){
         this._snackBar.open("Appointment created", "X", {
             duration: 2000,
@@ -1821,17 +1827,17 @@ export class DialogAddNewAppointment {
             panelClass :['green-snackbar']
         });
         this.dialogRef.close();
+        this.isLoaderAdmin = false;
+      }else{
+        this._snackBar.open("Appointment not created", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+        });
+        this.isLoaderAdmin = false;
       }
-      else{
-          this._snackBar.open("Appointment not created", "X", {
-              duration: 2000,
-              verticalPosition:'top',
-              panelClass :['red-snackbar']
-          });
-      }
-    },
-    (err) =>{
-      
+    },(err) =>{
+      this.isLoaderAdmin = false;
     })
   }
 
@@ -1919,12 +1925,10 @@ export class DialogAddNewAppointment {
       'api-token': this.token,
       'admin-id': JSON.stringify(this.adminId),
     });
-    this.http.post(`${environment.apiUrl}/order-item-edit`,requestObject,{headers:headers} ).
-    pipe(
-    map((res) => {
+    this.isLoaderAdmin = true;
+    this.http.post(`${environment.apiUrl}/order-item-edit`,requestObject,{headers:headers} ).pipe(map((res) => {
       return res;
-    }),
-    ).subscribe((response:any) => {
+    }),).subscribe((response:any) => {
       if(response.data == true){
         this._snackBar.open("Appointment Updated", "X", {
             duration: 2000,
@@ -1932,18 +1936,18 @@ export class DialogAddNewAppointment {
             panelClass :['green-snackbar']
         });
         this.dialogRef.close();
+        this.isLoaderAdmin = false;
+      } else{
+        this._snackBar.open("Appointment not Updated", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+        });
+        this.isLoaderAdmin = false;
       }
-      else{
-          this._snackBar.open("Appointment not Updated", "X", {
-              duration: 2000,
-              verticalPosition:'top',
-              panelClass :['red-snackbar']
-          });
-      }
-    },
-    (err) =>{
-      
-    })
+    },(err) =>{
+      this.isLoaderAdmin = false;
+    });
   }
   
   

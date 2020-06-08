@@ -1,4 +1,8 @@
- <div class="modal-dialog modal-notify modal-info" role="document" >
+<div class="loader-main" *ngIf="isLoader">
+    <img src="../../../assets/images/step-loader.gif" />
+</div>
+
+<div class="modal-dialog modal-notify modal-info" role="document" >
     <div class="modal-content">
       <div class="modal-header modal-bcolor-primary">
         <p class="heading lead  fontfamily" >New Appointment</p>
@@ -9,7 +13,50 @@
       <div class="modal-body">
             <form [formGroup]="formAddNewAppointmentStaffStep2">
 
-                <label class="mb-1">Postal Code</label>
+                <div class="col-12 text-center mt-4"><h6>Appointment Address</h6></div>
+                <div class="col-12 text-center"><mat-checkbox [checked]="is_checked" class="example-margin" (change)="sameAddress($event)"><label class="mb-0"> &nbsp;&nbsp; Same as billing address</label></mat-checkbox></div>
+                <div class="col-12">
+                    <mat-label>Address</mat-label>
+                    <!-- <mat-icon matPrefix><i class="fa fa-map-marker"></i></mat-icon> -->
+                    <input class="form-control formcontrol"  formControlName="customerAppoAddress" placeholder="Enter Customer Address">
+                    <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerAppoAddress').dirty || formAddNewAppointmentStaffStep2.get('customerAppoAddress').touched || formSubmitclicked">
+                      <small *ngIf="formAddNewAppointmentStaffStep2.get('customerAppoAddress').hasError('required')" class="error">Customer  address is required</small>
+                  </span>
+                </div>
+               
+  
+  
+                <div class="row mt-3  mb-3 ">
+                    <div class="col-4">
+                        <mat-label>State</mat-label>
+                          <input class="form-control formcontrol"  formControlName="customerAppoState" placeholder="State">
+                          <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerAppoState').dirty || formAddNewAppointmentStaffStep2.get('customerAppoState').touched || formSubmitclicked">
+                              <small *ngIf="formAddNewAppointmentStaffStep2.get('customerAppoState').hasError('required')" class="error"> State  is required</small>
+                          </span>
+                    </div>
+  
+                    <div class="col-4">
+                            <mat-label>City</mat-label>
+                            <input class="form-control formcontrol"   formControlName="customerAppoCity" placeholder="City">
+                            <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerAppoCity').dirty || formAddNewAppointmentStaffStep2.get('customerAppoCity').touched || formSubmitclicked">
+                                <small *ngIf="formAddNewAppointmentStaffStep2.get('customerAppoCity').hasError('required')" class="error"> City  is required</small>
+                            </span>
+                    </div>
+  
+                    <div class="col-4 ">
+                        <mat-label>Postal Code</mat-label>
+                        <input class="form-control formcontrol"   formControlName="customerPostalCode" placeholder="Postal Code">
+                        <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').dirty || formAddNewAppointmentStaffStep2.get('customerPostalCode').touched || formSubmitclicked">
+                            <small *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('required')" class="error"> Postal code is required</small>
+                            <small *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('pattern')" class="error"> Enter a valid postal code</small>
+                            <small *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('minlength') || formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('maxlength')" class="error">Postal code should be 6 digit</small>
+                            <small *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('isPostalcodeValid')" class="error">We do not provide service at this location</small>
+                        </span>
+                    </div> 
+                </div>
+
+
+                <!-- <label class="mb-1">Postal Code</label>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <div class="input-group-text"><i class="fa fa-calendar"></i>
@@ -21,7 +68,7 @@
                     <small *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('minlength')" class="error">Enter a Valid Postal code</small>
                     <small *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('isPostalcodeValid')" class="error">We do not provide service at this location</small>
                   </span>
-                </div>
+                </div> -->
 
                 <div class="row">
                     <div class="col-6 mb-3">
