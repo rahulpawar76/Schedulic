@@ -32,6 +32,7 @@ export class OnlinePaymentComponent implements OnInit {
     private datePipe: DatePipe,
   ) {
     
+    localStorage.setItem('isFront', "true");
     this.orderItemId = this.route.snapshot.queryParams['order-item'];
     if(this.orderItemId){
       this.getOrderItemInfo();
