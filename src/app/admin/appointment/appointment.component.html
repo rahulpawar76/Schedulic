@@ -6,7 +6,7 @@
                 <div class="col-lg-3 col-12 col-md-3 col-sm-12 d-flex">
                     <mat-form-field class="appoint-daily mr-2 bottom-border-field">
                         <mat-label>All</mat-label>
-                        <mat-select (selectionChange)="selectdurationType($event.value)">
+                        <mat-select (selectionChange)="selectdurationType($event.value)" [(value)]="durationType">
                             <mat-option value="daily">Daily</mat-option>
                             <mat-option value="week">Weekly</mat-option>
                             <mat-option value="month">Monthly</mat-option>
@@ -37,10 +37,10 @@
                 <div class="col-lg-3 col-12 col-md-3 col-sm-12 d-flex header-date">
                     <div id="head-date" class=" .offset-lg-4">
                         <div class="d-flex">
-                            <button class="date-btn pr-2" (click)="fnPrev()"><i class="fa fa-angle-left date-icon" aria-hidden="true"></i></button>
+                            <button class="date-btn pr-2" (click)="fnPrev()" *ngIf="durationType != 'custom'"><i class="fa fa-angle-left date-icon" aria-hidden="true"></i></button>
                             <p class="date-para pr-2">{{startDate}}</p>
-                            <p class="date-para pr-2" *ngIf="durationType != 'daily'"> - {{endDate | date:'dd MMM yyyy'}}</p>
-                            <button class="date-btn"><i class="fa fa-angle-right date-icon" aria-hidden="true" (click)="fnNext()"></i></button>
+                            <p class="date-para pr-2" *ngIf="startDate != endDate"> - {{endDate | date:'dd MMM yyyy'}}</p>
+                            <button class="date-btn"><i class="fa fa-angle-right date-icon" aria-hidden="true" (click)="fnNext()" *ngIf="durationType != 'custom'"></i></button>
                         </div>
                     </div>
                 </div>

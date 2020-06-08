@@ -1564,6 +1564,7 @@ constructor(
     this.adminId=(JSON.parse(localStorage.getItem('currentUser'))).user_id;
     this.token=(JSON.parse(localStorage.getItem('currentUser'))).token;
 
+    this.fnIsPostalCodeAdded();
     this.fnGetSettingValue();
     this.fnGetTaxDetails();
     this.fnGetOffDays();
@@ -1649,6 +1650,53 @@ constructor(
     }
     return true;
 
+  }
+
+  fnIsPostalCodeAdded(){
+    let requestObject = {
+      "business_id" : this.bussinessId
+      };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    this.http.post(`${environment.apiUrl}/postal-code-enable-check`,requestObject,{headers:headers} ).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(this.handleError)
+    ).subscribe((response:any) => {
+      if(response.data == true){
+        this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
+            customerPostalCode: ['', [Validators.required,Validators.minLength(6)],this.isPostalcodeValid.bind(this)],
+            customerCategory: ['', Validators.required],
+            customerSubCategory: ['', [Validators.required]],
+            customerService: ['', [Validators.required]],
+            customerDate: ['', Validators.required],
+            customerTime: ['', Validators.required],
+            customerStaff:['',Validators.required],
+            customerAppoAddress: ['', Validators.required],
+            customerAppoState: ['', Validators.required],
+            customerAppoCity: ['', Validators.required],
+        });
+      }else{
+        this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
+            customerPostalCode: ['', [Validators.required,Validators.minLength(6)],this.isPostalcodeValid.bind(this)],
+            customerCategory: ['', Validators.required],
+            customerSubCategory: ['', [Validators.required]],
+            customerService: ['', [Validators.required]],
+            customerDate: ['', Validators.required],
+            customerTime: ['', Validators.required],
+            customerStaff:['',Validators.required],
+            customerAppoAddress: ['', Validators.required],
+            customerAppoState: ['', Validators.required],
+            customerAppoCity: ['', Validators.required],
+        });
+      }
+      },
+      (err) =>{
+        console.log(err)
+      })
   }
 
   fnGetSettingValue(){

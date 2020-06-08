@@ -1847,16 +1847,16 @@ export class rescheduleAppointmentDialog {
     //this.customerDetails=this.data.customerDetails;
     
      this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
-        customerPostalCode: ['', [Validators.required,Validators.minLength(6)],this.isPostalcodeValid.bind(this)],
-        customerCategory: ['', Validators.required],
-        customerSubCategory: ['', [Validators.required]],
-        customerService: ['', [Validators.required]],
-        customerDate: ['', Validators.required],
-        customerTime: ['', Validators.required],
-        customerStaff: ['', Validators.required],
-        customerAppoAddress: ['', Validators.required],
-        customerAppoState: ['', Validators.required],
-        customerAppoCity: ['', Validators.required],
+        customerPostalCode: [''],
+        customerCategory: [''],
+        customerSubCategory: [''],
+        customerService: [''],
+        customerDate: [''],
+        customerTime: [''],
+        customerStaff: [''],
+        customerAppoAddress: [''],
+        customerAppoState: [''],
+        customerAppoCity: [''],
      });
 
       this.bussinessId=(JSON.parse(localStorage.getItem('currentUser'))).business_id;
@@ -1866,6 +1866,7 @@ export class rescheduleAppointmentDialog {
       this.customerDetails = JSON.parse(localStorage.getItem('currentUser'));
     
 
+      this.fnIsPostalCodeAdded();
       this.fnGetSettingValue();
       this.fnGetTaxDetails();
       this.fnGetOffDays();
@@ -1928,6 +1929,53 @@ export class rescheduleAppointmentDialog {
       });
     }
     
+    fnIsPostalCodeAdded(){
+      let requestObject = {
+        "business_id" : this.bussinessId
+        };
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+
+      this.http.post(`${environment.apiUrl}/postal-code-enable-check`,requestObject,{headers:headers} ).pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError(this.handleError)
+      ).subscribe((response:any) => {
+        if(response.data == true){
+          this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
+            customerPostalCode: ['', [Validators.required,Validators.minLength(6)],this.isPostalcodeValid.bind(this)],
+            customerCategory: ['', Validators.required],
+            customerSubCategory: ['', [Validators.required]],
+            customerService: ['', [Validators.required]],
+            customerDate: ['', Validators.required],
+            customerTime: ['', Validators.required],
+            customerStaff: ['', Validators.required],
+            customerAppoAddress: ['', Validators.required],
+            customerAppoState: ['', Validators.required],
+            customerAppoCity: ['', Validators.required],
+         });
+        }else{
+          this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
+            customerPostalCode: ['', [Validators.required,Validators.minLength(6)]],
+            customerCategory: ['', Validators.required],
+            customerSubCategory: ['', [Validators.required]],
+            customerService: ['', [Validators.required]],
+            customerDate: ['', Validators.required],
+            customerTime: ['', Validators.required],
+            customerStaff: ['', Validators.required],
+            customerAppoAddress: ['', Validators.required],
+            customerAppoState: ['', Validators.required],
+            customerAppoCity: ['', Validators.required],
+         });
+        }
+        },
+        (err) =>{
+          console.log(err)
+        })
+    }
+
     sameAddress(values:any){
     
       var customerAddress = this.customerDetails.address;
