@@ -727,8 +727,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="customerEmailTemData" [checked]="customerEmailTemData[0].email_template_status
-                          == 'E'" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="cusEmailTemplateStatus1" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[0].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Request</h5>
                                             </div>
                                         </mat-panel-title>
@@ -795,8 +794,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="customerEmailTemData" [checked]="customerEmailTemData[1].email_template_status
-                          == 'E'" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[1].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="cusEmailTemplateStatus2" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[1].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Approved</h5>
                                             </div>
                                         </mat-panel-title>
@@ -865,8 +863,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="customerEmailTemData" [checked]="customerEmailTemData[2].email_template_status
-                          == 'E'" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[2].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="cusEmailTemplateStatus3" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[2].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rejected</h5>
                                             </div>
                                         </mat-panel-title>
@@ -935,8 +932,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="customerEmailTemData" [checked]="customerEmailTemData[3].email_template_status
-                          == 'E'" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[3].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="cusEmailTemplateStatus4" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[3].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Cancelled by You</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1005,8 +1001,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="customerEmailTemData" [checked]="customerEmailTemData[4].email_template_status
-                          == 'E'" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[4].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="cusEmailTemplateStatus5" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[4].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment rescheduled by You</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1075,8 +1070,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="customerEmailTemData" [checked]="customerEmailTemData[5].email_template_status
-                          == 'E'" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[5].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="cusEmailTemplateStatus6" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[5].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Client Appointment Reminder</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1146,8 +1140,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="customerEmailTemData" [checked]="customerEmailTemData[6].email_template_status
-                          == 'E'" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[6].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="cusEmailTemplateStatus7" (change)="fnChangeTemStatus($event.checked,customerEmailTemData[6].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Completed</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1222,8 +1215,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="adminEmailTemData" [checked]="adminEmailTemData[0].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="adminEmailTemplateStatus1" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[0].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>New Appointment Request Require Approval</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1292,8 +1284,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="adminEmailTemData" [checked]="adminEmailTemData[1].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[1].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="adminEmailTemplateStatus2" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[1].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Approved</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1364,8 +1355,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="adminEmailTemData" [checked]="adminEmailTemData[2].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[2].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="adminEmailTemplateStatus3" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[2].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rejected</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1436,8 +1426,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="adminEmailTemData" [checked]="adminEmailTemData[3].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[3].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="adminEmailTemplateStatus4" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[3].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Cancelled by Customer</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1508,8 +1497,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="adminEmailTemData" [checked]="adminEmailTemData[4].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[4].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="adminEmailTemplateStatus5" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[4].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment rescheduled by Customer</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1580,8 +1568,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="adminEmailTemData" [checked]="adminEmailTemData[5].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[5].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="adminEmailTemplateStatus6" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[5].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Admin Appointment Reminder</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1653,8 +1640,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="adminEmailTemData" [checked]="adminEmailTemData[6].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[6].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="adminEmailTemplateStatus7" (change)="fnChangeTemStatus($event.checked,adminEmailTemData[6].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Completed</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1731,8 +1717,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="staffEmailTemData" [checked]="staffEmailTemData[0].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="staffEmailTemplateStatus1" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[0].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>New Appointment Assigned</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1802,8 +1787,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="staffEmailTemData" [checked]="staffEmailTemData[1].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[1].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="staffEmailTemplateStatus2" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[1].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Approved</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1874,8 +1858,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="staffEmailTemData" [checked]="staffEmailTemData[2].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[2].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="staffEmailTemplateStatus3" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[2].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rejected</h5>
                                             </div>
                                         </mat-panel-title>
@@ -1944,8 +1927,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="staffEmailTemData" [checked]="staffEmailTemData[3].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[3].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="staffEmailTemplateStatus4" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[3].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Cancelled by Customer</h5>
                                             </div>
                                         </mat-panel-title>
@@ -2014,8 +1996,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="staffEmailTemData" [checked]="staffEmailTemData[4].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[4].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="staffEmailTemplateStatus5" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[4].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rescheduled by Customer</h5>
                                             </div>
                                         </mat-panel-title>
@@ -2084,8 +2065,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="staffEmailTemData" [checked]="staffEmailTemData[5].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[5].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="staffEmailTemplateStatus6" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[5].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Admin Appointment Reminder</h5>
                                             </div>
                                         </mat-panel-title>
@@ -2155,8 +2135,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="staffEmailTemData" [checked]="staffEmailTemData[6].email_template_status
-                                                == 'E'" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[6].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="staffEmailTemplateStatus7" (change)="fnChangeTemStatus($event.checked,staffEmailTemData[6].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Completed</h5>
                                             </div>
                                         </mat-panel-title>
@@ -2690,7 +2669,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="cusSmsTemplateStatus1" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Request</h5>
                                             </div>
                                         </mat-panel-title>
@@ -2754,7 +2733,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[1].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[1].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="cusSmsTemplateStatus2" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[1].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Approved</h5>
                                             </div>
                                         </mat-panel-title>
@@ -2818,7 +2797,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[2].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[2].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="cusSmsTemplateStatus3" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[2].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rejected</h5>
                                             </div>
                                         </mat-panel-title>
@@ -2882,7 +2861,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[3].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[3].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="cusSmsTemplateStatus4" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[3].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Cancelled by you</h5>
                                             </div>
                                         </mat-panel-title>
@@ -2946,7 +2925,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[4].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[4].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="cusSmsTemplateStatus5" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[4].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rescheduled by you</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3010,7 +2989,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[5].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[5].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="cusSmsTemplateStatus6" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[5].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Client Appointment Reminder</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3074,7 +3053,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="cusSmsTemData" [checked]="cusSmsTemData[6].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[6].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="cusSmsTemplateStatus7" (change)="fnChangeSmsTemStatus($event.checked,cusSmsTemData[6].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Completed</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3142,7 +3121,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="adminSmsTemData" [checked]="adminSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="adminSmsTemplateStatus1" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>New Appointment Request Requires Approval</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3207,7 +3186,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="adminSmsTemData" [checked]="adminSmsTemData[1].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[1].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="adminSmsTemplateStatus2" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[1].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Approved</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3271,7 +3250,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="adminSmsTemData" [checked]="adminSmsTemData[2].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[2].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="adminSmsTemplateStatus3" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[2].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rejected</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3335,7 +3314,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="adminSmsTemData" [checked]="adminSmsTemData[3].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[3].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="adminSmsTemplateStatus4" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[3].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Cancelled by Customer</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3399,7 +3378,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="adminSmsTemData" [checked]="adminSmsTemData[4].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[4].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="adminSmsTemplateStatus5" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[4].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rescheduled by Customer</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3463,7 +3442,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="adminSmsTemData" [checked]="adminSmsTemData[5].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[5].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="adminSmsTemplateStatus6" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[5].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Admin Appointment Reminder</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3527,7 +3506,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="adminSmsTemData" [checked]="adminSmsTemData[6].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[6].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="adminSmsTemplateStatus7" (change)="fnChangeSmsTemStatus($event.checked,adminSmsTemData[6].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Completed</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3595,7 +3574,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="staffSmsTemData" [checked]="staffSmsTemData[0].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="staffSmsTemplateStatus1" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[0].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>New Appointment Request Requires Approval</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3659,7 +3638,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="staffSmsTemData" [checked]="staffSmsTemData[1].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[1].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="staffSmsTemplateStatus2" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[1].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Approved</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3723,7 +3702,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="staffSmsTemData" [checked]="staffSmsTemData[2].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[2].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="staffSmsTemplateStatus3" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[2].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rejected</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3787,7 +3766,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="staffSmsTemData" [checked]="staffSmsTemData[3].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[3].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="staffSmsTemplateStatus4" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[3].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Cancelled by Customer</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3851,7 +3830,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="staffSmsTemData" [checked]="staffSmsTemData[4].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[4].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="staffSmsTemplateStatus5" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[4].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Rescheduled by Customer</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3915,7 +3894,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="staffSmsTemData" [checked]="staffSmsTemData[5].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[5].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="staffSmsTemplateStatus6" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[5].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Admin Appointment Reminder</h5>
                                             </div>
                                         </mat-panel-title>
@@ -3979,7 +3958,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <div class="d-flex">
-                                                <mat-slide-toggle *ngIf="staffSmsTemData" [checked]="staffSmsTemData[6].sms_template_status == 'E'" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[6].id)" class="mr-4"></mat-slide-toggle>
+                                                <mat-slide-toggle [checked]="staffSmsTemplateStatus7" (change)="fnChangeSmsTemStatus($event.checked,staffSmsTemData[6].id)" class="mr-4"></mat-slide-toggle>
                                                 <h5>Appointment Completed</h5>
                                             </div>
                                         </mat-panel-title>
