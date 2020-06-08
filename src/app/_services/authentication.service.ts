@@ -28,6 +28,7 @@ export class AuthenticationService {
         .pipe(map(user => {
             // login successful if there's a jwt token in the response
             if (user && user.data== true && user.response.token) {
+                
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 // localStorage.setItem('userId', user.response.user_id);
                 // localStorage.setItem('userToken', user.response.token);          
@@ -36,6 +37,10 @@ export class AuthenticationService {
                 // localStorage.setItem('tokenID',user.response.id);
                 localStorage.setItem('currentUser', JSON.stringify(user.response));
                // localStorage.setItem('isFront', "false");
+               var logoutTime = new Date();
+               logoutTime.setHours( logoutTime.getHours() + 6 );
+               localStorage.setItem('logoutTime', JSON.stringify(logoutTime));
+
                 this.currentUserSubject.next(user.response);
             }
             return user;
@@ -91,6 +96,7 @@ export class AuthenticationService {
         // localStorage.removeItem('userId');
         localStorage.removeItem('currentUser');
         localStorage.removeItem('isFront');
+        localStorage.removeItem('logoutTime');
         // localStorage.removeItem('userToken');
         // localStorage.removeItem('userName');
         // localStorage.removeItem('userRole');
@@ -119,4 +125,21 @@ export class AuthenticationService {
             return 'My Business';
         }
     }
+
+    logoutTime(){
+
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if(currentUser){
+            var logoutTime = JSON.parse(localStorage.getItem('logoutTime'));
+            logoutTime = new Date(logoutTime);
+            var currentTime = new Date();
+            if(currentTime>logoutTime){
+                this.logout();
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
 }

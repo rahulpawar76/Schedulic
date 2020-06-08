@@ -126,8 +126,14 @@ export class AppComponent implements AfterViewInit {
     });
     //this.setcompanycolours();
 
+    var is_logout = this.authenticationService.logoutTime();
+    if(is_logout==true){
+        this.router.navigate(['/login']);
+        return false;
+    }   
   }
 
+  
 
 
   dynamicSort(property: string) {

@@ -3,7 +3,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
 import { AuthenticationService } from '@app/_services';
 import { Role } from '../_models';
 import { AuthService, FacebookLoginProvider,GoogleLoginProvider, SocialUser } from 'angularx-social-login';
- 
+
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate  {
@@ -16,9 +16,16 @@ export class AuthGuard implements CanActivate  {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const currentUser = this.authenticationService.currentUserValue;
         
-                localStorage.setItem('isFront', "false");
+        localStorage.setItem('isFront', "false");
         if (currentUser) {
 
+            var is_logout = this.authenticationService.logoutTime();
+
+            if(is_logout==true){
+                this.router.navigate(['/login']);
+                return false;
+            }
+            
             // check if route is restricted by role
             if (route.data.roles && route.data.roles == currentUser.user_type) {
                 // role not authorised so redirect to home page
