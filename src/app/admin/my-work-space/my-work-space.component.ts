@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { environment } from '@environments/environment';
 import { Router, RouterOutlet } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
@@ -12,12 +12,41 @@ import { DatePipe} from '@angular/common';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { AppComponent } from '@app/app.component';
 import { AuthenticationService } from '@app/_services';
+import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+// import * as _moment from 'moment';
+// // tslint:disable-next-line:no-duplicate-imports
+// import {default as _rollupMoment} from 'moment';
+
+// const moment = _rollupMoment || _moment;
+
+// See the Moment.js docs for the meaning of these formats:
+// https://momentjs.com/docs/#/displaying/format/
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD MMM YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
 
 @Component({
   selector: 'app-my-work-space',
   templateUrl: './my-work-space.component.html',
   styleUrls: ['./my-work-space.component.scss'],
-  providers: [DatePipe]
+  providers: [
+      DatePipe,
+      {
+        provide: DateAdapter,
+        useClass: MomentDateAdapter,
+        deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+      },
+      { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }]
 })
 export class MyWorkSpaceComponent implements OnInit {
   adminSettings : boolean = false;
@@ -62,7 +91,8 @@ export class MyWorkSpaceComponent implements OnInit {
   selectedCategoryName:any;
   activeBooking: any;
   selectedStatus:any;
-  todayDate:any;
+  selectedDate:any;
+  date:any;
   availableStaff:any= [];
   selectedCategory: any = 'all';
   selectedStaff:any;
@@ -93,10 +123,12 @@ export class MyWorkSpaceComponent implements OnInit {
     this.selectedCategoryId="all";
     this.selectedCategoryName="All Services";
     this.selectedStatus="all";
+    this.selectedDate = this.datePipe.transform(new Date(),"yyyy-MM-dd")
+    this.date = new FormControl(new Date());
+    console.log(this.selectedDate);
     this.fnGetSettingValue();
     this.fnGetAllCategories();
     this.fnGetTodayRevenue();
-    this.todayDate = this.datePipe.transform(new Date(),"dd MMM yyyy")
   }
 
   fnGetSettingValue(){
@@ -128,6 +160,13 @@ export class MyWorkSpaceComponent implements OnInit {
         
       }
     })
+  }
+
+  fnDateChange(event:MatDatepickerInputEvent<Date>) {
+    this.selectedDate = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
+    console.log(this.selectedDate);
+    this.fnGetTodayRevenue();
+    this.fnGetAllAppointmentsByCategoryAndStatus();
   }
 
   fnOpenNote(){
@@ -187,7 +226,7 @@ export class MyWorkSpaceComponent implements OnInit {
       "business_id":this.businessId,
       "category":this.selectedCategoryId,
       "status_filter":this.selectedStatus,
-      "booking_date":"2020-06-04"
+      "booking_date":this.selectedDate
     };
     this.adminService.getAllAppointmentsByCategoryAndStatus(requestObject).subscribe((response:any) => 
     {
@@ -407,7 +446,8 @@ export class MyWorkSpaceComponent implements OnInit {
 
     let requestObject = {
       "business_id":this.businessId,
-      "category":this.selectedCategoryId
+      "category":this.selectedCategoryId,
+      "booking_date":this.selectedDate
       };
        this.adminService.getTodayRevenue(requestObject).subscribe((response:any) => 
     {
@@ -524,7 +564,8 @@ export class MyWorkSpaceComponent implements OnInit {
           "search":this.search.keyword,
           "business_id":this.businessId,
           "category":this.selectedCategoryId,
-          "status_filter":this.selectedStatus
+          "status_filter":this.selectedStatus,
+          "booking_date":this.selectedDate
         }
         this.adminService.todayBookingSearch(requestObject).subscribe((response:any) =>{
           if(response.data == true){
