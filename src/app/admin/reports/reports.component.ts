@@ -162,6 +162,9 @@ export class ReportsComponent implements OnInit {
   }
 
   changeDateRange(event){
+    this.appointmentReportApiUrl=environment.apiUrl+"/appointment-reports";
+    this.salesReportApiUrl=environment.apiUrl+"/sales-reports";
+    this.customerReportApiUrl=environment.apiUrl+"/customer-reports";
     if(event.startDate){
       this.selectedStartDate=this.datePipe.transform(new Date(event.startDate._d),"yyyy-MM-dd");
       this.selectedStartDateLabel=this.datePipe.transform(new Date(event.startDate._d),"dd MMM yyyy");
@@ -176,10 +179,13 @@ export class ReportsComponent implements OnInit {
   }
 
   fnChangeDateFilter(event){
+    this.appointmentReportApiUrl=environment.apiUrl+"/appointment-reports"
     this.fnGetAppointmentsReport();
   }
 
   fnChangeReportFilter(event){
+    this.appointmentReportApiUrl=environment.apiUrl+"/appointment-reports";
+    this.salesReportApiUrl=environment.apiUrl+"/sales-reports";
     console.log(event);
     if(event.value=="date" || event.value=="month"){
       this.appointmentReport=[];
@@ -197,11 +203,13 @@ export class ReportsComponent implements OnInit {
   }
 
   fnChangeStatusFilter(event){
+    this.salesReportApiUrl=environment.apiUrl+"/sales-reports";
     console.log(event);
     this.fnGetSalesReport();
   }
 
   fnChangeCreatedByFilter(event){
+    this.customerReportApiUrl=environment.apiUrl+"/customer-reports";
     console.log(event);
     this.fnGetCustomerReport();
   }
@@ -218,7 +226,7 @@ export class ReportsComponent implements OnInit {
     }
   }
   appointmentReportNavigateToPageNumber(index){
-    this.appointmentReportApiUrl=this.path+'?page='+index;
+    this.appointmentReportApiUrl=this.appointmentReportpath+'?page='+index;
     console.log(this.appointmentReportApiUrl);
     if(this.appointmentReportApiUrl){
       this.fnGetAppointmentsReport();
@@ -277,14 +285,14 @@ export class ReportsComponent implements OnInit {
     this.salesReportApiUrl=api_url;
     console.log(this.salesReportApiUrl);
     if(this.salesReportApiUrl){
-      this.fnGetAppointmentsReport();
+      this.fnGetSalesReport();
     }
   }
   salesReportNavigateToPageNumber(index){
-    this.salesReportApiUrl=this.path+'?page='+index;
+    this.salesReportApiUrl=this.salesReportpath+'?page='+index;
     console.log(this.salesReportApiUrl);
     if(this.salesReportApiUrl){
-      this.fnGetAppointmentsReport();
+      this.fnGetSalesReport();
     }
   }
 
@@ -300,16 +308,16 @@ export class ReportsComponent implements OnInit {
 
     this.adminService.getSalesReports(requestObject,this.salesReportApiUrl).subscribe((response:any) => {
       if(response.data == true){
-        this.salesReport = response.response.list;
-        // this.salesReport = response.response.list.data;
+        // this.salesReport = response.response.list;
+        this.salesReport = response.response.list.data;
 
-        // this.salesReportcurrent_page = response.response.list.current_page;
-        // this.salesReportfirst_page_url = response.response.list.first_page_url;
-        // this.salesReportlast_page = response.response.list.last_page;
-        // this.salesReportlast_page_url = response.response.list.last_page_url;
-        // this.salesReportnext_page_url = response.response.list.next_page_url;
-        // this.salesReportprev_page_url = response.response.list.prev_page_url;
-        // this.salesReportpath = response.response.list.path;
+        this.salesReportcurrent_page = response.response.list.current_page;
+        this.salesReportfirst_page_url = response.response.list.first_page_url;
+        this.salesReportlast_page = response.response.list.last_page;
+        this.salesReportlast_page_url = response.response.list.last_page_url;
+        this.salesReportnext_page_url = response.response.list.next_page_url;
+        this.salesReportprev_page_url = response.response.list.prev_page_url;
+        this.salesReportpath = response.response.list.path;
         this.salesReport.forEach(element=>{
           if(this.reportFilter=="all"){
             element.payment_date=this.datePipe.transform(new Date(element.payment_date),"EEE, dd MMM yyyy");
@@ -348,17 +356,45 @@ export class ReportsComponent implements OnInit {
     })
   }
 
+  customerReportArrayOne(n: number): any[] {
+    return Array(n);
+  }
+
+  customerReportNavigateTo(api_url){
+    this.customerReportApiUrl=api_url;
+    console.log(this.customerReportApiUrl);
+    if(this.customerReportApiUrl){
+      this.fnGetCustomerReport();
+    }
+  }
+  customerReportNavigateToPageNumber(index){
+    this.customerReportApiUrl=this.customerReportpath+'?page='+index;
+    console.log(this.customerReportApiUrl);
+    if(this.customerReportApiUrl){
+      this.fnGetCustomerReport();
+    }
+  }
+
   fnGetCustomerReport(){
-        let requestObject = {
-            'business_id': this.businessId,
-            'start_date': this.selectedStartDate,
-            'end_date':this.selectedEndDate,
-            'filter':this.createdByFilter,
-            'search': this.search.keyword,
-        };
-    this.adminService.getCustomerReports(requestObject).subscribe((response:any) => {
+    let requestObject = {
+        'business_id': this.businessId,
+        'start_date': this.selectedStartDate,
+        'end_date':this.selectedEndDate,
+        'filter':this.createdByFilter,
+        'search': this.search.keyword,
+    };
+    this.adminService.getCustomerReports(requestObject,this.customerReportApiUrl).subscribe((response:any) => {
       if(response.data == true){
-        this.customerReport = response.response;
+        // this.customerReport = response.response;
+        this.customerReport = response.response.data;
+
+        this.customerReportcurrent_page = response.response.current_page;
+        this.customerReportfirst_page_url = response.response.first_page_url;
+        this.customerReportlast_page = response.response.last_page;
+        this.customerReportlast_page_url = response.response.last_page_url;
+        this.customerReportnext_page_url = response.response.next_page_url;
+        this.customerReportprev_page_url = response.response.prev_page_url;
+        this.customerReportpath = response.response.path;
         console.log(this.customerReport);
         this.customerReport.forEach(element=>{
             element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy");
