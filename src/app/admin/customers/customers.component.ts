@@ -1126,7 +1126,7 @@ customerUpdate(existingCustomerData){
         "payment_method" : this.paymentMethod,
         "amount" : this.serviceMainArr.order_netCost,
         "paymentnotes" : this.formPayment.get('paymentNote').value,
-      }]
+      }] 
     let requestObject={
       "payment":payment,
       "order_item_id": this.serviceMainArr.order_item_id,
