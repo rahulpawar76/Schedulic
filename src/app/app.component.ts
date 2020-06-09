@@ -134,6 +134,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   
+  
 
 
   dynamicSort(property: string) {
