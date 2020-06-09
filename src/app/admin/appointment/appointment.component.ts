@@ -174,7 +174,7 @@ export class AppointmentComponent implements OnInit {
   selectdurationType(type){
     this.durationType = type;
   
-    this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
+    // this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
 
     if(this.durationType=='daily'){
 
@@ -216,6 +216,7 @@ export class AppointmentComponent implements OnInit {
     if (data.startDate == null || data.endDate == null) {
       return;
     }else{
+      this.durationType="custom";
       this.startDate = this.datePipe.transform(new Date(data.startDate._d),"dd MMM yyyy");
       this.endDate = this.datePipe.transform(new Date(data.endDate._d),"dd MMM yyyy");
       this.staffApiUrl =  `${environment.apiUrl}/admin-booking-listing`;
@@ -704,6 +705,7 @@ export class DialogAddNewAppointment {
     customerAppoPostalCode:'',
   }
   validationArr:any=[];
+  postalCodeValidationArr:any=[];
   disablePostalCode:boolean=false;
   disableCategory:boolean=false;
   disableSubCategory:boolean=false;
@@ -713,7 +715,8 @@ export class DialogAddNewAppointment {
   is_checked:boolean=false;
   valide_postal_code:boolean =false;
   isLoaderAdmin:boolean = false;
-
+  emailPattern:any;
+  onlynumeric:any;
   constructor(
     public dialogRef: MatDialogRef<DialogAddNewAppointment>,
     public dialog: MatDialog,
@@ -724,8 +727,8 @@ export class DialogAddNewAppointment {
     private datePipe: DatePipe,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     
-    let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
-    let onlynumeric = /^-?(0|[1-9]\d*)?$/
+    this.emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
+    this.onlynumeric = /^-?(0|[1-9]\d*)?$/
     if(this.data.appointmentData){
       console.log(this.data.appointmentData);
       this.appointmentData.business_id=this.data.appointmentData.business_id;
@@ -780,20 +783,20 @@ export class DialogAddNewAppointment {
     this.serviceData=[];
 
     this.formAddNewAppointmentStaffStep1 = this._formBuilder.group({
-      customerFullName: [this.appointmentData.fullName, [Validators.required, Validators.maxLength(12)]],
-      customerEmail: [this.appointmentData.email,[Validators.required,Validators.email,Validators.pattern(emailPattern)], this.validationArr],
-      customerPhone: [this.appointmentData.phone, [Validators.required,Validators.minLength(10),Validators.maxLength(15),Validators.pattern(onlynumeric)]],
-      customerAddress: [this.appointmentData.address, Validators.required],
-      customerState: [this.appointmentData.state, Validators.required],
-      customerCity: [this.appointmentData.city, Validators.required],
-      customerPostalCode: [{ value: this.appointmentData.zip, disabled: this.disablePostalCode }, [Validators.required,Validators.pattern(onlynumeric),Validators.minLength(6),Validators.maxLength(6)]],
+      customerFullName: [this.appointmentData.fullName],
+      customerEmail: [this.appointmentData.email],
+      customerPhone: [this.appointmentData.phone],
+      customerAddress: [this.appointmentData.address],
+      customerState: [this.appointmentData.state],
+      customerCity: [this.appointmentData.city],
+      customerPostalCode: [{ value: this.appointmentData.zip, disabled: this.disablePostalCode }],
      
-      customerAppoAddress: [this.appointmentData.customerAppoAddress, [Validators.required]],
-      customerAppoState: [this.appointmentData.customerAppoState, [Validators.required]],
-      customerAppoCity: [this.appointmentData.customerAppoCity, [Validators.required]],
-      customerAppoPostalCode: [this.appointmentData.customerAppoPostalCode, [Validators.required,Validators.pattern(onlynumeric),Validators.minLength(6),Validators.maxLength(6)],this.isPostalcodeValid.bind(this)],
+      customerAppoAddress: [this.appointmentData.customerAppoAddress],
+      customerAppoState: [this.appointmentData.customerAppoState],
+      customerAppoCity: [this.appointmentData.customerAppoCity],
+      customerAppoPostalCode: [this.appointmentData.customerAppoPostalCode],
 
-      //customerPostalCode: new FormControl({ value: this.appointmentData.zip, disabled: this.disablePostalCode },[Validators.required,Validators.pattern(onlynumeric)]),
+      //customerPostalCode: new FormControl({ value: this.appointmentData.zip, disabled: this.disablePostalCode },[Validators.required,Validators.pattern(this.onlynumeric)]),
     });
 
     this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
@@ -805,6 +808,7 @@ export class DialogAddNewAppointment {
       customerStaff: [this.appointmentData.staff, Validators.required]
     });
  //   console.log("ar "+this.formAddNewAppointmentStaffStep2.get('customerDate').value);
+    this.fnIsPostalCodeAdded();
     this.fnGetSettingValue();
     this.fnGetTaxDetails();
     this.fnGetOffDays();
@@ -845,7 +849,60 @@ export class DialogAddNewAppointment {
     //return error.error ? error.error : error.statusText;
   }
 
+  fnIsPostalCodeAdded(){
+    let requestObject = {
+      "business_id" : this.bussinessId
+      };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
 
+    this.http.post(`${environment.apiUrl}/postal-code-enable-check`,requestObject,{headers:headers} ).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(this.handleError)
+    ).subscribe((response:any) => {
+      if(response.data == true){
+        this.formAddNewAppointmentStaffStep1 = this._formBuilder.group({
+        customerFullName: [this.appointmentData.fullName, [Validators.required, Validators.maxLength(12)]],
+        customerEmail: [this.appointmentData.email,[Validators.required,Validators.email,Validators.pattern(this.emailPattern)], this.validationArr],
+        customerPhone: [this.appointmentData.phone, [Validators.required,Validators.minLength(10),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
+        customerAddress: [this.appointmentData.address, Validators.required],
+        customerState: [this.appointmentData.state, Validators.required],
+        customerCity: [this.appointmentData.city, Validators.required],
+        customerPostalCode: [{ value: this.appointmentData.zip, disabled: this.disablePostalCode }, [Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(6)]],
+       
+        customerAppoAddress: [this.appointmentData.customerAppoAddress, [Validators.required]],
+        customerAppoState: [this.appointmentData.customerAppoState, [Validators.required]],
+        customerAppoCity: [this.appointmentData.customerAppoCity, [Validators.required]],
+        customerAppoPostalCode: [this.appointmentData.customerAppoPostalCode, [Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(6)],this.isPostalcodeValid.bind(this)],
+
+        //customerPostalCode: new FormControl({ value: this.appointmentData.zip, disabled: this.disablePostalCode },[Validators.required,Validators.pattern(this.onlynumeric)]),
+      });
+      }else{
+        this.formAddNewAppointmentStaffStep1 = this._formBuilder.group({
+        customerFullName: [this.appointmentData.fullName, [Validators.required, Validators.maxLength(12)]],
+        customerEmail: [this.appointmentData.email,[Validators.required,Validators.email,Validators.pattern(this.emailPattern)], this.validationArr],
+        customerPhone: [this.appointmentData.phone, [Validators.required,Validators.minLength(10),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
+        customerAddress: [this.appointmentData.address, Validators.required],
+        customerState: [this.appointmentData.state, Validators.required],
+        customerCity: [this.appointmentData.city, Validators.required],
+        customerPostalCode: [{ value: this.appointmentData.zip, disabled: this.disablePostalCode }, [Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(6)]],
+       
+        customerAppoAddress: [this.appointmentData.customerAppoAddress, [Validators.required]],
+        customerAppoState: [this.appointmentData.customerAppoState, [Validators.required]],
+        customerAppoCity: [this.appointmentData.customerAppoCity, [Validators.required]],
+        customerAppoPostalCode: [this.appointmentData.customerAppoPostalCode, [Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(6)],this.isPostalcodeValid.bind(this)],
+
+        //customerPostalCode: new FormControl({ value: this.appointmentData.zip, disabled: this.disablePostalCode },[Validators.required,Validators.pattern(this.onlynumeric)]),
+      });
+      }
+      },
+      (err) =>{
+        console.log(err)
+      })
+  }
   isEmailUnique(control: FormControl) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -1677,7 +1734,7 @@ export class DialogAddNewAppointment {
   fnGetStaff(){
     let requestObject = {
       "business_id":this.bussinessId,
-      "postal_code":this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
+      "postal_code":this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').value,
       "service_id":this.selectedServiceId,
       "book_date" : this.datePipe.transform(new Date(this.selectedDate),"yyyy-MM-dd"),
       "book_time" : this.selectedTime, 
