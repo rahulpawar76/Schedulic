@@ -936,7 +936,8 @@ export class DialogCancelReason {
   cancelAppointment(appoId,cancelReason): void{
 		let requestObject = {
 			"order_item_id":appoId,
-			"cancel_notes" : cancelReason
+      "cancel_notes" : cancelReason,
+      "book_notes" : cancelReason,
 		};
     this.UserService.cancelAppointment(requestObject).subscribe((response:any) =>{
       if(response.data == true){
