@@ -541,40 +541,40 @@ export class AdminService {
         }),
         catchError(this.handleError));
     }
-
-    getAppointmentsReports(requestObject){
+///appointment-reports
+    getAppointmentsReports(requestObject,api_url){
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
             'api-token' : this.currentUser.token 
         });
-        return this.http.post(`${environment.apiUrl}/appointment-reports`,requestObject,{headers:headers}).pipe(
+        return this.http.post(`${api_url}`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;
         }),
         catchError(this.handleError));
     }
 
-    getSalesReports(requestObject){
+    getSalesReports(requestObject,api_url){
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
             'api-token' : this.currentUser.token 
         });
-        return this.http.post(`${environment.apiUrl}/sales-reports`,requestObject,{headers:headers}).pipe(
+        return this.http.post(`${api_url}`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;
         }),
         catchError(this.handleError));
     }
 
-    getCustomerReports(requestObject){
+    getCustomerReports(requestObject,api_url){
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
             'api-token' : this.currentUser.token 
         });
-        return this.http.post(`${environment.apiUrl}/customer-reports`,requestObject,{headers:headers}).pipe(
+        return this.http.post(`${api_url}`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;
         }),

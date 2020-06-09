@@ -223,7 +223,7 @@ getAllAppointments(): void{
 
       });
       
-      this.appointmentData = this.appointmentData.sort(this.dynamicSort("created_at"))
+      this.appointmentData = this.appointmentData.sort(this.dynamicSort("-created_at"))
       
     }
     else if(response.data == false){
@@ -250,6 +250,7 @@ getCancelAppointments(): void{
         dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
         element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
       });
+      this.cancelAppointmentData = this.cancelAppointmentData.sort(this.dynamicSort("-updated_at"))
     }
     else if(response.data == false){
       // this._snackBar.open(response.response, "X", {
@@ -275,6 +276,7 @@ getCompletedAppointments(): void{
         dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
         element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
       });
+      this.completedAppointmentData = this.completedAppointmentData.sort(this.dynamicSort("-updated_at"))
     }
     else if(response.data == false){
       // this._snackBar.open(response.response, "X", {
