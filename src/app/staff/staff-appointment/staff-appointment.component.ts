@@ -2465,28 +2465,18 @@ export class StaffAppointmentComponent implements OnInit {
 
       onlinePayment(){
         let orders = {
-          // "tax" : this.appointDetailData.tax,
-          // "discount_type":this.couponType,
-          // "discount_value":this.couponValue,
-          // "discount" : this.orderDiscount,
-          // "nettotal" : this.appointDetailData.total_cost
-          "tax" :[{"value":"18","name":"SGST","amount":216},{"value":"15","name":"GST","amount":180}],
-          "discount_type":"p",
-          "discount_value":10,
-          "discount" : 100,
-          "nettotal" : "1000"
+          "tax" : this.appointDetailData.tax,
+          "discount_type":this.couponType,
+          "discount_value":this.couponValue,
+          "discount" : this.orderDiscount,
+          "nettotal" : this.appointDetailData.total_cost
         }
         let orderItems  = {
-          // "tax" : this.appointDetailData.tax,
-          // "discount_type":this.couponType,
-          // "discount_value":this.couponValue,
-          // "discount" : this.orderDiscount,
-          // "nettotal" : this.appointDetailData.total_cost
-          "tax" :[{"value":"18","name":"SGST","amount":216},{"value":"15","name":"GST","amount":180}],
-          "discount_type":"p",
-          "discount_value":10,
-          "discount" : 100,
-          "nettotal" : "1000"
+          "tax" : this.appointDetailData.tax,
+          "discount_type":this.couponType,
+          "discount_value":this.couponValue,
+          "discount" : this.orderDiscount,
+          "nettotal" : this.appointDetailData.total_cost
         }
         let payment  = {
           "payment_datetime" : this.datePipe.transform(new Date(),"yyyy/MM/dd hh::mm"),
@@ -2499,8 +2489,8 @@ export class StaffAppointmentComponent implements OnInit {
           "orders" : orders,
           "orderItem" : orderItems,
           "payment" : payment,
-          // "email" : this.appointDetailData.customer.email,
-          "email" : "bikalpitbhadani@gmail.com",
+          "email" : this.appointDetailData.customer.email,
+          //"email" : "bikalpitbhadani@gmail.com",
           "URL": environment.urlForLink+'/online-payment?order-item='+this.appointDetailData.id
         }
         console.log(requestObject);

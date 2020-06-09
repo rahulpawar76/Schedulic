@@ -65,7 +65,7 @@ export class CustomersComponent implements OnInit {
   search = {
     keyword: ""
   };
-  
+  paymentMethod : any = "Cash";
 
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^-?(0|[1-9]\d*)?$/
@@ -115,7 +115,8 @@ export class CustomersComponent implements OnInit {
     order_discount:0,
     order_netCost:0,
     payment_type:'',
-    paymentId:''
+    paymentId:'',
+    customer_email:'',
   }
   order_taxAmountArr=[];
   customerPaymentIndex:number;
@@ -783,7 +784,8 @@ customerUpdate(existingCustomerData){
     this.serviceMainArr.service_name=this.customerPayments[index].service.service_name;
     this.serviceMainArr.category_title=this.customerPayments[index].service.category.category_title;
     this.serviceMainArr.order_by=this.customerPayments[index].orders.order_by;
-    this.serviceMainArr.order_status=this.customerPayments[index].orders.order_status;
+    this.serviceMainArr.order_status=this.customerPayments[index].orders.order_status; 
+    this.serviceMainArr.customer_email=this.customerPayments[index].get_customer.email; 
     if(this.customerPayments[index].orders.staff){
       this.serviceMainArr.staff_name=this.customerPayments[index].orders.staff.firstname+" "+this.customerPayments[index].orders.staff.lastname;
     }else{
@@ -927,9 +929,15 @@ customerUpdate(existingCustomerData){
   }
 
   fnSubmitPaymentForm(){
-    setTimeout(() => this.fnPaymentFormSubmit() , 500);
+    if(this.paymentMethod == "Cash"){
+      setTimeout(() => this.fnPaymentFormSubmit() , 500);
+    }else if (this.paymentMethod == "Stripe"){
+      setTimeout(() => this.fnPaymentFormSubmitOnline() , 500);
+    }
   }
-
+  changePaymentMethod(paymentMethod){
+    this.paymentMethod = paymentMethod
+  }
   fnPaymentFormSubmit(){
     if(!this.formPayment.valid){
       this.formPayment.get('paymentAmount').markAsTouched();
@@ -1029,10 +1037,118 @@ customerUpdate(existingCustomerData){
         });
        this.fnSelectCustomer(this.serviceMainArr.customer_id);
        this.formPayment.reset();
-       this.formPayment.controls['paymentMode'].setValue('Cash');
+       //this.formPayment.controls['paymentMode'].setValue('Cash');
        this.fnShowPaymentTable();
       }else{
         this._snackBar.open("Payment Info Not Updated", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+      }
+      },
+      (err) =>{
+        console.log(err)
+      })
+  }
+  fnPaymentFormSubmitOnline(){
+    if(!this.formPayment.valid){
+      this.formPayment.get('paymentAmount').markAsTouched();
+      this.formPayment.get('paymentDiscount').markAsTouched();
+      this.formPayment.get('paymentMode').markAsTouched();
+      this.formPayment.get('paymentNote').markAsTouched();
+      return;
+    }
+
+    if(this.serviceMainArr.discount!=parseFloat(this.customerPayments[this.customerPaymentIndex].orders.discount)){
+      this.serviceMainArr.discount_type="C";
+      this.serviceMainArr.order_discount_type="C";
+    }
+      let orderSubtotal=0;
+      let orderDiscount=0;
+      let orderTax=[];
+      let orderTotalCost=0;
+      
+      orderSubtotal=this.serviceMainArr.subtotal;
+      orderDiscount=this.serviceMainArr.discount;
+      this.taxAmountArr.forEach(element=>{
+        let taxTemp={
+          value:0,
+          name:'',
+          amount:0
+        }
+         taxTemp.value= element.value;
+         taxTemp.name= element.name;
+         taxTemp.amount= element.amount;
+        orderTax.push(taxTemp);
+        console.log(orderTax);
+      });
+      
+      console.log(orderTax);
+      orderTotalCost=this.serviceMainArr.netCost;
+      this.customerPayments[this.customerPaymentIndex].orders.order_items.forEach(element=>{
+        orderSubtotal=orderSubtotal+parseFloat(element.subtotal)
+        orderDiscount=orderDiscount+parseFloat(element.discount)
+        let orderItemTaxArr=JSON.parse(element.tax);
+        for(let i=0; i<orderItemTaxArr.length; i++){
+          orderTax[i].amount=orderTax[i].amount + orderItemTaxArr[i].amount
+        };
+        orderTotalCost=orderTotalCost+parseFloat(element.total_cost)
+      });
+      this.serviceMainArr.order_subtotal=orderSubtotal;
+      this.serviceMainArr.order_discount=orderDiscount;
+      this.order_taxAmountArr=orderTax;
+      this.serviceMainArr.order_netCost=orderTotalCost;
+      console.log(this.formPayment.get('paymentAmount').value);
+      console.log(this.formPayment.get('paymentDiscount').value);
+      console.log(this.formPayment.get('paymentMode').value);
+      console.log(this.formPayment.get('paymentNote').value);
+      console.log(this.taxAmountArr);
+      console.log(this.order_taxAmountArr);
+      console.log(this.serviceMainArr);
+   
+      let orders = [{
+        "tax" : this.order_taxAmountArr,
+        "discount_type":this.serviceMainArr.order_discount_type,
+        "discount_value":this.serviceMainArr.order_discount_value,
+        "discount" : this.serviceMainArr.order_discount,
+        "nettotal" : this.serviceMainArr.order_netCost
+      }]
+      let orderItems  = [{
+        "tax" : this.order_taxAmountArr,
+        "discount_type":this.serviceMainArr.order_discount_type,
+        "discount_value":this.serviceMainArr.order_discount_value,
+        "discount" : this.serviceMainArr.order_discount,
+        "nettotal" : this.serviceMainArr.order_netCost
+      }]
+      let payment  = [{
+        "payment_datetime" : this.datePipe.transform(new Date(),"yyyy/MM/dd hh::mm"),
+        "payment_method" : this.paymentMethod,
+        "amount" : this.serviceMainArr.order_netCost,
+        "paymentnotes" : this.formPayment.get('paymentNote').value,
+      }] 
+    let requestObject={
+      "payment":payment,
+      "order_item_id": this.serviceMainArr.order_item_id,
+      "orders":orders,
+      "orderItem":orderItems,
+      //"email" : this.serviceMainArr.customer_email,
+      "email" : "bikalpitbhadani@gmail.com",
+      "URL": environment.urlForLink+'/online-payment?order-item='+this.serviceMainArr.order_item_id
+    }
+    this.AdminService.onlinePayment(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+       this._snackBar.open("Payment Link Sent", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+       this.fnSelectCustomer(this.serviceMainArr.customer_id);
+       this.formPayment.reset();
+       //this.formPayment.controls['paymentMode'].setValue('Cash');
+       this.fnShowPaymentTable();
+      }else{
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['red-snackbar']
