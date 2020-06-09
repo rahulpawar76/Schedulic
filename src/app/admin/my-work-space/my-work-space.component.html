@@ -206,9 +206,9 @@
                                                             <mat-option *ngIf="availableStaff.length === 0">No Staff Available</mat-option>
                                                         </mat-select>
                                                     </mat-form-field>
-                                                    <button mat-button type="button" class="Reschedulebtn accept-btn d-block" *ngIf="(appointmentDetails.order_status == 'RSA' || appointmentDetails.order_status == 'RSC' || appointmentDetails.order_status == 'RSS' || appointmentDetails.order_status == 'CNF') && (appointmentDetails.staffId != '' && appointmentDetails.staffId != null)">Assigned</button>
+                                                    <button mat-button type="button" class="Reschedulebtn accept-btn d-block" *ngIf="(appointmentDetails.order_status == 'CNF') && (appointmentDetails.staffId != '' && appointmentDetails.staffId != null)">Assigned</button>
 
-                                                    <button mat-button type="button" class="Reschedulebtn accept-btn d-block" (click)="fnCompleteAppointment()" *ngIf="appointmentDetails.order_status == 'AC'">Complete</button>
+                                                    <button mat-button type="button" class="Reschedulebtn accept-btn d-block" (click)="fnCompleteAppointment()" *ngIf="(appointmentDetails.order_status == 'AC' || appointmentDetails.order_status == 'RSA' || appointmentDetails.order_status == 'RSC' || appointmentDetails.order_status == 'RSS') && (appointmentDetails.staffId != '' && appointmentDetails.staffId != null)">Complete</button>
                                                 </div>
                                             </div>
                                             <div class="line ml-1 mr-1 ml-5"></div>

@@ -76,7 +76,17 @@ export class StaffAppointmentComponent implements OnInit {
     this.getCompletedAppointment();
     this.getOnGoingAppointment();
   }
-
+  dynamicSort(property) {
+    var sortOrder = 1;
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+    return function (a, b) {
+      var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+    }
+  }
   fnGetSettingValue(){
     this.isLoader=true;
     let requestObject = {
@@ -138,6 +148,7 @@ export class StaffAppointmentComponent implements OnInit {
           element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
           element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
         });
+        this.newAppointmentData = this.newAppointmentData.sort(this.dynamicSort("-created_at"))
       }
       else if(response.data == false) {
         this.newAppointmentData = '';
@@ -169,6 +180,7 @@ export class StaffAppointmentComponent implements OnInit {
           element.updated_atDateForLabel=this.datePipe.transform(new Date(element.updated_at),"dd MMM yyyy")
           element.updated_atTimeForLabel=this.datePipe.transform(new Date(element.updated_at),"hh:mm a")
         });
+        this.completedAppointmentData = this.completedAppointmentData.sort(this.dynamicSort("-updated_at"))
       }
       else if(response.data == false) {
         this.completedAppointmentData = '';
@@ -200,6 +212,7 @@ export class StaffAppointmentComponent implements OnInit {
           element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
           element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
         });
+        this.onGoingAppointmentData = this.onGoingAppointmentData.sort(this.dynamicSort("-updated_at"))
       }
       else if(response.data == false) {
         this.onGoingAppointmentData = '';
@@ -329,7 +342,7 @@ export class StaffAppointmentComponent implements OnInit {
   }
 
   rescheduleAppointment(index){
-     const dialogRef = this.dialog.open(DialogInterrupted, {
+     const dialogRef = this.dialog.open(InterruptedReschedule, {
         width: '500px',
         data : {fulldata: this.onGoingAppointmentData[index]}
       });
@@ -707,6 +720,7 @@ export class StaffAppointmentComponent implements OnInit {
             customerAppoCity: ['', [Validators.required]],
             customerAppoPostalCode: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(6)]],
           });
+          this.valide_postal_code =true;
         }
         },
         (err) =>{
