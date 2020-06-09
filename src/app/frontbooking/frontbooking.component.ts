@@ -190,9 +190,12 @@ export class FrontbookingComponent implements OnInit {
   paypalClientId:any="sb";
   paypalTestMode:any;
   paypalStatus:boolean=false;
+  businessId:any;
 
   postalCodeCondition=false;
   customerLoginValue:boolean=false;
+  encodedId: any;
+  urlString: any;
   constructor(
     private _formBuilder: FormBuilder,
     private http: HttpClient,
@@ -207,6 +210,8 @@ export class FrontbookingComponent implements OnInit {
     @Inject(DOCUMENT) private _document
     
   ) { 
+    this.urlString = window.location.search.split("?business_id="); 
+    this.businessId =this.urlString[1];
     meta.addTag({name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'});
     this.renderExternalScript('https://checkout-static.citruspay.com/bolt/run/bolt.min.js').onload = () => {
       console.log('Google API Script loaded');
@@ -263,8 +268,6 @@ export class FrontbookingComponent implements OnInit {
 
     
   }
-
-  
 
   ngOnInit() {
     this.fnGetSettings();
@@ -331,7 +334,7 @@ export class FrontbookingComponent implements OnInit {
 
   fnGetSettings(){
     let requestObject = {
-      "business_id" : 2
+      "business_id" : this.businessId
       };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -487,7 +490,7 @@ export class FrontbookingComponent implements OnInit {
 
   getTaxDetails(){
     let requestObject = {
-      'business_id': 2,
+      'business_id': this.businessId,
     };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -604,7 +607,7 @@ export class FrontbookingComponent implements OnInit {
   fnCheckAvailPostal(){
     this.isLoader=true;
     let requestObject = {
-      "business_id" : 2,
+      "business_id" : this.businessId,
       "postal_code" : this.booking.postalcode,
       };
     let headers = new HttpHeaders({
@@ -637,7 +640,7 @@ export class FrontbookingComponent implements OnInit {
 
   fnIsPostalCodeAdded(){
     let requestObject = {
-      "business_id" : 2
+      "business_id" : this.businessId
       };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -669,7 +672,7 @@ export class FrontbookingComponent implements OnInit {
   fnGetCategories(){
     this.isLoader=true;
     let requestObject = {
-      "business_id":2,
+      "business_id": this.businessId,
       "status":"E"
       };
     let headers = new HttpHeaders({
@@ -837,7 +840,7 @@ export class FrontbookingComponent implements OnInit {
   fnGetAllServicesFromCategory(){
     this.isLoader=true;
     let requestObject = {
-      "business_id":2,
+      "business_id": this.businessId,
       "category_id":this.selectedcategory
     };
     let headers = new HttpHeaders({
@@ -1275,7 +1278,7 @@ export class FrontbookingComponent implements OnInit {
 
   fnGetOffDays(){
     let requestObject = {
-      "business_id":2
+      "business_id": this.businessId
     };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -1420,7 +1423,7 @@ export class FrontbookingComponent implements OnInit {
   fnGetTimeSlots(){
     this.isLoader=true;
     let requestObject = {
-      "business_id":2,
+      "business_id": this.businessId,
       "selected_date":this.selecteddate
       };
     let headers = new HttpHeaders({
@@ -1488,7 +1491,7 @@ export class FrontbookingComponent implements OnInit {
   fnGetStaff(){
     this.isLoader=true;
     let requestObject = {
-      "business_id":'2',
+      "business_id": this.businessId,
       "postal_code":this.booking.postalcode,
       "service_id":this.currentSelectedService,
       "book_date" : this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd"),
@@ -1790,7 +1793,7 @@ export class FrontbookingComponent implements OnInit {
       "zip":newUserZipcode,
       "state":newUserState,
       "city":newUserCity,
-      "business_id":2
+      "business_id": this.businessId
       };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -2033,7 +2036,7 @@ export class FrontbookingComponent implements OnInit {
       console.log(allServiceIdsArr);
 
       let requestObject = {
-      "business_id" : 2,
+      "business_id" : this.businessId,
       "service_id" : allServiceIds,
       "coupon_code" : this.coupon.couponcode_val,
       };
@@ -2325,7 +2328,7 @@ export class FrontbookingComponent implements OnInit {
         "exp_year" : this.cardForm.get("expiryYear").value,
         "cvc" : this.cardForm.get("cvvCode").value,
         "amount" : this.serviceMainArr.netCost,
-        "business_id" : 2,
+        "business_id" : this.businessId,
       }
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
@@ -2537,7 +2540,7 @@ export class FrontbookingComponent implements OnInit {
     const currentDateTime = new Date();
     let requestObject = {
       "postal_code" : this.booking.postalcode,
-      "business_id" : 2,
+      "business_id" : this.businessId,
       "serviceInfo" : serviceCartArrTemp,
       "appointment_address" : this.formAppointmentInfo.get('appo_address').value,
       "appointment_state" : this.formAppointmentInfo.get('appo_state').value,

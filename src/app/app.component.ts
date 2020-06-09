@@ -94,6 +94,8 @@ export class AppComponent implements AfterViewInit {
   settingsArr: any;
   appearenceColor: any=[];
   loginForm: FormGroup;
+  encodedId: any;
+  urlString: any;
   
   constructor(
     private http: HttpClient,
@@ -102,11 +104,9 @@ export class AppComponent implements AfterViewInit {
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private CommonService: CommonService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
-    
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
-    
     if (localStorage.getItem('business_id')) {
       this.businessId = localStorage.getItem('business_id');
     }
@@ -118,13 +118,11 @@ export class AppComponent implements AfterViewInit {
 
 
 
-
   ngOnInit() {
 
     this.router.events.subscribe(event => {
       if (event instanceof RouterEvent) this.handleRoute(event);
     });
-    //this.setcompanycolours();
 
     var is_logout = this.authenticationService.logoutTime();
     if(is_logout==true){
@@ -443,12 +441,10 @@ export class AppComponent implements AfterViewInit {
   }
 
   fnCheckLoginStatus(){
-    // alert(JSON.stringify(this.authenticationService.currentUserValue)); 
     if(this.authenticationService.currentUserValue.google_id){
         this.authService.authState.subscribe((user) => {
             this.user = user;
             this.loggedIn = (user != null);
-            // alert(JSON.stringify(this.authenticationService.currentUserValue));
             if(this.authenticationService.currentUserValue){
               if(this.user && this.user.provider == "GOOGLE" && this.user.id == this.authenticationService.currentUserValue.google_id){
                   if(this.authenticationService.currentUserValue.user_type == Role.Admin){

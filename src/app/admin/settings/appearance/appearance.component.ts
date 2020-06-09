@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import { ColorPickerService, Cmyk } from 'ngx-color-picker';
 import { AdminSettingsService } from '../_services/admin-settings.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-appearance',
@@ -51,6 +52,8 @@ export class AppearanceComponent implements OnInit {
   primarygradient2: any = '#2889e9';
   textcolor: any = '#2889e9';
   textbgcolor: any = '#2889e9';
+  embededCode: any;
+  businessId:any
   constructor(
     private appComponent : AppComponent,
     private _formBuilder: FormBuilder,
@@ -59,7 +62,10 @@ export class AppearanceComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private AdminSettingsService: AdminSettingsService,
     ) {  
-   
+      if (localStorage.getItem('business_id')) {
+        this.businessId = localStorage.getItem('business_id');
+      }
+      this.embededCode = "<iframe height='100%' width='100%' src='"+environment.urlForLink+"/booking?business_id="+this.businessId+"'></iframe>";
   }
 
   ngOnInit() {

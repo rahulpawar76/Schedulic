@@ -25,15 +25,15 @@ export class ResetPasswordComponent implements OnInit {
   newPassword: any;
   accesToken : any;
   constructor(
-  		private formBuilder: FormBuilder,
-      private route: ActivatedRoute,
-      private router: Router,       
-      private _snackBar: MatSnackBar,
-      private http: HttpClient,
-        private authenticationService: AuthenticationService
-        ) {
-  	
-         }
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,       
+    private _snackBar: MatSnackBar,
+    private http: HttpClient,
+    private authenticationService: AuthenticationService
+    ) {
+  
+    }
 
   ngOnInit() {  	 
   	this.resetPasswordForm = this.formBuilder.group({

@@ -1,138 +1,140 @@
 <mat-drawer-content id="appearance" class="ml-0">
-  <mat-tab-group>
-    <mat-tab label="Getting Started">
-      <div class="main-getting-content">
-        <h5 class="mb-3">Embed Web Widget</h5>
-        <p>Click to copy below script and paste it in your web page.</p>
-        <mat-radio-group aria-label="Select an option">
-          <mat-radio-button value="1">Script</mat-radio-button>
-        </mat-radio-group>
-        <p>To embed the widget on your website,follow these guidelines.</p>
-        <p>1. copy the code by simply clicking on the script once.</p>
-        <p>2. Go to your website's HTML file and paste in before the last < body >tag</p>
-        <p>3. Now the users visiting those web sites or application can see the Appointment Widget </p>
-        <p>4. If you are still not sure, send the code to someone who can assist you with the configuration.</p>
-      </div>
-      <mat-card class="card-content">
-      </mat-card>
-      <div>
-        <button mat-button type="submit" class="appearance-save-btn">Copy Code</button>
-      </div>
-    </mat-tab>
-    <mat-tab label="Appearance">
-      <div class="main-appearance-content col-6" [formGroup]="Appearance">
-        <div class="bottom-border d-flex ">
-          <mat-label>Primary Color</mat-label>
-          <div class="colorpicker-wrap">
-            <input [style.background]="primarycolor" class="color_box" [(colorPicker)]="primarycolor" (colorPickerChange)="onChangePrimaryColor($event)" />
-          </div>
-        </div>
-        <div class="bottom-border d-flex">
-          <mat-label>Primary Gradient</mat-label>
-          <div class="colorpicker-wrap d-flex">
-            <input [style.background]="primarygradient1" class="color_box" [(colorPicker)]="primarygradient1" (colorPickerChange)="onChangePrimaryGradient1($event)" />
-            <input [style.background]="primarygradient2" class="color_box" [(colorPicker)]="primarygradient2" (colorPickerChange)="onChangePrimaryGradient2($event)" />
-          </div>
-        </div>
-        <div class="bottom-border d-flex">
-          <mat-label>Text Color</mat-label>
-          <div class="colorpicker-wrap">
-            <input [style.background]="textcolor" class="color_box" [(colorPicker)]="textcolor" (colorPickerChange)="onChangeTextColor($event)" />
-          </div>
-        </div>
-        <div class="bottom-border d-flex">
-          <mat-label>Text Color On Background</mat-label>
-          <div class=" colorpicker-wrap">
-            <input [style.background]="textbgcolor" class="color_box" 
-            [(colorPicker)]="textbgcolor" (colorPickerChange)="onChangeTextBgColor($event)" />
-          </div>
-        </div>
-        <mat-form-field class="dropdown bottom-border-field bottom-border mt-3">
-          <mat-label>Font</mat-label>
-          <mat-select formControlName="font">
-            <mat-option value="Poppins, sans-serif">Poppins</mat-option>
-            <mat-option value="Roboto, sans-serif">Roboto</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <button mat-button appearance="fill" class="appearancecolor-save-btn" (click)="fnSaveAppearanceSettings()">Save</button>
-      </div>
-    </mat-tab>
-    <mat-tab label="Form Setting">
-      <mat-card class="main-form-setting-content">
-        <div class="contact-field-toggle">
-          <mat-slide-toggle (change)="fnChangeContactFormStatus($event.checked)" [checked]="formArr['contact_field_status']"></mat-slide-toggle>
-        </div>
-        <h5>Contact Fields</h5>
-        <p>Select Which form field will show on your booking page.</p>
-        <div class="form-setting-table" *ngIf="formArr['contact_field_status']">
-          <div class="main-table-content main-cust-table-content">
-            <div class="">
-              <div class="heads main-heading-content form-setting-box" fxLayout="row">
-                <div class="" fxFlex="20"></div>
-                <div class="" fxFlex="20"></div>
-                <div class="" fxFlex="60"></div>
-              </div>
-              <div class="content" class="form-setting-list">
-                <div  class="custom-check-box" >
-                  <div class="" fxFlex="20"  >
-                    <div class="checked round" >
-                      <mat-checkbox (change)="fnChangeFieldStatus($event.checked,'nameField')" class="form_field_checkbox" [checked]="formArr['nameField'].status=='1'" [disabled]="true"></mat-checkbox>
-                      <p class="check-label">Name</p>
-                    </div>
-                  </div>
-                  <div class="" fxFlex="20" *ngIf="formArr['nameField'].status=='1'">
-                    <mat-checkbox  (change)="fnChangeRequiredStatus($event.checked,'nameField')" [checked]="formArr['nameField'].required=='1'" [disabled]="true">Required</mat-checkbox>
-                  </div>
-                  <div class="" fxFlex="60"></div>
-                </div>
-                <div  class="custom-check-box">
-                  <div class="" fxFlex="20">
-                    <div class="checked round">
-                      <mat-checkbox (change)="fnChangeFieldStatus($event.checked,'numberField')" class="form_field_checkbox" [checked]="formArr['numberField'].status=='1'" [disabled]="true"></mat-checkbox>
-                      <p class="check-label">Number</p>
-                    </div>
-                  </div>
-                  <div class="" fxFlex="20" *ngIf="formArr['numberField'].status=='1'">
-                    <div>
-                      <mat-checkbox (change)="fnChangeRequiredStatus($event.checked,'numberField')" [checked]="formArr['numberField'].required=='1'" [disabled]="true">Required</mat-checkbox>
-                    </div>
-                  </div>
-                  <div class="" fxFlex="60"></div>
-                </div>
-                <div  class="custom-check-box">
-                  <div class="" fxFlex="20">
-                    <div class="checked round">
-                      <mat-checkbox (change)="fnChangeFieldStatus($event.checked,'emailField')" class="form_field_checkbox" [checked]="formArr['emailField'].status=='1'" [disabled]="true"></mat-checkbox>
-                      <p class="check-label">Email</p>
-                    </div>
-                  </div>
-                  <div class="" fxFlex="20" *ngIf="formArr['emailField'].status=='1'">
-                    <div>
-                      <mat-checkbox (change)="fnChangeRequiredStatus($event.checked,'emailField')" [checked]="formArr['emailField'].required=='1'" [disabled]="true">Required</mat-checkbox>
-                    </div>
-                  </div>
-                  <div class="" fxFlex="60"></div>
-                </div>
-                <div  class="custom-check-box">
-                  <div class="" fxFlex="20">
-                    <div class="checked round">
-                      <mat-checkbox (change)="fnChangeFieldStatus($event.checked,'addressField')" class="form_field_checkbox" [checked]="formArr['addressField'].status=='1'"></mat-checkbox>
-                      <p class="check-label">Address</p>
-                    </div>
-                  </div>
-                  <div class="" fxFlex="20" *ngIf="formArr['addressField'].status=='1'">
-                    <div>
-                      <mat-checkbox  (change)="fnChangeRequiredStatus($event.checked,'addressField')" [checked]="formArr['addressField'].required=='1'">Required</mat-checkbox>
-                    </div>
-                  </div>
-                  <div class="" fxFlex="60"></div>
-                </div>
-              </div>
-              <button mat-button appearance="fill" class="form-save-btn" (click)="fnFormSetting()">Save</button>
+    <mat-tab-group>
+        <mat-tab label="Getting Started">
+            <div class="main-getting-content">
+                <h5 class="mb-3">Embed Web Widget</h5>
+                <p>Click to copy below script and paste it in your web page.</p>
+                <mat-radio-group aria-label="Select an option">
+                    <mat-radio-button value="1">Script</mat-radio-button>
+                </mat-radio-group>
+                <p>To embed the widget on your website,follow these guidelines.</p>
+                <p>1. copy the code by simply clicking on the script once.</p>
+                <p>2. Go to your website's HTML file and paste in before the last
+                    < body>tag</p>
+                <p>3. Now the users visiting those web sites or application can see the Appointment Widget </p>
+                <p>4. If you are still not sure, send the code to someone who can assist you with the configuration.</p>
             </div>
-          </div>
-        </div>
-      </mat-card>
-    </mat-tab>
-  </mat-tab-group>
+            <mat-card class="card-content">
+                {{embededCode}}
+                <!-- <iframe height="100%" width="100%" src="http://localhost:4200/booking?business_id=34"></iframe> -->
+            </mat-card>
+            <div>
+                <button mat-button type="submit" class="appearance-save-btn">Copy Code</button>
+            </div>
+        </mat-tab>
+        <mat-tab label="Appearance">
+            <div class="main-appearance-content col-6" [formGroup]="Appearance">
+                <div class="bottom-border d-flex ">
+                    <mat-label>Primary Color</mat-label>
+                    <div class="colorpicker-wrap">
+                        <input [style.background]="primarycolor" class="color_box" [(colorPicker)]="primarycolor" (colorPickerChange)="onChangePrimaryColor($event)" />
+                    </div>
+                </div>
+                <div class="bottom-border d-flex">
+                    <mat-label>Primary Gradient</mat-label>
+                    <div class="colorpicker-wrap d-flex">
+                        <input [style.background]="primarygradient1" class="color_box" [(colorPicker)]="primarygradient1" (colorPickerChange)="onChangePrimaryGradient1($event)" />
+                        <input [style.background]="primarygradient2" class="color_box" [(colorPicker)]="primarygradient2" (colorPickerChange)="onChangePrimaryGradient2($event)" />
+                    </div>
+                </div>
+                <div class="bottom-border d-flex">
+                    <mat-label>Text Color</mat-label>
+                    <div class="colorpicker-wrap">
+                        <input [style.background]="textcolor" class="color_box" [(colorPicker)]="textcolor" (colorPickerChange)="onChangeTextColor($event)" />
+                    </div>
+                </div>
+                <div class="bottom-border d-flex">
+                    <mat-label>Text Color On Background</mat-label>
+                    <div class=" colorpicker-wrap">
+                        <input [style.background]="textbgcolor" class="color_box" [(colorPicker)]="textbgcolor" (colorPickerChange)="onChangeTextBgColor($event)" />
+                    </div>
+                </div>
+                <mat-form-field class="dropdown bottom-border-field bottom-border mt-3">
+                    <mat-label>Font</mat-label>
+                    <mat-select formControlName="font">
+                        <mat-option value="Poppins, sans-serif">Poppins</mat-option>
+                        <mat-option value="Roboto, sans-serif">Roboto</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button mat-button appearance="fill" class="appearancecolor-save-btn" (click)="fnSaveAppearanceSettings()">Save</button>
+            </div>
+        </mat-tab>
+        <mat-tab label="Form Setting">
+            <mat-card class="main-form-setting-content">
+                <div class="contact-field-toggle">
+                    <mat-slide-toggle (change)="fnChangeContactFormStatus($event.checked)" [checked]="formArr['contact_field_status']"></mat-slide-toggle>
+                </div>
+                <h5>Contact Fields</h5>
+                <p>Select Which form field will show on your booking page.</p>
+                <div class="form-setting-table" *ngIf="formArr['contact_field_status']">
+                    <div class="main-table-content main-cust-table-content">
+                        <div class="">
+                            <div class="heads main-heading-content form-setting-box" fxLayout="row">
+                                <div class="" fxFlex="20"></div>
+                                <div class="" fxFlex="20"></div>
+                                <div class="" fxFlex="60"></div>
+                            </div>
+                            <div class="content" class="form-setting-list">
+                                <div class="custom-check-box">
+                                    <div class="" fxFlex="20">
+                                        <div class="checked round">
+                                            <mat-checkbox (change)="fnChangeFieldStatus($event.checked,'nameField')" class="form_field_checkbox" [checked]="formArr['nameField'].status=='1'" [disabled]="true"></mat-checkbox>
+                                            <p class="check-label">Name</p>
+                                        </div>
+                                    </div>
+                                    <div class="" fxFlex="20" *ngIf="formArr['nameField'].status=='1'">
+                                        <mat-checkbox (change)="fnChangeRequiredStatus($event.checked,'nameField')" [checked]="formArr['nameField'].required=='1'" [disabled]="true">Required</mat-checkbox>
+                                    </div>
+                                    <div class="" fxFlex="60"></div>
+                                </div>
+                                <div class="custom-check-box">
+                                    <div class="" fxFlex="20">
+                                        <div class="checked round">
+                                            <mat-checkbox (change)="fnChangeFieldStatus($event.checked,'numberField')" class="form_field_checkbox" [checked]="formArr['numberField'].status=='1'" [disabled]="true"></mat-checkbox>
+                                            <p class="check-label">Number</p>
+                                        </div>
+                                    </div>
+                                    <div class="" fxFlex="20" *ngIf="formArr['numberField'].status=='1'">
+                                        <div>
+                                            <mat-checkbox (change)="fnChangeRequiredStatus($event.checked,'numberField')" [checked]="formArr['numberField'].required=='1'" [disabled]="true">Required</mat-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="" fxFlex="60"></div>
+                                </div>
+                                <div class="custom-check-box">
+                                    <div class="" fxFlex="20">
+                                        <div class="checked round">
+                                            <mat-checkbox (change)="fnChangeFieldStatus($event.checked,'emailField')" class="form_field_checkbox" [checked]="formArr['emailField'].status=='1'" [disabled]="true"></mat-checkbox>
+                                            <p class="check-label">Email</p>
+                                        </div>
+                                    </div>
+                                    <div class="" fxFlex="20" *ngIf="formArr['emailField'].status=='1'">
+                                        <div>
+                                            <mat-checkbox (change)="fnChangeRequiredStatus($event.checked,'emailField')" [checked]="formArr['emailField'].required=='1'" [disabled]="true">Required</mat-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="" fxFlex="60"></div>
+                                </div>
+                                <div class="custom-check-box">
+                                    <div class="" fxFlex="20">
+                                        <div class="checked round">
+                                            <mat-checkbox (change)="fnChangeFieldStatus($event.checked,'addressField')" class="form_field_checkbox" [checked]="formArr['addressField'].status=='1'"></mat-checkbox>
+                                            <p class="check-label">Address</p>
+                                        </div>
+                                    </div>
+                                    <div class="" fxFlex="20" *ngIf="formArr['addressField'].status=='1'">
+                                        <div>
+                                            <mat-checkbox (change)="fnChangeRequiredStatus($event.checked,'addressField')" [checked]="formArr['addressField'].required=='1'">Required</mat-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="" fxFlex="60"></div>
+                                </div>
+                            </div>
+                            <button mat-button appearance="fill" class="form-save-btn" (click)="fnFormSetting()">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </mat-tab>
+    </mat-tab-group>
 </mat-drawer-content>
