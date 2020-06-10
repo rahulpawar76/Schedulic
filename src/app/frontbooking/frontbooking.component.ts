@@ -191,6 +191,7 @@ export class FrontbookingComponent implements OnInit {
   paypalTestMode:any;
   paypalStatus:boolean=false;
   businessId:any;
+  businessDetail:any;
 
   postalCodeCondition=false;
   customerLoginValue:boolean=false;
@@ -217,7 +218,7 @@ export class FrontbookingComponent implements OnInit {
       console.log('Google API Script loaded');
     }
 
-    this.AppComponent.setcompanycolours("2");
+  //  this.AppComponent.setcompanycolours("2");
     localStorage.setItem('isFront', "true");
     const current = new Date();
     const nextmonth = new Date();
@@ -272,6 +273,7 @@ export class FrontbookingComponent implements OnInit {
   ngOnInit() {
     this.fnGetSettings();
     this.fnIsPostalCodeAdded();
+    this.fnGetBusiness();
 
     if(this.authenticationService.currentUserValue && this.authenticationService.currentUserValue.user_type == "C"){
       this.isLoggedIn=true;
@@ -335,145 +337,166 @@ export class FrontbookingComponent implements OnInit {
   fnGetSettings(){
     let requestObject = {
       "business_id" : this.businessId
-      };
+    };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-
+    console.log(requestObject);
     this.http.post(`${environment.apiUrl}/get-front-setting`,requestObject,{headers:headers} ).pipe(
       map((res) => {
+        console.log(res);
         return res;
       }),
       catchError(this.handleError)
     ).subscribe((response:any) => {
-      if(response.data == true){
-        this.settingsArr=response.response;
-        console.log(this.settingsArr);
+        if(response.data == true){
+          this.settingsArr=response.response;
+          console.log(this.settingsArr);
 
-        this.currencySymbol = this.settingsArr.currency;
-        console.log(this.currencySymbol);
-        
-        this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-        console.log(this.currencySymbolPosition);
-        
-        this.currencySymbolFormat = this.settingsArr.currency_format;
-        console.log(this.currencySymbolFormat);
-        if(this.settingsArr.payUmoney_settings){
-          this.PayUMoneyCredentials = JSON.parse(this.settingsArr.payUmoney_settings);
-          this.PayUMoney.key= this.PayUMoneyCredentials.merchant_key;
-          this.PayUMoney.salt=this.PayUMoneyCredentials.salt_key;
-          this.payUmoneyStatus=this.PayUMoneyCredentials.status;
+          this.currencySymbol = this.settingsArr.currency;
+          console.log(this.currencySymbol);
+          
+          this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+          console.log(this.currencySymbolPosition);
+          
+          this.currencySymbolFormat = this.settingsArr.currency_format;
+          console.log(this.currencySymbolFormat);
+          if(this.settingsArr.payUmoney_settings){
+            this.PayUMoneyCredentials = JSON.parse(this.settingsArr.payUmoney_settings);
+            this.PayUMoney.key= this.PayUMoneyCredentials.merchant_key;
+            this.PayUMoney.salt=this.PayUMoneyCredentials.salt_key;
+            this.payUmoneyStatus=this.PayUMoneyCredentials.status;
+          }
+          
+        if(this.settingsArr.pay_pal_settings){
+          this.paypalSetting = JSON.parse(this.settingsArr.pay_pal_settings)
+          this.paypalTestMode = this.paypalSetting.test_mode;
+          if(this.paypalTestMode){
+            this.paypalClientId="sb";
+          }else{
+            this.paypalClientId = this.paypalSetting.client_id;
+          }
+          this.paypalStatus = this.paypalSetting.status;
+
         }
-        
-      if(this.settingsArr.pay_pal_settings){
-        this.paypalSetting = JSON.parse(this.settingsArr.pay_pal_settings)
-        this.paypalTestMode = this.paypalSetting.test_mode;
-        if(this.paypalTestMode){
-          this.paypalClientId="sb";
-        }else{
-          this.paypalClientId = this.paypalSetting.client_id;
+          
+        if(this.settingsArr.stripe_settings){
+          this.stripeSetting = JSON.parse(this.settingsArr.stripe_settings)
+          this.stripeStatus = this.stripeSetting.status
         }
-        this.paypalStatus = this.paypalSetting.status;
+          
 
-      }
-        
-      if(this.settingsArr.stripe_settings){
-        this.stripeSetting = JSON.parse(this.settingsArr.stripe_settings)
-        this.stripeStatus = this.stripeSetting.status
-      }
-        
+          this.termsConditions = JSON.parse(this.settingsArr.terms_condition);
+          if(this.termsConditions.status == 'false'){
+            this.termsConditionsStatusValue = true;
+          }
+          console.log(this.termsConditions);
 
-        this.termsConditions = JSON.parse(this.settingsArr.terms_condition);
-        if(this.termsConditions.status == 'false'){
-          this.termsConditionsStatusValue = true;
-        }
-        console.log(this.termsConditions);
+          this.privacyPolicy=JSON.parse(this.settingsArr.privacy_policy)
+          if(this.privacyPolicy.status == 'false'){
+            this.PrivacyPolicyStatusValue = true;
+          }
+          console.log(this.privacyPolicy);
 
-        this.privacyPolicy=JSON.parse(this.settingsArr.privacy_policy)
-        if(this.privacyPolicy.status == 'false'){
-          this.PrivacyPolicyStatusValue = true;
-        }
-        console.log(this.privacyPolicy);
+          this.thankYou=JSON.parse(this.settingsArr.thank_you);
+          console.log(this.thankYou)
+          this.contactFormSettingsArr=JSON.parse(this.settingsArr.form_settings)
+          if(this.contactFormSettingsArr.contact_field_status == true){
+            if(this.contactFormSettingsArr.addressField.status == 1){
+              if(this.contactFormSettingsArr.addressField.required == 1){
+                const validators = [Validators.required];
+                const validatorsZipCode = [Validators.required,Validators.pattern(this.onlynumeric)];
+                this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
+                this.formNewUser.addControl('newUserState', new FormControl('', validators));
+                this.formNewUser.addControl('newUserCity', new FormControl('', validators));
+                this.formNewUser.addControl('newUserZipcode', new FormControl('', validatorsZipCode));
 
-        this.thankYou=JSON.parse(this.settingsArr.thank_you);
-        console.log(this.thankYou)
-        this.contactFormSettingsArr=JSON.parse(this.settingsArr.form_settings)
-        if(this.contactFormSettingsArr.contact_field_status == true){
-          if(this.contactFormSettingsArr.addressField.status == 1){
-            if(this.contactFormSettingsArr.addressField.required == 1){
-              const validators = [Validators.required];
-              const validatorsZipCode = [Validators.required,Validators.pattern(this.onlynumeric)];
-              this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
-              this.formNewUser.addControl('newUserState', new FormControl('', validators));
-              this.formNewUser.addControl('newUserCity', new FormControl('', validators));
-              this.formNewUser.addControl('newUserZipcode', new FormControl('', validatorsZipCode));
+                this.formAppointmentInfo.addControl('appo_address', new FormControl('', validators));
+                this.formAppointmentInfo.addControl('appo_state', new FormControl('', validators));
+                this.formAppointmentInfo.addControl('appo_city', new FormControl('', validators));
+                this.formAppointmentInfo.addControl('appo_zipcode', new FormControl('', validatorsZipCode));
 
-              this.formAppointmentInfo.addControl('appo_address', new FormControl('', validators));
-              this.formAppointmentInfo.addControl('appo_state', new FormControl('', validators));
-              this.formAppointmentInfo.addControl('appo_city', new FormControl('', validators));
-              this.formAppointmentInfo.addControl('appo_zipcode', new FormControl('', validatorsZipCode));
+              }else{
+                this.formNewUser.addControl('newUserAddress', new FormControl(null));
+                this.formNewUser.addControl('newUserState', new FormControl(null));
+                this.formNewUser.addControl('newUserCity', new FormControl(null));
+                this.formNewUser.addControl('newUserZipcode', new FormControl(null));
 
+                this.formAppointmentInfo.addControl('appo_address', new FormControl(null));
+                this.formAppointmentInfo.addControl('appo_state', new FormControl(null));
+                this.formAppointmentInfo.addControl('appo_city', new FormControl(null));
+                this.formAppointmentInfo.addControl('appo_zipcode', new FormControl(null));
+              }
             }else{
-              this.formNewUser.addControl('newUserAddress', new FormControl(null));
-              this.formNewUser.addControl('newUserState', new FormControl(null));
-              this.formNewUser.addControl('newUserCity', new FormControl(null));
-              this.formNewUser.addControl('newUserZipcode', new FormControl(null));
-
               this.formAppointmentInfo.addControl('appo_address', new FormControl(null));
               this.formAppointmentInfo.addControl('appo_state', new FormControl(null));
               this.formAppointmentInfo.addControl('appo_city', new FormControl(null));
               this.formAppointmentInfo.addControl('appo_zipcode', new FormControl(null));
             }
           }else{
-            this.formAppointmentInfo.addControl('appo_address', new FormControl(null));
-            this.formAppointmentInfo.addControl('appo_state', new FormControl(null));
-            this.formAppointmentInfo.addControl('appo_city', new FormControl(null));
-            this.formAppointmentInfo.addControl('appo_zipcode', new FormControl(null));
+            const validators = [Validators.required];
+            const validatorsZipCode = [Validators.required,Validators.pattern(this.onlynumeric)];
+            this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
+            this.formNewUser.addControl('newUserState', new FormControl('', validators));
+            this.formNewUser.addControl('newUserCity', new FormControl('', validators));
+            this.formNewUser.addControl('newUserZipcode', new FormControl('', validatorsZipCode));
+
+            this.formAppointmentInfo.addControl('appo_address', new FormControl('', validators));
+            this.formAppointmentInfo.addControl('appo_state', new FormControl('', validators));
+            this.formAppointmentInfo.addControl('appo_city', new FormControl('', validators));
+            this.formAppointmentInfo.addControl('appo_zipcode', new FormControl('', validatorsZipCode));
           }
+          console.log(this.contactFormSettingsArr);
+
+          this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
+          this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
+          this.minimumAdvanceBookingDateTimeObject = new Date();
+          this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
+          console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
+          this.minDate = {
+            year: this.minimumAdvanceBookingDateTimeObject.getFullYear(),
+            month: this.minimumAdvanceBookingDateTimeObject.getMonth() + 1,
+            day: this.minimumAdvanceBookingDateTimeObject.getDate()
+          };
+          this.maximumAdvanceBookingDateTimeObject = new Date();
+          this.maximumAdvanceBookingDateTimeObject.setMinutes( this.maximumAdvanceBookingDateTimeObject.getMinutes() + this.maximumAdvanceBookingTime );
+          console.log("maximumAdvanceBookingDateTimeObject - "+this.maximumAdvanceBookingDateTimeObject);
+          this.maxDate = {
+            year: this.maximumAdvanceBookingDateTimeObject.getFullYear(),
+            month: this.maximumAdvanceBookingDateTimeObject.getMonth() + 1,
+            day: this.maximumAdvanceBookingDateTimeObject.getDate(),
+          };
+          this.staffOnFrontValue=JSON.parse(JSON.parse(this.settingsArr.staff_list_on_front).status)
+          this.customerLoginValue=JSON.parse(this.settingsArr.customer_login)
+          
+        this.initConfig();
         }else{
-          const validators = [Validators.required];
-          const validatorsZipCode = [Validators.required,Validators.pattern(this.onlynumeric)];
-          this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
-          this.formNewUser.addControl('newUserState', new FormControl('', validators));
-          this.formNewUser.addControl('newUserCity', new FormControl('', validators));
-          this.formNewUser.addControl('newUserZipcode', new FormControl('', validatorsZipCode));
-
-          this.formAppointmentInfo.addControl('appo_address', new FormControl('', validators));
-          this.formAppointmentInfo.addControl('appo_state', new FormControl('', validators));
-          this.formAppointmentInfo.addControl('appo_city', new FormControl('', validators));
-          this.formAppointmentInfo.addControl('appo_zipcode', new FormControl('', validatorsZipCode));
         }
-        console.log(this.contactFormSettingsArr);
-
-        this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
-        this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
-        this.minimumAdvanceBookingDateTimeObject = new Date();
-        this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
-        console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
-        this.minDate = {
-          year: this.minimumAdvanceBookingDateTimeObject.getFullYear(),
-          month: this.minimumAdvanceBookingDateTimeObject.getMonth() + 1,
-          day: this.minimumAdvanceBookingDateTimeObject.getDate()
-        };
-        this.maximumAdvanceBookingDateTimeObject = new Date();
-        this.maximumAdvanceBookingDateTimeObject.setMinutes( this.maximumAdvanceBookingDateTimeObject.getMinutes() + this.maximumAdvanceBookingTime );
-        console.log("maximumAdvanceBookingDateTimeObject - "+this.maximumAdvanceBookingDateTimeObject);
-        this.maxDate = {
-          year: this.maximumAdvanceBookingDateTimeObject.getFullYear(),
-          month: this.maximumAdvanceBookingDateTimeObject.getMonth() + 1,
-          day: this.maximumAdvanceBookingDateTimeObject.getDate(),
-        };
-        this.staffOnFrontValue=JSON.parse(JSON.parse(this.settingsArr.staff_list_on_front).status)
-        this.customerLoginValue=JSON.parse(this.settingsArr.customer_login)
-        
-      this.initConfig();
-      }else{
-      }
-      },
-      (err) =>{
+      },(err) =>{
         console.log(err)
-      })
+      });
   }
+
+    fnGetBusiness(){
+        let requestObject = {
+          "business_id" : this.businessId
+        };
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+        this.http.post(`${environment.apiUrl}/get-business`,requestObject,{headers:headers} ).pipe(
+          map((res) => {
+            return res;
+          }),
+          catchError(this.handleError)
+        ).subscribe((response:any) => {
+            if(response.data == true){
+              this.businessDetail = response.response;
+            }
+        },(err) =>{
+            console.log(err)
+        });
+    }
 
   // Get Tax details
   fnGetTaxDetails(){
