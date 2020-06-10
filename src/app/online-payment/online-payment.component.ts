@@ -22,6 +22,7 @@ export class OnlinePaymentComponent implements OnInit {
   isLoader:boolean = false;
   orderItemId:any;
   orderInfo:any;
+  onlynumeric = /^-?(0|[1-9]\d*)?$/
 
   constructor(
     private http: HttpClient,
@@ -146,6 +147,13 @@ export class OnlinePaymentComponent implements OnInit {
       this.cardForm.get("cvvCode").markAsTouched();
     }
   }
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
 
+  }
 
 }
