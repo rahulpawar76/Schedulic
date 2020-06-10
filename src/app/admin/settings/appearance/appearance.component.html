@@ -19,7 +19,7 @@
                 <!-- <iframe height="100%" width="100%" src="http://localhost:4200/booking?business_id=34"></iframe> -->
             </mat-card>
             <div>
-                <button mat-button type="submit" class="appearance-save-btn">Copy Code</button>
+                <button mat-button type="submit" (click)="copyEmbedCode(embededCode)" class="appearance-save-btn">Copy Code</button>
             </div>
         </mat-tab>
         <mat-tab label="Appearance">
