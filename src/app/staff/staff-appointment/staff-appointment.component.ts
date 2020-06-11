@@ -389,6 +389,9 @@ export class StaffAppointmentComponent implements OnInit {
 
      dialogRef.afterClosed().subscribe(result => {
        this.animal = result;
+        this.getNewAppointment();
+        this.getCompletedAppointment();
+        this.getOnGoingAppointment();
      });
   }
 
@@ -2253,8 +2256,8 @@ export class StaffAppointmentComponent implements OnInit {
   
        dialogRef.afterClosed().subscribe(result => {
          this.animal = result;
+         this.dialogRef.close();
        });
-       this.dialogRef.close();
     }
 
   }
@@ -2431,26 +2434,26 @@ export class StaffAppointmentComponent implements OnInit {
       })  
     }
     confirmCashPayment(){
-        let orders = {
-          "tax" : this.appointDetailData.tax,
+        let orders = [{
+          "tax" : JSON.parse(this.appointDetailData.tax),
           "discount_type":this.couponType,
           "discount_value":this.couponValue,
           "discount" : this.orderDiscount,
           "nettotal" : this.appointDetailData.total_cost
-        }
-        let orderItems  = {
-          "tax" : this.appointDetailData.tax,
+        }]
+        let orderItems  = [{
+          "tax" : JSON.parse(this.appointDetailData.tax),
           "discount_type":this.couponType,
           "discount_value":this.couponValue,
           "discount" : this.orderDiscount,
           "nettotal" : this.appointDetailData.total_cost
-        }
-        let payment  = {
+        }]
+        let payment  = [{
           "payment_datetime" : this.datePipe.transform(new Date(),"yyyy/MM/dd hh::mm"),
           "payment_method" : this.paymentMethod,
           "amount" : this.appointDetailData.total_cost,
-          "paymentnotes" : this.staffPaymentNote,
-        }
+          "paymentnotes" : "Payed through staff"
+        }]
         let requestObject ={
           "order_item_id" : this.appointDetailData.id,
           "orders" : orders,
@@ -2463,7 +2466,7 @@ export class StaffAppointmentComponent implements OnInit {
             this._snackBar.open(response.response, "X", {
               duration: 2000,
               verticalPosition:'top',
-              panelClass :['red-snackbar']
+              panelClass :['green-snackbar']
             });
             this.dialogRef.close();
           }
@@ -2478,26 +2481,26 @@ export class StaffAppointmentComponent implements OnInit {
       }
 
       onlinePayment(){
-        let orders = {
-          "tax" : this.appointDetailData.tax,
-          "discount_type":this.couponType,
-          "discount_value":this.couponValue,
-          "discount" : this.orderDiscount,
-          "nettotal" : this.appointDetailData.total_cost
-        }
-        let orderItems  = {
-          "tax" : this.appointDetailData.tax,
-          "discount_type":this.couponType,
-          "discount_value":this.couponValue,
-          "discount" : this.orderDiscount,
-          "nettotal" : this.appointDetailData.total_cost
-        }
-        let payment  = {
-          "payment_datetime" : this.datePipe.transform(new Date(),"yyyy/MM/dd hh::mm"),
-          "payment_method" : this.paymentMethod,
-          "amount" : this.appointDetailData.total_cost,
-          "paymentnotes" : this.staffPaymentNote,
-        }
+        let orders = [{
+                  "tax" : JSON.parse(this.appointDetailData.tax),
+                  "discount_type":this.couponType,
+                  "discount_value":this.couponValue,
+                  "discount" : this.orderDiscount,
+                  "nettotal" : this.appointDetailData.total_cost
+                }]
+        let orderItems  = [{
+                  "tax" : JSON.parse(this.appointDetailData.tax),
+                  "discount_type":this.couponType,
+                  "discount_value":this.couponValue,
+                  "discount" : this.orderDiscount,
+                  "nettotal" : this.appointDetailData.total_cost
+                }]
+        let payment  = [{
+                  "payment_datetime" : this.datePipe.transform(new Date(),"yyyy/MM/dd hh::mm"),
+                  "payment_mode" : "Stripe",
+                  "amount" : this.appointDetailData.total_cost,
+                  "paymentnotes" : "Payed through staff"
+                }]
         let requestObject ={
           "order_item_id" : this.appointDetailData.id,
           "orders" : orders,
@@ -2513,7 +2516,7 @@ export class StaffAppointmentComponent implements OnInit {
             this._snackBar.open(response.response, "X", {
               duration: 2000,
               verticalPosition:'top',
-              panelClass :['red-snackbar']
+              panelClass :['green-snackbar']
             });
             this.dialogRef.close();
           }

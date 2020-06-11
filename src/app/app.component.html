@@ -310,7 +310,7 @@
         <i mat-list-icon class="fa fa-sign-out mr-3 menuitem"></i>Logout</button>
             </mat-list-item>
         </mat-list>
-        <mat-list role="list" *ngIf="isAdminUser()">
+        <mat-list role="list" *ngIf="isStaffUser() && isAdminUser()">
             <mat-menu></mat-menu>
             <mat-list-item role="listitem" (click)="drawer.toggle()" (click)="MyProfile('./my-profile')" class="matlist pointer menuitem">
                 <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg">
