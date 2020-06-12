@@ -477,7 +477,7 @@ export class AdminService {
 
     // live pending appointments
 
-    getPendingAppointments(){
+    getPendingAppointments(URL){
         let requestObject = {
             'business_id': this.businessId,
         };
@@ -486,14 +486,14 @@ export class AdminService {
             'admin-id' : JSON.stringify(this.currentUser.user_id),
             'api-token' : this.currentUser.token 
         });
-        return this.http.post(`${environment.apiUrl}/get-pending-live`,requestObject,{headers:headers}).pipe(
+        return this.http.post(`${URL}`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;
         }),
         catchError(this.handleError));
     }
     
-    getNotAssignedAppointments(){
+    getNotAssignedAppointments(URL){
         let requestObject = {
             'business_id': this.businessId,
         };
@@ -502,14 +502,14 @@ export class AdminService {
             'admin-id' : JSON.stringify(this.currentUser.user_id),
             'api-token' : this.currentUser.token 
         });
-        return this.http.post(`${environment.apiUrl}/get-notassign-live`,requestObject,{headers:headers}).pipe(
+        return this.http.post(`${URL}`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;
         }),
         catchError(this.handleError));
     }
 
-    getOnThewayAppointments(){
+    getOnThewayAppointments(URL){
         let requestObject = {
             'business_id': this.businessId,
         };
@@ -518,7 +518,7 @@ export class AdminService {
             'admin-id' : JSON.stringify(this.currentUser.user_id),
             'api-token' : this.currentUser.token 
         });
-        return this.http.post(`${environment.apiUrl}/get-ontheway-live`,requestObject,{headers:headers}).pipe(
+        return this.http.post(`${URL}`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;
         }),
@@ -526,7 +526,7 @@ export class AdminService {
     }
 
     
-    getWorkStartedAppointments(){
+    getWorkStartedAppointments(URL){
         let requestObject = {
             'business_id': this.businessId,
         };
@@ -535,7 +535,7 @@ export class AdminService {
             'admin-id' : JSON.stringify(this.currentUser.user_id),
             'api-token' : this.currentUser.token 
         });
-        return this.http.post(`${environment.apiUrl}/get-workstart-live`,requestObject,{headers:headers}).pipe(
+        return this.http.post(`${URL}`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;
         }),

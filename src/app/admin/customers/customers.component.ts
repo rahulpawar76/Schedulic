@@ -1226,6 +1226,10 @@ export class CustomerAppointmentDetailsDialog {
   currencySymbolFormat:any;
   cancellationBufferTime:any;
   minReschedulingTime:any;
+  formSettingPage:boolean = false;
+  appointmentDetails = {
+    bookingNotes : ''
+  };
 
 constructor(
   public dialog: MatDialog,
@@ -1246,11 +1250,41 @@ constructor(
     this.fnGetSettingValue();
   }
 
-onNoClick(): void {
-  this.dialogRef.close();
-}
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
-fnGetActivityLog(orderItemId){
+  fnSaveBookingNotes(orderItemId){
+      
+    if(this.appointmentDetails.bookingNotes == undefined || this.appointmentDetails.bookingNotes == ""){
+      return false;
+    }
+    let requestObject = {
+      "order_item_id":orderItemId,
+      "booking_notes":this.appointmentDetails.bookingNotes
+    };
+    this.AdminService.saveBookingNotes(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open("Booking Notes Updated", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.formSettingPage = false;
+        this.fnGetSettingValue();
+      } else if(response.data == false){
+        this._snackBar.open("Booking Notes not Updated", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+      }
+    })
+  }
+
+  fnGetActivityLog(orderItemId){
+  this.appointmentDetails.bookingNotes = this.detailsData.booking_notes;
+
     let requestObject = {
       "order_item_id":orderItemId
     };
@@ -1265,100 +1299,101 @@ fnGetActivityLog(orderItemId){
     })
   }
 
-fnGetSettingValue(){
-  let requestObject = {
-    "business_id":this.businessId
-  };
-  this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
-    if(response.data == true && response.response != ''){
-      this.settingsArr=response.response;
-     // console.log(this.settingsArr);
+  fnGetSettingValue(){
+    let requestObject = {
+      "business_id":this.businessId
+    };
+    this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
+      if(response.data == true && response.response != ''){
+        this.settingsArr=response.response;
+      // console.log(this.settingsArr);
 
-      this.currencySymbol = this.settingsArr.currency;
-      //console.log(this.currencySymbol);
+        this.currencySymbol = this.settingsArr.currency;
+        //console.log(this.currencySymbol);
+        
+        this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+        //console.log(this.currencySymbolPosition);
+        
+        this.currencySymbolFormat = this.settingsArr.currency_format;
+      // console.log(this.currencySymbolFormat);
+        
+        let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
+        let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
+      // console.log(cancellation_buffer_time);
+      //  console.log(min_rescheduling_time);
       
-      this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-      //console.log(this.currencySymbolPosition);
-      
-      this.currencySymbolFormat = this.settingsArr.currency_format;
-     // console.log(this.currencySymbolFormat);
-      
-      let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
-      let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
-     // console.log(cancellation_buffer_time);
-    //  console.log(min_rescheduling_time);
-     
-      this.cancellationBufferTime = new Date();
-      this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
-     // console.log("cancellationBufferTime - "+this.cancellationBufferTime);
+        this.cancellationBufferTime = new Date();
+        this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
+      // console.log("cancellationBufferTime - "+this.cancellationBufferTime);
 
-      this.minReschedulingTime = new Date();
-      this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
-    //  console.log("minReschedulingTime - "+this.minReschedulingTime);
-    }
-    else if(response.data == false){
-      
-    }
-  })
-}
+        this.minReschedulingTime = new Date();
+        this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
+      //  console.log("minReschedulingTime - "+this.minReschedulingTime);
+      }
+      else if(response.data == false){
+        
+      }
+    })
+  }
 
-fnConfirmAppointment(){
-  let requestObject = {
-   "order_item_id":JSON.stringify(this.detailsData.id),
-   "status":"CNF"
-  };
-  this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
-    if(response.data == true){
-      this._snackBar.open(response.response, "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['green-snackbar']
-        });
-        this.dialogRef.close();
-    }
-    else if(response.data == false){
-      this._snackBar.open(response.response, "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['red-snackbar']
-        });
-    }
-  })
-}
-fnCancelAppointment(){
-  let requestObject = {
-   "order_item_id":JSON.stringify(this.detailsData.id),
-   "status":"C"
-  };
-  this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
-    if(response.data == true){
-      this._snackBar.open(response.response, "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['green-snackbar']
-        });
-        this.dialogRef.close();
-    }
-    else if(response.data == false){
-      this._snackBar.open(response.response, "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['red-snackbar']
-        });
-    }
-  })
-}
+  fnConfirmAppointment(){
+    let requestObject = {
+    "order_item_id":JSON.stringify(this.detailsData.id),
+    "status":"CNF"
+    };
+    this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+      if(response.data == true){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+          });
+          this.dialogRef.close();
+      }
+      else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+          });
+      }
+    })
+  }
+
+  fnCancelAppointment(){
+    let requestObject = {
+    "order_item_id":JSON.stringify(this.detailsData.id),
+    "status":"C"
+    };
+    this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+      if(response.data == true){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+          });
+          this.dialogRef.close();
+      }
+      else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+          });
+      }
+    })
+  }
   
-rescheduleAppointment(){
-  const dialogRef = this.dialog.open(InterruptedReschedulecustomer, {
-    height: '700px',
-    data : {appointmentDetails: this.detailsData}
-  });
-    
-  dialogRef.afterClosed().subscribe(result => {
-    //this.fnGetAllAppointmentsByCategoryAndStatus();
-  });
-}
+  rescheduleAppointment(){
+    const dialogRef = this.dialog.open(InterruptedReschedulecustomer, {
+      height: '700px',
+      data : {appointmentDetails: this.detailsData}
+    });
+      
+    dialogRef.afterClosed().subscribe(result => {
+      //this.fnGetAllAppointmentsByCategoryAndStatus();
+    });
+  }
 
 }
 

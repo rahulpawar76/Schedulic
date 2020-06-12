@@ -2030,6 +2030,10 @@ businessId:any;
 settingsArr:any=[];
 cancellationBufferTime= new Date();
 minReschedulingTime= new Date();
+formSettingPage:boolean = false;
+appointmentDetails = {
+  bookingNotes : ''
+};
 
 constructor(
   public dialogRef: MatDialogRef<DialogAllAppointmentDetails>,
@@ -2041,10 +2045,10 @@ constructor(
     
     this.businessId=localStorage.getItem('business_id');
     this.detailsData =  this.data.appointmentData;
-    console.log(this.detailsData);
     this.fnGetSettingValue();
     
-    this.fnGetActivityLog(this.detailsData.id);
+      this.fnGetActivityLog(this.detailsData.id);
+      this.appointmentDetails.bookingNotes = this.detailsData.booking_notes;
       var todayDateTime = new Date();
       this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
       var dateTemp = new Date(this.datePipe.transform(this.detailsData.booking_date_time,"dd MMM yyyy hh:mm a"));
@@ -2145,7 +2149,7 @@ constructor(
             });
         }
       })
-    }
+  }
 
 
   fnCancelAppointment(){
@@ -2168,6 +2172,34 @@ constructor(
           verticalPosition:'top',
           panelClass :['red-snackbar']
           });
+      }
+    })
+  }
+
+  fnSaveBookingNotes(orderItemId){
+    
+    if(this.appointmentDetails.bookingNotes == undefined || this.appointmentDetails.bookingNotes == ""){
+      return false;
+    }
+    let requestObject = {
+      "order_item_id":orderItemId,
+      "booking_notes":this.appointmentDetails.bookingNotes
+    };
+    this.AdminService.saveBookingNotes(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open("Booking Notes Updated", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.formSettingPage = false;
+        this.fnGetSettingValue();
+      } else if(response.data == false){
+        this._snackBar.open("Booking Notes not Updated", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
       }
     })
   }
