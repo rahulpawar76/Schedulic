@@ -759,7 +759,7 @@ getCompletedAppointments(): void{
 
   frontBooking(){
     const dialogRef = this.dialog.open(DialogNewCustomerAppointment, {
-      width: '500px',
+      width: '750px',
       data: {}
     });
      dialogRef.afterClosed().subscribe(result => {

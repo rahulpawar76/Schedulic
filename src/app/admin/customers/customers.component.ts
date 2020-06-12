@@ -573,7 +573,7 @@ customerUpdate(existingCustomerData){
 
   newCustomerAppointment() {
     const dialogRef = this.dialog.open(DialogNewCustomerAppointment, {
-      width: '500px',
+      width: '750px',
       data: {customerDetails:this.customerPersonalDetails}
     });
 
