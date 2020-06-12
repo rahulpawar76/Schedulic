@@ -1123,7 +1123,7 @@ customerUpdate(existingCustomerData){
       }]
       let payment  = [{
         "payment_datetime" : this.datePipe.transform(new Date(),"yyyy/MM/dd hh::mm"),
-        "payment_method" : this.paymentMethod,
+        "payment_mode" : this.paymentMethod,
         "amount" : this.serviceMainArr.order_netCost,
         "paymentnotes" : this.formPayment.get('paymentNote').value,
       }] 
