@@ -65,7 +65,7 @@ export class AppearanceComponent implements OnInit {
       if (localStorage.getItem('business_id')) {
         this.businessId = localStorage.getItem('business_id');
       }
-      this.embededCode = "<iframe height='100%' width='100%' src='"+environment.urlForLink+"/booking?business_id="+this.businessId+"'></iframe>";
+      this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+this.businessId+"'></iframe>";
   }
 
   ngOnInit() {
@@ -194,6 +194,20 @@ export class AppearanceComponent implements OnInit {
         });
       }
     })
+  }
+  /* To copy any Text */
+copyEmbedCode(val: string){
+  let selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = val;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
   }
 
 }

@@ -4,9 +4,6 @@
             <div class="main-getting-content">
                 <h5 class="mb-3">Embed Web Widget</h5>
                 <p>Click to copy below script and paste it in your web page.</p>
-                <mat-radio-group aria-label="Select an option">
-                    <mat-radio-button value="1">Script</mat-radio-button>
-                </mat-radio-group>
                 <p>To embed the widget on your website,follow these guidelines.</p>
                 <p>1. copy the code by simply clicking on the script once.</p>
                 <p>2. Go to your website's HTML file and paste in before the last
@@ -19,7 +16,7 @@
                 <!-- <iframe height="100%" width="100%" src="http://localhost:4200/booking?business_id=34"></iframe> -->
             </mat-card>
             <div>
-                <button mat-button type="submit" class="appearance-save-btn">Copy Code</button>
+                <button mat-button type="submit" (click)="copyEmbedCode(embededCode)" class="appearance-save-btn">Copy Code</button>
             </div>
         </mat-tab>
         <mat-tab label="Appearance">
