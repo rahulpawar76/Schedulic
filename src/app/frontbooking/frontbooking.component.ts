@@ -1339,7 +1339,6 @@ export class FrontbookingComponent implements OnInit {
   fnShowCalender(serviceId){
     this.currentSelectedService=serviceId;
     if(this.serviceCartArr[this.currentSelectedService] && this.serviceCartArr[this.currentSelectedService].appointmentDate != ''){
-      
       let year=this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[0];
       let month= this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[1];
       let day=this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[2];
@@ -1360,7 +1359,11 @@ export class FrontbookingComponent implements OnInit {
   
   fnSelectNextValidDate(mydate){
     
-    console.log(mydate);
+    if(mydate=="" || mydate==undefined){
+      console.log('appointment Date not availbled');
+      return false;
+    }
+    
     if(this.offDaysList.indexOf(this.datePipe.transform(new Date(mydate),"yyyy-MM-dd"))>-1){
       mydate.setDate(mydate.getDate() + 1)
       console.log(mydate);
