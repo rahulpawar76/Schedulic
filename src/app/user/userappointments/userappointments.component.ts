@@ -1947,6 +1947,7 @@ export class rescheduleAppointmentDialog {
         catchError(this.handleError)
       ).subscribe((response:any) => {
         if(response.data == true){
+          alert('--');
           this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
             customerPostalCode: ['', [Validators.required,Validators.minLength(6)],this.isPostalcodeValid.bind(this)],
             customerCategory: ['', Validators.required],
@@ -1960,6 +1961,7 @@ export class rescheduleAppointmentDialog {
             customerAppoCity: ['', Validators.required],
          });
         }else{
+          this.valide_postal_code = true;
           this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
             customerPostalCode: ['', [Validators.required,Validators.minLength(6)]],
             customerCategory: ['', Validators.required],
@@ -2534,6 +2536,7 @@ export class rescheduleAppointmentDialog {
     fnNewAppointmentStep2(){
       
       if(this.valide_postal_code == false){
+        console.log("enter valide pin code");
         this.formAddNewAppointmentStaffStep2.get('customerPostalCode').markAsTouched();
         return false;
       }

@@ -12,7 +12,10 @@ const routes: Routes = [
     path: '',
     component: UserappointmentsComponent
   },
-
+  {
+    path: 'appointments',
+    component: UserappointmentsComponent
+  },
   { 
     path: 'my-profile', 
     component: UserProfileComponent,

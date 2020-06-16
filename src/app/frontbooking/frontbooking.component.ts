@@ -393,7 +393,7 @@ export class FrontbookingComponent implements OnInit {
           console.log(this.termsConditions);
 
           this.privacyPolicy=JSON.parse(this.settingsArr.privacy_policy)
-          if(this.privacyPolicy.status == 'false'){
+          if(this.privacyPolicy && this.privacyPolicy.status == 'false'){
             this.PrivacyPolicyStatusValue = true;
           }
           console.log(this.privacyPolicy);
@@ -401,7 +401,7 @@ export class FrontbookingComponent implements OnInit {
           this.thankYou=JSON.parse(this.settingsArr.thank_you);
           console.log(this.thankYou)
           this.contactFormSettingsArr=JSON.parse(this.settingsArr.form_settings)
-          if(this.contactFormSettingsArr.contact_field_status == true){
+          if(this.contactFormSettingsArr && this.contactFormSettingsArr.contact_field_status == true){
             if(this.contactFormSettingsArr.addressField.status == 1){
               if(this.contactFormSettingsArr.addressField.required == 1){
                 const validators = [Validators.required];

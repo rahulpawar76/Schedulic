@@ -181,7 +181,10 @@
                                                 </div>
                                                 <div class="d-flex service-person" *ngIf="appointment.staff">
                                                     <i class="fa fa-briefcase pr-2 " aria-hidden="true"></i>
-                                                    <p class="work-space-font pt-0 ">{{appointment.staff?appointment.staff.firstname:''}} {{appointment.appointment.staff?staff.lastname:''}}</p>
+                                                    <p class="work-space-font pt-0 "> 
+                                                        {{appointment.staff?appointment.staff.firstname:''}}
+                                                        {{appointment.staff?appointment.staff.lastname:''}}
+                                                    </p>
                                                 </div>
                                                 <div class="money">
                                                     <!-- <p class="work-space-font pt-0 ">$ {{appointment.total_cost}}</p> -->
