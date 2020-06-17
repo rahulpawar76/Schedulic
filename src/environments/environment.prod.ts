@@ -4,7 +4,7 @@ export const environment = {
     // Live Demo
     apiUrl:         'https://api.schedulic.com/api',
     authApiUrl:     'https://api.schedulic.com/api',
-    urlForLink :    'https://schedulic.com/app',
+    urlForLink :    'https://app.schedulic.com',
     tempApiUrl:     'https://aeci-demo.she-excellence.co.za/api/risk-api'
 
 };
