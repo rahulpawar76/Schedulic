@@ -1,42 +1,122 @@
 <mat-drawer-content id="paymentgateway" class="ml-0">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
-    <mat-card class="payment-gateways">
-        <h5>Payment Gateways</h5>
-        <div class="row mx-0">
-            <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
-                <mat-expansion-panel [expanded]="paypalStatus">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <div class="d-flex">
+    <div class="left-side-menu setting-menu">
+        <div class="leftarrow-icon d-flex">
+            <mat-icon aria-hidden="false" class="customer-drawer-leftarrow ml-auto">arrow_back</mat-icon>
+        </div>
+        <h6>Resource Management</h6>
+        <div routerLink="/admin/settings" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/service.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/service-color.png" />
+            </div>
+            <p>Services</p>
+        </div>
+        <div routerLink="/admin/settings/staff" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/staff.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/staff-color.png" />
+            </div>
+            <p>Staff</p>
+        </div>
+        <div routerLink="/admin/settings/business-hours" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/business-hours.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/business-hours-color.png" />
+            </div>
+            <p>Business Hours</p>
+        </div>
+        <div routerLink="/admin/settings/postalcode" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/postalcode.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/postalcode-color.png" />
+            </div>
+            <p>Postal Codes</p>
+        </div>
+        <h6 class="pt-3">Account</h6>
+        <div routerLink="/admin/settings/company-details" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/companydetails.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/companydetails-color.png" />
+            </div>
+            <p>Company Details</p>
+        </div>
+        <h6 class="pt-3">Payment</h6>
+        <div routerLink="/admin/settings/payment-gateway" class="d-flex setting-menu-item setting-menu-active">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentgateway.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/paymentgateway-color.png" />
+            </div>
+            <p>Payment Gateway</p>
+        </div>
+        <div routerLink="/admin/settings/payment-rules" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentrules.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/paymentrules-color.png" />
+            </div>
+            <p>Payment Rules</p>
+        </div>
+        <h6 class="pt-3">General Setting</h6>
+        <div routerLink="/admin/settings/appearance" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/appearance.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/appearance-color.png" />
+            </div>
+            <p>Appearance</p>
+        </div>
+        <div routerLink="/admin/settings/booking-rules" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/bookingrules.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/bookingrules-color.png" />
+            </div>
+            <p>Booking Rules</p>
+        </div>
+        <div routerLink="/admin/settings/alert-settings" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/alert.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/alert-color.png" />
+            </div>
+            <p>Alert Rules</p>
+        </div>
+    </div>
+    <div class="h-100 setting-right-side-content">
+        <mat-card class="payment-gateways">
+            <h5>Payment Gateways</h5>
+            <div class="row mx-0">
+                <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
+                    <mat-expansion-panel [expanded]="paypalStatus">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <div class="d-flex">
+                                    <div>
+                                        <img src="/assets/images/admin/paypal.png" class="payment-image">
+                                    </div>
+                                    <div class="payment-toggle-btn">
+                                        <mat-slide-toggle [checked]="paypalStatus" (change)="fnPaypalStatus($event.checked)" class=""></mat-slide-toggle>
+                                    </div>
+                                </div>
                                 <div>
-                                    <img src="/assets/images/admin/paypal.png" class="payment-image">
+                                    <p class="mb-0 pt-2">Paypal Express Checkout</p>
                                 </div>
-                                <div class="payment-toggle-btn">
-                                    <mat-slide-toggle [checked]="paypalStatus" (change)="fnPaypalStatus($event.checked)" class=""></mat-slide-toggle>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="mb-0 pt-2">Paypal Express Checkout</p>
-                            </div>
 
-                        </mat-panel-title>
-                        <mat-panel-description>
+                            </mat-panel-title>
+                            <mat-panel-description>
 
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
 
-                    <div class="top-border">
-                        <form [formGroup]="paypal" class="example-form payment-gateway-form ml-auto">
-                            <div class="d-flex flex-wrap">
-                                <label class="payment-label">Client Id</label>
-                                <mat-form-field class="example-full-width bottom-border-field">
-                                    <input formControlName="clientId" matInput placeholder="" value="">
-                                </mat-form-field>
-                                <span class="w-100 error-wrap" *ngIf="paypal.get('clientId').dirty || paypal.get('clientId').touched">
+                        <div class="top-border">
+                            <form [formGroup]="paypal" class="example-form payment-gateway-form ml-auto">
+                                <div class="d-flex flex-wrap">
+                                    <label class="payment-label">Client Id</label>
+                                    <mat-form-field class="example-full-width bottom-border-field">
+                                        <input formControlName="clientId" matInput placeholder="" value="">
+                                    </mat-form-field>
+                                    <span class="w-100 error-wrap" *ngIf="paypal.get('clientId').dirty || paypal.get('clientId').touched">
                                     <small *ngIf="paypal.get('clientId').hasError('required')" class="error">Client Id is required</small>
                                 </span>
-                            </div>
-                            <!-- <div class="d-flex flex-wrap">
+                                </div>
+                                <!-- <div class="d-flex flex-wrap">
                                 <label class="payment-label">API Username</label>
                                 <mat-form-field class="example-full-width bottom-border-field">
                                     <input formControlName="apiUsername" matInput placeholder="" value="">
@@ -63,74 +143,74 @@
                                     <small *ngIf="paypal.get('signature').hasError('required')" class="error">Signature is required</small>
                                 </span>
                             </div> -->
-                            <!-- <div class="d-flex flex-wrap">
+                                <!-- <div class="d-flex flex-wrap">
                                 <label class="">Paypal guest payment</label>
                                 <mat-slide-toggle *ngIf="paypalSettingValue" [checked]="paypalSettingValue.paypal_guest_payment" (change)="fnPaypalGuest($event.checked)" class="ml-auto"></mat-slide-toggle>
                             </div> -->
-                            <div class="d-flex flex-wrap mt-3">
-                                <label class="">Test Mode</label>
-                                <mat-slide-toggle [checked]="paypalTestStatus" (change)="fnPaypalTest($event.checked)" class="ml-auto"></mat-slide-toggle>
-                            </div>
-                            <div class="">
-                                <button mat-button class="float-right save-btn my-3" (click)="fnSubmitPaypal()">Save</button>
-                            </div>
+                                <div class="d-flex flex-wrap mt-3">
+                                    <label class="">Test Mode</label>
+                                    <mat-slide-toggle [checked]="paypalTestStatus" (change)="fnPaypalTest($event.checked)" class="ml-auto"></mat-slide-toggle>
+                                </div>
+                                <div class="">
+                                    <button mat-button class="float-right save-btn my-3" (click)="fnSubmitPaypal()">Save</button>
+                                </div>
 
-                        </form>
-                    </div>
+                            </form>
+                        </div>
 
-                </mat-expansion-panel>
-            </mat-accordion>
-            <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
-                <mat-expansion-panel [expanded]="stripeStatus">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <div class="d-flex">
+                    </mat-expansion-panel>
+                </mat-accordion>
+                <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
+                    <mat-expansion-panel [expanded]="stripeStatus">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <div class="d-flex">
+                                    <div>
+                                        <img src="/assets/images/admin/stripe.png" class="payment-image">
+                                    </div>
+                                    <div class="payment-toggle-btn">
+                                        <mat-slide-toggle [checked]="stripeStatus" (change)="fnStripeStatus($event.checked)" class=""></mat-slide-toggle>
+                                    </div>
+                                </div>
                                 <div>
-                                    <img src="/assets/images/admin/stripe.png" class="payment-image">
+                                    <p class="mb-0 pt-2">Stripe Payment Form</p>
                                 </div>
-                                <div class="payment-toggle-btn">
-                                    <mat-slide-toggle [checked]="stripeStatus" (change)="fnStripeStatus($event.checked)" class=""></mat-slide-toggle>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="mb-0 pt-2">Stripe Payment Form</p>
-                            </div>
 
-                        </mat-panel-title>
-                        <mat-panel-description>
+                            </mat-panel-title>
+                            <mat-panel-description>
 
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
 
-                    <div class="top-border">
-                        <form [formGroup]="stripe" class="example-form payment-gateway-form ml-auto">
-                            <div class="d-flex flex-wrap">
-                                <label class="payment-label">Secret Key</label>
-                                <mat-form-field class="example-full-width bottom-border-field">
-                                    <input formControlName="secretKey" matInput placeholder="" value="">
-                                </mat-form-field>
-                                <span class="w-100 error-wrap" *ngIf="stripe.get('secretKey').dirty || stripe.get('secretKey').touched">
+                        <div class="top-border">
+                            <form [formGroup]="stripe" class="example-form payment-gateway-form ml-auto">
+                                <div class="d-flex flex-wrap">
+                                    <label class="payment-label">Secret Key</label>
+                                    <mat-form-field class="example-full-width bottom-border-field">
+                                        <input formControlName="secretKey" matInput placeholder="" value="">
+                                    </mat-form-field>
+                                    <span class="w-100 error-wrap" *ngIf="stripe.get('secretKey').dirty || stripe.get('secretKey').touched">
                                     <small *ngIf="stripe.get('secretKey').hasError('required')" class="error">Secret key is required</small>
                                 </span>
-                            </div>
-                            <div class="d-flex flex-wrap">
-                                <label class="payment-label">Publishable Key</label>
-                                <mat-form-field class="example-full-width bottom-border-field">
-                                    <input formControlName="publishableKey" class="ml-auto" matInput placeholder="" value="">
-                                </mat-form-field>
-                                <span class="w-100 error-wrap" *ngIf="stripe.get('publishableKey').dirty || stripe.get('publishableKey').touched">
+                                </div>
+                                <div class="d-flex flex-wrap">
+                                    <label class="payment-label">Publishable Key</label>
+                                    <mat-form-field class="example-full-width bottom-border-field">
+                                        <input formControlName="publishableKey" class="ml-auto" matInput placeholder="" value="">
+                                    </mat-form-field>
+                                    <span class="w-100 error-wrap" *ngIf="stripe.get('publishableKey').dirty || stripe.get('publishableKey').touched">
                                     <small *ngIf="stripe.get('publishableKey').hasError('required')" class="error">Publishable key is required</small>
                                 </span>
-                            </div>
-                            <div class="">
-                                <button mat-button class="float-right save-btn my-3" (click)="fnSubmitStripe()">Save</button>
-                            </div>
-                        </form>
-                    </div>
-                </mat-expansion-panel>
-            </mat-accordion>
+                                </div>
+                                <div class="">
+                                    <button mat-button class="float-right save-btn my-3" (click)="fnSubmitStripe()">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
 
-            <!-- <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
+                <!-- <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
                             <mat-expansion-panel>
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
@@ -173,9 +253,9 @@
                             
                             </mat-expansion-panel>
                         </mat-accordion> -->
-        </div>
+            </div>
 
-        <!--<div class="row mx-0">
+            <!--<div class="row mx-0">
              <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>
@@ -273,136 +353,136 @@
                     </mat-accordion>
         </div> -->
 
-        <div class="row mx-0">
-            <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
-                <mat-expansion-panel [expanded]="payumoneyStatus">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <div class="d-flex">
+            <div class="row mx-0">
+                <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
+                    <mat-expansion-panel [expanded]="payumoneyStatus">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <div class="d-flex">
+                                    <div>
+                                        <img src="/assets/images/admin/payumoney.png" class="payment-image">
+                                    </div>
+                                    <div class="payment-toggle-btn">
+                                        <mat-slide-toggle [checked]="payumoneyStatus" (change)="fnPayumoneyStatus($event.checked)" class=""></mat-slide-toggle>
+                                    </div>
+                                </div>
                                 <div>
-                                    <img src="/assets/images/admin/payumoney.png" class="payment-image">
+                                    <p class="mb-0 pt-2">PayU Money</p>
                                 </div>
-                                <div class="payment-toggle-btn">
-                                    <mat-slide-toggle [checked]="payumoneyStatus" (change)="fnPayumoneyStatus($event.checked)" class=""></mat-slide-toggle>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="mb-0 pt-2">PayU Money</p>
-                            </div>
 
-                        </mat-panel-title>
-                        <mat-panel-description>
+                            </mat-panel-title>
+                            <mat-panel-description>
 
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
 
-                    <div class="top-border">
-                        <form [formGroup]="payumoney" class="example-form ml-auto payment-gateway-form">
-                            <div class="d-flex flex-wrap">
-                                <label class="payment-label">Merchant Key</label>
-                                <mat-form-field class="example-full-width bottom-border-field">
-                                    <input formControlName="merchantKey" matInput placeholder="" value="">
-                                </mat-form-field>
-                                <span class="w-100 error-wrap" *ngIf="payumoney.get('merchantKey').dirty || payumoney.get('merchantKey').touched">
+                        <div class="top-border">
+                            <form [formGroup]="payumoney" class="example-form ml-auto payment-gateway-form">
+                                <div class="d-flex flex-wrap">
+                                    <label class="payment-label">Merchant Key</label>
+                                    <mat-form-field class="example-full-width bottom-border-field">
+                                        <input formControlName="merchantKey" matInput placeholder="" value="">
+                                    </mat-form-field>
+                                    <span class="w-100 error-wrap" *ngIf="payumoney.get('merchantKey').dirty || payumoney.get('merchantKey').touched">
                                     <small *ngIf="payumoney.get('merchantKey').hasError('required')" class="error">Merchant key is required</small>
                                 </span>
-                            </div>
-                            <div class="d-flex flex-wrap">
-                                <label class="payment-label">Salt Key</label>
-                                <mat-form-field class="example-full-width bottom-border-field">
-                                    <input formControlName="saltKey" class="ml-auto" matInput placeholder="" value="">
-                                </mat-form-field>
-                                <span class="w-100 error-wrap" *ngIf="payumoney.get('saltKey').dirty || payumoney.get('saltKey').touched">
+                                </div>
+                                <div class="d-flex flex-wrap">
+                                    <label class="payment-label">Salt Key</label>
+                                    <mat-form-field class="example-full-width bottom-border-field">
+                                        <input formControlName="saltKey" class="ml-auto" matInput placeholder="" value="">
+                                    </mat-form-field>
+                                    <span class="w-100 error-wrap" *ngIf="payumoney.get('saltKey').dirty || payumoney.get('saltKey').touched">
                                     <small *ngIf="payumoney.get('saltKey').hasError('required')" class="error">Salt key is required</small>
                                 </span>
-                            </div>
-                            <div class="">
-                                <button mat-button class="float-right save-btn my-3" (click)="fnSubmitPayumoney()">Save</button>
-                            </div>
-                        </form>
-                    </div>
+                                </div>
+                                <div class="">
+                                    <button mat-button class="float-right save-btn my-3" (click)="fnSubmitPayumoney()">Save</button>
+                                </div>
+                            </form>
+                        </div>
 
-                </mat-expansion-panel>
-            </mat-accordion>
+                    </mat-expansion-panel>
+                </mat-accordion>
 
-            <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
-                <mat-expansion-panel [expanded]="bankTransferStatus">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <div class="d-flex">
+                <mat-accordion class="col-lg-6 col-md-6 col-sm-12">
+                    <mat-expansion-panel [expanded]="bankTransferStatus">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <div class="d-flex">
+                                    <div>
+                                        <img src="/assets/images/admin/banktransfer.png" class="payment-image">
+                                    </div>
+                                    <div class="payment-toggle-btn">
+                                        <mat-slide-toggle [checked]="bankTransferStatus" (change)="fnBankTransferStatus($event.checked)" class=""></mat-slide-toggle>
+                                    </div>
+                                </div>
                                 <div>
-                                    <img src="/assets/images/admin/banktransfer.png" class="payment-image">
+                                    <p class="mb-0 pt-2">Add Your Bank To Transfer</p>
                                 </div>
-                                <div class="payment-toggle-btn">
-                                    <mat-slide-toggle [checked]="bankTransferStatus" (change)="fnBankTransferStatus($event.checked)" class=""></mat-slide-toggle>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="mb-0 pt-2">Add Your Bank To Transfer</p>
-                            </div>
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
 
-                    <div class="top-border">
-                        <form [formGroup]="bankTransfer" class="example-form ml-auto payment-gateway-form">
-                            <div class="d-flex flex-wrap">
-                                <label class="payment-label">Bank Name</label>
-                                <mat-form-field class="example-full-width bottom-border-field">
-                                    <input formControlName="bankName" matInput placeholder="" value="">
-                                </mat-form-field>
-                                <span class="w-100 error-wrap" *ngIf="bankTransfer.get('bankName').dirty || bankTransfer.get('bankName').touched">
+                        <div class="top-border">
+                            <form [formGroup]="bankTransfer" class="example-form ml-auto payment-gateway-form">
+                                <div class="d-flex flex-wrap">
+                                    <label class="payment-label">Bank Name</label>
+                                    <mat-form-field class="example-full-width bottom-border-field">
+                                        <input formControlName="bankName" matInput placeholder="" value="">
+                                    </mat-form-field>
+                                    <span class="w-100 error-wrap" *ngIf="bankTransfer.get('bankName').dirty || bankTransfer.get('bankName').touched">
                                     <small *ngIf="bankTransfer.get('bankName').hasError('required')" class="error">Bank name is required</small>
                                 </span>
-                            </div>
-                            <div class="d-flex flex-wrap">
-                                <label class="payment-label">Account Name</label>
-                                <mat-form-field class="example-full-width bottom-border-field">
-                                    <input formControlName="accountName" class="ml-auto" matInput placeholder="" value="">
-                                </mat-form-field>
-                                <span class="w-100 error-wrap" *ngIf="bankTransfer.get('accountName').dirty || bankTransfer.get('accountName').touched">
+                                </div>
+                                <div class="d-flex flex-wrap">
+                                    <label class="payment-label">Account Name</label>
+                                    <mat-form-field class="example-full-width bottom-border-field">
+                                        <input formControlName="accountName" class="ml-auto" matInput placeholder="" value="">
+                                    </mat-form-field>
+                                    <span class="w-100 error-wrap" *ngIf="bankTransfer.get('accountName').dirty || bankTransfer.get('accountName').touched">
                                     <small *ngIf="bankTransfer.get('accountName').hasError('required')" class="error">Account name is required</small>
                                 </span>
-                            </div>
-                            <div class="d-flex flex-wrap">
-                                <label class="payment-label">Account Number</label>
-                                <mat-form-field class="example-full-width bottom-border-field">
-                                    <input formControlName="accountNumber" matInput placeholder="" value="">
-                                </mat-form-field>
-                                <span class="w-100 error-wrap" *ngIf="bankTransfer.get('accountNumber').dirty || bankTransfer.get('accountNumber').touched">
+                                </div>
+                                <div class="d-flex flex-wrap">
+                                    <label class="payment-label">Account Number</label>
+                                    <mat-form-field class="example-full-width bottom-border-field">
+                                        <input formControlName="accountNumber" matInput placeholder="" value="">
+                                    </mat-form-field>
+                                    <span class="w-100 error-wrap" *ngIf="bankTransfer.get('accountNumber').dirty || bankTransfer.get('accountNumber').touched">
                                     <small *ngIf="bankTransfer.get('accountNumber').hasError('required')" class="error">Account number is required</small>
                                 </span>
-                            </div>
-                            <div class="d-flex flex-wrap">
-                                <label class="payment-label">Branch Code</label>
-                                <mat-form-field class="example-full-width bottom-border-field">
-                                    <input formControlName="branchCode" class="ml-auto" matInput placeholder="" value="">
-                                </mat-form-field>
-                            </div>
-                            <div class="d-flex flex-wrap">
-                                <label class="payment-label">IFSC Code</label>
-                                <mat-form-field class="example-full-width bottom-border-field">
-                                    <input formControlName="IFSCCode" class="ml-auto" matInput placeholder="" value="">
-                                </mat-form-field>
-                                <span class="w-100 error-wrap" *ngIf="bankTransfer.get('IFSCCode').dirty || bankTransfer.get('IFSCCode').touched">
+                                </div>
+                                <div class="d-flex flex-wrap">
+                                    <label class="payment-label">Branch Code</label>
+                                    <mat-form-field class="example-full-width bottom-border-field">
+                                        <input formControlName="branchCode" class="ml-auto" matInput placeholder="" value="">
+                                    </mat-form-field>
+                                </div>
+                                <div class="d-flex flex-wrap">
+                                    <label class="payment-label">IFSC Code</label>
+                                    <mat-form-field class="example-full-width bottom-border-field">
+                                        <input formControlName="IFSCCode" class="ml-auto" matInput placeholder="" value="">
+                                    </mat-form-field>
+                                    <span class="w-100 error-wrap" *ngIf="bankTransfer.get('IFSCCode').dirty || bankTransfer.get('IFSCCode').touched">
                                     <small *ngIf="bankTransfer.get('IFSCCode').hasError('required')" class="error">IFSC code is required</small>
                                 </span>
-                            </div>
-                            <div class="d-flex flex-wrap">
-                                <label class="payment-label">Bank Description</label>
-                                <mat-form-field class="example-full-width bottom-border-field">
-                                    <textarea formControlName="bankDescription" matInput placeholder=""></textarea>
-                                </mat-form-field>
-                            </div>
+                                </div>
+                                <div class="d-flex flex-wrap">
+                                    <label class="payment-label">Bank Description</label>
+                                    <mat-form-field class="example-full-width bottom-border-field">
+                                        <textarea formControlName="bankDescription" matInput placeholder=""></textarea>
+                                    </mat-form-field>
+                                </div>
 
-                            <div class="">
-                                <button mat-button class="float-right save-btn my-3" (click)="fnSubmitBankTransfer()">Save</button>
-                            </div>
-                        </form>
-                    </div>
-                </mat-expansion-panel>
-            </mat-accordion>
-        </div>
-        <!-- <div class="w-100  align-items-center d-flex ml-auto">
+                                <div class="">
+                                    <button mat-button class="float-right save-btn my-3" (click)="fnSubmitBankTransfer()">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <!-- <div class="w-100  align-items-center d-flex ml-auto">
             <div class="action-btn">
                 <div class="mx-2">
                     <button mat-button appearance="fill" class="payment-cancel-btn">Cancel</button>
@@ -412,7 +492,7 @@
                 </div>
             </div>
         </div> -->
-    </mat-card>
+        </mat-card>
 
-
+    </div>
 </mat-drawer-content>

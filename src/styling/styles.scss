@@ -748,6 +748,87 @@ button:focus {
     background-color: #ddd;
     opacity: 0.7;
 }
-i.fa.fa-plus-circle.pl-2.note-icon{
-    color:#1172f4;
+
+i.fa.fa-plus-circle.pl-2.note-icon {
+    color: #1172f4;
+}
+
+.setting-menu {
+    background-color: #fbfbfb;
+    width: 250px;
+    position: fixed;
+    top: 65px;
+    height: 100vh;
+    box-shadow: 5px 9px 10px #e5e3e3;
+    z-index: 9;
+    overflow-y: scroll;
+    .setting-menu-item {
+        cursor: pointer;
+        padding: 10px 20px;
+        align-items: center;
+        transition: all 0.3s;
+        p {
+            margin: 0;
+            font-weight: 500;
+        }
+        .menu-icon {
+            margin-right: 10px;
+            display: block;
+            height: 28px;
+            width: 28px;
+            img {
+                width: 100%;
+                position: relative;
+            }
+            .normal {}
+            .colored {
+                top: -20px;
+                opacity: 0;
+                display: none;
+            }
+        }
+        &:hover {
+            background-color: #ddeafd;
+            color: #1273f6;
+            .menu-icon {
+                .normal {
+                    top: -20px;
+                    opacity: 0;
+                    display: none;
+                }
+                .colored {
+                    top: 0px;
+                    opacity: 1;
+                    display: block;
+                }
+            }
+        }
+        &.setting-menu-active {
+            background-color: #ddeafd;
+            color: #1273f6;
+            .menu-icon {
+                .normal {
+                    top: -20px;
+                    opacity: 0;
+                    display: none;
+                }
+                .colored {
+                    top: 0px;
+                    opacity: 1;
+                    display: block;
+                }
+            }
+        }
+    }
+    h6 {
+        font-size: 16px;
+        font-weight: 600;
+        padding-left: 15px;
+    }
+}
+
+.setting-right-side-content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    margin-top: 65px;
 }

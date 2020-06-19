@@ -1,61 +1,58 @@
-
-.main-postalcode-content{
-margin: 30px;
-
-.time-of-btn{
-    width: 160px;
-    height: 37px;
-    border-radius: 26px;
-    background-color: #a8ceff;
-    padding-left: 0;
-    padding-right: 8px;
-    color: #378af6;
-
+.main-postalcode-content {
+    margin: 10px;
+    .time-of-btn {
+        width: 160px;
+        height: 37px;
+        border-radius: 26px;
+        background-color: #a8ceff;
+        padding-left: 0;
+        padding-right: 8px;
+        color: #378af6;
+    }
 }
 
-}
-.postalcode-searchbox{
+.postalcode-searchbox {
     margin-left: auto;
-    .search_input-postalcode{           
-        height: 39px; 
-        padding-top: 3px; 
+    .search_input-postalcode {
+        height: 39px;
+        padding-top: 3px;
         .has-search .form-control {
             padding-left: 2.375rem;
             //width: 60%;
-            }
-            .has-search .form-control-feedback {
-                position: absolute;
-                z-index: 2;
-                display: block;
-                width: 2.375rem;
-                height: 1rem;
-                line-height: 2rem;
-                text-align: center;
-                pointer-events: none;
-                color: black;
-                .verticalLine{
-                    &:after {
-                        content: "";
-                        position: absolute;
-                        top: 58%;
-                        right: 0;
-                        width: 1px;
-                        height: 100%;
-                        background: #dfc0c0;
+        }
+        .has-search .form-control-feedback {
+            position: absolute;
+            z-index: 2;
+            display: block;
+            width: 2.375rem;
+            height: 1rem;
+            line-height: 2rem;
+            text-align: center;
+            pointer-events: none;
+            color: black;
+            .verticalLine {
+                &:after {
+                    content: "";
+                    position: absolute;
+                    top: 58%;
+                    right: 0;
+                    width: 1px;
+                    height: 100%;
+                    background: #dfc0c0;
                 }
-                } 
             }
-            ::placeholder {         
-                font-size: 12px;
-            }                        
-            .searchbox_postalcode{
-                border-radius: 20px;
-                height: 34px;
-            }          
-    }                   
+        }
+         ::placeholder {
+            font-size: 12px;
+        }
+        .searchbox_postalcode {
+            border-radius: 20px;
+            height: 34px;
+        }
+    }
 }
 
-.dropdown-width{
+.dropdown-width {
     width: 20%;
 }
 
@@ -70,10 +67,10 @@ margin: 30px;
     box-sizing: border-box;
     background: white;
     font-size: 14px;
-    &.header-background{
+    &.header-background {
         background-color: #f7f7f7;
     }
-    .check-icon-background{
+    .check-icon-background {
         background-color: #737373;
         border-radius: 100%;
         padding: 0px 4px;
@@ -82,7 +79,7 @@ margin: 30px;
         // border-radius: 16px;
         // background-color: #1173f4;
     }
-    .staff-details-width{
+    .staff-details-width {
         width: 50px;
         height: 50px;
         border-radius: 34px;
@@ -90,15 +87,13 @@ margin: 30px;
     }
 }
 
-.delete-box{
-
+.delete-box {
     font-size: 20px;
     color: red;
 }
 
-::ng-deep .postal-cancel-btn{
+::ng-deep .postal-cancel-btn {
     width: 100px;
     border-radius: 50px;
-    background-color : #ededed;
+    background-color: #ededed;
 }
-

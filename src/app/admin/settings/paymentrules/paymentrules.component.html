@@ -1,75 +1,156 @@
 <mat-drawer-content id="paymentrules" class="ml-0">
-    <mat-card class="payment-rules">
-        <h5>Payment Rules</h5>
-        <mat-card>
-            <!-- <h5>{{'USD'| currencySymbol}}</h5> -->
-            <!-- <h5> {{selectedCurrency| currencySymbol:'wide'}} {{ '3522.595' | currency:selectedCurrency:'':'1.2-2':'en-US' }}</h5> -->
-            <h5>Currency</h5>
-            <div class="d-flex">
-                <mat-form-field class="bottom-border-field mr-2">
-                    <mat-icon matPrefix>{{selectedCurrency| currencySymbol:'wide'}}</mat-icon>
-                    <mat-label>Select Currency</mat-label>
-                    <mat-select (selectionChange)="fnChangeCurrency($event.value)" [(value)]="selectedCurrency">
-                        <mat-option *ngFor="let currenciesData of currenciesData; let i=index" value="{{currenciesData.CurrencyCode}}">{{currenciesData.CurrencyName}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field class="bottom-border-field mr-2">
-                    <mat-label>Currency Symbol Position</mat-label>
-                    <mat-select (selectionChange)="fnCurrencyPosition($event.value)" [(value)]="selectedCurrencyPosition">
-                        <mat-option value="left">Left</mat-option>
-                        <mat-option value="right">Right</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field class="bottom-border-field">
-                    <mat-label>Select Currency Format</mat-label>
-                    <mat-select (selectionChange)="fnCurrencyFormat($event.value)" [(value)]="selectedCurrencyFormat">
-                        <mat-option value="en-US">xx,xxx.xx</mat-option>
-                        <mat-option value="de">xx.xxx,xx</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-        </mat-card>
-        <div class="d-flex tax-background">
-            <p class="mb-0"><b>Tax</b></p>
-            <div class="mx-2 ml-auto">
-                <button (click)="addTax()" mat-button appearance="fill" class="payment-addtax-btn">Add Tax</button>
-            </div>
+    <div class="left-side-menu setting-menu">
+        <div class="leftarrow-icon d-flex">
+            <mat-icon aria-hidden="false" class="customer-drawer-leftarrow ml-auto">arrow_back</mat-icon>
         </div>
-        <div class="border mt-3">
-            <div class="tax-background">
-                <p class="my-2"><b>Tax</b></p>
+        <h6>Resource Management</h6>
+        <div routerLink="/admin/settings" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/service.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/service-color.png" />
             </div>
+            <p>Services</p>
+        </div>
+        <div routerLink="/admin/settings/staff" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/staff.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/staff-color.png" />
+            </div>
+            <p>Staff</p>
+        </div>
+        <div routerLink="/admin/settings/business-hours" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/business-hours.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/business-hours-color.png" />
+            </div>
+            <p>Business Hours</p>
+        </div>
+        <div routerLink="/admin/settings/postalcode" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/postalcode.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/postalcode-color.png" />
+            </div>
+            <p>Postal Codes</p>
+        </div>
+        <h6 class="pt-3">Account</h6>
+        <div routerLink="/admin/settings/company-details" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/companydetails.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/companydetails-color.png" />
+            </div>
+            <p>Company Details</p>
+        </div>
+        <h6 class="pt-3">Payment</h6>
+        <div routerLink="/admin/settings/payment-gateway" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentgateway.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/paymentgateway-color.png" />
+            </div>
+            <p>Payment Gateway</p>
+        </div>
+        <div routerLink="/admin/settings/payment-rules" class="d-flex setting-menu-item setting-menu-active">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentrules.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/paymentrules-color.png" />
+            </div>
+            <p>Payment Rules</p>
+        </div>
+        <h6 class="pt-3">General Setting</h6>
+        <div routerLink="/admin/settings/appearance" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/appearance.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/appearance-color.png" />
+            </div>
+            <p>Appearance</p>
+        </div>
+        <div routerLink="/admin/settings/booking-rules" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/bookingrules.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/bookingrules-color.png" />
+            </div>
+            <p>Booking Rules</p>
+        </div>
+        <div routerLink="/admin/settings/alert-settings" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/alert.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/alert-color.png" />
+            </div>
+            <p>Alert Rules</p>
+        </div>
+    </div>
+    <div class="h-100 setting-right-side-content">
+        <mat-card class="payment-rules">
+            <h5>Payment Rules</h5>
+            <mat-card>
+                <!-- <h5>{{'USD'| currencySymbol}}</h5> -->
+                <!-- <h5> {{selectedCurrency| currencySymbol:'wide'}} {{ '3522.595' | currency:selectedCurrency:'':'1.2-2':'en-US' }}</h5> -->
+                <h5>Currency</h5>
+                <div class="d-flex">
+                    <mat-form-field class="bottom-border-field mr-2">
+                        <mat-icon matPrefix>{{selectedCurrency| currencySymbol:'wide'}}</mat-icon>
+                        <mat-label>Select Currency</mat-label>
+                        <mat-select (selectionChange)="fnChangeCurrency($event.value)" [(value)]="selectedCurrency">
+                            <mat-option *ngFor="let currenciesData of currenciesData; let i=index" value="{{currenciesData.CurrencyCode}}">{{currenciesData.CurrencyName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="bottom-border-field mr-2">
+                        <mat-label>Currency Symbol Position</mat-label>
+                        <mat-select (selectionChange)="fnCurrencyPosition($event.value)" [(value)]="selectedCurrencyPosition">
+                            <mat-option value="left">Left</mat-option>
+                            <mat-option value="right">Right</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="bottom-border-field">
+                        <mat-label>Select Currency Format</mat-label>
+                        <mat-select (selectionChange)="fnCurrencyFormat($event.value)" [(value)]="selectedCurrencyFormat">
+                            <mat-option value="en-US">xx,xxx.xx</mat-option>
+                            <mat-option value="de">xx.xxx,xx</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </mat-card>
+            <div class="d-flex tax-background">
+                <p class="mb-0"><b>Tax</b></p>
+                <div class="mx-2 ml-auto">
+                    <button (click)="addTax()" mat-button appearance="fill" class="payment-addtax-btn">Add Tax</button>
+                </div>
+            </div>
+            <div class="border mt-3">
+                <div class="tax-background">
+                    <p class="my-2"><b>Tax</b></p>
+                </div>
 
-            <div class="p-3">
-                <div class="Customer-appointment-table">
-                    <div class="main-table-content main-cust-table-content">
-                        <div class="">
-                            <div class="heads main-heading-content example-box header-background" fxLayout="row">
-                                <div class="" fxFlex="40"></div>
-                                <div class="" fxFlex="30"></div>
-                                <div class="" fxFlex="30"></div>
-                            </div>
-                            <div class="content" class="example-list">
-                                <div *ngFor="let taxesData of taxesData; let i=index" class="example-box my-1">
-                                    <div class="" fxFlex="40">
-                                        <div class="d-flex align-items-center">
-                                            <p class="text-capitalize mb-0">{{taxesData.name}}</p>
+                <div class="p-3">
+                    <div class="Customer-appointment-table">
+                        <div class="main-table-content main-cust-table-content">
+                            <div class="">
+                                <div class="heads main-heading-content example-box header-background" fxLayout="row">
+                                    <div class="" fxFlex="40"></div>
+                                    <div class="" fxFlex="30"></div>
+                                    <div class="" fxFlex="30"></div>
+                                </div>
+                                <div class="content" class="example-list">
+                                    <div *ngFor="let taxesData of taxesData; let i=index" class="example-box my-1">
+                                        <div class="" fxFlex="40">
+                                            <div class="d-flex align-items-center">
+                                                <p class="text-capitalize mb-0">{{taxesData.name}}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="" fxFlex="30">{{taxesData.value}}%</div>
-                                    <div class="d-flex" fxFlex="30">
-                                        <button mat-button appearance="fill" class="ml-auto payment-delete-btn" (click)="deleteTax(taxesData.id)">
+                                        <div class="" fxFlex="30">{{taxesData.value}}%</div>
+                                        <div class="d-flex" fxFlex="30">
+                                            <button mat-button appearance="fill" class="ml-auto payment-delete-btn" (click)="deleteTax(taxesData.id)">
                                             <mat-icon aria-hidden="false">delete_outline</mat-icon>
                                             Delete
                                         </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-        </div>
-    </mat-card>
+            </div>
+        </mat-card>
+    </div>
 </mat-drawer-content>

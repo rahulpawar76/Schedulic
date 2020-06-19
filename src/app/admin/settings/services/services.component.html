@@ -1,6 +1,92 @@
-<mat-drawer-content id="services" class="ml-0">
+<mat-drawer-content class="main-setting-container" id="services" class="ml-0">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
-    <mat-drawer-container class="h-100" data-aa="">
+    <div class="left-side-menu setting-menu">
+        <div class="leftarrow-icon d-flex">
+            <mat-icon aria-hidden="false" class="customer-drawer-leftarrow ml-auto">arrow_back</mat-icon>
+        </div>
+        <h6>Resource Management</h6>
+        <div routerLink="/admin/settings" class="d-flex setting-menu-item setting-menu-active">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/service.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/service-color.png" />
+            </div>
+            <p>Services</p>
+        </div>
+        <div routerLink="/admin/settings/staff" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/staff.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/staff-color.png" />
+            </div>
+            <p>Staff</p>
+        </div>
+        <div routerLink="/admin/settings/business-hours" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/business-hours.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/business-hours-color.png" />
+            </div>
+            <p>Business Hours</p>
+        </div>
+        <div routerLink="/admin/settings/postalcode" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/postalcode.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/postalcode-color.png" />
+            </div>
+            <p>Postal Codes</p>
+        </div>
+        <h6 class="pt-3">Account</h6>
+        <!-- <div (click)="MySettingsProfileNav()" class="d-flex setting-menu-item">
+<div class="menu-icon">
+<img class="normal" src="../../../../assets/images/admin/settings-menu/my-profile.png" />
+<img class="colored" src="../../../../assets/images/admin/settings-menu/my-profile-color.png" />
+</div>
+<p>My Profile</p>
+</div> -->
+        <div routerLink="/admin/settings/company-details" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/companydetails.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/companydetails-color.png" />
+            </div>
+            <p>Company Details</p>
+        </div>
+        <h6 class="pt-3">Payment</h6>
+        <div routerLink="/admin/settings/payment-gateway" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentgateway.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/paymentgateway-color.png" />
+            </div>
+            <p>Payment Gateway</p>
+        </div>
+        <div routerLink="/admin/settings/payment-rules" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentrules.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/paymentrules-color.png" />
+            </div>
+            <p>Payment Rules</p>
+        </div>
+        <h6 class="pt-3">General Setting</h6>
+        <div routerLink="/admin/settings/appearance" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/appearance.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/appearance-color.png" />
+            </div>
+            <p>Appearance</p>
+        </div>
+        <div routerLink="/admin/settings/booking-rules" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/bookingrules.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/bookingrules-color.png" />
+            </div>
+            <p>Booking Rules</p>
+        </div>
+        <div routerLink="/admin/settings/alert-settings" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/alert.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/alert-color.png" />
+            </div>
+            <p>Alert Rules</p>
+        </div>
+    </div>
+    <mat-drawer-container class="h-100 setting-right-side-content">
         <mat-drawer [disableClose]="true" mode="side" opened class="category-sidebar" style="width:250px; background-color: #f8fbff;">
             <!-- <mat-list role="list">
                 <div  class="pl-2 bottom-border d-flex">
@@ -87,7 +173,7 @@
 
                 </div>
 
-                <div class="table_pagination" *ngIf="allServicesList != ''" >
+                <div class="table_pagination" *ngIf="allServicesList != ''">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">
                             <li class="page-item" (click)="navigateTo(first_page_url,'service')"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
