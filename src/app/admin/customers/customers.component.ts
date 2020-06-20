@@ -15,7 +15,7 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { AppComponent } from '@app/app.component';
 import { ExportToCsv } from 'export-to-csv';
 import * as domtoimage from 'dom-to-image';
-import * as jspdf from 'jspdf';
+// import * as jspdf from 'jspdf';
 //import { IgxExcelExporterService, IgxExcelExporterOptions } from "igniteui-angular";
 
 
@@ -2811,90 +2811,90 @@ onNoClick(): void {
     }
     public captureScreen() {
       // this.loader = true;
-      let setLable = "invoice";
-      if (!document.getElementById('printInvoice')) {
-        // this.loader = false;
-        return false;
-      }
-      let data = document.getElementById('printInvoice');
-      let HTML_Width = document.getElementById('printInvoice').offsetWidth;
-      let HTML_Height = document.getElementById('printInvoice').clientHeight;
-      let top_left_margin = 35;
-      let PDF_Width = HTML_Width + (top_left_margin * 2);
-      let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
-      let canvas_image_width = HTML_Width;
-      let canvas_image_height = HTML_Height;
+      // let setLable = "invoice";
+      // if (!document.getElementById('printInvoice')) {
+      //   // this.loader = false;
+      //   return false;
+      // }
+      // let data = document.getElementById('printInvoice');
+      // let HTML_Width = document.getElementById('printInvoice').offsetWidth;
+      // let HTML_Height = document.getElementById('printInvoice').clientHeight;
+      // let top_left_margin = 35;
+      // let PDF_Width = HTML_Width + (top_left_margin * 2);
+      // let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+      // let canvas_image_width = HTML_Width;
+      // let canvas_image_height = HTML_Height;
 
-      let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
-      let today = Date.now();
-      let that = this;
-      domtoimage.toPng(document.getElementById('printInvoice'))
-        .then(function (blob) {
-          var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
-          pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-          for (let i = 1; i <= totalPDFPages; i++) {
-            pdf.addPage(PDF_Width, PDF_Height);
-            pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
-          }
-          pdf.save("invoice_" + today + ".pdf");
-          // that.loader = false;
-        });
+      // let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+      // let today = Date.now();
+      // let that = this;
+      // domtoimage.toPng(document.getElementById('printInvoice'))
+      //   .then(function (blob) {
+      //     var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
+      //     pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+      //     for (let i = 1; i <= totalPDFPages; i++) {
+      //       pdf.addPage(PDF_Width, PDF_Height);
+      //       pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+      //     }
+      //     pdf.save("invoice_" + today + ".pdf");
+      //     // that.loader = false;
+      //   });
     }
 
     fnSendInvoiceEmail(){
-      let setLable = "invoice";
-      if (!document.getElementById('printInvoice')) {
-        return false;
-      }
-      let data = document.getElementById('printInvoice');
-      let HTML_Width = document.getElementById('printInvoice').offsetWidth;
-      let HTML_Height = document.getElementById('printInvoice').clientHeight;
-      let top_left_margin = 35;
-      let PDF_Width = HTML_Width + (top_left_margin * 2);
-      let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
-      let canvas_image_width = HTML_Width;
-      let canvas_image_height = HTML_Height;
+      // let setLable = "invoice";
+      // if (!document.getElementById('printInvoice')) {
+      //   return false;
+      // }
+      // let data = document.getElementById('printInvoice');
+      // let HTML_Width = document.getElementById('printInvoice').offsetWidth;
+      // let HTML_Height = document.getElementById('printInvoice').clientHeight;
+      // let top_left_margin = 35;
+      // let PDF_Width = HTML_Width + (top_left_margin * 2);
+      // let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+      // let canvas_image_width = HTML_Width;
+      // let canvas_image_height = HTML_Height;
 
-      let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
-      let today = Date.now();
-      let that = this;
-      var formData = new FormData();
-      domtoimage.toPng(document.getElementById('printInvoice'))
-        .then(function (blob) {
-          var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
-          pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-          for (let i = 1; i <= totalPDFPages; i++) {
-            pdf.addPage(PDF_Width, PDF_Height);
-            pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
-          }
-          console.log(pdf);
-          // pdf.save("invoice_" + today + ".pdf");
-          // that.loader = false;
-          setTimeout(() => { 
+      // let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+      // let today = Date.now();
+      // let that = this;
+      // var formData = new FormData();
+      // domtoimage.toPng(document.getElementById('printInvoice'))
+      //   .then(function (blob) {
+      //     var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
+      //     pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+      //     for (let i = 1; i <= totalPDFPages; i++) {
+      //       pdf.addPage(PDF_Width, PDF_Height);
+      //       pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+      //     }
+      //     console.log(pdf);
+      //     // pdf.save("invoice_" + today + ".pdf");
+      //     // that.loader = false;
+      //     setTimeout(() => { 
             
-            // formData.append('data' , pdf);
-            formData.append('invoice_pdf', pdf.output('blob'));
-            // formData.append('email', this.paymentInfo.customer_email);
-            formData.append('email', "akie.5609@gmail.com");
-              console.log(formData);
-              that.AdminService.sendInvoiceEmail(formData).subscribe((response:any) => {
-                if(response.data == true){
-                  that._snackBar.open(response.response, "X", {
-                    duration: 2000,
-                    verticalPosition:'top',
-                    panelClass :['green-snackbar']
-                  });
-                }
-                else if(response.data == false){
-                  that._snackBar.open(response.response, "X", {
-                    duration: 2000,
-                    verticalPosition:'top',
-                    panelClass :['red-snackbar']
-                  });
-                }
-              })
-          }, 3000);
-        });
+      //       // formData.append('data' , pdf);
+      //       formData.append('invoice_pdf', pdf.output('blob'));
+      //       // formData.append('email', this.paymentInfo.customer_email);
+      //       formData.append('email', "akie.5609@gmail.com");
+      //         console.log(formData);
+      //         that.AdminService.sendInvoiceEmail(formData).subscribe((response:any) => {
+      //           if(response.data == true){
+      //             that._snackBar.open(response.response, "X", {
+      //               duration: 2000,
+      //               verticalPosition:'top',
+      //               panelClass :['green-snackbar']
+      //             });
+      //           }
+      //           else if(response.data == false){
+      //             that._snackBar.open(response.response, "X", {
+      //               duration: 2000,
+      //               verticalPosition:'top',
+      //               panelClass :['red-snackbar']
+      //             });
+      //           }
+      //         })
+      //     }, 3000);
+      //   });
     }
 
   }
