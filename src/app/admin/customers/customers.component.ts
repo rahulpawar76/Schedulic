@@ -1772,6 +1772,13 @@ constructor(
 
   isPostalcodeValid(control: FormControl) {
     return new Promise((resolve, reject) => {
+      
+      if(this.taxArr.length==0){
+        this.valide_postal_code = true;
+        resolve(null);
+        return true;
+    }
+
       setTimeout(() => {
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
