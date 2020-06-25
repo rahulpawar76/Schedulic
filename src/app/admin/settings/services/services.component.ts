@@ -9,6 +9,7 @@ import { environment } from '@environments/environment';
 import { AuthenticationService } from '@app/_services';
 import { AdminSettingsService } from '../_services/admin-settings.service'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {TooltipPosition} from '@angular/material/tooltip';
 
 export interface DialogData {
     animal: string;
@@ -192,6 +193,7 @@ export class ServicesComponent implements OnInit {
         this.selectCategoryPage = '';
         this.servicesList = false;
         this.createNewSubCategoryPage = false;
+        this.createNewServicePage = false;
     }
     cancelNewCategory() {
         this.createNewCategoryPage = false;
@@ -603,8 +605,10 @@ export class ServicesComponent implements OnInit {
         }
     }
     fnCreateNewCategorySubmit() {
-        if (this.createCategory.get('category_id').value != '') {
+        alert(this.createCategory.get('category_id').value);
+        if (this.createCategory.get('category_id').value != '' && this.createCategory.get('category_id').value != null) {
             this.editCategoryId = this.createCategory.get('category_id').value
+            alert("Update Cate"+this.editCategoryId)
             if (this.createCategory.valid) {
                 this.updateCategoryData = {
                     'category_id': this.editCategoryId,
@@ -616,9 +620,13 @@ export class ServicesComponent implements OnInit {
                     "category_image" : this.categoryImageUrl,
                 }
                 this.updateCategory(this.updateCategoryData);
+            }else{
+                this.createService.get('category_name').markAsTouched();
+                this.createService.get('category_description').markAsTouched();
             }
         }
         else {
+            alert("New Category");
             if (this.createCategory.valid) {
                 this.newCategoryData = {
                     'business_id': this.businessId,
@@ -629,6 +637,9 @@ export class ServicesComponent implements OnInit {
                     "category_image" : this.categoryImageUrl,
                 }
                 this.createNewCategory(this.newCategoryData);
+            }else{
+                this.createService.get('category_name').markAsTouched();
+                this.createService.get('category_description').markAsTouched();
             }
         }
     }

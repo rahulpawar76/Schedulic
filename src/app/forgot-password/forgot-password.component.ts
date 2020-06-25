@@ -73,7 +73,7 @@ export class ForgotPasswordComponent implements OnInit {
             this.emailSentContainer = true;
             setTimeout(() => {
               this.router.navigate(['/login']);
-            }, 2000);
+            }, 4000);
           }
           else if(response.data == false){
             this._snackBar.open(response.response, "X", {
