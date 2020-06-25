@@ -218,7 +218,7 @@ export class FrontbookingComponent implements OnInit {
       console.log('Google API Script loaded');
     }
 
-  //  this.AppComponent.setcompanycolours("2");
+    this.AppComponent.setcompanycolours(this.businessId);
     localStorage.setItem('isFront', "true");
     const current = new Date();
     const nextmonth = new Date();

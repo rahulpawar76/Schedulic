@@ -730,8 +730,14 @@ export class AppComponent implements AfterViewInit {
       if (response.data == true) {
         this.settingsArr = response.response;
         // this.appearenceColor = JSON.parse(this.settingsArr.appearance)
-        localStorage.companycolours = this.settingsArr.appearance;
-        this.update_SCSS_var();
+        
+        if(!this.settingsArr.appearance){
+          localStorage.companycolours='{"pri_color":"#287de9","pri_gradient1":"#4b96f5","pri_gradient2":"#1e79ed","text_color":"#000000","text_bgcolor":"#ffffff","font":"Poppins, sans-serif"}';
+          this.update_SCSS_var();
+        }else{
+          localStorage.companycolours = this.settingsArr.appearance;
+          this.update_SCSS_var();
+        }
       }
     }, (err) => {
       console.log(err)
