@@ -252,4 +252,18 @@ export class UserService {
 	catchError(this.handleError));
 }
 
+	getPostalCodeList(requestObject) {
+		let headers = new HttpHeaders({
+			'Content-Type': 'application/json',
+			"customer-id":JSON.stringify(this.userId),
+			"api-token":this.token,
+		});
+		return this.http.post(`${environment.apiUrl}/postal-code-list`, requestObject, { headers: headers }).pipe(
+		map((res) => {
+			return res;
+		}),
+		catchError(this.handleError));
+	}
+	
+
 }

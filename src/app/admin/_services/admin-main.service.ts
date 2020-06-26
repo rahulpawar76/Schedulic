@@ -834,5 +834,20 @@ export class AdminService {
       catchError(this.handleError));
     }
     
+    getPostalCodeList() {
+        let requestObject = {
+            'business_id': this.businessId,
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
+        });
+        return this.http.post(`${environment.apiUrl}/postal-code-list`, requestObject, { headers: headers }).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
 
 }

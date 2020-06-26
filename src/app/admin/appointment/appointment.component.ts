@@ -14,6 +14,7 @@ import { AppComponent } from '@app/app.component';
 import { Observable, throwError } from 'rxjs';
 import { AuthenticationService } from '@app/_services';
 import { DataTableDirective } from 'angular-datatables';
+import { AdminSettingsService } from '../../admin/settings/_services/admin-settings.service';
 
 export interface DialogData {
   animal: string;
@@ -717,6 +718,7 @@ export class DialogAddNewAppointment {
   isLoaderAdmin:boolean = false;
   emailPattern:any;
   onlynumeric:any;
+  Postalcode:any;
   constructor(
     public dialogRef: MatDialogRef<DialogAddNewAppointment>,
     public dialog: MatDialog,
@@ -725,8 +727,8 @@ export class DialogAddNewAppointment {
     private _snackBar: MatSnackBar,
     private AdminService: AdminService,
     private datePipe: DatePipe,
+    private AdminSettingsService:AdminSettingsService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    
     this.emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
     this.onlynumeric = /^-?(0|[1-9]\d*)?$/
     if(this.data.appointmentData){
@@ -774,7 +776,7 @@ export class DialogAddNewAppointment {
 //    console.log(this.appointmentData);
     this.adminId=(JSON.parse(localStorage.getItem('currentUser'))).user_id
     this.token=(JSON.parse(localStorage.getItem('currentUser'))).token
-    
+
     // console.log(this.adminId);
     // console.log(this.token);
     // console.log(this.bussinessId);
@@ -812,6 +814,7 @@ export class DialogAddNewAppointment {
     this.fnGetSettingValue();
     this.fnGetTaxDetails();
     this.fnGetOffDays();
+    this.getPostalCodeList();
     this.myFilter = (d: Date | null): boolean => {
       // const day = (d || new Date()).getDay();
       // const month = (d || new Date()).getMonth();
@@ -929,7 +932,7 @@ export class DialogAddNewAppointment {
   
     return new Promise((resolve, reject) => {
 
-      if(this.taxArr.length==0){
+      if(this.Postalcode.length==0){
         this.valide_postal_code = true;
         resolve(null);
         return true;
@@ -957,6 +960,17 @@ export class DialogAddNewAppointment {
     });
   }
   
+  getPostalCodeList() {
+    this.AdminSettingsService.getPostalCodeList().subscribe((response:any) => {
+      if(response.data == true){
+        let postal = response.response
+        this.Postalcode = postal;
+      } else if(response.data == false){
+        this.Postalcode = [];
+      }
+    });
+  }
+
   numberOnly(event): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {

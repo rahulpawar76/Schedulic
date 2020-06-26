@@ -196,8 +196,12 @@ export class ServicesComponent implements OnInit {
         this.createNewServicePage = false;
     }
     cancelNewCategory() {
-        this.createNewCategoryPage = false;
+        this.createNewCategoryPage = true;
          this.servicesList = true;
+         this.createCategory.reset();
+         this.fnSelectCategory(this.editCategoryId, this.selectedCategoryIndex);  
+         this.editCategoryId = '';
+
     }
 
     arrayOne(n: number): any[] {
@@ -364,7 +368,7 @@ export class ServicesComponent implements OnInit {
         //     staff: 'panda'
         //   }
         });
-      }
+    }
 
     dropCategory(event: CdkDragDrop<string[]>) {
         moveItemInArray(this.categoryServicesList, event.previousIndex, event.currentIndex);
@@ -390,7 +394,9 @@ export class ServicesComponent implements OnInit {
         this.createNewServicePage = false;
         this.adminSettingsService.getServiceForCategoiry(categoryId, this.service_filter,this.serviceApiUrl2).subscribe((response: any) => {
             if (response.data == true) {
+              
                 this.categoryServicesList = response.response.data;
+                  console.log(this.categoryServicesList);
                 this.current_page = response.response.current_page;
                 this.first_page_url = response.response.first_page_url;
                 this.last_page = response.response.last_page;
@@ -504,6 +510,9 @@ export class ServicesComponent implements OnInit {
                     'sub_category_image': this.subCategoryImageUrl
                 }
                 this.updateSubCategory(this.updateSubCategoryData);
+            }else{                
+                this.createSubCategory.get("subcategory_name").markAsTouched();
+                this.createSubCategory.get("subcategory_description").markAsTouched();
             }
         }
         else{
@@ -518,6 +527,9 @@ export class ServicesComponent implements OnInit {
                     'sub_category_image': this.subCategoryImageUrl
                 }
                 this.createNewSubCategory(this.newSubCategoryData);
+            }else{
+                this.createSubCategory.get("subcategory_name").markAsTouched();
+                this.createSubCategory.get("subcategory_description").markAsTouched();
             }
         }
     }
@@ -605,10 +617,12 @@ export class ServicesComponent implements OnInit {
         }
     }
     fnCreateNewCategorySubmit() {
-        alert(this.createCategory.get('category_id').value);
-        if (this.createCategory.get('category_id').value != '' && this.createCategory.get('category_id').value != null) {
-            this.editCategoryId = this.createCategory.get('category_id').value
-            alert("Update Cate"+this.editCategoryId)
+        
+
+        if (this.createCategory.get('category_id').value) {
+        
+          this.editCategoryId = this.createCategory.get('category_id').value;
+        
             if (this.createCategory.valid) {
                 this.updateCategoryData = {
                     'category_id': this.editCategoryId,
@@ -621,12 +635,10 @@ export class ServicesComponent implements OnInit {
                 }
                 this.updateCategory(this.updateCategoryData);
             }else{
-                this.createService.get('category_name').markAsTouched();
-                this.createService.get('category_description').markAsTouched();
+                this.createCategory.get('category_name').markAsTouched();
+                this.createCategory.get('category_description').markAsTouched();
             }
-        }
-        else {
-            alert("New Category");
+        } else {
             if (this.createCategory.valid) {
                 this.newCategoryData = {
                     'business_id': this.businessId,
@@ -638,8 +650,8 @@ export class ServicesComponent implements OnInit {
                 }
                 this.createNewCategory(this.newCategoryData);
             }else{
-                this.createService.get('category_name').markAsTouched();
-                this.createService.get('category_description').markAsTouched();
+                this.createCategory.get('category_name').markAsTouched();
+                this.createCategory.get('category_description').markAsTouched();
             }
         }
     }
@@ -654,6 +666,7 @@ export class ServicesComponent implements OnInit {
                 });
                 this.createCategory.reset();
                 this.fnAllCategory();
+                this.fnSelectCategory(this.editCategoryId, this.selectedCategoryIndex);                
                 this.servicesList = true;
                 this.createNewCategoryPage = false;
                 this.editCategoryId = undefined;
@@ -714,11 +727,11 @@ export class ServicesComponent implements OnInit {
                     panelClass: ['green-snackbar']
                 });
                 this.fnAllCategory();
+                this.fnAllServicesNavigation();
                 this.servicesList = true;
                 this.createNewCategoryPage = false;
                 this.isLoaderAdmin = false;
-            }
-            else if (response.data == false) {
+            }else if (response.data == false) {
                 this._snackBar.open("Category Not deleted", "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -991,9 +1004,11 @@ export class ServicesComponent implements OnInit {
     this.createNewSubCategoryPage = false;  
     }
     fnCancelAddService(){
-        this.servicesList = true;
-        this.createNewServicePage = false;
-        this.createNewSubCategoryPage = false;
+        // this.servicesList = true;
+        // this.createNewServicePage = false;
+        // this.createNewSubCategoryPage = false;        
+        this.fnSelectCategory(this.selectedCategoryID, this.selectedCategoryIndex);  
+     
     }
     fnNewServiceStatus(event) {
         if (event == true) {
@@ -1141,6 +1156,8 @@ export class ServicesComponent implements OnInit {
                 this.editServicePrivateStatusPrevious = '';
                 this.editServiceImage = '';
                 this.isLoaderAdmin = false;
+                this.fnAllServicesNavigation();
+                
             }
             else if (response.data == false) {
                 this._snackBar.open("Service Not Updated", "X", {
@@ -1189,6 +1206,9 @@ export class ServicesComponent implements OnInit {
         this.servicesList = false;
         this.selectCategoryPage = '';
         this.singleSubCategoryPage = '';
+        
+        console.log(this.categoryServicesList);
+
         if(this.categoryServicesList[index] && this.categoryServicesList[index].staffs){
             this.assignedStaff = this.categoryServicesList[index].staffs;
         }
@@ -1317,6 +1337,20 @@ export class ServicesComponent implements OnInit {
           }
           
     onFileChange(event) {
+        
+        var file_type = event.target.files[0].type;
+
+        if(file_type!='image/jpeg' &&  file_type!='image/png' && file_type!='image/jpg' &&  file_type!='image/gif'){
+            
+            this._snackBar.open("Sorry, only JPG, JPEG, PNG & GIF files are allowed", "X", {
+                duration: 2000,
+                verticalPosition: 'top',
+                panelClass: ['red-snackbar']
+            });
+            return;
+        }
+       
+
         const reader = new FileReader();
         if (event.target.files && event.target.files.length) {
             const [file] = event.target.files;
@@ -1329,6 +1363,7 @@ export class ServicesComponent implements OnInit {
             };
         }
     }
+
     uploadImage() {
         this.profileImage = this.imageSrc
         this.dialogRef.close(this.profileImage);
@@ -1366,6 +1401,18 @@ export class ServicesComponent implements OnInit {
           }
           
     onFileChange(event) {
+
+        var file_type = event.target.files[0].type;
+
+        if(file_type!='image/jpeg' &&  file_type!='image/png' && file_type!='image/jpg' &&  file_type!='image/gif'){
+            this._snackBar.open("Sorry, only JPG, JPEG, PNG & GIF files are allowed", "X", {
+                duration: 2000,
+                verticalPosition: 'top',
+                panelClass: ['red-snackbar']
+            });
+            return;
+        }
+
         const reader = new FileReader();
         if (event.target.files && event.target.files.length) {
             const [file] = event.target.files;
@@ -1423,6 +1470,17 @@ export class ServicesComponent implements OnInit {
           }
           
     onFileChange(event) {
+        var file_type = event.target.files[0].type;
+
+        if(file_type!='image/jpeg' &&  file_type!='image/png' && file_type!='image/jpg' &&  file_type!='image/gif'){
+            this._snackBar.open("Sorry, only JPG, JPEG, PNG & GIF files are allowed", "X", {
+                duration: 2000,
+                verticalPosition: 'top',
+                panelClass: ['red-snackbar']
+            });
+            return;
+        }
+
         const reader = new FileReader();
         if (event.target.files && event.target.files.length) {
             const [file] = event.target.files;
