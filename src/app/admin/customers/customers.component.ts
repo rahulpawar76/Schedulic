@@ -1687,6 +1687,7 @@ dialogTitle:any="New Appointment";
 showSubCatDropDown=true;
 valide_postal_code:boolean =false;
 isLoaderAdmin:boolean =false;
+Postalcode:any;
 
 constructor(
   private _formBuilder: FormBuilder,
@@ -1720,6 +1721,7 @@ constructor(
     this.fnGetTaxDetails();
     this.fnGetOffDays();
     this.fnGetCategories();
+    this.getPostalCodeList();
 
     this.myFilter = (d: Date | null): boolean => {
     // const day = (d || new Date()).getDay();
@@ -1773,11 +1775,11 @@ constructor(
   isPostalcodeValid(control: FormControl) {
     return new Promise((resolve, reject) => {
       
-      if(this.taxArr.length==0){
+      if(this.Postalcode.length==0){
         this.valide_postal_code = true;
         resolve(null);
         return true;
-    }
+      }
 
       setTimeout(() => {
         let headers = new HttpHeaders({
@@ -1798,6 +1800,17 @@ constructor(
           }
         });
       }, 500);
+    });
+  }
+
+  getPostalCodeList() {
+    this.AdminService.getPostalCodeList().subscribe((response:any) => {
+      if(response.data == true){
+        let postal = response.response
+        this.Postalcode = postal;
+      } else if(response.data == false){
+        this.Postalcode = [];
+      }
     });
   }
 

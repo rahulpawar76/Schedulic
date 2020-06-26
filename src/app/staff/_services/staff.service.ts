@@ -333,4 +333,20 @@ export class StaffService {
       catchError(this.handleError));
   }
 
+  getPostalCodeList() {
+    let requestObject = {
+        'business_id': this.bussinessId,
+    };
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'staff-id' : this.staffId,
+        'api-token' : this.staffToken,
+    });
+    return this.http.post(`${environment.apiUrl}/postal-code-list`, requestObject, { headers: headers }).pipe(
+    map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+
 }

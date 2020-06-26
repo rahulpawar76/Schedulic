@@ -1837,6 +1837,8 @@ export class rescheduleAppointmentDialog {
   showSubCatDropDown=true;
   valide_postal_code:boolean =false;
   isLoader:boolean=false;
+  Postalcode:any;
+
   constructor(
     private _formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<DialogNewCustomerAppointment>,
@@ -1874,7 +1876,8 @@ export class rescheduleAppointmentDialog {
       this.fnGetTaxDetails();
       this.fnGetOffDays();
       this.fnGetCategories();
-  
+      this.getPostalCodeList();
+
       this.myFilter = (d: Date | null): boolean => {
       // const day = (d || new Date()).getDay();
       // const month = (d || new Date()).getMonth();
@@ -1910,11 +1913,11 @@ export class rescheduleAppointmentDialog {
     isPostalcodeValid(control: FormControl) {
       return new Promise((resolve, reject) => {
 
-        if(this.taxArr.length==0){
+        if(this.Postalcode.length==0){
           this.valide_postal_code = true;
           resolve(null);
           return true;
-      }
+        }
       
         setTimeout(() => {
           let headers = new HttpHeaders({
@@ -1930,8 +1933,7 @@ export class rescheduleAppointmentDialog {
                 resolve({ isPostalcodeValid: true });
               }else{
                 this.valide_postal_code = true;
-
-              resolve(null);
+                resolve(null);
               }
             }
           });
@@ -1939,6 +1941,21 @@ export class rescheduleAppointmentDialog {
       });
     }
     
+    getPostalCodeList() {
+      let requestObject = {
+        "business_id":this.bussinessId
+      };
+
+      this.AdminService.getPostalCodeList(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          let postal = response.response
+          this.Postalcode = postal;
+        } else if(response.data == false){
+          this.Postalcode = [];
+        }
+      });
+    }
+
     fnIsPostalCodeAdded(){
       let requestObject = {
         "business_id" : this.bussinessId
@@ -1954,7 +1971,6 @@ export class rescheduleAppointmentDialog {
         catchError(this.handleError)
       ).subscribe((response:any) => {
         if(response.data == true){
-          alert('--');
           this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
             customerPostalCode: ['', [Validators.required,Validators.minLength(6)],this.isPostalcodeValid.bind(this)],
             customerCategory: ['', Validators.required],

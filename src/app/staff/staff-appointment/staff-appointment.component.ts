@@ -552,6 +552,8 @@ export class StaffAppointmentComponent implements OnInit {
     valide_postal_code:boolean = false;
     emailPattern:any;
     onlynumeric:any;
+    Postalcode:any;
+
     constructor(
       public dialogRef: MatDialogRef<DialogAddNewAppointment>,
       public dialog: MatDialog,
@@ -595,6 +597,7 @@ export class StaffAppointmentComponent implements OnInit {
       this.fnGetSettingValue();
       this.fnGetTaxDetails();
       this.fnGetOffDays();
+      this.getPostalCodeList();
 
       this.myFilter = (d: Date | null): boolean => {
       // const day = (d || new Date()).getDay();
@@ -660,7 +663,7 @@ export class StaffAppointmentComponent implements OnInit {
     isPostalcodeValid(control: FormControl) {
       return new Promise((resolve, reject) => {
 
-        if(this.taxArr.length==0){
+        if(this.Postalcode.length==0){
           this.valide_postal_code = true;
           resolve(null);
           return true;
@@ -685,6 +688,17 @@ export class StaffAppointmentComponent implements OnInit {
             }
           });
         }, 500);
+      });
+    }
+
+    getPostalCodeList() {
+      this.staffService.getPostalCodeList().subscribe((response:any) => {
+        if(response.data == true){
+          let postal = response.response
+          this.Postalcode = postal;
+        } else if(response.data == false){
+          this.Postalcode = [];
+        }
       });
     }
 
