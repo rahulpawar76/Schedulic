@@ -22,24 +22,24 @@
                         </mat-card-title>
                         <div class="input-wrap my-3 required-field">
                             <input type="text" formControlName="email" placeholder="Email" class="common-input form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                            <span class="error-wrap" *ngIf="loginForm.get('email').dirty || loginForm.get('email').touched || formSubmitclicked"><small *ngIf="loginForm.get('email').hasError('required')" class="error">Email is required</small><small *ngIf="loginForm.get('email').hasError('email') || loginForm.get('email').hasError('pattern')" class="error">Enter a valid email address</small></span>
+                            <!-- <span class="error-wrap" *ngIf="loginForm.get('email').dirty || loginForm.get('email').touched || formSubmitclicked"><small *ngIf="loginForm.get('email').hasError('required')" class="error">Email is required</small><small *ngIf="loginForm.get('email').hasError('email') || loginForm.get('email').hasError('pattern')" class="error">Enter a valid email address</small></span> -->
                         </div>
 
                         <div class="input-wrap my-3 required-field">
                             <input type="password" formControlName="password" placeholder="Password" class="common-input form-control" [type]="hide ? 'password' : 'text'" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
                             <div mat-icon-button matSuffix class="icon-cust-pass">
-                                <mat-icon (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                <mat-icon class="pointer" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </div>
-                            <span class="error-wrap" *ngIf="loginForm.get('password').dirty || loginForm.get('password').touched || formSubmitclicked"><small *ngIf="loginForm.get('password').hasError('required')" class="error">Password is required</small></span>
+                            <!-- <span class="error-wrap" *ngIf="loginForm.get('password').dirty || loginForm.get('password').touched || formSubmitclicked"><small *ngIf="loginForm.get('password').hasError('required')" class="error">Password is required</small></span> -->
                         </div>
                         <div class="input-wrap my-3">
                             <button type="submit" color="primary" [disabled]="loading" (click)="onSubmit()" class="common-btn text-white w-100 buttion-but">
                   <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mt-butn "></span>
                   Login
               </button>
-            </div> 
-            <div class="input-wrap my-3">
-              <!-- <button type="button" color="primary" [disabled]="loading" (click)="signInWithGoogle()" class="common-btn text-white w-100 buttion-but" >
+                        </div>
+                        <div class="input-wrap my-3">
+                            <!-- <button type="button" color="primary" [disabled]="loading" (click)="signInWithGoogle()" class="common-btn text-white w-100 buttion-but" >
                   <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mt-butn "></span>
                   Sign In With Google
               </button>
@@ -51,33 +51,33 @@
                   <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mt-butn "></span>
                   signOut from Google
               </button> -->
-              <!-- <button type="button" (click)="signInWithGoogle()" class="btn btn-primary">Sign In With Google</button> -->
-            </div> 
-        <!-- Traslate -->
-          <div class="forgot-wrap text-center"> 
-            <a class="help forgot-pwd" (click)="forgotPassword()">Forgot Password?</a>
-          </div>
-            <p class="error" *ngIf="error">{{error}}</p>
-          </form>
-        </div>
-      <div class="or-option">or</div>
-      <div fxLayoutAlign="center center" id="login-with-social" class="right-side p-2 col-lg-6 col-md-6 col-sm-12 col-12  float-left h-100">
-        <div class="w-75 login-with-social">      
-          <mat-card-title>
-            <h2 class="text-center text-white">Sign In</h2>
-            <p class="text-center text-white">With one of your social <br/> account</p>
-          </mat-card-title>
-          <div class="social-btns" fxLayoutalign="center center">
-            <a class="btn social-login facebook" (click)="signInWithFB()"><i class="fa fa-facebook-f"></i></a>
-            <a class="btn social-login google_plus" (click)="signInWithGoogle()"><i class="fa fa-google-plus"></i></a>
-          </div>
-          <div class="create-account">
-            <p>Don't have account?</p>
-            <a class="create-acc-link" (click)="signUp($event)">Create Account</a>
-          </div>
-        </div>
-      </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
+                            <!-- <button type="button" (click)="signInWithGoogle()" class="btn btn-primary">Sign In With Google</button> -->
+                        </div>
+                        <!-- Traslate -->
+                        <div class="forgot-wrap text-center">
+                            <a class="help forgot-pwd" (click)="forgotPassword()">Forgot Password?</a>
+                        </div>
+                        <!-- <p class="error" *ngIf="error">{{error}}</p> -->
+                    </form>
+                </div>
+                <div class="or-option">or</div>
+                <div fxLayoutAlign="center center" id="login-with-social" class="right-side p-2 col-lg-6 col-md-6 col-sm-12 col-12  float-left h-100">
+                    <div class="w-75 login-with-social">
+                        <mat-card-title>
+                            <h2 class="text-center text-white">Sign In</h2>
+                            <p class="text-center text-white">With one of your social <br/> account</p>
+                        </mat-card-title>
+                        <div class="social-btns" fxLayoutalign="center center">
+                            <a class="btn social-login facebook" (click)="signInWithFB()"><i class="fa fa-facebook-f"></i></a>
+                            <a class="btn social-login google_plus" (click)="signInWithGoogle()"><i class="fa fa-google-plus"></i></a>
+                        </div>
+                        <div class="create-account">
+                            <p>Don't have account?</p>
+                            <a class="create-acc-link" (click)="signUp($event)">Create Account</a>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>

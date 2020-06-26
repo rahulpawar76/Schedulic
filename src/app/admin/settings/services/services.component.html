@@ -141,7 +141,7 @@
                             </div>
                             <div class="" fxFlex="25">Service</div>
                             <div class="" fxFlex="15">Duration</div>
-                            <div class="" fxFlex="13">price</div>
+                            <div class="" fxFlex="13">Price</div>
                             <div class="" fxFlex="10">Unit</div>
                             <div class="" fxFlex="12">Visibility</div>
                             <div class="" fxFlex="10">Status</div>
@@ -166,7 +166,7 @@
                                 <div class="" fxFlex="10" cdkDragHandle class="handler"><i class="fa fa-arrows" aria-hidden="true"></i></div>
                             </div>
                             <div class="drageble-box row" *ngIf="allServicesList == ''">
-                                <p class="mx-auto">record not found</p>
+                                <p class="mx-auto">Record not found.</p>
                             </div>
                         </div>
                     </div>
@@ -198,8 +198,8 @@
                 </div> -->
             </div>
             <!-- create new category -->
-            <div *ngIf="createNewCategoryPage">
-                <mat-card class="m-0">
+            <div *ngIf="createNewCategoryPage" class="create-new-page h-100">
+                <mat-card class="m-0 h-100">
                     <form [formGroup]="createCategory">
                         <div class="row">
                             <div class="col-lg-12">
@@ -211,7 +211,7 @@
                             <div class="col-lg-9 col-9 col-md-9 d-flex">
                                 <div class="ml-3 justify-content-center">
                                     <div class="services-customer-profile-background profile-img-wrap mr-3 mt-5" (click)="categoryImage()">
-                                        <img *ngIf="!editCategoryId" src="/assets/images/admin/picture.png" class="service-profile-image customer-profile-img">
+                                        <img *ngIf="!editCategoryId" src="/assets/images/admin/picture.png" class="service-profile-image">
                                         <div class="camera-alt"><i class="material-icons">
                                     camera_alt
                                     </i></div>
@@ -231,7 +231,7 @@
                                     </div>
                                     <div class="mt-2 text-center">
                                         <mat-form-field class=" bottom-border-field">
-                                            <textarea matInput formControlName="category_description" placeholder="Category Descriptions"></textarea>
+                                            <textarea matInput formControlName="category_description" placeholder="Enter Category Descriptions"></textarea>
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createCategory.get('category_description').touched || createCategory.get('category_description').dirty">
                                     <small *ngIf="createCategory.get('category_description').hasError('required')" class="error">Category description is required</small>
@@ -279,8 +279,8 @@
                 </mat-card>
             </div>
             <!-- create new sub category -->
-            <div *ngIf="createNewSubCategoryPage">
-                <mat-card class="m-0">
+            <div *ngIf="createNewSubCategoryPage" class="create-new-page h-100">
+                <mat-card class="m-0 h-100">
                     <form [formGroup]="createSubCategory">
                         <div class="row">
                             <div class="col-lg-12">
@@ -305,19 +305,19 @@
                                             <input matInput formControlName="subcategory_name" placeholder="Enter Sub Category Name">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createSubCategory.get('subcategory_name').touched || createSubCategory.get('subcategory_name').dirty">
-                                    <small *ngIf="createSubCategory.get('subcategory_name').hasError('required')" class="error">Sub category name is required</small>
-                                    <small *ngIf="createSubCategory.get('subcategory_name').hasError('minlength')" class="error">Sub category length can not be less than 3 characters</small>
-                                    <small *ngIf="createSubCategory.get('subcategory_name').hasError('maxlength')" class="error">Sub category length can not be graeter than 255 characters</small>
+                                    <small *ngIf="createSubCategory.get('subcategory_name').hasError('required')" class="error">Subcategory name is required.</small>
+                                    <small *ngIf="createSubCategory.get('subcategory_name').hasError('minlength')" class="error">Subcategory length can not be less than 3 characters.</small>
+                                    <small *ngIf="createSubCategory.get('subcategory_name').hasError('maxlength')" class="error">Subcategory length can not be graeter than 255 characters.</small>
                                 </span>
                                     </div>
                                     <div class="mt-2 text-center">
                                         <mat-form-field class=" bottom-border-field">
-                                            <textarea matInput formControlName="subcategory_description" placeholder="Sub Category Descriptions"></textarea>
+                                            <textarea matInput formControlName="subcategory_description" placeholder="Enter Sub Category Descriptions"></textarea>
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createSubCategory.get('subcategory_description').touched || createSubCategory.get('subcategory_description').dirty">
-                                    <small *ngIf="createSubCategory.get('subcategory_description').hasError('required')" class="error">Sub category description is required</small>
-                                    <small *ngIf="createSubCategory.get('subcategory_description').hasError('minlength')" class="error">Description length cannot be less than 2 characters</small>
-                                    <small *ngIf="createSubCategory.get('subcategory_description').hasError('maxlength')" class="error">Description length can not be graeter than 255 characters</small>
+                                    <small *ngIf="createSubCategory.get('subcategory_description').hasError('required')" class="error">Subcategory description is required.</small>
+                                    <small *ngIf="createSubCategory.get('subcategory_description').hasError('minlength')" class="error">Description length cannot be less than 2 characters.</small>
+                                    <small *ngIf="createSubCategory.get('subcategory_description').hasError('maxlength')" class="error">Description length can not be graeter than 255 characters.</small>
                                 </span>
                                     </div>
                                 </div>
@@ -359,9 +359,9 @@
                 </mat-card>
             </div>
             <!-- single category page -->
-            <div *ngIf="selectedCategoryDetails != '' && selectCategoryPage == 'services' || selectCategoryPage == 'notservices' " id="Salon_Listing_Service" class="mb-0 w-100">
-                <div class="">
-                    <div class="d-flex mt-2 mb-4 mx-3">
+            <div *ngIf="selectedCategoryDetails != '' && selectCategoryPage == 'services' || selectCategoryPage == 'notservices' " id="Salon_Listing_Service" class="mb-0 w-100 h-100 bg-white">
+                <div class="top-category-bar">
+                    <div class="d-flex pt-1 mb-4 mx-3">
                         <div class="ml-3 d-flex justify-content-center">
                             <div class="service-profile-background mr-3">
                                 <img src="{{selectedCategoryDetails.category_image}}" class="service-profile-image mb-2">
@@ -380,9 +380,13 @@
                         </div>
                         <div class="ml-auto">
                             <button mat-button *ngIf="categoryServicesList != '' && categoryServicesList[0].sub_category_id != null" (click)="fnCreateNewSubCategoryPage(selectedCategoryDetails.id)" class="addservice-btn d-block ml-auto">Add Sub Category</button>
+                            <button mat-button *ngIf="categoryServicesList != '' && categoryServicesList[0].sub_category_id == null" (click)="fnCreateNewServicePage(selectedCategoryDetails.id,'category')" class="addservice-btn d-block ml-auto">Add Service</button>
                             <div class="mt-2 d-flex">
                                 <mat-form-field *ngIf="categoryServicesList != ''" class=" bottom-border-field mt-3">
                                     <mat-label>Filter</mat-label>
+                                    <span class="material-icons prefix-icon-select">
+                                        filter_alt
+                                        </span>
                                     <mat-select (selectionChange)="fnFilterService(selectedCategoryDetails.id,$event.value,'category')">
                                         <mat-option value="all">All</mat-option>
                                         <mat-option value="E">Active</mat-option>
@@ -413,7 +417,7 @@
                                 </div>
                                 <div class="" fxFlex="30">Service</div>
                                 <div class="" fxFlex="15">Duration</div>
-                                <div class="" fxFlex="10">price</div>
+                                <div class="" fxFlex="10">Price</div>
                                 <div class="" fxFlex="10">Unit</div>
                                 <div class="" fxFlex="10">Visibility</div>
                                 <div class="" fxFlex="10">Status</div>
@@ -470,13 +474,13 @@
 
                     <mat-card *ngIf="selectedCategoryDetails.subcategory == ''" class="col-lg-4 col-md-6 col-sm-12 text-center AddSubcategory-matcard pointer ml-3">
                         <div class="pt-2 mb-2">
-                            <h5>Add Services</h5>
+                            <h5>Add Service</h5>
                         </div>
                         <div class="pb-2 content">
                             A valuable deed, action,or effort performed to fulfill a demand or tosatisfy a need of the customer.
                         </div>
                         <div class="pt-2">
-                            <button (click)="fnCreateNewServicePage(selectedCategoryDetails.id,'category')" mat-button class="addsubcategory-btn">Add Services</button>
+                            <button (click)="fnCreateNewServicePage(selectedCategoryDetails.id,'category')" mat-button class="addsubcategory-btn">Add Service</button>
                         </div>
                     </mat-card>
                 </div>
@@ -536,7 +540,7 @@
                                 </div>
                                 <div class="" fxFlex="30">Service</div>
                                 <div class="" fxFlex="15">Duration</div>
-                                <div class="" fxFlex="10">price</div>
+                                <div class="" fxFlex="10">Price</div>
                                 <div class="" fxFlex="10">Unit</div>
                                 <div class="" fxFlex="10">Visibility</div>
                                 <div class="" fxFlex="10">Status</div>
@@ -581,20 +585,20 @@
 
                     <mat-card class="col-lg-4 col-md-6 col-sm-12 text-center AddSubcategory-matcard pointer ml-3">
                         <div class="pt-2 mb-2">
-                            <h5>Add Services</h5>
+                            <h5>Add Service</h5>
                         </div>
                         <div class="pb-2 content">
                             A valuable deed, action,or effort performed to fulfill a demand or tosatisfy a need of the customer.
                         </div>
                         <div class="pt-2">
-                            <button (click)="fnCreateNewServicePage(selectedSubCategoryDetails.id,'subcategory')" mat-button class="addsubcategory-btn">Add Services</button>
+                            <button (click)="fnCreateNewServicePage(selectedSubCategoryDetails.id,'subcategory')" mat-button class="addsubcategory-btn">Add Service</button>
                         </div>
                     </mat-card>
                 </div>
             </div>
             <!-- create new Service -->
-            <div *ngIf="createNewServicePage" id="create_new_service" class="mb-0 w-100">
-                <mat-card>
+            <div *ngIf="createNewServicePage" id="create_new_service" class="mb-0 w-100 create-new-page h-100">
+                <mat-card class="h-100">
                     <form [formGroup]="createService">
                         <div class="row">
                             <div class="col-lg-6">
@@ -622,30 +626,30 @@
                                             <input matInput formControlName="service_name" placeholder="Enter Service Name">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_name').touched || createService.get('service_name').dirty">
-                                        <small *ngIf="createService.get('service_name').hasError('required')" class="error">Service name is required</small>
+                                        <small *ngIf="createService.get('service_name').hasError('required')" class="error">Service name is required.</small>
                                         <small *ngIf="createService.get('service_name').hasError('minlength')" class="error">Service name can not be less than 3 character.</small>
-                                        <small *ngIf="createService.get('service_name').hasError('maxlength')" class="error">Service name length cannot be greater than 255 characters</small>
+                                        <small *ngIf="createService.get('service_name').hasError('maxlength')" class="error">Service name length cannot be greater than 255 characters.</small>
                                     </span>
                                     </div>
                                     <div class="mt-2 text-center">
                                         <mat-form-field class=" bottom-border-field">
-                                            <textarea matInput formControlName="service_description" placeholder="Service Descriptions"></textarea>
+                                            <textarea matInput formControlName="service_description" placeholder="Enter Service Descriptions"></textarea>
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_description').touched || createService.get('service_description').dirty">
-                                        <small *ngIf="createService.get('service_description').hasError('required')" class="error">Service description is required</small>
-                                        <small *ngIf="createService.get('service_description').hasError('minlength')" class="error">Description length cannot be less than 2 characters</small>
-                                        <small *ngIf="createService.get('service_description').hasError('maxlength')" class="error">Description length cannot be greater than 255 characters</small>
+                                        <small *ngIf="createService.get('service_description').hasError('required')" class="error">Service description is required.</small>
+                                        <small *ngIf="createService.get('service_description').hasError('minlength')" class="error">Description length cannot be less than 2 characters.</small>
+                                        <small *ngIf="createService.get('service_description').hasError('maxlength')" class="error">Description length cannot be greater than 255 characters.</small>
                                     </span>
                                     </div>
                                     <div class="mt-2 text-center">
                                         <mat-form-field class=" bottom-border-field">
                                             <mat-icon matPrefix>{{currencySymbol}}</mat-icon>
-                                            <mat-label>Sevice Cost</mat-label>
+                                            <mat-label>Enter Sevice Cost</mat-label>
                                             <input matInput formControlName="service_cost" placeholder="">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_cost').touched || createService.get('service_cost').dirty">
-                                        <small *ngIf="createService.get('service_cost').hasError('required')" class="error">Service cost is required</small>
-                                        <small *ngIf="createService.get('service_cost').hasError('pattern')" class="error">Service cost must be numeric</small>
+                                        <small *ngIf="createService.get('service_cost').hasError('required')" class="error">Service cost is required.</small>
+                                        <small *ngIf="createService.get('service_cost').hasError('pattern')" class="error">Service cost must be numeric.</small>
                                     </span>
                                     </div>
                                     <div class="mt-2 text-center">
@@ -653,12 +657,12 @@
                                             <mat-icon matPrefix><i class="material-icons">
                                             access_time
                                             </i></mat-icon>
-                                            <mat-label>Serice Time(mins)</mat-label>
+                                            <mat-label>Serice Time (mins)</mat-label>
                                             <input matInput formControlName="service_duration" placeholder="">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_duration').touched || createService.get('service_duration').dirty">
-                                        <small *ngIf="createService.get('service_duration').hasError('required')" class="error">Service duration is required</small>
-                                        <small *ngIf="createService.get('service_duration').hasError('pattern')" class="error">Service duration must be numeric</small>
+                                        <small *ngIf="createService.get('service_duration').hasError('required')" class="error">Service duration is required.</small>
+                                        <small *ngIf="createService.get('service_duration').hasError('pattern')" class="error">Service duration must be numeric.</small>
                                     </span>
                                     </div>
                                     <div class="mt-2 text-center">
@@ -666,13 +670,15 @@
                                             <mat-icon matPrefix><i class="material-icons">
                                             people_alt
                                             </i></mat-icon>
-                                            <mat-label>Service Unit</mat-label>
+                                            <mat-label>Enter Service Unit</mat-label>
                                             <input matInput formControlName="service_unit" placeholder="">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_unit').touched || createService.get('service_unit').dirty">
-                                        <small *ngIf="createService.get('service_unit').hasError('required')" class="error">Service unit is required</small>
-                                        <small *ngIf="createService.get('service_unit').hasError('pattern')" class="error">Service unit must be numeric</small>
-                                    </span>
+                                        <small *ngIf="createService.get('service_unit').hasError('required')" class="error">Service unit is required.</small>
+                                        <small *ngIf="createService.get('service_unit').hasError('pattern')" class="error">Service unit must be numeric.</small>
+                                        </span>
+                                        <span class="unit-info" #tooltip="matTooltip" matTooltip="Info about the action" matTooltipPosition="above" matTooltipHideDelay="50000"><i class="fa fa-question-circle"></i>
+                                        </span>
                                     </div>
                                     <div class="service-statustoggle" *ngIf="!editServiceId">
                                         <p>

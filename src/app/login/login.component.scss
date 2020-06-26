@@ -145,11 +145,14 @@
     }
 }
 
-.required-field::after {
-    right: -8px;
-    content: "*";
-    color: #ef6353;
-    font-size: 20px;
-    position: absolute;
-    top: -5px;
+// .required-field::after {
+//     right: -8px;
+//     content: "*";
+//     color: #ef6353;
+//     font-size: 20px;
+//     position: absolute;
+//     top: -5px;
+// }
+::ng-deep .common-input.ng-invalid.ng-touched {
+    border-color: red !important;
 }

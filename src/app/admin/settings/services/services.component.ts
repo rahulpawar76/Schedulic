@@ -9,6 +9,7 @@ import { environment } from '@environments/environment';
 import { AuthenticationService } from '@app/_services';
 import { AdminSettingsService } from '../_services/admin-settings.service'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {TooltipPosition} from '@angular/material/tooltip';
 
 export interface DialogData {
     animal: string;
@@ -192,6 +193,7 @@ export class ServicesComponent implements OnInit {
         this.selectCategoryPage = '';
         this.servicesList = false;
         this.createNewSubCategoryPage = false;
+        this.createNewServicePage = false;
     }
     cancelNewCategory() {
         this.createNewCategoryPage = true;
@@ -626,6 +628,9 @@ export class ServicesComponent implements OnInit {
                     "category_image" : this.categoryImageUrl,
                 }
                 this.updateCategory(this.updateCategoryData);
+            }else{
+                this.createService.get('category_name').markAsTouched();
+                this.createService.get('category_description').markAsTouched();
             }
         } else {
             if (this.createCategory.valid) {
@@ -638,6 +643,9 @@ export class ServicesComponent implements OnInit {
                     "category_image" : this.categoryImageUrl,
                 }
                 this.createNewCategory(this.newCategoryData);
+            }else{
+                this.createService.get('category_name').markAsTouched();
+                this.createService.get('category_description').markAsTouched();
             }
         }
     }
