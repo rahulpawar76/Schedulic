@@ -41,14 +41,13 @@ registerLocaleData(localeDe);
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
-    //provider: new GoogleLoginProvider("685641455606-lhphm08gat3kaujcu2b110icd4ngu226.apps.googleusercontent.com")
     provider: new GoogleLoginProvider("51939399095-dc6gpul854b6gba2712cdq1tjram4047.apps.googleusercontent.com")
 
   },
-  // {
-  //   id: FacebookLoginProvider.PROVIDER_ID,
-  //   provider: new FacebookLoginProvider('2273509446292254')
-  // }
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('2273509446292254')
+  }
 ]);
 
 

@@ -511,6 +511,9 @@ export class ServicesComponent implements OnInit {
                     'sub_category_image': this.subCategoryImageUrl
                 }
                 this.updateSubCategory(this.updateSubCategoryData);
+            }else{                
+                this.createSubCategory.get("subcategory_name").markAsTouched();
+                this.createSubCategory.get("subcategory_description").markAsTouched();
             }
         }
         else{
@@ -525,6 +528,9 @@ export class ServicesComponent implements OnInit {
                     'sub_category_image': this.subCategoryImageUrl
                 }
                 this.createNewSubCategory(this.newSubCategoryData);
+            }else{
+                this.createSubCategory.get("subcategory_name").markAsTouched();
+                this.createSubCategory.get("subcategory_description").markAsTouched();
             }
         }
     }
@@ -630,8 +636,8 @@ export class ServicesComponent implements OnInit {
                 }
                 this.updateCategory(this.updateCategoryData);
             }else{
-                this.createService.get('category_name').markAsTouched();
-                this.createService.get('category_description').markAsTouched();
+                this.createCategory.get('category_name').markAsTouched();
+                this.createCategory.get('category_description').markAsTouched();
             }
         } else {
             if (this.createCategory.valid) {
@@ -645,8 +651,8 @@ export class ServicesComponent implements OnInit {
                 }
                 this.createNewCategory(this.newCategoryData);
             }else{
-                this.createService.get('category_name').markAsTouched();
-                this.createService.get('category_description').markAsTouched();
+                this.createCategory.get('category_name').markAsTouched();
+                this.createCategory.get('category_description').markAsTouched();
             }
         }
     }
