@@ -524,10 +524,10 @@ export class AppComponent implements AfterViewInit {
 
   }
 
-  // signInWithFB(loginForm): void {
-  //   this.loginForm=loginForm;
-  //   this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-  // }
+  signInWithFB(loginForm): void {
+    this.loginForm=loginForm;
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
 
   fnCheckAuthState(){
     this.authService.authState.subscribe((user) => {
