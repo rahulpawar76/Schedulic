@@ -170,7 +170,6 @@ export class ServicesComponent implements OnInit {
     let requestObject = {
       "business_id" : this.businessId
       };
-
     this.adminSettingsService.getSettingValue(requestObject).subscribe((response:any) => {
       if(response.data == true && response.response != ''){
         this.settingsArr = response.response;
@@ -332,6 +331,8 @@ export class ServicesComponent implements OnInit {
   
 
     fnAllCategory() {
+
+
         this.isLoaderAdmin = true;
         this.adminSettingsService.fnAllCategory().subscribe((response: any) => {
             if (response.data == true && response.response.length > 0) {
@@ -712,6 +713,12 @@ export class ServicesComponent implements OnInit {
         this.isLoaderAdmin = false;
     }
     deleteCategory(deleteCategoryId) {
+        var is_confirm  = confirm('Are you sure you want to delete?')
+        if(!is_confirm){
+            return false;
+        }
+     
+        
         this.isLoaderAdmin = true;
         this.adminSettingsService.deleteCategory(deleteCategoryId).subscribe((response: any) => {
             if (response.data == true) {
@@ -736,6 +743,13 @@ export class ServicesComponent implements OnInit {
         })
     }
     deleteSubCategory(deleteSubCategoryId) {
+
+        var is_confirm  = confirm('Are you sure you want to delete?');
+
+        if(!is_confirm){
+            return false;
+        }
+
         this.isLoaderAdmin = true;
         this.adminSettingsService.deleteSubCategory(deleteSubCategoryId).subscribe((response: any) => {
             if (response.data == true) {
@@ -831,7 +845,15 @@ export class ServicesComponent implements OnInit {
     
 
     fnServiceAction(action, categoryId, type) {
-        console.log(this.actionServiceIdarr);
+
+        if(action=='DEL'){
+            var is_confirm  = confirm('Are you sure you want to delete?');
+            if(!is_confirm){
+                return false;
+            }
+        }
+
+
         if (this.actionServiceIdarr.length > 0) {
             console.log(this.actionServiceIdarr);
             this.adminSettingsService.fnServiceAction(this.actionServiceIdarr, action).subscribe((response: any) => {

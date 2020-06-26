@@ -97,6 +97,7 @@ export class AuthenticationService {
         localStorage.removeItem('currentUser');
         localStorage.removeItem('isFront');
         localStorage.removeItem('logoutTime');
+        localStorage.removeItem('business_id');
         // localStorage.removeItem('userToken');
         // localStorage.removeItem('userName');
         // localStorage.removeItem('userRole');

@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { ChangeDetectorRef  } from '@angular/core';
+
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, from } from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
@@ -15,7 +17,8 @@ export class AdminSettingsService {
     constructor(
         private http: HttpClient,
         private _snackBar: MatSnackBar,
-        private authenticationService: AuthenticationService
+        private authenticationService: AuthenticationService,
+        private Change:ChangeDetectorRef
     ) {
 
         this.adminId = JSON.stringify(this.authenticationService.currentUserValue.user_id);
@@ -31,7 +34,9 @@ export class AdminSettingsService {
         return throwError('Error! something went wrong.');
     }
 
-    ngOnInit() { }
+    ngOnInit() { 
+        this.Change.detectChanges();
+    }
 
     getTimeZone() {
         let headers = new HttpHeaders({
@@ -46,8 +51,10 @@ export class AdminSettingsService {
 
     fnAllServices(api_url) {
         let requestObject = {
-            'business_id': this.businessId,
+            'business_id': localStorage.getItem('business_id'),
         };
+        
+        
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -61,7 +68,7 @@ export class AdminSettingsService {
     }
     fnstaffList(){
         let requestObject = {
-            'business_id': this.businessId,
+            'business_id': localStorage.getItem('business_id'),
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
@@ -78,7 +85,7 @@ export class AdminSettingsService {
 
     fnAllCategory() {
         let requestObject = {
-            'business_id': this.businessId,
+            'business_id': localStorage.getItem('business_id'),
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
@@ -94,7 +101,7 @@ export class AdminSettingsService {
 
     getPostalCodeList() {
         let requestObject = {
-            'business_id': this.businessId,
+            'business_id': localStorage.getItem('business_id'),
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
@@ -136,7 +143,7 @@ export class AdminSettingsService {
 
     getStaffList() {
         let requestObject = {
-            'business_id': this.businessId,
+            'business_id': localStorage.getItem('business_id'),
             'action': 'E',
         };
         let headers = new HttpHeaders({
@@ -179,7 +186,7 @@ export class AdminSettingsService {
 
     getServiceForCategoiry(categoryId, filter,api_url) {
         let requestObject = {
-            'business_id': this.businessId,
+            'business_id': localStorage.getItem('business_id'),
             'category_id': categoryId,
             'filter': filter
 
@@ -298,7 +305,7 @@ export class AdminSettingsService {
     }
     getServiceForSubCategoiry(subCategoryId, filter,api_url) {
         let requestObject = {
-            'business_id': this.businessId,
+            'business_id': localStorage.getItem('business_id'),
             'sub_category_id': subCategoryId,
             'filter': filter
 

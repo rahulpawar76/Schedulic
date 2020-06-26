@@ -17,7 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 export class SettingsComponent implements AfterViewInit {
 
-
+  businessId: any;
   currentUser: User;
   constructor(
     public router: Router,
@@ -26,7 +26,9 @@ export class SettingsComponent implements AfterViewInit {
     private _snackBar: MatSnackBar,        
 ) {        
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-
+    if (localStorage.getItem('business_id')) {
+      this.businessId = localStorage.getItem('business_id');
+  }
 }
   ngAfterViewInit() { 
 
