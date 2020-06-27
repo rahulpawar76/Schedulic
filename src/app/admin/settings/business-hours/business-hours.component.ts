@@ -223,14 +223,14 @@ export class BusinessHoursComponent implements OnInit {
         this.fnGetWorkingHours();
         this.snackBar.open("Working Hours Updated", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else{
        this.snackBar.open("Working Hours Not Updated", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
@@ -245,7 +245,7 @@ export class BusinessHoursComponent implements OnInit {
       if(this.formSetWorkingHours.get("mondayStartTime").value == '' || this.formSetWorkingHours.get("mondayEndTime").value == '' || this.formSetWorkingHours.get("mondayStartTime").value == null || this.formSetWorkingHours.get("mondayEndTime").value == null){
         this.snackBar.open("Start & End Time can not be empty", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
         return false;
@@ -264,14 +264,14 @@ export class BusinessHoursComponent implements OnInit {
         this.fnGetWorkingHours();
         this.snackBar.open("Working Hours applied to all", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else{
        this.snackBar.open("Working Hours Not Updated", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
@@ -386,14 +386,14 @@ export class BusinessHoursComponent implements OnInit {
       if(response.data == true){
         this.snackBar.open("Timezone Updated", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else{
        this.snackBar.open("Timezone Not Updated", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
@@ -806,13 +806,13 @@ export class BusinessHoursComponent implements OnInit {
             this.fnGetTimeOffList();
             this.snackBar.open("TimeOff Deleted", "X", {
               duration: 2000,
-              verticalPosition: 'bottom',
+              verticalPosition: 'top',
               panelClass : ['green-snackbar']
             });
           }else{
            this.snackBar.open("TimeOff Not Deleted", "X", {
               duration: 2000,
-              verticalPosition: 'bottom',
+              verticalPosition: 'top',
               panelClass : ['red-snackbar']
             });
           }
@@ -833,13 +833,13 @@ export class BusinessHoursComponent implements OnInit {
         this.fnGetTimeOffList();
         this.snackBar.open("TimeOff status updated", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }else{
        this.snackBar.open("TimeOff status not updated", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
@@ -1166,14 +1166,14 @@ export class BusinessHoursComponent implements OnInit {
         this.showSundayAddForm=false;
         this.snackBar.open("Break Added", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else{
        this.snackBar.open("Break Not Added", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
@@ -1197,13 +1197,13 @@ export class BusinessHoursComponent implements OnInit {
             this.fnGetBreakTimeList();
             this.snackBar.open("Break Deleted", "X", {
               duration: 2000,
-              verticalPosition: 'bottom',
+              verticalPosition: 'top',
               panelClass : ['green-snackbar']
             });
           }else{
            this.snackBar.open("Break Not Deleted", "X", {
               duration: 2000,
-              verticalPosition: 'bottom',
+              verticalPosition: 'top',
               panelClass : ['red-snackbar']
             });
           }
@@ -1269,14 +1269,14 @@ fnAddNewTimeOff(){
         this.dialogRef.close({ call: true });
         this.snackBar.open("TimeOff added", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else{
        this.snackBar.open("TimeOff nit added", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
