@@ -673,11 +673,11 @@
                                             <mat-label>Enter Service Unit</mat-label>
                                             <input matInput formControlName="service_unit" placeholder="">
                                         </mat-form-field>
+                                        <span class="unit-info" #tooltip="matTooltip" matTooltip="Info about the Service Unit" matTooltipPosition="above" matTooltipHideDelay="50000"><i class="fa fa-question-circle"></i>
+                                        </span>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_unit').touched || createService.get('service_unit').dirty">
                                         <small *ngIf="createService.get('service_unit').hasError('required')" class="error">Service unit is required.</small>
                                         <small *ngIf="createService.get('service_unit').hasError('pattern')" class="error">Service unit must be numeric.</small>
-                                        </span>
-                                        <span class="unit-info" #tooltip="matTooltip" matTooltip="Info about the action" matTooltipPosition="above" matTooltipHideDelay="50000"><i class="fa fa-question-circle"></i>
                                         </span>
                                     </div>
                                     <div class="service-statustoggle" *ngIf="!editServiceId">

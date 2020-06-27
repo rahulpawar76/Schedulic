@@ -12,6 +12,7 @@ import { AdminSettingsService } from '../_services/admin-settings.service';
 import { DatePipe} from '@angular/common';
 import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import {TooltipPosition} from '@angular/material/tooltip';
 
 export interface DialogData {
   selectedStaffId: any;
@@ -38,7 +39,7 @@ export class StaffComponent implements OnInit {
   addPostalCodeId: any = [];
   singleStaffStatus: any;
   singleStaffDetail: any;
-  staffImageUrl:any;
+  staffImageUrl:any = '';
   progress: any;
   singleStaffDataRating: any;
   singleStaffIndex: any;
@@ -256,7 +257,7 @@ export class StaffComponent implements OnInit {
       lastname : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
       address : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
-      phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       description : ['',Validators.maxLength(255)],
       staff_id : [''],
     });
@@ -288,6 +289,11 @@ export class StaffComponent implements OnInit {
   //     }, 500);
   //   });
   // }
+  fnStaffListing(){
+    this.addStaffPage = false;
+    this.staffListPage = true;
+    this.singleStaffView = false;
+  }
 
   isEmailUniqueForEdit(control: FormControl) {
     return new Promise((resolve, reject) => {
