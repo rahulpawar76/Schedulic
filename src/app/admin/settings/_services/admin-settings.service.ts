@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ChangeDetectorRef  } from '@angular/core';
-
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, from } from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
@@ -13,20 +11,20 @@ import { AuthenticationService } from '@app/_services';
 export class AdminSettingsService {
     adminId: any
     adminToken: any
-    businessId: any;
+    businessId: any = localStorage.getItem('business_id')?localStorage.getItem('business_id'):'';
     constructor(
         private http: HttpClient,
         private _snackBar: MatSnackBar,
         private authenticationService: AuthenticationService,
-        private Change:ChangeDetectorRef
     ) {
 
         this.adminId = JSON.stringify(this.authenticationService.currentUserValue.user_id);
         this.adminToken = this.authenticationService.currentUserValue.token;
         localStorage.setItem('isBusiness', 'false');
-        if (localStorage.getItem('business_id')) {
-            this.businessId = localStorage.getItem('business_id');
-        }
+        // if (localStorage.getItem('business_id')) {
+        //     this.businessId = localStorage.getItem('business_id');
+        // }
+        console.log(this.businessId);
     }
 
     private handleError(error: HttpErrorResponse) {
@@ -35,7 +33,6 @@ export class AdminSettingsService {
     }
 
     ngOnInit() { 
-        this.Change.detectChanges();
     }
 
     getTimeZone() {

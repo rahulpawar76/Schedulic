@@ -9,7 +9,7 @@ import { AuthenticationService } from '@app/_services';
 @Injectable({ providedIn: 'root' })
 
 export class AdminService {
-  businessId : any;
+  businessId : any = localStorage.getItem('business_id')?localStorage.getItem('business_id'):'';
   currentUser : any;
   constructor(
     private http: HttpClient,
@@ -18,9 +18,9 @@ export class AdminService {
     ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     localStorage.setItem('isBusiness', 'false');
-    if(localStorage.getItem('business_id')){
-        this.businessId=localStorage.getItem('business_id');
-    }
+    // if(localStorage.getItem('business_id')){
+    //     this.businessId=localStorage.getItem('business_id');
+    // }
   }  
     private handleError(error: HttpErrorResponse) {
         console.log(error);
@@ -163,8 +163,9 @@ export class AdminService {
     // Customer Module
     getAllCustomers(){
         let requestObject = {
-            'business_id': this.businessId,
+            'business_id': localStorage.getItem('business_id'),
         };
+
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
