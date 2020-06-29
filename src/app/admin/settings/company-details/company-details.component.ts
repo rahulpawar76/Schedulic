@@ -18,7 +18,7 @@ export class CompanyDetailsComponent implements OnInit {
   adminSettings : boolean = true;
   companyDetails:FormGroup;
   companyDetailsData:any;
-  companyDetailsImageUrl:any;
+  companyDetailsImageUrl:any = '';
   updateCompanyDetailsData:any;
   allCountry: any;
   allStates: any;

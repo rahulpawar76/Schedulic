@@ -26,9 +26,9 @@ export interface DialogData {
 export class ServicesComponent implements OnInit {
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<any> = new Subject();
-    categoryImageUrl:any;
-    subCategoryImageUrl:any;
-    serviceImageUrl:any;
+    categoryImageUrl:any = '';
+    subCategoryImageUrl:any = '';
+    serviceImageUrl:any = '';
     animal: any;
     ActionId: any = [];
     staffActionIdSub:any = [];

@@ -287,15 +287,18 @@
         </div>
         <mat-card *ngIf="staffListPage">
             <div class="row p-1">
-                <div class="d-flex mb-1">
-                    <h5>Staff</h5>
-                    <div>
-                        <button mat-button (click)="fnAddNewStaff()" class="staff-add-btn pl-0">
+                <div class="col-9">
+                    <div class="d-flex mb-1">
+                        <h5>Staff</h5>
+                    </div>
+                    <p class="w-100 mb-3 d-flex">Staff/team members are required to deliver services to your customers. you can define rights/permissions, and the services they can perform.</p>
+                </div>
+
+                <div class="col-3">
+                    <button mat-button (click)="fnAddNewStaff()" class="staff-add-btn pl-0">
                         <mat-icon aria-hidden="false">add</mat-icon>Add Staff
                     </button>
-                    </div>
                 </div>
-                <p class="w-100 mb-3 d-flex">Staff/team members are required to deliver services to your customers. you can define rights/permissions, and the services they can perform.</p>
 
                 <div class="w-100 mb-3 d-flex">
                     <mat-form-field class="dropdown bottom-border-field mt-0">
@@ -510,7 +513,7 @@
                     </div>
                     <div class="bottom-border d-flex">
                         <div>
-                            <h6>Phone Number Verification</h6>
+                            <h6>"Phone Number Verification</h6>
                             <div class="d-flex">
                                 <p class="mb-0 pr-2">{{singleStaffDetail.staff[0].phone}}</p>
                                 <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
@@ -528,7 +531,7 @@
                     </div>
                     <div class="bottom-border-last">
                         <h6>Documents</h6>
-                        <div *ngIf="singleStaffDetail.staff[0].getdocument" class="d-flex mt-3">
+                        <a href="" *ngIf="singleStaffDetail.staff[0].getdocument" class="d-flex mt-3">
                             <div *ngFor="let staffDocument of singleStaffDetail.staff[0].getdocument" class="pan-card file-border d-flex mr-2">
                                 <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
                                 <p class="pr-1 mb-0">{{staffDocument.documents}}</p>
@@ -537,7 +540,7 @@
                             <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
                             <p class="pr-1 mb-0">Adhar card.jpg</p>
                         </div> -->
-                        </div>
+                        </a>
                         <div *ngIf="!singleStaffDetail.staff[0].getdocument" class="d-flex mt-3">
                             No Document Available
                         </div>
@@ -1171,9 +1174,9 @@
                     <div class="d-flex bottom-border">
                         <button mat-button class="reset-button ml-auto" (click)="fnResetToDefaultTimeOff()">Reset to Default</button>
                         <button (click)="addTimeOff()" mat-button class="time-off-button ml-2">
-            <mat-icon aria-hidden="false">add</mat-icon>
-            Time Off
-          </button>
+                            <mat-icon aria-hidden="false">add</mat-icon>
+                            Add Time Off
+                        </button>
                     </div>
                     <div class="bottom-border d-flex" *ngFor="let timeOff of timeOffList">
                         <div class="calendar-background mr-3">

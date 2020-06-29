@@ -61,7 +61,7 @@ export class CustomersComponent implements OnInit {
   businessId: any;
   addNewTag: boolean = false;
   tagsnew: any=[];
-  customerImageUrl:any;
+  customerImageUrl:any = '';
   search = {
     keyword: ""
   };
