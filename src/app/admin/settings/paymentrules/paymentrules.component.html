@@ -116,20 +116,20 @@
                 </div>
             </div>
             <div class="border mt-3">
-                <div class="tax-background">
+                <!-- <div class="tax-background">
                     <p class="my-2"><b>Tax</b></p>
-                </div>
+                </div> -->
 
-                <div class="p-3">
+                <div class="">
                     <div class="Customer-appointment-table">
                         <div class="main-table-content main-cust-table-content">
                             <div class="">
-                                <div class="heads main-heading-content example-box header-background" fxLayout="row">
-                                    <div class="" fxFlex="40"></div>
-                                    <div class="" fxFlex="30"></div>
-                                    <div class="" fxFlex="30"></div>
+                                <div class="heads main-heading-content example-box header-background tax-background" fxLayout="row">
+                                    <div class="" fxFlex="40">Tax</div>
+                                    <div class="" fxFlex="30">Percentage</div>
+                                    <div class="" fxFlex="30">Action</div>
                                 </div>
-                                <div class="content" class="example-list">
+                                <div *ngIf="taxesData != '' || taxesData != null" class="content" class="example-list">
                                     <div *ngFor="let taxesData of taxesData; let i=index" class="example-box my-1">
                                         <div class="" fxFlex="40">
                                             <div class="d-flex align-items-center">
@@ -144,6 +144,10 @@
                                         </button>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div *ngIf="taxesData == '' || taxesData == null" class="content" class="example-list">
+                                    <p class="text-center p-1">No Record Found</p>
                                 </div>
                             </div>
                         </div>

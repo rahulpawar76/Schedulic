@@ -724,3 +724,11 @@
         transform: translate(1px, -2px) rotate(-1deg);
     }
 }
+
+::ng-deep .mat-tab-label {
+    &.mat-tab-label-active {
+        .mat-tab-label-content {
+            color: #1173f4;
+        }
+    }
+}

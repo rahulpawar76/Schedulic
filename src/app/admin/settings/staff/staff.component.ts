@@ -63,6 +63,7 @@ export class StaffComponent implements OnInit {
   updateStaffData: any;
   editStaffId: any;
   validationArr:any=[];
+  settingSideMenuToggle : boolean = false;
 
   
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
@@ -294,6 +295,13 @@ export class StaffComponent implements OnInit {
     this.staffListPage = true;
     this.singleStaffView = false;
   }
+  fnSettingMenuToggleSmall(){
+    this.settingSideMenuToggle = true;
+  }
+  fnSettingMenuToggleLarge(){
+    this.settingSideMenuToggle = false;
+  }
+
 
   isEmailUniqueForEdit(control: FormControl) {
     return new Promise((resolve, reject) => {

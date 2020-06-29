@@ -235,3 +235,11 @@
     background-color: #a8ceff;
     color: #1173f4;
 }
+
+::ng-deep .mat-tab-label {
+    &.mat-tab-label-active {
+        .mat-tab-label-content {
+            color: #1173f4;
+        }
+    }
+}

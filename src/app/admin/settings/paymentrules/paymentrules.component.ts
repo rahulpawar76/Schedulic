@@ -66,6 +66,8 @@ export class PaymentrulesComponent implements OnInit {
       if (response.data == true) {
         this.taxesData = response.response;
        // console.log(this.taxesData);
+      }else if(response.data == false){
+        this.taxesData = '';
       }
     })
   }

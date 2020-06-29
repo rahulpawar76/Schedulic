@@ -64,15 +64,15 @@ export class CompanyDetailsComponent implements OnInit {
     this.getCompanyDetails();
     this.companyDetails = this._formBuilder.group({
       company_name : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)],this.whiteSpaceValidation.bind(this)],
-      comp_email : ['',[Validators.pattern(this.emailFormat)]],
+      comp_email : ['',[Validators.required, Validators.pattern(this.emailFormat)]],
       comp_website : ['',[Validators.pattern("(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?")]],
-      comp_mobile : ['',[Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      comp_mobile : ['',Validators.required, [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       country:['', Validators.required],
       comp_address:['', Validators.required],
       city:['', Validators.required],
       state:['', Validators.required],
       zip_code:['', [Validators.required,Validators.minLength(5),Validators.maxLength(10)]],
-      comp_decs:[''],
+      comp_decs:['', Validators.required],
       comp_status:[false],
       comp_private_status:[false],
     });
@@ -119,7 +119,8 @@ export class CompanyDetailsComponent implements OnInit {
         this.companyDetails.controls['country'].setValue(JSON.stringify(this.companyDetailsData.country.id));
         this.companyDetails.controls['comp_address'].setValue(this.companyDetailsData.address);
         this.companyDetails.controls['city'].setValue(JSON.stringify(this.companyDetailsData.city.id));
-        this.companyDetails.controls['state'].setValue(JSON.stringify(this.companyDetailsData.state!=null ? this.companyDetailsData.state.id : ''));
+        // this.companyDetails.controls['state'].setValue(JSON.stringify(this.companyDetailsData.state!=null ? this.companyDetailsData.state.id : ''));
+        this.companyDetails.controls['state'].setValue(JSON.stringify(this.companyDetailsData.state.id));
         this.companyDetails.controls['zip_code'].setValue(this.companyDetailsData.zipcode);
         this.companyDetails.controls['comp_decs'].setValue(this.companyDetailsData.description);
         this.companyDetails.controls['comp_status'].setValue(this.companyDetailsData.status=="E"?true:false);
@@ -198,14 +199,25 @@ export class CompanyDetailsComponent implements OnInit {
         'image': this.companyDetailsImageUrl
       }
       
-    }
     this.fnupdateBusineData(this.updateCompanyDetailsData);
+    }else{
+      this.companyDetails.get('company_name').markAsTouched();
+      this.companyDetails.get('comp_email').markAsTouched();
+      this.companyDetails.get('comp_website').markAsTouched();
+      this.companyDetails.get('comp_mobile').markAsTouched();
+      this.companyDetails.get('country').markAsTouched();
+      this.companyDetails.get('comp_address').markAsTouched();
+      this.companyDetails.get('city').markAsTouched();
+      this.companyDetails.get('state').markAsTouched();
+      this.companyDetails.get('zip_code').markAsTouched();
+      this.companyDetails.get('comp_decs').markAsTouched();
+    }
   }
 
   fnupdateBusineData(updateCompanyDetailsData){
     this.adminSettingsService.fnupdateBusineData(updateCompanyDetailsData).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Company Detail Updated", "X", {
+        this._snackBar.open("Company detail updated.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
