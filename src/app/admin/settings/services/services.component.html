@@ -1,8 +1,9 @@
 <mat-drawer-content class="main-setting-container" id="services" class="ml-0">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
-    <div class="left-side-menu setting-menu">
+    <div class="left-side-menu setting-menu" [ngClass]="{ 'short-menu': settingSideMenuToggle === true }">
         <div class="leftarrow-icon d-flex">
-            <mat-icon aria-hidden="false" class="customer-drawer-leftarrow ml-auto">arrow_back</mat-icon>
+            <mat-icon (click)="fnSettingMenuToggleSmall()" *ngIf="!settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_back</mat-icon>
+            <mat-icon (click)="fnSettingMenuToggleLarge()" *ngIf="settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_forward</mat-icon>
         </div>
         <h6>Resource Management</h6>
         <div routerLink="/admin/settings" class="d-flex setting-menu-item setting-menu-active">
@@ -86,7 +87,7 @@
             <p>Alert Rules</p>
         </div>
     </div>
-    <mat-drawer-container class="h-100 setting-right-side-content">
+    <mat-drawer-container class="h-100 setting-right-side-content" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
         <mat-drawer [disableClose]="true" mode="side" opened class="category-sidebar" style="width:250px; background-color: #f8fbff;">
             <!-- <mat-list role="list">
                 <div  class="pl-2 bottom-border d-flex">

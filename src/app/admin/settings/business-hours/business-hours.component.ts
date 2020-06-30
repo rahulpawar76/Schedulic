@@ -87,6 +87,7 @@ export class BusinessHoursComponent implements OnInit {
   sundayBreakStartTimeIndex:any;
   sundayBreakEndTimeIndex:any;
   formSetWorkingHours: FormGroup;
+  settingSideMenuToggle : boolean = false;
   constructor(private appComponent : AppComponent,
     public dialog: MatDialog, 
     public adminSettingsService: AdminSettingsService,
@@ -1061,6 +1062,12 @@ export class BusinessHoursComponent implements OnInit {
         }
       }
     }
+  }
+  fnSettingMenuToggleSmall(){
+    this.settingSideMenuToggle = true;
+  }
+  fnSettingMenuToggleLarge(){
+    this.settingSideMenuToggle = false;
   }
 
   fnAddBreak(day){

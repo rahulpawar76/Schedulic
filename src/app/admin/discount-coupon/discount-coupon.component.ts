@@ -260,8 +260,11 @@ export class DiscountCouponComponent implements OnInit {
   }
 
   getCateServiceList(){
+    let requestObject = {
+      'business_id': this.businessId,
+  };
     this.isLoaderAdmin = true;
-    this.AdminService.getCateServiceList().subscribe((response:any) => {
+    this.AdminService.getCateServiceList(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.categoryServiceList = response.response;
         

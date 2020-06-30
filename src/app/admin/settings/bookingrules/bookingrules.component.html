@@ -1,7 +1,8 @@
 <mat-drawer-content id="booking-rules" class="ml-0">
-    <div class="left-side-menu setting-menu">
+    <div class="left-side-menu setting-menu" [ngClass]="{ 'short-menu': settingSideMenuToggle === true }">
         <div class="leftarrow-icon d-flex">
-            <mat-icon aria-hidden="false" class="customer-drawer-leftarrow ml-auto">arrow_back</mat-icon>
+            <mat-icon (click)="fnSettingMenuToggleSmall()" *ngIf="!settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_back</mat-icon>
+            <mat-icon (click)="fnSettingMenuToggleLarge()" *ngIf="settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_forward</mat-icon>
         </div>
         <h6>Resource Management</h6>
         <div routerLink="/admin/settings" class="d-flex setting-menu-item">
@@ -78,7 +79,7 @@
             <p>Alert Rules</p>
         </div>
     </div>
-    <div class="h-100 setting-right-side-content">
+    <div class="h-100 setting-right-side-content" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
         <mat-card>
             <h5>Booking Rules</h5>
             <mat-card>
