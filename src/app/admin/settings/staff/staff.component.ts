@@ -12,6 +12,7 @@ import { AdminSettingsService } from '../_services/admin-settings.service';
 import { DatePipe} from '@angular/common';
 import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import {TooltipPosition} from '@angular/material/tooltip';
 
 export interface DialogData {
   selectedStaffId: any;
@@ -38,7 +39,7 @@ export class StaffComponent implements OnInit {
   addPostalCodeId: any = [];
   singleStaffStatus: any;
   singleStaffDetail: any;
-  staffImageUrl:any;
+  staffImageUrl:any = '';
   progress: any;
   singleStaffDataRating: any;
   singleStaffIndex: any;
@@ -62,6 +63,7 @@ export class StaffComponent implements OnInit {
   updateStaffData: any;
   editStaffId: any;
   validationArr:any=[];
+  settingSideMenuToggle : boolean = false;
 
   
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
@@ -256,7 +258,7 @@ export class StaffComponent implements OnInit {
       lastname : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
       address : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
-      phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       description : ['',Validators.maxLength(255)],
       staff_id : [''],
     });
@@ -288,6 +290,18 @@ export class StaffComponent implements OnInit {
   //     }, 500);
   //   });
   // }
+  fnStaffListing(){
+    this.addStaffPage = false;
+    this.staffListPage = true;
+    this.singleStaffView = false;
+  }
+  fnSettingMenuToggleSmall(){
+    this.settingSideMenuToggle = true;
+  }
+  fnSettingMenuToggleLarge(){
+    this.settingSideMenuToggle = false;
+  }
+
 
   isEmailUniqueForEdit(control: FormControl) {
     return new Promise((resolve, reject) => {
@@ -439,7 +453,7 @@ export class StaffComponent implements OnInit {
     this.isLoaderAdmin = true;
     this.adminSettingsService.fnActionStaff(action, this.staffActionId).subscribe((response: any) => {
       if (response.data == true) {
-        this._snackBar.open("Staff Status Updated", "X", {
+        this._snackBar.open("Staff status updated", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['green-snackbar']
@@ -465,7 +479,7 @@ export class StaffComponent implements OnInit {
     this.staffActionId.push(staffId)
     this.adminSettingsService.fnActionStaff(this.singleStaffStatus, this.staffActionId).subscribe((response: any) => {
       if (response.data == true) {
-        this._snackBar.open("Staff Status Updated", "X", {
+        this._snackBar.open("Staff status updated", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['green-snackbar']
@@ -715,7 +729,7 @@ export class StaffComponent implements OnInit {
     }
     this.adminSettingsService.fnChangeInternalStaff(this.staffInternalStatus, staffId).subscribe((response: any) => {
       if (response.data == true) {
-        this._snackBar.open("Internal Staff Status Updated", "X", {
+        this._snackBar.open("Internal Staff status updated", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['green-snackbar']
@@ -737,7 +751,7 @@ export class StaffComponent implements OnInit {
     }
     this.adminSettingsService.fnChangeLoginAllowStaff(this.staffLoginStatus, staffId).subscribe((response: any) => {
       if (response.data == true) {
-        this._snackBar.open(response.response, "X", {
+        this._snackBar.open("Login allowed status updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['green-snackbar']
@@ -810,7 +824,7 @@ export class StaffComponent implements OnInit {
     this.isLoaderAdmin = true;
     this.adminSettingsService.fnAssignServiceToStaff(event, serviceId, this.selectedStaffId).subscribe((response: any) => {
       if (response.data == true) {
-        this._snackBar.open(response.response, "X", {
+        this._snackBar.open('Staff service updated.', "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['green-snackbar']
@@ -2069,14 +2083,14 @@ export class StaffComponent implements OnInit {
     this.adminSettingsService.changeTimeOffStatusStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
-        this._snackBar.open("TimeOff status updated", "X", {
+        this._snackBar.open("Time off status updated", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['green-snackbar']
         });
       }else{
       this.isLoaderAdmin = false;
-      this._snackBar.open("TimeOff status not updated", "X", {
+      this._snackBar.open("Time off status not updated", "X", {
         duration: 2000,
         verticalPosition: 'bottom',
         panelClass : ['red-snackbar']
@@ -2095,14 +2109,14 @@ export class StaffComponent implements OnInit {
     this.adminSettingsService.resetToDefaultTimeOffStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
-        this._snackBar.open("TimeOff status Reset to Default", "X", {
+        this._snackBar.open("Time off status Reset to Default", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['green-snackbar']
         });
       }else{
       this.isLoaderAdmin = false;
-      this._snackBar.open("TimeOff status not Reset to Default", "X", {
+      this._snackBar.open("Time off status not Reset to Default", "X", {
         duration: 2000,
         verticalPosition: 'bottom',
         panelClass : ['red-snackbar']
@@ -2127,14 +2141,14 @@ export class StaffComponent implements OnInit {
         this.adminSettingsService.deleteTimeOff(requestObject).subscribe((response:any) => {
           if(response.data == true){
             this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
-            this._snackBar.open("TimeOff Deleted", "X", {
+            this._snackBar.open("Time off deleted", "X", {
               duration: 2000,
               verticalPosition: 'bottom',
               panelClass : ['green-snackbar']
             });
           }else{
             this.isLoaderAdmin = false;
-            this._snackBar.open("TimeOff Not Deleted", "X", {
+            this._snackBar.open("Time off not deleted", "X", {
               duration: 2000,
               verticalPosition: 'bottom',
               panelClass : ['red-snackbar']
@@ -2398,14 +2412,14 @@ export class DialogAddNewTimeOff {
     this.adminSettingsService.addNewTimeOffStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.dialogRef.close({ call: true });
-        this._snackBar.open("TimeOff added", "X", {
+        this._snackBar.open("Time off added", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['green-snackbar']
         });
       }
       else{
-       this._snackBar.open("TimeOff not added", "X", {
+       this._snackBar.open("Time off not added", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']

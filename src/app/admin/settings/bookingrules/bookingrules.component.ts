@@ -50,6 +50,7 @@ export class BookingrulesComponent implements OnInit {
   privacyPolicyPageLinkValue:any;
   thankyouPageStatusValue:any;
   thankyouPageLinkValue:any;
+  settingSideMenuToggle : boolean = false;
 
   constructor(
     private appComponent : AppComponent,
@@ -214,6 +215,12 @@ export class BookingrulesComponent implements OnInit {
         });
       }
     })
+  }
+  fnSettingMenuToggleSmall(){
+    this.settingSideMenuToggle = true;
+  }
+  fnSettingMenuToggleLarge(){
+    this.settingSideMenuToggle = false;
   }
 
   fnSetMinAdvBookingTime(event){

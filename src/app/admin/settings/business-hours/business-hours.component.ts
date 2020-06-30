@@ -87,6 +87,7 @@ export class BusinessHoursComponent implements OnInit {
   sundayBreakStartTimeIndex:any;
   sundayBreakEndTimeIndex:any;
   formSetWorkingHours: FormGroup;
+  settingSideMenuToggle : boolean = false;
   constructor(private appComponent : AppComponent,
     public dialog: MatDialog, 
     public adminSettingsService: AdminSettingsService,
@@ -804,13 +805,13 @@ export class BusinessHoursComponent implements OnInit {
         this.adminSettingsService.deleteTimeOffStaff(requestObject).subscribe((response:any) => {
           if(response.data == true){
             this.fnGetTimeOffList();
-            this.snackBar.open("TimeOff Deleted", "X", {
+            this.snackBar.open("Time off Deleted", "X", {
               duration: 2000,
               verticalPosition: 'top',
               panelClass : ['green-snackbar']
             });
           }else{
-           this.snackBar.open("TimeOff Not Deleted", "X", {
+           this.snackBar.open("Time off Not Deleted", "X", {
               duration: 2000,
               verticalPosition: 'top',
               panelClass : ['red-snackbar']
@@ -831,13 +832,13 @@ export class BusinessHoursComponent implements OnInit {
     this.adminSettingsService.changeTimeOffStatus(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fnGetTimeOffList();
-        this.snackBar.open("TimeOff status updated", "X", {
+        this.snackBar.open("Time off status updated", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }else{
-       this.snackBar.open("TimeOff status not updated", "X", {
+       this.snackBar.open("Time off status not updated", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
@@ -1062,6 +1063,12 @@ export class BusinessHoursComponent implements OnInit {
       }
     }
   }
+  fnSettingMenuToggleSmall(){
+    this.settingSideMenuToggle = true;
+  }
+  fnSettingMenuToggleLarge(){
+    this.settingSideMenuToggle = false;
+  }
 
   fnAddBreak(day){
     let requestObject={
@@ -1267,14 +1274,14 @@ fnAddNewTimeOff(){
     this.adminSettingsService.addNewTimeOff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.dialogRef.close({ call: true });
-        this.snackBar.open("TimeOff added", "X", {
+        this.snackBar.open("Time off added", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else{
-       this.snackBar.open("TimeOff nit added", "X", {
+       this.snackBar.open("Time off nit added", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['red-snackbar']

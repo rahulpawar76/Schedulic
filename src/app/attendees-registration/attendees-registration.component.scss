@@ -162,3 +162,7 @@
     margin-left: 20px;
     position: absolute;
 }
+
+::ng-deep .common-input.ng-invalid.ng-touched {
+    border-color: red !important;
+}

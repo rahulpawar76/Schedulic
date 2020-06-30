@@ -1,30 +1,29 @@
 @import "variables";
-
-
-.main-getting-content{
+.main-getting-content {
     margin: 30px;
 }
 
-.appearance-save-btn{
+.appearance-save-btn {
     width: 100px;
     height: 39px;
     margin: 30px;
     background-color: #1173f4;
     color: white;
 }
-.card-content{
 
+.card-content {
     margin: 30px;
 }
 
-.contact-field-toggle{
+.contact-field-toggle {
     float: right;
 }
-.colorpicker-wrap{
+
+.colorpicker-wrap {
     margin-left: auto;
 }
 
-.bottom-border{
+.bottom-border {
     border-bottom: 1px solid #dbdbdb;
     padding: 15px 0px;
 }
@@ -43,8 +42,8 @@
     // &.header-background{
     //     //background-color: #f7f7f7;
     // }
-    .checked{		
-        background-color:$btnlightblue; 
+    .checked {
+        background-color: $btnlightblue;
         height: 35px;
         width: 120px;
         border-radius: 50px;
@@ -55,7 +54,7 @@
     }
     .round label {
         background-color: #ffffff;
-        border: 1px solid #fff; 
+        border: 1px solid #fff;
         border-radius: 50%;
         cursor: pointer;
         height: 27px;
@@ -64,7 +63,6 @@
         top: 0;
         width: 29px;
         margin: 4px;
-
     }
     .round label:after {
         border: 2px solid #1172f4;
@@ -79,22 +77,17 @@
         transform: rotate(-45deg);
         width: 12px;
     }
-
     .round input[type="checkbox"] {
         visibility: hidden;
     }
-    
-    .round input[type="checkbox"]:checked + label {
+    .round input[type="checkbox"]:checked+label {
         background-color: #fff;
         border-color: #fff;
     }
-    
-    .round input[type="checkbox"]:checked + label:after {
+    .round input[type="checkbox"]:checked+label:after {
         opacity: 1;
     }
-
-    
-   .check-label{
+    .check-label {
         float: left;
         text-indent: 30px;
         padding: 0 6px;
@@ -102,36 +95,38 @@
     }
 }
 
-.main-appearance-content{
-
-    margin: 20px;;
+.main-appearance-content {
+    margin: 20px;
+    ;
 }
-.save-btn{
+
+.save-btn {
     width: 100px;
     height: 34px;
     border-radius: 50px;
     background-color: #3ab54a;
     color: white;
 }
-.form-save-btn{
+
+.form-save-btn {
     width: 100px;
     height: 39px;
     margin: 30px;
     background-color: #1173f4;
     color: white;
     float: right;
-
 }
-.appearancecolor-save-btn{
+
+.appearancecolor-save-btn {
     width: 100px;
     height: 39px;
     margin: 10px;
     background-color: #1173f4;
     color: white;
     float: right;
-
 }
-.color_box{
+
+.color_box {
     width: 40px;
     height: 40px;
     border: 1px solid rgb(222, 222, 222);
@@ -139,8 +134,9 @@
     cursor: pointer;
     margin-left: 15px;
 }
-.form_field_checkbox{
-    ::ng-deep .mat-checkbox-layout{
+
+.form_field_checkbox {
+     ::ng-deep .mat-checkbox-layout {
         background-color: #ffffff;
         border: 1px solid #fff;
         border-radius: 50%;
@@ -151,20 +147,28 @@
         top: 0;
         width: 29px;
         margin: 4px;
-        .mat-checkbox-frame{
+        .mat-checkbox-frame {
             border: 0;
         }
-        .mat-checkbox-inner-container{
+        .mat-checkbox-inner-container {
             height: 100%;
             width: 100%;
-        }   
-        svg{
-            path{ 
+        }
+        svg {
+            path {
                 stroke: #007bff !important;
             }
         }
-        .mat-checkbox-background{
+        .mat-checkbox-background {
             background-color: transparent;
+        }
+    }
+}
+
+::ng-deep .mat-tab-label {
+    &.mat-tab-label-active {
+        .mat-tab-label-content {
+            color: #1173f4;
         }
     }
 }

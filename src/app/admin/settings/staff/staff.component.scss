@@ -631,7 +631,7 @@
         width: 183px;
         height: 44px;
         border-radius: 21.5px;
-        background-color: #db202f;
+        background-color: #1273f6;
         padding: 8px 16px;
     }
     h3 {
@@ -655,10 +655,15 @@
         align-items: center;
         border: dashed 1px #979797;
         margin-bottom: 1rem;
-        img.delete {
+        .delete {
             margin-left: 0.5rem;
             cursor: pointer;
             align-self: flex-end;
+            font-size: 30px;
+            color: #a9a9a9;
+            &:hover {
+                color: red;
+            }
         }
         display: flex;
         flex-grow: 1;
@@ -717,5 +722,13 @@
     }
     100% {
         transform: translate(1px, -2px) rotate(-1deg);
+    }
+}
+
+::ng-deep .mat-tab-label {
+    &.mat-tab-label-active {
+        .mat-tab-label-content {
+            color: #1173f4;
+        }
     }
 }

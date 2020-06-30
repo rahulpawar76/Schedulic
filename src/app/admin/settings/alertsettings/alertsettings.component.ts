@@ -106,6 +106,7 @@ export class AlertsettingsComponent implements OnInit {
   appointmentsReminderSMS : boolean = false;
   twilliStatus : boolean = false;
   textLocalStatus : boolean = false;
+  settingSideMenuToggle : boolean = false;
   totalTimeCustomerEmail:any;
   totalTimeStaffEmail: any;
   totalTimeAdminEmail: any;
@@ -410,6 +411,13 @@ export class AlertsettingsComponent implements OnInit {
   count(value: string){
     this.characters = this.maxCharacters - value.length;
   }
+  fnSettingMenuToggleSmall(){
+    this.settingSideMenuToggle = true;
+  }
+  fnSettingMenuToggleLarge(){
+    this.settingSideMenuToggle = false;
+  }
+
 
   fnConvertMins(minutes){
     let min_advance_booking_time=minutes;

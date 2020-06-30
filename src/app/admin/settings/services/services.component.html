@@ -1,8 +1,9 @@
 <mat-drawer-content class="main-setting-container" id="services" class="ml-0">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
-    <div class="left-side-menu setting-menu">
+    <div class="left-side-menu setting-menu" [ngClass]="{ 'short-menu': settingSideMenuToggle === true }">
         <div class="leftarrow-icon d-flex">
-            <mat-icon aria-hidden="false" class="customer-drawer-leftarrow ml-auto">arrow_back</mat-icon>
+            <mat-icon (click)="fnSettingMenuToggleSmall()" *ngIf="!settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_back</mat-icon>
+            <mat-icon (click)="fnSettingMenuToggleLarge()" *ngIf="settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_forward</mat-icon>
         </div>
         <h6>Resource Management</h6>
         <div routerLink="/admin/settings" class="d-flex setting-menu-item setting-menu-active">
@@ -86,7 +87,7 @@
             <p>Alert Rules</p>
         </div>
     </div>
-    <mat-drawer-container class="h-100 setting-right-side-content">
+    <mat-drawer-container class="h-100 setting-right-side-content" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
         <mat-drawer [disableClose]="true" mode="side" opened class="category-sidebar" style="width:250px; background-color: #f8fbff;">
             <!-- <mat-list role="list">
                 <div  class="pl-2 bottom-border d-flex">
@@ -224,17 +225,17 @@
                                             <input matInput formControlName="category_name" placeholder="Enter Category Name">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createCategory.get('category_name').touched || createCategory.get('category_name').dirty">
-                                    <small *ngIf="createCategory.get('category_name').hasError('required')" class="error">Category name is required</small>
+                                    <small *ngIf="createCategory.get('category_name').hasError('required')" class="error">Category name is required.</small>
                                     <small *ngIf="createCategory.get('category_name').hasError('minlength')" class="error">Category name can not be less than 3 character.</small>
                                     <small *ngIf="createCategory.get('category_name').hasError('maxlength')" class="error">Category name may not be greater than 255 character.</small>
                                 </span>
                                     </div>
                                     <div class="mt-2 text-center">
                                         <mat-form-field class=" bottom-border-field">
-                                            <textarea matInput formControlName="category_description" placeholder="Enter Category Descriptions"></textarea>
+                                            <textarea matInput formControlName="category_description" placeholder="Enter Category Description"></textarea>
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createCategory.get('category_description').touched || createCategory.get('category_description').dirty">
-                                    <small *ngIf="createCategory.get('category_description').hasError('required')" class="error">Category description is required</small>
+                                    <small *ngIf="createCategory.get('category_description').hasError('required')" class="error">Category description is required.</small>
                                     <small *ngIf="createCategory.get('category_description').hasError('minlength')" class="error">Category description name can not be less than 2 character.</small>
                                     <small *ngIf="createCategory.get('category_description').hasError('maxlength')" class="error">Category description name may not be greater than 255 character.</small>
                                 
@@ -673,11 +674,11 @@
                                             <mat-label>Enter Service Unit</mat-label>
                                             <input matInput formControlName="service_unit" placeholder="">
                                         </mat-form-field>
+                                        <span class="unit-info" #tooltip="matTooltip" matTooltip="Info about the Service Unit" matTooltipPosition="above" matTooltipHideDelay="50000"><i class="fa fa-question-circle"></i>
+                                        </span>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_unit').touched || createService.get('service_unit').dirty">
                                         <small *ngIf="createService.get('service_unit').hasError('required')" class="error">Service unit is required.</small>
                                         <small *ngIf="createService.get('service_unit').hasError('pattern')" class="error">Service unit must be numeric.</small>
-                                        </span>
-                                        <span class="unit-info" #tooltip="matTooltip" matTooltip="Info about the action" matTooltipPosition="above" matTooltipHideDelay="50000"><i class="fa fa-question-circle"></i>
                                         </span>
                                     </div>
                                     <div class="service-statustoggle" *ngIf="!editServiceId">

@@ -23,7 +23,7 @@ export class MyProfileComponent implements OnInit {
   settingMyProfile:FormGroup;
   updatedAdminProfileData:any;
 
-  myProfileImageUrl:any;
+  myProfileImageUrl:any = '';
 
   
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/

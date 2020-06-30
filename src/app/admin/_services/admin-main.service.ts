@@ -460,10 +460,10 @@ export class AdminService {
 
     // get category and services
 
-    getCateServiceList(){
-        let requestObject = {
-            'business_id': this.businessId,
-        };
+    getCateServiceList(requestObject){
+        // let requestObject = {
+        //     'business_id': this.businessId,
+        // };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),

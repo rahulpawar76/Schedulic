@@ -27,6 +27,7 @@ export class PaymentrulesComponent implements OnInit {
   selectedCurrency: any;
   selectedCurrencyPosition: any;
   selectedCurrencyFormat: any;
+  settingSideMenuToggle : boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -66,9 +67,18 @@ export class PaymentrulesComponent implements OnInit {
       if (response.data == true) {
         this.taxesData = response.response;
        // console.log(this.taxesData);
+      }else if(response.data == false){
+        this.taxesData = '';
       }
     })
   }
+  fnSettingMenuToggleSmall(){
+    this.settingSideMenuToggle = true;
+  }
+  fnSettingMenuToggleLarge(){
+    this.settingSideMenuToggle = false;
+  }
+
   deleteTax(tax_id) {
     //this.isLoaderAdmin = true;
     this.AdminSettingsService.deleteTax(tax_id).subscribe((response: any) => {

@@ -1,8 +1,9 @@
 <mat-drawer-content id="staff" class="ml-0">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
-    <div class="left-side-menu setting-menu">
+    <div class="left-side-menu setting-menu" [ngClass]="{ 'short-menu': settingSideMenuToggle === true }">
         <div class="leftarrow-icon d-flex">
-            <mat-icon aria-hidden="false" class="customer-drawer-leftarrow ml-auto">arrow_back</mat-icon>
+            <mat-icon (click)="fnSettingMenuToggleSmall()" *ngIf="!settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_back</mat-icon>
+            <mat-icon (click)="fnSettingMenuToggleLarge()" *ngIf="settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_forward</mat-icon>
         </div>
         <h6>Resource Management</h6>
         <div routerLink="/admin/settings" class="d-flex setting-menu-item">
@@ -12,7 +13,7 @@
             </div>
             <p>Services</p>
         </div>
-        <div routerLink="/admin/settings/staff" class="d-flex setting-menu-item setting-menu-active">
+        <div routerLink="/admin/settings/staff" (click)="fnStaffListing()" class="d-flex setting-menu-item setting-menu-active">
             <div class="menu-icon">
                 <img class="normal" src="../../../../assets/images/admin/settings-menu/staff.png" />
                 <img class="colored" src="../../../../assets/images/admin/settings-menu/staff-color.png" />
@@ -86,7 +87,7 @@
             <p>Alert Rules</p>
         </div>
     </div>
-    <div class="h-100 setting-right-side-content">
+    <div class="h-100 setting-right-side-content" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
         <div *ngIf="addStaffPage">
             <mat-card class="mb-0">
                 <form [formGroup]="StaffCreate">
@@ -95,7 +96,7 @@
                             <h6 *ngIf="!editStaffId">Add Staff</h6>
                             <h6 *ngIf="editStaffId">Edit Staff</h6>
                             <div class="d-flex profile-img-wrap" (click)="staffImage()">
-                                <img class="add-staff mx-auto" *ngIf="!editStaffId" src="/assets/images/admin/Layer-3.png">
+                                <img class="add-staff mx-auto" *ngIf="!editStaffId" src="/assets/images/default.png">
                                 <img class="add-staff mx-auto" *ngIf="editStaffId" src="{{this.singleStaffDetail.staff[0].image}}">
                                 <div class="camera-alt"><i class="material-icons">
                   camera_alt
@@ -107,8 +108,8 @@
                                 <input formControlName="firstname" matInput placeholder="Enter Your First Name">
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="StaffCreate.get('firstname').touched || StaffCreate.get('firstname').dirty || formSubmitclicked">
-                <small *ngIf="StaffCreate.get('firstname').hasError('required')" class="error">Firstname is required</small>
-                <small *ngIf="StaffCreate.get('firstname').hasError('minlength') || StaffCreate.get('firstname').hasError('maxlength')"class="error">Firstname must be between 3-11 character</small>
+                <small *ngIf="StaffCreate.get('firstname').hasError('required')" class="error">First name is required.</small>
+                <small *ngIf="StaffCreate.get('firstname').hasError('minlength') || StaffCreate.get('firstname').hasError('maxlength')"class="error">First name must be between 3-11 character.</small>
                 <!-- <small *ngIf="StaffCreate.get('firstname').hasError('maxlength') "class="error">Firstname must be at least 11 character.</small> -->
             </span>
 
@@ -118,8 +119,8 @@
                                 <input formControlName="lastname" matInput placeholder="Enter Your Last Name">
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="StaffCreate.get('lastname').touched || StaffCreate.get('lastname').dirty || formSubmitclicked">
-              <small *ngIf="StaffCreate.get('lastname').hasError('required')" class="error">Lastname is required</small>
-              <small *ngIf="StaffCreate.get('lastname').hasError('minlength') || StaffCreate.get('lastname').hasError('maxlength')"class="error">Lastname must be between 3-11 character</small>
+              <small *ngIf="StaffCreate.get('lastname').hasError('required')" class="error">Last name is required.</small>
+              <small *ngIf="StaffCreate.get('lastname').hasError('minlength') || StaffCreate.get('lastname').hasError('maxlength')"class="error">Last name must be between 3-11 character.</small>
               <!-- <small *ngIf="StaffCreate.get('lastname').hasError('minlength') || StaffCreate.get('lastname').hasError('maxlength')"class="error">Lastname must be at least 11 character.</small> -->
             </span>
                             <mat-form-field class="bottom-border-field">
@@ -128,10 +129,10 @@
                                 <input formControlName="phone" matInput placeholder="Enter Your number" (keypress)="numberOnly($event)">
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="StaffCreate.get('phone').touched || StaffCreate.get('phone').dirty || formSubmitclicked">
-              <small *ngIf="StaffCreate.get('phone').hasError('required')" class="error">Mobile number is required</small>
-              <small *ngIf="StaffCreate.get('phone').hasError('pattern')" class="error">Mobile number is should be numeric</small>
+              <small *ngIf="StaffCreate.get('phone').hasError('required')" class="error">Mobile number is required.</small>
+              <small *ngIf="StaffCreate.get('phone').hasError('pattern')" class="error">Mobile Number is Should be Numeric.</small>
               <small *ngIf="StaffCreate.get('phone').hasError('minlength') || StaffCreate.get('phone').hasError('maxlength')"
-                class="error">Mobile number should be 10 digits long</small>
+                class="error">Mobile number should be min 6 or max 15 digits.</small>
             </span>
                             <mat-form-field class="bottom-border-field">
                                 <mat-label>Email</mat-label>
@@ -139,16 +140,16 @@
                                 <input formControlName="email" matInput placeholder="Enter Your Email">
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="StaffCreate.get('email').touched || StaffCreate.get('email').dirty || formSubmitclicked">
-              <small *ngIf="StaffCreate.get('email').hasError('required')" class="error">Email is required</small>
-              <small *ngIf="StaffCreate.get('email').hasError('pattern')" class="error">Email address is invalid</small>
-              <small *ngIf="StaffCreate.get('email').hasError('isEmailUnique') || StaffCreate.get('email').hasError('isEmailUniqueForEdit')" class="error">Email address is already registered</small>
+              <small *ngIf="StaffCreate.get('email').hasError('required')" class="error">Email is required.</small>
+              <small *ngIf="StaffCreate.get('email').hasError('pattern')" class="error">Email address is invalid.</small>
+              <small *ngIf="StaffCreate.get('email').hasError('isEmailUnique') || StaffCreate.get('email').hasError('isEmailUniqueForEdit')" class="error">Email address is already registered.</small>
             </span>
                             <mat-form-field class="bottom-border-field">
                                 <mat-label>Address</mat-label>
                                 <input formControlName="address" matInput placeholder="Enter Your address">
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="StaffCreate.get('address').touched || StaffCreate.get('address').dirty || formSubmitclicked">
-              <small *ngIf="StaffCreate.get('address').hasError('required')" class="error">Address is required</small>
+              <small *ngIf="StaffCreate.get('address').hasError('required')" class="error">Address is required.</small>
               <small *ngIf="StaffCreate.get('address').hasError('minlength')" class="error">Address must be at least 3 character.</small>
               <small *ngIf="StaffCreate.get('address').hasError('maxlength')" class="error">Address can not be greater than 255 character.</small>
             </span>
@@ -169,7 +170,7 @@
                             <div class="upload-document-top-margin">
                                 <div class="d-flex">
                                     <h6>Upload Documents</h6>
-                                    <i class="fa fa-question-circle uploaddocument-icon" aria-hidden="true"></i>
+                                    <i class="fa fa-question-circle uploaddocument-icon" #tooltip="matTooltip" matTooltip="Info about the Document" matTooltipPosition="above" matTooltipHideDelay="50000" aria-hidden="true"></i>
                                 </div>
                                 <!--  <div class="upload-files">
                                 <mat-icon aria-hidden="false" class="uploadfile-icon">cloud_upload</mat-icon>
@@ -184,7 +185,7 @@
                                     <img src="assets/img/dnd/ic-upload-file.svg" alt="">
                                     <p>Drag & drop your files here</p>
                                     <h3>or</h3>
-                                    <label for="fileDropRef">Browse for file</label>
+                                    <label for="fileDropRef">Upload file</label>
                                 </div>
 
                                 <div class="files-list">
@@ -199,7 +200,8 @@
                                             </p>
                                             <app-progress [progress]="file?.progress"></app-progress>
                                         </div>
-                                        <img src="assets/img/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file" (click)="deleteFile(i)">
+                                        <span class="material-icons delete"> delete_outline </span>
+                                        <!-- <img src="assets/img/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file" (click)="deleteFile(i)"> -->
                                     </div>
                                 </div>
 
@@ -226,7 +228,7 @@
                         </button>
                             </div>
                             <mat-card>
-                                <h6>Select Service </h6>
+                                <h6>Select Service for the Staff</h6>
                                 <!-- <mat-form-field class="pb-3 bottom-border-field">
                                 <mat-label>Outline form field</mat-label>
                                 <input matInput placeholder="Category,Subcategory,Service" (keyup)="searchService($event);">
@@ -286,13 +288,17 @@
         </div>
         <mat-card *ngIf="staffListPage">
             <div class="row p-1">
-                <div class="d-flex mb-1">
-                    <h5>Staff</h5>
-                    <div>
-                        <button mat-button (click)="fnAddNewStaff()" class="staff-add-btn pl-0">
+                <div class="col-9">
+                    <div class="d-flex mb-1">
+                        <h5>Staff</h5>
+                    </div>
+                    <p class="w-100 mb-3 d-flex">Staff/team members are required to deliver services to your customers. you can define rights/permissions, and the services they can perform.</p>
+                </div>
+
+                <div class="col-3">
+                    <button mat-button (click)="fnAddNewStaff()" class="staff-add-btn pl-0">
                         <mat-icon aria-hidden="false">add</mat-icon>Add Staff
                     </button>
-                    </div>
                 </div>
                 <p class="w-100 mb-3 d-flex">Staff/team members are required to deliver services to your customers. you can define rights/permissions, and the services they can perform.</p>
                 <div class="w-100 mb-3 ml-3 d-flex">
@@ -368,7 +374,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="text-left" fxFlex="20">{{allStaffList.email}}</div>
+                                        <div class="text-left break-word" fxFlex="20">{{allStaffList.email}}</div>
                                         <div class="text-left " fxFlex="20">{{allStaffList.phone}}</div>
                                         <div class="text-left" fxFlex="10" *ngIf="allStaffList.internal_staff == 'Y'">Private</div>
                                         <div class="text-left" fxFlex="10" *ngIf="allStaffList.internal_staff  == 'N'">Public</div>
@@ -508,7 +514,7 @@
                     </div>
                     <div class="bottom-border d-flex">
                         <div>
-                            <h6>Phone Number Verification</h6>
+                            <h6>"Phone Number Verification</h6>
                             <div class="d-flex">
                                 <p class="mb-0 pr-2">{{singleStaffDetail.staff[0].phone}}</p>
                                 <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
@@ -526,7 +532,7 @@
                     </div>
                     <div class="bottom-border-last">
                         <h6>Documents</h6>
-                        <div *ngIf="singleStaffDetail.staff[0].getdocument" class="d-flex mt-3">
+                        <a href="" *ngIf="singleStaffDetail.staff[0].getdocument" class="d-flex mt-3">
                             <div *ngFor="let staffDocument of singleStaffDetail.staff[0].getdocument" class="pan-card file-border d-flex mr-2">
                                 <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
                                 <p class="pr-1 mb-0">{{staffDocument.documents}}</p>
@@ -535,7 +541,7 @@
                             <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
                             <p class="pr-1 mb-0">Adhar card.jpg</p>
                         </div> -->
-                        </div>
+                        </a>
                         <div *ngIf="!singleStaffDetail.staff[0].getdocument" class="d-flex mt-3">
                             No Document Available
                         </div>
@@ -560,7 +566,7 @@
                                             </div>
                                             <div class="" fxFlex="40">
                                                 <div class="d-flex align-items-center">
-                                                    <img class="staff-details-width mr-2" src="/assets/images/admin/Layer-29.png">
+                                                    <img class="staff-details-width mr-2" src="/assets/images/default.png">
                                                     <p class="mb-0">{{staffService.service_name}}</p>
                                                 </div>
                                             </div>
@@ -1169,9 +1175,9 @@
                     <div class="d-flex bottom-border">
                         <button mat-button class="reset-button ml-auto" (click)="fnResetToDefaultTimeOff()">Reset to Default</button>
                         <button (click)="addTimeOff()" mat-button class="time-off-button ml-2">
-            <mat-icon aria-hidden="false">add</mat-icon>
-            Time Off
-          </button>
+                            <mat-icon aria-hidden="false">add</mat-icon>
+                            Add Time Off
+                        </button>
                     </div>
                     <div class="bottom-border d-flex" *ngFor="let timeOff of timeOffList">
                         <div class="calendar-background mr-3">
