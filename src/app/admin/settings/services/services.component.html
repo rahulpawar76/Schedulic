@@ -224,17 +224,17 @@
                                             <input matInput formControlName="category_name" placeholder="Enter Category Name">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createCategory.get('category_name').touched || createCategory.get('category_name').dirty">
-                                    <small *ngIf="createCategory.get('category_name').hasError('required')" class="error">Category name is required</small>
+                                    <small *ngIf="createCategory.get('category_name').hasError('required')" class="error">Category name is required.</small>
                                     <small *ngIf="createCategory.get('category_name').hasError('minlength')" class="error">Category name can not be less than 3 character.</small>
                                     <small *ngIf="createCategory.get('category_name').hasError('maxlength')" class="error">Category name may not be greater than 255 character.</small>
                                 </span>
                                     </div>
                                     <div class="mt-2 text-center">
                                         <mat-form-field class=" bottom-border-field">
-                                            <textarea matInput formControlName="category_description" placeholder="Enter Category Descriptions"></textarea>
+                                            <textarea matInput formControlName="category_description" placeholder="Enter Category Description"></textarea>
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createCategory.get('category_description').touched || createCategory.get('category_description').dirty">
-                                    <small *ngIf="createCategory.get('category_description').hasError('required')" class="error">Category description is required</small>
+                                    <small *ngIf="createCategory.get('category_description').hasError('required')" class="error">Category description is required.</small>
                                     <small *ngIf="createCategory.get('category_description').hasError('minlength')" class="error">Category description name can not be less than 2 character.</small>
                                     <small *ngIf="createCategory.get('category_description').hasError('maxlength')" class="error">Category description name may not be greater than 255 character.</small>
                                 
