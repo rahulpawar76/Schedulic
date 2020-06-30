@@ -312,8 +312,7 @@
                                             <!-- <mat-slide-toggle></mat-slide-toggle> -->
                                         </div>
                                         <div class="" fxFlex="15">Monday</div>
-                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="mondayOn" (click)="fnShowAddBreakForm('Monday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2"
-                                                *ngIf="!mondayOn">Closed</button></div>
+                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="mondayOn" (click)="fnShowAddBreakForm('Monday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!mondayOn">Closed</button></div>
                                         <div fxFlex="35" *ngIf="mondayOn">
                                             <div *ngFor="let breakTime of breakTimeList">
                                                 <div class="d-flex" *ngIf="breakTime.week_day_id == '1'">
@@ -323,6 +322,7 @@
                                                             <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                                                         </mat-select>
                                                     </mat-form-field>
+
                                                     <div class="to-center">to</div>
                                                     <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                         <mat-label></mat-label>
