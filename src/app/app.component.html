@@ -44,7 +44,15 @@
                 </mat-toolbar-row>
                 <mat-toolbar-row *ngIf="isAdminUser()">
                     <!-- <div class="logo"><a><img src="/assets/img/logo.png"></a></div>  -->
-                    <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>{{pageHeading}}</a></div>
+                    <div class="logo">
+                        <a class='logo-link'>
+                            <img *ngIf="pageHeading == 'My Workspace'" src="/assets/images/admin/my-workspace-icon.png" class="page-top-icon mr-3" aria-hidden="true">
+                            <img *ngIf="pageHeading == 'My Appointments'" src="/assets/images/admin/my-appointmrnt-icon.png" class="page-top-icon mr-3" aria-hidden="true">
+                            <img *ngIf="pageHeading == 'My Customer'" src="/assets/images/admin/my-customer-icon.png" class="page-top-icon mr-3" aria-hidden="true">
+                            <img *ngIf="pageHeading == 'My Reports'" src="/assets/images/admin/my-report-icon.png" class="page-top-icon mr-3" aria-hidden="true">
+                            <img *ngIf="pageHeading == 'My Discount Coupon'" src="/assets/images/admin/my-coupon-icon.png" class="page-top-icon mr-3" aria-hidden="true"> {{pageHeading}}
+                        </a>
+                    </div>
                     <span class="example-fill-remaining-space">
             <div class="selected-business-btn-main">
               <button mat-button color="primary" class="text-capitalize" *ngIf="isBusinessSelected() && !isBusiness()">Business : {{selectedBusinessName}}</button>
