@@ -71,6 +71,7 @@ export class MyBusinessComponent implements OnInit {
     //localStorage.setItem('business_id', '2');
     localStorage.setItem('business_name', busisness_name);
     this.router.navigate(['/admin/my-workspace']);
+    this.appComponent.getNotificationCount(business_id);
   }
 
   creatNewBusiness() {

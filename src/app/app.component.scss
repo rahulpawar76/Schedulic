@@ -620,3 +620,20 @@ input:focus {
     overflow: visible;
     overflow-x: hidden;
 }
+
+.notification-btn {
+    position: relative;
+    .count {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: #e74033;
+        border-radius: 100%;
+        color: #fff;
+        font-size: 10px;
+        text-align: center;
+        line-height: 2.3;
+        right: 10px;
+        top: -2px;
+    }
+}

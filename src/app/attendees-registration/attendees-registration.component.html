@@ -1,3 +1,7 @@
+<div fxLayout="row wrap" fxLayoutGap="2%" *ngIf="dataLoaded" fxLayoutAlign="center center" class="full-height">
+    <mat-spinner [diameter]="50"></mat-spinner>
+    <span>Fetching data...</span>
+</div>
 <div class="signup-screen d-flex justify-content-center align-items-center">
     <div class="card-wrap col-lg-7 col-md-7 col-sm-9 col-xs-11">
         <mat-card class="example-card login-card p-0 mb-0">
