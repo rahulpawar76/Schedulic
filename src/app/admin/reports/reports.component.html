@@ -1,5 +1,8 @@
 <mat-drawer-container class="reports-container h-100" style="margin-top: 70px;">
     <mat-drawer [disableClose]="true" mode="side" opened id="Customer-list" class="pl-0 pr-0" style="width:300px;">
+        <div class="leftarrow-icon d-flex">
+            <mat-icon aria-hidden="false" class="customer-drawer-leftarrow ml-auto">arrow_back</mat-icon>
+        </div>
         <mat-list role="list">
             <p class="pl-4">Report Management</p>
             <div class="matlist pointer menuitem">
@@ -16,6 +19,7 @@
                     <input matInput type="text" ngxDaterangepickerMd [locale]="options" [(ngModel)]="selected" showCancel="true" alwaysShowCalendars="true" (change)="changeDateRange($event)" readonly="readonly" />
                     <!-- <ngx-daterangepicker-material (choosedDate)="choosedDate($event)">
               </ngx-daterangepicker-material> -->
+              <!-- <span class="material-icons ">date_range</span> -->
                 </mat-form-field>
                 <mat-form-field class="pr-3 bottom-border-field" *ngIf="isAppointmentReport">
                     <mat-select (selectionChange)="fnChangeDateFilter($event)" [(value)]="dateFilter">

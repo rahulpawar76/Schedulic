@@ -4,15 +4,28 @@
 }
 
 .appearance-save-btn {
-    width: 100px;
+    width: 110px;
     height: 39px;
     margin: 30px;
     background-color: #1173f4;
     color: white;
 }
-
+.save-footer-btn{
+    float: right;
+}
+.save-cencel-footer{
+    height: 20%;
+    margin-top: 10%;
+}
+.staff-cancel-btn {
+    width: 110px;
+    height: 39px;
+    background-color: #dddddd;
+    margin: 10px;
+}
 .card-content {
     margin: 30px;
+    background-color: #edf4fe;
 }
 
 .contact-field-toggle {
