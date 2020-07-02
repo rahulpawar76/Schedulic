@@ -1,3 +1,7 @@
+<div fxLayout="row wrap" fxLayoutGap="2%" *ngIf="dataLoaded" fxLayoutAlign="center center" class="full-height">
+    <mat-spinner [diameter]="50"></mat-spinner>
+    <span>Fetching data...</span>
+</div>
 <div class="signup-screen d-flex justify-content-center align-items-center">
     <div class="card-wrap col-lg-7 col-md-7 col-sm-9 col-xs-11">
         <mat-card class="example-card login-card p-0 mb-0">
@@ -6,7 +10,7 @@
                     <form [formGroup]="signUpForm" class="w-75">
                         <mat-card-title>
                             <h2 class="text-center">Sign Up</h2>
-                            <p class="text-center text-dark">Already have an account? <a class="btn-link" (click)="login()">Log in</a></p>
+                            <p class="text-center text-dark">Already have an account? <a class="btn-link" (click)="login()">Log In</a></p>
                         </mat-card-title>
                         <div class="row">
                             <div class="input-wrap col-12 col-lg-6 col-sm-12 float-left my-2 required-field">
@@ -23,7 +27,7 @@
                             </div>
                             <div class="input-wrap col-12 col-lg-6 col-sm-12 float-left my-2 required-field">
                                 <input type="text" formControlName="phonenumber" placeholder="Phone Number" class="common-input form-control" />
-                                <span class="error-wrap" *ngIf="signUpForm.get('phonenumber').dirty || signUpForm.get('phonenumber').touched"><small *ngIf="signUpForm.get('phonenumber').hasError('required')" class="error">Phone number is required.</small><small *ngIf="signUpForm.get('phonenumber').hasError('minLength') || signUpForm.get('phonenumber').hasError('maxLength')" class="error">Phone number should be 6 to 15 digit.</small><small *ngIf="signUpForm.get('phonenumber').hasError('pattern')" class="error">Phone number should be numeric.</small></span>
+                                <span class="error-wrap" *ngIf="signUpForm.get('phonenumber').dirty || signUpForm.get('phonenumber').touched"><small *ngIf="signUpForm.get('phonenumber').hasError('required')" class="error">Phone number is required.</small><small *ngIf="signUpForm.get('phonenumber').hasError('minlength') || signUpForm.get('phonenumber').hasError('maxlength')" class="error">Phone number should be min 6 and max 15 digit.</small><small *ngIf="signUpForm.get('phonenumber').hasError('pattern')" class="error">Phone number should be numeric.</small></span>
                             </div>
                             <div class="input-wrap col-12 col-lg-12 col-sm-12 float-left my-2 required-field">
                                 <input type="password" formControlName="password" placeholder="Password" class="common-input form-control" />

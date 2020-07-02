@@ -156,3 +156,8 @@
 ::ng-deep .common-input.ng-invalid.ng-touched {
     border-color: red !important;
 }
+
+::ng-deep .form-control.is-invalid,
+.was-validated .form-control:invalid {
+    background-image: unset;
+}

@@ -23,6 +23,7 @@ export class PostalcodesComponent implements OnInit {
   isLoaderAdmin:boolean = false;
   arr:any=[];
   businessId:any;
+  settingSideMenuToggle : boolean = false;
   
   search ={
     postalCode :"",
@@ -174,6 +175,13 @@ export class PostalcodesComponent implements OnInit {
 
     
   }
+  fnSettingMenuToggleSmall(){
+    this.settingSideMenuToggle = true;
+  }
+  fnSettingMenuToggleLarge(){
+    this.settingSideMenuToggle = false;
+  }
+
   postalCodeSearch(){
     this.isLoaderAdmin=true;
     if(this.search.postalCode.length > 1){

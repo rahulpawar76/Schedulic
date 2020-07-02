@@ -65,6 +65,7 @@ export class ServicesComponent implements OnInit {
     subCategoryPage: boolean = false;
     addNewServicePage: boolean = false;
     isLoaderAdmin: boolean = false;
+    settingSideMenuToggle : boolean = false;
     parentCategoryId: any;
     singleServiceStatus: any;
     selectedCategoryIndex: any;
@@ -165,7 +166,12 @@ export class ServicesComponent implements OnInit {
         });
 
     }
-
+    fnSettingMenuToggleSmall(){
+        this.settingSideMenuToggle = true;
+      }
+      fnSettingMenuToggleLarge(){
+        this.settingSideMenuToggle = false;
+      }
     fnGetSettings(){
     let requestObject = {
       "business_id" : this.businessId

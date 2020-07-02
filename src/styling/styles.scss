@@ -683,10 +683,14 @@
     }
     
     .starting_page {
-        max-width: 960px;
-        margin: auto;
-        .mat-card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        .starting_page_mat_card {
             border-radius: 10px;
+            max-width: 960px;
+            margin: auto;
         }
         .max_width {
             max-width: 500px;

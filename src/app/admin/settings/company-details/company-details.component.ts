@@ -22,6 +22,7 @@ export class CompanyDetailsComponent implements OnInit {
   updateCompanyDetailsData:any;
   allCountry: any;
   allStates: any;
+  settingSideMenuToggle : boolean = false;
   allCities: any;
   businessId: any;
   selectedCountry: any;
@@ -130,6 +131,12 @@ export class CompanyDetailsComponent implements OnInit {
        this.companyDetailsData = [];
       }
     })
+  }
+  fnSettingMenuToggleSmall(){
+    this.settingSideMenuToggle = true;
+  }
+  fnSettingMenuToggleLarge(){
+    this.settingSideMenuToggle = false;
   }
 
   gelAllCountry(){

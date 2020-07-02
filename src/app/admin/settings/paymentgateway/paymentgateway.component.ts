@@ -30,6 +30,7 @@ export class PaymentgatewayComponent implements OnInit {
   bankTransferStatus : boolean = false;
   paypalGuestStatus : boolean = false;
   paypalTestStatus : boolean = false;
+  settingSideMenuToggle : boolean = false;
   
 
   constructor(
@@ -70,6 +71,13 @@ export class PaymentgatewayComponent implements OnInit {
       bankDescription: [''], 
     });
   }
+  fnSettingMenuToggleSmall(){
+    this.settingSideMenuToggle = true;
+  }
+  fnSettingMenuToggleLarge(){
+    this.settingSideMenuToggle = false;
+  }
+
   getSettingsValue(){
     this.adminSettingsService.getSettingsValue().subscribe((response:any) => {
         console.log(response.response);

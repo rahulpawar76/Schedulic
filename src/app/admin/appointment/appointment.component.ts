@@ -1401,12 +1401,12 @@ export class DialogAddNewAppointment {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
+    
 
     this.http.post(`${environment.apiUrl}/get-cat-services`,requestObject,{headers:headers} ).pipe(
       map((res) => {
         return res;
       }),
-      // catchError(this.handleError)
     ).subscribe((response:any) => {
       if(response.data == true){
         this.serviceData = response.response;

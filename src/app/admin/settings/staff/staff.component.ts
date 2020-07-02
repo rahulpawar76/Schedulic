@@ -1076,7 +1076,11 @@ export class StaffComponent implements OnInit {
             formData.append('phone', this.StaffCreate.get('phone').value);
             formData.append('address', this.StaffCreate.get('address').value);
             formData.append('servicelist', this.categoryServiceCheckServiceId);
-            formData.append('image', this.staffImageUrl);
+            
+            if(this.staffImageUrl!=undefined){
+              formData.append('image', this.staffImageUrl);
+            }
+              
 
 
         // this.updateStaffData = {

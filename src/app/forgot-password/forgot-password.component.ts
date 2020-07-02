@@ -48,8 +48,8 @@ export class ForgotPasswordComponent implements OnInit {
 
   forgotPwdSubmit(){
     this.forgotEmail =  this.forgotForm.get('email').value
-    let site_url = environment.urlForLink;
-    console.log(site_url)
+    if(this.forgotForm.valid){
+      let site_url = environment.urlForLink;
     let requestObject = {
           "email":this.forgotEmail,
           "url" : site_url+"/reset-password?accessToken"
@@ -64,11 +64,11 @@ export class ForgotPasswordComponent implements OnInit {
         catchError(this.handleError)
         ).subscribe((response:any) => {
           if(response.data == true){
-            this._snackBar.open("reset password link sent in your mail", "X", {
-              duration: 2000,
-              verticalPosition:'top',
-              panelClass :['green-snackbar']
-            });
+            // this._snackBar.open("Reset password link sent in your mail", "X", {
+            //   duration: 2000,
+            //   verticalPosition:'top',
+            //   panelClass :['green-snackbar']
+            // });
             this.forgotPwdContainer =false
             this.emailSentContainer = true;
             setTimeout(() => {
@@ -85,6 +85,10 @@ export class ForgotPasswordComponent implements OnInit {
         }, (err) =>{
           console.log(err)
         })
+    }else{
+     this.forgotForm.get('email').markAsTouched();
+    }
+    
   }
     
  
