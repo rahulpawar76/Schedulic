@@ -204,6 +204,13 @@ export class DiscountCouponComponent implements OnInit {
         "services" : this.categoryServiceCheckServiceId
       }
       this.createNewCouponCode(this.createdCouponCodeData);
+    }else{
+      this.discountCoupon.get("coupan_name").markAsTouched();
+      this.discountCoupon.get("coupon_code").markAsTouched();
+      this.discountCoupon.get("max_redemption").markAsTouched();
+      this.discountCoupon.get("discount_type").markAsTouched();
+      this.discountCoupon.get("discount_value").markAsTouched();
+
     }
     console.log(this.createdCouponCodeData);
   }
