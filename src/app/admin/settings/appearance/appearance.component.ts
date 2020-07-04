@@ -23,6 +23,7 @@ export class AppearanceComponent implements OnInit {
   ChangeNumber:boolean=false;
   ChangeRequired:boolean=false;
   ChangeAddress:boolean=false;
+  settingSideMenuToggle:boolean =false;
   gradientColorDb:any;
 
   formArr= {
@@ -111,7 +112,12 @@ export class AppearanceComponent implements OnInit {
     this.fnFormSetting();
     }
   }
-
+  fnSettingMenuToggleSmall(){
+    this.settingSideMenuToggle = true;
+  }
+  fnSettingMenuToggleLarge(){
+    this.settingSideMenuToggle = false;
+  }
   fnChangeFieldStatus(event,field_name){
     if(event == true){
       this.formArr[field_name].status=1;

@@ -54,7 +54,7 @@ export class AppComponent implements AfterViewInit {
   postUrl: any; userType: any;
   userId: any;
   token: any;
-  notificationData: any;
+  notificationData: any = [];
   staffStatus: any;
   internal_staff: any;
   businessId: any;
@@ -64,6 +64,7 @@ export class AppComponent implements AfterViewInit {
   isAllowed:boolean=true;
   isSignOut:boolean=true;
   activeSettingMenu:any;
+  notificationCount: any = 0;
   @ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
 
   closePopover() {
@@ -83,6 +84,7 @@ export class AppComponent implements AfterViewInit {
   public company_info: string;
 
   ngAfterViewInit() {
+
   }
  
   pageHeading: string;
@@ -130,7 +132,10 @@ export class AppComponent implements AfterViewInit {
     if(is_logout==true){
         this.router.navigate(['/login']);
         return false;
-    }   
+    } 
+    if(localStorage.getItem('currentUser') && localStorage.getItem('isBusiness') && localStorage.getItem('isBusiness') == "true"){
+      alert();
+    }  
   }
 
   
@@ -255,6 +260,7 @@ export class AppComponent implements AfterViewInit {
   isLogin() {
     if (localStorage.getItem('currentUser')) {
       return true;
+     
     } else {
       return false;
     }
@@ -625,7 +631,50 @@ export class AppComponent implements AfterViewInit {
     this.authService.signOut();
   }
   /*For notification Dialog*/
+  getNotificationCount(business_id){
+    let headers;
+    let userId;
+    if (this.currentUser.user_type == "A") {
+      this.userType = "admin";
+      userId = business_id;
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'admin-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    } else if (this.currentUser.user_type == "SM") {
+      this.userType = "staff";
+      userId = JSON.stringify(this.currentUser.user_id);
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'staff-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    } else if (this.currentUser.user_type == "C") {
+      this.userType = "customer";
+      userId = JSON.stringify(this.currentUser.user_id);
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'customer-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    }
+    let requestObject = {
+      "user_id": userId,
+      "user_type": this.userType
+    };
+    this.CommonService.openNotificationDialog(requestObject, headers).subscribe((response: any) => {
+      if (response.data == true) {
+        this.notificationData = response.response
+        this.notificationCount = this.notificationData.length;
+      }else if(response.data == false){
+        this.notificationCount = 0
+      }
 
+      this.isLoaderAdmin = false;
+    })
+
+  }
   openNotificationDialog() {
     this.isLoaderAdmin = true;
     let headers;
@@ -674,7 +723,7 @@ export class AppComponent implements AfterViewInit {
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
-          panelClass: ['green-snackbar']
+          panelClass: ['red-snackbar']
         });
         this.isLoaderAdmin = false;
       }

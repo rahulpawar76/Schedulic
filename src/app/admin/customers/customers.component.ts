@@ -235,10 +235,11 @@ export class CustomersComponent implements OnInit {
         this.isLoaderAdmin = false;
       }
       else if(response.response == 'customer not created'){
+        this.allCustomers = "";
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
-          panelClass :['green-snackbar']
+          panelClass :['red-snackbar']
         });
         this.allCustomers = [];
         this.isLoaderAdmin = false;

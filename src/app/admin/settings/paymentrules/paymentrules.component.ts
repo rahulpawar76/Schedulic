@@ -196,6 +196,9 @@ export class DialogAddNewTax {
         'tax_value': this.taxAdd.get('tax_per').value,
       }
       this.fnAddTax(this.createAddTaxData);
+    }else{
+      this.taxAdd.get("tax_name").markAllAsTouched;
+      this.taxAdd.get("tax_per").markAllAsTouched;
     }
   }
   fnAddTax(createAddTaxData) {

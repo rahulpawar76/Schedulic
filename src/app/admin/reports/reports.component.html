@@ -1,21 +1,30 @@
-<mat-drawer-container class="reports-container h-100" style="margin-top: 70px;">
-    <mat-drawer [disableClose]="true" mode="side" opened id="Customer-list" class="pl-0 pr-0" style="width:300px;">
-        <mat-list role="list">
-            <p class="pl-4">Report Management</p>
-            <div class="matlist pointer menuitem">
-                <mat-list-item role="listitem" (click)="fnappointmentReport()"><i class="fa fa-bar-chart saleschart"></i>Appointment Reports</mat-list-item>
-                <mat-list-item role="listitem" (click)="fnsalesReport()"><i class="fa fa-bar-chart saleschart"></i>Sales Reports</mat-list-item>
-                <mat-list-item role="listitem" (click)="fncustomerReport()"><i class="fa fa-file-text-o custchart"></i>Customer Reports</mat-list-item>
+<div class="reports-container h-100">
+    <div id="Customer-list" class="pl-0 pr-0 report-menu report-left-menu" [ngClass]="{ 'short-menu': reportSideMenuToggle === true }">
+        <div class="leftarrow-icon d-flex">
+            <mat-icon (click)="fnReportToggleSmall()" *ngIf="!reportSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_back</mat-icon>
+            <mat-icon (click)="fnReportToggleLarge()" *ngIf="reportSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_forward</mat-icon>
+        </div>
+        <p class="pl-4">Report Management</p>
+        <div class="pointer menuitem">
+            <div class="report-menu-item" (click)="fnappointmentReport()"><i class="menu-icon fa fa-bar-chart saleschart"></i>
+                <p>Appointment Reports</p>
             </div>
-        </mat-list>
-    </mat-drawer>
-    <mat-drawer-content class="" style="margin-left:300px">
+            <div class="report-menu-item" (click)="fnsalesReport()"><i class="menu-icon fa fa-bar-chart saleschart"></i>
+                <p>Sales Reports</p>
+            </div>
+            <div class="report-menu-item" (click)="fncustomerReport()"><i class="menu-icon fa fa-file-text-o custchart"></i>
+                <p>Customer Reports</p>
+            </div>
+        </div>
+    </div>
+    <div class="report-right-side-content" [ngClass]="{ 'short-content-area': reportSideMenuToggle === true }">
         <div class="d-flex main-custmer-content ">
             <div class="d-flex pl-3 w-100">
                 <mat-form-field class="pr-3 bottom-border-field">
                     <input matInput type="text" ngxDaterangepickerMd [locale]="options" [(ngModel)]="selected" showCancel="true" alwaysShowCalendars="true" (change)="changeDateRange($event)" readonly="readonly" />
                     <!-- <ngx-daterangepicker-material (choosedDate)="choosedDate($event)">
               </ngx-daterangepicker-material> -->
+                    <!-- <span class="material-icons ">date_range</span> -->
                 </mat-form-field>
                 <mat-form-field class="pr-3 bottom-border-field" *ngIf="isAppointmentReport">
                     <mat-select (selectionChange)="fnChangeDateFilter($event)" [(value)]="dateFilter">
@@ -141,7 +150,7 @@
                         <tbody *ngIf="appointmentReport.length==0">
                             <tr scope="row">
                                 <td scope="col" class="text-center">
-                                    <p class="mb-0">No Data Available</p>
+                                    <p class="mb-0 text-center">No Data Available.</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -376,5 +385,5 @@
                 </div>
             </div>
         </div>
-    </mat-drawer-content>
-</mat-drawer-container>
+    </div>
+</div>

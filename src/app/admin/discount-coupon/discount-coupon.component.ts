@@ -59,6 +59,7 @@ export class DiscountCouponComponent implements OnInit {
   last_page_url : any;
   next_page_url : any;
   prev_page_url : any;
+  discountType: any;
   path : any;
   discountApiUrl:any =  `${environment.apiUrl}/discount-coupon-list`;
   diccount_error:boolean=false;
@@ -204,10 +205,19 @@ export class DiscountCouponComponent implements OnInit {
         "services" : this.categoryServiceCheckServiceId
       }
       this.createNewCouponCode(this.createdCouponCodeData);
+    }else{
+      this.discountCoupon.get("coupan_name").markAsTouched();
+      this.discountCoupon.get("coupon_code").markAsTouched();
+      this.discountCoupon.get("max_redemption").markAsTouched();
+      this.discountCoupon.get("discount_type").markAsTouched();
+      this.discountCoupon.get("discount_value").markAsTouched();
+
     }
     console.log(this.createdCouponCodeData);
   }
-
+  fnChangeDiscountType(event){
+    this.discountType = event.value
+  }
   createNewCouponCode(createdCouponCodeData){
     this.isLoaderAdmin = true;
     this.AdminService.createNewCouponCode(createdCouponCodeData).subscribe((response:any) => {
