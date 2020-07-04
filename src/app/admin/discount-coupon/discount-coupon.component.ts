@@ -59,6 +59,7 @@ export class DiscountCouponComponent implements OnInit {
   last_page_url : any;
   next_page_url : any;
   prev_page_url : any;
+  discountType: any;
   path : any;
   discountApiUrl:any =  `${environment.apiUrl}/discount-coupon-list`;
   diccount_error:boolean=false;
@@ -207,7 +208,9 @@ export class DiscountCouponComponent implements OnInit {
     }
     console.log(this.createdCouponCodeData);
   }
-
+  fnChangeDiscountType(event){
+    this.discountType = event.value
+  }
   createNewCouponCode(createdCouponCodeData){
     this.isLoaderAdmin = true;
     this.AdminService.createNewCouponCode(createdCouponCodeData).subscribe((response:any) => {

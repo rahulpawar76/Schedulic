@@ -667,11 +667,8 @@ export class AppComponent implements AfterViewInit {
       if (response.data == true) {
         this.notificationData = response.response
         this.notificationCount = this.notificationData.length;
-        alert(this.notificationCount);
-        console.log(this.notificationData)
       }else if(response.data == false){
         this.notificationCount = 0
-        alert(this.notificationCount);
       }
 
       this.isLoaderAdmin = false;

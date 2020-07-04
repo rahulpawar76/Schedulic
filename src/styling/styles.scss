@@ -849,27 +849,6 @@
         border: 0;
     }
     
-    .short-menu {
-        &.setting-menu {
-            width: 70px;
-            h6 {
-                display: none;
-            }
-            .setting-menu-item {
-                justify-content: center;
-                padding: 10px;
-                p {
-                    display: none;
-                }
-            }
-        }
-    }
-    
-    .short-content-area {
-        margin-left: 70px;
-        width: calc(100% - 70px);
-    }
-    
      ::ng-deep .mat-tab-label {
         &.mat-tab-label-active {
             .mat-tab-label-content {

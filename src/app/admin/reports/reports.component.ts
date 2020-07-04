@@ -26,6 +26,7 @@ export class ReportsComponent implements OnInit {
   reportFilter:any;
   statusFilter:any;
   createdByFilter:any;
+  reportSideMenuToggle : boolean = false;
 
   appointmentReport : any=[];
   appointmentReportTotalRecords : any;
@@ -200,6 +201,12 @@ export class ReportsComponent implements OnInit {
     }
     this.fnGetAppointmentsReport();
     this.fnGetSalesReport();
+  }
+  fnReportToggleSmall(){
+    this.reportSideMenuToggle = true;
+  }
+  fnReportToggleLarge(){
+    this.reportSideMenuToggle = false;
   }
 
   fnChangeStatusFilter(event){
