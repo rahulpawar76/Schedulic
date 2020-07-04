@@ -57,6 +57,9 @@ export class AuthenticationService {
             if (user && user.response.idExists == true) {
                 localStorage.setItem('currentUser', JSON.stringify(user.response.userData));
                 this.currentUserSubject.next(user.response.userData);
+                var logoutTime = new Date();
+               logoutTime.setHours( logoutTime.getHours() + 6 );
+               localStorage.setItem('logoutTime', JSON.stringify(logoutTime));
                 console.log(user.response);
             }
                 console.log(user.response);

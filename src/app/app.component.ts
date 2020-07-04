@@ -560,7 +560,7 @@ export class AppComponent implements AfterViewInit {
           this.router.navigate(["user"]);
         }
 
-        this.initiateTimeout();
+        // this.initiateTimeout();
       
       }else if(data.idExists == false && data.emailExists == true){
         this.signOut();
@@ -574,6 +574,7 @@ export class AppComponent implements AfterViewInit {
         this.loginForm.controls['email'].setValue(data.userData.email);
         //this.dataLoaded = true;
       }else if(data.idExists == false && data.emailExists == false){
+        this.fnSignup(user);
       }
     },
     error => {
