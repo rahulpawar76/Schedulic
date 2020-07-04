@@ -33,6 +33,8 @@ export class CompanyDetailsComponent implements OnInit {
   trimValidator:ValidatorFn;
   websiteUrl = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?'
   websiteUrl2 = '/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/'
+  isLoaderAdmin: boolean = false;
+
   constructor(
     private _formBuilder:FormBuilder,
     public dialog: MatDialog,
@@ -67,12 +69,12 @@ export class CompanyDetailsComponent implements OnInit {
       company_name : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)],this.whiteSpaceValidation.bind(this)],
       comp_email : ['',[Validators.required, Validators.pattern(this.emailFormat)]],
       comp_website : ['',[Validators.pattern("(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?")]],
-      comp_mobile : ['',Validators.required, [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
+      comp_mobile : ['',[Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       country:['', Validators.required],
       comp_address:['', Validators.required],
       city:['', Validators.required],
       state:['', Validators.required],
-      zip_code:['', [Validators.required,Validators.minLength(5),Validators.maxLength(10)]],
+      zip_code:['', [Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
       comp_decs:['', Validators.required],
       comp_status:[false],
       comp_private_status:[false],
@@ -121,7 +123,7 @@ export class CompanyDetailsComponent implements OnInit {
         this.companyDetails.controls['comp_address'].setValue(this.companyDetailsData.address);
         this.companyDetails.controls['city'].setValue(JSON.stringify(this.companyDetailsData.city.id));
         // this.companyDetails.controls['state'].setValue(JSON.stringify(this.companyDetailsData.state!=null ? this.companyDetailsData.state.id : ''));
-        this.companyDetails.controls['state'].setValue(JSON.stringify(this.companyDetailsData.state.id));
+        this.companyDetails.controls['state'].setValue(JSON.stringify(this.companyDetailsData.state?this.companyDetailsData.state.id:''));
         this.companyDetails.controls['zip_code'].setValue(this.companyDetailsData.zipcode);
         this.companyDetails.controls['comp_decs'].setValue(this.companyDetailsData.description);
         this.companyDetails.controls['comp_status'].setValue(this.companyDetailsData.status=="E"?true:false);
@@ -222,7 +224,9 @@ export class CompanyDetailsComponent implements OnInit {
   }
 
   fnupdateBusineData(updateCompanyDetailsData){
+    this.isLoaderAdmin = true;
     this.adminSettingsService.fnupdateBusineData(updateCompanyDetailsData).subscribe((response:any) => {
+      this.isLoaderAdmin = false;
       if(response.data == true){
         this._snackBar.open("Company detail updated.", "X", {
           duration: 2000,
@@ -230,15 +234,14 @@ export class CompanyDetailsComponent implements OnInit {
           panelClass :['green-snackbar']
         });
         this.getCompanyDetails();
-      }
-      else if(response.data == false){
+      } else if(response.data == false){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
       }
-    })
+    });
   }
 
   companyDetailsImage() {
