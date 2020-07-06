@@ -102,8 +102,7 @@
                     <!-- <iframe height="100%" width="100%" src="http://localhost:4200/booking?business_id=34"></iframe> -->
                 </mat-card>
                 <div>
-                    <button mat-button type="submit" (click)="copyEmbedCode(embededCode)"
-                        class="appearance-save-btn">Copy Code</button>
+                    <button mat-button type="submit" (click)="copyEmbedCode(embededCode)" class="appearance-save-btn">Copy Code</button>
                 </div>
             </mat-tab>
             <mat-tab label="Appearance">
@@ -111,33 +110,26 @@
                     <div class="bottom-border d-flex ">
                         <mat-label>Primary Color</mat-label>
                         <div class="colorpicker-wrap">
-                            <input [style.background]="primarycolor" class="color_box" [(colorPicker)]="primarycolor"
-                                (colorPickerChange)="onChangePrimaryColor($event)" />
+                            <input [style.background]="primarycolor" class="color_box" [(colorPicker)]="primarycolor" (colorPickerChange)="onChangePrimaryColor($event)" />
                         </div>
                     </div>
                     <div class="bottom-border d-flex">
                         <mat-label>Primary Gradient</mat-label>
                         <div class="colorpicker-wrap d-flex">
-                            <input [style.background]="primarygradient1" class="color_box"
-                                [(colorPicker)]="primarygradient1"
-                                (colorPickerChange)="onChangePrimaryGradient1($event)" />
-                            <input [style.background]="primarygradient2" class="color_box"
-                                [(colorPicker)]="primarygradient2"
-                                (colorPickerChange)="onChangePrimaryGradient2($event)" />
+                            <input [style.background]="primarygradient1" class="color_box" [(colorPicker)]="primarygradient1" (colorPickerChange)="onChangePrimaryGradient1($event)" />
+                            <input [style.background]="primarygradient2" class="color_box" [(colorPicker)]="primarygradient2" (colorPickerChange)="onChangePrimaryGradient2($event)" />
                         </div>
                     </div>
                     <div class="bottom-border d-flex">
                         <mat-label>Text Color</mat-label>
                         <div class="colorpicker-wrap">
-                            <input [style.background]="textcolor" class="color_box" [(colorPicker)]="textcolor"
-                                (colorPickerChange)="onChangeTextColor($event)" />
+                            <input [style.background]="textcolor" class="color_box" [(colorPicker)]="textcolor" (colorPickerChange)="onChangeTextColor($event)" />
                         </div>
                     </div>
                     <div class="bottom-border d-flex">
                         <mat-label>Text Color On Background</mat-label>
                         <div class=" colorpicker-wrap">
-                            <input [style.background]="textbgcolor" class="color_box" [(colorPicker)]="textbgcolor"
-                                (colorPickerChange)="onChangeTextBgColor($event)" />
+                            <input [style.background]="textbgcolor" class="color_box" [(colorPicker)]="textbgcolor" (colorPickerChange)="onChangeTextBgColor($event)" />
                         </div>
                     </div>
                     <mat-form-field class="dropdown bottom-border-field bottom-border mt-3">
@@ -147,21 +139,19 @@
                             <mat-option value="Roboto, sans-serif">Roboto</mat-option>
                         </mat-select>
                     </mat-form-field>
-                   
+
                 </div>
                 <mat-card class="save-cencel-footer">
                     <div class="d-flex py-2 save-footer-btn">
-                        <button mat-button class="staff-cancel-btn" (click)="fnCancelStaff()">Cancel</button>
-                        <button mat-button appearance="fill" class="appearancecolor-save-btn"
-                            (click)="fnSaveAppearanceSettings()">Save</button>
+                        <button mat-button class="staff-cancel-btn">Cancel</button>
+                        <button mat-button appearance="fill" class="appearancecolor-save-btn" (click)="fnSaveAppearanceSettings()">Save</button>
                     </div>
                 </mat-card>
             </mat-tab>
             <mat-tab label="Form Setting">
                 <mat-card class="main-form-setting-content">
                     <div class="contact-field-toggle">
-                        <mat-slide-toggle (change)="fnChangeContactFormStatus($event.checked)"
-                            [checked]="formArr['contact_field_status']"></mat-slide-toggle>
+                        <mat-slide-toggle (change)="fnChangeContactFormStatus($event.checked)" [checked]="formArr['contact_field_status']"></mat-slide-toggle>
                     </div>
                     <h5>Contact Fields</h5>
                     <p>Select Which form field will show on your booking page.</p>
@@ -177,16 +167,13 @@
                                     <div class="custom-check-box">
                                         <div class="" fxFlex="20">
                                             <div class="checked round">
-                                                <mat-checkbox (change)="fnChangeFieldStatus($event.checked,'nameField')"
-                                                    class="form_field_checkbox"
-                                                    [checked]="formArr['nameField'].status=='1'" [disabled]="true">
+                                                <mat-checkbox (change)="fnChangeFieldStatus($event.checked,'nameField')" class="form_field_checkbox" [checked]="formArr['nameField'].status=='1'" [disabled]="true">
                                                 </mat-checkbox>
                                                 <p class="check-label">Name</p>
                                             </div>
                                         </div>
                                         <div class="" fxFlex="20" *ngIf="formArr['nameField'].status=='1'">
-                                            <mat-checkbox (change)="fnChangeRequiredStatus($event.checked,'nameField')"
-                                                [checked]="formArr['nameField'].required=='1'" [disabled]="true">
+                                            <mat-checkbox (change)="fnChangeRequiredStatus($event.checked,'nameField')" [checked]="formArr['nameField'].required=='1'" [disabled]="true">
                                                 Required</mat-checkbox>
                                         </div>
                                         <div class="" fxFlex="60"></div>
@@ -194,19 +181,14 @@
                                     <div class="custom-check-box">
                                         <div class="" fxFlex="20">
                                             <div class="checked round">
-                                                <mat-checkbox
-                                                    (change)="fnChangeFieldStatus($event.checked,'numberField')"
-                                                    class="form_field_checkbox"
-                                                    [checked]="formArr['numberField'].status=='1'" [disabled]="true">
+                                                <mat-checkbox (change)="fnChangeFieldStatus($event.checked,'numberField')" class="form_field_checkbox" [checked]="formArr['numberField'].status=='1'" [disabled]="true">
                                                 </mat-checkbox>
                                                 <p class="check-label">Number</p>
                                             </div>
                                         </div>
                                         <div class="" fxFlex="20" *ngIf="formArr['numberField'].status=='1'">
                                             <div>
-                                                <mat-checkbox
-                                                    (change)="fnChangeRequiredStatus($event.checked,'numberField')"
-                                                    [checked]="formArr['numberField'].required=='1'" [disabled]="true">
+                                                <mat-checkbox (change)="fnChangeRequiredStatus($event.checked,'numberField')" [checked]="formArr['numberField'].required=='1'" [disabled]="true">
                                                     Required</mat-checkbox>
                                             </div>
                                         </div>
@@ -215,19 +197,14 @@
                                     <div class="custom-check-box">
                                         <div class="" fxFlex="20">
                                             <div class="checked round">
-                                                <mat-checkbox
-                                                    (change)="fnChangeFieldStatus($event.checked,'emailField')"
-                                                    class="form_field_checkbox"
-                                                    [checked]="formArr['emailField'].status=='1'" [disabled]="true">
+                                                <mat-checkbox (change)="fnChangeFieldStatus($event.checked,'emailField')" class="form_field_checkbox" [checked]="formArr['emailField'].status=='1'" [disabled]="true">
                                                 </mat-checkbox>
                                                 <p class="check-label">Email</p>
                                             </div>
                                         </div>
                                         <div class="" fxFlex="20" *ngIf="formArr['emailField'].status=='1'">
                                             <div>
-                                                <mat-checkbox
-                                                    (change)="fnChangeRequiredStatus($event.checked,'emailField')"
-                                                    [checked]="formArr['emailField'].required=='1'" [disabled]="true">
+                                                <mat-checkbox (change)="fnChangeRequiredStatus($event.checked,'emailField')" [checked]="formArr['emailField'].required=='1'" [disabled]="true">
                                                     Required</mat-checkbox>
                                             </div>
                                         </div>
@@ -236,26 +213,20 @@
                                     <div class="custom-check-box">
                                         <div class="" fxFlex="20">
                                             <div class="checked round">
-                                                <mat-checkbox
-                                                    (change)="fnChangeFieldStatus($event.checked,'addressField')"
-                                                    class="form_field_checkbox"
-                                                    [checked]="formArr['addressField'].status=='1'"></mat-checkbox>
+                                                <mat-checkbox (change)="fnChangeFieldStatus($event.checked,'addressField')" class="form_field_checkbox" [checked]="formArr['addressField'].status=='1'"></mat-checkbox>
                                                 <p class="check-label">Address</p>
                                             </div>
                                         </div>
                                         <div class="" fxFlex="20" *ngIf="formArr['addressField'].status=='1'">
                                             <div>
-                                                <mat-checkbox
-                                                    (change)="fnChangeRequiredStatus($event.checked,'addressField')"
-                                                    [checked]="formArr['addressField'].required=='1'">Required
+                                                <mat-checkbox (change)="fnChangeRequiredStatus($event.checked,'addressField')" [checked]="formArr['addressField'].required=='1'">Required
                                                 </mat-checkbox>
                                             </div>
                                         </div>
                                         <div class="" fxFlex="60"></div>
                                     </div>
                                 </div>
-                                <button mat-button appearance="fill" class="form-save-btn"
-                                    (click)="fnFormSetting()">Save</button>
+                                <button mat-button appearance="fill" class="form-save-btn" (click)="fnFormSetting()">Save</button>
                             </div>
                         </div>
                     </div>
