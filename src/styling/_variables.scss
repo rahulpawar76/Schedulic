@@ -1,34 +1,15 @@
 :root {
-   --pri_color: '#3986fa';
-   --pri_gradient1: '#38b7fb';
-   --pri_gradien2: '#3969fb';
-   --text_color: '#000000';
-   --text_bgcolor: '#ffffff';
-   --font: 'Poppins';
+    --pri_color: '#3986fa';
+    --pri_gradient1: '#38b7fb';
+    --pri_gradien2: '#3969fb';
+    --text_color: '#000000';
+    --text_bgcolor: '#ffffff';
+    --font: 'Poppins';
 }
+
 $error: #f1552f;
-// $reactive: #f1552f;
-// $compliant: #e7bb10;
-// $proactive: #8cc63e;
-// $resilient: #18b3eb;
 $lightcolor: #00367130;
-
-
-// $reactive:var(--reactive);
-// $compliant: var(--compliant);
-// $proactive: var(--proactive);
-// $resilient: var(--resilient);
-// $first: var(--first);
-   $second: var(--second);
-// $third: var(--third);
-// $fourth: var(--fourth);
-
-// SASOL
-// $first-alt-lighter: #00b0e7;
-// $first-alt-darker: #00407f;
-// $second-alt-lighter: #0098d7;
-// $second-alt-darker: #002750;
-
+$second: var(--second);
 // AECI
 $first-alt-lighter: rgb(95, 95, 95);
 $first-alt-darker: rgb(24, 21, 21);
@@ -36,78 +17,73 @@ $second-alt-lighter: #e75a55;
 $second-alt-darker: #ab1531;
 //$third: #4D4D4D;
 $fourth: #ffffff;
-
 // different Var
-
-$shadow : 0px 2px 2px -1px rgba(0, 0, 0, 0.1), 0px 4px 12px 0px rgba(0, 0, 0, 0.1) !important;
-
+$shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.1),
+0px 4px 12px 0px rgba(0, 0, 0, 0.1) !important;
 // color var
 $primary-color: #457cfa;
 $secondary-color: #010101;
-$black : #000000;
-$dec-grey : #606060;
+$black: #000000;
+$dec-grey: #606060;
 $grey-1: #4c4c4c;
 $grey-2: #929292;
 $grey-3: #e0e0e0;
 $front-primary-color: var(--pri_color);
 $selected-font-family: var(--font);
-$red : #ed2f2f;
-$green : #16bc2c;
-
-$text-color:  var(--text_color);
+$red: #ed2f2f;
+$green: #16bc2c;
+$text-color : var(--text_color);
 $text-bg: var(--text_bgcolor);
 // btn radient 
-
-
-$primary-gradient-color:linear-gradient(to right,  var(--pri_gradient1) 0%,var(--pri_gradient2) 100%);
+$primary-gradient-color:linear-gradient(to right, var(--pri_gradient1) 0%, var(--pri_gradient2) 100%);
 // for font size
 $fs-12: 12px;
 $fs-14: 14px;
-$fs-16: 16px; 
-$fs-18: 18px; 
-$fs-20: 20px; 
-$fs-22: 22px; 
-$fs-24: 24px; 
-$fs-26: 26px; 
-$fs-28: 28px; 
-$fs-30: 30px; 
-$fs-32: 32px; 
-$fs-34: 34px; 
-$fs-36: 36px; 
-$fs-38: 38px; 
-$fs-40: 40px; 
-
+$fs-16: 16px;
+$fs-18: 18px;
+$fs-20: 20px;
+$fs-22: 22px;
+$fs-24: 24px;
+$fs-26: 26px;
+$fs-28: 28px;
+$fs-30: 30px;
+$fs-32: 32px;
+$fs-34: 34px;
+$fs-36: 36px;
+$fs-38: 38px;
+$fs-40: 40px;
 // for font weight
 $fw-300: 300;
 $fw-400: 400;
-$fw-500: 500; 
-$fw-600: 600; 
-$fw-700: 700; 
-$fw-800: 800; 
-$fw-900: 900; 
-$fwb: bold; 
-
+$fw-500: 500;
+$fw-600: 600;
+$fw-700: 700;
+$fw-800: 800;
+$fw-900: 900;
+$fwb: bold;
 
 /* for tab color */
+
 $tab-colors:#d9f0fe;
 
 /*for button color*/
+
 $btnlightgrey:#d6d6d6;
 $btnlightblue:#bcd8ff;
 $btnlightred:#fa8888;
 $btnlightgreen:#a0da8d;
 $lightbtn:#fabb88;
-
 $iconcolors:#295792;
-
 $bgblue:#dce9ff;
-
 $bgdarkblue:#1172f4;
 $bgdarkorange:#ff9037;
 $bgdarkgreen:#149a5b;
 
 /*for font-family*/
-$ff-poppins : 'Poppins', sans-serif;
+
+$ff-poppins: 'Poppins',
+sans-serif;
+
 /*slide header */
 
 $bg-darkblue:#eef5ff;

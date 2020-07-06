@@ -222,7 +222,7 @@ export class CustomersComponent implements OnInit {
   getAllCustomers(){
     this.isLoaderAdmin = true;
     this.AdminService.getAllCustomers().subscribe((response:any) => {
-      if(response.data == true && response.response != 'customer not created'){
+      if(response.data == true && response.response != 'Customer not created.'){
         this.allCustomers = response.response;
         this.allCustomers.forEach( (element) => {
           var splitted = element.fullname.split(" ",2);
@@ -234,7 +234,7 @@ export class CustomersComponent implements OnInit {
         this.fnSelectCustomer(this.allCustomers[0].id);
         this.isLoaderAdmin = false;
       }
-      else if(response.response == 'customer not created'){
+      else if(response.response == 'Customer not created.'){
         this.allCustomers = "";
         this._snackBar.open(response.response, "X", {
           duration: 2000,

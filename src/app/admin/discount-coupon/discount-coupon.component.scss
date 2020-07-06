@@ -195,8 +195,6 @@
     .couponCode {
         color: #1173f4;
     }
-
-    
 }
 
 ::ng-deep .dataTables_wrapper {
@@ -244,8 +242,17 @@
     font-size: 14px;
 }
 
-.fa-angle-double-left:before, .fa-angle-left:before,
-.fa-angle-double-right:before, .fa-angle-right:before{
+.fa-angle-double-left:before,
+.fa-angle-left:before,
+.fa-angle-double-right:before,
+.fa-angle-right:before {
     position: absolute;
     right: 10px;
+}
+
+.select-service-accordian {
+    max-height: 640px;
+    display: inline-block;
+    width: 100%;
+    overflow-y: scroll;
 }

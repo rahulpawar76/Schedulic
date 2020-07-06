@@ -121,11 +121,11 @@
                             <mat-form-field>
                                 <mat-label>Coupon Name</mat-label>
                                 <mat-icon matPrefix><img src="../../../assets/images/admin/coupon-1.png" class=""></mat-icon>
-                                <input matInput maxlength="8" formControlName="coupan_name" placeholder="Christmas Offer">
+                                <input matInput maxlength="15" formControlName="coupan_name" placeholder="Christmas Offer">
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="discountCoupon.get('coupan_name').touched || discountCoupon.get('coupan_name').dirty || formSubmitclicked">
                   <small *ngIf="discountCoupon.get('coupan_name').hasError('required')" class="error">Coupon name is required.</small>
-                  <small *ngIf="discountCoupon.get('coupan_name').hasError('maxlength')" class="error">Name must be at least 8 character.</small>
+                  <small *ngIf="discountCoupon.get('coupan_name').hasError('maxlength')" class="error">Name should be maximum 15 character.</small>
                 
                 </span>
                         </div>
@@ -134,11 +134,10 @@
                             <mat-form-field>
                                 <mat-label>Maximum Redemptions</mat-label>
                                 <mat-icon matPrefix><img src="../../../assets/images/admin/gift-card.png" class=""></mat-icon>
-                                <input matInput formControlName="max_redemption" placeholder="CHRISTMAS400">
+                                <input matInput formControlName="max_redemption" placeholder="100">
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="discountCoupon.get('max_redemption').touched || discountCoupon.get('max_redemption').dirty || formSubmitclicked">
                   <small *ngIf="discountCoupon.get('max_redemption').hasError('required')" class="error">Maximum redemptions is required.</small>
-                  <small *ngIf="discountCoupon.get('max_redemption').hasError('maxlength')" class="error">Maximum redemptions must be at least 2 character.</small>
                   <small *ngIf="discountCoupon.get('max_redemption').hasError('pattern')" class="error">Maximum redemptions should be only in numbers.</small>
                 </span>
                         </div>
@@ -147,11 +146,11 @@
                             <mat-form-field>
                                 <mat-label>Coupon Code</mat-label>
                                 <mat-icon matPrefix><img src="../../../assets/images/admin/coupon-1.png" class=""></mat-icon>
-                                <input matInput maxlength="8" formControlName="coupon_code" placeholder="Christmas Offer">
+                                <input matInput maxlength="15" formControlName="coupon_code" placeholder="Christmas Offer">
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="discountCoupon.get('coupon_code').touched || discountCoupon.get('coupon_code').dirty || formSubmitclicked">
                   <small *ngIf="discountCoupon.get('coupon_code').hasError('required')" class="error">Coupon code is required.</small>   
-                  <small *ngIf="discountCoupon.get('coupon_code').hasError('maxlength')" class="error">Coupon codemust be at least 8 character.</small>
+                  <small *ngIf="discountCoupon.get('coupon_code').hasError('maxlength')" class="error">Coupon codemust be at least 15character.</small>
                 
                 </span>
                         </div>
@@ -204,7 +203,7 @@
                         <div class=" form-group col-lg-6 col-12 col-sm-12 col-md-6  bottom-border-field">
                             <mat-form-field>
                                 <mat-label>Valid Till</mat-label>
-                                <input matInput (click)="valid_till_picker.open()" [min]="minDate" [matDatepicker]="valid_till_picker" formControlName="valid_till" placeholder="MM/DD/YYYY">
+                                <input matInput (click)="valid_till_picker.open()" [min]="minTillDate" [matDatepicker]="valid_till_picker" formControlName="valid_till" placeholder="MM/DD/YYYY">
                                 <mat-datepicker-toggle matPrefix [for]="valid_till_picker"></mat-datepicker-toggle>
                                 <mat-datepicker #valid_till_picker></mat-datepicker>
                             </mat-form-field>
@@ -267,7 +266,7 @@
                         <button (click)="fnCancelNewCoupon()" mat-button appearance="fill" class="discount-cancel-btn">Cancel</button>
                     </div>
                     <div class="mx-2">
-                        <button mat-button type="submit" appearance="fill" (click)="fnCreateCouponSubmit()" class="discount-save-btn">Save</button>
+                        <button mat-button type="submit" appearance="fill" (click)="fnCreateCouponSubmit()" class="discount-save-btn">Add Coupon</button>
                     </div>
                 </div>
             </div>

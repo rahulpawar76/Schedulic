@@ -2,6 +2,7 @@
 #booking_flow {
     height: 100vh;
     position: relative;
+    font-family: $selected-font-family !important;
     .main_bg {
         background-image: url("/../../assets/images/booking_bg.png");
         background-size: cover;
@@ -877,7 +878,7 @@ input:focus {
         font-size: 16px;
         padding: 0px 30px;
     }
-    .ml-a{
+    .ml-a {
         margin-left: auto;
     }
 }

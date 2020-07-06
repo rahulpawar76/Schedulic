@@ -61,6 +61,7 @@ export class DiscountCouponComponent implements OnInit {
   prev_page_url : any;
   discountType: any;
   path : any;
+  minTillDate : any = new Date();
   discountApiUrl:any =  `${environment.apiUrl}/discount-coupon-list`;
   diccount_error:boolean=false;
 
@@ -76,6 +77,7 @@ export class DiscountCouponComponent implements OnInit {
     localStorage.setItem('isBusiness', 'false');
     if(localStorage.getItem('business_id')){
       this.businessId = localStorage.getItem('business_id');
+      
   }
   //this.appComponent.settingsModule(this.adminSettings);
    }
@@ -83,11 +85,10 @@ export class DiscountCouponComponent implements OnInit {
   ngOnInit() {
     this.couponListFilter = 'All';
     this.getAllCouponCode();
-
     this.discountCoupon = this._formBuilder.group({
-      coupan_name : ['', [Validators.required,Validators.maxLength(8)]],
-      max_redemption : ['', [Validators.required,Validators.maxLength(2),Validators.pattern(this.onlynumeric)]],
-      coupon_code : ['', [Validators.required,Validators.maxLength(8)]],
+      coupan_name : ['', [Validators.required,Validators.maxLength(15)]],
+      max_redemption : ['', [Validators.required,Validators.pattern(this.onlynumeric)]],
+      coupon_code : ['', [Validators.required,Validators.maxLength(15)]],
       valid_from : ['', Validators.required],
       discount_type : ['', Validators.required],
       valid_till : ['', Validators.required],
@@ -210,6 +211,8 @@ export class DiscountCouponComponent implements OnInit {
       this.discountCoupon.get("coupon_code").markAsTouched();
       this.discountCoupon.get("max_redemption").markAsTouched();
       this.discountCoupon.get("discount_type").markAsTouched();
+      this.discountCoupon.get('valid_from').markAsTouched()
+      this.discountCoupon.get('valid_till').markAsTouched()
       this.discountCoupon.get("discount_value").markAsTouched();
 
     }

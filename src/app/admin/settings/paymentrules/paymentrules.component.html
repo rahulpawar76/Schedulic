@@ -131,7 +131,7 @@
                                     <div class="" fxFlex="30">Action</div>
                                 </div>
                                 <div *ngIf="taxesData != '' || taxesData != null" class="content" class="example-list">
-                                    <div *ngFor="let taxesData of taxesData; let i=index" class="example-box my-1">
+                                    <div *ngFor="let taxesData of taxesData; let i=index" class="example-box p-3 my-1">
                                         <div class="" fxFlex="40">
                                             <div class="d-flex align-items-center">
                                                 <p class="text-capitalize mb-0">{{taxesData.name}}</p>
@@ -139,7 +139,7 @@
                                         </div>
                                         <div class="" fxFlex="30">{{taxesData.value}}%</div>
                                         <div class="d-flex" fxFlex="30">
-                                            <button mat-button appearance="fill" class="ml-auto payment-delete-btn" (click)="deleteTax(taxesData.id)">
+                                            <button mat-button appearance="fill" class="payment-delete-btn" (click)="deleteTax(taxesData.id)">
                                             <mat-icon aria-hidden="false">delete_outline</mat-icon>
                                             Delete
                                         </button>
@@ -148,7 +148,7 @@
                                 </div>
 
                                 <div *ngIf="taxesData == '' || taxesData == null" class="content" class="example-list">
-                                    <p class="text-center p-1">No Record Found</p>
+                                    <p class="text-center p-1">No Record Found.</p>
                                 </div>
                             </div>
                         </div>

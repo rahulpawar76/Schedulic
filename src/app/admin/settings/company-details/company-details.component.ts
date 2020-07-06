@@ -47,20 +47,6 @@ export class CompanyDetailsComponent implements OnInit {
       }
    }
 
-  //  this.trimValidator(control: FormControl) => {
-  //   if (control.value.startsWith(' ')) {
-  //     return {
-  //       'trimError': { value: 'control has leading whitespace' }
-  //     };
-  //   }
-  //   if (control.value.endsWith(' ')) {
-  //     return {
-  //       'trimError': { value: 'control has trailing whitespace' }
-  //     };
-  //   }
-
-  //   return null;
-  // };
 
   ngOnInit() {
     this.gelAllCountry();
