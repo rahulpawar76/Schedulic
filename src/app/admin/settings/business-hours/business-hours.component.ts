@@ -1281,7 +1281,7 @@ fnAddNewTimeOff(){
         });
       }
       else{
-       this.snackBar.open("Time off nit added", "X", {
+       this.snackBar.open("Time off not added", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['red-snackbar']

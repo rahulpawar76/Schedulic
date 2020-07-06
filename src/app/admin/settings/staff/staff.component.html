@@ -96,7 +96,7 @@
                             <h6 *ngIf="!editStaffId">Add Staff</h6>
                             <h6 *ngIf="editStaffId">Edit Staff</h6>
                             <div class="d-flex profile-img-wrap" (click)="staffImage()">
-                                <img class="add-staff mx-auto" *ngIf="!editStaffId" src="/assets/images/default.png">
+                                <img class="add-staff mx-auto service-profile-image" *ngIf="!editStaffId" src="/assets/images/admin/picture.png">
                                 <img class="add-staff mx-auto" *ngIf="editStaffId" src="{{this.singleStaffDetail.staff[0].image}}">
                                 <div class="camera-alt"><i class="material-icons">
                   camera_alt
@@ -300,7 +300,6 @@
                         <mat-icon aria-hidden="false">add</mat-icon>Add Staff
                     </button>
                 </div>
-                <p class="w-100 mb-3 d-flex">Staff/team members are required to deliver services to your customers. you can define rights/permissions, and the services they can perform.</p>
                 <div class="w-100 mb-3 ml-3 d-flex">
                     <mat-form-field class="dropdown bottom-border-field mt-0">
                         <mat-label>Action</mat-label>

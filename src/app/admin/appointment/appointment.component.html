@@ -46,7 +46,7 @@
                         <form class="serch_input-appoint">
                             <div class="form-group has-search">
                                 <span class="fa fa-search form-control-feedback verticalLine"></span>
-                                <input type="text" class="form-control searchbox_appointment" (keyup)="Search($event.target.value)" placeholder="Customer,Service, Staff, Status">
+                                <input type="text" class="form-control searchbox_appointment" (keyup)="Search($event.target.value)" placeholder="Customer, Service, Staff, Status">
                             </div>
                         </form>
                     </div>
@@ -128,7 +128,7 @@
 
                                 </div>
                                 <div class="staff-list-row" *ngIf="allAppointments ==''">
-                                    <p class="mx-auto">Record not found</p>
+                                    <p class="mx-auto">Record not found.</p>
                                 </div>
                             </div>
                         </div>

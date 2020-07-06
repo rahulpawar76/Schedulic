@@ -313,7 +313,7 @@
                                     </div>
                                     <div class="mt-2 text-center">
                                         <mat-form-field class=" bottom-border-field">
-                                            <textarea matInput formControlName="subcategory_description" placeholder="Enter Sub Category Descriptions"></textarea>
+                                            <textarea matInput formControlName="subcategory_description" placeholder="Enter Sub Category Description"></textarea>
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createSubCategory.get('subcategory_description').touched || createSubCategory.get('subcategory_description').dirty">
                                     <small *ngIf="createSubCategory.get('subcategory_description').hasError('required')" class="error">Subcategory description is required.</small>
@@ -634,7 +634,7 @@
                                     </div>
                                     <div class="mt-2 text-center">
                                         <mat-form-field class=" bottom-border-field">
-                                            <textarea matInput formControlName="service_description" placeholder="Enter Service Descriptions"></textarea>
+                                            <textarea matInput formControlName="service_description" placeholder="Enter Service Description"></textarea>
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_description').touched || createService.get('service_description').dirty">
                                         <small *ngIf="createService.get('service_description').hasError('required')" class="error">Service description is required.</small>
@@ -658,7 +658,7 @@
                                             <mat-icon matPrefix><i class="material-icons">
                                             access_time
                                             </i></mat-icon>
-                                            <mat-label>Serice Time (mins)</mat-label>
+                                            <mat-label>Enter Serice Time (mins)</mat-label>
                                             <input matInput formControlName="service_duration" placeholder="">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_duration').touched || createService.get('service_duration').dirty">

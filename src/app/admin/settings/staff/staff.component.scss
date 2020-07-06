@@ -439,6 +439,12 @@
     position: relative;
     transition: 0.3s all;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e8e8e8;
+    width: 110px;
+    border-radius: 80px;
     &:hover .camera-alt {
         transition: 0.3s all;
         display: flex;
@@ -731,4 +737,10 @@
             color: #1173f4;
         }
     }
+}
+
+.service-profile-image {
+    width: 60px;
+    height: auto;
+    //border-radius: 50px;
 }
