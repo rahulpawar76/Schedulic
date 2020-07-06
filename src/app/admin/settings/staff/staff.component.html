@@ -96,7 +96,7 @@
                             <h6 *ngIf="!editStaffId">Add Staff</h6>
                             <h6 *ngIf="editStaffId">Edit Staff</h6>
                             <div class="d-flex profile-img-wrap" (click)="staffImage()">
-                                <img class="add-staff mx-auto service-profile-image" *ngIf="!editStaffId" src="/assets/images/admin/picture.png">
+                                <img class="mx-auto service-profile-image" *ngIf="!editStaffId" src="/assets/images/admin/picture.png">
                                 <img class="add-staff mx-auto" *ngIf="editStaffId" src="{{this.singleStaffDetail.staff[0].image}}">
                                 <div class="camera-alt"><i class="material-icons">
                   camera_alt
@@ -565,7 +565,8 @@
                                             </div>
                                             <div class="" fxFlex="40">
                                                 <div class="d-flex align-items-center">
-                                                    <img class="staff-details-width mr-2" src="/assets/images/default.png">
+                                                    <!-- <img class="staff-details-width mr-2" src="/assets/images/default.png"> -->
+                                                    <img *ngIf="staffService.service_image" class="staff-details-width mr-2" src="{{staffService.service_image}}">
                                                     <p class="mb-0">{{staffService.service_name}}</p>
                                                 </div>
                                             </div>

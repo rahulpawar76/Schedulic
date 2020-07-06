@@ -860,7 +860,7 @@ export class StaffComponent implements OnInit {
       lastname : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
       address : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
-      phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       description : ['',Validators.maxLength(255)],
       staff_id : [''],
     });  
@@ -1081,20 +1081,6 @@ export class StaffComponent implements OnInit {
               formData.append('image', this.staffImageUrl);
             }
               
-
-
-        // this.updateStaffData = {
-        //   "staff_id" : this.StaffCreate.get('staff_id').value,
-        //   "firstname" : this.StaffCreate.get('firstname').value,
-        //   "lastname" : this.StaffCreate.get('lastname').value,
-        //   "email" : this.StaffCreate.get('email').value,
-        //   "phone" : this.StaffCreate.get('phone').value,
-        //   "address" : this.StaffCreate.get('address').value,
-        //   "servicelist" : this.selectedServiceNewStaff,
-        //   "image" : this.staffImageUrl,
-        // }
-        // console.log(this.updateStaffData);
-        // this.updateStaff(this.updateStaffData);
         
         this.updateStaff(formData);
       }else{
@@ -1124,19 +1110,6 @@ export class StaffComponent implements OnInit {
         formData.append('address', this.StaffCreate.get('address').value);
         formData.append('servicelist', this.categoryServiceCheckServiceId);
         formData.append('image', this.staffImageUrl);
-
-        // this.newStaffData = {
-        //   "business_id" : this.businessId,
-        //   "firstname" : this.StaffCreate.get('firstname').value,
-        //   "lastname" : this.StaffCreate.get('lastname').value,
-        //   "email" : this.StaffCreate.get('email').value,
-        //   "phone" : this.StaffCreate.get('phone').value,
-        //   "address" : this.StaffCreate.get('address').value,
-        //   "servicelist" : this.selectedServiceNewStaff,
-        //   "image" : this.staffImageUrl,
-        // }
-        // console.log(this.newStaffData);
-        // this.createNewStaff(this.newStaffData);
          this.createNewStaff(formData);
       }else{
         this.StaffCreate.get('firstname').markAsTouched();
