@@ -266,6 +266,7 @@
     .addNotes {
         display: flex;
         justify-content: center;
+      
         .Add-notes-background {
             width: 31%;
             height: 165px;
@@ -273,6 +274,7 @@
             color: #f87812;
             border: 1px solid #fbb984;
             border-radius: 6px;
+            cursor: pointer;
             .addnote-icon {
                 font-size: 70px;
                 line-height: 1;
