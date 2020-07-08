@@ -145,6 +145,12 @@
     position: relative;
     transition: 0.3s all;
     cursor: pointer;
+    background-color: #e8e8e8;
+    width: 120px;
+    border-radius: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     &:hover .camera-alt {
         transition: 0.3s all;
         display: flex;

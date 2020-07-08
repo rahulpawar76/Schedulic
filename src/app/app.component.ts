@@ -108,7 +108,7 @@ export class AppComponent implements AfterViewInit {
   ) {
     
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
-    
+    console.log(this.currentUser)
     if (localStorage.getItem('business_id')) {
       this.businessId = localStorage.getItem('business_id');
     }

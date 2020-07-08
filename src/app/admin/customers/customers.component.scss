@@ -543,6 +543,9 @@
     position: relative;
     transition: 0.3s all;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     &:hover .camera-alt {
         transition: 0.3s all;
         display: flex;
@@ -567,6 +570,18 @@
             color: #ffffff;
         }
     }
+}
+
+.service-profile-image {
+    width: 60px;
+    height: auto;
+    //border-radius: 50px;
+}
+
+.services-customer-profile-background {
+    background-color: #e8e8e8;
+    width: 120px;
+    border-radius: 80px;
 }
 
  ::ng-deep .upload-preview-img {
@@ -688,4 +703,17 @@
 .tags-input mat-chip mat-icon {
     padding-right: 0;
     border-right: 0;
+}
+
+.tags-input {
+    input {
+        &:focus {
+            border: 0;
+            outline: 0;
+        }
+    }
+}
+
+.mail-link {
+    text-decoration: none;
 }

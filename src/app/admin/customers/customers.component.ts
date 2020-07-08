@@ -357,9 +357,9 @@ customerUpdate(existingCustomerData){
     this.createNewCustomer = this._formBuilder.group({
       cus_fullname : ['', Validators.required],
       cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
-      cus_phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
-      cus_officenumber : ['', [Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
-      cus_homenumber : ['', [Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      cus_phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
+      cus_officenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
+      cus_homenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_address : ['', Validators.required],
       cus_state : ['', Validators.required],
       cus_city : ['', Validators.required],
@@ -452,6 +452,10 @@ customerUpdate(existingCustomerData){
     })
   }
   fnDeleteCustomer(customerId){
+    var is_confirm  = confirm('Are you sure you want to delete?')
+    if(!is_confirm){
+        return false;
+    }
   this.isLoaderAdmin = true;
   this.AdminService.fnDeleteCustomer(customerId).subscribe((response:any) => {
     if(response.data == true){

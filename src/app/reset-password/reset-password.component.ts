@@ -99,7 +99,11 @@ export class ResetPasswordComponent implements OnInit {
       }, (err) =>{
         console.log(err)
       })
-    }      
+    }    else{
+      
+      this.resetPasswordForm.get('NewPassword').markAsTouched();
+      this.resetPasswordForm.get('ReNewPassword').markAsTouched();
+    }  
   }
 
 }
