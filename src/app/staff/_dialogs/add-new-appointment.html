@@ -26,6 +26,7 @@
                     <!-- <input type="text" formControlName="customerFullName" class="form-control formcontrol" placeholder="Enter Customer Name"> -->
                     <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep1.get('customerFullName').dirty || formAddNewAppointmentStaffStep1.get('customerFullName').touched || formSubmitclicked">
                         <small *ngIf="formAddNewAppointmentStaffStep1.get('customerFullName').hasError('required')" class="error">Fullname is required</small>
+                        <small *ngIf="formAddNewAppointmentStaffStep1.get('customerFullName').hasError('required')" class="error">Fullname should mimimum 4 and maximum 16 Character</small>
                     </span>
                 </div>
 
@@ -65,7 +66,7 @@
                     <!-- <input type="text" formControlName="customerPhone" class="form-control formcontrol" placeholder="Enter Customer Phone Number"> -->
                     <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').dirty || formAddNewAppointmentStaffStep1.get('customerPhone').touched || formSubmitclicked">
                         <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('required')" class="error">Phone is required</small><small *ngIf=" formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern')" class="error">Enter a valid phone</small>
-                        <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerPhone').hasError('maxlength')" class="error">Phone number should be 10 digits long</small>
+                        <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerPhone').hasError('maxlength')" class="error">Phone number should be minimum 6 and maximum 15 digits long.</small>
                     </span>
                 </div>
 
@@ -129,9 +130,11 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="col-12 text-center mt-4"><h6>Appointment Address</h6></div>
-                <div class="col-12 text-center"><input type="checkbox" [checked]= "is_checked" (change)="sameAddress($event)"/><label> &nbsp;&nbsp; Same as above</label></div>
+
+                <div class="col-12 text-center mt-4">
+                    <h6>Appointment Address</h6>
+                </div>
+                <div class="col-12 text-center"><input type="checkbox" [checked]="is_checked" (change)="sameAddress($event)" /><label> &nbsp;&nbsp; Same as above</label></div>
 
                 <mat-form-field class="form-group  bottom-border-field">
                     <mat-label>Address</mat-label>
@@ -180,9 +183,9 @@
                                 <small *ngIf="formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').hasError('isPostalcodeValid')" class="error">We do not provide service at this location</small>
                             </span>
                         </div>
-                    </div> 
+                    </div>
                 </div>
-                
+
                 <button class="d-block btn btn-primary addbtn" (click)="fnNewAppointmentStep1()">Next</button>
             </form>
         </div>
@@ -234,7 +237,8 @@
                         </div>
                     </div>
                     <!-- <input type="date" class="form-control formcontrol"> -->
-                    <input mat-input [min]="minDate" [max]="maxDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="Choose a date" class="form-control formcontrol" (click)="picker.open()" (dateChange)="fnDateChange($event)" formControlName="customerDate" readonly>
+                    <input mat-input [min]="minDate" [max]="maxDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="Choose a date" class="form-control formcontrol" (click)="picker.open()" (dateChange)="fnDateChange($event)" formControlName="customerDate"
+                        readonly>
                     <mat-datepicker #picker></mat-datepicker>
                     <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerDate').dirty || formAddNewAppointmentStaffStep2.get('customerDate').touched || formSubmitclicked">
               <small *ngIf="formAddNewAppointmentStaffStep2.get('customerDate').hasError('required')" class="error">Date is required</small>

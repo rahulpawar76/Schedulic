@@ -17,7 +17,7 @@
                     </div>
                     <mat-card-title class="p-4 mx-0 row d-flex">
                         <label class="col-lg-6 col-sm-12 col-12 float-left">{{businessDetail?businessDetail.business_name:''}}</label>
-                        <div class="col-lg-6 col-sm-12 col-12 right-check-postal-form float-left"  *ngIf="postalCodeCondition">
+                        <div class="col-lg-6 col-sm-12 col-12 right-check-postal-form float-left" *ngIf="postalCodeCondition">
                             <div class="check-aval-postal sm-py-2" [ngClass]="{'':validpostalcode === 'default','valid':validpostalcode === 'valid','not-valid':validpostalcode === 'invalid'}">
                                 <i class="fa fa-map-marker"></i>
                                 <input type="text" [(ngModel)]="booking.postalcode" class="postcode-input" placeholder="Enter the postal code to get our service" (keyup)="fnCheckPostalCode($event)" />
@@ -82,7 +82,7 @@
                 <div id="addon_list" class="main-step step_4 p-0" *ngIf="serviceselection">
                     <div class="step-top-head"></div>
                     <div class="col-lg-12 col-sm-12 col-12 float-left loggedin_head" *ngIf="isLoggedIn">
-                       <!--  <p>Welcome, {{customerName}}</p><button (click)="fnLogout()" mat-button class="round-btn continue-btn logout-btn">Logout</button> -->
+                        <!--  <p>Welcome, {{customerName}}</p><button (click)="fnLogout()" mat-button class="round-btn continue-btn logout-btn">Logout</button> -->
                         <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn continue-btn logout-btn">View Dashboard</button><button (click)="fnLogout()" mat-button class="round-btn continue-btn logout-btn ml-a">Logout</button>
                     </div>
                     <mat-card-title class="px-4 py-3 d-flex">
@@ -165,9 +165,12 @@
                                 <mat-card-content class="py-2 px-3 mt-0">
                                     <div class="row">
                                         <div class="col staff-selection">
+                                            <mat-radio-group *ngIf="!isStaffAvailable" aria-label="Select Staff">
+                                                <mat-radio-button [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].assignedStaff==null" (change)="fnSelectStaff(null,i)" value="">Any Staff</mat-radio-button>
+                                            </mat-radio-group>
                                             <!-- <mat-checkbox value="staff1" [checked]="checked" (click)="fnSelectStaff($event,)">Any Staff</mat-checkbox>
                                                     <mat-checkbox *ngFor="let staff of availableStaff" (click)="fnSelectStaff($event,staff.id)">{{staff.username}} 1</mat-checkbox> -->
-                                            <p class="mb-0" *ngIf="!isStaffAvailable">No Staff Available</p>
+                                            <!-- <p class="mb-0" *ngIf="!isStaffAvailable">No Staff Available</p> -->
                                             <mat-radio-group aria-label="Select Staff" *ngIf="isStaffAvailable">
                                                 <mat-radio-button [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].assignedStaff==null" (change)="fnSelectStaff(null,i)" value="">Any Staff</mat-radio-button>
                                                 <mat-radio-button *ngFor="let staff of availableStaff" [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].assignedStaff==staff.id" (change)="fnSelectStaff(staff.id,i)" class="text-capitalize" value="{{staff.id}}">{{staff.name}}</mat-radio-button>

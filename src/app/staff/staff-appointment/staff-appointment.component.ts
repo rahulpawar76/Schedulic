@@ -718,9 +718,9 @@ export class StaffAppointmentComponent implements OnInit {
       ).subscribe((response:any) => {
         if(response.data == true){
           this.formAddNewAppointmentStaffStep1 = this._formBuilder.group({
-            customerFullName: ['', Validators.required],
+            customerFullName: ['', Validators.required,Validators.minLength(4),Validators.maxLength(16)],
             customerEmail: ['', [Validators.required,Validators.email,Validators.pattern(this.emailPattern)]],
-            customerPhone: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+            customerPhone: ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
             customerAddress: ['', Validators.required],
             customerState: ['', Validators.required],
             customerCity: ['', Validators.required],

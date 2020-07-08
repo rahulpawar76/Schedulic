@@ -35,7 +35,7 @@
                     <form class="serch_input-appoint">
                         <div class="form-group has-search">
                             <span class="fa fa-search form-control-feedback verticalLine"></span>
-                            <input name="searchKeyword" [(ngModel)]="search.keyword" (keyup)="customerSearch($event)" type="text" class="form-control searchbox_appointment " placeholder="Search Customer">
+                            <input name="searchKeyword" [(ngModel)]="search.keyword" (keyup)="customerSearch($event)" type="text" class="form-control searchbox_appointment " placeholder="Name, Area, Tag">
                         </div>
                     </form>
                 </div>
@@ -73,8 +73,8 @@
                             <div class="row">
                                 <div class="col-lg-4 col-12 col-md-4">
                                     <div class="w-100 d-flex justify-content-center">
-                                        <div class="d-flex profile-img-wrap" (click)="customerImage()">
-                                            <img class="add-staff mx-auto" src="/assets/images/admin/Layer-3.png">
+                                        <div class="d-flex profile-img-wrap services-customer-profile-background" (click)="customerImage()">
+                                            <img class="service-profile-image mx-auto" src="/assets/images/admin/picture.png">
                                             <div class="camera-alt"><i class="material-icons">
                                             camera_alt
                                             </i></div>
@@ -117,15 +117,15 @@
                                                 <mat-icon class="mr-4" matPrefix>call</mat-icon>
                                                 <input matInput formControlName="cus_phone" placeholder="Enter Your number">
                                             </mat-form-field>
-                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_phone').dirty || createNewCustomer.get('cus_phone').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_phone').hasError('required')" class="error">Contact number is required.</small><small *ngIf="createNewCustomer.get('cus_phone').hasError('pattern')" class="error">Contact number should be in numbers.</small><small *ngIf="createNewCustomer.get('cus_phone').hasError('minlength') || createNewCustomer.get('cus_phone').hasError('maxlength')" class="error">Contact number should only 10 digits.</small></span>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_phone').dirty || createNewCustomer.get('cus_phone').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_phone').hasError('required')" class="error">Contact number is required.</small><small *ngIf="createNewCustomer.get('cus_phone').hasError('pattern')" class="error">Contact number should be in numbers.</small><small *ngIf="createNewCustomer.get('cus_phone').hasError('minlength') || createNewCustomer.get('cus_phone').hasError('maxlength')" class="error">Contact number should minimum 6 and maximum 15 digits.</small></span>
                                         </div>
                                         <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
                                             <mat-form-field>
                                                 <mat-label>Office Phone Number</mat-label>
-                                                <mat-icon class="mr-4" matPrefix>format_list_numbered</mat-icon>
+                                                <mat-icon class="mr-4" matPrefix>apartment</mat-icon>
                                                 <input matInput formControlName="cus_officenumber" placeholder="Enter Your number">
                                             </mat-form-field>
-                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_officenumber').dirty || createNewCustomer.get('cus_officenumber').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_officenumber').hasError('pattern')" class="error">Office phone should in numbers.</small><small *ngIf="createNewCustomer.get('cus_officenumber').hasError('minlength') || createNewCustomer.get('cus_officenumber').hasError('maxlength')" class="error">Office phone should only 10 digits.</small></span>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_officenumber').dirty || createNewCustomer.get('cus_officenumber').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_officenumber').hasError('pattern')" class="error">Office phone should in numbers.</small><small *ngIf="createNewCustomer.get('cus_officenumber').hasError('minlength') || createNewCustomer.get('cus_officenumber').hasError('maxlength')" class="error">Office phone should minimum 6 and maximum 15 digits.</small></span>
                                         </div>
                                         <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
                                             <mat-form-field>
@@ -134,7 +134,7 @@
                                                 <input matInput formControlName="cus_homenumber" placeholder="Enter Your number">
                                             </mat-form-field>
 
-                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_homenumber').dirty || createNewCustomer.get('cus_homenumber').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_homenumber').hasError('pattern')" class="error">Home phone should in numbers.</small><small *ngIf="createNewCustomer.get('cus_homenumber').hasError('minlength') || createNewCustomer.get('cus_homenumber').hasError('maxlength')" class="error">Home phone should only 10 digits.</small></span>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_homenumber').dirty || createNewCustomer.get('cus_homenumber').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_homenumber').hasError('pattern')" class="error">Home phone should in numbers.</small><small *ngIf="createNewCustomer.get('cus_homenumber').hasError('minlength') || createNewCustomer.get('cus_homenumber').hasError('maxlength')" class="error">Home phone should minimum 6 and maximum 15 digits.</small></span>
                                         </div>
                                         <div class="col-lg-12 col-12 col-md-12 bottom-border-field">
                                             <mat-form-field>
@@ -204,7 +204,7 @@
                             </div>
                             <div class="customerName-width">
                                 <h6>{{customerPersonalDetails.fullname}}</h6>
-                                <p>{{customerPersonalDetails.email}}</p>
+                                <a class="mail-link" target="_blank" href="mailto:customerPersonalDetails.email">{{customerPersonalDetails.email}}</a>
                             </div>
                             <div class="customer-btn">
                                 <div class="mx-2">
@@ -343,7 +343,7 @@
                                             <div>
                                                 <mat-icon aria-hidden="false" class="addnote-icon w-auto h-auto" aria-label="note-add-icon">note_add</mat-icon>
                                             </div>
-                                            <div class="text-center w-100" >
+                                            <div class="text-center w-100">
                                                 <a class="addnote-link">
                                                     <mat-icon aria-hidden="false" aria-label="note-add icon">add</mat-icon>Add Notes</a>
                                             </div>
@@ -365,7 +365,7 @@
                                             </div>
                                             <div class="d-flex">
                                                 <div class=" d-flex ml-auto">
-                                                    <p class="">{{customerNotes.created_at}}</p>
+                                                    <p class="">{{customerNotes.updated_at}}</p>
                                                 </div>
                                             </div>
                                         </mat-card>

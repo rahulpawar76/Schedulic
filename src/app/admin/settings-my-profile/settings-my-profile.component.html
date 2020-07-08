@@ -12,7 +12,8 @@
                         <img src="/assets/images/admin/Layer6.png" class="my-profile-image">
                     </div> -->
                     <div class="profile-img-wrap" (click)="myProfleImage()">
-                        <img mat-card-avatar class="account-profile-image" src="/assets/images/admin/picture.png">
+                        <img *ngIf="profileDetails.image" mat-card-avatar class="account-profile-image" src="{{profileDetails.image}}">
+                        <img *ngIf="!profileDetails.image" mat-card-avatar class="account-profile-image" src="/assets/images/admin/picture.png">
                         <div class="camera-alt"><i class="material-icons">camera_alt</i></div>
                     </div>
                 </div>
