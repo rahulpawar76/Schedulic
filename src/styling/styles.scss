@@ -834,11 +834,45 @@
         }
     }
     
+    .short-menu {
+        &.setting-menu {
+            width: 70px;
+            p {
+                display: none;
+            }
+            .setting-menu-item {
+                justify-content: center;
+                padding: 10px;
+                p {
+                    display: none;
+                }
+            }
+        }
+        &.left-side-menu {
+            width: 70px;
+            h6 {
+                display: none;
+            }
+            mat-list-item {
+                justify-content: center;
+                padding: 10px;
+                display: none;
+                i {
+                    display: block;
+                }
+            }
+        }
+    }
+    
     .setting-right-side-content {
         margin-left: 250px;
         width: calc(100% - 250px);
         margin-top: 65px;
         background-color: #fff;
+        &.short-content-area {
+            margin-left: 70px;
+            width: calc(100% - 70px);
+        }
     }
     
     .break-word {

@@ -885,7 +885,6 @@ fnAppointmentsReminderSMS(event){
     })
   }
   fnSaveEmailTemp(tempId){
-    alert(tempId);
     if(tempId == this.customerEmailTemData[0].id){
       let requestObject = {
         "template_id" : tempId,

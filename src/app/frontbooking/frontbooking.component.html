@@ -462,7 +462,7 @@
                     <label *ngIf="currencySymbolPosition=='right'" class="price text-right d-block">{{ serviceMainArr.netCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
                 </div>
             </div>
-            <div class="d-flex">
+            <div *ngIf="termsConditions && privacyPolicy" class="d-flex">
 
                 <mat-checkbox *ngIf="termsConditions.status == 'true'" class="termscondition ml-3" (change)="fnChangeTermsConditionsStatus($event.checked)">
                     <a *ngIf="termsConditions.page_link != ''" href="{{termsConditions.page_link}}" target="blank">{{termsConditions.label}}</a>

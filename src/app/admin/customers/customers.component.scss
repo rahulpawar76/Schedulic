@@ -5,6 +5,7 @@
 //     max-width: 75%;
 //     margin-left: 288px;
 // }
+@import "variables";
 #customers {
     .devider-slim {
         //width: 100%;
@@ -266,7 +267,6 @@
     .addNotes {
         display: flex;
         justify-content: center;
-      
         .Add-notes-background {
             width: 31%;
             height: 165px;
@@ -718,4 +718,63 @@
 
 .mail-link {
     text-decoration: none;
+}
+
+.Customer-appointment-table {
+    table {
+        tbody {
+            tr {
+                transition: all 0.3s;
+                cursor: pointer;
+                &:hover {
+                    background-color: #dbe5ff;
+                    transition: all 0.3s;
+                }
+            }
+        }
+    }
+}
+
+textarea {
+    min-height: 80px;
+}
+
+::ng-deep .header-color {
+    background-color: $bg-header;
+    margin: 0px;
+    font-size: 13px;
+}
+
+::ng-deep .content-wrap {
+    font-size: 13px;
+}
+
+::ng-deep .invoice-width1 {
+    border-radius: 25px;
+    width: 140px;
+    background-color: $bgdarkblue;
+    &:hover {
+        background-color: $bgdarkblue;
+    }
+}
+
+::ng-deep .invoice-width2 {
+    border-radius: 25px;
+    width: 140px;
+    background-color: $bgdarkorange;
+    &:hover {
+        background-color: $bgdarkorange;
+    }
+    i {
+        color: white;
+    }
+}
+
+::ng-deep .invoice-width3 {
+    border-radius: 25px;
+    width: 140px;
+    background-color: $bgdarkgreen;
+    &:hover {
+        background-color: $bgdarkgreen;
+    }
 }
