@@ -215,7 +215,7 @@
                                 </div>
                             </div>
                         </div>
-                        <mat-tab-group>
+                        <mat-tab-group (selectedIndexChange)="fnTabValue($event)">
                             <mat-tab id="Details" label="Details">
                                 <div class="d-flex my-3">
                                     <div class="mobileNo-width">
@@ -415,7 +415,7 @@
                                                 <div class="searchbox col-lg-6 col-12 col-md-6 pb-2">
                                                     <h6>Amount</h6>
                                                     <div class="form-group has-search">
-                                                        <span class="fa fa-search form-control-feedback"></span>
+                                                        <span class="form-control-feedback">{{currencySymbol| currencySymbol:'wide'}}</span>
                                                         <input type="text" class="form-control" placeholder="3000.00" formControlName="paymentAmount" (change)="fnOnChangeAmount($event)">
                                                         <span class="error-wrap" *ngIf="formPayment.get('paymentAmount').dirty || formPayment.get('paymentAmount').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentAmount').hasError('required')" class="error">Amount is required.</small><small *ngIf="formPayment.get('paymentAmount').hasError('pattern')" class="error">Enter valid amount.</small><small *ngIf="formPayment.get('paymentAmount').hasError('min')" class="error">Amount should grater then Original Amount.</small></span>
                                                     </div>
@@ -423,7 +423,7 @@
                                                 <div class="searchbox col-lg-6 col-12 col-md-6  pb-2">
                                                     <h6>Discount</h6>
                                                     <div class="form-group has-search ">
-                                                        <span class="fa fa-search form-control-feedback"></span>
+                                                        <span class="form-control-feedback">{{currencySymbol| currencySymbol:'wide'}}</span>
                                                         <input type="text" class="form-control" placeholder="Enter Discount" formControlName="paymentDiscount" (change)="fnOnChangeDiscount($event)">
                                                         <span class="error-wrap" *ngIf="formPayment.get('paymentDiscount').dirty || formPayment.get('paymentDiscount').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentDiscount').hasError('required')" class="error">Discount is required.</small><small *ngIf="formPayment.get('paymentDiscount').hasError('pattern')" class="error">Enter valid discount value.</small></span>
                                                     </div>

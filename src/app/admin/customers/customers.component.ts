@@ -473,6 +473,10 @@ customerUpdate(existingCustomerData){
     }
   })
   }
+  fnTabValue(tab){
+    this.showPaymentForm=false;
+    this.showPaymentTable=true;
+  }
 
   fnDeleteNote(noteId){
     this.isLoaderAdmin = true;
