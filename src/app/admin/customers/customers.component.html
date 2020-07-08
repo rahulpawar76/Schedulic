@@ -327,7 +327,7 @@
                                     </table>
                                 </div>
                                 <div *ngIf="customerAppoint == ''" class="Customer-appointment-table">
-                                    <h2 class="text-center py-3">No Appointments Available</h2>
+                                    <h5 class="text-center py-3">No Record Found</h5>
                                 </div>
                             </mat-tab>
                             <mat-tab label="Notes">
@@ -338,12 +338,12 @@
                                     </div>
                                 </div>
                                 <div *ngIf="customerNotes == ''" class="addNotes">
-                                    <div class="Add-notes-background d-flex justify-content-center flex-wrap align-items-center">
+                                    <div class="Add-notes-background d-flex justify-content-center flex-wrap align-items-center" (click)="newAddNote(customerPersonalDetails.id)">
                                         <div class="d-flex justify-content-center flex-wrap">
                                             <div>
                                                 <mat-icon aria-hidden="false" class="addnote-icon w-auto h-auto" aria-label="note-add-icon">note_add</mat-icon>
                                             </div>
-                                            <div class="text-center w-100" (click)="newAddNote(customerPersonalDetails.id)">
+                                            <div class="text-center w-100">
                                                 <a class="addnote-link">
                                                     <mat-icon aria-hidden="false" aria-label="note-add icon">add</mat-icon>Add Notes</a>
                                             </div>
@@ -417,7 +417,7 @@
                                                     <div class="form-group has-search">
                                                         <span class="fa fa-search form-control-feedback"></span>
                                                         <input type="text" class="form-control" placeholder="3000.00" formControlName="paymentAmount" (change)="fnOnChangeAmount($event)">
-                                                        <span class="error-wrap" *ngIf="formPayment.get('paymentAmount').dirty || formPayment.get('paymentAmount').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentAmount').hasError('required')" class="error">Amount is required</small><small *ngIf="formPayment.get('paymentAmount').hasError('pattern')" class="error">Enter valid amount</small><small *ngIf="formPayment.get('paymentAmount').hasError('min')" class="error">Amount should grater then Original Amount</small></span>
+                                                        <span class="error-wrap" *ngIf="formPayment.get('paymentAmount').dirty || formPayment.get('paymentAmount').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentAmount').hasError('required')" class="error">Amount is required.</small><small *ngIf="formPayment.get('paymentAmount').hasError('pattern')" class="error">Enter valid amount.</small><small *ngIf="formPayment.get('paymentAmount').hasError('min')" class="error">Amount should grater then Original Amount.</small></span>
                                                     </div>
                                                 </div>
                                                 <div class="searchbox col-lg-6 col-12 col-md-6  pb-2">
@@ -425,7 +425,7 @@
                                                     <div class="form-group has-search ">
                                                         <span class="fa fa-search form-control-feedback"></span>
                                                         <input type="text" class="form-control" placeholder="Enter Discount" formControlName="paymentDiscount" (change)="fnOnChangeDiscount($event)">
-                                                        <span class="error-wrap" *ngIf="formPayment.get('paymentDiscount').dirty || formPayment.get('paymentDiscount').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentDiscount').hasError('required')" class="error">Discount is required</small><small *ngIf="formPayment.get('paymentDiscount').hasError('pattern')" class="error">Enter valid discount value</small></span>
+                                                        <span class="error-wrap" *ngIf="formPayment.get('paymentDiscount').dirty || formPayment.get('paymentDiscount').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentDiscount').hasError('required')" class="error">Discount is required.</small><small *ngIf="formPayment.get('paymentDiscount').hasError('pattern')" class="error">Enter valid discount value.</small></span>
                                                     </div>
                                                 </div>
                                                 <div class=" pb-3 col-lg-6 col-12 col-md-6">
@@ -434,13 +434,13 @@
                                                         <mat-radio-button value="Cash">Cash</mat-radio-button>
                                                         <mat-radio-button value="Stripe">Online</mat-radio-button>
                                                     </mat-radio-group>
-                                                    <span class="error-wrap" *ngIf="formPayment.get('paymentMode').dirty || formPayment.get('paymentMode').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentMode').hasError('required')" class="error">Payment mode is required</small></span>
+                                                    <span class="error-wrap" *ngIf="formPayment.get('paymentMode').dirty || formPayment.get('paymentMode').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentMode').hasError('required')" class="error">Payment mode is required.</small></span>
                                                 </div>
                                                 <div>
                                                     <div class="form-group col-lg-6 col-12 col-md-6">
                                                         <h6 for="comment">Note</h6>
                                                         <textarea class="form-control" rows="3" id="comment" placeholder="Enter Payment Note" formControlName="paymentNote"></textarea>
-                                                        <span class="error-wrap" *ngIf="formPayment.get('paymentNote').dirty || formPayment.get('paymentNote').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentNote').hasError('required')" class="error">Payment note is required</small></span>
+                                                        <span class="error-wrap" *ngIf="formPayment.get('paymentNote').dirty || formPayment.get('paymentNote').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentNote').hasError('required')" class="error">Payment note is required.</small></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -520,7 +520,7 @@
                                     </form>
                                 </div>
                             </mat-tab>
-                            <mat-tab label="Review">
+                            <mat-tab label="Reviews">
                                 <div *ngIf="customerReviews != ''">
                                     <div *ngFor="let customerReviews of customerReviews; let i=index" class="devider-slim pb-2 my-2">
                                         <div class="d-flex">
@@ -549,7 +549,7 @@
                                     </div>
                                 </div>
                                 <div *ngIf="customerReviews == ''" class="">
-                                    <h2 class="text-center py-3">No Reviews Available</h2>
+                                    <h5 class="text-center py-3">No Record Found.</h5>
                                 </div>
                             </mat-tab>
                         </mat-tab-group>
