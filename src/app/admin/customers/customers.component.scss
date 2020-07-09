@@ -778,3 +778,21 @@ textarea {
         background-color: $bgdarkgreen;
     }
 }
+
+#customers {
+    #Add-New-Customer {
+        .footer-action-btn {
+            padding: 16px;
+            position: fixed;
+            bottom: 0;
+            width: calc(100% - 370px);
+            margin: 0;
+            box-shadow: 0 2px 2px -1px rgba(0, 0, 0, .4), 0 4px 12px 0 rgba(0, 0, 0, .4)!important;
+            right: 0;
+        }
+    }
+}
+
+.form-container {
+    height: 100%;
+}

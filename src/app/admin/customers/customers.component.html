@@ -62,7 +62,7 @@
 
             <mat-drawer-content class="pl-0 pr-0" style="margin-left: 300px;">
                 <div *ngIf="newCustomer" id="Add-New-Customer" class="pl-0 pr-0">
-                    <mat-card class="mb-0">
+                    <mat-card class="mb-0 form-container">
                         <div class="row">
                             <div class="col-lg-12">
                                 <h6 *ngIf="!existingUserId">Add New Customer</h6>
@@ -181,8 +181,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="devider-slim my-3 w-100"></div>
+                            <mat-card class="footer-action-btn row">
                                 <div class="action-btn">
                                     <div class="mx-2">
                                         <button (click)="fnCancelNewCustomer()" mat-button appearance="fill" class="customer-cancel-btn">Cancel</button>
@@ -191,7 +190,7 @@
                                         <button mat-button type="submit" appearance="fill" (click)="fnCreateCustomerSubmit()" class="customer-save-btn">Save</button>
                                     </div>
                                 </div>
-                            </div>
+                            </mat-card>
                         </form>
                     </mat-card>
                 </div>
