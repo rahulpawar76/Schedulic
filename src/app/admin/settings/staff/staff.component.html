@@ -130,7 +130,7 @@
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="StaffCreate.get('phone').touched || StaffCreate.get('phone').dirty || formSubmitclicked">
               <small *ngIf="StaffCreate.get('phone').hasError('required')" class="error">Mobile number is required.</small>
-              <small *ngIf="StaffCreate.get('phone').hasError('pattern')" class="error">Mobile Number is Should be Numeric.</small>
+              <small *ngIf="StaffCreate.get('phone').hasError('pattern')" class="error">Mobile number should be numeric.</small>
               <small *ngIf="StaffCreate.get('phone').hasError('minlength') || StaffCreate.get('phone').hasError('maxlength')"
                 class="error">Mobile number should be min 6 or max 15 digits.</small>
             </span>
@@ -230,10 +230,10 @@
                             <mat-card>
                                 <h6>Select Service for the Staff</h6>
                                 <mat-form-field class="pb-3 bottom-border-field">
-                                <mat-label>Outline form field</mat-label>
-                                <input matInput placeholder="Category,Subcategory,Service" (keyup)="searchService($event);">
-                                <mat-icon matPrefix>search</mat-icon>
-                            </mat-form-field>
+                                    <mat-label>Outline form field</mat-label>
+                                    <input matInput placeholder="Category,Subcategory,Service" (keyup)="searchService($event);">
+                                    <mat-icon matPrefix>search</mat-icon>
+                                </mat-form-field>
 
                                 <mat-accordion class="select-service-accordian">
                                     <mat-expansion-panel *ngFor="let categoryServiceListval of categoryServiceListTemp; let i=index">
@@ -278,7 +278,7 @@
                     </div>
                 </form>
             </mat-card>
-            <mat-card class="">
+            <mat-card class="footer-save-container">
                 <div class="d-flex py-2">
                     <button mat-button class="staff-cancel-btn" (click)="fnCancelStaff()">Cancel</button>
                     <button mat-button *ngIf="!editStaffId" (click)="fnSubmitCreateStaff()" class="staff-save-btn ml-2 text-white">Save</button>
@@ -531,16 +531,18 @@
                     </div>
                     <div class="bottom-border-last">
                         <h6>Documents</h6>
-                        <a href="" *ngIf="singleStaffDetail.staff[0].getdocument" class="d-flex mt-3">
+                        <div *ngIf="singleStaffDetail.staff[0].getdocument" class="d-flex mt-3">
                             <div *ngFor="let staffDocument of singleStaffDetail.staff[0].getdocument" class="pan-card file-border d-flex mr-2">
-                                <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
-                                <p class="pr-1 mb-0">{{staffDocument.documents}}</p>
+                                <a href="{{staffDocument.documents}}" download>
+                                    <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
+                                    <p class="pr-1 mb-0">{{staffDocument.filename}}</p>
+                                </a>
                             </div>
                             <!-- <div class="adhar-card file-border d-flex">
                             <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
                             <p class="pr-1 mb-0">Adhar card.jpg</p>
                         </div> -->
-                        </a>
+                        </div>
                         <div *ngIf="!singleStaffDetail.staff[0].getdocument" class="d-flex mt-3">
                             No Document Available
                         </div>

@@ -33,6 +33,9 @@
 
 #Add-new-business {
     margin-top: 180px;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
     mat-card {
         border-radius: 20px 20px;
         margin: 0px 16px 20px;
@@ -116,22 +119,22 @@
             margin: 0px 0px 20px;
         }
     }
-    ::ng-deep #adminbusiness .inner-pad {
+     ::ng-deep #adminbusiness .inner-pad {
         padding: 10px !important;
     }
-    ::ng-deep .form-group {
+     ::ng-deep .form-group {
         margin-bottom: 0;
     }
-    ::ng-deep .mat-form-field {
+     ::ng-deep .mat-form-field {
         margin-bottom: 0;
     }
-    ::ng-deep .select-hide {
+     ::ng-deep .select-hide {
         display: none;
     }
-    ::ng-deep .mt-res {
+     ::ng-deep .mt-res {
         margin-top: 30px;
     }
-    ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+     ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
         transform: translateY(0%) !important;
     }
 }
@@ -139,7 +142,7 @@
 @media only screen and (max-width: 767px) and (orientation:landscape) {}
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
-    ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+     ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
         transform: translateY(0%) !important;
     }
 }

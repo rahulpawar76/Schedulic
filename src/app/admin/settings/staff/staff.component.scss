@@ -443,7 +443,7 @@
     justify-content: center;
     align-items: center;
     background-color: #e8e8e8;
-    width: 110px;
+    width: 120px;
     border-radius: 80px;
     &:hover .camera-alt {
         transition: 0.3s all;
@@ -743,4 +743,21 @@
     width: 60px;
     height: auto;
     //border-radius: 50px;
+}
+
+::ng-deep #staff {
+    .setting-right-side-content {
+        .footer-save-container {
+            position: fixed;
+            bottom: 0;
+            width: calc(100% - 340px);
+            margin: 0;
+            box-shadow: 0 2px 2px -1px rgba(0, 0, 0, .4), 0 4px 12px 0 rgba(0, 0, 0, .4)!important;
+        }
+    }
+    &.short-content-area {
+        .footer-save-container {
+            width: calc(100% - 160px);
+        }
+    }
 }

@@ -242,3 +242,7 @@
         }
     }
 }
+
+::ng-deep textarea.mat-input-element {
+    min-height: 80px !important;
+}
