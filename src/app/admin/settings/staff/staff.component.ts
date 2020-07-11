@@ -1162,24 +1162,33 @@ export class StaffComponent implements OnInit {
     })
   }
   fnDeleteStaff(staffId){
-    this.selectedStaffId = staffId
-    this.isLoaderAdmin = true;
-    this.adminSettingsService.fnDeleteStaff(this.selectedStaffId).subscribe((response:any) => {
-        if(response.data == true){
-          this._snackBar.open(response.response, "X", {
-            duration: 2000,
-            verticalPosition: 'top',
-            panelClass: ['green-snackbar']
-          });
-         this.getAllStaff();
-         this.singleStaffView = false;
-         this.staffListPage = true;
-        this.isLoaderAdmin = false;
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure?"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        console.log(staffId);
+        this.selectedStaffId = staffId
+        this.isLoaderAdmin = true;
+        this.adminSettingsService.fnDeleteStaff(this.selectedStaffId).subscribe((response:any) => {
+            if(response.data == true){
+              this._snackBar.open(response.response, "X", {
+                duration: 2000,
+                verticalPosition: 'top',
+                panelClass: ['green-snackbar']
+              });
+            this.getAllStaff();
+            this.singleStaffView = false;
+            this.staffListPage = true;
+            this.isLoaderAdmin = false;
+          }
+          else if(response.data == false){
+            this.isLoaderAdmin = false;
+          }
+        })
       }
-      else if(response.data == false){
-        this.isLoaderAdmin = false;
-      }
-    })
+    });
   }
   fnEditStaff(staffId){
     this.editStaffId = staffId
@@ -1974,7 +1983,7 @@ export class StaffComponent implements OnInit {
       }
       else{
       this.isLoaderAdmin = false;
-      this._snackBar.open("Break Not Added", "X", {
+      this._snackBar.open(response.response, "X", {
         duration: 2000,
         verticalPosition: 'bottom',
         panelClass : ['red-snackbar']
@@ -2063,7 +2072,7 @@ export class StaffComponent implements OnInit {
         });
       }else{
       this.isLoaderAdmin = false;
-      this._snackBar.open("Time off status not updated", "X", {
+      this._snackBar.open(response.response, "X", {
         duration: 2000,
         verticalPosition: 'bottom',
         panelClass : ['red-snackbar']
@@ -2089,7 +2098,7 @@ export class StaffComponent implements OnInit {
         });
       }else{
       this.isLoaderAdmin = false;
-      this._snackBar.open("Time off status not Reset to Default", "X", {
+      this._snackBar.open(response.response, "X", {
         duration: 2000,
         verticalPosition: 'bottom',
         panelClass : ['red-snackbar']
@@ -2121,7 +2130,7 @@ export class StaffComponent implements OnInit {
             });
           }else{
             this.isLoaderAdmin = false;
-            this._snackBar.open("Time off not deleted", "X", {
+            this._snackBar.open(response.response, "X", {
               duration: 2000,
               verticalPosition: 'bottom',
               panelClass : ['red-snackbar']
@@ -2392,7 +2401,7 @@ export class DialogAddNewTimeOff {
         });
       }
       else{
-       this._snackBar.open("Time off not added", "X", {
+       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']

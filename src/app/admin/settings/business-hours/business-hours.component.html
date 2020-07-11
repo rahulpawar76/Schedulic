@@ -80,7 +80,7 @@
         </div>
     </div>
     <div class="h-100 setting-right-side-content" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
-        <h2>Business Hours</h2>
+        <h2 class="text-left pl-3">Business Hours</h2>
         <mat-tab-group>
             <mat-tab label="Working Hours">
                 <div class="main-working-hours-content">
@@ -283,7 +283,9 @@
                                                 <div class="" *ngIf="!sundayOn">Closed for Business</div>
                                                 <div class="blue-font" fxFlex="30"></div>
                                             </div>
-                                            <button mat-button class="save-btn my-3" (click)="fnCreateWorkingHours()">Save</button>
+                                            <div class="d-flex justify-content-end">
+                                                <button mat-button class="save-btn my-3" (click)="fnCreateWorkingHours()">Save</button>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -313,7 +315,7 @@
                                             <!-- <mat-slide-toggle></mat-slide-toggle> -->
                                         </div>
                                         <div class="" fxFlex="15">Monday</div>
-                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="mondayOn" (click)="fnShowAddBreakForm('Monday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2"
+                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="mondayOn" (click)="fnShowAddBreakForm('Monday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"
                                                 *ngIf="!mondayOn">Closed</button></div>
                                         <div fxFlex="35" *ngIf="mondayOn">
                                             <div *ngFor="let breakTime of breakTimeList">
@@ -361,7 +363,7 @@
                                             <!-- <mat-slide-toggle></mat-slide-toggle> -->
                                         </div>
                                         <div class="" fxFlex="15">Tuesday</div>
-                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="tuesdayOn" (click)="fnShowAddBreakForm('Tuesday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2"
+                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="tuesdayOn" (click)="fnShowAddBreakForm('Tuesday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"
                                                 *ngIf="!tuesdayOn">Closed</button></div>
                                         <div fxFlex="35" *ngIf="tuesdayOn">
                                             <div *ngFor="let breakTime of breakTimeList">
@@ -408,7 +410,7 @@
                                             <!-- <mat-slide-toggle></mat-slide-toggle> -->
                                         </div>
                                         <div class="" fxFlex="15">Wednesday</div>
-                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="wednesdayOn" (click)="fnShowAddBreakForm('Wednesday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2"
+                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="wednesdayOn" (click)="fnShowAddBreakForm('Wednesday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"
                                                 *ngIf="!wednesdayOn">Closed</button></div>
                                         <div fxFlex="35" *ngIf="wednesdayOn">
                                             <div *ngFor="let breakTime of breakTimeList">
@@ -455,7 +457,7 @@
                                             <!-- <mat-slide-toggle></mat-slide-toggle> -->
                                         </div>
                                         <div class="" fxFlex="15">Thursday</div>
-                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="thursdayOn" (click)="fnShowAddBreakForm('Thursday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2"
+                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="thursdayOn" (click)="fnShowAddBreakForm('Thursday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"
                                                 *ngIf="!thursdayOn">Closed</button></div>
                                         <div fxFlex="35" *ngIf="thursdayOn">
                                             <div *ngFor="let breakTime of breakTimeList">
@@ -502,7 +504,7 @@
                                             <!-- <mat-slide-toggle></mat-slide-toggle> -->
                                         </div>
                                         <div class="" fxFlex="15">Friday</div>
-                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="fridayOn" (click)="fnShowAddBreakForm('Friday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2"
+                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="fridayOn" (click)="fnShowAddBreakForm('Friday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"
                                                 *ngIf="!fridayOn">Closed</button></div>
                                         <div fxFlex="35" *ngIf="fridayOn">
                                             <div *ngFor="let breakTime of breakTimeList">
@@ -549,7 +551,7 @@
                                             <!-- <mat-slide-toggle></mat-slide-toggle> -->
                                         </div>
                                         <div class="" fxFlex="15">Saturday</div>
-                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="saturdayOn" (click)="fnShowAddBreakForm('Saturday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2"
+                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="saturdayOn" (click)="fnShowAddBreakForm('Saturday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"
                                                 *ngIf="!saturdayOn">Closed</button></div>
                                         <div fxFlex="35" *ngIf="saturdayOn">
                                             <div *ngFor="let breakTime of breakTimeList">
@@ -596,7 +598,7 @@
                                             <!-- <mat-slide-toggle></mat-slide-toggle> -->
                                         </div>
                                         <div class="" fxFlex="15">Sunday</div>
-                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="sundayOn" (click)="fnShowAddBreakForm('Sunday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2"
+                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="sundayOn" (click)="fnShowAddBreakForm('Sunday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"
                                                 *ngIf="!sundayOn">Closed</button></div>
                                         <div fxFlex="35" *ngIf="sundayOn">
                                             <div *ngFor="let breakTime of breakTimeList">
@@ -648,16 +650,16 @@
                 <div class="Time-off-table">
                     <div class="main-table-content main-time-off-table-content">
                         <div class="">
-                            <div class="heads main-heading-content time-of-box " fxLayout="row">
+                            <div *ngIf="timeOffList != ''" class="heads main-heading-content time-of-box " fxLayout="row">
                                 <div class="" fxFlex="6"></div>
                                 <div class="" fxFlex="54"></div>
                                 <div class="" fxFlex="10"></div>
                                 <div class="" fxFlex="5"></div>
-                                <div class="" fxFlex="15">
+                                <div *ngIf="timeOffList != ''" class="" fxFlex="15">
                                     <button mat-button appearance="fill" (click)="addTimeOff()" class="time-off-btn ml-2 mr-2"><i class="material-icons mr-2">add</i>Add Time Off</button>
                                 </div>
                             </div>
-                            <div class="content" class="example-list" cdkDropList>
+                            <div *ngIf="timeOffList != ''" class="content" class="example-list" cdkDropList>
                                 <div class="time-of-box" cdkDrag fxLayout="row" *ngFor="let timeOff of timeOffList">
                                     <div class="" fxFlex="7">
                                         <div class="calendar-background">
@@ -674,6 +676,9 @@
                                     <div class="pointer d-flex align-items-center ml-3" fxFlex="5" (click)="fnDeleteTimeOff(timeOff.id)"><i class="fa fa-trash-o delete-box"></i></div>
                                     <div class="" fxFlex="10"></div>
                                 </div>
+                            </div>
+                            <div *ngIf="timeOffList == ''" class="content" class="example-list blank-time-off" cdkDropList>
+                                <button mat-button appearance="fill" (click)="addTimeOff()" class="big-single-btn ml-2 mr-2"><i class="material-icons mr-2">add</i>Add Time Off</button>
                             </div>
                         </div>
                     </div>

@@ -646,7 +646,7 @@
                                         <div class="" fxFlex="20"></div>
                                     </div>
                                     <div class="content" class="example-list">
-                                        <form [formGroup]="formSetWorkingHours">
+                                        <form [formGroup]="formSetWorkingHours" class="px-4 py-2">
                                             <div class="example-box">
                                                 <div class="" fxFlex="10">
                                                     <mat-slide-toggle formControlName="mondayToggle" (change)="fnChangeToggle($event,'Monday')">
@@ -832,7 +832,9 @@
                                                 <div class="" fxFlex="20">
                                                 </div>
                                             </div>
-                                            <button mat-button class="staff-Hours-btn" (click)="fnCreateWorkingHours()">Save</button>
+                                            <div class="w-100 d-flex justify-content-end">
+                                                <button mat-button class="staff-Hours-btn" (click)="fnCreateWorkingHours()">Save</button>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>

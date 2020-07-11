@@ -507,14 +507,25 @@ export class ServicesComponent implements OnInit {
     fnCreateNewSubCategorySubmit() {
         if(this.editSubCategoryId != undefined){
             if (this.createSubCategory.valid) {
-                this.updateSubCategoryData = {
-                    'business_id': this.businessId,
-                    'sub_category_id': this.editSubCategoryId,
-                    'sub_category_name': this.createSubCategory.get('subcategory_name').value,
-                    'sub_category_description': this.createSubCategory.get('subcategory_description').value,
-                    'sub_category_private': this.editSubcategoryPrivate,
-                    'sub_category_status': this.editSubcategoryStatus,
-                    'sub_category_image': this.subCategoryImageUrl
+                if(this.subCategoryImageUrl != ''){
+                    this.updateSubCategoryData = {
+                        'business_id': this.businessId,
+                        'sub_category_id': this.editSubCategoryId,
+                        'sub_category_name': this.createSubCategory.get('subcategory_name').value,
+                        'sub_category_description': this.createSubCategory.get('subcategory_description').value,
+                        'sub_category_private': this.editSubcategoryPrivate,
+                        'sub_category_status': this.editSubcategoryStatus,
+                        'sub_category_image': this.subCategoryImageUrl
+                    }
+                }else if(this.subCategoryImageUrl == ''){
+                    this.updateSubCategoryData = {
+                        'business_id': this.businessId,
+                        'sub_category_id': this.editSubCategoryId,
+                        'sub_category_name': this.createSubCategory.get('subcategory_name').value,
+                        'sub_category_description': this.createSubCategory.get('subcategory_description').value,
+                        'sub_category_private': this.editSubcategoryPrivate,
+                        'sub_category_status': this.editSubcategoryStatus,
+                    }
                 }
                 this.updateSubCategory(this.updateSubCategoryData);
             }else{                
@@ -631,14 +642,25 @@ export class ServicesComponent implements OnInit {
           this.editCategoryId = this.createCategory.get('category_id').value;
         
             if (this.createCategory.valid) {
-                this.updateCategoryData = {
-                    'category_id': this.editCategoryId,
-                    'business_id': this.businessId,
-                    'category_title': this.createCategory.get('category_name').value,
-                    'category_description': this.createCategory.get('category_description').value,
-                    'category_private': this.editcategoryPrivate,
-                    'status': this.editcategoryStatus,
-                    "category_image" : this.categoryImageUrl,
+                if(this.categoryImageUrl != ''){
+                    this.updateCategoryData = {
+                        'category_id': this.editCategoryId,
+                        'business_id': this.businessId,
+                        'category_title': this.createCategory.get('category_name').value,
+                        'category_description': this.createCategory.get('category_description').value,
+                        'category_private': this.editcategoryPrivate,
+                        'status': this.editcategoryStatus,
+                        "category_image" : this.categoryImageUrl,
+                    }
+                }else if(this.categoryImageUrl == ''){
+                    this.updateCategoryData = {
+                        'category_id': this.editCategoryId,
+                        'business_id': this.businessId,
+                        'category_title': this.createCategory.get('category_name').value,
+                        'category_description': this.createCategory.get('category_description').value,
+                        'category_private': this.editcategoryPrivate,
+                        'status': this.editcategoryStatus,
+                    }
                 }
                 this.updateCategory(this.updateCategoryData);
             }else{
@@ -1073,20 +1095,36 @@ export class ServicesComponent implements OnInit {
     fnCreateServiceSubmit() {
         if (this.createService.get('service_id').value != null && this.createService.get('service_id').value != '') {
             if (this.createService.valid) {
-                this.updateServiceData = {
-                    'service_id': this.createService.get('service_id').value,
-                    'business_id': this.businessId,
-                    'service_name': this.createService.get('service_name').value,
-                    'service_description': this.createService.get('service_description').value,
-                    'service_cost': this.createService.get('service_cost').value,
-                    'service_time': this.createService.get('service_duration').value,
-                    'service_unit': this.createService.get('service_unit').value,
-                    'service_private': this.editServicePrivate,
-                    'service_status': this.editServiceStatus,
-                    'service_image': this.serviceImageUrl,
-                    'staff_list' : this.assignStaffArr
-                   
-                }
+                if(this.serviceImageUrl != ''){
+                    this.updateServiceData = {
+                        'service_id': this.createService.get('service_id').value,
+                        'business_id': this.businessId,
+                        'service_name': this.createService.get('service_name').value,
+                        'service_description': this.createService.get('service_description').value,
+                        'service_cost': this.createService.get('service_cost').value,
+                        'service_time': this.createService.get('service_duration').value,
+                        'service_unit': this.createService.get('service_unit').value,
+                        'service_private': this.editServicePrivate,
+                        'service_status': this.editServiceStatus,
+                        'service_image': this.serviceImageUrl,
+                        'staff_list' : this.assignStaffArr
+                       
+                    }
+                }else if(this.serviceImageUrl == ''){
+                    this.updateServiceData = {
+                        'service_id': this.createService.get('service_id').value,
+                        'business_id': this.businessId,
+                        'service_name': this.createService.get('service_name').value,
+                        'service_description': this.createService.get('service_description').value,
+                        'service_cost': this.createService.get('service_cost').value,
+                        'service_time': this.createService.get('service_duration').value,
+                        'service_unit': this.createService.get('service_unit').value,
+                        'service_private': this.editServicePrivate,
+                        'service_status': this.editServiceStatus,
+                        'staff_list' : this.assignStaffArr
+                       
+                    }
+                }             
                 this.updateService(this.updateServiceData);
             }else{
                 this.createService.get('service_name').markAsTouched();

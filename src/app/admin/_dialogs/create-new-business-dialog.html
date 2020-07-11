@@ -48,7 +48,7 @@
                             </div>
                             <div class="form-group  col-md-3 col-lg-3 col-sm-6 mb-0 bottom-border-field">
                                 <mat-form-field>
-                                    <mat-label>Stte</mat-label>
+                                    <mat-label>State</mat-label>
                                     <mat-select formControlName="business_state" (selectionChange)="selectStates($event.value)">
                                         <mat-option *ngFor="let allStates of allStates" [value]="allStates.id">
                                             {{allStates.name}}

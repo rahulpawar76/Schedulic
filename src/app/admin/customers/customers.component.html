@@ -74,7 +74,8 @@
                                 <div class="col-lg-4 col-12 col-md-4">
                                     <div class="w-100 d-flex justify-content-center">
                                         <div class="d-flex profile-img-wrap services-customer-profile-background" (click)="customerImage()">
-                                            <img class="service-profile-image mx-auto" src="/assets/images/admin/picture.png">
+                                            <img *ngIf="!customerPersonalDetails.image" class="service-profile-image mx-auto" src="/assets/images/admin/picture.png">
+                                            <img *ngIf="customerPersonalDetails.image" class="service-profile-image mx-auto" style="width: 120px;" src="{{customerPersonalDetails.image}}">
                                             <div class="camera-alt"><i class="material-icons">
                                             camera_alt
                                             </i></div>
