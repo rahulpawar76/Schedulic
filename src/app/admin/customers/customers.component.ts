@@ -255,19 +255,35 @@ export class CustomersComponent implements OnInit {
     if(this.createNewCustomer.get('customer_id').value != null){
       this.existingUserId = this.createNewCustomer.get('customer_id').value
       if(this.createNewCustomer.valid){
-        this.existingCustomerData ={
-          "customer_id" :  this.existingUserId,
-          "business_id" : this.businessId,
-          "fullname" : this.createNewCustomer.get('cus_fullname').value,
-          "email" : this.createNewCustomer.get('cus_email').value,
-          "phone" : this.createNewCustomer.get('cus_phone').value,
-          "office_phone" : this.createNewCustomer.get('cus_officenumber').value,
-          "home_phone" : this.createNewCustomer.get('cus_homenumber').value,
-          "address" : this.createNewCustomer.get('cus_address').value,
-          "state" : this.createNewCustomer.get('cus_state').value,
-          "city" : this.createNewCustomer.get('cus_city').value,
-          "zip" : this.createNewCustomer.get('cus_zip').value,
-          'image': this.customerImageUrl
+        if(this.customerImageUrl != ''){
+          this.existingCustomerData ={
+            "customer_id" :  this.existingUserId,
+            "business_id" : this.businessId,
+            "fullname" : this.createNewCustomer.get('cus_fullname').value,
+            "email" : this.createNewCustomer.get('cus_email').value,
+            "phone" : this.createNewCustomer.get('cus_phone').value,
+            "office_phone" : this.createNewCustomer.get('cus_officenumber').value,
+            "home_phone" : this.createNewCustomer.get('cus_homenumber').value,
+            "address" : this.createNewCustomer.get('cus_address').value,
+            "state" : this.createNewCustomer.get('cus_state').value,
+            "city" : this.createNewCustomer.get('cus_city').value,
+            "zip" : this.createNewCustomer.get('cus_zip').value,
+            'image': this.customerImageUrl
+          }
+        }else if(this.customerImageUrl == ''){
+          this.existingCustomerData ={
+            "customer_id" :  this.existingUserId,
+            "business_id" : this.businessId,
+            "fullname" : this.createNewCustomer.get('cus_fullname').value,
+            "email" : this.createNewCustomer.get('cus_email').value,
+            "phone" : this.createNewCustomer.get('cus_phone').value,
+            "office_phone" : this.createNewCustomer.get('cus_officenumber').value,
+            "home_phone" : this.createNewCustomer.get('cus_homenumber').value,
+            "address" : this.createNewCustomer.get('cus_address').value,
+            "state" : this.createNewCustomer.get('cus_state').value,
+            "city" : this.createNewCustomer.get('cus_city').value,
+            "zip" : this.createNewCustomer.get('cus_zip').value,
+          }
         }
       this.customerUpdate(this.existingCustomerData);
     } else{
@@ -472,6 +488,10 @@ customerUpdate(existingCustomerData){
     this.isLoaderAdmin = false;
     }
   })
+  }
+  fnTabValue(tab){
+    this.showPaymentForm=false;
+    this.showPaymentTable=true;
   }
 
   fnDeleteNote(noteId){

@@ -505,6 +505,12 @@ input:focus {
      ::ng-deep app-support {
         width: 100%;
     }
+     ::ng-deep app-staff {
+        width: 100%;
+    }
+     ::ng-deep app-my-business {
+        height: 100%;
+    }
 }
 
 // star ratting

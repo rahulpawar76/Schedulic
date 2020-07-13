@@ -177,24 +177,42 @@ export class CompanyDetailsComponent implements OnInit {
   }
   fnUpdateCompanyDetail(){
     if(this.companyDetails.valid){
-      this.updateCompanyDetailsData ={
-        "business_id" : this.businessId,
-        "company_name" : this.companyDetails.get('company_name').value,
-        "email" : this.companyDetails.get('comp_email').value,
-        "website" : this.companyDetails.get('comp_website').value,
-        "phone" : this.companyDetails.get('comp_mobile').value,
-        "country" : this.companyDetails.get('country').value,
-        "address" : this.companyDetails.get('comp_address').value,
-        "city" : this.companyDetails.get('city').value,
-        "state" : this.companyDetails.get('state').value,
-        "zip" : this.companyDetails.get('zip_code').value,
-        "description" : this.companyDetails.get('comp_decs').value,
-        "status" : this.companyDetails.get('comp_status').value==true?"E":"D",
-        "private_status" : this.companyDetails.get('comp_private_status').value==true?"Y":"N",
-        'image': this.companyDetailsImageUrl
+      if( this.companyDetailsImageUrl != ''){
+        this.updateCompanyDetailsData ={
+          "business_id" : this.businessId,
+          "company_name" : this.companyDetails.get('company_name').value,
+          "email" : this.companyDetails.get('comp_email').value,
+          "website" : this.companyDetails.get('comp_website').value,
+          "phone" : this.companyDetails.get('comp_mobile').value,
+          "country" : this.companyDetails.get('country').value,
+          "address" : this.companyDetails.get('comp_address').value,
+          "city" : this.companyDetails.get('city').value,
+          "state" : this.companyDetails.get('state').value,
+          "zip" : this.companyDetails.get('zip_code').value,
+          "description" : this.companyDetails.get('comp_decs').value,
+          "status" : this.companyDetails.get('comp_status').value==true?"E":"D",
+          "private_status" : this.companyDetails.get('comp_private_status').value==true?"Y":"N",
+          'image': this.companyDetailsImageUrl
+        }
       }
-      
-    this.fnupdateBusineData(this.updateCompanyDetailsData);
+      else if(this.companyDetailsImageUrl == ''){
+        this.updateCompanyDetailsData ={
+          "business_id" : this.businessId,
+          "company_name" : this.companyDetails.get('company_name').value,
+          "email" : this.companyDetails.get('comp_email').value,
+          "website" : this.companyDetails.get('comp_website').value,
+          "phone" : this.companyDetails.get('comp_mobile').value,
+          "country" : this.companyDetails.get('country').value,
+          "address" : this.companyDetails.get('comp_address').value,
+          "city" : this.companyDetails.get('city').value,
+          "state" : this.companyDetails.get('state').value,
+          "zip" : this.companyDetails.get('zip_code').value,
+          "description" : this.companyDetails.get('comp_decs').value,
+          "status" : this.companyDetails.get('comp_status').value==true?"E":"D",
+          "private_status" : this.companyDetails.get('comp_private_status').value==true?"Y":"N",
+        }
+      }
+      this.fnupdateBusineData(this.updateCompanyDetailsData);
     }else{
       this.companyDetails.get('company_name').markAsTouched();
       this.companyDetails.get('comp_email').markAsTouched();

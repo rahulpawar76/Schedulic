@@ -126,7 +126,7 @@ export class myCreateNewBusinessDialog {
       business_name : ['', [Validators.required]],
       business_address : ['', [Validators.required,Validators.minLength(2),Validators.maxLength(20)]],
       business_country : ['', Validators.required],
-      business_region : ['', Validators.required],
+      business_state : ['', Validators.required],
       business_timezone : ['', Validators.required],
       business_city : ['', Validators.required],
       business_zip : ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(6)]]
@@ -221,7 +221,7 @@ export class myCreateNewBusinessDialog {
         "business_name" : this.createBusiness.get('business_name').value,
         "address" : this.createBusiness.get('business_address').value,
         "country" : this.createBusiness.get('business_country').value,
-        "region" : this.createBusiness.get('business_region').value,
+        "state" : this.createBusiness.get('business_state').value,
         "city" : this.createBusiness.get('business_city').value,
         "time_zone" : this.createBusiness.get('business_timezone').value,
         "zipcode" : this.createBusiness.get('business_zip').value,

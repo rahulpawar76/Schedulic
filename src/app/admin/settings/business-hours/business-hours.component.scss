@@ -30,6 +30,29 @@
     color: $primary-color;
 }
 
+::ng-deep .big-single-btn {
+    height: auto;
+    background-color: #c3ddff;
+    color: $primary-color;
+    .mat-button-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        i {
+            font-size: 40px;
+            width: 100%;
+            text-align: center;
+        }
+    }
+}
+
+.blank-time-off {
+    justify-content: center;
+    display: flex;
+    height: 80vh;
+    align-items: center;
+}
+
 .bussiness-save-btn {
     width: 137px;
     height: 37px;
@@ -207,6 +230,9 @@
     border-radius: 50px;
     background-color: #3ab54a;
     color: white;
+    &.braek-closed {
+        background-color: #e74033;
+    }
 }
 
 .time-of-box {
@@ -241,4 +267,8 @@
             color: #1173f4;
         }
     }
+}
+
+::ng-deep textarea.mat-input-element {
+    min-height: 80px !important;
 }

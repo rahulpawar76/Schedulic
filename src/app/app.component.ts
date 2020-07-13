@@ -111,6 +111,8 @@ export class AppComponent implements AfterViewInit {
     console.log(this.currentUser)
     if (localStorage.getItem('business_id')) {
       this.businessId = localStorage.getItem('business_id');
+      this.getNotificationCount(this.businessId)
+
     }
   }
   private handleError(error: HttpErrorResponse) {
@@ -718,6 +720,7 @@ export class AppComponent implements AfterViewInit {
         });
         dialogRef.afterClosed().subscribe(result => {
           this.animal = result;
+          this.getNotificationCount(this.businessId)
         });
         this.isLoaderAdmin = false;
       } else {

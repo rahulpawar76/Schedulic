@@ -62,7 +62,7 @@
 
             <mat-drawer-content class="pl-0 pr-0" style="margin-left: 300px;">
                 <div *ngIf="newCustomer" id="Add-New-Customer" class="pl-0 pr-0">
-                    <mat-card class="mb-0">
+                    <mat-card class="mb-0 form-container">
                         <div class="row">
                             <div class="col-lg-12">
                                 <h6 *ngIf="!existingUserId">Add New Customer</h6>
@@ -74,7 +74,8 @@
                                 <div class="col-lg-4 col-12 col-md-4">
                                     <div class="w-100 d-flex justify-content-center">
                                         <div class="d-flex profile-img-wrap services-customer-profile-background" (click)="customerImage()">
-                                            <img class="service-profile-image mx-auto" src="/assets/images/admin/picture.png">
+                                            <img *ngIf="!customerPersonalDetails.image" class="service-profile-image mx-auto" src="/assets/images/admin/picture.png">
+                                            <img *ngIf="customerPersonalDetails.image" class="service-profile-image mx-auto" style="width: 120px;" src="{{customerPersonalDetails.image}}">
                                             <div class="camera-alt"><i class="material-icons">
                                             camera_alt
                                             </i></div>
@@ -181,8 +182,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="devider-slim my-3 w-100"></div>
+                            <mat-card class="footer-action-btn row">
                                 <div class="action-btn">
                                     <div class="mx-2">
                                         <button (click)="fnCancelNewCustomer()" mat-button appearance="fill" class="customer-cancel-btn">Cancel</button>
@@ -191,7 +191,7 @@
                                         <button mat-button type="submit" appearance="fill" (click)="fnCreateCustomerSubmit()" class="customer-save-btn">Save</button>
                                     </div>
                                 </div>
-                            </div>
+                            </mat-card>
                         </form>
                     </mat-card>
                 </div>
@@ -215,7 +215,7 @@
                                 </div>
                             </div>
                         </div>
-                        <mat-tab-group>
+                        <mat-tab-group (selectedIndexChange)="fnTabValue($event)">
                             <mat-tab id="Details" label="Details">
                                 <div class="d-flex my-3">
                                     <div class="mobileNo-width">
@@ -332,7 +332,7 @@
                             </mat-tab>
                             <mat-tab label="Notes">
                                 <div class="d-flex my-3">
-                                    <h6 class="notes">Notes</h6>
+                                    <h6 class="notes">Notes <span *ngIf="customerNotes">({{customerNotes.length}})</span> </h6>
                                     <div class="d-flex ml-auto">
                                         <button (click)="newAddNote(customerPersonalDetails.id)" class="Add-Note-btn" mat-button>Add Note</button>
                                     </div>
@@ -350,7 +350,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="d-flex" *ngIf="customerNotes != ''">
+                                <div class="row mx-0" *ngIf="customerNotes != ''">
                                     <div *ngFor="let customerNotes of customerNotes; let i=index" class=" col-lg-4">
                                         <mat-card class="NoteMatcard">
                                             <div class="d-flex">
@@ -382,7 +382,7 @@
                                             <th scope="col">Mode</th>
                                             <th scope="col">Amount</th>
                                             <th scope="col">Status</th>
-                                            <th scope="col"></th>
+                                            <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -415,7 +415,7 @@
                                                 <div class="searchbox col-lg-6 col-12 col-md-6 pb-2">
                                                     <h6>Amount</h6>
                                                     <div class="form-group has-search">
-                                                        <span class="fa fa-search form-control-feedback"></span>
+                                                        <span class="form-control-feedback">{{currencySymbol| currencySymbol:'wide'}}</span>
                                                         <input type="text" class="form-control" placeholder="3000.00" formControlName="paymentAmount" (change)="fnOnChangeAmount($event)">
                                                         <span class="error-wrap" *ngIf="formPayment.get('paymentAmount').dirty || formPayment.get('paymentAmount').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentAmount').hasError('required')" class="error">Amount is required.</small><small *ngIf="formPayment.get('paymentAmount').hasError('pattern')" class="error">Enter valid amount.</small><small *ngIf="formPayment.get('paymentAmount').hasError('min')" class="error">Amount should grater then Original Amount.</small></span>
                                                     </div>
@@ -423,7 +423,7 @@
                                                 <div class="searchbox col-lg-6 col-12 col-md-6  pb-2">
                                                     <h6>Discount</h6>
                                                     <div class="form-group has-search ">
-                                                        <span class="fa fa-search form-control-feedback"></span>
+                                                        <span class="form-control-feedback">{{currencySymbol| currencySymbol:'wide'}}</span>
                                                         <input type="text" class="form-control" placeholder="Enter Discount" formControlName="paymentDiscount" (change)="fnOnChangeDiscount($event)">
                                                         <span class="error-wrap" *ngIf="formPayment.get('paymentDiscount').dirty || formPayment.get('paymentDiscount').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentDiscount').hasError('required')" class="error">Discount is required.</small><small *ngIf="formPayment.get('paymentDiscount').hasError('pattern')" class="error">Enter valid discount value.</small></span>
                                                     </div>

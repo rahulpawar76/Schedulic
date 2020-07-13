@@ -111,7 +111,8 @@
                 <mat-expansion-panel class="category-main" cdkDragHandle *ngFor="let allCetegoryList of allCetegoryList; let i=index">
                     <mat-expansion-panel-header>
                         <mat-panel-title class="service-title">
-                            <p (click)="fnSelectCategoryNavigation(allCetegoryList.id,i)" class="category-title mb-0">{{allCetegoryList.category_title}}</p>
+                            <p (click)="fnSelectCategoryNavigation(allCetegoryList.id,i)" class="category-title mb-0">
+                                {{allCetegoryList.category_title}}</p>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div *ngIf="allCetegoryList.subcategory != ''">
@@ -156,8 +157,11 @@
                                 <div class="wrap-column" fxFlex="30">{{allServicesList.service_name}}</div>
                                 <div class="wrap-column" fxFlex="15">{{allServicesList.service_time}}</div>
                                 <!-- <div class="wrap-column" fxFlex="13">$ {{allServicesList.service_cost}}</div> -->
-                                <div class="wrap-column" fxFlex="13" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ allServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</div>
-                                <div class="wrap-column" fxFlex="13" *ngIf="currencySymbolPosition=='right'">{{ allServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
+                                <div class="wrap-column" fxFlex="13" *ngIf="currencySymbolPosition=='left'">
+                                    {{currencySymbol| currencySymbol:'wide'}} {{ allServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                </div>
+                                <div class="wrap-column" fxFlex="13" *ngIf="currencySymbolPosition=='right'">
+                                    {{ allServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
                                 <div class="wrap-column" fxFlex="10">{{allServicesList.service_unit}}</div>
                                 <div class="" *ngIf="allServicesList.private_status == 'N'" fxFlex="12">Public</div>
                                 <div class="" *ngIf="allServicesList.private_status == 'Y'" fxFlex="12">Private</div>
@@ -177,11 +181,15 @@
                 <div class="table_pagination" *ngIf="allServicesList != ''">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">
-                            <li class="page-item" (click)="navigateTo(first_page_url,'service')"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
-                            <li class="page-item" (click)="navigateTo(prev_page_url,'service')"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                            <li class="page-item" (click)="navigateTo(first_page_url,'service')"><a class="page-link"><i
+                                        class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                            <li class="page-item" (click)="navigateTo(prev_page_url,'service')"><a class="page-link"><i
+                                        class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
                             <li class="page-item" [ngClass]="{'active':current_page == i+1}" *ngFor="let pagenumber of arrayOne(last_page); let i = index;" (click)="navigateToPageNumber(i+1,'service')"><a class="page-link">{{i+1}}</a></li>
-                            <li class="page-item" (click)="navigateTo(next_page_url,'service')"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
-                            <li class="page-item" (click)="navigateTo(last_page_url,'service')"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                            <li class="page-item" (click)="navigateTo(next_page_url,'service')"><a class="page-link"><i
+                                        class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                            <li class="page-item" (click)="navigateTo(last_page_url,'service')"><a class="page-link"><i
+                                        class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
                         </ul>
                     </nav>
                 </div>
@@ -214,8 +222,8 @@
                                     <div class="services-customer-profile-background profile-img-wrap mr-3 mt-5" (click)="categoryImage()">
                                         <img *ngIf="!editCategoryId" src="/assets/images/admin/picture.png" class="service-profile-image">
                                         <div class="camera-alt"><i class="material-icons">
-                                    camera_alt
-                                    </i></div>
+                                                camera_alt
+                                            </i></div>
                                         <img *ngIf="editCategoryId" src="{{selectedCategoryDetails.category_image}}" class="service-profile-image">
                                     </div>
                                 </div>
@@ -225,21 +233,33 @@
                                             <input matInput formControlName="category_name" placeholder="Enter Category Name">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createCategory.get('category_name').touched || createCategory.get('category_name').dirty">
-                                    <small *ngIf="createCategory.get('category_name').hasError('required')" class="error">Category name is required.</small>
-                                    <small *ngIf="createCategory.get('category_name').hasError('minlength')" class="error">Category name can not be less than 3 character.</small>
-                                    <small *ngIf="createCategory.get('category_name').hasError('maxlength')" class="error">Category name may not be greater than 255 character.</small>
-                                </span>
+                                            <small *ngIf="createCategory.get('category_name').hasError('required')"
+                                                class="error">Category name is required.</small>
+                                            <small *ngIf="createCategory.get('category_name').hasError('minlength')"
+                                                class="error">Category name can not be less than 3 character.</small>
+                                            <small *ngIf="createCategory.get('category_name').hasError('maxlength')"
+                                                class="error">Category name may not be greater than 255
+                                                character.</small>
+                                        </span>
                                     </div>
                                     <div class="mt-2 text-center">
                                         <mat-form-field class=" bottom-border-field">
                                             <textarea matInput formControlName="category_description" placeholder="Enter Category Description"></textarea>
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createCategory.get('category_description').touched || createCategory.get('category_description').dirty">
-                                    <small *ngIf="createCategory.get('category_description').hasError('required')" class="error">Category description is required.</small>
-                                    <small *ngIf="createCategory.get('category_description').hasError('minlength')" class="error">Category description name can not be less than 2 character.</small>
-                                    <small *ngIf="createCategory.get('category_description').hasError('maxlength')" class="error">Category description name may not be greater than 255 character.</small>
-                                
-                                </span>
+                                            <small
+                                                *ngIf="createCategory.get('category_description').hasError('required')"
+                                                class="error">Category description is required.</small>
+                                            <small
+                                                *ngIf="createCategory.get('category_description').hasError('minlength')"
+                                                class="error">Category description name can not be less than 2
+                                                character.</small>
+                                            <small
+                                                *ngIf="createCategory.get('category_description').hasError('maxlength')"
+                                                class="error">Category description name may not be greater than 255
+                                                character.</small>
+
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -250,7 +270,8 @@
                                 <mat-slide-toggle (change)="newCategoryStatus($event.checked)">Status</mat-slide-toggle>
                             </p>
                             <p>
-                                <mat-slide-toggle (change)="newCategoryPrivate($event.checked)">Private</mat-slide-toggle>
+                                <mat-slide-toggle (change)="newCategoryPrivate($event.checked)">Private
+                                </mat-slide-toggle>
                             </p>
                         </div>
                         <div class="service-statustoggle" *ngIf="editCategoryId">
@@ -263,7 +284,7 @@
                         </div>
                         <input type="hidden" formControlName="category_id">
 
-                        <div class="row">
+                        <mat-card class="row service-action-card">
                             <div class="service-action-btn">
                                 <div class="mx-2">
                                     <button mat-button (click)="cancelNewCategory()" appearance="fill" class="service-cancel-btn">Cancel</button>
@@ -275,7 +296,8 @@
                                     <button mat-button *ngIf="editCategoryId" (click)="fnCreateNewCategorySubmit()" type="submit" appearance="fill" class="service-create-btn">Update</button>
                                 </div>
                             </div>
-                        </div>
+                        </mat-card>
+
                     </form>
                 </mat-card>
             </div>
@@ -296,8 +318,8 @@
                                         <img *ngIf="!editSubCategoryId" src="/assets/images/admin/picture.png" class="service-profile-image">
                                         <img *ngIf="editSubCategoryId" src="{{selectedSubCategoryDetails.sub_category_image}}" class="service-profile-image">
                                         <div class="camera-alt"><i class="material-icons">
-                                    camera_alt
-                                    </i></div>
+                                                camera_alt
+                                            </i></div>
                                     </div>
                                 </div>
                                 <div class="col-8">
@@ -306,20 +328,36 @@
                                             <input matInput formControlName="subcategory_name" placeholder="Enter Sub Category Name">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createSubCategory.get('subcategory_name').touched || createSubCategory.get('subcategory_name').dirty">
-                                    <small *ngIf="createSubCategory.get('subcategory_name').hasError('required')" class="error">Subcategory name is required.</small>
-                                    <small *ngIf="createSubCategory.get('subcategory_name').hasError('minlength')" class="error">Subcategory length can not be less than 3 characters.</small>
-                                    <small *ngIf="createSubCategory.get('subcategory_name').hasError('maxlength')" class="error">Subcategory length can not be graeter than 255 characters.</small>
-                                </span>
+                                            <small
+                                                *ngIf="createSubCategory.get('subcategory_name').hasError('required')"
+                                                class="error">Subcategory name is required.</small>
+                                            <small
+                                                *ngIf="createSubCategory.get('subcategory_name').hasError('minlength')"
+                                                class="error">Subcategory length can not be less than 3
+                                                characters.</small>
+                                            <small
+                                                *ngIf="createSubCategory.get('subcategory_name').hasError('maxlength')"
+                                                class="error">Subcategory length can not be graeter than 255
+                                                characters.</small>
+                                        </span>
                                     </div>
                                     <div class="mt-2 text-center">
                                         <mat-form-field class=" bottom-border-field">
                                             <textarea matInput formControlName="subcategory_description" placeholder="Enter Sub Category Description"></textarea>
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createSubCategory.get('subcategory_description').touched || createSubCategory.get('subcategory_description').dirty">
-                                    <small *ngIf="createSubCategory.get('subcategory_description').hasError('required')" class="error">Subcategory description is required.</small>
-                                    <small *ngIf="createSubCategory.get('subcategory_description').hasError('minlength')" class="error">Description length cannot be less than 2 characters.</small>
-                                    <small *ngIf="createSubCategory.get('subcategory_description').hasError('maxlength')" class="error">Description length can not be graeter than 255 characters.</small>
-                                </span>
+                                            <small
+                                                *ngIf="createSubCategory.get('subcategory_description').hasError('required')"
+                                                class="error">Subcategory description is required.</small>
+                                            <small
+                                                *ngIf="createSubCategory.get('subcategory_description').hasError('minlength')"
+                                                class="error">Description length cannot be less than 2
+                                                characters.</small>
+                                            <small
+                                                *ngIf="createSubCategory.get('subcategory_description').hasError('maxlength')"
+                                                class="error">Description length can not be graeter than 255
+                                                characters.</small>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -327,10 +365,12 @@
 
                         <div class="service-statustoggle" *ngIf="!editSubCategoryId">
                             <p>
-                                <mat-slide-toggle (change)="newSubCategoryStatus($event.checked)">Status</mat-slide-toggle>
+                                <mat-slide-toggle (change)="newSubCategoryStatus($event.checked)">Status
+                                </mat-slide-toggle>
                             </p>
                             <p>
-                                <mat-slide-toggle (change)="newSubCategoryPrivate($event.checked)">Private</mat-slide-toggle>
+                                <mat-slide-toggle (change)="newSubCategoryPrivate($event.checked)">Private
+                                </mat-slide-toggle>
                             </p>
                         </div>
                         <div class="service-statustoggle" *ngIf="editSubCategoryId">
@@ -343,7 +383,7 @@
                         </div>
 
                         <input type="hidden" formControlName="subcategory_id">
-                        <div class="row">
+                        <mat-card class="row service-action-card">
                             <div class="service-action-btn">
                                 <div class="mx-2">
                                     <button mat-button (click)="fnCalcelNewSubcategory()" appearance="fill" class="service-cancel-btn">Cancel</button>
@@ -355,7 +395,7 @@
                                     <button mat-button type="submit" (click)="fnCreateNewSubCategorySubmit()" appearance="fill" class="service-create-btn">Update</button>
                                 </div>
                             </div>
-                        </div>
+                        </mat-card>
                     </form>
                 </mat-card>
             </div>
@@ -375,7 +415,8 @@
                                 </div>
                                 <!-- <button class="salon-cancel-btn mr-2"><i class="fa fa-eye salon-icon" ></i></button>   -->
                                 <button (click)="editCategory(selectedCategoryDetails.id)" class="salon-edit-btn mr-2"><i class="fa fa-pencil salon-icon"></i></button>
-                                <button class="salon-cancel-btn mr-3" (click)="deleteCategory(selectedCategoryDetails.id)"><i class="fa fa-trash-o salon-icon" ></i></button>
+                                <button class="salon-cancel-btn mr-3" (click)="deleteCategory(selectedCategoryDetails.id)"><i
+                                        class="fa fa-trash-o salon-icon"></i></button>
                                 <mat-slide-toggle (change)="changeCategoryStatus($event.checked,selectedCategoryDetails.id)" [checked]="selectedCategoryDetails.status == 'E'"></mat-slide-toggle>
                             </div>
                         </div>
@@ -387,7 +428,7 @@
                                     <mat-label>Filter</mat-label>
                                     <span class="material-icons prefix-icon-select">
                                         filter_alt
-                                        </span>
+                                    </span>
                                     <mat-select (selectionChange)="fnFilterService(selectedCategoryDetails.id,$event.value,'category')">
                                         <mat-option value="all">All</mat-option>
                                         <mat-option value="E">Active</mat-option>
@@ -427,16 +468,21 @@
                             <div class="content" class="drageble-list" cdkDropList (cdkDropListDropped)="dropCategory($event)">
                                 <div class="drageble-box" *ngFor="let categoryServicesList of categoryServicesList; let i=index" cdkDrag fxLayout="row">
                                     <div class="" fxFlex="5">
-                                        <mat-checkbox [checked]="categoryServicesList.is_selected" (change)="fnActionServiceId($event.checked,categoryServicesList.id,i); "></mat-checkbox>
+                                        <mat-checkbox [checked]="categoryServicesList.is_selected" (change)="fnActionServiceId($event.checked,categoryServicesList.id,i); ">
+                                        </mat-checkbox>
                                     </div>
                                     <div class="wrap-column" fxFlex="30">{{categoryServicesList.service_name}}</div>
                                     <div class="wrap-column" fxFlex="15">{{categoryServicesList.service_time}}</div>
                                     <!-- <div class="wrap-column" fxFlex="10">$ {{categoryServicesList.service_cost}}</div> -->
-                                    <div class="wrap-column" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ categoryServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</div>
-                                    <div class="wrap-column" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ categoryServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
+                                    <div class="wrap-column" fxFlex="10" *ngIf="currencySymbolPosition=='left'">
+                                        {{currencySymbol| currencySymbol:'wide'}} {{ categoryServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                    </div>
+                                    <div class="wrap-column" fxFlex="10" *ngIf="currencySymbolPosition=='right'">
+                                        {{ categoryServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
                                     <div class="wrap-column" fxFlex="10">{{categoryServicesList.service_unit}}</div>
                                     <div class="wrap-column" *ngIf="categoryServicesList.private_status == 'N'" fxFlex="10">Public</div>
-                                    <div class="" *ngIf="categoryServicesList.private_status == 'Y'" fxFlex="10">Private</div>
+                                    <div class="" *ngIf="categoryServicesList.private_status == 'Y'" fxFlex="10">Private
+                                    </div>
                                     <div class="" fxFlex="10">
                                         <mat-slide-toggle (change)="changeServiceStaus($event.checked,categoryServicesList.id)" [checked]="categoryServicesList.status == 'E'"></mat-slide-toggle>
                                     </div>
@@ -451,11 +497,15 @@
                     <div class="table_pagination">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-end">
-                                <li class="page-item" (click)="navigateTo(first_page_url,'category')"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
-                                <li class="page-item" (click)="navigateTo(prev_page_url,'category')"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                                <li class="page-item" (click)="navigateTo(first_page_url,'category')"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon"
+                                            aria-hidden="true"></i></a></li>
+                                <li class="page-item" (click)="navigateTo(prev_page_url,'category')"><a class="page-link"><i class="fa fa-angle-left arrow-icon"
+                                            aria-hidden="true"></i></a></li>
                                 <li class="page-item" [ngClass]="{'active':current_page == i+1}" *ngFor="let pagenumber of arrayOne(last_page); let i = index;" (click)="navigateToPageNumber(i+1,'category')"><a class="page-link">{{i+1}}</a></li>
-                                <li class="page-item" (click)="navigateTo(next_page_url,'category')"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
-                                <li class="page-item" (click)="navigateTo(last_page_url,'category')"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                <li class="page-item" (click)="navigateTo(next_page_url,'category')"><a class="page-link"><i class="fa fa-angle-right arrow-icon"
+                                            aria-hidden="true"></i></a></li>
+                                <li class="page-item" (click)="navigateTo(last_page_url,'category')"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon"
+                                            aria-hidden="true"></i></a></li>
                             </ul>
                         </nav>
                     </div>
@@ -502,8 +552,10 @@
                                 </div>
                                 <!-- <button class="salon-cancel-btn mr-2"><i class="fa fa-eye salon-icon" ></i></button>   -->
                                 <button (click)="editSubCategory(selectedSubCategoryDetails.id)" class="salon-edit-btn mr-2"><i class="fa fa-pencil salon-icon"></i></button>
-                                <button class="salon-cancel-btn mr-3" (click)="deleteSubCategory(selectedSubCategoryDetails.id)"><i class="fa fa-trash-o salon-icon" ></i></button>
-                                <mat-slide-toggle (change)="changeSubCategoryStatus($event.checked,selectedSubCategoryDetails.id)" [checked]="selectedSubCategoryDetails.sub_category_status == 'E'"></mat-slide-toggle>
+                                <button class="salon-cancel-btn mr-3" (click)="deleteSubCategory(selectedSubCategoryDetails.id)"><i
+                                        class="fa fa-trash-o salon-icon"></i></button>
+                                <mat-slide-toggle (change)="changeSubCategoryStatus($event.checked,selectedSubCategoryDetails.id)" [checked]="selectedSubCategoryDetails.sub_category_status == 'E'">
+                                </mat-slide-toggle>
                             </div>
                         </div>
                         <div class="ml-auto">
@@ -550,13 +602,17 @@
                             <div class="content" class="drageble-list" cdkDropList (cdkDropListDropped)="dropSubCategory($event)">
                                 <div class="drageble-box" *ngFor="let subCategoryServicesList of subCategoryServicesList; let i=index" cdkDrag fxLayout="row">
                                     <div class="" fxFlex="5">
-                                        <mat-checkbox [checked]="subCategoryServicesList.is_selected" (change)="fnAddStaffIdSub($event.checked,subCategoryServicesList.id,i)"></mat-checkbox>
+                                        <mat-checkbox [checked]="subCategoryServicesList.is_selected" (change)="fnAddStaffIdSub($event.checked,subCategoryServicesList.id,i)">
+                                        </mat-checkbox>
                                     </div>
                                     <div class="wrap-column" fxFlex="30">{{subCategoryServicesList.service_name}}</div>
                                     <div class="wrap-column" fxFlex="15">{{subCategoryServicesList.service_time}}</div>
                                     <!-- <div class="wrap-column" fxFlex="10">$ {{subCategoryServicesList.service_cost}}</div> -->
-                                    <div class="wrap-column" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ subCategoryServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</div>
-                                    <div class="wrap-column" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ subCategoryServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
+                                    <div class="wrap-column" fxFlex="10" *ngIf="currencySymbolPosition=='left'">
+                                        {{currencySymbol| currencySymbol:'wide'}} {{ subCategoryServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                    </div>
+                                    <div class="wrap-column" fxFlex="10" *ngIf="currencySymbolPosition=='right'">
+                                        {{ subCategoryServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
                                     <div class="wrap-column" fxFlex="10">{{subCategoryServicesList.service_unit}}</div>
                                     <div class="wrap-column" *ngIf="subCategoryServicesList.private_status == 'N'" fxFlex="10">Public</div>
                                     <div class="wrap-column" *ngIf="subCategoryServicesList.private_status == 'Y'" fxFlex="10">Private</div>
@@ -573,11 +629,16 @@
                     <div class="table_pagination">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-end">
-                                <li class="page-item" (click)="navigateTo(first_page_url,'subcategory')"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
-                                <li class="page-item" (click)="navigateTo(prev_page_url,'subcategory')"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
-                                <li class="page-item" [ngClass]="{'active':current_page == i+1}" *ngFor="let pagenumber of arrayOne(last_page); let i = index;" (click)="navigateToPageNumber(i+1,'subcategory')"><a class="page-link">{{i+1}}</a></li>
-                                <li class="page-item" (click)="navigateTo(next_page_url,'subcategory')"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
-                                <li class="page-item" (click)="navigateTo(last_page_url,'subcategory')"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                <li class="page-item" (click)="navigateTo(first_page_url,'subcategory')"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon"
+                                            aria-hidden="true"></i></a></li>
+                                <li class="page-item" (click)="navigateTo(prev_page_url,'subcategory')"><a class="page-link"><i class="fa fa-angle-left arrow-icon"
+                                            aria-hidden="true"></i></a></li>
+                                <li class="page-item" [ngClass]="{'active':current_page == i+1}" *ngFor="let pagenumber of arrayOne(last_page); let i = index;" (click)="navigateToPageNumber(i+1,'subcategory')"><a class="page-link">{{i+1}}</a>
+                                </li>
+                                <li class="page-item" (click)="navigateTo(next_page_url,'subcategory')"><a class="page-link"><i class="fa fa-angle-right arrow-icon"
+                                            aria-hidden="true"></i></a></li>
+                                <li class="page-item" (click)="navigateTo(last_page_url,'subcategory')"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon"
+                                            aria-hidden="true"></i></a></li>
                             </ul>
                         </nav>
                     </div>
@@ -607,7 +668,7 @@
                                 <h3 class="text-left" *ngIf="editServiceId">Edit Sevice</h3>
                             </div>
                             <div class="col-lg-6" *ngIf="!editServiceId">
-                                <button class="service-dlt-btn" (click)="fnDeleteService()" mat-raised-button color="warn"><i class="fa fa-trash-o delete-box" ></i> Delete</button>
+                                <button class="service-dlt-btn" (click)="fnDeleteService()" mat-raised-button color="warn"><i class="fa fa-trash-o delete-box"></i> Delete</button>
                             </div>
                         </div>
                         <div class="row">
@@ -617,8 +678,8 @@
                                         <img *ngIf="!editServiceId" src="/assets/images/admin/picture.png" class="service-profile-image-admin">
                                         <img *ngIf="editServiceId" src="{{editServiceImage}}" class="service-profile-image-admin w-100">
                                         <div class="camera-alt"><i class="material-icons">
-                                        camera_alt
-                                        </i></div>
+                                                camera_alt
+                                            </i></div>
                                     </div>
                                 </div>
                                 <div class="col-9">
@@ -627,20 +688,31 @@
                                             <input matInput formControlName="service_name" placeholder="Enter Service Name">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_name').touched || createService.get('service_name').dirty">
-                                        <small *ngIf="createService.get('service_name').hasError('required')" class="error">Service name is required.</small>
-                                        <small *ngIf="createService.get('service_name').hasError('minlength')" class="error">Service name can not be less than 3 character.</small>
-                                        <small *ngIf="createService.get('service_name').hasError('maxlength')" class="error">Service name length cannot be greater than 255 characters.</small>
-                                    </span>
+                                            <small *ngIf="createService.get('service_name').hasError('required')"
+                                                class="error">Service name is required.</small>
+                                            <small *ngIf="createService.get('service_name').hasError('minlength')"
+                                                class="error">Service name can not be less than 3 character.</small>
+                                            <small *ngIf="createService.get('service_name').hasError('maxlength')"
+                                                class="error">Service name length cannot be greater than 255
+                                                characters.</small>
+                                        </span>
                                     </div>
                                     <div class="mt-2 text-center">
                                         <mat-form-field class=" bottom-border-field">
                                             <textarea matInput formControlName="service_description" placeholder="Enter Service Description"></textarea>
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_description').touched || createService.get('service_description').dirty">
-                                        <small *ngIf="createService.get('service_description').hasError('required')" class="error">Service description is required.</small>
-                                        <small *ngIf="createService.get('service_description').hasError('minlength')" class="error">Description length cannot be less than 2 characters.</small>
-                                        <small *ngIf="createService.get('service_description').hasError('maxlength')" class="error">Description length cannot be greater than 255 characters.</small>
-                                    </span>
+                                            <small *ngIf="createService.get('service_description').hasError('required')"
+                                                class="error">Service description is required.</small>
+                                            <small
+                                                *ngIf="createService.get('service_description').hasError('minlength')"
+                                                class="error">Description length cannot be less than 2
+                                                characters.</small>
+                                            <small
+                                                *ngIf="createService.get('service_description').hasError('maxlength')"
+                                                class="error">Description length cannot be greater than 255
+                                                characters.</small>
+                                        </span>
                                     </div>
                                     <div class="mt-2 text-center">
                                         <mat-form-field class=" bottom-border-field">
@@ -649,44 +721,52 @@
                                             <input matInput formControlName="service_cost" placeholder="">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_cost').touched || createService.get('service_cost').dirty">
-                                        <small *ngIf="createService.get('service_cost').hasError('required')" class="error">Service cost is required.</small>
-                                        <small *ngIf="createService.get('service_cost').hasError('pattern')" class="error">Service cost must be numeric.</small>
-                                    </span>
+                                            <small *ngIf="createService.get('service_cost').hasError('required')"
+                                                class="error">Service cost is required.</small>
+                                            <small *ngIf="createService.get('service_cost').hasError('pattern')"
+                                                class="error">Service cost must be numeric.</small>
+                                        </span>
                                     </div>
                                     <div class="mt-2 text-center">
                                         <mat-form-field class=" bottom-border-field">
                                             <mat-icon matPrefix><i class="material-icons">
-                                            access_time
-                                            </i></mat-icon>
+                                                    access_time
+                                                </i></mat-icon>
                                             <mat-label>Enter Serice Time (mins)</mat-label>
                                             <input matInput formControlName="service_duration" placeholder="">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_duration').touched || createService.get('service_duration').dirty">
-                                        <small *ngIf="createService.get('service_duration').hasError('required')" class="error">Service duration is required.</small>
-                                        <small *ngIf="createService.get('service_duration').hasError('pattern')" class="error">Service duration must be numeric.</small>
-                                    </span>
+                                            <small *ngIf="createService.get('service_duration').hasError('required')"
+                                                class="error">Service duration is required.</small>
+                                            <small *ngIf="createService.get('service_duration').hasError('pattern')"
+                                                class="error">Service duration must be numeric.</small>
+                                        </span>
                                     </div>
                                     <div class="mt-2 text-center">
                                         <mat-form-field class=" bottom-border-field">
                                             <mat-icon matPrefix><i class="material-icons">
-                                            people_alt
-                                            </i></mat-icon>
+                                                    people_alt
+                                                </i></mat-icon>
                                             <mat-label>Enter Service Unit</mat-label>
                                             <input matInput formControlName="service_unit" placeholder="">
                                         </mat-form-field>
                                         <span class="unit-info" #tooltip="matTooltip" matTooltip="Info about the Service Unit" matTooltipPosition="above" matTooltipHideDelay="50000"><i class="fa fa-question-circle"></i>
                                         </span>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_unit').touched || createService.get('service_unit').dirty">
-                                        <small *ngIf="createService.get('service_unit').hasError('required')" class="error">Service unit is required.</small>
-                                        <small *ngIf="createService.get('service_unit').hasError('pattern')" class="error">Service unit must be numeric.</small>
+                                            <small *ngIf="createService.get('service_unit').hasError('required')"
+                                                class="error">Service unit is required.</small>
+                                            <small *ngIf="createService.get('service_unit').hasError('pattern')"
+                                                class="error">Service unit must be numeric.</small>
                                         </span>
                                     </div>
                                     <div class="service-statustoggle" *ngIf="!editServiceId">
                                         <p>
-                                            <mat-slide-toggle (change)="fnNewServiceStatus($event.checked)">Status</mat-slide-toggle>
+                                            <mat-slide-toggle (change)="fnNewServiceStatus($event.checked)">Status
+                                            </mat-slide-toggle>
                                         </p>
                                         <p>
-                                            <mat-slide-toggle (change)="fnNewServicePrivate($event.checked)">Private</mat-slide-toggle>
+                                            <mat-slide-toggle (change)="fnNewServicePrivate($event.checked)">Private
+                                            </mat-slide-toggle>
                                         </p>
                                     </div>
                                     <div class="service-statustoggle" *ngIf="editServiceId">
@@ -694,23 +774,23 @@
                                             <mat-slide-toggle [checked]="editServiceStatusPrevious == 'E'" (change)="fnEditServiceStatus($event.checked)">Status</mat-slide-toggle>
                                         </p>
                                         <p>
-                                            <mat-slide-toggle [checked]="editServicePrivateStatusPrevious == 'Y'" (change)="fnEditServicePrivate($event.checked)">Private</mat-slide-toggle>
+                                            <mat-slide-toggle [checked]="editServicePrivateStatusPrevious == 'Y'" (change)="fnEditServicePrivate($event.checked)">Private
+                                            </mat-slide-toggle>
                                         </p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-12 col-12 col-md-12 d-flex">
                                 <div class="border p-3">
-                                    <!-- <div class="d-flex">
-                                <h6> staff for this service</h6>
-                                <i class="material-icons add-icon pointer" (click)="openDialog()" >add_circle</i>
-                                </div>
-                                <mat-form-field class="pb-3 bottom-border-field">
-                                <mat-label>Outline form field</mat-label>
-                                <input matInput placeholder="Category,Subcategory,Service">
-                                <mat-icon matPrefix>search</mat-icon>
-                                </mat-form-field> -->
-
+                                    <div class="d-flex">
+                                        <h6>Select Staff for This Service</h6>
+                                        <i class="material-icons add-icon pointer" (click)="openDialog()">add_circle</i>
+                                    </div>
+                                    <mat-form-field class="pb-3 bottom-border-field">
+                                        <mat-label>Search</mat-label>
+                                        <input (keyup)="fnSearchStaff($event.target.value)" matInput placeholder="Staff name">
+                                        <mat-icon matPrefix>search</mat-icon>
+                                    </mat-form-field>
                                     <!-- <mat-list>
                                     <mat-list-item *ngFor="let staffList of staffList">
                                         {{staffList.username}} {{staffList.lastname}} <i class="material-icons minus-icon pointer" >remove_circle_outline</i>  
@@ -719,7 +799,8 @@
                                     <div *ngIf="staffList != ''">
                                         <div class="drageble-box" *ngFor="let staffList of staffList" fxLayout="row">
                                             <div class="" fxFlex="90">
-                                                <mat-checkbox (change)="fnAssignStaffToService($event.checked, staffList.id)" [checked]="assignStaffArr.indexOf(staffList.id) > -1">{{staffList.firstname}} {{staffList.lastname}}</mat-checkbox>
+                                                <mat-checkbox (change)="fnAssignStaffToService($event.checked, staffList.id)" [checked]="assignStaffArr.indexOf(staffList.id) > -1">
+                                                    {{staffList.firstname}} {{staffList.lastname}}</mat-checkbox>
                                             </div>
                                             <!-- <div class="" fxFlex="10"> <i class="material-icons minus-icon pointer" >remove_circle_outline</i></div> -->
                                         </div>
@@ -734,18 +815,16 @@
                     </form>
                 </mat-card>
 
-                <mat-card>
-                    <div class="row">
-                        <div class="service-action-btn">
-                            <div class="mx-2">
-                                <button mat-button appearance="fill" (click)="fnCancelAddService()" class="service-cancel-btn">Cancel</button>
-                            </div>
-                            <div *ngIf="!editServiceId" class="mx-2">
-                                <button mat-button type="submit" appearance="fill" class="service-create-btn" (click)="fnCreateServiceSubmit()">Create</button>
-                            </div>
-                            <div *ngIf="editServiceId" class="mx-2">
-                                <button mat-button type="submit" appearance="fill" class="service-create-btn" (click)="fnCreateServiceSubmit()">Update</button>
-                            </div>
+                <mat-card class="row service-action-card">
+                    <div class="service-action-btn">
+                        <div class="mx-2">
+                            <button mat-button appearance="fill" (click)="fnCancelAddService()" class="service-cancel-btn">Cancel</button>
+                        </div>
+                        <div *ngIf="!editServiceId" class="mx-2">
+                            <button mat-button type="submit" appearance="fill" class="service-create-btn" (click)="fnCreateServiceSubmit()">Create</button>
+                        </div>
+                        <div *ngIf="editServiceId" class="mx-2">
+                            <button mat-button type="submit" appearance="fill" class="service-create-btn" (click)="fnCreateServiceSubmit()">Update</button>
                         </div>
                     </div>
                 </mat-card>

@@ -811,7 +811,7 @@ export class BusinessHoursComponent implements OnInit {
               panelClass : ['green-snackbar']
             });
           }else{
-           this.snackBar.open("Time off Not Deleted", "X", {
+           this.snackBar.open(response.response, "X", {
               duration: 2000,
               verticalPosition: 'top',
               panelClass : ['red-snackbar']
@@ -838,7 +838,7 @@ export class BusinessHoursComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }else{
-       this.snackBar.open("Time off status not updated", "X", {
+       this.snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
@@ -1178,7 +1178,7 @@ export class BusinessHoursComponent implements OnInit {
         });
       }
       else{
-       this.snackBar.open("Break Not Added", "X", {
+       this.snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
@@ -1281,7 +1281,7 @@ fnAddNewTimeOff(){
         });
       }
       else{
-       this.snackBar.open("Time off not added", "X", {
+       this.snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['red-snackbar']

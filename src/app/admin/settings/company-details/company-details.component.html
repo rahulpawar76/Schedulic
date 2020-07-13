@@ -81,7 +81,7 @@
         </div>
     </div>
     <div class="h-100 setting-right-side-content" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
-        <mat-card class="m-0">
+        <mat-card class="m-0 h-100">
             <div class="row">
                 <div class="col-lg-12">
                     <h6>Company Details</h6>
@@ -105,8 +105,8 @@
                                 </mat-form-field>
                                 <span class="error-wrap d-flex" *ngIf="companyDetails.get('company_name').dirty || companyDetails.get('company_name').touched">
                                             <small *ngIf="companyDetails.get('company_name').hasError('required')" class="error">Company name is required</small>
-                                            <small *ngIf="companyDetails.get('company_name').hasError('minlength') || companyDetails.get('company_name').hasError('maxlength')" class="error">Company name must be between 3 to 255 characters</small>
-                                            <small *ngIf="companyDetails.get('company_name').hasError('whiteSpaceValidation')" class="error">Company name can not consist of white spaces</small></span>
+                                            <small *ngIf="companyDetails.get('company_name').hasError('minlength') || companyDetails.get('company_name').hasError('maxlength')" class="error">Company name must be between 3 to 255 characters.</small>
+                                            <small *ngIf="companyDetails.get('company_name').hasError('whiteSpaceValidation')" class="error">Company name can not consist of white spaces.</small></span>
 
                             </div>
 
@@ -115,8 +115,8 @@
                                     <input formControlName="comp_email" matInput placeholder="Email">
                                 </mat-form-field>
                                 <span class="error-wrap d-flex" *ngIf="companyDetails.get('comp_email').dirty || companyDetails.get('comp_email').touched">
-                        <small *ngIf="companyDetails.get('comp_email').hasError('required')" class="error">Email is required</small>
-                        <small *ngIf="companyDetails.get('comp_email').hasError('pattern')" class="error">Email is invalid</small>
+                        <small *ngIf="companyDetails.get('comp_email').hasError('required')" class="error">Email is required.</small>
+                        <small *ngIf="companyDetails.get('comp_email').hasError('pattern')" class="error">Email is invalid.</small>
                     </span>
                             </div>
 
@@ -131,9 +131,9 @@
                                     <input formControlName="comp_mobile" matInput placeholder="Mobile" (keypress)="numberOnly($event)">
                                 </mat-form-field>
                                 <span class="error-wrap d-flex" *ngIf="companyDetails.get('comp_mobile').dirty || companyDetails.get('comp_mobile').touched">
-                                    <small *ngIf="companyDetails.get('comp_mobile').hasError('required')" class="error">Mobile number is required</small>
-                                    <small *ngIf="companyDetails.get('comp_mobile').hasError('pattern')" class="error">Mobile number is invalid</small>
-                                    <small *ngIf="companyDetails.get('comp_mobile').hasError('minlength') || companyDetails.get('comp_mobile').hasError('maxlength')" class="error">Mobile number should be 6 to 15 digit</small>
+                                    <small *ngIf="companyDetails.get('comp_mobile').hasError('required')" class="error">Mobile number is required.</small>
+                                    <small *ngIf="companyDetails.get('comp_mobile').hasError('pattern')" class="error">Mobile number is invalid.</small>
+                                    <small *ngIf="companyDetails.get('comp_mobile').hasError('minlength') || companyDetails.get('comp_mobile').hasError('maxlength')" class="error">Mobile number should be 6 to 15 digit.</small>
                                 </span>
                             </div>
                         </div>
@@ -149,7 +149,7 @@
                                     </mat-select>
                                 </mat-form-field>
                                 <span class="error-wrap d-flex" *ngIf="companyDetails.get('country').dirty || companyDetails.get('country').touched">
-                                <small *ngIf="companyDetails.get('country').hasError('required')" class="error">Country is required</small></span>
+                                <small *ngIf="companyDetails.get('country').hasError('required')" class="error">Country is required.</small></span>
 
                             </div>
 
@@ -171,7 +171,7 @@
                                         </mat-select>
                                     </mat-form-field>
                                     <span class="error-wrap d-flex" *ngIf="companyDetails.get('state').dirty || companyDetails.get('state').touched">
-                                    <small *ngIf="companyDetails.get('state').hasError('required')" class="error">State is required</small></span>
+                                    <small *ngIf="companyDetails.get('state').hasError('required')" class="error">State is required.</small></span>
                                 </div>
 
                                 <div class="mt-2 text-center col-3">
@@ -184,7 +184,7 @@
                                         </mat-select>
                                     </mat-form-field>
                                     <span class="error-wrap d-flex" *ngIf="companyDetails.get('city').dirty || companyDetails.get('city').touched">
-                        <small *ngIf="companyDetails.get('city').hasError('required')" class="error">City is required</small></span>
+                        <small *ngIf="companyDetails.get('city').hasError('required')" class="error">City is required.</small></span>
                                 </div>
 
                                 <div class="mt-2 text-center col-3">
@@ -192,7 +192,7 @@
                                         <input formControlName="zip_code" matInput placeholder="Zip">
                                     </mat-form-field>
                                     <span class="error-wrap d-flex" *ngIf="companyDetails.get('zip_code').dirty || companyDetails.get('zip_code').touched">
-                                    <small *ngIf="companyDetails.get('zip_code').hasError('required')" class="error">Zip code is required</small><small *ngIf="companyDetails.get('zip_code').hasError('minlength') || companyDetails.get('zip_code').hasError('maxlength')" class="error">Zip code must be between 5 to 10 characters</small></span>
+                                    <small *ngIf="companyDetails.get('zip_code').hasError('required')" class="error">Zip code is required.</small><small *ngIf="companyDetails.get('zip_code').hasError('minlength') || companyDetails.get('zip_code').hasError('maxlength')" class="error">Zip code must be between 5 to 10 characters</small></span>
                                 </div>
                             </div>
 
@@ -202,7 +202,7 @@
                                     <textarea formControlName="comp_decs" matInput placeholder="A brief overview of what you're all"></textarea>
                                 </mat-form-field>
                                 <span class="error-wrap d-flex" *ngIf="companyDetails.get('comp_decs').dirty || companyDetails.get('comp_decs').touched">
-                                    <small *ngIf="companyDetails.get('comp_decs').hasError('required')" class="error">Description is required</small></span>
+                                    <small *ngIf="companyDetails.get('comp_decs').hasError('required')" class="error">Description is required.</small></span>
                             </div>
                             <div class="account-statustoggle">
                                 <p>
@@ -213,16 +213,13 @@
                                 </p>
                             </div>
 
-                            <div class="row">
+                            <mat-card class="row footer-save-container">
                                 <div class="company-action-btn">
-                                    <!-- <div class="mx-2">
-                                                <button mat-button appearance="fill" class="company-cancel-btn">Cancel</button>
-                                            </div> -->
                                     <div class="mx-2">
                                         <button mat-button type="submit" (click)="fnUpdateCompanyDetail()" appearance="fill" class="company-save-btn">Update</button>
                                     </div>
                                 </div>
-                            </div>
+                            </mat-card>
                         </div>
                     </div>
                 </div>

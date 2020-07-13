@@ -1,29 +1,28 @@
-
-  <div class="modal-dialog modal-notify modal-info" role="document">
+<div class="modal-dialog modal-notify modal-info" role="document">
     <div class="modal-content">
-      <div class="modal-header modal-bcolor-primary">
-        <h5 class="modal-title">New Note</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+        <div class="modal-header modal-bcolor-primary">
+            <h5 class="modal-title">New Note</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <form [formGroup]="createNewNote">
-        <div class="modal-body pb-0">
-            <mat-form-field class="bottom-border-field">
-              <mat-label>Subject</mat-label>
-              <input matInput type="text" formControlName="note_subject" placeholder="Enter Note Subject">
-            </mat-form-field>
-            <span class="error-wrap" *ngIf="createNewNote.get('note_subject').dirty || createNewNote.get('note_subject').touched"><small *ngIf="createNewNote.get('note_subject').hasError('required')" class="error">Subject is required.</small></span>  
-            <mat-form-field class="bottom-border-field">
-              <mat-label>Description</mat-label>
-              <textarea rows="5" matInput formControlName="note_description" placeholder="Type Note Description Here"></textarea>
-            </mat-form-field>
-            <span class="error-wrap" *ngIf="createNewNote.get('note_description').dirty || createNewNote.get('note_description').touched"><small *ngIf="createNewNote.get('note_description').hasError('required')" class="error">Description is required.</small></span>  
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn cancelbtn" data-dismiss="modal"(click)="onNoClick()">Cancel</button>
-          <button type="button" class="btn savebtn" data-dismiss="modal" (click)="fnSubmit()">Save</button>
-        </div>
-      </form>
+        <form [formGroup]="createNewNote">
+            <div class="modal-body pb-0">
+                <mat-form-field class="bottom-border-field">
+                    <mat-label>Subject</mat-label>
+                    <input matInput type="text" formControlName="note_subject" placeholder="Enter Note Subject">
+                </mat-form-field>
+                <span class="error-wrap" *ngIf="createNewNote.get('note_subject').dirty || createNewNote.get('note_subject').touched"><small *ngIf="createNewNote.get('note_subject').hasError('required')" class="error">Subject is required.</small></span>
+                <mat-form-field class="bottom-border-field">
+                    <mat-label>Description</mat-label>
+                    <textarea rows="5" matInput formControlName="note_description" placeholder="Type Note Description Here"></textarea>
+                </mat-form-field>
+                <span class="error-wrap" *ngIf="createNewNote.get('note_description').dirty || createNewNote.get('note_description').touched"><small *ngIf="createNewNote.get('note_description').hasError('required')" class="error">Description is required.</small></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn cancelbtn" data-dismiss="modal" (click)="onNoClick()">Cancel</button>
+                <button type="button" class="btn savebtn" data-dismiss="modal" (click)="fnSubmit()">Save</button>
+            </div>
+        </form>
     </div>
-  </div>
+</div>
