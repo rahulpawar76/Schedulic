@@ -9,6 +9,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { AdminSettingsRoutingModule } from './settings-routing.module';
 import { ServicesComponent } from './services/services.component';
 import { DataTablesModule } from 'angular-datatables';
+import { MdePopoverModule } from '@material-extended/mde';
 
 import { SettingsComponent } from './settings.component';
 import { StaffComponent } from './staff/staff.component';
@@ -42,6 +43,7 @@ import {DialogDataExampleDialog} from './services/services.component';
 import { DialogPreviewEmailTemp } from './alertsettings/alertsettings.component';
 import { SharedModule } from '../../shared.module';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DialogStaffViewReview } from './staff/staff.component';
 
 import { DndDirective } from './direcitves/dnd.directive';
@@ -92,11 +94,14 @@ enableRipple(true);
       DataTablesModule,
       MatDatepickerModule,
       ColorPickerModule,
+      MdePopoverModule,
+      NgbModule,
       SharedModule
   ],
   exports: [
     FormsModule
   ],
+  bootstrap: [AppearanceComponent],
    entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax,DialogAddPostalCode,DialogAddNewTimeOffBussiness,DialogCategoryImageUpload,DialogSubCategoryImageUpload,DialogServiceImageUpload,DialogStaffImageUpload,DialogCompanyDetailsImageUpload,DialogDataExampleDialog,DialogStaffViewReview,DialogPreviewEmailTemp],
 })
 export class SettingsModule {}

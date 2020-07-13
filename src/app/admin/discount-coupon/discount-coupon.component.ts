@@ -44,6 +44,7 @@ export class DiscountCouponComponent implements OnInit {
   categoryServiceCheckCatId: any = [];
   categoryServiceChecksubCatId: any = [];
   categoryServiceCheckServiceId: any = [];
+  categoryServiceListTemp: any=[];
 
   minDate = new Date();
   discountCoupon: FormGroup;
@@ -61,6 +62,8 @@ export class DiscountCouponComponent implements OnInit {
   prev_page_url : any;
   discountType: any;
   path : any;
+  searchService: any;
+  searchedServices : boolean = false;
   minTillDate : any = new Date();
   discountApiUrl:any =  `${environment.apiUrl}/discount-coupon-list`;
   diccount_error:boolean=false;
@@ -275,6 +278,7 @@ export class DiscountCouponComponent implements OnInit {
   getCateServiceList(){
     let requestObject = {
       'business_id': this.businessId,
+      'search' : this.searchService
   };
     this.isLoaderAdmin = true;
     this.AdminService.getCateServiceList(requestObject).subscribe((response:any) => {
@@ -447,6 +451,38 @@ export class DiscountCouponComponent implements OnInit {
       this.getAllCouponCode();
      });
 
+  }
+  fnsearchService(event){
+    this.categoryServiceListTemp=[];
+    console.log(event.target.value);
+    this.categoryServiceList.forEach(element => {
+      if(element.category_title && element.category_title.toLowerCase().includes(event.target.value.toLowerCase())){
+        this.categoryServiceListTemp.push(element);
+        console.log(element.category_title);
+        return;
+      }
+      element.subcategory.forEach(subelement => {
+        if(subelement.sub_category_name && subelement.sub_category_name.toLowerCase().includes(event.target.value.toLowerCase())){
+          if(!this.categoryServiceListTemp.some((item) => item.id == element.id)){
+            this.categoryServiceListTemp.push(element);
+          }
+          console.log(subelement.sub_category_name);
+          return;
+        }
+        subelement.services.forEach(serviceselement => {
+          if(serviceselement.service_name && serviceselement.service_name.toLowerCase().includes(event.target.value.toLowerCase())){
+            if(!this.categoryServiceListTemp.some((item) => item.id == element.id)){
+              this.categoryServiceListTemp.push(element);
+            }
+            console.log(serviceselement.service_name);
+            return;
+          }
+        });
+      });
+    });
+    // this.searchService = value;
+    // this.getCateServiceList();
+    // this.searchedServices = true;
   }
   
   

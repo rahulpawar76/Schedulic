@@ -137,9 +137,67 @@
                         <mat-select formControlName="font">
                             <mat-option value="Poppins, sans-serif">Poppins</mat-option>
                             <mat-option value="Roboto, sans-serif">Roboto</mat-option>
+                            <mat-option value="'Cairo', sans-serif">Cairo</mat-option>
+                            <mat-option value="'Dosis', sans-serif">Dosis</mat-option>
+                            <mat-option value="'Fira Sans', sans-serif">Fira Sans</mat-option>
+                            <mat-option value="Lato, sans-serif">Lato</mat-option>
+                            <mat-option value="Montserrat, sans-serif">Montserrat</mat-option>
+                            <mat-option value="Open Sans, sans-serif">Open Sans</mat-option>
+                            <mat-option value="Quicksand, sans-serif">Quicksand</mat-option>
+                            <mat-option value="Raleway, sans-serif">Raleway</mat-option>
+                            <mat-option value="Ubuntu, sans-serif">Ubuntu</mat-option>
                         </mat-select>
                     </mat-form-field>
 
+                </div>
+                <div id="preview_container" class="main-step step_5 col-6">
+                    <div class="row ml-0 mr-0 main-datetime-selection h-100">
+                        <div class="col-12 col-lg-6 col-sm-12 datepicker-main">
+                            <div class="ngbpicker">
+                                <div class="ngb-dp-header customepickheader">
+                                    <div class="ngb-dp-month-name ng-star-inserted">Pick date & time</div>
+                                </div>
+                                <ngb-datepicker (dateSelect)="onDateSelect($event)" class='' #dp [(ngModel)]="model"></ngb-datepicker>
+                            </div>
+
+                        </div>
+                        <div class="col-12 col-lg-6 col-sm-12 timeslot-main">
+                            <button mat-fab color="" class="top-back-btn float-right">
+                                <i class="material-icons" color="">close</i>
+                            </button>
+                            <h3 class="selected-date">Wed, Sep 19</h3>
+                            <div class="slot-list">
+                                <div class=" timing">
+                                    <label>
+                                        <input name="timeslot" type="radio" checked/>
+                                        <div class="single-slot" [mdePopoverTriggerFor]="selectstaff" mdePopoverTriggerOn="click" #popoverTrigger="mdePopoverTrigger">10:30</div>
+                                    </label>
+                                    <mde-popover #selectstaff="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
+                                        <mat-card class="staff-select-box p-0" style="width: 200px">
+                                            <mat-card-content class="py-2 px-3 mt-0">
+                                                <div class="row">
+                                                    <div class="col staff-selection">
+                                                        <mat-radio-group aria-label="Select Staff">
+                                                            <mat-radio-button checked value="">Any Staff</mat-radio-button>
+                                                            <mat-radio-button class="text-capitalize" value="1">Meet Shah</mat-radio-button>
+                                                            <mat-radio-button class="text-capitalize" value="2">Parth Jadhav</mat-radio-button>
+                                                            <mat-radio-button class="text-capitalize" value="3">Sumit Yedekar</mat-radio-button>
+                                                            <mat-radio-button class="text-capitalize" value="4">Mubin Shaikh</mat-radio-button>
+                                                        </mat-radio-group>
+
+                                                    </div>
+                                                </div>
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </mde-popover>
+                                </div>
+                            </div>
+                            <div class="next-action">
+                                <button mat-button class="round-btn continue-btn">Add More Services</button>
+                                <button mat-button class="round-btn continue-btn">Book Now</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <mat-card class="save-cencel-footer">
                     <div class="d-flex py-2 save-footer-btn">

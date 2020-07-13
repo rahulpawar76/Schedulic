@@ -357,6 +357,7 @@ customerUpdate(existingCustomerData){
         panelClass :['green-snackbar']
       });
       this.fnSelectCustomer(existingCustomerData.customer_id);
+      this.existingUserId = undefined;
       this.fnCancelNewCustomer();
       this.isLoaderAdmin = false;
     }

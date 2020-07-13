@@ -138,6 +138,7 @@
     .action-btn {
         margin-left: auto;
         display: flex;
+        justify-content: flex-end;
     }
      ::ng-deep .mat-expansion-panel-body {
         margin-left: 25px;
@@ -255,4 +256,16 @@
     display: inline-block;
     width: 100%;
     overflow-y: scroll;
+}
+
+#Discount-Coupon {
+    .footer-action-btn {
+        padding: 16px;
+        position: fixed;
+        bottom: 0;
+        width: calc(100% - 70px);
+        margin: 0;
+        box-shadow: 0 2px 2px -1px rgba(0, 0, 0, .4), 0 4px 12px 0 rgba(0, 0, 0, .4)!important;
+        right: 0;
+    }
 }

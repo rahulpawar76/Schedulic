@@ -5,6 +5,8 @@ import { ColorPickerService, Cmyk } from 'ngx-color-picker';
 import { AdminSettingsService } from '../_services/admin-settings.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '@environments/environment';
+import { NgbDateParserFormatter, NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
+import { MdePopoverTrigger } from '@material-extended/mde';
 
 @Component({
   selector: 'app-appearance',
@@ -55,12 +57,21 @@ export class AppearanceComponent implements OnInit {
   textbgcolor: any = '#2889e9';
   embededCode: any;
   businessId:any
+  
+  model: NgbDateStruct;
+  dateformatter: NgbDateParserFormatter;
+  date: {year: number, month: number};
+  minDate: {year: number, month: number, day: number};
+  maxDate: {year: number, month: number, day: number};
+  displayMonths = 1;
+  navigation = 'arrows';
   constructor(
     private appComponent : AppComponent,
     private _formBuilder: FormBuilder,
     public vcRef: ViewContainerRef, 
     private cpService: ColorPickerService,
     private _snackBar: MatSnackBar,
+    private calendar: NgbCalendar,
     private AdminSettingsService: AdminSettingsService,
     ) {  
       if (localStorage.getItem('business_id')) {
