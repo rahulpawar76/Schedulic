@@ -101,7 +101,7 @@ export class ServicesComponent implements OnInit {
     currencySymbol:any;
     currencySymbolPosition:any;
     currencySymbolFormat:any;
-
+    search:any;
     onlynumeric = /^-?(0|[1-9]\d*)?$/
     
     serviceApiUrl1 : any;
@@ -165,6 +165,10 @@ export class ServicesComponent implements OnInit {
             service_id: [''],
         });
 
+    }
+    fnSearchStaff(value){
+        this.search = value
+        this.fnstaffList()
     }
     fnSettingMenuToggleSmall(){
         this.settingSideMenuToggle = true;
@@ -354,16 +358,18 @@ export class ServicesComponent implements OnInit {
     }
     fnstaffList(){
         this.isLoaderAdmin = true;
-        this.adminSettingsService.fnstaffList().subscribe((response: any) => {
+        let requestObject = {
+            "business_id":this.businessId,
+            "search": this.search
+        }
+        this.adminSettingsService.fnstaffList(requestObject).subscribe((response: any) => {
             if (response.data == true) {
                 this.staffList = response.response
-                // this.allCategoryCount = this.staffList.length
-                // this.isLoaderAdmin = false;
             }
             else {
                  this.staffList = [];
-                // this.isLoaderAdmin = false;
             }
+            this.isLoaderAdmin = false;
         })
     }
     openDialog() {

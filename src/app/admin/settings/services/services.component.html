@@ -782,16 +782,15 @@
                             </div>
                             <div class="col-xl-4 col-lg-12 col-12 col-md-12 d-flex">
                                 <div class="border p-3">
-                                    <!-- <div class="d-flex">
-                                <h6> staff for this service</h6>
-                                <i class="material-icons add-icon pointer" (click)="openDialog()" >add_circle</i>
-                                </div>
-                                <mat-form-field class="pb-3 bottom-border-field">
-                                <mat-label>Outline form field</mat-label>
-                                <input matInput placeholder="Category,Subcategory,Service">
-                                <mat-icon matPrefix>search</mat-icon>
-                                </mat-form-field> -->
-
+                                    <div class="d-flex">
+                                        <h6>Select Staff for This Service</h6>
+                                        <i class="material-icons add-icon pointer" (click)="openDialog()">add_circle</i>
+                                    </div>
+                                    <mat-form-field class="pb-3 bottom-border-field">
+                                        <mat-label>Search</mat-label>
+                                        <input (keyup)="fnSearchStaff($event.target.value)" matInput placeholder="Staff name">
+                                        <mat-icon matPrefix>search</mat-icon>
+                                    </mat-form-field>
                                     <!-- <mat-list>
                                     <mat-list-item *ngFor="let staffList of staffList">
                                         {{staffList.username}} {{staffList.lastname}} <i class="material-icons minus-icon pointer" >remove_circle_outline</i>  

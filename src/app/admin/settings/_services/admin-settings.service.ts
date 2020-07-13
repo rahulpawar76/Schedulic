@@ -63,10 +63,7 @@ export class AdminSettingsService {
             }),
             catchError(this.handleError));
     }
-    fnstaffList(){
-        let requestObject = {
-            'business_id': localStorage.getItem('business_id'),
-        };
+    fnstaffList(requestObject){
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
