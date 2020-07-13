@@ -276,3 +276,17 @@
     margin-left: 70px;
     width: calc(100% - 70px);
 }
+
+.report-date-range-main {
+    min-width: 240px;
+    width: 180px;
+    margin-left: 40px;
+    &::before {
+        content: "\f073";
+        font: normal normal normal 14px/1 FontAwesome;
+        position: absolute;
+        font-size: 30px;
+        left: -35px;
+        color: #6d6d6d;
+    }
+}
