@@ -90,7 +90,7 @@ export class LoginComponent implements OnInit {
                         this.router.navigate(["user"]);
                     }
 
-                    this.appComponent.initiateTimeout();
+                    // this.appComponent.initiateTimeout();
                     this.hideLoginForm = false;
                     
                 }else if(data.data == false){

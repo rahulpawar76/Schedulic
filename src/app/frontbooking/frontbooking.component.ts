@@ -161,6 +161,7 @@ export class FrontbookingComponent implements OnInit {
   stripeStatus : boolean = false;
   loadAPI: Promise<any>;
   isFound:boolean=false;
+  directService:boolean=false;
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
   emailFormat = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
   onlynumeric = /^-?(0|[1-9]\d*)?$/
@@ -369,7 +370,7 @@ export class FrontbookingComponent implements OnInit {
           }
           
         if(this.settingsArr.pay_pal_settings){
-          this.paypalSetting = JSON.parse(this.settingsArr.pay_pal_settings)
+          this.paypalSetting = this.settingsArr.pay_pal_settings
           this.paypalTestMode = this.paypalSetting.test_mode;
           if(this.paypalTestMode){
             this.paypalClientId="sb";
@@ -786,6 +787,7 @@ export class FrontbookingComponent implements OnInit {
    
   fnGetAllServices(){
     this.isLoader=true;
+    this.directService=false;
   let requestObject = {
     "sub_category_id":this.selectedsubcategory,
     "status":"E"
@@ -925,6 +927,7 @@ export class FrontbookingComponent implements OnInit {
           
         }
         this.isLoader=false;
+        this.directService=true;
         this.catselection = false;
         this.serviceselection = true;
         console.log(JSON.stringify(this.serviceCount));
@@ -2243,8 +2246,13 @@ export class FrontbookingComponent implements OnInit {
 
 
    fnbackfromsubservice(){
-     this.serviceselection =false;
-     this.subcatselection = true;
+    if(this.directService){
+      this.serviceselection =false;
+      this.catselection = true;
+    }else{
+      this.serviceselection =false;
+      this.subcatselection = true;
+    }
    }
 
    fnbackfromservice(){
