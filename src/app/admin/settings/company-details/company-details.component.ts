@@ -133,7 +133,12 @@ export class CompanyDetailsComponent implements OnInit {
         this.allCountry = response.response
       }
       else if(response.data == false){
-        this.allCountry = ''
+        this.allCountry = [];
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
       }
     })
   }
@@ -155,6 +160,11 @@ export class CompanyDetailsComponent implements OnInit {
       }
       else if(response.data == false){
         this.allStates = [];
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
       }
     })
   }
@@ -172,6 +182,11 @@ export class CompanyDetailsComponent implements OnInit {
       }
       else if(response.data == false){
         this.allCities = [];
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
       }
     })
   }

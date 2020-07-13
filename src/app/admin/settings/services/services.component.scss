@@ -569,3 +569,10 @@ textarea {
         }
     }
 }
+
+.select_staff_list {
+    max-height: 640px;
+    display: inline-block;
+    width: 100%;
+    overflow-y: scroll;
+}
