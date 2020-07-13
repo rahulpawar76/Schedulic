@@ -111,8 +111,7 @@
 }
 
 .main-appearance-content {
-    margin: 20px;
-    ;
+    padding: 20px;
 }
 
 .save-btn {
@@ -211,9 +210,97 @@
     }
 }
 
+// #preview_container {
+//     .datepicker-main {
+//         background: linear-gradient(to right, #38b7fb 0%, #3969fb 100%);
+//     }
+//     @media only screen and (max-width: 600px) {
+//         .datepicker-main {
+//             overflow-x: scroll;
+//         }
+//     }
+//     .timeslot-main {
+//         .top-back-btn {
+//             background-color: #e0e0e0;
+//         }
+//         .selected-date {
+//             text-align: center;
+//             margin: 15px;
+//             font-size: $fs-26;
+//             font-weight: $fw-400;
+//         }
+//         .slot-list {
+//             margin: 10px auto;
+//             display: table;
+//             input[type="radio"] {
+//                 display: none;
+//             }
+//             input[type="radio"]:checked+.single-slot {
+//                 background: linear-gradient(to right, #38b7fb 0%, #3969fb 100%);
+//                 color: #ffffff;
+//             }
+//             .single-slot {
+//                 border: 2px solid $grey-3;
+//                 padding: 20px;
+//                 font-size: $fs-18;
+//                 color: #010101;
+//                 text-align: center;
+//                 line-height: 1;
+//                 width: 130px;
+//                 margin: 7px;
+//                 cursor: pointer;
+//                 border-radius: 8px;
+//             }
+//         }
+//         .next-action {
+//             margin: 15px;
+//             text-align: center;
+//             .continue-btn {
+//                 font-size: $fs-16;
+//                 background-color: $grey-3;
+//                 padding: 6px 25px;
+//                 margin: 10px;
+//             }
+//         }
+//     }
+//     .timing {
+//         display: inline-block;
+//     }
+//     @media only screen and (max-width: 600px) {
+//         .slot-list {
+//             align-items: center;
+//             text-align: center;
+//         }
+//     }
+// }
 #preview_container {
+    font-family: $selected-font-family;
     .datepicker-main {
-        background: linear-gradient(to right, #38b7fb 0%, #3969fb 100%);
+        background: $primary-gradient-color;
+         ::ng-deep .ngbpicker {
+            .btn-light.ng-star-inserted {
+                color: $text-bg;
+            }
+            .btn-light.ng-star-inserted:focus {
+                color: $text-bg;
+            }
+            .btn-light.text-muted.outside.ng-star-inserted {
+                color: $text-bg;
+            }
+            .ngb-dp-weekday.small.ng-star-inserted {
+                color: $text-bg;
+            }
+            span.ngb-dp-navigation-chevron {
+                color: $text-bg;
+            }
+            .ngb-dp-month-name.ng-star-inserted {
+                color: $text-bg;
+            }
+            select.custom-select {
+                color: $text-bg;
+            }
+            .btn-light:not(:disabled):not(.disabled).active {}
+        }
     }
     @media only screen and (max-width: 600px) {
         .datepicker-main {
@@ -237,15 +324,15 @@
                 display: none;
             }
             input[type="radio"]:checked+.single-slot {
-                background-color: linear-gradient(to right, #38b7fb 0%, #3969fb 100%);
-                color: #ffffff;
-                border-color: linear-gradient(to right, #38b7fb 0%, #3969fb 100%);
+                background: $primary-gradient-color;
+                color: $text-bg;
+                border-color: $front-primary-color;
             }
             .single-slot {
                 border: 2px solid $grey-3;
                 padding: 20px;
                 font-size: $fs-18;
-                color: #010101;
+                color: $secondary-color;
                 text-align: center;
                 line-height: 1;
                 width: 130px;
@@ -262,6 +349,7 @@
                 background-color: $grey-3;
                 padding: 6px 25px;
                 margin: 10px;
+                color: $text-color;
             }
         }
     }
@@ -269,6 +357,9 @@
         display: inline-block;
     }
     @media only screen and (max-width: 600px) {
+        // body {
+        //     display: block !important;
+        // }
         .slot-list {
             align-items: center;
             text-align: center;
