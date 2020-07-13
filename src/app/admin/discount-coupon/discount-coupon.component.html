@@ -1,4 +1,4 @@
-<div class="" id="Discount-Coupon" style="margin-top: 70px;">
+<div class="h-100" id="Discount-Coupon" style="margin-top: 70px;">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
     <div *ngIf="couponCodeListing" class="row mx-0">
         <div class="col-12">
@@ -111,7 +111,7 @@
             </div>
         </div>
     </div>
-    <mat-card *ngIf="addNewCouponCode">
+    <mat-card *ngIf="addNewCouponCode" class="h-100">
         <form [formGroup]="discountCoupon">
             <div class="row">
                 <div class="col-lg-8 col-sm-12 col-md-12 col-12">
@@ -219,18 +219,18 @@
                         <h6>Select Service</h6>
                         <mat-form-field class="pb-3">
                             <!-- <mat-label>Outline form field</mat-label> -->
-                            <input matInput placeholder="Category,Subcategory,Service">
+                            <input (keyup)="fnsearchService($event);" matInput placeholder="Category,Subcategory,Service">
                             <mat-icon matPrefix>search</mat-icon>
                         </mat-form-field>
 
-                        <mat-accordion class="select-service-accordian">
-                            <mat-expansion-panel *ngFor="let categoryServiceListval of categoryServiceList; let i=index">
+                        <mat-accordion *ngIf="categoryServiceList != ''" class="select-service-accordian">
+                            <mat-expansion-panel [expanded]="searchedServices" *ngFor="let categoryServiceListval of categoryServiceList; let i=index">
                                 <mat-expansion-panel-header>
                                     <mat-panel-title class="service-title">
                                         <mat-checkbox (change)="checkServie($event,'category',i)" [checked]="categoryServiceListval.is_selected">{{categoryServiceListval.category_title}}</mat-checkbox>
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
-                                <mat-expansion-panel class="my-3" *ngFor="let subcategoryList of categoryServiceListval.subcategory; let sub_index=index">
+                                <mat-expansion-panel [expanded]="searchedServices" class="my-3" *ngFor="let subcategoryList of categoryServiceListval.subcategory; let sub_index=index">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <mat-checkbox (change)="checkServie($event,'subcategory',i,sub_index)" [checked]="subcategoryList.is_selected">{{subcategoryList.sub_category_name}}</mat-checkbox>
@@ -242,25 +242,14 @@
                                     </div>
                                 </mat-expansion-panel>
                             </mat-expansion-panel>
-
-                            <!-- <mat-expansion-panel (opened)="panelOpenState = true"
-                             (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Self aware panel
-            </mat-panel-title>
-            <mat-panel-description>
-              Currently I am {{panelOpenState ? 'open' : 'closed'}}
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
-        </mat-expansion-panel> -->
                         </mat-accordion>
+                        <div class="categoryServiceList == ''">
+                            <p>No Service Found</p>
+                        </div>
                     </mat-card>
                 </div>
             </div>
-            <div class="row">
-                <div class="devider-slim my-3"></div>
+            <mat-card class="footer-action-btn">
                 <div class="action-btn">
                     <div class="mx-2">
                         <button (click)="fnCancelNewCoupon()" mat-button appearance="fill" class="discount-cancel-btn">Cancel</button>
@@ -269,7 +258,7 @@
                         <button mat-button type="submit" appearance="fill" (click)="fnCreateCouponSubmit()" class="discount-save-btn">Add Coupon</button>
                     </div>
                 </div>
-            </div>
+            </mat-card>
         </form>
     </mat-card>
 </div>

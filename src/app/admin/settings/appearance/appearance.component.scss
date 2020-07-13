@@ -10,19 +10,21 @@
     background-color: #1173f4;
     color: white;
 }
-.save-footer-btn{
-    float: right;
-}
-.save-cencel-footer{
-    height: 20%;
-    margin-top: 10%;
-}
+
+// .save-footer-btn {
+//     float: right;
+// }
+// .save-cencel-footer {
+//     height: 20%;
+//     margin-top: 10%;
+// }
 .staff-cancel-btn {
     width: 110px;
     height: 39px;
     background-color: #dddddd;
     margin: 10px;
 }
+
 .card-content {
     margin: 30px;
     background-color: #edf4fe;
@@ -182,6 +184,94 @@
     &.mat-tab-label-active {
         .mat-tab-label-content {
             color: #1173f4;
+        }
+    }
+}
+
+#appearance {
+    .setting-right-side-content {
+        .save-cencel-footer {
+            padding: 0;
+            position: fixed;
+            bottom: 0;
+            width: calc(100% - 320px);
+            margin: 0;
+            box-shadow: 0 2px 2px -1px rgba(0, 0, 0, .4), 0 4px 12px 0 rgba(0, 0, 0, .4)!important;
+            right: 0;
+            .save-footer-btn {
+                display: flex;
+                justify-content: flex-end;
+            }
+        }
+        &.short-content-area {
+            .save-cencel-footer {
+                width: calc(100% - 70px);
+            }
+        }
+    }
+}
+
+#preview_container {
+    .datepicker-main {
+        background: linear-gradient(to right, #38b7fb 0%, #3969fb 100%);
+    }
+    @media only screen and (max-width: 600px) {
+        .datepicker-main {
+            overflow-x: scroll;
+        }
+    }
+    .timeslot-main {
+        .top-back-btn {
+            background-color: #e0e0e0;
+        }
+        .selected-date {
+            text-align: center;
+            margin: 15px;
+            font-size: $fs-26;
+            font-weight: $fw-400;
+        }
+        .slot-list {
+            margin: 10px auto;
+            display: table;
+            input[type="radio"] {
+                display: none;
+            }
+            input[type="radio"]:checked+.single-slot {
+                background-color: linear-gradient(to right, #38b7fb 0%, #3969fb 100%);
+                color: #ffffff;
+                border-color: linear-gradient(to right, #38b7fb 0%, #3969fb 100%);
+            }
+            .single-slot {
+                border: 2px solid $grey-3;
+                padding: 20px;
+                font-size: $fs-18;
+                color: #010101;
+                text-align: center;
+                line-height: 1;
+                width: 130px;
+                margin: 7px;
+                cursor: pointer;
+                border-radius: 8px;
+            }
+        }
+        .next-action {
+            margin: 15px;
+            text-align: center;
+            .continue-btn {
+                font-size: $fs-16;
+                background-color: $grey-3;
+                padding: 6px 25px;
+                margin: 10px;
+            }
+        }
+    }
+    .timing {
+        display: inline-block;
+    }
+    @media only screen and (max-width: 600px) {
+        .slot-list {
+            align-items: center;
+            text-align: center;
         }
     }
 }

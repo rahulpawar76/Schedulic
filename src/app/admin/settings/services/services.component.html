@@ -796,7 +796,7 @@
                                         {{staffList.username}} {{staffList.lastname}} <i class="material-icons minus-icon pointer" >remove_circle_outline</i>  
                                     </mat-list-item> 
                                </mat-list> -->
-                                    <div *ngIf="staffList != ''">
+                                    <div *ngIf="staffList != ''" class="select_staff_list">
                                         <div class="drageble-box" *ngFor="let staffList of staffList" fxLayout="row">
                                             <div class="" fxFlex="90">
                                                 <mat-checkbox (change)="fnAssignStaffToService($event.checked, staffList.id)" [checked]="assignStaffArr.indexOf(staffList.id) > -1">
