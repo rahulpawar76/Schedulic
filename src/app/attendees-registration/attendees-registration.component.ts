@@ -7,6 +7,8 @@ import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import decode from 'jwt-decode';
+import { AppComponent } from '../app.component';
+import { AuthenticationService } from '@app/_services';
 
 @Component({
   selector: 'app-attendees-registration',
@@ -16,13 +18,17 @@ import decode from 'jwt-decode';
 export class AttendeesRegistrationComponent implements OnInit {
 
 	signUpForm: FormGroup;
+	loginForm: FormGroup;
     dataLoaded: boolean = false;
+    currentUser: any;
 
   	constructor(private _formBuilder: FormBuilder,
   		private _snackBar: MatSnackBar,
 		private http: HttpClient,
   		public router: Router,
-  		private route: ActivatedRoute) { 
+  		private route: ActivatedRoute,
+        private authenticationService: AuthenticationService,
+        private appComponent:AppComponent,) { 
 
 		let emailPattern= /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
 		let onlynumeric = /^-?(0|[1-9]\d*)?$/
@@ -34,6 +40,12 @@ export class AttendeesRegistrationComponent implements OnInit {
 			phonenumber: ['',[Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(onlynumeric)]],
 			password: ['',[Validators.required,Validators.minLength(8)]],
 		});
+		this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+		if (this.authenticationService.currentUserValue) {
+            this.appComponent.fnCheckLoginStatus();
+        }else{
+            this.appComponent.fnCheckAuthState();
+        }
 
   		  	}
 
@@ -117,5 +129,12 @@ export class AttendeesRegistrationComponent implements OnInit {
 		  }, 500);
 		});
 	  }
+
+    signInWithGoogle(): void {
+        this.appComponent.signInWithGoogle(this.loginForm);
+    }
+    signInWithFB(): void {
+        this.appComponent.signInWithFB(this.loginForm);
+    }
 
 }

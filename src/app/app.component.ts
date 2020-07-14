@@ -17,7 +17,7 @@ import { environment } from '@environments/environment';
 import { MdePopoverTrigger } from '@material-extended/mde';
 import { AuthService, FacebookLoginProvider,GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { first } from 'rxjs/operators';
-
+import { BnNgIdleService } from 'bn-ng-idle';
 
 import {
   trigger,
@@ -104,7 +104,9 @@ export class AppComponent implements AfterViewInit {
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private CommonService: CommonService,
-    private authService: AuthService
+    public dialogRef2: MatDialog,
+    private authService: AuthService,
+    private bnIdle: BnNgIdleService
   ) {
     
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
@@ -112,8 +114,20 @@ export class AppComponent implements AfterViewInit {
     if (localStorage.getItem('business_id')) {
       this.businessId = localStorage.getItem('business_id');
       this.getNotificationCount(this.businessId)
-
+      
     }
+    this.bnIdle.startWatching(1800).subscribe((res) => {
+      if(res) {
+        if(this.authenticationService.currentUserValue){
+          console.log("session expired");
+          if(this.authenticationService.currentUserValue.google_id || this.authenticationService.currentUserValue.facebook_id){
+            this.logout2(true);
+          }else{
+            this.logout();
+          }
+        }
+      }
+    })
   }
   private handleError(error: HttpErrorResponse) {
     console.log(error);
@@ -422,15 +436,17 @@ export class AppComponent implements AfterViewInit {
 
   logout() {
     // this.authService.signOut();
+    this.dialogRef2.closeAll();
     this.authenticationService.logout();
-    if (this.timer) {
-      clearTimeout(this.timer);
-      this.timer = 0;
-    }
+    // if (this.timer) {
+    //   clearTimeout(this.timer);
+    //   this.timer = 0;
+    // }
     this.router.navigate(['/login']);
   }
 
   logout2(callGoogleSignOut) {
+    this.dialogRef2.closeAll();
     this.isSignOut=false;
     if(callGoogleSignOut && this.authenticationService.currentUserValue && (this.authenticationService.currentUserValue.google_id || this.authenticationService.currentUserValue.facebook_id)){
       this.authService.signOut();
@@ -442,10 +458,10 @@ export class AppComponent implements AfterViewInit {
 
   fnTemp(){
     this.authenticationService.logout();
-    if (this.timer) {
-      clearTimeout(this.timer);
-      this.timer = 0;
-    }
+    // if (this.timer) {
+    //   clearTimeout(this.timer);
+    //   this.timer = 0;
+    // }
     this.isAllowed=true;
     this.router.navigate(['/login']);
   }
@@ -509,7 +525,11 @@ export class AppComponent implements AfterViewInit {
   initiateTimeout() {
     let that = this
     that.timer = setTimeout(function () {
-      that.logout()
+      if(that.authenticationService.currentUserValue && (that.authenticationService.currentUserValue.google_id || that.authenticationService.currentUserValue.facebook_id)){
+        that.logout2(true);
+      }else{
+        that.logout();
+      }
     }, 1080000);
   }
 
@@ -992,6 +1012,7 @@ export class DialogLogoutAppointment {
     public router: Router,
     private authenticationService: AuthenticationService,
     private authService: AuthService,
+    public dialogRef2: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   onNoClick(): void {
@@ -1000,6 +1021,8 @@ export class DialogLogoutAppointment {
 
   logout() {
     //this.authService.signOut();
+
+    this.dialogRef2.closeAll();
     this.dialogRef.close();
     setTimeout(() => {
       this.fnTemp();
@@ -1008,10 +1031,10 @@ export class DialogLogoutAppointment {
 
   fnTemp(){
     this.authenticationService.logout();
-    if (this.timer) {
-      clearTimeout(this.timer);
-      this.timer = 0;
-    }
+    // if (this.timer) {
+    //   clearTimeout(this.timer);
+    //   this.timer = 0;
+    // }
     this.router.navigate(['/login']);
 
     

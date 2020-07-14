@@ -27,7 +27,7 @@ export class AppearanceComponent implements OnInit {
   ChangeAddress:boolean=false;
   settingSideMenuToggle:boolean =false;
   gradientColorDb:any;
-
+  appearanceValue :any;
   formArr= {
     contact_field_status:false,
     nameField:{
@@ -57,6 +57,7 @@ export class AppearanceComponent implements OnInit {
   textbgcolor: any = '#2889e9';
   embededCode: any;
   businessId:any
+  selectedFont: any = 'Poppins, sans-serif'
   
   model: NgbDateStruct;
   dateformatter: NgbDateParserFormatter;
@@ -85,23 +86,56 @@ export class AppearanceComponent implements OnInit {
       font : ['']
     });
     this.getSettingValue();
+    this.update_SCSS_var();
+  }
+  fnChangeFont(event){
+    console.log(event.value)
+    this.selectedFont = event.value
+    this.update_SCSS_var();
   }
 
   onChangePrimaryColor(event){
+    console.log('--'+event);
     this.primarycolor = event
+    this.update_SCSS_var();
   }
   onChangePrimaryGradient1(event){
     this.primarygradient1 = event
+    this.update_SCSS_var();
   }
   onChangePrimaryGradient2(event){
     this.primarygradient2 = event
+    this.update_SCSS_var();
   }
   onChangeTextColor(event){
     this.textcolor = event
+    this.update_SCSS_var();
   }
   onChangeTextBgColor(event){
     this.textbgcolor = event
+    this.update_SCSS_var();
   }
+
+  update_SCSS_var() {
+    this.appearanceValue = '{"pri_color":"'+this.primarycolor+'","pri_gradient1":"'+this.primarygradient1+'","pri_gradient2":"'+this.primarygradient2+'","text_color":"'+this.textcolor+'","text_bgcolor":"'+this.textbgcolor+'","font":"'+this.selectedFont+'"}';
+    console.log(this.appearanceValue);
+    const data = JSON.parse(this.appearanceValue);
+    for (const [key, value] of Object.entries(data)) {
+      this.setPropertyOfSCSS('--' + key, value);
+      // document.documentElement.style.setProperty('--' + key, value);
+    }
+  }
+
+  setPropertyOfSCSS(key, value) {
+    if (key[0] != '-') {
+      key = '--' + key;
+    }
+    if (value) {
+      document.documentElement.style.setProperty(key, value);
+    }
+    return getComputedStyle(document.documentElement).getPropertyValue(key);
+  }
+
 
   // public onChangeColor(color: string): Cmyk {
   //   const hsva = this.cpService.stringToHsva(color);

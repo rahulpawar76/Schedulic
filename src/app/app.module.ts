@@ -36,6 +36,7 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import { OnlinePaymentComponent } from './online-payment/online-payment.component';
+import { BnNgIdleService } from 'bn-ng-idle'; 
 registerLocaleData(localeDe);
 
 const config = new AuthServiceConfig([
@@ -111,7 +112,8 @@ export function provideConfig() {
         LoaderService,        
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-        { provide: AuthServiceConfig, useFactory: provideConfig }
+        { provide: AuthServiceConfig, useFactory: provideConfig },
+        BnNgIdleService
         
     ],
     bootstrap: [AppComponent],
