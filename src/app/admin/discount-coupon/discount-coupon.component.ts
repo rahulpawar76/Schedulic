@@ -294,10 +294,13 @@ export class DiscountCouponComponent implements OnInit {
             });
           });
         });
+        this.categoryServiceListTemp=this.categoryServiceList;
 
         this.isLoaderAdmin = false;
       }else if(response.data == false){
-        this.categoryServiceList = ''
+        this.categoryServiceList = []
+        this.categoryServiceListTemp = [];
+
         this.isLoaderAdmin = false;
       }
     })
@@ -452,39 +455,40 @@ export class DiscountCouponComponent implements OnInit {
      });
 
   }
-  fnsearchService(event){
-    this.categoryServiceListTemp=[];
-    console.log(event.target.value);
-    this.categoryServiceList.forEach(element => {
-      if(element.category_title && element.category_title.toLowerCase().includes(event.target.value.toLowerCase())){
-        this.categoryServiceListTemp.push(element);
-        console.log(element.category_title);
-        return;
-      }
-      element.subcategory.forEach(subelement => {
-        if(subelement.sub_category_name && subelement.sub_category_name.toLowerCase().includes(event.target.value.toLowerCase())){
-          if(!this.categoryServiceListTemp.some((item) => item.id == element.id)){
-            this.categoryServiceListTemp.push(element);
-          }
-          console.log(subelement.sub_category_name);
+
+    fnsearchService(event){
+
+      this.categoryServiceListTemp=[];
+      console.log(event.target.value);
+
+      this.categoryServiceList.forEach(element => {
+        if(element.category_title && element.category_title.toLowerCase().includes(event.target.value.toLowerCase())){
+          this.categoryServiceListTemp.push(element);
+          console.log(element.category_title);
           return;
         }
-        subelement.services.forEach(serviceselement => {
-          if(serviceselement.service_name && serviceselement.service_name.toLowerCase().includes(event.target.value.toLowerCase())){
+        element.subcategory.forEach(subelement => {
+          if(subelement.sub_category_name && subelement.sub_category_name.toLowerCase().includes(event.target.value.toLowerCase())){
             if(!this.categoryServiceListTemp.some((item) => item.id == element.id)){
               this.categoryServiceListTemp.push(element);
             }
-            console.log(serviceselement.service_name);
+            console.log(subelement.sub_category_name);
             return;
           }
+          subelement.services.forEach(serviceselement => {
+            if(serviceselement.service_name && serviceselement.service_name.toLowerCase().includes(event.target.value.toLowerCase())){
+              if(!this.categoryServiceListTemp.some((item) => item.id == element.id)){
+                this.categoryServiceListTemp.push(element);
+              }
+              console.log(serviceselement.service_name);
+              return;
+            }
+          });
         });
       });
-    });
-    // this.searchService = value;
-    // this.getCateServiceList();
-    // this.searchedServices = true;
-  }
-  
+
+    }
+
   
 }
 

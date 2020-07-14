@@ -895,6 +895,10 @@ export class StaffComponent implements OnInit {
         });
       });
     });
+
+    
+    console.log(this.categoryServiceList);
+
   }
 
   getCateServiceList(){

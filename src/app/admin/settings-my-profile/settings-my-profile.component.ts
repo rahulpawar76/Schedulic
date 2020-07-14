@@ -125,7 +125,7 @@ constructor(
   private _snackBar: MatSnackBar,
   @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
-  onNoClick(): void {
+    onNoClick(): void {
       this.dialogRef.close(this.profileImage);
     }
     ngOnInit() {
@@ -137,23 +137,31 @@ constructor(
       return this.uploadForm.controls;
     }
     
-onFileChange(event) {
-  const reader = new FileReader();
-  if (event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-          this.imageSrc = reader.result as string;
-          this.uploadForm.patchValue({
-              fileSource: reader.result
-          });
-      };
-  }
-}
-uploadImage() {
-  this.profileImage = this.imageSrc
-  this.dialogRef.close(this.profileImage);
-}
+      onFileChange(event) {
+        const reader = new FileReader();
+        if (event.target.files && event.target.files.length) {
+            const [file] = event.target.files;
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                this.imageSrc = reader.result as string;
+                this.uploadForm.patchValue({
+                    fileSource: reader.result
+                });
+            };
+        }
+      }
+
+
+    uploadImage() {
+      this.profileImage = this.imageSrc
+      this.dialogRef.close(this.profileImage);
+      this._snackBar.open("image selected", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['green-snackbar']
+      });
+      
+    }
 
 
 }

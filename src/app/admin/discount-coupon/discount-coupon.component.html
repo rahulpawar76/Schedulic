@@ -224,7 +224,7 @@
                         </mat-form-field>
 
                         <mat-accordion *ngIf="categoryServiceList != ''" class="select-service-accordian">
-                            <mat-expansion-panel [expanded]="searchedServices" *ngFor="let categoryServiceListval of categoryServiceList; let i=index">
+                            <mat-expansion-panel [expanded]="searchedServices" *ngFor="let categoryServiceListval of categoryServiceListTemp; let i=index">
                                 <mat-expansion-panel-header>
                                     <mat-panel-title class="service-title">
                                         <mat-checkbox (change)="checkServie($event,'category',i)" [checked]="categoryServiceListval.is_selected">{{categoryServiceListval.category_title}}</mat-checkbox>
@@ -243,7 +243,7 @@
                                 </mat-expansion-panel>
                             </mat-expansion-panel>
                         </mat-accordion>
-                        <div class="categoryServiceList == ''">
+                        <div class="categoryServiceList.length == 0">
                             <p>No Service Found</p>
                         </div>
                     </mat-card>

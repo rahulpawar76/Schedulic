@@ -1439,6 +1439,13 @@ export class ServicesComponent implements OnInit {
     uploadImage() {
         this.profileImage = this.imageSrc
         this.dialogRef.close(this.profileImage);
+
+        this._snackBar.open("image selected", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass: ['green-snackbar']
+        });
+
       }
       
       
@@ -1500,6 +1507,11 @@ export class ServicesComponent implements OnInit {
     uploadImage() {
         this.profileImage = this.imageSrc
         this.dialogRef.close(this.profileImage);
+        this._snackBar.open("image selected", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass: ['green-snackbar']
+        });
       }
       
       
@@ -1568,6 +1580,12 @@ export class ServicesComponent implements OnInit {
     uploadImage() {
         this.profileImage = this.imageSrc
         this.dialogRef.close(this.profileImage);
+        this._snackBar.open("image selected", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass: ['green-snackbar']
+        });
+        
       }
       
       
