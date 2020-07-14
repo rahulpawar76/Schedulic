@@ -572,7 +572,7 @@ export class StaffAppointmentComponent implements OnInit {
       this.subcatdata=[];
       this.serviceData=[];
       this.formAddNewAppointmentStaffStep1 = this._formBuilder.group({
-        customerFullName: ['', ],
+        customerFullName: [''],
         customerEmail: [''],
         customerPhone: [''],
         customerAddress: [''],
@@ -718,7 +718,7 @@ export class StaffAppointmentComponent implements OnInit {
       ).subscribe((response:any) => {
         if(response.data == true){
           this.formAddNewAppointmentStaffStep1 = this._formBuilder.group({
-            customerFullName: ['', Validators.required,Validators.minLength(4),Validators.maxLength(16)],
+            customerFullName: ['', [Validators.required,Validators.minLength(4),Validators.maxLength(16)]],
             customerEmail: ['', [Validators.required,Validators.email,Validators.pattern(this.emailPattern)]],
             customerPhone: ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
             customerAddress: ['', Validators.required],

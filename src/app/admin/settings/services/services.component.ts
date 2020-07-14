@@ -118,6 +118,7 @@ export class ServicesComponent implements OnInit {
     selectAllSubCat:boolean = false;
     selectedCategoryID:any;
     selectedSubCategoryID:any;
+    fromcategory:boolean=false;
     constructor(
         // private userService: UserService,
         public Change:ChangeDetectorRef,
@@ -208,7 +209,7 @@ export class ServicesComponent implements OnInit {
         this.createNewCategoryPage = true;
          this.servicesList = true;
          this.createCategory.reset();
-         this.fnSelectCategory(this.editCategoryId, this.selectedCategoryIndex);  
+         // this.fnSelectCategory(this.editCategoryId, this.selectedCategoryIndex);  
          this.editCategoryId = '';
 
     }
@@ -405,6 +406,7 @@ export class ServicesComponent implements OnInit {
         this.selectedCategoryIndex = index
         this.createNewCategoryPage = false;
         this.createNewServicePage = false;
+        this.fromcategory=true;
         this.adminSettingsService.getServiceForCategoiry(categoryId, this.service_filter,this.serviceApiUrl2).subscribe((response: any) => {
             if (response.data == true) {
               
@@ -477,6 +479,7 @@ export class ServicesComponent implements OnInit {
         this.selectCategoryPage = '';
         this.createNewSubCategoryPage = true;
         this.parentCategoryId = categoryId
+        // this.fromcategory=true;
     }
     newSubCategoryStatus(event) {
         if (event == true) {
@@ -942,6 +945,7 @@ export class ServicesComponent implements OnInit {
         this.isLoaderAdmin = true;
         this.createNewSubCategoryPage = false;
         this.createNewCategoryPage = false;
+        this.fromcategory = false;
         this.selectedSubCategoryID = subCategoryId;
         this.selectedSubCategoryIndex = index;
         this.adminSettingsService.getServiceForSubCategoiry(subCategoryId, this.subcategory_service_filter,this.serviceApiUrl3).subscribe((response: any) => {
@@ -1054,17 +1058,25 @@ export class ServicesComponent implements OnInit {
     }
 
     fnCalcelNewSubcategory(){
-
-    this.servicesList = true;
-    this.createNewServicePage = false;
-    this.createNewSubCategoryPage = false;  
+        this.servicesList = false;
+        this.createNewServicePage = false;
+        this.createNewSubCategoryPage = false;  
+        this.selectCategoryPage="services";
     }
     fnCancelAddService(){
         // this.servicesList = true;
         // this.createNewServicePage = false;
         // this.createNewSubCategoryPage = false;        
-        this.fnSelectCategory(this.selectedCategoryID, this.selectedCategoryIndex);  
-     
+        // this.fnSelectCategory(this.selectedCategoryID, this.selectedCategoryIndex);  
+        this.servicesList = false;
+        this.createNewServicePage = false;
+        this.createNewSubCategoryPage = false;  
+        if(this.fromcategory == true){
+            this.selectCategoryPage="services";
+        }else{
+          this.singleSubCategoryPage="services";  
+        }
+        
     }
     fnNewServiceStatus(event) {
         if (event == true) {

@@ -359,10 +359,12 @@ customerUpdate(existingCustomerData){
       this.fnSelectCustomer(existingCustomerData.customer_id);
       this.existingUserId = undefined;
       this.fnCancelNewCustomer();
+      this.customerImageUrl='';
       this.isLoaderAdmin = false;
     }
     else if(response.data == false){
       // this.allCustomers = ''
+      this.customerImageUrl='';
     this.isLoaderAdmin = false;
     }
   })
@@ -2705,6 +2707,16 @@ onFileChange(event) {
 
   const reader = new FileReader();
   if (event.target.files && event.target.files.length) {
+    for(var i = 0; i < event.target.files.length; i++) {
+      if(event.target.files[i].type!="image/png" && event.target.files[i].type!="image/jpeg" && event.target.files[i].type!="image/jpg" && event.target.files[i].type!="image/gif"){
+        this._snackBar.open("Select valid image file", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+        return false;
+      }
+    }
       const [file] = event.target.files;
       reader.readAsDataURL(file);
       reader.onload = () => {
@@ -2716,6 +2728,15 @@ onFileChange(event) {
   }
 }
 uploadImage() {
+  if(this.uploadForm.invalid){
+    this.uploadForm.controls['profile'].markAsTouched();
+    this._snackBar.open("Select Image", "X", {
+      duration: 2000,
+      verticalPosition:'top',
+      panelClass :['red-snackbar']
+    });
+    return false;
+  }
   this.profileImage = this.imageSrc
   this.dialogRef.close(this.profileImage);
 }

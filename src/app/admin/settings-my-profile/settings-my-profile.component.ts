@@ -130,38 +130,51 @@ constructor(
     }
     ngOnInit() {
       this.uploadForm = this._formBuilder.group({
-        profile: ['']
+        profile: ['',Validators.required]
       });
     }
     get f() {
       return this.uploadForm.controls;
     }
     
-      onFileChange(event) {
-        const reader = new FileReader();
-        if (event.target.files && event.target.files.length) {
-            const [file] = event.target.files;
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                this.imageSrc = reader.result as string;
-                this.uploadForm.patchValue({
-                    fileSource: reader.result
-                });
-            };
-        }
-      }
-
-
-    uploadImage() {
-      this.profileImage = this.imageSrc
-      this.dialogRef.close(this.profileImage);
-      this._snackBar.open("image selected", "X", {
+onFileChange(event) {
+  console.log(event.target.files);
+  const reader = new FileReader();
+  if (event.target.files && event.target.files.length) {
+    for(var i = 0; i < event.target.files.length; i++) {
+      if(event.target.files[i].type!="image/png" && event.target.files[i].type!="image/jpeg" && event.target.files[i].type!="image/jpg" && event.target.files[i].type!="image/gif"){
+        this._snackBar.open("Select valid image file", "X", {
           duration: 2000,
-          verticalPosition: 'top',
-          panelClass: ['green-snackbar']
-      });
-      
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+        return false;
+      }
     }
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+          this.imageSrc = reader.result as string;
+          this.uploadForm.patchValue({
+              fileSource: reader.result
+          });
+      };
+  }
+}
+uploadImage() {
+  if(this.uploadForm.invalid){
+    this.uploadForm.controls['profile'].markAsTouched();
+    this._snackBar.open("Select Image", "X", {
+      duration: 2000,
+      verticalPosition:'top',
+      panelClass :['red-snackbar']
+    });
+    return false;
+  }
+  this.profileImage = this.imageSrc;
+  this.dialogRef.close(this.profileImage);
+}
+
 
 
 }
