@@ -32,9 +32,11 @@
                 }
                 #login-form {
                     background-color: #ffffff93;
+                    height: calc(100% - 130px) !important;
                 }
                 #login-with-social {
                     background-color: #457cfa;
+                    height: 130px;
                     .social-btns {
                         margin: 20px auto;
                         display: table;
