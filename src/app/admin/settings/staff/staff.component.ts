@@ -94,6 +94,29 @@ export class StaffComponent implements OnInit {
   sundayWorkingHourStartTimeIndex:any;
   sundayWorkingHourEndTimeIndex:any;
 
+  bussinessWorkingHoursList: any=[];
+  bussinessSundayOn : boolean;
+  bussinessMondayOn : boolean;
+  bussinessTuesdayOn : boolean;
+  bussinessWednesdayOn : boolean;
+  bussinessThursdayOn : boolean;
+  bussinessFridayOn : boolean;
+  bussinessSaturdayOn : boolean;
+  mondayBussinessWorkingHourStartTimeIndex:any;
+  mondayBussinessWorkingHourEndTimeIndex:any;
+  tuesdayBussinessWorkingHourStartTimeIndex:any;
+  tuesdayBussinessWorkingHourEndTimeIndex:any;
+  wednesdayBussinessWorkingHourStartTimeIndex:any;
+  wednesdayBussinessWorkingHourEndTimeIndex:any;
+  thursdayBussinessWorkingHourStartTimeIndex:any;
+  thursdayBussinessWorkingHourEndTimeIndex:any;
+  fridayBussinessWorkingHourStartTimeIndex:any;
+  fridayBussinessWorkingHourEndTimeIndex:any;
+  saturdayBussinessWorkingHourStartTimeIndex:any;
+  saturdayBussinessWorkingHourEndTimeIndex:any;
+  sundayBussinessWorkingHourStartTimeIndex:any;
+  sundayBussinessWorkingHourEndTimeIndex:any;
+
   breakTimeList: any=[];
   selectedStartTimeMonday: any;
   selectedEndTimeMonday: any;
@@ -220,7 +243,8 @@ export class StaffComponent implements OnInit {
     if (localStorage.getItem('business_id')) {
       this.businessId = localStorage.getItem('business_id');
     }
-    this.fnGetTimeSlotsList("08:00","23:00","30");
+    this.fnGetWorkingHours();
+    this.fnGetTimeSlotsList("08:00","18:00","30");
     this.formSetWorkingHours = this._formBuilder.group({
       mondayToggle: [false],
       mondayStartTime: [this.timeSlotList[0].long],
@@ -468,6 +492,163 @@ export class StaffComponent implements OnInit {
       }
     })
   }
+
+  fnGetWorkingHours(){
+    let requestObject={
+      "business_id":this.businessId
+    }
+    this.adminSettingsService.getWorkingHours(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.bussinessWorkingHoursList=response.response;
+        console.log(this.bussinessWorkingHoursList);
+        this.bussinessWorkingHoursList.forEach(element => {
+          if(element.week_day_id == 0){
+            element.week_day_name="Sunday";
+            if(element.off_day=="N"){
+              this.bussinessSundayOn=true;
+            }else{
+              this.bussinessSundayOn=false;
+            }
+            if(element.day_start_time && element.day_end_time){
+              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
+              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            }
+          }
+          if(element.week_day_id == 1){
+            element.week_day_name="Monday";            
+            if(element.off_day=="N"){
+              this.bussinessMondayOn=true;
+            }else{
+              this.bussinessMondayOn=false;
+            }
+            if(element.day_start_time && element.day_end_time){
+              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
+              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            }
+          }
+          if(element.week_day_id == 2){
+            element.week_day_name="Tuesday";         
+            if(element.off_day=="N"){
+              this.bussinessTuesdayOn=true;
+            }else{
+              this.bussinessTuesdayOn=false;
+            }
+            if(element.day_start_time && element.day_end_time){
+              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
+              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            }
+          }
+          if(element.week_day_id == 3){
+            element.week_day_name="Wednesday";        
+            if(element.off_day=="N"){
+              this.bussinessWednesdayOn=true;
+            }else{
+              this.bussinessWednesdayOn=false;
+            }
+            if(element.day_start_time && element.day_end_time){
+            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
+            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            }
+          }
+          if(element.week_day_id == 4){
+            element.week_day_name="Thursday";       
+            if(element.off_day=="N"){
+              this.bussinessThursdayOn=true;
+            }else{
+              this.bussinessThursdayOn=false;
+            }
+            if(element.day_start_time && element.day_end_time){
+            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
+            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            }
+          }
+          if(element.week_day_id == 5){
+            element.week_day_name="Friday";     
+            if(element.off_day=="N"){
+              this.bussinessFridayOn=true;
+            }else{
+              this.bussinessFridayOn=false;
+            }
+            if(element.day_start_time && element.day_end_time){
+            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
+            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            }
+          }
+          if(element.week_day_id == 6){
+            element.week_day_name="Saturday";    
+            if(element.off_day=="N"){
+              this.bussinessSaturdayOn=true;
+            }else{
+              this.bussinessSaturdayOn=false;
+            }
+            if(element.day_start_time && element.day_end_time){
+            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
+            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            }
+          }
+        });
+        console.log(this.bussinessWorkingHoursList);
+
+        for(var i=0; i<this.timeSlotList.length; i++){
+          if(this.timeSlotList[i].long==this.bussinessWorkingHoursList[0].day_start_time){
+            this.mondayBussinessWorkingHourStartTimeIndex=i;
+          }
+          if(this.timeSlotList[i].long==this.bussinessWorkingHoursList[0].day_end_time){
+            this.mondayBussinessWorkingHourEndTimeIndex=i;
+          }
+          
+          if(this.timeSlotList[i].long==this.bussinessWorkingHoursList[1].day_start_time){
+            this.tuesdayBussinessWorkingHourStartTimeIndex=i;
+          }
+          if(this.timeSlotList[i].long==this.bussinessWorkingHoursList[1].day_end_time){
+            this.tuesdayBussinessWorkingHourEndTimeIndex=i;
+          }
+          
+          if(this.timeSlotList[i].long==this.bussinessWorkingHoursList[2].day_start_time){
+            this.wednesdayBussinessWorkingHourStartTimeIndex=i;
+          }
+          if(this.timeSlotList[i].long==this.bussinessWorkingHoursList[2].day_end_time){
+            this.wednesdayBussinessWorkingHourEndTimeIndex=i;
+          }
+          
+          if(this.timeSlotList[i].long==this.bussinessWorkingHoursList[3].day_start_time){
+            this.thursdayBussinessWorkingHourStartTimeIndex=i;
+          }
+          if(this.timeSlotList[i].long==this.bussinessWorkingHoursList[3].day_end_time){
+            this.thursdayBussinessWorkingHourEndTimeIndex=i;
+          }
+          
+          if(this.timeSlotList[i].long==this.bussinessWorkingHoursList[4].day_start_time){
+            this.fridayBussinessWorkingHourStartTimeIndex=i;
+          }
+          if(this.timeSlotList[i].long==this.bussinessWorkingHoursList[4].day_end_time){
+            this.fridayBussinessWorkingHourEndTimeIndex=i;
+          }
+          
+          if(this.timeSlotList[i].long==this.bussinessWorkingHoursList[5].day_start_time){
+            this.saturdayBussinessWorkingHourStartTimeIndex=i;
+          }
+          if(this.timeSlotList[i].long==this.bussinessWorkingHoursList[5].day_end_time){
+            this.saturdayBussinessWorkingHourEndTimeIndex=i;
+          }
+          
+          if(this.timeSlotList[i].long==this.bussinessWorkingHoursList[6].day_start_time){
+            this.sundayBussinessWorkingHourStartTimeIndex=i;
+          }
+          if(this.timeSlotList[i].long==this.bussinessWorkingHoursList[6].day_end_time){
+            this.sundayBussinessWorkingHourEndTimeIndex=i;
+          }
+
+        }
+        console.log(this.mondayBussinessWorkingHourStartTimeIndex);
+        console.log(this.mondayBussinessWorkingHourEndTimeIndex);
+      }
+      else{
+       
+      }
+    })
+  }
+
   fnChangeStaffStatus(event, staffId) {
     this.isLoaderAdmin = true;
     if (event == true) {
