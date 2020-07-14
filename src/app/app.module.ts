@@ -39,6 +39,7 @@ import { OnlinePaymentComponent } from './online-payment/online-payment.componen
 import { BnNgIdleService } from 'bn-ng-idle'; 
 registerLocaleData(localeDe);
 
+
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
