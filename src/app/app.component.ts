@@ -133,6 +133,7 @@ export class AppComponent implements AfterViewInit {
     console.log(error);
     return throwError('Error! something went wrong.');
   }
+  
 
 
 
