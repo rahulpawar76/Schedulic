@@ -20,7 +20,7 @@
     <div class="report-right-side-content" [ngClass]="{ 'short-content-area': reportSideMenuToggle === true }">
         <div class="d-flex main-custmer-content ">
             <div class="d-flex pl-3 w-100">
-                <mat-form-field class="pr-3 bottom-border-field">
+                <mat-form-field class="pr-3 bottom-border-field report-date-range-main">
                     <input matInput type="text" ngxDaterangepickerMd [locale]="options" [(ngModel)]="selected" showCancel="true" alwaysShowCalendars="true" (change)="changeDateRange($event)" readonly="readonly" />
                     <!-- <ngx-daterangepicker-material (choosedDate)="choosedDate($event)">
               </ngx-daterangepicker-material> -->
