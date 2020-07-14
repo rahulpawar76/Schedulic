@@ -360,7 +360,14 @@ export class DialogNewCSVPostalCode {
       formData.append('file', this.fileToUpload);
       formData.append('business_id',JSON.parse(localStorage.getItem('business_id')));
 
-      this.http.post(`${environment.apiUrl}/postalcode-import`,formData ).pipe(map((response : any) =>{
+      var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+      let headers = new HttpHeaders({
+        'admin-id' : JSON.stringify(currentUser.user_id),
+        'api-token' : currentUser.token,
+      });
+
+      this.http.post(`${environment.apiUrl}/postal-code-import`,formData,{headers:headers} ).pipe(map((response : any) =>{
 
       if(response.data  == true){
 
