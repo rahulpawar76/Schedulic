@@ -125,7 +125,7 @@ constructor(
   private _snackBar: MatSnackBar,
   @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
-  onNoClick(): void {
+    onNoClick(): void {
       this.dialogRef.close(this.profileImage);
     }
     ngOnInit() {
@@ -174,6 +174,7 @@ uploadImage() {
   this.profileImage = this.imageSrc;
   this.dialogRef.close(this.profileImage);
 }
+
 
 
 }

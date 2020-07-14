@@ -309,6 +309,20 @@ constructor(
     }
     
 onFileChange(event) {
+
+  var file_type = event.target.files[0].type;
+
+  if(file_type!='image/jpeg' &&  file_type!='image/png' && file_type!='image/jpg' &&  file_type!='image/gif'){
+      
+      this._snackBar.open("Sorry, only JPG, JPEG, PNG & GIF files are allowed", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+      });
+      return;
+  }
+ 
+  
   const reader = new FileReader();
   if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;

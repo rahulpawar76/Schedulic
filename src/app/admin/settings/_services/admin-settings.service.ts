@@ -640,7 +640,7 @@ export class AdminSettingsService {
     // Staff Module
     getAllStaff(api_url) {
         let requestObject = {
-            'business_id': this.businessId,
+            'business_id': localStorage.getItem('business_id'),
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',

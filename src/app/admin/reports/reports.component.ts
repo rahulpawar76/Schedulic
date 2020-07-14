@@ -6,6 +6,8 @@ import { DatePipe} from '@angular/common';
 import { NgbDateParserFormatter, NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import { ExportToCsv } from 'export-to-csv';
 import { environment } from '@environments/environment';
+import * as domtoimage from 'dom-to-image';
+ import * as jspdf from 'jspdf';
 //import moment from 'moment';
 
 @Component({
@@ -463,6 +465,84 @@ export class ReportsComponent implements OnInit {
     
     // WindowPrt.close();
   }
+
+  fnDownloadPDF(){
+
+    if(this.isAppointmentReport){
+
+      let HTML_Width = document.getElementById('appointment_listing').offsetWidth;
+      let HTML_Height = document.getElementById('appointment_listing').clientHeight;
+      let top_left_margin = 35;
+      let PDF_Width = HTML_Width + (top_left_margin * 2);
+      let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+      let canvas_image_width = HTML_Width;
+      let canvas_image_height = HTML_Height;
+
+      let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+      let today = Date.now();
+
+      domtoimage.toPng(document.getElementById('appointment_listing')).then(function (blob) {
+        var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
+          pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+          for (let i = 1; i <= totalPDFPages; i++) {
+            pdf.addPage(PDF_Width, PDF_Height);
+            pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+          }
+           pdf.save("appointment_report" + today + ".pdf");
+      });
+
+    }else if(this.isSalesReport){
+
+      
+      let HTML_Width = document.getElementById('sales_report').offsetWidth;
+      let HTML_Height = document.getElementById('sales_report').clientHeight;
+      let top_left_margin = 35;
+      let PDF_Width = HTML_Width + (top_left_margin * 2);
+      let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+      let canvas_image_width = HTML_Width;
+      let canvas_image_height = HTML_Height;
+
+      let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+      let today = Date.now();
+
+      domtoimage.toPng(document.getElementById('sales_report')).then(function (blob) {
+        var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
+          pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+          for (let i = 1; i <= totalPDFPages; i++) {
+            pdf.addPage(PDF_Width, PDF_Height);
+            pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+          }
+           pdf.save("sales_report" + today + ".pdf");
+      });
+
+    }else if(this.isCustomerReport){
+      const printContent = document.getElementById("customer_report");
+
+      let HTML_Width = document.getElementById('customer_report').offsetWidth;
+      let HTML_Height = document.getElementById('customer_report').clientHeight;
+      let top_left_margin = 35;
+      let PDF_Width = HTML_Width + (top_left_margin * 2);
+      let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+      let canvas_image_width = HTML_Width;
+      let canvas_image_height = HTML_Height;
+
+      let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+      let today = Date.now();
+
+      domtoimage.toPng(document.getElementById('customer_report')).then(function (blob) {
+        var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
+          pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+          for (let i = 1; i <= totalPDFPages; i++) {
+            pdf.addPage(PDF_Width, PDF_Height);
+            pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+          }
+           pdf.save("customer_report" + today + ".pdf");
+      });
+
+    }
+    
+  }
+
 
   downloadRepoer(){ 
     const options = { 

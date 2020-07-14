@@ -5,6 +5,10 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError, from } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { environment } from '@environments/environment';
 
 export interface DialogData {
   
@@ -55,6 +59,21 @@ export class PostalcodesComponent implements OnInit {
       }
     });
   }
+
+  addcsvPostalCode(){
+
+    const dialogRef = this.dialog.open(DialogNewCSVPostalCode, {
+      width: '500px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if(result){
+        this.fnGetPostalCodeList();
+      }
+    });
+  }
+
 
   fnGetPostalCodeList(){
     this.adminSettingsService.getPostalCodeList().subscribe((response:any) => {
@@ -283,4 +302,84 @@ export class DialogAddPostalCode {
 
 
 }
+
+
+
+
+@Component({
+  selector: 'csv-postalcode',
+  templateUrl: '../_dialogs/add-csv-postalcode.html',
+})
+export class DialogNewCSVPostalCode {
+  formCreatePostalCode : FormGroup;
+  businessId : any;
+  staffList : any;
+  
+  fileToUpload:any;
+  isLoaderAdmin : boolean = false;
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogNewCSVPostalCode>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    public adminSettingsService : AdminSettingsService,
+    private _formBuilder: FormBuilder,
+    private _snackBar: MatSnackBar,
+    public http: HttpClient,
+
+    ) {
+
+    if(localStorage.getItem('business_id')){
+        this.businessId = localStorage.getItem('business_id');
+    }
+   
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  
+
+  private handleError(error: HttpErrorResponse) {
+      return throwError('Error! something went wrong.');
+  }
+
+  handleFileInput(files): void {
+
+      this.fileToUpload = files.item(0);
+      if(this.fileToUpload.type != "application/vnd.ms-excel"){
+
+          this._snackBar.open("Please select CSV file", "X", {
+              duration: 2000,
+              verticalPosition:'top',
+              panelClass :['red-snackbar']
+          });
+        return;
+      }
+
+      const formData: FormData = new FormData();
+      formData.append('file', this.fileToUpload);
+      formData.append('business_id',JSON.parse(localStorage.getItem('business_id')));
+
+      this.http.post(`${environment.apiUrl}/postalcode-import`,formData ).pipe(map((response : any) =>{
+
+      if(response.data  == true){
+
+          this._snackBar.open("CSV file is uploaded", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+          });
+
+          this.dialogRef.close();
+
+      }
+      }),catchError(this.handleError)).subscribe((res) => {
+           console.log(res);
+      });
+
+  }
+
+}
+
+
 

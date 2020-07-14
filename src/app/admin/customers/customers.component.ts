@@ -15,7 +15,7 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { AppComponent } from '@app/app.component';
 import { ExportToCsv } from 'export-to-csv';
 import * as domtoimage from 'dom-to-image';
-// import * as jspdf from 'jspdf';
+ import * as jspdf from 'jspdf';
 //import { IgxExcelExporterService, IgxExcelExporterOptions } from "igniteui-angular";
 
 
@@ -2691,6 +2691,20 @@ constructor(
     }
     
 onFileChange(event) {
+  
+  var file_type = event.target.files[0].type;
+
+  if(file_type!='image/jpeg' &&  file_type!='image/png' && file_type!='image/jpg' &&  file_type!='image/gif'){
+      
+      this._snackBar.open("Sorry, only JPG, JPEG, PNG & GIF files are allowed", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+      });
+      return;
+  }
+ 
+
   const reader = new FileReader();
   if (event.target.files && event.target.files.length) {
     for(var i = 0; i < event.target.files.length; i++) {
@@ -2754,6 +2768,9 @@ onNoClick(): void {
 export class DialogViewReview {
 detailsData: any;
 orderDataFull:any;
+
+
+
 constructor(
   public dialogRef: MatDialogRef<DialogViewReview>,
   private AdminService: AdminService,
@@ -2801,7 +2818,13 @@ onNoClick(): void {
     currencySymbolFormat:any;
     bussinessId:any;
     businessData:any;
+    adminId:any;
+    businessId : any;
+    isLoaderAdmin : boolean = false;
+    token:any;
+
     constructor(
+      private http: HttpClient,
       public dialogRef: MatDialogRef<DialogInvoiceDialog>,
       private authenticationService: AuthenticationService,
       private AdminService: AdminService,
@@ -2809,23 +2832,20 @@ onNoClick(): void {
       private _snackBar: MatSnackBar,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.settingsArr = this.data.setting;
-        console.log(this.settingsArr);  
-        // this.bussinessId=this.authenticationService.currentUserValue.business_id;
-        
-    this.bussinessId=JSON.parse(localStorage.getItem('business_id'));
+        this.adminId=(JSON.parse(localStorage.getItem('currentUser'))).user_id;
+        this.token=(JSON.parse(localStorage.getItem('currentUser'))).token;
+
+        this.bussinessId=JSON.parse(localStorage.getItem('business_id'));
         this.getBusinessDetail();
 
         this.currencySymbol = this.settingsArr.currency;
-        console.log(this.currencySymbol);
 
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-        console.log(this.currencySymbolPosition);
 
         this.currencySymbolFormat = this.settingsArr.currency_format;
-        console.log(this.currencySymbolFormat);
+
         this.paymentInfo.invoice_date=this.datePipe.transform(new Date(), 'dd/MM/yyyy');
         this.paymentData = this.data.fulldata;
-        console.log(this.paymentData);
         
         this.paymentInfo.invoiceNumber = "2"+this.paymentData.id+this.datePipe.transform(new Date(),"yyyy/MM/dd");
         this.paymentInfo.customer_name=this.paymentData.get_customer.fullname;
@@ -2841,8 +2861,7 @@ onNoClick(): void {
         this.paymentInfo.service_discount=this.paymentData.orders.discount;
         this.paymentInfo.service_netCost=this.paymentData.orders.total_cost;
         this.serviceTaxArr=JSON.parse(this.paymentData.orders.tax);
-        console.log(this.paymentInfo);
-        console.log(this.serviceTaxArr);
+      
       }
 
     onNoClick(): void {
@@ -2876,92 +2895,102 @@ onNoClick(): void {
       WindowPrt.print();
       // WindowPrt.close();
     }
-    public captureScreen() {
-      // this.loader = true;
-      // let setLable = "invoice";
-      // if (!document.getElementById('printInvoice')) {
-      //   // this.loader = false;
-      //   return false;
-      // }
-      // let data = document.getElementById('printInvoice');
-      // let HTML_Width = document.getElementById('printInvoice').offsetWidth;
-      // let HTML_Height = document.getElementById('printInvoice').clientHeight;
-      // let top_left_margin = 35;
-      // let PDF_Width = HTML_Width + (top_left_margin * 2);
-      // let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
-      // let canvas_image_width = HTML_Width;
-      // let canvas_image_height = HTML_Height;
 
-      // let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
-      // let today = Date.now();
-      // let that = this;
-      // domtoimage.toPng(document.getElementById('printInvoice'))
-      //   .then(function (blob) {
-      //     var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
-      //     pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-      //     for (let i = 1; i <= totalPDFPages; i++) {
-      //       pdf.addPage(PDF_Width, PDF_Height);
-      //       pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
-      //     }
-      //     pdf.save("invoice_" + today + ".pdf");
-      //     // that.loader = false;
-      //   });
+    captureScreen() {
+
+      let setLable = "invoice";
+      if (!document.getElementById('printInvoice')) {
+        return false;
+      }
+
+      let data = document.getElementById('printInvoice');
+      let HTML_Width = document.getElementById('printInvoice').offsetWidth;
+      let HTML_Height = document.getElementById('printInvoice').clientHeight;
+      let top_left_margin = 35;
+      let PDF_Width = HTML_Width + (top_left_margin * 2);
+      let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+      let canvas_image_width = HTML_Width;
+      let canvas_image_height = HTML_Height;
+
+      let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+      let today = Date.now();
+      let that = this;
+      domtoimage.toPng(document.getElementById('printInvoice'))
+        .then(function (blob) {
+          var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
+          pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+          for (let i = 1; i <= totalPDFPages; i++) {
+            pdf.addPage(PDF_Width, PDF_Height);
+            pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+          }
+          pdf.save("invoice_" + today + ".pdf");
+        });
     }
 
     fnSendInvoiceEmail(){
-      // let setLable = "invoice";
-      // if (!document.getElementById('printInvoice')) {
-      //   return false;
-      // }
-      // let data = document.getElementById('printInvoice');
-      // let HTML_Width = document.getElementById('printInvoice').offsetWidth;
-      // let HTML_Height = document.getElementById('printInvoice').clientHeight;
-      // let top_left_margin = 35;
-      // let PDF_Width = HTML_Width + (top_left_margin * 2);
-      // let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
-      // let canvas_image_width = HTML_Width;
-      // let canvas_image_height = HTML_Height;
 
-      // let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
-      // let today = Date.now();
-      // let that = this;
-      // var formData = new FormData();
-      // domtoimage.toPng(document.getElementById('printInvoice'))
-      //   .then(function (blob) {
-      //     var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
-      //     pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-      //     for (let i = 1; i <= totalPDFPages; i++) {
-      //       pdf.addPage(PDF_Width, PDF_Height);
-      //       pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
-      //     }
-      //     console.log(pdf);
-      //     // pdf.save("invoice_" + today + ".pdf");
-      //     // that.loader = false;
-      //     setTimeout(() => { 
+  
+      let setLable = "invoice";
+      if (!document.getElementById('printInvoice')) {
+        return false;
+      }
+      let data = document.getElementById('printInvoice');
+      let HTML_Width = document.getElementById('printInvoice').offsetWidth;
+      let HTML_Height = document.getElementById('printInvoice').clientHeight;
+      let top_left_margin = 35;
+      let PDF_Width = HTML_Width + (top_left_margin * 2);
+      let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+      let canvas_image_width = HTML_Width;
+      let canvas_image_height = HTML_Height;
+
+      let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+      let today = Date.now();
+      let that = this;
+      var formData = new FormData();
+      var customer_email = this.paymentInfo.customer_email;
+
+      domtoimage.toPng(document.getElementById('printInvoice')).then(function (blob) {
+
+        var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
+
+          pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+          
+          for (let i = 1; i <= totalPDFPages; i++) {
+            pdf.addPage(PDF_Width, PDF_Height);
+            pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+          }
+
+           pdf.save("invoice_" + today + ".pdf");
+
+          setTimeout(() => { 
             
-      //       // formData.append('data' , pdf);
-      //       formData.append('invoice_pdf', pdf.output('blob'));
-      //       // formData.append('email', this.paymentInfo.customer_email);
-      //       formData.append('email', "akie.5609@gmail.com");
-      //         console.log(formData);
-      //         that.AdminService.sendInvoiceEmail(formData).subscribe((response:any) => {
-      //           if(response.data == true){
-      //             that._snackBar.open(response.response, "X", {
-      //               duration: 2000,
-      //               verticalPosition:'top',
-      //               panelClass :['green-snackbar']
-      //             });
-      //           }
-      //           else if(response.data == false){
-      //             that._snackBar.open(response.response, "X", {
-      //               duration: 2000,
-      //               verticalPosition:'top',
-      //               panelClass :['red-snackbar']
-      //             });
-      //           }
-      //         })
-      //     }, 3000);
-      //   });
+            formData.append('invoice_pdf', pdf.output('blob'));
+            formData.append('email', customer_email);
+            //formData.append('email', "akie.5609@gmail.com");
+
+              that.AdminService.sendInvoiceEmail(formData).subscribe((response:any) => {
+                if(response.data == true){
+
+                  that._snackBar.open(response.response, "X", {
+                    duration: 2000,
+                    verticalPosition:'top',
+                    panelClass :['green-snackbar']
+                  });
+
+                }else if(response.data == false){
+
+                  that._snackBar.open(response.response, "X", {
+                    duration: 2000,
+                    verticalPosition:'top',
+                    panelClass :['red-snackbar']
+                  });
+                  
+                }
+              })
+
+          }, 5000);
+
+        });
     }
 
   }
