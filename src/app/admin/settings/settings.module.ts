@@ -23,6 +23,8 @@ import { DialogAddNewTimeOff } from './staff/staff.component';
 import { DialogAddNewTimeOffBussiness } from './business-hours/business-hours.component';
 import { PostalcodesComponent } from './postalcodes/postalcodes.component';
 import{ DialogAddPostalCode } from './postalcodes/postalcodes.component';
+import{ DialogNewCSVPostalCode } from './postalcodes/postalcodes.component';
+
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { DialogAddNewTax } from './paymentrules/paymentrules.component';
 // import { ColorPickerModule } from '@syncfusion/ej2-angular-inputs';
@@ -69,6 +71,7 @@ enableRipple(true);
     AppearanceComponent,
     PostalcodesComponent,
     DialogAddPostalCode,
+    DialogNewCSVPostalCode,
     BusinessHoursComponent,
     DialogCategoryImageUpload,
     DialogSubCategoryImageUpload,
@@ -102,6 +105,6 @@ enableRipple(true);
     FormsModule
   ],
   bootstrap: [AppearanceComponent],
-   entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax,DialogAddPostalCode,DialogAddNewTimeOffBussiness,DialogCategoryImageUpload,DialogSubCategoryImageUpload,DialogServiceImageUpload,DialogStaffImageUpload,DialogCompanyDetailsImageUpload,DialogDataExampleDialog,DialogStaffViewReview,DialogPreviewEmailTemp],
+   entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax,DialogAddPostalCode,DialogNewCSVPostalCode,DialogAddNewTimeOffBussiness,DialogCategoryImageUpload,DialogSubCategoryImageUpload,DialogServiceImageUpload,DialogStaffImageUpload,DialogCompanyDetailsImageUpload,DialogDataExampleDialog,DialogStaffViewReview,DialogPreviewEmailTemp],
 })
 export class SettingsModule {}

@@ -1309,6 +1309,7 @@ export class StaffComponent implements OnInit {
   createNewStaff(newStaffData){
     this.isLoaderAdmin = true;
     this.adminSettingsService.createNewStaff(newStaffData).subscribe((response:any) => {
+      this.isLoaderAdmin = false;
         if(response.data == true){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
@@ -1319,12 +1320,11 @@ export class StaffComponent implements OnInit {
          this.addStaffPage = false;
          this.staffListPage = true;
         this.isLoaderAdmin = false;
-      }
-      else if(response.data == false){
-
+      }else if(response.data == false){
         this.isLoaderAdmin = false;
       }
-    })
+    });
+
   }
   updateStaff(updateStaffData){
     this.isLoaderAdmin = true;
