@@ -61,7 +61,7 @@
             </mat-drawer>
 
             <mat-drawer-content class="pl-0 pr-0" style="margin-left: 300px;">
-                <div *ngIf="newCustomer" id="Add-New-Customer" class="pl-0 pr-0">
+                <div *ngIf="newCustomer" id="Add-New-Customer" class="pl-0 pr-0 h-100">
                     <mat-card class="mb-0 form-container">
                         <div class="row">
                             <div class="col-lg-12">
@@ -75,8 +75,8 @@
                                     <div class="w-100 d-flex justify-content-center">
                                         <div class="d-flex profile-img-wrap services-customer-profile-background" (click)="customerImage()">
                                             <img *ngIf="customerImageUrl != ''" mat-card-avatar class="service-profile-image mx-auto" src="{{customerImageUrl}}">
-                                            <img *ngIf="!customerPersonalDetails.image" class="service-profile-image mx-auto" src="/assets/images/admin/picture.png">
-                                            <img *ngIf="!customerImageUrl && customerPersonalDetails.image && existingUserId" class="service-profile-image mx-auto" style="width: 120px;" src="{{customerPersonalDetails.image}}">
+                                            <img *ngIf="!existingUserId" class="service-profile-image mx-auto" src="/assets/images/admin/picture.png">
+                                            <img *ngIf="existingUserId && !customerImageUrl && customerPersonalDetails.image" class="service-profile-image mx-auto" style="width: 120px;" src="{{customerPersonalDetails.image}}">
                                             <div class="camera-alt"><i class="material-icons">
                                             camera_alt
                                             </i></div>
