@@ -221,7 +221,7 @@ export class myCreateNewBusinessDialog {
         "business_name" : this.createBusiness.get('business_name').value,
         "address" : this.createBusiness.get('business_address').value,
         "country" : this.createBusiness.get('business_country').value,
-        "region" : this.createBusiness.get('business_state').value,
+        "state" : this.createBusiness.get('business_state').value,
         "city" : this.createBusiness.get('business_city').value,
         "time_zone" : this.createBusiness.get('business_timezone').value,
         "zipcode" : this.createBusiness.get('business_zip').value,

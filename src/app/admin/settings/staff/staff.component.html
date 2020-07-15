@@ -462,7 +462,8 @@
                 <mat-tab label="Details">
                     <div class="bottom-border">
                         <h6>Staff Description</h6>
-                        <p class="mb-0">{{singleStaffDetail.staff[0].description}}</p>
+                        <p *ngIf="singleStaffDetail.staff[0].description != null" class="mb-0">{{singleStaffDetail.staff[0].description}}</p>
+                        <p *ngIf="singleStaffDetail.staff[0].description == null" class="mb-0">No Description</p>
                     </div>
                     <div class="bottom-border d-flex">
                         <div class="detail-left-side">
