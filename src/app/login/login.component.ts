@@ -103,12 +103,12 @@ export class LoginComponent implements OnInit {
                     this.dataLoaded = true;
                 }
                 else{
-                    this.error = "Database Connection Error"; 
+                    this.error = "Database Connection Error."; 
                     this.dataLoaded = true;
                 }
             },
             error => {  
-                this.error = "Database Connection Error"; 
+                this.error = "Database Connection Error."; 
                 this.dataLoaded = true;  
             });
     }
