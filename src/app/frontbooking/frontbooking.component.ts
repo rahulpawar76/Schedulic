@@ -212,6 +212,7 @@ export class FrontbookingComponent implements OnInit {
     @Inject(DOCUMENT) private _document
     
   ) { 
+    
     this.urlString = window.location.search.split("?business_id="); 
     this.businessId =this.urlString[1];
     meta.addTag({name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'});
@@ -701,7 +702,9 @@ export class FrontbookingComponent implements OnInit {
       };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'mode': 'no-cors'
+      'admin-id' : '',
+      'api-token' : '' 
+     // 'mode': 'no-cors'
     });
 
     this.http.post(`${environment.apiUrl}/get-all-category`,requestObject,{headers:headers} ).pipe(
