@@ -547,7 +547,6 @@ export class AppComponent implements AfterViewInit {
   signInWithGoogle(loginForm): void {
     this.loginForm=loginForm;
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(res=>{
-      
       this.fnLoginWithGoogleFacebook(res);
     });
 
@@ -555,7 +554,9 @@ export class AppComponent implements AfterViewInit {
 
   signInWithFB(loginForm): void {
     this.loginForm=loginForm;
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(res=>{
+      console.log(res);
+    });
   }
 
   fnCheckAuthState(){
