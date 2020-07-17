@@ -208,7 +208,15 @@ export class DiscountCouponComponent implements OnInit {
         "discount" : this.discountCoupon.get('discount_value').value,
         "services" : this.categoryServiceCheckServiceId
       }
-      this.createNewCouponCode(this.createdCouponCodeData);
+      if(this.categoryServiceCheckServiceId != ''){
+        this.createNewCouponCode(this.createdCouponCodeData);
+      }else if(this.categoryServiceCheckServiceId == ''){
+        this._snackBar.open("Select At Lease 1 Service.", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+      }
     }else{
       this.discountCoupon.get("coupan_name").markAsTouched();
       this.discountCoupon.get("coupon_code").markAsTouched();
@@ -217,9 +225,8 @@ export class DiscountCouponComponent implements OnInit {
       this.discountCoupon.get('valid_from').markAsTouched()
       this.discountCoupon.get('valid_till').markAsTouched()
       this.discountCoupon.get("discount_value").markAsTouched();
-
     }
-    console.log(this.createdCouponCodeData);
+    
   }
   fnChangeDiscountType(event){
     this.discountType = event.value
@@ -228,7 +235,7 @@ export class DiscountCouponComponent implements OnInit {
     this.isLoaderAdmin = true;
     this.AdminService.createNewCouponCode(createdCouponCodeData).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Coupon Created", "X", {
+        this._snackBar.open("Coupon Created.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
@@ -260,7 +267,7 @@ export class DiscountCouponComponent implements OnInit {
     }
     this.AdminService.changeCouponStaus(this.couponCodeStatus,coupon_id).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Status Updated", "X", {
+        this._snackBar.open("Status Updated.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
@@ -449,7 +456,7 @@ export class DiscountCouponComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log('The dialog was closed.');
       this.animal = result;
       this.getAllCouponCode();
      });
@@ -542,7 +549,7 @@ changeCouponStaus(event,coupon_id){
   }
   this.AdminService.changeCouponStaus(this.couponCodeStatus,coupon_id).subscribe((response:any) => {
     if(response.data == true){
-      this._snackBar.open("Status Updated", "X", {
+      this._snackBar.open("Status Updated.", "X", {
         duration: 2000,
         verticalPosition:'top',
         panelClass :['green-snackbar']

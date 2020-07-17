@@ -534,7 +534,7 @@
 }
 
 ::ng-deep .mat-slide-toggle-content {
-    width: 115px;
+    width: 125px;
     text-align: right;
     padding-right: 15px;
 }
@@ -575,4 +575,23 @@ textarea {
     display: inline-block;
     width: 100%;
     overflow-y: scroll;
+}
+
+.service-top-bar {
+    border-bottom: 1px solid #ccc;
+    height: 110px;
+}
+
+.filter-feild {
+    margin-left: 15px;
+    position: relative;
+     :before {
+        content: "\f0b0";
+        position: absolute;
+        color: #4f4f4f;
+        font-size: 22px;
+        font-family: FontAwesome;
+        left: -25px;
+        bottom: -2px;
+    }
 }

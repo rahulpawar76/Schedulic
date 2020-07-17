@@ -206,10 +206,9 @@ export class ServicesComponent implements OnInit {
         this.createNewServicePage = false;
     }
     cancelNewCategory() {
-        this.createNewCategoryPage = true;
+        this.createNewCategoryPage = false;
          this.servicesList = true;
-         this.createCategory.reset();
-         // this.fnSelectCategory(this.editCategoryId, this.selectedCategoryIndex);  
+         this.createCategory.reset(); 
          this.editCategoryId = '';
 
     }

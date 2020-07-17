@@ -5,6 +5,7 @@ import { map, catchError, filter } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthenticationService } from '@app/_services';
+import { error } from 'protractor';
 
 @Injectable({ providedIn: 'root' })
 
