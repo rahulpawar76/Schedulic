@@ -146,7 +146,7 @@ export class AdminService {
 
     getAllServices(){
         let requestObject = {
-            'business_id' : this.businessId,
+            'business_id' : localStorage.getItem('business_id'),
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
