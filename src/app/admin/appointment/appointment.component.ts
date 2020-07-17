@@ -1150,30 +1150,49 @@ export class DialogAddNewAppointment {
   }
 
   fnGetCategories(){
+
     let requestObject = {
       "business_id":this.bussinessId,
       "status":"E"
     };
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'mode': 'no-cors'
-    });
 
-    this.http.post(`${environment.apiUrl}/get-all-category`,requestObject,{headers:headers} )
-    .pipe(
-    map((res) => {
-      return res;
-    })
-    ).subscribe((response:any) => {
+    this.AdminService.getAllCategories(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.catdata = response.response;
-        //console.log(this.catdata);
-      }else{
+       // this.categories=response.response;
+      }else {
+       // this.startWorkSpacePage = true;
       }
-    },
-    (err) =>{
-      console.log(err)
-    })
+    },(err) => {
+        console.log(err);
+    });
+
+    // alert();
+    // let requestObject = {
+    //   "business_id": this.bussinessId.toString(),
+    //   "status":"E"
+    // };
+    // let headers = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    //   'admin-id' : JSON.stringify(this.currentUser.user_id),
+    //   'api-token' : this.currentUser.token 
+    // });
+
+    // this.http.post(`${environment.apiUrl}/get-all-category`,requestObject,{headers:headers} )
+    // .pipe(
+    // map((res) => {
+    //   return res;
+    // })
+    // ).subscribe((response:any) => {
+    //   if(response.data == true){
+    //     this.catdata = response.response;
+    //     //console.log(this.catdata);
+    //   }else{
+    //   }
+    // },
+    // (err) =>{
+    //   console.log(err)
+    // })
   }
 
   fnSelectCat(selected_cat_id){
