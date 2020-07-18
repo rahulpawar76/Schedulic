@@ -62,6 +62,7 @@ export class AppComponent implements AfterViewInit {
   user: SocialUser;
   loggedIn: boolean;
   isAllowed:boolean=true;
+  businessComponent:boolean=false;
   isSignOut:boolean=true;
   activeSettingMenu:any;
   notificationCount: any = 0;
@@ -108,7 +109,7 @@ export class AppComponent implements AfterViewInit {
     private authService: AuthService,
     private bnIdle: BnNgIdleService
   ) {
-    
+    localStorage.setItem('isBusiness', 'true');
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
     console.log(this.currentUser)
     if (localStorage.getItem('business_id')) {
@@ -151,7 +152,6 @@ export class AppComponent implements AfterViewInit {
         return false;
     } 
     if(localStorage.getItem('currentUser') && localStorage.getItem('isBusiness') && localStorage.getItem('isBusiness') == "true"){
-      alert();
     }  
   }
 
@@ -292,8 +292,10 @@ export class AppComponent implements AfterViewInit {
   }
   isBusiness() {
     if (localStorage.getItem('isBusiness') && localStorage.getItem('isBusiness') == "true") {
+      this.businessComponent = false;
       return true;
     } else {
+      this.businessComponent = true;
       return false;
     }
   }
@@ -468,12 +470,10 @@ export class AppComponent implements AfterViewInit {
   }
 
   fnCheckLoginStatus(){
-    // alert(JSON.stringify(this.authenticationService.currentUserValue)); 
     if(this.authenticationService.currentUserValue.google_id){
         this.authService.authState.subscribe((user) => {
             this.user = user;
             this.loggedIn = (user != null);
-            // alert(JSON.stringify(this.authenticationService.currentUserValue));
             if(this.authenticationService.currentUserValue){
               if(this.user && this.user.provider == "GOOGLE" && this.user.id == this.authenticationService.currentUserValue.google_id){
                   if(this.authenticationService.currentUserValue.user_type == Role.Admin){

@@ -56,6 +56,7 @@ export class MyBusinessComponent implements OnInit {
   }
 
   getAllBusiness(){
+    this.isLoaderAdmin = true;
     this.AdminService.getAllBusiness().subscribe((response:any) => {
       if(response.data == true){
         this.allBusiness = response.response
@@ -63,6 +64,7 @@ export class MyBusinessComponent implements OnInit {
       else if(response.data == false){
         this.allBusiness = ''
       }
+      this.isLoaderAdmin = false;
     })
   }
   fnSelectBusiness(business_id,busisness_name){

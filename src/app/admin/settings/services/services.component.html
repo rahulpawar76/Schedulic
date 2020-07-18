@@ -220,11 +220,13 @@
                             <div class="col-lg-9 col-9 col-md-9 d-flex">
                                 <div class="ml-3 justify-content-center">
                                     <div class="services-customer-profile-background profile-img-wrap mr-3 mt-5" (click)="categoryImage()">
-                                        <img *ngIf="!editCategoryId" src="/assets/images/admin/picture.png" class="service-profile-image">
+                                        <img *ngIf="!editCategoryId && categoryImageUrl != ''" src="/assets/images/admin/picture.png" class="service-profile-image">
+                                        <img *ngIf="!editCategoryId && categoryImageUrl == ''" src="categoryImageUrl" class="service-profile-image">
                                         <div class="camera-alt"><i class="material-icons">
                                                 camera_alt
                                             </i></div>
-                                        <img *ngIf="editCategoryId" src="{{selectedCategoryDetails.category_image}}" class="service-profile-image">
+                                        <img *ngIf="editCategoryId && categoryImageUrl == ''" src="{{selectedCategoryDetails.category_image}}" class="service-profile-image">
+                                        <img *ngIf="editCategoryId && categoryImageUrl != ''" src="{{categoryImageUrl}}" class="service-profile-image">
                                     </div>
                                 </div>
                                 <div class="col-8">
@@ -315,8 +317,10 @@
                             <div class="col-lg-9 col-9 col-md-9 d-flex">
                                 <div class="ml-3 justify-content-center">
                                     <div class="services-customer-profile-background profile-img-wrap mr-3 mt-5" (click)="subCategoryImage()">
-                                        <img *ngIf="!editSubCategoryId" src="/assets/images/admin/picture.png" class="service-profile-image">
-                                        <img *ngIf="editSubCategoryId" src="{{selectedSubCategoryDetails.sub_category_image}}" class="service-profile-image">
+                                        <img *ngIf="!editSubCategoryId && subCategoryImageUrl == ''" src="/assets/images/admin/picture.png" class="service-profile-image">
+                                        <img *ngIf="!editSubCategoryId && subCategoryImageUrl != ''" src="{{subCategoryImageUrl}}" class="service-profile-image">
+                                        <img *ngIf="editSubCategoryId && subCategoryImageUrl == ''" src="{{selectedSubCategoryDetails.sub_category_image}}" class="service-profile-image">
+                                        <img *ngIf="editSubCategoryId && subCategoryImageUrl != ''" src="{{subCategoryImageUrl}}" class="service-profile-image">
                                         <div class="camera-alt"><i class="material-icons">
                                                 camera_alt
                                             </i></div>
@@ -675,8 +679,10 @@
                             <div class="col-xl-8 col-lg-12 col-12 col-md-12 d-flex">
                                 <div class="ml-3 justify-content-center " (click)="serviceImage()">
                                     <div class="services-customer-profile-background profile-img-wrap mr-3 mt-5">
-                                        <img *ngIf="!editServiceId" src="/assets/images/admin/picture.png" class="service-profile-image-admin">
-                                        <img *ngIf="editServiceId" src="{{editServiceImage}}" class="service-profile-image-admin w-100">
+                                        <img *ngIf="!editServiceId && serviceImageUrl == ''" src="/assets/images/admin/picture.png" class="service-profile-image-admin">
+                                        <img *ngIf="!editServiceId && serviceImageUrl != ''" src="{{serviceImageUrl}}" class="service-profile-image-admin">
+                                        <img *ngIf="editServiceId && serviceImageUrl == ''" src="{{editServiceImage}}" class="service-profile-image-admin w-100">
+                                        <img *ngIf="editServiceId && serviceImageUrl != ''" src="{{serviceImageUrl}}" class="service-profile-image-admin w-100">
                                         <div class="camera-alt"><i class="material-icons">
                                                 camera_alt
                                             </i></div>

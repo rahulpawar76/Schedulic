@@ -368,6 +368,11 @@ export class ServicesComponent implements OnInit {
             }
             else {
                  this.staffList = [];
+                 this._snackBar.open(response.response, "X", {
+                    duration: 2000,
+                    verticalPosition: 'top',
+                    panelClass: ['red-snackbar']
+                });
             }
             this.isLoaderAdmin = false;
         })
