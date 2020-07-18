@@ -653,7 +653,7 @@ fnAppointmentsReminderSMS(event){
     this.isLoaderAdmin = true;
     this.adminSettingsService.fnAppointmentsReminderCustomer(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Email alerts for the Customer are Updated", "X", {
+        this._snackBar.open("Email alerts for the Customer are Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
