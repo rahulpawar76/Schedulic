@@ -8,7 +8,7 @@ import { NgbDateParserFormatter, NgbDateStruct, NgbCalendar} from '@ng-bootstrap
 import { MdePopoverTrigger } from '@material-extended/mde';
 import { MatSnackBar} from '@angular/material/snack-bar';
 import { AuthenticationService } from '@app/_services';
-import { DatePipe, DOCUMENT } from '@angular/common';
+import { DatePipe, DOCUMENT, JsonPipe } from '@angular/common';
 import { AppComponent } from '@app/app.component';
 import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
@@ -616,7 +616,7 @@ export class FrontbookingComponent implements OnInit {
 
   fnCheckPostalCode(event){
     var postalcode_val =  this.booking.postalcode;
-    if(postalcode_val.length == 6){
+    if(postalcode_val.length == 6 || postalcode_val.length == 5 ){
       this.fnCheckAvailPostal();
     }
     else if(postalcode_val.length == 0){
@@ -1695,12 +1695,18 @@ export class FrontbookingComponent implements OnInit {
         localStorage.setItem('currentUser', JSON.stringify(response.response));
         localStorage.setItem('isFront', "true");
         this.authenticationService.currentUserSubject.next(response.response);
-        this.customerName=this.authenticationService.currentUserValue.fullname;
-        this.customerFirstname=this.customerName.split(" ")[0];
-        this.customerLastname=this.customerName.split(" ")[1];
+
+     //   console.log(this.authenticationService.currentUserValue.fullname);
+        console.log(response.response.full_name);
+
+        this.customerName=response.response.full_name;
+      
+        this.customerFirstname = this.customerName!=undefined?this.customerName.split(" ")[0]:'';
+        this.customerLastname  =  this.customerName!=undefined?this.customerName.split(" ")[1]:'';
+
         this.customerEmail=this.authenticationService.currentUserValue.email;
         this.customerPhone=this.authenticationService.currentUserValue.phone;
-
+      
         if(!isAfterSignup){
           // this.formAppointmentInfo.controls['appo_address'].setValue(response.response.address);
           // this.formAppointmentInfo.controls['appo_state'].setValue(response.response.state);
@@ -1714,23 +1720,23 @@ export class FrontbookingComponent implements OnInit {
             });
         }
        
-        
         this.personalinfo = false;
         this.appointmentinfo = true;
         this.isLoggedIn=true;
       }else{
+
         this.snackBar.open("Email or Password is incorrect", "X", {
         duration: 2000,
         verticalPosition: 'top',
         panelClass : ['red-snackbar']
         });
+
         this.showSameAsAboveCheck=true;
       }
-     },
-     (err) =>{ 
+    },(err) =>{ 
        this.errorMessage = this.handleError;
-     })
-   }
+    });
+  }
 
   // personal info
   isEmailUnique(control: FormControl) {
@@ -1820,7 +1826,7 @@ export class FrontbookingComponent implements OnInit {
       "email" : this.formNewUser.get('newUserEmail').value,
       "password" : this.formNewUser.get('newUserPassword').value,
       "fullname":this.formNewUser.get('newUserFullname').value,
-      "phone":this.formNewUser.get('newUserPhone').value.internationalNumber,
+      "phone":this.formNewUser.get('newUserPhone').value.number.replace(/\s/g, ""),
       "address":newUserAddress,
       "zip":newUserZipcode,
       "state":newUserState,
@@ -2596,8 +2602,10 @@ export class FrontbookingComponent implements OnInit {
       "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd"),
       "reference_id": this.reference_id,
       "transaction_id": this.transactionId,
-      "payment_datetime": this.paymentDateTime
-      };
+      "payment_datetime": this.paymentDateTime,
+      'fullname' : JSON.parse(localStorage.getItem('currentUser')).full_name,
+      'full_name' : JSON.parse(localStorage.getItem('currentUser')).full_name
+    };
       console.log(JSON.stringify(requestObject));
       // setTimeout(()=>{
       //   this.isLoader=false;

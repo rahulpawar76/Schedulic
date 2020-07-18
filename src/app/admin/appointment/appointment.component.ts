@@ -370,7 +370,6 @@ export class AppointmentComponent implements OnInit {
   }
 
   getAllAppointments(){
-
     this.isLoaderAdmin = true;
     
     let requestObject = {
@@ -382,10 +381,8 @@ export class AppointmentComponent implements OnInit {
     };
 
     this.AdminService.getAllAppointmentsData(this.staffApiUrl,requestObject).subscribe((response:any) => {
+      this.isLoaderAdmin = false;
       if(response.data == true){
-        
-        //this.allAppointments = response.response
-        
         this.current_page = response.response.current_page;
         this.first_page_url = response.response.first_page_url;
         this.last_page = response.response.last_page;
@@ -397,7 +394,6 @@ export class AppointmentComponent implements OnInit {
         this.allAppointments = response.response.data;
         this.isLoaderAdmin = false;
         
-
         this.allAppointments.forEach( (element) => { 
           element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
           element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
@@ -405,9 +401,7 @@ export class AppointmentComponent implements OnInit {
           element.is_selected = false;
         });
         // this.allAppointments = this.allAppointments.sort(this.dynamicSort("booking_date"))
-
         this.selectAll  = false;
-        
         this.dtTrigger.next();
         this.isLoaderAdmin = false;
         this.change.detectChanges();
@@ -416,6 +410,8 @@ export class AppointmentComponent implements OnInit {
         this.allAppointments = [];
         this.isLoaderAdmin = false;
       }
+    },error=>{
+      this.isLoaderAdmin = false;
     });
 
   }
