@@ -278,10 +278,10 @@
                         </div>
                         <div class="service-statustoggle" *ngIf="editCategoryId">
                             <p>
-                                <mat-slide-toggle [checked]="selectedCategoryDetails.status == 'E'" (change)="editCategoryStatus($event.checked)">Status</mat-slide-toggle>
+                                <mat-slide-toggle [checked]="editcategoryStatus == 'E'" (change)="editCategoryStatus($event.checked)">Status</mat-slide-toggle>
                             </p>
                             <p>
-                                <mat-slide-toggle [checked]="selectedCategoryDetails.private_status == 'Y'" (change)="editCategoryPrivate($event.checked)">Private</mat-slide-toggle>
+                                <mat-slide-toggle [checked]="editcategoryPrivate == 'Y'" (change)="editCategoryPrivate($event.checked)">Private</mat-slide-toggle>
                             </p>
                         </div>
                         <input type="hidden" formControlName="category_id">
@@ -379,10 +379,10 @@
                         </div>
                         <div class="service-statustoggle" *ngIf="editSubCategoryId">
                             <p>
-                                <mat-slide-toggle [checked]="selectedSubCategoryDetails.sub_category_status == 'E'" (change)="editSubCategoryStatus($event.checked)">Status</mat-slide-toggle>
+                                <mat-slide-toggle [checked]="editSubcategoryStatus == 'E'" (change)="fnEditSubCategoryStatus($event.checked)">Status</mat-slide-toggle>
                             </p>
                             <p>
-                                <mat-slide-toggle [checked]="selectedSubCategoryDetails.sub_category_private == 'Y'" (change)="editSubCategoryPrivate($event.checked)">Private</mat-slide-toggle>
+                                <mat-slide-toggle [checked]="editSubcategoryPrivate == 'Y'" (change)="fnEditSubCategoryPrivate($event.checked)">Private</mat-slide-toggle>
                             </p>
                         </div>
 
@@ -541,12 +541,12 @@
                 </div>
             </div>
             <!-- sub category page -->
-            <div *ngIf="selectedSubCategoryDetails != '' && singleSubCategoryPage == 'services' || singleSubCategoryPage == 'notservices'" class="h-100" id="single_sub_category">
+            <div *ngIf="selectedSubCategoryDetails != '' && singleSubCategoryPage == 'services' || singleSubCategoryPage == 'notservices' || singleSubCategoryPage != ''" class="h-100" id="single_sub_category">
                 <div class="">
                     <div class="d-flex mt-2 mb-4 mx-3 service-top-bar">
                         <div class="ml-3 d-flex justify-content-center">
                             <div class="service-profile-background mr-3 ">
-                                <img src="{{selectedSubCategoryDetails.sub_category_image}}" class="service-profile-image mb-2">
+                                <img src="{{selectedSubCategoryDetails.sub_category_image}}" class="service-profile-image mb-2 h-100 w-100">
                             </div>
                             <div>
                                 <div class=" Details-button-width d-flex">
@@ -556,8 +556,7 @@
                                 </div>
                                 <!-- <button class="salon-cancel-btn mr-2"><i class="fa fa-eye salon-icon" ></i></button>   -->
                                 <button (click)="editSubCategory(selectedSubCategoryDetails.id)" class="salon-edit-btn mr-2"><i class="fa fa-pencil salon-icon"></i></button>
-                                <button class="salon-cancel-btn mr-3" (click)="deleteSubCategory(selectedSubCategoryDetails.id)"><i
-                                        class="fa fa-trash-o salon-icon"></i></button>
+                                <button class="salon-cancel-btn mr-3" (click)="deleteSubCategory(selectedSubCategoryDetails.id)"><i class="fa fa-trash-o salon-icon"></i></button>
                                 <mat-slide-toggle (change)="changeSubCategoryStatus($event.checked,selectedSubCategoryDetails.id)" [checked]="selectedSubCategoryDetails.sub_category_status == 'E'">
                                 </mat-slide-toggle>
                             </div>
@@ -679,7 +678,7 @@
                             <div class="col-xl-8 col-lg-12 col-12 col-md-12 d-flex">
                                 <div class="ml-3 justify-content-center " (click)="serviceImage()">
                                     <div class="services-customer-profile-background profile-img-wrap mr-3 mt-5">
-                                        <img *ngIf="!editServiceId && serviceImageUrl == ''" src="/assets/images/admin/picture.png" class="service-profile-image-admin w-100 h-100">
+                                        <img *ngIf="!editServiceId && serviceImageUrl == ''" src="/assets/images/admin/picture.png" class="service-profile-image-admin">
                                         <img *ngIf="!editServiceId && serviceImageUrl != ''" src="{{serviceImageUrl}}" class="service-profile-image-admin w-100 h-100">
                                         <img *ngIf="editServiceId && serviceImageUrl == ''" src="{{editServiceImage}}" class="service-profile-image-admin w-100 h-100">
                                         <img *ngIf="editServiceId && serviceImageUrl != ''" src="{{serviceImageUrl}}" class="service-profile-image-admin w-100 h-100">
@@ -777,10 +776,10 @@
                                     </div>
                                     <div class="service-statustoggle for-service" *ngIf="editServiceId">
                                         <p>
-                                            <mat-slide-toggle [checked]="editServiceStatusPrevious == 'E'" (change)="fnEditServiceStatus($event.checked)">Status</mat-slide-toggle>
+                                            <mat-slide-toggle [checked]="editServiceStatus == 'E'" (change)="fnEditServiceStatus($event.checked)">Status</mat-slide-toggle>
                                         </p>
                                         <p>
-                                            <mat-slide-toggle [checked]="editServicePrivateStatusPrevious == 'Y'" (change)="fnEditServicePrivate($event.checked)">Private
+                                            <mat-slide-toggle [checked]="editServicePrivate == 'Y'" (change)="fnEditServicePrivate($event.checked)">Private
                                             </mat-slide-toggle>
                                         </p>
                                     </div>

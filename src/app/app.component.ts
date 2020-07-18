@@ -109,7 +109,6 @@ export class AppComponent implements AfterViewInit {
     private authService: AuthService,
     private bnIdle: BnNgIdleService
   ) {
-    localStorage.setItem('isBusiness', 'true');
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
     console.log(this.currentUser)
     if (localStorage.getItem('business_id')) {
