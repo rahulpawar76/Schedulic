@@ -62,8 +62,8 @@
                       <input class="form-control formcontrol"   formControlName="customerPostalCode" placeholder="Postal Code">
                       <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').dirty || formAddNewAppointmentStaffStep2.get('customerPostalCode').touched ">
                           <small *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('required')" class="error"> Postal code is required</small>
-                          <small *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('pattern')" class="error"> Enter a valid postal code</small>
-                          <small *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('minlength') || formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('maxlength')" class="error">Postal code should be 6 digit</small>
+                          <!-- <small *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('pattern')" class="error"> Enter a valid postal code</small> -->
+                          <small *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('minlength') || formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('maxlength')" class="error">Postal code should be 5 to 6 digit.</small>
                           <small *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('isPostalcodeValid')" class="error">We do not provide service at this location</small>
                       </span>
                   </div> 

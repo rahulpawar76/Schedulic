@@ -724,11 +724,11 @@ export class StaffAppointmentComponent implements OnInit {
             customerAddress: ['', Validators.required],
             customerState: ['', Validators.required],
             customerCity: ['', Validators.required],
-            customerPostalCode: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+            customerPostalCode: ['',[Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
             customerAppoAddress: ['', [Validators.required]],
             customerAppoState: ['', [Validators.required]],
             customerAppoCity: ['', [Validators.required]],
-            customerAppoPostalCode: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(6)],this.isPostalcodeValid.bind(this)],
+            customerAppoPostalCode: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(6)],this.isPostalcodeValid.bind(this)],
           });
         }else{
           this.formAddNewAppointmentStaffStep1 = this._formBuilder.group({
@@ -738,11 +738,11 @@ export class StaffAppointmentComponent implements OnInit {
             customerAddress: ['', Validators.required],
             customerState: ['', Validators.required],
             customerCity: ['', Validators.required],
-            customerPostalCode: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+            customerPostalCode: ['',[Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
             customerAppoAddress: ['', [Validators.required]],
             customerAppoState: ['', [Validators.required]],
             customerAppoCity: ['', [Validators.required]],
-            customerAppoPostalCode: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(6)]],
+            customerAppoPostalCode: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
           });
           this.valide_postal_code =true;
         }
