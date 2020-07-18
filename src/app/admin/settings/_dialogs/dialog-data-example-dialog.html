@@ -1,71 +1,11 @@
-
-
-  
-    <!-- <mat-list-item *ngFor="let staffList of staffList">
-      {{staffList.username}} {{staffList.lastname}}   
-  </mat-list-item> 
-   -->
-   <div class="stafflist">
-   
-   <div  class="drageble-box" fxLayout="row">
-   
-    
-    <div class="" fxFlex="90"> <mat-checkbox>Steve malan</mat-checkbox></div>
-    <div class="" fxFlex="10"></div>
-   
+<div *ngIf="staffList != ''" class="select_staff_list">
+    <div class="drageble-box" *ngFor="let staffList of staffList" fxLayout="row">
+        <div class="" fxFlex="90">
+            <mat-checkbox (change)="fnAssignStaffToService($event.checked, staffList.id)" [checked]="assignStaffArr.indexOf(staffList.id) > -1">
+                {{staffList.firstname}} {{staffList.lastname}}</mat-checkbox>
+        </div>
+        <!-- <div class="" fxFlex="10"> <i class="material-icons minus-icon pointer" >remove_circle_outline</i></div> -->
     </div>
-
-    <div  class="drageble-box" fxLayout="row">
-   
-    
-      <div class="" fxFlex="90"> <mat-checkbox>jason red walker</mat-checkbox> </div>
-      <div class="" fxFlex="10"></div>
-     
-      </div>
-
-      <div  class="drageble-box" fxLayout="row">
-   
-    
-        <div class="" fxFlex="90"> <mat-checkbox> jay singh</mat-checkbox> </div>
-        <div class="" fxFlex="10"></div>
-       
-        </div>
-
-      <div  class="drageble-box" fxLayout="row">
-   
-    
-        <div class="" fxFlex="90"> <mat-checkbox> admin Bi</mat-checkbox> </div>
-        <div class="" fxFlex="10"></div>
-       
-        </div>
-
-      <div  class="drageble-box" fxLayout="row">
-   
-    
-        <div class="" fxFlex="90"> <mat-checkbox> jhon kendy mistryxyz</mat-checkbox> </div>
-        <div class="" fxFlex="10"></div>
-       
-        </div>
-
-      <div  class="drageble-box" fxLayout="row">
-   
-    
-        <div class="" fxFlex="90"> <mat-checkbox> username sharma</mat-checkbox> </div>
-        <div class="" fxFlex="10"></div>
-       
-        </div>
-      <div  class="drageble-box" fxLayout="row">
-   
-    
-        <div class="" fxFlex="90"> <mat-checkbox> Rahul singh mistrynavsari</mat-checkbox> </div>
-        <div class="" fxFlex="10"></div>
-       
-        </div>
-      <div  class="drageble-box" fxLayout="row">
-   
-    
-        <div class="" fxFlex="90"> <mat-checkbox> Anil verma mistrysurat</mat-checkbox> </div>
-        <div class="" fxFlex="10"></div>
-       
-        </div>
-   </div>
+    <button mat-buton>Save</button>
+</div>
+<h3 *ngIf="staffList == ''">No Staff Found</h3>

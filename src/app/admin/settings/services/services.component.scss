@@ -491,8 +491,13 @@
     display: table;
 }
 
-.service-statustoggle[_ngcontent-viv-c18] {
-    margin: 30px 0;
+.service-statustoggle {
+    &.for-service {
+        margin: 30px 0;
+         ::ng-deep .mat-slide-toggle-content {
+            width: 71px;
+        }
+    }
 }
 
 .wrap-column {
@@ -530,7 +535,7 @@
 
 .unit-info {
     position: absolute;
-    right: -30px;
+    right: -10px;
 }
 
 ::ng-deep .mat-slide-toggle-content {

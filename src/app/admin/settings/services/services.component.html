@@ -220,8 +220,8 @@
                             <div class="col-lg-9 col-9 col-md-9 d-flex">
                                 <div class="ml-3 justify-content-center">
                                     <div class="services-customer-profile-background profile-img-wrap mr-3 mt-5" (click)="categoryImage()">
-                                        <img *ngIf="!editCategoryId && categoryImageUrl != ''" src="/assets/images/admin/picture.png" class="service-profile-image">
-                                        <img *ngIf="!editCategoryId && categoryImageUrl == ''" src="categoryImageUrl" class="service-profile-image">
+                                        <img *ngIf="!editCategoryId && categoryImageUrl == ''" src="/assets/images/admin/picture.png" class="service-profile-image">
+                                        <img *ngIf="!editCategoryId && categoryImageUrl != ''" src="categoryImageUrl" class="service-profile-image">
                                         <div class="camera-alt"><i class="material-icons">
                                                 camera_alt
                                             </i></div>
@@ -679,10 +679,10 @@
                             <div class="col-xl-8 col-lg-12 col-12 col-md-12 d-flex">
                                 <div class="ml-3 justify-content-center " (click)="serviceImage()">
                                     <div class="services-customer-profile-background profile-img-wrap mr-3 mt-5">
-                                        <img *ngIf="!editServiceId && serviceImageUrl == ''" src="/assets/images/admin/picture.png" class="service-profile-image-admin">
-                                        <img *ngIf="!editServiceId && serviceImageUrl != ''" src="{{serviceImageUrl}}" class="service-profile-image-admin">
-                                        <img *ngIf="editServiceId && serviceImageUrl == ''" src="{{editServiceImage}}" class="service-profile-image-admin w-100">
-                                        <img *ngIf="editServiceId && serviceImageUrl != ''" src="{{serviceImageUrl}}" class="service-profile-image-admin w-100">
+                                        <img *ngIf="!editServiceId && serviceImageUrl == ''" src="/assets/images/admin/picture.png" class="service-profile-image-admin w-100 h-100">
+                                        <img *ngIf="!editServiceId && serviceImageUrl != ''" src="{{serviceImageUrl}}" class="service-profile-image-admin w-100 h-100">
+                                        <img *ngIf="editServiceId && serviceImageUrl == ''" src="{{editServiceImage}}" class="service-profile-image-admin w-100 h-100">
+                                        <img *ngIf="editServiceId && serviceImageUrl != ''" src="{{serviceImageUrl}}" class="service-profile-image-admin w-100 h-100">
                                         <div class="camera-alt"><i class="material-icons">
                                                 camera_alt
                                             </i></div>
@@ -765,7 +765,7 @@
                                                 class="error">Service unit must be numeric.</small>
                                         </span>
                                     </div>
-                                    <div class="service-statustoggle" *ngIf="!editServiceId">
+                                    <div class="service-statustoggle for-service" *ngIf="!editServiceId">
                                         <p>
                                             <mat-slide-toggle (change)="fnNewServiceStatus($event.checked)">Status
                                             </mat-slide-toggle>
@@ -775,7 +775,7 @@
                                             </mat-slide-toggle>
                                         </p>
                                     </div>
-                                    <div class="service-statustoggle" *ngIf="editServiceId">
+                                    <div class="service-statustoggle for-service" *ngIf="editServiceId">
                                         <p>
                                             <mat-slide-toggle [checked]="editServiceStatusPrevious == 'E'" (change)="fnEditServiceStatus($event.checked)">Status</mat-slide-toggle>
                                         </p>
@@ -790,7 +790,7 @@
                                 <div class="border p-3">
                                     <div class="d-flex">
                                         <h6>Select Staff for This Service</h6>
-                                        <i class="material-icons add-icon pointer" (click)="openDialog()">add_circle</i>
+                                        <!-- <i class="material-icons add-icon pointer" (click)="openDialog()">add_circle</i> -->
                                     </div>
                                     <mat-form-field class="pb-3 bottom-border-field">
                                         <mat-label>Search</mat-label>

@@ -103,7 +103,6 @@ export class ServicesComponent implements OnInit {
     currencySymbolFormat:any;
     search:any;
     onlynumeric = /^-?(0|[1-9]\d*)?$/
-    
     serviceApiUrl1 : any;
     serviceApiUrl2 : any;
     serviceApiUrl3 : any;
@@ -198,7 +197,7 @@ export class ServicesComponent implements OnInit {
         console.log(err)
       })
     }
-    fnCreateNewCategory() {
+    fnCreateNewCategory() { 
         this.createNewCategoryPage = true;
         this.selectCategoryPage = '';
         this.servicesList = false;
@@ -210,6 +209,7 @@ export class ServicesComponent implements OnInit {
          this.servicesList = true;
          this.createCategory.reset(); 
          this.editCategoryId = '';
+         this.categoryImageUrl = '';
 
     }
 
@@ -800,7 +800,7 @@ export class ServicesComponent implements OnInit {
         this.isLoaderAdmin = true;
         this.adminSettingsService.deleteSubCategory(deleteSubCategoryId).subscribe((response: any) => {
             if (response.data == true) {
-                this._snackBar.open("Sub Category deleted", "X", {
+                this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
                     panelClass: ['green-snackbar']
@@ -811,7 +811,7 @@ export class ServicesComponent implements OnInit {
                 this.isLoaderAdmin = false;
             }
             else if (response.data == false) {
-                this._snackBar.open("Sub Category Not deleted", "X", {
+                this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
                     panelClass: ['red-snackbar']
@@ -1066,6 +1066,7 @@ export class ServicesComponent implements OnInit {
         this.createNewServicePage = false;
         this.createNewSubCategoryPage = false;  
         this.selectCategoryPage="services";
+        this.subCategoryImageUrl='';
     }
     fnCancelAddService(){
         // this.servicesList = true;
@@ -1075,6 +1076,7 @@ export class ServicesComponent implements OnInit {
         this.servicesList = false;
         this.createNewServicePage = false;
         this.createNewSubCategoryPage = false;  
+        this.serviceImageUrl = '';
         if(this.fromcategory == true){
             this.selectCategoryPage="services";
         }else{
@@ -1537,7 +1539,44 @@ export class ServicesComponent implements OnInit {
         templateUrl: '../_dialogs/dialog-data-example-dialog.html',
       })
       export class DialogDataExampleDialog {
-        constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+        isLoaderAdmin:boolean = false;
+        businessId:any;
+        search:any;
+        staffList : any;
+        constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
+        private _snackBar: MatSnackBar,
+        private adminSettingsService: AdminSettingsService,
+        ) {
+            if (localStorage.getItem('business_id')) {
+                this.businessId = localStorage.getItem('business_id');
+            }
+            this.fnstaffList();
+        }
+
+        fnstaffList(){
+            this.isLoaderAdmin = true;
+            let requestObject = {
+                "business_id":this.businessId,
+                "search": this.search
+            }
+            this.adminSettingsService.fnstaffList(requestObject).subscribe((response: any) => {
+                if (response.data == true) {
+                    this.staffList = response.response
+                }
+                else {
+                     this.staffList = [];
+                     this._snackBar.open(response.response, "X", {
+                        duration: 2000,
+                        verticalPosition: 'top',
+                        panelClass: ['red-snackbar']
+                    });
+                }
+                this.isLoaderAdmin = false;
+            })
+        }
+
+
+
       }
 
     
