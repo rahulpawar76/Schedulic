@@ -869,12 +869,12 @@ export class DialogAddNewAppointment {
         customerAddress: [this.appointmentData.address, Validators.required],
         customerState: [this.appointmentData.state, Validators.required],
         customerCity: [this.appointmentData.city, Validators.required],
-        customerPostalCode: [{ value: this.appointmentData.zip, disabled: this.disablePostalCode }, [Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(6)]],
+        customerPostalCode: [{ value: this.appointmentData.zip, disabled: this.disablePostalCode }, [Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
        
         customerAppoAddress: [this.appointmentData.customerAppoAddress, [Validators.required]],
         customerAppoState: [this.appointmentData.customerAppoState, [Validators.required]],
         customerAppoCity: [this.appointmentData.customerAppoCity, [Validators.required]],
-        customerAppoPostalCode: [this.appointmentData.customerAppoPostalCode, [Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(6)],this.isPostalcodeValid.bind(this)],
+        customerAppoPostalCode: [this.appointmentData.customerAppoPostalCode, [Validators.required,Validators.minLength(5),Validators.maxLength(6)],this.isPostalcodeValid.bind(this)],
 
         //customerPostalCode: new FormControl({ value: this.appointmentData.zip, disabled: this.disablePostalCode },[Validators.required,Validators.pattern(this.onlynumeric)]),
       });
@@ -886,12 +886,12 @@ export class DialogAddNewAppointment {
         customerAddress: [this.appointmentData.address, Validators.required],
         customerState: [this.appointmentData.state, Validators.required],
         customerCity: [this.appointmentData.city, Validators.required],
-        customerPostalCode: [{ value: this.appointmentData.zip, disabled: this.disablePostalCode }, [Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(6)]],
+        customerPostalCode: [{ value: this.appointmentData.zip, disabled: this.disablePostalCode }, [Validators.required,Validators.minLength(6),Validators.maxLength(6)]],
        
         customerAppoAddress: [this.appointmentData.customerAppoAddress, [Validators.required]],
         customerAppoState: [this.appointmentData.customerAppoState, [Validators.required]],
         customerAppoCity: [this.appointmentData.customerAppoCity, [Validators.required]],
-        customerAppoPostalCode: [this.appointmentData.customerAppoPostalCode, [Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(6)],this.isPostalcodeValid.bind(this)],
+        customerAppoPostalCode: [this.appointmentData.customerAppoPostalCode, [Validators.required,Validators.minLength(5),Validators.maxLength(6)],this.isPostalcodeValid.bind(this)],
 
         //customerPostalCode: new FormControl({ value: this.appointmentData.zip, disabled: this.disablePostalCode },[Validators.required,Validators.pattern(this.onlynumeric)]),
       });

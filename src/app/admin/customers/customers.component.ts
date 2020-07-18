@@ -1728,7 +1728,7 @@ constructor(
   this.customerDetails=this.data.customerDetails;
 
     this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
-        customerPostalCode: ['', [Validators.required,Validators.minLength(6)],this.isPostalcodeValid.bind(this)],
+        customerPostalCode: ['', [Validators.required,Validators.minLength(5)],this.isPostalcodeValid.bind(this)],
         customerCategory: ['', Validators.required],
         customerSubCategory: ['', [Validators.required]],
         customerService: ['', [Validators.required]],
@@ -1867,7 +1867,7 @@ constructor(
     ).subscribe((response:any) => {
       if(response.data == true){
         this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
-            customerPostalCode: ['', [Validators.required,Validators.minLength(6)],this.isPostalcodeValid.bind(this)],
+            customerPostalCode: ['', [Validators.required,Validators.minLength(5)],this.isPostalcodeValid.bind(this)],
             customerCategory: ['', Validators.required],
             customerSubCategory: ['', [Validators.required]],
             customerService: ['', [Validators.required]],
@@ -1880,7 +1880,7 @@ constructor(
         });
       }else{
         this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
-            customerPostalCode: ['', [Validators.required,Validators.minLength(6)],this.isPostalcodeValid.bind(this)],
+            customerPostalCode: ['', [Validators.required,Validators.minLength(5)],this.isPostalcodeValid.bind(this)],
             customerCategory: ['', Validators.required],
             customerSubCategory: ['', [Validators.required]],
             customerService: ['', [Validators.required]],
