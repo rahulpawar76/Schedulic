@@ -19,8 +19,6 @@
                 </mat-form-field>
                 <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep1.get('customerFullName').dirty || formAddNewAppointmentStaffStep1.get('customerFullName').touched">
                     <small *ngIf="formAddNewAppointmentStaffStep1.get('customerFullName').hasError('required')" class="error">Fullname is required.</small>
-                    <small *ngIf="formAddNewAppointmentStaffStep1.get('customerFullName').hasError('maxlength')" class="error">Fullname should be maximum 12 letters.</small>
-                    <small *ngIf="formAddNewAppointmentStaffStep1.get('customerFullName').hasError('minlength')" class="error">Fullname should be minimum 4 letters.</small>
                 </span>
 
                 <mat-form-field class="form-group mat-form-field bottom-border-field {{dialogTitle=='Edit Appointment'?'mydisbled':''}}">

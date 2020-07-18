@@ -863,7 +863,7 @@ export class DialogAddNewAppointment {
     ).subscribe((response:any) => {
       if(response.data == true){
         this.formAddNewAppointmentStaffStep1 = this._formBuilder.group({
-        customerFullName: [this.appointmentData.fullName, [Validators.required, Validators.maxLength(12), Validators.minLength(4)]],
+        customerFullName: [this.appointmentData.fullName, [Validators.required]],
         customerEmail: [this.appointmentData.email,[Validators.required,Validators.email,Validators.pattern(this.emailPattern)], this.validationArr],
         customerPhone: [this.appointmentData.phone, [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
         customerAddress: [this.appointmentData.address, Validators.required],

@@ -89,8 +89,8 @@ export class ServicesComponent implements OnInit {
     updateServiceData: any;
     actionServiceIdarr: any = [];
     updateCategoryData: any;
-    editServiceStatusPrevious: any;
-    editServicePrivateStatusPrevious: any;
+    //editServiceStatusPrevious: any;
+    //editServicePrivateStatusPrevious: any;
     editServiceImage: any;
     createSubCategory: FormGroup;
     createCategory: FormGroup;
@@ -103,7 +103,6 @@ export class ServicesComponent implements OnInit {
     currencySymbolFormat:any;
     search:any;
     onlynumeric = /^-?(0|[1-9]\d*)?$/
-    
     serviceApiUrl1 : any;
     serviceApiUrl2 : any;
     serviceApiUrl3 : any;
@@ -198,9 +197,10 @@ export class ServicesComponent implements OnInit {
         console.log(err)
       })
     }
-    fnCreateNewCategory() {
+    fnCreateNewCategory() { 
         this.createNewCategoryPage = true;
         this.selectCategoryPage = '';
+        this.singleSubCategoryPage = '';
         this.servicesList = false;
         this.createNewSubCategoryPage = false;
         this.createNewServicePage = false;
@@ -210,6 +210,7 @@ export class ServicesComponent implements OnInit {
          this.servicesList = true;
          this.createCategory.reset(); 
          this.editCategoryId = '';
+         this.categoryImageUrl = '';
 
     }
 
@@ -368,6 +369,11 @@ export class ServicesComponent implements OnInit {
             }
             else {
                  this.staffList = [];
+                 this._snackBar.open(response.response, "X", {
+                    duration: 2000,
+                    verticalPosition: 'top',
+                    panelClass: ['red-snackbar']
+                });
             }
             this.isLoaderAdmin = false;
         })
@@ -396,6 +402,8 @@ export class ServicesComponent implements OnInit {
     fnSelectCategoryNavigation(categoryId, index){
         this.serviceApiUrl2=environment.apiUrl+"/list-service";
         this.fnSelectCategory(categoryId, index);  
+        // this.createNewCategoryPage = false;
+        // this.createNewSubCategoryPage = false;
     }
 
     fnSelectCategory(categoryId, index) {
@@ -405,6 +413,8 @@ export class ServicesComponent implements OnInit {
         this.selectedCategoryIndex = index
         this.createNewCategoryPage = false;
         this.createNewServicePage = false;
+        this.singleSubCategoryPage = '';
+        this.selectedSubCategoryDetails = '';
         this.fromcategory=true;
         this.adminSettingsService.getServiceForCategoiry(categoryId, this.service_filter,this.serviceApiUrl2).subscribe((response: any) => {
             if (response.data == true) {
@@ -496,7 +506,7 @@ export class ServicesComponent implements OnInit {
             this.newSubcategoryPrivate = 'N';
         }
     }
-    editSubCategoryStatus(event) {
+    fnEditSubCategoryStatus(event) {
         if (event == true) {
             this.editSubcategoryStatus = 'E';
         }
@@ -504,7 +514,7 @@ export class ServicesComponent implements OnInit {
             this.editSubcategoryStatus = 'D';
         }
     }
-    editSubCategoryPrivate(event) {
+    fnEditSubCategoryPrivate(event) {
         if (event == true) {
             this.editSubcategoryPrivate = 'Y';
         }
@@ -563,19 +573,20 @@ export class ServicesComponent implements OnInit {
         this.isLoaderAdmin = true;
         this.adminSettingsService.createNewSubCategory(newSubCategoryData).subscribe((response: any) => {
             if (response.data == true) {
-                this._snackBar.open("Sub Category Created", "X", {
+                this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
                     panelClass: ['green-snackbar']
                 });
                 this.createSubCategory.reset();
                 this.fnAllCategory();
-                this.servicesList = true;
+                this.servicesList = false;
+                this.selectCategoryPage = 'notservices';
                 this.createNewSubCategoryPage = false;
                 this.isLoaderAdmin = false;
             }
             else if (response.data == false) {
-                this._snackBar.open("Sub Category Not Created", "X", {
+                this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
                     panelClass: ['red-snackbar']
@@ -588,20 +599,21 @@ export class ServicesComponent implements OnInit {
         this.isLoaderAdmin = true;
         this.adminSettingsService.updateSubCategory(updateSubCategoryData).subscribe((response: any) => {
             if (response.data == true) {
-                this._snackBar.open("Category updated", "X", {
+                this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
                     panelClass: ['green-snackbar']
                 });
-                this.createCategory.reset();
+                this.createSubCategory.reset();
                 this.fnAllCategory();
-                this.servicesList = true;
-                this.createNewCategoryPage = false;
+                this.fnSelectSubCategory(this.editSubCategoryId, this.selectedSubCategoryIndex); 
+                // this.servicesList = true;
+                this.createNewSubCategoryPage = false;
                 this.isLoaderAdmin = false;
                 this.editSubCategoryId = undefined;
             }
             else if (response.data == false) {
-                this._snackBar.open("Category Not updated", "X", {
+                this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
                     panelClass: ['red-snackbar']
@@ -704,7 +716,7 @@ export class ServicesComponent implements OnInit {
                 this.createCategory.reset();
                 this.fnAllCategory();
                 this.fnSelectCategory(this.editCategoryId, this.selectedCategoryIndex);                
-                this.servicesList = true;
+                // this.servicesList = true;
                 this.createNewCategoryPage = false;
                 this.editCategoryId = undefined;
                 this.isLoaderAdmin = false;
@@ -752,6 +764,8 @@ export class ServicesComponent implements OnInit {
         this.createCategory.controls['category_id'].setValue(editCategoryId);
         this.createCategory.controls['category_name'].setValue(this.selectedCategoryDetails.category_title);
         this.createCategory.controls['category_description'].setValue(this.selectedCategoryDetails.category_description);
+        this.editcategoryStatus = this.selectedCategoryDetails.status
+        this.editcategoryPrivate = this.selectedCategoryDetails.private_status
         this.isLoaderAdmin = false;
     }
     deleteCategory(deleteCategoryId) {
@@ -795,7 +809,7 @@ export class ServicesComponent implements OnInit {
         this.isLoaderAdmin = true;
         this.adminSettingsService.deleteSubCategory(deleteSubCategoryId).subscribe((response: any) => {
             if (response.data == true) {
-                this._snackBar.open("Sub Category deleted", "X", {
+                this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
                     panelClass: ['green-snackbar']
@@ -806,7 +820,7 @@ export class ServicesComponent implements OnInit {
                 this.isLoaderAdmin = false;
             }
             else if (response.data == false) {
-                this._snackBar.open("Sub Category Not deleted", "X", {
+                this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
                     panelClass: ['red-snackbar']
@@ -819,19 +833,29 @@ export class ServicesComponent implements OnInit {
     changeCategoryStatus(categoryStatus, categoryId) {
         if (categoryStatus == true) {
             this.currentCategoryStatus = 'E'
+            this.selectedCategoryDetails.status = 'E'
+            this.editcategoryStatus = 'E'
         }
         if (categoryStatus == false) {
             this.currentCategoryStatus = 'D'
+            this.selectedCategoryDetails.status = 'D'
+            this.editcategoryStatus = 'D'
         }
         this.adminSettingsService.changeCategoryStatus(this.currentCategoryStatus, categoryId).subscribe((response: any) => {
             if (response.data == true) {
-                this._snackBar.open("Category Status Updated", "X", {
+                this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
                     panelClass: ['green-snackbar']
                 });
+                this.fnAllCategory()
             }
             else if (response.data == false) {
+                this._snackBar.open(response.response, "X", {
+                    duration: 2000,
+                    verticalPosition: 'top',
+                    panelClass: ['green-snackbar']
+                });
                 this.isLoaderAdmin = false;
             }
         })
@@ -938,6 +962,8 @@ export class ServicesComponent implements OnInit {
     fnSelectSubCategoryNavigate(subCategoryId, index){
         this.serviceApiUrl3=environment.apiUrl+"/list-subcategory-service";;
        this.fnSelectSubCategory(subCategoryId, index); 
+       this.selectedSubCategoryID = subCategoryId;
+       this.selectedSubCategoryIndex = index;
     }
 
     fnSelectSubCategory(subCategoryId, index) {
@@ -1061,6 +1087,7 @@ export class ServicesComponent implements OnInit {
         this.createNewServicePage = false;
         this.createNewSubCategoryPage = false;  
         this.selectCategoryPage="services";
+        this.subCategoryImageUrl='';
     }
     fnCancelAddService(){
         // this.servicesList = true;
@@ -1070,6 +1097,7 @@ export class ServicesComponent implements OnInit {
         this.servicesList = false;
         this.createNewServicePage = false;
         this.createNewSubCategoryPage = false;  
+        this.serviceImageUrl = '';
         if(this.fromcategory == true){
             this.selectCategoryPage="services";
         }else{
@@ -1207,7 +1235,15 @@ export class ServicesComponent implements OnInit {
                 this.createService.reset();
                 this.assignStaffArr.length = 0;
                 this.createNewServicePage = false;
-                this.servicesList = true;
+                this.servicesList = false;
+                this.fnAllCategory();
+                if(this.createServiceCategoryType == 'subcategory'){
+                    this.fnSelectCategory(this.selectedCategoryID,this.selectedCategoryIndex);
+                    this.singleSubCategoryPage = 'services'
+                }else if(this.createServiceCategoryType == 'category'){
+                    this.fnSelectSubCategory(this.selectedSubCategoryID,this.selectedSubCategoryIndex);
+                    this.selectCategoryPage = 'services'
+                }
                 this.isLoaderAdmin = false;
             }
             else if (response.data == false) {
@@ -1233,13 +1269,13 @@ export class ServicesComponent implements OnInit {
                 this.createService.reset();
                 this.createNewServicePage = false;
                 this.assignStaffArr.length = 0;
-                this.servicesList = true;
+                this.servicesList = false;
                 this.editServiceId = undefined;
-                this.editServiceStatusPrevious = '';
-                this.editServicePrivateStatusPrevious = '';
+                this.editServiceStatus = '';
+                this.editServicePrivate = '';
                 this.editServiceImage = '';
+                this.fnAllCategory();
                 this.isLoaderAdmin = false;
-                this.fnAllServicesNavigation();
                 
             }
             else if (response.data == false) {
@@ -1255,9 +1291,13 @@ export class ServicesComponent implements OnInit {
     changeSubCategoryStatus(categoryStatus, subcategoryId) {
         if (categoryStatus == true) {
             this.currentSubCategoryStatus = 'E'
+            this.selectedSubCategoryDetails.sub_category_status = 'E'
+            this.editSubcategoryStatus = 'E'
         }
         if (categoryStatus == false) {
             this.currentSubCategoryStatus = 'D'
+            this.selectedSubCategoryDetails.sub_category_status = 'D'
+            this.editSubcategoryStatus = 'D'
         }
         this.adminSettingsService.changeSubCategoryStatus(this.currentSubCategoryStatus, subcategoryId).subscribe((response: any) => {
             if (response.data == true) {
@@ -1273,6 +1313,9 @@ export class ServicesComponent implements OnInit {
         })
     }
     editSubCategory(editSubCategoryId){
+        
+        // this.fnAllCategory();
+        // this.fnSelectSubCategory(this.selectedSubCategoryID,this.selectedSubCategoryIndex);
         this.editSubCategoryId = editSubCategoryId
         this.singleSubCategoryPage = '';
         this.createNewSubCategoryPage = true;
@@ -1280,6 +1323,8 @@ export class ServicesComponent implements OnInit {
         this.createSubCategory.controls['subcategory_id'].setValue(editSubCategoryId);
         this.createSubCategory.controls['subcategory_name'].setValue(this.selectedSubCategoryDetails.sub_category_name);
         this.createSubCategory.controls['subcategory_description'].setValue(this.selectedSubCategoryDetails.sub_category_description);
+        this.editSubcategoryStatus = this.selectedSubCategoryDetails.sub_category_status
+        this.editSubcategoryPrivate = this.selectedSubCategoryDetails.sub_category_private
         this.isLoaderAdmin = false;
     }
     fnEditService(index, serviceId, type) {
@@ -1295,10 +1340,12 @@ export class ServicesComponent implements OnInit {
         if(this.categoryServicesList[index] && this.categoryServicesList[index].staffs){
             this.assignedStaff = this.categoryServicesList[index].staffs;
         }
-        
-         this.assignedStaff.forEach(element => {
-              this.assignStaffArr.push(element.id);
-          });
+        console.log(this.assignedStaff)
+        if(this.assignedStaff != '' || this.assignedStaff != [] || this.assignedStaff != undefined){
+            this.assignedStaff.forEach(element => {
+                 this.assignStaffArr.push(element.id);
+             });
+        }
 
         if (type == 'category') {
             this.createService.controls['service_id'].setValue(this.editServiceId);
@@ -1307,8 +1354,8 @@ export class ServicesComponent implements OnInit {
             this.createService.controls['service_cost'].setValue(this.categoryServicesList[index].service_cost);
             this.createService.controls['service_duration'].setValue(this.categoryServicesList[index].service_time);
             this.createService.controls['service_unit'].setValue(this.categoryServicesList[index].service_unit);
-            this.editServiceStatusPrevious = this.categoryServicesList[index].status
-            this.editServicePrivateStatusPrevious = this.categoryServicesList[index].private_status
+            this.editServiceStatus = this.categoryServicesList[index].status
+            this.editServicePrivate = this.categoryServicesList[index].private_status
             this.editServiceImage = this.categoryServicesList[index].service_image
         }
         else if(type == 'subcategory'){
@@ -1318,8 +1365,8 @@ export class ServicesComponent implements OnInit {
             this.createService.controls['service_cost'].setValue(this.subCategoryServicesList[index].service_cost);
             this.createService.controls['service_duration'].setValue(this.subCategoryServicesList[index].service_time);
             this.createService.controls['service_unit'].setValue(this.subCategoryServicesList[index].service_unit);
-            this.editServiceStatusPrevious = this.subCategoryServicesList[index].status
-            this.editServicePrivateStatusPrevious = this.subCategoryServicesList[index].private_status
+            this.editServiceStatus = this.subCategoryServicesList[index].status
+            this.editServicePrivate = this.subCategoryServicesList[index].private_status
             this.editServiceImage = this.subCategoryServicesList[index].service_image
         }
         this.isLoaderAdmin = false;
@@ -1532,7 +1579,44 @@ export class ServicesComponent implements OnInit {
         templateUrl: '../_dialogs/dialog-data-example-dialog.html',
       })
       export class DialogDataExampleDialog {
-        constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+        isLoaderAdmin:boolean = false;
+        businessId:any;
+        search:any;
+        staffList : any;
+        constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
+        private _snackBar: MatSnackBar,
+        private adminSettingsService: AdminSettingsService,
+        ) {
+            if (localStorage.getItem('business_id')) {
+                this.businessId = localStorage.getItem('business_id');
+            }
+            this.fnstaffList();
+        }
+
+        fnstaffList(){
+            this.isLoaderAdmin = true;
+            let requestObject = {
+                "business_id":this.businessId,
+                "search": this.search
+            }
+            this.adminSettingsService.fnstaffList(requestObject).subscribe((response: any) => {
+                if (response.data == true) {
+                    this.staffList = response.response
+                }
+                else {
+                     this.staffList = [];
+                     this._snackBar.open(response.response, "X", {
+                        duration: 2000,
+                        verticalPosition: 'top',
+                        panelClass: ['red-snackbar']
+                    });
+                }
+                this.isLoaderAdmin = false;
+            })
+        }
+
+
+
       }
 
     
