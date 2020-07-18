@@ -280,6 +280,9 @@ export class DialogAddPostalCode {
       this.formCreatePostalCode.get("postalCodeStaff").markAsTouched();
       return false;
     }
+    if(this.formCreatePostalCode.get("postalCodeStaff").value == ''){
+      this.formCreatePostalCode.controls["postalCodeStaff"].setValue([]);
+    }
     let requestObject = {
       'business_id': this.businessId,
       'postal_code': this.formCreatePostalCode.get("postalCode").value,

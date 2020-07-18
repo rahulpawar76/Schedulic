@@ -39,7 +39,7 @@ export class DiscountCouponComponent implements OnInit {
   valid_from : any;
   valid_till : any;
   selectedService : any = [];
-  categoryServiceList : any;
+  categoryServiceList : any = '';
   
   categoryServiceCheckCatId: any = [];
   categoryServiceChecksubCatId: any = [];
@@ -60,7 +60,7 @@ export class DiscountCouponComponent implements OnInit {
   last_page_url : any;
   next_page_url : any;
   prev_page_url : any;
-  discountType: any;
+  discountType: any = 'P';
   path : any;
   searchService: any;
   searchedServices : boolean = false;
@@ -235,12 +235,13 @@ export class DiscountCouponComponent implements OnInit {
     this.isLoaderAdmin = true;
     this.AdminService.createNewCouponCode(createdCouponCodeData).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Coupon Created.", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
         this.couponCodeListing = true;
+        this.discountCoupon.reset();
         this.getAllCouponCode();
         this.addNewCouponCode = false;
         this.isLoaderAdmin = false;
@@ -285,7 +286,7 @@ export class DiscountCouponComponent implements OnInit {
   getCateServiceList(){
     let requestObject = {
       'business_id': this.businessId,
-      'search' : this.searchService
+      'search' : ''
   };
     this.isLoaderAdmin = true;
     this.AdminService.getCateServiceList(requestObject).subscribe((response:any) => {

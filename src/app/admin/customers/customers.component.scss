@@ -752,31 +752,48 @@ textarea {
 
 ::ng-deep .invoice-width1 {
     border-radius: 25px;
-    width: 140px;
+    width: 145px;
     background-color: $bgdarkblue;
     &:hover {
         background-color: $bgdarkblue;
     }
+    i {
+        padding: 0px 10px;
+    }
+}
+
+mat-chip-list {
+    &:focus {
+        outline: none;
+    }
+}
+
+.min-h-70 {
+    min-height: 70px;
 }
 
 ::ng-deep .invoice-width2 {
     border-radius: 25px;
-    width: 140px;
+    width: 145px;
     background-color: $bgdarkorange;
     &:hover {
         background-color: $bgdarkorange;
     }
     i {
         color: white;
+        padding: 0px 10px;
     }
 }
 
 ::ng-deep .invoice-width3 {
     border-radius: 25px;
-    width: 140px;
+    width: 145px;
     background-color: $bgdarkgreen;
     &:hover {
         background-color: $bgdarkgreen;
+    }
+    i {
+        padding: 0px 10px;
     }
 }
 

@@ -1166,7 +1166,7 @@ customerUpdate(existingCustomerData){
     }
     this.AdminService.onlinePayment(requestObject).subscribe((response:any) => {
       if(response.data == true){
-       this._snackBar.open("Payment Link Sent", "X", {
+       this._snackBar.open("Payment Link Sent.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
@@ -1819,10 +1819,20 @@ constructor(
         catchError(this.handleError)).subscribe((res) => {
           if(res){
             if(res.data == false){
+              this._snackBar.open(res.response, "X", {
+                duration: 2000,
+                verticalPosition: 'top',
+                panelClass : ['red-snackbar']
+                });
               this.valide_postal_code = false;
             resolve({ isPostalcodeValid: true });
             }else{
               this.valide_postal_code = true;
+              this._snackBar.open(res.response, "X", {
+                duration: 2000,
+                verticalPosition: 'top',
+                panelClass : ['red-snackbar']
+                });
               resolve(null);
             }
           }
@@ -2626,7 +2636,7 @@ export class DialogAddNewNote {
     this.isLoaderAdmin = true;
     this.AdminService.fncreateNewNote(createNewNoteData).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Customer Note Created", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
@@ -2636,7 +2646,11 @@ export class DialogAddNewNote {
         
       }
       else if(response.data == false){
-        // this.allCustomers = ''
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
       this.isLoaderAdmin = false;
       }
     })

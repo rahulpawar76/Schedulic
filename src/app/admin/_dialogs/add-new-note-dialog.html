@@ -15,7 +15,7 @@
                 <span class="error-wrap" *ngIf="createNewNote.get('note_subject').dirty || createNewNote.get('note_subject').touched"><small *ngIf="createNewNote.get('note_subject').hasError('required')" class="error">Subject is required.</small></span>
                 <mat-form-field class="bottom-border-field">
                     <mat-label>Description</mat-label>
-                    <textarea rows="5" matInput formControlName="note_description" placeholder="Type Note Description Here"></textarea>
+                    <textarea class="min-h-70" rows="5" matInput formControlName="note_description" placeholder="Type Note Description Here"></textarea>
                 </mat-form-field>
                 <span class="error-wrap" *ngIf="createNewNote.get('note_description').dirty || createNewNote.get('note_description').touched"><small *ngIf="createNewNote.get('note_description').hasError('required')" class="error">Description is required.</small></span>
             </div>

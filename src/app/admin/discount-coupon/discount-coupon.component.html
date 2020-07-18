@@ -190,7 +190,10 @@
                         <div class=" form-group col-lg-3 col-12 col-sm-12 col-md-3  bottom-border-field">
                             <mat-form-field>
                                 <mat-label>Discount</mat-label>
-                                <mat-icon matPrefix><img src="../../../assets/images/admin/percentage.png" class=""></mat-icon>
+                                <mat-icon matPrefix>
+                                    <img *ngIf="discountType == 'P'" src="../../../assets/images/admin/percentage.png" class="">
+                                    <img *ngIf="discountType == 'F'" src="../../../assets/images/admin/rupee.png" class="">
+                                </mat-icon>
                                 <input (keyup)="discount_check()" matInput formControlName="discount_value" placeholder="Value">
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="discountCoupon.get('discount_value').touched || discountCoupon.get('discount_value').dirty || formSubmitclicked">
@@ -243,7 +246,7 @@
                                 </mat-expansion-panel>
                             </mat-expansion-panel>
                         </mat-accordion>
-                        <div class="categoryServiceList.length == 0">
+                        <div class="categoryServiceList == ''">
                             <p>No Service Found</p>
                         </div>
                     </mat-card>
