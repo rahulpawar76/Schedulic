@@ -887,7 +887,9 @@ export class StaffAppointmentComponent implements OnInit {
         };
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        'mode': 'no-cors'
+        'staff-id' : '',
+        'api-token' : '' 
+        // 'mode': 'no-cors'
       });
 
       this.http.post(`${environment.apiUrl}/get-all-category`,requestObject,{headers:headers} ).pipe(

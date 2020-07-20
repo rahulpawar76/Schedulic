@@ -177,10 +177,11 @@ export class ServicesComponent implements OnInit {
         this.settingSideMenuToggle = false;
       }
     fnGetSettings(){
-    let requestObject = {
-      "business_id" : this.businessId
-      };
-    this.adminSettingsService.getSettingValue(requestObject).subscribe((response:any) => {
+        let requestObject = {
+            "business_id" : this.businessId
+        };
+
+        this.adminSettingsService.getSettingValue(requestObject).subscribe((response:any) => {
       if(response.data == true && response.response != ''){
         this.settingsArr = response.response;
 
@@ -192,11 +193,11 @@ export class ServicesComponent implements OnInit {
       }else{
 
       }
-      },
-      (err) =>{
-        console.log(err)
-      })
+        },(err) =>{
+            console.log(err)
+        });
     }
+
     fnCreateNewCategory() { 
         this.createNewCategoryPage = true;
         this.selectCategoryPage = '';
@@ -205,6 +206,7 @@ export class ServicesComponent implements OnInit {
         this.createNewSubCategoryPage = false;
         this.createNewServicePage = false;
     }
+
     cancelNewCategory() {
         this.createNewCategoryPage = false;
          this.servicesList = true;
@@ -232,6 +234,7 @@ export class ServicesComponent implements OnInit {
             this.fnSelectSubCategory(this.selectedSubCategoryID,this.selectedSubCategoryIndex);
         }
     }
+
     navigateToPageNumber(index,type){
         if(index && type=="service"){
             this.serviceApiUrl1=this.path+'?page='+index;
@@ -296,53 +299,52 @@ export class ServicesComponent implements OnInit {
     }
     
     
-  fnAddStaffId(event, staffId,i) {
+    fnAddStaffId(event, staffId,i) {
 
-    if (event == true) {
-      this.ActionId.push(staffId);
-      this.allServicesList[i].is_selected = true;
+        if (event == true) {
+        this.ActionId.push(staffId);
+        this.allServicesList[i].is_selected = true;
 
-    }else if (event == false) {
-        this.allServicesList[i].is_selected = false;
+        }else if (event == false) {
+            this.allServicesList[i].is_selected = false;
 
-      const index = this.ActionId.indexOf(staffId, 0);
-      if (index > -1) {
-        this.ActionId.splice(index, 1);
-      }
-    }
-    
-    if (this.ActionId.length == this.allServicesList.length ) {
-      this.selectAll = true;
-    } else {
-      this.selectAll = false;
-    }
-
-  }
-
-  checkAll(event){
-
-    this.ActionId = [];
-    for (let i = 0; i < this.allServicesList.length; i++) {
-      const item = this.allServicesList[i];
-      item.is_selected = event.checked;
-
-      if(event.checked){
-        this.ActionId.push(item.id)
-      }
+        const index = this.ActionId.indexOf(staffId, 0);
+        if (index > -1) {
+            this.ActionId.splice(index, 1);
+        }
+        }
+        
+        if (this.ActionId.length == this.allServicesList.length ) {
+        this.selectAll = true;
+        } else {
+        this.selectAll = false;
+        }
 
     }
 
-    if(event.checked){
-      this.selectAll = true;
-    }else{
-      this.selectAll = false;
-    }
+    checkAll(event){
 
-  }
+        this.ActionId = [];
+        for (let i = 0; i < this.allServicesList.length; i++) {
+        const item = this.allServicesList[i];
+        item.is_selected = event.checked;
+
+        if(event.checked){
+            this.ActionId.push(item.id)
+        }
+
+        }
+
+        if(event.checked){
+        this.selectAll = true;
+        }else{
+        this.selectAll = false;
+        }
+
+    }
   
 
     fnAllCategory() {
-
 
         this.isLoaderAdmin = true;
         this.adminSettingsService.fnAllCategory().subscribe((response: any) => {
@@ -357,6 +359,7 @@ export class ServicesComponent implements OnInit {
             }
         })
     }
+
     fnstaffList(){
         this.isLoaderAdmin = true;
         let requestObject = {
@@ -378,6 +381,7 @@ export class ServicesComponent implements OnInit {
             this.isLoaderAdmin = false;
         })
     }
+
     openDialog() {
         this.dialog.open(DialogDataExampleDialog, {
             width: '350px',
@@ -459,6 +463,7 @@ export class ServicesComponent implements OnInit {
             }
         })
     }
+
     changeServiceStaus(event, serviceId) {
         if (event == true) {
             this.singleServiceStatus = 'E'
@@ -484,12 +489,14 @@ export class ServicesComponent implements OnInit {
             }
         })
     }
+
     fnCreateNewSubCategoryPage(categoryId) {
         this.selectCategoryPage = '';
         this.createNewSubCategoryPage = true;
         this.parentCategoryId = categoryId
         // this.fromcategory=true;
     }
+
     newSubCategoryStatus(event) {
         if (event == true) {
             this.newSubcategoryStatus = 'E';
@@ -514,6 +521,7 @@ export class ServicesComponent implements OnInit {
             this.editSubcategoryStatus = 'D';
         }
     }
+
     fnEditSubCategoryPrivate(event) {
         if (event == true) {
             this.editSubcategoryPrivate = 'Y';
@@ -521,7 +529,8 @@ export class ServicesComponent implements OnInit {
         else if (event == false) {
             this.editSubcategoryPrivate = 'N';
         }
-    }
+    } 
+
     fnCreateNewSubCategorySubmit() {
         if(this.editSubCategoryId != undefined){
             if (this.createSubCategory.valid) {
@@ -550,8 +559,7 @@ export class ServicesComponent implements OnInit {
                 this.createSubCategory.get("subcategory_name").markAsTouched();
                 this.createSubCategory.get("subcategory_description").markAsTouched();
             }
-        }
-        else{
+        } else{
             if (this.createSubCategory.valid) {
                 this.newSubCategoryData = {
                     'business_id': this.businessId,
@@ -569,23 +577,25 @@ export class ServicesComponent implements OnInit {
             }
         }
     }
+
     createNewSubCategory(newSubCategoryData) {
         this.isLoaderAdmin = true;
         this.adminSettingsService.createNewSubCategory(newSubCategoryData).subscribe((response: any) => {
+            this.isLoaderAdmin = false;
             if (response.data == true) {
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
                     panelClass: ['green-snackbar']
                 });
-                this.createSubCategory.reset();
                 this.fnAllCategory();
+                this.fnSelectCategoryNavigation(this.selectedCategoryID , this.selectedSubCategoryIndex);
+                this.createSubCategory.reset();
                 this.servicesList = false;
                 this.selectCategoryPage = 'notservices';
                 this.createNewSubCategoryPage = false;
                 this.isLoaderAdmin = false;
-            }
-            else if (response.data == false) {
+            }else if (response.data == false) {
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -595,6 +605,7 @@ export class ServicesComponent implements OnInit {
             }
         })
     }
+
     updateSubCategory(updateSubCategoryData) {
         this.isLoaderAdmin = true;
         this.adminSettingsService.updateSubCategory(updateSubCategoryData).subscribe((response: any) => {
@@ -622,6 +633,7 @@ export class ServicesComponent implements OnInit {
             }
         })
     }
+
     newCategoryStatus(event) {
         if (event == true) {
             this.newcategoryStatus = 'E';
@@ -630,6 +642,7 @@ export class ServicesComponent implements OnInit {
             this.newcategoryStatus = 'D';
         }
     }
+
     newCategoryPrivate(event) {
         if (event == true) {
             this.newcategoryPrivate = 'Y';
@@ -638,6 +651,7 @@ export class ServicesComponent implements OnInit {
             this.newcategoryPrivate = 'N';
         }
     }
+
     editCategoryStatus(event) {
         if (event == true) {
             this.editcategoryStatus = 'E';
@@ -654,9 +668,9 @@ export class ServicesComponent implements OnInit {
             this.editcategoryPrivate = 'N';
         }
     }
+
     fnCreateNewCategorySubmit() {
         
-
         if (this.createCategory.get('category_id').value) {
         
           this.editCategoryId = this.createCategory.get('category_id').value;
@@ -704,6 +718,7 @@ export class ServicesComponent implements OnInit {
             }
         }
     }
+
     updateCategory(updateCategoryData) {
         this.isLoaderAdmin = true;
         this.adminSettingsService.updateCategory(updateCategoryData).subscribe((response: any) => {
@@ -731,6 +746,7 @@ export class ServicesComponent implements OnInit {
             }
         })
     }
+
     createNewCategory(newCategoryData) {
         this.isLoaderAdmin = true;
         this.adminSettingsService.createNewCategory(newCategoryData).subscribe((response: any) => {
@@ -756,6 +772,7 @@ export class ServicesComponent implements OnInit {
             }
         })
     }
+
     editCategory(editCategoryId) {
         this.editCategoryId = editCategoryId
         this.selectCategoryPage = '';
@@ -768,6 +785,7 @@ export class ServicesComponent implements OnInit {
         this.editcategoryPrivate = this.selectedCategoryDetails.private_status
         this.isLoaderAdmin = false;
     }
+
     deleteCategory(deleteCategoryId) {
         var is_confirm  = confirm('Are you sure you want to delete?')
         if(!is_confirm){
@@ -798,6 +816,7 @@ export class ServicesComponent implements OnInit {
             }
         })
     }
+
     deleteSubCategory(deleteSubCategoryId) {
 
         var is_confirm  = confirm('Are you sure you want to delete?');
@@ -818,8 +837,7 @@ export class ServicesComponent implements OnInit {
                 this.servicesList = true;
                 this.createNewCategoryPage = false;
                 this.isLoaderAdmin = false;
-            }
-            else if (response.data == false) {
+            } else if (response.data == false) {
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -1004,11 +1022,14 @@ export class ServicesComponent implements OnInit {
                 this.selectCategoryPage = '';
                 this.createNewServicePage = false;
                 this.isLoaderAdmin = false;
-            }
-            else if (response.data == false) {
+            } else if (response.data == false) {
                 if (response.response == 'service not found') {
                     this.servicesList = false;
-                    this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedCategoryIndex].subcategory[index]
+
+                    
+                    if(this.allCetegoryList[this.selectedCategoryIndex]!=undefined){
+                        this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedCategoryIndex].subcategory[index]
+                    }
                     this.selectCategoryPage = '';
                     this.singleSubCategoryPage = 'notservices';
                 }
@@ -1054,7 +1075,6 @@ export class ServicesComponent implements OnInit {
           }
         }
         
-    
         if(event.checked){
           this.selectAllSubCat = true;
         }else{
@@ -1089,6 +1109,7 @@ export class ServicesComponent implements OnInit {
         this.selectCategoryPage="services";
         this.subCategoryImageUrl='';
     }
+
     fnCancelAddService(){
         // this.servicesList = true;
         // this.createNewServicePage = false;
@@ -1224,9 +1245,10 @@ export class ServicesComponent implements OnInit {
     }
 
     createNewService(newServiceData) {
-        this.isLoaderAdmin = true;
         this.adminSettingsService.createNewService(newServiceData).subscribe((response: any) => {
-            if (response.data == true && response.response == 'service created') {
+            this.isLoaderAdmin = true;
+            if (response.data == true) {
+                this.isLoaderAdmin = false;
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -1245,8 +1267,7 @@ export class ServicesComponent implements OnInit {
                     this.selectCategoryPage = 'services'
                 }
                 this.isLoaderAdmin = false;
-            }
-            else if (response.data == false) {
+            } else if (response.data == false) {
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -1411,32 +1432,34 @@ export class ServicesComponent implements OnInit {
                 this.categoryImageUrl = result;
                }
          });
-      }
-      subCategoryImage() {
-        const dialogRef = this.dialog.open(DialogSubCategoryImageUpload, {
-          width: '500px',
-          
+    }
+
+    subCategoryImage() {
+    const dialogRef = this.dialog.open(DialogSubCategoryImageUpload, {
+        width: '500px',
+        
+    });
+
+        dialogRef.afterClosed().subscribe(result => {
+        if(result != undefined){
+            this.subCategoryImageUrl = result;
+            }
         });
-    
-         dialogRef.afterClosed().subscribe(result => {
-            if(result != undefined){
-                this.subCategoryImageUrl = result;
-               }
-         });
-      }
-      serviceImage() {
+    }
+     
+    serviceImage() {
         const dialogRef = this.dialog.open(DialogServiceImageUpload, {
-          width: '500px',
-          
+        width: '500px',
+        
         });
     
-         dialogRef.afterClosed().subscribe(result => {
+        dialogRef.afterClosed().subscribe(result => {
             if(result != undefined){
                 this.serviceImageUrl = result;
-               }
-         });
-      }
+            }
+        });
     }
+}
       
       @Component({
         selector: 'category-image-upload',

@@ -1869,7 +1869,7 @@ export class rescheduleAppointmentDialog {
 
       this.customerDetails = JSON.parse(localStorage.getItem('currentUser'));
     
-
+     
       this.fnIsPostalCodeAdded();
       this.fnGetSettingValue();
       this.fnGetTaxDetails();
