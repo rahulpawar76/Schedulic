@@ -762,6 +762,14 @@ textarea {
     }
 }
 
+::ng-deep .mat-tab-label {
+    &.mat-tab-label-active {
+        .mat-tab-label-content {
+            color: #1173f4;
+        }
+    }
+}
+
 mat-chip-list {
     &:focus {
         outline: none;

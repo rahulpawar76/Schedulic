@@ -332,7 +332,7 @@ fnCreateNewCustomer(newCustomerData){
   this.isLoaderAdmin = true;
   this.AdminService.fnCreateNewCustomer(newCustomerData).subscribe((response:any) => {
     if(response.data == true){
-      this._snackBar.open("Customer Created", "X", {
+      this._snackBar.open("Customer Created.", "X", {
         duration: 2000,
         verticalPosition:'top',
         panelClass :['green-snackbar']
@@ -342,6 +342,11 @@ fnCreateNewCustomer(newCustomerData){
       this.isLoaderAdmin = false;
     }
     else if(response.data == false){
+      this._snackBar.open(response.response, "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['green-snackbar']
+      });
       // this.allCustomers = ''
     this.isLoaderAdmin = false;
     }
