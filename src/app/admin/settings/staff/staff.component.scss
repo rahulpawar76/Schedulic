@@ -23,7 +23,7 @@
     }
     .add-staff {
         width: 100%;
-        // height: 100px;
+        height: 100%;
         border-radius: 73px;
     }
     .upload-document-top-margin {
@@ -230,7 +230,7 @@
         color: #378af6;
     }
     .time-off-button {
-        width: 120px;
+        width: 150px;
         height: 37px;
         border-radius: 26px;
         background-color: #a8ceff;
@@ -739,9 +739,30 @@
     }
 }
 
+.h-100vh {
+    height: 100vh;
+}
+
+.single-staff-header {
+    height: 130px;
+}
+
+.single-staff-container {
+    height: calc(100vh - 130px);
+    .button-container {
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
 .service-profile-image {
     width: 60px;
     height: auto;
+    &.uploaded {
+        width: 100%;
+        height: 100%;
+    }
     //border-radius: 50px;
 }
 
@@ -767,4 +788,8 @@
     display: inline-block;
     width: 100%;
     overflow-y: scroll;
+}
+
+::ng-deep .mat-tab-body-wrapper {
+    height: 100%;
 }
