@@ -582,7 +582,7 @@ export class AppComponent implements AfterViewInit {
         }else{
           this.router.navigate(["user"]);
         }
-
+ 
         // this.initiateTimeout();
       
       }else if(data.idExists == false && data.emailExists == true){
