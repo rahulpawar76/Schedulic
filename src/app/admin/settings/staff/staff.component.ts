@@ -1260,6 +1260,7 @@ export class StaffComponent implements OnInit {
             formData.append('email', this.StaffCreate.get('email').value);
             formData.append('phone', this.StaffCreate.get('phone').value);
             formData.append('address', this.StaffCreate.get('address').value);
+            formData.append('description', this.StaffCreate.get('description').value);
             formData.append('servicelist', this.categoryServiceCheckServiceId);
             
             if(this.staffImageUrl!=undefined){
@@ -1293,6 +1294,7 @@ export class StaffComponent implements OnInit {
         formData.append('email', this.StaffCreate.get('email').value);
         formData.append('phone', this.StaffCreate.get('phone').value);
         formData.append('address', this.StaffCreate.get('address').value);
+        formData.append('description', this.StaffCreate.get('description').value);
         formData.append('servicelist', this.categoryServiceCheckServiceId);
         formData.append('image', this.staffImageUrl);
          this.createNewStaff(formData);

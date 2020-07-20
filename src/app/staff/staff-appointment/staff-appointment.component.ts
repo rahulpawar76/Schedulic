@@ -1249,7 +1249,7 @@ export class StaffAppointmentComponent implements OnInit {
         "service_id":this.selectedServiceId,
         "staff_id":this.staffId,
         "book_date":date,
-        "postal_code":this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value
+        "postal_code":this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').value
       };
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',

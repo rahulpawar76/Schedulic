@@ -112,7 +112,7 @@ export class AppComponent implements AfterViewInit {
   ) {
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
     console.log(this.currentUser)
-    if(this.currentUser.internal_staff === 'N'){
+    if(this.currentUser && this.currentUser.internal_staff === 'N'){
       this.staffAvailable = true;
     }else{
       this.staffAvailable = false;
