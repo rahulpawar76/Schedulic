@@ -112,16 +112,11 @@ export class AppComponent implements AfterViewInit {
   ) {
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
     console.log(this.currentUser)
-    alert(this.currentUser.id)
     if(this.currentUser.internal_staff === 'N'){
       this.staffAvailable = true;
-      alert("Yes")
     }else{
       this.staffAvailable = false;
-      alert("No ")
     }
-    
-    alert(this.staffAvailable)
     if (localStorage.getItem('business_id')) {
       this.businessId = localStorage.getItem('business_id');
       this.getNotificationCount(this.businessId)
