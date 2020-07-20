@@ -92,8 +92,10 @@
                     <div class="col-lg-6 col-6 col-md-4  main-account-company-details">
                         <div class="ml-3 justify-content-center d-flex ">
                             <div class="account-my-profile-img-wrap profile-img-wrap" (click)="companyDetailsImage()">
-                                <img *ngIf="companyDetailsData && !companyDetailsData.image" mat-card-avatar class="account-my-profile-img" src="/assets/images/admin/Layer6.png">
-                                <img *ngIf="companyDetailsData && companyDetailsData.image" mat-card-avatar class="account-my-profile-img" onerror="this.src='/assets/images/image_not_found.png';" src="{{companyDetailsData.image}}">
+                                <img *ngIf="(companyDetailsData && !companyDetailsData.image) && !companyDetailsImageUrl" mat-card-avatar class="account-my-profile-img" src="/assets/images/admin/picture.png">
+                                <img *ngIf="(companyDetailsData && !companyDetailsData.image) && companyDetailsImageUrl" mat-card-avatar class="account-my-profile-img uploaded" src="{{companyDetailsImageUrl}}">
+                                <img *ngIf="(companyDetailsData && companyDetailsData.image) && !companyDetailsImageUrl" mat-card-avatar class="account-my-profile-img" onerror="this.src='/assets/images/admin/picture.png';" src="{{companyDetailsData.image}}">
+                                <img *ngIf="(companyDetailsData && companyDetailsData.image) && companyDetailsImageUrl" mat-card-avatar class="account-my-profile-img uploaded" onerror="this.src='/assets/images/admin/picture.png';" src="{{companyDetailsImageUrl}}">
                                 <div class="camera-alt"><i class="material-icons"> camera_alt</i></div>
                             </div>
                         </div>

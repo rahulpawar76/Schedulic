@@ -1252,6 +1252,7 @@ export class AdminSettingsService {
     getCateServiceList(){
         let requestObject = {
             'business_id': this.businessId,
+            'search': ""
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',

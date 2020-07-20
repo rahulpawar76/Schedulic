@@ -1317,6 +1317,8 @@ export class StaffComponent implements OnInit {
             panelClass: ['green-snackbar']
           });
          this.getAllStaff();
+         this.StaffCreate.reset();
+         this.staffImageUrl = undefined
          this.addStaffPage = false;
          this.staffListPage = true;
         this.isLoaderAdmin = false;
@@ -1336,6 +1338,8 @@ export class StaffComponent implements OnInit {
             panelClass: ['green-snackbar']
           });
          this.getAllStaff();
+         this.StaffCreate.reset();
+         this.staffImageUrl = undefined
          this.addStaffPage = false;
          this.staffListPage = true;
         this.isLoaderAdmin = false;
@@ -1427,11 +1431,11 @@ export class StaffComponent implements OnInit {
  }
 
  fnCancelStaff(){
-
+    this.staffImageUrl = undefined
     this.addStaffPage = false;
     this.staffListPage = true;
     this.singleStaffView = false;
-    
+    this.StaffCreate.reset();
    
  }
 

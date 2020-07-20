@@ -51,7 +51,11 @@
     }
     .account-my-profile-img {
         height: auto;
-        width: 120px;
+        width: 70px;
+        &.uploaded {
+            height: 100%;
+            width: 100%;
+        }
     }
     .camera-alt {
         display: none;
@@ -118,6 +122,9 @@
     overflow: hidden;
     position: relative;
     transition: 0.3s all;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
     &:hover .camera-alt {
         transition: 0.3s all;
