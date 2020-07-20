@@ -1847,7 +1847,6 @@ export class rescheduleAppointmentDialog {
     private http: HttpClient,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    
       
     //this.customerDetails=this.data.customerDetails;
     
@@ -1970,36 +1969,35 @@ export class rescheduleAppointmentDialog {
         }),
         catchError(this.handleError)
       ).subscribe((response:any) => {
-        if(response.data == true){
-          this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
-            customerPostalCode: ['', [Validators.required,Validators.minLength(6)],this.isPostalcodeValid.bind(this)],
-            customerCategory: ['', Validators.required],
-            customerSubCategory: ['', [Validators.required]],
-            customerService: ['', [Validators.required]],
-            customerDate: ['', Validators.required],
-            customerTime: ['', Validators.required],
-            customerStaff: ['', Validators.required],
-            customerAppoAddress: ['', Validators.required],
-            customerAppoState: ['', Validators.required],
-            customerAppoCity: ['', Validators.required],
-         });
-        }else{
-          this.valide_postal_code = true;
-          this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
-            customerPostalCode: ['', [Validators.required,Validators.minLength(6)]],
-            customerCategory: ['', Validators.required],
-            customerSubCategory: ['', [Validators.required]],
-            customerService: ['', [Validators.required]],
-            customerDate: ['', Validators.required],
-            customerTime: ['', Validators.required],
-            customerStaff: ['', Validators.required],
-            customerAppoAddress: ['', Validators.required],
-            customerAppoState: ['', Validators.required],
-            customerAppoCity: ['', Validators.required],
-         });
-        }
-        },
-        (err) =>{
+          if(response.data == true){
+            this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
+              customerPostalCode: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(6)],this.isPostalcodeValid.bind(this)],
+              customerCategory: ['', Validators.required],
+              customerSubCategory: ['', [Validators.required]],
+              customerService: ['', [Validators.required]],
+              customerDate: ['', Validators.required],
+              customerTime: ['', Validators.required],
+              customerStaff: ['', Validators.required],
+              customerAppoAddress: ['', Validators.required],
+              customerAppoState: ['', Validators.required],
+              customerAppoCity: ['', Validators.required],
+          });
+          }else{
+            this.valide_postal_code = true;
+            this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
+              customerPostalCode: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
+              customerCategory: ['', Validators.required],
+              customerSubCategory: ['', [Validators.required]],
+              customerService: ['', [Validators.required]],
+              customerDate: ['', Validators.required],
+              customerTime: ['', Validators.required],
+              customerStaff: ['', Validators.required],
+              customerAppoAddress: ['', Validators.required],
+              customerAppoState: ['', Validators.required],
+              customerAppoCity: ['', Validators.required],
+             });
+          }
+        },(err) =>{
           console.log(err)
         })
     }
@@ -2112,7 +2110,9 @@ export class rescheduleAppointmentDialog {
       };
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        'mode': 'no-cors'
+        'customer-id' : '',
+        'api-token' : '' 
+       // 'mode': 'no-cors'
       });
   
       this.http.post(`${environment.apiUrl}/get-all-category`,requestObject,{headers:headers} )
