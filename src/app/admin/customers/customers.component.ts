@@ -338,7 +338,9 @@ fnCreateNewCustomer(newCustomerData){
         panelClass :['green-snackbar']
       });
       this.getAllCustomers();
+      this.createNewCustomer.reset();
       this.fnCancelNewCustomer();
+      this.customerImageUrl = undefined;
       this.isLoaderAdmin = false;
     }
     else if(response.data == false){
@@ -404,6 +406,8 @@ customerUpdate(existingCustomerData){
   fnCancelNewCustomer(){
     this.newCustomer = false;
     this.fullDetailsOfCustomer = true;
+    this.customerImageUrl = undefined;
+    this.createNewCustomer.reset();
   }
 
   

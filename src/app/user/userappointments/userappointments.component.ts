@@ -291,10 +291,10 @@ getCompletedAppointments(): void{
 
 // Dialogs
 
-  ratenow(booking_id) {
+  ratenow(booking_id,staff_id) {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '500px',
-      data:{appoData: booking_id}
+      data:{appoData: booking_id, staffId : staff_id}
     });
 
      dialogRef.afterClosed().subscribe(result => {
@@ -855,12 +855,14 @@ export class DialogOverviewExampleDialog {
   ratingValueNo: any;
   ratingTitle: any;
   ratingDecreption: any;
+  staffId: any;
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
     private UserService: UserService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.appoId = this.data.appoData;
+      this.staffId = this.data.staffId;
     }
 
   onNoClick(): void {
@@ -886,7 +888,8 @@ export class DialogOverviewExampleDialog {
 			"order_id":appoId,
 			"rating_title" : ratingTitle,
 			"rating" : ratingValueNo,
-			"review" : ratingDecreption,
+      "review" : ratingDecreption,
+      "staff_id" : this.staffId
 		};
     this.UserService.ratingToAppointment(requestObject).subscribe((response:any) =>{
       if(response.data == true){
@@ -2507,6 +2510,7 @@ export class rescheduleAppointmentDialog {
       this.selectedStaffId=undefined;
       this.selectedTime=timeSlot;
       console.log(JSON.stringify(this.serviceCount));
+     
       if(this.bussinessId != undefined && this.selectedServiceId != undefined && this.selectedDate != undefined && this.selectedTime != undefined){
         this.fnGetStaff();
       }
@@ -2514,6 +2518,12 @@ export class rescheduleAppointmentDialog {
   
     fnGetStaff(){
       if(this.formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('required') || this.formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('minlength') || this.formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('isPostalcodeValid')){
+        this._snackBar.open("Service is not Available in this PostalCode.", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+      });
+      this.formAddNewAppointmentStaffStep2.get('customerPostalCode').markAsTouched();
        return false; 
       }
       let requestObject = {

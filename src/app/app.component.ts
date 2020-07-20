@@ -97,6 +97,7 @@ export class AppComponent implements AfterViewInit {
   settingsArr: any;
   appearenceColor: any=[];
   loginForm: FormGroup;
+  staffAvailable : boolean = false
   
   constructor(
     private http: HttpClient,
@@ -111,6 +112,16 @@ export class AppComponent implements AfterViewInit {
   ) {
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
     console.log(this.currentUser)
+    alert(this.currentUser.id)
+    if(this.currentUser.internal_staff === 'N'){
+      this.staffAvailable = true;
+      alert("Yes")
+    }else{
+      this.staffAvailable = false;
+      alert("No ")
+    }
+    
+    alert(this.staffAvailable)
     if (localStorage.getItem('business_id')) {
       this.businessId = localStorage.getItem('business_id');
       this.getNotificationCount(this.businessId)
@@ -582,7 +593,7 @@ export class AppComponent implements AfterViewInit {
         }else{
           this.router.navigate(["user"]);
         }
- 
+
         // this.initiateTimeout();
       
       }else if(data.idExists == false && data.emailExists == true){
@@ -774,7 +785,7 @@ export class AppComponent implements AfterViewInit {
       if (response.data == true) {
         this.currentUser.internal_staff=this.staffStatus;
         // this.authenticationService.currentUserSubject.next(this.currentUser);
-        this._snackBar.open(response.response, "X", {
+        this._snackBar.open("Status Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['green-snackbar']

@@ -180,7 +180,11 @@
 }
 
 ::ng-deep .account-statustoggle {
+    margin: 30px 0;
     .mat-slide-toggle-label {
+        .mat-slide-toggle-content {
+            width: unset !important;
+        }
         .mat-slide-toggle-bar {
             order: 1;
             margin-left: 10px;

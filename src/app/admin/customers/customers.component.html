@@ -74,9 +74,11 @@
                                 <div class="col-lg-4 col-12 col-md-4">
                                     <div class="w-100 d-flex justify-content-center">
                                         <div class="d-flex profile-img-wrap services-customer-profile-background" (click)="customerImage()">
-                                            <img *ngIf="customerImageUrl != ''" mat-card-avatar class="service-profile-image mx-auto" src="{{customerImageUrl}}">
-                                            <img *ngIf="!existingUserId" class="service-profile-image mx-auto" src="/assets/images/admin/picture.png">
-                                            <img *ngIf="existingUserId && !customerImageUrl && customerPersonalDetails.image" class="service-profile-image mx-auto" style="width: 120px;" src="{{customerPersonalDetails.image}}">
+                                            <img *ngIf="!existingUserId && customerImageUrl != ''" mat-card-avatar class="service-profile-image mx-auto" src="{{customerImageUrl}}">
+                                            <img *ngIf="!existingUserId && customerImageUrl == ''" class="service-profile-image mx-auto" src="/assets/images/admin/picture.png">
+                                            <img *ngIf="existingUserId && customerImageUrl == '' && customerPersonalDetails.image" class="service-profile-image mx-auto" style="width: 120px;" src="{{customerPersonalDetails.image}}">
+                                            <img *ngIf="existingUserId && customerImageUrl != '' && customerPersonalDetails.image" class="service-profile-image mx-auto" style="width: 120px;" src="{{customerImageUrl}}">
+                                            <img *ngIf="existingUserId && customerImageUrl == '' && !customerPersonalDetails.image" class="service-profile-image mx-auto" style="width: 120px;" src="/assets/images/admin/picture.png">
                                             <div class="camera-alt"><i class="material-icons">
                                             camera_alt
                                             </i></div>
@@ -201,7 +203,7 @@
                     <mat-card class="mb-0">
                         <div class="d-flex m-2 align-items-center">
                             <div class="customerProfile-width">
-                                <img class="w-100 h-100 rounded-circle" src="{{customerPersonalDetails.image}}">
+                                <img class="" src="{{customerPersonalDetails.image}}">
                             </div>
                             <div class="customerName-width">
                                 <h6>{{customerPersonalDetails.fullname}}</h6>

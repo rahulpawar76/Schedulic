@@ -47,6 +47,7 @@ export class StaffAppointmentComponent implements OnInit {
   currencySymbolFormat:any;
   isLoader:boolean= false;
   openedTab : any = 'new';
+  staffToken: any;
   search = {
     keyword: ""
   };
@@ -67,7 +68,8 @@ export class StaffAppointmentComponent implements OnInit {
     
     ) { 
       this.bussinessId=this.authenticationService.currentUserValue.business_id
-      this.staffId = this.authenticationService.currentUserValue.user_id
+      this.staffId=JSON.stringify(this.authenticationService.currentUserValue.user_id);
+      this.staffToken = this.authenticationService.currentUserValue.token;
      }
 
   ngOnInit() {
@@ -562,11 +564,12 @@ export class StaffAppointmentComponent implements OnInit {
       private staffService: StaffService,
       private _snackBar: MatSnackBar,
       private datePipe: DatePipe,
+      private authenticationService : AuthenticationService,
       @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-
-      this.staffId=(JSON.parse(localStorage.getItem('currentUser'))).user_id
-      this.token=(JSON.parse(localStorage.getItem('currentUser'))).token
-      this.bussinessId=(JSON.parse(localStorage.getItem('currentUser'))).business_id;
+        
+      this.token = this.authenticationService.currentUserValue.token;
+      this.bussinessId=this.authenticationService.currentUserValue.business_id
+      this.staffId=JSON.stringify(this.authenticationService.currentUserValue.user_id);
       this.emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
       this.onlynumeric = /^-?(0|[1-9]\d*)?$/
       this.subcatdata=[];
@@ -734,7 +737,7 @@ export class StaffAppointmentComponent implements OnInit {
           this.formAddNewAppointmentStaffStep1 = this._formBuilder.group({
             customerFullName: ['', Validators.required],
             customerEmail: ['', [Validators.required,Validators.email,Validators.pattern(this.emailPattern)]],
-            customerPhone: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+            customerPhone: ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
             customerAddress: ['', Validators.required],
             customerState: ['', Validators.required],
             customerCity: ['', Validators.required],
@@ -855,10 +858,7 @@ export class StaffAppointmentComponent implements OnInit {
 
     fnNewAppointmentStep1(){
 
-      if(this.valide_postal_code == false){
-        this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').markAsTouched();
-        return false;
-      }
+      
 
       if(this.formAddNewAppointmentStaffStep1.invalid){
         this.formAddNewAppointmentStaffStep1.get('customerFullName').markAsTouched();
@@ -871,6 +871,9 @@ export class StaffAppointmentComponent implements OnInit {
         this.formAddNewAppointmentStaffStep1.get('customerAppoAddress').markAsTouched();
         this.formAddNewAppointmentStaffStep1.get('customerAppoState').markAsTouched();
         this.formAddNewAppointmentStaffStep1.get('customerAppoCity').markAsTouched();
+        this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').markAsTouched();
+        return false;
+      }else if(this.valide_postal_code == false){
         this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').markAsTouched();
         return false;
       }
@@ -887,7 +890,11 @@ export class StaffAppointmentComponent implements OnInit {
         };
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        'mode': 'no-cors'
+        'mode': 'no-cors',
+        'staff-id' : this.staffId,
+        'api-token' : this.token 
+        // 'admin-id' : '',
+        // 'api-token' : '' 
       });
 
       this.http.post(`${environment.apiUrl}/get-all-category`,requestObject,{headers:headers} ).pipe(

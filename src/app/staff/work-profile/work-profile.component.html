@@ -1,108 +1,111 @@
 <div class="content-main">
-<mat-tab-group mat-align-tabs="start" >
-  <mat-tab label="Services">  
-    <div class="staff-work-profile work-profile-category">
-      <div *ngIf="serviceData != ''" class="single-booking">
-		<div *ngFor="let serviceData of serviceData; let i = index" class="col-sm-3 col-lg-3 col-md-6 profile-single-slot float-left">
-			<mat-card class="card">
-			<div class="card-body-content mt-3">       
-				<img mat-card-avatar class="customer-profile-img text-center mb-1" src="{{serviceData.service_image}}">
-				<p class="text-center">{{serviceData.service_name}}</p>		
-			</div>
-			</mat-card>
-		</div>
-	</div> 
-	<div *ngIf="serviceData == ''" class="single-booking">
-		<h2 class="text-center my-3">No Service Found</h2>
-	</div>
-  	</div>
-</mat-tab>
+    <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="Services">
+            <div class="staff-work-profile work-profile-category">
+                <div *ngIf="serviceData != ''" class="single-booking">
+                    <div *ngFor="let serviceData of serviceData; let i = index" class="col-sm-3 col-lg-3 col-md-6 profile-single-slot float-left">
+                        <mat-card class="card">
+                            <div class="card-body-content mt-3">
+                                <img mat-card-avatar class="customer-profile-img text-center mb-1" src="{{serviceData.service_image}}">
+                                <p class="text-center">{{serviceData.service_name}}</p>
+                            </div>
+                        </mat-card>
+                    </div>
+                </div>
+                <div *ngIf="serviceData == ''" class="single-booking">
+                    <h2 class="text-center my-3">No Service Found</h2>
+                </div>
+            </div>
+        </mat-tab>
 
-<mat-tab label="Postal Codes"> 
-  	<div *ngIf="postalCodeData != ''" class="staff-work-profile">
-		<div *ngFor="let postalCodeData of postalCodeData; let i=index" class="col-sm-3 col-lg-3 col-md-6 profile-single-slot float-left">
-			<mat-card class="card">
-				<div class="card-body-workinghour mt-3">
-					<div class="wrapcontent">
-						<div class="map"><i class="fa fa-map-marker"></i></div>
-						<label class="text-capitaliza">{{postalCodeData.area}}</label>
-					</div>
-					<div class="wrapcontent1">
-						<p class="mb-0">Postal Code</p>
-						<p class="wrapcontent1">{{postalCodeData.postal_code}}</p>  
-					</div>
-				</div>
-			</mat-card>
-		</div>
-	</div> 
-	<div *ngIf="postalCodeData == ''" class="staff-work-profile">
-		<h2 class="text-center my-2">No PostalCode Found</h2>
-	</div>
-</mat-tab>
-<mat-tab label="Working Hours">  
-    <div *ngIf="workingHours != ''" class="staff-work-profile work-prfile-w-hours">
-      <div *ngFor="let workingHours of workingHours; let i = index" class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
-        <mat-card class="card">
-          <div class="card-body-workinghour mt-3">
-	         	<div class="wrapcontent w-100">
-							<div class="map">
-								<img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/calendar.png">
-							</div>
-							<label>{{workingHours.week_day_name}}</label>
-						</div>
-						<div class="wrapcontent" *ngIf="workingHours.off_day=='N'">
-							<div class="hours">
-								<p>{{workingHours.day_start_timeForLabel}}</p> 
-							</div>						
-							<label>to</label>
-							<div class="hours">
-								<p>{{workingHours.day_end_timeForLabel}}</p> 
-							</div>
-						</div>
-						<div  class="wrapcontent" *ngIf="workingHours.off_day=='Y'">
-							<div class="hours">
-								<p>Day Off</p> 
-							</div>
-						</div>
-        	</div>
-      	</mat-card>
-    </div>
-</div>
-<div *ngIf="workingHours == ''" class="staff-work-profile work-prfile-w-hours">
-	<h2 class="text-center my-3">No Working Hours Found</h2>
-</div>
-</mat-tab>
+        <mat-tab label="Postal Codes">
+            <div *ngIf="postalCodeData != ''" class="staff-work-profile">
+                <div *ngFor="let postalCodeData of postalCodeData; let i=index" class="col-sm-3 col-lg-3 col-md-6 profile-single-slot float-left">
+                    <mat-card class="card">
+                        <div class="card-body-workinghour mt-3">
+                            <div class="wrapcontent">
+                                <div class="map"><i class="fa fa-map-marker"></i></div>
+                                <label class="text-capitaliza">{{postalCodeData.area}}</label>
+                            </div>
+                            <div class="wrapcontent1">
+                                <p class="mb-0">Postal Code</p>
+                                <p class="wrapcontent1">{{postalCodeData.postal_code}}</p>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+            <div *ngIf="postalCodeData == ''" class="staff-work-profile">
+                <h2 class="text-center my-2">No PostalCode Found</h2>
+            </div>
+        </mat-tab>
+        <mat-tab label="Working Hours">
+            <div *ngIf="workingHours != ''" class="staff-work-profile work-prfile-w-hours">
+                <div *ngFor="let workingHours of workingHours; let i = index" class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
+                    <mat-card class="card">
+                        <div class="card-body-workinghour mt-3">
+                            <div class="wrapcontent w-100">
+                                <div class="map">
+                                    <img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/calendar.png">
+                                </div>
+                                <label>{{workingHours.week_day_name}}</label>
+                            </div>
+                            <div class="wrapcontent" *ngIf="workingHours.off_day=='N'">
+                                <div class="hours">
+                                    <p>{{workingHours.day_start_timeForLabel}}</p>
+                                </div>
+                                <label>to</label>
+                                <div class="hours">
+                                    <p>{{workingHours.day_end_timeForLabel}}</p>
+                                </div>
+                            </div>
+                            <div class="wrapcontent" *ngIf="workingHours.off_day=='Y'">
+                                <div class="hours">
+                                    <p>Day Off</p>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+            <div *ngIf="workingHours == ''" class="staff-work-profile work-prfile-w-hours">
+                <h2 class="text-center my-3">No Working Hours Found</h2>
+            </div>
+        </mat-tab>
 
-<mat-tab label="Breaks">  
-	<div *ngIf="breakHours != ''" class="staff-work-profile work-prfile-breaks">
-		<div *ngFor="let breakHours of breakHours; let i = index" class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
-			<mat-card class="card">
-				<div class="card-body-workinghour mt-3">
-					<div class="wrapcontent w-100">
-						<div class="map">
-							<img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/calendar.png">
-						</div>
-						<label>{{breakHours.week_day_name}}</label>
-					</div>
-					<div  class="wrapcontent" *ngIf="offDayId.indexOf(breakHours.week_day_id) < 0">
-						<div class="hours">
-							<p>{{breakHours.break_start_timeForLabel}}</p> 
-						</div>
-						<label>to</label>
-						<div class="hours">
-							<p> {{breakHours.break_end_timeForLabel}}</p> 
-						</div>
-					</div>
-					<div  class="wrapcontent" *ngIf="offDayId.indexOf(breakHours.week_day_id) > -1">
-						<div class="hours">
-							<p>Day Off</p> 
-						</div>
-					</div>
-				</div>
-			</mat-card>
-		</div>
-	</div>
-	<!-- <div *ngIf="offDays != ''" class="staff-work-profile work-prfile-breaks">
+        <mat-tab label="Breaks">
+            <div *ngIf="breakHours != ''" class="staff-work-profile work-prfile-breaks">
+                <div *ngFor="let breakHours of breakHours; let i = index" class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
+                    <mat-card class="card">
+                        <div class="card-body-workinghour mt-3">
+                            <div class="wrapcontent w-100">
+                                <div class="map">
+                                    <img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/calendar.png">
+                                </div>
+                                <label>{{breakHours.week_day_name}}</label>
+                            </div>
+                            <div class="wrapcontent" *ngIf="offDayId.indexOf(breakHours.week_day_id) < 0">
+                                <div class="hours">
+                                    <p>{{breakHours.break_start_timeForLabel}}</p>
+                                </div>
+                                <label>to</label>
+                                <div class="hours">
+                                    <p> {{breakHours.break_end_timeForLabel}}</p>
+                                </div>
+                            </div>
+                            <div class="wrapcontent" *ngIf="offDayId.indexOf(breakHours.week_day_id) > -1">
+                                <div class="hours">
+                                    <p>Day Off</p>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+            <div *ngIf="breakHours == ''">
+                <h4>Record Not Found.</h4>
+            </div>
+            <!-- <div *ngIf="offDays != ''" class="staff-work-profile work-prfile-breaks">
 		<div *ngFor="let offDays of offDays; let i = index" class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
 			<mat-card class="card">
 				<div class="card-body-workinghour mt-3">
@@ -124,29 +127,29 @@
 	<div *ngIf="breakHours == '' && offDays == ''" class="staff-work-profile work-prfile-breaks">
 		<h2>No Break Found</h2>
 	</div> -->
-</mat-tab>
+        </mat-tab>
 
-<mat-tab label="Time Off">  
-	<div *ngIf="holidayData != ''" class="staff-work-profile work-profile-time-off">
-		<div *ngFor="let holidayData of holidayData; let i=index" class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
-			<mat-card class="card">
-				<div class="card-body-workinghour mt-3">
-					<div class="wrapcontent">
-						<div class="map">
-							<img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/time-off.png">
-						</div>
-						<label>{{holidayData.description}}</label>
-					</div>
-					<div  class="wrapcontent1">
-						<p>{{holidayData.start_dateForLabel}} to {{holidayData.end_dateForLabel}}</p>	
-					</div>
-				</div>
-			</mat-card>
-		</div>
-	  </div>
-	  <div *ngIf="holidayData == ''" class="staff-work-profile work-profile-time-off">
-		  <h2 class="text-center my-2">No Holiday Found</h2>
-	  </div>
-</mat-tab>
-</mat-tab-group>
+        <mat-tab label="Time Off">
+            <div *ngIf="holidayData != ''" class="staff-work-profile work-profile-time-off">
+                <div *ngFor="let holidayData of holidayData; let i=index" class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
+                    <mat-card class="card">
+                        <div class="card-body-workinghour mt-3">
+                            <div class="wrapcontent">
+                                <div class="map">
+                                    <img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/time-off.png">
+                                </div>
+                                <label>{{holidayData.description}}</label>
+                            </div>
+                            <div class="wrapcontent1">
+                                <p>{{holidayData.start_dateForLabel}} to {{holidayData.end_dateForLabel}}</p>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+            <div *ngIf="holidayData == ''" class="staff-work-profile work-profile-time-off">
+                <h2 class="text-center my-2">No Holiday Found</h2>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
 </div>
