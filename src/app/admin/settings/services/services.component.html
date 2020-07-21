@@ -409,7 +409,8 @@
                     <div class="d-flex pt-1 mb-4 mx-3">
                         <div class="ml-3 d-flex justify-content-center">
                             <div class="service-profile-background mr-3">
-                                <img src="{{selectedCategoryDetails.category_image?selectedCategoryDetails.category_image:''}}" class="service-profile-image mb-2">
+                                <img *ngIf="selectedCategoryDetails.category_image" src="{{selectedCategoryDetails.category_image}}" class="service-profile-image mb-2">
+                                <img *ngIf="!selectedCategoryDetails.category_image" src="/assets/images/admin/picture.png" class="service-profile-image mb-2">
                             </div>
                             <div>
                                 <div class=" Details-button-width d-flex">
@@ -428,11 +429,8 @@
                             <button mat-button *ngIf="categoryServicesList != '' && categoryServicesList[0].sub_category_id != null" (click)="fnCreateNewSubCategoryPage(selectedCategoryDetails.id,'upper')" class="addservice-btn d-block ml-auto">Add Sub Category</button>
                             <button mat-button *ngIf="categoryServicesList != '' && categoryServicesList[0].sub_category_id == null" (click)="fnCreateNewServicePage(selectedCategoryDetails.id,'category','upper')" class="addservice-btn d-block ml-auto">Add Service</button>
                             <div class="mt-2 d-flex">
-                                <mat-form-field *ngIf="categoryServicesList != ''" class=" bottom-border-field mt-3">
+                                <mat-form-field *ngIf="categoryServicesList != ''" class=" bottom-border-field mt-3 filter-feild">
                                     <mat-label>Filter</mat-label>
-                                    <span class="material-icons prefix-icon-select">
-                                        filter_alt
-                                    </span>
                                     <mat-select (selectionChange)="fnFilterService(selectedCategoryDetails.id,$event.value,'category')">
                                         <mat-option value="all">All</mat-option>
                                         <mat-option value="E">Active</mat-option>

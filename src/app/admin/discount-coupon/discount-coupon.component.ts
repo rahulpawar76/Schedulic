@@ -145,6 +145,11 @@ export class DiscountCouponComponent implements OnInit {
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
         this.allCouponCode = ''
         this.isLoaderAdmin = false;
       }
@@ -247,6 +252,11 @@ export class DiscountCouponComponent implements OnInit {
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
         this.isLoaderAdmin = false;
         
       }
@@ -278,6 +288,11 @@ export class DiscountCouponComponent implements OnInit {
     this.isLoaderAdmin = false;
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
         this.isLoaderAdmin = false;
       }
     })
@@ -306,6 +321,11 @@ export class DiscountCouponComponent implements OnInit {
 
         this.isLoaderAdmin = false;
       }else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
         this.categoryServiceList = []
         this.categoryServiceListTemp = [];
 
@@ -536,6 +556,11 @@ getServiceListForCoupon(){
       this.isLoaderAdmin = false;
     }
     else if(response.data == false){
+      this._snackBar.open(response.response, "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+      });
       this.isLoaderAdmin = false;
     }
   })

@@ -496,3 +496,9 @@
         margin: 10px;
     }
 }
+
+@media print {
+    .subcolor-title {
+        color: blue;
+    }
+}

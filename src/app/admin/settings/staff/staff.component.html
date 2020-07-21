@@ -110,10 +110,10 @@
                                 <input formControlName="firstname" matInput placeholder="Enter Your First Name">
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="StaffCreate.get('firstname').touched || StaffCreate.get('firstname').dirty || formSubmitclicked">
-                <small *ngIf="StaffCreate.get('firstname').hasError('required')" class="error">First name is required.</small>
-                <small *ngIf="StaffCreate.get('firstname').hasError('minlength') || StaffCreate.get('firstname').hasError('maxlength')"class="error">First name must be between 3-11 character.</small>
-                <!-- <small *ngIf="StaffCreate.get('firstname').hasError('maxlength') "class="error">Firstname must be at least 11 character.</small> -->
-            </span>
+                                <small *ngIf="StaffCreate.get('firstname').hasError('required')" class="error">First name is required.</small>
+                                <small *ngIf="StaffCreate.get('firstname').hasError('minlength') || StaffCreate.get('firstname').hasError('maxlength')"class="error">First name must be between 3-11 character.</small>
+                                <!-- <small *ngIf="StaffCreate.get('firstname').hasError('maxlength') "class="error">Firstname must be at least 11 character.</small> -->
+                            </span>
 
                             <mat-form-field class="bottom-border-field">
                                 <mat-label>Last Name</mat-label>
@@ -121,47 +121,47 @@
                                 <input formControlName="lastname" matInput placeholder="Enter Your Last Name">
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="StaffCreate.get('lastname').touched || StaffCreate.get('lastname').dirty || formSubmitclicked">
-              <small *ngIf="StaffCreate.get('lastname').hasError('required')" class="error">Last name is required.</small>
-              <small *ngIf="StaffCreate.get('lastname').hasError('minlength') || StaffCreate.get('lastname').hasError('maxlength')"class="error">Last name must be between 3-11 character.</small>
-              <!-- <small *ngIf="StaffCreate.get('lastname').hasError('minlength') || StaffCreate.get('lastname').hasError('maxlength')"class="error">Lastname must be at least 11 character.</small> -->
-            </span>
+                                <small *ngIf="StaffCreate.get('lastname').hasError('required')" class="error">Last name is required.</small>
+                                <small *ngIf="StaffCreate.get('lastname').hasError('minlength') || StaffCreate.get('lastname').hasError('maxlength')"class="error">Last name must be between 3-11 character.</small>
+                                <!-- <small *ngIf="StaffCreate.get('lastname').hasError('minlength') || StaffCreate.get('lastname').hasError('maxlength')"class="error">Lastname must be at least 11 character.</small> -->
+                            </span>
                             <mat-form-field class="bottom-border-field">
                                 <mat-label>Mobile</mat-label>
                                 <mat-icon class="mr-4" matPrefix>call</mat-icon>
                                 <input formControlName="phone" matInput placeholder="Enter Your number" (keypress)="numberOnly($event)">
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="StaffCreate.get('phone').touched || StaffCreate.get('phone').dirty || formSubmitclicked">
-              <small *ngIf="StaffCreate.get('phone').hasError('required')" class="error">Mobile number is required.</small>
-              <small *ngIf="StaffCreate.get('phone').hasError('pattern')" class="error">Mobile number should be numeric.</small>
-              <small *ngIf="StaffCreate.get('phone').hasError('minlength') || StaffCreate.get('phone').hasError('maxlength')"
-                class="error">Mobile number should be min 6 or max 15 digits.</small>
-            </span>
+                                <small *ngIf="StaffCreate.get('phone').hasError('required')" class="error">Mobile number is required.</small>
+                                <small *ngIf="StaffCreate.get('phone').hasError('pattern')" class="error">Mobile number should be numeric.</small>
+                                <small *ngIf="StaffCreate.get('phone').hasError('minlength') || StaffCreate.get('phone').hasError('maxlength')"
+                                    class="error">Mobile number should be min 6 or max 15 digits.</small>
+                            </span>
                             <mat-form-field class="bottom-border-field">
                                 <mat-label>Email</mat-label>
                                 <mat-icon class="mr-4" matPrefix>email</mat-icon>
                                 <input formControlName="email" matInput placeholder="Enter Your Email">
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="StaffCreate.get('email').touched || StaffCreate.get('email').dirty || formSubmitclicked">
-              <small *ngIf="StaffCreate.get('email').hasError('required')" class="error">Email is required.</small>
-              <small *ngIf="StaffCreate.get('email').hasError('pattern')" class="error">Email address is invalid.</small>
-              <small *ngIf="StaffCreate.get('email').hasError('isEmailUnique') || StaffCreate.get('email').hasError('isEmailUniqueForEdit')" class="error">Email address is already registered.</small>
-            </span>
+                                <small *ngIf="StaffCreate.get('email').hasError('required')" class="error">Email is required.</small>
+                                <small *ngIf="StaffCreate.get('email').hasError('pattern')" class="error">Email address is invalid.</small>
+                                <small *ngIf="StaffCreate.get('email').hasError('isEmailUnique') || StaffCreate.get('email').hasError('isEmailUniqueForEdit')" class="error">Email address is already registered.</small>
+                            </span>
                             <mat-form-field class="bottom-border-field">
                                 <mat-label>Address</mat-label>
                                 <input formControlName="address" matInput placeholder="Enter Your address">
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="StaffCreate.get('address').touched || StaffCreate.get('address').dirty || formSubmitclicked">
-              <small *ngIf="StaffCreate.get('address').hasError('required')" class="error">Address is required.</small>
-              <small *ngIf="StaffCreate.get('address').hasError('minlength')" class="error">Address must be at least 3 character.</small>
-              <small *ngIf="StaffCreate.get('address').hasError('maxlength')" class="error">Address can not be greater than 255 character.</small>
-            </span>
+                                <small *ngIf="StaffCreate.get('address').hasError('required')" class="error">Address is required.</small>
+                                <small *ngIf="StaffCreate.get('address').hasError('minlength')" class="error">Address must be at least 3 character.</small>
+                                <small *ngIf="StaffCreate.get('address').hasError('maxlength')" class="error">Address can not be greater than 255 character.</small>
+                            </span>
                             <mat-form-field class="bottom-border-field">
                                 <mat-label>Description</mat-label>
                                 <textarea formControlName="description" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="7"></textarea>
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="StaffCreate.get('description').touched || StaffCreate.get('description').dirty || formSubmitclicked">
-                        <small *ngIf="StaffCreate.get('description').hasError('maxlength')" class="error">Description can not be greater than 255 character.</small>
-                        </span>
+                                <small *ngIf="StaffCreate.get('description').hasError('maxlength')" class="error">Description can not be greater than 255 character.</small>
+                            </span>
                             <!-- <span class="error-wrap"
               *ngIf="StaffCreate.get('description').touched || StaffCreate.get('description').dirty || formSubmitclicked">
               <small *ngIf="StaffCreate.get('description').hasError('required')" class="error">Description is required</small>
@@ -185,8 +185,8 @@
                                 <div class="container" appDnd (fileDropped)="onFileDropped($event)">
                                     <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target.files)" />
                                     <img src="assets/img/dnd/ic-upload-file.svg" alt="">
+                                    <h4>.PDF .JPG .PNG .DOC</h4>
                                     <p>Drag & drop your files here</p>
-                                    <h3>or</h3>
                                     <label for="fileDropRef">Upload file</label>
                                 </div>
 
@@ -202,7 +202,7 @@
                                             </p>
                                             <app-progress [progress]="file?.progress"></app-progress>
                                         </div>
-                                        <span class="material-icons delete"> delete_outline </span>
+                                        <span class="material-icons delete" (click)="deleteFile(i)"> delete_outline </span>
                                         <!-- <img src="assets/img/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file" (click)="deleteFile(i)"> -->
                                     </div>
                                 </div>
@@ -239,11 +239,13 @@
 
                                 <mat-accordion class="select-service-accordian">
                                     <mat-expansion-panel *ngFor="let categoryServiceListval of categoryServiceListTemp; let i=index">
+                                        
                                         <mat-expansion-panel-header>
                                             <mat-panel-title class="service-title">
                                                 <mat-checkbox (change)="checkServie($event,'category',i)" [checked]="categoryServiceListval.is_selected">{{categoryServiceListval.category_title}}</mat-checkbox>
                                             </mat-panel-title>
                                         </mat-expansion-panel-header>
+                                       
                                         <mat-expansion-panel class="my-3" *ngFor="let subcategoryList of categoryServiceListval.subcategory; let sub_index=index">
                                             <mat-expansion-panel-header>
                                                 <mat-panel-title>
@@ -251,29 +253,31 @@
                                                 </mat-panel-title>
                                             </mat-expansion-panel-header>
                                             <div *ngFor="let serviceList of subcategoryList.services; let service_index=index" class="py-3">
-
                                                 <mat-checkbox [checked]="serviceList.is_selected" (change)="checkServie($event,'service',i,sub_index,service_index)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) > -1" checked="true">{{serviceList.service_name}} </mat-checkbox>
-
                                                 <mat-checkbox [checked]="serviceList.is_selected" (change)="checkServie($event,'service',i,sub_index,service_index)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) < 0">{{serviceList.service_name}}</mat-checkbox>
-
-                                                <!-- <mat-checkbox [checked]="serviceList.is_selected" (change)="fnCheckService($event.checked,serviceList.id)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) > -1" checked="true">{{serviceList.service_name}}</mat-checkbox>
-                                            <mat-checkbox [checked]="serviceList.is_selected" (change)="fnCheckService($event.checked,serviceList.id)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) < 0">{{serviceList.service_name}}</mat-checkbox> -->
+                                                      <!-- <mat-checkbox [checked]="serviceList.is_selected" (change)="fnCheckService($event.checked,serviceList.id)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) > -1" checked="true">{{serviceList.service_name}}</mat-checkbox>
+                                                    <mat-checkbox [checked]="serviceList.is_selected" (change)="fnCheckService($event.checked,serviceList.id)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) < 0">{{serviceList.service_name}}</mat-checkbox> -->
                                             </div>
                                         </mat-expansion-panel>
+                                    
+                                        <div *ngFor="let serviceList of categoryServiceListval.getservices; let service_index=index" class="py-3">
+                                            <mat-checkbox [checked]="serviceList.is_selected" (change)="fnNewCheckService($event.checked,serviceList.id)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) > -1" checked="true">{{serviceList.service_name}} </mat-checkbox>
+                                            <mat-checkbox [checked]="serviceList.is_selected" (change)="fnNewCheckService($event.checked,serviceList.id)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) < 0">{{serviceList.service_name}}</mat-checkbox>
+                                        </div>
+
                                     </mat-expansion-panel>
 
-                                    <!-- <mat-expansion-panel (opened)="panelOpenState = true"
-                                            (closed)="panelOpenState = false">
-                        <mat-expansion-panel-header>
-                          <mat-panel-title>
-                            Self aware panel
-                          </mat-panel-title>
-                          <mat-panel-description>
-                            Currently I am {{panelOpenState ? 'open' : 'closed'}}
-                          </mat-panel-description>
-                        </mat-expansion-panel-header>
-                        <p>I'm visible because I am open</p>
-                      </mat-expansion-panel> -->
+                                        <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                        <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Self aware panel
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                            Currently I am {{panelOpenState ? 'open' : 'closed'}}
+                                        </mat-panel-description>
+                                        </mat-expansion-panel-header>
+                                        <p>I'm visible because I am open</p>
+                                    </mat-expansion-panel> -->
                                 </mat-accordion>
                             </mat-card>
                         </div>
@@ -516,7 +520,7 @@
                     </div>
                     <div class="bottom-border d-flex">
                         <div>
-                            <h6>"Phone Number Verification</h6>
+                            <h6>Phone Number Verification</h6>
                             <div class="d-flex">
                                 <p class="mb-0 pr-2">{{singleStaffDetail.staff[0].phone}}</p>
                                 <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
@@ -536,7 +540,7 @@
                         <h6>Documents</h6>
                         <div *ngIf="singleStaffDetail.staff[0].getdocument" class="d-flex mt-3">
                             <div *ngFor="let staffDocument of singleStaffDetail.staff[0].getdocument" class="pan-card file-border d-flex mr-2">
-                                <a href="{{staffDocument.documents}}" download>
+                                <a href="{{staffDocument.documents}}" download target="_blank">
                                     <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
                                     <p class="pr-1 mb-0">{{staffDocument.filename}}</p>
                                 </a>

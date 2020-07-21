@@ -138,7 +138,6 @@ export class CustomersComponent implements OnInit {
       if(localStorage.getItem('business_id')){
         this.businessId = localStorage.getItem('business_id');
     }
-    //this.appComponent.settingsModule(this.adminSettings);
     }
     private handleError(error: HttpErrorResponse) {
       console.log(error);
@@ -211,7 +210,12 @@ export class CustomersComponent implements OnInit {
         
         this.currencySymbolFormat = this.settingsArr.currency_format;
         console.log(this.currencySymbolFormat);
-      }else{
+      }else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
       }
       },
       (err) =>{
@@ -245,6 +249,11 @@ export class CustomersComponent implements OnInit {
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.allCustomers = [];
         this.isLoaderAdmin = false;
       }
@@ -358,7 +367,7 @@ customerUpdate(existingCustomerData){
   this.isLoaderAdmin = true;
   this.AdminService.customerUpdate(existingCustomerData).subscribe((response:any) => {
     if(response.data == true){
-      this._snackBar.open("Customer Details Updated", "X", {
+      this._snackBar.open("Customer Details Updated.", "X", {
         duration: 2000,
         verticalPosition:'top',
         panelClass :['green-snackbar']
@@ -370,6 +379,11 @@ customerUpdate(existingCustomerData){
       this.isLoaderAdmin = false;
     }
     else if(response.data == false){
+      this._snackBar.open(response.response, "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+      });
       // this.allCustomers = ''
       this.customerImageUrl='';
     this.isLoaderAdmin = false;
@@ -474,6 +488,11 @@ customerUpdate(existingCustomerData){
         this.fullDetailsOfCustomer = true;
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.customersDetails = ''
         this.isLoaderAdmin = false;
       }
@@ -487,7 +506,7 @@ customerUpdate(existingCustomerData){
   this.isLoaderAdmin = true;
   this.AdminService.fnDeleteCustomer(customerId).subscribe((response:any) => {
     if(response.data == true){
-      this._snackBar.open("Customer Deleted", "X", {
+      this._snackBar.open("Customer Deleted.", "X", {
         duration: 2000,
         verticalPosition:'top',
         panelClass :['green-snackbar']
@@ -496,6 +515,11 @@ customerUpdate(existingCustomerData){
       this.isLoaderAdmin = false;
     }
     else if(response.data == false){
+      this._snackBar.open(response.response, "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+      });
       // this.allCustomers = ''
     this.isLoaderAdmin = false;
     }
@@ -513,7 +537,7 @@ customerUpdate(existingCustomerData){
     }
   this.AdminService.fnDeleteNote(requestObject).subscribe((response:any) => {
     if(response.data == true){
-      this._snackBar.open("Note Deleted", "X", {
+      this._snackBar.open("Note Deleted.", "X", {
         duration: 2000,
         verticalPosition:'top',
         panelClass :['green-snackbar']
@@ -669,6 +693,11 @@ customerUpdate(existingCustomerData){
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.isLoaderAdmin = false;
       }
     })
@@ -683,7 +712,7 @@ customerUpdate(existingCustomerData){
     this.isLoaderAdmin = true;
     this.AdminService.fnSaveTags(customerId,this.tags).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Customer Tag Added", "X", {
+        this._snackBar.open("Customer Tag Added.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
@@ -692,6 +721,11 @@ customerUpdate(existingCustomerData){
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.isLoaderAdmin = false;
       }
     })
@@ -733,6 +767,11 @@ customerUpdate(existingCustomerData){
           this.isLoaderAdmin = false;
         }
         else if(response.data == false){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
           this.isLoaderAdmin = false;
         }
       })
@@ -1067,7 +1106,7 @@ customerUpdate(existingCustomerData){
     console.log(requestObject);
     this.AdminService.updatePaymentInfoAndStatus(requestObject).subscribe((response:any) => {
       if(response.data == true){
-       this._snackBar.open("Payment Info Updated", "X", {
+       this._snackBar.open("Payment Info Updated.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
@@ -1077,7 +1116,7 @@ customerUpdate(existingCustomerData){
        //this.formPayment.controls['paymentMode'].setValue('Cash');
        this.fnShowPaymentTable();
       }else{
-        this._snackBar.open("Payment Info Not Updated", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['red-snackbar']
@@ -1302,7 +1341,7 @@ constructor(
     };
     this.AdminService.saveBookingNotes(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Booking Notes Updated", "X", {
+        this._snackBar.open("Booking Notes Updated.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
@@ -1310,7 +1349,7 @@ constructor(
         this.formSettingPage = false;
         this.fnGetSettingValue();
       } else if(response.data == false){
-        this._snackBar.open("Booking Notes not Updated", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['red-snackbar']
@@ -1327,10 +1366,14 @@ constructor(
     };
     this.AdminService.getActivityLog(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        console.log(response.response);
         this.activityLog=response.response;
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.activityLog=[];
       }
     })
@@ -1368,7 +1411,11 @@ constructor(
       //  console.log("minReschedulingTime - "+this.minReschedulingTime);
       }
       else if(response.data == false){
-        
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
       }
     })
   }
@@ -1566,7 +1613,7 @@ formRescheduleSubmit(){
   };
   this.adminService.rescheduleAppointment(requestObject).subscribe((response:any) =>{
     if(response.data == true){
-      this._snackBar.open("Appointment Rescheduled", "X", {
+      this._snackBar.open("Appointment Rescheduled.", "X", {
         duration: 2000,
         verticalPosition:'top',
         panelClass :['green-snackbar']
@@ -1574,7 +1621,7 @@ formRescheduleSubmit(){
         this.dialogRef.close();
    }
     else if(response.data == false){
-      this._snackBar.open("Appointment not Rescheduled", "X", {
+      this._snackBar.open(response.response, "X", {
         duration: 2000,
         verticalPosition:'top',
         panelClass :['red-snackbar']
@@ -1856,6 +1903,11 @@ constructor(
         let postal = response.response
         this.Postalcode = postal;
       } else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.Postalcode = [];
       }
     });
@@ -1940,7 +1992,11 @@ constructor(
 
       }
       else if(response.data == false){
-        
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
       }
     })
   }
@@ -1953,7 +2009,11 @@ constructor(
         console.log(this.taxArr);
       }
       else if(response.data == false){
-        
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
       }
     })
   }
@@ -1975,8 +2035,12 @@ constructor(
           this.workingHoursOffDaysList=[];
         }
       }
-      else{
-
+      else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
       }
     },
     (err) =>{
@@ -2670,7 +2734,7 @@ export class DialogAddNewNote {
     this.isLoaderAdmin = true;
     this.AdminService.fnEditNote(editNoteData).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Customer Note Updated", "X", {
+        this._snackBar.open("Customer Note Updated.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
@@ -2679,6 +2743,11 @@ export class DialogAddNewNote {
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         // this.allCustomers = ''
       this.isLoaderAdmin = false;
       }
@@ -2954,7 +3023,6 @@ onNoClick(): void {
 
     fnSendInvoiceEmail(){
 
-  
       let setLable = "invoice";
       if (!document.getElementById('printInvoice')) {
         return false;

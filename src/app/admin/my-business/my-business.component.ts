@@ -62,6 +62,11 @@ export class MyBusinessComponent implements OnInit {
         this.allBusiness = response.response
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
         this.allBusiness = ''
       }
       this.isLoaderAdmin = false;
@@ -131,7 +136,7 @@ export class myCreateNewBusinessDialog {
       business_state : ['', Validators.required],
       business_timezone : ['', Validators.required],
       business_city : ['', Validators.required],
-      business_zip : ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(6)]]
+      business_zip : ['', [Validators.required,Validators.minLength(5),Validators.maxLength(7)]]
     });
 
   }
@@ -145,7 +150,7 @@ export class myCreateNewBusinessDialog {
       }
       else if(response.data == false){
         this.allCountry = ''
-        this._snackBar.open("Country is not loaded", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
@@ -163,7 +168,7 @@ export class myCreateNewBusinessDialog {
       }
       else if(response.data == false){
         this.allStates = ''
-        this._snackBar.open("State is not loaded", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
@@ -178,7 +183,7 @@ export class myCreateNewBusinessDialog {
       if(response.data == true){
         this.allCities = response.response
         if(response.response == "no city found"){
-          this._snackBar.open("City is not Found", "X", {
+          this._snackBar.open("City is not Found.", "X", {
             duration: 2000,
             verticalPosition: 'top',
             panelClass : ['red-snackbar']
@@ -189,7 +194,7 @@ export class myCreateNewBusinessDialog {
       }
       else if(response.data == false){
         this.allCities = ''
-        this._snackBar.open("City is not loaded", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
@@ -208,7 +213,7 @@ export class myCreateNewBusinessDialog {
       }
       else if(response.data == false){
         this.listTimeZone = ''
-        this._snackBar.open("Time Zone is not loaded", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
@@ -234,7 +239,7 @@ export class myCreateNewBusinessDialog {
   createNewBusiness(newBusinessData){
     this.AdminService.createNewBusiness(newBusinessData).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Business Created", "X", {
+        this._snackBar.open("Business Created.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
@@ -242,7 +247,11 @@ export class myCreateNewBusinessDialog {
         this.dialogRef.close();
       }
       else if(response.data == false){
-        
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
       }
     })
   }

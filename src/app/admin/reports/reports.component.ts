@@ -5,6 +5,7 @@ import { AppComponent } from '@app/app.component';
 import { DatePipe} from '@angular/common';
 import { NgbDateParserFormatter, NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import { ExportToCsv } from 'export-to-csv';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import { environment } from '@environments/environment';
 import * as domtoimage from 'dom-to-image';
  import * as jspdf from 'jspdf';
@@ -113,6 +114,7 @@ export class ReportsComponent implements OnInit {
     private adminService: AdminService,
     private appComponent: AppComponent,
     private datePipe: DatePipe,
+    private _snackBar: MatSnackBar,
     private calendar: NgbCalendar,
     ) {
     if(localStorage.getItem('business_id')){
@@ -156,7 +158,12 @@ export class ReportsComponent implements OnInit {
         
         this.currencySymbolFormat = this.settingsArr.currency_format;
         console.log(this.currencySymbolFormat);
-      }else{
+      }else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
       }
       },
       (err) =>{
@@ -279,6 +286,11 @@ export class ReportsComponent implements OnInit {
         console.log(this.appointmentReport);
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
         this.appointmentReport = [];
         this.appointmentReportTotalRecords = 0;
         this.appointmentReportExpectedRevenue = 0;
@@ -350,16 +362,13 @@ export class ReportsComponent implements OnInit {
           }else{
 
           }
-        console.log(this.salesReport);
-        console.log(this.salesReportTotalRecords);
-        console.log(this.salesReportConfirmedRevenue);
-        console.log(this.salesReportProjectedRevenue);
-        console.log(this.salesReportTotalEstimatedRevenue);
-        console.log(this.salesReportTotalAppointments);
-        console.log(this.salesReportCustomers);
-        console.log(this.salesReportTotalRevenue);
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
         this.salesReport = [];
       }
     })
@@ -410,6 +419,11 @@ export class ReportsComponent implements OnInit {
         });
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
         this.customerReport = [];
       }
     })
