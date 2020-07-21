@@ -118,6 +118,8 @@ export class ServicesComponent implements OnInit {
     selectedCategoryID:any;
     selectedSubCategoryID:any;
     fromcategory:boolean=false;
+    whichSubCategoryButton:any;
+    whichServiceButton:any;
     constructor(
         // private userService: UserService,
         public Change:ChangeDetectorRef,
@@ -490,11 +492,12 @@ export class ServicesComponent implements OnInit {
         })
     }
 
-    fnCreateNewSubCategoryPage(categoryId) {
+    fnCreateNewSubCategoryPage(categoryId,type) {
+        console.log(this.selectedCategoryDetails);
         this.selectCategoryPage = '';
         this.createNewSubCategoryPage = true;
-        this.parentCategoryId = categoryId
-        // this.fromcategory=true;
+        this.parentCategoryId = categoryId;
+        this.whichSubCategoryButton=type;
     }
 
     newSubCategoryStatus(event) {
@@ -1084,7 +1087,7 @@ export class ServicesComponent implements OnInit {
     }
   
       
-    fnCreateNewServicePage(categoryId, type) {
+    fnCreateNewServicePage(categoryId, type,btntype) {
         this.createService.controls['service_name'].setValue(null);
         this.createService.controls['service_description'].setValue(null);
         this.createService.controls['service_cost'].setValue(null);
@@ -1100,31 +1103,40 @@ export class ServicesComponent implements OnInit {
         this.createNewSubCategoryPage = false;
         this.createNewCategoryPage = false;
         this.singleSubCategoryPage = '';
+        this.whichServiceButton=btntype;
+
     }
 
     fnCalcelNewSubcategory(){
+        
+        if(this.whichSubCategoryButton == "main"){
+            console.log(this.selectCategoryPage);
+            console.log(this.whichSubCategoryButton);
+            console.log(this.selectedCategoryDetails);
+            this.selectCategoryPage = 'notservices';
+        }else{
+            this.selectCategoryPage="services";
+        }
+        this.createNewSubCategoryPage = false;
         this.servicesList = false;
         this.createNewServicePage = false;
-        this.createNewSubCategoryPage = false;  
-        this.selectCategoryPage="services";
         this.subCategoryImageUrl='';
     }
 
     fnCancelAddService(){
-        // this.servicesList = true;
-        // this.createNewServicePage = false;
-        // this.createNewSubCategoryPage = false;        
-        // this.fnSelectCategory(this.selectedCategoryID, this.selectedCategoryIndex);  
         this.servicesList = false;
         this.createNewServicePage = false;
         this.createNewSubCategoryPage = false;  
         this.serviceImageUrl = '';
-        if(this.fromcategory == true){
-            this.selectCategoryPage="services";
+        if(this.whichServiceButton == "main"){
+            this.selectCategoryPage = 'notservices';
         }else{
-          this.singleSubCategoryPage="services";  
+            if(this.fromcategory == true){
+                this.selectCategoryPage="services";
+            }else{
+              this.singleSubCategoryPage="services";  
+            }
         }
-        
     }
     fnNewServiceStatus(event) {
         if (event == true) {

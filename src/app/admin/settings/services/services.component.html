@@ -409,7 +409,8 @@
                     <div class="d-flex pt-1 mb-4 mx-3">
                         <div class="ml-3 d-flex justify-content-center">
                             <div class="service-profile-background mr-3">
-                                <img src="{{selectedCategoryDetails?selectedCategoryDetails.category_image:''}}" class="service-profile-image mb-2">
+                                <img *ngIf="selectedCategoryDetails.category_image" src="{{selectedCategoryDetails.category_image}}" class="service-profile-image mb-2">
+                                <img *ngIf="!selectedCategoryDetails.category_image" src="/assets/images/admin/picture.png" class="service-profile-image mb-2">
                             </div>
                             <div>
                                 <div class=" Details-button-width d-flex">
@@ -425,8 +426,8 @@
                             </div>
                         </div>
                         <div class="ml-auto">
-                            <button mat-button *ngIf="categoryServicesList != '' && categoryServicesList[0].sub_category_id != null" (click)="fnCreateNewSubCategoryPage(selectedCategoryDetails.id)" class="addservice-btn d-block ml-auto">Add Sub Category</button>
-                            <button mat-button *ngIf="categoryServicesList != '' && categoryServicesList[0].sub_category_id == null" (click)="fnCreateNewServicePage(selectedCategoryDetails.id,'category')" class="addservice-btn d-block ml-auto">Add Service</button>
+                            <button mat-button *ngIf="categoryServicesList != '' && categoryServicesList[0].sub_category_id != null" (click)="fnCreateNewSubCategoryPage(selectedCategoryDetails.id,'upper')" class="addservice-btn d-block ml-auto">Add Sub Category</button>
+                            <button mat-button *ngIf="categoryServicesList != '' && categoryServicesList[0].sub_category_id == null" (click)="fnCreateNewServicePage(selectedCategoryDetails.id,'category','upper')" class="addservice-btn d-block ml-auto">Add Service</button>
                             <div class="mt-2 d-flex">
                                 <mat-form-field *ngIf="categoryServicesList != ''" class=" bottom-border-field mt-3 filter-feild">
                                     <mat-label>Filter</mat-label>
@@ -520,7 +521,7 @@
                             Sub Category is the subdivision of the large Category of service.
                         </div>
                         <div class="pt-2">
-                            <button (click)="fnCreateNewSubCategoryPage(selectedCategoryDetails.id)" mat-button class="addsubcategory-btn">Add Subcategory</button>
+                            <button (click)="fnCreateNewSubCategoryPage(selectedCategoryDetails.id,'main')" mat-button class="addsubcategory-btn">Add Subcategory</button>
                         </div>
                     </mat-card>
 
@@ -532,7 +533,7 @@
                             A valuable deed, action,or effort performed to fulfill a demand or tosatisfy a need of the customer.
                         </div>
                         <div class="pt-2">
-                            <button (click)="fnCreateNewServicePage(selectedCategoryDetails.id,'category')" mat-button class="addsubcategory-btn">Add Service</button>
+                            <button (click)="fnCreateNewServicePage(selectedCategoryDetails.id,'category','main')" mat-button class="addsubcategory-btn">Add Service</button>
                         </div>
                     </mat-card>
                 </div>
@@ -559,7 +560,7 @@
                             </div>
                         </div>
                         <div class="ml-auto">
-                            <button mat-button (click)="fnCreateNewServicePage(selectedSubCategoryDetails.id,'subcategory')" class="addservice-btn d-block ml-auto">Add Service</button>
+                            <button mat-button (click)="fnCreateNewServicePage(selectedSubCategoryDetails.id,'subcategory','upper')" class="addservice-btn d-block ml-auto">Add Service</button>
                             <div class="mt-2 d-flex">
                                 <mat-form-field *ngIf="subCategoryServicesList != ''" class=" bottom-border-field mt-3 filter-feild">
                                     <mat-label>Filter</mat-label>
@@ -653,7 +654,7 @@
                             A valuable deed, action,or effort performed to fulfill a demand or tosatisfy a need of the customer.
                         </div>
                         <div class="pt-2">
-                            <button (click)="fnCreateNewServicePage(selectedSubCategoryDetails.id,'subcategory')" mat-button class="addsubcategory-btn">Add Service</button>
+                            <button (click)="fnCreateNewServicePage(selectedSubCategoryDetails.id,'subcategory','main')" mat-button class="addsubcategory-btn">Add Service</button>
                         </div>
                     </mat-card>
                 </div>
