@@ -429,11 +429,8 @@
                             <button mat-button *ngIf="categoryServicesList != '' && categoryServicesList[0].sub_category_id != null" (click)="fnCreateNewSubCategoryPage(selectedCategoryDetails.id)" class="addservice-btn d-block ml-auto">Add Sub Category</button>
                             <button mat-button *ngIf="categoryServicesList != '' && categoryServicesList[0].sub_category_id == null" (click)="fnCreateNewServicePage(selectedCategoryDetails.id,'category')" class="addservice-btn d-block ml-auto">Add Service</button>
                             <div class="mt-2 d-flex">
-                                <mat-form-field *ngIf="categoryServicesList != ''" class=" bottom-border-field mt-3">
+                                <mat-form-field *ngIf="categoryServicesList != ''" class=" bottom-border-field mt-3 filter-feild">
                                     <mat-label>Filter</mat-label>
-                                    <span class="material-icons prefix-icon-select">
-                                        filter_alt
-                                    </span>
                                     <mat-select (selectionChange)="fnFilterService(selectedCategoryDetails.id,$event.value,'category')">
                                         <mat-option value="all">All</mat-option>
                                         <mat-option value="E">Active</mat-option>

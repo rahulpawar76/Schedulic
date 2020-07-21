@@ -3023,7 +3023,6 @@ onNoClick(): void {
 
     fnSendInvoiceEmail(){
 
-  
       let setLable = "invoice";
       if (!document.getElementById('printInvoice')) {
         return false;

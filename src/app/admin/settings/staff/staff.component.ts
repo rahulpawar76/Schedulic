@@ -1090,29 +1090,41 @@ export class StaffComponent implements OnInit {
 
         this.categoryServiceList.forEach(element => {
           element.is_selected  = false;
+          
           element.subcategory.forEach(subelement => {
             subelement.is_selected = false;
             subelement.services.forEach(serviceselement => {
-              
               serviceselement.is_selected = false;
-
               const index = this.selectedServiceNewStaff.indexOf(serviceselement.id, 0);
               if (index > -1) {
+                this.categoryServiceCheckServiceId.push(serviceselement.id);
                 serviceselement.is_selected = true;
               }
-
-
             });
           });
+
+          if(element.getservices){
+            element.getservices.forEach(serviceselement => {
+              serviceselement.is_selected = false;
+              const index = this.selectedServiceNewStaff.indexOf(serviceselement.id, 0);
+              if (index > -1) {
+                this.categoryServiceCheckServiceId.push(serviceselement.id);
+                serviceselement.is_selected = true;
+              }
+            });
+          }
+
         });
+
         this.categoryServiceListTemp=this.categoryServiceList;
 
         this.isLoaderAdmin = false;
-      }
-      else if(response.data == false){
+      } else if(response.data == false){
+
         this.categoryServiceList = [];
         this.categoryServiceListTemp = [];
         this.isLoaderAdmin = false;
+
       }
     })
   }
@@ -1202,36 +1214,31 @@ export class StaffComponent implements OnInit {
     }
 
 
-    // this.categoryServiceCheckCatId = [];
-    // this.categoryServiceChecksubCatId = [];
     this.categoryServiceCheckServiceId = [];
-
     this.categoryServiceList.forEach(element => {
-
-      // if(element.is_selected==true){
-      //   this.categoryServiceCheckCatId.push({'id':element.id});
-      // }
-
       element.subcategory.forEach(subelement => {
-        // if(subelement.is_selected == true){
-        //   this.categoryServiceChecksubCatId.push({'id':subelement.id})
-        // }
         subelement.services.forEach(serviceselement => {
           if(serviceselement.is_selected == true){
             this.categoryServiceCheckServiceId.push(serviceselement.id)
           }
         });
-
       });
-
     });
 
-    // console.log(this.categoryServiceCheckCatId);
-    // console.log(this.categoryServiceChecksubCatId);
-    console.log(this.categoryServiceCheckServiceId);
-
-    
   }
+
+  fnNewCheckService(event,serviceId){
+    if(event == true){
+      this.categoryServiceCheckServiceId.push(serviceId) 
+    }else if(event == false){
+      const index = this.categoryServiceCheckServiceId.indexOf(serviceId);
+      console.log(serviceId);
+      console.log(index);
+      this.categoryServiceCheckServiceId.splice(index, 1);
+    }
+    console.log(this.categoryServiceCheckServiceId);
+  }
+
 
   fnCheckService(event,serviceId){
     if(event == true){
