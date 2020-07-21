@@ -988,6 +988,7 @@ export class ServicesComponent implements OnInit {
     }
 
     fnSelectSubCategory(subCategoryId, index) {
+
         this.isLoaderAdmin = true;
         this.createNewSubCategoryPage = false;
         this.createNewCategoryPage = false;
@@ -1014,7 +1015,7 @@ export class ServicesComponent implements OnInit {
                 if (this.subCategoryServicesList != '' && this.subCategoryServicesList != 'service not found') {
                     this.servicesList = false;
                     this.singleSubCategoryPage = 'services';
-                    this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedSubCategoryIndex].subcategory[index];
+                    this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedCategoryIndex].subcategory[index];
 
                 } else if (this.subCategoryServicesList == 'service not found') {
                     this.servicesList = false;
