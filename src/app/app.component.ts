@@ -778,6 +778,10 @@ export class AppComponent implements AfterViewInit {
     });
     this.CommonService.staffAvaibility(requestObject, headers).subscribe((response: any) => {
       if (response.data == true) {
+        var currentuser = JSON.parse(localStorage.getItem("currentUser"));
+        currentuser.internal_staff = this.staffStatus;
+        localStorage.setItem('currentUser',JSON.stringify(currentuser));
+
         this.currentUser.internal_staff=this.staffStatus;
         // this.authenticationService.currentUserSubject.next(this.currentUser);
         this._snackBar.open("Status Updated.", "X", {
