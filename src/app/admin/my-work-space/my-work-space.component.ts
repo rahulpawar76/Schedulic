@@ -157,7 +157,11 @@ export class MyWorkSpaceComponent implements OnInit {
         this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
       }
       else if(response.data == false){
-        
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
       }
     })
   }
@@ -188,7 +192,7 @@ export class MyWorkSpaceComponent implements OnInit {
     };
     this.adminService.saveBookingNotes(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Booking Notes Updated", "X", {
+        this._snackBar.open("Booking Notes Updated.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
@@ -198,7 +202,7 @@ export class MyWorkSpaceComponent implements OnInit {
         this.fnGetAllAppointmentsByCategoryAndStatus();
       }
       else if(response.data == false){
-        this._snackBar.open("Booking Notes not Updated", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['red-snackbar']
@@ -291,7 +295,12 @@ export class MyWorkSpaceComponent implements OnInit {
           this.availableStaff.length=0;
           this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId,this.appointmentDetails.postalCode);
         }
-      }else{
+      }else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
         this.appointments=[];
       }
     },
@@ -352,6 +361,11 @@ export class MyWorkSpaceComponent implements OnInit {
         this.activityLog=response.response;
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
         this.activityLog=[];
       }
     })
@@ -394,7 +408,7 @@ export class MyWorkSpaceComponent implements OnInit {
     this.adminService.assignStaffToOrder(requestObject).subscribe((response:any) => 
     {
       if(response.data == true){
-          this._snackBar.open("Staff Assigned", "X", {
+          this._snackBar.open("Staff Assigned.", "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['green-snackbar']
@@ -402,7 +416,7 @@ export class MyWorkSpaceComponent implements OnInit {
           this.fnGetAllAppointmentsByCategoryAndStatus();
         }
         else if(response.data == false){
-          this._snackBar.open("Staff not Assigned", "X", {
+          this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['red-snackbar']
@@ -426,7 +440,12 @@ export class MyWorkSpaceComponent implements OnInit {
         this.fnGetAllAppointmentsByCategoryAndStatus();
         this.startWorkSpacePage = false;
       }
-      else {
+      else  if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
         this.startWorkSpacePage = true;
       }
     },
@@ -453,6 +472,13 @@ export class MyWorkSpaceComponent implements OnInit {
     {
       if(response.data == true){
         this.revenue=response.response;
+      }
+      else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
       }
     },
       (err) => {
@@ -493,7 +519,7 @@ export class MyWorkSpaceComponent implements OnInit {
       };
       this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
         if(response.data == true){
-          this._snackBar.open("Appointment Confirmed", "X", {
+          this._snackBar.open("Appointment Confirmed.", "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['green-snackbar']
@@ -501,7 +527,7 @@ export class MyWorkSpaceComponent implements OnInit {
           this.fnGetAllAppointmentsByCategoryAndStatus();
         }
         else if(response.data == false){
-          this._snackBar.open("Appointment not Confirmed", "X", {
+          this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['red-snackbar']
@@ -517,7 +543,7 @@ export class MyWorkSpaceComponent implements OnInit {
       };
       this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
         if(response.data == true){
-          this._snackBar.open("Appointment Completed", "X", {
+          this._snackBar.open("Appointment Completed.", "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['green-snackbar']
@@ -525,7 +551,7 @@ export class MyWorkSpaceComponent implements OnInit {
           this.fnGetAllAppointmentsByCategoryAndStatus();
         }
         else if(response.data == false){
-          this._snackBar.open("Appointment not Completed", "X", {
+          this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['red-snackbar']
@@ -541,7 +567,7 @@ export class MyWorkSpaceComponent implements OnInit {
       };
       this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
         if(response.data == true){
-          this._snackBar.open("Appointment Cancelled", "X", {
+          this._snackBar.open("Appointment Cancelled.", "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['green-snackbar']
@@ -549,7 +575,7 @@ export class MyWorkSpaceComponent implements OnInit {
           this.fnGetAllAppointmentsByCategoryAndStatus();
         }
         else if(response.data == false){
-          this._snackBar.open("Appointment not Cancelled", "X", {
+          this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['red-snackbar']
@@ -751,7 +777,11 @@ export class MyWorkSpaceComponent implements OnInit {
           // }
         }
         else if(response.data == false){
-          
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
         }
       })
     }
@@ -803,7 +833,12 @@ export class MyWorkSpaceComponent implements OnInit {
           }
         }
         }
-        else{
+        else if(response.data == false){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
 
         }
       },
@@ -906,7 +941,7 @@ export class MyWorkSpaceComponent implements OnInit {
     };
     this.adminService.rescheduleAppointment(requestObject).subscribe((response:any) =>{
       if(response.data == true){
-        this._snackBar.open("Appointment Rescheduled", "X", {
+        this._snackBar.open("Appointment Rescheduled.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
@@ -914,7 +949,7 @@ export class MyWorkSpaceComponent implements OnInit {
           this.dialogRef.close();
      }
       else if(response.data == false){
-        this._snackBar.open("Appointment not Rescheduled", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['red-snackbar']

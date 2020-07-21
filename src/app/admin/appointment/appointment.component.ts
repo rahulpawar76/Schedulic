@@ -407,6 +407,11 @@ export class AppointmentComponent implements OnInit {
         this.change.detectChanges();
 
       }else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.allAppointments = [];
         this.isLoaderAdmin = false;
       }
@@ -441,6 +446,11 @@ export class AppointmentComponent implements OnInit {
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.allservices = ''
         this.isLoaderAdmin = false;
       }
@@ -543,6 +553,11 @@ export class AppointmentComponent implements OnInit {
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.isLoaderAdmin = false;
       }
     })
@@ -562,6 +577,11 @@ export class AppointmentComponent implements OnInit {
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.isLoaderAdmin = false;
       }
     })
@@ -581,6 +601,11 @@ export class AppointmentComponent implements OnInit {
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.isLoaderAdmin = false;
       }
     })
@@ -962,6 +987,11 @@ export class DialogAddNewAppointment {
         let postal = response.response
         this.Postalcode = postal;
       } else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.Postalcode = [];
       }
     });
@@ -1003,7 +1033,11 @@ export class DialogAddNewAppointment {
         }
       }
       else if(response.data == false){
-        
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
       }
     })
   }
@@ -1016,7 +1050,11 @@ export class DialogAddNewAppointment {
         console.log(this.taxArr);
       }
       else if(response.data == false){
-        
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
       }
     })
   }
@@ -1068,8 +1106,12 @@ export class DialogAddNewAppointment {
         }
       }
       }
-      else{
-
+      else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
       }
     },
     (err) =>{
@@ -1156,7 +1198,12 @@ export class DialogAddNewAppointment {
       if(response.data == true){
         this.catdata = response.response;
        // this.categories=response.response;
-      }else {
+      }else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
        // this.startWorkSpacePage = true;
       }
     },(err) => {
@@ -1570,9 +1617,9 @@ export class DialogAddNewAppointment {
         }
       }else{
         this._snackBar.open("No Sub-Category or Service Available", "X", {
-        duration: 2000,
-        verticalPosition: 'top',
-        panelClass : ['red-snackbar']
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
         });
       }
     },
@@ -2133,6 +2180,11 @@ constructor(
         console.log("minReschedulingTime - "+this.minReschedulingTime);
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
       }
     })
   }
@@ -2149,6 +2201,11 @@ constructor(
         this.activityLog=response.response;
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.activityLog=[];
       }
     })
@@ -2180,11 +2237,11 @@ constructor(
           this.dialogRef.close();
         }
         else if(response.data == false){
-          this._snackBar.open("Appointment not Confirmed", "X", {
+          this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['red-snackbar']
-            });
+          });
         }
       })
   }
@@ -2205,11 +2262,11 @@ constructor(
         this.dialogRef.close();
       }
       else if(response.data == false){
-        this._snackBar.open("Appointment not Cancelled", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['red-snackbar']
-          });
+        });
       }
     })
   }
@@ -2233,7 +2290,7 @@ constructor(
         this.formSettingPage = false;
         this.fnGetSettingValue();
       } else if(response.data == false){
-        this._snackBar.open("Booking Notes not Updated", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['red-snackbar']
@@ -2383,11 +2440,11 @@ export class RescheduleAppointAdmin {
           this.dialogRef.close();
     }
       else if(response.data == false){
-        this._snackBar.open("Appointment not Rescheduled", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['red-snackbar']
-          });
+        });
       }
     })
   }

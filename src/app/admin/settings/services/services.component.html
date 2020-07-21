@@ -409,7 +409,8 @@
                     <div class="d-flex pt-1 mb-4 mx-3">
                         <div class="ml-3 d-flex justify-content-center">
                             <div class="service-profile-background mr-3">
-                                <img src="{{selectedCategoryDetails.category_image?selectedCategoryDetails.category_image:''}}" class="service-profile-image mb-2">
+                                <img *ngIf="selectedCategoryDetails.category_image" src="{{selectedCategoryDetails.category_image}}" class="service-profile-image mb-2">
+                                <img *ngIf="!selectedCategoryDetails.category_image" src="/assets/images/admin/picture.png" class="service-profile-image mb-2">
                             </div>
                             <div>
                                 <div class=" Details-button-width d-flex">

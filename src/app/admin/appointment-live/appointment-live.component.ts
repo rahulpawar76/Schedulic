@@ -95,7 +95,8 @@ export class AppointmentLiveComponent implements OnInit {
   constructor(
     private AdminService: AdminService,
     private datePipe: DatePipe,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -134,7 +135,12 @@ export class AppointmentLiveComponent implements OnInit {
         
         this.currencySymbolFormat = this.settingsArr.currency_format;
         console.log(this.currencySymbolFormat);
-      }else{
+      }else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
       }
       },
       (err) =>{
@@ -164,6 +170,11 @@ export class AppointmentLiveComponent implements OnInit {
           element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
         });
       }else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.pendingAppointments = [];
       }
     });
@@ -212,6 +223,11 @@ export class AppointmentLiveComponent implements OnInit {
         
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.notAssignedAppointments = [];
       }
     });
@@ -260,6 +276,11 @@ export class AppointmentLiveComponent implements OnInit {
           
         });
       }else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.onTheWayAppointments = [];
       }
     })
@@ -309,6 +330,11 @@ export class AppointmentLiveComponent implements OnInit {
         });
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.workStartedAppointments = [];
       }
     })
@@ -433,6 +459,11 @@ constructor(
         this.activityLog=response.response;
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.activityLog=[];
       }
     })
@@ -456,7 +487,7 @@ constructor(
       };
       this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
         if(response.data == true){
-          this._snackBar.open("Appointment Confirmed", "X", {
+          this._snackBar.open("Appointment Confirmed.", "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['green-snackbar']
@@ -464,7 +495,7 @@ constructor(
           this.dialogRef.close();
         }
         else if(response.data == false){
-          this._snackBar.open("Appointment not Confirmed", "X", {
+          this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['red-snackbar']
@@ -481,7 +512,7 @@ constructor(
     };
     this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
       if(response.data == true){
-        this._snackBar.open("Appointment Cancelled", "X", {
+        this._snackBar.open("Appointment Cancelled.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
@@ -489,7 +520,7 @@ constructor(
         this.dialogRef.close();
       }
       else if(response.data == false){
-        this._snackBar.open("Appointment not Cancelled", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['red-snackbar']
@@ -509,14 +540,14 @@ constructor(
     };
     this.AdminService.saveBookingNotes(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Booking Notes Updated", "X", {
+        this._snackBar.open("Booking Notes Updated.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
         this.formSettingPage = false;
       } else if(response.data == false){
-        this._snackBar.open("Booking Notes not Updated", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['red-snackbar']
@@ -656,7 +687,7 @@ constructor(
       };
       this.AdminService.rescheduleAppointment(requestObject).subscribe((response:any) =>{
         if(response.data == true){
-          this._snackBar.open("Appointment Rescheduled", "X", {
+          this._snackBar.open("Appointment Rescheduled.", "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['green-snackbar']
@@ -664,7 +695,7 @@ constructor(
             this.dialogRef.close();
        }
         else if(response.data == false){
-          this._snackBar.open("Appointment not Rescheduled", "X", {
+          this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['red-snackbar']
@@ -719,10 +750,14 @@ constructor(
 
     this.AdminService.getActivityLog(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        console.log(response.response);
         this.activityLog=response.response;
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.activityLog=[];
       }
     })
@@ -779,7 +814,7 @@ constructor(
     this.AdminService.assignStaffToOrder(requestObject).subscribe((response:any) => 
     {
       if(response.data == true){
-          this._snackBar.open("Staff Assigned", "X", {
+          this._snackBar.open("Staff Assigned.", "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['green-snackbar']
@@ -787,7 +822,7 @@ constructor(
           this.dialogRef.close();
         }
         else if(response.data == false){
-          this._snackBar.open("Staff not Assigned", "X", {
+          this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['red-snackbar']
@@ -807,7 +842,7 @@ constructor(
     };
     this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
       if(response.data == true){
-        this._snackBar.open("Appointment Cancelled", "X", {
+        this._snackBar.open("Appointment Cancelled.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
@@ -815,7 +850,7 @@ constructor(
         this.dialogRef.close();
       }
       else if(response.data == false){
-        this._snackBar.open("Appointment not Cancelled", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['red-snackbar']
@@ -835,14 +870,14 @@ constructor(
     };
     this.AdminService.saveBookingNotes(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Booking Notes Updated", "X", {
+        this._snackBar.open("Booking Notes Updated.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
         this.formSettingPage = false;
       } else if(response.data == false){
-        this._snackBar.open("Booking Notes not Updated", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['red-snackbar']
@@ -893,10 +928,14 @@ constructor(
     };
     this.AdminService.getActivityLog(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        console.log(response.response);
         this.activityLog=response.response;
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.activityLog=[];
       }
     })
@@ -920,7 +959,7 @@ constructor(
       };
       this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
         if(response.data == true){
-          this._snackBar.open("Appointment Confirmed", "X", {
+          this._snackBar.open("Appointment Confirmed.", "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['green-snackbar']
@@ -928,7 +967,7 @@ constructor(
           this.dialogRef.close();
         }
         else if(response.data == false){
-          this._snackBar.open("Appointment not Confirmed", "X", {
+          this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['red-snackbar']
@@ -945,7 +984,7 @@ constructor(
     };
     this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
       if(response.data == true){
-        this._snackBar.open("Appointment Cancelled", "X", {
+        this._snackBar.open("Appointment Cancelled.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
@@ -953,7 +992,7 @@ constructor(
         this.dialogRef.close();
       }
       else if(response.data == false){
-        this._snackBar.open("Appointment not Cancelled", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['red-snackbar']
@@ -973,14 +1012,14 @@ constructor(
     };
     this.AdminService.saveBookingNotes(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Booking Notes Updated", "X", {
+        this._snackBar.open("Booking Notes Updated.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
         this.formSettingPage = false;
       } else if(response.data == false){
-        this._snackBar.open("Booking Notes not Updated", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['red-snackbar']
@@ -1028,10 +1067,14 @@ constructor(
     };
     this.AdminService.getActivityLog(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        console.log(response.response);
         this.activityLog=response.response;
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         this.activityLog=[];
       }
     })
@@ -1055,7 +1098,7 @@ constructor(
       };
       this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
         if(response.data == true){
-          this._snackBar.open("Appointment Confirmed", "X", {
+          this._snackBar.open("Appointment Confirmed.", "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['green-snackbar']
@@ -1063,7 +1106,7 @@ constructor(
           this.dialogRef.close();
         }
         else if(response.data == false){
-          this._snackBar.open("Appointment not Confirmed", "X", {
+          this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['red-snackbar']
@@ -1080,7 +1123,7 @@ constructor(
     };
     this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
       if(response.data == true){
-        this._snackBar.open("Appointment Cancelled", "X", {
+        this._snackBar.open("Appointment Cancelled.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
@@ -1088,7 +1131,7 @@ constructor(
         this.dialogRef.close();
       }
       else if(response.data == false){
-        this._snackBar.open("Appointment not Cancelled", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['red-snackbar']
@@ -1108,14 +1151,14 @@ constructor(
     };
     this.AdminService.saveBookingNotes(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Booking Notes Updated", "X", {
+        this._snackBar.open("Booking Notes Updated.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
         this.formSettingPage = false;
       } else if(response.data == false){
-        this._snackBar.open("Booking Notes not Updated", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['red-snackbar']
