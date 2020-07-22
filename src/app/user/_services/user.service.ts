@@ -5,6 +5,8 @@ import { map, catchError } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { AuthenticationService } from '@app/_services';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {  DialogReAuthentication  } from '@app/app.component';
 
 @Injectable({ providedIn: 'root' })
 
@@ -13,11 +15,14 @@ export class UserService {
 	token: any;
 	ProfileImagedata: any;
 	updatedprofiledata: any;
+	currentUser:any;
   constructor(
 	private http: HttpClient,
+    public dialog: MatDialog,
 	private _snackBar: MatSnackBar,
 	private authenticationService: AuthenticationService
 	) { 
+		this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
 		this.userId=this.authenticationService.currentUserValue.user_id
 		this.token=this.authenticationService.currentUserValue.token
 	}   
@@ -29,7 +34,30 @@ export class UserService {
 		return throwError('Error! something went wrong.');
 	}
 
+	checkAuthentication(){
+		let requestObject = {
+		  "user_type": this.currentUser.user_type,
+		  "user_id" : this.currentUser.user_id,
+		  "token" : this.currentUser.token
+		};
+		this.http.post(`${environment.apiUrl}/check-token`,requestObject).pipe(
+		  map((res) => {
+			return res;
+		  }),
+		  catchError(this.handleError)
+		).subscribe((response:any) => {
+		  if (response.data == true) {
+		  }
+		  else if(response.data == false){
+			this.reAuthenticateUser();
+		  }
+		},(err) =>{
+			console.log(err)
+		});
+	
+	  }
 	getUserProfileData(requestObject) {
+		this.checkAuthentication();
 		let headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			"customer-id":JSON.stringify(this.userId),
@@ -43,6 +71,7 @@ export class UserService {
 	}
 
 	updateUserProfileData(updatedprofiledata) {
+		this.checkAuthentication();
 			let headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			"customer-id":JSON.stringify(this.userId),
@@ -57,6 +86,7 @@ export class UserService {
 	}
 
 	getAllAppointments(){
+		this.checkAuthentication();
 		let requestObject = {
 		// "customer_id":"41"
 		};
@@ -72,6 +102,7 @@ export class UserService {
 		catchError(this.handleError));
 	}
 	getCancelAppointments(){
+		this.checkAuthentication();
 		let requestObject = {
 		// "customer_id":"41"
 		};
@@ -87,6 +118,7 @@ export class UserService {
 		catchError(this.handleError));
 	}
 	getCompletedAppointments(){
+		this.checkAuthentication();
 		let requestObject = {
 		// "customer_id":"41"
 		};
@@ -102,6 +134,7 @@ export class UserService {
 		catchError(this.handleError));
 	}
 	cancelAppointment(requestObject){
+		this.checkAuthentication();
 		let headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			"customer-id":JSON.stringify(this.userId),
@@ -114,6 +147,7 @@ export class UserService {
 		catchError(this.handleError));
 	}
 	ratingToAppointment(requestObject){
+		this.checkAuthentication();
 		let headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			"customer-id":JSON.stringify(this.userId),
@@ -127,6 +161,7 @@ export class UserService {
 	}
 
 	rescheduleAppointment(requestObject){
+		this.checkAuthentication();
 		let headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			"customer-id":JSON.stringify(this.userId),
@@ -140,6 +175,7 @@ export class UserService {
 	}
 
   getSettingValue(requestObject) {
+	this.checkAuthentication();
     let headers = new HttpHeaders({
 	    'Content-Type': 'application/json',
 			"customer-id":JSON.stringify(this.userId),
@@ -152,10 +188,11 @@ export class UserService {
     catchError(this.handleError));
   }
   getActivityLog(requestObject){
+	this.checkAuthentication();
       let headers = new HttpHeaders({
-					"customer-id":JSON.stringify(this.userId),
-					"api-token":this.token,
-          'Content-Type': 'application/json'
+		"customer-id":JSON.stringify(this.userId),
+		"api-token":this.token,
+		'Content-Type': 'application/json'
       });
       return this.http.post(`${environment.apiUrl}/logs-list`,requestObject,{headers:headers}).pipe(
       map((res) => {
@@ -164,6 +201,7 @@ export class UserService {
       catchError(this.handleError));
 	}
   customerSearchAppointment(requestObject) {
+	this.checkAuthentication();
     let headers = new HttpHeaders({
 	    'Content-Type': 'application/json',
 		"customer-id":JSON.stringify(this.userId),
@@ -176,6 +214,7 @@ export class UserService {
     catchError(this.handleError));
   }
   customerStripePayment(requestObject) {
+	this.checkAuthentication();
     let headers = new HttpHeaders({
 	    'Content-Type': 'application/json',
 		"customer-id":JSON.stringify(this.userId),
@@ -188,6 +227,7 @@ export class UserService {
     catchError(this.handleError));
   }
   customerPaymentUpdate(requestObject) {
+	this.checkAuthentication();
     let headers = new HttpHeaders({
 	    'Content-Type': 'application/json',
 		"customer-id":JSON.stringify(this.userId),
@@ -201,6 +241,7 @@ export class UserService {
   }
   
   getBusinessDetail(requestObject) {
+	this.checkAuthentication();
     let headers = new HttpHeaders({
 	    'Content-Type': 'application/json',
 		"customer-id":JSON.stringify(this.userId),
@@ -213,6 +254,7 @@ export class UserService {
     catchError(this.handleError));
   }
   sendInvoiceEmail(requestObject){
+	this.checkAuthentication();
       let headers = new HttpHeaders({
 	    // 'Content-Type': 'application/pdf',
 				"customer-id":JSON.stringify(this.userId),
@@ -226,6 +268,7 @@ export class UserService {
   }
 
   getOffDays(requestObject){
+	this.checkAuthentication();
       let headers = new HttpHeaders({
 					"customer-id":JSON.stringify(this.userId),
 					"api-token":this.token,
@@ -239,6 +282,7 @@ export class UserService {
   }
 
   getTaxDetails(requestObject){
+	this.checkAuthentication();
 	
 	let headers = new HttpHeaders({
 		'Content-Type': 'application/json',
@@ -253,6 +297,7 @@ export class UserService {
 }
 
 	getPostalCodeList(requestObject) {
+		this.checkAuthentication();
 		let headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			"customer-id":JSON.stringify(this.userId),
@@ -263,6 +308,19 @@ export class UserService {
 			return res;
 		}),
 		catchError(this.handleError));
+	}
+	reAuthenticateUser() {
+		const dialogRef = this.dialog.open(DialogReAuthentication, {
+			width: '500px',
+	
+		});
+	
+		dialogRef.afterClosed().subscribe(result => {
+			if(result){
+				this.currentUser = result
+				console.log(this.currentUser)
+			}
+		});
 	}
 	
 

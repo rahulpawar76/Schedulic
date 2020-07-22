@@ -582,6 +582,17 @@ input:focus {
     }
 }
 
+// -------Authentication Dialogbox css-----
+::ng-deep #re-athentication-dialog {
+    .submit-btn {
+        width: 130px;
+        height: 37px;
+        border-radius: 29px;
+        background-color: #1172f4;
+        color: white;
+    }
+}
+
  ::ng-deep .booking-detail-main {
     .customer-profile-img {
         border-radius: 100%;

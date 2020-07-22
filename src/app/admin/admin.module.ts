@@ -10,7 +10,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { MaterialModule } from '@app/_helpers/material.module';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
-  
+//import { DialogReAuthentication } from './_services'
 
 
 
@@ -87,7 +87,8 @@ import { SupportComponent } from './support/support.component';
     DialogAllAppointmentDetails,
     DialogCouponDetails,
     CustomerAppointmentDetailsDialog,
-    SupportComponent
+    SupportComponent,
+    //DialogReAuthentication,
     ],
   imports: [
     CommonModule,

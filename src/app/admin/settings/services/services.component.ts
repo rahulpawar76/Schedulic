@@ -442,11 +442,11 @@ export class ServicesComponent implements OnInit {
                 this.selectAll = false;
                 this.ActionId = [];
 
-                if (this.categoryServicesList != '' && this.categoryServicesList != 'service not found') {
+                if (this.categoryServicesList != '' && this.categoryServicesList != 'service not found.') {
                     this.servicesList = false;
                     this.selectCategoryPage = 'services';
                     this.selectedCategoryDetails = this.allCetegoryList[index];
-                } else if (this.categoryServicesList == 'service not found') {
+                } else if (this.categoryServicesList == 'service not found.') {
                     this.servicesList = false;
                     this.selectedCategoryDetails = this.allCetegoryList[index]
                     this.selectCategoryPage = 'notservices';
@@ -456,7 +456,7 @@ export class ServicesComponent implements OnInit {
             }
             else if (response.data == false) {
                 this.categoryServicesList = [];
-                if (response.response == 'service not found') {
+                if (response.response == 'service not found.') {
                     this.servicesList = false;
                     this.selectedCategoryDetails = this.allCetegoryList[index]
                     this.selectCategoryPage = 'notservices';
@@ -1012,12 +1012,12 @@ export class ServicesComponent implements OnInit {
                 this.staffActionIdSub = [];
                 this.selectAllSubCat = false;
 
-                if (this.subCategoryServicesList != '' && this.subCategoryServicesList != 'service not found') {
+                if (this.subCategoryServicesList != '' && this.subCategoryServicesList != 'service not found.') {
                     this.servicesList = false;
                     this.singleSubCategoryPage = 'services';
                     this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedCategoryIndex].subcategory[index];
 
-                } else if (this.subCategoryServicesList == 'service not found') {
+                } else if (this.subCategoryServicesList == 'service not found.') {
                     this.servicesList = false;
                     this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedCategoryIndex].subcategory[index]
                     this.selectCategoryPage = '';
@@ -1027,7 +1027,7 @@ export class ServicesComponent implements OnInit {
                 this.createNewServicePage = false;
                 this.isLoaderAdmin = false;
             } else if (response.data == false) {
-                if (response.response == 'service not found') {
+                if (response.response == 'service not found.') {
                     this.servicesList = false;
 
                     

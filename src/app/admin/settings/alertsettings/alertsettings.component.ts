@@ -229,7 +229,6 @@ export class AlertsettingsComponent implements OnInit {
       if(localStorage.getItem('business_id')){
         this.businessId = localStorage.getItem('business_id');
       }
-
       this.emailAlertCustomerDays = "0";
       this.emailAlertCustomerHours= "0";
       this.emailAlertCustomerMinutes= "0";

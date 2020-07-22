@@ -112,6 +112,9 @@ export class AppComponent implements AfterViewInit {
   ) {
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
     console.log(this.currentUser)
+    if(this.currentUser){
+      //this.checkAuthentication();
+    }
     if(this.currentUser && this.currentUser.internal_staff === 'N'){
       this.staffAvailable = true;
     }else{
@@ -160,7 +163,20 @@ export class AppComponent implements AfterViewInit {
     }  
   }
 
-  
+  // checkAuthentication(){
+  //   let requestObject = {
+  //     "user_type": this.currentUser.user_type,
+  //     "user_id" : this.currentUser.user_id,
+  //     "token" : this.currentUser.token
+  //   };
+  //   this.CommonService.checkAuthentication(requestObject).subscribe((response: any) => {
+  //     if (response.data == true) {
+  //     }
+  //     else if(response.data == false){
+  //       this.reAuthenticateUser();
+  //     }
+  //   })
+  // }
   
 
 
@@ -857,6 +873,16 @@ export class AppComponent implements AfterViewInit {
       this.animal = result;
     });
   }
+  // reAuthenticateUser() {
+  //   const dialogRef = this.dialog.open(DialogReAuthentication, {
+  //     width: '500px',
+
+  //   });
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     this.animal = result;
+  //   });
+  // }
 
 }
 
@@ -1054,5 +1080,77 @@ export class DialogLogoutAppointment {
   closePopup() {
     this.dialogRef.close();
   }
+}
+
+@Component({
+    selector: 're-authentication-popup',
+    templateUrl: './_dialogs/re-authentication-password.html',
+})
+export class DialogReAuthentication {
+
+    currentUser:any;
+    reAuthenticationForm :FormGroup
+
+    constructor(
+    public dialogRef: MatDialogRef<DialogReAuthentication>,
+    private authenticationService: AuthenticationService,
+    public dialogRef2: MatDialog,
+    private _formBuilder: FormBuilder,
+    private _snackBar : MatSnackBar,
+    private http: HttpClient,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+        
+    this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
+    console.log(this.currentUser)
+        this.reAuthenticationForm = this._formBuilder.group({
+         user_password : ['',[ Validators.required]],
+        });
+    }
+    private handleError(error: HttpErrorResponse) {
+        console.log(error);
+        return throwError('Error! something went wrong.');
+    }
+
+    submit(){
+    if(this.reAuthenticationForm.valid){
+        let requestObject = {
+        "user_type": this.currentUser.user_type,
+        "user_id" : this.currentUser.user_id,
+        "password" : this.reAuthenticationForm.get('user_password').value
+        };
+        this.http.post(`${environment.apiUrl}/user-re-login`,requestObject).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError)
+        ).subscribe((response:any) => {
+        if (response.data == true) {
+            this.authenticationService.currentUser = response.response
+            localStorage.setItem('currentUser',JSON.stringify(response.response));
+            this.dialogRef.close(response.response);
+            window.location.reload();
+        }
+        else if(response.data == false){
+            this._snackBar.open(response.response, "X", {
+                duration: 2000,
+                verticalPosition: 'bottom',
+                panelClass: ['red-snackbar']
+                });
+        }
+        },(err) =>{
+            console.log(err)
+        });
+    }else{
+        this.reAuthenticationForm.get('user_password').markAsTouched();
+    }
+    }
+
+    onNoClick(): void {
+    this.dialogRef.close();
+    }
+
+    closePopup() {
+    this.dialogRef.close();
+    }
 }
 

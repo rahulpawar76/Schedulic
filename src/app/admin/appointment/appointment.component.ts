@@ -2451,3 +2451,74 @@ export class RescheduleAppointAdmin {
 
 }
 
+
+@Component({
+    selector: 're-authentication-popup',
+    templateUrl: '../../_dialogs/re-authentication-password.html',
+})
+export class DialogReAuthentication {
+
+    currentUser:any;
+    reAuthenticationForm :FormGroup
+
+    constructor(
+    public dialogRef: MatDialogRef<DialogReAuthentication>,
+    private authenticationService: AuthenticationService,
+    public dialogRef2: MatDialog,
+    private _formBuilder: FormBuilder,
+    private _snackBar : MatSnackBar,
+    private http: HttpClient,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+        
+    this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
+    console.log(this.currentUser)
+        this.reAuthenticationForm = this._formBuilder.group({
+         user_password : ['',[ Validators.required]],
+        });
+    }
+    private handleError(error: HttpErrorResponse) {
+        console.log(error);
+        return throwError('Error! something went wrong.');
+    }
+
+    submit(){
+    if(this.reAuthenticationForm.valid){
+        let requestObject = {
+        "user_type": this.currentUser.user_type,
+        "user_id" : this.currentUser.user_id,
+        "token" : this.currentUser.token
+        };
+        this.http.post(`${environment.apiUrl}/user-re-login`,requestObject).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError)
+        ).subscribe((response:any) => {
+        if (response.data == true) {
+            this.authenticationService.currentUser = response.response
+            this.dialogRef.close();
+        }
+        else if(response.data == false){
+            this._snackBar.open(response.response, "X", {
+                duration: 2000,
+                verticalPosition: 'bottom',
+                panelClass: ['red-snackbar']
+                });
+        }
+        },(err) =>{
+            console.log(err)
+        });
+    }else{
+        this.reAuthenticationForm.get('user_password').markAsTouched();
+    }
+    }
+
+    onNoClick(): void {
+    this.dialogRef.close();
+    }
+
+    closePopup() {
+    this.dialogRef.close();
+    }
+}
+    

@@ -5,18 +5,23 @@ import { map, catchError } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthenticationService } from '@app/_services';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {  DialogReAuthentication  } from '@app/app.component';
 
 @Injectable({ providedIn: 'root' })
 
 export class StaffService {
 	staffId:any
   staffToken:any
-	bussinessId:any
+  bussinessId:any
+  currentUser:any;
   constructor(
     private http: HttpClient,
     private _snackBar: MatSnackBar,
+    public dialog: MatDialog,
     private authenticationService:AuthenticationService
     ) { 
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.staffId=JSON.stringify(this.authenticationService.currentUserValue.user_id);
     this.staffToken = this.authenticationService.currentUserValue.token;
     this.bussinessId=this.authenticationService.currentUserValue.business_id
@@ -28,7 +33,30 @@ export class StaffService {
     return throwError('Error! something went wrong.');
   } 
 
+  checkAuthentication(){
+    let requestObject = {
+      "user_type": this.currentUser.user_type,
+      "user_id" : this.currentUser.user_id,
+      "token" : this.currentUser.token
+    };
+    this.http.post(`${environment.apiUrl}/check-token`,requestObject).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(this.handleError)
+    ).subscribe((response:any) => {
+      if (response.data == true) {
+      }
+      else if(response.data == false){
+        this.reAuthenticateUser();
+      }
+    },(err) =>{
+        console.log(err)
+    });
+
+  }
   getProfiledata(){
+    this.checkAuthentication();
     let requestObject = {
     };
     let headers = new HttpHeaders({
@@ -44,6 +72,7 @@ export class StaffService {
   }
 
   fnprofilesubmit(updatedprofiledata){
+    this.checkAuthentication();
     let headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'staff-id' : this.staffId,
@@ -58,6 +87,7 @@ export class StaffService {
   
   // work profile
   getAllServices(){
+    this.checkAuthentication();
     let requestObject = {
     };
     let headers = new HttpHeaders({
@@ -73,6 +103,7 @@ export class StaffService {
   }
 
   getWorkingHours(){
+    this.checkAuthentication();
     let requestObject = {
     };
     let headers = new HttpHeaders({
@@ -88,6 +119,7 @@ export class StaffService {
   }
 
   getBreakHours(){
+    this.checkAuthentication();
     let requestObject = {
     };
     let headers = new HttpHeaders({
@@ -103,6 +135,7 @@ export class StaffService {
   }
 
   getAllHolidays(){
+    this.checkAuthentication();
     let requestObject = {
     };
     let headers = new HttpHeaders({
@@ -118,6 +151,7 @@ export class StaffService {
   }
 
   getAllPostalcodes(){
+    this.checkAuthentication();
     let requestObject = {
     };
     let headers = new HttpHeaders({
@@ -134,6 +168,7 @@ export class StaffService {
 
   // staff Appointments
   getNewAppointment(requestObject){
+    this.checkAuthentication();
     let headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'staff-id' : this.staffId,
@@ -147,6 +182,7 @@ export class StaffService {
   }
 
   getCompletedAppointment(requestObject){
+    this.checkAuthentication();
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
         'staff-id' : this.staffId,
@@ -160,6 +196,7 @@ export class StaffService {
   }
 
   getOnGoingAppointment(requestObject){
+    this.checkAuthentication();
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'staff-id' : this.staffId,
@@ -173,6 +210,7 @@ export class StaffService {
     catchError(this.handleError));
   }
   changeStatus(requestObject){
+    this.checkAuthentication();
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'staff-id' : this.staffId,
@@ -188,7 +226,7 @@ export class StaffService {
 
   // mywork-space
   getTodayAppointment(requestObject){
-   
+    this.checkAuthentication();
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'staff-id' : requestObject.staff_id,
@@ -202,7 +240,7 @@ export class StaffService {
   }
 
   rescheduleAppointment(requestObject){
-    
+    this.checkAuthentication();
     let headers = new HttpHeaders({
     'Content-Type': 'application/json',
       'staff-id' : this.staffId,
@@ -218,6 +256,7 @@ export class StaffService {
   // Get Tax details
 
   getTaxDetails(){
+    this.checkAuthentication();
       let requestObject = {
           'business_id': this.bussinessId,
       };
@@ -234,6 +273,7 @@ export class StaffService {
   }
 
   getOffDays(requestObject){
+    this.checkAuthentication();
       let headers = new HttpHeaders({
           'staff-id' : this.staffId,
           'api-token' : this.staffToken,
@@ -247,6 +287,7 @@ export class StaffService {
   }
 
   getSettingValue(requestObject) {
+    this.checkAuthentication();
       let headers = new HttpHeaders({
           'Content-Type': 'application/json',
           'staff-id' : this.staffId,
@@ -261,6 +302,7 @@ export class StaffService {
   }
 
   getActivityLog(requestObject){
+    this.checkAuthentication();
       let headers = new HttpHeaders({
           'staff-id' : this.staffId,
           'api-token' : this.staffToken,
@@ -274,6 +316,7 @@ export class StaffService {
     }
 
   staffPayment(requestObject) {
+    this.checkAuthentication();
     let headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'staff-id' : this.staffId,
@@ -286,6 +329,7 @@ export class StaffService {
     catchError(this.handleError));
   }
   onlinePayment(requestObject) {
+    this.checkAuthentication();
     let headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'staff-id' : this.staffId,
@@ -298,6 +342,7 @@ export class StaffService {
     catchError(this.handleError));
   }
   fncheckavailcoupon(requestObject) {
+    this.checkAuthentication();
       let headers = new HttpHeaders({
           'Content-Type': 'application/json'
       });
@@ -308,6 +353,7 @@ export class StaffService {
           catchError(this.handleError));
   }
   staffSearchAppointment(requestObject) {
+    this.checkAuthentication();
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'staff-id' : this.staffId,
@@ -321,6 +367,7 @@ export class StaffService {
   }
 
   getBussinessOffDays(requestObject){
+    this.checkAuthentication();
       let headers = new HttpHeaders({
           'staff-id' : this.staffId,
           'api-token' : this.staffToken,
@@ -334,6 +381,7 @@ export class StaffService {
   }
 
   getPostalCodeList() {
+    this.checkAuthentication();
     let requestObject = {
         'business_id': this.bussinessId,
     };
@@ -347,6 +395,20 @@ export class StaffService {
         return res;
     }),
     catchError(this.handleError));
+  }
+
+  reAuthenticateUser() {
+    const dialogRef = this.dialog.open(DialogReAuthentication, {
+        width: '500px',
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+        if(result){
+            this.currentUser = result
+            console.log(this.currentUser)
+        }
+    });
   }
 
 }

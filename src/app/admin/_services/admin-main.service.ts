@@ -1,27 +1,33 @@
-import { Injectable } from '@angular/core';
+import { Component, Inject, Injectable, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, from } from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AuthenticationService } from '../../_services';
 import { environment } from '@environments/environment';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthenticationService } from '@app/_services';
-import { error } from 'protractor';
+import {  DialogReAuthentication  } from './../../app.component';
+
+export interface DialogData {
+    animal: string;
+    name: string;
+}
 
 @Injectable({ providedIn: 'root' })
-
 export class AdminService {
   businessId : any = localStorage.getItem('business_id')?localStorage.getItem('business_id'):'';
   currentUser : any;
+  animal:any
   constructor(
     private http: HttpClient,
     private _snackBar: MatSnackBar,
-    private authenticationService:AuthenticationService
+    private authenticationService:AuthenticationService,
+    public dialog: MatDialog,
     ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    
     localStorage.setItem('isBusiness', 'false');
-    // if(localStorage.getItem('business_id')){
-    //     this.businessId=localStorage.getItem('business_id');
-    // }
   }  
     private handleError(error: HttpErrorResponse) {
         console.log(error);
@@ -31,9 +37,34 @@ export class AdminService {
     ngOnInit() {
        
       }
+
+      
+  checkAuthentication(){
+    let requestObject = {
+      "user_type": this.currentUser.user_type,
+      "user_id" : this.currentUser.user_id,
+      "token" : this.currentUser.token
+    };
+    this.http.post(`${environment.apiUrl}/check-token`,requestObject).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(this.handleError)
+    ).subscribe((response:any) => {
+      if (response.data == true) {
+      }
+      else if(response.data == false){
+        this.reAuthenticateUser();
+      }
+    },(err) =>{
+        console.log(err)
+    });
+
+  }
     
     //   Business Module
     getAllBusiness(){
+        this.checkAuthentication();
         let requestObject = {
             'admin_id' : JSON.stringify(this.currentUser.user_id),
         };
@@ -49,6 +80,7 @@ export class AdminService {
         catchError(this.handleError));
     }
     gelAllCountry(){
+        this.checkAuthentication();
         let requestObject = {
         };
         let headers = new HttpHeaders({
@@ -61,6 +93,7 @@ export class AdminService {
         catchError(this.handleError));
     }
     gelAllState(country_id){
+        this.checkAuthentication();
         let requestObject = {
             'country_id' : country_id
         };
@@ -74,6 +107,7 @@ export class AdminService {
         catchError(this.handleError));
     }
     gelAllCities(state_id){
+        this.checkAuthentication();
         let requestObject = {
             'state_id' : state_id
         };
@@ -87,6 +121,7 @@ export class AdminService {
         catchError(this.handleError));
     }
     getTimeZone(){
+        this.checkAuthentication();
         let requestObject = {
         };
         let headers = new HttpHeaders({
@@ -99,7 +134,7 @@ export class AdminService {
         catchError(this.handleError));
     }
     createNewBusiness(newBusinessData){
-        
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -116,7 +151,7 @@ export class AdminService {
     // Appointment Module
 
     getAllAppointments(requestObject){
-        
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -130,7 +165,7 @@ export class AdminService {
     }
 
     getAllAppointmentsData(url,requestObject){
-        
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -146,6 +181,7 @@ export class AdminService {
     // Get All Services
 
     getAllServices(){
+        this.checkAuthentication();
         let requestObject = {
             'business_id' : localStorage.getItem('business_id'),
         };
@@ -163,6 +199,7 @@ export class AdminService {
 
     // Customer Module
     getAllCustomers(){
+        this.checkAuthentication();
         let requestObject = {
             'business_id': localStorage.getItem('business_id'),
         };
@@ -179,6 +216,7 @@ export class AdminService {
         catchError(this.handleError));
     }
     getCustomersDetails(customer_id){
+        this.checkAuthentication();
         let requestObject = {
             'customer_id': customer_id,
         };
@@ -194,7 +232,8 @@ export class AdminService {
         catchError(this.handleError));
     }
     fnCreateNewCustomer(newCustomerData){
-        // let requestObject = {
+        this.checkAuthentication();
+        //let requestObject = {
         //     'customer_id': customer_id,
         // };
         let headers = new HttpHeaders({
@@ -209,6 +248,7 @@ export class AdminService {
         catchError(this.handleError));
     }
     customerUpdate(existingCustomerData){
+         this.checkAuthentication();
         // let requestObject = {
         //     'customer_id': customer_id,
         // };
@@ -224,6 +264,7 @@ export class AdminService {
         catchError(this.handleError));
     }
     fnDeleteCustomer(customerId){
+        this.checkAuthentication();
         let requestObject = {
             'customer_id': customerId,
         };
@@ -239,6 +280,7 @@ export class AdminService {
         catchError(this.handleError));
     }
     fnDeleteNote(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -251,6 +293,7 @@ export class AdminService {
         catchError(this.handleError));
     }
     fncreateNewNote(createNewNoteData){
+        this.checkAuthentication();
         // let requestObject = {
         //     'customer_id': customer_id,
         // };
@@ -266,6 +309,7 @@ export class AdminService {
         catchError(this.handleError));
     }
     fnEditNote(editNoteData){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -278,6 +322,7 @@ export class AdminService {
         catchError(this.handleError));
     }
     fnSaveTags(customerId,tags){
+        this.checkAuthentication();
         let requestObject = {
             'customer_id': customerId,
             'tags': tags
@@ -296,7 +341,7 @@ export class AdminService {
 
     // Get Appointments by Category and Status
     getAllAppointmentsByCategoryAndStatus(requestObject){
-        
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -311,6 +356,7 @@ export class AdminService {
 
     // Get Categories
     getAllCategories(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -326,6 +372,7 @@ export class AdminService {
 
     // Get 
     get(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -341,6 +388,7 @@ export class AdminService {
 
     // Get TodayRevenue
     getTodayRevenue(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -357,10 +405,7 @@ export class AdminService {
     // Couponcode
 
     getAllCouponCode(url,requestObject){
-        // let requestObject = {
-        //     'business_id': this.businessId,
-        //     'filter' : couponListFilter,
-        // };
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -373,6 +418,7 @@ export class AdminService {
         catchError(this.handleError));
     }
     createNewCouponCode(createdCouponCodeData){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -385,6 +431,7 @@ export class AdminService {
         catchError(this.handleError));
     }
     changeCouponStaus(couponCodeStatus,coupon_id){
+        this.checkAuthentication();
         let requestObject = {
             'coupon_id': coupon_id,
             'status' : couponCodeStatus
@@ -402,7 +449,7 @@ export class AdminService {
     }
 
      rescheduleAppointment(requestObject){
-    
+        this.checkAuthentication();
         let headers = new HttpHeaders({
         'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -416,7 +463,8 @@ export class AdminService {
       }
       
     //   fncustomerReport(){
-    //     let requestObject = {
+    //     this.checkAuthentication();
+       // let requestObject = {
     //         'business_id': this.businessId,
     //     };
     //     let headers = new HttpHeaders({
@@ -432,7 +480,7 @@ export class AdminService {
     // }
 
      updateAppointmentStatus(requestObject){
-    
+        this.checkAuthentication();
         let headers = new HttpHeaders({
         'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -446,7 +494,7 @@ export class AdminService {
       }
 
      assignStaffToOrder(requestObject){
-    
+        this.checkAuthentication();
         let headers = new HttpHeaders({
         'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -462,9 +510,7 @@ export class AdminService {
     // get category and services
 
     getCateServiceList(requestObject){
-        // let requestObject = {
-        //     'business_id': this.businessId,
-        // };
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -480,6 +526,7 @@ export class AdminService {
     // live pending appointments
 
     getPendingAppointments(URL){
+        this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
         };
@@ -496,6 +543,7 @@ export class AdminService {
     }
     
     getNotAssignedAppointments(URL){
+        this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
         };
@@ -512,6 +560,7 @@ export class AdminService {
     }
 
     getOnThewayAppointments(URL){
+        this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
         };
@@ -529,6 +578,7 @@ export class AdminService {
 
     
     getWorkStartedAppointments(URL){
+        this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
         };
@@ -545,6 +595,7 @@ export class AdminService {
     }
 ///appointment-reports
     getAppointmentsReports(requestObject,api_url){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -558,6 +609,7 @@ export class AdminService {
     }
 
     getSalesReports(requestObject,api_url){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -571,6 +623,7 @@ export class AdminService {
     }
 
     getCustomerReports(requestObject,api_url){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -585,6 +638,7 @@ export class AdminService {
     // Get Tax details
 
     getTaxDetails(){
+        this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
         };
@@ -603,6 +657,7 @@ export class AdminService {
     //setting my profile
 
     getMyProfileDetails(){
+        this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
         };
@@ -619,6 +674,7 @@ export class AdminService {
     }
 
     updateProfile(updatedAdminProfileData){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : JSON.stringify(this.currentUser.user_id),
             'api-token' : this.currentUser.token,
@@ -632,6 +688,7 @@ export class AdminService {
     }
 
     getOffDays(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : JSON.stringify(this.currentUser.user_id),
             'api-token' : this.currentUser.token,
@@ -645,7 +702,7 @@ export class AdminService {
     }
 
     getSettingValue(requestObject) {
-        
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': JSON.stringify(this.currentUser.user_id),
@@ -658,6 +715,7 @@ export class AdminService {
             catchError(this.handleError));
     }
     fnAppointAction(status, orderItemsIdArr){
+        this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
             'order_item_list' : orderItemsIdArr,
@@ -676,6 +734,7 @@ export class AdminService {
         }
 
     fnExportCustomer(selectedCustomerId){
+        this.checkAuthentication();
         let requestObject = {
             'customer_id': selectedCustomerId,
         };
@@ -691,6 +750,7 @@ export class AdminService {
         catchError(this.handleError));
     }
     viewReviewDetail(orderId){
+        this.checkAuthentication();
         let requestObject = {
             'order_item_id': orderId,
         };
@@ -706,6 +766,7 @@ export class AdminService {
         catchError(this.handleError));
     }
     getServiceListForCoupon(couponId){
+        this.checkAuthentication();
         let requestObject = {
             'dis_coupon_id': couponId,
         };
@@ -721,6 +782,7 @@ export class AdminService {
         catchError(this.handleError));
     }
     updatePaymentInfoAndStatus(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : JSON.stringify(this.currentUser.user_id),
             'api-token' : this.currentUser.token,
@@ -734,6 +796,7 @@ export class AdminService {
     }
 
     getActivityLog(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : JSON.stringify(this.currentUser.user_id),
             'api-token' : this.currentUser.token,
@@ -747,6 +810,7 @@ export class AdminService {
         catchError(this.handleError));
     }
     fnMultiDeleteCustomer(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : JSON.stringify(this.currentUser.user_id),
             'api-token' : this.currentUser.token,
@@ -761,6 +825,7 @@ export class AdminService {
     }
     
     saveBookingNotes(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : JSON.stringify(this.currentUser.user_id),
             'api-token' : this.currentUser.token,
@@ -774,6 +839,7 @@ export class AdminService {
     }
 
     getBusinessDetail(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : JSON.stringify(this.currentUser.user_id),
             'api-token' : this.currentUser.token,
@@ -787,6 +853,7 @@ export class AdminService {
     }
 
     todayBookingSearch(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : JSON.stringify(this.currentUser.user_id),
             'api-token' : this.currentUser.token,
@@ -799,6 +866,7 @@ export class AdminService {
         catchError(this.handleError));
     }
     customerSearch(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : JSON.stringify(this.currentUser.user_id),
             'api-token' : this.currentUser.token,
@@ -811,6 +879,7 @@ export class AdminService {
         catchError(this.handleError));
     }
     sendInvoiceEmail(requestObject){
+        this.checkAuthentication();
       let headers = new HttpHeaders({
         'admin-id' : JSON.stringify(this.currentUser.user_id),
         'api-token' : this.currentUser.token,
@@ -824,6 +893,7 @@ export class AdminService {
     }
     
     onlinePayment(requestObject){
+        this.checkAuthentication();
       let headers = new HttpHeaders({
         'admin-id' : JSON.stringify(this.currentUser.user_id),
         'api-token' : this.currentUser.token,
@@ -837,6 +907,7 @@ export class AdminService {
     }
     
     getPostalCodeList() {
+        this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
         };
@@ -852,4 +923,20 @@ export class AdminService {
         catchError(this.handleError));
     }
 
+    reAuthenticateUser() {
+        const dialogRef = this.dialog.open(DialogReAuthentication, {
+          width: '500px',
+    
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+            if(result){
+                this.currentUser = result
+                console.log(this.currentUser)
+            }
+        });
+      }
+    
 }
+
+    

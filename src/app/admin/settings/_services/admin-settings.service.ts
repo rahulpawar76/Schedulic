@@ -4,20 +4,25 @@ import { Observable, throwError, from } from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthenticationService } from '@app/_services';
+import {  DialogReAuthentication  } from '@app/app.component';
 
 @Injectable({ providedIn: 'root' })
 
 export class AdminSettingsService {
     adminId: any
     adminToken: any
+    currentUser:any;
     businessId: any = localStorage.getItem('business_id')?localStorage.getItem('business_id'):'';
     constructor(
         private http: HttpClient,
         private _snackBar: MatSnackBar,
         private authenticationService: AuthenticationService,
+        public dialog: MatDialog,
     ) {
-
+        
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
         this.adminId = JSON.stringify(this.authenticationService.currentUserValue.user_id);
         this.adminToken = this.authenticationService.currentUserValue.token;
         localStorage.setItem('isBusiness', 'false');
@@ -35,7 +40,31 @@ export class AdminSettingsService {
     ngOnInit() { 
     }
 
+    checkAuthentication(){
+        let requestObject = {
+          "user_type": this.currentUser.user_type,
+          "user_id" : this.currentUser.user_id,
+          "token" : this.currentUser.token
+        };
+        this.http.post(`${environment.apiUrl}/check-token`,requestObject).pipe(
+          map((res) => {
+            return res;
+          }),
+          catchError(this.handleError)
+        ).subscribe((response:any) => {
+          if (response.data == true) {
+          }
+          else if(response.data == false){
+            this.reAuthenticateUser();
+          }
+        },(err) =>{
+            console.log(err)
+        });
+    
+      }
+        
     getTimeZone() {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
         });
@@ -47,11 +76,10 @@ export class AdminSettingsService {
     }
 
     fnAllServices(api_url) {
+        this.checkAuthentication();
         let requestObject = {
             'business_id': localStorage.getItem('business_id'),
         };
-        
-        
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -64,6 +92,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     fnstaffList(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -78,6 +107,7 @@ export class AdminSettingsService {
     }
 
     fnAllCategory() {
+        this.checkAuthentication();
         let requestObject = {
             'business_id': localStorage.getItem('business_id'),
         };
@@ -94,6 +124,7 @@ export class AdminSettingsService {
     }
 
     getPostalCodeList() {
+        this.checkAuthentication();
         let requestObject = {
             'business_id': localStorage.getItem('business_id'),
         };
@@ -110,6 +141,7 @@ export class AdminSettingsService {
     }
 
     createPostalCode(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -123,6 +155,7 @@ export class AdminSettingsService {
     }
 
     deletePostalCode(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -136,6 +169,7 @@ export class AdminSettingsService {
     }
 
     getStaffList() {
+        this.checkAuthentication();
         let requestObject = {
             'business_id': localStorage.getItem('business_id'),
             'action': 'E',
@@ -153,6 +187,7 @@ export class AdminSettingsService {
     }
 
     changePostalCodeStatus(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -166,6 +201,7 @@ export class AdminSettingsService {
     }
 
     changeSelectedPostalCodeStatus(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -179,6 +215,7 @@ export class AdminSettingsService {
     }
 
     getServiceForCategoiry(categoryId, filter,api_url) {
+        this.checkAuthentication();
         let requestObject = {
             'business_id': localStorage.getItem('business_id'),
             'category_id': categoryId,
@@ -198,6 +235,7 @@ export class AdminSettingsService {
     }
 
     createNewSubCategory(newSubCategoryData) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -210,6 +248,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     createNewCategory(newCategoryData) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -222,6 +261,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     updateCategory(updateCategoryData) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -234,6 +274,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     updateSubCategory(updateSubCategoryData) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -246,6 +287,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     deleteCategory(deleteCategoryId) {
+        this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
             'category_id': deleteCategoryId,
@@ -264,6 +306,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     changeCategoryStatus(currentCategoryStatus, categoryId) {
+        this.checkAuthentication();
         let requestObject = {
             'category_id': categoryId,
             'status': currentCategoryStatus,
@@ -281,6 +324,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     fnServiceAction(serviceIDArr, action) {
+        this.checkAuthentication();
         let requestObject = {
             'services_id': serviceIDArr,
             'action': action,
@@ -298,6 +342,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     getServiceForSubCategoiry(subCategoryId, filter,api_url) {
+        this.checkAuthentication();
         let requestObject = {
             'business_id': localStorage.getItem('business_id'),
             'sub_category_id': subCategoryId,
@@ -316,6 +361,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     createNewService(newServiceData) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -328,6 +374,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     updateService(updateServiceData) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -340,6 +387,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     changeSubCategoryStatus(currentSubCategoryStatus, subcategoryId) {
+        this.checkAuthentication();
         let requestObject = {
             'subcategory_id': subcategoryId,
             'status': currentSubCategoryStatus,
@@ -383,6 +431,7 @@ export class AdminSettingsService {
     //         catchError(this.handleError));
     // }
     fnDeleteService(editServiceId) {
+        this.checkAuthentication();
         let requestObject = {
             'service_id': editServiceId,
         };
@@ -398,6 +447,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     deleteSubCategory(deleteSubCategoryId) {
+        this.checkAuthentication();
         let requestObject = {
             'sub_category_id': deleteSubCategoryId,
         };
@@ -413,8 +463,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     fnAddTax(createAddTaxData) {
-
-
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -428,6 +477,7 @@ export class AdminSettingsService {
     }
 
     getAllTax() {
+        this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
         };
@@ -443,6 +493,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     getAllCurrencies() {
+        this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
         };
@@ -461,6 +512,7 @@ export class AdminSettingsService {
     //delete tax
 
     deleteTax(taxId) {
+        this.checkAuthentication();
         let requestObject = {
             'tax_id': taxId,
         };
@@ -478,6 +530,7 @@ export class AdminSettingsService {
 
     // company detail
     getCompanyDetails() {
+        this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
         };
@@ -493,6 +546,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     gelAllCountry() {
+        this.checkAuthentication();
         let requestObject = {
         };
         let headers = new HttpHeaders({
@@ -505,6 +559,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     gelAllState(country_id) {
+        this.checkAuthentication();
         let requestObject = {
             'country_id': country_id
         };
@@ -518,6 +573,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     gelAllCities(state_id) {
+        this.checkAuthentication();
         let requestObject = {
             'state_id': state_id
         };
@@ -531,6 +587,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     fnupdateBusineData(updateCompanyDetailsData) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -543,6 +600,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     fnChangeCurrency(currencyCode) {
+        this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
             "currency_code": currencyCode
@@ -559,6 +617,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     fnCreateAppearance(AppearanceData) {
+        this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
             "appearance": AppearanceData
@@ -575,6 +634,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     getSettingsValue() {
+        this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
         };
@@ -590,6 +650,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     fnCurrencyFormat(currencyFormat) {
+        this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
             'currency_format': currencyFormat
@@ -606,6 +667,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     fnCurrencyPosition(currencyPosition) {
+        this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
             'position': currencyPosition
@@ -622,6 +684,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     fnFormSetting(formArr) {
+        this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
             'form_settings': formArr
@@ -639,6 +702,7 @@ export class AdminSettingsService {
     }
     // Staff Module
     getAllStaff(api_url) {
+        this.checkAuthentication();
         let requestObject = {
             'business_id': localStorage.getItem('business_id'),
         };
@@ -654,6 +718,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     fnActionStaff(action, staffId) {
+        this.checkAuthentication();
         let requestObject = {
             'status': action,
             'staff_id': staffId,
@@ -670,6 +735,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     fnViewSingleStaff(staffId) {
+        this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
             'staff_id': staffId,
@@ -687,6 +753,7 @@ export class AdminSettingsService {
     }
 
     changeTimeZone(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -700,6 +767,7 @@ export class AdminSettingsService {
     }
 
     getWorkingHours(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -713,6 +781,7 @@ export class AdminSettingsService {
     }
 
     createWorkingHours(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -726,6 +795,7 @@ export class AdminSettingsService {
     }
 
     applyToAll(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -739,6 +809,7 @@ export class AdminSettingsService {
     }
 
     getBussinessTimeZone(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -752,6 +823,7 @@ export class AdminSettingsService {
     }
 
     getTimeOffList(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -765,6 +837,7 @@ export class AdminSettingsService {
     }
 
     deleteTimeOff(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -778,6 +851,7 @@ export class AdminSettingsService {
     }
 
     changeTimeOffStatus(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -791,6 +865,7 @@ export class AdminSettingsService {
     }
 
     addNewTimeOff(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -804,6 +879,7 @@ export class AdminSettingsService {
     }
 
     getBreakTimeList(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -817,6 +893,7 @@ export class AdminSettingsService {
     }
 
     addNewBreak(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -830,6 +907,7 @@ export class AdminSettingsService {
     }
 
     deleteBreak(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -843,6 +921,7 @@ export class AdminSettingsService {
     }
 
     setMinAdvBookingTime(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -856,6 +935,7 @@ export class AdminSettingsService {
     }
 
     setMaxAdvBookingTime(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -869,6 +949,7 @@ export class AdminSettingsService {
     }
 
     setTimeInterval(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -882,6 +963,7 @@ export class AdminSettingsService {
     }
 
     setCancellationBufferTime(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -895,6 +977,7 @@ export class AdminSettingsService {
     }
 
     setMinResedulingTime(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -908,6 +991,7 @@ export class AdminSettingsService {
     }
 
     changeCustomerLoginStatus(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -921,6 +1005,7 @@ export class AdminSettingsService {
     }
 
     changeStaffOnFrontStatus(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -934,6 +1019,7 @@ export class AdminSettingsService {
     }
 
     updateAppAutoConfirmSettings(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -947,6 +1033,7 @@ export class AdminSettingsService {
     }
 
     changeCustomerAllowStaffRatingStatus(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -960,6 +1047,7 @@ export class AdminSettingsService {
     }
 
     updateTermsConditionsStatusValues(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -973,6 +1061,7 @@ export class AdminSettingsService {
     }
 
     updatePrivacyPolicyStatusValues(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -986,6 +1075,7 @@ export class AdminSettingsService {
     }
 
     updateThankyouPageStatusValues(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -999,6 +1089,7 @@ export class AdminSettingsService {
     }
 
     getSettingValue(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -1011,6 +1102,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     fnChangeInternalStaff(status, staffId) {
+        this.checkAuthentication();
         let requestObject = {
             'staff_id': staffId,
             'internal_staff': status,
@@ -1027,6 +1119,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     fnChangeLoginAllowStaff(status, staffId) {
+        this.checkAuthentication();
         let requestObject = {
             'staff_id': staffId,
             'login_allowed': status,
@@ -1043,6 +1136,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     fnAssignPostalToStaff(status, postalCodeId, staffId) {
+        this.checkAuthentication();
         let requestObject = {
             'staff_id': staffId,
             'postalCodes': postalCodeId,
@@ -1060,6 +1154,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     fnAssignServiceToStaff(status, serviceId, staffId) {
+        this.checkAuthentication();
         let requestObject = {
             'staff_id': staffId,
             'service_id': serviceId,
@@ -1078,6 +1173,7 @@ export class AdminSettingsService {
     }
     
     createWorkingHoursStaff(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -1091,6 +1187,7 @@ export class AdminSettingsService {
     }
 
     applyToAllStaff(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -1104,6 +1201,7 @@ export class AdminSettingsService {
     }
 
     workingHoursResetToDefault(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -1117,6 +1215,7 @@ export class AdminSettingsService {
     }
 
     addNewBreakStaff(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -1130,6 +1229,7 @@ export class AdminSettingsService {
     }
 
     deleteBreakStaff(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -1143,6 +1243,7 @@ export class AdminSettingsService {
     }
 
     resetToDefaultBreakStaff(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -1156,6 +1257,7 @@ export class AdminSettingsService {
     }
 
     deleteTimeOffStaff(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -1169,6 +1271,7 @@ export class AdminSettingsService {
     }
 
     changeTimeOffStatusStaff(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -1182,6 +1285,7 @@ export class AdminSettingsService {
     }
 
     addNewTimeOffStaff(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -1195,6 +1299,7 @@ export class AdminSettingsService {
     }
 
     resetToDefaultTimeOffStaff(requestObject) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -1208,6 +1313,7 @@ export class AdminSettingsService {
     }
     
     createNewStaff(newStaffData) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({             
             'admin-id': this.adminId,
             'api-token': this.adminToken
@@ -1219,6 +1325,7 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     fnDeleteStaff(staffId) {
+        this.checkAuthentication();
         let requestObject = {
             'staff_id': staffId,
             'business_id': this.businessId,
@@ -1236,6 +1343,7 @@ export class AdminSettingsService {
     }
     
     updateStaff(updateStaffData) {
+        this.checkAuthentication();
         let headers = new HttpHeaders({           
             'admin-id': this.adminId,
             'api-token': this.adminToken
@@ -1250,6 +1358,7 @@ export class AdminSettingsService {
     // get category and services
 
     getCateServiceList(){
+        this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
             'search': ""
@@ -1267,6 +1376,7 @@ export class AdminSettingsService {
     }
 
     viewStaffReviewDetail(orderId){
+        this.checkAuthentication();
         let requestObject = {
             'order_item_id': orderId,
         };
@@ -1282,6 +1392,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     fnAppointmentsReminderCustomer(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1294,6 +1405,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     fnUpdateStaffEmailAlert(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1306,6 +1418,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     fnUpdateAdminEmailAlert(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1318,6 +1431,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     fnSubmitCustomizeAlert(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1330,6 +1444,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     getEmailTemplates(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1342,6 +1457,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     fnUpdateEmailTemp(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1354,6 +1470,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     fnChangeTemStatus(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1366,6 +1483,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     fnDefaultEmailTemp(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1378,6 +1496,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     fnUpdateSmsAlert(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1390,6 +1509,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     getSmsTemplates(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1402,6 +1522,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     fnChangeSmsTemStatus(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1414,6 +1535,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     fnDefaultSmsTemp(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1426,6 +1548,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     fnUpdateSmsTemp(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1438,6 +1561,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     updatePaypalSetting(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1450,6 +1574,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     updateStripeSetting(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1462,6 +1587,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     updatePayumoneySetting(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1474,6 +1600,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     updateBankTransferSetting(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1486,6 +1613,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     updateTwillioSettings(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1498,6 +1626,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     updateTextLocalSettings(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1510,6 +1639,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     sendEmailVerification(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1522,6 +1652,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     sendPhoneVerification(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1534,6 +1665,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     postalCodeSearch(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1546,6 +1678,7 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     staffSearch(requestObject){
+        this.checkAuthentication();
         let headers = new HttpHeaders({
             'admin-id' : this.adminId,
             'api-token' : this.adminToken,
@@ -1556,5 +1689,18 @@ export class AdminSettingsService {
             return res;
         }),
         catchError(this.handleError));
+    }
+    reAuthenticateUser() {
+        const dialogRef = this.dialog.open(DialogReAuthentication, {
+            width: '500px',
+
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if(result){
+                this.currentUser = result
+                console.log(this.currentUser)
+            }
+        });
     }
 }
