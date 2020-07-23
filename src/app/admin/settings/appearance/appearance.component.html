@@ -82,7 +82,7 @@
     <div class="h-100 setting-right-side-content" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
         <mat-tab-group>
             <mat-tab label="Getting Started">
-                <div *ngIf="companyDetailsData && companyDetailsData.private_status =='N'">
+                <div>
                     <div class="main-getting-content">
                         <h5 class="mb-3">Embed Web Widget</h5>
                         <p>Click to copy below script and paste it in your web page.</p>
@@ -104,10 +104,6 @@
                     </mat-card>
                     <div>
                         <button mat-button type="submit" (click)="copyEmbedCode(embededCode)" class="appearance-save-btn">Copy Code</button>
-                    </div>
-                    <div *ngIf="companyDetailsData && companyDetailsData.private_status =='Y'">
-
-                        <p>Your Business is Private</p>
                     </div>
                 </div>
             </mat-tab>
