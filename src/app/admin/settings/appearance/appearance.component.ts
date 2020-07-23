@@ -65,6 +65,7 @@ export class AppearanceComponent implements OnInit {
   minDate: {year: number, month: number, day: number};
   maxDate: {year: number, month: number, day: number};
   displayMonths = 1;
+  companyDetailsData:any;
   navigation = 'arrows';
   constructor(
     private appComponent : AppComponent,
@@ -87,7 +88,22 @@ export class AppearanceComponent implements OnInit {
     });
     this.getSettingValue();
     this.update_SCSS_var();
+    this.getCompanyDetails();
   }
+  getCompanyDetails(){
+
+    this.AdminSettingsService.getCompanyDetails().subscribe((response:any) => {
+      if(response.data == true){
+        this.companyDetailsData = response.response;
+        console.log(this.companyDetailsData);
+        
+      }
+      else if(response.data == false){
+       this.companyDetailsData = [];
+      }
+    })
+  }
+
   fnChangeFont(event){
     console.log(event.value)
     this.selectedFont = event.value

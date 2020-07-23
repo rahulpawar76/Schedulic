@@ -82,27 +82,33 @@
     <div class="h-100 setting-right-side-content" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
         <mat-tab-group>
             <mat-tab label="Getting Started">
-                <div class="main-getting-content">
-                    <h5 class="mb-3">Embed Web Widget</h5>
-                    <p>Click to copy below script and paste it in your web page.</p>
-                    <!-- <mat-radio-group aria-label="Select an option">
+                <div *ngIf="companyDetailsData && companyDetailsData.private_status =='N'">
+                    <div class="main-getting-content">
+                        <h5 class="mb-3">Embed Web Widget</h5>
+                        <p>Click to copy below script and paste it in your web page.</p>
+                        <!-- <mat-radio-group aria-label="Select an option">
                         <mat-radio-button value="1">Script</mat-radio-button>
                         <mat-radio-button value="2">Script with Autologin</mat-radio-button>
                     </mat-radio-group> -->
-                    <h6>To embed the widget on your website,follow these guidelines.</h6>
-                    <p>1. copy the code by simply clicking on the script once.</p>
-                    <p>2. Go to your website's HTML file and paste in before the last
-                        < body>tag</p>
-                    <p>3. Now the users visiting those web sites or application can see the Appointment Widget </p>
-                    <p>4. If you are still not sure, send the code to someone who can assist you with the configuration.
-                    </p>
-                </div>
-                <mat-card class="card-content">
-                    {{embededCode}}
-                    <!-- <iframe height="100%" width="100%" src="http://localhost:4200/booking?business_id=34"></iframe> -->
-                </mat-card>
-                <div>
-                    <button mat-button type="submit" (click)="copyEmbedCode(embededCode)" class="appearance-save-btn">Copy Code</button>
+                        <h6>To embed the widget on your website,follow these guidelines.</h6>
+                        <p>1. copy the code by simply clicking on the script once.</p>
+                        <p>2. Go to your website's HTML file and paste in before the last
+                            < body>tag</p>
+                        <p>3. Now the users visiting those web sites or application can see the Appointment Widget </p>
+                        <p>4. If you are still not sure, send the code to someone who can assist you with the configuration.
+                        </p>
+                    </div>
+                    <mat-card class="card-content">
+                        {{embededCode}}
+                        <!-- <iframe height="100%" width="100%" src="http://localhost:4200/booking?business_id=34"></iframe> -->
+                    </mat-card>
+                    <div>
+                        <button mat-button type="submit" (click)="copyEmbedCode(embededCode)" class="appearance-save-btn">Copy Code</button>
+                    </div>
+                    <div *ngIf="companyDetailsData && companyDetailsData.private_status =='Y'">
+
+                        <p>Your Business is Private</p>
+                    </div>
                 </div>
             </mat-tab>
             <mat-tab label="Appearance">
