@@ -186,10 +186,26 @@ export class DiscountCouponComponent implements OnInit {
     }
   }
 
+  fnvalideFrom(){
+    this.minTillDate =this.discountCoupon.get('valid_from').value;
+  }
+    
+
   fnCreateCouponSubmit(){
     if(this.discountCoupon.valid){
       this.valid_from = this.discountCoupon.get('valid_from').value;
       this.valid_till = this.discountCoupon.get('valid_till').value;
+
+      if(this.valid_from > this.valid_till){
+        this._snackBar.open("Please select valid till date.", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+        return;
+      }
+      
+      
       this.valid_from=this.datePipe.transform(new Date(this.valid_from),"yyyy-MM-dd")
       this.valid_till=this.datePipe.transform(new Date(this.valid_till),"yyyy-MM-dd")
 

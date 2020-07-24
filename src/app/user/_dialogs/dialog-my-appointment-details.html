@@ -10,8 +10,8 @@
                 </div>
                 <div class="appodetails">
                     <div class="mt-1">
-                        <label class="greenfont pointer" (click)="rescheduleAppointment()"><i class="fa fa-repeat repeat"></i>Reschedule</label>
-                        <label class="fontred pointer" (click)="cancelAppo(myAppoDetailData.id)"><i class="fa fa-times-circle-o circle"></i>Cancel</label>
+                        <label class="greenfont pointer" (click)="rescheduleAppointment()" *ngIf="myAppoDetailData.bookingDateTime && minReschedulingTime && minReschedulingTime.getTime()<myAppoDetailData.bookingDateTime.getTime()"><i class="fa fa-repeat repeat"></i>Reschedule</label>
+                        <label class="fontred pointer" (click)="cancelAppo(myAppoDetailData.id)" *ngIf="cancellationBufferTime.getTime()<myAppoDetailData.bookingDateTime.getTime() && myAppoDetailData.payment && myAppoDetailData.payment.payment_status == 'unpaid'"><i class="fa fa-times-circle-o circle"></i>Cancel</label>
                     </div>
                 </div>
   
