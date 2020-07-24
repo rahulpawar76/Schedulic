@@ -592,7 +592,7 @@ export class ServicesComponent implements OnInit {
                     panelClass: ['green-snackbar']
                 });
                 this.fnAllCategory();
-                this.fnSelectCategoryNavigation(this.selectedCategoryID , this.selectedSubCategoryIndex);
+                this.fnSelectCategoryNavigation(this.selectedCategoryID , this.selectedCategoryIndex);
                 this.createSubCategory.reset();
                 this.servicesList = false;
                 this.selectCategoryPage = 'notservices';
@@ -836,10 +836,16 @@ export class ServicesComponent implements OnInit {
                     verticalPosition: 'top',
                     panelClass: ['green-snackbar']
                 });
+
                 this.fnAllCategory();
-                this.servicesList = true;
-                this.createNewCategoryPage = false;
+                this.fnSelectCategoryNavigation(this.selectedCategoryID , this.selectedCategoryIndex);
+                this.servicesList = false;
+                this.selectCategoryPage = 'notservices';
+                this.createNewSubCategoryPage = false;
                 this.isLoaderAdmin = false;
+                this.singleSubCategoryPage = '';
+
+                
             } else if (response.data == false) {
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
@@ -945,7 +951,7 @@ export class ServicesComponent implements OnInit {
             console.log(this.actionServiceIdarr);
             this.adminSettingsService.fnServiceAction(this.actionServiceIdarr, action).subscribe((response: any) => {
                 if (response.data == true) {
-                    this._snackBar.open("Status Updated", "X", {
+                    this._snackBar.open("Status Updated.", "X", {
                         duration: 2000,
                         verticalPosition: 'top',
                         panelClass: ['green-snackbar']
@@ -959,7 +965,7 @@ export class ServicesComponent implements OnInit {
                     }
                 }
                 else {
-                    this._snackBar.open("Status Not Updated", "X", {
+                    this._snackBar.open(response.response, "X", {
                         duration: 2000,
                         verticalPosition: 'top',
                         panelClass: ['red-snackbar']
@@ -1015,11 +1021,12 @@ export class ServicesComponent implements OnInit {
                 if (this.subCategoryServicesList != '' && this.subCategoryServicesList != 'service not found.') {
                     this.servicesList = false;
                     this.singleSubCategoryPage = 'services';
-                    this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedCategoryIndex].subcategory[index];
+                    this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedCategoryIndex].subcategory[this.selectedSubCategoryIndex];
+
 
                 } else if (this.subCategoryServicesList == 'service not found.') {
                     this.servicesList = false;
-                    this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedCategoryIndex].subcategory[index]
+                    this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedCategoryIndex].subcategory[this.selectedSubCategoryIndex]
                     this.selectCategoryPage = '';
                     this.singleSubCategoryPage = 'notservices';
                 }
@@ -1409,7 +1416,7 @@ export class ServicesComponent implements OnInit {
         this.isLoaderAdmin = true;
         this.adminSettingsService.fnDeleteService(this.editServiceId).subscribe((response: any) => {
             if (response.data == true) {
-                this._snackBar.open("Service Deleted", "X", {
+                this._snackBar.open("Service Deleted.", "X", {
                     duration: 2000,
                     verticalPosition: 'top',
                     panelClass: ['green-snackbar']

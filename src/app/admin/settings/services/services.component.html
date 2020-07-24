@@ -409,8 +409,8 @@
                     <div class="d-flex pt-1 mb-4 mx-3">
                         <div class="ml-3 d-flex justify-content-center">
                             <div class="service-profile-background mr-3">
-                                <img *ngIf="selectedCategoryDetails.category_image" src="{{selectedCategoryDetails.category_image}}" class="service-profile-image mb-2">
-                                <img *ngIf="!selectedCategoryDetails.category_image" src="/assets/images/admin/picture.png" class="service-profile-image mb-2">
+                                <img *ngIf="selectedCategoryDetails && selectedCategoryDetails.category_image" src="{{selectedCategoryDetails.category_image}}" class="service-profile-image mb-2">
+                                <img *ngIf="selectedCategoryDetails && !selectedCategoryDetails.category_image" src="/assets/images/admin/picture.png" class="service-profile-image mb-2">
                             </div>
                             <div>
                                 <div class=" Details-button-width d-flex">
@@ -549,8 +549,8 @@
                             <div>
                                 <div class=" Details-button-width d-flex">
                                     <h5 class="mt-2 mb-2">{{selectedSubCategoryDetails.sub_category_name}}</h5>
-                                    <button *ngIf="selectedSubCategoryDetails.sub_category_private == 'N'" mat-button class="public-button">Public</button>
-                                    <button *ngIf="selectedSubCategoryDetails.sub_category_private == 'Y'" mat-button class="public-button">Private</button>
+                                    <button *ngIf="selectedSubCategoryDetails && selectedSubCategoryDetails.sub_category_private == 'N'" mat-button class="public-button">Public</button>
+                                    <button *ngIf="selectedSubCategoryDetails && selectedSubCategoryDetails.sub_category_private == 'Y'" mat-button class="public-button">Private</button>
                                 </div>
                                 <!-- <button class="salon-cancel-btn mr-2"><i class="fa fa-eye salon-icon" ></i></button>   -->
                                 <button (click)="editSubCategory(selectedSubCategoryDetails.id)" class="salon-edit-btn mr-2"><i class="fa fa-pencil salon-icon"></i></button>
