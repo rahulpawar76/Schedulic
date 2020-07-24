@@ -111,11 +111,12 @@ export class AppComponent implements AfterViewInit {
     private bnIdle: BnNgIdleService
   ) {
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
+    
     console.log(this.currentUser)
     if(this.currentUser){
       //this.checkAuthentication();
     }
-    if(this.currentUser && this.currentUser.internal_staff === 'N'){
+    if(this.currentUser && JSON.parse(localStorage.getItem("currentUser")).internal_staff === 'N'){
       this.staffAvailable = true;
     }else{
       this.staffAvailable = false;

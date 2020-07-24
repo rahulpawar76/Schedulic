@@ -197,8 +197,8 @@ export class DialogAddNewTax {
       }
       this.fnAddTax(this.createAddTaxData);
     }else{
-      this.taxAdd.get("tax_name").markAllAsTouched;
-      this.taxAdd.get("tax_per").markAllAsTouched;
+      this.taxAdd.get("tax_name").markAsTouched;
+      this.taxAdd.get("tax_per").markAsTouched;
     }
   }
   fnAddTax(createAddTaxData) {
@@ -213,8 +213,11 @@ export class DialogAddNewTax {
         });
       }
       else if (response.data == false) {
-        // this.allCustomers = ''
-        //this.isLoaderAdmin = false;
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+        });
       }
     })
   }

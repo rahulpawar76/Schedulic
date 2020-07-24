@@ -2629,7 +2629,7 @@ constructor(
 
       }else{
 
-          this._snackBar.open("Appointment not created", "X", {
+          this._snackBar.open(response.response, "X", {
               duration: 2000,
               verticalPosition:'top',
               panelClass :['red-snackbar']

@@ -99,7 +99,6 @@
     background-color: #ededed;
 }
 
-
 //Import Files
 ::ng-deep .file-upload {
     background-color: #ffffff;
@@ -136,5 +135,15 @@
         display: table;
         padding: 8px 16px;
         border-radius: 50px;
+    }
+}
+
+::ng-deep .status-toggle {
+    .mat-slide-toggle-label {
+        display: flex;
+        justify-content: center;
+        .mat-slide-toggle-content {
+            display: none;
+        }
     }
 }

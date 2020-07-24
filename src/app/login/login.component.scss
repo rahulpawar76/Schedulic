@@ -32,7 +32,7 @@
                     }
                 }
                 #login-form {
-                    background-color: #ffffff93;
+                    background-color: rgba(255, 255, 255, 0.6);
                 }
                 #login-with-social {
                     background-color: #1172f4;
@@ -160,4 +160,10 @@
 ::ng-deep .form-control.is-invalid,
 .was-validated .form-control:invalid {
     background-image: unset;
+}
+
+@supports (-ms-ime-align:auto) {
+    .icon-cust-pass {
+        display: none;
+    }
 }

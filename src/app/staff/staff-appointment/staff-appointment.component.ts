@@ -11,6 +11,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
 import { AuthenticationService } from '@app/_services';
 import { Observable, throwError } from 'rxjs';
+import {  DialogReAuthentication  } from '@app/app.component';
 
 export interface status {
   
@@ -555,6 +556,7 @@ export class StaffAppointmentComponent implements OnInit {
     emailPattern:any;
     onlynumeric:any;
     Postalcode:any;
+    currentUser:any
 
     constructor(
       public dialogRef: MatDialogRef<DialogAddNewAppointment>,
@@ -566,7 +568,8 @@ export class StaffAppointmentComponent implements OnInit {
       private datePipe: DatePipe,
       private authenticationService : AuthenticationService,
       @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-        
+      
+      this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
       this.token = this.authenticationService.currentUserValue.token;
       this.bussinessId=this.authenticationService.currentUserValue.business_id
       this.staffId=JSON.stringify(this.authenticationService.currentUserValue.user_id);
@@ -1105,7 +1108,7 @@ export class StaffAppointmentComponent implements OnInit {
         }
         console.log(JSON.stringify(this.serviceData));
         }else{
-          this._snackBar.open("No Sub-Category or Service Available", "X", {
+          this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
@@ -1301,6 +1304,7 @@ export class StaffAppointmentComponent implements OnInit {
     }
 
     fnNewAppointmentStep2(){
+
       if(this.formAddNewAppointmentStaffStep2.invalid){
         this.formAddNewAppointmentStaffStep2.get('customerCategory').markAsTouched();
         this.formAddNewAppointmentStaffStep2.get('customerSubCategory').markAsTouched();
@@ -1353,6 +1357,7 @@ export class StaffAppointmentComponent implements OnInit {
       // this.netCost=serviceCartArrTemp[0].totalCost+this.taxAmount;
       console.log(JSON.stringify(serviceCartArrTemp));
       const currentDateTime = new Date();
+      this.checkAuthentication();
       let requestObject = {
         "postal_code": this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
         "business_id": this.bussinessId,
@@ -1379,11 +1384,10 @@ export class StaffAppointmentComponent implements OnInit {
         "payment_method": "Cash",
         "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd hh:mm:ss") 
       };
-      console.log(JSON.stringify(requestObject));
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        'api-token': this.token,
-        'staff-id': JSON.stringify(this.staffId),
+        'api-token': this.currentUser.token,
+        'staff-id': this.currentUser.user_id,
       });
       this.http.post(`${environment.apiUrl}/order-create-check`,requestObject,{headers:headers} ).
       pipe(
@@ -1400,7 +1404,7 @@ export class StaffAppointmentComponent implements OnInit {
           this.dialogRef.close();
         }
         else{
-            this._snackBar.open("Appointment not created", "X", {
+            this._snackBar.open(response.response, "X", {
                 duration: 2000,
                 verticalPosition:'top',
                 panelClass :['red-snackbar']
@@ -1410,6 +1414,41 @@ export class StaffAppointmentComponent implements OnInit {
       (err) =>{
         
       })
+    }
+    checkAuthentication(){
+      let requestObject = {
+        "user_type": this.currentUser.user_type,
+        "user_id" : this.currentUser.user_id,
+        "token" : this.currentUser.token
+      };
+      this.http.post(`${environment.apiUrl}/check-token`,requestObject).pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError(this.handleError)
+      ).subscribe((response:any) => {
+        if (response.data == true) {
+        }
+        else if(response.data == false){
+          this.reAuthenticateUser();
+        }
+      },(err) =>{
+          console.log(err)
+      });
+  
+    }
+    reAuthenticateUser() {
+      const dialogRef = this.dialog.open(DialogReAuthentication, {
+          width: '500px',
+  
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+          if(result){
+              this.currentUser = result
+              console.log(this.currentUser)
+          }
+      });
     }
   }
 
