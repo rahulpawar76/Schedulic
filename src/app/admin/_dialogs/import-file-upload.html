@@ -8,20 +8,19 @@
         </div>
         <div class="modal-body">
             <div class="modal-body">
-                <div class="text-center mt-4">
+                <div class="text-center">
                     <a  href="../../../assets/csv/customers.csv" download style="width:100%;background-color: DodgerBlue;border: none;color: white;padding: 12px 30px;cursor: pointer;font-size: 20px;"><i class="fa fa-download"></i> 
                         Demo csv download
                     </a>    
                 </div>
-                <div class="file-upload">
-                        <div class="image-upload-wrap">
-                            <input class="fileuploadinput" (change)="handleFileInput($event.target.files)" type='file' id="file" />
-                            <div class="drag-text" >
-                                <h6>Drag and drop CSV files here </h6>
-                                <h3>or</h3>
-                                <button type="submit" class="btn btn-primary imgbtn" >Upload CSV from Customer</button>
-                            </div>   
-                        </div>  
+                <div class="file-upload ">
+                    <div class="image-upload-wrap">
+                        <input class="fileuploadinput" (change)="handleFileInput($event.target.files)" type='file' id="file" />
+                        <div class="drag-text" >
+                            <h6>Drag and drop CSV files here </h6>
+                        </div>   
+                    </div>  
+                    <button type="submit" class="btn btn-primary imgbtn mt-4"(click)="fileupload()">Upload</button>
                 </div>
             </div>
         </div>

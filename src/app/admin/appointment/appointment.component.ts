@@ -739,7 +739,7 @@ export class DialogAddNewAppointment {
   isLoaderAdmin:boolean = false;
   emailPattern:any;
   onlynumeric:any;
-  Postalcode:any;
+  Postalcode:any = [];
   constructor(
     public dialogRef: MatDialogRef<DialogAddNewAppointment>,
     public dialog: MatDialog,
@@ -950,9 +950,8 @@ export class DialogAddNewAppointment {
 
   isPostalcodeValid(control: FormControl) {
     
-  
     return new Promise((resolve, reject) => {
-
+      
       if(this.Postalcode.length==0){
         this.valide_postal_code = true;
         resolve(null);
@@ -986,6 +985,11 @@ export class DialogAddNewAppointment {
       if(response.data == true){
         let postal = response.response
         this.Postalcode = postal;
+        
+        if(this.Postalcode.length==0){
+          this.valide_postal_code = true;
+        }
+
       } else if(response.data == false){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
