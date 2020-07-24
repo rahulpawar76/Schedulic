@@ -1,13 +1,16 @@
 <div class="loader-main" *ngIf="isLoader">
-    <img src="../../../assets/images/step-loader.gif" /></div><div class="profile-main col-8">
+    <img src="../../../assets/images/step-loader.gif" /></div>
+<div class="profile-main col-8">
     <mat-card-title class="title">My Profile</mat-card-title>
     <form [formGroup]="myProfile">
         <mat-card class="card">
             <div class="card-body row">
                 <div class="col-lg-3 col-sm-3 col-md-3">
                     <div class="profile-img-wrap" (click)="ImgUpload()">
-                        <img mat-card-avatar *ngIf="profiledata.image != ''" class="customer-profile-img" src="{{profiledata.image}}">
-                        <img mat-card-avatar *ngIf="profiledata.image == ''" class="customer-profile-img" src="/src/assets/images/default.png">
+                        <img mat-card-avatar *ngIf="profiledata.image != '' && profileImage" class="customer-profile-img" src="{{profileImage}}">
+                        <img mat-card-avatar *ngIf="profiledata.image != '' && !profileImage" class="customer-profile-img" src="{{profiledata.image}}">
+                        <img mat-card-avatar *ngIf="profiledata.image == '' && profileImage" class="customer-profile-img" src="{{profileImage}}">
+                        <img mat-card-avatar *ngIf="profiledata.image == '' && !profileImage" class="customer-profile-img" src="/src/assets/images/default.png">
                         <div class="camera-alt"><i class="material-icons"> camera_alt</i></div>
                     </div>
                 </div>
@@ -83,7 +86,7 @@
 
                 </div>
             </div>
-            
+
         </mat-card>
     </form>
 </div>

@@ -441,11 +441,11 @@ export class MyWorkSpaceComponent implements OnInit {
         this.startWorkSpacePage = false;
       }
       else  if(response.data == false){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['red-snackbar']
-        });
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition:'top',
+        //   panelClass :['red-snackbar']
+        // });
         this.startWorkSpacePage = true;
       }
     },

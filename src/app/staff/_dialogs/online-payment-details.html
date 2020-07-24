@@ -13,23 +13,23 @@
             </div>
 
             <div class=" d-flex payment-details">
-                <label class="service">Home Cleaning</label>
-                <label *ngIf="currencySymbolPosition=='left'" class="amount">{{currencySymbol| currencySymbol:'wide'}} {{ appointDetailData.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
-                <label *ngIf="currencySymbolPosition=='right'" class="amount">{{ appointDetailData.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
+                <label class="service">{{appointDetailData.service.service_name}}</label>
+                <label *ngIf="currencySymbolPosition=='left'" class="amount text-right">{{currencySymbol| currencySymbol:'wide'}} {{ appointDetailData.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
+                <label *ngIf="currencySymbolPosition=='right'" class="amount text-right">{{ appointDetailData.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
             </div>
             <div *ngIf="orderDiscount" class=" d-flex payment-details">
                 <label class="service">Discount Ammount</label>
-                <label *ngIf="currencySymbolPosition=='left'" class="amount">{{currencySymbol| currencySymbol:'wide'}} {{ orderDiscount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
-                <label *ngIf="currencySymbolPosition=='right'" class="amount">{{ orderDiscount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
+                <label *ngIf="currencySymbolPosition=='left'" class="amount text-right">{{currencySymbol| currencySymbol:'wide'}} {{ orderDiscount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
+                <label *ngIf="currencySymbolPosition=='right'" class="amount text-right">{{ orderDiscount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
             </div>
 
             <div *ngFor="let appointTax of appointTax; let i=index" class=" d-flex payment-details">
                 <label class="service">{{appointTax.name}}</label>
-                <label *ngIf="currencySymbolPosition=='left'" class="amount">{{currencySymbol| currencySymbol:'wide'}} {{ appointTax.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} ({{appointTax.value}}%)</label>
-                <label *ngIf="currencySymbolPosition=='right'" class="amount">{{ appointTax.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}} ({{appointTax.value}}%)</label>
+                <label *ngIf="currencySymbolPosition=='left'" class="amount text-right">{{currencySymbol| currencySymbol:'wide'}} {{ appointTax.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} ({{appointTax.value}}%)</label>
+                <label *ngIf="currencySymbolPosition=='right'" class="amount text-right">{{ appointTax.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}} ({{appointTax.value}}%)</label>
             </div>
 
-            <div class="row payment-details">
+            <div class="row mx-0 payment-details">
                 <div class="col-lg-6 px-0 py-1 promocode-main"><label>Coupon Code</label>
                 </div>
                 <div class="col-lg-6 col-12 px-0 py-1 promocode-main" [ngClass]="{'':closecoupon === 'default','valid':closecoupon === 'valid','invalid':closecoupon === 'invalid'}">
@@ -41,7 +41,7 @@
             </div>
         </div>
         <hr>
-        <div class="d-flex payment-details">
+        <div class="d-flex payment-details px-2">
             <label class="service">Total Amount</label>
             <label *ngIf="currencySymbolPosition=='left'" class="amount font-weight-bold">{{currencySymbol| currencySymbol:'wide'}} {{ appointDetailData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
             <label *ngIf="currencySymbolPosition=='right'" class="amount font-weight-bold">{{ appointDetailData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>

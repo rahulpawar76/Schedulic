@@ -14,6 +14,7 @@ import { AuthenticationService } from '@app/_services';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { sha512 as sha512 } from 'js-sha512';
 import * as domtoimage from 'dom-to-image';
+import {  DialogReAuthentication  } from '@app/app.component';
 // import * as jspdf from 'jspdf';
 
 
@@ -1841,16 +1842,20 @@ export class rescheduleAppointmentDialog {
   valide_postal_code:boolean =false;
   isLoader:boolean=false;
   Postalcode:any;
+  currentUser:any;
 
   constructor(
     private _formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<DialogNewCustomerAppointment>,
     private AdminService: UserService,
     private datePipe: DatePipe,
+    public dialog: MatDialog,
     private http: HttpClient,
     private _snackBar: MatSnackBar,
+    private authenticationService : AuthenticationService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       
+      this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     //this.customerDetails=this.data.customerDetails;
     
      this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
@@ -2318,7 +2323,7 @@ export class rescheduleAppointmentDialog {
           }
           console.log(JSON.stringify(this.serviceCount));
         }else{
-          this._snackBar.open("No Sub-Category or Service Available", "X", {
+          this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
@@ -2659,8 +2664,8 @@ export class rescheduleAppointmentDialog {
       };
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        // 'api-token': this.token,
-        // 'admin-id': JSON.stringify(this.adminId),
+        'api-token': this.currentUser.token,
+        'customer-id': this.currentUser.user_id,
       });
 
 
@@ -2678,7 +2683,7 @@ export class rescheduleAppointmentDialog {
           this.dialogRef.close({data:true});
         }else{
           this.isLoader = false;
-            this._snackBar.open("Appointment not created", "X", {
+            this._snackBar.open(response.response, "X", {
                 duration: 2000,
                 verticalPosition:'top',
                 panelClass :['red-snackbar']
@@ -2688,6 +2693,41 @@ export class rescheduleAppointmentDialog {
         this.isLoader = false;
       });
 
+    }
+    checkAuthentication(){
+      let requestObject = {
+        "user_type": this.currentUser.user_type,
+        "user_id" : this.currentUser.user_id,
+        "token" : this.currentUser.token
+      };
+      this.http.post(`${environment.apiUrl}/check-token`,requestObject).pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError(this.handleError)
+      ).subscribe((response:any) => {
+        if (response.data == true) {
+        }
+        else if(response.data == false){
+          this.reAuthenticateUser();
+        }
+      },(err) =>{
+          console.log(err)
+      });
+  
+    }
+    reAuthenticateUser() {
+      const dialogRef = this.dialog.open(DialogReAuthentication, {
+          width: '500px',
+  
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+          if(result){
+              this.currentUser = result
+              console.log(this.currentUser)
+          }
+      });
     }
   
   }

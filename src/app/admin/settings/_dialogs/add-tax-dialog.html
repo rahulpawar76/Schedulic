@@ -25,7 +25,7 @@
                 </mat-form-field>
                 <span class="error-wrap" *ngIf="taxAdd.get('tax_per').touched || taxAdd.get('tax_per').dirty">
                     <small *ngIf="taxAdd.get('tax_per').hasError('required')" class="error">Tax per is required.</small>
-			        <small *ngIf="taxAdd.get('tax_per').hasError('pattern')" class="error"> Number should be number only.</small>
+			        <small *ngIf="taxAdd.get('tax_per').hasError('pattern')" class="error"> Tax should be number only.</small>
 			        <small *ngIf="taxAdd.get('tax_per').hasError('max')" class="error"> Percentage should maximum 100.</small>
                  </span>
             </form>
