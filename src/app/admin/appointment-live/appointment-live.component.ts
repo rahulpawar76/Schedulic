@@ -18,8 +18,6 @@ import { AuthenticationService } from '@app/_services';
 
 export interface DialogData {
   animal: string;
- 
- 
 }
 @Component({
   selector: 'app-appointment-live',
@@ -125,25 +123,17 @@ export class AppointmentLiveComponent implements OnInit {
     this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.settingsArr = response.response;
-        console.log(this.settingsArr);
-
         this.currencySymbol = this.settingsArr.currency;
-        console.log(this.currencySymbol);
-        
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-        console.log(this.currencySymbolPosition);
-        
         this.currencySymbolFormat = this.settingsArr.currency_format;
-        console.log(this.currencySymbolFormat);
       }else if(response.data == false){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
-      }
-      },
-      (err) =>{
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+      },(err) =>{
         console.log(err)
       })
   }
@@ -432,6 +422,8 @@ formSettingPage:boolean = false;
 appointmentDetails = {
   bookingNotes : ''
 };
+settingsArr:any =[];
+
 constructor(
   public dialogRef: MatDialogRef<PendingAppointmentDetailsDialog>,
   private AdminService: AdminService,
@@ -470,6 +462,18 @@ constructor(
   }
 
   fnRescheduleAppointment(){
+    this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
+    var is_reseduling = this.fncompereDate(this.detailsData.booking_date_time,this.settingsArr.min_reseduling_time);
+
+    if(is_reseduling==true){
+        this._snackBar.open('Minimum notice required for rescheduleing an appointment', "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+        });
+        return;
+    }
+
     const dialogRef = this.dialog.open(RescheduleAppointment, {
       height: '700px',
      data : {appointmentDetails: this.detailsData}
@@ -506,6 +510,20 @@ constructor(
 
 
   fnCancelAppointment(){
+
+    this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
+    var is_cancel = this.fncompereDate(this.detailsData.booking_date_time,this.settingsArr.cancellation_buffer_time);
+
+    if(is_cancel==true){
+        this._snackBar.open('Minimum notice required for Cancellation an appointment', "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+        });
+        return;
+    }
+    
+
     let requestObject = {
      "order_item_id":JSON.stringify(this.detailsData.id),
      "status":"C"
@@ -529,6 +547,7 @@ constructor(
     })
   }
 
+ 
   fnSaveBookingNotes(orderItemId){
     
     if(this.appointmentDetails.bookingNotes == undefined || this.appointmentDetails.bookingNotes == ""){
@@ -554,6 +573,39 @@ constructor(
         });
       }
     })
+  }
+
+  fnGetSettings(){
+    let requestObject = {
+      "business_id" : localStorage.getItem('business_id')
+    };
+
+    this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.settingsArr = response.response;
+       
+      }else if(response.data == false){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+      },(err) =>{
+        console.log(err)
+      });
+  }
+
+  fncompereDate(APPODate,time){
+    var Now = new Date();  
+    var  APPO = new Date(APPODate);
+    Now.setMinutes(Now.getMinutes() + parseInt(time));
+
+    if (Now>APPO){
+      return true;
+    }else if (Now<APPO){
+       return false;  
+    } 
   }
 
 }
@@ -722,6 +774,7 @@ formSettingPage:boolean = false;
 appointmentDetails = {
   bookingNotes : ''
 };
+settingsArr:any =[];
 
 constructor(
   public dialogRef: MatDialogRef<NotAssignedAppointmentDetailsDialog>,
@@ -733,9 +786,9 @@ constructor(
   private _snackBar: MatSnackBar,
   @Inject(MAT_DIALOG_DATA) public data: any) {
     this.detailsData =  this.data.fulldata;
-    console.log(this.detailsData);
     this.fnGetActivityLog(this.detailsData.id);
     this.fnGetStaff(this.detailsData.booking_date,this.detailsData.booking_time,this.detailsData.service_id,this.detailsData.postal_code);
+    this. fnGetSettings();
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -764,6 +817,18 @@ constructor(
   }
 
   fnRescheduleAppointment(){
+  
+    this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
+    var is_cancel = this.fncompereDate(this.detailsData.booking_date_time,this.settingsArr.min_reseduling_time);
+    if(is_cancel==true){
+      this._snackBar.open('Minimum notice required for rescheduleing an appointment', "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+        });
+        return;
+    }
+
     const dialogRef = this.dialog.open(RescheduleAppointment, {
       height: '700px',
      data : {appointmentDetails: this.detailsData}
@@ -836,6 +901,18 @@ constructor(
 
 
   fnCancelAppointment(){
+
+    this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
+    var is_cancel = this.fncompereDate(this.detailsData.booking_date_time,this.settingsArr.cancellation_buffer_time);
+    if(is_cancel==true){
+      this._snackBar.open('Minimum notice required for Cancellation an appointment', "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+        });
+        return;
+    }
+
     let requestObject = {
      "order_item_id":JSON.stringify(this.detailsData.id),
      "status":"C"
@@ -886,6 +963,41 @@ constructor(
     })
   }
 
+  fnGetSettings(){
+    let requestObject = {
+      "business_id" : localStorage.getItem('business_id')
+    };
+
+    this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.settingsArr = response.response;
+      }else if(response.data == false){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+      },(err) =>{
+        console.log(err)
+      });
+  }
+
+
+  fncompereDate(APPODate,time){
+      var Now = new Date();  
+      var  APPO = new Date(APPODate);
+      console.log(this.settingsArr);
+
+      Now.setMinutes(Now.getMinutes() + parseInt(time));
+
+      if (Now>APPO){
+        return true;
+      }else if (Now<APPO){
+        return false;  
+      } 
+  }
+
 
 }
 
@@ -894,25 +1006,27 @@ constructor(
   templateUrl: '../_dialogs/ontheway-appointment-details.html',
 })
 export class OnTheWayAppointmentDetailsDialog {
-//notes:any;
-detailsData: any;
-activityLog: any=[];
-formSettingPage:boolean = false;
-appointmentDetails = {
-  bookingNotes : ''
-};
+  //notes:any;
+  detailsData: any;
+  activityLog: any=[];
+  formSettingPage:boolean = false;
+  appointmentDetails = {
+    bookingNotes : ''
+  };
+  settingsArr:any =[];
 
-constructor(
-  public dialogRef: MatDialogRef<OnTheWayAppointmentDetailsDialog>,
-  private AdminService: AdminService,
-  public dialog: MatDialog,
-  private _formBuilder: FormBuilder,
-  private http: HttpClient,
-  private _snackBar: MatSnackBar,
-  @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.detailsData =  this.data.fulldata;
-    console.log(this.detailsData);
-    this.fnGetActivityLog(this.detailsData.id);
+  constructor(
+    public dialogRef: MatDialogRef<OnTheWayAppointmentDetailsDialog>,
+    private AdminService: AdminService,
+    public dialog: MatDialog,
+    private _formBuilder: FormBuilder,
+    private http: HttpClient,
+    private _snackBar: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.detailsData =  this.data.fulldata;
+      console.log(this.detailsData);
+      this.fnGetActivityLog(this.detailsData.id);
+      this.fnGetSettings();
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -941,7 +1055,43 @@ constructor(
     })
   }
 
+  
+  fnGetSettings(){
+    let requestObject = {
+      "business_id" : localStorage.getItem('business_id')
+    };
+
+    this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.settingsArr = response.response;
+      }else if(response.data == false){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+      },(err) =>{
+        console.log(err)
+      });
+  }
+
   fnRescheduleAppointment(){
+
+    this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
+    var is_cancel = this.fncompereDate(this.detailsData.booking_date_time,this.settingsArr.min_reseduling_time);
+    
+    if(is_cancel==true){
+        this._snackBar.open('Minimum notice required for rescheduleing an appointment', "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+        });
+        return;
+    }
+
+    
+
     const dialogRef = this.dialog.open(RescheduleAppointment, {
       height: '700px',
      data : {appointmentDetails: this.detailsData}
@@ -978,6 +1128,19 @@ constructor(
 
 
   fnCancelAppointment(){
+
+    this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
+    var is_cancel = this.fncompereDate(this.detailsData.booking_date_time,this.settingsArr.cancellation_buffer_time);
+
+    if(is_cancel==true){
+        this._snackBar.open('Minimum notice required for Cancellation an appointment', "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+        });
+        return;
+    }
+
     let requestObject = {
      "order_item_id":JSON.stringify(this.detailsData.id),
      "status":"C"
@@ -1028,6 +1191,21 @@ constructor(
     })
   }
 
+  fncompereDate(APPODate,time){
+      
+      var Now = new Date();  
+      var  APPO = new Date(APPODate);
+      console.log(this.settingsArr);
+
+      Now.setMinutes(Now.getMinutes() + parseInt(time));
+
+      if (Now>APPO){
+        return true;
+      }else if (Now<APPO){
+        return false;  
+      } 
+
+  }
 
 }
 
@@ -1043,6 +1221,7 @@ formSettingPage:boolean = false;
 appointmentDetails = {
   bookingNotes : ''
 };
+settingsArr:any =[];
 
 
 constructor(
@@ -1054,9 +1233,31 @@ constructor(
     this.detailsData =  this.data.fulldata;
     console.log(this.detailsData);
     this.fnGetActivityLog(this.detailsData.id);
+    this.fnGetSettings();
   }
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  fnGetSettings(){
+
+      let requestObject = {
+        "business_id" : localStorage.getItem('business_id')
+      };
+
+      this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.settingsArr = response.response;
+        }else if(response.data == false){
+            this._snackBar.open(response.response, "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass : ['red-snackbar']
+            });
+        }
+      },(err) =>{
+        console.log(err)
+      });
   }
 
   fnGetActivityLog(orderItemId){
@@ -1081,6 +1282,20 @@ constructor(
   }
 
   fnRescheduleAppointment(){
+
+    this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
+
+    var is_cancel = this.fncompereDate(this.detailsData.booking_date_time,this.settingsArr.min_reseduling_time);
+
+    if(is_cancel==true){
+        this._snackBar.open('Minimum notice required for rescheduleing an appointment', "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+        });
+        return;
+    }
+
     const dialogRef = this.dialog.open(RescheduleAppointment, {
       height: '700px',
      data : {appointmentDetails: this.detailsData}
@@ -1113,10 +1328,24 @@ constructor(
             });
         }
       })
-    }
+  }
 
 
   fnCancelAppointment(){
+    
+    this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
+
+    var is_cancel = this.fncompereDate(this.detailsData.booking_date_time,this.settingsArr.cancellation_buffer_time);
+
+    if(is_cancel==true){
+        this._snackBar.open('Minimum notice required for Cancellation an appointment', "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+        });
+        return;
+    }
+
     let requestObject = {
      "order_item_id":JSON.stringify(this.detailsData.id),
      "status":"C"
@@ -1167,5 +1396,21 @@ constructor(
     })
   }
 
+  
+  fncompereDate(APPODate,time){
+        
+    var Now = new Date();  
+    var  APPO = new Date(APPODate);
+    console.log(this.settingsArr);
+
+    Now.setMinutes(Now.getMinutes() + parseInt(time));
+
+    if (Now>APPO){
+      return true;
+    }else if (Now<APPO){
+      return false;  
+    } 
+
+  }
 
 }

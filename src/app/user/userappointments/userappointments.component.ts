@@ -14,6 +14,7 @@ import { AuthenticationService } from '@app/_services';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { sha512 as sha512 } from 'js-sha512';
 import * as domtoimage from 'dom-to-image';
+ import * as jspdf from 'jspdf';
 // import * as jspdf from 'jspdf';
 
 
@@ -158,25 +159,19 @@ export class UserappointmentsComponent implements OnInit {
         console.log(this.currencySymbol);
         
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-        console.log(this.currencySymbolPosition);
-        
         this.currencySymbolFormat = this.settingsArr.currency_format;
-        console.log(this.currencySymbolFormat);
 
         let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
         let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
         this.isCustomerAllowedForRatingStaff=JSON.parse(this.settingsArr.customer_allow_for_staff_rating);
-        console.log(cancellation_buffer_time);
-        console.log(min_rescheduling_time);
-        console.log(this.isCustomerAllowedForRatingStaff);
+
        
         this.cancellationBufferTime = new Date();
         this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
-        console.log("cancellationBufferTime - "+this.cancellationBufferTime);
 
         this.minReschedulingTime = new Date();
         this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
-        console.log("minReschedulingTime - "+this.minReschedulingTime);
+       
         if(this.settingsArr.pay_pal_settings){
           this.paypalSetting = JSON.parse(this.settingsArr.pay_pal_settings)
           this.paypalTestMode = this.paypalSetting.test_mode;
@@ -206,88 +201,88 @@ export class UserappointmentsComponent implements OnInit {
     })
   }
 
-getAllAppointments(): void{
-  this.UserService.getAllAppointments().subscribe((response:any) =>{
-    if(response.data == true){
-      this.appointmentData = response.response;
-      
-      this.appointmentData.forEach( (element) => {
-        element.bookingDateTime = new Date(element.booking_date+" "+element.booking_time);
-        element.booking_timeForLabel = this.datePipe.transform(element.bookingDateTime,"hh:mm a");
-        element.booking_dateForLabel = this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
-        element.created_atForLabel = this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a");
+  getAllAppointments(): void{
+    this.UserService.getAllAppointments().subscribe((response:any) =>{
+      if(response.data == true){
+        this.appointmentData = response.response;
+        
+        this.appointmentData.forEach( (element) => {
+          element.bookingDateTime = new Date(element.booking_date+" "+element.booking_time);
+          element.booking_timeForLabel = this.datePipe.transform(element.bookingDateTime,"hh:mm a");
+          element.booking_dateForLabel = this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
+          element.created_atForLabel = this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a");
 
-        var dateTemp = new Date(this.datePipe.transform(element.bookingDateTime,"dd MMM yyyy hh:mm a"));
-        dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
-        element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+          var dateTemp = new Date(this.datePipe.transform(element.bookingDateTime,"dd MMM yyyy hh:mm a"));
+          dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+          element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
 
-      });
-      
-      this.appointmentData = this.appointmentData.sort(this.dynamicSort("-created_at"))
-      
-    }
-    else if(response.data == false){
-      this._snackBar.open(response.response, "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['red-snackbar']
-      });
-      this.appointmentData = [];
-    }
-  })
-}
+        });
+        
+        this.appointmentData = this.appointmentData.sort(this.dynamicSort("-created_at"))
+        
+      }
+      else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+        this.appointmentData = [];
+      }
+    })
+  }
 
-getCancelAppointments(): void{
-  this.UserService.getCancelAppointments().subscribe((response:any) =>{
-    if(response.data == true){
-      this.cancelAppointmentData = response.response;
-      this.cancelAppointmentData.forEach( (element) => {
-        element.booking_timeForLabel = this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
-        element.booking_dateForLabel = this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
-        element.created_atForLabel = this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a");
+  getCancelAppointments(): void{
+    this.UserService.getCancelAppointments().subscribe((response:any) =>{
+      if(response.data == true){
+        this.cancelAppointmentData = response.response;
+        this.cancelAppointmentData.forEach( (element) => {
+          element.booking_timeForLabel = this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+          element.booking_dateForLabel = this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
+          element.created_atForLabel = this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a");
 
-        var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"dd MMM yyyy hh:mm a"));
-        dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
-        element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
-      });
-      this.cancelAppointmentData = this.cancelAppointmentData.sort(this.dynamicSort("-updated_at"))
-    }
-    else if(response.data == false){
-      // this._snackBar.open(response.response, "X", {
-      //   duration: 2000,
-      //   verticalPosition:'top',
-      //   panelClass :['red-snackbar']
-      // });
-      this.cancelAppointmentData = '';
-    }
-  })
-}
+          var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"dd MMM yyyy hh:mm a"));
+          dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+          element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+        });
+        this.cancelAppointmentData = this.cancelAppointmentData.sort(this.dynamicSort("-updated_at"))
+      }
+      else if(response.data == false){
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition:'top',
+        //   panelClass :['red-snackbar']
+        // });
+        this.cancelAppointmentData = '';
+      }
+    })
+  }
 
-getCompletedAppointments(): void{
-  this.UserService.getCompletedAppointments().subscribe((response:any) =>{
-    if(response.data == true){
-      this.completedAppointmentData = response.response;
-      this.completedAppointmentData.forEach( (element) => {
-        element.booking_timeForLabel = this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
-        element.booking_dateForLabel = this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
-        element.created_atForLabel = this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a");
+  getCompletedAppointments(): void{
+    this.UserService.getCompletedAppointments().subscribe((response:any) =>{
+      if(response.data == true){
+        this.completedAppointmentData = response.response;
+        this.completedAppointmentData.forEach( (element) => {
+          element.booking_timeForLabel = this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+          element.booking_dateForLabel = this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
+          element.created_atForLabel = this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a");
 
-        var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"dd MMM yyyy hh:mm a"));
-        dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
-        element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
-      });
-      this.completedAppointmentData = this.completedAppointmentData.sort(this.dynamicSort("-updated_at"))
-    }
-    else if(response.data == false){
-      // this._snackBar.open(response.response, "X", {
-      //   duration: 2000,
-      //   verticalPosition:'top',
-      //   panelClass :['red-snackbar']
-      // });
-      this.completedAppointmentData = '';
-    }
-  })
-}
+          var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"dd MMM yyyy hh:mm a"));
+          dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+          element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+        });
+        this.completedAppointmentData = this.completedAppointmentData.sort(this.dynamicSort("-updated_at"))
+      }
+      else if(response.data == false){
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition:'top',
+        //   panelClass :['red-snackbar']
+        // });
+        this.completedAppointmentData = '';
+      }
+    })
+  }
 
 // Dialogs
 
@@ -306,6 +301,9 @@ getCompletedAppointments(): void{
   }
 
   cancelAppo(booking_id) {
+    
+
+
     const dialogRef = this.dialog.open(DialogCancelReason, {
       width: '500px',
       data:{appoData: booking_id}
@@ -321,10 +319,7 @@ getCompletedAppointments(): void{
 
   rescheduleAppointment(index){
     const dialogRef = this.dialog.open(rescheduleAppointmentDialog, {
-      
-     // height: '700px',
       data: {fulldata: this.appointmentData[index]}
-
     });
 
      dialogRef.afterClosed().subscribe(result => {
@@ -362,10 +357,8 @@ getCompletedAppointments(): void{
   }
 
   MyAppointmentDetails(index){
-    console.log("====");
-    console.log(index);
+   
     const dialogRef = this.dialog.open(DialogMyAppointmentDetails, {
-      
       height: '700px',
       // disableClose: true,
       data: {fulldata: this.appointmentData[index],index:index}
@@ -1047,6 +1040,7 @@ export class DialogCancelReason {
         }
       })
     }
+
     fnPrint(){
       const printContent = document.getElementById("printInvoice");
       const WindowPrt = window.open('', '', 'left=0,top=0,width=1200,height=900,toolbar=0,scrollbars=0,status=0');
@@ -1057,26 +1051,39 @@ export class DialogCancelReason {
       // WindowPrt.close();
     }
 
-    // public SavePDF(): void {  
-    //   let content=this.content.nativeElement;  
-    //   let doc = new jspdf();  
-    //   let _elementHandlers =  
-    //   {  
-    //     '#editor':function(element,renderer){  
-    //       return true;  
-    //     }  
-    //   };  
-    //   doc.fromHTML(content.innerHTML,15,15,{  
-    
-    //     'width':190,  
-    //     'elementHandlers':_elementHandlers  
-    //   });  
-    
-    //   doc.save('test.pdf');  
-    // }  
+  
+    captureScreen() {
 
-    public captureScreen() {
-      // this.loader = true;
+      let setLable = "invoice";
+      if (!document.getElementById('printInvoice')) {
+        return false;
+      }
+
+      let data = document.getElementById('printInvoice');
+      let HTML_Width = document.getElementById('printInvoice').offsetWidth;
+      let HTML_Height = document.getElementById('printInvoice').clientHeight;
+      let top_left_margin = 35;
+      let PDF_Width = HTML_Width + (top_left_margin * 2);
+      let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+      let canvas_image_width = HTML_Width;
+      let canvas_image_height = HTML_Height;
+
+      let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+      let today = Date.now();
+      let that = this;
+      domtoimage.toPng(document.getElementById('printInvoice')).then(function (blob) {
+          var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
+          pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+          for (let i = 1; i <= totalPDFPages; i++) {
+            pdf.addPage(PDF_Width, PDF_Height);
+            pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+          }
+          pdf.save("invoice_" + today + ".pdf");
+        });
+    }
+
+    fnSendInvoiceEmail(){
+
       let setLable = "invoice";
       if (!document.getElementById('printInvoice')) {
         // this.loader = false;
@@ -1094,92 +1101,83 @@ export class DialogCancelReason {
       let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
       let today = Date.now();
       let that = this;
-      // html2canvas(data).then(function(canvas) {
-      //   canvas.getContext('2d');
-      //   let imgData = canvas.toDataURL("image/jpeg", 1.0);
-      //   let pdf = new jspdf('p', 'pt',  [PDF_Width, PDF_Height]);
-      //     pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
+      var formData = new FormData();
+      let customer_email = this.myAppoDetailData.customer.email;
+      let order_id = this.myAppoDetailData.order_id;
 
-      //   pdf.text(30, 30, setLable);
-      //   for (let i = 1; i <= totalPDFPages; i++) {
-      //     pdf.addPage(PDF_Width, PDF_Height);
-      //     pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
-      //   }
-
-      //     pdf.save("PracticesAssessmentResults_"+today+".pdf");
-      //     that.loader=false;
-      //     });
-      // domtoimage.toPng(document.getElementById('printInvoice'))
-      //   .then(function (blob) {
-      //     var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
+      // domtoimage.toPng(document.getElementById('printInvoice')).then(function (blob) {
+      //   var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
       //     pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
       //     for (let i = 1; i <= totalPDFPages; i++) {
       //       pdf.addPage(PDF_Width, PDF_Height);
       //       pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
       //     }
+
       //     pdf.save("invoice_" + today + ".pdf");
-      //     // that.loader = false;
-      //   });
-    }
-
-    fnSendInvoiceEmail(){
-      // let setLable = "invoice";
-      // if (!document.getElementById('printInvoice')) {
-      //   // this.loader = false;
-      //   return false;
-      // }
-      // let data = document.getElementById('printInvoice');
-      // let HTML_Width = document.getElementById('printInvoice').offsetWidth;
-      // let HTML_Height = document.getElementById('printInvoice').clientHeight;
-      // let top_left_margin = 35;
-      // let PDF_Width = HTML_Width + (top_left_margin * 2);
-      // let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
-      // let canvas_image_width = HTML_Width;
-      // let canvas_image_height = HTML_Height;
-
-      // let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
-      // let today = Date.now();
-      // let that = this;
-      // var formData = new FormData();
-      // domtoimage.toPng(document.getElementById('printInvoice'))
-      //   .then(function (blob) {
-      //     var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
-      //     pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-      //     for (let i = 1; i <= totalPDFPages; i++) {
-      //       pdf.addPage(PDF_Width, PDF_Height);
-      //       pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
-      //     }
-      //     console.log(pdf);
-      //     // pdf.save("invoice_" + today + ".pdf");
-      //     // that.loader = false;
+          
       //     setTimeout(() => { 
-            
-      //       // formData.append('data' , pdf);
-      //       formData.append('invoice_pdf', pdf);
-      //       // formData.append('email', that.myAppoDetailData.customer.email);
-      //       formData.append('email', "akie.5609@gmail.com");
-      //         console.log(formData);
-      //         that.UserService.sendInvoiceEmail(formData).subscribe((response:any) => {
-      //           if(response.data == true){
-      //             that._snackBar.open(response.response, "X", {
-      //               duration: 2000,
-      //               verticalPosition:'top',
-      //               panelClass :['green-snackbar']
-      //             });
-      //           }
-      //           else if(response.data == false){
-      //             that._snackBar.open(response.response, "X", {
-      //               duration: 2000,
-      //               verticalPosition:'top',
-      //               panelClass :['red-snackbar']
-      //             });
-      //           }
-      //         })
-      //     }, 3000);
-      //   });
+
+      //       var binary = btoa(pdf.output());
+            formData.append('email', customer_email);
+            formData.append('order_id',order_id );
+            // formData.append('invoice_pdf', binary);
+            that.UserService.sendInvoiceEmail(formData).subscribe((response:any) => {
+                if(response.data == true){
+                  that._snackBar.open(response.response, "X", {
+                    duration: 2000,
+                    verticalPosition:'top',
+                    panelClass :['green-snackbar']
+                  });
+                }else if(response.data == false){
+
+                  that._snackBar.open(response.response, "X", {
+                    duration: 2000,
+                    verticalPosition:'top',
+                    panelClass :['red-snackbar']
+                  });
+                }
+            });
+         // }, 5000);
+
+      // });
+
+        // domtoimage.toPng(document.getElementById('printInvoice'))
+        //   .then(function (blob) {
+        //     var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
+        //     pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+        //     for (let i = 1; i <= totalPDFPages; i++) {
+        //       pdf.addPage(PDF_Width, PDF_Height);
+        //       pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+        //     }
+        //     console.log(pdf);
+        //     // pdf.save("invoice_" + today + ".pdf");
+        //     // that.loader = false;
+        //     setTimeout(() => { 
+              
+        //       // formData.append('data' , pdf);
+        //       formData.append('invoice_pdf', pdf);
+        //       // formData.append('email', that.myAppoDetailData.customer.email);
+        //       formData.append('email', "akie.5609@gmail.com");
+        //         console.log(formData);
+        //         that.UserService.sendInvoiceEmail(formData).subscribe((response:any) => {
+        //           if(response.data == true){
+        //             that._snackBar.open(response.response, "X", {
+        //               duration: 2000,
+        //               verticalPosition:'top',
+        //               panelClass :['green-snackbar']
+        //             });
+        //           }
+        //           else if(response.data == false){
+        //             that._snackBar.open(response.response, "X", {
+        //               duration: 2000,
+        //               verticalPosition:'top',
+        //               panelClass :['red-snackbar']
+        //             });
+        //           }
+        //         })
+        //     }, 3000);
+        // });
     }
-
-
 
 	}
 
@@ -1270,6 +1268,9 @@ export class DialogCancelReason {
     currencySymbolPosition:any;
     currencySymbolFormat:any;
     activityLog:any=[];
+    cancellationBufferTime:any;
+    minReschedulingTime:any;
+
     constructor(
       public dialogRef: MatDialogRef<DialogMyAppointmentDetails>,
       private authenticationService: AuthenticationService,
@@ -1309,16 +1310,21 @@ export class DialogCancelReason {
       this.UserService.getSettingValue(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.settingsArr=response.response;
-          console.log(this.settingsArr);
-
           this.currencySymbol = this.settingsArr.currency;
-          console.log(this.currencySymbol);
-          
           this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-          console.log(this.currencySymbolPosition);
-          
           this.currencySymbolFormat = this.settingsArr.currency_format;
-          console.log(this.currencySymbolFormat);
+
+          
+            let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
+            let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
+
+            this.cancellationBufferTime = new Date();
+            this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
+
+            this.minReschedulingTime = new Date();
+            this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
+            
+            
         }
         else if(response.data == false){
           this._snackBar.open(response.response, "X", {
@@ -1331,6 +1337,19 @@ export class DialogCancelReason {
     }
 
     cancelAppo(booking_id) {
+
+      this.myAppoDetailData.booking_date_time=new Date(this.myAppoDetailData.booking_date+" "+this.myAppoDetailData.booking_time);
+      var is_cancel = this.fncompereDate(this.myAppoDetailData.booking_date_time,this.settingsArr.cancellation_buffer_time);
+
+      if(is_cancel==true){
+          this._snackBar.open('Minimum notice required for Cancellation an appointment', "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+          });
+          return;
+      }
+
       const dialogRef = this.dialog.open(DialogCancelReason, {
         width: '500px',
         data:{appoData: booking_id}
@@ -1340,18 +1359,43 @@ export class DialogCancelReason {
         this.animal = result;
        });
     }
+
     rescheduleAppointment(){
+    
+      this.myAppoDetailData.booking_date_time=new Date(this.myAppoDetailData.booking_date+" "+this.myAppoDetailData.booking_time);
+      var is_reseduling = this.fncompereDate(this.myAppoDetailData.booking_date_time,this.settingsArr.min_reseduling_time);
+
+      if(is_reseduling==true){
+          this._snackBar.open('Minimum notice required for rescheduleing an appointment.', "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+          });
+          return;
+      }
+
+
       const dialogRef = this.dialog.open(rescheduleAppointmentDialog, {
-        
-       // height: '700px',
         data: {fulldata: this.myAppoDetailData}
-  
       });
   
        dialogRef.afterClosed().subscribe(result => {
         this.dialogRef.close();
        });
     }
+    
+
+    fncompereDate(APPODate,time){
+      var Now = new Date();  
+      var  APPO = new Date(APPODate);
+      Now.setMinutes(Now.getMinutes() + parseInt(time));
+      if (Now>APPO){
+        return true;
+      }else if (Now<APPO){
+        return false;  
+      } 
+    }
+
   }
 
 @Component({
@@ -1756,6 +1800,7 @@ export class rescheduleAppointmentDialog {
         this.animal = result;
        });
     }
+
     invoice() {
     const dialogRef = this.dialog.open(DialogInvoiceDialog, {
       width: '1000px',

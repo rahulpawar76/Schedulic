@@ -15,7 +15,7 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { AppComponent } from '@app/app.component';
 import { ExportToCsv } from 'export-to-csv';
 import * as domtoimage from 'dom-to-image';
- import * as jspdf from 'jspdf';
+import * as jspdf from 'jspdf';
 //import { IgxExcelExporterService, IgxExcelExporterOptions } from "igniteui-angular";
 
 
@@ -1652,57 +1652,65 @@ constructor(
   private _snackBar: MatSnackBar,
   @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
-onNoClick(): void {
-  this.dialogRef.close();
-}
-private handleError(error: HttpErrorResponse) {
-  return throwError('Error! something went wrong.');
-}
-
-handleFileInput(files): void {
-
-  this.fileToUpload = files.item(0);
-
-
-  if(this.fileToUpload.type != "application/vnd.ms-excel"){
-
-    this._snackBar.open("Please select CSV file", "X", {
-      duration: 2000,
-      verticalPosition:'top',
-      panelClass :['red-snackbar']
-    });
-    return;
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
-  //this.isLoaderAdmin = true;
-  const formData: FormData = new FormData();
-  formData.append('file', this.fileToUpload);
-  formData.append('business_id',JSON.parse(localStorage.getItem('business_id')));
+  private handleError(error: HttpErrorResponse) {
+    return throwError('Error! something went wrong.');
+  }
 
-  
-  this.http.post(`${environment.apiUrl}/customer-import`,formData ).pipe(map((response : any) =>{
+  handleFileInput(files): void {
+    
+    this.fileToUpload = files.item(0);
 
-    if(response.data  == true){
-
-      this._snackBar.open("CSV file is uploaded", "X", {
+    if(this.fileToUpload.type != "application/vnd.ms-excel"){
+      this._snackBar.open("Please select CSV file", "X", {
         duration: 2000,
         verticalPosition:'top',
-        panelClass :['green-snackbar']
+        panelClass :['red-snackbar']
       });
-
-      this.dialogRef.close();
-
-     }
-     //this.isLoaderAdmin = false;
-  }),catchError(this.handleError)).subscribe((res) => {
-    console.log(res);
-   // this.isLoaderAdmin = false;
-  });
+      return;
+    }
+    
 
 
-  
-}
+  }
 
+  fileupload(){
+    
+    if(this.fileToUpload.type != "application/vnd.ms-excel"){
+
+      this._snackBar.open("Please select CSV file", "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+      });
+      return;
+
+    }
+
+
+    this.isLoaderAdmin = true;
+    const formData: FormData = new FormData();
+    formData.append('file', this.fileToUpload);
+    formData.append('business_id',JSON.parse(localStorage.getItem('business_id')));
+
+    this.http.post(`${environment.apiUrl}/customer-import`,formData ).pipe(map((response : any) =>{
+      this.isLoaderAdmin = false;
+      if(response.data  == true){
+        this._snackBar.open("CSV file is uploaded", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.dialogRef.close();
+      }
+    }),catchError(this.handleError)).subscribe((res) => {
+      this.isLoaderAdmin = false;
+    });  
+
+  }
 
 }
 
@@ -3040,45 +3048,45 @@ onNoClick(): void {
       domtoimage.toPng(document.getElementById('printInvoice')).then(function (blob) {
 
         var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
-
           pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-          
           for (let i = 1; i <= totalPDFPages; i++) {
             pdf.addPage(PDF_Width, PDF_Height);
             pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
           }
+          pdf.save("invoice_" + today + ".pdf");
 
-           pdf.save("invoice_" + today + ".pdf");
-
-          setTimeout(() => { 
+            setTimeout(() => { 
+              
+            // formData.append('invoice_pdf', pdf.output('blob'));
+              var binary = btoa(pdf.output());
+              formData.append('email', customer_email);
+              formData.append('invoice_pdf', binary);
             
-            formData.append('invoice_pdf', pdf.output('blob'));
-            formData.append('email', customer_email);
-            //formData.append('email', "akie.5609@gmail.com");
+              //formData.append('email', "akie.5609@gmail.com");
 
-              that.AdminService.sendInvoiceEmail(formData).subscribe((response:any) => {
-                if(response.data == true){
+                that.AdminService.sendInvoiceEmail(formData).subscribe((response:any) => {
+                  if(response.data == true){
 
-                  that._snackBar.open(response.response, "X", {
-                    duration: 2000,
-                    verticalPosition:'top',
-                    panelClass :['green-snackbar']
-                  });
+                    that._snackBar.open(response.response, "X", {
+                      duration: 2000,
+                      verticalPosition:'top',
+                      panelClass :['green-snackbar']
+                    });
 
-                }else if(response.data == false){
+                  }else if(response.data == false){
 
-                  that._snackBar.open(response.response, "X", {
-                    duration: 2000,
-                    verticalPosition:'top',
-                    panelClass :['red-snackbar']
-                  });
-                  
-                }
-              })
+                    that._snackBar.open(response.response, "X", {
+                      duration: 2000,
+                      verticalPosition:'top',
+                      panelClass :['red-snackbar']
+                    });
+                    
+                  }
+                })
 
-          }, 5000);
+            }, 5000);
 
-        });
+      });
     }
 
   }

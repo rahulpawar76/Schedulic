@@ -739,7 +739,7 @@ export class DialogAddNewAppointment {
   isLoaderAdmin:boolean = false;
   emailPattern:any;
   onlynumeric:any;
-  Postalcode:any;
+  Postalcode:any = [];
   constructor(
     public dialogRef: MatDialogRef<DialogAddNewAppointment>,
     public dialog: MatDialog,
@@ -950,9 +950,8 @@ export class DialogAddNewAppointment {
 
   isPostalcodeValid(control: FormControl) {
     
-  
     return new Promise((resolve, reject) => {
-
+      
       if(this.Postalcode.length==0){
         this.valide_postal_code = true;
         resolve(null);
@@ -986,6 +985,11 @@ export class DialogAddNewAppointment {
       if(response.data == true){
         let postal = response.response
         this.Postalcode = postal;
+        
+        if(this.Postalcode.length==0){
+          this.valide_postal_code = true;
+        }
+
       } else if(response.data == false){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
@@ -2212,6 +2216,20 @@ constructor(
   }
 
   fnRescheduleAppointment(){
+   
+    this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
+    var is_reseduling = this.fncompereDate(this.detailsData.booking_date_time,this.settingsArr.min_reseduling_time);
+
+    if(is_reseduling==true){
+        this._snackBar.open('Minimum notice required for rescheduleing an appointment', "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+        });
+        return;
+    }
+
+
     const dialogRef = this.dialog.open(RescheduleAppointAdmin, {
       height: '700px',
      data : {appointmentDetails: this.detailsData}
@@ -2248,6 +2266,21 @@ constructor(
 
 
   fnCancelAppointment(){
+
+    
+    this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
+
+    var is_cancel = this.fncompereDate(this.detailsData.booking_date_time,this.settingsArr.cancellation_buffer_time);
+
+    if(is_cancel==true){
+        this._snackBar.open('Minimum notice required for Cancellation an appointment', "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+        });
+        return;
+    }
+
     let requestObject = {
      "order_item_id":JSON.stringify(this.detailsData.id),
      "status":"C"
@@ -2271,33 +2304,50 @@ constructor(
     })
   }
 
-  fnSaveBookingNotes(orderItemId){
+  
+  fncompereDate(APPODate,time){
     
-    if(this.appointmentDetails.bookingNotes == undefined || this.appointmentDetails.bookingNotes == ""){
-      return false;
-    }
-    let requestObject = {
-      "order_item_id":orderItemId,
-      "booking_notes":this.appointmentDetails.bookingNotes
-    };
-    this.AdminService.saveBookingNotes(requestObject).subscribe((response:any) => {
-      if(response.data == true){
-        this._snackBar.open("Booking Notes Updated", "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['green-snackbar']
-        });
-        this.formSettingPage = false;
-        this.fnGetSettingValue();
-      } else if(response.data == false){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['red-snackbar']
-        });
-      }
-    })
+    var Now = new Date();  
+    var  APPO = new Date(APPODate);
+    console.log(this.settingsArr);
+
+    Now.setMinutes(Now.getMinutes() + parseInt(time));
+
+    if (Now>APPO){
+        return true;
+    }else if (Now<APPO){
+        return false;  
+    } 
   }
+
+
+    fnSaveBookingNotes(orderItemId){
+      
+      if(this.appointmentDetails.bookingNotes == undefined || this.appointmentDetails.bookingNotes == ""){
+        return false;
+      }
+      let requestObject = {
+        "order_item_id":orderItemId,
+        "booking_notes":this.appointmentDetails.bookingNotes
+      };
+      this.AdminService.saveBookingNotes(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this._snackBar.open("Booking Notes Updated", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+          this.formSettingPage = false;
+          this.fnGetSettingValue();
+        } else if(response.data == false){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+        }
+      })
+    }
 
 
 }
