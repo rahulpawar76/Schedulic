@@ -1,5 +1,5 @@
 <mat-drawer-content id="settings-my-profile" class="ml-0">
-    <mat-card class="m-0 my-profile">
+    <mat-card class="m-0 my-profile h-100">
         <div class="row">
             <div class="col-lg-12">
                 <h6>My Profile</h6>
@@ -64,11 +64,11 @@
                             <span class="error-wrap d-flex" *ngIf="settingMyProfile.get('mobile').dirty || settingMyProfile.get('mobile').touched">
                             <small *ngIf="settingMyProfile.get('mobile').hasError('required')" class="error">Mobile number is required</small>
                             <small *ngIf="settingMyProfile.get('mobile').hasError('pattern')" class="error">Mobile number is invalid</small>
-                            <small *ngIf="settingMyProfile.get('mobile').hasError('minLength') || settingMyProfile.get('mobile').hasError('maxLength')" class="error">Mobile number should be 10 digit</small>
+                            <small *ngIf="settingMyProfile.get('mobile').hasError('minLength') || settingMyProfile.get('mobile').hasError('maxLength')" class="error">Mobile number should be 6 to 15 digit</small>
                         </span>
                         </div>
 
-                        <div>
+                        <div class="action-btn">
                             <button mat-button type="submit" (click)="fnSubmitMyProfile()" class="profile-save-btn">Save</button>
                         </div>
                     </form>

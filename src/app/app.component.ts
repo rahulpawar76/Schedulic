@@ -586,9 +586,9 @@ export class AppComponent implements AfterViewInit {
       this.user = user;
       this.loggedIn = (user != null);
       if(this.user){
-        if(this.isAllowed){
-          this.fnLoginWithGoogleFacebook(this.user);
-        }
+        // if(this.isAllowed){
+        //   this.fnLoginWithGoogleFacebook(this.user);
+        // }
       }else{
       }
     });

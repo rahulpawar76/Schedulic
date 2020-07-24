@@ -8,6 +8,7 @@
         height: 75vh;
         overflow-y: scroll;
         border-radius: 60px;
+        min-height: 600px;
         &::-webkit-scrollbar {
             display: none;
         }
