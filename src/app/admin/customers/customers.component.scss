@@ -826,3 +826,60 @@ mat-chip-list {
 .form-container {
     height: 100%;
 }
+
+.customer-menu {
+    background-color: #fbfbfb;
+    width: 300px;
+    position: fixed;
+    top: 157px;
+    height: 100vh;
+    box-shadow: 5px 9px 10px #e5e3e3;
+    z-index: 9;
+    overflow-y: scroll;
+}
+
+.customer-right-side-content {
+    margin-left: 300px;
+    width: calc(100% - 300px);
+    background-color: #fff;
+}
+
+.short-menu {
+    &.customer-menu {
+        width: 100px;
+        p {
+            display: none;
+        }
+        .customer-menu-item {
+            justify-content: center;
+            padding: 10px;
+            p {
+                display: none;
+            }
+        }
+        .searchbox {
+            display: none;
+        }
+        .customer-action {
+            display: none;
+        }
+    }
+    &.customer-left-menu {
+        h6 {
+            display: none;
+        }
+        mat-list-item {
+            justify-content: center;
+            padding: 10px;
+            display: none;
+            i {
+                display: block;
+            }
+        }
+    }
+}
+
+.short-content-area {
+    margin-left: 100px;
+    width: calc(100% - 100px);
+}

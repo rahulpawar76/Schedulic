@@ -396,6 +396,19 @@ export class StaffService {
     }),
     catchError(this.handleError));
   }
+  bookNewAppointment(requestObject) {
+    this.checkAuthentication();
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'staff-id' : this.staffId,
+        'api-token' : this.staffToken,
+    });
+    return this.http.post(`${environment.apiUrl}/order-create-check`, requestObject, { headers: headers }).pipe(
+    map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
 
   reAuthenticateUser() {
     const dialogRef = this.dialog.open(DialogReAuthentication, {

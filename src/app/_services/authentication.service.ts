@@ -28,13 +28,6 @@ export class AuthenticationService {
         .pipe(map(user => {
             // login successful if there's a jwt token in the response
             if (user && user.data== true && user.response.token) {
-                
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                // localStorage.setItem('userId', user.response.user_id);
-                // localStorage.setItem('userToken', user.response.token);          
-                // localStorage.setItem('userName', user.response.fullname);
-                // localStorage.setItem('userRole', user.response.user_type);
-                // localStorage.setItem('tokenID',user.response.id);
                 localStorage.setItem('currentUser', JSON.stringify(user.response));
                // localStorage.setItem('isFront', "false");
                var logoutTime = new Date();

@@ -905,6 +905,19 @@ export class AdminService {
       }),
       catchError(this.handleError));
     }
+    customerNewAppointment(requestObject){
+        this.checkAuthentication();
+      let headers = new HttpHeaders({
+        'admin-id' : JSON.stringify(this.currentUser.user_id),
+        'api-token' : this.currentUser.token,
+        'Content-Type': 'application/json'
+      });
+      return this.http.post(`${environment.apiUrl}/order-create-check`,requestObject,{headers:headers}).pipe(
+      map((res) => {
+          return res;
+      }),
+      catchError(this.handleError));
+    }
     
     getPostalCodeList() {
         this.checkAuthentication();

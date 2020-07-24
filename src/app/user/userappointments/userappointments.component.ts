@@ -14,7 +14,6 @@ import { AuthenticationService } from '@app/_services';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { sha512 as sha512 } from 'js-sha512';
 import * as domtoimage from 'dom-to-image';
-import {  DialogReAuthentication  } from '@app/app.component';
 // import * as jspdf from 'jspdf';
 
 
@@ -764,8 +763,11 @@ getCompletedAppointments(): void{
       data: {}
     });
      dialogRef.afterClosed().subscribe(result => {
+       
+      this.getAllAppointments();
+      this.getCancelAppointments();
+      this.getCompletedAppointments();
 
-      console.log("==close==");
 
      });
   //  this.router.navigate(['/booking']);
@@ -1847,7 +1849,7 @@ export class rescheduleAppointmentDialog {
   constructor(
     private _formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<DialogNewCustomerAppointment>,
-    private AdminService: UserService,
+    private userService: UserService,
     private datePipe: DatePipe,
     public dialog: MatDialog,
     private http: HttpClient,
@@ -1953,7 +1955,7 @@ export class rescheduleAppointmentDialog {
         "business_id":this.bussinessId
       };
 
-      this.AdminService.getPostalCodeList(requestObject).subscribe((response:any) => {
+      this.userService.getPostalCodeList(requestObject).subscribe((response:any) => {
         if(response.data == true){
           let postal = response.response
           this.Postalcode = postal;
@@ -2040,7 +2042,7 @@ export class rescheduleAppointmentDialog {
       let requestObject = {
         "business_id":this.bussinessId
       };
-      this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
+      this.userService.getSettingValue(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.settingsArr=response.response;
           console.log(this.settingsArr);
@@ -2069,7 +2071,7 @@ export class rescheduleAppointmentDialog {
         "business_id":this.bussinessId
       };
 
-      this.AdminService.getTaxDetails(requestObject).subscribe((response:any) => {
+      this.userService.getTaxDetails(requestObject).subscribe((response:any) => {
         if(response.data == true){
           let tax = response.response
           this.taxArr=tax;
@@ -2085,7 +2087,7 @@ export class rescheduleAppointmentDialog {
       let requestObject = {
         "business_id":this.bussinessId
       };
-      this.AdminService.getOffDays(requestObject).subscribe((response:any) => {
+      this.userService.getOffDays(requestObject).subscribe((response:any) => {
         if(response.data == true){
           if(response.response.holidays.length>0){
             this.offDaysList = response.response.holidays;
@@ -2662,20 +2664,13 @@ export class rescheduleAppointmentDialog {
         "payment_method": "Cash",
         "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd hh:mm:ss") 
       };
-      let headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'api-token': this.currentUser.token,
-        'customer-id': this.currentUser.user_id,
-      });
 
 
       this.isLoader = true;
-      this.http.post(`${environment.apiUrl}/order-create-check`,requestObject,{headers:headers}).pipe(map((res) => {
-        return res;
-      }),).subscribe((response:any) => {
+      this.userService.BookAppointment(requestObject).subscribe((response:any) =>{
         if(response.data == true){
           this.isLoader = false;
-          this._snackBar.open("Appointment created", "X", {
+          this._snackBar.open(response.response, "X", {
               duration: 2000,
               verticalPosition:'top',
               panelClass :['green-snackbar']
@@ -2693,41 +2688,6 @@ export class rescheduleAppointmentDialog {
         this.isLoader = false;
       });
 
-    }
-    checkAuthentication(){
-      let requestObject = {
-        "user_type": this.currentUser.user_type,
-        "user_id" : this.currentUser.user_id,
-        "token" : this.currentUser.token
-      };
-      this.http.post(`${environment.apiUrl}/check-token`,requestObject).pipe(
-        map((res) => {
-          return res;
-        }),
-        catchError(this.handleError)
-      ).subscribe((response:any) => {
-        if (response.data == true) {
-        }
-        else if(response.data == false){
-          this.reAuthenticateUser();
-        }
-      },(err) =>{
-          console.log(err)
-      });
-  
-    }
-    reAuthenticateUser() {
-      const dialogRef = this.dialog.open(DialogReAuthentication, {
-          width: '500px',
-  
-      });
-  
-      dialogRef.afterClosed().subscribe(result => {
-          if(result){
-              this.currentUser = result
-              console.log(this.currentUser)
-          }
-      });
     }
   
   }

@@ -109,14 +109,14 @@ export class PostalcodesComponent implements OnInit {
     }
     this.adminSettingsService.changePostalCodeStatus(this.changePostalCodeStatusObject).subscribe((response:any) => {
       if(response.data == true){
-         this._snackBar.open("Status Updated", "X", {
+         this._snackBar.open("Status Updated.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
           });
       }
       else{
-        this._snackBar.open("Status Not Updated", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['red-snackbar']
@@ -150,7 +150,7 @@ export class PostalcodesComponent implements OnInit {
       }
       this.adminSettingsService.changeSelectedPostalCodeStatus(requestObject).subscribe((response:any) => {
         if(response.data == true){
-           this._snackBar.open("Status Updated", "X", {
+           this._snackBar.open("Status Updated.", "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['green-snackbar']
@@ -160,7 +160,7 @@ export class PostalcodesComponent implements OnInit {
            this.fnGetPostalCodeList();
         }
         else{
-          this._snackBar.open("Status Not Updated", "X", {
+          this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['red-snackbar']
@@ -291,7 +291,7 @@ export class DialogAddPostalCode {
     };
     this.adminSettingsService.createPostalCode(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("PostalCode Added", "X", {
+        this._snackBar.open("PostalCode Added.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
@@ -299,6 +299,11 @@ export class DialogAddPostalCode {
           this.dialogRef.close(true);
       }
       else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+          });
       }
     })
   }
@@ -351,7 +356,7 @@ export class DialogNewCSVPostalCode {
       this.fileToUpload = files.item(0);
       if(this.fileToUpload.type != "application/vnd.ms-excel"){
 
-          this._snackBar.open("Please select CSV file", "X", {
+          this._snackBar.open("Please select CSV file.", "X", {
               duration: 2000,
               verticalPosition:'top',
               panelClass :['red-snackbar']
@@ -374,7 +379,7 @@ export class DialogNewCSVPostalCode {
 
       if(response.data  == true){
 
-          this._snackBar.open("CSV file is uploaded", "X", {
+          this._snackBar.open("CSV file is uploaded.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']

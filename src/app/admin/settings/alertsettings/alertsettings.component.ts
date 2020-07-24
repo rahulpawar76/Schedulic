@@ -705,7 +705,7 @@ fnAppointmentsReminderSMS(event){
     this.isLoaderAdmin = true;
     this.adminSettingsService.fnUpdateStaffEmailAlert(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Email alerts for the Staff are Updated", "X", {
+        this._snackBar.open("Email alerts for the Staff are Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
@@ -766,7 +766,7 @@ fnAppointmentsReminderSMS(event){
     this.isLoaderAdmin = true;
     this.adminSettingsService.fnUpdateAdminEmailAlert(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Email alerts for the Admin are Updated", "X", {
+        this._snackBar.open("Email alerts for the Admin are Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
@@ -798,7 +798,7 @@ fnAppointmentsReminderSMS(event){
 
       this.adminSettingsService.fnSubmitCustomizeAlert(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Customize Email alerts are Updated", "X", {
+        this._snackBar.open("Customize Email alerts are Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
@@ -868,7 +868,7 @@ fnAppointmentsReminderSMS(event){
     }
     this.adminSettingsService.fnChangeTemStatus(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Email Template Status Updated", "X", {
+        this._snackBar.open("Email Template Status Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
@@ -1036,7 +1036,7 @@ fnAppointmentsReminderSMS(event){
   fnUpdateEmailTemp(requestObject){
     this.adminSettingsService.fnUpdateEmailTemp(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Email Template is Updated", "X", {
+        this._snackBar.open("Email Template is Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
@@ -1145,7 +1145,7 @@ fnAppointmentsReminderSMS(event){
     }
     this.adminSettingsService.fnDefaultEmailTemp(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Email Template is Updated", "X", {
+        this._snackBar.open("Email Template is Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
@@ -1257,7 +1257,7 @@ fnAppointmentsReminderSMS(event){
     this.isLoaderAdmin = true;
     this.adminSettingsService.fnUpdateSmsAlert(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Sms alerts are Updated", "X", {
+        this._snackBar.open("Sms alerts are Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
@@ -1411,7 +1411,7 @@ fnAppointmentsReminderSMS(event){
     }
     this.adminSettingsService.fnChangeSmsTemStatus(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Sms Template Status Updated", "X", {
+        this._snackBar.open("Sms Template Status Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
@@ -1433,7 +1433,7 @@ fnAppointmentsReminderSMS(event){
     }
     this.adminSettingsService.fnDefaultSmsTemp(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Email Template is Updated", "X", {
+        this._snackBar.open("Email Template is Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
@@ -1605,7 +1605,7 @@ fnAppointmentsReminderSMS(event){
   fnUpdateSmsTemp(requestObject){
     this.adminSettingsService.fnUpdateSmsTemp(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Sms Template is Updated", "X", {
+        this._snackBar.open("Sms Template is Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
@@ -1665,7 +1665,7 @@ fnAppointmentsReminderSMS(event){
   updateTwillioSettings(requestObject){
     this.adminSettingsService.updateTwillioSettings(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Twillio Setting is Updated", "X", {
+        this._snackBar.open("Twillio Setting is Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
@@ -1718,7 +1718,7 @@ fnAppointmentsReminderSMS(event){
   updateTextLocalSettings(requestObject){
     this.adminSettingsService.updateTextLocalSettings(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Text-Local Setting is Updated", "X", {
+        this._snackBar.open("Text-Local Setting is Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']

@@ -253,14 +253,14 @@ export class BookingrulesComponent implements OnInit {
 
     this.adminSettingsService.setMinAdvBookingTime(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.snackBar.open("Minimum Advance Booking Time Updated", "X", {
+        this.snackBar.open("Minimum Advance Booking Time Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['green-snackbar']
         });
       }
       else{
-       this.snackBar.open("Minimum Advance Booking Time Not Updated", "X", {
+       this.snackBar.open("Minimum Advance Booking Time Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']
@@ -305,14 +305,14 @@ export class BookingrulesComponent implements OnInit {
     
     this.adminSettingsService.setMaxAdvBookingTime(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.snackBar.open("Maximum Advance Booking Time Updated", "X", {
+        this.snackBar.open("Maximum Advance Booking Time Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['green-snackbar']
         });
       }
       else{
-       this.snackBar.open("Maximum Advance Booking Time Not Updated", "X", {
+       this.snackBar.open("Maximum Advance Booking Time Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']
@@ -346,14 +346,14 @@ export class BookingrulesComponent implements OnInit {
     console.log(JSON.stringify(requestObject));
     this.adminSettingsService.setTimeInterval(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.snackBar.open("Time Interval Updated", "X", {
+        this.snackBar.open("Time Interval Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['green-snackbar']
         });
       }
       else{
-       this.snackBar.open("Time Interval Not Updated", "X", {
+       this.snackBar.open("Time Interval Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']
@@ -392,14 +392,14 @@ export class BookingrulesComponent implements OnInit {
     console.log(JSON.stringify(requestObject));
     this.adminSettingsService.setCancellationBufferTime(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.snackBar.open("Cancellation Buffer Time Updated", "X", {
+        this.snackBar.open("Cancellation Buffer Time Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['green-snackbar']
         });
       }
       else{
-       this.snackBar.open("Cancellation Buffer Time Not Updated", "X", {
+       this.snackBar.open("Cancellation Buffer Time Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']
@@ -438,14 +438,14 @@ export class BookingrulesComponent implements OnInit {
     console.log(JSON.stringify(requestObject));
     this.adminSettingsService.setMinResedulingTime(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.snackBar.open("Minimum Reseduling Time Updated", "X", {
+        this.snackBar.open("Minimum Reseduling Time Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['green-snackbar']
         });
       }
       else{
-       this.snackBar.open("Minimum Reseduling Time Not Updated", "X", {
+       this.snackBar.open("Minimum Reseduling Time Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']
@@ -465,14 +465,14 @@ export class BookingrulesComponent implements OnInit {
     console.log(JSON.stringify(requestObject));
     this.adminSettingsService.changeCustomerLoginStatus(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.snackBar.open("Customer Login Status Updated", "X", {
+        this.snackBar.open("Customer Login Status Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['green-snackbar']
         });
       }
       else{
-       this.snackBar.open("Customer Login Status Not Updated", "X", {
+       this.snackBar.open("Customer Login Status Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']
@@ -494,14 +494,14 @@ export class BookingrulesComponent implements OnInit {
     console.log(JSON.stringify(requestObject));
     this.adminSettingsService.changeStaffOnFrontStatus(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.snackBar.open("Staff On Front Status Updated", "X", {
+        this.snackBar.open("Staff On Front Status Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['green-snackbar']
         });
       }
       else{
-       this.snackBar.open("Staff On Front Status Not Updated", "X", {
+       this.snackBar.open("Staff On Front Status Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']
@@ -544,14 +544,14 @@ export class BookingrulesComponent implements OnInit {
     console.log(JSON.stringify(requestObject));
     this.adminSettingsService.updateAppAutoConfirmSettings(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.snackBar.open("Auto ConfirmSettings Updated", "X", {
+        this.snackBar.open("Auto ConfirmSettings Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['green-snackbar']
         });
       }
       else{
-       this.snackBar.open("Auto ConfirmSettings Not Updated", "X", {
+       this.snackBar.open("Auto ConfirmSettings Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']
@@ -571,14 +571,14 @@ export class BookingrulesComponent implements OnInit {
     console.log(JSON.stringify(requestObject));
     this.adminSettingsService.changeCustomerAllowStaffRatingStatus(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.snackBar.open("Customer Staff Status Updated", "X", {
+        this.snackBar.open("Customer Staff Status Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['green-snackbar']
         });
       }
       else{
-       this.snackBar.open("Customer Staff Status Not Updated", "X", {
+       this.snackBar.open("Customer Staff Status Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']
@@ -631,14 +631,14 @@ export class BookingrulesComponent implements OnInit {
   fnUpdateTermsConditionsStatusValues(requestObject){
     this.adminSettingsService.updateTermsConditionsStatusValues(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.snackBar.open("Terms Conditions Status Updated", "X", {
+        this.snackBar.open("Terms Conditions Status Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['green-snackbar']
         });
       }
       else{
-       this.snackBar.open("Terms Conditions Status Not Updated", "X", {
+       this.snackBar.open("Terms Conditions Status Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']
@@ -691,14 +691,14 @@ export class BookingrulesComponent implements OnInit {
   fnUpdatePrivacyPolicyStatusValues(requestObject){
     this.adminSettingsService.updatePrivacyPolicyStatusValues(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.snackBar.open("Privacy Policy Status Updated", "X", {
+        this.snackBar.open("Privacy Policy Status Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['green-snackbar']
         });
       }
       else{
-       this.snackBar.open("Privacy Policy Status Not Updated", "X", {
+       this.snackBar.open("Privacy Policy Status Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']
@@ -745,14 +745,14 @@ export class BookingrulesComponent implements OnInit {
   fnUpdateThankyouPageStatusValues(requestObject){
     this.adminSettingsService.updateThankyouPageStatusValues(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.snackBar.open("Thankyou Page Status Updated", "X", {
+        this.snackBar.open("Thankyou Page Status Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['green-snackbar']
         });
       }
       else{
-       this.snackBar.open("Thankyou Page Status Not Updated", "X", {
+       this.snackBar.open("Thankyou Page Status Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']

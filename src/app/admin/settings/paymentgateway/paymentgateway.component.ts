@@ -178,7 +178,7 @@ export class PaymentgatewayComponent implements OnInit {
   updatePaypalSetting(requestObject){
     this.adminSettingsService.updatePaypalSetting(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Paypal Updated", "X", {
+        this._snackBar.open("Paypal Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
@@ -232,7 +232,7 @@ export class PaymentgatewayComponent implements OnInit {
   updateStripeSetting(requestObject){
     this.adminSettingsService.updateStripeSetting(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Stripe Updated", "X", {
+        this._snackBar.open("Stripe Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
@@ -282,7 +282,7 @@ export class PaymentgatewayComponent implements OnInit {
   updatePayumoneySetting(requestObject){
     this.adminSettingsService.updatePayumoneySetting(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("PayUMoney Updated", "X", {
+        this._snackBar.open("PayUMoney Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
@@ -340,7 +340,7 @@ export class PaymentgatewayComponent implements OnInit {
   updateBankTransferSetting(requestObject){
     this.adminSettingsService.updateBankTransferSetting(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Bank Transfer Updated", "X", {
+        this._snackBar.open("Bank Transfer Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']

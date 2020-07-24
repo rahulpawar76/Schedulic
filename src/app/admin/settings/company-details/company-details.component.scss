@@ -191,3 +191,11 @@
         }
     }
 }
+
+@supports (-ms-ime-align:auto) {
+     ::ng-deep .company-zip-feild {
+        .mat-form-field-infix {
+            margin-bottom: 0px;
+        }
+    }
+}

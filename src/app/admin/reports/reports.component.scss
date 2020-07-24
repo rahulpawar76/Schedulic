@@ -291,7 +291,15 @@
     }
 }
 
-.report-menu-item.active{
+.report-menu-item.active {
     background-color: #ddeafd !important;
     color: #1273f6;
+}
+
+@supports (-ms-ime-align:auto) {
+     ::ng-deep .report-date-range-main {
+        .mat-form-field-infix {
+            margin-bottom: 0px;
+        }
+    }
 }

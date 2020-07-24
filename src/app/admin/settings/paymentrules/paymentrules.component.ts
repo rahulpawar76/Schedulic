@@ -83,7 +83,7 @@ export class PaymentrulesComponent implements OnInit {
     //this.isLoaderAdmin = true;
     this.AdminSettingsService.deleteTax(tax_id).subscribe((response: any) => {
       if (response.data == true) {
-        this._snackBar.open("Tax Deleted", "X", {
+        this._snackBar.open("Tax Deleted.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['green-snackbar']
@@ -120,7 +120,7 @@ export class PaymentrulesComponent implements OnInit {
   fnChangeCurrency(currencyCode) {
     this.AdminSettingsService.fnChangeCurrency(currencyCode).subscribe((response: any) => {
       if (response.data == true) {
-        this._snackBar.open("Currency Updated", "X", {
+        this._snackBar.open("Currency Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['green-snackbar']
@@ -131,7 +131,7 @@ export class PaymentrulesComponent implements OnInit {
   fnCurrencyPosition(currencyPosition) {
     this.AdminSettingsService.fnCurrencyPosition(currencyPosition).subscribe((response: any) => {
       if (response.data == true) {
-        this._snackBar.open("Currency Position Updated", "X", {
+        this._snackBar.open("Currency Position Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['green-snackbar']
@@ -143,7 +143,7 @@ export class PaymentrulesComponent implements OnInit {
 
     this.AdminSettingsService.fnCurrencyFormat(currencyFormat).subscribe((response: any) => {
       if (response.data == true) {
-        this._snackBar.open("Currency Format Updated", "X", {
+        this._snackBar.open("Currency Format Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['green-snackbar']
@@ -206,7 +206,7 @@ export class DialogAddNewTax {
     this.AdminSettingsService.fnAddTax(createAddTaxData).subscribe((response: any) => {
       if (response.data == true) {
         this.dialogRef.close();
-        this._snackBar.open("Tax Created", "X", {
+        this._snackBar.open("Tax Created.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['green-snackbar']

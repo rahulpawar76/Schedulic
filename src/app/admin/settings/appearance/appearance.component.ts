@@ -216,7 +216,7 @@ export class AppearanceComponent implements OnInit {
   fnCreateAppearance(AppearanceData){
     this.AdminSettingsService.fnCreateAppearance(AppearanceData).subscribe((response:any)=>{
       if(response.data == true){
-        this._snackBar.open("Appearance Updated", "X", {
+        this._snackBar.open("Appearance Updated.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
@@ -254,7 +254,7 @@ export class AppearanceComponent implements OnInit {
   fnFormSetting(){
     this.AdminSettingsService.fnFormSetting(this.formArr).subscribe((response:any)=>{
       if(response.data == true){
-        this._snackBar.open("Form Settings Updated", "X", {
+        this._snackBar.open("Form Settings Updated.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']

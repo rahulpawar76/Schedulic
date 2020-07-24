@@ -75,7 +75,7 @@ export class MyProfileComponent implements OnInit {
   updateProfile(updatedAdminProfileData){
     this.AdminService.updateProfile(updatedAdminProfileData).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Profile Updated", "X", {
+        this._snackBar.open("Profile Updated.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']

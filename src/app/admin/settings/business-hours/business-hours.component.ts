@@ -222,14 +222,14 @@ export class BusinessHoursComponent implements OnInit {
     this.adminSettingsService.createWorkingHours(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fnGetWorkingHours();
-        this.snackBar.open("Working Hours Updated", "X", {
+        this.snackBar.open("Working Hours Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else{
-       this.snackBar.open("Working Hours Not Updated", "X", {
+       this.snackBar.open("Working Hours Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
@@ -244,7 +244,7 @@ export class BusinessHoursComponent implements OnInit {
     // }
     // if(this.formSetWorkingHours.get("mondayToggle").value){
       if(this.formSetWorkingHours.get("mondayStartTime").value == '' || this.formSetWorkingHours.get("mondayEndTime").value == '' || this.formSetWorkingHours.get("mondayStartTime").value == null || this.formSetWorkingHours.get("mondayEndTime").value == null){
-        this.snackBar.open("Start & End Time can not be empty", "X", {
+        this.snackBar.open("Start & End Time can not be empty.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
@@ -263,14 +263,14 @@ export class BusinessHoursComponent implements OnInit {
     this.adminSettingsService.applyToAll(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fnGetWorkingHours();
-        this.snackBar.open("Working Hours applied to all", "X", {
+        this.snackBar.open("Working Hours applied to all.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else{
-       this.snackBar.open("Working Hours Not Updated", "X", {
+       this.snackBar.open("Working Hours Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
@@ -385,14 +385,14 @@ export class BusinessHoursComponent implements OnInit {
     }
     this.adminSettingsService.changeTimeZone(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.snackBar.open("Timezone Updated", "X", {
+        this.snackBar.open("Timezone Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else{
-       this.snackBar.open("Timezone Not Updated", "X", {
+       this.snackBar.open("Timezone Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
@@ -805,7 +805,7 @@ export class BusinessHoursComponent implements OnInit {
         this.adminSettingsService.deleteTimeOffStaff(requestObject).subscribe((response:any) => {
           if(response.data == true){
             this.fnGetTimeOffList();
-            this.snackBar.open("Time off Deleted", "X", {
+            this.snackBar.open("Time off Deleted.", "X", {
               duration: 2000,
               verticalPosition: 'top',
               panelClass : ['green-snackbar']
@@ -832,7 +832,7 @@ export class BusinessHoursComponent implements OnInit {
     this.adminSettingsService.changeTimeOffStatus(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fnGetTimeOffList();
-        this.snackBar.open("Time off status updated", "X", {
+        this.snackBar.open("Time off status updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
@@ -1171,7 +1171,7 @@ export class BusinessHoursComponent implements OnInit {
         this.showFridayAddForm=false;
         this.showSaturdayAddForm=false;
         this.showSundayAddForm=false;
-        this.snackBar.open("Break Added", "X", {
+        this.snackBar.open("Break Added.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
@@ -1202,13 +1202,13 @@ export class BusinessHoursComponent implements OnInit {
         this.adminSettingsService.deleteBreak(requestObject).subscribe((response:any) => {
           if(response.data == true){
             this.fnGetBreakTimeList();
-            this.snackBar.open("Break Deleted", "X", {
+            this.snackBar.open("Break Deleted.", "X", {
               duration: 2000,
               verticalPosition: 'top',
               panelClass : ['green-snackbar']
             });
           }else{
-           this.snackBar.open("Break Not Deleted", "X", {
+           this.snackBar.open("Break Not Deleted.", "X", {
               duration: 2000,
               verticalPosition: 'top',
               panelClass : ['red-snackbar']
@@ -1274,7 +1274,7 @@ fnAddNewTimeOff(){
     this.adminSettingsService.addNewTimeOff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.dialogRef.close({ call: true });
-        this.snackBar.open("Time off added", "X", {
+        this.snackBar.open("Time off added.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']

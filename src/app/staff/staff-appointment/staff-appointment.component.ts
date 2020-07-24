@@ -1357,7 +1357,6 @@ export class StaffAppointmentComponent implements OnInit {
       // this.netCost=serviceCartArrTemp[0].totalCost+this.taxAmount;
       console.log(JSON.stringify(serviceCartArrTemp));
       const currentDateTime = new Date();
-      this.checkAuthentication();
       let requestObject = {
         "postal_code": this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
         "business_id": this.bussinessId,
@@ -1384,17 +1383,7 @@ export class StaffAppointmentComponent implements OnInit {
         "payment_method": "Cash",
         "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd hh:mm:ss") 
       };
-      let headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'api-token': this.currentUser.token,
-        'staff-id': this.currentUser.user_id,
-      });
-      this.http.post(`${environment.apiUrl}/order-create-check`,requestObject,{headers:headers} ).
-      pipe(
-      map((res) => {
-        return res;
-      }),
-      ).subscribe((response:any) => {
+      this.staffService.bookNewAppointment(requestObject).subscribe((response:any) =>{
         if(response.data == true){
           this._snackBar.open("Appointment created", "X", {
               duration: 2000,
@@ -1415,41 +1404,7 @@ export class StaffAppointmentComponent implements OnInit {
         
       })
     }
-    checkAuthentication(){
-      let requestObject = {
-        "user_type": this.currentUser.user_type,
-        "user_id" : this.currentUser.user_id,
-        "token" : this.currentUser.token
-      };
-      this.http.post(`${environment.apiUrl}/check-token`,requestObject).pipe(
-        map((res) => {
-          return res;
-        }),
-        catchError(this.handleError)
-      ).subscribe((response:any) => {
-        if (response.data == true) {
-        }
-        else if(response.data == false){
-          this.reAuthenticateUser();
-        }
-      },(err) =>{
-          console.log(err)
-      });
-  
-    }
-    reAuthenticateUser() {
-      const dialogRef = this.dialog.open(DialogReAuthentication, {
-          width: '500px',
-  
-      });
-  
-      dialogRef.afterClosed().subscribe(result => {
-          if(result){
-              this.currentUser = result
-              console.log(this.currentUser)
-          }
-      });
-    }
+    
   }
 
 

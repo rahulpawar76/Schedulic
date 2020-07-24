@@ -121,7 +121,7 @@ export class CustomersComponent implements OnInit {
   order_taxAmountArr=[];
   customerPaymentIndex:number;
   customerDetailId : any;
-
+  customerSideMenuToggle:boolean=false;
 
 
   constructor(
@@ -644,7 +644,12 @@ customerUpdate(existingCustomerData){
       }
      });
   }
-
+  fnCustomerToggleSmall(){
+    this.customerSideMenuToggle = true;
+  }
+  fnCustomerToggleLarge(){
+    this.customerSideMenuToggle = false;
+  }
   newAddNote(customer_id,index) {
     const dialogRef = this.dialog.open(DialogAddNewNote, {
       width: '500px',
@@ -1878,7 +1883,7 @@ constructor(
               this._snackBar.open(res.response, "X", {
                 duration: 2000,
                 verticalPosition: 'top',
-                panelClass : ['red-snackbar']
+                panelClass : ['green-snackbar']
                 });
               this.valide_postal_code = false;
             resolve({ isPostalcodeValid: true });
@@ -2596,19 +2601,9 @@ constructor(
       "payment_method": "Cash",
       "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd hh:mm:ss") 
     };
-    console.log(JSON.stringify(requestObject));
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'api-token': this.token,
-      'admin-id': JSON.stringify(this.adminId),
-    });
-
     this.isLoaderAdmin=true;
-
-
-    this.http.post(`${environment.apiUrl}/order-create-check`,requestObject,{headers:headers} ).pipe(map((res) => {
-      return res;
-    }),).subscribe((response:any) => {
+    this.AdminService.customerNewAppointment(requestObject).subscribe((response:any) => {
+    
 
       if(response.data == true){  
         this._snackBar.open("Appointment created", "X", {
