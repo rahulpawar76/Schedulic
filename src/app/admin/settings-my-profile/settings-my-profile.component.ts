@@ -81,6 +81,8 @@ export class MyProfileComponent implements OnInit {
           panelClass :['green-snackbar']
         });
         this.getMyProfileDetails();
+        localStorage.setItem('currentUser', JSON.stringify(response.response));
+        this.appComponent.loadLocalStorage();
       }
       else{
         this._snackBar.open(response.response, "X", {

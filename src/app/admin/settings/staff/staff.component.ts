@@ -681,7 +681,11 @@ export class StaffComponent implements OnInit {
     this.selectedStaffId= staffId;
     this.singleStaffDataRating = this.allStaffList[index]
     console.log(this.singleStaffDataRating);
-    this.adminSettingsService.fnViewSingleStaff(staffId).subscribe((response: any) => {
+    let requestObject = {
+        'business_id': this.businessId,
+        'staff_id': staffId,
+    };
+    this.adminSettingsService.fnViewSingleStaff(requestObject).subscribe((response: any) => {
       if (response.data == true) {
         this.singleStaffDetail = response.response
         console.log(this.singleStaffDetail);
@@ -1084,7 +1088,11 @@ export class StaffComponent implements OnInit {
 
   getCateServiceList(){
     this.isLoaderAdmin = true;
-    this.adminSettingsService.getCateServiceList().subscribe((response:any) => {
+    let requestObject = {
+        'business_id': this.businessId,
+        'search': ""
+    };
+    this.adminSettingsService.getCateServiceList(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.categoryServiceList = response.response;
 
@@ -1369,7 +1377,11 @@ export class StaffComponent implements OnInit {
         console.log(staffId);
         this.selectedStaffId = staffId
         this.isLoaderAdmin = true;
-        this.adminSettingsService.fnDeleteStaff(this.selectedStaffId).subscribe((response:any) => {
+        let requestObject = {
+            'staff_id': this.selectedStaffId,
+            'business_id': this.businessId,
+        };
+        this.adminSettingsService.fnDeleteStaff(requestObject).subscribe((response:any) => {
             if(response.data == true){
               this._snackBar.open(response.response, "X", {
                 duration: 2000,

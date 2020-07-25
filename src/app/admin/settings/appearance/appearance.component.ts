@@ -91,8 +91,10 @@ export class AppearanceComponent implements OnInit {
     this.getCompanyDetails();
   }
   getCompanyDetails(){
-
-    this.AdminSettingsService.getCompanyDetails().subscribe((response:any) => {
+    let requestObject = {
+      "business_id" : this.businessId
+    }
+    this.AdminSettingsService.getCompanyDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.companyDetailsData = response.response;
         console.log(this.companyDetailsData);
@@ -214,7 +216,11 @@ export class AppearanceComponent implements OnInit {
   }
 
   fnCreateAppearance(AppearanceData){
-    this.AdminSettingsService.fnCreateAppearance(AppearanceData).subscribe((response:any)=>{
+        let requestObject = {
+            'business_id': this.businessId,
+            "appearance": AppearanceData
+        };
+    this.AdminSettingsService.fnCreateAppearance(requestObject).subscribe((response:any)=>{
       if(response.data == true){
         this._snackBar.open("Appearance Updated.", "X", {
           duration: 2000,
@@ -227,7 +233,10 @@ export class AppearanceComponent implements OnInit {
   }
 
   getSettingValue(){
-    this.AdminSettingsService.getSettingsValue().subscribe((response:any)=>{
+    let requestObject = {
+      'business_id': this.businessId,
+    };
+    this.AdminSettingsService.getSettingsValue(requestObject).subscribe((response:any)=>{
       if(response.data == true && response.response != ''){
         this.settingData = response.response
         console.log(this.settingData);
@@ -252,7 +261,11 @@ export class AppearanceComponent implements OnInit {
   }
 
   fnFormSetting(){
-    this.AdminSettingsService.fnFormSetting(this.formArr).subscribe((response:any)=>{
+    let requestObject = {
+        'business_id': this.businessId,
+        'form_settings': this.formArr
+    };
+    this.AdminSettingsService.fnFormSetting(requestObject).subscribe((response:any)=>{
       if(response.data == true){
         this._snackBar.open("Form Settings Updated.", "X", {
           duration: 2000,

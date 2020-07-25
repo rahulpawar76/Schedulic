@@ -91,8 +91,10 @@ export class CompanyDetailsComponent implements OnInit {
   }
 
   getCompanyDetails(){
-
-    this.adminSettingsService.getCompanyDetails().subscribe((response:any) => {
+    let requestObject = {
+        'business_id': this.businessId,
+    };
+    this.adminSettingsService.getCompanyDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.companyDetailsData = response.response;
         console.log(this.companyDetailsData);

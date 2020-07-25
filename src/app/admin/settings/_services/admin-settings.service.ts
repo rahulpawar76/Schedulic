@@ -26,6 +26,7 @@ export class AdminSettingsService {
         this.adminId = JSON.stringify(this.authenticationService.currentUserValue.user_id);
         this.adminToken = this.authenticationService.currentUserValue.token;
         localStorage.setItem('isBusiness', 'false');
+        this.businessId = localStorage.getItem('business_id')
         // if (localStorage.getItem('business_id')) {
         //     this.businessId = localStorage.getItem('business_id');
         // }
@@ -286,14 +287,8 @@ export class AdminSettingsService {
             }),
             catchError(this.handleError));
     }
-    deleteCategory(deleteCategoryId) {
+    deleteCategory(requestObject) {
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': this.businessId,
-            'category_id': deleteCategoryId,
-            'filter': filter
-
-        };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -492,11 +487,8 @@ export class AdminSettingsService {
             }),
             catchError(this.handleError));
     }
-    getAllCurrencies() {
+    getAllCurrencies(requestObject) {
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': this.businessId,
-        };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -529,11 +521,8 @@ export class AdminSettingsService {
     }
 
     // company detail
-    getCompanyDetails() {
+    getCompanyDetails(requestObject) {
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': this.businessId,
-        };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -599,12 +588,8 @@ export class AdminSettingsService {
             }),
             catchError(this.handleError));
     }
-    fnChangeCurrency(currencyCode) {
+    fnChangeCurrency(requestObject) {
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': this.businessId,
-            "currency_code": currencyCode
-        };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -616,12 +601,8 @@ export class AdminSettingsService {
             }),
             catchError(this.handleError));
     }
-    fnCreateAppearance(AppearanceData) {
+    fnCreateAppearance(requestObject) {
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': this.businessId,
-            "appearance": AppearanceData
-        };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -633,11 +614,9 @@ export class AdminSettingsService {
             }),
             catchError(this.handleError));
     }
-    getSettingsValue() {
+    getSettingsValue(requestObject) {
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': this.businessId,
-        };
+        
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -649,12 +628,9 @@ export class AdminSettingsService {
             }),
             catchError(this.handleError));
     }
-    fnCurrencyFormat(currencyFormat) {
+    fnCurrencyFormat(requestObject) {
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': this.businessId,
-            'currency_format': currencyFormat
-        };
+        
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -666,12 +642,7 @@ export class AdminSettingsService {
             }),
             catchError(this.handleError));
     }
-    fnCurrencyPosition(currencyPosition) {
-        this.checkAuthentication();
-        let requestObject = {
-            'business_id': this.businessId,
-            'position': currencyPosition
-        };
+    fnCurrencyPosition(requestObject) {
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -683,12 +654,8 @@ export class AdminSettingsService {
             }),
             catchError(this.handleError));
     }
-    fnFormSetting(formArr) {
+    fnFormSetting(requestObject) {
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': this.businessId,
-            'form_settings': formArr
-        };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -734,12 +701,8 @@ export class AdminSettingsService {
             }),
             catchError(this.handleError));
     }
-    fnViewSingleStaff(staffId) {
+    fnViewSingleStaff(requestObject) {
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': this.businessId,
-            'staff_id': staffId,
-        };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -1324,12 +1287,8 @@ export class AdminSettingsService {
             }),
             catchError(this.handleError));
     }
-    fnDeleteStaff(staffId) {
+    fnDeleteStaff(requestObject) {
         this.checkAuthentication();
-        let requestObject = {
-            'staff_id': staffId,
-            'business_id': this.businessId,
-        };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -1357,12 +1316,8 @@ export class AdminSettingsService {
     
     // get category and services
 
-    getCateServiceList(){
+    getCateServiceList(requestObject){
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': this.businessId,
-            'search': ""
-        };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : this.adminId,

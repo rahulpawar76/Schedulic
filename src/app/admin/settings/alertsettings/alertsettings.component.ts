@@ -433,7 +433,10 @@ export class AlertsettingsComponent implements OnInit {
   }
 
   getSettingsValue(){
-  this.adminSettingsService.getSettingsValue().subscribe((response:any) => {
+    let requestObject = {
+      'business_id': this.businessId,
+    };
+    this.adminSettingsService.getSettingsValue(requestObject).subscribe((response:any) => {
       if(response.data == true){
         if(response.response.email_alert_settings_customer){
           this.emailAlertCustomer = JSON.parse(response.response.email_alert_settings_customer)
@@ -561,6 +564,7 @@ fnAppointmentsReminderStaff(event){
       "reminder_lead_time" : this.totalTimeAdminEmail,
       "appointment" : JSON.stringify(this.emailAdminAppointment),
       "status":this.appointmentsReminderAdmin,
+      "admin_mail": this.adminEmailForAlert.get('alertEmail').value,
     }
     let requestObject={
       "business_id":this.businessId,

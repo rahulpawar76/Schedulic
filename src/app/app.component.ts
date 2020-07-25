@@ -110,8 +110,8 @@ export class AppComponent implements AfterViewInit {
     private authService: AuthService,
     private bnIdle: BnNgIdleService
   ) {
-    this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
     
+    this.loadLocalStorage();
     console.log(this.currentUser)
     if(this.currentUser){
       //this.checkAuthentication();
@@ -146,7 +146,10 @@ export class AppComponent implements AfterViewInit {
   
 
 
-
+ loadLocalStorage(){
+  this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
+  console.log(this.currentUser)
+ }
 
   ngOnInit() {
 

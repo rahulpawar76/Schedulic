@@ -797,7 +797,12 @@ export class ServicesComponent implements OnInit {
      
         
         this.isLoaderAdmin = true;
-        this.adminSettingsService.deleteCategory(deleteCategoryId).subscribe((response: any) => {
+        let requestObject = {
+            'business_id': this.businessId,
+            'category_id': deleteCategoryId,
+            'filter': 'filter'
+        };
+        this.adminSettingsService.deleteCategory(requestObject).subscribe((response: any) => {
             if (response.data == true) {
                 this._snackBar.open("Category deleted", "X", {
                     duration: 2000,

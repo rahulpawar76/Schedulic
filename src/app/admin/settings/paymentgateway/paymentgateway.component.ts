@@ -79,7 +79,10 @@ export class PaymentgatewayComponent implements OnInit {
   }
 
   getSettingsValue(){
-    this.adminSettingsService.getSettingsValue().subscribe((response:any) => {
+    let requestObject={
+      "business_id":this.businessId
+    }
+    this.adminSettingsService.getSettingsValue(requestObject).subscribe((response:any) => {
         console.log(response.response);
         if(response.data == true && response.response != ''){
           this.settingsValue = response.response;

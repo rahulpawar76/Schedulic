@@ -112,13 +112,20 @@ export class PaymentrulesComponent implements OnInit {
   }
 
   getAllCurrencies() {
-    this.AdminSettingsService.getAllCurrencies().subscribe((response: any) => {
+    let requestObject = {
+        'business_id': this.businessId,
+    };
+    this.AdminSettingsService.getAllCurrencies(requestObject).subscribe((response: any) => {
       this.currenciesData = response.response;
      // console.log(this.currenciesData);
     })
   }
   fnChangeCurrency(currencyCode) {
-    this.AdminSettingsService.fnChangeCurrency(currencyCode).subscribe((response: any) => {
+    let requestObject = {
+        'business_id': this.businessId,
+        "currency_code": currencyCode
+    };
+    this.AdminSettingsService.fnChangeCurrency(requestObject).subscribe((response: any) => {
       if (response.data == true) {
         this._snackBar.open("Currency Updated.", "X", {
           duration: 2000,
@@ -129,7 +136,11 @@ export class PaymentrulesComponent implements OnInit {
     })
   }
   fnCurrencyPosition(currencyPosition) {
-    this.AdminSettingsService.fnCurrencyPosition(currencyPosition).subscribe((response: any) => {
+    let requestObject = {
+      'business_id': this.businessId,
+      'position': currencyPosition
+  };
+    this.AdminSettingsService.fnCurrencyPosition(requestObject).subscribe((response: any) => {
       if (response.data == true) {
         this._snackBar.open("Currency Position Updated.", "X", {
           duration: 2000,
@@ -140,8 +151,11 @@ export class PaymentrulesComponent implements OnInit {
     })
   }
   fnCurrencyFormat(currencyFormat) {
-
-    this.AdminSettingsService.fnCurrencyFormat(currencyFormat).subscribe((response: any) => {
+    let requestObject = {
+      'business_id': this.businessId,
+      'currency_format': currencyFormat
+    };
+    this.AdminSettingsService.fnCurrencyFormat(requestObject).subscribe((response: any) => {
       if (response.data == true) {
         this._snackBar.open("Currency Format Updated.", "X", {
           duration: 2000,

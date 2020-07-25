@@ -109,9 +109,9 @@
             </div>
             <mat-accordion class="category-list" cdkDropList (cdkDropListDropped)="drop($event)">
                 <mat-expansion-panel class="category-main" cdkDragHandle *ngFor="let allCetegoryList of allCetegoryList; let i=index">
-                    <mat-expansion-panel-header>
+                    <mat-expansion-panel-header (click)="fnSelectCategoryNavigation(allCetegoryList.id,i)">
                         <mat-panel-title class="service-title">
-                            <p (click)="fnSelectCategoryNavigation(allCetegoryList.id,i)" class="category-title mb-0">
+                            <p class="category-title mb-0">
                                 {{allCetegoryList.category_title}}</p>
                         </mat-panel-title>
                     </mat-expansion-panel-header>

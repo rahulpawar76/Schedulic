@@ -494,6 +494,8 @@
 .service-statustoggle {
     &.for-service {
         margin: 30px 0;
+        position: relative;
+        left: -80px;
          ::ng-deep .mat-slide-toggle-content {
             width: 71px;
         }

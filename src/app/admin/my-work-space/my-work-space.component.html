@@ -15,15 +15,21 @@
                             <p class="font-gray pt-1 mb-0">{{selectedCategoryName}}</p>
                         </div>
                         <div class="col-lg-2 col-md-4 col-6  left-border flex-align-center">
-                            <div class="d-flex">
+                            <div class="d-flex" [formGroup]="myGroup">
                                 <!-- <i class="fa fa-calendar calender-icon calender-date pr-2" aria-hidden="true"></i>
                                 <p class="category font-blue pt-0">{{todayDate}}</p> -->
-                                <mat-datepicker-toggle matSuffix [for]="picker" class=" calender-icon calender-date pr-2 mt-0"><i class="fa fa-calendar" aria-hidden="true"></i></mat-datepicker-toggle>
+                                <!-- <mat-datepicker-toggle matSuffix [for]="picker" class=" calender-icon calender-date pr-2 mt-0"><i class="fa fa-calendar" aria-hidden="true"></i></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
-                                <input mat-input [formControl]="date" [matDatepicker]="picker" class="form-control formcontrol date-input font-blue pointer" (click)="picker.open()" (dateChange)="fnDateChange($event)" readonly>
+                                <input mat-input [formControl]="date" [matDatepicker]="picker" class="form-control formcontrol date-input font-blue pointer" (click)="picker.open()" (dateChange)="fnDateChange($event)" readonly> -->
+
+                                <mat-form-field class="bottom-border-field mt-0">
+                                    <input matInput (click)="picker.open()" (dateChange)="fnDateChange($event)" [min]="minTillDate" [formControl]="date" [matDatepicker]="picker" formControlName="valid_till" readonly>
+                                    <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
                                 <!-- <p class="category font-blue pt-0">{{todayDate}}</p> -->
                             </div>
-                            <h6 class="font-blue pl-4 mb-0">Today</h6>
+                            <h6 class="font-blue mb-0">Today</h6>
                         </div>
                         <div class="col-lg-2 col-md-4 col-6  flex-align-center left-border">
                             <h6 class="font-blue mb-0">{{revenue.appointments}}</h6>

@@ -774,6 +774,10 @@
             padding: 10px 20px;
             align-items: center;
             transition: all 0.3s;
+            outline: 0;
+            &:focus {
+                outline: 0;
+            }
             p {
                 margin: 0;
                 font-weight: 500;
