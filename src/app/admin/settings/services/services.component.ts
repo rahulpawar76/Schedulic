@@ -456,7 +456,7 @@ export class ServicesComponent implements OnInit {
             }
             else if (response.data == false) {
                 this.categoryServicesList = [];
-                if (response.response == 'service not found.') {
+                if (response.response == 'service not found.' || response.response == 'service not found') {
                     this.servicesList = false;
                     this.selectedCategoryDetails = this.allCetegoryList[index]
                     this.selectCategoryPage = 'notservices';
@@ -1027,11 +1027,12 @@ export class ServicesComponent implements OnInit {
                     this.servicesList = false;
                     this.singleSubCategoryPage = 'services';
                     this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedCategoryIndex].subcategory[this.selectedSubCategoryIndex];
-
+                    console.log(this.selectedSubCategoryDetails)
 
                 } else if (this.subCategoryServicesList == 'service not found.') {
                     this.servicesList = false;
                     this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedCategoryIndex].subcategory[this.selectedSubCategoryIndex]
+                    console.log(this.selectedSubCategoryDetails)
                     this.selectCategoryPage = '';
                     this.singleSubCategoryPage = 'notservices';
                 }
@@ -1039,13 +1040,14 @@ export class ServicesComponent implements OnInit {
                 this.createNewServicePage = false;
                 this.isLoaderAdmin = false;
             } else if (response.data == false) {
-                if (response.response == 'service not found.') {
+                if (response.response == 'service not found.' || response.response == 'service not found') {
                     this.servicesList = false;
 
                     
                     if(this.allCetegoryList[this.selectedCategoryIndex]!=undefined){
                         this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedCategoryIndex].subcategory[index]
                     }
+                    console.log(this.selectedSubCategoryDetails)
                     this.selectCategoryPage = '';
                     this.singleSubCategoryPage = 'notservices';
                 }

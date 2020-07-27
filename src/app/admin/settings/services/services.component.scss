@@ -323,6 +323,10 @@
                 font-size: 18px;
                 font-weight: 500;
                 color: #000;
+                width: 160px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
             .sub-category-title {
                 padding: 0 15px;
@@ -330,15 +334,10 @@
                 font-weight: 500;
                 color: #000;
                 position: relative;
-                &::before {
-                    content: '';
-                    width: 25px;
-                    height: 1px;
-                    background-color: #ccc;
-                    left: -25px;
-                    top: 50%;
-                    position: absolute;
-                }
+                width: 160px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
         }
         &::ng-deep .mat-accordion {
@@ -360,10 +359,20 @@
         display: flex;
         align-items: center;
         margin-bottom: 10px;
+        position: relative;
         cursor: pointer;
         transition: all 0.3s;
         &:hover {
             background-color: #ddeafd;
+        }
+        &::before {
+            content: '';
+            width: 25px;
+            height: 1px;
+            background-color: #ccc;
+            left: -25px;
+            top: 50%;
+            position: absolute;
         }
     }
 }

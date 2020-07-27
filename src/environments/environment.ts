@@ -7,9 +7,7 @@ export const environment = {
     
  
     apiUrl:         'https://api.schedulic.com/api',
-    //apiUrl:         'http://localhost/angularjs/angularclient/api/she-excellence-ci-api',
     authApiUrl:     'https://api.schedulic.com/api',
-    //authApiUrl:     'http://localhost/angularjs/angularclient/api/she-excellence-ci-api',
     urlForLink :    'http://localhost:4200',
 
 };

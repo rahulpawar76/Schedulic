@@ -614,12 +614,12 @@ export class AppComponent implements AfterViewInit {
       }else if(data.idExists == false && data.emailExists == true){
         this.signOut();
         this.isAllowed=true;
-        this._snackBar.open("It seems that you already have account with GoAppointment", "X", {
+        this._snackBar.open("It seems that you already have account with Schedulic", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass: ['red-snackbar']
         });
-        //this.error = "It seems that you already have account with GoAppointment";
+        //this.error = "It seems that you already have account with Schedulic";
         this.loginForm.controls['email'].setValue(data.userData.email);
         //this.dataLoaded = true;
       }else if(data.idExists == false && data.emailExists == false){
