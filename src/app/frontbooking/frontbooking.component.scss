@@ -969,3 +969,10 @@ input:focus {
 .credit-card-form.field-list .error-wrap {
     bottom: unset;
 }
+
+.disable-business-container {
+    height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

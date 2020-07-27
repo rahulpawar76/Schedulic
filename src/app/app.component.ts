@@ -126,7 +126,7 @@ export class AppComponent implements AfterViewInit {
       this.getNotificationCount(this.businessId)
       
     }
-    this.bnIdle.startWatching(1800).subscribe((res) => {
+    this.bnIdle.startWatching(6600).subscribe((res) => {
       if(res) {
         if(this.authenticationService.currentUserValue){
           console.log("session expired");
