@@ -1891,8 +1891,9 @@ constructor(
               this._snackBar.open(res.response, "X", {
                 duration: 2000,
                 verticalPosition: 'top',
-                panelClass : ['green-snackbar']
+                panelClass : ['red-snackbar']
                 });
+                this.formAddNewAppointmentStaffStep2.get('customerPostalCode').markAsTouched;
               this.valide_postal_code = false;
             resolve({ isPostalcodeValid: true });
             }else{
@@ -1900,7 +1901,7 @@ constructor(
               this._snackBar.open(res.response, "X", {
                 duration: 2000,
                 verticalPosition: 'top',
-                panelClass : ['red-snackbar']
+                panelClass : ['green-snackbar']
                 });
               resolve(null);
             }

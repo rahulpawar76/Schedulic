@@ -98,29 +98,21 @@ export class StaffAppointmentComponent implements OnInit {
     this.StaffService.getSettingValue(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.settingsArr=response.response;
-        console.log(this.settingsArr);
 
         this.currencySymbol = this.settingsArr.currency;
-        console.log(this.currencySymbol);
         
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-        console.log(this.currencySymbolPosition);
         
         this.currencySymbolFormat = this.settingsArr.currency_format;
-        console.log(this.currencySymbolFormat);
 
         let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
         let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
-        console.log(cancellation_buffer_time);
-        console.log(min_rescheduling_time);
        
         this.cancellationBufferTime = new Date();
         this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
-        console.log("cancellationBufferTime - "+this.cancellationBufferTime);
 
         this.minReschedulingTime = new Date();
         this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
-        console.log("minReschedulingTime - "+this.minReschedulingTime);
       }
       else if(response.data == false){
         
@@ -138,7 +130,6 @@ export class StaffAppointmentComponent implements OnInit {
     this.StaffService.getNewAppointment(requestObject).subscribe((response:any) =>{
       if(response.data == true){
         this.newAppointmentData = response.response;
-        console.log( this.newAppointmentData);
         this.newAppointmentData.forEach( (element) => {
           var todayDateTime = new Date();
           element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
@@ -330,6 +321,7 @@ export class StaffAppointmentComponent implements OnInit {
     });
       dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
+      this.getOnGoingAppointment();
       });
   }
 
@@ -1050,7 +1042,7 @@ export class StaffAppointmentComponent implements OnInit {
    
     fnGetAllServicesFromCategory(){
       let requestObject = {
-        "business_id":2,
+        "business_id":this.bussinessId,
         "category_id":this.selectedCatId
       };
       let headers = new HttpHeaders({
@@ -1791,7 +1783,7 @@ export class StaffAppointmentComponent implements OnInit {
 
       fnGetTimeSlots(rescheduleServiceId,rescheduleDate){
         let requestObject = {
-          "business_id":2,
+          "business_id":this.businessId,
           "selected_date":rescheduleDate
         };
         let headers = new HttpHeaders({
@@ -1824,7 +1816,7 @@ export class StaffAppointmentComponent implements OnInit {
 
         fnGetStaff(slot){
           let requestObject = {
-            "bussiness_id":2,
+            "bussiness_id":this.businessId,
             "service_id":this.myAppoDetailData.service.id
           };
           let headers = new HttpHeaders({
@@ -2152,6 +2144,29 @@ export class StaffAppointmentComponent implements OnInit {
          });
       }
     }
+    rescheduleAppointment(){
+      const dialogRef = this.dialog.open(InterruptedReschedule, {
+         width: '500px',
+         data : {fulldata: this.appoDetail}
+       });
+ 
+         dialogRef.afterClosed().subscribe(result => {
+         this.status = result;
+         if(result && result.data){
+            this.dialogRef.close();
+         }
+         });
+     // const dialogRef = this.dialog.open(InterruptedReschedule, {
+     //   height: '700px',
+     //   data : {fulldata: this.onGoingAppointmentData[index]}
+     // });
+     //   console.log(this.onGoingAppointmentData[index]);
+     // dialogRef.afterClosed().subscribe(result => {
+     
+     // this.getOnGoingAppointment();
+     // });
+ 
+   }
 
   }
 

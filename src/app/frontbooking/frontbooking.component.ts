@@ -254,7 +254,7 @@ export class FrontbookingComponent implements OnInit {
       this.isEmailUnique.bind(this)],
       newUserPassword: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(8)]],
       newUserFullname: ['',Validators.required],
-      newUserPhone: ['',[Validators.required,Validators.minLength(10),Validators.maxLength(15)]],
+      newUserPhone: ['',[Validators.required,Validators.minLength(6),Validators.maxLength(15)]],
       // newUserAddress: ['',Validators.required],
       // newUserState: ['',Validators.required],
       // newUserCity: ['',Validators.required],

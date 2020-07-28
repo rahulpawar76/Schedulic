@@ -1257,6 +1257,7 @@ export class DialogCancelReason {
   @Component({
     selector: 'dialog-my-appointment-details',
     templateUrl: '../_dialogs/dialog-my-appointment-details.html',
+    providers: [DatePipe]
   })
   export class DialogMyAppointmentDetails {
     myAppoDetailData: any;
@@ -1270,11 +1271,14 @@ export class DialogCancelReason {
     activityLog:any=[];
     cancellationBufferTime:any;
     minReschedulingTime:any;
+    booking_date_time:any;
+    timeToServiceDecimal:any;
 
     constructor(
       public dialogRef: MatDialogRef<DialogMyAppointmentDetails>,
       private authenticationService: AuthenticationService,
       private UserService: UserService,
+      private datePipe: DatePipe,
       private _snackBar: MatSnackBar,
        public dialog: MatDialog,
       @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -1283,6 +1287,12 @@ export class DialogCancelReason {
         this.index = this.data.index;
         this.bussinessId=this.authenticationService.currentUserValue.business_id;
         this.fnGetSettingValue();
+        var todayDateTime = new Date();
+           this.booking_date_time=new Date( this.myAppoDetailData.booking_date+" "+ this.myAppoDetailData.booking_time);
+          var dateTemp2 = new Date(this.datePipe.transform(this.booking_date_time,"dd MMM yyyy hh:mm a"));
+           dateTemp2.setMinutes( dateTemp2.getMinutes());
+          var serviceTimeTamp =  dateTemp2.getTime() - todayDateTime.getTime();
+          this.timeToServiceDecimal=(serviceTimeTamp/60000).toFixed();
       }
     onNoClick(): void {
       this.dialogRef.close();

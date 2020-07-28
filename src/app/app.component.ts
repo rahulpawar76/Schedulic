@@ -111,9 +111,9 @@ export class AppComponent implements AfterViewInit {
     private bnIdle: BnNgIdleService
   ) {
     
-    this.loadLocalStorage();
     console.log(this.currentUser)
-    if(this.currentUser){
+    if(this.authenticationService.currentUser){
+      this.loadLocalStorage();
       //this.checkAuthentication();
     }
     if(this.currentUser && JSON.parse(localStorage.getItem("currentUser")).internal_staff === 'N'){

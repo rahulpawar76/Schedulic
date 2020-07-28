@@ -145,9 +145,16 @@
 
 /*_____________[3]Appointment____________________ */
 
+.appointment-listing-card {
+    height: 70vh;
+    overflow-x: visible;
+    overflow-y: scroll;
+}
+
 #appo_detail {
     height: 70vh;
     overflow-x: visible;
+    overflow-y: scroll;
 }
 
 #all-category-list {
@@ -172,7 +179,7 @@
     background-attachment: fixed;
     background-size: 120%;
     background-position: 60% 7%;
-    height: 70vh;
+    height: calc(70vh - 70px);
     overflow-y: auto;
     overflow-x: visible;
     i {
@@ -793,13 +800,15 @@
 .w-fc {
     width: fit-content;
 }
-.date-input{
+
+.date-input {
     text-align: center;
     width: 100px;
     border: transparent;
     background: transparent;
     padding: 0px;
 }
-.mt-0{
+
+.mt-0 {
     margin-top: 0;
 }
