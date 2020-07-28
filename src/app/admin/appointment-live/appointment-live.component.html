@@ -92,48 +92,54 @@
                 </div>
             </div>
             <div class="col-12">
-                <div class="">
-                    <div class="main-table-head" fxLayout="row">
-                        <div class="" fxFlex="20">Services</div>
-                        <div class="" fxFlex="25">Customer</div>
-                        <div class="" fxFlex="25">Staff</div>
-                        <div class="" fxFlex="10">Amount</div>
-                        <div class="" fxFlex="10">Date</div>
-                        <div class="" fxFlex="10">Time</div>
-                    </div>
-                    <div class="content" class="appointment-live-list">
-                        <div (click)="fnOpenNotAssignedDetails(i)" *ngFor="let notAssignedAppointments of notAssignedAppointments; let i=index" class="appointment-live-list-details">
-                            <div class="" fxFlex="20">
-                                <p class="mb-0">{{notAssignedAppointments.service?notAssignedAppointments.service.service_name:''}}</p>
+                <mat-card class="table-background">
+                    <div class="Pending-table">
+                        <div class="main-table-content main-cust-table-content">
+                            <div class="main-table-head" fxLayout="row">
+                                <div class="" fxFlex="20">Services</div>
+                                <div class="" fxFlex="25">Customer</div>
+                                <div class="" fxFlex="25">Staff</div>
+                                <div class="" fxFlex="10">Amount</div>
+                                <div class="" fxFlex="10">Date</div>
+                                <div class="" fxFlex="10">Time</div>
                             </div>
-                            <div class="" fxFlex="25">
-                                <p class="mb-0">{{notAssignedAppointments.customer?notAssignedAppointments.customer.fullname:''}}</p>
-                                <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{notAssignedAppointments.customer?notAssignedAppointments.customer.phone:''}}</p>
-                                <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{notAssignedAppointments.customer?notAssignedAppointments.customer.email:''}}</p>
-                            </div>
-                            <div *ngIf="notAssignedAppointments.staff != null" class="" fxFlex="25">
-                                <p class="mb-0">{{notAssignedAppointments.staff?notAssignedAppointments.staff.firstname+' '+notAssignedAppointments.staff.lastname:''}}</p>
-                                <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No: {{notAssignedAppointments.staff?notAssignedAppointments.staff.phone:''}}</p>
-                                <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email: {{notAssignedAppointments.staff?notAssignedAppointments.staff.email:''}}</p>
-                            </div>
-                            <div *ngIf="notAssignedAppointments.staff == null" class="" fxFlex="25">
-                                <p class="mb-0">Not Assigned</p>
-                            </div>
-                            <!-- <div class="" fxFlex="10">
+                            <div class="content" class="appointment-live-list">
+                                <div (click)="fnOpenNotAssignedDetails(i)" *ngFor="let notAssignedAppointments of notAssignedAppointments; let i=index" class="appointment-live-list-details">
+                                    <div class="" fxFlex="20">
+                                        <p class="mb-0">{{notAssignedAppointments.service?notAssignedAppointments.service.service_name:''}}</p>
+                                    </div>
+                                    <div class="" fxFlex="25">
+                                        <p class="mb-0">{{notAssignedAppointments.customer?notAssignedAppointments.customer.fullname:''}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{notAssignedAppointments.customer?notAssignedAppointments.customer.phone:''}}</p>
+                                        <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{notAssignedAppointments.customer?notAssignedAppointments.customer.email:''}}</p>
+                                    </div>
+                                    <div *ngIf="notAssignedAppointments.staff != null" class="" fxFlex="25">
+                                        <p class="mb-0">{{notAssignedAppointments.staff?notAssignedAppointments.staff.firstname+' '+notAssignedAppointments.staff.lastname:''}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No: {{notAssignedAppointments.staff?notAssignedAppointments.staff.phone:''}}</p>
+                                        <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email: {{notAssignedAppointments.staff?notAssignedAppointments.staff.email:''}}</p>
+                                    </div>
+                                    <div *ngIf="notAssignedAppointments.staff == null && notAssignedAppointments.staff_id == null" class="" fxFlex="25">
+                                        <p class="mb-0">Not Assigned</p>
+                                    </div>
+                                    <div *ngIf="notAssignedAppointments.staff == null && notAssignedAppointments.staff_id != null" class="" fxFlex="25">
+                                        <p class="mb-0">Request Sent To Staff</p>
+                                    </div>
+                                    <!-- <div class="" fxFlex="10">
                           {{notAssignedAppointments.total_cost}}
                         </div> -->
-                            <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ notAssignedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
-                            </div>
-                            <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ notAssignedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
-                            </div>
-                            <div class="" fxFlex="10">
-                                {{notAssignedAppointments.booking_date}}
-                            </div>
-                            <div class="" fxFlex="10">
-                                {{notAssignedAppointments.booking_time}}
+                                    <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ notAssignedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                    </div>
+                                    <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ notAssignedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
+                                    </div>
+                                    <div class="" fxFlex="10">
+                                        {{notAssignedAppointments.booking_date}}
+                                    </div>
+                                    <div class="" fxFlex="10">
+                                        {{notAssignedAppointments.booking_time}}
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
                         <div class="table_pagination" *ngIf="notAssignedAppointments != ''">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
@@ -146,10 +152,9 @@
                             </nav>
                         </div>
 
-                    </div>  
-                </div>
+                    </div>
+                </mat-card>
             </div>
-
         </mat-tab>
 
         <div class="pendingnotes d-flex">
@@ -226,66 +231,69 @@
 
             </div>
             <div class="col-12">
-                <div class="">
-                    <div class="main-table-head" fxLayout="row">
-                        <div class="" fxFlex="20">Services</div>
-                        <div class="" fxFlex="25">Customer</div>
-                        <div class="" fxFlex="25">Staff</div>
-                        <div class="" fxFlex="10">Amount</div>
-                        <div class="" fxFlex="10">Date</div>
-                        <div class="" fxFlex="10">Time</div>
-                    </div>
-                    <div class="content" *ngIf="onTheWayAppointments != 'no booking found'" class="appointment-live-list">
-                        <div (click)="fnOpenOnTheWayDetails(i)" *ngFor="let onTheWayAppointments of onTheWayAppointments; let i=index" class="appointment-live-list-details">
-                            <div class="" fxFlex="20">
-                                <p class="mb-0">{{onTheWayAppointments.service?onTheWayAppointments.service.service_name:''}}</p>
+                <mat-card class="table-background">
+                    <div class="Pending-table">
+                        <div class="main-table-content main-cust-table-content">
+                            <div class="main-table-head" fxLayout="row">
+                                <div class="" fxFlex="20">Services</div>
+                                <div class="" fxFlex="25">Customer</div>
+                                <div class="" fxFlex="25">Staff</div>
+                                <div class="" fxFlex="10">Amount</div>
+                                <div class="" fxFlex="10">Date</div>
+                                <div class="" fxFlex="10">Time</div>
                             </div>
-                            <div class=" " fxFlex="25">
-                                <p class="mb-0">{{onTheWayAppointments.customer?onTheWayAppointments.customer.fullname:''}}</p>
-                                <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{onTheWayAppointments.customer?onTheWayAppointments.customer.phone:''}}</p>
-                                <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{onTheWayAppointments.customer?onTheWayAppointments.customer.email:''}}</p>
-                            </div>
-                            <div *ngIf="onTheWayAppointments.staff != null" class="" fxFlex="25">
-                                <p class="mb-0">{{onTheWayAppointments.staff?onTheWayAppointments.staff.firstname:''}} {{onTheWayAppointments.staff?onTheWayAppointments.staff.lastname:''}}</p>
-                                <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{onTheWayAppointments.staff?onTheWayAppointments.staff.phone:''}}</p>
-                                <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{onTheWayAppointments.staff?onTheWayAppointments.staff.email:''}}</p>
-                            </div>
-                            <div *ngIf="onTheWayAppointments.staff == null" class="" fxFlex="25">
-                                <p class="mb-0">Not Assigned</p>
-                            </div>
-                            <!-- 
+                            <div class="content" *ngIf="onTheWayAppointments != 'no booking found'" class="appointment-live-list">
+                                <div (click)="fnOpenOnTheWayDetails(i)" *ngFor="let onTheWayAppointments of onTheWayAppointments; let i=index" class="appointment-live-list-details">
+                                    <div class="" fxFlex="20">
+                                        <p class="mb-0">{{onTheWayAppointments.service?onTheWayAppointments.service.service_name:''}}</p>
+                                    </div>
+                                    <div class=" " fxFlex="25">
+                                        <p class="mb-0">{{onTheWayAppointments.customer?onTheWayAppointments.customer.fullname:''}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{onTheWayAppointments.customer?onTheWayAppointments.customer.phone:''}}</p>
+                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{onTheWayAppointments.customer?onTheWayAppointments.customer.email:''}}</p>
+                                    </div>
+                                    <div *ngIf="onTheWayAppointments.staff != null" class="" fxFlex="25">
+                                        <p class="mb-0">{{onTheWayAppointments.staff?onTheWayAppointments.staff.firstname:''}} {{onTheWayAppointments.staff?onTheWayAppointments.staff.lastname:''}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{onTheWayAppointments.staff?onTheWayAppointments.staff.phone:''}}</p>
+                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{onTheWayAppointments.staff?onTheWayAppointments.staff.email:''}}</p>
+                                    </div>
+                                    <div *ngIf="onTheWayAppointments.staff == null" class="" fxFlex="25">
+                                        <p class="mb-0">Not Assigned</p>
+                                    </div>
+                                    <!-- 
                         <div class="" fxFlex="10">
                           {{onTheWayAppointments.total_cost}}
                         </div> -->
-                            <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ onTheWayAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
-                            </div>
-                            <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ onTheWayAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
-                            </div>
-                            <div class="" fxFlex="10">
-                                {{onTheWayAppointments.booking_date}}
-                            </div>
-                            <div class="" fxFlex="10">
-                                {{onTheWayAppointments.booking_time}}
+                                    <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ onTheWayAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                    </div>
+                                    <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ onTheWayAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
+                                    </div>
+                                    <div class="" fxFlex="10">
+                                        {{onTheWayAppointments.booking_date}}
+                                    </div>
+                                    <div class="" fxFlex="10">
+                                        {{onTheWayAppointments.booking_time}}
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="table_pagination" *ngIf="onTheWayAppointments != ''">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-end">
-                                <li class="page-item" (click)="navigateTo_ontheway(first_page_url_ontheway)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
-                                <li class="page-item" (click)="navigateTo_ontheway(prev_page_url_ontheway)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
-                                <li class="page-item" [ngClass]="{'active':current_page_ontheway == i+1}" *ngFor="let pagenumber of arrayOne_ontheway(last_page_ontheway); let i = index;" (click)="navigateToPageNumber_ontheway(i+1)"><a class="page-link">{{i+1}}</a></li>
-                                <li class="page-item" (click)="navigateTo_ontheway(next_page_url_ontheway)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
-                                <li class="page-item" (click)="navigateTo_ontheway(last_page_url_ontheway)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </nav>
-                    </div>
+                        <div class="table_pagination" *ngIf="onTheWayAppointments != ''">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-end">
+                                    <li class="page-item" (click)="navigateTo_ontheway(first_page_url_ontheway)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item" (click)="navigateTo_ontheway(prev_page_url_ontheway)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item" [ngClass]="{'active':current_page_ontheway == i+1}" *ngFor="let pagenumber of arrayOne_ontheway(last_page_ontheway); let i = index;" (click)="navigateToPageNumber_ontheway(i+1)"><a class="page-link">{{i+1}}</a></li>
+                                    <li class="page-item" (click)="navigateTo_ontheway(next_page_url_ontheway)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item" (click)="navigateTo_ontheway(last_page_url_ontheway)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </nav>
+                        </div>
 
-                    <div class="content" *ngIf="onTheWayAppointments == 'no booking found'" class="appointment-live-list text-center p-5 no-found">
-                        {{onTheWayAppointments}}
+                        <div class="content" *ngIf="onTheWayAppointments == 'no booking found'" class="appointment-live-list text-center p-5 no-found">
+                            {{onTheWayAppointments}}
+                        </div>
                     </div>
-                </div>
+                </mat-card>
             </div>
 
         </mat-tab>
@@ -304,57 +312,58 @@
                 </div>
 
             </div>
-            <div class="">
-                <mat-card>
-                    <div class="">
-                        <div class="main-table-head" fxLayout="row">
-                            <div class="" fxFlex="20">Services</div>
-                            <div class="" fxFlex="25">Customer</div>
-                            <div class="" fxFlex="25">Staff</div>
-                            <div class="" fxFlex="10">Amount</div>
-                            <div class="" fxFlex="10">Date</div>
-                            <div class="" fxFlex="10">Time</div>
+            <div class="col-12">
+                <mat-card class="table-background">
+                    <div class="Pending-table">
+                        <div class="main-table-content main-cust-table-content">
+                            <div class="main-table-head" fxLayout="row">
+                                <div class="" fxFlex="20">Services</div>
+                                <div class="" fxFlex="25">Customer</div>
+                                <div class="" fxFlex="25">Staff</div>
+                                <div class="" fxFlex="10">Amount</div>
+                                <div class="" fxFlex="10">Date</div>
+                                <div class="" fxFlex="10">Time</div>
+                            </div>
+                            <div class="content" class="appointment-live-list">
+                                <div (click)="fnOpenWorkStartedDetails(i)" *ngFor="let workStartedAppointments of workStartedAppointments; let i=index" class="appointment-live-list-details">
+                                    <div class="" *ngIf="workStartedAppointments.service" fxFlex="20">
+                                        <p class="mb-0">{{workStartedAppointments.service.service_name}}</p>
+                                    </div>
+                                    <div class="" *ngIf="workStartedAppointments.customer" fxFlex="25">
+                                        <p class="mb-0">{{workStartedAppointments.customer.fullname}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{workStartedAppointments.customer.phone}}</p>
+                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.customer.email}}</p>
+                                    </div>
+                                    <div *ngIf="workStartedAppointments.staff != null" class="" fxFlex="25">
+                                        <p class="mb-0">{{workStartedAppointments.staff.firstname}} {{workStartedAppointments.staff.lastname}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{workStartedAppointments.staff.phone?workStartedAppointments.staff.phone:''}}</p>
+                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.staff.email?workStartedAppointments.staff.email:''}}</p>
+                                    </div>
+                                    <div *ngIf="workStartedAppointments.staff == null" class="" fxFlex="25">
+                                        <p class="mb-0">Not Assigned</p>
+                                    </div>
+                                    <div class="" fxFlex="10">
+                                        {{workStartedAppointments.total_cost}}
+                                    </div>
+                                    <div class="" fxFlex="10">
+                                        {{workStartedAppointments.booking_date}}
+                                    </div>
+                                    <div class="" fxFlex="10">
+                                        {{workStartedAppointments.booking_time}}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="content" class="appointment-live-list">
-                            <div (click)="fnOpenWorkStartedDetails(i)" *ngFor="let workStartedAppointments of workStartedAppointments; let i=index" class="appointment-live-list-details">
-                                <div class="" *ngIf="workStartedAppointments.service" fxFlex="20">
-                                    <p class="mb-0">{{workStartedAppointments.service.service_name}}</p>
-                                </div>
-                                <div class="" *ngIf="workStartedAppointments.customer" fxFlex="25">
-                                    <p class="mb-0">{{workStartedAppointments.customer.fullname}}</p>
-                                    <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{workStartedAppointments.customer.phone}}</p>
-                                    <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.customer.email}}</p>
-                                </div>
-                                <div *ngIf="workStartedAppointments.staff != null" class="" fxFlex="25">
-                                    <p class="mb-0">{{workStartedAppointments.staff.firstname}} {{workStartedAppointments.staff.lastname}}</p>
-                                    <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{workStartedAppointments.staff.phone?workStartedAppointments.staff.phone:''}}</p>
-                                    <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.staff.email?workStartedAppointments.staff.email:''}}</p>
-                                </div>
-                                <div *ngIf="workStartedAppointments.staff == null" class="" fxFlex="25">
-                                    <p class="mb-0">Not Assigned</p>
-                                </div>
-                                <div class="" fxFlex="10">
-                                    {{workStartedAppointments.total_cost}}
-                                </div>
-                                <div class="" fxFlex="10">
-                                    {{workStartedAppointments.booking_date}}
-                                </div>
-                                <div class="" fxFlex="10">
-                                    {{workStartedAppointments.booking_time}}
-                                </div>
-                            </div>
-
-                            <div class="table_pagination" *ngIf="workStartedAppointments != ''">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-end">
-                                        <li class="page-item" (click)="navigateTo_workstart(first_page_url_workstart)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
-                                        <li class="page-item" (click)="navigateTo_workstart(prev_page_url_workstart)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
-                                        <li class="page-item" [ngClass]="{'active':current_page_workstart == i+1}" *ngFor="let pagenumber of arrayOne_workstart(last_page_workstart); let i = index;" (click)="navigateToPageNumber_workstart(i+1)"><a class="page-link">{{i+1}}</a></li>
-                                        <li class="page-item" (click)="navigateTo_workstart(next_page_url_workstart)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
-                                        <li class="page-item" (click)="navigateTo_workstart(last_page_url_workstart)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
-                                    </ul>
-                                </nav>
-                            </div>
+                        <div class="table_pagination" *ngIf="workStartedAppointments != ''">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-end">
+                                    <li class="page-item" (click)="navigateTo_workstart(first_page_url_workstart)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item" (click)="navigateTo_workstart(prev_page_url_workstart)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item" [ngClass]="{'active':current_page_workstart == i+1}" *ngFor="let pagenumber of arrayOne_workstart(last_page_workstart); let i = index;" (click)="navigateToPageNumber_workstart(i+1)"><a class="page-link">{{i+1}}</a></li>
+                                    <li class="page-item" (click)="navigateTo_workstart(next_page_url_workstart)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item" (click)="navigateTo_workstart(last_page_url_workstart)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </mat-card>

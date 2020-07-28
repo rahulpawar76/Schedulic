@@ -55,12 +55,12 @@
       </mat-card>
     </div>
   </div> -->
-  <div class="bookings-details-main" *ngIf="newAppointmentData == ''">
-    <h2 class="text-center my-3">No Data Found</h2>
-  </div>
-</mat-tab>
+            <div class="bookings-details-main" *ngIf="newAppointmentData == ''">
+                <h2 class="text-center my-3">No Data Found</h2>
+            </div>
+        </mat-tab>
 
-<!--  <mat-tab label="Ongoing" class="appointmentlabel">  
+        <!--  <mat-tab label="Ongoing" class="appointmentlabel">  
     <div *ngIf="onGoingAppointmentData != ''" class="bookings-details-main">
       <div *ngFor="let onGoingAppointmentData of onGoingAppointmentData; let i=index" class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
         <mat-card class="col card mt-3 ">
@@ -124,7 +124,7 @@
                                     <form>
                                         <mat-form-field class=" bottom-border-field">
                                             <mat-label>Change Status</mat-label>
-                                            <mat-select name="status" [(value)]="onGoingAppointmentData.order_status" (selectionChange)="someMethod(onGoingAppointmentData.id, $event.value)" [disabled]="onGoingAppointmentData.timeToServiceDecimal >= 60 && onGoingAppointmentData.timeToServiceDecimal >= 30">
+                                            <mat-select [disabled]="onGoingAppointmentData.timeToServiceDecimal < 0 " name="status" [(value)]="onGoingAppointmentData.order_status" (selectionChange)="someMethod(onGoingAppointmentData.id, $event.value)" [disabled]="onGoingAppointmentData.timeToServiceDecimal >= 60 && onGoingAppointmentData.timeToServiceDecimal >= 30">
                                                 <mat-option *ngIf="onGoingAppointmentData.timeToServiceDecimal < 60" [disabled]="onGoingAppointmentData.order_status == 'WS'" value="OW">On The Way</mat-option>
                                                 <mat-option *ngIf="onGoingAppointmentData.timeToServiceDecimal < 30" value="WS">Work Started</mat-option>
                                             </mat-select>

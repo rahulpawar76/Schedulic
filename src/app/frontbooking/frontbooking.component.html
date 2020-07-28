@@ -20,7 +20,7 @@
                     </div>
                     <mat-card-title class="p-4 mx-0 row d-flex">
                         <label class="col-lg-6 col-sm-12 col-12 float-left">{{businessDetail?businessDetail.business_name:''}}</label>
-                        <div class="col-lg-6 col-sm-12 col-12 right-check-postal-form float-left" *ngIf="postalCodeCondition" id="test_id">
+                        <div class="col-lg-6 col-sm-12 col-12 right-check-postal-form float-left" *ngIf="postalCodeCondition">
                             <div class="check-aval-postal sm-py-2" [ngClass]="{'':validpostalcode === 'default','valid':validpostalcode === 'valid','not-valid':validpostalcode === 'invalid'}">
                                 <i class="fa fa-map-marker"></i>
                                 <input type="text" [(ngModel)]="booking.postalcode" class="postcode-input" placeholder="Enter the postal code to get our service" (keyup)="fnCheckPostalCode($event)" />
@@ -31,8 +31,6 @@
                                 <span class="error-wrap" *ngIf="validpostalcode == 'invalid' && postalCodeError == true"><small class="error">We do not provide service at this location</small></span>
                             </div>
                         </div>
-
-                        sdfsdfdsfsdfsdfsdfsdfsdfsdfsdwerewrdsfsdfsdfdssdsadwqewadasdwqrdsfdfsdf
                     </mat-card-title>
                     <mat-card-content class="p-4 mt-0 mb-2">
                         <div class="row service-list">
