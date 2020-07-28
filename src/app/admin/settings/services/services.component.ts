@@ -121,6 +121,7 @@ export class ServicesComponent implements OnInit {
     whichSubCategoryButton:any;
     whichServiceButton:any;
     allowed:boolean=false;
+    allowedCat:boolean=false;
     constructor(
         // private userService: UserService,
         public Change:ChangeDetectorRef,
@@ -356,10 +357,16 @@ export class ServicesComponent implements OnInit {
                 this.allCategoryCount = this.allCetegoryList.length;
                 this.isLoaderAdmin = false;
                 if(this.allowed){
-                   this.fnSelectSubCategoryNavigate(
+                    this.allowed=false;
+                    this.fnSelectSubCategoryNavigate(
                     this.allCetegoryList[this.selectedCategoryIndex].subcategory[this.allCetegoryList[this.selectedCategoryIndex].subcategory.length-1].id,
                     this.allCetegoryList[this.selectedCategoryIndex].subcategory.length-1
                     );
+                }
+                if(this.allowedCat){
+                    this.allowedCat=false;
+                    this.fnSelectCategoryNavigation(
+                    this.allCetegoryList[this.allCategoryCount - 1].id,this.allCategoryCount-1);
                 }
             }
             else if (response.data == false) {
@@ -740,8 +747,9 @@ export class ServicesComponent implements OnInit {
                     panelClass: ['green-snackbar']
                 });
                 this.createCategory.reset();
+                this.allowedCat=true;
                 this.fnAllCategory();
-                this.fnSelectCategory(this.editCategoryId, this.selectedCategoryIndex);                
+                // this.fnSelectCategory(this.editCategoryId, this.selectedCategoryIndex);                
                 // this.servicesList = true;
                 this.createNewCategoryPage = false;
                 this.editCategoryId = undefined;
@@ -768,6 +776,7 @@ export class ServicesComponent implements OnInit {
                     panelClass: ['green-snackbar']
                 });
                 this.createCategory.reset();
+                this.allowedCat=true;
                 this.fnAllCategory();
                 this.servicesList = true;
                 this.createNewCategoryPage = false;
@@ -1329,7 +1338,7 @@ export class ServicesComponent implements OnInit {
     updateService(updateServiceData) {
         this.isLoaderAdmin = true;
         this.adminSettingsService.updateService(updateServiceData).subscribe((response: any) => {
-            if (response.data == true && response.response == 'service updated') {
+            if (response.data == true && response.response == 'service updated.') {
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -1343,7 +1352,14 @@ export class ServicesComponent implements OnInit {
                 this.editServiceStatus = '';
                 this.editServicePrivate = '';
                 this.editServiceImage = '';
-                this.fnAllCategory();
+                // this.fnAllCategory();
+                if(this.createServiceCategoryType == 'category'){
+                    this.fnSelectCategoryNavigation(this.selectedCategoryID,this.selectedCategoryIndex);
+                    this.singleSubCategoryPage = 'services'
+                }else if(this.createServiceCategoryType == 'subcategory'){
+                    this.fnSelectSubCategoryNavigate(this.selectedSubCategoryID,this.selectedSubCategoryIndex);
+                    this.selectCategoryPage = 'services'
+                }
                 this.isLoaderAdmin = false;
                 
             }
@@ -1354,6 +1370,8 @@ export class ServicesComponent implements OnInit {
                     panelClass: ['red-snackbar']
                 });
                 this.isLoaderAdmin = false;
+            }else{
+                alert(response);
             }
         })
     }
@@ -1403,7 +1421,7 @@ export class ServicesComponent implements OnInit {
         this.servicesList = false;
         this.selectCategoryPage = '';
         this.singleSubCategoryPage = '';
-        
+        this.createServiceCategoryType = type
         this.whichServiceButton="upper";
 
         console.log(this.categoryServicesList);
