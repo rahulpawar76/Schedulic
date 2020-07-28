@@ -184,10 +184,10 @@
                             </div> -->
                                 <div class="container" appDnd (fileDropped)="onFileDropped($event)">
                                     <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target.files)" />
-                                    <img src="assets/img/dnd/ic-upload-file.svg" alt="">
+                                    <img src="assets/img/dnd/upload.png" alt="">
                                     <h4 class="upload-title-content">.PDF .JPG .PNG .DOC</h4>
                                     <p>Drag & drop your files here</p>
-                                    <label for="fileDropRef">Upload file</label>
+                                    <label for="fileDropRef" style="height: 40px; width: 150px;">Upload Files</label>
                                 </div>
 
                                 <div class="files-list">

@@ -1518,7 +1518,12 @@ export class ServicesComponent implements OnInit {
           
     onFileChange(event) {
         
+        if(event.target.files[0].type==undefined){
+            alert(0);
+            return;
+        }
         var file_type = event.target.files[0].type;
+        
 
         if(file_type!='image/jpeg' &&  file_type!='image/png' && file_type!='image/jpg' &&  file_type!='image/gif'){
             
