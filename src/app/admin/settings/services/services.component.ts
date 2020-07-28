@@ -120,6 +120,7 @@ export class ServicesComponent implements OnInit {
     fromcategory:boolean=false;
     whichSubCategoryButton:any;
     whichServiceButton:any;
+    allowed:boolean=false;
     constructor(
         // private userService: UserService,
         public Change:ChangeDetectorRef,
@@ -354,6 +355,12 @@ export class ServicesComponent implements OnInit {
                 this.allCetegoryList = response.response
                 this.allCategoryCount = this.allCetegoryList.length;
                 this.isLoaderAdmin = false;
+                if(this.allowed){
+                   this.fnSelectSubCategoryNavigate(
+                    this.allCetegoryList[this.selectedCategoryIndex].subcategory[this.allCetegoryList[this.selectedCategoryIndex].subcategory.length-1].id,
+                    this.allCetegoryList[this.selectedCategoryIndex].subcategory.length-1
+                    );
+                }
             }
             else if (response.data == false) {
                 this.allCetegoryList = [];
@@ -591,6 +598,7 @@ export class ServicesComponent implements OnInit {
                     verticalPosition: 'top',
                     panelClass: ['green-snackbar']
                 });
+                this.allowed=true;
                 this.fnAllCategory();
                 this.fnSelectCategoryNavigation(this.selectedCategoryID , this.selectedCategoryIndex);
                 this.createSubCategory.reset();
@@ -999,7 +1007,14 @@ export class ServicesComponent implements OnInit {
     }
 
     fnSelectSubCategory(subCategoryId, index) {
-
+        
+        // alert(subCategoryId);
+        // alert(index);
+        // alert(this.whichServiceButton);
+        // alert(this.selectCategoryPage);
+        // alert(this.fromcategory);
+        // alert(this.singleSubCategoryPage);
+       
         this.isLoaderAdmin = true;
         this.createNewSubCategoryPage = false;
         this.createNewCategoryPage = false;
@@ -1119,6 +1134,8 @@ export class ServicesComponent implements OnInit {
         this.createNewCategoryPage = false;
         this.singleSubCategoryPage = '';
         this.whichServiceButton=btntype;
+        this.editServiceId=undefined;
+        // alert(this.createServiceCategoryType);
 
     }
 
@@ -1144,7 +1161,11 @@ export class ServicesComponent implements OnInit {
         this.createNewSubCategoryPage = false;  
         this.serviceImageUrl = '';
         if(this.whichServiceButton == "main"){
-            this.selectCategoryPage = 'notservices';
+            if(this.fromcategory == true){
+                this.selectCategoryPage = 'notservices';    
+            }else{
+                this.singleSubCategoryPage="notservices";     
+            }
         }else{
             if(this.fromcategory == true){
                 this.selectCategoryPage="services";
@@ -1285,12 +1306,12 @@ export class ServicesComponent implements OnInit {
                 this.assignStaffArr.length = 0;
                 this.createNewServicePage = false;
                 this.servicesList = false;
-                this.fnAllCategory();
-                if(this.createServiceCategoryType == 'subcategory'){
-                    this.fnSelectCategory(this.selectedCategoryID,this.selectedCategoryIndex);
+                // this.fnAllCategory();
+                if(this.createServiceCategoryType == 'category'){
+                    this.fnSelectCategoryNavigation(this.selectedCategoryID,this.selectedCategoryIndex);
                     this.singleSubCategoryPage = 'services'
-                }else if(this.createServiceCategoryType == 'category'){
-                    this.fnSelectSubCategory(this.selectedSubCategoryID,this.selectedSubCategoryIndex);
+                }else if(this.createServiceCategoryType == 'subcategory'){
+                    this.fnSelectSubCategoryNavigate(this.selectedSubCategoryID,this.selectedSubCategoryIndex);
                     this.selectCategoryPage = 'services'
                 }
                 this.isLoaderAdmin = false;
@@ -1383,6 +1404,8 @@ export class ServicesComponent implements OnInit {
         this.selectCategoryPage = '';
         this.singleSubCategoryPage = '';
         
+        this.whichServiceButton="upper";
+
         console.log(this.categoryServicesList);
 
         if(this.categoryServicesList[index] && this.categoryServicesList[index].staffs){
@@ -1455,9 +1478,14 @@ export class ServicesComponent implements OnInit {
         });
     
          dialogRef.afterClosed().subscribe(result => {
+            // if(result != undefined){
+            //     this.categoryImageUrl = result;
+            //     alert(this.categoryImageUrl);
+            // }
             if(result != undefined){
                 this.categoryImageUrl = result;
-               }
+                console.log(result);
+            }
          });
     }
 
