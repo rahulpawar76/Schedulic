@@ -271,7 +271,7 @@
                             <span *ngIf="formNewUser.get('newUserPhone').dirty || formNewUser.get('newUserPhone').touched || formSubmitclicked"><small *ngIf="formNewUser.get('newUserPhone').hasError('required')" class="error">Phone number is required</small>
                                                 
                                             <!-- <small *ngIf="formNewUser.get('newUserPhone').hasError('pattern')" class="error">Enter a valid phone number</small> -->
-                                            <small *ngIf="formNewUser.get('newUserPhone').hasError('minlength') || formNewUser.get('newUserPhone').hasError('maxlength')" class="error">Phone number should be 10 digits long</small></span>
+                                            <small *ngIf="formNewUser.get('newUserPhone').hasError('minlength') || formNewUser.get('newUserPhone').hasError('maxlength')" class="error">Phone number should be 6 to 10 digits long</small></span>
                         </div>
                         <div class="col-12 col-lg-12 col-md-12 col-sm-12" *ngIf="contactFormSettingsArr.addressField.status == 1">
                             <label>Address</label>
