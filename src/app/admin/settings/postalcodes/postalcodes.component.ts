@@ -68,9 +68,7 @@ export class PostalcodesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-      if(result){
         this.fnGetPostalCodeList();
-      }
     });
   }
 

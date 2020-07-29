@@ -1329,7 +1329,7 @@ export class ServicesComponent implements OnInit {
     updateService(updateServiceData) {
         this.isLoaderAdmin = true;
         this.adminSettingsService.updateService(updateServiceData).subscribe((response: any) => {
-            if (response.data == true && response.response == 'service updated') {
+            if (response.data == true && response.response == 'service updated.') {
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -1344,17 +1344,22 @@ export class ServicesComponent implements OnInit {
                 this.editServicePrivate = '';
                 this.editServiceImage = '';
                 this.fnAllCategory();
-                this.isLoaderAdmin = false;
-                
+                if(this.createServiceCategoryType == 'category'){
+                    this.fnSelectCategoryNavigation(this.selectedCategoryID,this.selectedCategoryIndex);
+                    this.singleSubCategoryPage = 'services'
+                }else if(this.createServiceCategoryType == 'subcategory'){
+                    this.fnSelectSubCategoryNavigate(this.selectedSubCategoryID,this.selectedSubCategoryIndex);
+                    this.selectCategoryPage = 'services'
+                }
             }
             else if (response.data == false) {
-                this._snackBar.open("Service Not Updated", "X", {
+                this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
                     panelClass: ['red-snackbar']
                 });
-                this.isLoaderAdmin = false;
             }
+            this.isLoaderAdmin = false;
         })
     }
     changeSubCategoryStatus(categoryStatus, subcategoryId) {
