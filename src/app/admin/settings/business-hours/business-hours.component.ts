@@ -227,6 +227,11 @@ export class BusinessHoursComponent implements OnInit {
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
+        this.fnGetBussinessTimeZone();
+        this.fnGetWorkingHours();
+        this.fnGetTimeOffList();
+        this.fnGetBreakTimeList();
+
       }
       else{
        this.snackBar.open("Working Hours Not Updated.", "X", {

@@ -221,7 +221,7 @@
                                 <div class="ml-3 justify-content-center">
                                     <div class="services-customer-profile-background profile-img-wrap mr-3 mt-5" (click)="categoryImage()">
                                         <img *ngIf="!editCategoryId && categoryImageUrl == ''" src="/assets/images/admin/picture.png" class="service-profile-image">
-                                        <img *ngIf="!editCategoryId && categoryImageUrl != ''" src="categoryImageUrl" class="service-profile-image">
+                                        <img *ngIf="!editCategoryId && categoryImageUrl != ''" src="{{categoryImageUrl}}" class="service-profile-image">
                                         <div class="camera-alt"><i class="material-icons">
                                                 camera_alt
                                             </i></div>
@@ -544,23 +544,23 @@
                     <div class="d-flex mt-2 mb-4 mx-3 service-top-bar">
                         <div class="ml-3 d-flex justify-content-center">
                             <div class="service-profile-background mr-3 ">
-                                <img src="{{selectedSubCategoryDetails.sub_category_image}}" class="service-profile-image mb-2 h-100 w-100">
+                                <img src="{{selectedSubCategoryDetails?selectedSubCategoryDetails.sub_category_image:''}}" class="service-profile-image mb-2 h-100 w-100">
                             </div>
                             <div>
                                 <div class=" Details-button-width d-flex">
-                                    <h5 class="mt-2 mb-2">{{selectedSubCategoryDetails.sub_category_name}}</h5>
+                                    <h5 class="mt-2 mb-2">{{selectedSubCategoryDetails?selectedSubCategoryDetails.sub_category_name:''}}</h5>
                                     <button *ngIf="selectedSubCategoryDetails && selectedSubCategoryDetails.sub_category_private == 'N'" mat-button class="public-button">Public</button>
                                     <button *ngIf="selectedSubCategoryDetails && selectedSubCategoryDetails.sub_category_private == 'Y'" mat-button class="public-button">Private</button>
                                 </div>
                                 <!-- <button class="salon-cancel-btn mr-2"><i class="fa fa-eye salon-icon" ></i></button>   -->
                                 <button (click)="editSubCategory(selectedSubCategoryDetails.id)" class="salon-edit-btn mr-2"><i class="fa fa-pencil salon-icon"></i></button>
                                 <button class="salon-cancel-btn mr-3" (click)="deleteSubCategory(selectedSubCategoryDetails.id)"><i class="fa fa-trash-o salon-icon"></i></button>
-                                <mat-slide-toggle (change)="changeSubCategoryStatus($event.checked,selectedSubCategoryDetails.id)" [checked]="selectedSubCategoryDetails.sub_category_status == 'E'">
+                                <mat-slide-toggle (change)="changeSubCategoryStatus($event.checked,selectedSubCategoryDetails.id)" [checked]="selectedSubCategoryDetails && selectedSubCategoryDetails.sub_category_status == 'E'">
                                 </mat-slide-toggle>
                             </div>
                         </div>
                         <div class="ml-auto">
-                            <button mat-button (click)="fnCreateNewServicePage(selectedSubCategoryDetails.id,'subcategory','upper')" class="addservice-btn d-block ml-auto">Add Service</button>
+                            <button mat-button (click)="fnCreateNewServicePage(selectedSubCategoryDetails.id,'subcategory','upper')" class="addservice-btn d-block ml-auto" *ngIf="singleSubCategoryPage == 'services'">Add Service</button>
                             <div class="mt-2 d-flex">
                                 <mat-form-field *ngIf="subCategoryServicesList != ''" class=" bottom-border-field mt-3 filter-feild">
                                     <mat-label>Filter</mat-label>

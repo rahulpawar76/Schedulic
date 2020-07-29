@@ -20,7 +20,7 @@
                     </div>
                     <mat-card-title class="p-4 mx-0 row d-flex">
                         <label class="col-lg-6 col-sm-12 col-12 float-left">{{businessDetail?businessDetail.business_name:''}}</label>
-                        <div class="col-lg-6 col-sm-12 col-12 right-check-postal-form float-left" *ngIf="postalCodeCondition" id="test_id">
+                        <div class="col-lg-6 col-sm-12 col-12 right-check-postal-form float-left" *ngIf="postalCodeCondition">
                             <div class="check-aval-postal sm-py-2" [ngClass]="{'':validpostalcode === 'default','valid':validpostalcode === 'valid','not-valid':validpostalcode === 'invalid'}">
                                 <i class="fa fa-map-marker"></i>
                                 <input type="text" [(ngModel)]="booking.postalcode" class="postcode-input" placeholder="Enter the postal code to get our service" (keyup)="fnCheckPostalCode($event)" />
@@ -31,8 +31,6 @@
                                 <span class="error-wrap" *ngIf="validpostalcode == 'invalid' && postalCodeError == true"><small class="error">We do not provide service at this location</small></span>
                             </div>
                         </div>
-
-                        
                     </mat-card-title>
                     <mat-card-content class="p-4 mt-0 mb-2">
                         <div class="row service-list">
@@ -273,7 +271,7 @@
                             <span *ngIf="formNewUser.get('newUserPhone').dirty || formNewUser.get('newUserPhone').touched || formSubmitclicked"><small *ngIf="formNewUser.get('newUserPhone').hasError('required')" class="error">Phone number is required</small>
                                                 
                                             <!-- <small *ngIf="formNewUser.get('newUserPhone').hasError('pattern')" class="error">Enter a valid phone number</small> -->
-                                            <small *ngIf="formNewUser.get('newUserPhone').hasError('minlength') || formNewUser.get('newUserPhone').hasError('maxlength')" class="error">Phone number should be 10 digits long</small></span>
+                                            <small *ngIf="formNewUser.get('newUserPhone').hasError('minlength') || formNewUser.get('newUserPhone').hasError('maxlength')" class="error">Phone number should be 6 to 10 digits long</small></span>
                         </div>
                         <div class="col-12 col-lg-12 col-md-12 col-sm-12" *ngIf="contactFormSettingsArr.addressField.status == 1">
                             <label>Address</label>

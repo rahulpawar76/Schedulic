@@ -995,6 +995,9 @@ export class DialogAddNewAppointment {
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
+        if(this.Postalcode.length==0){
+          this.valide_postal_code = true;
+        }
         this.Postalcode = [];
       }
     });
@@ -1820,35 +1823,68 @@ export class DialogAddNewAppointment {
   }
 
   fnGetStaff(){
-    let requestObject = {
-      "business_id":this.bussinessId,
-      "postal_code":this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').value,
-      "service_id":this.selectedServiceId,
-      "book_date" : this.datePipe.transform(new Date(this.selectedDate),"yyyy-MM-dd"),
-      "book_time" : this.selectedTime, 
-    };
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-    this.http.post(`${environment.apiUrl}/service-staff`,requestObject,{headers:headers} ).pipe(
-      map((res) => {
-        return res;
-      }),
-      //catchError(this.handleError)
-    ).subscribe((response:any) => {
-      if(response.data == true){
-        this.availableStaff = response.response;
-        this.isStaffAvailable = true;
-        console.log(JSON.stringify(this.availableStaff));
-      }else{
-        this.availableStaff=[];
+    if(this.valide_postal_code){
+      let requestObject = {
+        "business_id":this.bussinessId,
+        "postal_code":"",
+        "service_id":this.selectedServiceId,
+        "book_date" : this.datePipe.transform(new Date(this.selectedDate),"yyyy-MM-dd"),
+        "book_time" : this.selectedTime, 
+      };
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+      this.http.post(`${environment.apiUrl}/service-staff`,requestObject,{headers:headers} ).pipe(
+        map((res) => {
+          return res;
+        }),
+        //catchError(this.handleError)
+      ).subscribe((response:any) => {
+        if(response.data == true){
+          this.availableStaff = response.response;
+          this.isStaffAvailable = true;
+          console.log(JSON.stringify(this.availableStaff));
+        }else{
+          this.availableStaff=[];
+          this.isStaffAvailable = false;
+        }
+      },
+      (err) =>{
         this.isStaffAvailable = false;
-      }
-    },
-    (err) =>{
-      this.isStaffAvailable = false;
-      console.log(err);
-    })
+        console.log(err);
+      })
+    }else{
+      let requestObject = {
+        "business_id":this.bussinessId,
+        "postal_code":this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').value,
+        "service_id":this.selectedServiceId,
+        "book_date" : this.datePipe.transform(new Date(this.selectedDate),"yyyy-MM-dd"),
+        "book_time" : this.selectedTime, 
+      };
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+      this.http.post(`${environment.apiUrl}/service-staff`,requestObject,{headers:headers} ).pipe(
+        map((res) => {
+          return res;
+        }),
+        //catchError(this.handleError)
+      ).subscribe((response:any) => {
+        if(response.data == true){
+          this.availableStaff = response.response;
+          this.isStaffAvailable = true;
+          console.log(JSON.stringify(this.availableStaff));
+        }else{
+          this.availableStaff=[];
+          this.isStaffAvailable = false;
+        }
+      },
+      (err) =>{
+        this.isStaffAvailable = false;
+        console.log(err);
+      })
+    }
+    
   }
 
   fnSelectStaff(selected_staff_id){
