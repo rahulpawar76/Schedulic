@@ -580,7 +580,9 @@ export class AppComponent implements AfterViewInit {
   signInWithFB(loginForm): void {
     this.loginForm=loginForm;
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(res=>{
-      console.log(res);
+      console.log("facebook res=>",res);
+      this.fnLoginWithGoogleFacebook(res);
+
     });
   }
 

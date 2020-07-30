@@ -379,7 +379,6 @@ export class AppointmentComponent implements OnInit {
         'services' : this.selectedServices,
         'search' : this.search
     };
-
     this.AdminService.getAllAppointmentsData(this.staffApiUrl,requestObject).subscribe((response:any) => {
       this.isLoaderAdmin = false;
       if(response.data == true){

@@ -1242,6 +1242,7 @@ customerUpdate(existingCustomerData){
   }
 
   invoice(index) {
+    
     const dialogRef = this.dialog.open(DialogInvoiceDialog, {
       width: '1000px',
       height: 'auto',
@@ -2908,6 +2909,7 @@ onNoClick(): void {
       service_discount:'',
       service_netCost:'', 
       invoiceNumber:'', 
+      order_item_id:''
     }
     serviceTaxArr:[];
     settingsArr:any=[];
@@ -2945,6 +2947,8 @@ onNoClick(): void {
         this.paymentInfo.invoice_date=this.datePipe.transform(new Date(), 'dd/MM/yyyy');
         this.paymentData = this.data.fulldata;
         
+        console.log(this.paymentData);
+
         this.paymentInfo.invoiceNumber = "2"+this.paymentData.id+this.datePipe.transform(new Date(),"yyyy/MM/dd");
         this.paymentInfo.customer_name=this.paymentData.get_customer.fullname;
         this.paymentInfo.customer_email=this.paymentData.get_customer.email;
@@ -2958,6 +2962,8 @@ onNoClick(): void {
         this.paymentInfo.service_subtotal=this.paymentData.orders.subtotal;
         this.paymentInfo.service_discount=this.paymentData.orders.discount;
         this.paymentInfo.service_netCost=this.paymentData.orders.total_cost;
+        this.paymentInfo.order_item_id=this.paymentData.order_item_id;
+
         this.serviceTaxArr=JSON.parse(this.paymentData.orders.tax);
       
       }
@@ -3026,68 +3032,66 @@ onNoClick(): void {
     }
 
     fnSendInvoiceEmail(){
+     
+      // let setLable = "invoice";
+      // if (!document.getElementById('printInvoice')) {
+      //   return false;
+      // }
+      // let data = document.getElementById('printInvoice');
+      // let HTML_Width = document.getElementById('printInvoice').offsetWidth;
+      // let HTML_Height = document.getElementById('printInvoice').clientHeight;
+      // let top_left_margin = 35;
+      // let PDF_Width = HTML_Width + (top_left_margin * 2);
+      // let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+      // let canvas_image_width = HTML_Width;
+      // let canvas_image_height = HTML_Height;
 
-      let setLable = "invoice";
-      if (!document.getElementById('printInvoice')) {
-        return false;
-      }
-      let data = document.getElementById('printInvoice');
-      let HTML_Width = document.getElementById('printInvoice').offsetWidth;
-      let HTML_Height = document.getElementById('printInvoice').clientHeight;
-      let top_left_margin = 35;
-      let PDF_Width = HTML_Width + (top_left_margin * 2);
-      let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
-      let canvas_image_width = HTML_Width;
-      let canvas_image_height = HTML_Height;
+      // let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+      // let today = Date.now();
+     // let that = this;
+      // var formData = new FormData();
+      // var customer_email = this.paymentInfo.customer_email;
 
-      let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
-      let today = Date.now();
-      let that = this;
-      var formData = new FormData();
-      var customer_email = this.paymentInfo.customer_email;
+      // domtoimage.toPng(document.getElementById('printInvoice')).then(function (blob) {
 
-      domtoimage.toPng(document.getElementById('printInvoice')).then(function (blob) {
+      //   var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
+      //     pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+      //     for (let i = 1; i <= totalPDFPages; i++) {
+      //       pdf.addPage(PDF_Width, PDF_Height);
+      //       pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+      //     }
+      //     pdf.save("invoice_" + today + ".pdf");
 
-        var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
-          pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-          for (let i = 1; i <= totalPDFPages; i++) {
-            pdf.addPage(PDF_Width, PDF_Height);
-            pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
-          }
-          pdf.save("invoice_" + today + ".pdf");
-
-            setTimeout(() => { 
+      //       setTimeout(() => { 
               
-            // formData.append('invoice_pdf', pdf.output('blob'));
-              var binary = btoa(pdf.output());
-              formData.append('email', customer_email);
-              formData.append('invoice_pdf', binary);
-            
-              //formData.append('email', "akie.5609@gmail.com");
+      //       // formData.append('invoice_pdf', pdf.output('blob'));
+      //         var binary = btoa(pdf.output());
+      //         formData.append('email', customer_email);
+      //         formData.append('invoice_pdf', binary);
+              
+         // console.log(this.paymentInfo);
+          var formData = new FormData();
+          formData.append('order_item_id', this.paymentInfo.order_item_id);
+          formData.append('email',this.paymentInfo.customer_email);
+          
 
-                that.AdminService.sendInvoiceEmail(formData).subscribe((response:any) => {
-                  if(response.data == true){
+          this.AdminService.sendInvoiceEmail(formData).subscribe((response:any) => {
+            if(response.data == true){  
+              this._snackBar.open(response.response, "X", {
+                duration: 2000,
+                verticalPosition:'top',
+                panelClass :['green-snackbar']
+              });
 
-                    that._snackBar.open(response.response, "X", {
-                      duration: 2000,
-                      verticalPosition:'top',
-                      panelClass :['green-snackbar']
-                    });
-
-                  }else if(response.data == false){
-
-                    that._snackBar.open(response.response, "X", {
-                      duration: 2000,
-                      verticalPosition:'top',
-                      panelClass :['red-snackbar']
-                    });
-                    
-                  }
-                })
-
-            }, 5000);
-
-      });
+            }else if(response.data == false){
+              
+              this._snackBar.open(response.response, "X", {
+                duration: 2000,
+                verticalPosition:'top',
+                panelClass :['red-snackbar']
+              });
+            }
+          });
     }
 
   }

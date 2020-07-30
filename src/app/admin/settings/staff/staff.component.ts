@@ -213,7 +213,22 @@ export class StaffComponent implements OnInit {
   prepareFilesList(files: Array<any>) {
     for (const item of files) {
       item.progress = 0;
-      this.files.push(item);
+
+      var file_type = item.type;
+
+      if( file_type!='application/pdf' &&  file_type!='application/msword' && file_type!='image/jpeg' &&  file_type!='image/png' && file_type!='image/jpg' &&  file_type!='image/gif'){
+          
+          this._snackBar.open("Sorry, only PDF, JPG, PNG, DOC & DOC files are allowed", "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass: ['red-snackbar']
+          });
+        
+      }else{
+        this.files.push(item);
+      }
+
+      
     }
     this.fileDropEl.nativeElement.value = "";
     this.uploadFilesSimulator(0);   
@@ -278,9 +293,9 @@ export class StaffComponent implements OnInit {
     this.getAllStaff();
 
     this.StaffCreate = this._formBuilder.group({
-      firstname : ['',[ Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
-      lastname : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
-      address : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+      firstname : ['',[ Validators.required,]],
+      lastname : ['', [Validators.required]],
+      address : ['', [Validators.required,]],
       email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
       phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       description : ['',Validators.maxLength(255)],
