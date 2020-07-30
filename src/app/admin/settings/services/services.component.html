@@ -217,7 +217,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-9 col-9 col-md-9 d-flex">
+                            <div class="col-lg-9 col-9 col-md-9 d-flex align-item-start">
                                 <div class="ml-3 justify-content-center">
                                     <div class="services-customer-profile-background profile-img-wrap mr-3 mt-5" (click)="categoryImage()">
                                         <img *ngIf="!editCategoryId && categoryImageUrl == ''" src="/assets/images/admin/picture.png" class="service-profile-image">
@@ -240,7 +240,7 @@
                                             <small *ngIf="createCategory.get('category_name').hasError('minlength')"
                                                 class="error">Category name can not be less than 3 character.</small>
                                             <small *ngIf="createCategory.get('category_name').hasError('maxlength')"
-                                                class="error">Category name may not be greater than 255
+                                                class="error">Category name may not be greater than 20
                                                 character.</small>
                                         </span>
                                     </div>
@@ -314,7 +314,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-9 col-9 col-md-9 d-flex">
+                            <div class="col-lg-9 col-9 col-md-9 d-flex align-item-start">
                                 <div class="ml-3 justify-content-center">
                                     <div class="services-customer-profile-background profile-img-wrap mr-3 mt-5" (click)="subCategoryImage()">
                                         <img *ngIf="!editSubCategoryId && subCategoryImageUrl == ''" src="/assets/images/admin/picture.png" class="service-profile-image">
@@ -341,7 +341,7 @@
                                                 characters.</small>
                                             <small
                                                 *ngIf="createSubCategory.get('subcategory_name').hasError('maxlength')"
-                                                class="error">Subcategory length can not be graeter than 255
+                                                class="error">Subcategory length can not be graeter than 20
                                                 characters.</small>
                                         </span>
                                     </div>
@@ -442,7 +442,7 @@
 
                                 <mat-form-field *ngIf="categoryServicesList != ''" class=" bottom-border-field ml-3 mt-3">
                                     <mat-label>Action</mat-label>
-                                    <mat-select [(ngModel)]="selectedValue" (selectionChange)="fnServiceAction($event.value,selectedCategoryDetails.id,'category')">
+                                    <mat-select [disabled]="actionServiceIdarr == [] || actionServiceIdarr == ''" [(ngModel)]="selectedValue" (selectionChange)="fnServiceAction($event.value,selectedCategoryDetails.id,'category')">
                                         <mat-option value="E">Active</mat-option>
                                         <mat-option value="D">Inactive</mat-option>
                                         <mat-option value="DEL">Delete</mat-option>
@@ -575,7 +575,7 @@
 
                                 <mat-form-field *ngIf="subCategoryServicesList != ''" class=" bottom-border-field ml-3 mt-3">
                                     <mat-label>Action</mat-label>
-                                    <mat-select [(ngModel)]="selectedValue" (selectionChange)="fnServiceAction($event.value,selectedSubCategoryDetails.id,'subcategory')">
+                                    <mat-select [disabled]="actionServiceIdarr == [] || actionServiceIdarr == ''" [(ngModel)]="selectedValue" (selectionChange)="fnServiceAction($event.value,selectedSubCategoryDetails.id,'subcategory')">
                                         <mat-option value="E">Active</mat-option>
                                         <mat-option value="D">Inactive</mat-option>
                                         <mat-option value="DEL">Delete</mat-option>
@@ -673,7 +673,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xl-8 col-lg-12 col-12 col-md-12 d-flex">
+                            <div class="col-xl-9 col-lg-12 col-12 col-md-12 d-flex align-item-start">
                                 <div class="ml-3 justify-content-center " (click)="serviceImage()">
                                     <div class="services-customer-profile-background profile-img-wrap mr-3 mt-5">
                                         <img *ngIf="!editServiceId && serviceImageUrl == ''" src="/assets/images/admin/picture.png" class="service-profile-image-admin">
@@ -696,7 +696,7 @@
                                             <small *ngIf="createService.get('service_name').hasError('minlength')"
                                                 class="error">Service name can not be less than 3 character.</small>
                                             <small *ngIf="createService.get('service_name').hasError('maxlength')"
-                                                class="error">Service name length cannot be greater than 255
+                                                class="error">Service name length cannot be greater than 20
                                                 characters.</small>
                                         </span>
                                     </div>
@@ -783,7 +783,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-4 col-lg-12 col-12 col-md-12 d-flex">
+                            <div class="col-xl-3 col-lg-12 col-12 col-md-12 d-flex">
                                 <div class="border p-3">
                                     <div class="d-flex">
                                         <h6>Select Staff for This Service</h6>

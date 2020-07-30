@@ -767,7 +767,7 @@
         top: 65px;
         height: 100vh;
         box-shadow: 1px 1px 3px #e5e3e3;
-        z-index: 9;
+        z-index: 12;
         overflow-y: scroll;
         .setting-menu-item {
             cursor: pointer;
@@ -894,4 +894,8 @@
                 color: #1173f4;
             }
         }
+    }
+    
+    .footer-save-container {
+        z-index: 9;
     }

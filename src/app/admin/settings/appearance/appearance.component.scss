@@ -366,3 +366,23 @@
         }
     }
 }
+
+.cart-btn {
+    width: 45px;
+    height: 45px;
+    background: $primary-gradient-color;
+    border-radius: 100%;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 2px 2px 14px -2px #3969fb;
+    position: absolute;
+    top: calc(100% - 80px);
+    z-index: 1;
+    right: 15px;
+    margin-top: 0 !important;
+    i {
+        font-size: 23px;
+        color: $text-bg;
+        line-height: 2.1;
+    }
+}

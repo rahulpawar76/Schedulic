@@ -151,17 +151,17 @@ export class ServicesComponent implements OnInit {
         this.fnstaffList();
 
         this.createSubCategory = this._formBuilder.group({
-            subcategory_name: ['',  [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+            subcategory_name: ['',  [Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
             subcategory_description: ['', [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
             subcategory_id: [''],
         });
         this.createCategory = this._formBuilder.group({
-            category_name: ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+            category_name: ['', [Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
             category_description: ['', [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
             category_id: [''],
         });
         this.createService = this._formBuilder.group({
-            service_name: ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+            service_name: ['', [Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
             service_description: ['',  [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
             service_cost: ['', [Validators.required, Validators.pattern(this.onlynumeric)]],
             service_duration: ['', [Validators.required, Validators.pattern(this.onlynumeric)]],
@@ -436,6 +436,7 @@ export class ServicesComponent implements OnInit {
         this.singleSubCategoryPage = '';
         this.selectedSubCategoryDetails = '';
         this.fromcategory=true;
+        this.actionServiceIdarr = [];
         this.adminSettingsService.getServiceForCategoiry(categoryId, this.service_filter,this.serviceApiUrl2).subscribe((response: any) => {
             if (response.data == true) {
               
@@ -639,6 +640,7 @@ export class ServicesComponent implements OnInit {
                 // this.servicesList = true;
                 this.createNewSubCategoryPage = false;
                 this.isLoaderAdmin = false;
+                this.subCategoryImageUrl = '';
                 this.editSubCategoryId = undefined;
             }
             else if (response.data == false) {
@@ -747,11 +749,12 @@ export class ServicesComponent implements OnInit {
                     panelClass: ['green-snackbar']
                 });
                 this.createCategory.reset();
-                this.allowedCat=true;
+                this.allowedCat=false;
                 this.fnAllCategory();
-                // this.fnSelectCategory(this.editCategoryId, this.selectedCategoryIndex);                
-                // this.servicesList = true;
+                this.fnSelectCategory(this.editCategoryId, this.selectedCategoryIndex);                
+                //this.servicesList = true;
                 this.createNewCategoryPage = false;
+                this.categoryImageUrl = '';
                 this.editCategoryId = undefined;
                 this.isLoaderAdmin = false;
             }
@@ -949,6 +952,7 @@ export class ServicesComponent implements OnInit {
           this.selectAllCategory = true;
         }else{
           this.selectAllCategory = false;
+          this.actionServiceIdarr = [];
         }
         console.log(this.actionServiceIdarr);
         
@@ -960,7 +964,7 @@ export class ServicesComponent implements OnInit {
     
 
     fnServiceAction(action, categoryId, type) {
-
+        console.log(this.actionServiceIdarr);
         if(action=='DEL'){
             var is_confirm  = confirm('Are you sure you want to delete?');
             if(!is_confirm){
@@ -1017,19 +1021,13 @@ export class ServicesComponent implements OnInit {
 
     fnSelectSubCategory(subCategoryId, index) {
         
-        // alert(subCategoryId);
-        // alert(index);
-        // alert(this.whichServiceButton);
-        // alert(this.selectCategoryPage);
-        // alert(this.fromcategory);
-        // alert(this.singleSubCategoryPage);
-       
         this.isLoaderAdmin = true;
         this.createNewSubCategoryPage = false;
         this.createNewCategoryPage = false;
         this.fromcategory = false;
         this.selectedSubCategoryID = subCategoryId;
         this.selectedSubCategoryIndex = index;
+        this.actionServiceIdarr = [];
         this.adminSettingsService.getServiceForSubCategoiry(subCategoryId, this.subcategory_service_filter,this.serviceApiUrl3).subscribe((response: any) => {
             if (response.data == true) {
                 this.subCategoryServicesList = response.response.data;
@@ -1121,6 +1119,7 @@ export class ServicesComponent implements OnInit {
           this.selectAllSubCat = true;
         }else{
           this.selectAllSubCat = false;
+          this.actionServiceIdarr = [];
         }
     
     }
@@ -1352,6 +1351,7 @@ export class ServicesComponent implements OnInit {
                 this.editServiceStatus = '';
                 this.editServicePrivate = '';
                 this.editServiceImage = '';
+                this.serviceImageUrl = undefined;
                 // this.fnAllCategory();
                 if(this.createServiceCategoryType == 'category'){
                     this.fnSelectCategoryNavigation(this.selectedCategoryID,this.selectedCategoryIndex);

@@ -566,6 +566,7 @@ textarea {
                 padding: 16px;
                 position: fixed;
                 bottom: 0;
+                z-index: 9;
                 width: calc(100% - 570px);
                 margin: 0;
                 box-shadow: 0 2px 2px -1px rgba(0, 0, 0, .4), 0 4px 12px 0 rgba(0, 0, 0, .4)!important;
@@ -610,4 +611,8 @@ textarea {
         left: -25px;
         bottom: -2px;
     }
+}
+
+.align-item-start {
+    align-items: flex-start;
 }
