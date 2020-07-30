@@ -968,7 +968,7 @@ export class ServicesComponent implements OnInit {
             }
         }
 
-
+        console.log(this.actionServiceIdarr)
         if (this.actionServiceIdarr.length > 0) {
             console.log(this.actionServiceIdarr);
             this.adminSettingsService.fnServiceAction(this.actionServiceIdarr, action).subscribe((response: any) => {
