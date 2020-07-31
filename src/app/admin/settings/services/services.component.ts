@@ -1470,10 +1470,21 @@ export class ServicesComponent implements OnInit {
                     verticalPosition: 'top',
                     panelClass: ['green-snackbar']
                 });
-                this.fnAllServices();
+                if(this.createServiceCategoryType == 'category'){
+                    this.fnSelectCategoryNavigation(this.selectedCategoryID,this.selectedCategoryIndex);
+                    this.singleSubCategoryPage = 'services'
+                }else if(this.createServiceCategoryType == 'subcategory'){
+                    this.fnSelectSubCategoryNavigate(this.selectedSubCategoryID,this.selectedSubCategoryIndex);
+                    this.selectCategoryPage = 'services'
+                }
                 this.isLoaderAdmin = false;
             }
-            else if (response.data == false) {
+            else if (response.data == false) { 
+                this._snackBar.open(response.response, "X", {
+                duration: 2000,
+                verticalPosition: 'top',
+                panelClass: ['red-snackbar']
+            });
                 this.isLoaderAdmin = false;
             }
         })
