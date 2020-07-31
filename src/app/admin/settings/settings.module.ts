@@ -50,6 +50,7 @@ import { DialogStaffViewReview } from './staff/staff.component';
 
 import { DndDirective } from './direcitves/dnd.directive';
 import { ProgressComponent } from './components/progress/progress.component';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 
 
@@ -99,7 +100,8 @@ enableRipple(true);
       ColorPickerModule,
       MdePopoverModule,
       NgbModule,
-      SharedModule
+      SharedModule,
+      NgxIntlTelInputModule
   ],
   exports: [
     FormsModule

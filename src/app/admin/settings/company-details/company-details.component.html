@@ -117,9 +117,9 @@
                                     <input formControlName="comp_email" matInput placeholder="Email">
                                 </mat-form-field>
                                 <span class="error-wrap d-flex" *ngIf="companyDetails.get('comp_email').dirty || companyDetails.get('comp_email').touched">
-                        <small *ngIf="companyDetails.get('comp_email').hasError('required')" class="error">Email is required.</small>
-                        <small *ngIf="companyDetails.get('comp_email').hasError('pattern')" class="error">Email is invalid.</small>
-                    </span>
+                                    <small *ngIf="companyDetails.get('comp_email').hasError('required')" class="error">Email is required.</small>
+                                    <small *ngIf="companyDetails.get('comp_email').hasError('pattern')" class="error">Email is invalid.</small>
+                                </span>
                             </div>
 
                             <div class="mt-2 text-center">
@@ -129,14 +129,33 @@
                             </div>
 
                             <div class="mt-2 text-center mb-3">
-                                <mat-form-field class=" bottom-border-field">
+
+                                
+                                <ngx-intl-tel-input class="common-input mobile-intel-input bottom-border-field"
+                                 [preferredCountries]="preferredCountries" 
+                                 [enableAutoCountrySelect]="false" 
+                                 [searchCountryFlag]="true"
+                                 [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                 [selectFirstCountry]="true"
+                                 [selectedCountryISO]="selectedCountryISO" [maxLength]="15"  
+                                [phoneValidation]="false" [separateDialCode]="separateDialCode"
+                                formControlName="comp_mobile"  placeholder="Mobile" (keypress)="numberOnly($event)">
+
+                                </ngx-intl-tel-input>
+                                <span *ngIf="companyDetails.get('comp_mobile').dirty || companyDetails.get('comp_mobile').touched ">
+                                    <small *ngIf="companyDetails.get('comp_mobile').hasError('required')" class="error">Phone number is required</small>
+`                                    <small *ngIf="companyDetails.get('comp_mobile').hasError('minlength') || companyDetails.get('comp_mobile').hasError('maxlength')" class="error">Phone number should be 6 to 10 digits long</small>
+                                </span>
+
+                                <!-- <mat-form-field class=" bottom-border-field">
                                     <input formControlName="comp_mobile" matInput placeholder="Mobile" (keypress)="numberOnly($event)">
-                                </mat-form-field>
-                                <span class="error-wrap d-flex" *ngIf="companyDetails.get('comp_mobile').dirty || companyDetails.get('comp_mobile').touched">
+                                </mat-form-field> -->
+
+                                <!-- <span class="error-wrap d-flex" *ngIf="companyDetails.get('comp_mobile').dirty || companyDetails.get('comp_mobile').touched">
                                     <small *ngIf="companyDetails.get('comp_mobile').hasError('required')" class="error">Mobile number is required.</small>
                                     <small *ngIf="companyDetails.get('comp_mobile').hasError('pattern')" class="error">Mobile number is invalid.</small>
                                     <small *ngIf="companyDetails.get('comp_mobile').hasError('minlength') || companyDetails.get('comp_mobile').hasError('maxlength')" class="error">Mobile number should be 6 to 15 digit.</small>
-                                </span>
+                                </span> -->
                             </div>
                         </div>
                     </div>
@@ -186,7 +205,7 @@
                                         </mat-select>
                                     </mat-form-field>
                                     <span class="error-wrap d-flex" *ngIf="companyDetails.get('city').dirty || companyDetails.get('city').touched">
-                        <small *ngIf="companyDetails.get('city').hasError('required')" class="error">City is required.</small></span>
+                                     <small *ngIf="companyDetails.get('city').hasError('required')" class="error">City is required.</small></span>
                                 </div>
 
                                 <div class="mt-2 text-center col-3">

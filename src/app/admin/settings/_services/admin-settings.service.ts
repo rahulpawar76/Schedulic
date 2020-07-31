@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthenticationService } from '@app/_services';
 import {  DialogReAuthentication  } from '@app/app.component';
+import {  CountryISO } from 'ngx-intl-tel-input';
 
 @Injectable({ providedIn: 'root' })
 
@@ -1658,4 +1659,257 @@ export class AdminSettingsService {
             }
         });
     }
+
+    fncountySelected(countryCode){
+    
+        if(countryCode==1){ return CountryISO.Afghanistan;  }
+        if(countryCode==2){ return CountryISO.Albania;  }
+        if(countryCode==3){ return CountryISO.Algeria;  }
+        if(countryCode==4){ return CountryISO.AmericanSamoa;  }
+        if(countryCode==5){ return CountryISO.Andorra;  }
+        if(countryCode==6){ return CountryISO.Angola;  }
+        if(countryCode==7){ return CountryISO.Anguilla;  }
+        if(countryCode==8){ return CountryISO.Argentina;  }
+        if(countryCode==9){ return CountryISO.AntiguaAndBarbuda;  }
+        if(countryCode==10){ return CountryISO.Argentina;  }
+        if(countryCode==11){ return CountryISO.Armenia;  }
+        if(countryCode==12){ return CountryISO.Aruba;  }
+        if(countryCode==13){ return CountryISO.Australia;  }
+        if(countryCode==14){ return CountryISO.Austria;  }
+        if(countryCode==15){ return CountryISO.Azerbaijan;  }
+        if(countryCode==16){ return CountryISO.Bahamas;  }
+        if(countryCode==17){ return CountryISO.Bahrain;  }
+        if(countryCode==18){ return CountryISO.Bangladesh;  }
+        if(countryCode==19){ return CountryISO.Barbados;  }
+        if(countryCode==20){ return CountryISO.Belarus;  }
+        if(countryCode==21){ return CountryISO.Belgium;  }
+        if(countryCode==22){ return CountryISO.Belize;  }
+        if(countryCode==23){ return CountryISO.Benin;  }
+        if(countryCode==24){ return CountryISO.Bermuda;  }
+        if(countryCode==25){ return CountryISO.Bhutan;  }
+        if(countryCode==26){ return CountryISO.Bolivia;  }
+        if(countryCode==27){ return CountryISO.BosniaAndHerzegovina;  }
+        if(countryCode==28){ return CountryISO.Botswana;  }
+        //if(countryCode==29){ return CountryISO.BouvetIsland;  }
+        if(countryCode==30){ return CountryISO.Brazil;  }
+        if(countryCode==31){ return CountryISO.BritishIndianOceanTerritory;  }
+        if(countryCode==32){ return CountryISO.Brunei;  }
+        if(countryCode==33){ return CountryISO.Bulgaria;  }
+        if(countryCode==34){ return CountryISO.BurkinaFaso;  }
+        if(countryCode==35){ return CountryISO.Burundi;  }
+        if(countryCode==36){ return CountryISO.Cambodia;  }
+        if(countryCode==37){ return CountryISO.Cameroon;  }
+        if(countryCode==38){ return CountryISO.Canada;  }
+        if(countryCode==39){ return CountryISO.CapeVerde;  }
+        if(countryCode==40){ return CountryISO.CaymanIslands;  }
+        if(countryCode==41){ return CountryISO.CentralAfricanRepublic;  }
+        if(countryCode==42){ return CountryISO.Chad;  }
+        if(countryCode==43){ return CountryISO.Chile;  }
+        if(countryCode==44){ return CountryISO.China;  }
+        if(countryCode==45){ return CountryISO.ChristmasIsland;  }
+        if(countryCode==46){ return CountryISO.Cocos;  }
+        if(countryCode==47){ return CountryISO.Colombia;  }
+        if(countryCode==48){ return CountryISO.Comoros;  }
+        //if(countryCode==49){ return CountryISO.Congo;  }
+        //if(countryCode==50){ return CountryISO.Congo The Democratic Republic Of The;  }
+        if(countryCode==51){ return CountryISO.CookIslands;  }
+        if(countryCode==52){ return CountryISO.CostaRica;  }
+        //if(countryCode==53){ return CountryISO.Cote D'Ivoire (Ivory Coast);  }
+        if(countryCode==54){ return CountryISO.Croatia;  }
+        if(countryCode==55){ return CountryISO.Cuba;  }
+        if(countryCode==56){ return CountryISO.Cyprus;  }
+        if(countryCode==57){ return CountryISO.CzechRepublic;  }
+        if(countryCode==58){ return CountryISO.Denmark;  }
+        if(countryCode==59){ return CountryISO.Djibouti;  }
+        if(countryCode==60){ return CountryISO.Dominica;  }
+        if(countryCode==61){ return CountryISO.DominicanRepublic;  }
+       // if(countryCode==62){ return CountryISO.EastTimor;  }
+        if(countryCode==63){ return CountryISO.Ecuador;  }
+        if(countryCode==64){ return CountryISO.Egypt;  }
+        if(countryCode==65){ return CountryISO.ElSalvador;  }
+        if(countryCode==66){ return CountryISO.EquatorialGuinea;  }
+        if(countryCode==67){ return CountryISO.Eritrea;  }
+        if(countryCode==68){ return CountryISO.Estonia;  }
+        if(countryCode==69){ return CountryISO.Ethiopia;  }
+        //if(countryCode==70){ return CountryISO.ExternalTerritoriesofAustralia;  }
+        if(countryCode==71){ return CountryISO.FalklandIslands;  }
+        if(countryCode==72){ return CountryISO.FaroeIslands;  }
+        if(countryCode==73){ return CountryISO.Fiji;  }
+        if(countryCode==74){ return CountryISO.Finland;  }
+        if(countryCode==75){ return CountryISO.France;  }
+        if(countryCode==76){ return CountryISO.FrenchGuiana;  }
+        if(countryCode==77){ return CountryISO.FrenchPolynesia;  }
+        //if(countryCode==78){ return CountryISO.FrenchSouthernTerritories;  }
+        if(countryCode==79){ return CountryISO.Gabon;  }
+        if(countryCode==80){ return CountryISO.Gambia;  }
+        if(countryCode==81){ return CountryISO.Georgia;  }
+        if(countryCode==82){ return CountryISO.Germany;  }
+        if(countryCode==83){ return CountryISO.Ghana;  }
+        if(countryCode==84){ return CountryISO.Gibraltar;  }
+        if(countryCode==85){ return CountryISO.Greece;  }
+        if(countryCode==86){ return CountryISO.Greenland;  }
+        if(countryCode==87){ return CountryISO.Grenada;  }
+        if(countryCode==88){ return CountryISO.Guadeloupe;  }
+        if(countryCode==89){ return CountryISO.Guam;  }
+        if(countryCode==90){ return CountryISO.Guatemala;  }
+      //  if(countryCode==91){ return CountryISO.GuernseyandAlderney;  }
+        if(countryCode==92){ return CountryISO.Guinea;  }
+        if(countryCode==93){ return CountryISO.GuineaBissau;  }
+        if(countryCode==94){ return CountryISO.Guyana;  }
+        if(countryCode==95){ return CountryISO.Haiti;  }
+        //if(countryCode==96){ return CountryISO.HeardandMcDonaldIslands;  }
+        if(countryCode==97){ return CountryISO.Honduras;  }
+      //  if(countryCode==98){ return CountryISO.HongKongS.A.R.;  }
+        if(countryCode==99){ return CountryISO.Hungary;  }
+        if(countryCode==100){ return CountryISO.Iceland;  }
+        if(countryCode==101){ return CountryISO.India;  }
+        if(countryCode==102){ return CountryISO.Indonesia;  }
+        if(countryCode==103){ return CountryISO.Iran;  }
+        if(countryCode==104){ return CountryISO.Iraq;  }
+        if(countryCode==105){ return CountryISO.Ireland;  }
+        if(countryCode==106){ return CountryISO.Israel;  }
+        if(countryCode==107){ return CountryISO.Italy;  }
+        if(countryCode==108){ return CountryISO.Jamaica;  }
+        if(countryCode==109){ return CountryISO.Japan;  }
+        if(countryCode==110){ return CountryISO.Jersey;  }
+        if(countryCode==111){ return CountryISO.Jordan;  }
+        if(countryCode==112){ return CountryISO.Kazakhstan;  }
+        if(countryCode==113){ return CountryISO.Kenya;  }
+        if(countryCode==114){ return CountryISO.Kiribati;  }
+        if(countryCode==115){ return CountryISO.NorthKorea;  }
+        if(countryCode==116){ return CountryISO.SouthKorea;  }
+        if(countryCode==117){ return CountryISO.Kuwait;  }
+        if(countryCode==118){ return CountryISO.Kyrgyzstan;  }
+        if(countryCode==119){ return CountryISO.Laos;  }
+        if(countryCode==120){ return CountryISO.Latvia;  }
+        if(countryCode==121){ return CountryISO.Lebanon;  }
+        if(countryCode==122){ return CountryISO.Lesotho;  }
+        if(countryCode==123){ return CountryISO.Liberia;  }
+        if(countryCode==124){ return CountryISO.Libya;  }
+        if(countryCode==125){ return CountryISO.Liechtenstein;  }
+        if(countryCode==126){ return CountryISO.Lithuania;  }
+        if(countryCode==127){ return CountryISO.Luxembourg;  }
+        if(countryCode==128){ return CountryISO.Macau;  }
+        if(countryCode==129){ return CountryISO.Macedonia;  }
+        if(countryCode==130){ return CountryISO.Madagascar;  }
+        if(countryCode==131){ return CountryISO.Malawi;  }
+        if(countryCode==132){ return CountryISO.Malaysia;  }
+        if(countryCode==133){ return CountryISO.Maldives;  }
+        if(countryCode==134){ return CountryISO.Mali;  }
+        if(countryCode==135){ return CountryISO.Malta;  }
+        //if(countryCode==136){ return CountryISO.Man;  }
+        if(countryCode==137){ return CountryISO.MarshallIslands;  }
+        if(countryCode==138){ return CountryISO.Martinique;  }
+        if(countryCode==139){ return CountryISO.Mauritania;  }
+        if(countryCode==140){ return CountryISO.Mauritius;  }
+        if(countryCode==141){ return CountryISO.Mayotte;  }
+        if(countryCode==142){ return CountryISO.Mexico;  }
+        if(countryCode==143){ return CountryISO.Micronesia;  }
+        if(countryCode==144){ return CountryISO.Moldova;  }
+        if(countryCode==145){ return CountryISO.Monaco;  }
+        if(countryCode==146){ return CountryISO.Mongolia;  }
+        if(countryCode==147){ return CountryISO.Montserrat;  }
+        if(countryCode==148){ return CountryISO.Morocco;  }
+        if(countryCode==149){ return CountryISO.Mozambique;  }
+        if(countryCode==150){ return CountryISO.Myanmar;  }
+        if(countryCode==151){ return CountryISO.Namibia;  }
+        if(countryCode==152){ return CountryISO.Nauru;  }
+        if(countryCode==153){ return CountryISO.Nepal;  }
+        if(countryCode==154){ return CountryISO.Netherlands;  }
+        if(countryCode==155){ return CountryISO.CaribbeanNetherlands;  }
+        if(countryCode==156){ return CountryISO.NewCaledonia;  }
+        if(countryCode==157){ return CountryISO.NewZealand;  }
+        if(countryCode==158){ return CountryISO.Nicaragua;  }
+        if(countryCode==159){ return CountryISO.Niger;  }
+        if(countryCode==160){ return CountryISO.Nigeria;  }
+        if(countryCode==161){ return CountryISO.Niue;  }
+        if(countryCode==162){ return CountryISO.NorfolkIsland;  }
+        if(countryCode==163){ return CountryISO.NorthernMarianaIslands;  }
+        if(countryCode==164){ return CountryISO.Norway;  }
+        if(countryCode==165){ return CountryISO.Oman;  }
+        if(countryCode==166){ return CountryISO.Pakistan;  }
+        if(countryCode==167){ return CountryISO.Palau;  }
+        //if(countryCode==168){ return CountryISO.PalestinianTerritoryOccupied;  }
+        if(countryCode==169){ return CountryISO.Panama;  }
+        if(countryCode==170){ return CountryISO.PapuaNewGuinea;  }
+        if(countryCode==171){ return CountryISO.Paraguay;  }
+        if(countryCode==172){ return CountryISO.Peru;  }
+        if(countryCode==173){ return CountryISO.Philippines;  }
+        //if(countryCode==174){ return CountryISO.PitcairnIsland;  }
+        if(countryCode==175){ return CountryISO.Poland;  }
+        if(countryCode==176){ return CountryISO.Portugal;  }
+        if(countryCode==177){ return CountryISO.PuertoRico;  }
+        if(countryCode==178){ return CountryISO.Qatar;  }
+        //if(countryCode==179){ return CountryISO.Reunion;  }
+        if(countryCode==180){ return CountryISO.Romania;  }
+        if(countryCode==181){ return CountryISO.Russia;  }
+        if(countryCode==182){ return CountryISO.Rwanda;  }
+        if(countryCode==183){ return CountryISO.SaintHelena;  }
+        if(countryCode==184){ return CountryISO.SaintKittsAndNevis;  }
+        if(countryCode==185){ return CountryISO.SaintLucia;  }
+        if(countryCode==186){ return CountryISO.SaintPierreAndMiquelon;  }
+        //if(countryCode==187){ return CountryISO.Saint VincentAndTheGrenadines;  }
+        if(countryCode==188){ return CountryISO.Samoa;  }
+        if(countryCode==189){ return CountryISO.SanMarino;  }
+        if(countryCode==190){ return CountryISO.SaintPierreAndMiquelon;  }
+        if(countryCode==191){ return CountryISO.SaudiArabia;  }
+        if(countryCode==192){ return CountryISO.Senegal;  }
+        if(countryCode==193){ return CountryISO.Serbia;  }
+        if(countryCode==194){ return CountryISO.Seychelles;  }
+        if(countryCode==195){ return CountryISO.SierraLeone;  }
+        if(countryCode==196){ return CountryISO.Singapore;  }
+        if(countryCode==197){ return CountryISO.Slovakia;  }
+        if(countryCode==198){ return CountryISO.Slovenia;  }
+        //if(countryCode==199){ return CountryISO.SmallerTerritoriesoftheUK;  }
+        if(countryCode==200){ return CountryISO.SolomonIslands;}
+        if(countryCode==201){ return CountryISO.Somalia;  }
+        if(countryCode==202){ return CountryISO.SouthAfrica; }
+        if(countryCode==203){ return CountryISO.Georgia;  }
+        if(countryCode==204){ return CountryISO.SouthSudan  }
+        if(countryCode==205){ return CountryISO.Spain;  }
+        if(countryCode==206){ return CountryISO.SriLanka;  }
+        if(countryCode==207){ return CountryISO.Sudan;  }
+        if(countryCode==208){ return CountryISO.Suriname;  }
+        if(countryCode==209){ return CountryISO.SvalbardAndJanMayen;  }
+        if(countryCode==210){ return CountryISO.Swaziland;  }
+        if(countryCode==211){ return CountryISO.Sweden;  }
+        if(countryCode==212){ return CountryISO.Switzerland;  }
+        if(countryCode==213){ return CountryISO.Syria;  }
+        if(countryCode==214){ return CountryISO.Taiwan;  }
+        if(countryCode==215){ return CountryISO.Tajikistan;  }
+        if(countryCode==216){ return CountryISO.Tanzania;  }
+        if(countryCode==217){ return CountryISO.Thailand;  }
+        if(countryCode==218){ return CountryISO.Togo;  }
+        if(countryCode==219){ return CountryISO.Tokelau;  }
+        if(countryCode==220){ return CountryISO.Tonga;  }
+        if(countryCode==221){ return CountryISO.TrinidadAndTobago;  }
+        if(countryCode==222){ return CountryISO.Tunisia;  }
+        if(countryCode==223){ return CountryISO.Turkey;  }
+        if(countryCode==224){ return CountryISO.Turkmenistan;  }
+        if(countryCode==225){ return CountryISO.TurksAndCaicosIslands;  }
+        if(countryCode==226){ return CountryISO.Tuvalu;  }
+        if(countryCode==227){ return CountryISO.Uganda;  }
+        if(countryCode==228){ return CountryISO.Ukraine;  }
+        if(countryCode==229){ return CountryISO.UnitedArabEmirates;  }
+        if(countryCode==230){ return CountryISO.UnitedKingdom;  }
+        if(countryCode==231){ return CountryISO.UnitedStates;  }
+        if(countryCode==232){ return CountryISO.UnitedStates;  }
+        if(countryCode==233){ return CountryISO.Uruguay;  }
+        if(countryCode==234){ return CountryISO.Uzbekistan;  }
+        if(countryCode==235){ return CountryISO.Vanuatu;  }
+        if(countryCode==236){ return CountryISO.VaticanCity;  }
+        if(countryCode==237){ return CountryISO.Venezuela;  }
+        if(countryCode==238){ return CountryISO.Vietnam;  }
+        if(countryCode==239){ return CountryISO.BritishVirginIslands;  }
+        //if(countryCode==240){ return CountryISO.VirginIslands;  }
+        if(countryCode==241){ return CountryISO.WallisAndFutuna;  }
+        if(countryCode==242){ return CountryISO.WesternSahara;  }
+        if(countryCode==243){ return CountryISO.Yemen;  }
+        //if(countryCode==244){ return CountryISO.Yugoslavia;  }
+        if(countryCode==245){ return CountryISO.Zambia;  }
+        if(countryCode==246){ return CountryISO.Zimbabwe;  }
+    
+        
+    }
+
 }
