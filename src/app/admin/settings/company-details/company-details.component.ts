@@ -60,7 +60,7 @@ export class CompanyDetailsComponent implements OnInit {
       comp_address:['', Validators.required],
       city:['', Validators.required],
       state:['', Validators.required],
-      zip_code:['', [Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
+      zip_code:['', [Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
       comp_decs:['', Validators.required],
       comp_status:[false],
       comp_private_status:[false],

@@ -194,7 +194,7 @@
                                         <input formControlName="zip_code" matInput placeholder="Zip">
                                     </mat-form-field>
                                     <span class="error-wrap d-flex" *ngIf="companyDetails.get('zip_code').dirty || companyDetails.get('zip_code').touched">
-                                    <small *ngIf="companyDetails.get('zip_code').hasError('required')" class="error">Zip code is required.</small><small *ngIf="companyDetails.get('zip_code').hasError('minlength') || companyDetails.get('zip_code').hasError('maxlength')" class="error">Zip code must be between 5 to 10 characters</small></span>
+                                    <small *ngIf="companyDetails.get('zip_code').hasError('required')" class="error">Zip code is required.</small><small *ngIf="companyDetails.get('zip_code').hasError('minlength') || companyDetails.get('zip_code').hasError('maxlength')" class="error">Zip code must be between 5 to 7 characters</small></span>
                                 </div>
                             </div>
 
