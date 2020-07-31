@@ -252,7 +252,7 @@ export class FrontbookingComponent implements OnInit {
     this.formNewUser = this._formBuilder.group({
       newUserEmail: ['',[Validators.required,Validators.email,Validators.pattern(emailPattern)],
       this.isEmailUnique.bind(this)],
-      newUserPassword: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(8)]],
+      newUserPassword: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
       newUserFullname: ['',Validators.required],
       newUserPhone: ['',[Validators.required,Validators.minLength(6),Validators.maxLength(15)]],
       // newUserAddress: ['',Validators.required],
@@ -407,7 +407,7 @@ export class FrontbookingComponent implements OnInit {
             if(this.contactFormSettingsArr.addressField.status == 1){
               if(this.contactFormSettingsArr.addressField.required == 1){
                 const validators = [Validators.required];
-                const validatorsZipCode = [Validators.required,Validators.pattern(this.onlynumeric)];
+                const validatorsZipCode = [Validators.required,Validators.minLength(5),Validators.minLength(7)];
                 this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
                 this.formNewUser.addControl('newUserState', new FormControl('', validators));
                 this.formNewUser.addControl('newUserCity', new FormControl('', validators));

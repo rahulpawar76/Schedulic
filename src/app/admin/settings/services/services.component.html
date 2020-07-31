@@ -668,7 +668,7 @@
                                 <h3 class="text-left" *ngIf="!editServiceId">Add New Service</h3>
                                 <h3 class="text-left" *ngIf="editServiceId">Edit Service</h3>
                             </div>
-                            <div class="col-lg-6" *ngIf="!editServiceId">
+                            <div class="col-lg-6" *ngIf="editServiceId">
                                 <button class="service-dlt-btn" (click)="fnDeleteService()" mat-raised-button color="warn"><i class="fa fa-trash-o delete-box"></i> Delete</button>
                             </div>
                         </div>
