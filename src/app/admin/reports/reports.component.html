@@ -19,14 +19,14 @@
     </div>
     <div class="report-right-side-content" [ngClass]="{ 'short-content-area': reportSideMenuToggle === true }">
         <div class="d-flex main-custmer-content ">
-            <div class="d-flex pl-3 w-100">
+            <div class="d-flex flex-wrap w-100">
                 <mat-form-field class="pr-3 bottom-border-field report-date-range-main">
                     <input matInput type="text" ngxDaterangepickerMd [locale]="options" [(ngModel)]="selected" showCancel="true" alwaysShowCalendars="true" (change)="changeDateRange($event)" readonly="readonly" />
                     <!-- <ngx-daterangepicker-material (choosedDate)="choosedDate($event)">
               </ngx-daterangepicker-material> -->
                     <!-- <span class="material-icons ">date_range</span> -->
                 </mat-form-field>
-                <mat-form-field class="pr-3 bottom-border-field" *ngIf="isAppointmentReport">
+                <mat-form-field class="pr-3 bottom-border-field filter-bydate" *ngIf="isAppointmentReport">
                     <mat-select (selectionChange)="fnChangeDateFilter($event)" [(value)]="dateFilter">
                         <mat-option value="booking_date">
                             By Appointment Date
@@ -36,7 +36,7 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field class="pr-3 bottom-border-field" *ngIf="!isCustomerReport">
+                <mat-form-field class="pr-3 bottom-border-field filter-group-by" *ngIf="!isCustomerReport">
                     <mat-select (selectionChange)="fnChangeReportFilter($event)" [(value)]="reportFilter">
                         <mat-option value="all">
                             Detailed Report
@@ -78,7 +78,7 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <div class="cust-icons w-100 d-flex">
+                <div class="cust-icons ml-auto d-flex">
                     <div class="searchbox mr-2">
                         <form class="serch_input-appoint">
                             <div class="form-group has-search mt-1">
