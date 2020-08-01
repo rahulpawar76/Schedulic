@@ -191,6 +191,7 @@ export class FrontbookingComponent implements OnInit {
   paypalClientId:any="sb";
   paypalTestMode:any;
   paypalStatus:boolean=false;
+  encodedbusinessId:any;
   businessId:any;
   businessDetail:any;
 
@@ -212,9 +213,12 @@ export class FrontbookingComponent implements OnInit {
     @Inject(DOCUMENT) private _document
     
   ) { 
-    
+    console.log(window.location.search)
     this.urlString = window.location.search.split("?business_id="); 
     this.businessId =this.urlString[1];
+    // console.log(this.encodedbusinessId)
+    // this.businessId = atob(JSON.stringify(this.encodedbusinessId));
+    // console.log(this.businessId)
     meta.addTag({name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'});
     this.renderExternalScript('https://checkout-static.citruspay.com/bolt/run/bolt.min.js').onload = () => {
       console.log('Google API Script loaded');
@@ -437,7 +441,7 @@ export class FrontbookingComponent implements OnInit {
             }
           }else{
             const validators = [Validators.required];
-            const validatorsZipCode = [Validators.required,Validators.pattern(this.onlynumeric)];
+            const validatorsZipCode = [Validators.required,Validators.minLength(5),Validators.minLength(7)];
             this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
             this.formNewUser.addControl('newUserState', new FormControl('', validators));
             this.formNewUser.addControl('newUserCity', new FormControl('', validators));
@@ -2623,9 +2627,10 @@ export class FrontbookingComponent implements OnInit {
         if(response.data == true){
           this.isLoader=false;
           if(this.thankYou.status == 'true'){
+            alert(this.thankYou.page_link)
             window.location.href = this.thankYou.page_link;
           }else if(this.thankYou.status == 'false'){
-            
+            alert("No Link")
             this.thankYouScreen=true;
             this.paymentScreen=false;
           setTimeout(() => {

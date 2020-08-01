@@ -145,12 +145,13 @@
 }
 
 .searchbox {
-    width: 59%;
+    width: 300px;
     display: flex;
     align-items: center;
     .serch_input-appoint {
         height: 39px;
         padding-top: 3px;
+        width: 100%;
         .has-search .form-control {
             padding-left: 2.375rem;
         }
@@ -188,7 +189,7 @@
 
 .report-menu {
     background-color: #fbfbfb;
-    width: 250px;
+    width: 230px;
     position: fixed;
     top: 65px;
     height: 100vh;
@@ -210,6 +211,7 @@
             height: 40px;
             width: 28px;
             float: left;
+            margin-left: 0;
         }
         &:hover {
             background-color: #ddeafd;
@@ -236,8 +238,8 @@
 }
 
 .report-right-side-content {
-    margin-left: 250px;
-    width: calc(100% - 250px);
+    margin-left: 230px;
+    width: calc(100% - 230px);
     margin-top: 65px;
     background-color: #fff;
 }
@@ -289,6 +291,14 @@
         left: -35px;
         color: #6d6d6d;
     }
+}
+
+.filter-bydate {
+    width: 230px;
+}
+
+.filter-group-by {
+    width: 190px;
 }
 
 .report-menu-item.active {

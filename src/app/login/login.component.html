@@ -1,6 +1,5 @@
 <div fxLayout="row wrap" fxLayoutGap="2%" *ngIf="!dataLoaded" fxLayoutAlign="center center" class="full-height">
-    <mat-spinner [diameter]="50"></mat-spinner>
-    <span>Fetching data...</span>
+    <img src="../../assets/loading-spinner.gif" />
 </div>
 
 <div *ngIf="isIE" fxLayout="row" fxLayoutGap="0" fxLayoutAlign="center center" class="login-screen">

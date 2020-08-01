@@ -209,14 +209,15 @@ export class ServicesComponent implements OnInit {
         this.servicesList = false;
         this.createNewSubCategoryPage = false;
         this.createNewServicePage = false;
+        this.categoryImageUrl = '';
     }
 
     cancelNewCategory() {
         this.createNewCategoryPage = false;
-         this.servicesList = true;
-         this.createCategory.reset(); 
-         this.editCategoryId = '';
-         this.categoryImageUrl = '';
+        this.servicesList = true;
+        this.createCategory.reset(); 
+        this.editCategoryId = '';
+        this.categoryImageUrl = '';
 
     }
 
@@ -422,6 +423,9 @@ export class ServicesComponent implements OnInit {
     fnSelectCategoryNavigation(categoryId, index){
         this.serviceApiUrl2=environment.apiUrl+"/list-service";
         this.fnSelectCategory(categoryId, index);  
+        this.categoryImageUrl = '';
+        this.subCategoryImageUrl = '';
+        this.serviceImageUrl = '';
         // this.createNewCategoryPage = false;
         // this.createNewSubCategoryPage = false;
     }
@@ -1017,6 +1021,9 @@ export class ServicesComponent implements OnInit {
        this.fnSelectSubCategory(subCategoryId, index); 
        this.selectedSubCategoryID = subCategoryId;
        this.selectedSubCategoryIndex = index;
+       this.categoryImageUrl = '';
+       this.subCategoryImageUrl = '';
+       this.serviceImageUrl = '';
     }
 
     fnSelectSubCategory(subCategoryId, index) {

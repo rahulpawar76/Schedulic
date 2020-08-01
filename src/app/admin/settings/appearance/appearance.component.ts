@@ -57,6 +57,7 @@ export class AppearanceComponent implements OnInit {
   textbgcolor: any = '#2889e9';
   embededCode: any;
   businessId:any
+  encodedBusinessId:any;
   selectedFont: any = 'Poppins, sans-serif'
   
   model: NgbDateStruct;
@@ -78,6 +79,10 @@ export class AppearanceComponent implements OnInit {
     ) {  
       if (localStorage.getItem('business_id')) {
         this.businessId = localStorage.getItem('business_id');
+        
+        // this.encodedBusinessId = btoa(this.businessId);
+        // console.log(this.encodedBusinessId);
+        
       }
       this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+this.businessId+"'></iframe>";
   }
