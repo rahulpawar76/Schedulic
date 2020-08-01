@@ -217,6 +217,8 @@ export class CompanyDetailsComponent implements OnInit {
 
     
     var comp_mobile =  this.companyDetails.get('comp_mobile').value;
+    console.log(comp_mobile);
+    
     if(comp_mobile==undefined){ return; }
 
     if(comp_mobile.number.length < 6 || comp_mobile.number.length > 15){
@@ -231,6 +233,7 @@ export class CompanyDetailsComponent implements OnInit {
           "email" : this.companyDetails.get('comp_email').value,
           "website" : this.companyDetails.get('comp_website').value,
           "phone" : this.companyDetails.get('comp_mobile').value.number.replace(/\s/g, ""),
+          "country_code" : this.companyDetails.get('comp_mobile').value.dialCode.replace(/\s/g, ""),
           "country" : this.companyDetails.get('country').value,
           "address" : this.companyDetails.get('comp_address').value,
           "city" : this.companyDetails.get('city').value,
@@ -249,6 +252,7 @@ export class CompanyDetailsComponent implements OnInit {
           "email" : this.companyDetails.get('comp_email').value,
           "website" : this.companyDetails.get('comp_website').value,
           "phone" : this.companyDetails.get('comp_mobile').value.number.replace(/\s/g, ""),
+          "country_code" : this.companyDetails.get('comp_mobile').value.dialCode.replace(/\s/g, ""),
           "country" : this.companyDetails.get('country').value,
           "address" : this.companyDetails.get('comp_address').value,
           "city" : this.companyDetails.get('city').value,
