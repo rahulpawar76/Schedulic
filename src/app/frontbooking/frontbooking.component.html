@@ -582,6 +582,39 @@
                         <img src='../../assets/images/payumoney-logo.png' />
                     </div>
                 </div> -->
+                <mat-radio-button *ngIf="bankTransferStatus" [checked]="paymentMethod == 'BankTransfer'" (change)="fnPaymentMethod('BankTransfer')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay2">Bank Transfer
+                    <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" />
+                </mat-radio-button>
+                <div *ngIf="BankDetail" class="bank-details">
+                    <div class="col-12 my-3 col-lg-12">
+                        <div class="col-12 my-2">
+                            <label>Bank Name</label>
+                            <p>{{bankTransferSetting.bank_name}}</p>
+                        </div>
+                        <div class="col-12 my-2">
+                            <label>Account Holder Name</label>
+                            <p>{{bankTransferSetting.account_name}}</p>
+                        </div>
+                        <div class="col-12 my-2">
+                            <label>Account Number</label>
+                            <p>{{bankTransferSetting.account_number}}</p>
+                        </div>
+                        <div class="col-12 my-2">
+                            <label>IFSC Code</label>
+                            <p>{{bankTransferSetting.IFSC_code}}</p>
+                        </div>
+                        <div class="col-12 my-2">
+                            <label>Branch Code</label>
+                            <p>{{bankTransferSetting.branch_code}}</p>
+                        </div>
+                        <div class="col-12 my-2">
+                            <label>Description</label>
+                            <p>{{bankTransferSetting.bank_description}}</p>
+                        </div>
+
+
+                    </div>
+                </div>
             </mat-radio-group>
 
             <div class="bottom-ctn-btn">

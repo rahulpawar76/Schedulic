@@ -93,7 +93,7 @@
                                         <img src="/assets/images/admin/paypal.png" class="payment-image">
                                     </div>
                                     <div class="payment-toggle-btn">
-                                        <mat-slide-toggle [checked]="paypalStatus" (change)="fnPaypalStatus($event.checked)" class=""></mat-slide-toggle>
+                                        <mat-slide-toggle class="payment-gateway-toggle-btn" class="payment-gateway-toggle-btn" [checked]="paypalStatus" (change)="fnPaypalStatus($event.checked)" class=""></mat-slide-toggle>
                                     </div>
                                 </div>
                                 <div>
@@ -170,7 +170,7 @@
                                         <img src="/assets/images/admin/stripe.png" class="payment-image">
                                     </div>
                                     <div class="payment-toggle-btn">
-                                        <mat-slide-toggle [checked]="stripeStatus" (change)="fnStripeStatus($event.checked)" class=""></mat-slide-toggle>
+                                        <mat-slide-toggle class="payment-gateway-toggle-btn" [checked]="stripeStatus" (change)="fnStripeStatus($event.checked)" class=""></mat-slide-toggle>
                                     </div>
                                 </div>
                                 <div>
@@ -364,7 +364,7 @@
                                         <img src="/assets/images/admin/payumoney.png" class="payment-image">
                                     </div>
                                     <div class="payment-toggle-btn">
-                                        <mat-slide-toggle [checked]="payumoneyStatus" (change)="fnPayumoneyStatus($event.checked)" class=""></mat-slide-toggle>
+                                        <mat-slide-toggle class="payment-gateway-toggle-btn" [checked]="payumoneyStatus" (change)="fnPayumoneyStatus($event.checked)" class=""></mat-slide-toggle>
                                     </div>
                                 </div>
                                 <div>
@@ -415,7 +415,7 @@
                                         <img src="/assets/images/admin/banktransfer.png" class="payment-image">
                                     </div>
                                     <div class="payment-toggle-btn">
-                                        <mat-slide-toggle [checked]="bankTransferStatus" (change)="fnBankTransferStatus($event.checked)" class=""></mat-slide-toggle>
+                                        <mat-slide-toggle class="payment-gateway-toggle-btn" [checked]="bankTransferStatus" (change)="fnBankTransferStatus($event.checked)" class=""></mat-slide-toggle>
                                     </div>
                                 </div>
                                 <div>

@@ -976,3 +976,14 @@ input:focus {
     align-items: center;
     justify-content: center;
 }
+
+.bank-details {
+    label {
+        width: 250px;
+        float: left;
+    }
+    p {
+        float: left;
+        margin-bottom: 0;
+    }
+}

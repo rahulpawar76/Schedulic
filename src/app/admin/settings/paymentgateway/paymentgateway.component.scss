@@ -34,8 +34,8 @@
         }
     }
     .payment-image {
-        width: 230px;
-        height: 55px;
+        //width: 230px;
+        height: 40px;
     }
 }
 
@@ -77,4 +77,8 @@
 
 .min-height {
     min-height: 60px;
+}
+
+.payment-gateway-toggle-btn {
+    width: 50px;
 }

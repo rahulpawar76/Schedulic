@@ -44,7 +44,7 @@ export class FrontbookingComponent implements OnInit {
   personalinfo = false;
   appointmentinfo = false;
   summaryScreen = false;
-  paymentScreen= false;
+  paymentScreen= true;
   thankYouScreen = false;
   allUnitsBack = "";
   totalAmt ="";
@@ -64,6 +64,7 @@ export class FrontbookingComponent implements OnInit {
   serviceData:any= [];
   selectedsubcategory = "";
   selectedcategory = "";
+  BankDetail:boolean=false;
   selectedcategoryName:any;
   selectedsubcategoryName:any;
   booking = {
@@ -158,7 +159,9 @@ export class FrontbookingComponent implements OnInit {
   PayUMoneyCredentials:any;
   paypalSetting:any;
   stripeSetting:any;
+  bankTransferSetting:any;
   stripeStatus : boolean = false;
+  bankTransferStatus : boolean = false;
   loadAPI: Promise<any>;
   isFound:boolean=false;
   directService:boolean=false;
@@ -389,6 +392,10 @@ export class FrontbookingComponent implements OnInit {
         if(this.settingsArr.stripe_settings){
           this.stripeSetting = JSON.parse(this.settingsArr.stripe_settings)
           this.stripeStatus = this.stripeSetting.status
+        }
+        if(this.settingsArr.bank_transfer){
+          this.bankTransferSetting = JSON.parse(this.settingsArr.bank_transfer)
+          this.bankTransferStatus = this.bankTransferSetting.status
         }
           
 
@@ -2304,6 +2311,14 @@ export class FrontbookingComponent implements OnInit {
       this.transactionId=null;
       this.paymentDateTime=this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss");
     }
+    if(paymentMethod == 'BankTransfer'){
+      this.paymentMethod="BankTransfer";
+      this.BankDetail =true;
+      this.creditcardform =false;
+      this.showPaypalButtons =false;
+      this.transactionId=null;
+      this.paymentDateTime=this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss");
+    }
     if(paymentMethod == 'Paypal'){
       this.creditcardform =false;
       this.showPaypalButtons =true;
@@ -2352,6 +2367,9 @@ export class FrontbookingComponent implements OnInit {
 
   fnPayNow(){
     if(this.paymentMethod == 'Cash'){
+      this.fnAppointmentBooking();
+    }
+    if(this.paymentMethod == 'BankTransfer'){
       this.fnAppointmentBooking();
     }
     if(this.paymentMethod == 'stripe'){
