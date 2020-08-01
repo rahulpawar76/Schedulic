@@ -809,3 +809,23 @@
         }
     }
 }
+
+.working-hrs-list {
+    .workinghour-dropdown {
+        margin-top: 0;
+    }
+    .to-center {
+        line-height: 2;
+    }
+}
+
+.breaktime-slot-main {
+    &:first-child {
+        .workinghour-dropdown {
+            margin-top: 0;
+        }
+        .to-center {
+            line-height: 2;
+        }
+    }
+}

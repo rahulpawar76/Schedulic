@@ -44,7 +44,7 @@ export class FrontbookingComponent implements OnInit {
   personalinfo = false;
   appointmentinfo = false;
   summaryScreen = false;
-  paymentScreen= true;
+  paymentScreen= false;
   thankYouScreen = false;
   allUnitsBack = "";
   totalAmt ="";
@@ -57,6 +57,7 @@ export class FrontbookingComponent implements OnInit {
   creditcardform = false;
   showPaypalButtons = false;
   showPayUMoneyButton = false;
+  phoneNumberInvalid:boolean = false
   checked = false;
   minVal=1;
   catdata :[];
@@ -261,7 +262,7 @@ export class FrontbookingComponent implements OnInit {
       this.isEmailUnique.bind(this)],
       newUserPassword: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
       newUserFullname: ['',Validators.required],
-      newUserPhone: ['',[Validators.required,Validators.minLength(6),Validators.maxLength(15)]],
+      newUserPhone: ['',Validators.required],
       // newUserAddress: ['',Validators.required],
       // newUserState: ['',Validators.required],
       // newUserCity: ['',Validators.required],
@@ -418,7 +419,7 @@ export class FrontbookingComponent implements OnInit {
             if(this.contactFormSettingsArr.addressField.status == 1){
               if(this.contactFormSettingsArr.addressField.required == 1){
                 const validators = [Validators.required];
-                const validatorsZipCode = [Validators.required,Validators.minLength(5),Validators.minLength(7)];
+                const validatorsZipCode = [Validators.required,Validators.minLength(5),Validators.maxLength(7)];
                 this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
                 this.formNewUser.addControl('newUserState', new FormControl('', validators));
                 this.formNewUser.addControl('newUserCity', new FormControl('', validators));
@@ -448,7 +449,7 @@ export class FrontbookingComponent implements OnInit {
             }
           }else{
             const validators = [Validators.required];
-            const validatorsZipCode = [Validators.required,Validators.minLength(5),Validators.minLength(7)];
+            const validatorsZipCode = [Validators.required,Validators.minLength(5),Validators.maxLength(7)];
             this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
             this.formNewUser.addControl('newUserState', new FormControl('', validators));
             this.formNewUser.addControl('newUserCity', new FormControl('', validators));
@@ -1775,33 +1776,33 @@ export class FrontbookingComponent implements OnInit {
       }, 500);
     });
   }
-
+  fnenterPhoneNumber(){
+    if(this.formNewUser.get('newUserPhone').value.number.length >= 6 && this.formNewUser.get('newUserPhone').value.number.length <= 15){
+      this.phoneNumberInvalid = false;
+    }else{
+      this.phoneNumberInvalid = true;
+    }
+  }
   fnpersonalinfo(){
-    if(this.formNewUser.invalid){
+    if(this.formNewUser.valid){
+      this.fnSignUp();
+    } 
+    else if(this.formNewUser.get('newUserPhone').value.number.length <= 6 || this.formNewUser.get('newUserPhone').value.number.length >= 15){
+      this.phoneNumberInvalid = true;
+      this.formNewUser.get('newUserPhone').markAsTouched();
+      return false;
+    }
+    else if(this.formNewUser.invalid){
+      console.log(this.formNewUser)
       this.formNewUser.get('newUserEmail').markAsTouched();
       this.formNewUser.get('newUserPassword').markAsTouched();
       this.formNewUser.get('newUserFullname').markAsTouched();
-      this.formNewUser.get('newUserPhone').markAsTouched();
       if(this.contactFormSettingsArr.contact_field_status == true){
         if(this.contactFormSettingsArr.addressField.status == 1){
           this.formNewUser.get('newUserAddress').markAsTouched();
           this.formNewUser.get('newUserState').markAsTouched();
           this.formNewUser.get('newUserCity').markAsTouched();
           this.formNewUser.get('newUserZipcode').markAsTouched();
-          // if(this.contactFormSettingsArr.addressField.required == 1){
-          //   const validators = [Validators.required];
-          //   const validatorsZipCode = [Validators.required,Validators.pattern(this.onlynumeric)];
-          //   this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
-          //   this.formNewUser.addControl('newUserState', new FormControl('', validators));
-          //   this.formNewUser.addControl('newUserCity', new FormControl('', validators));
-          //   this.formNewUser.addControl('newUserZipcode', new FormControl('', validatorsZipCode));
-
-          // }else{
-          //   this.formNewUser.addControl('newUserAddress', new FormControl(''));
-          //   this.formNewUser.addControl('newUserState', new FormControl(''));
-          //   this.formNewUser.addControl('newUserCity', new FormControl(''));
-          //   this.formNewUser.addControl('newUserZipcode', new FormControl(''));
-          // }
         }
       }else{
         this.formNewUser.get('newUserAddress').markAsTouched();
@@ -1811,7 +1812,6 @@ export class FrontbookingComponent implements OnInit {
       }
       return false;
     }
-    this.fnSignUp();
    }
    
   fnSignUp(){
@@ -1836,7 +1836,8 @@ export class FrontbookingComponent implements OnInit {
       "email" : this.formNewUser.get('newUserEmail').value,
       "password" : this.formNewUser.get('newUserPassword').value,
       "fullname":this.formNewUser.get('newUserFullname').value,
-      "phone":this.formNewUser.get('newUserPhone').value.number.replace(/\s/g, ""),
+      "phone":this.formNewUser.get('newUserPhone').value.internationalNumber.replace(/\s/g, ""),
+      //"phone":this.formNewUser.get('newUserPhone').value,
       "address":newUserAddress,
       "zip":newUserZipcode,
       "state":newUserState,

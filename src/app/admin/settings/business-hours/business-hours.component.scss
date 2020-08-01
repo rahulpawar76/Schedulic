@@ -272,3 +272,23 @@
 ::ng-deep textarea.mat-input-element {
     min-height: 80px !important;
 }
+
+.breaktime-slot-main {
+    &:first-child {
+        .workinghour-dropdown {
+            margin-top: 0;
+        }
+        .to-center {
+            line-height: 2;
+        }
+    }
+}
+
+.working-hour-box {
+    .workinghour-dropdown {
+        margin-top: 0;
+    }
+    .to-center {
+        line-height: 2;
+    }
+}

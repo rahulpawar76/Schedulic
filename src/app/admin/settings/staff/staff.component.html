@@ -642,15 +642,6 @@
                         <div class="Customer-appointment-table">
                             <div class="main-table-content main-cust-table-content">
                                 <div class="">
-                                    <div class="heads main-heading-content example-box header-background " fxLayout="row">
-                                        <div class="" fxFlex="10"></div>
-                                        <div class="" fxFlex="15"></div>
-                                        <div class="" fxFlex="25"></div>
-                                        <!-- <div class="" fxFlex="10"></div>
-                    <div class="" fxFlex="20"></div> -->
-                                        <div class="" fxFlex="30"></div>
-                                        <div class="" fxFlex="20"></div>
-                                    </div>
                                     <div class="content" class="example-list working-hrs-list">
                                         <form [formGroup]="formSetWorkingHours" class="px-4 py-2">
                                             <div class="example-box">
@@ -676,7 +667,7 @@
                                                 </div>
                                                 <div class="" *ngIf="!mondayOn">Closed for Business</div>
                                                 <div class="blue-font" fxFlex="30">
-                                                    <p (click)="fnApplyToAll()" *ngIf="mondayOn" class="mt-3"> Apply to all </p>
+                                                    <p (click)="fnApplyToAll()" *ngIf="mondayOn" class="mb-0"> Apply to all </p>
                                                 </div>
                                                 <div class="" fxFlex="20">
                                                     <button mat-button class="staff-reset-btn mr-1" (click)="fnWorkingHoursResetToDefault()">Reset to
@@ -853,15 +844,6 @@
                         <div class="Customer-appointment-table">
                             <div class="main-table-content main-cust-table-content">
                                 <div class="">
-                                    <div class="heads main-heading-content example-box header-background " fxLayout="row">
-                                        <div class="" fxFlex="10"></div>
-                                        <div class="" fxFlex="15"></div>
-                                        <div class="" fxFlex="35"></div>
-                                        <!-- <div class="" fxFlex="10"></div>
-                    <div class="" fxFlex="20"></div> -->
-                                        <div class="" fxFlex="20"></div>
-                                        <div class="" fxFlex="20"></div>
-                                    </div>
                                     <div class="content" class="example-list">
                                         <div class="example-box">
                                             <div class="" fxFlex="10"> Monday </div>
@@ -869,7 +851,7 @@
                                                 <button mat-button class="staff-addbreak-btn" *ngIf="mondayOn" (click)="fnShowAddBreakForm('Monday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!mondayOn">Closed</button>
                                             </div>
                                             <div class="" fxFlex="35" *ngIf="mondayOn">
-                                                <div *ngFor="let breakTime of breakTimeList">
+                                                <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                                     <div class="d-flex" *ngIf="breakTime.week_day_id == '1'">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="breakTime.break_start_time" [disabled]="true">
@@ -915,7 +897,7 @@
                                                 <button mat-button class="staff-addbreak-btn" *ngIf="tuesdayOn" (click)="fnShowAddBreakForm('Tuesday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!tuesdayOn">Closed</button>
                                             </div>
                                             <div class="" fxFlex="35" *ngIf="tuesdayOn">
-                                                <div *ngFor="let breakTime of breakTimeList">
+                                                <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                                     <div class="d-flex" *ngIf="breakTime.week_day_id == '2'">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="breakTime.break_start_time" [disabled]="true">
@@ -959,7 +941,7 @@
                                                 <button mat-button class="staff-addbreak-btn" *ngIf="wednesdayOn" (click)="fnShowAddBreakForm('Wednesday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!wednesdayOn">Closed</button>
                                             </div>
                                             <div class="" fxFlex="35" *ngIf="wednesdayOn">
-                                                <div *ngFor="let breakTime of breakTimeList">
+                                                <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                                     <div class="d-flex" *ngIf="breakTime.week_day_id == '3'">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="breakTime.break_start_time" [disabled]="true">
@@ -1003,7 +985,7 @@
                                                 <button mat-button class="staff-addbreak-btn" *ngIf="thursdayOn" (click)="fnShowAddBreakForm('Thursday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!thursdayOn">Closed</button>
                                             </div>
                                             <div class="" fxFlex="35" *ngIf="thursdayOn">
-                                                <div *ngFor="let breakTime of breakTimeList">
+                                                <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                                     <div class="d-flex" *ngIf="breakTime.week_day_id == '4'">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="breakTime.break_start_time" [disabled]="true">
@@ -1047,7 +1029,7 @@
                                                 <button mat-button class="staff-addbreak-btn" *ngIf="fridayOn" (click)="fnShowAddBreakForm('Friday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!fridayOn">Closed</button>
                                             </div>
                                             <div class="" fxFlex="35" *ngIf="fridayOn">
-                                                <div *ngFor="let breakTime of breakTimeList">
+                                                <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                                     <div class="d-flex" *ngIf="breakTime.week_day_id == '5'">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="breakTime.break_start_time" [disabled]="true">
@@ -1091,7 +1073,7 @@
                                                 <button mat-button class="staff-addbreak-btn" *ngIf="saturdayOn" (click)="fnShowAddBreakForm('Saturday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!saturdayOn">Closed</button>
                                             </div>
                                             <div class="" fxFlex="35" *ngIf="saturdayOn">
-                                                <div *ngFor="let breakTime of breakTimeList">
+                                                <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                                     <div class="d-flex" *ngIf="breakTime.week_day_id == '6'">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
 
@@ -1137,7 +1119,7 @@
                                                 <button mat-button class="staff-addbreak-btn" *ngIf="sundayOn" (click)="fnShowAddBreakForm('Sunday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!sundayOn">Closed</button>
                                             </div>
                                             <div class="" fxFlex="35" *ngIf="sundayOn">
-                                                <div *ngFor="let breakTime of breakTimeList">
+                                                <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                                     <div class="d-flex" *ngIf="breakTime.week_day_id == '0'">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="breakTime.break_start_time" [disabled]="true">
