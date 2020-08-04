@@ -356,11 +356,11 @@
                         <div class="table_pagination" *ngIf="workStartedAppointments != ''">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
-                                    <li class="page-item" (click)="navigateTo_workstart(first_page_url_workstart)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{current_page_workstart==1?'pointernone':'' }}" (click)="navigateTo_workstart(first_page_url_workstart)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
                                     <li class="page-item" (click)="navigateTo_workstart(prev_page_url_workstart)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
                                     <li class="page-item" [ngClass]="{'active':current_page_workstart == i+1}" *ngFor="let pagenumber of arrayOne_workstart(last_page_workstart); let i = index;" (click)="navigateToPageNumber_workstart(i+1)"><a class="page-link">{{i+1}}</a></li>
                                     <li class="page-item" (click)="navigateTo_workstart(next_page_url_workstart)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
-                                    <li class="page-item" (click)="navigateTo_workstart(last_page_url_workstart)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{arrayOne_workstart(last_page_workstart).length==current_page_workstart?'pointernone':''}}" (click)="navigateTo_workstart(last_page_url_workstart)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
                                 </ul>
                             </nav>
                         </div>
