@@ -616,3 +616,14 @@ textarea {
 .align-item-start {
     align-items: flex-start;
 }
+
+::ng-deep .staff-list {
+    .mat-checkbox-layout {
+        .mat-checkbox-label {
+            width: 180px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}

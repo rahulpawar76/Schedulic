@@ -266,10 +266,12 @@
                             <label>Phone</label>
                             <!-- <input formControlName="newUserPhone" class="common-input" type="text" /> -->
                             <ngx-intl-tel-input class="common-input mobile-intel-input" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
-                                [selectedCountryISO]="CountryISO.India" (keyup)="fnenterPhoneNumber($event)" [maxLength]="10" [phoneValidation]="false" [separateDialCode]="separateDialCode" formControlName="newUserPhone">
+                                [selectedCountryISO]="CountryISO.India" (mousedown)="fnPhoneMouceLeave($event)" (keyup)="fnenterPhoneNumber($event)" [maxLength]="10" [phoneValidation]="false" [separateDialCode]="separateDialCode" formControlName="newUserPhone"
+                                placeholder="Mobile">
                             </ngx-intl-tel-input>
-                            <span *ngIf="formNewUser.get('newUserPhone').dirty || formNewUser.get('newUserPhone').touched || formSubmitclicked || phoneNumberInvalid"><small *ngIf="formNewUser.get('newUserPhone').hasError('required')" class="error">Phone number is required.</small>
-                                <small *ngIf="formNewUser.get('newUserPhone').hasError('minlength') || formNewUser.get('newUserPhone').hasError('maxlength') || phoneNumberInvalid" class="error">Phone number should be 6 to 15 digits long.</small></span>
+                            <span *ngIf="phoneNumberInvalid">
+                                <small *ngIf="phoneNumberInvalid == 'required'" class="error">Phone number is required.</small>
+                                <small *ngIf="phoneNumberInvalid == 'length'" class="error">Phone number should be 6 to 15 digits long.</small></span>
                         </div>
                         <div class="col-12 col-lg-12 col-md-12 col-sm-12" *ngIf="contactFormSettingsArr.addressField.status == 1">
                             <label>Address</label>

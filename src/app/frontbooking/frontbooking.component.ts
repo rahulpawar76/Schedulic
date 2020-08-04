@@ -57,7 +57,7 @@ export class FrontbookingComponent implements OnInit {
   creditcardform = false;
   showPaypalButtons = false;
   showPayUMoneyButton = false;
-  phoneNumberInvalid:boolean = false
+  phoneNumberInvalid:any = "valid";
   checked = false;
   minVal=1;
   catdata :[];
@@ -262,7 +262,7 @@ export class FrontbookingComponent implements OnInit {
       this.isEmailUnique.bind(this)],
       newUserPassword: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
       newUserFullname: ['',Validators.required],
-      newUserPhone: ['',Validators.required],
+      newUserPhone: [''],
       // newUserAddress: ['',Validators.required],
       // newUserState: ['',Validators.required],
       // newUserCity: ['',Validators.required],
@@ -1776,23 +1776,51 @@ export class FrontbookingComponent implements OnInit {
       }, 500);
     });
   }
-  fnenterPhoneNumber(){
-    if(this.formNewUser.get('newUserPhone').value.number.length >= 6 && this.formNewUser.get('newUserPhone').value.number.length <= 15){
-      this.phoneNumberInvalid = false;
+  fnPhoneMouceLeave(){
+    alert("enter Event");
+    if(this.formNewUser.get('newUserPhone').value.number !== undefined){
+      if(this.formNewUser.get('newUserPhone').value.number.length == 0){
+        this.phoneNumberInvalid = "required";
+        alert(this.formNewUser.get('newUserPhone').value.number.length)
+      }
     }else{
-      this.phoneNumberInvalid = true;
+      this.phoneNumberInvalid = "required";
     }
+    
+  }
+  fnenterPhoneNumber(){
+    if(this.formNewUser.get('newUserPhone').value.number !== undefined){
+    if(this.formNewUser.get('newUserPhone').value.number.length == 0){
+      this.phoneNumberInvalid = "required";
+      alert(this.formNewUser.get('newUserPhone').value.number.length)
+    }
+    else if(this.formNewUser.get('newUserPhone').value.number.length >= 6 && this.formNewUser.get('newUserPhone').value.number.length <= 15){
+      this.phoneNumberInvalid = "valid";
+      alert(this.phoneNumberInvalid)
+    }else{
+      this.phoneNumberInvalid = "length";
+      alert(this.phoneNumberInvalid)
+    }
+  }else{
+    this.phoneNumberInvalid = "required";
+    alert(this.formNewUser.get('newUserPhone').value.number.length)
+  }
   }
   fnpersonalinfo(){
-    if(this.formNewUser.valid){
-      this.fnSignUp();
-    } 
-    else if(this.formNewUser.get('newUserPhone').value.number.length <= 6 || this.formNewUser.get('newUserPhone').value.number.length >= 15){
-      this.phoneNumberInvalid = true;
+    if(this.formNewUser.get('newUserPhone').value.number.length == 0){
+      this.phoneNumberInvalid = "required";
+      return false;
+    }
+    if(this.formNewUser.get('newUserPhone').value.number.length <= 6 || this.formNewUser.get('newUserPhone').value.number.length >= 15){
+      this.phoneNumberInvalid = "valid";
       this.formNewUser.get('newUserPhone').markAsTouched();
       return false;
     }
-    else if(this.formNewUser.invalid){
+    else if(this.formNewUser.valid){
+      this.fnSignUp();
+    } 
+    
+    if(this.formNewUser.invalid){
       console.log(this.formNewUser)
       this.formNewUser.get('newUserEmail').markAsTouched();
       this.formNewUser.get('newUserPassword').markAsTouched();
@@ -2646,10 +2674,8 @@ export class FrontbookingComponent implements OnInit {
         if(response.data == true){
           this.isLoader=false;
           if(this.thankYou.status == 'true'){
-            alert(this.thankYou.page_link)
             window.location.href = this.thankYou.page_link;
           }else if(this.thankYou.status == 'false'){
-            alert("No Link")
             this.thankYouScreen=true;
             this.paymentScreen=false;
           setTimeout(() => {

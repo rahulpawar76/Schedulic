@@ -1056,8 +1056,8 @@ export class StaffComponent implements OnInit {
     this.selectedServiceNewStaff=[];
     this.editStaffId=null;
     this.StaffCreate = this._formBuilder.group({
-      firstname : ['',[ Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
-      lastname : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
+      firstname : ['',[ Validators.required,Validators]],
+      lastname : ['', [Validators.required,Validators]],
       address : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
       phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
@@ -2429,7 +2429,7 @@ export class StaffComponent implements OnInit {
       if(response.data == true){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
         this.isLoaderAdmin = false;
@@ -2437,7 +2437,7 @@ export class StaffComponent implements OnInit {
         this.isLoaderAdmin = false;
         this._snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
