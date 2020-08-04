@@ -64,11 +64,11 @@
                         <div class="table_pagination" *ngIf="pendingAppointments != ''">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
-                                    <li class="page-item {{current_page==1?'pointernone':''" (click)="navigateTo_pending(first_page_url_pending)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{current_page_pending==1?'pointernone':''}} " (click)="navigateTo_pending(first_page_url_pending)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
                                     <li class="page-item" (click)="navigateTo_pending(prev_page_url_pending)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
                                     <li class="page-item" [ngClass]="{'active':current_page_pending == i+1}" *ngFor="let pagenumber of arrayOne_pending(last_page_pending); let i = index;" (click)="navigateToPageNumber_pending(i+1)"><a class="page-link">{{i+1}}</a></li>
                                     <li class="page-item" (click)="navigateTo_pending(next_page_url_pending)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
-                                    <li class="page-item {{arrayOne_pending(last_page).length==current_page?'pointernone':''}}" (click)="navigateTo_pending(last_page_url_pending)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{arrayOne_pending(last_page_pending).length==current_page_pending?'pointernone':''}} " (click)="navigateTo_pending(last_page_url_pending)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -142,11 +142,11 @@
                         <div class="table_pagination" *ngIf="notAssignedAppointments != ''">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
-                                    <li class="page-item" (click)="navigateTo_notassign(first_page_url_notassign)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{current_page_notassign==1?'pointernone':'' }}"  (click)="navigateTo_notassign(first_page_url_notassign)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
                                     <li class="page-item" (click)="navigateTo_notassign(prev_page_url_notassign)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
                                     <li class="page-item" [ngClass]="{'active':current_page_notassign == i+1}" *ngFor="let pagenumber of arrayOne_notassign(last_page_notassign); let i = index;" (click)="navigateToPageNumber_notassign(i+1)"><a class="page-link">{{i+1}}</a></li>
                                     <li class="page-item" (click)="navigateTo_notassign(next_page_url_notassign)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
-                                    <li class="page-item" (click)="navigateTo_notassign(last_page_url_notassign)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{arrayOne_notassign(last_page_notassign).length==current_page_notassign?'pointernone':''}}" (click)="navigateTo_notassign(last_page_url_notassign)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -279,11 +279,11 @@
                         <div class="table_pagination" *ngIf="onTheWayAppointments != ''">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
-                                    <li class="page-item" (click)="navigateTo_ontheway(first_page_url_ontheway)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{current_page_ontheway==1?'pointernone':'' }}" (click)="navigateTo_ontheway(first_page_url_ontheway)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
                                     <li class="page-item" (click)="navigateTo_ontheway(prev_page_url_ontheway)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
                                     <li class="page-item" [ngClass]="{'active':current_page_ontheway == i+1}" *ngFor="let pagenumber of arrayOne_ontheway(last_page_ontheway); let i = index;" (click)="navigateToPageNumber_ontheway(i+1)"><a class="page-link">{{i+1}}</a></li>
                                     <li class="page-item" (click)="navigateTo_ontheway(next_page_url_ontheway)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
-                                    <li class="page-item" (click)="navigateTo_ontheway(last_page_url_ontheway)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{arrayOne_ontheway(last_page_ontheway).length==current_page_ontheway?'pointernone':''}}" (click)="navigateTo_ontheway(last_page_url_ontheway)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
                                 </ul>
                             </nav>
                         </div>
