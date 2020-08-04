@@ -722,7 +722,7 @@ export class StaffAppointmentComponent implements OnInit {
             customerAddress: ['', Validators.required],
             customerState: ['', Validators.required],
             customerCity: ['', Validators.required],
-            customerPostalCode: ['',[Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
+            customerPostalCode: ['',[Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
             customerAppoAddress: ['', [Validators.required]],
             customerAppoState: ['', [Validators.required]],
             customerAppoCity: ['', [Validators.required]],

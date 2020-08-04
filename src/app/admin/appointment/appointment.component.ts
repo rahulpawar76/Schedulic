@@ -893,7 +893,7 @@ export class DialogAddNewAppointment {
         customerAddress: [this.appointmentData.address, Validators.required],
         customerState: [this.appointmentData.state, Validators.required],
         customerCity: [this.appointmentData.city, Validators.required],
-        customerPostalCode: [{ value: this.appointmentData.zip, disabled: this.disablePostalCode }, [Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
+        customerPostalCode: [{ value: this.appointmentData.zip, disabled: this.disablePostalCode }, [Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
        
         customerAppoAddress: [this.appointmentData.customerAppoAddress, [Validators.required]],
         customerAppoState: [this.appointmentData.customerAppoState, [Validators.required]],

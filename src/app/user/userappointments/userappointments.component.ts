@@ -2036,7 +2036,7 @@ export class rescheduleAppointmentDialog {
       ).subscribe((response:any) => {
           if(response.data == true){
             this.formAddNewAppointmentStaffStep2 = this._formBuilder.group({
-              customerPostalCode: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(6)],this.isPostalcodeValid.bind(this)],
+              customerPostalCode: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(7)],this.isPostalcodeValid.bind(this)],
               customerCategory: ['', Validators.required],
               customerSubCategory: ['', [Validators.required]],
               customerService: ['', [Validators.required]],

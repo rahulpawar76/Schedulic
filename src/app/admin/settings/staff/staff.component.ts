@@ -1048,6 +1048,7 @@ export class StaffComponent implements OnInit {
   }
 
   fnAddNewStaff(){
+    alert()
     this.isLoaderAdmin = true;
     this.addStaffPage = true;
     this.staffListPage = false;
@@ -1055,6 +1056,7 @@ export class StaffComponent implements OnInit {
     this.isLoaderAdmin = false;
     this.selectedServiceNewStaff=[];
     this.editStaffId=null;
+    this.getCateServiceList();
     this.StaffCreate = this._formBuilder.group({
       firstname : ['',[ Validators.required,Validators]],
       lastname : ['', [Validators.required,Validators]],
@@ -1064,7 +1066,6 @@ export class StaffComponent implements OnInit {
       description : ['',Validators.maxLength(255)],
       staff_id : [''],
     });  
-    this.getCateServiceList();
   }
 
   searchService(event){
@@ -1102,6 +1103,7 @@ export class StaffComponent implements OnInit {
   }
 
   getCateServiceList(){
+    alert("2")
     this.isLoaderAdmin = true;
     let requestObject = {
         'business_id': this.businessId,
