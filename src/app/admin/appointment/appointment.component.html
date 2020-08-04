@@ -137,11 +137,11 @@
                     <div class="table_pagination" *ngIf="allAppointments != ''">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-end">
-                                <li class="page-item {{current_page==1?'pointernone':''}}"  (click)="navigateTo(first_page_url)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                <li class="page-item {{current_page==1?'pointernone':''}} "  (click)="navigateTo(first_page_url)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
                                 <li class="page-item" (click)="navigateTo(prev_page_url)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
                                 <li class="page-item" [ngClass]="{'active':current_page == i+1}" *ngFor="let pagenumber of arrayOne(last_page); let i = index;" (click)="navigateToPageNumber(i+1)"><a class="page-link">{{i+1}}</a></li>
                                 <li class="page-item" (click)="navigateTo(next_page_url)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
-                                <li class="page-item {{arrayOne(last_page).length==current_page?'pointernone':''}}" class="{{arrayOne(last_page).length==current_page?'pointernone':''}}" (click)="navigateTo(last_page_url)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                <li class="page-item {{arrayOne(last_page).length==current_page?'pointernone':''}} " class="{{arrayOne(last_page).length==current_page?'pointernone':''}}" (click)="navigateTo(last_page_url)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
                             </ul>
                         </nav>
                     </div>
