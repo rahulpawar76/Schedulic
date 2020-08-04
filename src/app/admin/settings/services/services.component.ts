@@ -148,7 +148,6 @@ export class ServicesComponent implements OnInit {
         this.fnGetSettings();
         this.fnAllCategory();
         this.fnAllServicesNavigation();
-        this.fnstaffList();
 
         this.createSubCategory = this._formBuilder.group({
             subcategory_name: ['',  [Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
@@ -257,10 +256,52 @@ export class ServicesComponent implements OnInit {
 
     fnAllServicesNavigation(){
         this.serviceApiUrl1=environment.apiUrl+"/admin-service-list";
-        this.fnAllServices();   
+        this.fnAllServices2();   
     }
 
     fnAllServices() {
+        this.isLoaderAdmin = true;
+        this.createNewCategoryPage = false;
+        this.createNewSubCategoryPage = false;
+        this.createNewServicePage = false;
+        this.singleSubCategoryPage = '';
+        this.selectCategoryPage = '';
+        this.subCategoryPage = false;
+        this.addNewServicePage = false;
+        this.adminSettingsService.fnAllServices(this.serviceApiUrl1).subscribe((response: any) => {
+            if (response.data == true) {
+                this.allServicesList = response.response.data;
+                this.current_page = response.response.current_page;
+                this.first_page_url = response.response.first_page_url;
+                this.last_page = response.response.last_page;
+                this.last_page_url = response.response.last_page_url;
+                this.next_page_url = response.response.next_page_url;
+                this.prev_page_url = response.response.prev_page_url;
+                this.path = response.response.path;
+                this.ActionId = [];
+                this.selectAllCategory = false;
+                this.selectAll  = false;
+
+                if (this.allServicesList != '') {
+
+                    //this.servicesList = true;
+                    this.allServiceCount = this.allServicesList.length;
+                    this.allServicesList.forEach( (element) => { 
+                        element.is_selected = false;
+                    });
+
+                } else if (this.allServicesList == '') {
+                    this.servicesList = false;
+                }
+                this.isLoaderAdmin = false;
+            }
+            else if (response.data == false) {
+                this.allServicesList = [];
+                this.isLoaderAdmin = false;
+            }
+        })
+    }
+    fnAllServices2() {
         this.isLoaderAdmin = true;
         this.createNewCategoryPage = false;
         this.createNewSubCategoryPage = false;
@@ -369,8 +410,20 @@ export class ServicesComponent implements OnInit {
                     this.fnSelectCategoryNavigation(
                     this.allCetegoryList[this.allCategoryCount - 1].id,this.allCategoryCount-1);
                 }
+                
+            }else if(response.data == true && response.response.length == 0){
+                this._snackBar.open("Please add category.", "X", {
+                    duration: 2000,
+                    verticalPosition: 'top',
+                    panelClass: ['red-snackbar']
+                });
             }
             else if (response.data == false) {
+                this._snackBar.open(response.response, "X", {
+                    duration: 2000,
+                    verticalPosition: 'top',
+                    panelClass: ['red-snackbar']
+                });
                 this.allCetegoryList = [];
                 this.isLoaderAdmin = false;
             }
@@ -500,6 +553,7 @@ export class ServicesComponent implements OnInit {
                     panelClass: ['green-snackbar']
                 });
                 this.actionServiceIdarr.length = 0;
+                this.fnAllServices();
             }
             else {
                 this._snackBar.open("Status Not Updated", "X", {
@@ -611,6 +665,8 @@ export class ServicesComponent implements OnInit {
                     panelClass: ['green-snackbar']
                 });
                 this.allowed=true;
+                this.newSubcategoryStatus = 'D';
+                this.newSubcategoryPrivate = 'N';
                 this.fnAllCategory();
                 this.fnSelectCategoryNavigation(this.selectedCategoryID , this.selectedCategoryIndex);
                 this.createSubCategory.reset();
@@ -754,6 +810,8 @@ export class ServicesComponent implements OnInit {
                 });
                 this.createCategory.reset();
                 this.allowedCat=false;
+                this.newcategoryStatus = 'D';
+                this.newcategoryPrivate = 'N';
                 this.fnAllCategory();
                 this.fnSelectCategory(this.editCategoryId, this.selectedCategoryIndex);                
                 //this.servicesList = true;
@@ -833,6 +891,8 @@ export class ServicesComponent implements OnInit {
                     verticalPosition: 'top',
                     panelClass: ['green-snackbar']
                 });
+                
+                this.fnAllServices();
                 this.fnAllCategory();
                 this.fnAllServicesNavigation();
                 this.servicesList = true;
@@ -866,6 +926,7 @@ export class ServicesComponent implements OnInit {
                     panelClass: ['green-snackbar']
                 });
 
+                this.fnAllServices();
                 this.fnAllCategory();
                 this.fnSelectCategoryNavigation(this.selectedCategoryID , this.selectedCategoryIndex);
                 this.servicesList = false;
@@ -935,7 +996,7 @@ export class ServicesComponent implements OnInit {
           } else {
             this.selectAllCategory = false;
           }
-
+          console.log(this.actionServiceIdarr)
     }
     
     checkAllCategory(event){
@@ -987,6 +1048,7 @@ export class ServicesComponent implements OnInit {
                         panelClass: ['green-snackbar']
                     });
                     this.actionServiceIdarr.length = 0;
+                this.fnAllServices();
                     this.selectedValue = undefined;
                     if (type == 'category') {
                         this.fnSelectCategory(categoryId, this.selectedCategoryIndex);
@@ -1133,6 +1195,8 @@ export class ServicesComponent implements OnInit {
   
       
     fnCreateNewServicePage(categoryId, type,btntype) {
+        
+        this.fnstaffList();
         this.createService.controls['service_name'].setValue(null);
         this.createService.controls['service_description'].setValue(null);
         this.createService.controls['service_cost'].setValue(null);
@@ -1317,10 +1381,13 @@ export class ServicesComponent implements OnInit {
                     verticalPosition: 'top',
                     panelClass: ['green-snackbar']
                 });
+                this.fnAllServices();
                 this.createService.reset();
                 this.assignStaffArr.length = 0;
                 this.createNewServicePage = false;
                 this.servicesList = false;
+                this.newServicePrivate = 'N';
+                this.newServiceStatus = 'D';
                 // this.fnAllCategory();
                 if(this.createServiceCategoryType == 'category'){
                     this.fnSelectCategoryNavigation(this.selectedCategoryID,this.selectedCategoryIndex);
@@ -1477,6 +1544,7 @@ export class ServicesComponent implements OnInit {
                     verticalPosition: 'top',
                     panelClass: ['green-snackbar']
                 });
+                this.fnAllServices();
                 if(this.createServiceCategoryType == 'category'){
                     this.fnSelectCategoryNavigation(this.selectedCategoryID,this.selectedCategoryIndex);
                     this.singleSubCategoryPage = 'services'
@@ -1618,7 +1686,7 @@ export class ServicesComponent implements OnInit {
         this.profileImage = this.imageSrc
         this.dialogRef.close(this.profileImage);
 
-        this._snackBar.open("image selected", "X", {
+        this._snackBar.open("Image selected.", "X", {
             duration: 2000,
             verticalPosition: 'top',
             panelClass: ['green-snackbar']
@@ -1685,7 +1753,7 @@ export class ServicesComponent implements OnInit {
     uploadImage() {
         this.profileImage = this.imageSrc
         this.dialogRef.close(this.profileImage);
-        this._snackBar.open("image selected", "X", {
+        this._snackBar.open("Image selected.", "X", {
             duration: 2000,
             verticalPosition: 'top',
             panelClass: ['green-snackbar']
@@ -1795,7 +1863,7 @@ export class ServicesComponent implements OnInit {
     uploadImage() {
         this.profileImage = this.imageSrc
         this.dialogRef.close(this.profileImage);
-        this._snackBar.open("image selected", "X", {
+        this._snackBar.open("Image selected.", "X", {
             duration: 2000,
             verticalPosition: 'top',
             panelClass: ['green-snackbar']
