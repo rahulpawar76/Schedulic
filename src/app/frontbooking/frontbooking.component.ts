@@ -2674,7 +2674,7 @@ export class FrontbookingComponent implements OnInit {
         if(response.data == true){
           this.isLoader=false;
           if(this.thankYou.status == 'true'){
-            window.location.href = this.thankYou.page_link;
+            window.top.location.href = this.thankYou.page_link;
           }else if(this.thankYou.status == 'false'){
             this.thankYouScreen=true;
             this.paymentScreen=false;

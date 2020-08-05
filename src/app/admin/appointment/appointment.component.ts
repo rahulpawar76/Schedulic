@@ -176,7 +176,10 @@ export class AppointmentComponent implements OnInit {
     this.durationType = type;
   
     // this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
-
+    if(this.durationType=='all'){
+      this.startDate = '';
+      this.endDate = '';
+    }
     if(this.durationType=='daily'){
 
       this.endDate=this.startDate;
@@ -990,11 +993,11 @@ export class DialogAddNewAppointment {
         }
 
       } else if(response.data == false){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition: 'top',
+        //   panelClass : ['red-snackbar']
+        // });
         if(this.Postalcode.length==0){
           this.valide_postal_code = true;
         }
@@ -1056,11 +1059,11 @@ export class DialogAddNewAppointment {
         console.log(this.taxArr);
       }
       else if(response.data == false){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition: 'top',
+        //   panelClass : ['red-snackbar']
+        // });
       }
     })
   }
@@ -1113,11 +1116,11 @@ export class DialogAddNewAppointment {
       }
       }
       else if(response.data == false){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition: 'top',
+        //   panelClass : ['red-snackbar']
+        // });
       }
     },
     (err) =>{

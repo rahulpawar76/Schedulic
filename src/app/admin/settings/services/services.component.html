@@ -109,14 +109,14 @@
             </div>
             <mat-accordion class="category-list" cdkDropList (cdkDropListDropped)="drop($event)">
                 <mat-expansion-panel class="category-main" cdkDragHandle *ngFor="let allCetegoryList of allCetegoryList; let i=index">
-                    <mat-expansion-panel-header (click)="fnSelectCategoryNavigation(allCetegoryList.id,i)">
+                    <mat-expansion-panel-header class="category-title-head" [ngClass]="{'active':selectedCategoryID === allCetegoryList.id}" (click)="fnSelectCategoryNavigation(allCetegoryList.id,i)">
                         <mat-panel-title class="service-title">
                             <p class="category-title mb-0">
                                 {{allCetegoryList.category_title}}</p>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div *ngIf="allCetegoryList.subcategory != ''">
-                        <div (click)="fnSelectSubCategoryNavigate(subcategoryList.id,i)" class="single-box my-2" *ngFor="let subcategoryList of allCetegoryList.subcategory; let i=index">
+                        <div class="subcategory-title-head" [ngClass]="{'active':selectedSubCategoryID === subcategoryList.id}" (click)="fnSelectSubCategoryNavigate(subcategoryList.id,i)" class="single-box my-2" *ngFor="let subcategoryList of allCetegoryList.subcategory; let i=index">
                             <p class="sub-category-title mb-0">{{subcategoryList.sub_category_name}}</p>
                         </div>
                     </div>

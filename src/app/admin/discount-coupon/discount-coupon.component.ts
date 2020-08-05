@@ -263,6 +263,7 @@ export class DiscountCouponComponent implements OnInit {
         });
         this.couponCodeListing = true;
         this.discountCoupon.reset();
+        this.categoryServiceCheckServiceId.length = 0;
         this.getAllCouponCode();
         this.addNewCouponCode = false;
         this.isLoaderAdmin = false;
@@ -482,6 +483,7 @@ export class DiscountCouponComponent implements OnInit {
 
   fnCancelNewCoupon(){
     this.couponCodeListing = true;
+    this.categoryServiceCheckServiceId.length = 0;
     this.addNewCouponCode = false;
   }
   fnCouponDetails(index, CouponId){
@@ -531,6 +533,17 @@ export class DiscountCouponComponent implements OnInit {
         });
       });
 
+    }
+    fnNewCheckService(event,serviceId){
+      if(event == true){
+        this.categoryServiceCheckServiceId.push(serviceId) 
+      }else if(event == false){
+        const index = this.categoryServiceCheckServiceId.indexOf(serviceId);
+        console.log(serviceId);
+        console.log(index);
+        this.categoryServiceCheckServiceId.splice(index, 1);
+      }
+      console.log(this.categoryServiceCheckServiceId);
     }
 
   

@@ -94,9 +94,9 @@
             }
         }
         .customer-checkbox {
-            line-height: 3;
+            line-height: 2.8;
             // width:11%;
-            margin: 5px;
+            margin: 0 5px;
         }
         .customer-name-width {
             // width: 20%;
@@ -576,6 +576,12 @@
             width: auto;
             color: #ffffff;
         }
+    }
+}
+
+.single-customer-list {
+    &.active {
+        border-left: 3px solid #3d73f4;
     }
 }
 

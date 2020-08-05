@@ -243,6 +243,10 @@
                                         <!-- <mat-checkbox (change)="fnCheckService($event.checked,serviceList.id)">{{serviceList.service_name}}</mat-checkbox> -->
                                     </div>
                                 </mat-expansion-panel>
+                                <div *ngFor="let serviceList of categoryServiceListval.getservices; let service_index=index" class="py-3">
+                                    <mat-checkbox [checked]="serviceList.is_selected" (change)="fnNewCheckService($event.checked,serviceList.id)" *ngIf="categoryServiceCheckServiceId.indexOf(serviceList.id) > -1" checked="true">{{serviceList.service_name}} </mat-checkbox>
+                                    <mat-checkbox [checked]="serviceList.is_selected" (change)="fnNewCheckService($event.checked,serviceList.id)" *ngIf="categoryServiceCheckServiceId.indexOf(serviceList.id) < 0">{{serviceList.service_name}}</mat-checkbox>
+                                </div>
                             </mat-expansion-panel>
                         </mat-accordion>
                     </mat-card>

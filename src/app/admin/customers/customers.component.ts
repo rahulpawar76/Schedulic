@@ -236,6 +236,7 @@ export class CustomersComponent implements OnInit {
           });
         });
         this.fnSelectCustomer(this.allCustomers[0].id);
+        this.customerDetailId = this.allCustomers[0].id
         this.isLoaderAdmin = false;
       }
       else if(response.response == 'Customer not created.'){
@@ -1785,6 +1786,7 @@ dialogTitle:any="New Appointment";
 showSubCatDropDown=true;
 valide_postal_code:boolean =false;
 isLoaderAdmin:boolean =false;
+selectedCustomerId :any;
 Postalcode:any;
 
 constructor(

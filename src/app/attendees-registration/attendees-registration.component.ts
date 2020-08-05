@@ -38,7 +38,7 @@ export class AttendeesRegistrationComponent implements OnInit {
 			lastName: ['',[Validators.required]],
 			email: ['',[Validators.required,Validators.email,Validators.pattern(emailPattern)],this.isEmailUnique.bind(this)],
 			phonenumber: ['',[Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(onlynumeric)]],
-			password: ['',[Validators.required,Validators.minLength(8)]],
+			password: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
 		});
 		this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
 		if (this.authenticationService.currentUserValue) {

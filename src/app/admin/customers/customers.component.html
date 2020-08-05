@@ -41,7 +41,7 @@
                     </form>
                 </div>
                 <div *ngIf="allCustomers != ''">
-                    <div *ngFor="let allCustomers of allCustomers; let i=index" class="d-flex devider-slim pb-2 m-2">
+                    <div [ngClass]="{'active':customerDetailId === allCustomers.id}" *ngFor="let allCustomers of allCustomers; let i=index" class="d-flex single-customer-list devider-slim py-2 mx-2">
                         <mat-checkbox (change)="fnAddCustomerId($event.checked, allCustomers.id)" class="customer-checkbox"></mat-checkbox>
                         <div (click)="fnSelectCustomer(allCustomers.id)" class="customer-name-width pointer">
                             <div class="customer-name text-uppercase">{{allCustomers.initials}}</div>

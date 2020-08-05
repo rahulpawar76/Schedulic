@@ -627,3 +627,15 @@ textarea {
         }
     }
 }
+
+.category-title-head {
+    &.active {
+        border-left: 4px solid #3d72f4 !important;
+    }
+}
+
+.subcategory-title-head {
+    &.active {
+        border-left: 4px solid #3d72f4 !important;
+    }
+}

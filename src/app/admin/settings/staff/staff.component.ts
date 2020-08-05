@@ -1048,7 +1048,6 @@ export class StaffComponent implements OnInit {
   }
 
   fnAddNewStaff(){
-    alert()
     this.isLoaderAdmin = true;
     this.addStaffPage = true;
     this.staffListPage = false;
@@ -1103,7 +1102,6 @@ export class StaffComponent implements OnInit {
   }
 
   getCateServiceList(){
-    alert("2")
     this.isLoaderAdmin = true;
     let requestObject = {
         'business_id': this.businessId,
@@ -1469,11 +1467,19 @@ export class StaffComponent implements OnInit {
  }
 
  fnCancelStaff(){
+   if(this.editStaffId){
+    this.staffImageUrl = undefined
+    this.addStaffPage = false;
+    this.staffListPage = false;
+    this.singleStaffView = true;
+    this.StaffCreate.reset();
+   }else{
     this.staffImageUrl = undefined
     this.addStaffPage = false;
     this.staffListPage = true;
     this.singleStaffView = false;
     this.StaffCreate.reset();
+   }
    
  }
 

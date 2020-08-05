@@ -85,6 +85,7 @@ export class MyWorkSpaceComponent implements OnInit {
   };
   categories:any=[];
   businessId:any;
+  filterDate: FormGroup;
   revenue:any;
   formSettingPage:boolean=false;
   selectedCategoryId:any;
