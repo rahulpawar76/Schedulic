@@ -249,9 +249,11 @@ export class DiscountCouponComponent implements OnInit {
     }
     
   }
+
   fnChangeDiscountType(event){
     this.discountType = event.value
   }
+
   createNewCouponCode(createdCouponCodeData){
     this.isLoaderAdmin = true;
     this.AdminService.createNewCouponCode(createdCouponCodeData).subscribe((response:any) => {
@@ -285,6 +287,7 @@ export class DiscountCouponComponent implements OnInit {
     this.discountApiUrl= `${environment.apiUrl}/discount-coupon-list`;
     this.getAllCouponCode();
   }
+
   changeCouponStaus(event,coupon_id){
     this.isLoaderAdmin = true;
     if(event.checked == true){
@@ -319,12 +322,12 @@ export class DiscountCouponComponent implements OnInit {
     let requestObject = {
       'business_id': this.businessId,
       'search' : ''
-  };
+    };
+
     this.isLoaderAdmin = true;
     this.AdminService.getCateServiceList(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.categoryServiceList = response.response;
-        
         this.categoryServiceList.forEach(element => {
           element.is_selected  = false;
           element.subcategory.forEach(subelement => {
@@ -334,10 +337,13 @@ export class DiscountCouponComponent implements OnInit {
             });
           });
         });
+
         this.categoryServiceListTemp=this.categoryServiceList;
 
         this.isLoaderAdmin = false;
+
       }else if(response.data == false){
+
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -345,162 +351,153 @@ export class DiscountCouponComponent implements OnInit {
         });
         this.categoryServiceList = []
         this.categoryServiceListTemp = [];
-
         this.isLoaderAdmin = false;
+
       }
     })
   }
   
-  checkServie(event,type,index,sub_index=null,service_index=null){
+    checkServie(event,type,index,sub_index=null,service_index=null){
 
-    if(type=='category'){
-        if(event.checked == true) {  this.categoryServiceList[index].is_selected=true; }else{ this.categoryServiceList[index].is_selected=false; }
+      if(type=='category'){
+          if(event.checked == true) {  this.categoryServiceList[index].is_selected=true; }else{ this.categoryServiceList[index].is_selected=false; }
 
-        this.categoryServiceList[index].subcategory.forEach(subelement => {
-          if(event.checked == true) {  
-            subelement.is_selected=true;
-           }else{ 
-            subelement.is_selected=false;
+          this.categoryServiceList[index].subcategory.forEach(subelement => {
+            if(event.checked == true) {  
+              subelement.is_selected=true;
+            }else{ 
+              subelement.is_selected=false;
+            }
+            subelement.services.forEach(serviceselement => {
+              if(event.checked == true) {  serviceselement.is_selected=true; }else{ serviceselement.is_selected=false; }
+            });
+          });
+      }
+      
+      if(type=='subcategory'){
+
+        if(event.checked == true) { 
+          this.categoryServiceList[index].subcategory[sub_index].is_selected=true;
+        }else{ 
+          this.categoryServiceList[index].subcategory[sub_index].is_selected=false;
+        }
+
+        this.categoryServiceList[index].subcategory[sub_index].services.forEach(serviceselement => {
+          if(event.checked == true) {  serviceselement.is_selected=true; }else{ serviceselement.is_selected=false; }
+        });
+
+        var category_i = 0;
+
+        this.categoryServiceList[index].subcategory.forEach(element => {
+            if(element.is_selected == true){
+              category_i++;
+            }
+        });
+
+        if(category_i == this.categoryServiceList[index].subcategory.length){
+          this.categoryServiceList[index].is_selected = true;
+        }else{
+          this.categoryServiceList[index].is_selected = false;
+        }
+        
+        
+        
+      }
+
+      if(type=='service'){
+
+        if(event.checked == true) { 
+          this.categoryServiceList[index].subcategory[sub_index].services[service_index].is_selected=true;
+        }else{ 
+          this.categoryServiceList[index].subcategory[sub_index].services[service_index].is_selected=false;
+        }
+
+        var subcategory_i = 0;
+
+        this.categoryServiceList[index].subcategory[sub_index].services.forEach(serviceselement => {
+          if(serviceselement.is_selected==true){
+            subcategory_i++;
           }
+        });
+        
+        if(subcategory_i == this.categoryServiceList[index].subcategory[sub_index].services.length){
+          this.categoryServiceList[index].subcategory[sub_index].is_selected = true;
+        }else{
+          this.categoryServiceList[index].subcategory[sub_index].is_selected = false;
+        }
+
+        
+        var category_i = 0;
+        this.categoryServiceList[index].subcategory.forEach(element => {
+            if(element.is_selected == true){
+              category_i++;
+            }
+        });
+
+        if(category_i == this.categoryServiceList[index].subcategory.length){
+          this.categoryServiceList[index].is_selected = true;
+        }else{
+          this.categoryServiceList[index].is_selected = false;
+        }
+      }
+
+    
+      this.categoryServiceCheckServiceId = [];
+
+      this.categoryServiceList.forEach(element => {
+        element.subcategory.forEach(subelement => {
           subelement.services.forEach(serviceselement => {
-            if(event.checked == true) {  serviceselement.is_selected=true; }else{ serviceselement.is_selected=false; }
+            if(subelement.is_selected == true){
+              this.categoryServiceCheckServiceId.push(serviceselement.id)
+            }
           });
         });
-    }
+      });
+
     
-    if(type=='subcategory'){
+      console.log(this.categoryServiceCheckServiceId);
 
-      if(event.checked == true) { 
-         this.categoryServiceList[index].subcategory[sub_index].is_selected=true;
-      }else{ 
-        this.categoryServiceList[index].subcategory[sub_index].is_selected=false;
-      }
-
-      this.categoryServiceList[index].subcategory[sub_index].services.forEach(serviceselement => {
-        if(event.checked == true) {  serviceselement.is_selected=true; }else{ serviceselement.is_selected=false; }
-      });
-
-      var category_i = 0;
-
-      this.categoryServiceList[index].subcategory.forEach(element => {
-          if(element.is_selected == true){
-            category_i++;
-          }
-      });
-
-      if(category_i == this.categoryServiceList[index].subcategory.length){
-        this.categoryServiceList[index].is_selected = true;
-      }else{
-        this.categoryServiceList[index].is_selected = false;
-      }
-      
-      
-      
     }
 
-    if(type=='service'){
+    fnCheckService(event,serviceId){
 
-      if(event.checked == true) { 
-        this.categoryServiceList[index].subcategory[sub_index].services[service_index].is_selected=true;
-      }else{ 
-        this.categoryServiceList[index].subcategory[sub_index].services[service_index].is_selected=false;
+      if(event == true){
+        this.selectedService.push(serviceId) 
+      }else if(event == false){
+        const index = this.selectedService.indexOf(serviceId);
+        this.selectedService.splice(index, 1);
       }
 
-      var subcategory_i = 0;
-
-      this.categoryServiceList[index].subcategory[sub_index].services.forEach(serviceselement => {
-        if(serviceselement.is_selected==true){
-          subcategory_i++;
-        }
-      });
-      
-      if(subcategory_i == this.categoryServiceList[index].subcategory[sub_index].services.length){
-        this.categoryServiceList[index].subcategory[sub_index].is_selected = true;
-      }else{
-        this.categoryServiceList[index].subcategory[sub_index].is_selected = false;
-      }
-
-      
-      var category_i = 0;
-      this.categoryServiceList[index].subcategory.forEach(element => {
-          if(element.is_selected == true){
-            category_i++;
-          }
-      });
-
-      if(category_i == this.categoryServiceList[index].subcategory.length){
-        this.categoryServiceList[index].is_selected = true;
-      }else{
-        this.categoryServiceList[index].is_selected = false;
-      }
+      console.log(this.selectedService);
     }
 
-   
-    // this.categoryServiceCheckCatId = [];
-    // this.categoryServiceChecksubCatId = [];
-    this.categoryServiceCheckServiceId = [];
+    fnNewCouponCode(){
+      this.couponCodeListing = false;
+      this.addNewCouponCode = true;
+      this.getCateServiceList();
+    }
 
-    this.categoryServiceList.forEach(element => {
+    fnCancelNewCoupon(){
+      this.couponCodeListing = true;
+      this.categoryServiceCheckServiceId.length = 0;
+      this.addNewCouponCode = false;
+    }
 
-      // if(element.is_selected==true){
-      //   this.categoryServiceCheckCatId.push({'id':element.id});
-      // }
-
-      element.subcategory.forEach(subelement => {
-        // if(subelement.is_selected == true){
-        //   this.categoryServiceChecksubCatId.push({'id':subelement.id})
-        // }
-        subelement.services.forEach(serviceselement => {
-          if(subelement.is_selected == true){
-            this.categoryServiceCheckServiceId.push(serviceselement.id)
-          }
-        });
+    fnCouponDetails(index, CouponId){
+      const dialogRef = this.dialog.open(DialogCouponDetails, {
+        height: '700px',
+    
+        data :{fulldata : this.allCouponCode[index], couponId : CouponId}
+        
       });
 
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed.');
+        this.animal = result;
+        this.getAllCouponCode();
+      });
 
-    // console.log(this.categoryServiceCheckCatId);
-    // console.log(this.categoryServiceChecksubCatId);
-    console.log(this.categoryServiceCheckServiceId);
-
-  }
-
-  fnCheckService(event,serviceId){
-    if(event == true){
-      this.selectedService.push(serviceId) 
-    }else if(event == false){
-      const index = this.selectedService.indexOf(serviceId);
-      this.selectedService.splice(index, 1);
     }
-    console.log(this.selectedService);
-  }
-
-  fnNewCouponCode(){
-    this.couponCodeListing = false;
-    this.addNewCouponCode = true;
-    this.getCateServiceList();
-  }
-
-  fnCancelNewCoupon(){
-    this.couponCodeListing = true;
-    this.categoryServiceCheckServiceId.length = 0;
-    this.addNewCouponCode = false;
-  }
-  fnCouponDetails(index, CouponId){
-    const dialogRef = this.dialog.open(DialogCouponDetails, {
-      height: '700px',
-  
-      data :{fulldata : this.allCouponCode[index], couponId : CouponId}
-      
-    });
-
-     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed.');
-      this.animal = result;
-      this.getAllCouponCode();
-     });
-
-  }
 
     fnsearchService(event){
 
@@ -534,16 +531,31 @@ export class DiscountCouponComponent implements OnInit {
       });
 
     }
-    fnNewCheckService(event,serviceId){
+
+    fnNewCheckService(event,serviceId,index,service_index){
+
       if(event == true){
         this.categoryServiceCheckServiceId.push(serviceId) 
       }else if(event == false){
         const index = this.categoryServiceCheckServiceId.indexOf(serviceId);
-        console.log(serviceId);
-        console.log(index);
         this.categoryServiceCheckServiceId.splice(index, 1);
       }
-      console.log(this.categoryServiceCheckServiceId);
+
+      
+      this.categoryServiceList[index].getservices[service_index].is_selected=event;
+      var category_i = 0;
+      this.categoryServiceList[index].getservices.forEach(serviceselement => {
+        if(serviceselement.is_selected==true){
+          category_i = category_i+1;
+        }
+      });
+
+      if(category_i == this.categoryServiceList[index].getservices.length){
+        this.categoryServiceList[index].is_selected = true;
+      }else{
+        this.categoryServiceList[index].is_selected = false;
+      }
+
     }
 
   
@@ -572,50 +584,52 @@ constructor(
     this.getServiceListForCoupon();
   }
 
-onNoClick(): void {
-  this.dialogRef.close();
-}
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
-getServiceListForCoupon(){
-  this.isLoaderAdmin = true;
-  this.AdminService.getServiceListForCoupon(this.couponId).subscribe((response:any) => {
-    if(response.data == true){
+  getServiceListForCoupon(){
+    this.isLoaderAdmin = true;
+    this.AdminService.getServiceListForCoupon(this.couponId).subscribe((response:any) => {
+      if(response.data == true){
         this.couponCodeDetail = response.response
+        this.isLoaderAdmin = false;
         console.log(this.couponCodeDetail);
-      this.isLoaderAdmin = false;
-    }
-    else if(response.data == false){
-      this._snackBar.open(response.response, "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['red-snackbar']
-      });
-      this.isLoaderAdmin = false;
-    }
-  })
-}
-changeCouponStaus(event,coupon_id){
-  this.isLoaderAdmin = true;
-  if(event.checked == true){
-    this.couponCodeStatus = 'Active';
+
+      }
+      else if(response.data == false){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+        this.isLoaderAdmin = false;
+      }
+    })
   }
-  else if(event.checked == false){
-    this.couponCodeStatus = 'Inactive';
+
+  changeCouponStaus(event,coupon_id){
+    this.isLoaderAdmin = true;
+    if(event.checked == true){
+      this.couponCodeStatus = 'Active';
+    }
+    else if(event.checked == false){
+      this.couponCodeStatus = 'Inactive';
+    }
+    this.AdminService.changeCouponStaus(this.couponCodeStatus,coupon_id).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open("Status Updated.", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.isLoaderAdmin = false;
+      }
+      else if(response.data == false){
+        this.isLoaderAdmin = false;
+      }
+    })
   }
-  this.AdminService.changeCouponStaus(this.couponCodeStatus,coupon_id).subscribe((response:any) => {
-    if(response.data == true){
-      this._snackBar.open("Status Updated.", "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['green-snackbar']
-      });
-      this.isLoaderAdmin = false;
-    }
-    else if(response.data == false){
-      this.isLoaderAdmin = false;
-    }
-  })
-}
 
 
 }

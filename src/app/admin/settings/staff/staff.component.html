@@ -36,12 +36,12 @@
         </div>
         <h6 class="pt-3">Account</h6>
         <!-- <div (click)="MySettingsProfileNav()" class="d-flex setting-menu-item">
-<div class="menu-icon">
-<img class="normal" src="../../../../assets/images/admin/settings-menu/my-profile.png" />
-<img class="colored" src="../../../../assets/images/admin/settings-menu/my-profile-color.png" />
-</div>
-<p>My Profile</p>
-</div> -->
+                <div class="menu-icon">
+                    <img class="normal" src="../../../../assets/images/admin/settings-menu/my-profile.png" />
+                    <img class="colored" src="../../../../assets/images/admin/settings-menu/my-profile-color.png" />
+                </div>
+                <p>My Profile</p>
+            </div> -->
         <div routerLink="/admin/settings/company-details" class="d-flex setting-menu-item">
             <div class="menu-icon">
                 <img class="normal" src="../../../../assets/images/admin/settings-menu/companydetails.png" />
@@ -256,8 +256,8 @@
                                         </mat-expansion-panel>
 
                                         <div *ngFor="let serviceList of categoryServiceListval.getservices; let service_index=index" class="py-3">
-                                            <mat-checkbox [checked]="serviceList.is_selected" (change)="fnNewCheckService($event.checked,serviceList.id)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) > -1" checked="true">{{serviceList.service_name}} </mat-checkbox>
-                                            <mat-checkbox [checked]="serviceList.is_selected" (change)="fnNewCheckService($event.checked,serviceList.id)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) < 0">{{serviceList.service_name}}</mat-checkbox>
+                                            <mat-checkbox [checked]="serviceList.is_selected" (change)="fnNewCheckService($event.checked,serviceList.id,i,service_index)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) > -1" checked="true">{{serviceList.service_name}} </mat-checkbox>
+                                            <mat-checkbox [checked]="serviceList.is_selected" (change)="fnNewCheckService($event.checked,serviceList.id,i,service_index)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) < 0">{{serviceList.service_name}}</mat-checkbox>
                                         </div>
 
                                     </mat-expansion-panel>
