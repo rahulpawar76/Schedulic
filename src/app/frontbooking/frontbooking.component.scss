@@ -53,6 +53,9 @@
                             i {
                                 color: $text-color;
                             }
+                            &:hover {
+                                background-color: #a9a9a9;
+                            }
                         }
                     }
                     .right-check-postal-form {

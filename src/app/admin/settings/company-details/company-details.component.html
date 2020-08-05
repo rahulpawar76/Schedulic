@@ -94,7 +94,7 @@
                             <div class="account-my-profile-img-wrap profile-img-wrap" (click)="companyDetailsImage()">
                                 <img *ngIf="(companyDetailsData && !companyDetailsData.image) && !companyDetailsImageUrl" mat-card-avatar class="account-my-profile-img" src="/assets/images/admin/picture.png">
                                 <img *ngIf="(companyDetailsData && !companyDetailsData.image) && companyDetailsImageUrl" mat-card-avatar class="account-my-profile-img uploaded" src="{{companyDetailsImageUrl}}">
-                                <img *ngIf="(companyDetailsData && companyDetailsData.image) && !companyDetailsImageUrl" mat-card-avatar class="account-my-profile-img" onerror="this.src='/assets/images/admin/picture.png';" src="{{companyDetailsData.image}}">
+                                <img *ngIf="(companyDetailsData && companyDetailsData.image) && !companyDetailsImageUrl" mat-card-avatar class="account-my-profile-img uploaded" onerror="this.src='/assets/images/admin/picture.png';" src="{{companyDetailsData.image}}">
                                 <img *ngIf="(companyDetailsData && companyDetailsData.image) && companyDetailsImageUrl" mat-card-avatar class="account-my-profile-img uploaded" onerror="this.src='/assets/images/admin/picture.png';" src="{{companyDetailsImageUrl}}">
                                 <div class="camera-alt"><i class="material-icons"> camera_alt</i></div>
                             </div>
@@ -130,16 +130,9 @@
 
                             <div class="mt-2 text-center mb-3">
 
-                                
-                                <ngx-intl-tel-input class="common-input mobile-intel-input bottom-border-field"
-                                 [preferredCountries]="preferredCountries" 
-                                 [enableAutoCountrySelect]="false" 
-                                 [searchCountryFlag]="true"
-                                 [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-                                 [selectFirstCountry]="true"
-                                 [selectedCountryISO]="selectedCountryISO" [maxLength]="15"  
-                                [phoneValidation]="false" [separateDialCode]="separateDialCode"
-                                formControlName="comp_mobile"  placeholder="Mobile" (keypress)="numberOnly($event)">
+
+                                <ngx-intl-tel-input class="common-input mobile-intel-input bottom-border-field" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                    [selectFirstCountry]="true" [selectedCountryISO]="selectedCountryISO" [maxLength]="15" [phoneValidation]="false" [separateDialCode]="separateDialCode" formControlName="comp_mobile" placeholder="Mobile" (keypress)="numberOnly($event)">
 
                                 </ngx-intl-tel-input>
                                 <span *ngIf="companyDetails.get('comp_mobile').dirty || companyDetails.get('comp_mobile').touched ">
@@ -237,6 +230,7 @@
                             <mat-card class="row footer-save-container">
                                 <div class="company-action-btn">
                                     <div class="mx-2">
+                                        <button mat-button class="business-cancel-btn" (click)="fnCancelBusiness()">Cancel</button>
                                         <button mat-button type="submit" (click)="fnUpdateCompanyDetail()" appearance="fill" class="company-save-btn">Update</button>
                                     </div>
                                 </div>

@@ -1833,7 +1833,7 @@ export class StaffComponent implements OnInit {
         this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
         this._snackBar.open("Working Hours Updated", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
@@ -1841,7 +1841,7 @@ export class StaffComponent implements OnInit {
       this.isLoaderAdmin = false;
       this._snackBar.open("Working Hours Not Updated", "X", {
         duration: 2000,
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         panelClass : ['red-snackbar']
       });
       }
@@ -1871,7 +1871,7 @@ export class StaffComponent implements OnInit {
         this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
         this._snackBar.open("Working Hours applied to all", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
@@ -1879,7 +1879,7 @@ export class StaffComponent implements OnInit {
       this.isLoaderAdmin = false;
       this._snackBar.open("Working Hours Not Updated", "X", {
         duration: 2000,
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         panelClass : ['red-snackbar']
       });
       }
@@ -1897,7 +1897,7 @@ export class StaffComponent implements OnInit {
         this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
         this._snackBar.open("Working Hours Reset", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
@@ -1905,7 +1905,7 @@ export class StaffComponent implements OnInit {
       this.isLoaderAdmin = false;
       this._snackBar.open("Working Hours Not Reset", "X", {
         duration: 2000,
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         panelClass : ['red-snackbar']
       });
       }
@@ -2208,9 +2208,9 @@ export class StaffComponent implements OnInit {
         this.showFridayAddForm=false;
         this.showSaturdayAddForm=false;
         this.showSundayAddForm=false;
-        this._snackBar.open("Break Added", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
@@ -2218,7 +2218,7 @@ export class StaffComponent implements OnInit {
       this.isLoaderAdmin = false;
       this._snackBar.open(response.response, "X", {
         duration: 2000,
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         panelClass : ['red-snackbar']
       });
       }
@@ -2242,16 +2242,16 @@ export class StaffComponent implements OnInit {
         this.adminSettingsService.deleteBreakStaff(requestObject).subscribe((response:any) => {
           if(response.data == true){
             this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
-            this._snackBar.open("Break Deleted", "X", {
+            this._snackBar.open(response.response, "X", {
               duration: 2000,
-              verticalPosition: 'bottom',
+              verticalPosition: 'top',
               panelClass : ['green-snackbar']
             });
           }else{
           this.isLoaderAdmin = false;
-          this._snackBar.open("Break Not Deleted", "X", {
+          this._snackBar.open(response.response, "X", {
             duration: 2000,
-            verticalPosition: 'bottom',
+            verticalPosition: 'top',
             panelClass : ['red-snackbar']
           });
           }
@@ -2270,16 +2270,16 @@ export class StaffComponent implements OnInit {
     this.adminSettingsService.resetToDefaultBreakStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
-        this._snackBar.open("Break Reset to Default", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }else{
       this.isLoaderAdmin = false;
-      this._snackBar.open("Break Not Reset to Default", "X", {
+      this._snackBar.open(response.response, "X", {
         duration: 2000,
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         panelClass : ['red-snackbar']
       });
       }
@@ -2298,16 +2298,16 @@ export class StaffComponent implements OnInit {
     this.adminSettingsService.changeTimeOffStatusStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
-        this._snackBar.open("Time off status updated", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }else{
       this.isLoaderAdmin = false;
       this._snackBar.open(response.response, "X", {
         duration: 2000,
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         panelClass : ['red-snackbar']
       });
       }
@@ -2324,16 +2324,16 @@ export class StaffComponent implements OnInit {
     this.adminSettingsService.resetToDefaultTimeOffStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
-        this._snackBar.open("Time off status Reset to Default", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }else{
       this.isLoaderAdmin = false;
       this._snackBar.open(response.response, "X", {
         duration: 2000,
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         panelClass : ['red-snackbar']
       });
       }
@@ -2356,16 +2356,16 @@ export class StaffComponent implements OnInit {
         this.adminSettingsService.deleteTimeOff(requestObject).subscribe((response:any) => {
           if(response.data == true){
             this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
-            this._snackBar.open("Time off deleted", "X", {
+            this._snackBar.open(response.response, "X", {
               duration: 2000,
-              verticalPosition: 'bottom',
+              verticalPosition: 'top',
               panelClass : ['green-snackbar']
             });
           }else{
             this.isLoaderAdmin = false;
             this._snackBar.open(response.response, "X", {
               duration: 2000,
-              verticalPosition: 'bottom',
+              verticalPosition: 'top',
               panelClass : ['red-snackbar']
             });
           }
@@ -2460,7 +2460,7 @@ export class StaffComponent implements OnInit {
       if(response.data == true){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
         this.isLoaderAdmin = false;
@@ -2468,7 +2468,7 @@ export class StaffComponent implements OnInit {
         this.isLoaderAdmin = false;
         this._snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
@@ -2627,16 +2627,16 @@ export class DialogAddNewTimeOff {
     this.adminSettingsService.addNewTimeOffStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.dialogRef.close({ call: true });
-        this._snackBar.open("Time off added", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else{
        this._snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }

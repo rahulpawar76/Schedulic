@@ -116,7 +116,7 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div *ngIf="allCetegoryList.subcategory != ''">
-                        <div class="subcategory-title-head" [ngClass]="{'active':selectedSubCategoryID === subcategoryList.id}" (click)="fnSelectSubCategoryNavigate(subcategoryList.id,i)" class="single-box my-2" *ngFor="let subcategoryList of allCetegoryList.subcategory; let i=index">
+                        <div [ngClass]="{'active':selectedSubCategoryID === subcategoryList.id}" (click)="fnSelectSubCategoryNavigate(subcategoryList.id,i)" class="single-box my-2 subcategory-title-head" *ngFor="let subcategoryList of allCetegoryList.subcategory; let i=index">
                             <p class="sub-category-title mb-0">{{subcategoryList.sub_category_name}}</p>
                         </div>
                     </div>

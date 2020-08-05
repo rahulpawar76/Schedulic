@@ -13,7 +13,6 @@ import { map, catchError } from 'rxjs/operators';
 import { AppComponent } from '@app/app.component';
 import { Observable, throwError } from 'rxjs';
 import { AuthenticationService } from '@app/_services';
-import { DataTableDirective } from 'angular-datatables';
 import { AdminSettingsService } from '../../admin/settings/_services/admin-settings.service';
 
 export interface DialogData {
@@ -31,14 +30,10 @@ export interface DialogData {
 
 export class AppointmentComponent implements OnInit {
  // persons: Person[];
- datatableElement: DataTableDirective;
 
   currentUser : any;
   adminSettings : boolean = false;
-  dtOptions: DataTables.Settings = {};
-  dtOptions1: DataTables.Settings = {};
 
-  dtTrigger: Subject<any> = new Subject();
   startDate:any;
   endDate:any;
   animal: any;
@@ -134,11 +129,6 @@ export class AppointmentComponent implements OnInit {
   }
   
 
-  ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
-  }
-
   
 
   fnGetSettingValue(){
@@ -181,17 +171,25 @@ export class AppointmentComponent implements OnInit {
       this.endDate = '';
     }
     if(this.durationType=='daily'){
-
+      
+      this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
+      this.endDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
       this.endDate=this.startDate;
     }
 
     if(this.durationType=='week'){
+      
+      this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
+      this.endDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
       let dateEnd = new Date(this.startDate);
       dateEnd.setDate( dateEnd.getDate() + 6 );
       this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
     }
 
     if(this.durationType=='month'){
+      
+      this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
+      this.endDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
       let dateEnd = new Date(this.startDate);
       let monthEnd = dateEnd.getMonth() + 1;
       let yearEnd = dateEnd.getFullYear();
@@ -404,7 +402,6 @@ export class AppointmentComponent implements OnInit {
         });
         // this.allAppointments = this.allAppointments.sort(this.dynamicSort("booking_date"))
         this.selectAll  = false;
-        this.dtTrigger.next();
         this.isLoaderAdmin = false;
         this.change.detectChanges();
 

@@ -103,6 +103,7 @@ export class CompanyDetailsComponent implements OnInit {
   }
 
   getCompanyDetails(){
+    this.isLoaderAdmin = true;
     let requestObject = {
         'business_id': this.businessId,
     };
@@ -134,6 +135,7 @@ export class CompanyDetailsComponent implements OnInit {
       else if(response.data == false){
        this.companyDetailsData = [];
       }
+      this.isLoaderAdmin = false;
     })
   }
 
@@ -288,6 +290,7 @@ export class CompanyDetailsComponent implements OnInit {
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
+        this.companyDetailsImageUrl = undefined;
         this.getCompanyDetails();
       } else if(response.data == false){
         this._snackBar.open(response.response, "X", {
@@ -297,6 +300,11 @@ export class CompanyDetailsComponent implements OnInit {
         });
       }
     });
+  }
+  fnCancelBusiness(){
+    this.isLoaderAdmin = true;
+    this.getCompanyDetails();
+    this.isLoaderAdmin = false;
   }
 
   companyDetailsImage() {
