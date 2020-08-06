@@ -45,7 +45,7 @@ export class MyProfileComponent implements OnInit {
       last_name : ['', [Validators.required,Validators.maxLength(8)]],
       email : new FormControl({ value: "", disabled: true }, [
         Validators.required]),
-      mobile : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      mobile : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
     });
     
   }

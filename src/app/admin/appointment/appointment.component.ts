@@ -29,7 +29,6 @@ export interface DialogData {
 })
 
 export class AppointmentComponent implements OnInit {
- // persons: Person[];
 
   currentUser : any;
   adminSettings : boolean = false;
@@ -128,6 +127,9 @@ export class AppointmentComponent implements OnInit {
     }
   }
   
+
+  ngOnDestroy(): void {
+  }
 
   
 

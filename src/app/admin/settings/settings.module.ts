@@ -8,7 +8,6 @@ import { MaterialModule } from '@app/_helpers/material.module';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { AdminSettingsRoutingModule } from './settings-routing.module';
 import { ServicesComponent } from './services/services.component';
-import { DataTablesModule } from 'angular-datatables';
 import { MdePopoverModule } from '@material-extended/mde';
 
 import { SettingsComponent } from './settings.component';
@@ -95,7 +94,6 @@ enableRipple(true);
       FormsModule,
       DragDropModule,
       MatSidenavModule,
-      DataTablesModule,
       MatDatepickerModule,
       ColorPickerModule,
       MdePopoverModule,

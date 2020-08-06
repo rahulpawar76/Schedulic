@@ -24,8 +24,6 @@ export interface DialogData {
 
 export class DiscountCouponComponent implements OnInit {
   adminSettings : boolean = false;
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject();
   isLoaderAdmin : boolean = false;
   animal: any;
   couponListFilter: any;
@@ -103,7 +101,6 @@ export class DiscountCouponComponent implements OnInit {
 
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
   }
 
   Search(value){
@@ -141,7 +138,6 @@ export class DiscountCouponComponent implements OnInit {
           element.created_at=this.datePipe.transform(new Date(element.created_at),"MMM d, y")
         });
         console.log(this.allCouponCode);
-        this.dtTrigger.next();
         this.isLoaderAdmin = false;
       }
       else if(response.data == false){

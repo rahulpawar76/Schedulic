@@ -64,7 +64,7 @@
                             <span class="error-wrap d-flex" *ngIf="settingMyProfile.get('mobile').dirty || settingMyProfile.get('mobile').touched">
                             <small *ngIf="settingMyProfile.get('mobile').hasError('required')" class="error">Mobile number is required</small>
                             <small *ngIf="settingMyProfile.get('mobile').hasError('pattern')" class="error">Mobile number is invalid</small>
-                            <small *ngIf="settingMyProfile.get('mobile').hasError('minLength') || settingMyProfile.get('mobile').hasError('maxLength')" class="error">Mobile number should be 6 to 15 digit</small>
+                            <small *ngIf="settingMyProfile.get('mobile').hasError('minlength') || settingMyProfile.get('mobile').hasError('maxlength')" class="error">Mobile number should be 6 to 15 digit</small>
                         </span>
                         </div>
 

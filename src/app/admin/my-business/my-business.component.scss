@@ -62,13 +62,14 @@
         border-radius: 50%;
         font-size: 45px;
         display: flex;
+        overflow: hidden;
         justify-content: center;
         align-items: center;
         height: 100px;
         width: 100px;
         img.mat-card-avatar {
-            height: 60px;
-            width: 60px;
+            height: 100%;
+            width: 100%;
         }
     }
     .businness-btn {

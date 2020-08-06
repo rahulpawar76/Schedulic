@@ -24,8 +24,6 @@ export interface DialogData {
     styleUrls: ['./services.component.scss']
 })
 export class ServicesComponent implements OnInit {
-    dtOptions: DataTables.Settings = {};
-    dtTrigger: Subject<any> = new Subject();
     categoryImageUrl:any = '';
     subCategoryImageUrl:any = '';
     serviceImageUrl:any = '';

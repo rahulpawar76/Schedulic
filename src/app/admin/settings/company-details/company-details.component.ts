@@ -29,6 +29,8 @@ export class CompanyDetailsComponent implements OnInit {
   selectedCountry: any;
   selectedState: any;
   selectedCity: any;
+  
+  phoneNumberInvalid:any = "valid";
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^-?(0|[1-9]\d*)?$/
   trimValidator:ValidatorFn;
@@ -100,6 +102,30 @@ export class CompanyDetailsComponent implements OnInit {
     }
     return true;
 
+  }
+  fnPhoneMouceLeave(){
+    if(this.companyDetails.get('comp_mobile').value === null){
+      this.phoneNumberInvalid = "required";
+    
+    }else if(this.companyDetails.get('comp_mobile').value !== '' || this.companyDetails.get('comp_mobile').value !== null){
+      if(this.companyDetails.get('comp_mobile').value.number.length >= 6 && this.companyDetails.get('comp_mobile').value.number.length <= 15){
+        this.phoneNumberInvalid = "valid";
+      }else{
+        this.phoneNumberInvalid = "length";
+      }
+    }
+    
+  }
+  fnenterPhoneNumber(){
+    if(this.companyDetails.get('comp_mobile').value !== '' || this.companyDetails.get('comp_mobile').value !== null){
+      if(this.companyDetails.get('comp_mobile').value.number.length >= 6 && this.companyDetails.get('comp_mobile').value.number.length <= 15){
+        this.phoneNumberInvalid = "valid";
+      }else{
+        this.phoneNumberInvalid = "length";
+      }
+    }else if(this.companyDetails.get('comp_mobile').value === '' || this.companyDetails.get('comp_mobile').value === null){
+      this.phoneNumberInvalid = "required";
+    }
   }
 
   getCompanyDetails(){

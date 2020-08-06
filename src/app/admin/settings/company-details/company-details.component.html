@@ -128,18 +128,18 @@
                                 </mat-form-field>
                             </div>
 
-                            <div class="mt-2 text-center mb-3">
+                            <div class="mt-2 text-center mb-3 d-flex flex-wrap">
 
 
                                 <ngx-intl-tel-input class="common-input mobile-intel-input bottom-border-field" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-                                    [selectFirstCountry]="true" [selectedCountryISO]="selectedCountryISO" [maxLength]="15" [phoneValidation]="false" [separateDialCode]="separateDialCode" formControlName="comp_mobile" placeholder="Mobile" (keypress)="numberOnly($event)">
+                                    [selectFirstCountry]="true" [selectedCountryISO]="selectedCountryISO" [maxLength]="15" [phoneValidation]="false" [separateDialCode]="separateDialCode" (mousedown)="fnPhoneMouceLeave($event)" (keyup)="fnenterPhoneNumber($event)"
+                                    formControlName="comp_mobile" placeholder="Mobile" (keypress)="numberOnly($event)">
 
                                 </ngx-intl-tel-input>
-                                <span *ngIf="companyDetails.get('comp_mobile').dirty || companyDetails.get('comp_mobile').touched ">
-                                    <small *ngIf="companyDetails.get('comp_mobile').hasError('required')" class="error">Phone number is required</small>
-`                                    <small *ngIf="companyDetails.get('comp_mobile').hasError('minlength') || companyDetails.get('comp_mobile').hasError('maxlength')" class="error">Phone number should be 6 to 10 digits long</small>
-                                </span>
 
+                                <span class="text-left w-100" *ngIf="phoneNumberInvalid">
+                                <small *ngIf="phoneNumberInvalid == 'required'" class="error">Phone number is required.</small>
+                                <small *ngIf="phoneNumberInvalid == 'length'" class="error">Phone number should be 6 to 15 digits long.</small></span>
                                 <!-- <mat-form-field class=" bottom-border-field">
                                     <input formControlName="comp_mobile" matInput placeholder="Mobile" (keypress)="numberOnly($event)">
                                 </mat-form-field> -->
@@ -172,6 +172,8 @@
                                     <mat-label>Address</mat-label>
                                     <input formControlName="comp_address" matInput placeholder="Address">
                                 </mat-form-field>
+                                <span class="error-wrap d-flex" *ngIf="companyDetails.get('comp_address').dirty || companyDetails.get('comp_address').touched">
+                                    <small *ngIf="companyDetails.get('comp_address').hasError('required')" class="error">Address is required.</small></span>
                             </div>
 
                             <div class="row">

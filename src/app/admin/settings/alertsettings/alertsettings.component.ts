@@ -25,6 +25,8 @@ export interface DialogData {
 export class AlertsettingsComponent implements OnInit {
 
   businessId : any;
+  phoneNumberInvalidTwilio:any = "valid";
+  phoneNumberInvalidTxtLocal:any = "valid";
   emailCustomerAppointment = {
     booked:{
       status:0,
@@ -535,6 +537,7 @@ export class AlertsettingsComponent implements OnInit {
       }
     })
   }
+
 
   fnAppointmentsReminder(event){
       if(event == true){
@@ -1672,10 +1675,44 @@ fnAppointmentsReminderSMS(event){
     this.updateTwillioSettings(requestObject);
   }
 
-  fnSubmitTwillioSettings(){
+  
+  fnPhoneMouceLeaveTwilio(){
+    if(this.twilio.get('adminNumber').value === null){
+      this.phoneNumberInvalidTwilio = "required";
     
+    }else if(this.twilio.get('adminNumber').value !== '' || this.twilio.get('adminNumber').value !== null){
+      if(this.twilio.get('adminNumber').value.number.length >= 6 && this.twilio.get('adminNumber').value.number.length <= 15){
+        this.phoneNumberInvalidTwilio = "valid";
+      }else{
+        this.phoneNumberInvalidTwilio = "length";
+      }
+    }
+    
+  }
+  fnenterPhoneNumberTwilio(){
+    if(this.twilio.get('adminNumber').value !== '' || this.twilio.get('adminNumber').value !== null){
+      if(this.twilio.get('adminNumber').value.number.length >= 6 && this.twilio.get('adminNumber').value.number.length <= 15){
+        this.phoneNumberInvalidTwilio = "valid";
+      }else{
+        this.phoneNumberInvalidTwilio = "length";
+      }
+    }else if(this.twilio.get('adminNumber').value === '' || this.twilio.get('adminNumber').value === null){
+      this.phoneNumberInvalidTwilio = "required";
+    }
+  }
 
-    if(this.twilio.valid){
+  
+  fnSubmitTwillioSettings(){
+    if(this.twilio.get('adminNumber').value === null){
+      this.phoneNumberInvalidTwilio = "required";
+    
+    }else if(this.twilio.get('adminNumber').value !== '' || this.twilio.get('adminNumber').value !== null){
+      if(this.twilio.get('adminNumber').value.number.length >= 6 && this.twilio.get('adminNumber').value.number.length <= 15){
+        this.phoneNumberInvalidTwilio = "valid";
+      }else{
+        this.phoneNumberInvalidTwilio = "length";
+      }
+    }else if(this.twilio.valid){
       let twilioSetting = {
         "account_sid":this.twilio.get("accountSID").value,
         "auth_token":this.twilio.get("authToken").value,
@@ -1732,11 +1769,43 @@ fnAppointmentsReminderSMS(event){
     }
     this.updateTextLocalSettings(requestObject);
   }
-
-  fnSubmitTextLocalSetting(){
+  
+  fnPhoneMouceLeaveTxtLocal(){
+    if(this.textLocal.get('adminNumber').value === null){
+      this.phoneNumberInvalidTxtLocal = "required";
     
-
-    if(this.textLocal.valid){
+    }else if(this.textLocal.get('adminNumber').value !== '' || this.textLocal.get('adminNumber').value !== null){
+      if(this.textLocal.get('adminNumber').value.number.length >= 6 && this.textLocal.get('adminNumber').value.number.length <= 15){
+        this.phoneNumberInvalidTxtLocal = "valid";
+      }else{
+        this.phoneNumberInvalidTxtLocal = "length";
+      }
+    }
+    
+  }
+  fnenterPhoneNumberTxtLocal(){
+    if(this.textLocal.get('adminNumber').value !== '' || this.textLocal.get('adminNumber').value !== null){
+      if(this.textLocal.get('adminNumber').value.number.length >= 6 && this.textLocal.get('adminNumber').value.number.length <= 15){
+        this.phoneNumberInvalidTxtLocal = "valid";
+      }else{
+        this.phoneNumberInvalidTxtLocal = "length";
+      }
+    }else if(this.textLocal.get('adminNumber').value === '' || this.textLocal.get('adminNumber').value === null){
+      this.phoneNumberInvalidTxtLocal = "required";
+    }
+  }
+  fnSubmitTextLocalSetting(){
+    if(this.textLocal.get('adminNumber').value === '' || this.textLocal.get('adminNumber').value === null){
+      this.phoneNumberInvalidTxtLocal = "required";
+      return false;
+    }else if(this.textLocal.get('adminNumber').value !== '' || this.textLocal.get('adminNumber').value !== null){
+      if(this.textLocal.get('adminNumber').value.number.length >= 6 && this.textLocal.get('adminNumber').value.number.length <= 15){
+        this.phoneNumberInvalidTxtLocal = "valid";
+      }else{
+        this.phoneNumberInvalidTxtLocal = "length";
+        return false;
+      }
+    }else if(this.textLocal.valid){
       let textLocalSetting = {
         "api_key":this.textLocal.get("apiKey").value,
         "admin_number" : this.textLocal.get("adminNumber").value.number.replace(/\s/g, ""),

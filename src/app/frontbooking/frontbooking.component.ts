@@ -17,6 +17,8 @@ import { Router, RouterOutlet } from '@angular/router';
 // import { DOCUMENT } from '@angular/platform-browser';
 // import { DOCUMENT } from '@angular/common',
 import { sha512 as sha512 } from 'js-sha512';
+import { Base64 } from 'base64-string';
+
 declare const PayUMoneylaunch: any;
 @Component({
   selector: 'app-frontbooking',
@@ -219,10 +221,11 @@ export class FrontbookingComponent implements OnInit {
   ) { 
     console.log(window.location.search)
     this.urlString = window.location.search.split("?business_id="); 
-    this.businessId =this.urlString[1];
-    // console.log(this.encodedbusinessId)
-    // this.businessId = atob(JSON.stringify(this.encodedbusinessId));
-    // console.log(this.businessId)
+    this.encodedbusinessId =this.urlString[1];
+    console.log(this.encodedbusinessId)
+    const enc = new Base64();
+    this.businessId = enc.decode(this.encodedbusinessId); 
+    console.log(this.businessId)
     meta.addTag({name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'});
     this.renderExternalScript('https://checkout-static.citruspay.com/bolt/run/bolt.min.js').onload = () => {
       console.log('Google API Script loaded');
@@ -1777,37 +1780,31 @@ export class FrontbookingComponent implements OnInit {
     });
   }
   fnPhoneMouceLeave(){
-    alert("enter Event");
-    if(this.formNewUser.get('newUserPhone').value.number !== undefined){
-      if(this.formNewUser.get('newUserPhone').value.number.length == 0){
-        this.phoneNumberInvalid = "required";
-        alert(this.formNewUser.get('newUserPhone').value.number.length)
-      }
-    }else{
+    if(this.formNewUser.get('newUserPhone').value === null){
       this.phoneNumberInvalid = "required";
+    
+    }else if(this.formNewUser.get('newUserPhone').value !== '' || this.formNewUser.get('newUserPhone').value !== null){
+      if(this.formNewUser.get('newUserPhone').value.number.length >= 6 && this.formNewUser.get('newUserPhone').value.number.length <= 15){
+        this.phoneNumberInvalid = "valid";
+      }else{
+        this.phoneNumberInvalid = "length";
+      }
     }
     
   }
   fnenterPhoneNumber(){
-    if(this.formNewUser.get('newUserPhone').value.number !== undefined){
-    if(this.formNewUser.get('newUserPhone').value.number.length == 0){
+    if(this.formNewUser.get('newUserPhone').value !== '' || this.formNewUser.get('newUserPhone').value !== null){
+      if(this.formNewUser.get('newUserPhone').value.number.length >= 6 && this.formNewUser.get('newUserPhone').value.number.length <= 15){
+        this.phoneNumberInvalid = "valid";
+      }else{
+        this.phoneNumberInvalid = "length";
+      }
+    }else if(this.formNewUser.get('newUserPhone').value === '' || this.formNewUser.get('newUserPhone').value === null){
       this.phoneNumberInvalid = "required";
-      alert(this.formNewUser.get('newUserPhone').value.number.length)
     }
-    else if(this.formNewUser.get('newUserPhone').value.number.length >= 6 && this.formNewUser.get('newUserPhone').value.number.length <= 15){
-      this.phoneNumberInvalid = "valid";
-      alert(this.phoneNumberInvalid)
-    }else{
-      this.phoneNumberInvalid = "length";
-      alert(this.phoneNumberInvalid)
-    }
-  }else{
-    this.phoneNumberInvalid = "required";
-    alert(this.formNewUser.get('newUserPhone').value.number.length)
-  }
   }
   fnpersonalinfo(){
-    if(this.formNewUser.get('newUserPhone').value.number.length == 0){
+    if(this.formNewUser.get('newUserPhone').value === null){
       this.phoneNumberInvalid = "required";
       return false;
     }
