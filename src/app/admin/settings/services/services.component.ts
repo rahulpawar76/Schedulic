@@ -293,7 +293,7 @@ export class ServicesComponent implements OnInit {
                 }
                 this.isLoaderAdmin = false;
             }
-            else if (response.data == false) {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this.allServicesList = [];
                 this.isLoaderAdmin = false;
             }
@@ -335,7 +335,7 @@ export class ServicesComponent implements OnInit {
                 }
                 this.isLoaderAdmin = false;
             }
-            else if (response.data == false) {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this.allServicesList = [];
                 this.isLoaderAdmin = false;
             }
@@ -416,7 +416,7 @@ export class ServicesComponent implements OnInit {
                     panelClass: ['red-snackbar']
                 });
             }
-            else if (response.data == false) {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -438,7 +438,7 @@ export class ServicesComponent implements OnInit {
             if (response.data == true) {
                 this.staffList = response.response
             }
-            else {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                  this.staffList = [];
                  this._snackBar.open(response.response, "X", {
                     duration: 2000,
@@ -524,7 +524,7 @@ export class ServicesComponent implements OnInit {
                 this.singleSubCategoryPage = '';
                 this.isLoaderAdmin = false;
             }
-            else if (response.data == false) {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this.categoryServicesList = [];
                 if (response.response == 'service not found.' || response.response == 'service not found') {
                     this.servicesList = false;
@@ -553,7 +553,7 @@ export class ServicesComponent implements OnInit {
                 this.actionServiceIdarr.length = 0;
                 this.fnAllServices();
             }
-            else {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open("Status Not Updated", "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -672,7 +672,7 @@ export class ServicesComponent implements OnInit {
                 this.selectCategoryPage = 'notservices';
                 this.createNewSubCategoryPage = false;
                 this.isLoaderAdmin = false;
-            }else if (response.data == false) {
+            }else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -701,7 +701,7 @@ export class ServicesComponent implements OnInit {
                 this.subCategoryImageUrl = '';
                 this.editSubCategoryId = undefined;
             }
-            else if (response.data == false) {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -818,7 +818,7 @@ export class ServicesComponent implements OnInit {
                 this.editCategoryId = undefined;
                 this.isLoaderAdmin = false;
             }
-            else if (response.data == false) {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open("Category Not updated", "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -845,7 +845,7 @@ export class ServicesComponent implements OnInit {
                 this.createNewCategoryPage = false;
                 this.isLoaderAdmin = false;
             }
-            else if (response.data == false) {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -896,7 +896,7 @@ export class ServicesComponent implements OnInit {
                 this.servicesList = true;
                 this.createNewCategoryPage = false;
                 this.isLoaderAdmin = false;
-            }else if (response.data == false) {
+            }else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open("Category Not deleted", "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -934,7 +934,7 @@ export class ServicesComponent implements OnInit {
                 this.singleSubCategoryPage = '';
 
                 
-            } else if (response.data == false) {
+            } else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -965,7 +965,7 @@ export class ServicesComponent implements OnInit {
                 });
                 this.fnAllCategory()
             }
-            else if (response.data == false) {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -1054,7 +1054,7 @@ export class ServicesComponent implements OnInit {
                         this.fnSelectSubCategory(categoryId, this.selectedSubCategoryIndex)
                     }
                 }
-                else {
+                else if(response.data == false && response.response !== 'api token or userid invaild'){
                     this._snackBar.open(response.response, "X", {
                         duration: 2000,
                         verticalPosition: 'top',
@@ -1128,7 +1128,7 @@ export class ServicesComponent implements OnInit {
                 this.selectCategoryPage = '';
                 this.createNewServicePage = false;
                 this.isLoaderAdmin = false;
-            } else if (response.data == false) {
+            } else if(response.data == false && response.response !== 'api token or userid invaild'){
                 if (response.response == 'service not found.' || response.response == 'service not found') {
                     this.servicesList = false;
 
@@ -1395,7 +1395,7 @@ export class ServicesComponent implements OnInit {
                     this.selectCategoryPage = 'services'
                 }
                 this.isLoaderAdmin = false;
-            } else if (response.data == false) {
+            } else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -1435,7 +1435,7 @@ export class ServicesComponent implements OnInit {
                 this.isLoaderAdmin = false;
                 
             }
-            else if (response.data == false) {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -1467,7 +1467,7 @@ export class ServicesComponent implements OnInit {
                     panelClass: ['green-snackbar']
                 });
             }
-            else if (response.data == false) {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this.isLoaderAdmin = false;
             }
         })
@@ -1552,7 +1552,7 @@ export class ServicesComponent implements OnInit {
                 }
                 this.isLoaderAdmin = false;
             }
-            else if (response.data == false) { 
+            else if(response.data == false && response.response !== 'api token or userid invaild'){ 
                 this._snackBar.open(response.response, "X", {
                 duration: 2000,
                 verticalPosition: 'top',
@@ -1789,7 +1789,7 @@ export class ServicesComponent implements OnInit {
                 if (response.data == true) {
                     this.staffList = response.response
                 }
-                else {
+                else if(response.data == false && response.response !== 'api token or userid invaild'){
                      this.staffList = [];
                      this._snackBar.open(response.response, "X", {
                         duration: 2000,

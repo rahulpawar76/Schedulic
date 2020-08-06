@@ -233,7 +233,7 @@ export class BusinessHoursComponent implements OnInit {
         this.fnGetBreakTimeList();
 
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open("Working Hours Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -274,7 +274,7 @@ export class BusinessHoursComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open("Working Hours Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -396,7 +396,7 @@ export class BusinessHoursComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
-      else{
+       else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open("Timezone Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -815,7 +815,7 @@ export class BusinessHoursComponent implements OnInit {
               verticalPosition: 'top',
               panelClass : ['green-snackbar']
             });
-          }else{
+          } else if(response.data == false && response.response !== 'api token or userid invaild'){
            this.snackBar.open(response.response, "X", {
               duration: 2000,
               verticalPosition: 'top',
@@ -842,7 +842,7 @@ export class BusinessHoursComponent implements OnInit {
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
-      }else{
+      } else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1182,7 +1182,7 @@ export class BusinessHoursComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
-      else{
+       else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1212,7 +1212,7 @@ export class BusinessHoursComponent implements OnInit {
               verticalPosition: 'top',
               panelClass : ['green-snackbar']
             });
-          }else{
+          } else if(response.data == false && response.response !== 'api token or userid invaild'){
            this.snackBar.open("Break Not Deleted.", "X", {
               duration: 2000,
               verticalPosition: 'top',
@@ -1285,7 +1285,7 @@ fnAddNewTimeOff(){
           panelClass : ['green-snackbar']
         });
       }
-      else{
+       else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',

@@ -527,7 +527,7 @@ export class AlertsettingsComponent implements OnInit {
 
           }
 
-      } else {
+      } else  if(response.data == false && response.response !== 'api token or userid invaild'){
 
         this._snackBar.open(response.response, "X", {
           duration: 2000,
@@ -688,7 +688,7 @@ fnAppointmentsReminderSMS(event){
         });
         this.getSettingsValue();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -741,7 +741,7 @@ fnAppointmentsReminderSMS(event){
         });
         this.getSettingsValue();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -802,7 +802,7 @@ fnAppointmentsReminderSMS(event){
         });
         this.getSettingsValue();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -834,7 +834,7 @@ fnAppointmentsReminderSMS(event){
         });
         this.getSettingsValue();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -876,7 +876,7 @@ fnAppointmentsReminderSMS(event){
         this.cusEmailTemplateStatus6 = this.customerEmailTemData[5].email_template_status;
         this.cusEmailTemplateStatus7 = this.customerEmailTemData[6].email_template_status;
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -903,7 +903,7 @@ fnAppointmentsReminderSMS(event){
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1075,7 +1075,7 @@ fnAppointmentsReminderSMS(event){
         this.getAdminEmailTemplates();
         this.getStaffEmailTemplates();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1116,7 +1116,7 @@ fnAppointmentsReminderSMS(event){
         this.adminEmailTemplateStatus6 = this.adminEmailTemData[5].email_template_status;
         this.adminEmailTemplateStatus7 = this.adminEmailTemData[6].email_template_status;
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1157,7 +1157,7 @@ fnAppointmentsReminderSMS(event){
 
         console.log(this.staffEmailTemData)
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1184,7 +1184,7 @@ fnAppointmentsReminderSMS(event){
         this.getAdminEmailTemplates();
         this.getStaffEmailTemplates();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1293,7 +1293,7 @@ fnAppointmentsReminderSMS(event){
         });
         this.getSettingsValue();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1335,7 +1335,7 @@ fnAppointmentsReminderSMS(event){
         this.cusSmsTemplateStatus7 = this.cusSmsTemData[6].sms_template_status;
         console.log(this.cusSmsTemData);
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1376,7 +1376,7 @@ fnAppointmentsReminderSMS(event){
         this.staffSmsTemplateStatus7 = this.staffSmsTemData[6].sms_template_status;
         console.log(this.staffSmsTemData);
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1417,7 +1417,7 @@ fnAppointmentsReminderSMS(event){
         this.adminSmsTemplateStatus7 = this.adminSmsTemData[6].sms_template_status;
         console.log(this.adminSmsTemData);
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1446,7 +1446,7 @@ fnAppointmentsReminderSMS(event){
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1473,7 +1473,7 @@ fnAppointmentsReminderSMS(event){
         this.getAdminSmsTemplates();
         this.getStaffSmsTemplates();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1647,7 +1647,7 @@ fnAppointmentsReminderSMS(event){
         this.getAdminEmailTemplates();
         this.getStaffEmailTemplates();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1741,7 +1741,7 @@ fnAppointmentsReminderSMS(event){
         });
         this.getSettingsValue();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1832,7 +1832,7 @@ fnAppointmentsReminderSMS(event){
         });
         this.getSettingsValue();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',

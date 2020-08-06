@@ -2619,7 +2619,7 @@
                                                                     <input formControlName="adminNumber" type="number" matInput placeholder="" value="">
                                                                 </mat-form-field> -->
                                                                 <ngx-intl-tel-input class="common-input mobile-intel-input bottom-border-field" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-                                                                    [selectFirstCountry]="true" [selectedCountryISO]="selectedCountryISO" [maxLength]="15" [phoneValidation]="false" (mousedown)="fnPhoneMouceLeaveTwilio($event)" (keyup)="fnenterPhoneNumberTwilio($event)"
+                                                                    [selectFirstCountry]="true" [selectedCountryISO]="selectedCountryISO" [maxLength]="15" [phoneValidation]="false" (mousedown)="fnPhoneMouceLeaveTwilio()" (keyup)="fnenterPhoneNumberTwilio()"
                                                                     [separateDialCode]="separateDialCode" formControlName="adminNumber" placeholder="Mobile">
                                                                 </ngx-intl-tel-input>
                                                                 <span class="" *ngIf="phoneNumberInvalidTwilio">
@@ -2733,8 +2733,8 @@
                                                                 </mat-form-field> -->
 
                                                                 <ngx-intl-tel-input class="common-input mobile-intel-input bottom-border-field" [preferredCountries]="preferredCountries1" [enableAutoCountrySelect]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField1.Iso2, SearchCountryField1.Name]"
-                                                                    [selectFirstCountry]="true" [selectedCountryISO]="selectedCountryISO1" [maxLength]="15" [phoneValidation]="false" [separateDialCode]="separateDialCode1" formControlName="adminNumber" (mousedown)="fnPhoneMouceLeaveTxtLocal($event)"
-                                                                    (keyup)="fnenterPhoneNumberTxtLocal($event)" placeholder="Mobile">
+                                                                    [selectFirstCountry]="true" [selectedCountryISO]="selectedCountryISO1" [maxLength]="15" [phoneValidation]="false" [separateDialCode]="separateDialCode1" formControlName="adminNumber" (mousedown)="fnPhoneMouceLeaveTxtLocal()"
+                                                                    (keyup)="fnenterPhoneNumberTxtLocal()" placeholder="Mobile">
                                                                 </ngx-intl-tel-input>
                                                                 <span class="" *ngIf="phoneNumberInvalidTxtLocal">
                                                                     <small *ngIf="phoneNumberInvalidTxtLocal == 'required'" class="error">Admin number is required.</small>

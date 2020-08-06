@@ -77,9 +77,9 @@
                                         <div class="d-flex profile-img-wrap services-customer-profile-background" (click)="customerImage()">
                                             <img *ngIf="!existingUserId && customerImageUrl != ''" mat-card-avatar class="service-profile-image mx-auto" src="{{customerImageUrl}}">
                                             <img *ngIf="!existingUserId && customerImageUrl == ''" class="service-profile-image mx-auto" src="/assets/images/admin/picture.png">
-                                            <img *ngIf="existingUserId && customerImageUrl == '' && customerPersonalDetails.image" class="service-profile-image mx-auto" style="width: 120px;" src="{{customerPersonalDetails.image}}">
-                                            <img *ngIf="existingUserId && customerImageUrl != '' && customerPersonalDetails.image" class="service-profile-image mx-auto" style="width: 120px;" src="{{customerImageUrl}}">
-                                            <img *ngIf="existingUserId && customerImageUrl == '' && !customerPersonalDetails.image" class="service-profile-image mx-auto" style="width: 120px;" src="/assets/images/admin/picture.png">
+                                            <img *ngIf="existingUserId && customerImageUrl == '' && customerPersonalDetails.image" class="service-profile-image mx-auto" src="{{customerPersonalDetails.image}}">
+                                            <img *ngIf="existingUserId && customerImageUrl != '' && customerPersonalDetails.image" class="service-profile-image mx-auto" src="{{customerImageUrl}}">
+                                            <img *ngIf="existingUserId && customerImageUrl == '' && !customerPersonalDetails.image" class="service-profile-image mx-auto" src="/assets/images/admin/picture.png">
                                             <div class="camera-alt"><i class="material-icons">
                                             camera_alt
                                             </i></div>
@@ -191,8 +191,11 @@
                                     <div class="mx-2">
                                         <button (click)="fnCancelNewCustomer()" mat-button appearance="fill" class="customer-cancel-btn">Cancel</button>
                                     </div>
-                                    <div class="mx-2">
+                                    <div class="mx-2" *ngIf="!existingUserId">
                                         <button mat-button type="submit" appearance="fill" (click)="fnCreateCustomerSubmit()" class="customer-save-btn">Save</button>
+                                    </div>
+                                    <div class="mx-2" *ngIf="existingUserId">
+                                        <button mat-button type="submit" appearance="fill" (click)="fnCreateCustomerSubmit()" class="customer-save-btn">Update</button>
                                     </div>
                                 </div>
                             </mat-card>

@@ -127,7 +127,7 @@ onSubmit(event){
           panelClass :['green-snackbar']
         });
         this.getUserProfileData();
-      }else{
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open("Unable to update profile", "X", {
           duration: 2000,
           verticalPosition:'top',

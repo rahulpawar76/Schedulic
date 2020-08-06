@@ -206,7 +206,7 @@ export class BookingrulesComponent implements OnInit {
           this.thankyouPageLinkValue=JSON.parse(this.settingsArr.thank_you).page_link;
         }
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
        
         this.snackBar.open(response.response, "X", {
           duration: 2000,
@@ -259,8 +259,8 @@ export class BookingrulesComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
-      else{
-       this.snackBar.open("Minimum Advance Booking Time Not Updated.", "X", {
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+       this.snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']
@@ -311,8 +311,8 @@ export class BookingrulesComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
-      else{
-       this.snackBar.open("Maximum Advance Booking Time Not Updated.", "X", {
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+       this.snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']
@@ -352,8 +352,8 @@ export class BookingrulesComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
-      else{
-       this.snackBar.open("Time Interval Not Updated.", "X", {
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+       this.snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']
@@ -398,8 +398,8 @@ export class BookingrulesComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
-      else{
-       this.snackBar.open("Cancellation Buffer Time Not Updated.", "X", {
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+       this.snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']
@@ -444,8 +444,8 @@ export class BookingrulesComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
-      else{
-       this.snackBar.open("Minimum Reseduling Time Not Updated.", "X", {
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+       this.snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']
@@ -471,8 +471,8 @@ export class BookingrulesComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
-      else{
-       this.snackBar.open("Customer Login Status Not Updated.", "X", {
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+       this.snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'bottom',
           panelClass : ['red-snackbar']
@@ -500,7 +500,7 @@ export class BookingrulesComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open("Staff On Front Status Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
@@ -550,7 +550,7 @@ export class BookingrulesComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open("Auto ConfirmSettings Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
@@ -577,7 +577,7 @@ export class BookingrulesComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open("Customer Staff Status Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
@@ -637,7 +637,7 @@ export class BookingrulesComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open("Terms Conditions Status Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
@@ -697,7 +697,7 @@ export class BookingrulesComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open("Privacy Policy Status Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',
@@ -751,7 +751,7 @@ export class BookingrulesComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open("Thankyou Page Status Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'bottom',

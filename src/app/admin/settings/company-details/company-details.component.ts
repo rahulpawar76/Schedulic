@@ -158,7 +158,7 @@ export class CompanyDetailsComponent implements OnInit {
         this.selectedCountryISO =  this.adminSettingsService.fncountySelected(this.companyDetailsData.country.id);
         
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.companyDetailsData = [];
       }
       this.isLoaderAdmin = false;
@@ -177,7 +177,7 @@ export class CompanyDetailsComponent implements OnInit {
       if(response.data == true){
         this.allCountry = response.response
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.allCountry = [];
         this._snackBar.open(response.response, "X", {
           duration: 2000,
@@ -207,7 +207,7 @@ export class CompanyDetailsComponent implements OnInit {
       if(response.data == true){
         this.allStates = response.response
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.allStates = [];
         this._snackBar.open(response.response, "X", {
           duration: 2000,
@@ -230,7 +230,7 @@ export class CompanyDetailsComponent implements OnInit {
       if(response.data == true && response.response!="no city found"){
         this.allCities = response.response;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.allCities = [];
         this._snackBar.open(response.response, "X", {
           duration: 2000,
@@ -318,7 +318,7 @@ export class CompanyDetailsComponent implements OnInit {
         });
         this.companyDetailsImageUrl = undefined;
         this.getCompanyDetails();
-      } else if(response.data == false){
+      } else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',

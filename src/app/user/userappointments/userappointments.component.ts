@@ -195,7 +195,7 @@ export class UserappointmentsComponent implements OnInit {
         }
         this.initConfig();
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         
       }
     })
@@ -221,7 +221,7 @@ export class UserappointmentsComponent implements OnInit {
         this.appointmentData = this.appointmentData.sort(this.dynamicSort("-created_at"))
         
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -247,7 +247,7 @@ export class UserappointmentsComponent implements OnInit {
         });
         this.cancelAppointmentData = this.cancelAppointmentData.sort(this.dynamicSort("-updated_at"))
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         // this._snackBar.open(response.response, "X", {
         //   duration: 2000,
         //   verticalPosition:'top',
@@ -273,7 +273,7 @@ export class UserappointmentsComponent implements OnInit {
         });
         this.completedAppointmentData = this.completedAppointmentData.sort(this.dynamicSort("-updated_at"))
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         // this._snackBar.open(response.response, "X", {
         //   duration: 2000,
         //   verticalPosition:'top',
@@ -488,7 +488,7 @@ export class UserappointmentsComponent implements OnInit {
           this.isLoader=false;
           this.confirmPayment();
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -739,7 +739,7 @@ export class UserappointmentsComponent implements OnInit {
         this.getAllAppointments();
         this.cardForm.reset();
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -817,7 +817,7 @@ export class UserappointmentsComponent implements OnInit {
           }
           this.isLoader=false;
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -896,7 +896,7 @@ export class DialogOverviewExampleDialog {
           });
         this.dialogRef.close();
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -946,7 +946,7 @@ export class DialogCancelReason {
           panelClass :['green-snackbar']
           });
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -1003,7 +1003,7 @@ export class DialogCancelReason {
           this.businessData=response.response;
           console.log(this.businessData);
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -1031,7 +1031,7 @@ export class DialogCancelReason {
           this.currencySymbolFormat = this.settingsArr.currency_format;
           console.log(this.currencySymbolFormat);
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -1128,7 +1128,7 @@ export class DialogCancelReason {
                     verticalPosition:'top',
                     panelClass :['green-snackbar']
                   });
-                }else if(response.data == false){
+                }else if(response.data == false && response.response !== 'api token or userid invaild'){
 
                   that._snackBar.open(response.response, "X", {
                     duration: 2000,
@@ -1167,7 +1167,7 @@ export class DialogCancelReason {
         //               panelClass :['green-snackbar']
         //             });
         //           }
-        //           else if(response.data == false){
+        //           else if(response.data == false && response.response !== 'api token or userid invaild'){
         //             that._snackBar.open(response.response, "X", {
         //               duration: 2000,
         //               verticalPosition:'top',
@@ -1218,7 +1218,7 @@ export class DialogCancelReason {
           console.log(response.response);
           this.activityLog=response.response;
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this.activityLog=[];
         }
       })
@@ -1242,7 +1242,7 @@ export class DialogCancelReason {
           this.currencySymbolFormat = this.settingsArr.currency_format;
           console.log(this.currencySymbolFormat);
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -1307,7 +1307,7 @@ export class DialogCancelReason {
           console.log(response.response);
           this.activityLog=response.response;
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this.activityLog=[];
         }
       })
@@ -1336,7 +1336,7 @@ export class DialogCancelReason {
             
             
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -1537,7 +1537,7 @@ export class rescheduleAppointmentDialog {
           //   this.selectedDate = this.datePipe.transform(new Date(this.minimumAdvanceBookingDateTimeObject),"yyyy-MM-dd");
           // }
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           
         }
       })
@@ -1551,7 +1551,7 @@ export class rescheduleAppointmentDialog {
         if(response.data == true){
           if(response.response.holidays.length>0){
             this.offDaysList = response.response.holidays;
-          }else{
+          }else if(response.data == false && response.response !== 'api token or userid invaild'){
             this.offDaysList=[];
           }
           if(response.response.offday.length>0){
@@ -1629,7 +1629,7 @@ export class rescheduleAppointmentDialog {
               this.timeSlotArr=response.response;
               console.log(this.timeSlotArr);
             }
-            else if(response.data == false){
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
               this._snackBar.open(response.response, "X", {
                 duration: 2000,
                 verticalPosition:'top',
@@ -1670,7 +1670,7 @@ export class rescheduleAppointmentDialog {
                 this.availableStaff = response.response;
                 console.log(JSON.stringify(this.availableStaff));
             }
-              else if(response.data == false){
+              else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open(response.response, "X", {
                   duration: 2000,
                   verticalPosition:'top',
@@ -1719,7 +1719,7 @@ export class rescheduleAppointmentDialog {
           this.dialogRef.close();
      }
       
-     else if(response.data == false){
+     else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
         duration: 2000,
         verticalPosition:'top',
@@ -1771,7 +1771,7 @@ export class rescheduleAppointmentDialog {
           console.log(response.response);
           this.activityLog=response.response;
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this.activityLog=[];
         }
       })
@@ -1795,7 +1795,7 @@ export class rescheduleAppointmentDialog {
           this.currencySymbolFormat = this.settingsArr.currency_format;
           console.log(this.currencySymbolFormat);
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           
         }
       })
@@ -2014,7 +2014,7 @@ export class rescheduleAppointmentDialog {
         if(response.data == true){
           let postal = response.response
           this.Postalcode = postal;
-        } else if(response.data == false){
+        } else if(response.data == false && response.response !== 'api token or userid invaild'){
           this.Postalcode = [];
         }
       });
@@ -2115,7 +2115,7 @@ export class rescheduleAppointmentDialog {
           this.maxDate = this.maximumAdvanceBookingDateTimeObject;
   
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           
         }
       })
@@ -2132,7 +2132,7 @@ export class rescheduleAppointmentDialog {
           this.taxArr=tax;
           console.log(this.taxArr);
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           
         }
       })
@@ -2608,7 +2608,7 @@ export class rescheduleAppointmentDialog {
           this.availableStaff = response.response;
           this.isStaffAvailable = true;
           console.log(JSON.stringify(this.availableStaff));
-        }else{
+        }else if(response.data == false && response.response !== 'api token or userid invaild'){
           this.availableStaff=[];
           this.isStaffAvailable = false;
         }
@@ -2731,7 +2731,7 @@ export class rescheduleAppointmentDialog {
               panelClass :['green-snackbar']
           });
           this.dialogRef.close({data:true});
-        }else{
+        }else if(response.data == false && response.response !== 'api token or userid invaild'){
           this.isLoader = false;
             this._snackBar.open(response.response, "X", {
                 duration: 2000,

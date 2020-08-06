@@ -85,7 +85,7 @@ export class PostalcodesComponent implements OnInit {
           }
         });
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.postalCodeList = [];
       }
     })
@@ -113,7 +113,7 @@ export class PostalcodesComponent implements OnInit {
           panelClass :['green-snackbar']
           });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -157,7 +157,7 @@ export class PostalcodesComponent implements OnInit {
            this.selectedValue = undefined;
            this.fnGetPostalCodeList();
         }
-        else{
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -183,7 +183,7 @@ export class PostalcodesComponent implements OnInit {
             if(response.data == true){
               this.fnGetPostalCodeList();
             }
-            else{
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
 
             }
           })
@@ -296,7 +296,7 @@ export class DialogAddPostalCode {
           });
           this.dialogRef.close(true);
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',

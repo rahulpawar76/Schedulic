@@ -140,7 +140,7 @@ export class DiscountCouponComponent implements OnInit {
         console.log(this.allCouponCode);
         this.isLoaderAdmin = false;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -266,7 +266,7 @@ export class DiscountCouponComponent implements OnInit {
         this.addNewCouponCode = false;
         this.isLoaderAdmin = false;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -303,7 +303,7 @@ export class DiscountCouponComponent implements OnInit {
     this.getAllCouponCode();
     this.isLoaderAdmin = false;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -338,7 +338,7 @@ export class DiscountCouponComponent implements OnInit {
 
         this.isLoaderAdmin = false;
 
-      }else if(response.data == false){
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
 
         this._snackBar.open(response.response, "X", {
           duration: 2000,
@@ -593,7 +593,7 @@ constructor(
         console.log(this.couponCodeDetail);
 
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -621,7 +621,7 @@ constructor(
         });
         this.isLoaderAdmin = false;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.isLoaderAdmin = false;
       }
     })

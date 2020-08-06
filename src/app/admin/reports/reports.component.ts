@@ -158,7 +158,7 @@ export class ReportsComponent implements OnInit {
         
         this.currencySymbolFormat = this.settingsArr.currency_format;
         console.log(this.currencySymbolFormat);
-      }else if(response.data == false){
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -285,7 +285,7 @@ export class ReportsComponent implements OnInit {
         });
         console.log(this.appointmentReport);
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -363,7 +363,7 @@ export class ReportsComponent implements OnInit {
 
           }
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -418,7 +418,7 @@ export class ReportsComponent implements OnInit {
             element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy");
         });
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',

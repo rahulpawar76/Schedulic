@@ -716,7 +716,7 @@ export class StaffAppointmentComponent implements OnInit {
       ).subscribe((response:any) => {
         if(response.data == true){
           this.formAddNewAppointmentStaffStep1 = this._formBuilder.group({
-            customerFullName: ['', [Validators.required,Validators.minLength(4),Validators.maxLength(16)]],
+            customerFullName: ['', [Validators.required]],
             customerEmail: ['', [Validators.required,Validators.email,Validators.pattern(this.emailPattern)]],
             customerPhone: ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
             customerAddress: ['', Validators.required],
@@ -1099,7 +1099,7 @@ export class StaffAppointmentComponent implements OnInit {
           this.serviceCount[this.serviceData[i].id]=this.serviceData[i];
         }
         console.log(JSON.stringify(this.serviceData));
-        }else{
+        }else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',

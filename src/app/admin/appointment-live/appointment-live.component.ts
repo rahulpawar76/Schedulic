@@ -1,5 +1,4 @@
 import { Component, OnInit,Inject } from '@angular/core';
-import { Subject } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { AdminService } from '../_services/admin-main.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -10,7 +9,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { environment } from '@environments/environment';
 import { Router, RouterOutlet } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { AppComponent } from '@app/app.component';
 import { AuthenticationService } from '@app/_services';
@@ -126,7 +124,7 @@ export class AppointmentLiveComponent implements OnInit {
         this.currencySymbol = this.settingsArr.currency;
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
         this.currencySymbolFormat = this.settingsArr.currency_format;
-      }else if(response.data == false){
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition: 'top',
@@ -159,7 +157,7 @@ export class AppointmentLiveComponent implements OnInit {
           element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
           element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
         });
-      }else if(response.data == false){
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -212,7 +210,7 @@ export class AppointmentLiveComponent implements OnInit {
         });
         
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -265,7 +263,7 @@ export class AppointmentLiveComponent implements OnInit {
           element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
           
         });
-      }else if(response.data == false){
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -319,7 +317,7 @@ export class AppointmentLiveComponent implements OnInit {
           
         });
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -450,7 +448,7 @@ constructor(
         console.log(response.response);
         this.activityLog=response.response;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -498,7 +496,7 @@ constructor(
             });
           this.dialogRef.close();
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -537,7 +535,7 @@ constructor(
           });
         this.dialogRef.close();
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -565,7 +563,7 @@ constructor(
           panelClass :['green-snackbar']
         });
         this.formSettingPage = false;
-      } else if(response.data == false){
+      } else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -584,7 +582,7 @@ constructor(
       if(response.data == true){
         this.settingsArr = response.response;
        
-      }else if(response.data == false){
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition: 'top',
@@ -746,7 +744,7 @@ constructor(
             });
             this.dialogRef.close();
        }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -805,7 +803,7 @@ constructor(
       if(response.data == true){
         this.activityLog=response.response;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -886,7 +884,7 @@ constructor(
             });
           this.dialogRef.close();
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -926,7 +924,7 @@ constructor(
           });
         this.dialogRef.close();
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -953,7 +951,7 @@ constructor(
           panelClass :['green-snackbar']
         });
         this.formSettingPage = false;
-      } else if(response.data == false){
+      } else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -971,7 +969,7 @@ constructor(
     this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.settingsArr = response.response;
-      }else if(response.data == false){
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition: 'top',
@@ -1044,7 +1042,7 @@ export class OnTheWayAppointmentDetailsDialog {
       if(response.data == true){
         this.activityLog=response.response;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1064,7 +1062,7 @@ export class OnTheWayAppointmentDetailsDialog {
     this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.settingsArr = response.response;
-      }else if(response.data == false){
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition: 'top',
@@ -1116,7 +1114,7 @@ export class OnTheWayAppointmentDetailsDialog {
             });
           this.dialogRef.close();
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -1154,7 +1152,7 @@ export class OnTheWayAppointmentDetailsDialog {
           });
         this.dialogRef.close();
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -1181,7 +1179,7 @@ export class OnTheWayAppointmentDetailsDialog {
           panelClass :['green-snackbar']
         });
         this.formSettingPage = false;
-      } else if(response.data == false){
+      } else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -1248,7 +1246,7 @@ constructor(
       this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.settingsArr = response.response;
-        }else if(response.data == false){
+        }else if(response.data == false && response.response !== 'api token or userid invaild'){
             this._snackBar.open(response.response, "X", {
               duration: 2000,
               verticalPosition: 'top',
@@ -1270,7 +1268,7 @@ constructor(
       if(response.data == true){
         this.activityLog=response.response;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1320,7 +1318,7 @@ constructor(
             });
           this.dialogRef.close();
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -1359,7 +1357,7 @@ constructor(
           });
         this.dialogRef.close();
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -1386,7 +1384,7 @@ constructor(
           panelClass :['green-snackbar']
         });
         this.formSettingPage = false;
-      } else if(response.data == false){
+      } else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',

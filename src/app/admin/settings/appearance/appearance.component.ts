@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '@environments/environment';
 import { NgbDateParserFormatter, NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import { MdePopoverTrigger } from '@material-extended/mde';
-import { Base64 } from 'base64-string';
+//import { Base64 } from 'base64-string';
 
 
 @Component({
@@ -82,12 +82,12 @@ export class AppearanceComponent implements OnInit {
       if (localStorage.getItem('business_id')) {
         this.businessId = localStorage.getItem('business_id');
         
-        const enc = new Base64();   
-        this.encodedBusinessId = enc.encode(this.businessId);
-        console.log(this.encodedBusinessId);
+        // const enc = new Base64();   
+        // this.encodedBusinessId = enc.encode(this.businessId);
+        // console.log(this.encodedBusinessId);
         
       }
-      this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+this.encodedBusinessId+"'></iframe>";
+      this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+this.businessId+"'></iframe>";
   }
 
   ngOnInit() {

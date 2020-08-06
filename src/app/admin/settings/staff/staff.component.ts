@@ -1143,7 +1143,7 @@ export class StaffComponent implements OnInit {
         this.categoryServiceListTemp=this.categoryServiceList;
 
         this.isLoaderAdmin = false;
-      } else if(response.data == false){
+      } else if(response.data == false && response.response !== 'api token or userid invaild'){
 
         this.categoryServiceList = [];
         this.categoryServiceListTemp = [];
@@ -1372,7 +1372,7 @@ export class StaffComponent implements OnInit {
          this.addStaffPage = false;
          this.staffListPage = true;
         this.isLoaderAdmin = false;
-      }else if(response.data == false){
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.isLoaderAdmin = false;
       }
     });
@@ -1394,7 +1394,7 @@ export class StaffComponent implements OnInit {
          this.staffListPage = true;
         this.isLoaderAdmin = false;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
 
         this.isLoaderAdmin = false;
       }
@@ -1426,7 +1426,7 @@ export class StaffComponent implements OnInit {
             this.staffListPage = true;
             this.isLoaderAdmin = false;
           }
-          else if(response.data == false){
+          else if(response.data == false && response.response !== 'api token or userid invaild'){
             this.isLoaderAdmin = false;
           }
         })
@@ -1855,7 +1855,7 @@ export class StaffComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this.isLoaderAdmin = false;
       this._snackBar.open("Working Hours Not Updated", "X", {
         duration: 2000,
@@ -1893,7 +1893,7 @@ export class StaffComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this.isLoaderAdmin = false;
       this._snackBar.open("Working Hours Not Updated", "X", {
         duration: 2000,
@@ -1919,7 +1919,7 @@ export class StaffComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this.isLoaderAdmin = false;
       this._snackBar.open("Working Hours Not Reset", "X", {
         duration: 2000,
@@ -2232,7 +2232,7 @@ export class StaffComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this.isLoaderAdmin = false;
       this._snackBar.open(response.response, "X", {
         duration: 2000,
@@ -2265,7 +2265,7 @@ export class StaffComponent implements OnInit {
               verticalPosition: 'top',
               panelClass : ['green-snackbar']
             });
-          }else{
+          }else if(response.data == false && response.response !== 'api token or userid invaild'){
           this.isLoaderAdmin = false;
           this._snackBar.open(response.response, "X", {
             duration: 2000,
@@ -2293,7 +2293,7 @@ export class StaffComponent implements OnInit {
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
-      }else{
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
       this.isLoaderAdmin = false;
       this._snackBar.open(response.response, "X", {
         duration: 2000,
@@ -2321,7 +2321,7 @@ export class StaffComponent implements OnInit {
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
-      }else{
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
       this.isLoaderAdmin = false;
       this._snackBar.open(response.response, "X", {
         duration: 2000,
@@ -2347,7 +2347,7 @@ export class StaffComponent implements OnInit {
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
-      }else{
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
       this.isLoaderAdmin = false;
       this._snackBar.open(response.response, "X", {
         duration: 2000,
@@ -2379,7 +2379,7 @@ export class StaffComponent implements OnInit {
               verticalPosition: 'top',
               panelClass : ['green-snackbar']
             });
-          }else{
+          }else if(response.data == false && response.response !== 'api token or userid invaild'){
             this.isLoaderAdmin = false;
             this._snackBar.open(response.response, "X", {
               duration: 2000,
@@ -2415,7 +2415,7 @@ export class StaffComponent implements OnInit {
         });
         this.isLoaderAdmin = false;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.isLoaderAdmin = false;
       }
     })
@@ -2459,7 +2459,7 @@ export class StaffComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
         this.isLoaderAdmin = false;
-      }else{
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.isLoaderAdmin = false;
         this._snackBar.open(response.response, "X", {
           duration: 2000,
@@ -2482,7 +2482,7 @@ export class StaffComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
         this.isLoaderAdmin = false;
-      }else{
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.isLoaderAdmin = false;
         this._snackBar.open(response.response, "X", {
           duration: 2000,
@@ -2506,7 +2506,7 @@ export class StaffComponent implements OnInit {
           this.singleStaffDetail.postalCode = response.response;
           this.isLoaderAdmin=false;
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -2549,7 +2549,7 @@ export class StaffComponent implements OnInit {
 
           this.isLoaderAdmin=false;
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -2651,7 +2651,7 @@ export class DialogAddNewTimeOff {
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',

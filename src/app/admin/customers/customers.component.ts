@@ -181,7 +181,7 @@ export class CustomersComponent implements OnInit {
       cus_address : ['', Validators.required],
       cus_state : ['', Validators.required],
       cus_city : ['', Validators.required],
-      cus_zip : ['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(5),Validators.maxLength(6)]],
+      cus_zip : ['',[Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
       customer_id : ['']
     });
     // this.formPayment = this._formBuilder.group({
@@ -210,7 +210,7 @@ export class CustomersComponent implements OnInit {
         
         this.currencySymbolFormat = this.settingsArr.currency_format;
         console.log(this.currencySymbolFormat);
-      }else if(response.data == false){
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -249,7 +249,7 @@ export class CustomersComponent implements OnInit {
         this.allCustomers = [];
         this.isLoaderAdmin = false;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -353,7 +353,7 @@ fnCreateNewCustomer(newCustomerData){
       this.customerImageUrl = undefined;
       this.isLoaderAdmin = false;
     }
-    else if(response.data == false){
+    else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
         duration: 2000,
         verticalPosition:'top',
@@ -379,7 +379,7 @@ customerUpdate(existingCustomerData){
       this.customerImageUrl='';
       this.isLoaderAdmin = false;
     }
-    else if(response.data == false){
+    else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
         duration: 2000,
         verticalPosition: 'top',
@@ -487,8 +487,9 @@ customerUpdate(existingCustomerData){
         this.isLoaderAdmin = false;
         this.newCustomer = false;
         this.fullDetailsOfCustomer = true;
+        this.customerImageUrl = undefined;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -515,7 +516,7 @@ customerUpdate(existingCustomerData){
       this.getAllCustomers();
       this.isLoaderAdmin = false;
     }
-    else if(response.data == false){
+    else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
         duration: 2000,
         verticalPosition: 'top',
@@ -546,7 +547,7 @@ customerUpdate(existingCustomerData){
       this.getAllCustomers();
       this.isLoaderAdmin = false;
     }
-    else if(response.data == false){
+    else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
         duration: 2000,
         verticalPosition:'top',
@@ -572,7 +573,7 @@ customerUpdate(existingCustomerData){
       cus_address : ['', Validators.required],
       cus_state : ['', Validators.required],
       cus_city : ['', Validators.required],
-      cus_zip : ['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(5),Validators.maxLength(6)]],
+      cus_zip : ['',[Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
       customer_id : ['']
     });
     this.createNewCustomer.controls['customer_id'].setValue(this.existingUserId);
@@ -698,7 +699,7 @@ customerUpdate(existingCustomerData){
         });
         this.isLoaderAdmin = false;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -726,7 +727,7 @@ customerUpdate(existingCustomerData){
         this.fnSelectCustomer(customerId);
         this.isLoaderAdmin = false;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -772,7 +773,7 @@ customerUpdate(existingCustomerData){
           this.selectedCustomerId.length = 0;
           this.isLoaderAdmin = false;
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition: 'top',
@@ -799,7 +800,7 @@ customerUpdate(existingCustomerData){
         this.getAllCustomers();
         this.isLoaderAdmin = false;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -1277,7 +1278,7 @@ customerUpdate(existingCustomerData){
           this.fnSelectCustomer(this.allCustomers[0].id);
           this.isLoaderAdmin=false;
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -1355,7 +1356,7 @@ constructor(
         });
         this.formSettingPage = false;
         this.fnGetSettingValue();
-      } else if(response.data == false){
+      } else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -1375,7 +1376,7 @@ constructor(
       if(response.data == true){
         this.activityLog=response.response;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1417,7 +1418,7 @@ constructor(
         this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
       //  console.log("minReschedulingTime - "+this.minReschedulingTime);
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1441,7 +1442,7 @@ constructor(
           });
           this.dialogRef.close();
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -1465,7 +1466,7 @@ constructor(
           });
           this.dialogRef.close();
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -1627,7 +1628,7 @@ formRescheduleSubmit(){
         });
         this.dialogRef.close();
    }
-    else if(response.data == false){
+    else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
         duration: 2000,
         verticalPosition:'top',
@@ -1919,7 +1920,7 @@ constructor(
       if(response.data == true){
         let postal = response.response
         this.Postalcode = postal;
-      } else if(response.data == false){
+      } else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -2008,7 +2009,7 @@ constructor(
         this.maxDate = this.maximumAdvanceBookingDateTimeObject;
 
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -2025,7 +2026,7 @@ constructor(
         this.taxArr=tax;
         console.log(this.taxArr);
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -2052,7 +2053,7 @@ constructor(
           this.workingHoursOffDaysList=[];
         }
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -2727,7 +2728,7 @@ export class DialogAddNewNote {
         this.isLoaderAdmin = false;
         
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -2749,7 +2750,7 @@ export class DialogAddNewNote {
         this.dialogRef.close();
         this.isLoaderAdmin = false;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -2982,7 +2983,7 @@ onNoClick(): void {
           this.businessData=response.response;
           console.log(this.businessData);
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -3085,7 +3086,7 @@ onNoClick(): void {
                 panelClass :['green-snackbar']
               });
 
-            }else if(response.data == false){
+            }else if(response.data == false && response.response !== 'api token or userid invaild'){
               
               this._snackBar.open(response.response, "X", {
                 duration: 2000,

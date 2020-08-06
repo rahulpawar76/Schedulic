@@ -132,8 +132,8 @@
 
 
                                 <ngx-intl-tel-input class="common-input mobile-intel-input bottom-border-field" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-                                    [selectFirstCountry]="true" [selectedCountryISO]="selectedCountryISO" [maxLength]="15" [phoneValidation]="false" [separateDialCode]="separateDialCode" (mousedown)="fnPhoneMouceLeave($event)" (keyup)="fnenterPhoneNumber($event)"
-                                    formControlName="comp_mobile" placeholder="Mobile" (keypress)="numberOnly($event)">
+                                    [selectFirstCountry]="true" [selectedCountryISO]="selectedCountryISO" [maxLength]="15" [phoneValidation]="false" [separateDialCode]="separateDialCode" (mousedown)="fnPhoneMouceLeave()" (keyup)="fnenterPhoneNumber()" formControlName="comp_mobile"
+                                    placeholder="Mobile" (keypress)="numberOnly($event)">
 
                                 </ngx-intl-tel-input>
 

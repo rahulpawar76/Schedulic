@@ -157,7 +157,7 @@ export class MyWorkSpaceComponent implements OnInit {
         this.minReschedulingTime = new Date();
         this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -202,7 +202,7 @@ export class MyWorkSpaceComponent implements OnInit {
         this.formSettingPage = false;
         this.fnGetAllAppointmentsByCategoryAndStatus();
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -296,7 +296,7 @@ export class MyWorkSpaceComponent implements OnInit {
           this.availableStaff.length=0;
           this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId,this.appointmentDetails.postalCode);
         }
-      }else if(response.data == false){
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -361,7 +361,7 @@ export class MyWorkSpaceComponent implements OnInit {
       if(response.data == true){
         this.activityLog=response.response;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -416,7 +416,7 @@ export class MyWorkSpaceComponent implements OnInit {
             });
           this.fnGetAllAppointmentsByCategoryAndStatus();
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -441,7 +441,7 @@ export class MyWorkSpaceComponent implements OnInit {
         this.fnGetAllAppointmentsByCategoryAndStatus();
         this.startWorkSpacePage = false;
       }
-      else  if(response.data == false){
+      else  if(response.data == false && response.response !== 'api token or userid invaild'){
         // this._snackBar.open(response.response, "X", {
         //   duration: 2000,
         //   verticalPosition:'top',
@@ -474,7 +474,7 @@ export class MyWorkSpaceComponent implements OnInit {
       if(response.data == true){
         this.revenue=response.response;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -527,7 +527,7 @@ export class MyWorkSpaceComponent implements OnInit {
             });
           this.fnGetAllAppointmentsByCategoryAndStatus();
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -551,7 +551,7 @@ export class MyWorkSpaceComponent implements OnInit {
             });
           this.fnGetAllAppointmentsByCategoryAndStatus();
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -575,7 +575,7 @@ export class MyWorkSpaceComponent implements OnInit {
             });
           this.fnGetAllAppointmentsByCategoryAndStatus();
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -655,7 +655,7 @@ export class MyWorkSpaceComponent implements OnInit {
             }
             this.isLoaderAdmin=false;
           }
-          else if(response.data == false){
+          else if(response.data == false && response.response !== 'api token or userid invaild'){
             this._snackBar.open(response.response, "X", {
               duration: 2000,
               verticalPosition:'top',
@@ -777,7 +777,7 @@ export class MyWorkSpaceComponent implements OnInit {
           //   this.selectedDate = this.datePipe.transform(new Date(this.minimumAdvanceBookingDateTimeObject),"yyyy-MM-dd");
           // }
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -834,7 +834,7 @@ export class MyWorkSpaceComponent implements OnInit {
           }
         }
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -949,7 +949,7 @@ export class MyWorkSpaceComponent implements OnInit {
           });
           this.dialogRef.close();
      }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',

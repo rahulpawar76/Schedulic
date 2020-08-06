@@ -61,7 +61,7 @@ export class MyBusinessComponent implements OnInit {
       if(response.data == true){
         this.allBusiness = response.response
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -148,7 +148,7 @@ export class myCreateNewBusinessDialog {
         this.allCountry = response.response
         this.isLoaderAdmin =false;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.allCountry = ''
         this._snackBar.open(response.response, "X", {
           duration: 2000,
@@ -166,7 +166,7 @@ export class myCreateNewBusinessDialog {
         this.allStates = response.response
         this.isLoaderAdmin =false;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.allStates = ''
         this._snackBar.open(response.response, "X", {
           duration: 2000,
@@ -192,7 +192,7 @@ export class myCreateNewBusinessDialog {
          
         this.isLoaderAdmin =false;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.allCities = ''
         this._snackBar.open(response.response, "X", {
           duration: 2000,
@@ -211,7 +211,7 @@ export class myCreateNewBusinessDialog {
         this.isLoaderAdmin =false;
         
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.listTimeZone = ''
         this._snackBar.open(response.response, "X", {
           duration: 2000,
@@ -246,7 +246,7 @@ export class myCreateNewBusinessDialog {
         });
         this.dialogRef.close();
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',

@@ -17,7 +17,7 @@ import { Router, RouterOutlet } from '@angular/router';
 // import { DOCUMENT } from '@angular/platform-browser';
 // import { DOCUMENT } from '@angular/common',
 import { sha512 as sha512 } from 'js-sha512';
-import { Base64 } from 'base64-string';
+//import { Base64 } from 'base64-string';
 
 declare const PayUMoneylaunch: any;
 @Component({
@@ -221,11 +221,11 @@ export class FrontbookingComponent implements OnInit {
   ) { 
     console.log(window.location.search)
     this.urlString = window.location.search.split("?business_id="); 
-    this.encodedbusinessId =this.urlString[1];
-    console.log(this.encodedbusinessId)
-    const enc = new Base64();
-    this.businessId = enc.decode(this.encodedbusinessId); 
-    console.log(this.businessId)
+    this.businessId =this.urlString[1];
+    // console.log(this.encodedbusinessId)
+    // const enc = new Base64();
+    // this.businessId = enc.decode(this.encodedbusinessId); 
+    // console.log(this.businessId)
     meta.addTag({name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'});
     this.renderExternalScript('https://checkout-static.citruspay.com/bolt/run/bolt.min.js').onload = () => {
       console.log('Google API Script loaded');
