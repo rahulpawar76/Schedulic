@@ -1107,6 +1107,7 @@ export class StaffComponent implements OnInit {
         'business_id': this.businessId,
         'search': ""
     };
+
     this.adminSettingsService.getCateServiceList(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.categoryServiceList = response.response;
@@ -1149,7 +1150,8 @@ export class StaffComponent implements OnInit {
         this.isLoaderAdmin = false;
 
       }
-    })
+    });
+
   }
   
   checkServie(event,type,index,sub_index=null,service_index=null){
@@ -1250,16 +1252,32 @@ export class StaffComponent implements OnInit {
 
   }
 
-  fnNewCheckService(event,serviceId){
+  fnNewCheckService(event,serviceId,index,service_index){
+
     if(event == true){
       this.categoryServiceCheckServiceId.push(serviceId) 
     }else if(event == false){
       const index = this.categoryServiceCheckServiceId.indexOf(serviceId);
-      console.log(serviceId);
-      console.log(index);
       this.categoryServiceCheckServiceId.splice(index, 1);
     }
+
+    this.categoryServiceList[index].getservices[service_index].is_selected=event;
+    var category_i = 0;
+    this.categoryServiceList[index].getservices.forEach(serviceselement => {
+      if(serviceselement.is_selected==true){
+        category_i = category_i+1;
+      }
+    });
+
+    if(category_i == this.categoryServiceList[index].getservices.length){
+      this.categoryServiceList[index].is_selected = true;
+    }else{
+      this.categoryServiceList[index].is_selected = false;
+    }
+
+    
     console.log(this.categoryServiceCheckServiceId);
+
   }
 
 
