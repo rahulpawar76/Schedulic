@@ -634,11 +634,12 @@
     }
     label {
         color: white;
-        width: 183px;
-        height: 44px;
-        border-radius: 21.5px;
+        width: 135px;
+        height: 30px;
+        border-radius: 25px;
         background-color: #1273f6;
-        padding: 8px 16px;
+        text-align: center;
+        line-height: 2;
     }
     h3 {
         font-size: 20px;
@@ -784,7 +785,7 @@
 }
 
 .select-service-accordian {
-    max-height: 640px;
+    max-height: 550px;
     display: inline-block;
     width: 100%;
     overflow-y: scroll;
@@ -795,11 +796,15 @@
 }
 
 .upload-title-content {
-    font-size: 16px;
+    font-size: 14px;
     margin-top: 10px;
     margin-bottom: 0;
     font-weight: 600;
     color: #000;
+}
+
+.upload-des-content {
+    font-size: 14px;
 }
 
 #staff {

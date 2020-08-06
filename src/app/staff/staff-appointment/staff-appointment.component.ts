@@ -1296,7 +1296,6 @@ export class StaffAppointmentComponent implements OnInit {
     }
 
     fnNewAppointmentStep2(){
-
       if(this.formAddNewAppointmentStaffStep2.invalid){
         this.formAddNewAppointmentStaffStep2.get('customerCategory').markAsTouched();
         this.formAddNewAppointmentStaffStep2.get('customerSubCategory').markAsTouched();
@@ -1349,6 +1348,8 @@ export class StaffAppointmentComponent implements OnInit {
       // this.netCost=serviceCartArrTemp[0].totalCost+this.taxAmount;
       console.log(JSON.stringify(serviceCartArrTemp));
       const currentDateTime = new Date();
+      
+      this.isLoaderAdmin = true;
       let requestObject = {
         "postal_code": this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
         "business_id": this.bussinessId,
@@ -1391,6 +1392,8 @@ export class StaffAppointmentComponent implements OnInit {
                 panelClass :['red-snackbar']
             });
         }
+        
+        this.isLoaderAdmin = false;
       },
       (err) =>{
         

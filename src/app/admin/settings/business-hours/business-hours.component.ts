@@ -283,6 +283,9 @@ export class BusinessHoursComponent implements OnInit {
       }
     })
   }
+  fnCancelWorkingHours(){
+    this.fnGetWorkingHours();
+  }
 
   fnChangeToggle(event,day){
     console.log(event);

@@ -1646,6 +1646,19 @@ export class AdminSettingsService {
         }),
         catchError(this.handleError));
     }
+    fnChangePostalCodeCheck(requestObject){
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/set-postal-code-check`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
     reAuthenticateUser() {
         const dialogRef = this.dialog.open(DialogReAuthentication, {
             width: '500px',

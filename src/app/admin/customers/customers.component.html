@@ -211,7 +211,7 @@
                             </div>
                             <div class="customerName-width">
                                 <h6>{{customerPersonalDetails.fullname}}</h6>
-                                <a class="mail-link" target="_blank" href="mailto:customerPersonalDetails.email">{{customerPersonalDetails.email}}</a>
+                                <a class="mail-link detail-color" target="_blank" href="mailto:customerPersonalDetails.email">{{customerPersonalDetails.email}}</a>
                             </div>
                             <div class="customer-btn">
                                 <div class="mx-2">
@@ -227,22 +227,22 @@
                                 <div class="d-flex my-3">
                                     <div class="mobileNo-width">
                                         <h6>Mobile</h6>
-                                        <p>{{customerPersonalDetails.phone}}</p>
+                                        <p class="detail-color">{{customerPersonalDetails.phone}}</p>
                                     </div>
                                     <div class="officeNo-width">
                                         <h6>Office</h6>
-                                        <p>{{customerPersonalDetails.phone_office}}</p>
+                                        <p class="detail-color">{{customerPersonalDetails.phone_office}}</p>
                                     </div>
                                     <div class="homeNo-width">
                                         <h6>Home</h6>
-                                        <p>{{customerPersonalDetails.phone_home}}</p>
+                                        <p class="detail-color">{{customerPersonalDetails.phone_home}}</p>
                                     </div>
                                 </div>
                                 <div class="devider-slim"></div>
                                 <div class="my-3">
                                     <div>
                                         <h6>Address</h6>
-                                        <p>{{customerPersonalDetails.address}}</p>
+                                        <p class="detail-color">{{customerPersonalDetails.address}}</p>
                                     </div>
                                 </div>
                                 <div class="devider-slim"></div>
@@ -271,16 +271,16 @@
                                         <h6>Registration</h6>
 
 
-                                        <p>{{customerPersonalDetails.created_at}} Created By {{customerPersonalDetails.created_by}}</p>
+                                        <p class="detail-color">{{customerPersonalDetails.created_at}} Created By {{customerPersonalDetails.created_by}}</p>
                                     </div>
 
                                     <div class="lastBookedAppoint">
                                         <h6>LAST BOOKED APPOINTMENT </h6>
-                                        <p>{{customersDetails.lastBooking?customersDetails.lastBooking.booking_date:''}} {{customersDetails.lastBooking?customersDetails.lastBooking.booking_time:''}}</p>
+                                        <p class="detail-color">{{customersDetails.lastBooking?customersDetails.lastBooking.booking_date:''}} {{customersDetails.lastBooking?customersDetails.lastBooking.booking_time:''}}</p>
                                     </div>
                                     <div class="lastBookedService">
                                         <h6>LAST BOOKED SERVICE</h6>
-                                        <p>{{customersDetails.lastBooking?customersDetails.lastBooking.service.service_name:''}} {{customersDetails.lastBooking && customersDetails.lastBooking.service && customersDetails.lastBooking.service.category && customersDetails.lastBooking.service.category.category_title?(customersDetails.lastBooking.service.category.category_title):''}}</p>
+                                        <p class="detail-color">{{customersDetails.lastBooking?customersDetails.lastBooking.service.service_name:''}} {{customersDetails.lastBooking && customersDetails.lastBooking.service && customersDetails.lastBooking.service.category && customersDetails.lastBooking.service.category.category_title?(customersDetails.lastBooking.service.category.category_title):''}}</p>
                                     </div>
 
                                 </div>

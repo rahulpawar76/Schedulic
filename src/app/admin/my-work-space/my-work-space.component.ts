@@ -455,8 +455,8 @@ export class MyWorkSpaceComponent implements OnInit {
       }
     )
   }
-  goToFront(){
-    this.router.navigate(['/admin/my-business/']);
+  goToCategory(){
+    this.router.navigate(['/admin/settings/']);
   }
   goToSupport(){
     this.router.navigate(['/admin/support/']);
