@@ -67,7 +67,7 @@ export class PaymentrulesComponent implements OnInit {
       if (response.data == true) {
         this.taxesData = response.response;
        // console.log(this.taxesData);
-      }else if(response.data == false){
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.taxesData = '';
       }
     })
@@ -91,7 +91,7 @@ export class PaymentrulesComponent implements OnInit {
         this.getAllTax()
         //this.isLoaderAdmin = false;
       }
-      else if (response.data == false) {
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         // this.allCustomers = ''
         //this.isLoaderAdmin = false;
       }
@@ -226,7 +226,7 @@ export class DialogAddNewTax {
           panelClass: ['green-snackbar']
         });
       }
-      else if (response.data == false) {
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',

@@ -7,6 +7,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '@environments/environment';
 import { NgbDateParserFormatter, NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import { MdePopoverTrigger } from '@material-extended/mde';
+//import { Base64 } from 'base64-string';
+
 
 @Component({
   selector: 'app-appearance',
@@ -57,6 +59,7 @@ export class AppearanceComponent implements OnInit {
   textbgcolor: any = '#2889e9';
   embededCode: any;
   businessId:any
+  encodedBusinessId:any;
   selectedFont: any = 'Poppins, sans-serif'
   
   model: NgbDateStruct;
@@ -78,6 +81,11 @@ export class AppearanceComponent implements OnInit {
     ) {  
       if (localStorage.getItem('business_id')) {
         this.businessId = localStorage.getItem('business_id');
+        
+        // const enc = new Base64();   
+        // this.encodedBusinessId = enc.encode(this.businessId);
+        // console.log(this.encodedBusinessId);
+        
       }
       this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+this.businessId+"'></iframe>";
   }

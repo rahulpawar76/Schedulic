@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {DomSanitizer} from "@angular/platform-browser";
+import { SearchCountryField, TooltipLabel, CountryISO  } from 'ngx-intl-tel-input';
 
 
 export interface DialogData {
@@ -24,6 +25,8 @@ export interface DialogData {
 export class AlertsettingsComponent implements OnInit {
 
   businessId : any;
+  phoneNumberInvalidTwilio:any = "valid";
+  phoneNumberInvalidTxtLocal:any = "valid";
   emailCustomerAppointment = {
     booked:{
       status:0,
@@ -218,6 +221,20 @@ export class AlertsettingsComponent implements OnInit {
   staffSmsTemplateStatus5: boolean = false;
   staffSmsTemplateStatus6: boolean = false;
   staffSmsTemplateStatus7: boolean = false;  
+
+  CountryISO = CountryISO;
+  preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
+  TooltipLabel = TooltipLabel;
+  separateDialCode = true;
+  SearchCountryField = SearchCountryField;
+  selectedCountryISO: CountryISO = CountryISO.Afghanistan;
+
+  CountryISO1 = CountryISO;
+  preferredCountries1: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
+  TooltipLabel1 = TooltipLabel;
+  separateDialCode1 = true;
+  SearchCountryField1 = SearchCountryField;
+  selectedCountryISO1 : CountryISO;
 
   constructor(
     private appComponent : AppComponent,
@@ -500,20 +517,26 @@ export class AlertsettingsComponent implements OnInit {
         }
          
           if(response.response.twilo_setting){
+
             this.twilioSettingValue = JSON.parse(response.response.twilo_setting);
             this.twilio.controls['accountSID'].setValue(this.twilioSettingValue.account_sid);
             this.twilio.controls['authToken'].setValue(this.twilioSettingValue.auth_token);
             this.twilio.controls['twilioSender'].setValue(this.twilioSettingValue.twilo_sender_number);
             this.twilio.controls['adminNumber'].setValue(this.twilioSettingValue.admin_phone_number);
+            
+            this. selectedCountryISO = this.fnCheckCountry(this.twilioSettingValue.countryCode);
+            
           }
           if(response.response.textlocal_setting){
             this.textLocalSettingValue = JSON.parse(response.response.textlocal_setting);
             this.textLocal.controls['apiKey'].setValue(this.textLocalSettingValue.api_key);
             this.textLocal.controls['adminNumber'].setValue(this.textLocalSettingValue.admin_number);
+            this. selectedCountryISO1 = this.fnCheckCountry(this.textLocalSettingValue.countryCode);
+
           }
 
-      }
-      else{
+      } else  if(response.data == false && response.response !== 'api token or userid invaild'){
+
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -522,26 +545,28 @@ export class AlertsettingsComponent implements OnInit {
       }
     })
   }
-fnAppointmentsReminder(event){
-    if(event == true){
-      this.appointmentsReminder = true;
-    }else if(event == false){
-      this.appointmentsReminder = false;
-    }
-    let customerAlertSetting = {
-      "reminder_lead_time" : this.totalTimeCustomerEmail,
-      "appointment" : JSON.stringify(this.emailCustomerAppointment),
-      "status":this.appointmentsReminder,
-    }
-    let requestObject={
-      "business_id":this.businessId,
-      "status":this.appointmentsReminder,
-      "email_alert_settings_customer" : customerAlertSetting
-    }
-    console.log(requestObject);
-    this.fnUpdateCusEmailAlert(requestObject);
-    
-}
+
+
+  fnAppointmentsReminder(event){
+      if(event == true){
+        this.appointmentsReminder = true;
+      }else if(event == false){
+        this.appointmentsReminder = false;
+      }
+      let customerAlertSetting = {
+        "reminder_lead_time" : this.totalTimeCustomerEmail,
+        "appointment" : JSON.stringify(this.emailCustomerAppointment),
+        "status":this.appointmentsReminder,
+      }
+      let requestObject={
+        "business_id":this.businessId,
+        "status":this.appointmentsReminder,
+        "email_alert_settings_customer" : customerAlertSetting
+      }
+      console.log(requestObject);
+      this.fnUpdateCusEmailAlert(requestObject);
+      
+  }
 
 fnAppointmentsReminderStaff(event){
     if(event == true){
@@ -671,7 +696,7 @@ fnAppointmentsReminderSMS(event){
         });
         this.getSettingsValue();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -724,7 +749,7 @@ fnAppointmentsReminderSMS(event){
         });
         this.getSettingsValue();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -785,7 +810,7 @@ fnAppointmentsReminderSMS(event){
         });
         this.getSettingsValue();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -817,7 +842,7 @@ fnAppointmentsReminderSMS(event){
         });
         this.getSettingsValue();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -859,7 +884,7 @@ fnAppointmentsReminderSMS(event){
         this.cusEmailTemplateStatus6 = this.customerEmailTemData[5].email_template_status;
         this.cusEmailTemplateStatus7 = this.customerEmailTemData[6].email_template_status;
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -886,7 +911,7 @@ fnAppointmentsReminderSMS(event){
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1058,7 +1083,7 @@ fnAppointmentsReminderSMS(event){
         this.getAdminEmailTemplates();
         this.getStaffEmailTemplates();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1099,7 +1124,7 @@ fnAppointmentsReminderSMS(event){
         this.adminEmailTemplateStatus6 = this.adminEmailTemData[5].email_template_status;
         this.adminEmailTemplateStatus7 = this.adminEmailTemData[6].email_template_status;
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1140,7 +1165,7 @@ fnAppointmentsReminderSMS(event){
 
         console.log(this.staffEmailTemData)
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1167,7 +1192,7 @@ fnAppointmentsReminderSMS(event){
         this.getAdminEmailTemplates();
         this.getStaffEmailTemplates();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1276,7 +1301,7 @@ fnAppointmentsReminderSMS(event){
         });
         this.getSettingsValue();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1318,7 +1343,7 @@ fnAppointmentsReminderSMS(event){
         this.cusSmsTemplateStatus7 = this.cusSmsTemData[6].sms_template_status;
         console.log(this.cusSmsTemData);
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1359,7 +1384,7 @@ fnAppointmentsReminderSMS(event){
         this.staffSmsTemplateStatus7 = this.staffSmsTemData[6].sms_template_status;
         console.log(this.staffSmsTemData);
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1400,7 +1425,7 @@ fnAppointmentsReminderSMS(event){
         this.adminSmsTemplateStatus7 = this.adminSmsTemData[6].sms_template_status;
         console.log(this.adminSmsTemData);
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1429,7 +1454,7 @@ fnAppointmentsReminderSMS(event){
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1438,6 +1463,7 @@ fnAppointmentsReminderSMS(event){
       }
     })
   }
+
   fnDefaultSmsTemp(tempId){
     let requestObject={
       "business_id":this.businessId,
@@ -1455,7 +1481,7 @@ fnAppointmentsReminderSMS(event){
         this.getAdminSmsTemplates();
         this.getStaffSmsTemplates();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1464,6 +1490,7 @@ fnAppointmentsReminderSMS(event){
       }
     })
   }
+
   fnSaveSmsTemp(tempId){
     if(tempId == this.cusSmsTemData[0].id){
       let requestObject = {
@@ -1614,6 +1641,7 @@ fnAppointmentsReminderSMS(event){
       this.fnUpdateSmsTemp(requestObject);
     }
   }
+
   fnUpdateSmsTemp(requestObject){
     this.adminSettingsService.fnUpdateSmsTemp(requestObject).subscribe((response:any) => {
       if(response.data == true){
@@ -1627,7 +1655,7 @@ fnAppointmentsReminderSMS(event){
         this.getAdminEmailTemplates();
         this.getStaffEmailTemplates();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1643,7 +1671,7 @@ fnAppointmentsReminderSMS(event){
       "account_sid":this.twilio.get("accountSID").value,
       "auth_token":this.twilio.get("authToken").value,
       "twilo_sender_number":this.twilio.get("twilioSender").value,
-      "admin_phone_number":this.twilio.get("adminNumber").value,
+      "admin_phone_number":this.twilio.get("adminNumber").value.dialCode.replace(/\s/g, ""),
       "status": this.twilliStatus,
     }
 
@@ -1655,13 +1683,50 @@ fnAppointmentsReminderSMS(event){
     this.updateTwillioSettings(requestObject);
   }
 
+  
+  fnPhoneMouceLeaveTwilio(){
+    if(this.twilio.get('adminNumber').value === null){
+      this.phoneNumberInvalidTwilio = "required";
+    
+    }else if(this.twilio.get('adminNumber').value !== '' || this.twilio.get('adminNumber').value !== null){
+      if(this.twilio.get('adminNumber').value.number.length >= 6 && this.twilio.get('adminNumber').value.number.length <= 15){
+        this.phoneNumberInvalidTwilio = "valid";
+      }else{
+        this.phoneNumberInvalidTwilio = "length";
+      }
+    }
+    
+  }
+  fnenterPhoneNumberTwilio(){
+    if(this.twilio.get('adminNumber').value !== '' || this.twilio.get('adminNumber').value !== null){
+      if(this.twilio.get('adminNumber').value.number.length >= 6 && this.twilio.get('adminNumber').value.number.length <= 15){
+        this.phoneNumberInvalidTwilio = "valid";
+      }else{
+        this.phoneNumberInvalidTwilio = "length";
+      }
+    }else if(this.twilio.get('adminNumber').value === '' || this.twilio.get('adminNumber').value === null){
+      this.phoneNumberInvalidTwilio = "required";
+    }
+  }
+
+  
   fnSubmitTwillioSettings(){
-    if(this.twilio.valid){
+    if(this.twilio.get('adminNumber').value === null){
+      this.phoneNumberInvalidTwilio = "required";
+    
+    }else if(this.twilio.get('adminNumber').value !== '' || this.twilio.get('adminNumber').value !== null){
+      if(this.twilio.get('adminNumber').value.number.length >= 6 && this.twilio.get('adminNumber').value.number.length <= 15){
+        this.phoneNumberInvalidTwilio = "valid";
+      }else{
+        this.phoneNumberInvalidTwilio = "length";
+      }
+    }else if(this.twilio.valid){
       let twilioSetting = {
         "account_sid":this.twilio.get("accountSID").value,
         "auth_token":this.twilio.get("authToken").value,
         "twilo_sender_number":this.twilio.get("twilioSender").value,
-        "admin_phone_number":this.twilio.get("adminNumber").value,
+        "admin_phone_number":this.twilio.get("adminNumber").value.number.replace(/\s/g, ""),
+        "countryCode":this.twilio.get("adminNumber").value.countryCode,
         "status": this.twilliStatus,
       }
 
@@ -1684,7 +1749,7 @@ fnAppointmentsReminderSMS(event){
         });
         this.getSettingsValue();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1695,10 +1760,13 @@ fnAppointmentsReminderSMS(event){
   }
 
   fnTextLocalStatus(event){
+
     this.textLocalStatus = event;
+
     let textLocalSetting = {
       "api_key":this.textLocal.get("apiKey").value,
-      "admin_number" : this.textLocal.get("adminNumber").value,
+      "admin_number" : this.textLocal.get("adminNumber").value.number.replace(/\s/g, ""),
+      "countryCode":this.textLocal.get("adminNumber").value.countryCode,
       "status":this.textLocalStatus,
     }
 
@@ -1709,12 +1777,47 @@ fnAppointmentsReminderSMS(event){
     }
     this.updateTextLocalSettings(requestObject);
   }
-
+  
+  fnPhoneMouceLeaveTxtLocal(){
+    if(this.textLocal.get('adminNumber').value === null){
+      this.phoneNumberInvalidTxtLocal = "required";
+    
+    }else if(this.textLocal.get('adminNumber').value !== '' || this.textLocal.get('adminNumber').value !== null){
+      if(this.textLocal.get('adminNumber').value.number.length >= 6 && this.textLocal.get('adminNumber').value.number.length <= 15){
+        this.phoneNumberInvalidTxtLocal = "valid";
+      }else{
+        this.phoneNumberInvalidTxtLocal = "length";
+      }
+    }
+    
+  }
+  fnenterPhoneNumberTxtLocal(){
+    if(this.textLocal.get('adminNumber').value !== '' || this.textLocal.get('adminNumber').value !== null){
+      if(this.textLocal.get('adminNumber').value.number.length >= 6 && this.textLocal.get('adminNumber').value.number.length <= 15){
+        this.phoneNumberInvalidTxtLocal = "valid";
+      }else{
+        this.phoneNumberInvalidTxtLocal = "length";
+      }
+    }else if(this.textLocal.get('adminNumber').value === '' || this.textLocal.get('adminNumber').value === null){
+      this.phoneNumberInvalidTxtLocal = "required";
+    }
+  }
   fnSubmitTextLocalSetting(){
-    if(this.textLocal.valid){
+    if(this.textLocal.get('adminNumber').value === '' || this.textLocal.get('adminNumber').value === null){
+      this.phoneNumberInvalidTxtLocal = "required";
+      return false;
+    }else if(this.textLocal.get('adminNumber').value !== '' || this.textLocal.get('adminNumber').value !== null){
+      if(this.textLocal.get('adminNumber').value.number.length >= 6 && this.textLocal.get('adminNumber').value.number.length <= 15){
+        this.phoneNumberInvalidTxtLocal = "valid";
+      }else{
+        this.phoneNumberInvalidTxtLocal = "length";
+        return false;
+      }
+    }else if(this.textLocal.valid){
       let textLocalSetting = {
         "api_key":this.textLocal.get("apiKey").value,
-        "admin_number" : this.textLocal.get("adminNumber").value,
+        "admin_number" : this.textLocal.get("adminNumber").value.number.replace(/\s/g, ""),
+        "countryCode":this.textLocal.get("adminNumber").value.countryCode,
         "status":this.textLocalStatus,
       }
 
@@ -1737,7 +1840,7 @@ fnAppointmentsReminderSMS(event){
         });
         this.getSettingsValue();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1747,8 +1850,253 @@ fnAppointmentsReminderSMS(event){
     })
   }
 
+  fnCheckCountry(country_code){
 
+    if(country_code.toLowerCase()=='af') { return CountryISO.Afghanistan; }
+    if(country_code.toLowerCase()=='al') { return CountryISO.Albania; }
+    if(country_code.toLowerCase()=='dz') { return CountryISO.Algeria; }
+    if(country_code.toLowerCase()=='as') { return CountryISO.AmericanSamoa; }
+    if(country_code.toLowerCase()=='ad') { return CountryISO.Andorra; }
+    if(country_code.toLowerCase()=='ao') { return CountryISO.Angola; }
+    if(country_code.toLowerCase()=='ai') { return CountryISO.Anguilla; }
+    if(country_code.toLowerCase()=='ag') { return CountryISO.AntiguaAndBarbuda; }
+    if(country_code.toLowerCase()=='ar') { return CountryISO.Argentina; }
+    if(country_code.toLowerCase()=='am') { return CountryISO.Armenia; }
+    if(country_code.toLowerCase()=='aw') { return CountryISO.Aruba; }
+    if(country_code.toLowerCase()=='au') { return CountryISO.Australia; }
+    if(country_code.toLowerCase()=='at') { return CountryISO.Austria; }
+    if(country_code.toLowerCase()=='az') { return CountryISO.Azerbaijan; }
+    if(country_code.toLowerCase()=='bs') { return CountryISO.Bahamas; }
+    if(country_code.toLowerCase()=='bh') { return CountryISO.Bahrain; }
+    if(country_code.toLowerCase()=='bd') { return CountryISO.Bangladesh; }
+    if(country_code.toLowerCase()=='bb') { return CountryISO.Barbados; }
+    if(country_code.toLowerCase()=='by') { return CountryISO.Belarus; }
+    if(country_code.toLowerCase()=='be') { return CountryISO.Belgium; }
+    if(country_code.toLowerCase()=='bz') { return CountryISO.Belize; }
+    if(country_code.toLowerCase()=='bj') { return CountryISO.Benin; }
+    if(country_code.toLowerCase()=='bm') { return CountryISO.Bermuda; }
+    if(country_code.toLowerCase()=='bt') { return CountryISO.Bhutan; }
+    if(country_code.toLowerCase()=='bo') { return CountryISO.Bolivia; }
+    if(country_code.toLowerCase()=='ba') { return CountryISO.BosniaAndHerzegovina; }
+    if(country_code.toLowerCase()=='bw') { return CountryISO.Botswana; }
+    if(country_code.toLowerCase()=='br') { return CountryISO.Brazil; }
+    if(country_code.toLowerCase()=='io') { return CountryISO.BritishIndianOceanTerritory; }
+    if(country_code.toLowerCase()=='vg') { return CountryISO.BritishVirginIslands; }
+    if(country_code.toLowerCase()=='bn') { return CountryISO.Brunei; }
+    if(country_code.toLowerCase()=='bg') { return CountryISO.Bulgaria; }
+    if(country_code.toLowerCase()=='bf') { return CountryISO.BurkinaFaso; }
+    if(country_code.toLowerCase()=='bi') { return CountryISO.Burundi; }
+    if(country_code.toLowerCase()=='kh') { return CountryISO.Cambodia; }
+    if(country_code.toLowerCase()=='cm') { return CountryISO.Cameroon; }
+    if(country_code.toLowerCase()=='ca') { return CountryISO.Canada; }
+    if(country_code.toLowerCase()=='cv') { return CountryISO.CapeVerde; }
+    if(country_code.toLowerCase()=='bq') { return CountryISO.CaribbeanNetherlands; }
+    if(country_code.toLowerCase()=='ky') { return CountryISO.CaymanIslands; }
+    if(country_code.toLowerCase()=='cf') { return CountryISO.CentralAfricanRepublic; }
+    if(country_code.toLowerCase()=='td') { return CountryISO.Chad; }
+    if(country_code.toLowerCase()=='cl') { return CountryISO.Chile; }
+    if(country_code.toLowerCase()=='cn') { return CountryISO.China; }
+    if(country_code.toLowerCase()=='cx') { return CountryISO.ChristmasIsland; }
+    if(country_code.toLowerCase()=='cc') { return CountryISO.Cocos; }
+    if(country_code.toLowerCase()=='co') { return CountryISO.Colombia; }
+    if(country_code.toLowerCase()=='km') { return CountryISO.Comoros; }
+    if(country_code.toLowerCase()=='cd') { return CountryISO.CongoDRCJamhuriYaKidemokrasiaYaKongo; }
+    if(country_code.toLowerCase()=='cg') { return CountryISO.CongoRepublicCongoBrazzaville; }
+    if(country_code.toLowerCase()=='ck') { return CountryISO.CookIslands; }
+    if(country_code.toLowerCase()=='cr') { return CountryISO.CostaRica; }
+    if(country_code.toLowerCase()=='ci') { return CountryISO.CôteDIvoire; }
+    if(country_code.toLowerCase()=='hr') { return CountryISO.Croatia; }
+    if(country_code.toLowerCase()=='cu') { return CountryISO.Cuba; }
+    if(country_code.toLowerCase()=='cw') { return CountryISO.Curaçao; }
+    if(country_code.toLowerCase()=='cy') { return CountryISO.Cyprus; }
+    if(country_code.toLowerCase()=='cz') { return CountryISO.CzechRepublic; }
+    if(country_code.toLowerCase()=='dk') { return CountryISO.Denmark; }
+    if(country_code.toLowerCase()=='dj') { return CountryISO.Djibouti; }
+    if(country_code.toLowerCase()=='dm') { return CountryISO.Dominica; }
+    if(country_code.toLowerCase()=='do') { return CountryISO.DominicanRepublic; }
+    if(country_code.toLowerCase()=='ec') { return CountryISO.Ecuador; }
+    if(country_code.toLowerCase()=='eg') { return CountryISO.Egypt; }
+    if(country_code.toLowerCase()=='sv') { return CountryISO.ElSalvador; }
+    if(country_code.toLowerCase()=='gq') { return CountryISO.EquatorialGuinea; }
+    if(country_code.toLowerCase()=='er') { return CountryISO.Eritrea; }
+    if(country_code.toLowerCase()=='ee') { return CountryISO.Estonia; }
+    if(country_code.toLowerCase()=='et') { return CountryISO.Ethiopia; }
+    if(country_code.toLowerCase()=='fk') { return CountryISO.FalklandIslands; }
+    if(country_code.toLowerCase()=='fo') { return CountryISO.FaroeIslands; }
+    if(country_code.toLowerCase()=='fj') { return CountryISO.Fiji; }
+    if(country_code.toLowerCase()=='fi') { return CountryISO.Finland; }
+    if(country_code.toLowerCase()=='fr') { return CountryISO.France; }
+    if(country_code.toLowerCase()=='gf') { return CountryISO.FrenchGuiana; }
+    if(country_code.toLowerCase()=='pf') { return CountryISO.FrenchPolynesia; }
+    if(country_code.toLowerCase()=='ga') { return CountryISO.Gabon; }
+    if(country_code.toLowerCase()=='gm') { return CountryISO.Gambia; }
+    if(country_code.toLowerCase()=='ge') { return CountryISO.Georgia; }
+    if(country_code.toLowerCase()=='de') { return CountryISO.Germany; }
+    if(country_code.toLowerCase()=='gh') { return CountryISO.Ghana; }
+    if(country_code.toLowerCase()=='gi') { return CountryISO.Gibraltar; }
+    if(country_code.toLowerCase()=='gr') { return CountryISO.Greece; }
+    if(country_code.toLowerCase()=='gl') { return CountryISO.Greenland; }
+    if(country_code.toLowerCase()=='gd') { return CountryISO.Grenada; }
+    if(country_code.toLowerCase()=='gp') { return CountryISO.Guadeloupe; }
+    if(country_code.toLowerCase()=='gu') { return CountryISO.Guam; }
+    if(country_code.toLowerCase()=='gt') { return CountryISO.Guatemala; }
+    if(country_code.toLowerCase()=='gg') { return CountryISO.Guernsey; }
+    if(country_code.toLowerCase()=='gn') { return CountryISO.Guinea; }
+    if(country_code.toLowerCase()=='gw') { return CountryISO.GuineaBissau; }
+    if(country_code.toLowerCase()=='gy') { return CountryISO.Guyana; }
+    if(country_code.toLowerCase()=='ht') { return CountryISO.Haiti; }
+    if(country_code.toLowerCase()=='hn') { return CountryISO.Honduras; }
+    if(country_code.toLowerCase()=='hk') { return CountryISO.HongKong; }
+    if(country_code.toLowerCase()=='hu') { return CountryISO.Hungary; }
+    if(country_code.toLowerCase()=='is') { return CountryISO.Iceland; }
+    if(country_code.toLowerCase()=='in') { return CountryISO.India; }
+    if(country_code.toLowerCase()=='id') { return CountryISO.Indonesia; }
+    if(country_code.toLowerCase()=='ir') { return CountryISO.Iran; }
+    if(country_code.toLowerCase()=='iq') { return CountryISO.Iraq; }
+    if(country_code.toLowerCase()=='ie') { return CountryISO.Ireland; }
+    if(country_code.toLowerCase()=='im') { return CountryISO.IsleOfMan; }
+    if(country_code.toLowerCase()=='il') { return CountryISO.Israel; }
+    if(country_code.toLowerCase()=='it') { return CountryISO.Italy; }
+    if(country_code.toLowerCase()=='jm') { return CountryISO.Jamaica; }
+    if(country_code.toLowerCase()=='jp') { return CountryISO.Japan; }
+    if(country_code.toLowerCase()=='je') { return CountryISO.Jersey; }
+    if(country_code.toLowerCase()=='jo') { return CountryISO.Jordan; }
+    if(country_code.toLowerCase()=='kz') { return CountryISO.Kazakhstan; }
+    if(country_code.toLowerCase()=='ke') { return CountryISO.Kenya; }
+    if(country_code.toLowerCase()=='ki') { return CountryISO.Kiribati; }
+    if(country_code.toLowerCase()=='xk') { return CountryISO.Kosovo; }
+    if(country_code.toLowerCase()=='kw') { return CountryISO.Kuwait; }
+    if(country_code.toLowerCase()=='kg') { return CountryISO.Kyrgyzstan; }
+    if(country_code.toLowerCase()=='la') { return CountryISO.Laos; }
+    if(country_code.toLowerCase()=='lv') { return CountryISO.Latvia; }
+    if(country_code.toLowerCase()=='lb') { return CountryISO.Lebanon; }
+    if(country_code.toLowerCase()=='ls') { return CountryISO.Lesotho; }
+    if(country_code.toLowerCase()=='lr') { return CountryISO.Liberia; }
+    if(country_code.toLowerCase()=='ly') { return CountryISO.Libya; }
+    if(country_code.toLowerCase()=='li') { return CountryISO.Liechtenstein; }
+    if(country_code.toLowerCase()=='lt') { return CountryISO.Lithuania; }
+    if(country_code.toLowerCase()=='lu') { return CountryISO.Luxembourg; }
+    if(country_code.toLowerCase()=='mo') { return CountryISO.Macau; }
+    if(country_code.toLowerCase()=='mk') { return CountryISO.Macedonia; }
+    if(country_code.toLowerCase()=='mg') { return CountryISO.Madagascar; }
+    if(country_code.toLowerCase()=='mw') { return CountryISO.Malawi; }
+    if(country_code.toLowerCase()=='my') { return CountryISO.Malaysia; }
+    if(country_code.toLowerCase()=='mv') { return CountryISO.Maldives; }
+    if(country_code.toLowerCase()=='ml') { return CountryISO.Mali; }
+    if(country_code.toLowerCase()=='mt') { return CountryISO.Malta; }
+    if(country_code.toLowerCase()=='mh') { return CountryISO.MarshallIslands; }
+    if(country_code.toLowerCase()=='mq') { return CountryISO.Martinique; }
+    if(country_code.toLowerCase()=='mr') { return CountryISO.Mauritania; }
+    if(country_code.toLowerCase()=='mu') { return CountryISO.Mauritius; }
+    if(country_code.toLowerCase()=='yt') { return CountryISO.Mayotte; }
+    if(country_code.toLowerCase()=='mx') { return CountryISO.Mexico; }
+    if(country_code.toLowerCase()=='fm') { return CountryISO.Micronesia; }
+    if(country_code.toLowerCase()=='md') { return CountryISO.Moldova; }
+    if(country_code.toLowerCase()=='mc') { return CountryISO.Monaco; }
+    if(country_code.toLowerCase()=='mn') { return CountryISO.Mongolia; }
+    if(country_code.toLowerCase()=='me') { return CountryISO.Montenegro; }
+    if(country_code.toLowerCase()=='ms') { return CountryISO.Montserrat; }
+    if(country_code.toLowerCase()=='ma') { return CountryISO.Morocco; }
+    if(country_code.toLowerCase()=='mz') { return CountryISO.Mozambique; }
+    if(country_code.toLowerCase()=='mm') { return CountryISO.Myanmar; }
+    if(country_code.toLowerCase()=='na') { return CountryISO.Namibia; }
+    if(country_code.toLowerCase()=='nr') { return CountryISO.Nauru; }
+    if(country_code.toLowerCase()=='np') { return CountryISO.Nepal; }
+    if(country_code.toLowerCase()=='nl') { return CountryISO.Netherlands; }
+    if(country_code.toLowerCase()=='nc') { return CountryISO.NewCaledonia; }
+    if(country_code.toLowerCase()=='nz') { return CountryISO.NewZealand; }
+    if(country_code.toLowerCase()=='ni') { return CountryISO.Nicaragua; }
+    if(country_code.toLowerCase()=='ne') { return CountryISO.Niger; }
+    if(country_code.toLowerCase()=='ng') { return CountryISO.Nigeria; }
+    if(country_code.toLowerCase()=='nu') { return CountryISO.Niue; }
+    if(country_code.toLowerCase()=='nf') { return CountryISO.NorfolkIsland; }
+    if(country_code.toLowerCase()=='kp') { return CountryISO.NorthKorea; }
+    if(country_code.toLowerCase()=='mp') { return CountryISO.NorthernMarianaIslands; }
+    if(country_code.toLowerCase()=='no') { return CountryISO.Norway; }
+    if(country_code.toLowerCase()=='om') { return CountryISO.Oman; }
+    if(country_code.toLowerCase()=='pk') { return CountryISO.Pakistan; }
+    if(country_code.toLowerCase()=='pw') { return CountryISO.Palau; }
+    if(country_code.toLowerCase()=='ps') { return CountryISO.Palestine; }
+    if(country_code.toLowerCase()=='pa') { return CountryISO.Panama; }
+    if(country_code.toLowerCase()=='pg') { return CountryISO.PapuaNewGuinea; }
+    if(country_code.toLowerCase()=='py') { return CountryISO.Paraguay; }
+    if(country_code.toLowerCase()=='pe') { return CountryISO.Peru; }
+    if(country_code.toLowerCase()=='ph') { return CountryISO.Philippines; }
+    if(country_code.toLowerCase()=='pl') { return CountryISO.Poland; }
+    if(country_code.toLowerCase()=='pt') { return CountryISO.Portugal; }
+    if(country_code.toLowerCase()=='pr') { return CountryISO.PuertoRico; }
+    if(country_code.toLowerCase()=='qa') { return CountryISO.Qatar; }
+    if(country_code.toLowerCase()=='re') { return CountryISO.Réunion; }
+    if(country_code.toLowerCase()=='ro') { return CountryISO.Romania; }
+    if(country_code.toLowerCase()=='ru') { return CountryISO.Russia; }
+    if(country_code.toLowerCase()=='rw') { return CountryISO.Rwanda; }
+    if(country_code.toLowerCase()=='bl') { return CountryISO.SaintBarthélemy; }
+    if(country_code.toLowerCase()=='sh') { return CountryISO.SaintHelena; }
+    if(country_code.toLowerCase()=='kn') { return CountryISO.SaintKittsAndNevis; }
+    if(country_code.toLowerCase()=='lc') { return CountryISO.SaintLucia; }
+    if(country_code.toLowerCase()=='mf') { return CountryISO.SaintMartin; }
+    if(country_code.toLowerCase()=='pm') { return CountryISO.SaintPierreAndMiquelon; }
+    if(country_code.toLowerCase()=='vc') { return CountryISO.SaintVincentAndTheGrenadines; }
+    if(country_code.toLowerCase()=='ws') { return CountryISO.Samoa; }
+    if(country_code.toLowerCase()=='sm') { return CountryISO.SanMarino; }
+    if(country_code.toLowerCase()=='st') { return CountryISO.SãoToméAndPríncipe; }
+    if(country_code.toLowerCase()=='sa') { return CountryISO.SaudiArabia; }
+    if(country_code.toLowerCase()=='sn') { return CountryISO.Senegal; }
+    if(country_code.toLowerCase()=='rs') { return CountryISO.Serbia; }
+    if(country_code.toLowerCase()=='sc') { return CountryISO.Seychelles; }
+    if(country_code.toLowerCase()=='sl') { return CountryISO.SierraLeone; }
+    if(country_code.toLowerCase()=='sg') { return CountryISO.Singapore; }
+    if(country_code.toLowerCase()=='sx') { return CountryISO.SintMaarten; }
+    if(country_code.toLowerCase()=='sk') { return CountryISO.Slovakia; }
+    if(country_code.toLowerCase()=='si') { return CountryISO.Slovenia; }
+    if(country_code.toLowerCase()=='sb') { return CountryISO.SolomonIslands; }
+    if(country_code.toLowerCase()=='so') { return CountryISO.Somalia; }
+    if(country_code.toLowerCase()=='za') { return CountryISO.SouthAfrica; }
+    if(country_code.toLowerCase()=='kr') { return CountryISO.SouthKorea; }
+    if(country_code.toLowerCase()=='ss') { return CountryISO.SouthSudan; }
+    if(country_code.toLowerCase()=='es') { return CountryISO.Spain; }
+    if(country_code.toLowerCase()=='lk') { return CountryISO.SriLanka; }
+    if(country_code.toLowerCase()=='sd') { return CountryISO.Sudan; }
+    if(country_code.toLowerCase()=='sr') { return CountryISO.Suriname; }
+    if(country_code.toLowerCase()=='sj') { return CountryISO.SvalbardAndJanMayen; }
+    if(country_code.toLowerCase()=='sz') { return CountryISO.Swaziland; }
+    if(country_code.toLowerCase()=='se') { return CountryISO.Sweden; }
+    if(country_code.toLowerCase()=='ch') { return CountryISO.Switzerland; }
+    if(country_code.toLowerCase()=='sy') { return CountryISO.Syria; }
+    if(country_code.toLowerCase()=='tw') { return CountryISO.Taiwan; }
+    if(country_code.toLowerCase()=='tj') { return CountryISO.Tajikistan; }
+    if(country_code.toLowerCase()=='tz') { return CountryISO.Tanzania; }
+    if(country_code.toLowerCase()=='th') { return CountryISO.Thailand; }
+    if(country_code.toLowerCase()=='tl') { return CountryISO.TimorLeste; }
+    if(country_code.toLowerCase()=='tg') { return CountryISO.Togo; }
+    if(country_code.toLowerCase()=='tk') { return CountryISO.Tokelau; }
+    if(country_code.toLowerCase()=='to') { return CountryISO.Tonga; }
+    if(country_code.toLowerCase()=='tt') { return CountryISO.TrinidadAndTobago; }
+    if(country_code.toLowerCase()=='tn') { return CountryISO.Tunisia; }
+    if(country_code.toLowerCase()=='tr') { return CountryISO.Turkey; }
+    if(country_code.toLowerCase()=='tm') { return CountryISO.Turkmenistan; }
+    if(country_code.toLowerCase()=='tc') { return CountryISO.TurksAndCaicosIslands; }
+    if(country_code.toLowerCase()=='tv') { return CountryISO.Tuvalu; }
+    if(country_code.toLowerCase()=='vi') { return CountryISO.USVirginIslands; }
+    if(country_code.toLowerCase()=='ug') { return CountryISO.Uganda; }
+    if(country_code.toLowerCase()=='ua') { return CountryISO.Ukraine; }
+    if(country_code.toLowerCase()=='ae') { return CountryISO.UnitedArabEmirates; }
+    if(country_code.toLowerCase()=='gb') { return CountryISO.UnitedKingdom; }
+    if(country_code.toLowerCase()=='us') { return CountryISO.UnitedStates; }
+    if(country_code.toLowerCase()=='uy') { return CountryISO.Uruguay; }
+    if(country_code.toLowerCase()=='uz') { return CountryISO.Uzbekistan; }
+    if(country_code.toLowerCase()=='vu') { return CountryISO.Vanuatu; }
+    if(country_code.toLowerCase()=='va') { return CountryISO.VaticanCity; }
+    if(country_code.toLowerCase()=='ve') { return CountryISO.Venezuela; }
+    if(country_code.toLowerCase()=='vn') { return CountryISO.Vietnam; }
+    if(country_code.toLowerCase()=='wf') { return CountryISO.WallisAndFutuna; }
+    if(country_code.toLowerCase()=='eh') { return CountryISO.WesternSahara; }
+    if(country_code.toLowerCase()=='ye') { return CountryISO.Yemen; }
+    if(country_code.toLowerCase()=='zm') { return CountryISO.Zambia; }
+    if(country_code.toLowerCase()=='zw') { return CountryISO.Zimbabwe; }
+    if(country_code.toLowerCase()=='ax') { return CountryISO.ÅlandIslands };  
 
+  }
 
 }
 

@@ -1055,16 +1055,16 @@ export class StaffComponent implements OnInit {
     this.isLoaderAdmin = false;
     this.selectedServiceNewStaff=[];
     this.editStaffId=null;
+    this.getCateServiceList();
     this.StaffCreate = this._formBuilder.group({
-      firstname : ['',[ Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
-      lastname : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
+      firstname : ['',[ Validators.required,Validators]],
+      lastname : ['', [Validators.required,Validators]],
       address : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
       phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       description : ['',Validators.maxLength(255)],
       staff_id : [''],
     });  
-    this.getCateServiceList();
   }
 
   searchService(event){
@@ -1107,6 +1107,7 @@ export class StaffComponent implements OnInit {
         'business_id': this.businessId,
         'search': ""
     };
+
     this.adminSettingsService.getCateServiceList(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.categoryServiceList = response.response;
@@ -1142,14 +1143,15 @@ export class StaffComponent implements OnInit {
         this.categoryServiceListTemp=this.categoryServiceList;
 
         this.isLoaderAdmin = false;
-      } else if(response.data == false){
+      } else if(response.data == false && response.response !== 'api token or userid invaild'){
 
         this.categoryServiceList = [];
         this.categoryServiceListTemp = [];
         this.isLoaderAdmin = false;
 
       }
-    })
+    });
+
   }
   
   checkServie(event,type,index,sub_index=null,service_index=null){
@@ -1250,16 +1252,32 @@ export class StaffComponent implements OnInit {
 
   }
 
-  fnNewCheckService(event,serviceId){
+  fnNewCheckService(event,serviceId,index,service_index){
+
     if(event == true){
       this.categoryServiceCheckServiceId.push(serviceId) 
     }else if(event == false){
       const index = this.categoryServiceCheckServiceId.indexOf(serviceId);
-      console.log(serviceId);
-      console.log(index);
       this.categoryServiceCheckServiceId.splice(index, 1);
     }
+
+    this.categoryServiceList[index].getservices[service_index].is_selected=event;
+    var category_i = 0;
+    this.categoryServiceList[index].getservices.forEach(serviceselement => {
+      if(serviceselement.is_selected==true){
+        category_i = category_i+1;
+      }
+    });
+
+    if(category_i == this.categoryServiceList[index].getservices.length){
+      this.categoryServiceList[index].is_selected = true;
+    }else{
+      this.categoryServiceList[index].is_selected = false;
+    }
+
+    
     console.log(this.categoryServiceCheckServiceId);
+
   }
 
 
@@ -1354,7 +1372,7 @@ export class StaffComponent implements OnInit {
          this.addStaffPage = false;
          this.staffListPage = true;
         this.isLoaderAdmin = false;
-      }else if(response.data == false){
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.isLoaderAdmin = false;
       }
     });
@@ -1376,7 +1394,7 @@ export class StaffComponent implements OnInit {
          this.staffListPage = true;
         this.isLoaderAdmin = false;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
 
         this.isLoaderAdmin = false;
       }
@@ -1408,7 +1426,7 @@ export class StaffComponent implements OnInit {
             this.staffListPage = true;
             this.isLoaderAdmin = false;
           }
-          else if(response.data == false){
+          else if(response.data == false && response.response !== 'api token or userid invaild'){
             this.isLoaderAdmin = false;
           }
         })
@@ -1467,11 +1485,19 @@ export class StaffComponent implements OnInit {
  }
 
  fnCancelStaff(){
+   if(this.editStaffId){
+    this.staffImageUrl = undefined
+    this.addStaffPage = false;
+    this.staffListPage = false;
+    this.singleStaffView = true;
+    this.StaffCreate.reset();
+   }else{
     this.staffImageUrl = undefined
     this.addStaffPage = false;
     this.staffListPage = true;
     this.singleStaffView = false;
     this.StaffCreate.reset();
+   }
    
  }
 
@@ -1909,15 +1935,15 @@ export class StaffComponent implements OnInit {
         this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
         this._snackBar.open("Working Hours Updated", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this.isLoaderAdmin = false;
       this._snackBar.open("Working Hours Not Updated", "X", {
         duration: 2000,
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         panelClass : ['red-snackbar']
       });
       }
@@ -1947,15 +1973,15 @@ export class StaffComponent implements OnInit {
         this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
         this._snackBar.open("Working Hours applied to all", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this.isLoaderAdmin = false;
       this._snackBar.open("Working Hours Not Updated", "X", {
         duration: 2000,
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         panelClass : ['red-snackbar']
       });
       }
@@ -1973,15 +1999,15 @@ export class StaffComponent implements OnInit {
         this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
         this._snackBar.open("Working Hours Reset", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this.isLoaderAdmin = false;
       this._snackBar.open("Working Hours Not Reset", "X", {
         duration: 2000,
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         panelClass : ['red-snackbar']
       });
       }
@@ -2340,17 +2366,17 @@ export class StaffComponent implements OnInit {
         this.showFridayAddForm=false;
         this.showSaturdayAddForm=false;
         this.showSundayAddForm=false;
-        this._snackBar.open("Break Added", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
       this.isLoaderAdmin = false;
       this._snackBar.open(response.response, "X", {
         duration: 2000,
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         panelClass : ['red-snackbar']
       });
       }
@@ -2374,16 +2400,16 @@ export class StaffComponent implements OnInit {
         this.adminSettingsService.deleteBreakStaff(requestObject).subscribe((response:any) => {
           if(response.data == true){
             this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
-            this._snackBar.open("Break Deleted", "X", {
+            this._snackBar.open(response.response, "X", {
               duration: 2000,
-              verticalPosition: 'bottom',
+              verticalPosition: 'top',
               panelClass : ['green-snackbar']
             });
-          }else{
+          }else if(response.data == false && response.response !== 'api token or userid invaild'){
           this.isLoaderAdmin = false;
-          this._snackBar.open("Break Not Deleted", "X", {
+          this._snackBar.open(response.response, "X", {
             duration: 2000,
-            verticalPosition: 'bottom',
+            verticalPosition: 'top',
             panelClass : ['red-snackbar']
           });
           }
@@ -2402,16 +2428,16 @@ export class StaffComponent implements OnInit {
     this.adminSettingsService.resetToDefaultBreakStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
-        this._snackBar.open("Break Reset to Default", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
-      }else{
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
       this.isLoaderAdmin = false;
-      this._snackBar.open("Break Not Reset to Default", "X", {
+      this._snackBar.open(response.response, "X", {
         duration: 2000,
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         panelClass : ['red-snackbar']
       });
       }
@@ -2430,16 +2456,16 @@ export class StaffComponent implements OnInit {
     this.adminSettingsService.changeTimeOffStatusStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
-        this._snackBar.open("Time off status updated", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
-      }else{
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
       this.isLoaderAdmin = false;
       this._snackBar.open(response.response, "X", {
         duration: 2000,
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         panelClass : ['red-snackbar']
       });
       }
@@ -2456,16 +2482,16 @@ export class StaffComponent implements OnInit {
     this.adminSettingsService.resetToDefaultTimeOffStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
-        this._snackBar.open("Time off status Reset to Default", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
-      }else{
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
       this.isLoaderAdmin = false;
       this._snackBar.open(response.response, "X", {
         duration: 2000,
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         panelClass : ['red-snackbar']
       });
       }
@@ -2488,16 +2514,16 @@ export class StaffComponent implements OnInit {
         this.adminSettingsService.deleteTimeOff(requestObject).subscribe((response:any) => {
           if(response.data == true){
             this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
-            this._snackBar.open("Time off deleted", "X", {
+            this._snackBar.open(response.response, "X", {
               duration: 2000,
-              verticalPosition: 'bottom',
+              verticalPosition: 'top',
               panelClass : ['green-snackbar']
             });
-          }else{
+          }else if(response.data == false && response.response !== 'api token or userid invaild'){
             this.isLoaderAdmin = false;
             this._snackBar.open(response.response, "X", {
               duration: 2000,
-              verticalPosition: 'bottom',
+              verticalPosition: 'top',
               panelClass : ['red-snackbar']
             });
           }
@@ -2529,7 +2555,7 @@ export class StaffComponent implements OnInit {
         });
         this.isLoaderAdmin = false;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.isLoaderAdmin = false;
       }
     })
@@ -2569,15 +2595,15 @@ export class StaffComponent implements OnInit {
       if(response.data == true){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
         this.isLoaderAdmin = false;
-      }else{
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.isLoaderAdmin = false;
         this._snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
@@ -2592,15 +2618,15 @@ export class StaffComponent implements OnInit {
       if(response.data == true){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
         this.isLoaderAdmin = false;
-      }else{
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.isLoaderAdmin = false;
         this._snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
@@ -2620,7 +2646,7 @@ export class StaffComponent implements OnInit {
           this.singleStaffDetail.postalCode = response.response;
           this.isLoaderAdmin=false;
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -2663,7 +2689,7 @@ export class StaffComponent implements OnInit {
 
           this.isLoaderAdmin=false;
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -2759,16 +2785,16 @@ export class DialogAddNewTimeOff {
     this.adminSettingsService.addNewTimeOffStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.dialogRef.close({ call: true });
-        this._snackBar.open("Time off added", "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
        this._snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }

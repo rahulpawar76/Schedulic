@@ -8,7 +8,6 @@ import { MaterialModule } from '@app/_helpers/material.module';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { AdminSettingsRoutingModule } from './settings-routing.module';
 import { ServicesComponent } from './services/services.component';
-import { DataTablesModule } from 'angular-datatables';
 import { MdePopoverModule } from '@material-extended/mde';
 
 import { SettingsComponent } from './settings.component';
@@ -50,6 +49,7 @@ import { DialogStaffViewReview } from './staff/staff.component';
 
 import { DndDirective } from './direcitves/dnd.directive';
 import { ProgressComponent } from './components/progress/progress.component';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 
 
@@ -94,12 +94,12 @@ enableRipple(true);
       FormsModule,
       DragDropModule,
       MatSidenavModule,
-      DataTablesModule,
       MatDatepickerModule,
       ColorPickerModule,
       MdePopoverModule,
       NgbModule,
-      SharedModule
+      SharedModule,
+      NgxIntlTelInputModule
   ],
   exports: [
     FormsModule

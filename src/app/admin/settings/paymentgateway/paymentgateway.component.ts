@@ -119,7 +119,7 @@ export class PaymentgatewayComponent implements OnInit {
             this.bankTransfer.controls['bankDescription'].setValue(this.bankTransferSettingValue.bank_description);
           }
         }
-        else{
+        else  if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition: 'top',
@@ -188,7 +188,7 @@ export class PaymentgatewayComponent implements OnInit {
         });
         this.getSettingsValue();
       }
-      else{
+      else  if(response.data == false && response.response !== 'api token or userid invaild'){
        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -242,7 +242,7 @@ export class PaymentgatewayComponent implements OnInit {
         });
         this.getSettingsValue();
       }
-      else{
+      else  if(response.data == false && response.response !== 'api token or userid invaild'){
        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -292,7 +292,7 @@ export class PaymentgatewayComponent implements OnInit {
         });
         this.getSettingsValue();
       }
-      else{
+      else  if(response.data == false && response.response !== 'api token or userid invaild'){
        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -350,7 +350,7 @@ export class PaymentgatewayComponent implements OnInit {
         });
         this.getSettingsValue();
       }
-      else{
+      else  if(response.data == false && response.response !== 'api token or userid invaild'){
        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',

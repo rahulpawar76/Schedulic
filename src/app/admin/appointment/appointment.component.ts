@@ -13,7 +13,6 @@ import { map, catchError } from 'rxjs/operators';
 import { AppComponent } from '@app/app.component';
 import { Observable, throwError } from 'rxjs';
 import { AuthenticationService } from '@app/_services';
-import { DataTableDirective } from 'angular-datatables';
 import { AdminSettingsService } from '../../admin/settings/_services/admin-settings.service';
 
 export interface DialogData {
@@ -30,15 +29,10 @@ export interface DialogData {
 })
 
 export class AppointmentComponent implements OnInit {
- // persons: Person[];
- datatableElement: DataTableDirective;
 
   currentUser : any;
   adminSettings : boolean = false;
-  dtOptions: DataTables.Settings = {};
-  dtOptions1: DataTables.Settings = {};
 
-  dtTrigger: Subject<any> = new Subject();
   startDate:any;
   endDate:any;
   animal: any;
@@ -135,8 +129,6 @@ export class AppointmentComponent implements OnInit {
   
 
   ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
   }
 
   
@@ -166,7 +158,7 @@ export class AppointmentComponent implements OnInit {
         this.minReschedulingTime = new Date();
         this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         
       }
     })
@@ -176,19 +168,30 @@ export class AppointmentComponent implements OnInit {
     this.durationType = type;
   
     // this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
-
+    if(this.durationType=='all'){
+      this.startDate = '';
+      this.endDate = '';
+    }
     if(this.durationType=='daily'){
-
+      
+      this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
+      this.endDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
       this.endDate=this.startDate;
     }
 
     if(this.durationType=='week'){
+      
+      this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
+      this.endDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
       let dateEnd = new Date(this.startDate);
       dateEnd.setDate( dateEnd.getDate() + 6 );
       this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
     }
 
     if(this.durationType=='month'){
+      
+      this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
+      this.endDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
       let dateEnd = new Date(this.startDate);
       let monthEnd = dateEnd.getMonth() + 1;
       let yearEnd = dateEnd.getFullYear();
@@ -401,11 +404,10 @@ export class AppointmentComponent implements OnInit {
         });
         // this.allAppointments = this.allAppointments.sort(this.dynamicSort("booking_date"))
         this.selectAll  = false;
-        this.dtTrigger.next();
         this.isLoaderAdmin = false;
         this.change.detectChanges();
 
-      }else if(response.data == false){
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -444,7 +446,7 @@ export class AppointmentComponent implements OnInit {
         this.allservices = response.response.data;
         this.isLoaderAdmin = false;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -551,7 +553,7 @@ export class AppointmentComponent implements OnInit {
         this.getAllAppointments();
         this.isLoaderAdmin = false;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -575,7 +577,7 @@ export class AppointmentComponent implements OnInit {
         this.getAllAppointments();
         this.isLoaderAdmin = false;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -599,7 +601,7 @@ export class AppointmentComponent implements OnInit {
         this.getAllAppointments();
         this.isLoaderAdmin = false;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -893,7 +895,7 @@ export class DialogAddNewAppointment {
         customerAddress: [this.appointmentData.address, Validators.required],
         customerState: [this.appointmentData.state, Validators.required],
         customerCity: [this.appointmentData.city, Validators.required],
-        customerPostalCode: [{ value: this.appointmentData.zip, disabled: this.disablePostalCode }, [Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
+        customerPostalCode: [{ value: this.appointmentData.zip, disabled: this.disablePostalCode }, [Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
        
         customerAppoAddress: [this.appointmentData.customerAppoAddress, [Validators.required]],
         customerAppoState: [this.appointmentData.customerAppoState, [Validators.required]],
@@ -989,12 +991,12 @@ export class DialogAddNewAppointment {
           this.valide_postal_code = true;
         }
 
-      } else if(response.data == false){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
+      } else if(response.data == false && response.response !== 'api token or userid invaild'){
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition: 'top',
+        //   panelClass : ['red-snackbar']
+        // });
         if(this.Postalcode.length==0){
           this.valide_postal_code = true;
         }
@@ -1038,7 +1040,7 @@ export class DialogAddNewAppointment {
           this.selectedDate = this.datePipe.transform(new Date(this.minimumAdvanceBookingDateTimeObject),"yyyy-MM-dd");
         }
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1055,12 +1057,12 @@ export class DialogAddNewAppointment {
         this.taxArr=tax;
         console.log(this.taxArr);
       }
-      else if(response.data == false){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition: 'top',
+        //   panelClass : ['red-snackbar']
+        // });
       }
     })
   }
@@ -1112,12 +1114,12 @@ export class DialogAddNewAppointment {
         }
       }
       }
-      else if(response.data == false){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition: 'top',
+        //   panelClass : ['red-snackbar']
+        // });
       }
     },
     (err) =>{
@@ -1204,7 +1206,7 @@ export class DialogAddNewAppointment {
       if(response.data == true){
         this.catdata = response.response;
        // this.categories=response.response;
-      }else if(response.data == false){
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -2218,7 +2220,7 @@ constructor(
         this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
         console.log("minReschedulingTime - "+this.minReschedulingTime);
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -2239,7 +2241,7 @@ constructor(
         console.log(response.response);
         this.activityLog=response.response;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -2289,7 +2291,7 @@ constructor(
             });
           this.dialogRef.close();
         }
-        else if(response.data == false){
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -2329,7 +2331,7 @@ constructor(
           });
         this.dialogRef.close();
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -2374,7 +2376,7 @@ constructor(
           });
           this.formSettingPage = false;
           this.fnGetSettingValue();
-        } else if(response.data == false){
+        } else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -2524,7 +2526,7 @@ export class RescheduleAppointAdmin {
           });
           this.dialogRef.close();
     }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',

@@ -24,8 +24,6 @@ export interface DialogData {
     styleUrls: ['./services.component.scss']
 })
 export class ServicesComponent implements OnInit {
-    dtOptions: DataTables.Settings = {};
-    dtTrigger: Subject<any> = new Subject();
     categoryImageUrl:any = '';
     subCategoryImageUrl:any = '';
     serviceImageUrl:any = '';
@@ -148,7 +146,6 @@ export class ServicesComponent implements OnInit {
         this.fnGetSettings();
         this.fnAllCategory();
         this.fnAllServicesNavigation();
-        this.fnstaffList();
 
         this.createSubCategory = this._formBuilder.group({
             subcategory_name: ['',  [Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
@@ -209,14 +206,15 @@ export class ServicesComponent implements OnInit {
         this.servicesList = false;
         this.createNewSubCategoryPage = false;
         this.createNewServicePage = false;
+        this.categoryImageUrl = '';
     }
 
     cancelNewCategory() {
         this.createNewCategoryPage = false;
-         this.servicesList = true;
-         this.createCategory.reset(); 
-         this.editCategoryId = '';
-         this.categoryImageUrl = '';
+        this.servicesList = true;
+        this.createCategory.reset(); 
+        this.editCategoryId = '';
+        this.categoryImageUrl = '';
 
     }
 
@@ -256,10 +254,52 @@ export class ServicesComponent implements OnInit {
 
     fnAllServicesNavigation(){
         this.serviceApiUrl1=environment.apiUrl+"/admin-service-list";
-        this.fnAllServices();   
+        this.fnAllServices2();   
     }
 
     fnAllServices() {
+        this.isLoaderAdmin = true;
+        this.createNewCategoryPage = false;
+        this.createNewSubCategoryPage = false;
+        this.createNewServicePage = false;
+        this.singleSubCategoryPage = '';
+        this.selectCategoryPage = '';
+        this.subCategoryPage = false;
+        this.addNewServicePage = false;
+        this.adminSettingsService.fnAllServices(this.serviceApiUrl1).subscribe((response: any) => {
+            if (response.data == true) {
+                this.allServicesList = response.response.data;
+                this.current_page = response.response.current_page;
+                this.first_page_url = response.response.first_page_url;
+                this.last_page = response.response.last_page;
+                this.last_page_url = response.response.last_page_url;
+                this.next_page_url = response.response.next_page_url;
+                this.prev_page_url = response.response.prev_page_url;
+                this.path = response.response.path;
+                this.ActionId = [];
+                this.selectAllCategory = false;
+                this.selectAll  = false;
+
+                if (this.allServicesList != '') {
+
+                    //this.servicesList = true;
+                    this.allServiceCount = this.allServicesList.length;
+                    this.allServicesList.forEach( (element) => { 
+                        element.is_selected = false;
+                    });
+
+                } else if (this.allServicesList == '') {
+                    this.servicesList = false;
+                }
+                this.isLoaderAdmin = false;
+            }
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
+                this.allServicesList = [];
+                this.isLoaderAdmin = false;
+            }
+        })
+    }
+    fnAllServices2() {
         this.isLoaderAdmin = true;
         this.createNewCategoryPage = false;
         this.createNewSubCategoryPage = false;
@@ -295,7 +335,7 @@ export class ServicesComponent implements OnInit {
                 }
                 this.isLoaderAdmin = false;
             }
-            else if (response.data == false) {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this.allServicesList = [];
                 this.isLoaderAdmin = false;
             }
@@ -368,8 +408,20 @@ export class ServicesComponent implements OnInit {
                     this.fnSelectCategoryNavigation(
                     this.allCetegoryList[this.allCategoryCount - 1].id,this.allCategoryCount-1);
                 }
+                
+            }else if(response.data == true && response.response.length == 0){
+                this._snackBar.open("Please add category.", "X", {
+                    duration: 2000,
+                    verticalPosition: 'top',
+                    panelClass: ['red-snackbar']
+                });
             }
-            else if (response.data == false) {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
+                this._snackBar.open(response.response, "X", {
+                    duration: 2000,
+                    verticalPosition: 'top',
+                    panelClass: ['red-snackbar']
+                });
                 this.allCetegoryList = [];
                 this.isLoaderAdmin = false;
             }
@@ -386,7 +438,7 @@ export class ServicesComponent implements OnInit {
             if (response.data == true) {
                 this.staffList = response.response
             }
-            else {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                  this.staffList = [];
                  this._snackBar.open(response.response, "X", {
                     duration: 2000,
@@ -422,6 +474,9 @@ export class ServicesComponent implements OnInit {
     fnSelectCategoryNavigation(categoryId, index){
         this.serviceApiUrl2=environment.apiUrl+"/list-service";
         this.fnSelectCategory(categoryId, index);  
+        this.categoryImageUrl = '';
+        this.subCategoryImageUrl = '';
+        this.serviceImageUrl = '';
         // this.createNewCategoryPage = false;
         // this.createNewSubCategoryPage = false;
     }
@@ -469,7 +524,7 @@ export class ServicesComponent implements OnInit {
                 this.singleSubCategoryPage = '';
                 this.isLoaderAdmin = false;
             }
-            else if (response.data == false) {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this.categoryServicesList = [];
                 if (response.response == 'service not found.' || response.response == 'service not found') {
                     this.servicesList = false;
@@ -496,8 +551,9 @@ export class ServicesComponent implements OnInit {
                     panelClass: ['green-snackbar']
                 });
                 this.actionServiceIdarr.length = 0;
+                this.fnAllServices();
             }
-            else {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open("Status Not Updated", "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -607,6 +663,8 @@ export class ServicesComponent implements OnInit {
                     panelClass: ['green-snackbar']
                 });
                 this.allowed=true;
+                this.newSubcategoryStatus = 'D';
+                this.newSubcategoryPrivate = 'N';
                 this.fnAllCategory();
                 this.fnSelectCategoryNavigation(this.selectedCategoryID , this.selectedCategoryIndex);
                 this.createSubCategory.reset();
@@ -614,7 +672,7 @@ export class ServicesComponent implements OnInit {
                 this.selectCategoryPage = 'notservices';
                 this.createNewSubCategoryPage = false;
                 this.isLoaderAdmin = false;
-            }else if (response.data == false) {
+            }else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -643,7 +701,7 @@ export class ServicesComponent implements OnInit {
                 this.subCategoryImageUrl = '';
                 this.editSubCategoryId = undefined;
             }
-            else if (response.data == false) {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -750,6 +808,8 @@ export class ServicesComponent implements OnInit {
                 });
                 this.createCategory.reset();
                 this.allowedCat=false;
+                this.newcategoryStatus = 'D';
+                this.newcategoryPrivate = 'N';
                 this.fnAllCategory();
                 this.fnSelectCategory(this.editCategoryId, this.selectedCategoryIndex);                
                 //this.servicesList = true;
@@ -758,7 +818,7 @@ export class ServicesComponent implements OnInit {
                 this.editCategoryId = undefined;
                 this.isLoaderAdmin = false;
             }
-            else if (response.data == false) {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open("Category Not updated", "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -785,7 +845,7 @@ export class ServicesComponent implements OnInit {
                 this.createNewCategoryPage = false;
                 this.isLoaderAdmin = false;
             }
-            else if (response.data == false) {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -829,12 +889,14 @@ export class ServicesComponent implements OnInit {
                     verticalPosition: 'top',
                     panelClass: ['green-snackbar']
                 });
+                
+                this.fnAllServices();
                 this.fnAllCategory();
                 this.fnAllServicesNavigation();
                 this.servicesList = true;
                 this.createNewCategoryPage = false;
                 this.isLoaderAdmin = false;
-            }else if (response.data == false) {
+            }else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open("Category Not deleted", "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -862,6 +924,7 @@ export class ServicesComponent implements OnInit {
                     panelClass: ['green-snackbar']
                 });
 
+                this.fnAllServices();
                 this.fnAllCategory();
                 this.fnSelectCategoryNavigation(this.selectedCategoryID , this.selectedCategoryIndex);
                 this.servicesList = false;
@@ -871,7 +934,7 @@ export class ServicesComponent implements OnInit {
                 this.singleSubCategoryPage = '';
 
                 
-            } else if (response.data == false) {
+            } else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -902,7 +965,7 @@ export class ServicesComponent implements OnInit {
                 });
                 this.fnAllCategory()
             }
-            else if (response.data == false) {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -931,7 +994,7 @@ export class ServicesComponent implements OnInit {
           } else {
             this.selectAllCategory = false;
           }
-
+          console.log(this.actionServiceIdarr)
     }
     
     checkAllCategory(event){
@@ -983,6 +1046,7 @@ export class ServicesComponent implements OnInit {
                         panelClass: ['green-snackbar']
                     });
                     this.actionServiceIdarr.length = 0;
+                this.fnAllServices();
                     this.selectedValue = undefined;
                     if (type == 'category') {
                         this.fnSelectCategory(categoryId, this.selectedCategoryIndex);
@@ -990,7 +1054,7 @@ export class ServicesComponent implements OnInit {
                         this.fnSelectSubCategory(categoryId, this.selectedSubCategoryIndex)
                     }
                 }
-                else {
+                else if(response.data == false && response.response !== 'api token or userid invaild'){
                     this._snackBar.open(response.response, "X", {
                         duration: 2000,
                         verticalPosition: 'top',
@@ -1017,6 +1081,9 @@ export class ServicesComponent implements OnInit {
        this.fnSelectSubCategory(subCategoryId, index); 
        this.selectedSubCategoryID = subCategoryId;
        this.selectedSubCategoryIndex = index;
+       this.categoryImageUrl = '';
+       this.subCategoryImageUrl = '';
+       this.serviceImageUrl = '';
     }
 
     fnSelectSubCategory(subCategoryId, index) {
@@ -1061,7 +1128,7 @@ export class ServicesComponent implements OnInit {
                 this.selectCategoryPage = '';
                 this.createNewServicePage = false;
                 this.isLoaderAdmin = false;
-            } else if (response.data == false) {
+            } else if(response.data == false && response.response !== 'api token or userid invaild'){
                 if (response.response == 'service not found.' || response.response == 'service not found') {
                     this.servicesList = false;
 
@@ -1126,6 +1193,8 @@ export class ServicesComponent implements OnInit {
   
       
     fnCreateNewServicePage(categoryId, type,btntype) {
+        
+        this.fnstaffList();
         this.createService.controls['service_name'].setValue(null);
         this.createService.controls['service_description'].setValue(null);
         this.createService.controls['service_cost'].setValue(null);
@@ -1310,10 +1379,13 @@ export class ServicesComponent implements OnInit {
                     verticalPosition: 'top',
                     panelClass: ['green-snackbar']
                 });
+                this.fnAllServices();
                 this.createService.reset();
                 this.assignStaffArr.length = 0;
                 this.createNewServicePage = false;
                 this.servicesList = false;
+                this.newServicePrivate = 'N';
+                this.newServiceStatus = 'D';
                 // this.fnAllCategory();
                 if(this.createServiceCategoryType == 'category'){
                     this.fnSelectCategoryNavigation(this.selectedCategoryID,this.selectedCategoryIndex);
@@ -1323,7 +1395,7 @@ export class ServicesComponent implements OnInit {
                     this.selectCategoryPage = 'services'
                 }
                 this.isLoaderAdmin = false;
-            } else if (response.data == false) {
+            } else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -1363,7 +1435,7 @@ export class ServicesComponent implements OnInit {
                 this.isLoaderAdmin = false;
                 
             }
-            else if (response.data == false) {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
@@ -1395,7 +1467,7 @@ export class ServicesComponent implements OnInit {
                     panelClass: ['green-snackbar']
                 });
             }
-            else if (response.data == false) {
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this.isLoaderAdmin = false;
             }
         })
@@ -1470,6 +1542,7 @@ export class ServicesComponent implements OnInit {
                     verticalPosition: 'top',
                     panelClass: ['green-snackbar']
                 });
+                this.fnAllServices();
                 if(this.createServiceCategoryType == 'category'){
                     this.fnSelectCategoryNavigation(this.selectedCategoryID,this.selectedCategoryIndex);
                     this.singleSubCategoryPage = 'services'
@@ -1479,7 +1552,7 @@ export class ServicesComponent implements OnInit {
                 }
                 this.isLoaderAdmin = false;
             }
-            else if (response.data == false) { 
+            else if(response.data == false && response.response !== 'api token or userid invaild'){ 
                 this._snackBar.open(response.response, "X", {
                 duration: 2000,
                 verticalPosition: 'top',
@@ -1611,7 +1684,7 @@ export class ServicesComponent implements OnInit {
         this.profileImage = this.imageSrc
         this.dialogRef.close(this.profileImage);
 
-        this._snackBar.open("image selected", "X", {
+        this._snackBar.open("Image selected.", "X", {
             duration: 2000,
             verticalPosition: 'top',
             panelClass: ['green-snackbar']
@@ -1678,7 +1751,7 @@ export class ServicesComponent implements OnInit {
     uploadImage() {
         this.profileImage = this.imageSrc
         this.dialogRef.close(this.profileImage);
-        this._snackBar.open("image selected", "X", {
+        this._snackBar.open("Image selected.", "X", {
             duration: 2000,
             verticalPosition: 'top',
             panelClass: ['green-snackbar']
@@ -1716,7 +1789,7 @@ export class ServicesComponent implements OnInit {
                 if (response.data == true) {
                     this.staffList = response.response
                 }
-                else {
+                else if(response.data == false && response.response !== 'api token or userid invaild'){
                      this.staffList = [];
                      this._snackBar.open(response.response, "X", {
                         duration: 2000,
@@ -1788,7 +1861,7 @@ export class ServicesComponent implements OnInit {
     uploadImage() {
         this.profileImage = this.imageSrc
         this.dialogRef.close(this.profileImage);
-        this._snackBar.open("image selected", "X", {
+        this._snackBar.open("Image selected.", "X", {
             duration: 2000,
             verticalPosition: 'top',
             panelClass: ['green-snackbar']

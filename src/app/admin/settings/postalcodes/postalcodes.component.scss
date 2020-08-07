@@ -147,3 +147,16 @@
         }
     }
 }
+
+.postalcode-check-status {
+    width: 100%;
+    margin: 10px 0;
+     ::ng-deep .mat-slide-toggle-label {
+        display: flex;
+        justify-content: flex-end;
+        .mat-slide-toggle-bar {
+            order: 1;
+            margin-left: 12px;
+        }
+    }
+}

@@ -109,14 +109,14 @@
             </div>
             <mat-accordion class="category-list" cdkDropList (cdkDropListDropped)="drop($event)">
                 <mat-expansion-panel class="category-main" cdkDragHandle *ngFor="let allCetegoryList of allCetegoryList; let i=index">
-                    <mat-expansion-panel-header (click)="fnSelectCategoryNavigation(allCetegoryList.id,i)">
+                    <mat-expansion-panel-header class="category-title-head" [ngClass]="{'active':selectedCategoryID === allCetegoryList.id}" (click)="fnSelectCategoryNavigation(allCetegoryList.id,i)">
                         <mat-panel-title class="service-title">
                             <p class="category-title mb-0">
                                 {{allCetegoryList.category_title}}</p>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div *ngIf="allCetegoryList.subcategory != ''">
-                        <div (click)="fnSelectSubCategoryNavigate(subcategoryList.id,i)" class="single-box my-2" *ngFor="let subcategoryList of allCetegoryList.subcategory; let i=index">
+                        <div [ngClass]="{'active':selectedSubCategoryID === subcategoryList.id}" (click)="fnSelectSubCategoryNavigate(subcategoryList.id,i)" class="single-box my-2 subcategory-title-head" *ngFor="let subcategoryList of allCetegoryList.subcategory; let i=index">
                             <p class="sub-category-title mb-0">{{subcategoryList.sub_category_name}}</p>
                         </div>
                     </div>
@@ -181,14 +181,14 @@
                 <div class="table_pagination" *ngIf="allServicesList != ''">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">
-                            <li class="page-item" (click)="navigateTo(first_page_url,'service')"><a class="page-link"><i
+                            <li class="page-item {{current_page==1?'pointernone':''}} " (click)="navigateTo(first_page_url,'service')"><a class="page-link"><i
                                         class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
                             <li class="page-item" (click)="navigateTo(prev_page_url,'service')"><a class="page-link"><i
                                         class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
                             <li class="page-item" [ngClass]="{'active':current_page == i+1}" *ngFor="let pagenumber of arrayOne(last_page); let i = index;" (click)="navigateToPageNumber(i+1,'service')"><a class="page-link">{{i+1}}</a></li>
                             <li class="page-item" (click)="navigateTo(next_page_url,'service')"><a class="page-link"><i
                                         class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
-                            <li class="page-item" (click)="navigateTo(last_page_url,'service')"><a class="page-link"><i
+                            <li class="page-item {{arrayOne(last_page).length==current_page?'pointernone':''}}  " (click)="navigateTo(last_page_url,'service')"><a class="page-link"><i
                                         class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
                         </ul>
                     </nav>
@@ -783,8 +783,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-12 col-12 col-md-12 d-flex">
-                                <div class="border p-3">
+                            <div class="col-xl-3 col-lg-12 col-12 col-md-12 d-flex p-0">
+                                <div class="border p-2 w-100">
                                     <div class="d-flex">
                                         <h6>Select Staff for This Service</h6>
                                         <!-- <i class="material-icons add-icon pointer" (click)="openDialog()">add_circle</i> -->
@@ -801,7 +801,7 @@
                                </mat-list> -->
                                     <div *ngIf="staffList != ''" class="select_staff_list">
                                         <div class="drageble-box" *ngFor="let staffList of staffList" fxLayout="row">
-                                            <div class="" fxFlex="90">
+                                            <div class="staff-list" fxFlex="90">
                                                 <mat-checkbox (change)="fnAssignStaffToService($event.checked, staffList.id)" [checked]="assignStaffArr.indexOf(staffList.id) > -1">
                                                     {{staffList.firstname}} {{staffList.lastname}}</mat-checkbox>
                                             </div>

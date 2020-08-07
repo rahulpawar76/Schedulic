@@ -282,13 +282,18 @@
 }
 
 .appoint-date-range-main {
-    margin-left: 40px;
+    //margin-left: 40px;
     &::before {
         content: "\f073";
         font: normal normal normal 14px/1 FontAwesome;
         position: absolute;
-        font-size: 30px;
-        left: -20px;
+        font-size: 24px;
+        left: 20px;
         color: #6d6d6d;
+        line-height: 1.5;
+    }
+    input {
+        width: 200px;
+        text-indent: 30px;
     }
 }

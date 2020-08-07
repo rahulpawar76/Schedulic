@@ -20,7 +20,6 @@ import { MyBusinessComponent } from './my-business/my-business.component';
 import { myCreateNewBusinessDialog } from './my-business';
 import { MyWorkSpaceComponent } from './my-work-space/my-work-space.component';
 import { AppointmentComponent } from './appointment/appointment.component';
-import { DataTablesModule } from 'angular-datatables';
 import { DialogAddNewAppointment } from './appointment/appointment.component';
 // import { DialogNewAppointment } from './appointment/appointment.component';
 import { CustomersComponent } from './customers/customers.component';
@@ -102,7 +101,6 @@ import { SupportComponent } from './support/support.component';
     NgxChartsModule,
     ProgressBarModule,
     HighchartsChartModule,
-    DataTablesModule,
     MatSidenavModule,
     NgxDaterangepickerMd.forRoot(),
     SharedModule

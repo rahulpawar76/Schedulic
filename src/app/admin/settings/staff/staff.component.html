@@ -36,12 +36,12 @@
         </div>
         <h6 class="pt-3">Account</h6>
         <!-- <div (click)="MySettingsProfileNav()" class="d-flex setting-menu-item">
-<div class="menu-icon">
-<img class="normal" src="../../../../assets/images/admin/settings-menu/my-profile.png" />
-<img class="colored" src="../../../../assets/images/admin/settings-menu/my-profile-color.png" />
-</div>
-<p>My Profile</p>
-</div> -->
+                <div class="menu-icon">
+                    <img class="normal" src="../../../../assets/images/admin/settings-menu/my-profile.png" />
+                    <img class="colored" src="../../../../assets/images/admin/settings-menu/my-profile-color.png" />
+                </div>
+                <p>My Profile</p>
+            </div> -->
         <div routerLink="/admin/settings/company-details" class="d-flex setting-menu-item">
             <div class="menu-icon">
                 <img class="normal" src="../../../../assets/images/admin/settings-menu/companydetails.png" />
@@ -95,15 +95,16 @@
                         <div class="col-lg-4 col-md-4 col-12  border-right">
                             <h6 *ngIf="!editStaffId">Add Staff</h6>
                             <h6 *ngIf="editStaffId">Edit Staff</h6>
-                            <div class="d-flex profile-img-wrap" (click)="staffImage()">
-                                <img class="mx-auto service-profile-image" *ngIf="!editStaffId && !staffImageUrl" src="/assets/images/admin/picture.png">
-                                <img class="mx-auto service-profile-image uploaded" *ngIf="!editStaffId && staffImageUrl" src="{{staffImageUrl}}">
-                                <img class="add-staff mx-auto" *ngIf="editStaffId && !staffImageUrl" src="{{singleStaffDetail.staff[0].image}}">
-                                <img class="add-staff mx-auto uploaded" *ngIf="editStaffId && staffImageUrl" src="{{staffImageUrl}}">
-                                <div class="camera-alt"><i class="material-icons">
-                  camera_alt
-                </i></div>
+                            <div class="d-flex justify-content-center">
+                                <div class="d-flex profile-img-wrap" (click)="staffImage()">
+                                    <img class="mx-auto service-profile-image" *ngIf="!editStaffId && !staffImageUrl" src="/assets/images/admin/picture.png">
+                                    <img class="mx-auto service-profile-image uploaded" *ngIf="!editStaffId && staffImageUrl" src="{{staffImageUrl}}">
+                                    <img class="add-staff mx-auto" *ngIf="editStaffId && !staffImageUrl" src="{{singleStaffDetail.staff[0].image}}">
+                                    <img class="add-staff mx-auto uploaded" *ngIf="editStaffId && staffImageUrl" src="{{staffImageUrl}}">
+                                    <div class="camera-alt"><i class="material-icons">camera_alt</i></div>
+                                </div>
                             </div>
+
                             <mat-form-field class="bottom-border-field">
                                 <mat-label>First Name</mat-label>
                                 <mat-icon class="mr-4" matPrefix>person</mat-icon>
@@ -111,8 +112,6 @@
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="StaffCreate.get('firstname').touched || StaffCreate.get('firstname').dirty || formSubmitclicked">
                                 <small *ngIf="StaffCreate.get('firstname').hasError('required')" class="error">First name is required.</small>
-                                <small *ngIf="StaffCreate.get('firstname').hasError('minlength') || StaffCreate.get('firstname').hasError('maxlength')"class="error">First name must be between 3-11 character.</small>
-                                <!-- <small *ngIf="StaffCreate.get('firstname').hasError('maxlength') "class="error">Firstname must be at least 11 character.</small> -->
                             </span>
 
                             <mat-form-field class="bottom-border-field">
@@ -122,8 +121,6 @@
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="StaffCreate.get('lastname').touched || StaffCreate.get('lastname').dirty || formSubmitclicked">
                                 <small *ngIf="StaffCreate.get('lastname').hasError('required')" class="error">Last name is required.</small>
-                                <small *ngIf="StaffCreate.get('lastname').hasError('minlength') || StaffCreate.get('lastname').hasError('maxlength')"class="error">Last name must be between 3-11 character.</small>
-                                <!-- <small *ngIf="StaffCreate.get('lastname').hasError('minlength') || StaffCreate.get('lastname').hasError('maxlength')"class="error">Lastname must be at least 11 character.</small> -->
                             </span>
                             <mat-form-field class="bottom-border-field">
                                 <mat-label>Mobile</mat-label>
@@ -172,7 +169,7 @@
                             <div class="upload-document-top-margin">
                                 <div class="d-flex">
                                     <h6>Upload Documents</h6>
-                                    <i class="fa fa-question-circle uploaddocument-icon" #tooltip="matTooltip" matTooltip="Info about the Document" matTooltipPosition="above" matTooltipHideDelay="50000" aria-hidden="true"></i>
+                                    <i class="fa fa-question-circle uploaddocument-icon" #tooltip="matTooltip" matTooltip="Info about the Document" matTooltipPosition="above" matTooltipHideDelay="100" aria-hidden="true"></i>
                                 </div>
                                 <!--  <div class="upload-files">
                                 <mat-icon aria-hidden="false" class="uploadfile-icon">cloud_upload</mat-icon>
@@ -182,12 +179,12 @@
                                     <button mat-button class="upload-btn">Upload Files</button>
                                 </div>
                             </div> -->
-                                <div class="container" appDnd (fileDropped)="onFileDropped($event)">
+                                <div class="container pointer" appDnd (fileDropped)="onFileDropped($event)">
                                     <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target.files)" />
                                     <img src="assets/img/dnd/upload.png" alt="">
                                     <h4 class="upload-title-content">.PDF .JPG .PNG .DOC</h4>
-                                    <p>Drag & drop your files here</p>
-                                    <label for="fileDropRef" style="height: 40px; width: 150px;">Upload Files</label>
+                                    <p class="upload-des-content">Drag & drop your files here</p>
+                                    <label for="fileDropRef">Upload Files</label>
                                 </div>
 
                                 <div class="files-list">
@@ -260,8 +257,8 @@
                                         </mat-expansion-panel>
 
                                         <div *ngFor="let serviceList of categoryServiceListval.getservices; let service_index=index" class="py-3">
-                                            <mat-checkbox [checked]="serviceList.is_selected" (change)="fnNewCheckService($event.checked,serviceList.id)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) > -1" checked="true">{{serviceList.service_name}} </mat-checkbox>
-                                            <mat-checkbox [checked]="serviceList.is_selected" (change)="fnNewCheckService($event.checked,serviceList.id)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) < 0">{{serviceList.service_name}}</mat-checkbox>
+                                            <mat-checkbox [checked]="serviceList.is_selected" (change)="fnNewCheckService($event.checked,serviceList.id,i,service_index)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) > -1" checked="true">{{serviceList.service_name}} </mat-checkbox>
+                                            <mat-checkbox [checked]="serviceList.is_selected" (change)="fnNewCheckService($event.checked,serviceList.id,i,service_index)" *ngIf="selectedServiceNewStaff.indexOf(serviceList.id) < 0">{{serviceList.service_name}}</mat-checkbox>
                                         </div>
 
                                     </mat-expansion-panel>
@@ -400,11 +397,11 @@
                         <div class="table_pagination" *ngIf="allStaffList != ''">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
-                                    <li class="page-item" (click)="navigateTo(first_page_url)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{current_page==1?'pointernone':''}} " (click)="navigateTo(first_page_url)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
                                     <li class="page-item" (click)="navigateTo(prev_page_url)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
                                     <li class="page-item" [ngClass]="{'active':current_page == i+1}" *ngFor="let pagenumber of arrayOne(last_page); let i = index;" (click)="navigateToPageNumber(i+1)"><a class="page-link">{{i+1}}</a></li>
                                     <li class="page-item" (click)="navigateTo(next_page_url)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
-                                    <li class="page-item" (click)="navigateTo(last_page_url)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{arrayOne(last_page).length==current_page?'pointernone':''}} " (click)="navigateTo(last_page_url)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -467,13 +464,13 @@
                 <mat-tab label="Details">
                     <div class="bottom-border">
                         <h6>Staff Description</h6>
-                        <p *ngIf="singleStaffDetail.staff[0].description != null" class="mb-0">{{singleStaffDetail.staff[0].description}}</p>
-                        <p *ngIf="singleStaffDetail.staff[0].description == null" class="mb-0">No Description</p>
+                        <p *ngIf="singleStaffDetail.staff[0].description != '' || singleStaffDetail.staff[0].description != null" class="mb-0 detail-color">{{singleStaffDetail.staff[0].description}}</p>
+                        <p *ngIf="singleStaffDetail.staff[0].description == '' || singleStaffDetail.staff[0].description == null" class="mb-0 detail-color">No Description</p>
                     </div>
                     <div class="bottom-border d-flex">
                         <div class="detail-left-side">
                             <h6>Active</h6>
-                            <p class="mb-0">Disable this to temporarily suspend this staff's account. The Staff details will not be deleted from the system.</p>
+                            <p class="mb-0 detail-color">Disable this to temporarily suspend this staff's account. The Staff details will not be deleted from the system.</p>
                         </div>
                         <div class="ml-auto action-right-side">
                             <mat-slide-toggle (change)="fnChangeStaffStatus($event.checked, singleStaffDetail.staff[0].id)" [checked]="singleStaffDetail.staff[0].status == 'E'"></mat-slide-toggle>
@@ -482,7 +479,7 @@
                     <div class="bottom-border d-flex">
                         <div class="detail-left-side">
                             <h6>Internal Staff</h6>
-                            <p class="mb-0">Internal Staff cannot be viewed or booked by customers.</p>
+                            <p class="mb-0 detail-color">Internal Staff cannot be viewed or booked by customers.</p>
                         </div>
                         <div class="ml-auto action-right-side">
                             <mat-slide-toggle (change)="fnChangeInternalStaff($event.checked, singleStaffDetail.staff[0].id)" [checked]="singleStaffDetail.staff[0].internal_staff == 'Y'"></mat-slide-toggle>
@@ -491,7 +488,7 @@
                     <div class="bottom-border d-flex">
                         <div class="detail-left-side">
                             <h6>Login Allowed</h6>
-                            <p class="mb-0">Restrict Shab to login next time. Allow shab to view / manage / block dates and times for their schedule only. Staff can only search customers but cannot export the customer list.</p>
+                            <p class="mb-0 detail-color">Restrict Shab to login next time. Allow shab to view / manage / block dates and times for their schedule only. Staff can only search customers but cannot export the customer list.</p>
                         </div>
                         <div class="ml-auto action-right-side">
                             <mat-slide-toggle (change)="fnChangeLoginAllowStaff($event.checked, singleStaffDetail.staff[0].id)" [checked]="singleStaffDetail.staff[0].login_allowed == 'Y'"></mat-slide-toggle>
@@ -501,7 +498,7 @@
                         <div>
                             <h6>Email Verification</h6>
                             <div class="d-flex">
-                                <p class="mb-0 pr-2">{{singleStaffDetail.staff[0].email}}</p>
+                                <p class="mb-0 pr-2 detail-color">{{singleStaffDetail.staff[0].email}}</p>
                                 <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
                                     <mat-chip *ngIf="singleStaffDetail.staff[0].email_verification_status == 'N'" selected class="verified-button">Not Verified</mat-chip>
                                     <mat-chip *ngIf="singleStaffDetail.staff[0].email_verification_status == 'Y'" selected class="btn-green">Verified</mat-chip>
@@ -521,7 +518,7 @@
                         <div>
                             <h6>Phone Number Verification</h6>
                             <div class="d-flex">
-                                <p class="mb-0 pr-2">{{singleStaffDetail.staff[0].phone}}</p>
+                                <p class="mb-0 pr-2 detail-color">{{singleStaffDetail.staff[0].phone}}</p>
                                 <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
                                     <mat-chip *ngIf="singleStaffDetail.staff[0].phone_verification_status == 'N'" selected class="verified-button">Not Verified</mat-chip>
                                     <mat-chip *ngIf="singleStaffDetail.staff[0].phone_verification_status == 'Y'" selected class="btn-green">Verified</mat-chip>
@@ -642,15 +639,6 @@
                         <div class="Customer-appointment-table">
                             <div class="main-table-content main-cust-table-content">
                                 <div class="">
-                                    <div class="heads main-heading-content example-box header-background " fxLayout="row">
-                                        <div class="" fxFlex="10"></div>
-                                        <div class="" fxFlex="15"></div>
-                                        <div class="" fxFlex="25"></div>
-                                        <!-- <div class="" fxFlex="10"></div>
-                    <div class="" fxFlex="20"></div> -->
-                                        <div class="" fxFlex="30"></div>
-                                        <div class="" fxFlex="20"></div>
-                                    </div>
                                     <div class="content" class="example-list working-hrs-list">
                                         <form [formGroup]="formSetWorkingHours" class="px-4 py-2">
                                             <div class="example-box">
@@ -676,7 +664,7 @@
                                                 </div>
                                                 <div class="" *ngIf="!mondayOn">Closed for Business</div>
                                                 <div class="blue-font" fxFlex="30">
-                                                    <p (click)="fnApplyToAll()" *ngIf="mondayOn" class="mt-3"> Apply to all </p>
+                                                    <p (click)="fnApplyToAll()" *ngIf="mondayOn" class="mb-0"> Apply to all </p>
                                                 </div>
                                                 <div class="" fxFlex="20">
                                                     <button mat-button class="staff-reset-btn mr-1" (click)="fnWorkingHoursResetToDefault()">Reset to
@@ -853,15 +841,6 @@
                         <div class="Customer-appointment-table">
                             <div class="main-table-content main-cust-table-content">
                                 <div class="">
-                                    <div class="heads main-heading-content example-box header-background " fxLayout="row">
-                                        <div class="" fxFlex="10"></div>
-                                        <div class="" fxFlex="15"></div>
-                                        <div class="" fxFlex="35"></div>
-                                        <!-- <div class="" fxFlex="10"></div>
-                    <div class="" fxFlex="20"></div> -->
-                                        <div class="" fxFlex="20"></div>
-                                        <div class="" fxFlex="20"></div>
-                                    </div>
                                     <div class="content" class="example-list">
                                         <div class="example-box">
                                             <div class="" fxFlex="10"> Monday </div>
@@ -869,7 +848,7 @@
                                                 <button mat-button class="staff-addbreak-btn" *ngIf="mondayOn" (click)="fnShowAddBreakForm('Monday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!mondayOn">Closed</button>
                                             </div>
                                             <div class="" fxFlex="35" *ngIf="mondayOn">
-                                                <div *ngFor="let breakTime of breakTimeList">
+                                                <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                                     <div class="d-flex" *ngIf="breakTime.week_day_id == '1'">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="breakTime.break_start_time" [disabled]="true">
@@ -915,7 +894,7 @@
                                                 <button mat-button class="staff-addbreak-btn" *ngIf="tuesdayOn" (click)="fnShowAddBreakForm('Tuesday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!tuesdayOn">Closed</button>
                                             </div>
                                             <div class="" fxFlex="35" *ngIf="tuesdayOn">
-                                                <div *ngFor="let breakTime of breakTimeList">
+                                                <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                                     <div class="d-flex" *ngIf="breakTime.week_day_id == '2'">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="breakTime.break_start_time" [disabled]="true">
@@ -959,7 +938,7 @@
                                                 <button mat-button class="staff-addbreak-btn" *ngIf="wednesdayOn" (click)="fnShowAddBreakForm('Wednesday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!wednesdayOn">Closed</button>
                                             </div>
                                             <div class="" fxFlex="35" *ngIf="wednesdayOn">
-                                                <div *ngFor="let breakTime of breakTimeList">
+                                                <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                                     <div class="d-flex" *ngIf="breakTime.week_day_id == '3'">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="breakTime.break_start_time" [disabled]="true">
@@ -1003,7 +982,7 @@
                                                 <button mat-button class="staff-addbreak-btn" *ngIf="thursdayOn" (click)="fnShowAddBreakForm('Thursday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!thursdayOn">Closed</button>
                                             </div>
                                             <div class="" fxFlex="35" *ngIf="thursdayOn">
-                                                <div *ngFor="let breakTime of breakTimeList">
+                                                <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                                     <div class="d-flex" *ngIf="breakTime.week_day_id == '4'">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="breakTime.break_start_time" [disabled]="true">
@@ -1047,7 +1026,7 @@
                                                 <button mat-button class="staff-addbreak-btn" *ngIf="fridayOn" (click)="fnShowAddBreakForm('Friday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!fridayOn">Closed</button>
                                             </div>
                                             <div class="" fxFlex="35" *ngIf="fridayOn">
-                                                <div *ngFor="let breakTime of breakTimeList">
+                                                <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                                     <div class="d-flex" *ngIf="breakTime.week_day_id == '5'">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="breakTime.break_start_time" [disabled]="true">
@@ -1091,7 +1070,7 @@
                                                 <button mat-button class="staff-addbreak-btn" *ngIf="saturdayOn" (click)="fnShowAddBreakForm('Saturday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!saturdayOn">Closed</button>
                                             </div>
                                             <div class="" fxFlex="35" *ngIf="saturdayOn">
-                                                <div *ngFor="let breakTime of breakTimeList">
+                                                <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                                     <div class="d-flex" *ngIf="breakTime.week_day_id == '6'">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
 
@@ -1137,7 +1116,7 @@
                                                 <button mat-button class="staff-addbreak-btn" *ngIf="sundayOn" (click)="fnShowAddBreakForm('Sunday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="!sundayOn">Closed</button>
                                             </div>
                                             <div class="" fxFlex="35" *ngIf="sundayOn">
-                                                <div *ngFor="let breakTime of breakTimeList">
+                                                <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                                     <div class="d-flex" *ngIf="breakTime.week_day_id == '0'">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="breakTime.break_start_time" [disabled]="true">
@@ -1243,7 +1222,7 @@
                             <hr>
                         </div>
                     </div>
-                    <div class="w-100" *ngIf="singleStaffDetail.staff[0].review == ''">
+                    <div class="w-100 text-center my-2" *ngIf="singleStaffDetail.staff[0].review == ''">
                         No Review Available
                     </div>
                 </mat-tab>

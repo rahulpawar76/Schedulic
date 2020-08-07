@@ -28,7 +28,8 @@ export class PostalcodesComponent implements OnInit {
   arr:any=[];
   businessId:any;
   settingSideMenuToggle : boolean = false;
-  
+  settingData:any;
+  PostalCodeCheckStatus : boolean = false;
   search ={
     postalCode :"",
   }
@@ -41,10 +42,27 @@ export class PostalcodesComponent implements OnInit {
     if (localStorage.getItem('business_id')) {
       this.businessId = localStorage.getItem('business_id');
     }
+    this.getSettingValue();
   }
 
   ngOnInit() {}
   
+  getSettingValue(){
+    let requestObject = {
+      'business_id': this.businessId,
+    };
+    this.adminSettingsService.getSettingsValue(requestObject).subscribe((response:any)=>{
+      if(response.data == true && response.response != ''){
+        this.settingData = response.response
+        console.log(this.settingData);
+        if(this.settingData.postal_code_check){
+          this.PostalCodeCheckStatus =  JSON.parse(this.settingData.postal_code_check).status;
+          console.log(this.PostalCodeCheckStatus)
+        
+        }
+      }
+    })
+  }
 
   addPostalCode(){
 
@@ -85,7 +103,7 @@ export class PostalcodesComponent implements OnInit {
           }
         });
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.postalCodeList = [];
       }
     })
@@ -113,7 +131,31 @@ export class PostalcodesComponent implements OnInit {
           panelClass :['green-snackbar']
           });
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+      }
+    })
+  }
+  fnChangePostalCodeCheck(status){
+    let requestObject={
+      "business_id":this.businessId,
+      "status": JSON.stringify(status)
+    }
+    this.adminSettingsService.fnChangePostalCodeCheck(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+         this._snackBar.open("Status Updated.", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+          });
+         this.fnGetPostalCodeList();
+         this.getSettingValue();
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -157,7 +199,7 @@ export class PostalcodesComponent implements OnInit {
            this.selectedValue = undefined;
            this.fnGetPostalCodeList();
         }
-        else{
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -183,7 +225,7 @@ export class PostalcodesComponent implements OnInit {
             if(response.data == true){
               this.fnGetPostalCodeList();
             }
-            else{
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
 
             }
           })
@@ -250,7 +292,7 @@ export class DialogAddPostalCode {
     }
     this.formCreatePostalCode = this._formBuilder.group({
       postalCode: ['', [Validators.required,Validators.minLength(3),Validators.maxLength(7)]],
-      postalCodeArea: ['', [Validators.required,Validators.minLength(2),Validators.maxLength(20)]],
+      postalCodeArea: ['', [Validators.required,Validators.maxLength(20)]],
       postalCodeStaff: ['',]
     });
   }
@@ -296,7 +338,7 @@ export class DialogAddPostalCode {
           });
           this.dialogRef.close(true);
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',

@@ -171,8 +171,8 @@
 }
 
 .service-profile-image {
-    width: 60px;
-    height: auto;
+    width: 100%;
+    height: 100%;
     //border-radius: 50px;
 }
 
@@ -615,4 +615,27 @@ textarea {
 
 .align-item-start {
     align-items: flex-start;
+}
+
+::ng-deep .staff-list {
+    .mat-checkbox-layout {
+        .mat-checkbox-label {
+            width: 180px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+.category-title-head {
+    &.active {
+        border-left: 4px solid #3d72f4 !important;
+    }
+}
+
+.subcategory-title-head {
+    &.active {
+        border-left: 4px solid #3d72f4 !important;
+    }
 }

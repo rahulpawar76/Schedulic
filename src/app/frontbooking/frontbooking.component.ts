@@ -17,6 +17,8 @@ import { Router, RouterOutlet } from '@angular/router';
 // import { DOCUMENT } from '@angular/platform-browser';
 // import { DOCUMENT } from '@angular/common',
 import { sha512 as sha512 } from 'js-sha512';
+//import { Base64 } from 'base64-string';
+
 declare const PayUMoneylaunch: any;
 @Component({
   selector: 'app-frontbooking',
@@ -57,6 +59,7 @@ export class FrontbookingComponent implements OnInit {
   creditcardform = false;
   showPaypalButtons = false;
   showPayUMoneyButton = false;
+  phoneNumberInvalid:any = "valid";
   checked = false;
   minVal=1;
   catdata :[];
@@ -64,6 +67,7 @@ export class FrontbookingComponent implements OnInit {
   serviceData:any= [];
   selectedsubcategory = "";
   selectedcategory = "";
+  BankDetail:boolean=false;
   selectedcategoryName:any;
   selectedsubcategoryName:any;
   booking = {
@@ -158,7 +162,9 @@ export class FrontbookingComponent implements OnInit {
   PayUMoneyCredentials:any;
   paypalSetting:any;
   stripeSetting:any;
+  bankTransferSetting:any;
   stripeStatus : boolean = false;
+  bankTransferStatus : boolean = false;
   loadAPI: Promise<any>;
   isFound:boolean=false;
   directService:boolean=false;
@@ -191,6 +197,7 @@ export class FrontbookingComponent implements OnInit {
   paypalClientId:any="sb";
   paypalTestMode:any;
   paypalStatus:boolean=false;
+  encodedbusinessId:any;
   businessId:any;
   businessDetail:any;
 
@@ -212,9 +219,13 @@ export class FrontbookingComponent implements OnInit {
     @Inject(DOCUMENT) private _document
     
   ) { 
-    
+    console.log(window.location.search)
     this.urlString = window.location.search.split("?business_id="); 
     this.businessId =this.urlString[1];
+    // console.log(this.encodedbusinessId)
+    // const enc = new Base64();
+    // this.businessId = enc.decode(this.encodedbusinessId); 
+    // console.log(this.businessId)
     meta.addTag({name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'});
     this.renderExternalScript('https://checkout-static.citruspay.com/bolt/run/bolt.min.js').onload = () => {
       console.log('Google API Script loaded');
@@ -252,9 +263,9 @@ export class FrontbookingComponent implements OnInit {
     this.formNewUser = this._formBuilder.group({
       newUserEmail: ['',[Validators.required,Validators.email,Validators.pattern(emailPattern)],
       this.isEmailUnique.bind(this)],
-      newUserPassword: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(8)]],
+      newUserPassword: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
       newUserFullname: ['',Validators.required],
-      newUserPhone: ['',[Validators.required,Validators.minLength(6),Validators.maxLength(15)]],
+      newUserPhone: [''],
       // newUserAddress: ['',Validators.required],
       // newUserState: ['',Validators.required],
       // newUserCity: ['',Validators.required],
@@ -386,6 +397,10 @@ export class FrontbookingComponent implements OnInit {
           this.stripeSetting = JSON.parse(this.settingsArr.stripe_settings)
           this.stripeStatus = this.stripeSetting.status
         }
+        if(this.settingsArr.bank_transfer){
+          this.bankTransferSetting = JSON.parse(this.settingsArr.bank_transfer)
+          this.bankTransferStatus = this.bankTransferSetting.status
+        }
           
 
           this.termsConditions = JSON.parse(this.settingsArr.terms_condition);
@@ -407,7 +422,7 @@ export class FrontbookingComponent implements OnInit {
             if(this.contactFormSettingsArr.addressField.status == 1){
               if(this.contactFormSettingsArr.addressField.required == 1){
                 const validators = [Validators.required];
-                const validatorsZipCode = [Validators.required,Validators.pattern(this.onlynumeric)];
+                const validatorsZipCode = [Validators.required,Validators.minLength(5),Validators.maxLength(7)];
                 this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
                 this.formNewUser.addControl('newUserState', new FormControl('', validators));
                 this.formNewUser.addControl('newUserCity', new FormControl('', validators));
@@ -437,7 +452,7 @@ export class FrontbookingComponent implements OnInit {
             }
           }else{
             const validators = [Validators.required];
-            const validatorsZipCode = [Validators.required,Validators.pattern(this.onlynumeric)];
+            const validatorsZipCode = [Validators.required,Validators.minLength(5),Validators.maxLength(7)];
             this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
             this.formNewUser.addControl('newUserState', new FormControl('', validators));
             this.formNewUser.addControl('newUserCity', new FormControl('', validators));
@@ -1764,33 +1779,55 @@ export class FrontbookingComponent implements OnInit {
       }, 500);
     });
   }
-
+  fnPhoneMouceLeave(){
+    if(this.formNewUser.get('newUserPhone').value === null){
+      this.phoneNumberInvalid = "required";
+    
+    }else if(this.formNewUser.get('newUserPhone').value !== '' || this.formNewUser.get('newUserPhone').value !== null){
+      if(this.formNewUser.get('newUserPhone').value.number.length >= 6 && this.formNewUser.get('newUserPhone').value.number.length <= 15){
+        this.phoneNumberInvalid = "valid";
+      }else{
+        this.phoneNumberInvalid = "length";
+      }
+    }
+    
+  }
+  fnenterPhoneNumber(){
+    if(this.formNewUser.get('newUserPhone').value !== '' || this.formNewUser.get('newUserPhone').value !== null){
+      if(this.formNewUser.get('newUserPhone').value.number.length >= 6 && this.formNewUser.get('newUserPhone').value.number.length <= 15){
+        this.phoneNumberInvalid = "valid";
+      }else{
+        this.phoneNumberInvalid = "length";
+      }
+    }else if(this.formNewUser.get('newUserPhone').value === '' || this.formNewUser.get('newUserPhone').value === null){
+      this.phoneNumberInvalid = "required";
+    }
+  }
   fnpersonalinfo(){
+    if(this.formNewUser.get('newUserPhone').value === null){
+      this.phoneNumberInvalid = "required";
+      return false;
+    }
+    if(this.formNewUser.get('newUserPhone').value.number.length <= 6 || this.formNewUser.get('newUserPhone').value.number.length >= 15){
+      this.phoneNumberInvalid = "valid";
+      this.formNewUser.get('newUserPhone').markAsTouched();
+      return false;
+    }
+    else if(this.formNewUser.valid){
+      this.fnSignUp();
+    } 
+    
     if(this.formNewUser.invalid){
+      console.log(this.formNewUser)
       this.formNewUser.get('newUserEmail').markAsTouched();
       this.formNewUser.get('newUserPassword').markAsTouched();
       this.formNewUser.get('newUserFullname').markAsTouched();
-      this.formNewUser.get('newUserPhone').markAsTouched();
       if(this.contactFormSettingsArr.contact_field_status == true){
         if(this.contactFormSettingsArr.addressField.status == 1){
           this.formNewUser.get('newUserAddress').markAsTouched();
           this.formNewUser.get('newUserState').markAsTouched();
           this.formNewUser.get('newUserCity').markAsTouched();
           this.formNewUser.get('newUserZipcode').markAsTouched();
-          // if(this.contactFormSettingsArr.addressField.required == 1){
-          //   const validators = [Validators.required];
-          //   const validatorsZipCode = [Validators.required,Validators.pattern(this.onlynumeric)];
-          //   this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
-          //   this.formNewUser.addControl('newUserState', new FormControl('', validators));
-          //   this.formNewUser.addControl('newUserCity', new FormControl('', validators));
-          //   this.formNewUser.addControl('newUserZipcode', new FormControl('', validatorsZipCode));
-
-          // }else{
-          //   this.formNewUser.addControl('newUserAddress', new FormControl(''));
-          //   this.formNewUser.addControl('newUserState', new FormControl(''));
-          //   this.formNewUser.addControl('newUserCity', new FormControl(''));
-          //   this.formNewUser.addControl('newUserZipcode', new FormControl(''));
-          // }
         }
       }else{
         this.formNewUser.get('newUserAddress').markAsTouched();
@@ -1800,7 +1837,6 @@ export class FrontbookingComponent implements OnInit {
       }
       return false;
     }
-    this.fnSignUp();
    }
    
   fnSignUp(){
@@ -1825,7 +1861,8 @@ export class FrontbookingComponent implements OnInit {
       "email" : this.formNewUser.get('newUserEmail').value,
       "password" : this.formNewUser.get('newUserPassword').value,
       "fullname":this.formNewUser.get('newUserFullname').value,
-      "phone":this.formNewUser.get('newUserPhone').value.number.replace(/\s/g, ""),
+      "phone":this.formNewUser.get('newUserPhone').value.internationalNumber.replace(/\s/g, ""),
+      //"phone":this.formNewUser.get('newUserPhone').value,
       "address":newUserAddress,
       "zip":newUserZipcode,
       "state":newUserState,
@@ -2300,6 +2337,14 @@ export class FrontbookingComponent implements OnInit {
       this.transactionId=null;
       this.paymentDateTime=this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss");
     }
+    if(paymentMethod == 'BankTransfer'){
+      this.paymentMethod="BankTransfer";
+      this.BankDetail =true;
+      this.creditcardform =false;
+      this.showPaypalButtons =false;
+      this.transactionId=null;
+      this.paymentDateTime=this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss");
+    }
     if(paymentMethod == 'Paypal'){
       this.creditcardform =false;
       this.showPaypalButtons =true;
@@ -2348,6 +2393,9 @@ export class FrontbookingComponent implements OnInit {
 
   fnPayNow(){
     if(this.paymentMethod == 'Cash'){
+      this.fnAppointmentBooking();
+    }
+    if(this.paymentMethod == 'BankTransfer'){
       this.fnAppointmentBooking();
     }
     if(this.paymentMethod == 'stripe'){
@@ -2623,9 +2671,8 @@ export class FrontbookingComponent implements OnInit {
         if(response.data == true){
           this.isLoader=false;
           if(this.thankYou.status == 'true'){
-            window.location.href = this.thankYou.page_link;
+            window.top.location.href = this.thankYou.page_link;
           }else if(this.thankYou.status == 'false'){
-            
             this.thankYouScreen=true;
             this.paymentScreen=false;
           setTimeout(() => {

@@ -38,7 +38,7 @@
                                 <div class="heads main-heading-content staff-list-row header-background " fxLayout="row">
                                     <div class="text-left" fxFlex="10">Title</div>
                                     <div class="text-left" fxFlex="10">Coupon Code</div>
-                                    <div class="text-left" fxFlex="10">Created on</div>
+                                    <div class="text-left" fxFlex="10">Created On</div>
                                     <div class="text-left" fxFlex="10">Valid Form</div>
                                     <div class="text-left" fxFlex="10">Valid Till</div>
                                     <div class="text-left" fxFlex="10">Maximum Redemptions</div>
@@ -97,11 +97,11 @@
                         <div class="table_pagination">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
-                                    <li class="page-item" (click)="navigateTo(first_page_url)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{current_page==1?'pointernone':''}}" (click)="navigateTo(first_page_url)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
                                     <li class="page-item" (click)="navigateTo(prev_page_url)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
                                     <li class="page-item" [ngClass]="{'active':current_page == i+1}" *ngFor="let pagenumber of arrayOne(last_page); let i = index;" (click)="navigateToPageNumber(i+1)"><a class="page-link">{{i+1}}</a></li>
                                     <li class="page-item" (click)="navigateTo(next_page_url)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
-                                    <li class="page-item" (click)="navigateTo(last_page_url)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{arrayOne(last_page).length==current_page?'pointernone':''}} " (click)="navigateTo(last_page_url)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -225,7 +225,7 @@
                             <mat-icon matPrefix>search</mat-icon>
                         </mat-form-field>
 
-                        <mat-accordion *ngIf="categoryServiceList != ''" class="select-service-accordian">
+                        <mat-accordion class="select-service-accordian">
                             <mat-expansion-panel [expanded]="searchedServices" *ngFor="let categoryServiceListval of categoryServiceListTemp; let i=index">
                                 <mat-expansion-panel-header>
                                     <mat-panel-title class="service-title">
@@ -243,11 +243,12 @@
                                         <!-- <mat-checkbox (change)="fnCheckService($event.checked,serviceList.id)">{{serviceList.service_name}}</mat-checkbox> -->
                                     </div>
                                 </mat-expansion-panel>
+                                <div *ngFor="let serviceList of categoryServiceListval.getservices; let service_index=index" class="py-3">
+                                    <mat-checkbox [checked]="serviceList.is_selected" (change)="fnNewCheckService($event.checked,serviceList.id,i,service_index)" *ngIf="categoryServiceCheckServiceId.indexOf(serviceList.id) > -1" checked="true">{{serviceList.service_name}} </mat-checkbox>
+                                    <mat-checkbox [checked]="serviceList.is_selected" (change)="fnNewCheckService($event.checked,serviceList.id,i,service_index)" *ngIf="categoryServiceCheckServiceId.indexOf(serviceList.id) < 0">{{serviceList.service_name}}</mat-checkbox>
+                                </div>
                             </mat-expansion-panel>
                         </mat-accordion>
-                        <div class="categoryServiceList == '' || categoryServiceList  == []">
-                            <p>No Service Found</p>
-                        </div>
                     </mat-card>
                 </div>
             </div>

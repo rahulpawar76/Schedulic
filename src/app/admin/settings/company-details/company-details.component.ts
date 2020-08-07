@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControl,ValidatorFn } from '@an
 import { AdminSettingsService } from '../_services/admin-settings.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
 
 export interface DialogData {
   animal: string;
@@ -28,12 +29,22 @@ export class CompanyDetailsComponent implements OnInit {
   selectedCountry: any;
   selectedState: any;
   selectedCity: any;
+  
+  phoneNumberInvalid:any = "valid";
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^-?(0|[1-9]\d*)?$/
   trimValidator:ValidatorFn;
   websiteUrl = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?'
   websiteUrl2 = '/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/'
   isLoaderAdmin: boolean = false;
+
+  CountryISO = CountryISO;
+  preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
+  TooltipLabel = TooltipLabel;
+  separateDialCode = true;
+  SearchCountryField = SearchCountryField;
+  selectedCountryISO: CountryISO;
+
 
   constructor(
     private _formBuilder:FormBuilder,
@@ -45,6 +56,7 @@ export class CompanyDetailsComponent implements OnInit {
       if (localStorage.getItem('business_id')) {
           this.businessId = localStorage.getItem('business_id');
       }
+
    }
 
 
@@ -55,12 +67,14 @@ export class CompanyDetailsComponent implements OnInit {
       company_name : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)],this.whiteSpaceValidation.bind(this)],
       comp_email : ['',[Validators.required, Validators.pattern(this.emailFormat)]],
       comp_website : ['',[Validators.pattern("(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?")]],
-      comp_mobile : ['',[Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
+//      comp_mobile : ['',[Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
+      comp_mobile : ['',[Validators.required]],
+
       country:['', Validators.required],
       comp_address:['', Validators.required],
       city:['', Validators.required],
       state:['', Validators.required],
-      zip_code:['', [Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
+      zip_code:['', [Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
       comp_decs:['', Validators.required],
       comp_status:[false],
       comp_private_status:[false],
@@ -89,15 +103,39 @@ export class CompanyDetailsComponent implements OnInit {
     return true;
 
   }
+  fnPhoneMouceLeave(){
+    if(this.companyDetails.get('comp_mobile').value === null){
+      this.phoneNumberInvalid = "required";
+    
+    }else if(this.companyDetails.get('comp_mobile').value !== '' || this.companyDetails.get('comp_mobile').value !== null){
+      if(this.companyDetails.get('comp_mobile').value.number.length >= 6 && this.companyDetails.get('comp_mobile').value.number.length <= 15){
+        this.phoneNumberInvalid = "valid";
+      }else{
+        this.phoneNumberInvalid = "length";
+      }
+    }
+    
+  }
+  fnenterPhoneNumber(){
+    if(this.companyDetails.get('comp_mobile').value !== '' || this.companyDetails.get('comp_mobile').value !== null){
+      if(this.companyDetails.get('comp_mobile').value.number.length >= 6 && this.companyDetails.get('comp_mobile').value.number.length <= 15){
+        this.phoneNumberInvalid = "valid";
+      }else{
+        this.phoneNumberInvalid = "length";
+      }
+    }else if(this.companyDetails.get('comp_mobile').value === '' || this.companyDetails.get('comp_mobile').value === null){
+      this.phoneNumberInvalid = "required";
+    }
+  }
 
   getCompanyDetails(){
+    this.isLoaderAdmin = true;
     let requestObject = {
         'business_id': this.businessId,
     };
     this.adminSettingsService.getCompanyDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.companyDetailsData = response.response;
-        console.log(this.companyDetailsData);
         this.selectCountry(this.companyDetailsData.country.id);
         // this.selectedCountry = this.companyDetailsData.country.name
         // this.selectedState = this.companyDetailsData.state.name
@@ -116,12 +154,17 @@ export class CompanyDetailsComponent implements OnInit {
         this.companyDetails.controls['comp_decs'].setValue(this.companyDetailsData.description);
         this.companyDetails.controls['comp_status'].setValue(this.companyDetailsData.status=="E"?true:false);
         this.companyDetails.controls['comp_private_status'].setValue(this.companyDetailsData.private_status=="Y"?true:false);
+
+        this.selectedCountryISO =  this.adminSettingsService.fncountySelected(this.companyDetailsData.country.id);
+        
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.companyDetailsData = [];
       }
+      this.isLoaderAdmin = false;
     })
   }
+
   fnSettingMenuToggleSmall(){
     this.settingSideMenuToggle = true;
   }
@@ -134,7 +177,7 @@ export class CompanyDetailsComponent implements OnInit {
       if(response.data == true){
         this.allCountry = response.response
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.allCountry = [];
         this._snackBar.open(response.response, "X", {
           duration: 2000,
@@ -144,7 +187,11 @@ export class CompanyDetailsComponent implements OnInit {
       }
     })
   }
+
   selectCountry(country_id){
+
+    this.selectedCountryISO =  this.adminSettingsService.fncountySelected(country_id);
+
     this.companyDetails.controls['comp_address'].setValue(null);
     this.companyDetails.controls['city'].setValue(null);
     this.companyDetails.controls['state'].setValue(null);
@@ -160,7 +207,7 @@ export class CompanyDetailsComponent implements OnInit {
       if(response.data == true){
         this.allStates = response.response
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.allStates = [];
         this._snackBar.open(response.response, "X", {
           duration: 2000,
@@ -170,6 +217,7 @@ export class CompanyDetailsComponent implements OnInit {
       }
     })
   }
+
   selectStates(state_id){
     this.companyDetails.controls['city'].setValue(null);
     this.allCities = [];
@@ -182,7 +230,7 @@ export class CompanyDetailsComponent implements OnInit {
       if(response.data == true && response.response!="no city found"){
         this.allCities = response.response;
       }
-      else if(response.data == false){
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.allCities = [];
         this._snackBar.open(response.response, "X", {
           duration: 2000,
@@ -192,7 +240,19 @@ export class CompanyDetailsComponent implements OnInit {
       }
     })
   }
+
   fnUpdateCompanyDetail(){
+
+    
+    var comp_mobile =  this.companyDetails.get('comp_mobile').value;
+    console.log(comp_mobile);
+    
+    if(comp_mobile==undefined){ return; }
+
+    if(comp_mobile.number.length < 6 || comp_mobile.number.length > 15){
+      return;
+    }
+  
     if(this.companyDetails.valid){
       if( this.companyDetailsImageUrl != ''){
         this.updateCompanyDetailsData ={
@@ -200,7 +260,8 @@ export class CompanyDetailsComponent implements OnInit {
           "company_name" : this.companyDetails.get('company_name').value,
           "email" : this.companyDetails.get('comp_email').value,
           "website" : this.companyDetails.get('comp_website').value,
-          "phone" : this.companyDetails.get('comp_mobile').value,
+          "phone" : this.companyDetails.get('comp_mobile').value.number.replace(/\s/g, ""),
+          "country_code" : this.companyDetails.get('comp_mobile').value.dialCode.replace(/\s/g, ""),
           "country" : this.companyDetails.get('country').value,
           "address" : this.companyDetails.get('comp_address').value,
           "city" : this.companyDetails.get('city').value,
@@ -218,7 +279,8 @@ export class CompanyDetailsComponent implements OnInit {
           "company_name" : this.companyDetails.get('company_name').value,
           "email" : this.companyDetails.get('comp_email').value,
           "website" : this.companyDetails.get('comp_website').value,
-          "phone" : this.companyDetails.get('comp_mobile').value,
+          "phone" : this.companyDetails.get('comp_mobile').value.number.replace(/\s/g, ""),
+          "country_code" : this.companyDetails.get('comp_mobile').value.dialCode.replace(/\s/g, ""),
           "country" : this.companyDetails.get('country').value,
           "address" : this.companyDetails.get('comp_address').value,
           "city" : this.companyDetails.get('city').value,
@@ -254,8 +316,9 @@ export class CompanyDetailsComponent implements OnInit {
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
+        this.companyDetailsImageUrl = undefined;
         this.getCompanyDetails();
-      } else if(response.data == false){
+      } else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -263,6 +326,11 @@ export class CompanyDetailsComponent implements OnInit {
         });
       }
     });
+  }
+  fnCancelBusiness(){
+    this.isLoaderAdmin = true;
+    this.getCompanyDetails();
+    this.isLoaderAdmin = false;
   }
 
   companyDetailsImage() {
@@ -279,6 +347,7 @@ export class CompanyDetailsComponent implements OnInit {
      });
   }
 
+ 
 }
 
 

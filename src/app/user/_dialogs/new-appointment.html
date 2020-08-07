@@ -19,7 +19,7 @@
                 <div class="col-12 text-center">
                     <mat-checkbox class="example-margin" (change)="sameAddress($event)"><label class="mb-0"> &nbsp;&nbsp; Same as billing address</label></mat-checkbox>
                 </div>
-                <div  class="row">
+                <div class="row">
                     <div class="col-12">
                         <mat-label>Address</mat-label>
                         <!-- <mat-icon matPrefix><i class="fa fa-map-marker"></i></mat-icon> -->
@@ -29,7 +29,7 @@
                       </span>
                     </div>
                 </div>
-                
+
                 <div class="row mt-3  mb-3 ">
                     <div class="col-4">
                         <mat-label>State</mat-label>
@@ -53,7 +53,7 @@
                         <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').dirty || formAddNewAppointmentStaffStep2.get('customerPostalCode').touched">
                             <small *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('required')" class="error"> Postal code is required</small>
                             <small *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('pattern')" class="error"> Enter a valid postal code</small>
-                            <small *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('minlength') || formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('maxlength')" class="error">Postal code should be 5 to 6 digit</small>
+                            <small *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('minlength') || formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('maxlength')" class="error">Postal code should be 5 to 7 digit</small>
                             <small *ngIf="formAddNewAppointmentStaffStep2.get('customerPostalCode').hasError('isPostalcodeValid')" class="error">We do not provide service at this location</small>
                         </span>
                     </div>

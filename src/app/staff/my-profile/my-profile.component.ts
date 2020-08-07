@@ -105,7 +105,7 @@ export class MyProfileComponent implements OnInit {
             panelClass :['green-snackbar']
           });
          this.getProfiledata();
-      }else{
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
          this._snackBar.open("Profile Not Updated", "X", {
             duration: 2000,
             verticalPosition:'top',

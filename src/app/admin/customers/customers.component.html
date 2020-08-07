@@ -41,7 +41,7 @@
                     </form>
                 </div>
                 <div *ngIf="allCustomers != ''">
-                    <div *ngFor="let allCustomers of allCustomers; let i=index" class="d-flex devider-slim pb-2 m-2">
+                    <div [ngClass]="{'active':customerDetailId === allCustomers.id}" *ngFor="let allCustomers of allCustomers; let i=index" class="d-flex single-customer-list devider-slim py-2 mx-2">
                         <mat-checkbox (change)="fnAddCustomerId($event.checked, allCustomers.id)" class="customer-checkbox"></mat-checkbox>
                         <div (click)="fnSelectCustomer(allCustomers.id)" class="customer-name-width pointer">
                             <div class="customer-name text-uppercase">{{allCustomers.initials}}</div>
@@ -77,9 +77,9 @@
                                         <div class="d-flex profile-img-wrap services-customer-profile-background" (click)="customerImage()">
                                             <img *ngIf="!existingUserId && customerImageUrl != ''" mat-card-avatar class="service-profile-image mx-auto" src="{{customerImageUrl}}">
                                             <img *ngIf="!existingUserId && customerImageUrl == ''" class="service-profile-image mx-auto" src="/assets/images/admin/picture.png">
-                                            <img *ngIf="existingUserId && customerImageUrl == '' && customerPersonalDetails.image" class="service-profile-image mx-auto" style="width: 120px;" src="{{customerPersonalDetails.image}}">
-                                            <img *ngIf="existingUserId && customerImageUrl != '' && customerPersonalDetails.image" class="service-profile-image mx-auto" style="width: 120px;" src="{{customerImageUrl}}">
-                                            <img *ngIf="existingUserId && customerImageUrl == '' && !customerPersonalDetails.image" class="service-profile-image mx-auto" style="width: 120px;" src="/assets/images/admin/picture.png">
+                                            <img *ngIf="existingUserId && customerImageUrl == '' && customerPersonalDetails.image" class="service-profile-image mx-auto" src="{{customerPersonalDetails.image}}">
+                                            <img *ngIf="existingUserId && customerImageUrl != '' && customerPersonalDetails.image" class="service-profile-image mx-auto" src="{{customerImageUrl}}">
+                                            <img *ngIf="existingUserId && customerImageUrl == '' && !customerPersonalDetails.image" class="service-profile-image mx-auto" src="/assets/images/admin/picture.png">
                                             <div class="camera-alt"><i class="material-icons">
                                             camera_alt
                                             </i></div>
@@ -177,9 +177,9 @@
                                             </mat-form-field>
                                             <span class="error-wrap" *ngIf="createNewCustomer.get('cus_zip').dirty || createNewCustomer.get('cus_zip').touched || formSubmitclicked">
                                                 <small *ngIf="createNewCustomer.get('cus_zip').hasError('required')" class="error">Zipcode is required.</small>
-                                                <small *ngIf="createNewCustomer.get('cus_zip').hasError('pattern')" class="error">Zipcode should in numbers.</small>
+                                                <small *ngIf="createNewCustomer.get('cus_zip').hasError('minlength') || createNewCustomer.get('cus_zip').hasError('maxlength')" class="error">Zipcode should be 5 to 7 characters.</small>
                                                 
-                                                <!-- <small *ngIf="createNewCustomer.get('cus_zip').hasError('minlength') || createNewCustomer.get('cus_zip').hasError('maxlength)" class="error">Zipcode should be 5 to 6 Digits</small> -->
+                                                <!-- <small *ngIf="createNewCustomer.get('cus_zip').hasError('minlength') || createNewCustomer.get('cus_zip').hasError('maxlength)" class="error">Zipcode should be 5 to 7 characters.</small> -->
                                             </span>
                                         </div>
                                         <input type="hidden" formControlName="customer_id">
@@ -191,8 +191,11 @@
                                     <div class="mx-2">
                                         <button (click)="fnCancelNewCustomer()" mat-button appearance="fill" class="customer-cancel-btn">Cancel</button>
                                     </div>
-                                    <div class="mx-2">
+                                    <div class="mx-2" *ngIf="!existingUserId">
                                         <button mat-button type="submit" appearance="fill" (click)="fnCreateCustomerSubmit()" class="customer-save-btn">Save</button>
+                                    </div>
+                                    <div class="mx-2" *ngIf="existingUserId">
+                                        <button mat-button type="submit" appearance="fill" (click)="fnCreateCustomerSubmit()" class="customer-save-btn">Update</button>
                                     </div>
                                 </div>
                             </mat-card>
@@ -208,7 +211,7 @@
                             </div>
                             <div class="customerName-width">
                                 <h6>{{customerPersonalDetails.fullname}}</h6>
-                                <a class="mail-link" target="_blank" href="mailto:customerPersonalDetails.email">{{customerPersonalDetails.email}}</a>
+                                <a class="mail-link detail-color" target="_blank" href="mailto:customerPersonalDetails.email">{{customerPersonalDetails.email}}</a>
                             </div>
                             <div class="customer-btn">
                                 <div class="mx-2">
@@ -224,22 +227,22 @@
                                 <div class="d-flex my-3">
                                     <div class="mobileNo-width">
                                         <h6>Mobile</h6>
-                                        <p>{{customerPersonalDetails.phone}}</p>
+                                        <p class="detail-color">{{customerPersonalDetails.phone}}</p>
                                     </div>
                                     <div class="officeNo-width">
                                         <h6>Office</h6>
-                                        <p>{{customerPersonalDetails.phone_office}}</p>
+                                        <p class="detail-color">{{customerPersonalDetails.phone_office}}</p>
                                     </div>
                                     <div class="homeNo-width">
                                         <h6>Home</h6>
-                                        <p>{{customerPersonalDetails.phone_home}}</p>
+                                        <p class="detail-color">{{customerPersonalDetails.phone_home}}</p>
                                     </div>
                                 </div>
                                 <div class="devider-slim"></div>
                                 <div class="my-3">
                                     <div>
                                         <h6>Address</h6>
-                                        <p>{{customerPersonalDetails.address}}</p>
+                                        <p class="detail-color">{{customerPersonalDetails.address}}</p>
                                     </div>
                                 </div>
                                 <div class="devider-slim"></div>
@@ -268,16 +271,16 @@
                                         <h6>Registration</h6>
 
 
-                                        <p>{{customerPersonalDetails.created_at}} Created By {{customerPersonalDetails.created_by}}</p>
+                                        <p class="detail-color">{{customerPersonalDetails.created_at}} Created By {{customerPersonalDetails.created_by}}</p>
                                     </div>
 
                                     <div class="lastBookedAppoint">
                                         <h6>LAST BOOKED APPOINTMENT </h6>
-                                        <p>{{customersDetails.lastBooking?customersDetails.lastBooking.booking_date:''}} {{customersDetails.lastBooking?customersDetails.lastBooking.booking_time:''}}</p>
+                                        <p class="detail-color">{{customersDetails.lastBooking?customersDetails.lastBooking.booking_date:''}} {{customersDetails.lastBooking?customersDetails.lastBooking.booking_time:''}}</p>
                                     </div>
                                     <div class="lastBookedService">
                                         <h6>LAST BOOKED SERVICE</h6>
-                                        <p>{{customersDetails.lastBooking?customersDetails.lastBooking.service.service_name:''}} {{customersDetails.lastBooking && customersDetails.lastBooking.service && customersDetails.lastBooking.service.category && customersDetails.lastBooking.service.category.category_title?(customersDetails.lastBooking.service.category.category_title):''}}</p>
+                                        <p class="detail-color">{{customersDetails.lastBooking?customersDetails.lastBooking.service.service_name:''}} {{customersDetails.lastBooking && customersDetails.lastBooking.service && customersDetails.lastBooking.service.category && customersDetails.lastBooking.service.category.category_title?(customersDetails.lastBooking.service.category.category_title):''}}</p>
                                     </div>
 
                                 </div>

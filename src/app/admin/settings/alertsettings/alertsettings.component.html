@@ -2614,15 +2614,21 @@
                                                                 <label class="payment-label">Admin Phone Number</label>
                                                             </div>
                                                             <div class="mx-2" fxFlex="80">
-                                                                <mat-form-field class="example-full-width bottom-border-field">
+                                                                <!-- <mat-form-field class="example-full-width bottom-border-field">
                                                                     <mat-icon matPrefix><img src="/assets/images/admin/india.png"></mat-icon>
                                                                     <input formControlName="adminNumber" type="number" matInput placeholder="" value="">
-                                                                </mat-form-field>
+                                                                </mat-form-field> -->
+                                                                <ngx-intl-tel-input class="common-input mobile-intel-input bottom-border-field" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                                                    [selectFirstCountry]="true" [selectedCountryISO]="selectedCountryISO" [maxLength]="15" [phoneValidation]="false" (mousedown)="fnPhoneMouceLeaveTwilio()" (keyup)="fnenterPhoneNumberTwilio()"
+                                                                    [separateDialCode]="separateDialCode" formControlName="adminNumber" placeholder="Mobile">
+                                                                </ngx-intl-tel-input>
+                                                                <span class="" *ngIf="phoneNumberInvalidTwilio">
+                                                                    <small *ngIf="phoneNumberInvalidTwilio == 'required'" class="error">Admin number is required.</small>
+                                                                    <small *ngIf="phoneNumberInvalidTwilio == 'length'" class="error">Admin number should be 6 to 15 digits long.</small>
+                                                                </span>
                                                             </div>
                                                         </div>
-                                                        <span class="w-100 error-wrap" *ngIf="twilio.get('adminNumber').dirty || twilio.get('adminNumber').touched">
-                                                        <small *ngIf="twilio.get('adminNumber').hasError('required')" class="error">Admin phone number is required.</small>
-                                                    </span>
+
                                                     </div>
                                                 </div>
                                                 <button mat-button class="save-btn my-3" (click)="fnSubmitTwillioSettings()">Save</button>
@@ -2722,9 +2728,18 @@
                                                                 <label class="payment-label">Admin Number</label>
                                                             </div>
                                                             <div class="mx-2" fxFlex="80">
-                                                                <mat-form-field class="example-full-width bottom-border-field">
+                                                                <!-- <mat-form-field class="example-full-width bottom-border-field">
                                                                     <input formControlName="adminNumber" matInput placeholder="" value="">
-                                                                </mat-form-field>
+                                                                </mat-form-field> -->
+
+                                                                <ngx-intl-tel-input class="common-input mobile-intel-input bottom-border-field" [preferredCountries]="preferredCountries1" [enableAutoCountrySelect]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField1.Iso2, SearchCountryField1.Name]"
+                                                                    [selectFirstCountry]="true" [selectedCountryISO]="selectedCountryISO1" [maxLength]="15" [phoneValidation]="false" [separateDialCode]="separateDialCode1" formControlName="adminNumber" (mousedown)="fnPhoneMouceLeaveTxtLocal()"
+                                                                    (keyup)="fnenterPhoneNumberTxtLocal()" placeholder="Mobile">
+                                                                </ngx-intl-tel-input>
+                                                                <span class="" *ngIf="phoneNumberInvalidTxtLocal">
+                                                                    <small *ngIf="phoneNumberInvalidTxtLocal == 'required'" class="error">Admin number is required.</small>
+                                                                    <small *ngIf="phoneNumberInvalidTxtLocal == 'length'" class="error">Admin number should be 6 to 15 digits long.</small>
+                                                                </span>
                                                             </div>
                                                         </div>
                                                         <span class="w-100 error-wrap" *ngIf="textLocal.get('apiKey').dirty || textLocal.get('apiKey').touched">

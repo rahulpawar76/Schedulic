@@ -716,13 +716,13 @@ export class StaffAppointmentComponent implements OnInit {
       ).subscribe((response:any) => {
         if(response.data == true){
           this.formAddNewAppointmentStaffStep1 = this._formBuilder.group({
-            customerFullName: ['', [Validators.required,Validators.minLength(4),Validators.maxLength(16)]],
+            customerFullName: ['', [Validators.required]],
             customerEmail: ['', [Validators.required,Validators.email,Validators.pattern(this.emailPattern)]],
             customerPhone: ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
             customerAddress: ['', Validators.required],
             customerState: ['', Validators.required],
             customerCity: ['', Validators.required],
-            customerPostalCode: ['',[Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
+            customerPostalCode: ['',[Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
             customerAppoAddress: ['', [Validators.required]],
             customerAppoState: ['', [Validators.required]],
             customerAppoCity: ['', [Validators.required]],
@@ -1099,7 +1099,7 @@ export class StaffAppointmentComponent implements OnInit {
           this.serviceCount[this.serviceData[i].id]=this.serviceData[i];
         }
         console.log(JSON.stringify(this.serviceData));
-        }else{
+        }else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1296,7 +1296,6 @@ export class StaffAppointmentComponent implements OnInit {
     }
 
     fnNewAppointmentStep2(){
-
       if(this.formAddNewAppointmentStaffStep2.invalid){
         this.formAddNewAppointmentStaffStep2.get('customerCategory').markAsTouched();
         this.formAddNewAppointmentStaffStep2.get('customerSubCategory').markAsTouched();
@@ -1349,6 +1348,8 @@ export class StaffAppointmentComponent implements OnInit {
       // this.netCost=serviceCartArrTemp[0].totalCost+this.taxAmount;
       console.log(JSON.stringify(serviceCartArrTemp));
       const currentDateTime = new Date();
+      
+      this.isLoaderAdmin = true;
       let requestObject = {
         "postal_code": this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
         "business_id": this.bussinessId,
@@ -1391,6 +1392,8 @@ export class StaffAppointmentComponent implements OnInit {
                 panelClass :['red-snackbar']
             });
         }
+        
+        this.isLoaderAdmin = false;
       },
       (err) =>{
         

@@ -261,6 +261,15 @@
     color: #1173f4;
 }
 
+.cancel-btn {
+    width: 120px;
+    height: 37px;
+    border-radius: 26px;
+    background-color: #cecece;
+    color: #2a2a2a;
+    margin-right: 10px;
+}
+
 ::ng-deep .mat-tab-label {
     &.mat-tab-label-active {
         .mat-tab-label-content {
@@ -271,4 +280,24 @@
 
 ::ng-deep textarea.mat-input-element {
     min-height: 80px !important;
+}
+
+.breaktime-slot-main {
+    &:first-child {
+        .workinghour-dropdown {
+            margin-top: 0;
+        }
+        .to-center {
+            line-height: 2;
+        }
+    }
+}
+
+.working-hour-box {
+    .workinghour-dropdown {
+        margin-top: 0;
+    }
+    .to-center {
+        line-height: 2;
+    }
 }

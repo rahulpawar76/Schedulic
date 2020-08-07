@@ -1,6 +1,5 @@
 <div fxLayout="row wrap" fxLayoutGap="2%" *ngIf="dataLoaded" fxLayoutAlign="center center" class="full-height">
-    <mat-spinner [diameter]="50"></mat-spinner>
-    <span>Fetching data...</span>
+    <img src="../../assets/loading-spinner.gif" />
 </div>
 <div class="signup-screen d-flex justify-content-center align-items-center">
     <div class="card-wrap col-lg-7 col-md-7 col-sm-9 col-xs-11">
@@ -31,7 +30,7 @@
                             </div>
                             <div class="input-wrap col-12 col-lg-12 col-sm-12 float-left my-2 required-field">
                                 <input type="password" formControlName="password" placeholder="Password" class="common-input form-control" />
-                                <span class="error-wrap" *ngIf="signUpForm.get('password').dirty || signUpForm.get('password').touched"><small *ngIf="signUpForm.get('password').hasError('required')" class="error">Password is required.</small><small *ngIf="signUpForm.get('password').hasError('minlength')" class="error">Password should  minimum 8 characters.</small></span>
+                                <span class="error-wrap" *ngIf="signUpForm.get('password').dirty || signUpForm.get('password').touched"><small *ngIf="signUpForm.get('password').hasError('required')" class="error">Password is required.</small><small *ngIf="signUpForm.get('password').hasError('minlength') || signUpForm.get('password').hasError('maxlength')" class="error">Password should  minimum 8 maximum 12 characters.</small></span>
                             </div>
                             <div class="input-wrap col-12 col my-3 text-center">
                                 <button type="submit" color="primary" (click)="signUpSubmit()" class="common-btn text-white buttion-but px-5">
