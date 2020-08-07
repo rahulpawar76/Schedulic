@@ -90,20 +90,22 @@
                     <i class="fa fa-print cust-print pointer" (click)="fnPrint()" aria-hidden="true"></i>
                     <span class="fill-remaining-space mt-2">
                         <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" (mouseover)="menuTrigger.openMenu()">
-                          <mat-icon>menu</mat-icon>
+                          <!-- <mat-icon>menu</mat-icon> -->
+                          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAYAAACoPemuAAAABHNCSVQICAgIfAhkiAAAAYVJREFUWEftmNE1BTEQhr9bAR3QATqgAypAB1SASuiADlABOqADKuD850yccWVXJon7QOZp7z3JzJd/ZiebLOhnV8A7cNzD5aKHE0BQh+ZLz81wPcA8VFpnM1wrWA6qC1wLmId6A9aMyD9XK1cL5qGegHPg2sAO7PdWS83VgC1D7QLbwK2B7AGPwB1QDRcFy0G9AoLzYIJab4GLgh0Bl4DSJxhByXJg+t/DqYVoYUUWBZPTfVMiQc2BJTiB3xQR2aAasJz/KcUiLF/GzoEpmLYY2QvwPBMlArYJbDhf9zm/OTBNfLD6SHMurAVMsUXA1FrOnCOVxM7ywnNgPsgqwBRDLUZv8qf9BHZqPUlp7JlKZUW23GKKwb6tZCKXkVR6F6mGw4oNsGiNDcX+nWJ6/bXBy7RRz7WWlb6VtXvir7eLATa5VdRKMzFvpDIq6FBsKFa6iUeVSuNHjUWV+3uKndhhJKpE6fh0Mgp/85cGaB1XBKaLEF0j+dNya+C5+Trl6xrL34XwAYY9ridPeFsZAAAAAElFTkSuQmCC" style="height: 20px;">
+                          <!-- <i class="fa fa-share-square-o" aria-hidden="true"></i> -->
                         </button>
                         <mat-menu #menu="matMenu" [overlapTrigger]="false">
-                        <span (mouseleave)="menuTrigger.closeMenu()">
-                          <button mat-menu-item (click)="downloadRepoer()">
-                            <i class="fa fa-download "  aria-hidden="true"></i>   
-                            <span> &nbsp; CSV</span>
-                    </button>
-                    <button mat-menu-item (click)="fnDownloadPDF()">
-                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                            <span> &nbsp; PDF</span>
-                          </button>
-                    </span>
-                    </mat-menu>
+                            <span (mouseleave)="menuTrigger.closeMenu()">
+                                <button mat-menu-item (click)="downloadRepoer()" style="border-bottom:1px solid #ddd;">
+                                    <i class="fa fa-file-excel-o"  aria-hidden="true"></i>   
+                                    <span> &nbsp; CSV</span>
+                                </button>
+                                <button mat-menu-item (click)="fnDownloadPDF()">
+                                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                    <span> &nbsp; PDF</span>
+                                </button>
+                            </span>
+                         </mat-menu>
                     </span>
                 </div>
             </div>

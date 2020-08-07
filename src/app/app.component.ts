@@ -97,7 +97,7 @@ export class AppComponent implements AfterViewInit {
   settingsArr: any;
   appearenceColor: any=[];
   loginForm: FormGroup;
-  staffAvailable : boolean = false
+  staffAvailable : boolean = true;
   
   constructor(
     private http: HttpClient,
@@ -111,21 +111,26 @@ export class AppComponent implements AfterViewInit {
     private bnIdle: BnNgIdleService
   ) {
     
-    console.log(this.currentUser)
     if(this.authenticationService.currentUser){
       this.loadLocalStorage();
       //this.checkAuthentication();
     }
-    if(this.currentUser && JSON.parse(localStorage.getItem("currentUser")).internal_staff === 'N'){
+
+
+    if(localStorage.getItem('internal_staff')=='' || localStorage.getItem('internal_staff')==null){
+      this.staffAvailable = true;
+      localStorage.setItem('internal_staff','N');
+    }else if(localStorage.getItem('internal_staff')=='N'){
       this.staffAvailable = true;
     }else{
       this.staffAvailable = false;
     }
+
     if (localStorage.getItem('business_id')) {
       this.businessId = localStorage.getItem('business_id');
       this.getNotificationCount(this.businessId)
-      
     }
+
     this.bnIdle.startWatching(6600).subscribe((res) => {
       if(res) {
         if(this.authenticationService.currentUserValue){
@@ -146,10 +151,9 @@ export class AppComponent implements AfterViewInit {
   
 
 
- loadLocalStorage(){
-  this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
-  console.log(this.currentUser)
- }
+  loadLocalStorage(){
+    this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
+  }
 
   ngOnInit() {
 
@@ -787,7 +791,9 @@ export class AppComponent implements AfterViewInit {
   staffAvaibility(event) {
     if (event == true) {
       this.staffStatus = "N"
+      localStorage.setItem('internal_staff','N');
     } else {
+      localStorage.setItem('internal_staff','Y');
       this.staffStatus = "Y"
     }
     let requestObject = {

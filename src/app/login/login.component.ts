@@ -68,7 +68,6 @@ export class LoginComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-        // stop here if form is invalid
         if(this.loginForm.invalid){
             this.loginForm.get('email').markAsTouched();
             this.loginForm.get('password').markAsTouched();
@@ -85,6 +84,7 @@ export class LoginComponent implements OnInit {
                     if(data.response.user_type == "A"){
                         this.router.navigate(["admin"]);
                     }else if(data.response.user_type == "SM"){
+                        localStorage.setItem('internal_staff','N');
                         this.router.navigate(["staff"]);
                     }else{
                         this.router.navigate(["user"]);

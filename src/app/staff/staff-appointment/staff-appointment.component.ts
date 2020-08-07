@@ -549,6 +549,7 @@ export class StaffAppointmentComponent implements OnInit {
     onlynumeric:any;
     Postalcode:any;
     currentUser:any
+    is_disabled:boolean = false;
 
     constructor(
       public dialogRef: MatDialogRef<DialogAddNewAppointment>,
@@ -744,11 +745,11 @@ export class StaffAppointmentComponent implements OnInit {
           });
           this.valide_postal_code =true;
         }
-        },
-        (err) =>{
+      },(err) =>{
           console.log(err)
         })
     }
+
     fnGetSettingValue(){
       let requestObject = {
         "business_id":this.bussinessId
@@ -1113,11 +1114,11 @@ export class StaffAppointmentComponent implements OnInit {
     }
 
     fnSelectService(selectedServiceId){
-    console.log(selectedServiceId);
-    this.selectedServiceId=selectedServiceId;
-    if(this.selectedDate){
-        this.fnGetTimeSlots(this.selectedDate);
-    }
+      console.log(selectedServiceId);
+      this.selectedServiceId=selectedServiceId;
+      if(this.selectedDate){
+          this.fnGetTimeSlots(this.selectedDate);
+      }
     for(let i=0; i<this.serviceCount.length;i++){
       if(this.serviceCount[i] != null && this.serviceCount[i].id == selectedServiceId){
         this.serviceCount[i].count=1;
@@ -1296,12 +1297,14 @@ export class StaffAppointmentComponent implements OnInit {
     }
 
     fnNewAppointmentStep2(){
+      this.is_disabled = true;
       if(this.formAddNewAppointmentStaffStep2.invalid){
         this.formAddNewAppointmentStaffStep2.get('customerCategory').markAsTouched();
         this.formAddNewAppointmentStaffStep2.get('customerSubCategory').markAsTouched();
         this.formAddNewAppointmentStaffStep2.get('customerService').markAsTouched();
         this.formAddNewAppointmentStaffStep2.get('customerDate').markAsTouched();
         this.formAddNewAppointmentStaffStep2.get('customerTime').markAsTouched();
+        this.is_disabled = false;
         return false;
       }
 
@@ -1350,6 +1353,7 @@ export class StaffAppointmentComponent implements OnInit {
       const currentDateTime = new Date();
       
       this.isLoaderAdmin = true;
+
       let requestObject = {
         "postal_code": this.formAddNewAppointmentStaffStep1.get('customerPostalCode').value,
         "business_id": this.bussinessId,
@@ -1376,6 +1380,7 @@ export class StaffAppointmentComponent implements OnInit {
         "payment_method": "Cash",
         "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd hh:mm:ss") 
       };
+
       this.staffService.bookNewAppointment(requestObject).subscribe((response:any) =>{
         if(response.data == true){
           this._snackBar.open("Appointment created", "X", {
@@ -1384,20 +1389,19 @@ export class StaffAppointmentComponent implements OnInit {
               panelClass :['green-snackbar']
           });
           this.dialogRef.close();
-        }
-        else{
+        }else{
             this._snackBar.open(response.response, "X", {
                 duration: 2000,
                 verticalPosition:'top',
                 panelClass :['red-snackbar']
             });
         }
-        
+
+        this.is_disabled = false;
         this.isLoaderAdmin = false;
-      },
-      (err) =>{
+      },(err) =>{
         
-      })
+      });
     }
     
   }

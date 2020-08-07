@@ -94,12 +94,14 @@ export class AuthenticationService {
         localStorage.removeItem('isFront');
         localStorage.removeItem('logoutTime');
         localStorage.removeItem('business_id');
+        localStorage.removeItem('internal_staff');
         // localStorage.removeItem('userToken');
         // localStorage.removeItem('userName');
         // localStorage.removeItem('userRole');
         // localStorage.removeItem('tokenID');
         // localStorage.clear();
         this.currentUserSubject.next(null);
+        window.location.reload(true);
      //   console.log(this.currentUserValue);
     }
     pageName(name){

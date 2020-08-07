@@ -270,7 +270,7 @@
               <small *ngIf="formAddNewAppointmentStaffStep2.get('customerTime').hasError('required')" class="error">Time is required</small>
             </span>
                 </div>
-                <button class="d-block btn btn-primary addbtn ml-2" (click)="fnNewAppointmentStep2()">Create</button>
+                <button class="d-block btn btn-primary addbtn ml-2" [disabled]="is_disabled" (click)="fnNewAppointmentStep2()">Create</button>
                 <button class="d-block btn btn-secondary addbtn float-right" (click)="onBackClick()">Back</button>
             </form>
         </div>
