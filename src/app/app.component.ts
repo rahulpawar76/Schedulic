@@ -1102,6 +1102,7 @@ export class DialogReAuthentication {
     private authenticationService: AuthenticationService,
     public dialogRef2: MatDialog,
     private _formBuilder: FormBuilder,
+    public router: Router,
     private _snackBar : MatSnackBar,
     private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
@@ -1152,7 +1153,17 @@ export class DialogReAuthentication {
     }
 
     onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(); 
+    this.authenticationService.logout();
+    // if (this.timer) {
+    //   clearTimeout(this.timer);
+    //   this.timer = 0;
+    // }
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+    this.router.navigate(['/login']);
+    
     }
 
     closePopup() {

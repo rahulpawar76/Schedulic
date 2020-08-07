@@ -1391,7 +1391,9 @@ export class StaffComponent implements OnInit {
          this.StaffCreate.reset();
          this.staffImageUrl = undefined
          this.addStaffPage = false;
-         this.staffListPage = true;
+         this.staffListPage = false;
+         this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
+         this.singleStaffView = true;
         this.isLoaderAdmin = false;
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
@@ -1454,7 +1456,7 @@ export class StaffComponent implements OnInit {
       lastname : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
       address : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUniqueForEdit.bind(this)],
-      phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       description : ['',Validators.maxLength(255)],
       staff_id : [''],
     });
