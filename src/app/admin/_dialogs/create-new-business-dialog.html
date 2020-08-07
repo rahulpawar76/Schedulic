@@ -63,8 +63,8 @@
                                 <mat-form-field>
                                     <mat-label>Time zone</mat-label>
                                     <mat-select formControlName="business_timezone">
-                                        <mat-option *ngFor="let listTimeZone of listTimeZone" [value]="listTimeZone.zone_name">
-                                            {{listTimeZone.zone_name}}
+                                        <mat-option *ngFor="let listTimeZone of listTimeZone" [value]="listTimeZone.name">
+                                            ({{listTimeZone.utc}}) {{listTimeZone.name}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
