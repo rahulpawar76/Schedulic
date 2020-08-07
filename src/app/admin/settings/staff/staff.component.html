@@ -868,13 +868,13 @@
                                                     <div class="d-flex">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="selectedStartTimeMonday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Monday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="mondayWorkingHourStartTimeIndex > i || mondayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
                                                         </mat-form-field>
                                                         <div class="to-center">to</div>
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="selectedEndTimeMonday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Monday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="mondayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="mondayBreakStartTimeIndex >= i || mondayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
                                                         </mat-form-field>
                                                         <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Monday')"></i>
@@ -914,13 +914,13 @@
                                                     <div class="d-flex">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="selectedStartTimeTuesday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Tuesday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="tuesdayWorkingHourStartTimeIndex > i || tuesdayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
                                                         </mat-form-field>
                                                         <div class="to-center">to</div>
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="selectedEndTimeTuesday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Tuesday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="tuesdayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="tuesdayBreakStartTimeIndex >= i || tuesdayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
                                                         </mat-form-field>
                                                         <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Tuesday')"></i>
@@ -958,13 +958,13 @@
                                                     <div class="d-flex">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="selectedStartTimeWednesday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Wednesday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="wednesdayWorkingHourStartTimeIndex > i || wednesdayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
                                                         </mat-form-field>
                                                         <div class="to-center">to</div>
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="selectedEndTimeWednesday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Wednesday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="wednesdayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="wednesdayBreakStartTimeIndex >= i || wednesdayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
                                                         </mat-form-field>
                                                         <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Wednesday')"></i>
@@ -1002,13 +1002,13 @@
                                                     <div class="d-flex">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="selectedStartTimeThursday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Thursday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="thursdayWorkingHourStartTimeIndex > i || thursdayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
                                                         </mat-form-field>
                                                         <div class="to-center">to</div>
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="selectedEndTimeThursday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Thursday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="thursdayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="thursdayBreakStartTimeIndex >= i || thursdayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
                                                         </mat-form-field>
                                                         <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Thursday')"></i>
@@ -1046,13 +1046,13 @@
                                                     <div class="d-flex">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="selectedStartTimeFriday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Friday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="fridayWorkingHourStartTimeIndex > i || fridayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
                                                         </mat-form-field>
                                                         <div class="to-center">to</div>
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="selectedEndTimeFriday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Friday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="fridayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="fridayBreakStartTimeIndex >= i || fridayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
                                                         </mat-form-field>
                                                         <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Friday')"></i>
@@ -1091,14 +1091,14 @@
                                                     <div class="d-flex">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="selectedStartTimeSaturday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Saturday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="saturdayWorkingHourStartTimeIndex > i || saturdayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
                                                         </mat-form-field>
                                                         <div class="to-center">to</div>
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
 
                                                             <mat-select [(value)]="selectedEndTimeSaturday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Saturday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="saturdayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="saturdayBreakStartTimeIndex >= i || saturdayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
                                                         </mat-form-field>
                                                         <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Saturday')"></i>
@@ -1136,13 +1136,13 @@
                                                     <div class="d-flex">
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="selectedStartTimeSunday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Sunday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="sundayWorkingHourStartTimeIndex > i || sundayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
                                                         </mat-form-field>
                                                         <div class="to-center">to</div>
                                                         <mat-form-field class="bottom-border-field workinghour-dropdown">
                                                             <mat-select [(value)]="selectedEndTimeSunday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Sunday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="sundayBreakStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="sundayBreakStartTimeIndex >= i || sundayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
                                                         </mat-form-field>
                                                         <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Sunday')"></i>

@@ -457,28 +457,34 @@ export class AlertsettingsComponent implements OnInit {
       if(response.data == true){
         if(response.response.email_alert_settings_customer){
           this.emailAlertCustomer = JSON.parse(response.response.email_alert_settings_customer)
-          this.fnConvertMins(this.emailAlertCustomer.reminder_lead_time);
-          this.emailAlertCustomerDays=this.Days;
-          this.emailAlertCustomerHours=this.Hours;
-          this.emailAlertCustomerMinutes=this.Minutes;
+          if(this.emailAlertCustomer.reminder_lead_time){
+            this.fnConvertMins(this.emailAlertCustomer.reminder_lead_time);
+            this.emailAlertCustomerDays=this.Days;
+            this.emailAlertCustomerHours=this.Hours;
+            this.emailAlertCustomerMinutes=this.Minutes;
+          }
           this.appointmentsReminder = this.emailAlertCustomer.status;
           this.emailCustomerAppointment =  JSON.parse(this.emailAlertCustomer.appointment);
         }
         if(response.response.email_alert_settings_staff){
           this.emailAlertStaff = JSON.parse(response.response.email_alert_settings_staff)
-          this.fnConvertMins(this.emailAlertStaff.reminder_lead_time);
-          this.emailAlertStaffDays=this.Days;
-          this.emailAlertStaffHours=this.Hours;
-          this.emailAlertStaffMinutes=this.Minutes;
+          if(this.emailAlertStaff.reminder_lead_time){
+            this.fnConvertMins(this.emailAlertStaff.reminder_lead_time);
+            this.emailAlertStaffDays=this.Days;
+            this.emailAlertStaffHours=this.Hours;
+            this.emailAlertStaffMinutes=this.Minutes;
+          }
           this.appointmentsReminderStaff = this.emailAlertStaff.status;
           this.emailStaffAppointment =  JSON.parse(this.emailAlertStaff.appointment);
         }
         if(response.response.email_alert_settings_admin){
           this.emailAlertAdmin = JSON.parse(response.response.email_alert_settings_admin)
-          this.fnConvertMins(this.emailAlertAdmin.reminder_lead_time);
-          this.emailAlertAdminDays=this.Days;
-          this.emailAlertAdminHours=this.Hours;
-          this.emailAlertAdminMinutes=this.Minutes;
+          if(this.emailAlertAdmin.reminder_lead_time){
+            this.fnConvertMins(this.emailAlertAdmin.reminder_lead_time);
+            this.emailAlertAdminDays=this.Days;
+            this.emailAlertAdminHours=this.Hours;
+            this.emailAlertAdminMinutes=this.Minutes;
+          }
           this.appointmentsReminderAdmin = this.emailAlertAdmin.status;
           if(this.emailAlertAdmin.admin_mail){
            this.adminEmailForAlert.controls['alertEmail'].setValue(this.emailAlertAdmin.admin_mail);
@@ -499,10 +505,12 @@ export class AlertsettingsComponent implements OnInit {
         if(response.response.sms_sending_settings){
           this.smsAlertsSetting = JSON.parse(response.response.sms_sending_settings)
           console.log(this.smsAlertsSetting);
-          this.fnConvertMins(this.smsAlertsSetting.time);
-          this.smsAlertDays=this.Days;
-          this.smsAlertHours=this.Hours;
-          this.smsAlertMinutes=this.Minutes;
+          if(this.smsAlertsSetting.time){
+            this.fnConvertMins(this.smsAlertsSetting.time);
+            this.smsAlertDays=this.Days;
+            this.smsAlertHours=this.Hours;
+            this.smsAlertMinutes=this.Minutes;
+          }
           this.appointmentsReminderSMS = this.smsAlertsSetting.reminder_status;
           this.smsAppointment = JSON.parse(this.smsAlertsSetting.when);
           this.smsAlertWho = JSON.parse(this.smsAlertsSetting.who);

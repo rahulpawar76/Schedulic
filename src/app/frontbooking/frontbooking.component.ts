@@ -202,6 +202,7 @@ export class FrontbookingComponent implements OnInit {
   businessDetail:any;
 
   postalCodeCondition=false;
+  postal_code_status=false;
   customerLoginValue:boolean=false;
   encodedId: any;
   urlString: any;
@@ -484,7 +485,11 @@ export class FrontbookingComponent implements OnInit {
             day: this.maximumAdvanceBookingDateTimeObject.getDate(),
           };
           this.staffOnFrontValue=JSON.parse(JSON.parse(this.settingsArr.staff_list_on_front).status)
-          this.customerLoginValue=JSON.parse(this.settingsArr.customer_login)
+          this.customerLoginValue=JSON.parse(this.settingsArr.customer_login);
+          if(this.settingsArr.postal_code_check){
+            this.postal_code_status=JSON.parse(this.settingsArr.postal_code_check).status;
+          }
+          
           
         this.initConfig();
         }else{
@@ -744,7 +749,7 @@ export class FrontbookingComponent implements OnInit {
 
   // Category
   fnCategory(event,id,categoryName){
-    if(this.booking.postalcode == '' && this.postalCodeCondition){
+    if(this.booking.postalcode == '' && this.postalCodeCondition && this.postal_code_status){
       this.validpostalcode = 'invalid';
       return false;
     }
