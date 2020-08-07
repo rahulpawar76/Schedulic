@@ -485,8 +485,11 @@ export class FrontbookingComponent implements OnInit {
             day: this.maximumAdvanceBookingDateTimeObject.getDate(),
           };
           this.staffOnFrontValue=JSON.parse(JSON.parse(this.settingsArr.staff_list_on_front).status)
-          this.customerLoginValue=JSON.parse(this.settingsArr.customer_login)
-          this.postal_code_status=JSON.parse(this.settingsArr.postal_code_check).status;
+          this.customerLoginValue=JSON.parse(this.settingsArr.customer_login);
+          if(this.settingsArr.postal_code_check){
+            this.postal_code_status=JSON.parse(this.settingsArr.postal_code_check).status;
+          }
+          
           
         this.initConfig();
         }else{
