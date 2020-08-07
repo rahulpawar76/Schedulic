@@ -2273,6 +2273,20 @@ export class StaffComponent implements OnInit {
     }
     if(day == "Monday"){
       if(this.selectedStartTimeMonday==null || this.selectedEndTimeMonday==null){
+        if(this.selectedStartTimeMonday==null){
+          this._snackBar.open("Select Start Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        if(this.selectedEndTimeMonday==null){
+          this._snackBar.open("Select End Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
         return false;
       }
       requestObject={
@@ -2285,6 +2299,20 @@ export class StaffComponent implements OnInit {
     }
     if(day == "Tuesday"){
       if(this.selectedStartTimeTuesday==null || this.selectedEndTimeTuesday==null){
+        if(this.selectedStartTimeTuesday==null){
+          this._snackBar.open("Select Start Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        if(this.selectedEndTimeTuesday==null){
+          this._snackBar.open("Select End Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
         return false;
       }
       requestObject={
@@ -2297,6 +2325,20 @@ export class StaffComponent implements OnInit {
     }
     if(day == "Wednesday"){
       if(this.selectedStartTimeWednesday==null || this.selectedEndTimeWednesday==null){
+        if(this.selectedStartTimeWednesday==null){
+          this._snackBar.open("Select Start Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        if(this.selectedEndTimeWednesday==null){
+          this._snackBar.open("Select End Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
         return false;
       }
       requestObject={
@@ -2309,6 +2351,20 @@ export class StaffComponent implements OnInit {
     }
     if(day == "Thursday"){
       if(this.selectedStartTimeThursday==null || this.selectedEndTimeThursday==null){
+        if(this.selectedStartTimeThursday==null){
+          this._snackBar.open("Select Start Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        if(this.selectedEndTimeThursday==null){
+          this._snackBar.open("Select End Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
         return false;
       }
       requestObject={
@@ -2321,6 +2377,20 @@ export class StaffComponent implements OnInit {
     }
     if(day == "Friday"){
       if(this.selectedStartTimeFriday==null || this.selectedEndTimeFriday==null){
+        if(this.selectedStartTimeFriday==null){
+          this._snackBar.open("Select Start Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        if(this.selectedEndTimeFriday==null){
+          this._snackBar.open("Select End Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
         return false;
       }
       requestObject={
@@ -2333,6 +2403,20 @@ export class StaffComponent implements OnInit {
     }
     if(day == "Saturday"){
       if(this.selectedStartTimeSaturday==null || this.selectedEndTimeSaturday==null){
+        if(this.selectedStartTimeSaturday==null){
+          this._snackBar.open("Select Start Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        if(this.selectedEndTimeSaturday==null){
+          this._snackBar.open("Select End Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
         return false;
       }
       requestObject={
@@ -2345,6 +2429,20 @@ export class StaffComponent implements OnInit {
     }
     if(day == "Sunday"){
       if(this.selectedStartTimeSunday==null || this.selectedEndTimeSunday==null){
+        if(this.selectedStartTimeSunday==null){
+          this._snackBar.open("Select Start Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        if(this.selectedEndTimeSunday==null){
+          this._snackBar.open("Select End Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
         return false;
       }
       requestObject={
