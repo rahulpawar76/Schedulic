@@ -32,7 +32,7 @@ export class MyBusinessComponent implements OnInit {
   animal :any;
   allBusiness: any;
   adminSettings : boolean = false;
-  isLoaderAdmin : boolean = false;
+  isLoaderAdmin : boolean = true;
   currentUser:any;
   adminId:any;
   token:any;
@@ -55,6 +55,13 @@ export class MyBusinessComponent implements OnInit {
     this.getAllBusiness();
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.isLoaderAdmin = false;
+    }, 4000);
+  }
+
+
   getAllBusiness(){
     this.isLoaderAdmin = true;
     this.AdminService.getAllBusiness().subscribe((response:any) => {
@@ -72,6 +79,7 @@ export class MyBusinessComponent implements OnInit {
       this.isLoaderAdmin = false;
     })
   }
+  
   fnSelectBusiness(business_id,busisness_name){
 
     localStorage.setItem('business_id', business_id);

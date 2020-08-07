@@ -573,13 +573,84 @@ export class ReportsComponent implements OnInit {
     };
     const csvExporter = new ExportToCsv(options);
     if(this.isAppointmentReport && this.appointmentReport != ''){
-      csvExporter.generateCsv(this.appointmentReport);
+      var newappointmentReport = [];
+      this.appointmentReport.forEach(element => {
+        newappointmentReport.push({
+          'booking_date' : element.booking_date,
+          'booking_notes' : element.booking_notes,
+          'booking_time' : element.booking_time,
+          'cancel_notes' : element.cancel_notes,
+          'customer' : element.customer?element.customer.fullname:'',
+          'customer_email' : element.customer.email,
+          'customer_phone' : element.customer.phone,
+          'discount' : element.discount,
+          'order_by' : element.order_by,
+          'order_status' : element.order_status,
+          'postal_code' : element.postal_code,
+          'service_cost' : element.service_cost,
+          'service_qty' : element.service_qty,
+          'service_time' : element.service_time,
+          'staff_name' : (element.staff?element.staff.firstname:'')+' '+(element.staff?element.staff.lastname:''),
+          'status_notes' : element.status_notes,
+          'subtotal' : element.subtotal,
+          'total_cost' : element.total_cost,
+        });
+      });
+    
+      csvExporter.generateCsv(newappointmentReport);
+
     }else if(this.isSalesReport && this.salesReport != ''){
-      csvExporter.generateCsv(this.salesReport);
+
+      var newsalesReport = [];
+
+      this.salesReport.forEach(element => {
+        newsalesReport.push({
+          'order_id' : element.order_id,
+          'booking_date' : element.booking_date,
+          'booking_notes' : element.booking_notes,
+          'booking_time' : element.booking_time,
+          'cancel_notes' : element.cancel_notes,
+          'customer' : element.customer?element.customer.fullname:'',
+          'customer_email' : element.customer.email,
+          'customer_phone' : element.customer.phone,
+          'postal_code'   : element.postal_code,
+          'discount' : element.discount,
+          'order_by' : element.order_by,
+          'order_status' : element.order_status,
+          'service_cost' : element.service_cost,
+          'service_qty' : element.service_qty,
+          'service_time' : element.service_time,
+          'staff_name' : (element.staff?element.staff.firstname:'')+' '+(element.staff?element.staff.lastname:''),
+          'status_notes' : element.status_notes,
+          'subtotal' : element.subtotal,
+          'total_cost' : element.total_cost,
+        });
+      });
+     
+      csvExporter.generateCsv(newsalesReport);
+
     }else if(this.isCustomerReport && this.customerReport != ''){
-      csvExporter.generateCsv(this.customerReport);
+
+      var newscustomerReport = [];
+      this.customerReport.forEach(element => {
+        newscustomerReport.push({
+          'customer_fullname' : element.fullname,
+          'phone' : element.phone,
+          'city' : element.city,
+          'created_at' : element.created_at,
+          'created_by' : element.created_by,
+          'email' : element.email,
+          'phone_home' : element.phone_home?element.phone_home:'',
+          'state'   : element.state,
+          'zip' : element.zip,
+          'status' : element.status,
+        });
+      });
+
+      csvExporter.generateCsv(newscustomerReport);
     }
   }
+
 
 
 }
