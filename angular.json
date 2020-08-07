@@ -47,11 +47,7 @@
               ]
             },
             "scripts": [
-              "node_modules/jquery/dist/jquery.js",
-              "node_modules/datatables.net/js/jquery.dataTables.js",
-              "node_modules/datatables.net-responsive/js/dataTables.responsive.js",
-              "src/assets/js/custom.js"
-            ]
+              "src/assets/js/custom.js"]
           },
           "configurations": {
             "production": {
