@@ -16,7 +16,7 @@
                         <form>
                             <mat-form-field class="bottom-border-field">
                                 <mat-label>Change Status</mat-label>
-                                <mat-select [disabled]="timeToServiceDecimal < 0" name="status" [(value)]="appoDetail.order_status" (selectionChange)="someMethod(appoDetail.id, $event.value)">
+                                <mat-select [disabled]="timeToServiceDecimal < 0 || timeToServiceDecimal > 60" name="status" [(value)]="appoDetail.order_status" (selectionChange)="someMethod(appoDetail.id, $event.value)">
                                     <mat-option *ngIf="timeToServiceDecimal < 60" value="OW">On The Way</mat-option>
                                     <mat-option *ngIf="timeToServiceDecimal < 30" value="WS">Work Started</mat-option>
                                 </mat-select>

@@ -624,7 +624,7 @@ export class AppComponent implements AfterViewInit {
         this.isAllowed=true;
         this._snackBar.open("It seems that you already have account with Schedulic", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass: ['red-snackbar']
         });
         //this.error = "It seems that you already have account with Schedulic";
@@ -637,7 +637,7 @@ export class AppComponent implements AfterViewInit {
     error => {
       this._snackBar.open("Database Connection Error", "X", {
         duration: 2000,
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         panelClass: ['red-snackbar']
       }); 
       // this.error = "Database Connection Error"; 
@@ -667,7 +667,7 @@ export class AppComponent implements AfterViewInit {
       }else{
         this._snackBar.open("Unable to signin with "+user_data.provider, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass: ['red-snackbar']
         });
           // this.error = "Unable to signin with "+user_data.provider; 
@@ -677,7 +677,7 @@ export class AppComponent implements AfterViewInit {
     error => { 
       this._snackBar.open("Database Connection Error", "X", {
         duration: 2000,
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         panelClass: ['red-snackbar']
       });
       // this.error = "Database Connection Error"; 
@@ -1156,7 +1156,7 @@ export class DialogReAuthentication {
         else if(response.data == false){
             this._snackBar.open(response.response, "X", {
                 duration: 2000,
-                verticalPosition: 'bottom',
+                verticalPosition: 'top',
                 panelClass: ['red-snackbar']
                 });
                 
