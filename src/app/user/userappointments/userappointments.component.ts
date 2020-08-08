@@ -897,7 +897,7 @@ export class DialogOverviewExampleDialog {
       if(response.data == true){
         this._snackBar.open("Review Submited", "X", {
           duration: 2000,
-          verticalPosition:'bottom',
+          verticalPosition:'top',
           panelClass :['green-snackbar']
           });
         this.dialogRef.close();
@@ -948,7 +948,7 @@ export class DialogCancelReason {
       if(response.data == true){
         this._snackBar.open("Appointment Canceled", "X", {
           duration: 2000,
-          verticalPosition:'bottom',
+          verticalPosition:'top',
           panelClass :['green-snackbar']
           });
       }
