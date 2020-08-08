@@ -104,38 +104,45 @@ export class CompanyDetailsComponent implements OnInit {
 
   }
   fnPhoneMouceLeave(){
-    alert()
-    console.log(this.companyDetails)
+  
+    if(this.companyDetails.get('comp_mobile').value==undefined){
+      this.phoneNumberInvalid = "required";
+      return;
+    }
+
+
     if(this.companyDetails.get('comp_mobile').value === null){
-      alert("R")
       this.phoneNumberInvalid = "required";
     
     }else if(this.companyDetails.get('comp_mobile').value !== '' || this.companyDetails.get('comp_mobile').value !== null){
       if(this.companyDetails.get('comp_mobile').value.number.length >= 6 && this.companyDetails.get('comp_mobile').value.number.length <= 15){
         this.phoneNumberInvalid = "valid";
-        alert("V")
       }else{
         this.phoneNumberInvalid = "length";
-        alert("L")
       }
     }
-    
+
   }
+
   fnenterPhoneNumber(){
-    alert("2")
-    console.log(this.companyDetails)
+    
+
+    if(this.companyDetails.get('comp_mobile').value==undefined){
+      this.phoneNumberInvalid = "required";
+      return;
+    }
+
+
     if(this.companyDetails.get('comp_mobile').value !== '' || this.companyDetails.get('comp_mobile').value !== null){
       if(this.companyDetails.get('comp_mobile').value.number.length >= 6 && this.companyDetails.get('comp_mobile').value.number.length <= 15){
         this.phoneNumberInvalid = "valid";
-        alert("V")
       }else{
         this.phoneNumberInvalid = "length";
-        alert("L")
       }
     }else if(this.companyDetails.get('comp_mobile').value === '' || this.companyDetails.get('comp_mobile').value === null){
       this.phoneNumberInvalid = "required";
-      alert("R")
     }
+    
   }
 
   getCompanyDetails(){

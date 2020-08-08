@@ -8,6 +8,7 @@ import { Observable, throwError } from 'rxjs';
 import { StaffService } from '../_services/staff.service'
 import { AuthenticationService } from '@app/_services';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Title } from '@angular/platform-browser';
 
 export interface DialogData {
   animal: string;
@@ -39,7 +40,9 @@ export class MyProfileComponent implements OnInit {
     private StaffService: StaffService,
     private _formBuilder: FormBuilder,
     private authenticationService:AuthenticationService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private titleService: Title
+
     ) { 
       this.staffId=JSON.stringify(this.authenticationService.currentUserValue.user_id);
     }
@@ -52,6 +55,7 @@ export class MyProfileComponent implements OnInit {
       user_Email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
       user_Mobile : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
     });
+    this.titleService.setTitle('My Profile');
 
     this.getProfiledata();
   }

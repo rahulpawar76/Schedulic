@@ -467,6 +467,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   logout() {
+ 
     // this.authService.signOut();
     this.dialogRef2.closeAll();
     this.authenticationService.logout();
@@ -1070,7 +1071,7 @@ export class DialogLogoutAppointment {
 
   logout() {
     //this.authService.signOut();
-
+   
     this.dialogRef2.closeAll();
     this.dialogRef.close();
     setTimeout(() => {

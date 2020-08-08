@@ -19,6 +19,7 @@ export class SettingsComponent implements AfterViewInit {
 
   businessId: any;
   currentUser: User;
+  
   constructor(
     public router: Router,
     private authenticationService: AuthenticationService,

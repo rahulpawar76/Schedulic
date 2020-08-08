@@ -16,6 +16,7 @@ import { sha512 as sha512 } from 'js-sha512';
 import * as domtoimage from 'dom-to-image';
  import * as jspdf from 'jspdf';
 // import * as jspdf from 'jspdf';
+import { Title } from '@angular/platform-browser';
 
 
 export interface DialogData {
@@ -105,7 +106,8 @@ export class UserappointmentsComponent implements OnInit {
     public router: Router,
     private _snackBar: MatSnackBar,
     private datePipe: DatePipe,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private titleService: Title
     ) {
     this.customerId=this.authenticationService.currentUserValue.user_id
     this.bussinessId=this.authenticationService.currentUserValue.business_id;
@@ -115,7 +117,11 @@ export class UserappointmentsComponent implements OnInit {
       expiryMonth: ['',[Validators.required,Validators.minLength(2),Validators.maxLength(2)]],
       expiryYear: ['',[Validators.required,Validators.minLength(4),Validators.maxLength(4)]],
       cvvCode: ['',[Validators.required,Validators.minLength(2),Validators.maxLength(6)]],
-    })
+    });
+
+
+    this.titleService.setTitle('My Appointment');
+
   }
 
 

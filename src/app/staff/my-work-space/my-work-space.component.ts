@@ -4,6 +4,7 @@ import { StaffService } from '../_services/staff.service';
 import { DatePipe} from '@angular/common';
 import { AuthenticationService } from '@app/_services';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Title } from '@angular/platform-browser';
 
 export interface status {
   
@@ -45,7 +46,9 @@ export class MyWorkSpaceComponent implements OnInit {
     private StaffService: StaffService,
     private authenticationService: AuthenticationService,
     private _snackBar: MatSnackBar,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private titleService: Title
+
   ) {
     this.bussinessId=this.authenticationService.currentUserValue.business_id
     this.staffId=JSON.stringify(this.authenticationService.currentUserValue.user_id);
@@ -53,7 +56,8 @@ export class MyWorkSpaceComponent implements OnInit {
   }
 
   ngOnInit() {
-     this.todayDate = this.datePipe.transform(new Date(),"dd MMM yyyy");
+    this.titleService.setTitle('My Workspace');
+    this.todayDate = this.datePipe.transform(new Date(),"dd MMM yyyy");
     this.fnGetSettingValue();
     this.getTodayAppointment();
   }

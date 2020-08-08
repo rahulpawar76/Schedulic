@@ -4,6 +4,7 @@ import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { StaffService } from '../_services/staff.service';
 import { DatePipe} from '@angular/common';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-work-profile',
@@ -27,10 +28,12 @@ export class WorkProfileComponent implements OnInit {
 
   constructor(
     private StaffService: StaffService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private titleService: Title
   ) { }
 
   ngOnInit() {
+    this.titleService.setTitle('My Work Profile');
 
     this.getAllServices();
     this.getWorkingHours();

@@ -12,6 +12,7 @@ import { map, catchError } from 'rxjs/operators';
 import { AuthenticationService } from '@app/_services';
 import { Observable, throwError } from 'rxjs';
 import {  DialogReAuthentication  } from '@app/app.component';
+import { Title } from '@angular/platform-browser';
 
 export interface status {
   
@@ -65,7 +66,9 @@ export class StaffAppointmentComponent implements OnInit {
     private StaffService: StaffService,
     private _snackBar: MatSnackBar,
     private datePipe: DatePipe,
-    private authenticationService:AuthenticationService
+    private authenticationService:AuthenticationService,
+    private titleService: Title
+
     
     ) { 
       this.bussinessId=this.authenticationService.currentUserValue.business_id
@@ -78,6 +81,8 @@ export class StaffAppointmentComponent implements OnInit {
     this.getNewAppointment();
     this.getCompletedAppointment();
     this.getOnGoingAppointment();
+    this.titleService.setTitle('My Appointment');
+
   }
   dynamicSort(property) {
     var sortOrder = 1;

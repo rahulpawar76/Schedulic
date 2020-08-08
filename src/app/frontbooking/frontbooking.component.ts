@@ -612,6 +612,7 @@ export class FrontbookingComponent implements OnInit {
   }
   
   fnLogout(){
+  
     // remove user from local storage to log user out
     localStorage.removeItem("currentUser");
     localStorage.removeItem("isFront");
@@ -621,7 +622,7 @@ export class FrontbookingComponent implements OnInit {
   }
   
   fnViewDashboard(){
-    this.router.navigate(['/user']);
+    this.router.navigate(['/user/appointments']);
   }
   
   fnNavigateToLogin(){
@@ -1716,9 +1717,9 @@ export class FrontbookingComponent implements OnInit {
         this.authenticationService.currentUserSubject.next(response.response);
 
      //   console.log(this.authenticationService.currentUserValue.fullname);
-        console.log(response.response.full_name);
+        console.log(response.response.fullname);
 
-        this.customerName=response.response.full_name;
+        this.customerName=response.response.fullname;
       
         this.customerFirstname = this.customerName!=undefined?this.customerName.split(" ")[0]:'';
         this.customerLastname  =  this.customerName!=undefined?this.customerName.split(" ")[1]:'';
@@ -1785,6 +1786,13 @@ export class FrontbookingComponent implements OnInit {
     });
   }
   fnPhoneMouceLeave(){
+
+
+    if(this.formNewUser.get('newUserPhone').value==undefined){
+      this.phoneNumberInvalid = "required";
+      return;
+    }
+
     if(this.formNewUser.get('newUserPhone').value === null){
       this.phoneNumberInvalid = "required";
     
@@ -1795,10 +1803,16 @@ export class FrontbookingComponent implements OnInit {
         this.phoneNumberInvalid = "length";
       }
     }
-    
   }
+
   fnenterPhoneNumber(){
-    if(this.formNewUser.get('newUserPhone').value !== '' || this.formNewUser.get('newUserPhone').value !== null){
+
+    if(this.formNewUser.get('newUserPhone').value==undefined){
+      this.phoneNumberInvalid = "valid";
+      return;
+    }
+
+    if( this.formNewUser.get('newUserPhone').value !== '' || this.formNewUser.get('newUserPhone').value !== null ){
       if(this.formNewUser.get('newUserPhone').value.number.length >= 6 && this.formNewUser.get('newUserPhone').value.number.length <= 15){
         this.phoneNumberInvalid = "valid";
       }else{
@@ -1808,6 +1822,7 @@ export class FrontbookingComponent implements OnInit {
       this.phoneNumberInvalid = "required";
     }
   }
+
   fnpersonalinfo(){
     if(this.formNewUser.get('newUserPhone').value === null){
       this.phoneNumberInvalid = "required";
