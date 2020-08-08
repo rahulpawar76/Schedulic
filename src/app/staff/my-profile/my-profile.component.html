@@ -51,7 +51,7 @@
                                 <mat-form-field class="form-group  bottom-border-field">
                                     <mat-label> Email</mat-label>
                                     <mat-icon matPrefix><i class="fa fa-envelope-o"></i></mat-icon>
-                                    <input matInput formControlName="user_Email" value="" placeholder="Enter Email">
+                                    <input matInput readonly disabled formControlName="user_Email" value="" placeholder="Enter Email">
                                 </mat-form-field>
                                 <span class="error-wrap" *ngIf="myProfile.get('user_Email').touched || myProfile.get('user_Email').dirty">
 									<small *ngIf="myProfile.get('user_Email').hasError('required')" class="error">Email address is required</small>

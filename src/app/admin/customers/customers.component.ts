@@ -427,27 +427,26 @@ customerUpdate(existingCustomerData){
 
   
   fnSelectCustomer(customer_id){
+
     this.customerDetailId= customer_id;
     this.isLoaderAdmin = true;
     this.AdminService.getCustomersDetails(customer_id).subscribe((response:any) => {
       if(response.data == true){
         this.customersDetails = response.response;
-
         if(this.customersDetails.lastBooking){
           this.customersDetails.lastBooking.booking_date=this.datePipe.transform(new Date(this.customersDetails.lastBooking.booking_date),"d MMM y,")
           this.customersDetails.lastBooking.booking_time=this.datePipe.transform(new Date(this.customersDetails.lastBooking.booking_date+" "+this.customersDetails.lastBooking.booking_time),"hh:mm a")
         }
 
         this.customerPersonalDetails = response.response.customer_details;
-        console.log( this.customerPersonalDetails);
+        this.tags = [];
         this.customerPersonalDetails.created_at=this.datePipe.transform(new Date(this.customerPersonalDetails.created_at),"d MMM y, h:mm a");
         if(this.customerPersonalDetails.tag_id != null){
           this.tags = this.customerPersonalDetails.tag_id.split(",");
         }
-        console.log(this.tags);
+
 
         this.customerAppoint = response.response.appointmets;
-        console.log( this.customerAppoint);
         this.customerAppoint.forEach( (element) => { 
           element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")   
           element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");

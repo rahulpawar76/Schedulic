@@ -8,7 +8,7 @@ import { ExportToCsv } from 'export-to-csv';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { environment } from '@environments/environment';
 import * as domtoimage from 'dom-to-image';
- import * as jspdf from 'jspdf';
+import * as jspdf from 'jspdf';
 //import moment from 'moment';
 
 @Component({
@@ -148,25 +148,17 @@ export class ReportsComponent implements OnInit {
     this.adminService.getSettingValue(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.settingsArr = response.response;
-        console.log(this.settingsArr);
-
         this.currencySymbol = this.settingsArr.currency;
-        console.log(this.currencySymbol);
-        
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-        console.log(this.currencySymbolPosition);
-        
         this.currencySymbolFormat = this.settingsArr.currency_format;
-        console.log(this.currencySymbolFormat);
+
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['red-snackbar']
         });
-      }
-      },
-      (err) =>{
+      }},(err) =>{
         console.log(err)
       })
   }
@@ -220,13 +212,11 @@ export class ReportsComponent implements OnInit {
 
   fnChangeStatusFilter(event){
     this.salesReportApiUrl=environment.apiUrl+"/sales-reports";
-    console.log(event);
     this.fnGetSalesReport();
   }
 
   fnChangeCreatedByFilter(event){
     this.customerReportApiUrl=environment.apiUrl+"/customer-reports";
-    console.log(event);
     this.fnGetCustomerReport();
   }
 
@@ -236,14 +226,13 @@ export class ReportsComponent implements OnInit {
 
   appointmentReportNavigateTo(api_url){
     this.appointmentReportApiUrl=api_url;
-    console.log(this.appointmentReportApiUrl);
     if(this.appointmentReportApiUrl){
       this.fnGetAppointmentsReport();
     }
   }
+
   appointmentReportNavigateToPageNumber(index){
     this.appointmentReportApiUrl=this.appointmentReportpath+'?page='+index;
-    console.log(this.appointmentReportApiUrl);
     if(this.appointmentReportApiUrl){
       this.fnGetAppointmentsReport();
     }
@@ -283,9 +272,7 @@ export class ReportsComponent implements OnInit {
             element.Month=this.datePipe.transform(new Date(element.Month),"MMM yyyy");
           }
         });
-        console.log(this.appointmentReport);
-      }
-      else if(response.data == false && response.response !== 'api token or userid invaild'){
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -304,14 +291,13 @@ export class ReportsComponent implements OnInit {
 
   salesReportNavigateTo(api_url){
     this.salesReportApiUrl=api_url;
-    console.log(this.salesReportApiUrl);
     if(this.salesReportApiUrl){
       this.fnGetSalesReport();
     }
   }
+
   salesReportNavigateToPageNumber(index){
     this.salesReportApiUrl=this.salesReportpath+'?page='+index;
-    console.log(this.salesReportApiUrl);
     if(this.salesReportApiUrl){
       this.fnGetSalesReport();
     }
@@ -362,16 +348,15 @@ export class ReportsComponent implements OnInit {
           }else{
 
           }
-      }
-      else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['red-snackbar']
-        });
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition:'top',
+        //   panelClass :['red-snackbar']
+        // });
         this.salesReport = [];
       }
-    })
+    });
   }
 
   customerReportArrayOne(n: number): any[] {
@@ -380,14 +365,13 @@ export class ReportsComponent implements OnInit {
 
   customerReportNavigateTo(api_url){
     this.customerReportApiUrl=api_url;
-    console.log(this.customerReportApiUrl);
     if(this.customerReportApiUrl){
       this.fnGetCustomerReport();
     }
   }
+
   customerReportNavigateToPageNumber(index){
     this.customerReportApiUrl=this.customerReportpath+'?page='+index;
-    console.log(this.customerReportApiUrl);
     if(this.customerReportApiUrl){
       this.fnGetCustomerReport();
     }
@@ -403,9 +387,7 @@ export class ReportsComponent implements OnInit {
     };
     this.adminService.getCustomerReports(requestObject,this.customerReportApiUrl).subscribe((response:any) => {
       if(response.data == true){
-        // this.customerReport = response.response;
         this.customerReport = response.response.data;
-
         this.customerReportcurrent_page = response.response.current_page;
         this.customerReportfirst_page_url = response.response.first_page_url;
         this.customerReportlast_page = response.response.last_page;
@@ -413,20 +395,20 @@ export class ReportsComponent implements OnInit {
         this.customerReportnext_page_url = response.response.next_page_url;
         this.customerReportprev_page_url = response.response.prev_page_url;
         this.customerReportpath = response.response.path;
-        console.log(this.customerReport);
+
         this.customerReport.forEach(element=>{
             element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy");
         });
-      }
-      else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['red-snackbar']
-        });
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
+
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition:'top',
+        //   panelClass :['red-snackbar']
+        // });
         this.customerReport = [];
       }
-    })
+    });
   }
 
   fnappointmentReport(){
@@ -435,12 +417,14 @@ export class ReportsComponent implements OnInit {
     this.isCustomerReport = false;
     this.search.keyword = '';
   }
+
   fnsalesReport(){
     this.isAppointmentReport = false;
     this.isSalesReport = true;
     this.isCustomerReport = false;
     this.search.keyword = '';
   }
+
   fncustomerReport(){
     this.isAppointmentReport = false;
     this.isSalesReport = false;
@@ -453,6 +437,7 @@ export class ReportsComponent implements OnInit {
       this.fnGetSalesReport();
       this.fnGetCustomerReport();
   }
+
   fnPrint(){
     if(this.isAppointmentReport){
       const printContent = document.getElementById("appointment_listing");
