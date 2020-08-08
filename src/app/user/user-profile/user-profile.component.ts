@@ -6,6 +6,7 @@ import { map, catchError } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthenticationService } from '@app/_services';
+import { Title } from '@angular/platform-browser';
 
 import {MatSnackBar} from '@angular/material/snack-bar';
 export interface DialogData {
@@ -37,6 +38,8 @@ export class UserProfileComponent implements OnInit {
     private http: HttpClient,
     private _snackBar: MatSnackBar,
     private authenticationService : AuthenticationService,
+    private titleService: Title
+
     ){
       this.userId=this.authenticationService.currentUserValue.user_id
      }
@@ -57,7 +60,7 @@ export class UserProfileComponent implements OnInit {
 
 
     this.getUserProfileData();
-    
+    this.titleService.setTitle('My Profile');
 
   }
     UserImgUpload(){

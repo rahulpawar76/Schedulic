@@ -120,6 +120,7 @@ export class ServicesComponent implements OnInit {
     whichServiceButton:any;
     allowed:boolean=false;
     allowedCat:boolean=false;
+    NewisLoaderAdmin:boolean =true;
     constructor(
         // private userService: UserService,
         public Change:ChangeDetectorRef,
@@ -167,16 +168,24 @@ export class ServicesComponent implements OnInit {
         });
 
     }
+
+    ngAfterViewInit() { 
+        setTimeout(() => {
+            this.NewisLoaderAdmin = false;    
+        }, 3000);
+    }
+    
     fnSearchStaff(value){
         this.search = value
         this.fnstaffList()
     }
     fnSettingMenuToggleSmall(){
         this.settingSideMenuToggle = true;
-      }
-      fnSettingMenuToggleLarge(){
+    }
+
+    fnSettingMenuToggleLarge(){
         this.settingSideMenuToggle = false;
-      }
+    }
     fnGetSettings(){
         let requestObject = {
             "business_id" : this.businessId
@@ -194,7 +203,7 @@ export class ServicesComponent implements OnInit {
       }else{
 
       }
-        },(err) =>{
+    },(err) =>{
             console.log(err)
         });
     }
@@ -1443,7 +1452,6 @@ export class ServicesComponent implements OnInit {
                 });
                 this.isLoaderAdmin = false;
             }else{
-                alert(response);
             }
             this.isLoaderAdmin = false;
         })

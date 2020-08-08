@@ -88,6 +88,8 @@ export class AuthenticationService {
     }
 
     logout() {
+      
+
         // remove user from local storage to log user out
         // localStorage.removeItem('userId');
         localStorage.removeItem('currentUser');
@@ -126,13 +128,12 @@ export class AuthenticationService {
     }
 
     logoutTime(){
-
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if(currentUser){
             var logoutTime = JSON.parse(localStorage.getItem('logoutTime'));
             logoutTime = new Date(logoutTime);
             var currentTime = new Date();
-            if(currentTime>logoutTime){
+            if(currentTime>logoutTime && localStorage.getItem('logoutTime')){
                 this.logout();
                 return true;
             }else{
@@ -140,5 +141,4 @@ export class AuthenticationService {
             }
         }
     }
-
 }

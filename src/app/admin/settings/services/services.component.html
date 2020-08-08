@@ -1,5 +1,7 @@
 <mat-drawer-content class="main-setting-container" id="services" class="ml-0">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
+    <div class="loader-main" *ngIf="NewisLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
+
     <div class="left-side-menu setting-menu" [ngClass]="{ 'short-menu': settingSideMenuToggle === true }">
         <div class="leftarrow-icon d-flex">
             <mat-icon (click)="fnSettingMenuToggleSmall()" *ngIf="!settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_back</mat-icon>
