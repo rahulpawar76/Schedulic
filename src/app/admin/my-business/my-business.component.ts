@@ -53,6 +53,7 @@ export class MyBusinessComponent implements OnInit {
 
   ngOnInit() {
     this.getAllBusiness();
+    this.reverseGeocodingWithGoogle('-33.8670522', '151.1957362');
   }
 
   ngAfterViewInit() {
@@ -99,7 +100,17 @@ export class MyBusinessComponent implements OnInit {
       this.getAllBusiness();
      });
   }
-
+  reverseGeocodingWithGoogle(latitude, longitude) {
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?
+        latlng=${latitude},${longitude}&key={AIzaSyDIx_jprz_nOTY0XoE8uhbX6oAy16GIyOc}`)
+    .then( res => res.json())
+    .then(response => {
+        console.log("User's Location Info: ", response)
+     })
+     .catch(status => {
+        console.log('Request failed.  Returned status of', status)
+     })
+  }
 
 }
 
