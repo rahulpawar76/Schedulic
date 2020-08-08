@@ -54,9 +54,9 @@ export class AppearanceComponent implements OnInit {
   formSettingData:any=[];
   primarycolor: any = '#2889e9';
   primarygradient1: any = '#2889e9';
-  primarygradient2: any = '#2889e9';
-  textcolor: any = '#2889e9';
-  textbgcolor: any = '#2889e9';
+  primarygradient2: any = '#4fa3f7';
+  textcolor: any = '#000000';
+  textbgcolor: any = '#ffffff';
   embededCode: any;
   businessId:any
   encodedBusinessId:any;
@@ -260,6 +260,7 @@ export class AppearanceComponent implements OnInit {
         this.textcolor = this.getAppearanceData.text_color;
         this.textbgcolor = this.getAppearanceData.text_bgcolor;
         this.Appearance.controls['font'].setValue(this.getAppearanceData.font);
+        this.update_SCSS_var();
         }
         if(this.settingData.form_settings){
           this.formArr=JSON.parse(this.settingData.form_settings);
@@ -296,6 +297,10 @@ copyEmbedCode(val: string){
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
+  }
+
+  fnCancelAppearance(){
+    this.getSettingValue();
   }
 
 }

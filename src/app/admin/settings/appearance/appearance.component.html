@@ -212,7 +212,7 @@
                 </div>
                 <mat-card class="save-cencel-footer">
                     <div class="d-flex py-2 save-footer-btn">
-                        <button mat-button class="staff-cancel-btn">Cancel</button>
+                        <button mat-button (click)="fnCancelAppearance()" class="staff-cancel-btn">Cancel</button>
                         <button mat-button appearance="fill" class="appearancecolor-save-btn" (click)="fnSaveAppearanceSettings()">Save</button>
                     </div>
                 </mat-card>

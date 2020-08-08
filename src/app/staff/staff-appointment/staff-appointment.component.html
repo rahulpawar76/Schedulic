@@ -124,7 +124,8 @@
                                     <form>
                                         <mat-form-field class=" bottom-border-field">
                                             <mat-label>Change Status</mat-label>
-                                            <mat-select [disabled]="onGoingAppointmentData.timeToServiceDecimal < 0 " name="status" [(value)]="onGoingAppointmentData.order_status" (selectionChange)="someMethod(onGoingAppointmentData.id, $event.value)" [disabled]="onGoingAppointmentData.timeToServiceDecimal >= 60 && onGoingAppointmentData.timeToServiceDecimal >= 30">
+                                            <mat-select [disabled]="onGoingAppointmentData.timeToServiceDecimal < 0 || onGoingAppointmentData.timeToServiceDecimal > 60" name="status" [(value)]="onGoingAppointmentData.order_status" (selectionChange)="someMethod(onGoingAppointmentData.id, $event.value)"
+                                                [disabled]="onGoingAppointmentData.timeToServiceDecimal >= 60 && onGoingAppointmentData.timeToServiceDecimal >= 30">
                                                 <mat-option *ngIf="onGoingAppointmentData.timeToServiceDecimal < 60" [disabled]="onGoingAppointmentData.order_status == 'WS'" value="OW">On The Way</mat-option>
                                                 <mat-option *ngIf="onGoingAppointmentData.timeToServiceDecimal < 30" value="WS">Work Started</mat-option>
                                             </mat-select>

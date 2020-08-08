@@ -567,7 +567,7 @@ textarea {
                 position: fixed;
                 bottom: 0;
                 z-index: 9;
-                width: calc(100% - 570px);
+                width: calc(100% - 550px);
                 margin: 0;
                 box-shadow: 0 2px 2px -1px rgba(0, 0, 0, .4), 0 4px 12px 0 rgba(0, 0, 0, .4)!important;
                 right: 0;
@@ -580,7 +580,7 @@ textarea {
         &.short-content-area {
             .create-new-page {
                 .service-action-card {
-                    width: calc(100% - 320px);
+                    width: calc(100% - 300px);
                 }
             }
         }

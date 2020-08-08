@@ -36,7 +36,7 @@
                     <form class="serch_input-appoint">
                         <div class="form-group has-search">
                             <span class="fa fa-search form-control-feedback verticalLine"></span>
-                            <input name="searchKeyword" [(ngModel)]="search.keyword" (keyup)="customerSearch($event)" type="text" class="form-control searchbox_appointment " placeholder="Name, Area, Tag">
+                            <input name="searchKeyword" [(ngModel)]="search.keyword" (keyup)="customerSearch($event)" type="text" class="form-control searchbox_appointment " placeholder="Name, Area, Tag, Mobile no.">
                         </div>
                     </form>
                 </div>
@@ -44,7 +44,7 @@
                     <div [ngClass]="{'active':customerDetailId === allCustomers.id}" *ngFor="let allCustomers of allCustomers; let i=index" class="d-flex single-customer-list devider-slim py-2 mx-2">
                         <mat-checkbox (change)="fnAddCustomerId($event.checked, allCustomers.id)" class="customer-checkbox"></mat-checkbox>
                         <div (click)="fnSelectCustomer(allCustomers.id)" class="customer-name-width pointer">
-                            <div class="customer-name text-uppercase">{{allCustomers.initials}}</div>
+                            <div class="customer-name text-uppercase"><img src="{{allCustomers.image}}"></div>
                         </div>
                         <div (click)="fnSelectCustomer(allCustomers.id)" class="customer-details pointer">
                             <h6>{{allCustomers.fullname}}</h6>
@@ -402,7 +402,7 @@
                                             <td *ngIf="currencySymbolPosition=='right'">{{ payment.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</td>
                                             <td class="text-capitalize">{{payment.payment_status=='paid'?'Paid':'Pending'}}</td>
                                             <td class="text-capitalize">
-                                                <button mat-button appearance="fill" class="view-btn ml-2" (click)="invoice(i)"><mat-icon class="" aria-hidden="false">description</mat-icon></button>
+                                                <button mat-button appearance="fill" class="view-btn" (click)="invoice(i)"><mat-icon class="" aria-hidden="false">description</mat-icon></button>
                                                 <button mat-button *ngIf="payment.payment_status != 'paid'" appearance="fill" class="view-btn ml-2" (click)="fnShowPaymentForm(i,null,null)"><mat-icon class="" aria-hidden="false">edit</mat-icon></button>
                                                 <!-- <button mat-button appearance="fill" class="view-btn ml-2"><mat-icon class="" aria-hidden="false">print</mat-icon></button> -->
                                             </td>
@@ -562,7 +562,13 @@
                         </mat-tab-group>
                     </mat-card>
                 </div>
-
+                <div *ngIf="fullDetailsOfCustomer && (allCustomers == '' || customersDetails == null)" class="blank-container">
+                    <div class="text-center main-btn">
+                        <div (click)="fnAddNewCustomer()" class="center-main-btn"><span class="material-icons">
+                            add_circle_outline
+                            </span>Add New Customer</div>
+                    </div>
+                </div>
 
             </div>
         </div>

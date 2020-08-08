@@ -43,8 +43,8 @@ export class MyProfileComponent implements OnInit {
     this.settingMyProfile = this._formBuilder.group({
       first_name : ['', [Validators.required,Validators.maxLength(8)]],
       last_name : ['', [Validators.required,Validators.maxLength(8)]],
-      email : new FormControl({ value: "", disabled: true }, [
-        Validators.required]),
+      // email : new FormControl({ value: "", disabled: true }, [Validators.required]),
+      email : ['', [Validators.required]],
       mobile : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
     });
     
@@ -66,7 +66,7 @@ export class MyProfileComponent implements OnInit {
         'firstname': this.settingMyProfile.controls['first_name'].value,
         'lastname': this.settingMyProfile.controls['last_name'].value,
         'phone': this.settingMyProfile.controls['mobile'].value,
-        'email': this.settingMyProfile.controls['email'].value,
+        'email': this.profileDetails.email,
         'image': this.myProfileImageUrl
         }
         this.updateProfile(this.updatedAdminProfileData);

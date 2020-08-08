@@ -251,8 +251,12 @@
     right: 10px;
 }
 
+.container-height {
+    height: calc(100% - 90px) !important;
+}
+
 .select-service-accordian {
-    max-height: 640px;
+    max-height: calc(100vh - 300px);
     display: inline-block;
     width: 100%;
     overflow-y: scroll;

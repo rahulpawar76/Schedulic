@@ -259,7 +259,7 @@ export class StaffComponent implements OnInit {
       this.businessId = localStorage.getItem('business_id');
     }
     this.fnGetWorkingHours();
-    this.fnGetTimeSlotsList("08:00","18:00","30");
+    this.fnGetTimeSlotsList("00:00","23:30","30");
     this.formSetWorkingHours = this._formBuilder.group({
       mondayToggle: [false],
       mondayStartTime: [this.timeSlotList[0].long],

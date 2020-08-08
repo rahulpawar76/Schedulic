@@ -102,12 +102,17 @@
             // width: 20%;
             margin-right: .5rem!important;
             .customer-name {
-                background-color: #00c6ff;
+                //background-color: #00c6ff;
                 border-radius: 50%;
-                padding: 10px;
+                //padding: 10px;
                 width: 45px;
                 height: 45px;
                 text-align: center;
+                overflow: hidden;
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
             }
         }
         .customer-details {
@@ -845,7 +850,7 @@ mat-chip-list {
     width: 300px;
     position: fixed;
     top: 157px;
-    height: 100vh;
+    height: calc(100vh - 157px);
     box-shadow: 5px 9px 10px #e5e3e3;
     z-index: 9;
     overflow-y: scroll;
@@ -895,4 +900,26 @@ mat-chip-list {
 .short-content-area {
     margin-left: 100px;
     width: calc(100% - 100px);
+}
+
+.blank-container {
+    height: calc(100vh - 157px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .main-btn {
+        cursor: pointer;
+        width: 210px;
+        height: 100px;
+        background-color: #9cb9ff;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        span {
+            width: 100%;
+            font-size: 35px;
+        }
+    }
 }

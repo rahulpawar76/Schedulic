@@ -184,6 +184,8 @@ export class DiscountCouponComponent implements OnInit {
 
   fnvalideFrom(){
     this.minTillDate =this.discountCoupon.get('valid_from').value;
+    console.log(this.discountCoupon)
+    this.discountCoupon.get('valid_till').setValue('');
   }
     
 
@@ -553,6 +555,11 @@ export class DiscountCouponComponent implements OnInit {
       }
 
     }
+
+    // fnTillDateChange(){
+    //   alert();
+    //   this.discountCoupon.get('valid_from').setValue('');
+    // }
 
   
 }

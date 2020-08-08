@@ -26,6 +26,7 @@ import {
   animate,
   transition
 } from '@angular/animations';
+import { eventNames } from 'process';
 
 
 
@@ -1123,6 +1124,14 @@ export class DialogReAuthentication {
         console.log(error);
         return throwError('Error! something went wrong.');
     }
+    fnEnterKeyPress(event){
+      console.log(eventNames)
+      if(event.keyCode === 13){
+        this.submit();
+      }
+      else{
+      }
+    }
 
     submit(){
     if(this.reAuthenticationForm.valid){
@@ -1149,6 +1158,8 @@ export class DialogReAuthentication {
                 verticalPosition: 'bottom',
                 panelClass: ['red-snackbar']
                 });
+                
+        this.reAuthenticationForm.get('user_password').markAsTouched();
         }
         },(err) =>{
             console.log(err)
