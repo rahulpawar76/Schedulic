@@ -77,11 +77,9 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
 
-    fnAllServices(api_url) {
+    fnAllServices(requestObject, api_url) {
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': localStorage.getItem('business_id'),
-        };
+        
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -108,11 +106,9 @@ export class AdminSettingsService {
 
     }
 
-    fnAllCategory() {
+    fnAllCategory(requestObject) {
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': localStorage.getItem('business_id'),
-        };
+        
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -125,11 +121,9 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
 
-    getPostalCodeList() {
+    getPostalCodeList(requestObject) {
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': localStorage.getItem('business_id'),
-        };
+       
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -170,12 +164,8 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
 
-    getStaffList() {
+    getStaffList(requestObject) {
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': localStorage.getItem('business_id'),
-            'action': 'E',
-        };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -216,14 +206,9 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
 
-    getServiceForCategoiry(categoryId, filter,api_url) {
+    getServiceForCategoiry(requestObject,api_url) {
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': localStorage.getItem('business_id'),
-            'category_id': categoryId,
-            'filter': filter
-
-        };
+        
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -337,14 +322,9 @@ export class AdminSettingsService {
             }),
             catchError(this.handleError));
     }
-    getServiceForSubCategoiry(subCategoryId, filter,api_url) {
+    getServiceForSubCategoiry(requestObject,api_url) {
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': localStorage.getItem('business_id'),
-            'sub_category_id': subCategoryId,
-            'filter': filter
-
-        };
+       
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -472,11 +452,9 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
 
-    getAllTax() {
+    getAllTax(requestObject) {
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': this.businessId,
-        };
+        
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,
@@ -669,11 +647,8 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
     // Staff Module
-    getAllStaff(api_url) {
+    getAllStaff(requestObject,api_url) {
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': localStorage.getItem('business_id'),
-        };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id': this.adminId,

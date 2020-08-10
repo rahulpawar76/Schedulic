@@ -1,139 +1,134 @@
 <mat-sidenav-container class="tp-notification-container">
-  <mat-sidenav mode="side" opened>
-    <div class="modal-dialog-container mt-0 mb-0" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Notification ({{notifications.length}})</h5>
-          <button type="button" (click)="onNoClick()" class="close" data-dismiss="modal" aria-label="Close">
+    <mat-sidenav mode="side" opened>
+        <div class="modal-dialog-container mt-0 mb-0" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Notification ({{notifications.length}})</h5>
+                    <button type="button" (click)="onNoClick()" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-        </div>
+                </div>
 
-        <div class="modal-body ">
-          <div class="" *ngFor="let notifications of notifications;  let i=index;">
-            <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'P'" class="single-notification pointer">
-              <div class="row">
-                <div class="col-12">
-                  <label class="mb-0 bluefont">New Appointment</label>
-                  <label *ngIf="notifications.timeToService != '0'"
-                    class="mb-0 x-small float-right">{{notifications.timeToService}} hours ago</label>
-                  <label *ngIf="notifications.timeToService == '0'" class="mb-0 x-small float-right">Just Now</label>
+                <div class="modal-body p-0">
+                    <div class="" *ngFor="let notifications of notifications;  let i=index;">
+                        <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'P'" class="single-notification pointer">
+                            <div class="row mx-0">
+                                <div class="col-12">
+                                    <label class="mb-0 bluefont">New Appointment</label>
+                                    <label *ngIf="notifications.timeToService != '0'" class="mb-0 x-small float-right">{{notifications.timeToService}} hours ago</label>
+                                    <label *ngIf="notifications.timeToService == '0'" class="mb-0 x-small float-right">Just Now</label>
+                                </div>
+                            </div>
+                            <div class="row mx-0">
+                                <div class="col-6">
+                                    <label class="mb-0 fontsize-md">{{notifications.service.service_name}}</label>
+                                    <p class="mb-0 x-small">Booked By {{notifications.customer.fullname}}</p>
+                                </div>
+                                <div class="col-6 ">
+                                    <p class="mb-0 x-small"><i class="material-icons pr-2">calendar_today</i>{{notifications.booking_date}}</p>
+                                    <p class="mb-0 x-small"><i class="material-icons pr-2">access_alarm</i>{{notifications.booking_time}}
+                                    </p>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'OW' || notifications.order_status == 'WS'  || notifications.order_status == 'CNF' || notifications.order_status == 'AC'  || notifications.order_status == 'R'"
+                            class="single-notification pointer">
+                            <div class="row mx-0">
+                                <div class="col-12">
+                                    <label class="mb-0 orangefont">Status Update</label>
+                                    <label *ngIf="notifications.timeToService != '0'" class="mb-0 x-small float-right">{{notifications.timeToService}} hours ago</label>
+                                    <label *ngIf="notifications.timeToService == '0'" class="mb-0 x-small float-right">Just Now</label>
+                                </div>
+                            </div>
+                            <div class="row mx-0">
+                                <div class="col-6">
+                                    <label class="mb-0 fontsize-md" *ngIf="notifications.order_status == 'OW'">On The Way</label>
+                                    <label class="mb-0 fontsize-md" *ngIf="notifications.order_status == 'WS'">Work Started</label>
+                                    <label class="mb-0 fontsize-md greenfont" *ngIf="notifications.order_status == 'CNF'">Confirm</label>
+                                    <label class="mb-0 fontsize-md greenfont" *ngIf="notifications.order_status == 'AC'">Accepted</label>
+                                    <label class="mb-0 fontsize-md fontred" *ngIf="notifications.order_status == 'R'">Regected</label>
+                                    <p class="mb-0 x-small">{{notifications.service.service_name}}</p>
+                                </div>
+                                <div class="col-6 ">
+                                    <p class="mb-0 x-small" *ngIf="notifications.staff"><i class="fa fa-briefcase pr-2"></i>{{notifications.staff.firstname}} {{notifications.staff.lastname}}</p>
+                                    <p class="mb-0 x-small" *ngIf="!notifications.staff"><i class="fa fa-briefcase pr-2"></i>Not Assigned</p>
+                                    <p class="mb-0 x-small"><i class="fa fa-user-o pr-2"></i>{{notifications.customer.fullname}}
+                                    </p>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'CC' || notifications.order_status == 'C'" class="single-notification pointer">
+                            <div class="row mx-0">
+                                <div class="col-12">
+                                    <label class="mb-0 fontred">Appointment Cancelled</label>
+                                    <label *ngIf="notifications.timeToService != '0'" class="mb-0 x-small float-right">{{notifications.timeToService}} hours ago</label>
+                                    <label *ngIf="notifications.timeToService == '0'" class="mb-0 x-small float-right">Just Now</label>
+                                </div>
+                            </div>
+                            <div class="row mx-0">
+                                <div class="col-6">
+                                    <label class="mb-0 fontsize-md">{{notifications.service.service_name}}</label>
+                                    <p class="mb-0 x-small" *ngIf="notifications.order_status == 'CC'">Cancelled By Customer</p>
+                                    <p class="mb-0 x-small" *ngIf="notifications.order_status == 'C'">Cancelled</p>
+                                </div>
+                                <div class="col-6 ">
+                                    <p class="mb-0 x-small"><i class="material-icons pr-2">calendar_today</i>{{notifications.booking_date}}</p>
+                                    <p class="mb-0 x-small"><i class="material-icons pr-2">access_alarm</i>{{notifications.booking_time}}
+                                    </p>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'CO'" class="single-notification pointer">
+                            <div class="row mx-0">
+                                <div class="col-12">
+                                    <label class="mb-0 greenfont">Appointment Completed</label>
+                                    <label *ngIf="notifications.timeToService != '0'" class="mb-0 x-small float-right">{{notifications.timeToService}} hours ago</label>
+                                    <label *ngIf="notifications.timeToService == '0'" class="mb-0 x-small float-right">Just Now</label>
+                                </div>
+                            </div>
+                            <div class="row mx-0">
+                                <div class="col-6">
+                                    <label class="mb-0 fontsize-md">{{notifications.service.service_name}}</label>
+                                    <p class="mb-0 x-small"><i class="fa fa-user-o pr-2"></i>{{notifications.customer.fullname}}
+                                </div>
+                                <div class="col-6 ">
+                                    <p class="mb-0 x-small"><i class="fa fa-briefcase pr-2"></i>{{notifications.staff?notifications.staff.firstname:''}} {{notifications.staff?notifications.staff.lastname:''}}</p>
+                                    <p class="mb-0 x-small"><i class="material-icons pr-2">calendar_today</i>{{notifications.booking_date}}</p>
+                                    <p class="mb-0 x-small"><i class="material-icons pr-2">access_alarm</i>{{notifications.booking_time}}
+                                    </p>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'RSS' || notifications.order_status == 'RSA' || notifications.order_status == 'RSC'" class="single-notification pointer">
+                            <div class="row mx-0">
+                                <div class="col-12">
+                                    <label class="mb-0 greenfont">Appointment Rescheduled</label>
+                                    <label *ngIf="notifications.timeToService != '0'" class="mb-0 x-small float-right">{{notifications.timeToService}} hours ago</label>
+                                    <label *ngIf="notifications.timeToService == '0'" class="mb-0 x-small float-right">Just Now</label>
+                                </div>
+                            </div>
+                            <div class="row mx-0">
+                                <div class="col-6">
+                                    <label class="mb-0 fontsize-md">{{notifications.service.service_name}}</label>
+                                    <p class="mb-0 x-small" *ngIf="notifications.order_status == 'RSC'">Rescheduled by Customer</p>
+                                    <p class="mb-0 x-small" *ngIf="notifications.order_status == 'RSS'">Rescheduled by Staff</p>
+                                    <p class="mb-0 x-small" *ngIf="notifications.order_status == 'RSA'">Rescheduled by Admin</p>
+                                </div>
+                                <div class="col-6 ">
+                                    <p class="mb-0 x-small"><i class="material-icons pr-2">calendar_today</i>{{notifications.booking_date}}</p>
+                                    <p class="mb-0 x-small"><i class="material-icons pr-2">access_alarm</i>{{notifications.booking_time}}
+                                    </p>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-6">
-                  <label class="mb-0 fontsize-md">{{notifications.service.service_name}}</label>
-                  <p class="mb-0 x-small">Booked By {{notifications.customer.fullname}}</p>
-                </div>
-                <div class="col-6 ">
-                  <p class="mb-0 x-small"><i
-                      class="material-icons pr-2">calendar_today</i>{{notifications.booking_date}}</p>
-                  <p class="mb-0 x-small"><i class="material-icons pr-2">access_alarm</i>{{notifications.booking_time}}
-                  </p>
-                </div>
-              </div>
-              <hr>
             </div>
-            <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'OW' || notifications.order_status == 'WS'  || notifications.order_status == 'CNF' || notifications.order_status == 'AC'  || notifications.order_status == 'R'" class="single-notification pointer">
-              <div class="row">
-                <div class="col-12">
-                  <label class="mb-0 orangefont">Status Update</label>
-                  <label *ngIf="notifications.timeToService != '0'"
-                    class="mb-0 x-small float-right">{{notifications.timeToService}} hours ago</label>
-                  <label *ngIf="notifications.timeToService == '0'" class="mb-0 x-small float-right">Just Now</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-6">
-                  <label class="mb-0 fontsize-md" *ngIf="notifications.order_status == 'OW'">On The Way</label>
-                  <label class="mb-0 fontsize-md" *ngIf="notifications.order_status == 'WS'">Work Started</label>
-                  <label class="mb-0 fontsize-md greenfont" *ngIf="notifications.order_status == 'CNF'">Confirm</label>
-                  <label class="mb-0 fontsize-md greenfont" *ngIf="notifications.order_status == 'AC'">Accepted</label>
-                  <label class="mb-0 fontsize-md fontred" *ngIf="notifications.order_status == 'R'">Regected</label>
-                  <p class="mb-0 x-small">{{notifications.service.service_name}}</p>
-                </div>
-                <div class="col-6 ">
-                  <p class="mb-0 x-small" *ngIf="notifications.staff"><i class="fa fa-briefcase pr-2"></i>{{notifications.staff.firstname}} {{notifications.staff.lastname}}</p>
-                  <p class="mb-0 x-small" *ngIf="!notifications.staff"><i class="fa fa-briefcase pr-2"></i>Not Assigned</p>
-                  <p class="mb-0 x-small"><i class="fa fa-user-o pr-2"></i>{{notifications.customer.fullname}}
-                  </p>
-                </div>
-              </div>
-              <hr>
-            </div>
-            <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'CC' || notifications.order_status == 'C'" class="single-notification pointer">
-              <div class="row">
-                <div class="col-12"> 
-                  <label class="mb-0 fontred">Appointment Cancelled</label>
-                  <label *ngIf="notifications.timeToService != '0'"
-                    class="mb-0 x-small float-right">{{notifications.timeToService}} hours ago</label>
-                  <label *ngIf="notifications.timeToService == '0'" class="mb-0 x-small float-right">Just Now</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-6">
-                  <label class="mb-0 fontsize-md">{{notifications.service.service_name}}</label>
-                  <p class="mb-0 x-small" *ngIf="notifications.order_status == 'CC'">Cancelled By Customer</p>
-                  <p class="mb-0 x-small" *ngIf="notifications.order_status == 'C'">Cancelled</p>
-                </div>
-                <div class="col-6 ">
-                  <p class="mb-0 x-small"><i class="material-icons pr-2">calendar_today</i>{{notifications.booking_date}}</p>
-                  <p class="mb-0 x-small"><i class="material-icons pr-2">access_alarm</i>{{notifications.booking_time}}
-                  </p>
-                </div>
-              </div>
-              <hr>
-            </div>
-            <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'CO'" class="single-notification pointer">
-              <div class="row">
-                <div class="col-12">  
-                  <label class="mb-0 greenfont">Appointment Completed</label>
-                  <label *ngIf="notifications.timeToService != '0'"
-                    class="mb-0 x-small float-right">{{notifications.timeToService}} hours ago</label>
-                  <label *ngIf="notifications.timeToService == '0'" class="mb-0 x-small float-right">Just Now</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-6">
-                  <label class="mb-0 fontsize-md">{{notifications.service.service_name}}</label> 
-                  <p class="mb-0 x-small"><i class="fa fa-user-o pr-2"></i>{{notifications.customer.fullname}}
-                </div>
-                <div class="col-6 ">
-                  <p class="mb-0 x-small"><i class="fa fa-briefcase pr-2"></i>{{notifications.staff?notifications.staff.firstname:''}} {{notifications.staff?notifications.staff.lastname:''}}</p>
-                  <p class="mb-0 x-small"><i class="material-icons pr-2">calendar_today</i>{{notifications.booking_date}}</p>
-                  <p class="mb-0 x-small"><i class="material-icons pr-2">access_alarm</i>{{notifications.booking_time}}
-                  </p>
-                </div>
-              </div>
-              <hr>
-            </div>
-            <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'RSS' || notifications.order_status == 'RSA' || notifications.order_status == 'RSC'" class="single-notification pointer">
-              <div class="row">
-                <div class="col-12">
-                  <label class="mb-0 greenfont">Appointment Rescheduled</label>
-                  <label *ngIf="notifications.timeToService != '0'"
-                    class="mb-0 x-small float-right">{{notifications.timeToService}} hours ago</label>
-                  <label *ngIf="notifications.timeToService == '0'" class="mb-0 x-small float-right">Just Now</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-6">
-                  <label class="mb-0 fontsize-md">{{notifications.service.service_name}}</label>
-                  <p class="mb-0 x-small" *ngIf="notifications.order_status == 'RSC'">Rescheduled by Customer</p>
-                  <p class="mb-0 x-small" *ngIf="notifications.order_status == 'RSS'">Rescheduled by Staff</p>
-                  <p class="mb-0 x-small" *ngIf="notifications.order_status == 'RSA'">Rescheduled by Admin</p>
-                </div>
-                <div class="col-6 ">
-                  <p class="mb-0 x-small"><i class="material-icons pr-2">calendar_today</i>{{notifications.booking_date}}</p>
-                  <p class="mb-0 x-small"><i class="material-icons pr-2">access_alarm</i>{{notifications.booking_time}}
-                  </p>
-                </div>
-              </div>
-              <hr>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </mat-sidenav>
+    </mat-sidenav>
 </mat-sidenav-container>

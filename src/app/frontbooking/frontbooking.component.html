@@ -13,7 +13,7 @@
                 <div id="service_list" class="main-step step_1 p-0" *ngIf="catselection && (businessDetail && businessDetail.private_status == 'N') && (businessDetail && businessDetail.status == 'E')">
                     <div class="step-top-head"></div>
                     <div class="col-lg-12 col-sm-12 col-12 float-left loggedin_head" *ngIf="isLoggedIn">
-                        
+
                         <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn continue-btn logout-btn">View Dashboard</button>
 
                         <button (click)="fnLogout()" mat-button class="round-btn continue-btn logout-btn ml-a">Logout</button>
@@ -488,7 +488,7 @@
 
 
                 </mat-checkbox>
-
+                <span *ngIf="!totalNumberServices || !PrivacyPolicyStatusValue" class="error">Please check Terms & Condition and Privacy Policy</span>
             </div>
             <div class="bottom-ctn-btn">
                 <button *ngIf='serviceMainArr.totalNumberServices>0 && termsConditionsStatusValue && PrivacyPolicyStatusValue' (click)="fnProceedToPayment($event)" mat-button class="round-btn continue-btn proceed">Proceed</button>

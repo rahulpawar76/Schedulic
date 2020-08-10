@@ -421,7 +421,10 @@ export class StaffComponent implements OnInit {
 
   getAllStaff() {
     this.isLoaderAdmin = true;
-    this.adminSettingsService.getAllStaff(this.staffApiUrl).subscribe((response: any) => {
+    let requestObject = {
+        'business_id': this.businessId,
+    };
+    this.adminSettingsService.getAllStaff(requestObject,this.staffApiUrl).subscribe((response: any) => {
       if (response.data == true) {
         this.current_page = response.response.current_page;
         this.first_page_url = response.response.first_page_url;
@@ -2556,7 +2559,7 @@ export class StaffComponent implements OnInit {
     this.adminSettingsService.changeTimeOffStatusStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
-        this._snackBar.open(response.response, "X", {
+        this._snackBar.open('Time off status updated.', "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
@@ -2614,7 +2617,7 @@ export class StaffComponent implements OnInit {
         this.adminSettingsService.deleteTimeOff(requestObject).subscribe((response:any) => {
           if(response.data == true){
             this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
-            this._snackBar.open(response.response, "X", {
+            this._snackBar.open('Time off deleted.', "X", {
               duration: 2000,
               verticalPosition: 'top',
               panelClass : ['green-snackbar']
@@ -2885,7 +2888,7 @@ export class DialogAddNewTimeOff {
     this.adminSettingsService.addNewTimeOffStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.dialogRef.close({ call: true });
-        this._snackBar.open(response.response, "X", {
+        this._snackBar.open('Time off added.', "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']

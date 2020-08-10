@@ -14,14 +14,14 @@
 .mat-h1,
 .mat-headline,
 .mat-typography h1 {
-    font: 400 24px/32px Roboto, "Helvetica Neue", sans-serif;
+    /* font: 400 24px/32px Roboto, "Helvetica Neue", sans-serif; */
     margin: 0 0 16px
 }
 
 .mat-h2,
 .mat-title,
 .mat-typography h2 {
-    font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+    /* font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif; */
     margin: 0 0 16px
 }
 
@@ -178,18 +178,20 @@
     font-weight: 400
 }
 
-.mat-dialog-title {
+
+/* .mat-dialog-title {
     font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif
-}
+} */
 
 .mat-expansion-panel-header {
     font-size: 15px;
     font-weight: 400
 }
 
-.mat-expansion-panel-content {
+
+/* .mat-expansion-panel-content {
     font: 400 14px/20px Roboto, "Helvetica Neue", sans-serif
-}
+} */
 
 .mat-form-field {
     font-size: inherit;
@@ -423,7 +425,7 @@ input.mat-input-element {
 .mat-toolbar h4,
 .mat-toolbar h5,
 .mat-toolbar h6 {
-    font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+    /* font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif; */
     margin: 0
 }
 
@@ -521,9 +523,10 @@ input.mat-input-element {
     font-size: 16px
 }
 
-.mat-optgroup-label {
+
+/* .mat-optgroup-label {
     font: 500 14px/24px Roboto, "Helvetica Neue", sans-serif
-}
+} */
 
 .mat-simple-snackbar {
     font-size: 14px

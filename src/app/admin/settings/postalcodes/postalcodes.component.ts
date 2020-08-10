@@ -92,7 +92,10 @@ export class PostalcodesComponent implements OnInit {
 
 
   fnGetPostalCodeList(){
-    this.adminSettingsService.getPostalCodeList().subscribe((response:any) => {
+    let requestObject = {
+      'business_id': localStorage.getItem('business_id'),
+  };
+    this.adminSettingsService.getPostalCodeList(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.postalCodeList = response.response;
         this.postalCodeList.forEach(element => {
@@ -303,7 +306,11 @@ export class DialogAddPostalCode {
   
 
   fnGetStaffList(){
-    this.adminSettingsService.getStaffList().subscribe((response:any) => {
+    let requestObject = {
+      'business_id': this.businessId,
+      'action': 'E',
+    };
+    this.adminSettingsService.getStaffList(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.staffList = response.response;
       }

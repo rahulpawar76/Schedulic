@@ -565,6 +565,17 @@ export class AppComponent implements AfterViewInit {
     }, 1080000);
   }
 
+  fnClickLogo(userType){
+    if(userType == 'customer'){
+    this.router.navigate(['/user']);
+    }else if(userType == 'staff'){
+      this.router.navigate(['/staff']);
+    }
+    else if(userType == 'admin'){
+      this.router.navigate(['/admin/my-workspace']);
+    }
+  }
+
   /*Customer Navigation*/
 
   UserProfile() {

@@ -187,6 +187,12 @@ mat-drawer-content {
     }
 }
 
+::ng-deep .mat-toolbar {
+    .mat-button-toggle-checked {
+        background-color: transparent;
+    }
+}
+
 
 /*Slide Toggle*/
 

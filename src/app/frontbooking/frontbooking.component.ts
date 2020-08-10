@@ -2273,6 +2273,9 @@ export class FrontbookingComponent implements OnInit {
   }
 
   fnProceedToPayment(event){
+    if(this.PrivacyPolicyStatusValue == false || this.termsConditionsStatusValue == false){
+      return false;
+    }
     if(this.closecoupon != 'valid'){
       this.coupon.couponcode_val=''
     }

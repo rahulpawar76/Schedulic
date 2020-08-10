@@ -3,7 +3,7 @@
 </div>
 <div class="content-main" *ngIf="!paymentScreen">
     <mat-tab-group (selectedIndexChange)="fnTabValue($event)" mat-align-tabs="start">
-        <mat-tab label="My Appointment" class="appointmentlabel">
+        <mat-tab label="My Appointments" class="appointmentlabel">
             <div *ngIf="appointmentData != ''" class="bookings-details-main">
                 <div *ngFor="let appointmentData of appointmentData; let i = index" class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
                     <mat-card class="col card mt-3 ">
@@ -46,7 +46,7 @@
                                     <button mat-button class="d-block reschedule-btn" (click)="rescheduleAppointment(i)" *ngIf="appointmentData.bookingDateTime && minReschedulingTime && minReschedulingTime.getTime()<appointmentData.bookingDateTime.getTime()">Reschedule</button>
                                     <button mat-button class="d-block cancel-btn" (click)="cancelAppo(appointmentData.id)" *ngIf="cancellationBufferTime && appointmentData.bookingDateTime && cancellationBufferTime.getTime()<appointmentData.bookingDateTime.getTime() && appointmentData.payment && appointmentData.payment.payment_status == 'unpaid'">Cancel</button>
                                     <button mat-button *ngIf="appointmentData.payment && appointmentData.payment.payment_status == 'unpaid'" (click)="payAppoint(i)" class="d-block pay-btn">Pay</button>
-                                   <button  mat-button *ngIf="appointmentData.payment && appointmentData.payment.payment_status == 'paid'"  class="d-block invoice-light-btn" (click)="invoice('newAppointment', i)">Invoice</button>
+                                    <button mat-button *ngIf="appointmentData.payment && appointmentData.payment.payment_status == 'paid'" class="d-block invoice-light-btn" (click)="invoice('newAppointment', i)">Invoice</button>
                                 </div>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                 <h2 class="text-center my-3 mx-auto">NO Data Found</h2>
             </div>
         </mat-tab>
-        <mat-tab label="Cancel Appointment">
+        <mat-tab label="Canceled Appointments">
             <div *ngIf="cancelAppointmentData != ''" class="bookings-details-main">
                 <div *ngFor="let cancelAppointmentData of cancelAppointmentData; let i = index" class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
                     <mat-card class="col card mt-3">
@@ -103,7 +103,7 @@
         </mat-tab>
 
 
-        <mat-tab label="Complete Appointment">
+        <mat-tab label="Completed Appointments">
             <div *ngIf="completedAppointmentData != ''" class="bookings-details-main">
                 <div *ngFor="let completedAppointmentData of completedAppointmentData; let i = index" class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
                     <mat-card class="col card mt-3">

@@ -982,7 +982,10 @@ export class DialogAddNewAppointment {
   }
   
   getPostalCodeList() {
-    this.AdminSettingsService.getPostalCodeList().subscribe((response:any) => {
+    let requestObject = {
+      'business_id': localStorage.getItem('business_id'),
+  };
+    this.AdminSettingsService.getPostalCodeList(requestObject).subscribe((response:any) => {
       if(response.data == true){
         let postal = response.response
         this.Postalcode = postal;

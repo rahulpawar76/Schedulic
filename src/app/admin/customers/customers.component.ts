@@ -260,6 +260,44 @@ export class CustomersComponent implements OnInit {
       }
     })
   }
+  getAllCustomersAfterNew(){
+    this.isLoaderAdmin = true;
+    this.AdminService.getAllCustomers().subscribe((response:any) => {
+      if(response.data == true && response.response != 'Customer not created.'){
+        this.allCustomers = response.response;
+        this.allCustomers.forEach( (element) => {
+          var splitted = element.fullname.split(" ",2);
+          element.initials='';
+          splitted.forEach( (element2) => {
+            element.initials=element.initials+element2.charAt(0);
+          });
+        });
+        
+        this.fnSelectCustomer(this.allCustomers[this.allCustomers.length-1].id);
+        this.customerDetailId = this.allCustomers[this.allCustomers.length-1].id
+        this.isLoaderAdmin = false;
+      }
+      else if(response.response == 'Customer not created.'){
+        this.allCustomers = "";
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+        this.allCustomers = [];
+        this.isLoaderAdmin = false;
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+        this.allCustomers = [];
+        this.isLoaderAdmin = false;
+      }
+    })
+  }
 
   fnCreateCustomerSubmit(){
     if(this.createNewCustomer.get('customer_id').value != null){
@@ -347,10 +385,10 @@ fnCreateNewCustomer(newCustomerData){
         verticalPosition:'top',
         panelClass :['green-snackbar']
       });
-      this.getAllCustomers();
+      this.getAllCustomersAfterNew();
       this.createNewCustomer.reset();
       this.fnCancelNewCustomer();
-      this.customerImageUrl = undefined;
+      this.customerImageUrl = '';
       this.isLoaderAdmin = false;
     }
     else if(response.data == false && response.response !== 'api token or userid invaild'){
@@ -393,6 +431,7 @@ customerUpdate(existingCustomerData){
 }
 
   fnAddNewCustomer(){
+    alert(this.customerImageUrl)
     this.newCustomer = true;
     this.fullDetailsOfCustomer = false;
     this.createNewCustomer = this._formBuilder.group({
@@ -421,13 +460,15 @@ customerUpdate(existingCustomerData){
   fnCancelNewCustomer(){
     this.newCustomer = false;
     this.fullDetailsOfCustomer = true;
-    this.customerImageUrl = undefined;
+    this.customerImageUrl = '';
     this.createNewCustomer.reset();
   }
 
   
   fnSelectCustomer(customer_id){
 
+    this.showPaymentForm=false;
+    this.showPaymentTable = true;
     this.customerDetailId= customer_id;
     this.isLoaderAdmin = true;
     this.AdminService.getCustomersDetails(customer_id).subscribe((response:any) => {
@@ -486,7 +527,7 @@ customerUpdate(existingCustomerData){
         this.isLoaderAdmin = false;
         this.newCustomer = false;
         this.fullDetailsOfCustomer = true;
-        this.customerImageUrl = undefined;
+        this.customerImageUrl = '';
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {

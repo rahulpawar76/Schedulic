@@ -223,7 +223,7 @@
                                 <div class="ml-3 justify-content-center">
                                     <div class="services-customer-profile-background profile-img-wrap mr-3 mt-5" (click)="categoryImage()">
                                         <img *ngIf="!editCategoryId && categoryImageUrl == ''" src="/assets/images/admin/picture.png" class="service-profile-image">
-                                        <img *ngIf="!editCategoryId && categoryImageUrl != ''" src="{{categoryImageUrl}}" class="service-profile-image">
+                                        <img *ngIf="!editCategoryId && categoryImageUrl != ''" src="{{categoryImageUrl}}" class="service-profile-image w-100">
                                         <div class="camera-alt"><i class="material-icons">
                                                 camera_alt
                                             </i></div>
@@ -319,7 +319,7 @@
                             <div class="col-lg-9 col-9 col-md-9 d-flex align-item-start">
                                 <div class="ml-3 justify-content-center">
                                     <div class="services-customer-profile-background profile-img-wrap mr-3 mt-5" (click)="subCategoryImage()">
-                                        <img *ngIf="!editSubCategoryId && subCategoryImageUrl == ''" src="/assets/images/admin/picture.png" class="service-profile-image">
+                                        <img *ngIf="!editSubCategoryId && subCategoryImageUrl == ''" src="/assets/images/admin/picture.png" class="service-profile-image w-100">
                                         <img *ngIf="!editSubCategoryId && subCategoryImageUrl != ''" src="{{subCategoryImageUrl}}" class="service-profile-image">
                                         <img *ngIf="editSubCategoryId && subCategoryImageUrl == ''" src="{{selectedSubCategoryDetails.sub_category_image}}" class="service-profile-image">
                                         <img *ngIf="editSubCategoryId && subCategoryImageUrl != ''" src="{{subCategoryImageUrl}}" class="service-profile-image">
@@ -406,13 +406,13 @@
                 </mat-card>
             </div>
             <!-- single category page -->
-            <div *ngIf="selectedCategoryDetails != '' && selectCategoryPage == 'services' || selectCategoryPage == 'notservices' " id="Salon_Listing_Service" class="mb-0 w-100 h-100 bg-white">
+            <div *ngIf="selectedCategoryDetails != '' && (selectCategoryPage == 'services' || selectCategoryPage == 'notservices') " id="Salon_Listing_Service" class="mb-0 w-100 h-100 bg-white">
                 <div class="top-category-bar">
                     <div class="d-flex pt-1 mb-4 mx-3">
                         <div class="ml-3 d-flex justify-content-center">
                             <div class="service-profile-background mr-3">
                                 <img *ngIf="selectedCategoryDetails && selectedCategoryDetails.category_image" src="{{selectedCategoryDetails.category_image}}" class="service-profile-image mb-2">
-                                <img *ngIf="selectedCategoryDetails && !selectedCategoryDetails.category_image" src="/assets/images/admin/picture.png" class="service-profile-image mb-2">
+                                <img *ngIf="selectedCategoryDetails && !selectedCategoryDetails.category_image" src="/assets/images/admin/picture.png" class="service-profile-image mb-2 w-100">
                             </div>
                             <div>
                                 <div class=" Details-button-width d-flex">
@@ -541,7 +541,7 @@
                 </div>
             </div>
             <!-- sub category page -->
-            <div *ngIf="selectedSubCategoryDetails != '' && singleSubCategoryPage == 'services' || singleSubCategoryPage == 'notservices' || singleSubCategoryPage != ''" class="h-100" id="single_sub_category">
+            <div *ngIf="selectedSubCategoryDetails != '' && (singleSubCategoryPage == 'services' || singleSubCategoryPage == 'notservices' || singleSubCategoryPage !== '')" class="h-100" id="single_sub_category">
                 <div class="">
                     <div class="d-flex mt-2 mb-4 mx-3 service-top-bar">
                         <div class="ml-3 d-flex justify-content-center">
@@ -678,7 +678,7 @@
                             <div class="col-xl-9 col-lg-12 col-12 col-md-12 d-flex align-item-start">
                                 <div class="ml-3 justify-content-center " (click)="serviceImage()">
                                     <div class="services-customer-profile-background profile-img-wrap mr-3 mt-5">
-                                        <img *ngIf="!editServiceId && serviceImageUrl == ''" src="/assets/images/admin/picture.png" class="service-profile-image-admin">
+                                        <img *ngIf="!editServiceId && serviceImageUrl == ''" src="/assets/images/admin/picture.png" class="service-profile-image-admin w-100">
                                         <img *ngIf="!editServiceId && serviceImageUrl != ''" src="{{serviceImageUrl}}" class="service-profile-image-admin w-100 h-100">
                                         <img *ngIf="editServiceId && serviceImageUrl == ''" src="{{editServiceImage}}" class="service-profile-image-admin w-100 h-100">
                                         <img *ngIf="editServiceId && serviceImageUrl != ''" src="{{serviceImageUrl}}" class="service-profile-image-admin w-100 h-100">

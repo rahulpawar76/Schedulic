@@ -63,7 +63,10 @@ export class PaymentrulesComponent implements OnInit {
   }
 
   getAllTax() {
-    this.AdminSettingsService.getAllTax().subscribe((response: any) => {
+    let requestObject = {
+      'business_id': this.businessId,
+    };
+    this.AdminSettingsService.getAllTax(requestObject).subscribe((response: any) => {
       if (response.data == true) {
         this.taxesData = response.response;
        // console.log(this.taxesData);

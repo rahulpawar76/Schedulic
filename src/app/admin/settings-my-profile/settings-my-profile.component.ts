@@ -62,12 +62,21 @@ export class MyProfileComponent implements OnInit {
   }
   fnSubmitMyProfile(){
       if(this.settingMyProfile.valid){
-        this.updatedAdminProfileData = {
-        'firstname': this.settingMyProfile.controls['first_name'].value,
-        'lastname': this.settingMyProfile.controls['last_name'].value,
-        'phone': this.settingMyProfile.controls['mobile'].value,
-        'email': this.profileDetails.email,
-        'image': this.myProfileImageUrl
+        if(this.myProfileImageUrl === ''){
+          this.updatedAdminProfileData = {
+            'firstname': this.settingMyProfile.controls['first_name'].value,
+            'lastname': this.settingMyProfile.controls['last_name'].value,
+            'phone': this.settingMyProfile.controls['mobile'].value,
+            'email': this.profileDetails.email,
+          }
+        }else if(this.myProfileImageUrl !== ''){
+          this.updatedAdminProfileData = {
+            'firstname': this.settingMyProfile.controls['first_name'].value,
+            'lastname': this.settingMyProfile.controls['last_name'].value,
+            'phone': this.settingMyProfile.controls['mobile'].value,
+            'email': this.profileDetails.email,
+            'image': this.myProfileImageUrl
+          }
         }
         this.updateProfile(this.updatedAdminProfileData);
       }

@@ -45,7 +45,7 @@
                                     <div class="text-left" fxFlex="10">Used</div>
                                     <div class="text-left" fxFlex="10">Status</div>
                                     <div class="text-left" fxFlex="10">Action</div>
-                                    <div class="text-left" fxFlex="10">#</div>
+                                    <div class="text-left" fxFlex="10">View</div>
                                 </div>
                                 <div class="content" class="staff-list">
                                     <div class="staff-list-row" *ngFor="let allCouponCode of allCouponCode; let i=index">
@@ -157,8 +157,9 @@
                         <div class=" form-group col-lg-6 col-12 col-sm-12 col-md-6  bottom-border-field">
                             <mat-form-field>
                                 <mat-label>Valid Form</mat-label>
+                                <mat-icon matPrefix><img src="../../../assets/images/admin/calendar.png" class=""></mat-icon>
                                 <input matInput (dateChange)="fnvalideFrom()" (click)="valid_from_picker.open()" [min]="minDate" [matDatepicker]="valid_from_picker" formControlName="valid_from" placeholder="MM/DD/YYYY">
-                                <mat-datepicker-toggle matPrefix [for]="valid_from_picker"></mat-datepicker-toggle>
+                                <!-- <mat-datepicker-toggle matPrefix [for]="valid_from_picker"></mat-datepicker-toggle> -->
                                 <mat-datepicker #valid_from_picker></mat-datepicker>
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="discountCoupon.get('valid_from').touched || discountCoupon.get('valid_from').dirty || formSubmitclicked">
@@ -205,8 +206,9 @@
                         <div class=" form-group col-lg-6 col-12 col-sm-12 col-md-6  bottom-border-field">
                             <mat-form-field>
                                 <mat-label>Valid Till</mat-label>
+                                <mat-icon matPrefix><img src="../../../assets/images/admin/calendar.png" class=""></mat-icon>
                                 <input matInput (dateChange)="fnTillDateChange()" (click)="valid_till_picker.open()" [min]="minTillDate" [matDatepicker]="valid_till_picker" formControlName="valid_till" placeholder="MM/DD/YYYY">
-                                <mat-datepicker-toggle matPrefix [for]="valid_till_picker"></mat-datepicker-toggle>
+                                <!-- <mat-datepicker-toggle matPrefix [for]="valid_till_picker"></mat-datepicker-toggle> -->
                                 <mat-datepicker #valid_till_picker></mat-datepicker>
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="discountCoupon.get('valid_till').touched || discountCoupon.get('valid_till').dirty || formSubmitclicked">

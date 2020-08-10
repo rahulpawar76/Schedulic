@@ -264,9 +264,13 @@ export class CompanyDetailsComponent implements OnInit {
     var comp_mobile =  this.companyDetails.get('comp_mobile').value;
     console.log(comp_mobile);
     
-    if(comp_mobile==undefined){ return; }
+    if(comp_mobile==undefined){ 
+      this.phoneNumberInvalid = "required";
+      return; 
+    }
 
     if(comp_mobile.number.length < 6 || comp_mobile.number.length > 15){
+      this.phoneNumberInvalid = "length";
       return;
     }
   

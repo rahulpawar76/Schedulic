@@ -15,6 +15,7 @@
     }
     .payment-label {
         line-height: 5;
+        color: #434343;
     }
     .action-btn {
         margin-left: auto;
@@ -52,6 +53,12 @@
         }
         .payment-toggle-btn {
             margin-left: auto;
+             ::ng-deep .mat-slide-toggle-label {
+                justify-content: flex-end;
+                .mat-slide-toggle-content {
+                    display: none;
+                }
+            }
         }
     }
     .payment-gateway-form {
@@ -60,6 +67,7 @@
         }
         mat-form-field {
             width: 65%;
+            color: #434343;
         }
         span {
             margin-left: 30%;
@@ -81,4 +89,10 @@
 
 .payment-gateway-toggle-btn {
     width: 50px;
+}
+
+mat-panel-title {
+    p {
+        color: #000;
+    }
 }

@@ -2,7 +2,6 @@
     /** *{
     font-family: '{{appearenceColor.font}}', sans-serif !important;
   } */
-  
 </style>
 <mat-drawer-container [ngClass]="{'main-container-top': isFront()}" class="main-container">
     <mat-drawer-content [ngClass]="{'main-content-top': isFront()}" class="">
@@ -11,7 +10,7 @@
             <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser() && !isBusiness()}" color="primary" class="toolbar menu-comman" *ngIf="isLogin() && !isFront()">
                 <mat-toolbar-row *ngIf="isCustomerUser()">
                     <div class="logo">
-                        <a><img src="/assets/img/logo.png"></a>
+                        <a (click)="fnClickLogo('customer')"><img src="/assets/img/logo.png"></a>
                     </div>
                     <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
                     <span class="example-fill-remaining-space"></span>
@@ -27,7 +26,7 @@
                 </mat-toolbar-row>
                 <mat-toolbar-row *ngIf="isStaffUser()">
                     <div class="logo">
-                        <a><img src="/assets/img/logo.png"></a>
+                        <a (click)="fnClickLogo('staff')"><img src="/assets/img/logo.png"></a>
                     </div>
                     <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
                     <span class="example-fill-remaining-space"></span>
@@ -67,7 +66,7 @@
             <button mat-button color="primary" (click)="MyBusinessNav()">My Businesses</button>
             <span class="profile-head">
                 <div class="customer-profile-img m-2 float-left overflow-hidden" data="aaa">
-                    <img class="w-100" src="{{currentUser.image}}" onerror="this.src='../assets/img/user.png';" >
+                    <img class="h-100 w-100" src="{{currentUser.image}}" onerror="this.src='../assets/img/user.png';" >
                 </div>
               <p class="font-weight-bold my-2 p-1" *ngIf="currentUser.full_name">{{currentUser.full_name}}</p>
             </span>
@@ -98,7 +97,7 @@
                     <mat-drawer [disableClose]="true" class="main_admin_menu" *ngIf="businessComponent && !isBusiness()" mode="side" opened>
                         <div class="top_admin_menu">
                             <mat-list-item role="listitem" class="matlist pointer menuitem logo">
-                                <div class="logo"><img src="assets/images/admin/admin-logo-orange.png"></div>
+                                <div (click)="fnClickLogo('admin')" class="logo"><img src="assets/images/admin/admin-logo-orange.png"></div>
                             </mat-list-item>
                             <mat-list-item role="listitem" class="add">
                                 <div>

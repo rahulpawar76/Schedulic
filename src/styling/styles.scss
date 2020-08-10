@@ -922,3 +922,14 @@
      ::ng-deep .mat-button-focus-overlay {
         background: transparent;
     }
+    
+    .single-notification {
+        padding: 10px 10px 0 10px;
+        &:hover {
+            background-color: #f1f5ff;
+        }
+    }
+    
+    .modal-content {
+        border: 0;
+    }

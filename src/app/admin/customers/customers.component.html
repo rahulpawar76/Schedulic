@@ -36,7 +36,7 @@
                     <form class="serch_input-appoint">
                         <div class="form-group has-search">
                             <span class="fa fa-search form-control-feedback verticalLine"></span>
-                            <input name="searchKeyword" [(ngModel)]="search.keyword" (keyup)="customerSearch($event)" type="text" class="form-control searchbox_appointment " placeholder="Name, Area, Tag, Mobile no.">
+                            <input name="searchKeyword" [(ngModel)]="search.keyword" (keyup)="customerSearch($event)" type="text" class="form-control searchbox_appointment " placeholder="Name, Area, Tag, Mobile No.">
                         </div>
                     </form>
                 </div>
@@ -76,10 +76,10 @@
                                     <div class="w-100 d-flex justify-content-center">
                                         <div class="d-flex profile-img-wrap services-customer-profile-background" (click)="customerImage()">
                                             <img *ngIf="!existingUserId && customerImageUrl != ''" mat-card-avatar class="service-profile-image mx-auto" src="{{customerImageUrl}}">
-                                            <img *ngIf="!existingUserId && customerImageUrl == ''" class="service-profile-image mx-auto" src="/assets/images/admin/picture.png">
+                                            <img *ngIf="!existingUserId && customerImageUrl == ''" class="service-profile-image mx-auto" src="/assets/images/admin/picture-user.png">
                                             <img *ngIf="existingUserId && customerImageUrl == '' && customerPersonalDetails.image" class="service-profile-image mx-auto" src="{{customerPersonalDetails.image}}">
                                             <img *ngIf="existingUserId && customerImageUrl != '' && customerPersonalDetails.image" class="service-profile-image mx-auto" src="{{customerImageUrl}}">
-                                            <img *ngIf="existingUserId && customerImageUrl == '' && !customerPersonalDetails.image" class="service-profile-image mx-auto" src="/assets/images/admin/picture.png">
+                                            <img *ngIf="existingUserId && customerImageUrl == '' && !customerPersonalDetails.image" class="service-profile-image mx-auto" src="/assets/images/admin/picture-user.png">
                                             <div class="camera-alt"><i class="material-icons">
                                             camera_alt
                                             </i></div>
@@ -114,7 +114,11 @@
                                                 <mat-icon class="mr-4" matPrefix>email</mat-icon>
                                                 <input matInput formControlName="cus_email" placeholder="Enter Your Email">
                                             </mat-form-field>
-                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_email').dirty || createNewCustomer.get('cus_email').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_email').hasError('required')" class="error">Email is required.</small><small *ngIf="createNewCustomer.get('cus_email').hasError('pattern')" class="error">Invalid email address.</small><small *ngIf="createNewCustomer.get('cus_email').hasError('isEmailUnique') || createNewCustomer.get('cus_email').hasError('isEmailUniqueForEdit')" class="error">Email address already exists.</small></span>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_email').dirty || createNewCustomer.get('cus_email').touched || formSubmitclicked">
+                                                <small *ngIf="createNewCustomer.get('cus_email').hasError('required')" class="error">Email is required.</small>
+                                                <small *ngIf="createNewCustomer.get('cus_email').hasError('pattern')" class="error">Invalid email address.</small>
+                                                <small *ngIf="createNewCustomer.get('cus_email').hasError('isEmailUnique') || createNewCustomer.get('cus_email').hasError('isEmailUniqueForEdit')" class="error">Email address already exists.</small>
+                                            </span>
                                         </div>
                                         <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
                                             <mat-form-field>
@@ -122,7 +126,11 @@
                                                 <mat-icon class="mr-4" matPrefix>call</mat-icon>
                                                 <input matInput formControlName="cus_phone" placeholder="Enter Your number">
                                             </mat-form-field>
-                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_phone').dirty || createNewCustomer.get('cus_phone').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_phone').hasError('required')" class="error">Contact number is required.</small><small *ngIf="createNewCustomer.get('cus_phone').hasError('pattern')" class="error">Contact number should be in numbers.</small><small *ngIf="createNewCustomer.get('cus_phone').hasError('minlength') || createNewCustomer.get('cus_phone').hasError('maxlength')" class="error">Contact number should minimum 6 and maximum 15 digits.</small></span>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_phone').dirty || createNewCustomer.get('cus_phone').touched || formSubmitclicked">
+                                                <small *ngIf="createNewCustomer.get('cus_phone').hasError('required')" class="error">Contact number is required.</small>
+                                                <small *ngIf="createNewCustomer.get('cus_phone').hasError('pattern') || (createNewCustomer.get('cus_phone').hasError('pattern') && (createNewCustomer.get('cus_phone').hasError('minlength') || createNewCustomer.get('cus_phone').hasError('maxlength')))" class="error">Contact number should be in numbers.</small>
+                                                <small *ngIf="!createNewCustomer.get('cus_phone').hasError('pattern') && (createNewCustomer.get('cus_phone').hasError('minlength') || createNewCustomer.get('cus_phone').hasError('maxlength'))" class="error">Contact number should minimum 6 and maximum 15 digits.</small>
+                                            </span>
                                         </div>
                                         <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
                                             <mat-form-field>
@@ -130,7 +138,7 @@
                                                 <mat-icon class="mr-4" matPrefix>apartment</mat-icon>
                                                 <input matInput formControlName="cus_officenumber" placeholder="Enter Your number">
                                             </mat-form-field>
-                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_officenumber').dirty || createNewCustomer.get('cus_officenumber').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_officenumber').hasError('pattern')" class="error">Office phone should in numbers.</small><small *ngIf="createNewCustomer.get('cus_officenumber').hasError('minlength') || createNewCustomer.get('cus_officenumber').hasError('maxlength')" class="error">Office phone should minimum 6 and maximum 15 digits.</small></span>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_officenumber').dirty || createNewCustomer.get('cus_officenumber').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_officenumber').hasError('pattern') || (createNewCustomer.get('cus_officenumber').hasError('pattern') && (createNewCustomer.get('cus_officenumber').hasError('minlength') || createNewCustomer.get('cus_officenumber').hasError('maxlength')))" class="error">Office phone should in numbers.</small><small *ngIf="!createNewCustomer.get('cus_officenumber').hasError('pattern') && (createNewCustomer.get('cus_officenumber').hasError('minlength') || createNewCustomer.get('cus_officenumber').hasError('maxlength'))" class="error">Office phone should minimum 6 and maximum 15 digits.</small></span>
                                         </div>
                                         <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
                                             <mat-form-field>
@@ -139,7 +147,7 @@
                                                 <input matInput formControlName="cus_homenumber" placeholder="Enter Your number">
                                             </mat-form-field>
 
-                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_homenumber').dirty || createNewCustomer.get('cus_homenumber').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_homenumber').hasError('pattern')" class="error">Home phone should in numbers.</small><small *ngIf="createNewCustomer.get('cus_homenumber').hasError('minlength') || createNewCustomer.get('cus_homenumber').hasError('maxlength')" class="error">Home phone should minimum 6 and maximum 15 digits.</small></span>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_homenumber').dirty || createNewCustomer.get('cus_homenumber').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_homenumber').hasError('pattern') || (createNewCustomer.get('cus_homenumber').hasError('pattern') && (createNewCustomer.get('cus_homenumber').hasError('minlength') || createNewCustomer.get('cus_homenumber').hasError('maxlength')))" class="error">Home phone should in numbers.</small><small *ngIf="!createNewCustomer.get('cus_homenumber').hasError('pattern') && (createNewCustomer.get('cus_homenumber').hasError('minlength') || createNewCustomer.get('cus_homenumber').hasError('maxlength'))" class="error">Home phone should minimum 6 and maximum 15 digits.</small></span>
                                         </div>
                                         <div class="col-lg-12 col-12 col-md-12 bottom-border-field">
                                             <mat-form-field>
@@ -207,7 +215,7 @@
                     <mat-card class="mb-0">
                         <div class="d-flex m-2 align-items-center">
                             <div class="customerProfile-width">
-                                <img class="" src="{{customerPersonalDetails.image}}">
+                                <img class="w-100 h-100" src="{{customerPersonalDetails.image}}">
                             </div>
                             <div class="customerName-width">
                                 <h6>{{customerPersonalDetails.fullname}}</h6>
@@ -334,7 +342,7 @@
                                     </table>
                                 </div>
                                 <div *ngIf="customerAppoint == ''" class="Customer-appointment-table">
-                                    <h5 class="text-center py-3">No Record Found.</h5>
+                                    <p class="text-center py-3">No Record Found.</p>
                                 </div>
                             </mat-tab>
                             <mat-tab label="Notes">
@@ -380,7 +388,7 @@
                                 </div>
                             </mat-tab>
                             <mat-tab label="Payments">
-                                <table class="table" *ngIf="showPaymentTable">
+                                <table class="table" *ngIf="showPaymentTable && (customerPayments != [] && customerPayments != '')">
                                     <thead>
                                         <tr>
                                             <th scope="col">Date</th>
@@ -407,8 +415,15 @@
                                                 <!-- <button mat-button appearance="fill" class="view-btn ml-2"><mat-icon class="" aria-hidden="false">print</mat-icon></button> -->
                                             </td>
                                         </tr>
+                                        <tr *ngIf="customerPayments == [] || customerPayments == ''">
+                                            <td class="text-center py-2" colspan="7">No record found.</td>
+                                            <!-- <p class="text-center py-2">No record found.</p> -->
+                                        </tr>
                                     </tbody>
                                 </table>
+                                <div *ngIf="(customerPayments == [] || customerPayments == '') && !showPaymentForm" class="">
+                                    <p class="text-center py-3">No Record Found.</p>
+                                </div>
 
                                 <!-- <div *ngIf="customerNotes == null" class="">
                                     <h2 class="text-center py-3">No Notes Available</h2>
@@ -556,7 +571,7 @@
                                     </div>
                                 </div>
                                 <div *ngIf="customerReviews == ''" class="">
-                                    <h5 class="text-center py-3">No Record Found.</h5>
+                                    <p class="text-center py-3">No Record Found.</p>
                                 </div>
                             </mat-tab>
                         </mat-tab-group>
