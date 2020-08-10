@@ -174,9 +174,7 @@ export class StaffComponent implements OnInit {
   categoryServiceChecksubCatId: any = [];
   categoryServiceCheckServiceId: any = [];
 
-/**
-   * on file drop handler
-   */
+
   onFileDropped($event) {
     this.prepareFilesList($event);  
   }
@@ -187,12 +185,38 @@ export class StaffComponent implements OnInit {
  
   deleteFile(index: number) {
     if (this.files[index].progress < 100) {
-      console.log("Upload in progress.");
       return;
     }
     this.files.splice(index, 1);
   }
+
+  deleteOldFile(index,document_id: number) {
+    
+    var x = confirm('Are you sure you want delete this document ?');
+
+    if(x){
+
+      this.isLoaderAdmin = true;
+      this.adminSettingsService.fnRemovedocument(document_id).subscribe((response: any) => {
+        if (response.data == true) {
+          this._snackBar.open("document deleted.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass: ['green-snackbar']
+          });
+          this.isLoaderAdmin = false;
+        }else if (response.data == false) {
+          this.isLoaderAdmin = false;
+        }
+      });
+
+      this.singleStaffDetail.staff[0].getdocument.splice(index, 1);
+    }
+    
+    
+  }
   
+
   uploadFilesSimulator(index: number) {
     setTimeout(() => {
       if (index === this.files.length) {
@@ -329,21 +353,26 @@ export class StaffComponent implements OnInit {
   //     }, 500);
   //   });
   // }
+
   fnStaffListing(){
     this.addStaffPage = false;
     this.staffListPage = true;
     this.singleStaffView = false;
   }
+
   fnSettingMenuToggleSmall(){
     this.settingSideMenuToggle = true;
   }
+
   fnSettingMenuToggleLarge(){
     this.settingSideMenuToggle = false;
   }
 
 
   isEmailUniqueForEdit(control: FormControl) {
+
     return new Promise((resolve, reject) => {
+
       setTimeout(() => {
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
@@ -411,6 +440,7 @@ export class StaffComponent implements OnInit {
       this.getAllStaff();
     }
   }
+
   navigateToPageNumber(index){
     this.staffApiUrl=this.path+'?page='+index;
     console.log(this.staffApiUrl);
@@ -695,7 +725,7 @@ export class StaffComponent implements OnInit {
     this.isLoaderAdmin = true;
     this.selectedStaffId= staffId;
     this.singleStaffDataRating = this.allStaffList[index]
-    console.log(this.singleStaffDataRating);
+
     let requestObject = {
         'business_id': this.businessId,
         'staff_id': staffId,
@@ -919,6 +949,7 @@ export class StaffComponent implements OnInit {
       }
     })
   }
+
   fnChangeInternalStaff(event, staffId) {
     this.isLoaderAdmin = true;
     if (event == true) {
@@ -941,6 +972,7 @@ export class StaffComponent implements OnInit {
       }
     })
   }
+
   fnChangeLoginAllowStaff(event, staffId) {
     this.isLoaderAdmin = true;
     if (event == true) {
@@ -963,6 +995,7 @@ export class StaffComponent implements OnInit {
       }
     })
   }
+
   fnAddPostalCodeId(event, postalCodeId) {
     if (event == true) {
       this.addPostalCodeId.push(postalCodeId)
@@ -974,6 +1007,7 @@ export class StaffComponent implements OnInit {
       }
     }
   }
+
   fnAssignPostalToStaff(value) {
     this.isLoaderAdmin = true;
     this.adminSettingsService.fnAssignPostalToStaff(value, this.addPostalCodeId, this.selectedStaffId).subscribe((response: any) => {
@@ -994,6 +1028,7 @@ export class StaffComponent implements OnInit {
       }
     })
   }
+
   fnSingleAssignPostalCode(event, postalCodeId) {
     this.isLoaderAdmin = true;
     if (event == true) {
@@ -1054,6 +1089,10 @@ export class StaffComponent implements OnInit {
     this.singleStaffView = false;
     this.isLoaderAdmin = false;
     this.selectedServiceNewStaff=[];
+    this.files=[];
+    if(this.singleStaffDetail){ 
+      this.singleStaffDetail.staff[0].getdocument = []; 
+    }
     this.editStaffId=null;
     this.getCateServiceList();
     this.StaffCreate = this._formBuilder.group({
@@ -1069,11 +1108,9 @@ export class StaffComponent implements OnInit {
 
   searchService(event){
     this.categoryServiceListTemp=[];
-    console.log(event.target.value);
     this.categoryServiceList.forEach(element => {
       if(element.category_title && element.category_title.toLowerCase().includes(event.target.value.toLowerCase())){
         this.categoryServiceListTemp.push(element);
-        console.log(element.category_title);
         return;
       }
       element.subcategory.forEach(subelement => {
@@ -1292,31 +1329,30 @@ export class StaffComponent implements OnInit {
   }
 
   fnSubmitCreateStaff(){
-    console.log(this.StaffCreate.get('staff_id').value);
+
     if(this.StaffCreate.get('staff_id').value != ''){
       if(this.StaffCreate.valid){
         // New code by RJ
-            let formData = new FormData();
-            var i=0;
-            this.files.forEach(element => {
-              formData.append('document[]', this.files[i]); 
-              i++;
-            });
-            formData.append('staff_id', this.StaffCreate.get('staff_id').value);
-            formData.append('firstname', this.StaffCreate.get('firstname').value);
-            formData.append('lastname', this.StaffCreate.get('lastname').value);
-            formData.append('email', this.StaffCreate.get('email').value);
-            formData.append('phone', this.StaffCreate.get('phone').value);
-            formData.append('address', this.StaffCreate.get('address').value);
-            formData.append('description', this.StaffCreate.get('description').value);
-            formData.append('servicelist', this.categoryServiceCheckServiceId);
-            
-            if(this.staffImageUrl!=undefined){
-              formData.append('image', this.staffImageUrl);
-            }
-              
-        
-        this.updateStaff(formData);
+          let formData = new FormData();
+          var i=0;
+          this.files.forEach(element => {
+            formData.append('document[]', this.files[i]); 
+            i++;
+          });
+          formData.append('staff_id', this.StaffCreate.get('staff_id').value);
+          formData.append('firstname', this.StaffCreate.get('firstname').value);
+          formData.append('lastname', this.StaffCreate.get('lastname').value);
+          formData.append('email', this.StaffCreate.get('email').value);
+          formData.append('phone', this.StaffCreate.get('phone').value);
+          formData.append('address', this.StaffCreate.get('address').value);
+          formData.append('description', this.StaffCreate.get('description').value);
+          formData.append('servicelist', this.categoryServiceCheckServiceId);
+          
+          if(this.staffImageUrl!=undefined){
+            formData.append('image', this.staffImageUrl);
+          }
+          this.updateStaff(formData);
+
       }else{
         this.StaffCreate.get('firstname').markAsTouched();
         this.StaffCreate.get('lastname').markAsTouched();
@@ -1325,10 +1361,10 @@ export class StaffComponent implements OnInit {
         this.StaffCreate.get('address').markAsTouched();
         this.StaffCreate.get('description').markAsTouched();
       }
-    }
-    else{ 
-      if(this.StaffCreate.valid){
 
+    }else{ 
+
+      if(this.StaffCreate.valid){
         let formData = new FormData();
         var i=0;
         this.files.forEach(element => {
@@ -1356,6 +1392,7 @@ export class StaffComponent implements OnInit {
       }
     }
   }
+
   createNewStaff(newStaffData){
     this.isLoaderAdmin = true;
     this.adminSettingsService.createNewStaff(newStaffData).subscribe((response:any) => {
@@ -1378,6 +1415,7 @@ export class StaffComponent implements OnInit {
     });
 
   }
+
   updateStaff(updateStaffData){
     this.isLoaderAdmin = true;
     this.adminSettingsService.updateStaff(updateStaffData).subscribe((response:any) => {
@@ -1395,13 +1433,12 @@ export class StaffComponent implements OnInit {
          this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
          this.singleStaffView = true;
         this.isLoaderAdmin = false;
-      }
-      else if(response.data == false && response.response !== 'api token or userid invaild'){
-
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.isLoaderAdmin = false;
       }
     })
   }
+
   fnDeleteStaff(staffId){
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '400px',
@@ -1435,6 +1472,7 @@ export class StaffComponent implements OnInit {
       }
     });
   }
+
   fnEditStaff(staffId){
     this.editStaffId = staffId
     this.isLoaderAdmin = true;
@@ -1442,6 +1480,7 @@ export class StaffComponent implements OnInit {
     this.staffListPage = false;
     this.singleStaffView = false;
     this.selectedServiceNewStaff=[];
+    this.files =[];
     // this.validationArr=this.isEmailUnique.bind(this);
     // this.StaffCreate.get('email').clearValidators();
     // this.StaffCreate.controls['email'].setValidators([this.singleStaffDetail.staff[0].email,[Validators.required,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)]); 
