@@ -172,7 +172,7 @@ export class ServicesComponent implements OnInit {
     ngAfterViewInit() { 
         setTimeout(() => {
             this.NewisLoaderAdmin = false;    
-        }, 3000);
+        }, 5000);
     }
     
     fnSearchStaff(value){

@@ -159,10 +159,9 @@
                             <span class="error-wrap" *ngIf="StaffCreate.get('description').touched || StaffCreate.get('description').dirty || formSubmitclicked">
                                 <small *ngIf="StaffCreate.get('description').hasError('maxlength')" class="error">Description can not be greater than 255 character.</small>
                             </span>
-                            <!-- <span class="error-wrap"
-              *ngIf="StaffCreate.get('description').touched || StaffCreate.get('description').dirty || formSubmitclicked">
-              <small *ngIf="StaffCreate.get('description').hasError('required')" class="error">Description is required</small>
-            </span> -->
+                            <!-- <span class="error-wrap" *ngIf="StaffCreate.get('description').touched || StaffCreate.get('description').dirty || formSubmitclicked">
+                                    <small *ngIf="StaffCreate.get('description').hasError('required')" class="error">Description is required</small>
+                                </span> -->
                             <input type="hidden" formControlName="staff_id" />
                         </div>
                         <div class="col-lg-4 col-md-4 col-12 text-center border-right">
@@ -188,6 +187,18 @@
                                 </div>
 
                                 <div class="files-list">
+                                    <div *ngIf="editStaffId">
+                                        <div class="single-file"  *ngFor="let file of singleStaffDetail.staff[0].getdocument; let i = index">
+                                            <img src="assets/img/dnd/ic-file.svg" width="45px" alt="file">
+                                            <div class="info">
+                                                <h4 class="name">
+                                                    {{ file?.filename }}
+                                                </h4>
+                                            </div>
+                                            <span class="material-icons delete" (click)="deleteOldFile(i,file.id)">delete_outline</span>
+                                        </div>
+                                    </div>
+                                    
                                     <div class="single-file" *ngFor="let file of files; let i = index">
                                         <img src="assets/img/dnd/ic-file.svg" width="45px" alt="file">
                                         <div class="info">
@@ -204,6 +215,7 @@
                                     </div>
                                 </div>
 
+                                
                                 <div class="d-flex mt-3">
 
                                     <!--  <div class="pan-card file-border d-flex mr-2">
