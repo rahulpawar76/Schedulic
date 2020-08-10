@@ -193,7 +193,7 @@
             padding: 0;
             position: fixed;
             bottom: 0;
-            width: calc(100% - 320px);
+            width: calc(100% - 300px);
             margin: 0;
             box-shadow: 0 2px 2px -1px rgba(0, 0, 0, .4), 0 4px 12px 0 rgba(0, 0, 0, .4)!important;
             right: 0;
@@ -377,7 +377,7 @@
     box-shadow: 2px 2px 14px -2px #3969fb;
     position: absolute;
     top: calc(100% - 80px);
-    z-index: 1;
+    z-index: 0;
     right: 15px;
     margin-top: 0 !important;
     i {

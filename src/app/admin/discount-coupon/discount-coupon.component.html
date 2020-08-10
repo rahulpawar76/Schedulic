@@ -1,4 +1,4 @@
-<div class="h-100" id="Discount-Coupon" style="margin-top: 70px;">
+<div class="container-height" id="Discount-Coupon" style="margin-top: 70px;">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
     <div *ngIf="couponCodeListing" class="row mx-0">
         <div class="col-12">
@@ -205,7 +205,7 @@
                         <div class=" form-group col-lg-6 col-12 col-sm-12 col-md-6  bottom-border-field">
                             <mat-form-field>
                                 <mat-label>Valid Till</mat-label>
-                                <input matInput (click)="valid_till_picker.open()" [min]="minTillDate" [matDatepicker]="valid_till_picker" formControlName="valid_till" placeholder="MM/DD/YYYY">
+                                <input matInput (dateChange)="fnTillDateChange()" (click)="valid_till_picker.open()" [min]="minTillDate" [matDatepicker]="valid_till_picker" formControlName="valid_till" placeholder="MM/DD/YYYY">
                                 <mat-datepicker-toggle matPrefix [for]="valid_till_picker"></mat-datepicker-toggle>
                                 <mat-datepicker #valid_till_picker></mat-datepicker>
                             </mat-form-field>
@@ -216,10 +216,10 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-12 col-md-4 bottom-border-field select-service">
+                <div class="col-lg-4 col-12 col-md-4 select-service">
                     <mat-card>
                         <h6>Select Service</h6>
-                        <mat-form-field class="pb-3">
+                        <mat-form-field class="pb-3 bottom-border-field">
                             <!-- <mat-label>Outline form field</mat-label> -->
                             <input (keyup)="fnsearchService($event);" matInput placeholder="Category,Subcategory,Service">
                             <mat-icon matPrefix>search</mat-icon>

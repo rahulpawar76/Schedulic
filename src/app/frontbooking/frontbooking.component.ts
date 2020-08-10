@@ -1619,7 +1619,7 @@ export class FrontbookingComponent implements OnInit {
     }
     this.snackBar.open("Added to cart", "X", {
       duration: 2000,
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       panelClass : ['green-snackbar']
     });
     var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;

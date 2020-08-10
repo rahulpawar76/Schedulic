@@ -210,7 +210,7 @@ export class BookingrulesComponent implements OnInit {
        
         this.snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
@@ -255,14 +255,14 @@ export class BookingrulesComponent implements OnInit {
       if(response.data == true){
         this.snackBar.open("Minimum Advance Booking Time Updated.", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
@@ -307,14 +307,14 @@ export class BookingrulesComponent implements OnInit {
       if(response.data == true){
         this.snackBar.open("Maximum Advance Booking Time Updated.", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
@@ -348,14 +348,14 @@ export class BookingrulesComponent implements OnInit {
       if(response.data == true){
         this.snackBar.open("Time Interval Updated.", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
@@ -394,14 +394,14 @@ export class BookingrulesComponent implements OnInit {
       if(response.data == true){
         this.snackBar.open("Cancellation Buffer Time Updated.", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
@@ -440,14 +440,14 @@ export class BookingrulesComponent implements OnInit {
       if(response.data == true){
         this.snackBar.open("Minimum Reseduling Time Updated.", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
@@ -467,14 +467,14 @@ export class BookingrulesComponent implements OnInit {
       if(response.data == true){
         this.snackBar.open("Customer Login Status Updated.", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open(response.response, "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
@@ -496,14 +496,14 @@ export class BookingrulesComponent implements OnInit {
       if(response.data == true){
         this.snackBar.open("Staff On Front Status Updated.", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open("Staff On Front Status Not Updated.", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
@@ -546,14 +546,14 @@ export class BookingrulesComponent implements OnInit {
       if(response.data == true){
         this.snackBar.open("Auto ConfirmSettings Updated.", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open("Auto ConfirmSettings Not Updated.", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
@@ -573,14 +573,14 @@ export class BookingrulesComponent implements OnInit {
       if(response.data == true){
         this.snackBar.open("Customer Staff Status Updated.", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open("Customer Staff Status Not Updated.", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
@@ -633,14 +633,14 @@ export class BookingrulesComponent implements OnInit {
       if(response.data == true){
         this.snackBar.open("Terms Conditions Status Updated.", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open("Terms Conditions Status Not Updated.", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
@@ -693,14 +693,14 @@ export class BookingrulesComponent implements OnInit {
       if(response.data == true){
         this.snackBar.open("Privacy Policy Status Updated.", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open("Privacy Policy Status Not Updated.", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }
@@ -747,14 +747,14 @@ export class BookingrulesComponent implements OnInit {
       if(response.data == true){
         this.snackBar.open("Thankyou Page Status Updated.", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open("Thankyou Page Status Not Updated.", "X", {
           duration: 2000,
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
       }

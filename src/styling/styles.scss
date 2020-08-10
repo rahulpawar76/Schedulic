@@ -346,7 +346,7 @@
     }
     
     .mat-chip.mat-standard-chip {
-        background: rgba(0, 0, 0, .1)!important;
+        background: #3d73f4 !important;
         font-weight: 400!important;
         font-size: .9rem!important;
     }
@@ -762,7 +762,7 @@
     
     .setting-menu {
         background-color: #fbfbfb;
-        width: 250px;
+        width: 215px;
         position: fixed;
         top: 65px;
         height: 100vh;
@@ -786,8 +786,8 @@
             .menu-icon {
                 margin-right: 10px;
                 display: block;
-                height: 28px;
-                width: 28px;
+                height: 23px;
+                width: 23px;
                 img {
                     width: 100%;
                     position: relative;
@@ -833,7 +833,7 @@
             }
         }
         h6 {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             padding-left: 15px;
         }
@@ -841,7 +841,7 @@
     
     .short-menu {
         &.setting-menu {
-            width: 70px;
+            width: 60px;
             p {
                 display: none;
             }
@@ -851,10 +851,13 @@
                 p {
                     display: none;
                 }
+                .menu-icon {
+                    margin-right: 0;
+                }
             }
         }
         &.left-side-menu {
-            width: 70px;
+            width: 60px;
             h6 {
                 display: none;
             }
@@ -870,13 +873,13 @@
     }
     
     .setting-right-side-content {
-        margin-left: 250px;
-        width: calc(100% - 250px);
+        margin-left: 215px;
+        width: calc(100% - 215px);
         margin-top: 65px;
         background-color: #fff;
         &.short-content-area {
-            margin-left: 70px;
-            width: calc(100% - 70px);
+            margin-left: 60px;
+            width: calc(100% - 60px);
         }
     }
     
@@ -910,4 +913,12 @@
     
     .des-min-height {
         min-height: 80px;
+    }
+    
+    textarea {
+        min-height: 80px;
+    }
+    
+     ::ng-deep .mat-button-focus-overlay {
+        background: transparent;
     }
