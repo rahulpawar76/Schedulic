@@ -557,7 +557,6 @@ export class ServicesComponent implements OnInit {
                 }
                 this.isLoaderAdmin = false;
             }
-            alert(this.selectCategoryPage)
         })
     }
 

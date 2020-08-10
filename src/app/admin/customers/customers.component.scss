@@ -847,6 +847,17 @@ mat-chip-list {
     }
 }
 
+::ng-deep .business-profile {
+    width: 80px;
+    margin-right: 10px;
+    float: left;
+}
+
+::ng-deep .business-data {
+    width: calc(100% - 90px);
+    float: left;
+}
+
 #customers {
     #Add-New-Customer {
         .footer-action-btn {
@@ -942,15 +953,4 @@ mat-chip-list {
             font-size: 35px;
         }
     }
-}
-
-.business-profile {
-    width: 80px;
-    margin-right: 10px;
-    float: left;
-}
-
-.business-data {
-    width: calc(100% - 90px);
-    float: left;
 }
