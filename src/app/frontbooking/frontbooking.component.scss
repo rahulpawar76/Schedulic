@@ -689,6 +689,8 @@
                 font-size: $fs-18;
                  ::ng-deep .mat-radio-label-content {
                     text-transform: capitalize;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
             }
         }

@@ -1392,6 +1392,19 @@ export class AdminSettingsService {
         }),
         catchError(this.handleError));
     }
+    fnSubmitSmtpSetting(requestObject){
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/set-smtp-setting`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
     getEmailTemplates(requestObject){
         this.checkAuthentication();
         let headers = new HttpHeaders({

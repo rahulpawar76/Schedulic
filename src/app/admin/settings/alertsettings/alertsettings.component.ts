@@ -123,6 +123,7 @@ export class AlertsettingsComponent implements OnInit {
   customizeEmailAlertData: any;
   adminEmailForAlert: FormGroup;
   customizeAlert: FormGroup;
+  smtpForm: FormGroup;
   cusEmailTemplate1: FormGroup;
   cusEmailTemplate2: FormGroup;
   cusEmailTemplate3: FormGroup;
@@ -173,6 +174,7 @@ export class AlertsettingsComponent implements OnInit {
   smsAlertsSetting: any;
   emailTempStatus: any;
   smsTempStatus: any;
+  smtpSettingData: any;
   maxCharacters = 500; 
   characters = this.maxCharacters;
   cusEmailTempl : any;
@@ -274,6 +276,14 @@ export class AlertsettingsComponent implements OnInit {
     this.customizeAlert = this._formBuilder.group({
       senderName: ['',[Validators.required]],
       emailSignature: ['',[Validators.required]]
+    });
+    this.smtpForm = this._formBuilder.group({
+      mailDriver: ['',[Validators.required]],
+      mailHost: ['',[Validators.required]],
+      mailPort: ['',[Validators.required]],
+      mailUsername: ['',[Validators.required]],
+      mailPassword: ['',[Validators.required]],
+      mailEncryption: ['',[Validators.required]]
     });
 
     // Email Templates
@@ -501,6 +511,15 @@ export class AlertsettingsComponent implements OnInit {
         }
         if(response.response.email_alert_settings_customer){
           this.emailAlertCustomer = JSON.parse(response.response.email_alert_settings_customer)
+        }
+        if(response.response.smtp_setting){
+          this.smtpSettingData = JSON.parse(response.response.smtp_setting)
+          this.smtpForm.controls['mailPort'].setValue(this.smtpSettingData.mail_port);
+          this.smtpForm.controls['mailDriver'].setValue(this.smtpSettingData.mail_driver);
+          this.smtpForm.controls['mailHost'].setValue(this.smtpSettingData.mail_host);
+          this.smtpForm.controls['mailUsername'].setValue(this.smtpSettingData.mail_username);
+          this.smtpForm.controls['mailPassword'].setValue(this.smtpSettingData.mail_password);
+          this.smtpForm.controls['mailEncryption'].setValue(this.smtpSettingData.mail_encryption);
         }
         if(response.response.sms_sending_settings){
           this.smsAlertsSetting = JSON.parse(response.response.sms_sending_settings)
@@ -851,6 +870,49 @@ fnAppointmentsReminderSMS(event){
       }
       this.isLoaderAdmin = false;
     })
+    }else{
+      this.customizeAlert.get('senderName').markAsTouched;
+      this.customizeAlert.get('emailSignature').markAsTouched;
+    }
+  }
+
+  fnSubmitSmtpSetting(){
+    if(this.smtpForm.valid){
+      this.isLoaderAdmin = true;
+      let requestObject={
+        "business_id":this.businessId,
+        "mail_host" : this.smtpForm.get('mailHost').value,
+        "mail_port" : this.smtpForm.get('mailPort').value,
+        "mail_username" : this.smtpForm.get('mailUsername').value,
+        "mail_password" : this.smtpForm.get('mailPassword').value,
+        "mail_encryption" : this.smtpForm.get('mailEncryption').value,
+      }
+
+      this.adminSettingsService.fnSubmitSmtpSetting(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['green-snackbar']
+        });
+        this.getSettingsValue();
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+       this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+      this.isLoaderAdmin = false;
+    })
+    }else{
+      this.smtpForm.get('mailDriver').markAsTouched;
+      this.smtpForm.get('mailHost').markAsTouched;
+      this.smtpForm.get('mailPort').markAsTouched;
+      this.smtpForm.get('mailUsername').markAsTouched;
+      this.smtpForm.get('mailPassword').markAsTouched;
+      this.smtpForm.get('mailEncryption').markAsTouched;
     }
   }
 

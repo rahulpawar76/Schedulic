@@ -1505,6 +1505,7 @@ export class ServicesComponent implements OnInit {
         this.isLoaderAdmin = false;
     }
     fnEditService(index, serviceId, type) {
+        this.fnstaffList();
         this.editServiceId = serviceId
         this.isLoaderAdmin = true;
         this.createNewServicePage = true;

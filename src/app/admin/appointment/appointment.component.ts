@@ -1831,7 +1831,7 @@ export class DialogAddNewAppointment {
     if(this.valide_postal_code){
       let requestObject = {
         "business_id":this.bussinessId,
-        "postal_code":"",
+        "postal_code":this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').value,
         "service_id":this.selectedServiceId,
         "book_date" : this.datePipe.transform(new Date(this.selectedDate),"yyyy-MM-dd"),
         "book_time" : this.selectedTime, 
@@ -1850,6 +1850,11 @@ export class DialogAddNewAppointment {
           this.isStaffAvailable = true;
           console.log(JSON.stringify(this.availableStaff));
         }else{
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
           this.availableStaff=[];
           this.isStaffAvailable = false;
         }
@@ -1880,6 +1885,11 @@ export class DialogAddNewAppointment {
           this.isStaffAvailable = true;
           console.log(JSON.stringify(this.availableStaff));
         }else{
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
           this.availableStaff=[];
           this.isStaffAvailable = false;
         }
