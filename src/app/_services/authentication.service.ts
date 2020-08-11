@@ -106,8 +106,29 @@ export class AuthenticationService {
         window.location.reload(true);
      //   console.log(this.currentUserValue);
     }
-    pageName(name){
+    pageName(name,user_type){
         
+
+        if(user_type=='SM'){
+            if(name==null){
+                return 'My Workspace'
+            }else if(name=='my-appoi'){
+                return 'My Appointments';
+            }else if(name=='work-pro'){
+                return 'My Work Profile';
+            }else if(name=='my-profi'){
+                return 'My Profile';
+            }
+        }
+
+        if(user_type=='C'){
+            if(name==null){
+                return 'My Appointments'
+            }else if(name=='my-profi'){
+                return 'My Profile';
+            }
+        }
+
         if(name=='my-appoi'){
             return 'My Appointments'
         }else if(name=='my-works'){

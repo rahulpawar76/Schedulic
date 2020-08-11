@@ -355,119 +355,186 @@ export class DiscountCouponComponent implements OnInit {
     })
   }
   
-    checkServie(event,type,index,sub_index=null,service_index=null){
+  checkServie(event,type,index,sub_index=null,service_index=null){
 
-      if(type=='category'){
-          if(event.checked == true) {  this.categoryServiceList[index].is_selected=true; }else{ this.categoryServiceList[index].is_selected=false; }
+    if(type=='category'){
+        if(event.checked == true) {  this.categoryServiceList[index].is_selected=true; }else{ this.categoryServiceList[index].is_selected=false; }
 
-          this.categoryServiceList[index].subcategory.forEach(subelement => {
-            if(event.checked == true) {  
-              subelement.is_selected=true;
-            }else{ 
-              subelement.is_selected=false;
-            }
-            subelement.services.forEach(serviceselement => {
-              if(event.checked == true) {  serviceselement.is_selected=true; }else{ serviceselement.is_selected=false; }
-            });
-          });
-      }
-      
-      if(type=='subcategory'){
-
-        if(event.checked == true) { 
-          this.categoryServiceList[index].subcategory[sub_index].is_selected=true;
-        }else{ 
-          this.categoryServiceList[index].subcategory[sub_index].is_selected=false;
-        }
-
-        this.categoryServiceList[index].subcategory[sub_index].services.forEach(serviceselement => {
-          if(event.checked == true) {  serviceselement.is_selected=true; }else{ serviceselement.is_selected=false; }
-        });
-
-        var category_i = 0;
-
-        this.categoryServiceList[index].subcategory.forEach(element => {
-            if(element.is_selected == true){
-              category_i++;
-            }
-        });
-
-        if(category_i == this.categoryServiceList[index].subcategory.length){
-          this.categoryServiceList[index].is_selected = true;
-        }else{
-          this.categoryServiceList[index].is_selected = false;
-        }
-        
-        
-        
-      }
-
-      if(type=='service'){
-
-        if(event.checked == true) { 
-          this.categoryServiceList[index].subcategory[sub_index].services[service_index].is_selected=true;
-        }else{ 
-          this.categoryServiceList[index].subcategory[sub_index].services[service_index].is_selected=false;
-        }
-
-        var subcategory_i = 0;
-
-        this.categoryServiceList[index].subcategory[sub_index].services.forEach(serviceselement => {
-          if(serviceselement.is_selected==true){
-            subcategory_i++;
+        this.categoryServiceList[index].subcategory.forEach(subelement => {
+          if(event.checked == true) {  
+            subelement.is_selected=true;
+          }else{ 
+            subelement.is_selected=false;
           }
-        });
-        
-        if(subcategory_i == this.categoryServiceList[index].subcategory[sub_index].services.length){
-          this.categoryServiceList[index].subcategory[sub_index].is_selected = true;
-        }else{
-          this.categoryServiceList[index].subcategory[sub_index].is_selected = false;
-        }
-
-        
-        var category_i = 0;
-        this.categoryServiceList[index].subcategory.forEach(element => {
-            if(element.is_selected == true){
-              category_i++;
-            }
-        });
-
-        if(category_i == this.categoryServiceList[index].subcategory.length){
-          this.categoryServiceList[index].is_selected = true;
-        }else{
-          this.categoryServiceList[index].is_selected = false;
-        }
-      }
-
-    
-      this.categoryServiceCheckServiceId = [];
-
-      this.categoryServiceList.forEach(element => {
-        element.subcategory.forEach(subelement => {
           subelement.services.forEach(serviceselement => {
-            if(subelement.is_selected == true){
-              this.categoryServiceCheckServiceId.push(serviceselement.id)
-            }
+            if(event.checked == true) {  serviceselement.is_selected=true; }else{ serviceselement.is_selected=false; }
           });
         });
+    }
+    
+    if(type=='subcategory'){
+
+      if(event.checked == true) { 
+        this.categoryServiceList[index].subcategory[sub_index].is_selected=true;
+      }else{ 
+        this.categoryServiceList[index].subcategory[sub_index].is_selected=false;
+      }
+
+      this.categoryServiceList[index].subcategory[sub_index].services.forEach(serviceselement => {
+        if(event.checked == true) {  serviceselement.is_selected=true; }else{ serviceselement.is_selected=false; }
       });
 
-    
-      console.log(this.categoryServiceCheckServiceId);
+      var category_i = 0;
 
+      this.categoryServiceList[index].subcategory.forEach(element => {
+          if(element.is_selected == true){
+            category_i++;
+          }
+      });
+
+      if(category_i == this.categoryServiceList[index].subcategory.length){
+        this.categoryServiceList[index].is_selected = true;
+      }else{
+        this.categoryServiceList[index].is_selected = false;
+      }
+      
+      
+      
     }
 
-    fnCheckService(event,serviceId){
+    if(type=='service'){
 
-      if(event == true){
-        this.selectedService.push(serviceId) 
-      }else if(event == false){
-        const index = this.selectedService.indexOf(serviceId);
-        this.selectedService.splice(index, 1);
+      if(event.checked == true) { 
+        this.categoryServiceList[index].subcategory[sub_index].services[service_index].is_selected=true;
+      }else{ 
+        this.categoryServiceList[index].subcategory[sub_index].services[service_index].is_selected=false;
       }
 
-      console.log(this.selectedService);
+      var subcategory_i = 0;
+
+      this.categoryServiceList[index].subcategory[sub_index].services.forEach(serviceselement => {
+        if(serviceselement.is_selected==true){
+          subcategory_i++;
+        }
+      });
+      
+      if(subcategory_i == this.categoryServiceList[index].subcategory[sub_index].services.length){
+        this.categoryServiceList[index].subcategory[sub_index].is_selected = true;
+      }else{
+        this.categoryServiceList[index].subcategory[sub_index].is_selected = false;
+      }
+
+      
+      var category_i = 0;
+      this.categoryServiceList[index].subcategory.forEach(element => {
+          if(element.is_selected == true){
+            category_i++;
+          }
+      });
+
+      if(category_i == this.categoryServiceList[index].subcategory.length){
+        this.categoryServiceList[index].is_selected = true;
+      }else{
+        this.categoryServiceList[index].is_selected = false;
+      }
     }
+
+  
+    this.categoryServiceCheckServiceId = [];
+
+    this.categoryServiceList.forEach(element => {
+      element.subcategory.forEach(subelement => {
+        subelement.services.forEach(serviceselement => {
+          if(subelement.is_selected == true){
+            this.categoryServiceCheckServiceId.push(serviceselement.id)
+          }
+        });
+      });
+    });
+
+    this.categoryServiceListTemp=this.categoryServiceList;
+
+  
+    console.log(this.categoryServiceCheckServiceId);
+
+  }
+
+  checkCategoryServie(event,Category_index){
+    this.categoryServiceList[Category_index].getservices.forEach(element => {
+      if(event == true){
+        element.is_selected = true;
+        this.categoryServiceCheckServiceId.push(element.id);
+      }else{
+        element.is_selected = false;
+        const index = this.categoryServiceCheckServiceId.indexOf(element.id);
+        this.categoryServiceCheckServiceId.splice(index, 1);
+      }
+    });
+    
+    this.removeDuplicates(this.categoryServiceCheckServiceId);
+    this.categoryServiceListTemp=this.categoryServiceList;
+
+    //console.log(this.categoryServiceCheckServiceId);
+  }
+
+  fnNewCheckService(event,serviceId,index,service_index){
+
+    if(event == true){
+      this.categoryServiceCheckServiceId.push(serviceId) 
+    }else if(event == false){
+      const index = this.categoryServiceCheckServiceId.indexOf(serviceId);
+      this.categoryServiceCheckServiceId.splice(index, 1);
+    }
+
+    
+    this.categoryServiceList[index].getservices[service_index].is_selected=event;
+    var category_i = 0;
+    this.categoryServiceList[index].getservices.forEach(serviceselement => {
+      if(serviceselement.is_selected==true){
+        category_i = category_i+1;
+      }
+    });
+
+    if(category_i == this.categoryServiceList[index].getservices.length){
+      this.categoryServiceList[index].is_selected = true;
+    }else{
+      this.categoryServiceList[index].is_selected = false;
+    }
+
+    this.categoryServiceListTemp=this.categoryServiceList;
+
+    console.log(this.categoryServiceCheckServiceId);
+
+  }
+
+    removeDuplicates(num) {
+      var x,
+          len=num.length,
+          out=[],
+          obj={};
+     
+      for (x=0; x<len; x++) {
+        obj[num[x]]=0;
+      }
+      for (x in obj) {
+        out.push(parseInt(x));
+      }
+      
+      this.categoryServiceCheckServiceId = out;
+      console.log(this.categoryServiceCheckServiceId);
+    }
+
+    // fnCheckService(event,serviceId){
+
+    //   if(event == true){
+    //     this.selectedService.push(serviceId) 
+    //   }else if(event == false){
+    //     const index = this.selectedService.indexOf(serviceId);
+    //     this.selectedService.splice(index, 1);
+    //   }
+
+    //   console.log(this.selectedService);
+    // }
 
     fnNewCouponCode(){
       this.couponCodeListing = false;
@@ -530,32 +597,7 @@ export class DiscountCouponComponent implements OnInit {
 
     }
 
-    fnNewCheckService(event,serviceId,index,service_index){
-
-      if(event == true){
-        this.categoryServiceCheckServiceId.push(serviceId) 
-      }else if(event == false){
-        const index = this.categoryServiceCheckServiceId.indexOf(serviceId);
-        this.categoryServiceCheckServiceId.splice(index, 1);
-      }
-
-      
-      this.categoryServiceList[index].getservices[service_index].is_selected=event;
-      var category_i = 0;
-      this.categoryServiceList[index].getservices.forEach(serviceselement => {
-        if(serviceselement.is_selected==true){
-          category_i = category_i+1;
-        }
-      });
-
-      if(category_i == this.categoryServiceList[index].getservices.length){
-        this.categoryServiceList[index].is_selected = true;
-      }else{
-        this.categoryServiceList[index].is_selected = false;
-      }
-
-    }
-
+   
     // fnTillDateChange(){
     //   alert();
     //   this.discountCoupon.get('valid_from').setValue('');
