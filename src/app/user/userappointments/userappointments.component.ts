@@ -982,6 +982,8 @@ export class DialogCancelReason {
     currencySymbolPosition:any;
     currencySymbolFormat:any;
     eventName: any;
+    businessImage:any;
+
     // @ViewChild('printInvoice') content: ElementRef;  
 	  constructor(
 	    public dialogRef: MatDialogRef<DialogInvoiceDialog>,
@@ -1003,6 +1005,7 @@ export class DialogCancelReason {
 	  onNoClick(): void {
 	    this.dialogRef.close();
     }
+
     getBusinessDetail(){
       let requestObject = {
         "business_id":this.bussinessId
@@ -1011,8 +1014,7 @@ export class DialogCancelReason {
         if(response.data == true){
           this.businessData=response.response;
           console.log(this.businessData);
-        }
-        else if(response.data == false && response.response !== 'api token or userid invaild'){
+        }else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -1021,6 +1023,18 @@ export class DialogCancelReason {
         }
       })
     }
+
+    getBusinessImage(){
+      let requestObject = {
+        "business_id":this.bussinessId
+      };
+      this.UserService.getBusinessImage(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.businessImage=response.response;
+        }
+      });
+    }
+
     fnGetSettingValue(){
       let requestObject = {
         "business_id":this.bussinessId

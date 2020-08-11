@@ -253,6 +253,20 @@ export class UserService {
     }),
     catchError(this.handleError));
   }
+
+  getBusinessImage(requestObject) {
+    let headers = new HttpHeaders({
+	    'Content-Type': 'application/json',
+		"customer-id":JSON.stringify(this.userId),
+		"api-token":this.token
+    });
+    return this.http.post(`${environment.apiUrl}/get-business-image`, requestObject, { headers: headers }).pipe(
+    map((res) => {
+      return res;
+    }),
+    catchError(this.handleError));
+  }
+  
   sendInvoiceEmail(requestObject){
 	this.checkAuthentication();
       let headers = new HttpHeaders({
