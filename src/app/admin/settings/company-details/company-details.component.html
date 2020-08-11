@@ -175,22 +175,8 @@
                                 <span class="error-wrap d-flex" *ngIf="companyDetails.get('comp_address').dirty || companyDetails.get('comp_address').touched">
                                     <small *ngIf="companyDetails.get('comp_address').hasError('required')" class="error">Address is required.</small></span>
                             </div>
-
                             <div class="row">
                                 <div class="mt-2 text-center col-6">
-                                    <mat-form-field class=" bottom-border-field">
-                                        <mat-label>State</mat-label>
-                                        <mat-select formControlName="state" (selectionChange)="selectStates($event.value)">
-                                            <mat-option *ngFor="let allStates of allStates" value="{{allStates.id}}">
-                                                {{allStates.name}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                    <span class="error-wrap d-flex" *ngIf="companyDetails.get('state').dirty || companyDetails.get('state').touched">
-                                    <small *ngIf="companyDetails.get('state').hasError('required')" class="error">State is required.</small></span>
-                                </div>
-
-                                <div class="mt-2 text-center col-3">
                                     <mat-form-field class="bottom-border-field">
                                         <mat-label>City</mat-label>
                                         <mat-select formControlName="city">
@@ -201,6 +187,19 @@
                                     </mat-form-field>
                                     <span class="error-wrap d-flex" *ngIf="companyDetails.get('city').dirty || companyDetails.get('city').touched">
                                      <small *ngIf="companyDetails.get('city').hasError('required')" class="error">City is required.</small></span>
+                                </div>
+
+                                <div class="mt-2 text-center col-3">
+                                    <mat-form-field class=" bottom-border-field">
+                                        <mat-label>State</mat-label>
+                                        <mat-select formControlName="state" (selectionChange)="selectStates($event.value)">
+                                            <mat-option *ngFor="let allStates of allStates" value="{{allStates.id}}">
+                                                {{allStates.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <span class="error-wrap d-flex" *ngIf="companyDetails.get('state').dirty || companyDetails.get('state').touched">
+                                    <small *ngIf="companyDetails.get('state').hasError('required')" class="error">State is required.</small></span>
                                 </div>
 
                                 <div class="mt-2 text-center col-3">

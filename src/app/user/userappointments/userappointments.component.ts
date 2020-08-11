@@ -477,6 +477,7 @@ export class UserappointmentsComponent implements OnInit {
     
     if(this.cardForm.valid){
       let requestObject ={
+        "business_id" :this.bussinessId,
         "name" : this.cardForm.get("cardHolderName").value,
         "number" : this.cardForm.get("cardNumber").value,
         "exp_month" : this.cardForm.get("expiryMonth").value,
@@ -951,6 +952,8 @@ export class DialogCancelReason {
           verticalPosition:'top',
           panelClass :['green-snackbar']
           });
+          
+    this.dialogRef.close();
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
