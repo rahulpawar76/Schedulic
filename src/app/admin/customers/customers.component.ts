@@ -2965,6 +2965,7 @@ onNoClick(): void {
     businessId : any;
     isLoaderAdmin : boolean = false;
     token:any;
+    businessImage:any;
 
     constructor(
       private http: HttpClient,
@@ -2980,17 +2981,14 @@ onNoClick(): void {
 
         this.bussinessId=JSON.parse(localStorage.getItem('business_id'));
         this.getBusinessDetail();
+        this.getBusinessImage();
 
         this.currencySymbol = this.settingsArr.currency;
-
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-
         this.currencySymbolFormat = this.settingsArr.currency_format;
-
         this.paymentInfo.invoice_date=this.datePipe.transform(new Date(), 'dd/MM/yyyy');
         this.paymentData = this.data.fulldata;
         
-        console.log(this.paymentData);
 
         this.paymentInfo.invoiceNumber = "2"+this.paymentData.id+this.datePipe.transform(new Date(),"yyyy/MM/dd");
         this.paymentInfo.customer_name=this.paymentData.get_customer.fullname;
@@ -3021,14 +3019,23 @@ onNoClick(): void {
       this.AdminService.getBusinessDetail(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.businessData=response.response;
-          console.log(this.businessData);
-        }
-        else if(response.data == false && response.response !== 'api token or userid invaild'){
+        }else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['red-snackbar']
           });
+        }
+      })
+    }
+
+    getBusinessImage(){
+      let requestObject = {
+        "business_id":this.bussinessId
+      };
+      this.AdminService.getBusinessImage(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.businessImage=response.response;
         }
       })
     }

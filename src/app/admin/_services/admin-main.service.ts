@@ -854,6 +854,20 @@ export class AdminService {
         catchError(this.handleError));
     }
 
+    getBusinessImage(requestObject){
+        let headers = new HttpHeaders({
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/get-business-image`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
+
     todayBookingSearch(requestObject){
         this.checkAuthentication();
         let headers = new HttpHeaders({
