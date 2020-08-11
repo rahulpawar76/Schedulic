@@ -12,7 +12,7 @@
                     <div class="logo">
                         <a (click)="fnClickLogo('customer')"><img src="/assets/img/logo.png"></a>
                     </div>
-                    <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
+                    <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>{{pageHeading}}</a></div>
                     <span class="example-fill-remaining-space"></span>
                     <span class="f13">
                         <button  mat-stroked-button class="bellborder notification-btn bell-color ml-3" (click)="openNotificationDialog()">
@@ -28,7 +28,11 @@
                     <div class="logo">
                         <a (click)="fnClickLogo('staff')"><img src="/assets/img/logo.png"></a>
                     </div>
-                    <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>My Appointments</a></div>
+                    <div class="logo">
+                        <a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>
+                        {{pageHeading}}
+                        </a>
+                    </div>
                     <span class="example-fill-remaining-space"></span>
                     <span class="f13">
                     {{staffAvailable}}
@@ -52,7 +56,8 @@
                             <img *ngIf="pageHeading == 'My Customer'" src="/assets/images/admin/my-customer-icon.png" class="page-top-icon mr-3" aria-hidden="true">
                             <img *ngIf="pageHeading == 'My Reports'" src="/assets/images/admin/my-report-icon.png" class="page-top-icon mr-3" aria-hidden="true">
                             <img *ngIf="pageHeading == 'My Discount Coupon'" src="/assets/images/admin/my-coupon-icon.png" class="page-top-icon mr-3" aria-hidden="true">
-                            <img *ngIf="pageHeading == 'My Profile'" src="/assets/images/admin/my-profile-icon.png" class="page-top-icon mr-3" aria-hidden="true"> {{pageHeading}}
+                            <img *ngIf="pageHeading == 'My Profile'" src="/assets/images/admin/my-profile-icon.png" class="page-top-icon mr-3" aria-hidden="true"> 
+                            {{pageHeading}}
                         </a>
                     </div>
                     <span class="example-fill-remaining-space">

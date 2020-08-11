@@ -204,12 +204,13 @@ export class AppComponent implements AfterViewInit {
   }
 
   isSettingsModule(url?: string) {
+    
+
     const mod = this.cleanUrl(url || this.currentUrl);
-    this.pageHeading = this.authenticationService.pageName(mod);
+    this.pageHeading = this.authenticationService.pageName(mod,this.currentUser?this.currentUser.user_type:null);
     if (mod == "settings") {
       this.adminSettings = "settings";
-    }
-    else {
+    }else {
       this.adminSettings = "notsettings";
     }
   }

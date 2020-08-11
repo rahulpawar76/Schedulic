@@ -231,7 +231,10 @@
                             <mat-expansion-panel [expanded]="searchedServices" *ngFor="let categoryServiceListval of categoryServiceListTemp; let i=index">
                                 <mat-expansion-panel-header>
                                     <mat-panel-title class="service-title">
-                                        <mat-checkbox (change)="checkServie($event,'category',i)" [checked]="categoryServiceListval.is_selected">{{categoryServiceListval.category_title}}</mat-checkbox>
+                                        <mat-checkbox (change)="checkServie($event,'category',i)" [checked]="categoryServiceListval.is_selected" *ngIf="categoryServiceListval.getservices.length == 0">{{categoryServiceListval.category_title}}</mat-checkbox>
+                                        <mat-checkbox (change)="checkCategoryServie($event.checked,i)" [checked]="categoryServiceListval.is_selected" *ngIf="categoryServiceListval.getservices.length > 0">{{categoryServiceListval.category_title}}</mat-checkbox>
+
+                                        <!-- <mat-checkbox (change)="checkServie($event,'category',i)" [checked]="categoryServiceListval.is_selected">{{categoryServiceListval.category_title}}</mat-checkbox> -->
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
                                 <mat-expansion-panel [expanded]="searchedServices" class="my-3" *ngFor="let subcategoryList of categoryServiceListval.subcategory; let sub_index=index">

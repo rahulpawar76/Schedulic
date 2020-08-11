@@ -1177,7 +1177,6 @@ export class StaffComponent implements OnInit {
               }
             });
           }
-
         });
 
         this.categoryServiceListTemp=this.categoryServiceList;
@@ -1236,9 +1235,6 @@ export class StaffComponent implements OnInit {
       }else{
         this.categoryServiceList[index].is_selected = false;
       }
-      
-      
-      
     }
 
     if(type=='service'){
@@ -1290,6 +1286,9 @@ export class StaffComponent implements OnInit {
       });
     });
 
+    console.log(this.categoryServiceCheckServiceId);
+    this.categoryServiceListTemp=this.categoryServiceList;
+
   }
 
   fnNewCheckService(event,serviceId,index,service_index){
@@ -1306,6 +1305,7 @@ export class StaffComponent implements OnInit {
     this.categoryServiceList[index].getservices.forEach(serviceselement => {
       if(serviceselement.is_selected==true){
         category_i = category_i+1;
+        console.log('--');
       }
     });
 
@@ -1315,20 +1315,52 @@ export class StaffComponent implements OnInit {
       this.categoryServiceList[index].is_selected = false;
     }
 
-    
-    console.log(this.categoryServiceCheckServiceId);
+    this.categoryServiceListTemp=this.categoryServiceList;
 
   }
 
 
-  fnCheckService(event,serviceId){
-    if(event == true){
-      this.selectedServiceNewStaff.push(serviceId) 
-    }else if(event == false){
-      const index = this.selectedServiceNewStaff.indexOf(serviceId);
-      this.selectedServiceNewStaff.splice(index, 1);
+  // fnCheckService(event,serviceId){
+  //   if(event == true){
+  //     this.selectedServiceNewStaff.push(serviceId) 
+  //   }else if(event == false){
+  //     const index = this.selectedServiceNewStaff.indexOf(serviceId);
+  //     this.selectedServiceNewStaff.splice(index, 1);
+  //   }
+  // }
+
+  checkCategoryServie(event,Category_index){
+    this.categoryServiceList[Category_index].getservices.forEach(element => {
+      if(event == true){
+        element.is_selected = true;
+        this.categoryServiceCheckServiceId.push(element.id);
+        this.categoryServiceList[Category_index].is_selected = true;
+      }else{
+        element.is_selected = false;
+        this.categoryServiceList[Category_index].is_selected = false;
+        const index = this.categoryServiceCheckServiceId.indexOf(element.id);
+        this.categoryServiceCheckServiceId.splice(index, 1);
+      }
+    });
+
+    this.removeDuplicates(this.categoryServiceCheckServiceId);
+  }
+
+  removeDuplicates(num) {
+    var x,
+        len=num.length,
+        out=[],
+        obj={};
+   
+    for (x=0; x<len; x++) {
+      obj[num[x]]=0;
     }
-    console.log(this.selectedServiceNewStaff);
+    for (x in obj) {
+      out.push(parseInt(x));
+    }
+    
+    this.categoryServiceCheckServiceId = out;
+    console.log(this.categoryServiceCheckServiceId);
   }
 
   fnSubmitCreateStaff(){
