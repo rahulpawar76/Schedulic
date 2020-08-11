@@ -488,7 +488,7 @@
 
 
                 </mat-checkbox>
-                <span *ngIf="!totalNumberServices || !PrivacyPolicyStatusValue" class="error">Please check Terms & Condition and Privacy Policy</span>
+                <span *ngIf="(privacyPolicy.status == 'true' || termsConditions.status == 'true') &&(!totalNumberServices || !PrivacyPolicyStatusValue)" class="error">Please check Terms & Condition and Privacy Policy</span>
             </div>
             <div class="bottom-ctn-btn">
                 <button *ngIf='serviceMainArr.totalNumberServices>0 && termsConditionsStatusValue && PrivacyPolicyStatusValue' (click)="fnProceedToPayment($event)" mat-button class="round-btn continue-btn proceed">Proceed</button>
