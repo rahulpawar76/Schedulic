@@ -11,7 +11,7 @@
                     <div class="row p-3 header-color">
                         <div class="col-6 col-lg-6 col-sm-6 p-0">
                             <div class="business-profile">
-                                <img onerror="this.src='../../../assets/images/default.png'" src="{{businessData.image}}" style="width:80px;">
+                                <img onerror="this.src='../../../assets/images/default.png'" src="{{businessImage?businessImage:'../../../assets/images/default.png'}}" style="width:80px;">
                             </div>
                             <div class="business-data">
                                 <p *ngIf="businessData && businessData.business_name" class="mb-0 pl-0 font-weight-bold fontfamily">{{businessData.business_name}}</p>
