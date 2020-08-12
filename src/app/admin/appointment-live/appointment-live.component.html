@@ -1,5 +1,22 @@
 <div class="content-main">
     <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="In Store">
+            <ng-template mat-tab-label>
+                <img class="example-tab-icon" src="/assets/images/admin/picture-user.png"> In Store
+            </ng-template>
+            <div class="pendingnotes d-flex">
+                <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
+                <div class="col-2 pendingborder appoint-head">
+                    <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
+                    <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
+                </div>
+
+                <div class="appoint-head" style="margin: 0 20px 0 20px;">
+                    <label class="mb-0 pendingdate">{{todayTime}}</label>
+                    <p class="appoint-time-zone" style="text-align: right;">{{todayPeriod}}</p>
+                </div>
+            </div>
+        </mat-tab>
         <mat-tab label="Pending">
             <div class="pendingnotes d-flex">
                 <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
@@ -142,7 +159,7 @@
                         <div class="table_pagination" *ngIf="notAssignedAppointments != ''">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
-                                    <li class="page-item {{current_page_notassign==1?'pointernone':'' }}"  (click)="navigateTo_notassign(first_page_url_notassign)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{current_page_notassign==1?'pointernone':'' }}" (click)="navigateTo_notassign(first_page_url_notassign)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
                                     <li class="page-item" (click)="navigateTo_notassign(prev_page_url_notassign)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
                                     <li class="page-item" [ngClass]="{'active':current_page_notassign == i+1}" *ngFor="let pagenumber of arrayOne_notassign(last_page_notassign); let i = index;" (click)="navigateToPageNumber_notassign(i+1)"><a class="page-link">{{i+1}}</a></li>
                                     <li class="page-item" (click)="navigateTo_notassign(next_page_url_notassign)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
@@ -155,7 +172,6 @@
                 </mat-card>
             </div>
         </mat-tab>
-
         <div class="pendingnotes d-flex">
             <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
             <div class="col-2 pendingborder appoint-head">
@@ -215,7 +231,7 @@
             </div>
         </div>
 
-        <mat-tab label="On The Way" class="onthewaylabel">
+        <mat-tab label="Out Door" class="onthewaylabel">
             <div class="pendingnotes d-flex">
                 <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
                 <div class="col-2 pendingborder appoint-head">

@@ -278,7 +278,6 @@ export class AlertsettingsComponent implements OnInit {
       emailSignature: ['',[Validators.required]]
     });
     this.smtpForm = this._formBuilder.group({
-      mailDriver: ['',[Validators.required]],
       mailHost: ['',[Validators.required]],
       mailPort: ['',[Validators.required]],
       mailUsername: ['',[Validators.required]],
@@ -515,7 +514,6 @@ export class AlertsettingsComponent implements OnInit {
         if(response.response.smtp_setting){
           this.smtpSettingData = JSON.parse(response.response.smtp_setting)
           this.smtpForm.controls['mailPort'].setValue(this.smtpSettingData.mail_port);
-          this.smtpForm.controls['mailDriver'].setValue(this.smtpSettingData.mail_driver);
           this.smtpForm.controls['mailHost'].setValue(this.smtpSettingData.mail_host);
           this.smtpForm.controls['mailUsername'].setValue(this.smtpSettingData.mail_username);
           this.smtpForm.controls['mailPassword'].setValue(this.smtpSettingData.mail_password);
@@ -907,7 +905,6 @@ fnAppointmentsReminderSMS(event){
       this.isLoaderAdmin = false;
     })
     }else{
-      this.smtpForm.get('mailDriver').markAsTouched;
       this.smtpForm.get('mailHost').markAsTouched;
       this.smtpForm.get('mailPort').markAsTouched;
       this.smtpForm.get('mailUsername').markAsTouched;

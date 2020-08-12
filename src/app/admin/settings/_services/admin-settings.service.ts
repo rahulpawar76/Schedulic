@@ -4,6 +4,7 @@ import { Observable, throwError, from } from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router, RouterEvent, RouterOutlet } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthenticationService } from '@app/_services';
 import {  DialogReAuthentication  } from '@app/app.component';
@@ -20,6 +21,7 @@ export class AdminSettingsService {
     constructor(
         private http: HttpClient,
         private _snackBar: MatSnackBar,
+        public router: Router,
         private authenticationService: AuthenticationService,
         public dialog: MatDialog,
     ) {
@@ -1679,6 +1681,9 @@ export class AdminSettingsService {
             if(result){
                 this.currentUser = result
                 console.log(this.currentUser)
+            }else{
+            this.authenticationService.logout();
+            this.router.navigate(['/login']);
             }
         });
     }

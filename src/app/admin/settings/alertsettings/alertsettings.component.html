@@ -796,16 +796,6 @@
                         <form [formGroup]="smtpForm" class="example-form">
                             <div class=" w-50">
                                 <mat-form-field class="bottom-border-field">
-                                    <mat-label>Mail Driver</mat-label>
-                                    <input formControlName="mailDriver" matInput placeholder="Enter Mail Driver">
-                                </mat-form-field>
-                                <span class="error-wrap" *ngIf="smtpForm.get('mailDriver').dirty || smtpForm.get('mailDriver').touched">
-                                    <small *ngIf="smtpForm.get('mailDriver').hasError('required')"
-                                class="error">Mail Driver is required.</small>
-                                </span>
-                            </div>
-                            <div class=" w-50">
-                                <mat-form-field class="bottom-border-field">
                                     <mat-label>Mail Host</mat-label>
                                     <input formControlName="mailHost" matInput placeholder="Enter Mail Host">
                                 </mat-form-field>
@@ -817,7 +807,7 @@
                             <div class=" w-50">
                                 <mat-form-field class="bottom-border-field">
                                     <mat-label>Mail Port</mat-label>
-                                    <input formControlName="mailPort" matInput placeholder="Enter Mail Host">
+                                    <input formControlName="mailPort" matInput placeholder="Enter Mail Port">
                                 </mat-form-field>
                                 <span class="error-wrap" *ngIf="smtpForm.get('mailPort').dirty || smtpForm.get('mailPort').touched">
                                     <small *ngIf="smtpForm.get('mailPort').hasError('required')"
@@ -827,7 +817,7 @@
                             <div class=" w-50">
                                 <mat-form-field class="bottom-border-field">
                                     <mat-label>Mail Username</mat-label>
-                                    <input formControlName="mailUsername" matInput placeholder="Enter Mail Host">
+                                    <input formControlName="mailUsername" matInput placeholder="Enter Mail Username">
                                 </mat-form-field>
                                 <span class="error-wrap" *ngIf="smtpForm.get('mailUsername').dirty || smtpForm.get('mailUsername').touched">
                                     <small *ngIf="smtpForm.get('mailUsername').hasError('required')"
@@ -837,7 +827,7 @@
                             <div class=" w-50">
                                 <mat-form-field class="bottom-border-field">
                                     <mat-label>Mail Password</mat-label>
-                                    <input formControlName="mailPassword" matInput placeholder="Enter Mail Host">
+                                    <input formControlName="mailPassword" matInput placeholder="Enter Mail Password">
                                 </mat-form-field>
                                 <span class="error-wrap" *ngIf="smtpForm.get('mailPassword').dirty || smtpForm.get('mailPassword').touched">
                                     <small *ngIf="smtpForm.get('mailPassword').hasError('required')"
@@ -847,7 +837,7 @@
                             <div class=" w-50">
                                 <mat-form-field class="bottom-border-field">
                                     <mat-label>Mail Encryption</mat-label>
-                                    <input formControlName="mailEncryption" matInput placeholder="Enter Mail Host">
+                                    <input formControlName="mailEncryption" matInput placeholder="Enter Mail Encryption">
                                 </mat-form-field>
                                 <span class="error-wrap" *ngIf="smtpForm.get('mailEncryption').dirty || smtpForm.get('mailEncryption').touched">
                                     <small *ngIf="smtpForm.get('mailEncryption').hasError('required')"
