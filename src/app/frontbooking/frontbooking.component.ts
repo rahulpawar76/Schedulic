@@ -136,6 +136,8 @@ export class FrontbookingComponent implements OnInit {
   privacyPolicy:any;
   thankYou:any;
   PrivacyPolicyStatusValue:boolean = false;
+  PrivacyPolicyStatusValidation:boolean = false;
+  termsConditionsStatusValidation:boolean = false;
   contactFormSettingsArr:any=[];
 
   minimumAdvanceBookingTime:any;
@@ -328,9 +330,11 @@ export class FrontbookingComponent implements OnInit {
 
     if(event== true){
       this.termsConditionsStatusValue=true;
+      this.termsConditionsStatusValidation = false;
     }
     else if(event==false){
       this.termsConditionsStatusValue=false;
+      this.termsConditionsStatusValidation = true;
     }
      
   }
@@ -339,9 +343,10 @@ export class FrontbookingComponent implements OnInit {
     console.log(event);
       if(event == true){
       this.PrivacyPolicyStatusValue=true;
+      this.PrivacyPolicyStatusValidation = false;
 
       }else if(event == false){
-
+        this.PrivacyPolicyStatusValidation = true;
       this.PrivacyPolicyStatusValue=false;
 
       }
@@ -2273,7 +2278,17 @@ export class FrontbookingComponent implements OnInit {
   }
 
   fnProceedToPayment(event){
-    if(this.PrivacyPolicyStatusValue == false || this.termsConditionsStatusValue == false){
+    if(this.PrivacyPolicyStatusValue == false && this.termsConditionsStatusValue == false){
+      this.PrivacyPolicyStatusValidation = true;
+      this.termsConditionsStatusValidation = true;
+      return false;
+    }
+    else if(this.termsConditionsStatusValue == false){
+      this.termsConditionsStatusValidation = true;
+      return false;
+    }
+    else if(this.PrivacyPolicyStatusValue == false){
+      this.PrivacyPolicyStatusValidation = true;
       return false;
     }
     if(this.closecoupon != 'valid'){
@@ -2350,6 +2365,7 @@ export class FrontbookingComponent implements OnInit {
       this.creditcardform =false;
       this.showPaypalButtons =false;
       this.paymentMethod="Cash";
+      this.BankDetail =false;
       this.transactionId=null;
       this.paymentDateTime=this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss");
     }
@@ -2357,6 +2373,7 @@ export class FrontbookingComponent implements OnInit {
       this.paymentMethod="stripe";
       this.creditcardform =true;
       this.showPaypalButtons =false;
+      this.BankDetail =false;
       this.transactionId=null;
       this.paymentDateTime=this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss");
     }
@@ -2369,6 +2386,7 @@ export class FrontbookingComponent implements OnInit {
       this.paymentDateTime=this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss");
     }
     if(paymentMethod == 'Paypal'){
+      this.BankDetail =false;
       this.creditcardform =false;
       this.showPaypalButtons =true;
       this.showPayUMoneyButton =false;
@@ -2380,6 +2398,7 @@ export class FrontbookingComponent implements OnInit {
       this.creditcardform =false;
       this.showPaypalButtons =false;
       this.showPayUMoneyButton =true;
+      this.BankDetail =false;
       this.paymentMethod="PayUMoney";
       this.transactionId=null;
       this.paymentDateTime=new Date();
