@@ -13,7 +13,8 @@ import {  CountryISO } from 'ngx-intl-tel-input';
 
 export class AdminSettingsService {
     adminId: any
-    adminToken: any
+    adminToken: any;
+    dialogRef : any;
     currentUser:any;
     businessId: any = localStorage.getItem('business_id')?localStorage.getItem('business_id'):'';
     constructor(
@@ -1666,12 +1667,15 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     reAuthenticateUser() {
-        const dialogRef = this.dialog.open(DialogReAuthentication, {
+        if (this.dialogRef) {
+            return
+        };
+        this.dialogRef = this.dialog.open(DialogReAuthentication, {
             width: '500px',
 
         });
 
-        dialogRef.afterClosed().subscribe(result => {
+        this.dialogRef.afterClosed().subscribe(result => {
             if(result){
                 this.currentUser = result
                 console.log(this.currentUser)

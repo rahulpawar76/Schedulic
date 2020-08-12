@@ -14,6 +14,7 @@ export class StaffService {
 	staffId:any
   staffToken:any
   bussinessId:any
+	dialogRef: any;
   currentUser:any;
   constructor(
     private http: HttpClient,
@@ -411,12 +412,15 @@ export class StaffService {
   }
 
   reAuthenticateUser() {
-    const dialogRef = this.dialog.open(DialogReAuthentication, {
+    if(this.dialogRef){
+      return;
+    }
+    this.dialogRef = this.dialog.open(DialogReAuthentication, {
         width: '500px',
 
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialogRef.afterClosed().subscribe(result => {
         if(result){
             this.currentUser = result
             console.log(this.currentUser)

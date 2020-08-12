@@ -12,6 +12,7 @@ import {  DialogReAuthentication  } from '@app/app.component';
 
 export class UserService {
 	userId: any;
+	dialogRef: any;
 	token: any;
 	ProfileImagedata: any;
 	updatedprofiledata: any;
@@ -339,12 +340,15 @@ export class UserService {
 	}
 	
 	reAuthenticateUser() {
-		const dialogRef = this.dialog.open(DialogReAuthentication, {
+		if (this.dialogRef) {
+            return
+        };
+		this.dialogRef = this.dialog.open(DialogReAuthentication, {
 			width: '500px',
 	
 		});
 	
-		dialogRef.afterClosed().subscribe(result => {
+		this.dialogRef.afterClosed().subscribe(result => {
 			if(result){
 				this.currentUser = result
 				console.log(this.currentUser)

@@ -18,7 +18,8 @@ export interface DialogData {
 export class AdminService {
   businessId : any = localStorage.getItem('business_id')?localStorage.getItem('business_id'):'';
   currentUser : any;
-  animal:any
+  animal:any;
+  dialogRef:any;
   constructor(
     private http: HttpClient,
     private _snackBar: MatSnackBar,
@@ -953,12 +954,16 @@ export class AdminService {
     }
 
     reAuthenticateUser() {
-        const dialogRef = this.dialog.open(DialogReAuthentication, {
+        if (this.dialogRef) return;
+        alert("Heloo11")
+        console.log("Call Popup");
+        
+        this.dialogRef = this.dialog.open(DialogReAuthentication, {
           width: '500px',
     
         });
     
-        dialogRef.afterClosed().subscribe(result => {
+        this.dialogRef.afterClosed().subscribe(result => {
             if(result){
                 this.currentUser = result
                 console.log(this.currentUser)
