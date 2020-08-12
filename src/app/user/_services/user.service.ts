@@ -295,20 +295,20 @@ export class UserService {
       catchError(this.handleError));
   }
 
-  getTaxDetails(requestObject){
-	this.checkAuthentication();
-	
-	let headers = new HttpHeaders({
-		'Content-Type': 'application/json',
-		"customer-id":JSON.stringify(this.userId),
-		"api-token":this.token
-	});
-	return this.http.post(`${environment.apiUrl}/tax-list`,requestObject,{headers:headers}).pipe(
-	map((res) => {
-		return res;
-	}),
-	catchError(this.handleError));
-}
+  	getTaxDetails(requestObject){
+		this.checkAuthentication();
+		
+		let headers = new HttpHeaders({
+			'Content-Type': 'application/json',
+			"customer-id":JSON.stringify(this.userId),
+			"api-token":this.token
+		});
+		return this.http.post(`${environment.apiUrl}/tax-list`,requestObject,{headers:headers}).pipe(
+		map((res) => {
+			return res;
+		}),
+		catchError(this.handleError));
+		}
 
 	getPostalCodeList(requestObject) {
 		this.checkAuthentication();
@@ -323,6 +323,7 @@ export class UserService {
 		}),
 		catchError(this.handleError));
 	}
+
 	BookAppointment(requestObject) {
 		this.checkAuthentication();
 		let headers = new HttpHeaders({
@@ -336,6 +337,7 @@ export class UserService {
 		}),
 		catchError(this.handleError));
 	}
+	
 	reAuthenticateUser() {
 		const dialogRef = this.dialog.open(DialogReAuthentication, {
 			width: '500px',
