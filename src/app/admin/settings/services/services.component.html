@@ -764,6 +764,76 @@
                                                 class="error">Service unit must be numeric.</small>
                                         </span>
                                     </div>
+                                    <div class="my-3 text-left">
+                                        <mat-radio-group (change)="fnChangeServiceType($event)" formControlName="serviceType">
+                                            <mat-radio-button [checked]="serviceType == 'face_to_face'" class="my-1" value="face_to_face">Face To Face</mat-radio-button>
+                                            <mat-radio-button [checked]="serviceType == 'online'" class="my-1" value="online">Online</mat-radio-button>
+                                            <mat-radio-button [checked]="serviceType == 'phone'" class="my-1" value="phone">Phone</mat-radio-button>
+                                        </mat-radio-group>
+                                        <span class="error-wrap d-flex" *ngIf="createService.get('serviceType').touched || createService.get('serviceType').dirty">
+                                            <small *ngIf="createService.get('serviceType').hasError('required')"
+                                                class="error">Service type is required.</small>
+                                        </span>
+                                    </div>
+                                    <div *ngIf="serviceType == 'face_to_face'" class="service-subtype face_to_face">
+                                        <p class="plain-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                        <mat-form-field class="mt-3 bottom-border-field">
+                                            <mat-label>Select type of Face to Face service</mat-label>
+                                            <mat-select formControlName="ftfType">
+                                                <mat-option value="in_store">
+                                                    <span class="material-icons">store</span> In Store Service
+                                                </mat-option>
+                                                <mat-option value="at_home">
+                                                    <i class="fa fa-motorcycle" aria-hidden="true"></i> At Home Service</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <span class="error-wrap d-flex" *ngIf="createService.get('ftfType').touched || createService.get('ftfType').dirty">
+                                            <small *ngIf="createService.get('ftfType').hasError('required')"
+                                                class="error">Face to Face service type is required.</small>
+                                        </span>
+                                    </div>
+                                    <div *ngIf="serviceType == 'online'" class="service-subtype online d-flex flex-wrap">
+                                        <p class="plain-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                        <mat-radio-group (change)="fnChangeOnlineType($event)" formControlName="onlineType">
+                                            <div class="w-100 d-flex flex-wrap">
+                                                <mat-radio-button class="single-platform" value="zoom"><img src="/assets/images/admin/zoom-logo.png" class="" /></mat-radio-button>
+                                                <mat-radio-button class="my-1 single-platform" value="google-duo"><img src="/assets/images/admin/Google-Duo-logo.png" class="" /></mat-radio-button>
+                                            </div>
+                                            <div class="w-100 d-flex flex-wrap">
+                                                <mat-radio-button class="single-platform" value="skype"><img src="/assets/images/admin/skype-logo.png" class="" /></mat-radio-button>
+                                                <mat-radio-button class="my-1 single-platform" value="jio-meet"><img src="/assets/images/admin/JioMeet-logo.png" class="" /></mat-radio-button>
+                                            </div>
+                                        </mat-radio-group>
+                                        <span class="error-wrap d-flex" *ngIf="createService.get('onlineType').touched || createService.get('onlineType').dirty">
+                                            <small *ngIf="createService.get('onlineType').hasError('required')"
+                                                class="error">Please select any one.</small>
+                                        </span>
+                                        <mat-form-field class="mt-3 bottom-border-field">
+                                            <mat-icon matPrefix><i class="material-icons">
+                                                people_alt
+                                            </i></mat-icon>
+                                            <mat-label>Enter Id</mat-label>
+                                            <input matInput formControlName="onlineId" placeholder="Enter Id">
+                                        </mat-form-field>
+                                        <span class="error-wrap d-flex flex-wrap" *ngIf="createService.get('onlineId').touched || createService.get('onlineId').dirty">
+                                            <small *ngIf="createService.get('onlineId').hasError('required')" class="error w-100">Id is required.</small>
+                                        </span>
+                                    </div>
+                                    <div *ngIf="serviceType == 'phone'" class="service-subtype phone">
+                                        <p class="plain-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                        <mat-form-field class="mt-3 bottom-border-field">
+                                            <mat-icon matPrefix><i class="material-icons">
+                                                people_alt
+                                            </i></mat-icon>
+                                            <mat-label>Enter Phone No.</mat-label>
+                                            <input matInput formControlName="phoneNo" placeholder="Enter Phone No.">
+                                        </mat-form-field>
+                                        <span class="error-wrap d-flex flex-wrap" *ngIf="createService.get('phoneNo').touched || createService.get('phoneNo').dirty">
+                                            <small *ngIf="createService.get('phoneNo').hasError('required') || (createService.get('phoneNo').hasError('required') && (createService.get('phoneNo').hasError('minlength') || createService.get('phoneNo').hasError('maxlength')))" class="error w-100">Phone Number is required.</small>
+                                            <small *ngIf="createService.get('phoneNo').hasError('pattern')" class="error w-100">Phone Number should be numeric.</small>
+                                            <small *ngIf="createService.get('phoneNo').hasError('minlength') || createService.get('phoneNo').hasError('maxlength')" class="error w-100">Phone Number should be minimum 6 and maximum 15 digits.</small>
+                                        </span>
+                                    </div>
                                     <div class="service-statustoggle for-service" *ngIf="!editServiceId">
                                         <p>
                                             <mat-slide-toggle (change)="fnNewServiceStatus($event.checked)">Status

@@ -121,6 +121,7 @@ export class ServicesComponent implements OnInit {
     allowed:boolean=false;
     allowedCat:boolean=false;
     NewisLoaderAdmin:boolean =true;
+    serviceType:any = 'face_to_face';
     constructor(
         // private userService: UserService,
         public Change:ChangeDetectorRef,
@@ -164,6 +165,11 @@ export class ServicesComponent implements OnInit {
             service_cost: ['', [Validators.required, Validators.pattern(this.onlynumeric)]],
             service_duration: ['', [Validators.required, Validators.pattern(this.onlynumeric)]],
             service_unit: ['', [Validators.required, Validators.pattern(this.onlynumeric)]],
+            serviceType: [this.serviceType, [Validators.required]],
+            ftfType: ['', [Validators.required]],
+            onlineType: [''],
+            onlineId: [''],
+            phoneNo: [''],
             service_id: [''],
         });
 
@@ -1301,33 +1307,116 @@ export class ServicesComponent implements OnInit {
         if (this.createService.get('service_id').value != null && this.createService.get('service_id').value != '') {
             if (this.createService.valid) {
                 if(this.serviceImageUrl != ''){
-                    this.updateServiceData = {
-                        'service_id': this.createService.get('service_id').value,
-                        'business_id': this.businessId,
-                        'service_name': this.createService.get('service_name').value,
-                        'service_description': this.createService.get('service_description').value,
-                        'service_cost': this.createService.get('service_cost').value,
-                        'service_time': this.createService.get('service_duration').value,
-                        'service_unit': this.createService.get('service_unit').value,
-                        'service_private': this.editServicePrivate,
-                        'service_status': this.editServiceStatus,
-                        'service_image': this.serviceImageUrl,
-                        'staff_list' : this.assignStaffArr
-                       
+                    if(this.serviceType == 'face_to_face'){
+                        this.updateServiceData = {
+                            'service_id': this.createService.get('service_id').value,
+                            'business_id': this.businessId,
+                            'service_name': this.createService.get('service_name').value,
+                            'service_description': this.createService.get('service_description').value,
+                            'service_cost': this.createService.get('service_cost').value,
+                            'service_time': this.createService.get('service_duration').value,
+                            'service_unit': this.createService.get('service_unit').value,
+                            'service_type': this.createService.get('serviceType').value,
+                            'service_sub_type': this.createService.get('ftfType').value,
+                            'service_private': this.editServicePrivate,
+                            'service_status': this.editServiceStatus,
+                            'service_image': this.serviceImageUrl,
+                            'staff_list' : this.assignStaffArr
+                        }
+                    }else if(this.serviceType == 'online'){
+                        this.updateServiceData = {
+                            'service_id': this.createService.get('service_id').value,
+                            'business_id': this.businessId,
+                            'service_name': this.createService.get('service_name').value,
+                            'service_description': this.createService.get('service_description').value,
+                            'service_cost': this.createService.get('service_cost').value,
+                            'service_time': this.createService.get('service_duration').value,
+                            'service_unit': this.createService.get('service_unit').value,
+                            'service_type': this.createService.get('serviceType').value,
+                            'service_sub_type': this.createService.get('onlineType').value,
+                            'service_sub_type_value': this.createService.get('onlineId').value,
+                            'service_private': this.editServicePrivate,
+                            'service_status': this.editServiceStatus,
+                            'service_image': this.serviceImageUrl,
+                            'staff_list' : this.assignStaffArr
+                        }
+                    }else if(this.serviceType == 'phone'){
+                        this.updateServiceData = {
+                            'service_id': this.createService.get('service_id').value,
+                            'business_id': this.businessId,
+                            'service_name': this.createService.get('service_name').value,
+                            'service_description': this.createService.get('service_description').value,
+                            'service_cost': this.createService.get('service_cost').value,
+                            'service_time': this.createService.get('service_duration').value,
+                            'service_unit': this.createService.get('service_unit').value,
+                            'service_type': this.createService.get('serviceType').value,
+                            'service_sub_type_value': this.createService.get('phoneNo').value,
+                            'service_private': this.editServicePrivate,
+                            'service_status': this.editServiceStatus,
+                            'service_image': this.serviceImageUrl,
+                            'staff_list' : this.assignStaffArr
+                        }
                     }
                 }else if(this.serviceImageUrl == ''){
-                    this.updateServiceData = {
-                        'service_id': this.createService.get('service_id').value,
-                        'business_id': this.businessId,
-                        'service_name': this.createService.get('service_name').value,
-                        'service_description': this.createService.get('service_description').value,
-                        'service_cost': this.createService.get('service_cost').value,
-                        'service_time': this.createService.get('service_duration').value,
-                        'service_unit': this.createService.get('service_unit').value,
-                        'service_private': this.editServicePrivate,
-                        'service_status': this.editServiceStatus,
-                        'staff_list' : this.assignStaffArr
+                    // this.updateServiceData = {
+                    //     'service_id': this.createService.get('service_id').value,
+                    //     'business_id': this.businessId,
+                    //     'service_name': this.createService.get('service_name').value,
+                    //     'service_description': this.createService.get('service_description').value,
+                    //     'service_cost': this.createService.get('service_cost').value,
+                    //     'service_time': this.createService.get('service_duration').value,
+                    //     'service_unit': this.createService.get('service_unit').value,
+                    //     'service_private': this.editServicePrivate,
+                    //     'service_status': this.editServiceStatus,
+                    //     'staff_list' : this.assignStaffArr
                        
+                    // }
+                    if(this.serviceType == 'face_to_face'){
+                        this.updateServiceData = {
+                            'service_id': this.createService.get('service_id').value,
+                            'business_id': this.businessId,
+                            'service_name': this.createService.get('service_name').value,
+                            'service_description': this.createService.get('service_description').value,
+                            'service_cost': this.createService.get('service_cost').value,
+                            'service_time': this.createService.get('service_duration').value,
+                            'service_unit': this.createService.get('service_unit').value,
+                            'service_type': this.createService.get('serviceType').value,
+                            'service_sub_type': this.createService.get('ftfType').value,
+                            'service_private': this.editServicePrivate,
+                            'service_status': this.editServiceStatus,
+                            'staff_list' : this.assignStaffArr
+                        }
+                    }else if(this.serviceType == 'online'){
+                        this.updateServiceData = {
+                            'service_id': this.createService.get('service_id').value,
+                            'business_id': this.businessId,
+                            'service_name': this.createService.get('service_name').value,
+                            'service_description': this.createService.get('service_description').value,
+                            'service_cost': this.createService.get('service_cost').value,
+                            'service_time': this.createService.get('service_duration').value,
+                            'service_unit': this.createService.get('service_unit').value,
+                            'service_type': this.createService.get('serviceType').value,
+                            'service_sub_type': this.createService.get('onlineType').value,
+                            'service_sub_type_value': this.createService.get('onlineId').value,
+                            'service_private': this.editServicePrivate,
+                            'service_status': this.editServiceStatus,
+                            'staff_list' : this.assignStaffArr
+                        }
+                    }else if(this.serviceType == 'phone'){
+                        this.updateServiceData = {
+                            'service_id': this.createService.get('service_id').value,
+                            'business_id': this.businessId,
+                            'service_name': this.createService.get('service_name').value,
+                            'service_description': this.createService.get('service_description').value,
+                            'service_cost': this.createService.get('service_cost').value,
+                            'service_time': this.createService.get('service_duration').value,
+                            'service_unit': this.createService.get('service_unit').value,
+                            'service_type': this.createService.get('serviceType').value,
+                            'service_sub_type_value': this.createService.get('phoneNo').value,
+                            'service_private': this.editServicePrivate,
+                            'service_status': this.editServiceStatus,
+                            'staff_list' : this.assignStaffArr
+                        }
                     }
                 }             
                 this.updateService(this.updateServiceData);
@@ -1337,39 +1426,137 @@ export class ServicesComponent implements OnInit {
                 this.createService.get('service_cost').markAsTouched();
                 this.createService.get('service_duration').markAsTouched();
                 this.createService.get('service_unit').markAsTouched();
+                this.createService.get('serviceType').markAsTouched();
+                if(this.createService.get('serviceType').value == 'face_to_face'){
+                    this.createService.get('ftfType').markAsTouched();
+                }else if(this.createService.get('serviceType').value == 'online'){
+                    this.createService.get('onlineType').markAsTouched();
+                    this.createService.get('onlineId').markAsTouched();
+                }else if(this.createService.get('serviceType').value == 'phone'){
+                    this.createService.get('phoneNo').markAsTouched();
+                }
+
             }
 
         }
         else if (this.createService.get('service_id').value == null || this.createService.get('service_id').value == '') {
             if (this.createService.valid) {
                 if (this.createServiceCategoryType == 'category') {
-                    this.newServiceData = {
-                        'category_id': this.createServiceCategoryId,
-                        'business_id': this.businessId,
-                        'service_name': this.createService.get('service_name').value,
-                        'service_description': this.createService.get('service_description').value,
-                        'service_cost': this.createService.get('service_cost').value,
-                        'service_time': this.createService.get('service_duration').value,
-                        'service_unit': this.createService.get('service_unit').value,
-                        'service_private': this.newServicePrivate,
-                        'service_status': this.newServiceStatus,
-                        'service_image': this.serviceImageUrl,
-                        'staff_list' : this.assignStaffArr
+                    if(this.serviceType == 'face_to_face'){
+                        this.newServiceData = {
+                            'category_id': this.createServiceCategoryId,
+                            'business_id': this.businessId,
+                            'service_name': this.createService.get('service_name').value,
+                            'service_description': this.createService.get('service_description').value,
+                            'service_cost': this.createService.get('service_cost').value,
+                            'service_time': this.createService.get('service_duration').value,
+                            'service_unit': this.createService.get('service_unit').value,
+                            'service_type': this.createService.get('serviceType').value,
+                            'service_sub_type': this.createService.get('ftfType').value,
+                            'service_private': this.newServicePrivate,
+                            'service_status': this.newServiceStatus,
+                            'service_image': this.serviceImageUrl,
+                            'staff_list' : this.assignStaffArr
+                        }
+                    }else if(this.serviceType == 'online'){
+                        this.newServiceData = {
+                            'category_id': this.createServiceCategoryId,
+                            'business_id': this.businessId,
+                            'service_name': this.createService.get('service_name').value,
+                            'service_description': this.createService.get('service_description').value,
+                            'service_cost': this.createService.get('service_cost').value,
+                            'service_time': this.createService.get('service_duration').value,
+                            'service_unit': this.createService.get('service_unit').value,
+                            'service_type': this.createService.get('serviceType').value,
+                            'service_sub_type': this.createService.get('onlineType').value,
+                            'service_sub_type_value': this.createService.get('onlineId').value,
+                            'service_private': this.newServicePrivate,
+                            'service_status': this.newServiceStatus,
+                            'service_image': this.serviceImageUrl,
+                            'staff_list' : this.assignStaffArr
+                        }
+                    }else if(this.serviceType == 'phone'){
+                        this.newServiceData = {
+                            'category_id': this.createServiceCategoryId,
+                            'business_id': this.businessId,
+                            'service_name': this.createService.get('service_name').value,
+                            'service_description': this.createService.get('service_description').value,
+                            'service_cost': this.createService.get('service_cost').value,
+                            'service_time': this.createService.get('service_duration').value,
+                            'service_unit': this.createService.get('service_unit').value,
+                            'service_type': this.createService.get('serviceType').value,
+                            'service_sub_type_value': this.createService.get('phoneNo').value,
+                            'service_private': this.newServicePrivate,
+                            'service_status': this.newServiceStatus,
+                            'service_image': this.serviceImageUrl,
+                            'staff_list' : this.assignStaffArr
+                        }
                     }
+                    
                 }
                 else if (this.createServiceCategoryType == 'subcategory') {
-                    this.newServiceData = {
-                        'sub_category_id': this.createServiceCategoryId,
-                        'business_id': this.businessId,
-                        'service_name': this.createService.get('service_name').value,
-                        'service_description': this.createService.get('service_description').value,
-                        'service_cost': this.createService.get('service_cost').value,
-                        'service_time': this.createService.get('service_duration').value,
-                        'service_unit': this.createService.get('service_unit').value,
-                        'service_private': this.newServicePrivate,
-                        'service_status': this.newServiceStatus,
-                        'service_image': this.serviceImageUrl,
-                        'staff_list' : this.assignStaffArr
+                    // this.newServiceData = {
+                    //     'sub_category_id': this.createServiceCategoryId,
+                    //     'business_id': this.businessId,
+                    //     'service_name': this.createService.get('service_name').value,
+                    //     'service_description': this.createService.get('service_description').value,
+                    //     'service_cost': this.createService.get('service_cost').value,
+                    //     'service_time': this.createService.get('service_duration').value,
+                    //     'service_unit': this.createService.get('service_unit').value,
+                    //     'service_private': this.newServicePrivate,
+                    //     'service_status': this.newServiceStatus,
+                    //     'service_image': this.serviceImageUrl,
+                    //     'staff_list' : this.assignStaffArr
+                    // }
+                    if(this.serviceType == 'face_to_face'){
+                        this.newServiceData = {
+                            'sub_category_id': this.createServiceCategoryId,
+                            'business_id': this.businessId,
+                            'service_name': this.createService.get('service_name').value,
+                            'service_description': this.createService.get('service_description').value,
+                            'service_cost': this.createService.get('service_cost').value,
+                            'service_time': this.createService.get('service_duration').value,
+                            'service_unit': this.createService.get('service_unit').value,
+                            'service_type': this.createService.get('serviceType').value,
+                            'service_sub_type': this.createService.get('ftfType').value,
+                            'service_private': this.newServicePrivate,
+                            'service_status': this.newServiceStatus,
+                            'service_image': this.serviceImageUrl,
+                            'staff_list' : this.assignStaffArr
+                        }
+                    }else if(this.serviceType == 'online'){
+                        this.newServiceData = {
+                            'sub_category_id': this.createServiceCategoryId,
+                            'business_id': this.businessId,
+                            'service_name': this.createService.get('service_name').value,
+                            'service_description': this.createService.get('service_description').value,
+                            'service_cost': this.createService.get('service_cost').value,
+                            'service_time': this.createService.get('service_duration').value,
+                            'service_unit': this.createService.get('service_unit').value,
+                            'service_type': this.createService.get('serviceType').value,
+                            'service_sub_type': this.createService.get('onlineType').value,
+                            'service_sub_type_value': this.createService.get('onlineId').value,
+                            'service_private': this.newServicePrivate,
+                            'service_status': this.newServiceStatus,
+                            'service_image': this.serviceImageUrl,
+                            'staff_list' : this.assignStaffArr
+                        }
+                    }else if(this.serviceType == 'phone'){
+                        this.newServiceData = {
+                            'sub_category_id': this.createServiceCategoryId,
+                            'business_id': this.businessId,
+                            'service_name': this.createService.get('service_name').value,
+                            'service_description': this.createService.get('service_description').value,
+                            'service_cost': this.createService.get('service_cost').value,
+                            'service_time': this.createService.get('service_duration').value,
+                            'service_unit': this.createService.get('service_unit').value,
+                            'service_type': this.createService.get('serviceType').value,
+                            'service_sub_type_value': this.createService.get('phoneNo').value,
+                            'service_private': this.newServicePrivate,
+                            'service_status': this.newServiceStatus,
+                            'service_image': this.serviceImageUrl,
+                            'staff_list' : this.assignStaffArr
+                        }
                     }
                 }
                 this.createNewService(this.newServiceData);
@@ -1379,6 +1566,11 @@ export class ServicesComponent implements OnInit {
                 this.createService.get('service_cost').markAsTouched();
                 this.createService.get('service_duration').markAsTouched();
                 this.createService.get('service_unit').markAsTouched();
+                this.createService.get('serviceType').markAsTouched();
+                this.createService.get('ftfType').markAsTouched();
+                this.createService.get('onlineType').markAsTouched();
+                this.createService.get('onlineId').markAsTouched();
+                this.createService.get('phoneNo').markAsTouched();
             }
         }
     }
@@ -1532,6 +1724,16 @@ export class ServicesComponent implements OnInit {
             this.createService.controls['service_cost'].setValue(this.categoryServicesList[index].service_cost);
             this.createService.controls['service_duration'].setValue(this.categoryServicesList[index].service_time);
             this.createService.controls['service_unit'].setValue(this.categoryServicesList[index].service_unit);
+            this.createService.controls['serviceType'].setValue(this.categoryServicesList[index].service_type);
+            this.serviceType = this.categoryServicesList[index].service_type;
+            if(this.serviceType == 'face_to_face'){
+                this.createService.controls['ftfType'].setValue(this.categoryServicesList[index].service_sub_type);
+            }else if(this.serviceType == 'online'){
+                this.createService.controls['onlineType'].setValue(this.categoryServicesList[index].service_sub_type);
+                this.createService.controls['onlineId'].setValue(this.categoryServicesList[index].service_sub_type_value);
+            }else if(this.serviceType == 'phone'){
+                this.createService.controls['phoneNo'].setValue(this.categoryServicesList[index].service_sub_type_value);
+            }
             this.editServiceStatus = this.categoryServicesList[index].status
             this.editServicePrivate = this.categoryServicesList[index].private_status
             this.editServiceImage = this.categoryServicesList[index].service_image
@@ -1543,9 +1745,62 @@ export class ServicesComponent implements OnInit {
             this.createService.controls['service_cost'].setValue(this.subCategoryServicesList[index].service_cost);
             this.createService.controls['service_duration'].setValue(this.subCategoryServicesList[index].service_time);
             this.createService.controls['service_unit'].setValue(this.subCategoryServicesList[index].service_unit);
+            this.createService.controls['serviceType'].setValue(this.subCategoryServicesList[index].service_type);
+            this.serviceType = this.subCategoryServicesList[index].service_type;
+            if(this.serviceType == 'face_to_face'){
+                this.createService.controls['ftfType'].setValue(this.subCategoryServicesList[index].service_sub_type);
+            }else if(this.serviceType == 'online'){
+                this.createService.controls['onlineType'].setValue(this.subCategoryServicesList[index].service_sub_type);
+                this.createService.controls['onlineId'].setValue(this.subCategoryServicesList[index].service_sub_type_value);
+            }else if(this.serviceType == 'phone'){
+                this.createService.controls['phoneNo'].setValue(this.subCategoryServicesList[index].service_sub_type_value);
+            }
             this.editServiceStatus = this.subCategoryServicesList[index].status
             this.editServicePrivate = this.subCategoryServicesList[index].private_status
             this.editServiceImage = this.subCategoryServicesList[index].service_image
+        }
+        if(this.serviceType == 'face_to_face'){
+            this.createService = this._formBuilder.group({
+                service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
+                service_description: [this.createService.get('service_description').value,  [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
+                service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                service_unit: [this.createService.get('service_unit').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                serviceType: [this.serviceType, [Validators.required]],
+                ftfType: [this.createService.get('ftfType').value, [Validators.required]],
+                onlineType: [this.createService.get('onlineType').value],
+                onlineId: [this.createService.get('onlineId').value],
+                phoneNo: [this.createService.get('phoneNo').value],
+                service_id: [this.editServiceId],
+            });
+        }else if(this.serviceType == 'online'){
+            this.createService = this._formBuilder.group({
+                service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
+                service_description: [this.createService.get('service_description').value,  [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
+                service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                service_unit: [this.createService.get('service_unit').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                serviceType: [this.serviceType, [Validators.required]],
+                ftfType: [this.createService.get('ftfType').value],
+                onlineType: [this.createService.get('onlineType').value, [Validators.required]],
+                onlineId: [this.createService.get('onlineId').value, [Validators.required]],
+                phoneNo: [this.createService.get('phoneNo').value],
+                service_id: [this.editServiceId],
+            });
+        }else if(this.serviceType == 'phone'){
+            this.createService = this._formBuilder.group({
+                service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
+                service_description: [this.createService.get('service_description').value,  [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
+                service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                service_unit: [this.createService.get('service_unit').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                serviceType: [this.serviceType, [Validators.required]],
+                ftfType: [this.createService.get('ftfType').value],
+                onlineType: [this.createService.get('onlineType').value],
+                onlineId: [this.createService.get('onlineId').value],
+                phoneNo: [this.createService.get('phoneNo').value, [Validators.required, Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
+                service_id: [this.editServiceId],
+            });
         }
         this.isLoaderAdmin = false;
     }
@@ -1589,6 +1844,56 @@ export class ServicesComponent implements OnInit {
             }
         }
     }
+    fnChangeOnlineType(event){
+        this.createService.controls['onlineId'].setValue('');
+    }
+    fnChangeServiceType(event){
+        this.serviceType= event.value
+        if(this.serviceType == 'face_to_face'){
+            this.createService = this._formBuilder.group({
+                service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
+                service_description: [this.createService.get('service_description').value,  [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
+                service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                service_unit: [this.createService.get('service_unit').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                serviceType: [this.serviceType, [Validators.required]],
+                ftfType: [this.createService.get('ftfType').value, [Validators.required]],
+                onlineType: [this.createService.get('onlineType').value],
+                onlineId: [this.createService.get('onlineId').value],
+                phoneNo: [this.createService.get('phoneNo').value],
+                service_id: [this.editServiceId],
+            });
+        }else if(this.serviceType == 'online'){
+            this.createService = this._formBuilder.group({
+                service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
+                service_description: [this.createService.get('service_description').value,  [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
+                service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                service_unit: [this.createService.get('service_unit').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                serviceType: [this.serviceType, [Validators.required]],
+                ftfType: [this.createService.get('ftfType').value],
+                onlineType: [this.createService.get('onlineType').value, [Validators.required]],
+                onlineId: [this.createService.get('onlineId').value, [Validators.required]],
+                phoneNo: [this.createService.get('phoneNo').value],
+                service_id: [this.editServiceId],
+            });
+        }else if(this.serviceType == 'phone'){
+            this.createService = this._formBuilder.group({
+                service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
+                service_description: [this.createService.get('service_description').value,  [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
+                service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                service_unit: [this.createService.get('service_unit').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                serviceType: [this.serviceType, [Validators.required]],
+                ftfType: [this.createService.get('ftfType').value],
+                onlineType: [this.createService.get('onlineType').value],
+                onlineId: [this.createService.get('onlineId').value],
+                phoneNo: [this.createService.get('phoneNo').value, [Validators.required, Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
+                service_id: [this.editServiceId],
+            });
+        }
+    }
+
 
     categoryImage() {
         const dialogRef = this.dialog.open(DialogCategoryImageUpload, {

@@ -67,7 +67,6 @@ export class MyBusinessComponent implements OnInit {
   fnGetIpAddress(){
     this.authenticationService.getIPAddress().subscribe((res:any)=>{  
       this.getIpAddress=res.ip; 
-      alert(this.getIpAddress) 
       this.getGeoLocation(this.getIpAddress);
     });  
   }
