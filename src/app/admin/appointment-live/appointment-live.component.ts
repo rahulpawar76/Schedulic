@@ -1,5 +1,5 @@
 import { Component, OnInit,Inject } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { DatePipe, JsonPipe } from '@angular/common';
 import { AdminService } from '../_services/admin-main.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,7 +12,6 @@ import { map, catchError } from 'rxjs/operators';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { AppComponent } from '@app/app.component';
 import { AuthenticationService } from '@app/_services';
-
 
 export interface DialogData {
   animal: string;
@@ -37,6 +36,9 @@ export class AppointmentLiveComponent implements OnInit {
   todayTime:any;
   todayDays:any;
   todayPeriod:any;
+  CategoryList :any = [];
+  ServiceList :any = [];
+  StaffList:any = [];
 
   booking_date:any;
   settingsArr:any=[];
@@ -53,8 +55,6 @@ export class AppointmentLiveComponent implements OnInit {
   next_page_url_pending:any;
   prev_page_url_pending:any;
   path_pending:any;
-
-  
   notassignApiUrl:any =  `${environment.apiUrl}/get-notassign-live`;
   
   current_page_notassign:any;
@@ -64,8 +64,6 @@ export class AppointmentLiveComponent implements OnInit {
   next_page_url_notassign:any;
   prev_page_url_notassign:any;
   path_notassign:any;
-
-
   onthewayApiUrl:any =  `${environment.apiUrl}/get-ontheway-live`;
   
   current_page_ontheway:any;
@@ -89,6 +87,10 @@ export class AppointmentLiveComponent implements OnInit {
   newCustomer:FormGroup;
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^-?(0|[1-9]\d*)?$/
+  service_index:any;
+  staff_id:any;
+  cartArr:any = [];
+  service_id:any;
 
   constructor(
     private AdminService: AdminService,
@@ -97,6 +99,7 @@ export class AppointmentLiveComponent implements OnInit {
     private _formBuilder:FormBuilder,
     private _snackBar: MatSnackBar,
   ) { 
+    
     
     localStorage.setItem('isBusiness', 'true');
     this.newCustomer = this._formBuilder.group({
@@ -116,11 +119,14 @@ export class AppointmentLiveComponent implements OnInit {
     this.getOnThewayAppointments();
     this.getWorkStartedAppointments();
     
-    this.todayDate = this.datePipe.transform(new Date(),"MMMM d")
-    this.todayTime = this.datePipe.transform(new Date(),"h:mm ")
-    this.todayPeriod = this.datePipe.transform(new Date(),"a")
-    this.todayDays = this.datePipe.transform(new Date(),"EEEE")
-    
+    this.todayDate = this.datePipe.transform(new Date(),"MMMM d");
+    this.todayTime = this.datePipe.transform(new Date(),"h:mm ");
+    this.todayPeriod = this.datePipe.transform(new Date(),"a");
+    this.todayDays = this.datePipe.transform(new Date(),"EEEE");
+
+    this.fnGetCategory();
+    this.fngetService();
+
     
   }
 
@@ -420,7 +426,109 @@ export class AppointmentLiveComponent implements OnInit {
       });
   }
 
-   
+  fnGetCategory(){
+
+    let requestObject = {
+      "business_id" : localStorage.getItem('business_id')
+    };
+
+    this.AdminService.getGetCategory(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.CategoryList = response.response;
+      }
+    });
+
+  }
+
+  fngetService(category_id=''){
+  
+    let  requestObject = {}
+
+    requestObject = {
+      "category_id" : category_id==''?'all':category_id, 
+      "business_id" : localStorage.getItem('business_id')
+    };
+    this.AdminService.getService(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.ServiceList = response.response;
+      }
+    });
+  
+  }
+
+  fngetStaff(service_id,index){
+
+
+    let requestObject = {
+      "service_id" : service_id, 
+      "business_id" : localStorage.getItem('business_id')
+    };
+
+    this.service_index = index;
+    this.service_id = service_id;
+
+    this.AdminService.getStaff(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.StaffList = response.response;
+        console.log(this.StaffList);
+      }
+    });
+
+  }
+
+  fnFilterStaff(event){
+    
+    var requestObject = {
+      "service_id" : this.service_id, 
+      "business_id" : localStorage.getItem('business_id'),
+      'status' : event
+    };
+
+    this.AdminService.getStaff(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.StaffList = response.response;
+        console.log(this.StaffList);
+      }
+    });
+
+  }
+
+  fnAssignStaff(staff_id){
+
+    this.staff_id = staff_id;
+  
+    this.cartArr.push({
+        "id":   this.ServiceList[this.service_index].id,
+        "category_id":  this.ServiceList[this.service_index].category_id,
+        "sub_category_id":  this.ServiceList[this.service_index].sub_category_id,
+        "service_name":   this.ServiceList[this.service_index].service_name,
+        "service_description":  this.ServiceList[this.service_index].service_description,
+        "service_image":  this.ServiceList[this.service_index].service_image,
+        "service_cost": this.ServiceList[this.service_index].service_cost,
+        "service_time": this.ServiceList[this.service_index].service_time,
+        "service_unit":   this.ServiceList[this.service_index].service_unit,
+        "status":   this.ServiceList[this.service_index].status,
+        "private_status":   this.ServiceList[this.service_index].private_status,
+        "business_id": localStorage.getItem('business_id'),
+        "created_at": this.ServiceList[this.service_index].created_at,
+        "updated_at": this.ServiceList[this.service_index].updated_at,
+        "deleted_at": this.ServiceList[this.service_index].deleted_at,
+        "count": 1,
+        "subtotal": this.ServiceList[this.service_index].service_cost,
+        "totalCost": this.ServiceList[this.service_index].service_cost,
+        "appointmentDate": "2020-07-20",
+        "appointmentDateForLabel": "April 21, 2020",
+        "appointmentTimeSlot": "11:00",
+        "appointmentTimeSlotForLabel": "05:00 PM",
+        "assignedStaff" : staff_id
+    });
+    
+
+    this.fngetService();
+    this.StaffList = [];
+    this.service_index = null;
+  }
+
 }
 
 @Component({

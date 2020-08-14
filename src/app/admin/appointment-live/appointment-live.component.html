@@ -35,74 +35,25 @@
                                         <p class="category-lable">Category</p>
                                     </li>
                                     <li class="bottom-border plr-25 pointer active">
-                                        <p class="title-main">All Services<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+                                        <p class="title-main"  (click)="getService('')">All Services<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
                                     </li>
-                                    <li class="bottom-border plr-25 pointer">
-                                        <p class="title-main">Hair Color<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+
+                                    <li class="bottom-border plr-25 pointer" *ngFor="let val of CategoryList; let i=index">
+                                        <p class="title-main" (click)="fngetService(val.id)">{{val.category_title}}<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
                                     </li>
-                                    <li class="bottom-border plr-25 pointer">
-                                        <p class="title-main">Hair Color<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-                                    </li>
-                                    <li class="bottom-border plr-25 pointer">
-                                        <p class="title-main">Hair Color<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-                                    </li>
+                                   
                                 </ul>
                             </mat-card>
                             <div class="service-list-main col-5 my-3">
                                 <div class="row mx-0">
-                                    <div class="col-6 col-lg-4 px-2">
-                                        <label class="signle-service">
-                                                <input class="d-none" type="radio" name="service" id="service-1">
-                                                <div class="service-label">
-                                                    <p>Gold</p>
-                                                    <span>$50</span>
-                                                </div>
-                                            </label>
-                                    </div>
-                                    <div class="col-6 col-lg-4 px-2">
-                                        <label class="signle-service">
-                                                <input class="d-none" type="radio" name="service" id="service-2">
-                                                <div class="service-label">
-                                                    <p>Gold</p>
-                                                    <span>$50</span>
-                                                </div>
-                                            </label>
-                                    </div>
-                                    <div class="col-6 col-lg-4 px-2">
-                                        <label class="signle-service">
-                                                <input class="d-none" type="radio" name="service" id="service-3">
-                                                <div class="service-label">
-                                                    <p>Gold</p>
-                                                    <span>$50</span>
-                                                </div>
-                                            </label>
-                                    </div>
-                                    <div class="col-6 col-lg-4 px-2">
-                                        <label class="signle-service">
-                                                <input class="d-none" type="radio" name="service" id="service-4">
-                                                <div class="service-label">
-                                                    <p>Gold</p>
-                                                    <span>$50</span>
-                                                </div>
-                                            </label>
-                                    </div>
-                                    <div class="col-6 col-lg-4 px-2">
-                                        <label class="signle-service">
-                                                <input class="d-none" type="radio" name="service" id="service-5">
-                                                <div class="service-label">
-                                                    <p>Gold</p>
-                                                    <span>$50</span>
-                                                </div>
-                                            </label>
-                                    </div>
-                                    <div class="col-6 col-lg-4 px-2">
-                                        <label class="signle-service">
-                                                <input class="d-none" type="radio" name="service" id="service-6">
-                                                <div class="service-label">
-                                                    <p>Gold</p>
-                                                    <span>$50</span>
-                                                </div>
-                                            </label>
+                                    <div class="col-6 col-lg-4 px-2" *ngFor="let val of ServiceList; let i=index" >
+                                        <label class="signle-service" (click)="fngetStaff(val.id,i)">
+                                             <input class="d-none" type="radio" name="service" id="service-{{i}}">
+                                             <div class="service-label">
+                                                  <p>{{val.service_name}}</p>
+                                                  <span>₹{{val.service_cost}}</span>
+                                             </div>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -119,54 +70,23 @@
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
-                                    <div class="single-staff">
+                                    <div class="single-staff"  *ngFor="let val of StaffList; let i=index">
                                         <div class="left-side">
-                                            <label>Meet Shah</label>
-                                            <p>Ideal</p>
+                                            <label>{{val.name}}</label>
+                                            <p>{{val.status}}</p>
                                             <span class="time">From 6.30 pm</span>
                                         </div>
                                         <div class="right-side">
                                             <p>Free At</p>
                                             <span class="time">7.30 pm</span>
-                                            <button mat-button class="assign-btn">Assign</button>
+                                            <button mat-button class="assign-btn" (click)="fnAssignStaff(val.id)">Assign</button>
                                         </div>
                                     </div>
-                                    <div class="single-staff">
-                                        <div class="left-side">
-                                            <label>Meet Shah</label>
-                                            <p>Ideal</p>
-                                            <span class="time">From 6.30 pm</span>
-                                        </div>
-                                        <div class="right-side">
-                                            <p>Free At</p>
-                                            <span class="time">7.30 pm</span>
-                                            <button mat-button class="assign-btn">Assign</button>
-                                        </div>
+                                    
+                                    <div class="single-staff"  *ngIf="StaffList.length==0">
+                                       <p>Staff not available</p>
                                     </div>
-                                    <div class="single-staff">
-                                        <div class="left-side">
-                                            <label>Meet Shah</label>
-                                            <p>Ideal</p>
-                                            <span class="time">From 6.30 pm</span>
-                                        </div>
-                                        <div class="right-side">
-                                            <p>Free At</p>
-                                            <span class="time">7.30 pm</span>
-                                            <button mat-button class="assign-btn">Assign</button>
-                                        </div>
-                                    </div>
-                                    <div class="single-staff">
-                                        <div class="left-side">
-                                            <label>Meet Shah</label>
-                                            <p>Ideal</p>
-                                            <span class="time">From 6.30 pm</span>
-                                        </div>
-                                        <div class="right-side">
-                                            <p>Free At</p>
-                                            <span class="time">7.30 pm</span>
-                                            <button mat-button class="assign-btn">Assign</button>
-                                        </div>
-                                    </div>
+                                  
                                 </div>
                             </div>
                         </div>
