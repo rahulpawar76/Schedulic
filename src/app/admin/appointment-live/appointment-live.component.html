@@ -35,7 +35,7 @@
                                         <p class="category-lable">Category</p>
                                     </li>
                                     <li class="bottom-border plr-25 pointer active">
-                                        <p class="title-main"  (click)="getService('')">All Services<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+                                        <p class="title-main"  (click)="fngetService('')">All Services<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
                                     </li>
 
                                     <li class="bottom-border plr-25 pointer" *ngFor="let val of CategoryList; let i=index">
@@ -79,7 +79,7 @@
                                         <div class="right-side">
                                             <p>Free At</p>
                                             <span class="time">7.30 pm</span>
-                                            <button mat-button class="assign-btn" (click)="fnAssignStaff(val.id)">Assign</button>
+                                            <button mat-button class="assign-btn" (click)="fnAssignStaff(val.id,i)">Assign</button>
                                         </div>
                                     </div>
                                     
@@ -156,21 +156,25 @@
                         <div class="" fxFlex="15">Price</div>
                     </div>
                     <div class="item-list">
-                        <div class="item">
-                            <div class="" fxFlex="10"><button mat-icon-button class="close-btn"> <mat-icon>close</mat-icon></button></div>
+
+                        <div class="item" *ngFor="let val of cartArr; let i=index">
+                            <div class="" fxFlex="10"><button mat-icon-button class="close-btn" (click)="fnDeleteItem(i)"> <mat-icon>close</mat-icon></button></div>
                             <div class="service-name" fxFlex="45">
-                                <label>Gold <span>(Hair Color)</span></label>
-                                <label class="staff-name">Staff : Meet shah</label>
+                                <label>{{val.service_name}} 
+                                    <!-- <span>(Hair Color)</span> -->
+                                </label>
+                                <label class="staff-name">Staff : {{val.StaffName}}</label>
                             </div>
                             <div class="" fxFlex="35">
                                 <div class="qty-counter">
-                                    <button mat-fab class="action-btn qty-minus">-</button>
-                                    <input type="text" class="qty_value" id="servicecount_1" value="2" readonly/>
-                                    <button mat-fab class="action-btn qty-minus">+</button>
+                                    <button mat-fab class="action-btn qty-minus" (click)="fncartUpdate('minus',i)">-</button>
+                                    <input type="text" class="qty_value" id="servicecount_1" value="{{val.count}}" readonly/>
+                                    <button mat-fab class="action-btn qty-minus"  (click)="fncartUpdate('plus',i)">+</button>
                                 </div>
                             </div>
-                            <div class="" fxFlex="15">$40</div>
+                            <div class="" fxFlex="15">₹{{val.totalCost}}</div>
                         </div>
+<!-- 
                         <div class="item">
                             <div class="" fxFlex="10"><button mat-icon-button class="close-btn"> <mat-icon>close</mat-icon></button></div>
                             <div class="service-name" fxFlex="45">
@@ -185,12 +189,13 @@
                                 </div>
                             </div>
                             <div class="" fxFlex="15">$40</div>
-                        </div>
+                        </div> -->
+
                         <div class="item subtotal">
                             <div class="service-name" fxFlex="70">
-                                <label>Subtotal : $ 100</label>
+                                <label>Subtotal : ₹ {{totalCost}}</label>
                             </div>
-                            <div class="" fxFlex="30">Tax : $ 10</div>
+                            <div class="" fxFlex="30">Tax : ₹ 0</div>
                         </div>
                     </div>
                     <div class="cart-footer">
@@ -199,12 +204,12 @@
                         </div>
                         <div class="total">
                             <p fxFlex="50" class="title text-left">Total</p>
-                            <p fxFlex="50" class="amount text-right mb-0">$ 110</p>
+                            <p fxFlex="50" class="amount text-right mb-0">₹ {{totalCost}}</p>
                         </div>
                         <div class="footer-action">
                             <button class="save-btn" mat-button>Save & Print</button>
                             <button class="save-btn" mat-button>Save & Ebill</button>
-                            <button class="place-btn" mat-button>Place</button>
+                            <button class="place-btn" mat-button (click)="fnplaceOrder()">Place</button>
                         </div>
                     </div>
 

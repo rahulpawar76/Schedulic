@@ -91,6 +91,8 @@ export class AppointmentLiveComponent implements OnInit {
   staff_id:any;
   cartArr:any = [];
   service_id:any;
+  categoryServiceCheckServiceId = [];
+  totalCost = 0;
 
   constructor(
     private AdminService: AdminService,
@@ -458,7 +460,6 @@ export class AppointmentLiveComponent implements OnInit {
 
   fngetStaff(service_id,index){
 
-
     let requestObject = {
       "service_id" : service_id, 
       "business_id" : localStorage.getItem('business_id')
@@ -470,7 +471,6 @@ export class AppointmentLiveComponent implements OnInit {
     this.AdminService.getStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.StaffList = response.response;
-        console.log(this.StaffList);
       }
     });
 
@@ -493,42 +493,125 @@ export class AppointmentLiveComponent implements OnInit {
 
   }
 
-  fnAssignStaff(staff_id){
+  fnAssignStaff(staff_id,staff_index){
 
     this.staff_id = staff_id;
-  
-    this.cartArr.push({
-        "id":   this.ServiceList[this.service_index].id,
-        "category_id":  this.ServiceList[this.service_index].category_id,
-        "sub_category_id":  this.ServiceList[this.service_index].sub_category_id,
-        "service_name":   this.ServiceList[this.service_index].service_name,
-        "service_description":  this.ServiceList[this.service_index].service_description,
-        "service_image":  this.ServiceList[this.service_index].service_image,
-        "service_cost": this.ServiceList[this.service_index].service_cost,
-        "service_time": this.ServiceList[this.service_index].service_time,
-        "service_unit":   this.ServiceList[this.service_index].service_unit,
-        "status":   this.ServiceList[this.service_index].status,
-        "private_status":   this.ServiceList[this.service_index].private_status,
-        "business_id": localStorage.getItem('business_id'),
-        "created_at": this.ServiceList[this.service_index].created_at,
-        "updated_at": this.ServiceList[this.service_index].updated_at,
-        "deleted_at": this.ServiceList[this.service_index].deleted_at,
-        "count": 1,
-        "subtotal": this.ServiceList[this.service_index].service_cost,
-        "totalCost": this.ServiceList[this.service_index].service_cost,
-        "appointmentDate": "2020-07-20",
-        "appointmentDateForLabel": "April 21, 2020",
-        "appointmentTimeSlot": "11:00",
-        "appointmentTimeSlotForLabel": "05:00 PM",
-        "assignedStaff" : staff_id
-    });
+    let index = false;
+    if(this.categoryServiceCheckServiceId.length == 0){
+      this.categoryServiceCheckServiceId.push(this.ServiceList[this.service_index].id);
+    }else{
+      index = this.categoryServiceCheckServiceId.includes(this.ServiceList[this.service_index].id);
+      if(index==false){
+        this.categoryServiceCheckServiceId.push(this.ServiceList[this.service_index].id);
+      }
+    }
     
+    if(index==false){
+
+      this.cartArr.push({
+          "id":   this.ServiceList[this.service_index].id,
+          "category_id":  this.ServiceList[this.service_index].category_id,
+          "sub_category_id":  this.ServiceList[this.service_index].sub_category_id,
+          "service_name":   this.ServiceList[this.service_index].service_name,
+          "service_description":  this.ServiceList[this.service_index].service_description,
+          "service_image":  this.ServiceList[this.service_index].service_image,
+          "service_cost": this.ServiceList[this.service_index].service_cost,
+          "service_time": this.ServiceList[this.service_index].service_time,
+          "service_unit":   this.ServiceList[this.service_index].service_unit,
+          "status":   this.ServiceList[this.service_index].status,
+          "private_status":   this.ServiceList[this.service_index].private_status,
+          "business_id": localStorage.getItem('business_id'),
+          "created_at": this.ServiceList[this.service_index].created_at,
+          "updated_at": this.ServiceList[this.service_index].updated_at,
+          "deleted_at": this.ServiceList[this.service_index].deleted_at,
+          "count": 1,
+          "subtotal": this.ServiceList[this.service_index].service_cost,
+          "totalCost": this.ServiceList[this.service_index].service_cost,
+          "appointmentDate": "2020-07-20",
+          "appointmentDateForLabel": "April 21, 2020",
+          "appointmentTimeSlot": "11:00",
+          "appointmentTimeSlotForLabel": "05:00 PM",
+          "assignedStaff" : staff_id,
+          "StaffName" : this.StaffList[staff_index].name
+      });
+
+      
+      this.cartArr.forEach(element => {
+        this.totalCost = this.totalCost+parseInt(element.subtotal);
+      });
+    }
 
     this.fngetService();
     this.StaffList = [];
     this.service_index = null;
   }
 
+  fncartUpdate(Type,index){
+
+    let cartdata = this.cartArr[index];
+    if(Type=='minus'){
+       this.cartArr[index].count = parseInt(cartdata.count)-1==0?1:parseInt(cartdata.count)-1;
+    }else{
+      this.cartArr[index].count = parseInt(cartdata.count)+1;
+    }
+    
+    this.cartArr[index].subtotal = this.cartArr[index].count * this.ServiceList[index].service_cost;
+    this.cartArr[index].totalCost = this.cartArr[index].count * this.ServiceList[index].service_cost;
+
+    this.totalCost = 0;
+    this.cartArr.forEach(element => {
+      this.totalCost = this.totalCost+parseInt(element.subtotal);
+    });
+
+  }
+
+  fnDeleteItem(elem){
+
+    this.cartArr.splice(elem, 1);
+
+    this.totalCost = 0;
+    this.cartArr.forEach(element => {
+      this.totalCost = this.totalCost+parseInt(element.subtotal);
+    });
+   
+
+  }
+  fnplaceOrder(){
+
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    
+    var payment_datetime = yyyy + '-' + mm  + '-' + dd;
+
+    var requestObject = {
+      "business_id" : localStorage.getItem('business_id'),
+      'serviceInfo' : JSON.stringify(this.cartArr),
+      "customer_name":"abc xyz pqr",
+      "customer_phone":"256256",
+      "customer_email":"vishalbimistry@yahoo.com",
+      "created_by":"admin",
+      "subtotal":this.totalCost,
+      "reference_id": "jsgdsjdgsjdsgdsgjdsgd",
+      "transaction_id": "pay_sdsdgsjdsgdjs",
+      "payment_datetime": payment_datetime,
+      "nettotal": this.totalCost,
+      "payment_method":"Paypal",
+      "order_date": payment_datetime
+    };
+
+    console.log(requestObject);
+    return;
+
+    this.AdminService.placeOrder(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.StaffList = response.response;
+        console.log(this.StaffList);
+      }
+    });
+
+  }
 }
 
 @Component({
