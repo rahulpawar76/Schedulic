@@ -639,3 +639,35 @@ textarea {
         border-left: 4px solid #3d72f4 !important;
     }
 }
+
+.service-subtype {
+    .plain-text {
+        font-size: 14px;
+    }
+}
+
+.service-subtype {
+    &.online {
+         ::ng-deep .single-platform {
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            width: 150px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            float: left;
+            height: 60px;
+            margin: 8px 15px 8px 0;
+            img {
+                padding: 5px 10px;
+                width: 100%;
+            }
+            .mat-radio-label {
+                margin: 0;
+            }
+            .mat-radio-container {
+                left: 10px;
+            }
+        }
+    }
+}

@@ -1,6 +1,102 @@
-<div class="content-main">
-    <mat-tab-group mat-align-tabs="start">
-        <mat-tab label="Pending">
+<div class="content-main" id="live_appointments">
+    <mat-tab-group mat-align-tabs="start" class="main-tab-grp">
+        <mat-tab label="In Store">
+            <ng-template mat-tab-label>
+                <span class="material-icons">store</span> In Store
+            </ng-template>
+            <div class="in-store-tabs">
+                <mat-tab-group mat-align-tabs="start">
+                    <mat-tab label="Service">
+                        <div class="left-side-booking">
+                            <div class="row mx-0">
+                                <mat-card id="all-category-list" class="col-3 border-8 p-0">
+                                    <ul>
+                                        <li class="bottom-border plr-25">
+                                            <p class="category-lable">Category</p>
+                                        </li>
+                                        <li class="bottom-border plr-25 pointer active">
+                                            <p class="title-main">All Services<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+                                        </li>
+                                        <li class="bottom-border plr-25 pointer">
+                                            <p class="title-main">Hair Color<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+                                        </li>
+                                        <li class="bottom-border plr-25 pointer">
+                                            <p class="title-main">Hair Color<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+                                        </li>
+                                        <li class="bottom-border plr-25 pointer">
+                                            <p class="title-main">Hair Color<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+                                        </li>
+                                    </ul>
+                                </mat-card>
+                                <div class="service-list-main col-5 my-3">
+                                    <div class="row mx-0">
+                                        <div class="col-6 col-lg-4 px-3">
+                                            <label class="signle-service">
+                                                <input class="d-none" type="radio" name="service" id="service-1">
+                                                <div class="service-label">
+                                                    <p>Gold</p>
+                                                    <span>$50</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div class="col-6 col-lg-4 px-3">
+                                            <label class="signle-service">
+                                                <input class="d-none" type="radio" name="service" id="service-2">
+                                                <div class="service-label">
+                                                    <p>Gold</p>
+                                                    <span>$50</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div class="col-6 col-lg-4 px-3">
+                                            <label class="signle-service">
+                                                <input class="d-none" type="radio" name="service" id="service-3">
+                                                <div class="service-label">
+                                                    <p>Gold</p>
+                                                    <span>$50</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div class="col-6 col-lg-4 px-3">
+                                            <label class="signle-service">
+                                                <input class="d-none" type="radio" name="service" id="service-4">
+                                                <div class="service-label">
+                                                    <p>Gold</p>
+                                                    <span>$50</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div class="col-6 col-lg-4 px-3">
+                                            <label class="signle-service">
+                                                <input class="d-none" type="radio" name="service" id="service-5">
+                                                <div class="service-label">
+                                                    <p>Gold</p>
+                                                    <span>$50</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div class="col-6 col-lg-4 px-3">
+                                            <label class="signle-service">
+                                                <input class="d-none" type="radio" name="service" id="service-6">
+                                                <div class="service-label">
+                                                    <p>Gold</p>
+                                                    <span>$50</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Waiting"> </mat-tab>
+                </mat-tab-group>
+            </div>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <span class="material-icons">watch_later</span> Pending
+            </ng-template>
             <div class="pendingnotes d-flex">
                 <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
                 <div class="col-2 pendingborder appoint-head">
@@ -77,7 +173,10 @@
             </div>
         </mat-tab>
 
-        <mat-tab label="Not Assigned" class="notassignedlabel">
+        <mat-tab class="notassignedlabel">
+            <ng-template mat-tab-label>
+                <span class="material-icons">assignment_ind</span> Not Assigned
+            </ng-template>
             <div class="pendingnotes d-flex">
                 <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
                 <div class="col-2 pendingborder appoint-head">
@@ -142,7 +241,7 @@
                         <div class="table_pagination" *ngIf="notAssignedAppointments != ''">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
-                                    <li class="page-item {{current_page_notassign==1?'pointernone':'' }}"  (click)="navigateTo_notassign(first_page_url_notassign)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{current_page_notassign==1?'pointernone':'' }}" (click)="navigateTo_notassign(first_page_url_notassign)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
                                     <li class="page-item" (click)="navigateTo_notassign(prev_page_url_notassign)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
                                     <li class="page-item" [ngClass]="{'active':current_page_notassign == i+1}" *ngFor="let pagenumber of arrayOne_notassign(last_page_notassign); let i = index;" (click)="navigateToPageNumber_notassign(i+1)"><a class="page-link">{{i+1}}</a></li>
                                     <li class="page-item" (click)="navigateTo_notassign(next_page_url_notassign)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
@@ -155,7 +254,6 @@
                 </mat-card>
             </div>
         </mat-tab>
-
         <div class="pendingnotes d-flex">
             <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
             <div class="col-2 pendingborder appoint-head">
@@ -215,7 +313,11 @@
             </div>
         </div>
 
-        <mat-tab label="On The Way" class="onthewaylabel">
+
+        <mat-tab class="onthewaylabel">
+            <ng-template mat-tab-label>
+                <i class="fa fa-motorcycle" aria-hidden="true"></i> Out Door
+            </ng-template>
             <div class="pendingnotes d-flex">
                 <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
                 <div class="col-2 pendingborder appoint-head">
@@ -297,7 +399,10 @@
 
         </mat-tab>
 
-        <mat-tab label="Work Started" class="workstartedlabel">
+        <mat-tab class="workstartedlabel">
+            <ng-template mat-tab-label>
+                <span class="material-icons">work</span> Work Started
+            </ng-template>
             <div class="pendingnotes d-flex">
                 <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
                 <div class="col-2 pendingborder appoint-head">

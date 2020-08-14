@@ -93,7 +93,10 @@ export class AppointmentLiveComponent implements OnInit {
     private datePipe: DatePipe,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
-  ) { }
+  ) { 
+    
+    localStorage.setItem('isBusiness', 'true');
+  }
 
   ngOnInit() {
     if(localStorage.getItem('business_id')){

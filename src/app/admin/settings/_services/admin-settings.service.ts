@@ -4,6 +4,7 @@ import { Observable, throwError, from } from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router, RouterEvent, RouterOutlet } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthenticationService } from '@app/_services';
 import {  DialogReAuthentication  } from '@app/app.component';
@@ -13,12 +14,14 @@ import {  CountryISO } from 'ngx-intl-tel-input';
 
 export class AdminSettingsService {
     adminId: any
-    adminToken: any
+    adminToken: any;
+    dialogRef : any;
     currentUser:any;
     businessId: any = localStorage.getItem('business_id')?localStorage.getItem('business_id'):'';
     constructor(
         private http: HttpClient,
         private _snackBar: MatSnackBar,
+        public router: Router,
         private authenticationService: AuthenticationService,
         public dialog: MatDialog,
     ) {
@@ -1392,6 +1395,19 @@ export class AdminSettingsService {
         }),
         catchError(this.handleError));
     }
+    fnSubmitSmtpSetting(requestObject){
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/set-smtp-setting`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
     getEmailTemplates(requestObject){
         this.checkAuthentication();
         let headers = new HttpHeaders({
@@ -1653,15 +1669,21 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
     reAuthenticateUser() {
-        const dialogRef = this.dialog.open(DialogReAuthentication, {
+        if (this.dialogRef) {
+            return
+        };
+        this.dialogRef = this.dialog.open(DialogReAuthentication, {
             width: '500px',
 
         });
 
-        dialogRef.afterClosed().subscribe(result => {
+        this.dialogRef.afterClosed().subscribe(result => {
             if(result){
                 this.currentUser = result
                 console.log(this.currentUser)
+            }else{
+            this.authenticationService.logout();
+            this.router.navigate(['/login']);
             }
         });
     }

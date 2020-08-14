@@ -1,6 +1,7 @@
 import { Component, Inject, Injectable, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, from } from 'rxjs';
+import { Router, RouterEvent, RouterOutlet } from '@angular/router';
 import { map, catchError, filter } from 'rxjs/operators';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthenticationService } from '../../_services';
@@ -18,12 +19,14 @@ export interface DialogData {
 export class AdminService {
   businessId : any = localStorage.getItem('business_id')?localStorage.getItem('business_id'):'';
   currentUser : any;
-  animal:any
+  animal:any;
+  dialogRef:any;
   constructor(
     private http: HttpClient,
     private _snackBar: MatSnackBar,
     private authenticationService:AuthenticationService,
     public dialog: MatDialog,
+    public router: Router,
     ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     
@@ -951,17 +954,41 @@ export class AdminService {
         }),
         catchError(this.handleError));
     }
+    getGeoLocation(IP) {
+        let requestObject = {
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+        });
+        return this.http.post(`https://api.ipgeolocationapi.com/geolocate/`+IP, requestObject, { headers: headers }).pipe(
+        // return this.http.post(`https://api.ipgeolocation.io/ipgeo?apiKey=AIzaSyDIx_jprz_nOTY0XoE8uhbX6oAy16GIyOc&ip=`+IP, requestObject, { headers: headers }).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    //    alert("1")
+    //     let url = "https://api.ipgeolocation.io/ipgeo?apiKey=AIzaSyDIx_jprz_nOTY0XoE8uhbX6oAy16GIyOc&ip="+IP; 
+    //     return this.http
+    //           .get(url)
+    //           .pipe(
+    //             catchError(this.handleError)
+    //           );
+    }
 
     reAuthenticateUser() {
-        const dialogRef = this.dialog.open(DialogReAuthentication, {
+        if (this.dialogRef) return;
+        this.dialogRef = this.dialog.open(DialogReAuthentication, {
           width: '500px',
     
         });
     
-        dialogRef.afterClosed().subscribe(result => {
+        this.dialogRef.afterClosed().subscribe(result => {
             if(result){
                 this.currentUser = result
                 console.log(this.currentUser)
+            }else{
+                this.authenticationService.logout();
+                this.router.navigate(['/login']);
             }
         });
       }

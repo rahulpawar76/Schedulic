@@ -5,6 +5,7 @@ import { map, catchError } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthenticationService } from '@app/_services';
+import { Router, RouterEvent, RouterOutlet } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {  DialogReAuthentication  } from '@app/app.component';
 
@@ -14,10 +15,12 @@ export class StaffService {
 	staffId:any
   staffToken:any
   bussinessId:any
+	dialogRef: any;
   currentUser:any;
   constructor(
     private http: HttpClient,
     private _snackBar: MatSnackBar,
+    public router: Router,
     public dialog: MatDialog,
     private authenticationService:AuthenticationService
     ) { 
@@ -411,15 +414,21 @@ export class StaffService {
   }
 
   reAuthenticateUser() {
-    const dialogRef = this.dialog.open(DialogReAuthentication, {
+    if(this.dialogRef){
+      return;
+    }
+    this.dialogRef = this.dialog.open(DialogReAuthentication, {
         width: '500px',
 
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialogRef.afterClosed().subscribe(result => {
         if(result){
             this.currentUser = result
             console.log(this.currentUser)
+        }else{
+          this.authenticationService.logout();
+          this.router.navigate(['/login']);
         }
     });
   }

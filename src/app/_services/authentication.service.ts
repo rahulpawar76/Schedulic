@@ -17,6 +17,10 @@ export class AuthenticationService {
         this.currentUser = this.currentUserSubject.asObservable();
         console.log(this.currentUser)
     }
+    public getIPAddress()  
+    {  
+      return this.http.get("http://api.ipify.org/?format=json");  
+    }  
 
     public get currentUserValue(): User {       
         return this.currentUserSubject.value;
@@ -97,13 +101,15 @@ export class AuthenticationService {
         localStorage.removeItem('logoutTime');
         localStorage.removeItem('business_id');
         localStorage.removeItem('internal_staff');
+        localStorage.removeItem('business_name');
+        localStorage.removeItem('isBusiness');
         // localStorage.removeItem('userToken');
         // localStorage.removeItem('userName');
         // localStorage.removeItem('userRole');
         // localStorage.removeItem('tokenID');
         // localStorage.clear();
         this.currentUserSubject.next(null);
-        window.location.reload(true);
+        //window.location.reload(true);
      //   console.log(this.currentUserValue);
     }
     pageName(name,user_type){

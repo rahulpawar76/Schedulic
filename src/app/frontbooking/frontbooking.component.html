@@ -274,7 +274,8 @@
                             </ngx-intl-tel-input>
                             <span *ngIf="phoneNumberInvalid">
                                 <small *ngIf="phoneNumberInvalid == 'required'" class="error">Phone number is required.</small>
-                                <small *ngIf="phoneNumberInvalid == 'length'" class="error">Phone number should be 6 to 15 digits long.</small></span>
+                                <small *ngIf="phoneNumberInvalid == 'length'" class="error">Phone number should be 6 to 15 digits long.</small>
+                            </span>
                         </div>
                         <div class="col-12 col-lg-12 col-md-12 col-sm-12" *ngIf="contactFormSettingsArr.addressField.status == 1">
                             <label>Address</label>
@@ -468,7 +469,7 @@
                     <label *ngIf="currencySymbolPosition=='right'" class="price text-right d-block">{{ serviceMainArr.netCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
                 </div>
             </div>
-            <div *ngIf="termsConditions && privacyPolicy" class="d-flex">
+            <div *ngIf="termsConditions && privacyPolicy" class="d-flex flex-wrap">
 
                 <mat-checkbox *ngIf="termsConditions.status == 'true'" class="termscondition ml-3" (change)="fnChangeTermsConditionsStatus($event.checked)">
                     <a *ngIf="termsConditions.page_link != ''" href="{{termsConditions.page_link}}" target="blank">{{termsConditions.label}}</a>
@@ -488,10 +489,11 @@
 
 
                 </mat-checkbox>
-                <span *ngIf="!totalNumberServices || !PrivacyPolicyStatusValue" class="error">Please check Terms & Condition and Privacy Policy</span>
+                <span *ngIf="privacyPolicy.status == 'true' &&  !PrivacyPolicyStatusValue && PrivacyPolicyStatusValidation" class="error w-100 pl-3">Please check Privacy Policy.</span>
+                <span *ngIf="termsConditions.status == 'true' && !termsConditionsStatusValue && termsConditionsStatusValidation" class="error w-100 pl-3">Please check Terms & Condition.</span>
             </div>
             <div class="bottom-ctn-btn">
-                <button *ngIf='serviceMainArr.totalNumberServices>0 && termsConditionsStatusValue && PrivacyPolicyStatusValue' (click)="fnProceedToPayment($event)" mat-button class="round-btn continue-btn proceed">Proceed</button>
+                <button *ngIf='serviceMainArr.totalNumberServices>0' (click)="fnProceedToPayment($event)" mat-button class="round-btn continue-btn proceed">Proceed</button>
             </div>
         </mat-card-content>
     </div>
@@ -589,7 +591,7 @@
                     <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" />
                 </mat-radio-button>
                 <div *ngIf="BankDetail" class="bank-details">
-                    <div class="col-12 my-3 col-lg-12">
+                    <div class="row m-3">
                         <div class="col-12 my-2">
                             <label>Bank Name</label>
                             <p>{{bankTransferSetting.bank_name}}</p>

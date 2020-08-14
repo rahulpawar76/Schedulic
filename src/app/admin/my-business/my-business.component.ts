@@ -36,6 +36,7 @@ export class MyBusinessComponent implements OnInit {
   currentUser:any;
   adminId:any;
   token:any;
+  getIpAddress : any;
    
   constructor(
     public dialog: MatDialog,
@@ -53,7 +54,8 @@ export class MyBusinessComponent implements OnInit {
 
   ngOnInit() {
     this.getAllBusiness();
-    this.reverseGeocodingWithGoogle('-33.8670522', '151.1957362');
+    this.fnGetIpAddress();
+    
   }
 
   ngAfterViewInit() {
@@ -62,7 +64,27 @@ export class MyBusinessComponent implements OnInit {
     }, 4000);
   }
 
-
+  fnGetIpAddress(){
+    this.authenticationService.getIPAddress().subscribe((res:any)=>{  
+      this.getIpAddress=res.ip; 
+      this.getGeoLocation(this.getIpAddress);
+    });  
+  }
+  
+  getGeoLocation(IP){
+    this.isLoaderAdmin = true;
+    this.AdminService.getGeoLocation(IP).subscribe((response:any) => {
+      if(response){
+        
+        alert("Response")
+        console.log(response.response)
+      }
+      else {
+        alert("No Response")
+      }
+      this.isLoaderAdmin = false;
+    })
+  }
   getAllBusiness(){
     this.isLoaderAdmin = true;
     this.AdminService.getAllBusiness().subscribe((response:any) => {
@@ -100,18 +122,7 @@ export class MyBusinessComponent implements OnInit {
       this.getAllBusiness();
      });
   }
-  reverseGeocodingWithGoogle(latitude, longitude) {
-    fetch(`https://maps.googleapis.com/maps/api/geocode/json?
-        latlng=${latitude},${longitude}&key={AIzaSyDIx_jprz_nOTY0XoE8uhbX6oAy16GIyOc}`)
-    .then( res => res.json())
-    .then(response => {
-        console.log("User's Location Info: ", response)
-     })
-     .catch(status => {
-        console.log('Request failed.  Returned status of', status)
-     })
-  }
-
+  
 }
 
 

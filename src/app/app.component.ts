@@ -1163,7 +1163,9 @@ export class DialogReAuthentication {
             this.authenticationService.currentUser = response.response
             localStorage.setItem('currentUser',JSON.stringify(response.response));
             this.dialogRef.close(response.response);
-            window.location.reload();
+            setTimeout(() => {
+               window.location.reload();
+            }, 1000);
         }
         else if(response.data == false){
             this._snackBar.open(response.response, "X", {
@@ -1184,15 +1186,15 @@ export class DialogReAuthentication {
 
     onNoClick(): void {
     this.dialogRef.close(); 
-    this.authenticationService.logout();
-    // if (this.timer) {
-    //   clearTimeout(this.timer);
-    //   this.timer = 0;
-    // }
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
-    this.router.navigate(['/login']);
+    //this.authenticationService.logout();
+    // // if (this.timer) {
+    // //   clearTimeout(this.timer);
+    // //   this.timer = 0;
+    // // }
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 1000);
+     //this.router.navigate(['/login']);
     
     }
 

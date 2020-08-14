@@ -306,6 +306,32 @@
     color: #1273f6;
 }
 
+::ng-deep .downlaod-menu {
+    .mat-menu-item {
+        .exel-download {
+            width: 25px;
+            height: 23px;
+            background-image: url('/../../assets/images/admin/excel.png');
+            background-size: cover;
+            display: block;
+            float: left;
+        }
+        .pdf-download {
+            width: 21px;
+            height: 28px;
+            background-image: url('/../../assets/images/admin/pdf-file-format-symbol.png');
+            background-size: cover;
+            display: block;
+            float: left;
+        }
+        span {
+            float: left;
+            line-height: 1.9;
+            font-size: 16px;
+        }
+    }
+}
+
 @supports (-ms-ime-align:auto) {
      ::ng-deep .report-date-range-main {
         .mat-form-field-infix {
