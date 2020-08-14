@@ -210,6 +210,68 @@
     }
 }
 
+.btn-editlink{
+    background-color: #1173f4;
+    color: #fff;
+}
+.service-booking-link-active{
+    background-color: #1173f4;
+    color: #fff;
+}
+.html-btn-title{
+    background-color: #F6F6F6;
+}
+.service-booking-link{
+    background-color: #E1E1E1;
+    color: #000000;
+}
+.btn-color-dummy{
+   text-decoration: underline;
+   color: #007BFF;
+}
+.btn-color-one{
+    background-color: #003cff;
+    color: #fff;
+}
+.btn-color-two{
+    background-color: #008AFF;
+    color: #fff;
+}
+.btn-color-three{
+    background-color: #009315;
+    color: #fff;
+}
+.btn-color-four{
+    background-color: #FFA800;
+    color: #fff;
+}
+.btn-color-five{
+    background-color: #FF008A;
+    color: #fff;
+}
+.btn-color-six{
+    background-color: #8A00FF;
+    color: #fff;
+}
+.btn-color-seven{
+    background-color: #FF0000;
+    color: #fff;
+}
+.btn-color-eight{
+    background-color: #000000;
+    color: #fff;
+}
+.btn-color-nine{
+    background-color: #666666;
+    color: #fff;
+}
+.btn-color-ten{
+    background-color: #FDFDFD;
+    border: 1px solid #B5B5B5;
+    border-radius: 5px;
+}
+
+
 // #preview_container {
 //     .datepicker-main {
 //         background: linear-gradient(to right, #38b7fb 0%, #3969fb 100%);
@@ -299,7 +361,7 @@
             select.custom-select {
                 color: $text-bg;
             }
-            .btn-light:not(:disabled):not(.disabled).active {}
+            // .btn-light:not(:disabled):not(.disabled).active {}
         }
     }
     @media only screen and (max-width: 600px) {
