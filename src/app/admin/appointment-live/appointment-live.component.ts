@@ -5,7 +5,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { D } from '@angular/cdk/keycodes';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { environment } from '@environments/environment';
 import { Router, RouterOutlet } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
@@ -85,17 +85,25 @@ export class AppointmentLiveComponent implements OnInit {
   next_page_url_workstart:any;
   prev_page_url_workstart:any;
   path_workstart:any;
-
-
+  inStoreTabName:any = 'service';
+  newCustomer:FormGroup;
+  emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
+  onlynumeric = /^-?(0|[1-9]\d*)?$/
 
   constructor(
     private AdminService: AdminService,
     private datePipe: DatePipe,
     public dialog: MatDialog,
+    private _formBuilder:FormBuilder,
     private _snackBar: MatSnackBar,
   ) { 
     
     localStorage.setItem('isBusiness', 'true');
+    this.newCustomer = this._formBuilder.group({
+      cus_name : ['', Validators.required],
+      cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
+      cus_mobile : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
+    });
   }
 
   ngOnInit() {
@@ -112,7 +120,7 @@ export class AppointmentLiveComponent implements OnInit {
     this.todayTime = this.datePipe.transform(new Date(),"h:mm ")
     this.todayPeriod = this.datePipe.transform(new Date(),"a")
     this.todayDays = this.datePipe.transform(new Date(),"EEEE")
-
+    
     
   }
 
@@ -348,6 +356,10 @@ export class AppointmentLiveComponent implements OnInit {
   arrayOne_workstart(n: number): any[] {
     return Array(n);
   }
+  
+  fnChangeSubTab(tabName){
+    this.inStoreTabName = tabName;
+  }
 
 
 
@@ -407,7 +419,8 @@ export class AppointmentLiveComponent implements OnInit {
       
       });
   }
-  
+
+   
 }
 
 @Component({

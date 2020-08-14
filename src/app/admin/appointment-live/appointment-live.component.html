@@ -4,93 +4,228 @@
             <ng-template mat-tab-label>
                 <span class="material-icons">store</span> In Store
             </ng-template>
-            <div class="in-store-tabs">
-                <mat-tab-group mat-align-tabs="start">
-                    <mat-tab label="Service">
-                        <div class="left-side-booking">
-                            <div class="row mx-0">
-                                <mat-card id="all-category-list" class="col-3 border-8 p-0">
-                                    <ul>
-                                        <li class="bottom-border plr-25">
-                                            <p class="category-lable">Category</p>
-                                        </li>
-                                        <li class="bottom-border plr-25 pointer active">
-                                            <p class="title-main">All Services<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-                                        </li>
-                                        <li class="bottom-border plr-25 pointer">
-                                            <p class="title-main">Hair Color<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-                                        </li>
-                                        <li class="bottom-border plr-25 pointer">
-                                            <p class="title-main">Hair Color<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-                                        </li>
-                                        <li class="bottom-border plr-25 pointer">
-                                            <p class="title-main">Hair Color<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-                                        </li>
-                                    </ul>
-                                </mat-card>
-                                <div class="service-list-main col-5 my-3">
-                                    <div class="row mx-0">
-                                        <div class="col-6 col-lg-4 px-3">
-                                            <label class="signle-service">
+            <div class="in-store-tabs" [ngClass]="{'service-tab': inStoreTabName == 'service','waiting-tab': inStoreTabName == 'waiting'}">
+                <div class="sub-header">
+                    <div class="top-tabs">
+                        <label [ngClass]="{'active': inStoreTabName == 'service'}" (click)="fnChangeSubTab('service')" class="signle-tab">Service</label>
+                        <label [ngClass]="{'active': inStoreTabName == 'waiting'}" (click)="fnChangeSubTab('waiting')" class="signle-tab">Waiting</label>
+                    </div>
+                    <div class="seach-bar">
+                        <i class="fa fa-search"></i>
+                        <input type="text" placeholder="Search">
+                    </div>
+                    <div class="today-time-function">
+                        <div class="pendingborder appoint-head">
+                            <label class="mb-0 pendingdate">{{todayDate}}</label>
+                            <p class="appoint-day">{{todayDays}}</p>
+                        </div>
+
+                        <div class="appoint-head">
+                            <label class="mb-0 pendingdate">{{todayTime}}</label>
+                            <p class="appoint-time-zone">{{todayPeriod}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="inStoreTabName == 'service'" class="service-container">
+                    <div class="left-side-booking">
+                        <div class="row mx-0">
+                            <mat-card id="all-category-list" class="col-3 border-8 p-0">
+                                <ul>
+                                    <li class="bottom-border plr-25">
+                                        <p class="category-lable">Category</p>
+                                    </li>
+                                    <li class="bottom-border plr-25 pointer active">
+                                        <p class="title-main">All Services<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+                                    </li>
+                                    <li class="bottom-border plr-25 pointer">
+                                        <p class="title-main">Hair Color<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+                                    </li>
+                                    <li class="bottom-border plr-25 pointer">
+                                        <p class="title-main">Hair Color<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+                                    </li>
+                                    <li class="bottom-border plr-25 pointer">
+                                        <p class="title-main">Hair Color<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+                                    </li>
+                                </ul>
+                            </mat-card>
+                            <div class="service-list-main col-5 my-3">
+                                <div class="row mx-0">
+                                    <div class="col-6 col-lg-4 px-2">
+                                        <label class="signle-service">
                                                 <input class="d-none" type="radio" name="service" id="service-1">
                                                 <div class="service-label">
                                                     <p>Gold</p>
                                                     <span>$50</span>
                                                 </div>
                                             </label>
-                                        </div>
-                                        <div class="col-6 col-lg-4 px-3">
-                                            <label class="signle-service">
+                                    </div>
+                                    <div class="col-6 col-lg-4 px-2">
+                                        <label class="signle-service">
                                                 <input class="d-none" type="radio" name="service" id="service-2">
                                                 <div class="service-label">
                                                     <p>Gold</p>
                                                     <span>$50</span>
                                                 </div>
                                             </label>
-                                        </div>
-                                        <div class="col-6 col-lg-4 px-3">
-                                            <label class="signle-service">
+                                    </div>
+                                    <div class="col-6 col-lg-4 px-2">
+                                        <label class="signle-service">
                                                 <input class="d-none" type="radio" name="service" id="service-3">
                                                 <div class="service-label">
                                                     <p>Gold</p>
                                                     <span>$50</span>
                                                 </div>
                                             </label>
-                                        </div>
-                                        <div class="col-6 col-lg-4 px-3">
-                                            <label class="signle-service">
+                                    </div>
+                                    <div class="col-6 col-lg-4 px-2">
+                                        <label class="signle-service">
                                                 <input class="d-none" type="radio" name="service" id="service-4">
                                                 <div class="service-label">
                                                     <p>Gold</p>
                                                     <span>$50</span>
                                                 </div>
                                             </label>
-                                        </div>
-                                        <div class="col-6 col-lg-4 px-3">
-                                            <label class="signle-service">
+                                    </div>
+                                    <div class="col-6 col-lg-4 px-2">
+                                        <label class="signle-service">
                                                 <input class="d-none" type="radio" name="service" id="service-5">
                                                 <div class="service-label">
                                                     <p>Gold</p>
                                                     <span>$50</span>
                                                 </div>
                                             </label>
-                                        </div>
-                                        <div class="col-6 col-lg-4 px-3">
-                                            <label class="signle-service">
+                                    </div>
+                                    <div class="col-6 col-lg-4 px-2">
+                                        <label class="signle-service">
                                                 <input class="d-none" type="radio" name="service" id="service-6">
                                                 <div class="service-label">
                                                     <p>Gold</p>
                                                     <span>$50</span>
                                                 </div>
                                             </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4 col-lg-4 pr-0">
+                                <div class="select-staff-container">
+                                    <div class="head">
+                                        <h3>Staff</h3>
+                                        <mat-form-field class="bottom-border-field filter mt-2">
+                                            <mat-label>Filter</mat-label>
+                                            <mat-select (selectionChange)="fnFilterStaff($event.value)">
+                                                <mat-option value="all">All</mat-option>
+                                                <mat-option value="ideal">Ideal</mat-option>
+                                                <mat-option value="working">Working</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="single-staff">
+                                        <div class="left-side">
+                                            <label>Meet Shah</label>
+                                            <p>Ideal</p>
+                                            <span class="time">From 6.30 pm</span>
+                                        </div>
+                                        <div class="right-side">
+                                            <p>Free At</p>
+                                            <span class="time">7.30 pm</span>
+                                            <button mat-button class="assign-btn">Assign</button>
+                                        </div>
+                                    </div>
+                                    <div class="single-staff">
+                                        <div class="left-side">
+                                            <label>Meet Shah</label>
+                                            <p>Ideal</p>
+                                            <span class="time">From 6.30 pm</span>
+                                        </div>
+                                        <div class="right-side">
+                                            <p>Free At</p>
+                                            <span class="time">7.30 pm</span>
+                                            <button mat-button class="assign-btn">Assign</button>
+                                        </div>
+                                    </div>
+                                    <div class="single-staff">
+                                        <div class="left-side">
+                                            <label>Meet Shah</label>
+                                            <p>Ideal</p>
+                                            <span class="time">From 6.30 pm</span>
+                                        </div>
+                                        <div class="right-side">
+                                            <p>Free At</p>
+                                            <span class="time">7.30 pm</span>
+                                            <button mat-button class="assign-btn">Assign</button>
+                                        </div>
+                                    </div>
+                                    <div class="single-staff">
+                                        <div class="left-side">
+                                            <label>Meet Shah</label>
+                                            <p>Ideal</p>
+                                            <span class="time">From 6.30 pm</span>
+                                        </div>
+                                        <div class="right-side">
+                                            <p>Free At</p>
+                                            <span class="time">7.30 pm</span>
+                                            <button mat-button class="assign-btn">Assign</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </mat-tab>
-                    <mat-tab label="Waiting"> </mat-tab>
-                </mat-tab-group>
+                    </div>
+                </div>
+                <div *ngIf="inStoreTabName == 'waiting'" class="waiting-container">
+
+                </div>
+            </div>
+            <div *ngIf="inStoreTabName == 'service'" class="right-cart-container">
+                <div class="cart-head">
+                    <h3>New Order</h3>
+                </div>
+                <div class="customer-container">
+                    <mat-accordion>
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="cutomer-form-body">
+                                <p>Please Enter Customer Details</p>
+                                <form [formGroup]="newCustomer">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-12 col-md-12 bottom-border-field">
+                                            <mat-form-field>
+                                                <mat-label>Email</mat-label>
+                                                <input matInput formControlName="cus_email" placeholder="Enter email address">
+                                            </mat-form-field>
+                                            <span class="error-wrap" *ngIf="newCustomer.get('cus_email').dirty || newCustomer.get('cus_email').touched">
+                                                <small *ngIf="newCustomer.get('cus_email').hasError('required')" class="error">Email is required.</small>
+                                                <small *ngIf="newCustomer.get('cus_email').hasError('pattern')" class="error">Enter valid email address.</small>
+                                            </span>
+                                        </div>
+                                        <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
+                                            <mat-form-field>
+                                                <mat-label>Mobile</mat-label>
+                                                <input matInput formControlName="cus_mobile" placeholder="Enter mobile no.">
+                                            </mat-form-field>
+                                            <span class="error-wrap" *ngIf="newCustomer.get('cus_mobile').dirty || newCustomer.get('cus_mobile').touched">
+                                                <small *ngIf="newCustomer.get('cus_mobile').hasError('required') || (newCustomer.get('cus_mobile').hasError('required') && newCustomer.get('cus_mobile').hasError('minlength') || newCustomer.get('cus_mobile').hasError('maxlength'))" class="error">Mobile number is  required.</small>
+                                                <small *ngIf="newCustomer.get('cus_mobile').hasError('minlength') || newCustomer.get('cus_mobile').hasError('maxlength')" class="error">Mobile number should be minimum 6 or maximum 15 digits.</small>
+                                                <small *ngIf="newCustomer.get('cus_mobile').hasError('pattern')" class="error">Mobile number should be numbers only.</small>
+                                            </span>
+                                        </div>
+                                        <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
+                                            <mat-form-field>
+                                                <mat-label>Name</mat-label>
+                                                <input matInput formControlName="cus_name" placeholder="Enter name">
+                                            </mat-form-field>
+                                            <span class="error-wrap" *ngIf="newCustomer.get('cus_name').dirty || newCustomer.get('cus_name').touched || formSubmitclicked"><small *ngIf="newCustomer.get('cus_name').hasError('required')" class="error">Fullname is required.</small></span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
             </div>
         </mat-tab>
         <mat-tab>
