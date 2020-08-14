@@ -504,6 +504,16 @@ table {
             z-index: 9;
             border: 0;
         }
+        &.waiting-tab {
+            .seach-bar {
+                input {
+                    width: 40%;
+                }
+                i {
+                    left: calc(30% + 10px);
+                }
+            }
+        }
     }
     .left-side-booking {
         width: 100%;
@@ -566,7 +576,7 @@ table {
                 font-size: 16px;
             }
             .item-list {
-                height: calc(100vh - 410px);
+                height: calc(100vh - 422px);
                 overflow-y: auto;
                 .item {
                     border-bottom: 1px solid #ccc;
@@ -726,6 +736,59 @@ table {
                     width: 100px;
                     height: 25px;
                     line-height: 1.8;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+    .waiting-container {
+        .card {
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            box-shadow: 0px 0px 10px #00000014;
+            border-radius: 5px;
+            border: 0;
+        }
+        .single-value {
+            margin-bottom: 10px;
+            width: 100%;
+            .title {
+                color: #808080;
+                font-size: 14px;
+                text-align: left;
+                margin-bottom: 0;
+            }
+            .value {
+                color: #2C2C2C;
+                font-size: 16px;
+                text-align: left;
+                margin-bottom: 0;
+            }
+        }
+        .right-side {
+            .title {
+                text-align: right;
+            }
+            .value {
+                text-align: right;
+            }
+        }
+        .service-list-head {
+            padding: 5px 8px;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            .title {
+                color: #595959;
+                font-size: 14px;
+            }
+        }
+        .service-list {
+            padding: 5px 10px;
+            border-bottom: 1px solid #ccc;
+            .title {
+                color: #2C2C2C;
+                font-size: 16px;
+                span {
+                    color: #808080;
                     font-size: 14px;
                 }
             }
