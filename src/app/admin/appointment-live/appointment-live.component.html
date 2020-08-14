@@ -191,8 +191,8 @@
                             <div class="cutomer-form-body">
                                 <p>Please Enter Customer Details</p>
                                 <form [formGroup]="newCustomer">
-                                    <div class="row">
-                                        <div class="col-lg-12 col-12 col-md-12 bottom-border-field">
+                                    <div class="row mb-3">
+                                        <div class="col-lg-12 col-12 col-md-12 bottom-border-field m-0">
                                             <mat-form-field>
                                                 <mat-label>Email</mat-label>
                                                 <input matInput formControlName="cus_email" placeholder="Enter email address">
@@ -225,6 +225,69 @@
                             </div>
                         </mat-expansion-panel>
                     </mat-accordion>
+                </div>
+                <div class="cart-items">
+                    <div class="item-header" fxLayout="row">
+                        <div class="" fxFlex="10"></div>
+                        <div class="" fxFlex="40">
+                            Services
+                        </div>
+                        <div class="" fxFlex="35">QTY.</div>
+                        <div class="" fxFlex="15">Price</div>
+                    </div>
+                    <div class="item-list">
+                        <div class="item">
+                            <div class="" fxFlex="10"><button mat-icon-button class="close-btn"> <mat-icon>close</mat-icon></button></div>
+                            <div class="service-name" fxFlex="45">
+                                <label>Gold <span>(Hair Color)</span></label>
+                                <label class="staff-name">Staff : Meet shah</label>
+                            </div>
+                            <div class="" fxFlex="35">
+                                <div class="qty-counter">
+                                    <button mat-fab class="action-btn qty-minus">-</button>
+                                    <input type="text" class="qty_value" id="servicecount_1" value="2" readonly/>
+                                    <button mat-fab class="action-btn qty-minus">+</button>
+                                </div>
+                            </div>
+                            <div class="" fxFlex="15">$40</div>
+                        </div>
+                        <div class="item">
+                            <div class="" fxFlex="10"><button mat-icon-button class="close-btn"> <mat-icon>close</mat-icon></button></div>
+                            <div class="service-name" fxFlex="45">
+                                <label>Black <span>(Hair Color)</span></label>
+                                <label class="staff-name">Staff : Meet shah</label>
+                            </div>
+                            <div class="" fxFlex="35">
+                                <div class="qty-counter">
+                                    <button mat-fab class="action-btn qty-minus">-</button>
+                                    <input type="text" class="qty_value" id="servicecount_1" value="2" readonly/>
+                                    <button mat-fab class="action-btn qty-minus">+</button>
+                                </div>
+                            </div>
+                            <div class="" fxFlex="15">$40</div>
+                        </div>
+                        <div class="item subtotal">
+                            <div class="service-name" fxFlex="70">
+                                <label>Subtotal : $ 100</label>
+                            </div>
+                            <div class="" fxFlex="30">Tax : $ 10</div>
+                        </div>
+                    </div>
+                    <div class="cart-footer">
+                        <div class="add-note">
+                            <p class="title">Add Note</p>
+                        </div>
+                        <div class="total">
+                            <p fxFlex="50" class="title text-left">Total</p>
+                            <p fxFlex="50" class="amount text-right mb-0">$ 110</p>
+                        </div>
+                        <div class="footer-action">
+                            <button class="save-btn" mat-button>Save & Print</button>
+                            <button class="save-btn" mat-button>Save & Ebill</button>
+                            <button class="place-btn" mat-button>Place</button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </mat-tab>
