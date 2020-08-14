@@ -220,13 +220,10 @@ export class FrontbookingComponent implements OnInit {
     @Inject(DOCUMENT) private _document
     
   ) { 
-    console.log(window.location.search)
+
     this.urlString = window.location.search.split("?business_id="); 
-    this.businessId =this.urlString[1];
-    // console.log(this.encodedbusinessId)
-    // const enc = new Base64();
-    // this.businessId = enc.decode(this.encodedbusinessId); 
-    // console.log(this.businessId)
+    this.businessId = window.atob(decodeURIComponent(this.urlString[1]));
+   
     meta.addTag({name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'});
     this.renderExternalScript('https://checkout-static.citruspay.com/bolt/run/bolt.min.js').onload = () => {
       console.log('Google API Script loaded');

@@ -87,7 +87,7 @@ export class AppearanceComponent implements OnInit {
         // console.log(this.encodedBusinessId);
         
       }
-      this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+this.businessId+"'></iframe>";
+      this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+window.btoa(this.businessId)+"'></iframe>";
   }
 
   ngOnInit() {
