@@ -1,4 +1,6 @@
 <div class="content-main" id="live_appointments">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
+
     <mat-tab-group mat-align-tabs="start" class="main-tab-grp">
         <mat-tab label="In Store">
             <ng-template mat-tab-label>
@@ -269,12 +271,11 @@
                             <p fxFlex="50" class="amount text-right mb-0">₹ {{totalCost}}</p>
                         </div>
                         <div class="footer-action">
-                            <button class="save-btn" (click)="fnPaymentMode()" mat-button>Save & Print</button>
-                            <button class="save-btn" (click)="fnPaymentMode()" mat-button>Save & Ebill</button>
-                            <button class="place-btn" mat-button (click)="fnplaceOrder()">Place</button>
+                            <button class="save-btn" [disabled]="cartArr.length == 0" (click)="fnPaymentMode('print')" mat-button>Save & Print</button>
+                            <button class="save-btn" [disabled]="cartArr.length == 0"  (click)="fnPaymentMode('email')" mat-button>Save & Ebill</button>
+                            <button class="place-btn" [disabled]="cartArr.length == 0"  mat-button (click)="fnplaceOrder('place')">Place</button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </mat-tab>
