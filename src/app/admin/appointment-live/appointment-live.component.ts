@@ -394,6 +394,15 @@ export class AppointmentLiveComponent implements OnInit {
        this.animal = result;
       });
   }
+  fnPaymentMode(index){
+    
+    const dialogRef = this.dialog.open(paymentModeDialog, {
+      width: '500px',
+     });
+      dialogRef.afterClosed().subscribe(result => {
+       this.animal = result;
+      });
+  }
 
   fnOpenNotAssignedDetails(index){
     
@@ -620,6 +629,35 @@ export class AppointmentLiveComponent implements OnInit {
       }
     });
 
+  }
+}
+
+@Component({
+  selector: 'online-payment-mode',
+  templateUrl: '../_dialogs/online-payment-mode.html',
+    providers: [DatePipe]
+})
+export class paymentModeDialog {
+  createNewNote: FormGroup;
+formSettingPage:boolean = false;
+appointmentDetails = {
+  bookingNotes : ''
+};
+settingsArr:any =[];
+
+constructor(
+  public dialogRef: MatDialogRef<paymentModeDialog>,
+  private AdminService: AdminService,
+  private _snackBar: MatSnackBar,
+  private datePipe: DatePipe,
+  private _formBuilder:FormBuilder,
+  public dialog: MatDialog,
+  @Inject(MAT_DIALOG_DATA) public data: any) {
+    
+
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }
 

@@ -269,8 +269,8 @@
                             <p fxFlex="50" class="amount text-right mb-0">₹ {{totalCost}}</p>
                         </div>
                         <div class="footer-action">
-                            <button class="save-btn" mat-button>Save & Print</button>
-                            <button class="save-btn" mat-button>Save & Ebill</button>
+                            <button class="save-btn" (click)="fnPaymentMode()" mat-button>Save & Print</button>
+                            <button class="save-btn" (click)="fnPaymentMode()" mat-button>Save & Ebill</button>
                             <button class="place-btn" mat-button (click)="fnplaceOrder()">Place</button>
                         </div>
                     </div>

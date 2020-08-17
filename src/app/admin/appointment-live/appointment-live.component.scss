@@ -797,6 +797,8 @@ table {
     }
     .action-list {
         margin: 8px 0;
+        display: flex;
+        align-items: center;
         .right-side {
             display: flex;
             align-items: center;
@@ -822,6 +824,35 @@ table {
                 display: block;
             }
         }
+    }
+}
+
+mat-radio-group {
+    mat-radio-button {
+        margin: 0 10px;
+    }
+}
+
+::ng-deep .payment-action-btn {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 0;
+    .cancel-btn {
+        background: #DDDDDD 0% 0% no-repeat padding-box;
+        border-radius: 5px;
+        width: 140px;
+        height: 40px;
+        font-size: 16px;
+        color: #181818;
+        margin-right: 15px;
+    }
+    .confirm-btn {
+        background: #1172F4 0% 0% no-repeat padding-box;
+        border-radius: 5px;
+        width: 140px;
+        height: 40px;
+        font-size: 16px;
+        color: #FFFFFF;
     }
 }
 
