@@ -573,10 +573,19 @@ export class AppointmentLiveComponent implements OnInit {
     this.cartArr.forEach(element => {
       this.totalCost = this.totalCost+parseInt(element.subtotal);
     });
-   
 
   }
+
   fnplaceOrder(){
+
+    if(this.newCustomer.invalid){
+      this.newCustomer.get('cus_email').markAsTouched();
+      this.newCustomer.get('cus_mobile').markAsTouched();
+      this.newCustomer.get('cus_name').markAsTouched();
+      return false;
+
+    }
+    
 
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -588,9 +597,9 @@ export class AppointmentLiveComponent implements OnInit {
     var requestObject = {
       "business_id" : localStorage.getItem('business_id'),
       'serviceInfo' : JSON.stringify(this.cartArr),
-      "customer_name":"abc xyz pqr",
-      "customer_phone":"256256",
-      "customer_email":"vishalbimistry@yahoo.com",
+      "customer_name": this.newCustomer.get('cus_name').value,
+      "customer_phone": this.newCustomer.get('cus_mobile').value,
+      "customer_email": this.newCustomer.get('cus_email').value,
       "created_by":"admin",
       "subtotal":this.totalCost,
       "reference_id": "jsgdsjdgsjdsgdsgjdsgd",
@@ -600,9 +609,8 @@ export class AppointmentLiveComponent implements OnInit {
       "payment_method":"Paypal",
       "order_date": payment_datetime
     };
-
-    console.log(requestObject);
-    return;
+    
+ 
 
     this.AdminService.placeOrder(requestObject).subscribe((response:any) => {
       if(response.data == true){
@@ -613,6 +621,7 @@ export class AppointmentLiveComponent implements OnInit {
 
   }
 }
+
 
 @Component({
   selector: 'pending-appointment-details',
