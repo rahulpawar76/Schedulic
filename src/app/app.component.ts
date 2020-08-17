@@ -64,6 +64,7 @@ export class AppComponent implements AfterViewInit {
   loggedIn: boolean;
   isAllowed:boolean=true;
   businessComponent:boolean=false;
+  POSComponent:boolean=false;
   isSignOut:boolean=true;
   activeSettingMenu:any;
   notificationCount: any = 0;
@@ -327,6 +328,15 @@ export class AppComponent implements AfterViewInit {
       return true;
     } else {
       this.businessComponent = true;
+      return false;
+    }
+  }
+  isPOS() {
+    if (localStorage.getItem('isPOS') && localStorage.getItem('isPOS') == "true") {
+      this.POSComponent = false;
+      return true;
+    } else {
+      this.POSComponent = true;
       return false;
     }
   }

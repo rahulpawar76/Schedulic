@@ -93,17 +93,20 @@ export class AppointmentLiveComponent implements OnInit {
   service_id:any;
   categoryServiceCheckServiceId = [];
   totalCost = 0;
+  selectedtab:any = 1;
+  pendingBillTab: boolean = false
 
   constructor(
     private AdminService: AdminService,
     private datePipe: DatePipe,
     public dialog: MatDialog,
     private _formBuilder:FormBuilder,
+    public router: Router,
     private _snackBar: MatSnackBar,
   ) { 
     
     
-    localStorage.setItem('isBusiness', 'true');
+    localStorage.setItem('isPOS', 'true');
     this.newCustomer = this._formBuilder.group({
       cus_name : ['', Validators.required],
       cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
@@ -117,7 +120,7 @@ export class AppointmentLiveComponent implements OnInit {
     }
     this.fnGetSettings();
     this.getPendingAppointments();
-    this.getNotAssignedAppointments();
+   // this.getNotAssignedAppointments();
     this.getOnThewayAppointments();
     this.getWorkStartedAppointments();
     
@@ -130,6 +133,18 @@ export class AppointmentLiveComponent implements OnInit {
     this.fngetService();
 
     
+  }
+  onTabChanged(event){
+    let clickedIndex = event.index;
+    console.log(clickedIndex)
+    if(clickedIndex == 0){
+      this.router.navigate(['/admin/my-workspace']);
+    }
+    if(clickedIndex == 5){
+      this.pendingBillTab  = true
+    }else{
+      this.pendingBillTab  = false
+    }
   }
 
   fnGetSettings(){
@@ -177,11 +192,11 @@ export class AppointmentLiveComponent implements OnInit {
           element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
         });
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition: 'top',
+        //   panelClass : ['red-snackbar']
+        // });
         this.pendingAppointments = [];
       }
     });
@@ -283,11 +298,11 @@ export class AppointmentLiveComponent implements OnInit {
           
         });
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition: 'top',
+        //   panelClass : ['red-snackbar']
+        // });
         this.onTheWayAppointments = [];
       }
     })
@@ -337,11 +352,11 @@ export class AppointmentLiveComponent implements OnInit {
         });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition: 'top',
+        //   panelClass : ['red-snackbar']
+        // });
         this.workStartedAppointments = [];
       }
     })
