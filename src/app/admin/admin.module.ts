@@ -36,10 +36,7 @@ import { InterruptedReschedule } from './my-work-space/my-work-space.component';
 import { InterruptedReschedulecustomer } from './customers/customers.component';
 import { RescheduleAppointAdmin } from './appointment/appointment.component';
 import { MyProfileComponent } from './settings-my-profile/settings-my-profile.component';
-import { PendingAppointmentDetailsDialog } from './appointment-live/appointment-live.component';
-import { NotAssignedAppointmentDetailsDialog } from './appointment-live/appointment-live.component';
-import { OnTheWayAppointmentDetailsDialog } from './appointment-live/appointment-live.component';
-import {WorkStartedAppointmentDetailsDialog} from './appointment-live/appointment-live.component';
+import { WorkStartedAppointmentDetailsDialog, OnTheWayAppointmentDetailsDialog, NotAssignedAppointmentDetailsDialog, PendingAppointmentDetailsDialog, addPOSBookingNoteDialog, paymentModeDialog } from './appointment-live/appointment-live.component';
 import {DialogAllAppointmentDetails} from './appointment/appointment.component';
 //import { IgxExcelExporterService } from "igniteui-angular";
 import { DialogMyProfileImageUpload } from './settings-my-profile/settings-my-profile.component';
@@ -79,6 +76,8 @@ import { SupportComponent } from './support/support.component';
     DialogMyProfileImageUpload,
     DialogCustomerImageUpload,
     PendingAppointmentDetailsDialog,
+    addPOSBookingNoteDialog,
+    paymentModeDialog,
     NotAssignedAppointmentDetailsDialog,
     OnTheWayAppointmentDetailsDialog,
     WorkStartedAppointmentDetailsDialog,
@@ -113,7 +112,7 @@ import { SupportComponent } from './support/support.component';
   ],
   entryComponents: [myCreateNewBusinessDialog,DialogAddNewAppointment,
     DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,
-    DialogViewReview,InterruptedReschedule,InterruptedReschedulecustomer,RescheduleAppointAdmin,PendingAppointmentDetailsDialog,
+    DialogViewReview,InterruptedReschedule,InterruptedReschedulecustomer,RescheduleAppointAdmin,PendingAppointmentDetailsDialog,addPOSBookingNoteDialog,paymentModeDialog,
     NotAssignedAppointmentDetailsDialog,OnTheWayAppointmentDetailsDialog,
     WorkStartedAppointmentDetailsDialog,DialogImportFileUpload,DialogMyProfileImageUpload,DialogAllAppointmentDetails,
     DialogCustomerImageUpload,DialogCouponDetails,CustomerAppointmentDetailsDialog,RescheduleAppointment,DialogInvoiceDialog],

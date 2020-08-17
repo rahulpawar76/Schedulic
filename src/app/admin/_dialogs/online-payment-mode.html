@@ -1,0 +1,26 @@
+<div class="modal-dialog modal-notify modal-info" role="document">
+    <div class="modal-content">
+        <div class="modal-header modal-bcolor-primary">
+            <p class="heading lead  interrupted-content">Payment Mode</p>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+        <span aria-hidden="true" class="white-text">&times;</span>
+      </button>
+        </div>
+        <div class="modal-body ">
+            <div class="payment-module-img">
+                <img src="/assets/img/paymentmoduleimg.png" class="paymentmodeimg">
+            </div>
+            <div>
+                <mat-radio-group class="d-flex justify-content-center my-4">
+                    <mat-radio-button class="mb-0" value="pay2" (change)="fnPaymentMethod('Card')">Card</mat-radio-button>
+                    <mat-radio-button class="mb-0" value="pay1" [checked]="true" (change)="fnPaymentMethod('Cash')">Cash</mat-radio-button>
+                </mat-radio-group>
+
+            </div>
+            <div class="payment-action-btn">
+                <button mat-button class="cancel-btn">Cancel</button>
+                <button mat-button class="confirm-btn">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
