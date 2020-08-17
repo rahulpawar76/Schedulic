@@ -466,8 +466,25 @@
                                 </div>
                             </div>
                             <div class="action-btn">
-                                <button mat-button class="detail-btn">Appointment Details</button>
+                                <button (click)="fnOpenOnTheWayDetails()" mat-button class="detail-btn">Appointment Details</button>
                                 <button mat-button class="ws-btn">Work Started</button>
+                            </div>
+                        </div>
+                        <div class="single-order">
+                            <label class="order-id">Order ID : 1234567890 <small>#1</small></label>
+                            <div class="location-container">
+                                <!-- <div class="pickup-point">
+                                    <img src="/assets/images/admin/delivery.png">
+                                    <p>Delivery Boy Live Location</p>
+                                </div> -->
+                                <div class="drop-point">
+                                    <mat-icon>location_on</mat-icon>
+                                    <p>Digfeer Road, Mogadishu, Somalia, Lorem</p>
+                                </div>
+                            </div>
+                            <div class="action-btn">
+                                <button (click)="fnOpenOnTheWayDetails()" mat-button class="detail-btn">Appointment Details</button>
+                                <button mat-button class="otw-btn">On The Way</button>
                             </div>
                         </div>
                     </div>

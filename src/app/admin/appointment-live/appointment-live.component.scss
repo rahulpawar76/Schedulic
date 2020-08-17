@@ -979,10 +979,13 @@ mat-radio-group {
                 height: 40px;
                 background: #F6F6F6 0% 0% no-repeat padding-box;
                 border-radius: 60px;
-                color: #F6F6F6;
+                color: #000000;
                 border: 0;
                 text-indent: 35px;
                 font-size: 14px;
+                &:focus {
+                    outline: 0;
+                }
             }
             i {
                 color: #595959;
@@ -1020,23 +1023,26 @@ mat-radio-group {
                         display: flex;
                         padding: 8px 0;
                         align-items: center;
+                        position: relative;
                         img {
                             width: auto;
                             height: 14px;
-                            position: relative;
-                             ::after {
-                                content: "";
-                                position: absolute;
-                                height: 10px;
-                                width: 1px;
-                                border-right: 1px dashed #5abd30;
-                            }
                         }
                         p {
                             color: #181818;
                             font-size: 16px;
                             padding-left: 15px;
                             margin: 0;
+                        }
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            height: 35px;
+                            width: 2px;
+                            display: flex;
+                            border-right: 1px dashed #5abd30;
+                            top: 25px;
+                            left: 8px;
                         }
                     }
                     .drop-point {
@@ -1045,6 +1051,8 @@ mat-radio-group {
                         align-items: center;
                         mat-icon {
                             color: #FF6F00;
+                            font-size: 20px;
+                            text-align: left;
                         }
                         p {
                             color: #181818;
@@ -1055,21 +1063,32 @@ mat-radio-group {
                     }
                 }
                 .action-btn {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
                     .detail-btn {
-                        width: 200px;
+                        width: 170px;
                         height: 35px;
                         background: #DDDDDD 0% 0% no-repeat padding-box;
                         border-radius: 5px;
                         color: #181818;
-                        font-size: 16px;
+                        font-size: 14px;
                     }
                     .ws-btn {
-                        width: 160px;
+                        width: 140px;
                         height: 35px;
                         background: #1172F4 0% 0% no-repeat padding-box;
                         border-radius: 5px;
                         color: #fff;
-                        font-size: 16px;
+                        font-size: 14px;
+                    }
+                    .otw-btn {
+                        width: 140px;
+                        height: 35px;
+                        background: #0EC619 0% 0% no-repeat padding-box;
+                        border-radius: 5px;
+                        color: #fff;
+                        font-size: 14px;
                     }
                 }
             }

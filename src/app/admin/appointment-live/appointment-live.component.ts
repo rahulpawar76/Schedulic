@@ -434,12 +434,12 @@ export class AppointmentLiveComponent implements OnInit {
   }
 
   
-  fnOpenOnTheWayDetails(index){
+  fnOpenOnTheWayDetails(){
     
     const dialogRef = this.dialog.open(OnTheWayAppointmentDetailsDialog, {
       height: '700px',
       //data: {animal: this.animal}
-      data :{fulldata : this.onTheWayAppointments[index]}
+      //data :{fulldata : this.onTheWayAppointments[index]}
      });
       dialogRef.afterClosed().subscribe(result => {
        this.animal = result;
@@ -1321,10 +1321,10 @@ export class OnTheWayAppointmentDetailsDialog {
     private http: HttpClient,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      this.detailsData =  this.data.fulldata;
-      console.log(this.detailsData);
-      this.fnGetActivityLog(this.detailsData.id);
-      this.fnGetSettings();
+      // this.detailsData =  this.data.fulldata;
+      // console.log(this.detailsData);
+      // this.fnGetActivityLog(this.detailsData.id);
+      // this.fnGetSettings();
   }
   onNoClick(): void {
     this.dialogRef.close();
