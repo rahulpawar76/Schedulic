@@ -210,6 +210,71 @@
     }
 }
 
+.theme-div{
+    height: 150px;
+    border-radius: 5px;
+    background-image: url("../../../../assets/images/admin/theme1.png");
+    background-size: cover;
+}
+
+.theme-active{
+    border: 5px solid #007BFF;
+}
+.checkbox{
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    color:#007BFF;
+}
+.theme-title{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align:left ;
+    color: #fff;
+    border-radius: 0px 0px 5px 5px;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.theme-div:hover .theme-btn-div{
+    display: block;
+}
+
+.theme-btn-div{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.theme-btn-sub-div{
+    width: 70%;
+    height: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+
+.theme-btn-sub-div button{
+    width: 100%;
+    border-radius: 30px;
+}
+
+.preview-color{
+    background-color: olive;
+    color:#fff;
+}
+.set-default-color{
+    background-color:#003cff;
+    color:#fff;
+}
+
 .btn-editlink{
     background-color: #1173f4;
     color: #fff;
