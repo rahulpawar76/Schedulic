@@ -95,7 +95,6 @@ export class AppointmentLiveComponent implements OnInit {
   totalCost = 0;
   note_description='';
   paymentData:any;
-  isLoaderAdmin:boolean;
 
     constructor(
     private AdminService: AdminService,
