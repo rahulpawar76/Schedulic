@@ -35,18 +35,18 @@
                                         <p class="category-lable">Category</p>
                                     </li>
                                     <li class="bottom-border plr-25 pointer active">
-                                        <p class="title-main"  (click)="fngetService('')">All Services<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+                                        <p class="title-main" (click)="fngetService('')">All Services<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
                                     </li>
 
                                     <li class="bottom-border plr-25 pointer" *ngFor="let val of CategoryList; let i=index">
                                         <p class="title-main" (click)="fngetService(val.id)">{{val.category_title}}<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
                                     </li>
-                                   
+
                                 </ul>
                             </mat-card>
                             <div class="service-list-main col-5 my-3">
                                 <div class="row mx-0">
-                                    <div class="col-6 col-lg-4 px-2" *ngFor="let val of ServiceList; let i=index" >
+                                    <div class="col-6 col-lg-4 px-2" *ngFor="let val of ServiceList; let i=index">
                                         <label class="signle-service" (click)="fngetStaff(val.id,i)">
                                              <input class="d-none" type="radio" name="service" id="service-{{i}}">
                                              <div class="service-label">
@@ -70,7 +70,7 @@
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
-                                    <div class="single-staff"  *ngFor="let val of StaffList; let i=index">
+                                    <div class="single-staff" *ngFor="let val of StaffList; let i=index">
                                         <div class="left-side">
                                             <label>{{val.name}}</label>
                                             <p>{{val.status}}</p>
@@ -82,11 +82,11 @@
                                             <button mat-button class="assign-btn" (click)="fnAssignStaff(val.id,i)">Assign</button>
                                         </div>
                                     </div>
-                                    
-                                    <div class="single-staff"  *ngIf="StaffList.length==0">
-                                       <p>Staff not available</p>
+
+                                    <div class="single-staff" *ngIf="StaffList.length==0">
+                                        <p>Staff not available</p>
                                     </div>
-                                  
+
                                 </div>
                             </div>
                         </div>
@@ -126,19 +126,29 @@
                                     </label>
                                     </div>
                                     <div class="col-12 service-list-head px-0">
-                                        <div class="w-50 title text-left">
+                                        <div class="w-50 float-left title text-left">
                                             Service
                                         </div>
-                                        <div class="w-50 title text-right">
+                                        <div class="w-50 float-left title text-right">
                                             QTY.
                                         </div>
                                     </div>
                                     <div class="col-12 service-list px-0">
-                                        <div class="w-50 title text-left">
+                                        <div class="w-50 float-left title text-left">
                                             Gold <span>(Hair Color)</span>
                                         </div>
-                                        <div class="w-50 title text-right">
+                                        <div class="w-50 float-left title text-right">
                                             1
+                                        </div>
+                                    </div>
+                                    <div class="col-12 action-list px-0">
+                                        <div class="w-50 float-left text-left">
+                                            <button mat-button class="cancel-btn">Cancel</button>
+                                        </div>
+                                        <div class="w-50 float-left text-right right-side">
+                                            <mat-icon>sticky_note_2</mat-icon>
+                                            <img src="/assets/images/admin/stopwatch.png">
+                                            <span class="timing"><small class="title">mm:ss</small>05:46</span>
                                         </div>
                                     </div>
                                 </div>
@@ -221,12 +231,12 @@
                                 <div class="qty-counter">
                                     <button mat-fab class="action-btn qty-minus" (click)="fncartUpdate('minus',i)">-</button>
                                     <input type="text" class="qty_value" id="servicecount_1" value="{{val.count}}" readonly/>
-                                    <button mat-fab class="action-btn qty-minus"  (click)="fncartUpdate('plus',i)">+</button>
+                                    <button mat-fab class="action-btn qty-minus" (click)="fncartUpdate('plus',i)">+</button>
                                 </div>
                             </div>
                             <div class="" fxFlex="15">₹{{val.totalCost}}</div>
                         </div>
-<!-- 
+                        <!-- 
                         <div class="item">
                             <div class="" fxFlex="10"><button mat-icon-button class="close-btn"> <mat-icon>close</mat-icon></button></div>
                             <div class="service-name" fxFlex="45">
@@ -252,7 +262,7 @@
                     </div>
                     <div class="cart-footer">
                         <div class="add-note">
-                            <p class="title">Add Note</p>
+                            <p (click)="fnAddNote()" class="title">Add Note</p>
                         </div>
                         <div class="total">
                             <p fxFlex="50" class="title text-left">Total</p>
@@ -343,88 +353,6 @@
                                 </ul>
                             </nav>
                         </div>
-                    </div>
-                </mat-card>
-            </div>
-        </mat-tab>
-
-        <mat-tab class="notassignedlabel">
-            <ng-template mat-tab-label>
-                <span class="material-icons">assignment_ind</span> Not Assigned
-            </ng-template>
-            <div class="pendingnotes d-flex">
-                <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
-                <div class="col-2 pendingborder appoint-head">
-                    <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
-                    <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
-                </div>
-
-                <div class="appoint-head" style="margin: 0 20px 0 20px;">
-                    <label class="mb-0 pendingdate">{{todayTime}}</label>
-                    <p class="appoint-time-zone" style="text-align: right;">{{todayPeriod}}</p>
-                </div>
-            </div>
-            <div class="col-12">
-                <mat-card class="table-background">
-                    <div class="Pending-table">
-                        <div class="main-table-content main-cust-table-content">
-                            <div class="main-table-head" fxLayout="row">
-                                <div class="" fxFlex="20">Services</div>
-                                <div class="" fxFlex="25">Customer</div>
-                                <div class="" fxFlex="25">Staff</div>
-                                <div class="" fxFlex="10">Amount</div>
-                                <div class="" fxFlex="10">Date</div>
-                                <div class="" fxFlex="10">Time</div>
-                            </div>
-                            <div class="content" class="appointment-live-list">
-                                <div (click)="fnOpenNotAssignedDetails(i)" *ngFor="let notAssignedAppointments of notAssignedAppointments; let i=index" class="appointment-live-list-details">
-                                    <div class="" fxFlex="20">
-                                        <p class="mb-0">{{notAssignedAppointments.service?notAssignedAppointments.service.service_name:''}}</p>
-                                    </div>
-                                    <div class="" fxFlex="25">
-                                        <p class="mb-0">{{notAssignedAppointments.customer?notAssignedAppointments.customer.fullname:''}}</p>
-                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{notAssignedAppointments.customer?notAssignedAppointments.customer.phone:''}}</p>
-                                        <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{notAssignedAppointments.customer?notAssignedAppointments.customer.email:''}}</p>
-                                    </div>
-                                    <div *ngIf="notAssignedAppointments.staff != null" class="" fxFlex="25">
-                                        <p class="mb-0">{{notAssignedAppointments.staff?notAssignedAppointments.staff.firstname+' '+notAssignedAppointments.staff.lastname:''}}</p>
-                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No: {{notAssignedAppointments.staff?notAssignedAppointments.staff.phone:''}}</p>
-                                        <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email: {{notAssignedAppointments.staff?notAssignedAppointments.staff.email:''}}</p>
-                                    </div>
-                                    <div *ngIf="notAssignedAppointments.staff == null && notAssignedAppointments.staff_id == null" class="" fxFlex="25">
-                                        <p class="mb-0">Not Assigned</p>
-                                    </div>
-                                    <div *ngIf="notAssignedAppointments.staff == null && notAssignedAppointments.staff_id != null" class="" fxFlex="25">
-                                        <p class="mb-0">Request Sent To Staff</p>
-                                    </div>
-                                    <!-- <div class="" fxFlex="10">
-                          {{notAssignedAppointments.total_cost}}
-                        </div> -->
-                                    <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ notAssignedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
-                                    </div>
-                                    <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ notAssignedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
-                                    </div>
-                                    <div class="" fxFlex="10">
-                                        {{notAssignedAppointments.booking_date}}
-                                    </div>
-                                    <div class="" fxFlex="10">
-                                        {{notAssignedAppointments.booking_time}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="table_pagination" *ngIf="notAssignedAppointments != ''">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end">
-                                    <li class="page-item {{current_page_notassign==1?'pointernone':'' }}" (click)="navigateTo_notassign(first_page_url_notassign)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
-                                    <li class="page-item" (click)="navigateTo_notassign(prev_page_url_notassign)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
-                                    <li class="page-item" [ngClass]="{'active':current_page_notassign == i+1}" *ngFor="let pagenumber of arrayOne_notassign(last_page_notassign); let i = index;" (click)="navigateToPageNumber_notassign(i+1)"><a class="page-link">{{i+1}}</a></li>
-                                    <li class="page-item" (click)="navigateTo_notassign(next_page_url_notassign)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
-                                    <li class="page-item {{arrayOne_notassign(last_page_notassign).length==current_page_notassign?'pointernone':''}}" (click)="navigateTo_notassign(last_page_url_notassign)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
-                                </ul>
-                            </nav>
-                        </div>
-
                     </div>
                 </mat-card>
             </div>
@@ -648,6 +576,12 @@
                 </mat-card>
             </div>
 
+        </mat-tab>
+        <mat-tab class="workstartedlabel">
+            <ng-template mat-tab-label>
+                <img src="/assets/images/admin/receipt.png"> Pending Billing
+            </ng-template>
+            <div></div>
         </mat-tab>
     </mat-tab-group>
     <!-- <div class="modal-dialog mt-0 mb-0" role="document">

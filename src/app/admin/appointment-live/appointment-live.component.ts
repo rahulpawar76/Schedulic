@@ -385,6 +385,16 @@ export class AppointmentLiveComponent implements OnInit {
       });
   }
 
+  fnAddNote(index){
+    
+    const dialogRef = this.dialog.open(addPOSBookingNoteDialog, {
+      width: '500px',
+     });
+      dialogRef.afterClosed().subscribe(result => {
+       this.animal = result;
+      });
+  }
+
   fnOpenNotAssignedDetails(index){
     
     const dialogRef = this.dialog.open(NotAssignedAppointmentDetailsDialog, {
@@ -439,7 +449,6 @@ export class AppointmentLiveComponent implements OnInit {
         this.CategoryList = response.response;
       }
     });
-
   }
 
   fngetService(category_id=''){
@@ -611,6 +620,37 @@ export class AppointmentLiveComponent implements OnInit {
       }
     });
 
+  }
+}
+
+@Component({
+  selector: 'add-booking-pos-note',
+  templateUrl: '../_dialogs/add-booking-pos-note.html',
+    providers: [DatePipe]
+})
+export class addPOSBookingNoteDialog {
+  createNewNote: FormGroup;
+formSettingPage:boolean = false;
+appointmentDetails = {
+  bookingNotes : ''
+};
+settingsArr:any =[];
+
+constructor(
+  public dialogRef: MatDialogRef<addPOSBookingNoteDialog>,
+  private AdminService: AdminService,
+  private _snackBar: MatSnackBar,
+  private datePipe: DatePipe,
+  private _formBuilder:FormBuilder,
+  public dialog: MatDialog,
+  @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.createNewNote = this._formBuilder.group({
+      note_description : ['', Validators.required],
+    });
+
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }
 
