@@ -1,11 +1,6 @@
 <div class="content-main" id="live_appointments">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
-    <mat-tab-group [(selectedIndex)]="selectedtab" (selectedTabChange)="onTabChanged($event)" mat-align-tabs="start" class="main-tab-grp">
-        <mat-tab>
-            <ng-template mat-tab-label>
-                <span class="material-icons">dashboard</span>
-            </ng-template>
-        </mat-tab>
+    <mat-tab-group mat-align-tabs="start" class="main-tab-grp">
         <mat-tab label="In Store">
             <ng-template mat-tab-label>
                 <span class="material-icons">store</span> In Store
@@ -18,7 +13,7 @@
                     </div>
                     <div class="seach-bar">
                         <i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search">
+                        <input type="text" placeholder="Search" (keyup)="fnSearch($event.target.value)">
                     </div>
                     <div class="today-time-function">
                         <div class="pendingborder appoint-head">
@@ -100,35 +95,35 @@
                 </div>
                 <div *ngIf="inStoreTabName == 'waiting'" class="waiting-container">
                     <div class="row mx-0 my-2">
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 single-booking float-left">
+                        <div *ngFor="let val of Watinglist; let i=index" class="col-12 col-sm-6 col-md-4 col-lg-3 single-booking float-left">
                             <mat-card class="card">
                                 <div class="row mx-0 ">
                                     <div class="col-6">
                                         <label class="single-value">
                                         <p class="title">Waiting No.</p>
-                                        <p class="value">1</p>
+                                        <p class="value">{{i+1}}</p>
                                     </label>
                                         <label class="single-value">
                                         <p class="title">Customer</p>
-                                        <p class="value">Jay Soni</p>
+                                        <p class="value">{{val.customer?val.customer.fullname:'-'}}</p>
                                     </label>
                                         <label class="single-value">
-                                        <p class="title">Customer</p>
-                                        <p class="value">Jay Soni</p>
+                                        <p class="title">Staff</p>
+                                        <p class="value">{{val.staff.firstname +' '+val.staff.lastname}}</p>
                                     </label>
                                     </div>
                                     <div class="col-6 right-side">
                                         <label class="single-value">
                                         <p class="title">Time</p>
-                                        <p class="value">07:00 pm</p>
+                                        <p class="value">{{val.booking_time}}</p>
                                     </label>
                                         <label class="single-value">
                                         <p class="title">Order ID</p>
-                                        <p class="value">123456789</p>
+                                        <p class="value">{{val.order_id}}</p>
                                     </label>
                                         <label class="single-value">
                                         <p class="title">Work Start At</p>
-                                        <p class="value">07:30 pm</p>
+                                        <p class="value">{{val.booking_time}}</p>
                                     </label>
                                     </div>
                                     <div class="col-12 service-list-head px-0">
@@ -141,27 +136,28 @@
                                     </div>
                                     <div class="col-12 service-list px-0">
                                         <div class="w-50 float-left title text-left">
-                                            Gold <span>(Hair Color)</span>
+                                            {{val.service.service_name}}
                                         </div>
                                         <div class="w-50 float-left title text-right">
-                                            1
+                                            {{val.service.service_qty}}
                                         </div>
                                     </div>
                                     <div class="col-12 action-list px-0">
                                         <div class="w-50 float-left text-left">
-                                            <button mat-button class="cancel-btn">Cancel</button>
+                                            <button mat-button class="cancel-btn" (click)="fncancelOrder(val.id);">Cancel</button>
                                         </div>
                                         <div class="w-50 float-left text-right right-side">
                                             <mat-icon>sticky_note_2</mat-icon>
                                             <img src="/assets/images/admin/stopwatch.png">
-                                            <span class="timing"><small class="title">mm:ss</small>05:46</span>
+                                            <span class="timing"><small class="title">mm:ss</small>
+                                                {{countDown(val.booking_date+' '+val.booking_time)}}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
                             </mat-card>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div *ngIf="inStoreTabName == 'service'" class="right-cart-container">
@@ -288,11 +284,7 @@
                 <span class="material-icons">watch_later</span> Pending
             </ng-template>
             <div class="pendingnotes d-flex">
-                <label class="tab-label">Pending</label>
-                <div class="single-search-bar">
-                    <i class="fa fa-search"></i>
-                    <input type="text" placeholder="Search">
-                </div>
+                <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
                 <div class="col-2 pendingborder appoint-head">
                     <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
                     <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
@@ -304,14 +296,13 @@
                 </div>
             </div>
             <div class="col-12 p-0">
-                <div class="table-background">
+                <mat-card class="table-background">
                     <div class="Pending-table">
                         <div class="main-table-content main-cust-table-content">
                             <div class="main-table-head" fxLayout="row">
                                 <div class="" fxFlex="20">Services</div>
-                                <div class="" fxFlex="10">Order From</div>
-                                <div class="" fxFlex="20">Customer</div>
-                                <div class="" fxFlex="20">Staff</div>
+                                <div class="" fxFlex="25">Customer</div>
+                                <div class="" fxFlex="25">Staff</div>
                                 <div class="" fxFlex="10">Amount</div>
                                 <div class="" fxFlex="10">Date</div>
                                 <div class="" fxFlex="10">Time</div>
@@ -319,27 +310,25 @@
                             <div class="content" class="appointment-live-list">
                                 <div (click)="fnOpenDetails(i)" *ngFor="let pendingAppointments of pendingAppointments; let i=index" class="appointment-live-list-details">
                                     <div class="" fxFlex="20">
-                                        <p class="mb-0"><span class="service-name">{{pendingAppointments.service?pendingAppointments.service.service_name:''}}</span>(Hair Color)
-                                            <small class="d-block">Order Id: {{pendingAppointments.id}}</small>
-                                        </p>
+                                        <p class="mb-0">{{pendingAppointments.service?pendingAppointments.service.service_name:''}}</p>
                                     </div>
-                                    <div class="" fxFlex="10">
-                                        <p class="mb-0">{{pendingAppointments.order_from}}</p>
-                                    </div>
-                                    <div class=" " fxFlex="20">
+                                    <div class=" " fxFlex="25">
                                         <p class="mb-0">{{pendingAppointments.customer?pendingAppointments.customer.fullname:''}}</p>
                                         <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{pendingAppointments.customer?pendingAppointments.customer.phone:''}}</p>
                                         <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.customer?pendingAppointments.customer.email:''}}</p>
                                     </div>
-                                    <div *ngIf="pendingAppointments.staff != null" class="" fxFlex="20">
+                                    <div *ngIf="pendingAppointments.staff != null" class="" fxFlex="25">
                                         <p class="mb-0">{{pendingAppointments.staff?pendingAppointments.staff.firstname+' '+pendingAppointments.staff.lastname :''}}</p>
                                         <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{pendingAppointments.staff?pendingAppointments.staff.phone:''}}</p>
                                         <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.staff?pendingAppointments.staff.email:''}}</p>
                                     </div>
-                                    <div *ngIf="pendingAppointments.order_status == 'P'" class="" fxFlex="20">
+                                    <div *ngIf="pendingAppointments.status == 'P'" class="" fxFlex="25">
                                         <p class="mb-0">Pending</p>
 
                                     </div>
+                                    <!-- <div class="" fxFlex="10">
+                                          {{pendingAppointments.total_cost}}
+                                        </div> -->
                                     <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
                                     </div>
                                     <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
@@ -366,66 +355,9 @@
                             </nav>
                         </div>
                     </div>
-                </div>
+                </mat-card>
             </div>
         </mat-tab>
-        <!-- <div class="pendingnotes d-flex">
-            <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
-            <div class="col-2 pendingborder appoint-head">
-                <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
-                <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
-            </div>
-
-            <div class="appoint-head" style="margin: 0 20px 0 20px;">
-                <label class="mb-0 pendingdate">{{todayTime}}</label>
-                <p class="appoint-time-zone" style="text-align: right;">{{todayPeriod}}</p>
-            </div>
-        </div>
-        <div class="col-12">
-            <div class="">
-                <div class="main-table-head" fxLayout="row">
-                    <div class="" fxFlex="20">Services</div>
-                    <div class="" fxFlex="25">Customer</div>
-                    <div class="" fxFlex="25">Staff</div>
-                    <div class="" fxFlex="10">Amount</div>
-                    <div class="" fxFlex="10">Date</div>
-                    <div class="" fxFlex="10">Time</div>
-                </div>
-                <div class="content" class="appointment-live-list">
-                    <div *ngFor="let pendingAppointments of pendingAppointments; let i=index" class="appointment-live-list-details ">
-                        <div class="" fxFlex="20">
-                            <p class="mb-0">{{pendingAppointments.service?pendingAppointments.service.service_name:''}}</p>
-                        </div>
-                        <div class=" " fxFlex="25">
-                            <p class="mb-0">{{pendingAppointments.customer?pendingAppointments.customer.fullname:''}}</p>
-                            <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{pendingAppointments.customer?pendingAppointments.customer.phone:''}}</p>
-                            <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.customer?pendingAppointments.customer.email:''}}</p>
-                        </div>
-                        <div *ngIf="pendingAppointments.staff != null" class="" fxFlex="25">
-                            <p class="mb-0">{{pendingAppointments.staff ? pendingAppointments.staff.firstname+' '+pendingAppointments.staff.lastname : ''}}</p>
-                            <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No: {{pendingAppointments.staff?pendingAppointments.staff.phone:''}}</p>
-                            <p><i class="fa fa-envelope-o mr-2 bluephone"></i>Email: {{pendingAppointments.staff?pendingAppointments.staff.email:''}}</p>
-                        </div>
-                        <div *ngIf="pendingAppointments.staff == null" class="" fxFlex="25">
-                            <p class="mb-0">Not Assigned</p>
-
-                        </div>
-                        <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
-                        </div>
-                        <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
-                        </div>
-                        <div class="" fxFlex="10">
-                            {{pendingAppointments.booking_date}}
-                        </div>
-                        <div class="" fxFlex="10">
-                            {{pendingAppointments.booking_time}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-
         <mat-tab class="onthewaylabel">
             <ng-template mat-tab-label>
                 <i class="fa fa-motorcycle" aria-hidden="true"></i> Out Door
@@ -498,11 +430,7 @@
                 <span class="material-icons">work</span> Work Started
             </ng-template>
             <div class="pendingnotes d-flex">
-                <label class="tab-label">Work Started</label>
-                <div class="single-search-bar">
-                    <i class="fa fa-search"></i>
-                    <input type="text" placeholder="Search">
-                </div>
+                <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
                 <div class="col-2 pendingborder appoint-head">
                     <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
                     <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
@@ -512,6 +440,7 @@
                     <label class="mb-0 pendingdate">{{todayTime}}</label>
                     <p class="appoint-time-zone" style="text-align: right;">{{todayPeriod}}</p>
                 </div>
+
             </div>
             <div class="col-12 p-0">
                 <div class="table-background">
@@ -779,17 +708,17 @@
                         <hr>
                         <div class="px-3">
                             <div class="customer-details">Customer Details
-                            
-                            <div class="row ">
-                                <div class="col-6 pt-3">
-                                    <label>Name</label><br>
-                                    <span>Jay Soni</span>
+
+                                <div class="row ">
+                                    <div class="col-6 pt-3">
+                                        <label>Name</label><br>
+                                        <span>Jay Soni</span>
+                                    </div>
+                                    <div class="col-6 pt-3">
+                                        <label>Phone No.</label><br>
+                                        <span>9876543210</span>
+                                    </div>
                                 </div>
-                                <div class="col-6 pt-3">
-                                    <label>Phone No.</label><br>
-                                    <span>9876543210</span>
-                                </div>
-                            </div>
                             </div>
                         </div>
                         <div class="px-3 mt-5 py-2 service-details-title">
@@ -835,32 +764,32 @@
                                 </div>
                             </div>
                         </div>
-                       <hr>
-                       <div class="px-3 mt-2">
-                        <div class="row ">
-                          <div class="col-9">
-                            <span>Subtotal : <i class="fa fa-rupee pr-1"></i> 100</span>
-                           </div>
-                           <div class="col-3 ">
-                            <span>Tax : <i class="fa fa-rupee pr-1"></i> 10</span>
-                           </div>
+                        <hr>
+                        <div class="px-3 mt-2">
+                            <div class="row ">
+                                <div class="col-9">
+                                    <span>Subtotal : <i class="fa fa-rupee pr-1"></i> 100</span>
+                                </div>
+                                <div class="col-3 ">
+                                    <span>Tax : <i class="fa fa-rupee pr-1"></i> 10</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div class="px-3 py-2 mt-5 total-bill">
-                        <div class="row ">
-                          <div class="col-9">
-                            <span>Total</span>
-                           </div>
-                           <div class="col-3 ">
-                            <span> <i class="fa fa-rupee pr-1"></i> 110</span>
-                           </div>
+                        <hr>
+                        <div class="px-3 py-2 mt-5 total-bill">
+                            <div class="row ">
+                                <div class="col-9">
+                                    <span>Total</span>
+                                </div>
+                                <div class="col-3 ">
+                                    <span> <i class="fa fa-rupee pr-1"></i> 110</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="px-3 py-2 text-center">
-                        <button class="btn btn-secondary m-1">Print</button>
-                        <button class="btn btn-secondary m-1">E-Bill</button>
-                    </div>
+                        <div class="px-3 py-2 text-center">
+                            <button class="btn btn-secondary m-1">Print</button>
+                            <button class="btn btn-secondary m-1">E-Bill</button>
+                        </div>
 
                     </div>
                 </div>
@@ -869,16 +798,16 @@
     </mat-tab-group>
     <div class="admin-header">
         <span class="f13 d-flex align-items-center">
-            <button mat-stroked-button class="bellborder notification-btn bell-color" (click)="openNotificationDialog()">
-                <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
-                <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
+        <button mat-stroked-button class="bellborder notification-btn bell-color" (click)="openNotificationDialog()">
+            <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
+            <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
         </button>
         <span class="profile-head">
-                <div class="customer-profile-img m-2 float-left overflow-hidden" data="aaa">
-                    <img class="h-100 w-100" src="{{currentUser.image}}" onerror="this.src='../assets/img/user.png';" >
-                </div>
-              <p class="my-2 p-1" *ngIf="currentUser.full_name">{{currentUser.full_name}}</p>
-            </span>
+            <div class="customer-profile-img m-2 float-left overflow-hidden" data="aaa">
+                <img class="h-100 w-100" src="{{currentUser.image}}" onerror="this.src='../assets/img/user.png';" >
+            </div>
+          <p class="my-2 p-1" *ngIf="currentUser.full_name">{{currentUser.full_name}}</p>
+        </span>
         </span>
     </div>
 </div>
