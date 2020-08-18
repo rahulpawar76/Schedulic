@@ -363,6 +363,73 @@
                 </mat-card>
             </div>
         </mat-tab>
+        <mat-tab class="onthewaylabel">
+            <ng-template mat-tab-label>
+                <i class="fa fa-motorcycle" aria-hidden="true"></i> Out Door
+            </ng-template>
+            <div class="pendingnotes d-flex">
+                <label class="tab-label">Work Started</label>
+                <div class="single-search-bar">
+                    <i class="fa fa-search"></i>
+                    <input type="text" placeholder="Search">
+                </div>
+                <div class="col-2 pendingborder appoint-head">
+                    <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
+                    <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
+                </div>
+
+                <div class="appoint-head" style="margin: 0 20px 0 20px;">
+                    <label class="mb-0 pendingdate">{{todayTime}}</label>
+                    <p class="appoint-time-zone" style="text-align: right;">{{todayPeriod}}</p>
+                </div>
+            </div>
+            <div class="out-door-container">
+                <div class="left-container">
+                    <div class="search-container">
+                        <i class="fa fa-search"></i>
+                        <input type="text" placeholder="Search by Order ID">
+                    </div>
+                    <div class="order-listing">
+                        <div class="single-order">
+                            <label class="order-id">Order ID : 1234567890 <small>#1</small></label>
+                            <div class="location-container">
+                                <div class="pickup-point">
+                                    <img src="/assets/images/admin/delivery.png">
+                                    <p>Delivery Boy Live Location</p>
+                                </div>
+                                <div class="drop-point">
+                                    <mat-icon>location_on</mat-icon>
+                                    <p>Digfeer Road, Mogadishu, Somalia, Lorem</p>
+                                </div>
+                            </div>
+                            <div class="action-btn">
+                                <button (click)="fnOpenOnTheWayDetails()" mat-button class="detail-btn">Appointment Details</button>
+                                <button mat-button class="ws-btn">Work Started</button>
+                            </div>
+                        </div>
+                        <div class="single-order">
+                            <label class="order-id">Order ID : 1234567890 <small>#1</small></label>
+                            <div class="location-container">
+                                <!-- <div class="pickup-point">
+                                    <img src="/assets/images/admin/delivery.png">
+                                    <p>Delivery Boy Live Location</p>
+                                </div> -->
+                                <div class="drop-point">
+                                    <mat-icon>location_on</mat-icon>
+                                    <p>Digfeer Road, Mogadishu, Somalia, Lorem</p>
+                                </div>
+                            </div>
+                            <div class="action-btn">
+                                <button (click)="fnOpenOnTheWayDetails()" mat-button class="detail-btn">Appointment Details</button>
+                                <button mat-button class="otw-btn">On The Way</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </mat-tab>
+
         <mat-tab class="workstartedlabel">
             <ng-template mat-tab-label>
                 <span class="material-icons">work</span> Work Started
