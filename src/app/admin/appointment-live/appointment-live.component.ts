@@ -774,6 +774,7 @@ export class AppointmentLiveComponent implements OnInit {
 
   }
 
+  
   /*For notification Dialog*/
   getNotificationCount(business_id){
     let headers;
