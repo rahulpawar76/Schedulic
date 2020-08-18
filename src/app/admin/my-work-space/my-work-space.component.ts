@@ -116,6 +116,7 @@ export class MyWorkSpaceComponent implements OnInit {
     private authenticationService : AuthenticationService,
     private datePipe: DatePipe) {
     //this.appComponent.settingsModule(this.adminSettings);
+    localStorage.setItem('isPOS', 'false');
     localStorage.setItem('isBusiness', 'false');
     this.businessId=localStorage.getItem('business_id');
    }
