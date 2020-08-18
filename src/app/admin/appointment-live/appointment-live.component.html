@@ -1,11 +1,6 @@
 <div class="content-main" id="live_appointments">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
-    <mat-tab-group [(selectedIndex)]="selectedtab" (selectedTabChange)="onTabChanged($event)" mat-align-tabs="start" class="main-tab-grp">
-        <mat-tab>
-            <ng-template mat-tab-label>
-                <span class="material-icons">dashboard</span>
-            </ng-template>
-        </mat-tab>
+    <mat-tab-group mat-align-tabs="start" class="main-tab-grp">
         <mat-tab label="In Store">
             <ng-template mat-tab-label>
                 <span class="material-icons">store</span> In Store
@@ -18,7 +13,7 @@
                     </div>
                     <div class="seach-bar">
                         <i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search">
+                        <input type="text" placeholder="Search" (keyup)="fnSearch($event.target.value)">
                     </div>
                     <div class="today-time-function">
                         <div class="pendingborder appoint-head">
@@ -428,11 +423,7 @@
                 <i class="fa fa-motorcycle" aria-hidden="true"></i> Out Door
             </ng-template>
             <div class="pendingnotes d-flex">
-                <label class="tab-label">Work Started</label>
-                <div class="single-search-bar">
-                    <i class="fa fa-search"></i>
-                    <input type="text" placeholder="Search">
-                </div>
+                <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
                 <div class="col-2 pendingborder appoint-head">
                     <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
                     <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
@@ -442,50 +433,72 @@
                     <label class="mb-0 pendingdate">{{todayTime}}</label>
                     <p class="appoint-time-zone" style="text-align: right;">{{todayPeriod}}</p>
                 </div>
+
             </div>
-            <div class="out-door-container">
-                <div class="left-container">
-                    <div class="search-container">
-                        <i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search by Order ID">
-                    </div>
-                    <div class="order-listing">
-                        <div class="single-order">
-                            <label class="order-id">Order ID : 1234567890 <small>#1</small></label>
-                            <div class="location-container">
-                                <div class="pickup-point">
-                                    <img src="/assets/images/admin/delivery.png">
-                                    <p>Delivery Boy Live Location</p>
-                                </div>
-                                <div class="drop-point">
-                                    <mat-icon>location_on</mat-icon>
-                                    <p>Digfeer Road, Mogadishu, Somalia, Lorem</p>
-                                </div>
+            <div class="col-12">
+                <mat-card class="table-background">
+                    <div class="Pending-table">
+                        <div class="main-table-content main-cust-table-content">
+                            <div class="main-table-head" fxLayout="row">
+                                <div class="" fxFlex="20">Services</div>
+                                <div class="" fxFlex="25">Customer</div>
+                                <div class="" fxFlex="25">Staff</div>
+                                <div class="" fxFlex="10">Amount</div>
+                                <div class="" fxFlex="10">Date</div>
+                                <div class="" fxFlex="10">Time</div>
                             </div>
-                            <div class="action-btn">
-                                <button (click)="fnOpenOnTheWayDetails()" mat-button class="detail-btn">Appointment Details</button>
-                                <button mat-button class="ws-btn">Work Started</button>
+                            <div class="content" *ngIf="onTheWayAppointments != 'no booking found'" class="appointment-live-list">
+                                <div (click)="fnOpenOnTheWayDetails(i)" *ngFor="let onTheWayAppointments of onTheWayAppointments; let i=index" class="appointment-live-list-details">
+                                    <div class="" fxFlex="20">
+                                        <p class="mb-0">{{onTheWayAppointments.service?onTheWayAppointments.service.service_name:''}}</p>
+                                    </div>
+                                    <div class=" " fxFlex="25">
+                                        <p class="mb-0">{{onTheWayAppointments.customer?onTheWayAppointments.customer.fullname:''}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{onTheWayAppointments.customer?onTheWayAppointments.customer.phone:''}}</p>
+                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{onTheWayAppointments.customer?onTheWayAppointments.customer.email:''}}</p>
+                                    </div>
+                                    <div *ngIf="onTheWayAppointments.staff != null" class="" fxFlex="25">
+                                        <p class="mb-0">{{onTheWayAppointments.staff?onTheWayAppointments.staff.firstname:''}} {{onTheWayAppointments.staff?onTheWayAppointments.staff.lastname:''}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{onTheWayAppointments.staff?onTheWayAppointments.staff.phone:''}}</p>
+                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{onTheWayAppointments.staff?onTheWayAppointments.staff.email:''}}</p>
+                                    </div>
+                                    <div *ngIf="onTheWayAppointments.staff == null" class="" fxFlex="25">
+                                        <p class="mb-0">Not Assigned</p>
+                                    </div>
+                                    <!-- 
+                        <div class="" fxFlex="10">
+                          {{onTheWayAppointments.total_cost}}
+                        </div> -->
+                                    <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ onTheWayAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                    </div>
+                                    <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ onTheWayAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
+                                    </div>
+                                    <div class="" fxFlex="10">
+                                        {{onTheWayAppointments.booking_date}}
+                                    </div>
+                                    <div class="" fxFlex="10">
+                                        {{onTheWayAppointments.booking_time}}
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="single-order">
-                            <label class="order-id">Order ID : 1234567890 <small>#1</small></label>
-                            <div class="location-container">
-                                <!-- <div class="pickup-point">
-                                    <img src="/assets/images/admin/delivery.png">
-                                    <p>Delivery Boy Live Location</p>
-                                </div> -->
-                                <div class="drop-point">
-                                    <mat-icon>location_on</mat-icon>
-                                    <p>Digfeer Road, Mogadishu, Somalia, Lorem</p>
-                                </div>
-                            </div>
-                            <div class="action-btn">
-                                <button (click)="fnOpenOnTheWayDetails()" mat-button class="detail-btn">Appointment Details</button>
-                                <button mat-button class="otw-btn">On The Way</button>
-                            </div>
+                        <div class="table_pagination" *ngIf="onTheWayAppointments != ''">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-end">
+                                    <li class="page-item {{current_page_ontheway==1?'pointernone':'' }}" (click)="navigateTo_ontheway(first_page_url_ontheway)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item" (click)="navigateTo_ontheway(prev_page_url_ontheway)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item" [ngClass]="{'active':current_page_ontheway == i+1}" *ngFor="let pagenumber of arrayOne_ontheway(last_page_ontheway); let i = index;" (click)="navigateToPageNumber_ontheway(i+1)"><a class="page-link">{{i+1}}</a></li>
+                                    <li class="page-item" (click)="navigateTo_ontheway(next_page_url_ontheway)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{arrayOne_ontheway(last_page_ontheway).length==current_page_ontheway?'pointernone':''}}" (click)="navigateTo_ontheway(last_page_url_ontheway)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <div class="content" *ngIf="onTheWayAppointments == 'no booking found'" class="appointment-live-list text-center p-5 no-found">
+                            {{onTheWayAppointments}}
                         </div>
                     </div>
-                </div>
+                </mat-card>
             </div>
 
         </mat-tab>

@@ -164,6 +164,10 @@ export class AppointmentLiveComponent implements OnInit {
     }
   }
 
+  fnSearch(value){
+    console.log(value);
+  }
+
   fnGetSettings(){
     let requestObject = {
       "business_id" : this.businessId
