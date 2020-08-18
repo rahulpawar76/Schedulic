@@ -87,11 +87,10 @@ table {
 .appointment-live-list {
     width: 100%;
     border-radius: 10px;
-    // border: solid 1px #ccc;
     display: block;
-    // background: white;
-    // border-radius: 4px;
     overflow: hidden;
+    height: calc(100vh - 280px);
+    overflow-y: auto;
     .service-name {
         font-weight: 600;
         font-size: 15px;
@@ -916,51 +915,56 @@ mat-radio-group {
             padding: 0;
         }
     }
-
-
 }
 
-.unselect-bill{
+.unselect-bill {
     background-color: #D9F0FE;
     border: 1px solid #1172F4;
 }
-.unselect-bill label{
+
+.unselect-bill label {
     font-size: 11px;
 }
-.unselect-bill span{
-    font-size: 12px;
-    font-weight: bold;
-}
-.select-bill label{
-    font-size: 11px;
-}
-.select-bill span{
+
+.unselect-bill span {
     font-size: 12px;
     font-weight: bold;
 }
 
-.ord-bill-head{
-    font-size: 18px ;
+.select-bill label {
+    font-size: 11px;
+}
+
+.select-bill span {
+    font-size: 12px;
     font-weight: bold;
 }
-.customer-details{
+
+.ord-bill-head {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.customer-details {
     font-size: 16px;
 }
-.customer-details label{
+
+.customer-details label {
     font-size: 12px;
 }
-.customer-details span{
+
+.customer-details span {
     font-size: 14px;
     font-weight: bold;
 }
-.service-details-title{
+
+.service-details-title {
     background-color: #D9D9D9;
 }
-.total-bill{
+
+.total-bill {
     background-color: #DDEAFD;
-
 }
-
 
 .tab-label {
     font-size: 20px;

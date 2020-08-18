@@ -36,7 +36,7 @@ import { InterruptedReschedule } from './my-work-space/my-work-space.component';
 import { InterruptedReschedulecustomer } from './customers/customers.component';
 import { RescheduleAppointAdmin } from './appointment/appointment.component';
 import { MyProfileComponent } from './settings-my-profile/settings-my-profile.component';
-import { WorkStartedAppointmentDetailsDialog, OnTheWayAppointmentDetailsDialog, NotAssignedAppointmentDetailsDialog, PendingAppointmentDetailsDialog, addPOSBookingNoteDialog, paymentModeDialog, DialogNotification, DialogNotificationAppointment } from './appointment-live/appointment-live.component';
+import { OnTheWayAppointmentDetailsDialog, WorkStartedAppointmentDetailsDialog, PendingAppointmentDetailsDialog, addPOSBookingNoteDialog, paymentModeDialog, DialogNotification, DialogNotificationAppointment } from './appointment-live/appointment-live.component';
 import {DialogAllAppointmentDetails} from './appointment/appointment.component';
 //import { IgxExcelExporterService } from "igniteui-angular";
 import { DialogMyProfileImageUpload } from './settings-my-profile/settings-my-profile.component';
@@ -80,9 +80,8 @@ import { SupportComponent } from './support/support.component';
     paymentModeDialog,
     DialogNotification, 
     DialogNotificationAppointment,
-    NotAssignedAppointmentDetailsDialog,
-    OnTheWayAppointmentDetailsDialog,
     WorkStartedAppointmentDetailsDialog,
+    OnTheWayAppointmentDetailsDialog,
     RescheduleAppointment,
     DialogAllAppointmentDetails,
     DialogCouponDetails,
@@ -115,8 +114,8 @@ import { SupportComponent } from './support/support.component';
   entryComponents: [myCreateNewBusinessDialog,DialogAddNewAppointment,
     DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,
     DialogViewReview,InterruptedReschedule,InterruptedReschedulecustomer,RescheduleAppointAdmin,PendingAppointmentDetailsDialog,addPOSBookingNoteDialog,paymentModeDialog,DialogNotification, DialogNotificationAppointment,
-    NotAssignedAppointmentDetailsDialog,OnTheWayAppointmentDetailsDialog,
-    WorkStartedAppointmentDetailsDialog,DialogImportFileUpload,DialogMyProfileImageUpload,DialogAllAppointmentDetails,
+    WorkStartedAppointmentDetailsDialog,OnTheWayAppointmentDetailsDialog,
+    DialogImportFileUpload,DialogMyProfileImageUpload,DialogAllAppointmentDetails,
     DialogCustomerImageUpload,DialogCouponDetails,CustomerAppointmentDetailsDialog,RescheduleAppointment,DialogInvoiceDialog],
 })
 export class AdminModule { }
