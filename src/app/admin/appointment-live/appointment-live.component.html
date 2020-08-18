@@ -96,7 +96,7 @@
                 <div *ngIf="inStoreTabName == 'waiting'" class="waiting-container">
                     <div class="row mx-0 my-2">
                         <div *ngFor="let val of Watinglist; let i=index" class="col-12 col-sm-6 col-md-4 col-lg-3 single-booking float-left">
-                            <mat-card  class="card">
+                            <mat-card class="card">
                                 <div class="row mx-0 ">
                                     <div class="col-6">
                                         <label class="single-value">
@@ -136,7 +136,7 @@
                                     </div>
                                     <div class="col-12 service-list px-0">
                                         <div class="w-50 float-left title text-left">
-                                            {{val.service.service_name}} 
+                                            {{val.service.service_name}}
                                         </div>
                                         <div class="w-50 float-left title text-right">
                                             {{val.service.service_qty}}
@@ -272,8 +272,8 @@
                         </div>
                         <div class="footer-action">
                             <button class="save-btn" [disabled]="cartArr.length == 0" (click)="fnPaymentMode('print')" mat-button>Save & Print</button>
-                            <button class="save-btn" [disabled]="cartArr.length == 0"  (click)="fnPaymentMode('email')" mat-button>Save & Ebill</button>
-                            <button class="place-btn" [disabled]="cartArr.length == 0"  mat-button (click)="fnplaceOrder('place')">Place</button>
+                            <button class="save-btn" [disabled]="cartArr.length == 0" (click)="fnPaymentMode('email')" mat-button>Save & Ebill</button>
+                            <button class="place-btn" [disabled]="cartArr.length == 0" mat-button (click)="fnplaceOrder('place')">Place</button>
                         </div>
                     </div>
                 </div>
