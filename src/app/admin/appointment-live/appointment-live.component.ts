@@ -97,7 +97,6 @@ export class AppointmentLiveComponent implements OnInit {
   note_description='';
   paymentData:any;
   Watinglist:any = [];
-
   selectedtab:any = 1;
   pendingBillTab: boolean = false
   currentUser: any;
@@ -115,8 +114,7 @@ export class AppointmentLiveComponent implements OnInit {
     private _snackBar: MatSnackBar,
   ) { 
     
-    localStorage.setItem('isBusiness', 'true');
-    
+    localStorage.setItem('isBusiness', 'true');    
     localStorage.setItem('isPOS', 'true');
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     //this.currentUser = this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x )
@@ -126,9 +124,7 @@ export class AppointmentLiveComponent implements OnInit {
       cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
       cus_mobile : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
     });
-    
     this.fnWatinglist();
-
   }
 
   ngOnInit() {
@@ -295,6 +291,8 @@ export class AppointmentLiveComponent implements OnInit {
     return Array(n);
   }
 
+
+
   getOnThewayAppointments(){
     this.AdminService.getOnThewayAppointments(this.onthewayApiUrl).subscribe((response:any) => {
       if(response.data == true){
@@ -402,7 +400,6 @@ export class AppointmentLiveComponent implements OnInit {
   fnChangeSubTab(tabName){
     this.inStoreTabName = tabName;
     this.fnWatinglist();
-
   }
 
 
@@ -612,6 +609,7 @@ export class AppointmentLiveComponent implements OnInit {
           "StaffName" : this.StaffList[staff_index].name
       });
 
+      
       this.totalCost = 0;
       this.cartArr.forEach(element => {
         this.totalCost = this.totalCost+parseInt(element.subtotal);
@@ -642,7 +640,6 @@ export class AppointmentLiveComponent implements OnInit {
     });
 
   }
-
 
   fnDeleteItem(elem){
     this.cartArr.splice(elem, 1);
@@ -767,6 +764,7 @@ export class AppointmentLiveComponent implements OnInit {
     //  }, 1000);
 
   }
+
   /*For notification Dialog*/
   getNotificationCount(business_id){
     let headers;
@@ -975,6 +973,17 @@ constructor(
     this.detailsData =  this.data.fulldata;
     console.log(this.detailsData);
     this.fnGetActivityLog(this.detailsData.id);
+    var todayDateTime = new Date();
+    this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
+    var dateTemp = new Date(this.datePipe.transform(this.detailsData.booking_date_time,"dd MMM yyyy hh:mm a"));
+    dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(this.detailsData.service_time) );
+    var temp = dateTemp.getTime() - todayDateTime.getTime();
+    this.detailsData.timeToService=(temp/3600000).toFixed();
+    this.detailsData.booking_timeForLabel=this.datePipe.transform(this.detailsData.booking_date_time,"hh:mm a")
+    this.detailsData.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+    this.detailsData.booking_dateForLabel=this.datePipe.transform(new Date(this.detailsData.booking_date),"dd MMM yyyy")
+    this.detailsData.created_atForLabel=this.datePipe.transform(new Date(this.detailsData.created_at),"dd MMM yyyy @ hh:mm a")
+
   }
   onNoClick(): void {
     this.dialogRef.close();
