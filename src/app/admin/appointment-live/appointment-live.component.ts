@@ -723,18 +723,16 @@ export class AppointmentLiveComponent implements OnInit {
       "business_id" : localStorage.getItem('business_id'),
       "search" : this.serach 
     };
-    
+
     this.AdminService.getWatinglist(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.Watinglist = response.response;
         console.log(this.Watinglist);
       }
     });
-
   }
 
   fncancelOrder(order_item_id){
-
     var  x = confirm('Are you sure want to Cancel ?');
 
     if(x){
@@ -776,6 +774,7 @@ export class AppointmentLiveComponent implements OnInit {
 
   }
 
+  
   /*For notification Dialog*/
   getNotificationCount(business_id){
     let headers;
