@@ -24,7 +24,9 @@ export interface DialogData {
   providers: [DatePipe]
 })
 export class AppointmentLiveComponent implements OnInit {
- 
+  
+  serach:any = '';
+
   businessId: any;
   animal: string;
   isLoaderAdmin : boolean = false;
@@ -166,9 +168,11 @@ export class AppointmentLiveComponent implements OnInit {
 
   fnSearch(value){
     if(this.inStoreTabName=='service'){
-
+      this.serach = value;
+      this.fngetService();
     }else{
-      
+      this.serach = value;
+      this.fnWatinglist();
     }
   }
 
@@ -717,10 +721,9 @@ export class AppointmentLiveComponent implements OnInit {
     
     var requestObject = {
       "business_id" : localStorage.getItem('business_id'),
-      //"search" : 
+      "search" : this.serach 
     };
-
-
+    
     this.AdminService.getWatinglist(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.Watinglist = response.response;
