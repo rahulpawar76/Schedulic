@@ -1,6 +1,5 @@
 <div class="content-main" id="live_appointments">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
-
     <mat-tab-group mat-align-tabs="start" class="main-tab-grp">
         <mat-tab label="In Store">
             <ng-template mat-tab-label>
@@ -96,35 +95,35 @@
                 </div>
                 <div *ngIf="inStoreTabName == 'waiting'" class="waiting-container">
                     <div class="row mx-0 my-2">
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 single-booking float-left">
-                            <mat-card class="card">
+                        <div *ngFor="let val of Watinglist; let i=index" class="col-12 col-sm-6 col-md-4 col-lg-3 single-booking float-left">
+                            <mat-card  class="card">
                                 <div class="row mx-0 ">
                                     <div class="col-6">
                                         <label class="single-value">
                                         <p class="title">Waiting No.</p>
-                                        <p class="value">1</p>
+                                        <p class="value">{{i+1}}</p>
                                     </label>
                                         <label class="single-value">
                                         <p class="title">Customer</p>
-                                        <p class="value">Jay Soni</p>
+                                        <p class="value">{{val.customer?val.customer.fullname:'-'}}</p>
                                     </label>
                                         <label class="single-value">
                                         <p class="title">Customer</p>
-                                        <p class="value">Jay Soni</p>
+                                        <p class="value">{{val.customer?val.customer.fullname:'-'}}</p>
                                     </label>
                                     </div>
                                     <div class="col-6 right-side">
                                         <label class="single-value">
                                         <p class="title">Time</p>
-                                        <p class="value">07:00 pm</p>
+                                        <p class="value">{{val.booking_time}}</p>
                                     </label>
                                         <label class="single-value">
                                         <p class="title">Order ID</p>
-                                        <p class="value">123456789</p>
+                                        <p class="value">{{val.order_id}}</p>
                                     </label>
                                         <label class="single-value">
                                         <p class="title">Work Start At</p>
-                                        <p class="value">07:30 pm</p>
+                                        <p class="value">{{val.booking_time}}</p>
                                     </label>
                                     </div>
                                     <div class="col-12 service-list-head px-0">
@@ -137,27 +136,28 @@
                                     </div>
                                     <div class="col-12 service-list px-0">
                                         <div class="w-50 float-left title text-left">
-                                            Gold <span>(Hair Color)</span>
+                                            {{val.service.service_name}} 
                                         </div>
                                         <div class="w-50 float-left title text-right">
-                                            1
+                                            {{val.service.service_qty}}
                                         </div>
                                     </div>
                                     <div class="col-12 action-list px-0">
                                         <div class="w-50 float-left text-left">
-                                            <button mat-button class="cancel-btn">Cancel</button>
+                                            <button mat-button class="cancel-btn" (click)="fncancelOrder(val.id);">Cancel</button>
                                         </div>
                                         <div class="w-50 float-left text-right right-side">
                                             <mat-icon>sticky_note_2</mat-icon>
                                             <img src="/assets/images/admin/stopwatch.png">
-                                            <span class="timing"><small class="title">mm:ss</small>05:46</span>
+                                            <span class="timing"><small class="title">mm:ss</small>
+                                                {{countDown(val.booking_date+' '+val.booking_time)}}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
                             </mat-card>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div *ngIf="inStoreTabName == 'service'" class="right-cart-container">

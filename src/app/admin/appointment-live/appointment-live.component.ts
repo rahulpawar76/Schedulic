@@ -95,6 +95,7 @@ export class AppointmentLiveComponent implements OnInit {
   totalCost = 0;
   note_description='';
   paymentData:any;
+  Watinglist:any = [];
 
     constructor(
     private AdminService: AdminService,
@@ -104,13 +105,15 @@ export class AppointmentLiveComponent implements OnInit {
     private _snackBar: MatSnackBar,
   ) { 
     
-    
     localStorage.setItem('isBusiness', 'true');
     this.newCustomer = this._formBuilder.group({
       cus_name : ['', Validators.required],
       cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
       cus_mobile : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
     });
+    
+    this.fnWatinglist();
+
   }
 
   ngOnInit() {
@@ -261,8 +264,6 @@ export class AppointmentLiveComponent implements OnInit {
     return Array(n);
   }
 
-
-
   getOnThewayAppointments(){
     this.AdminService.getOnThewayAppointments(this.onthewayApiUrl).subscribe((response:any) => {
       if(response.data == true){
@@ -369,6 +370,8 @@ export class AppointmentLiveComponent implements OnInit {
   
   fnChangeSubTab(tabName){
     this.inStoreTabName = tabName;
+    this.fnWatinglist();
+
   }
 
 
@@ -578,7 +581,7 @@ export class AppointmentLiveComponent implements OnInit {
           "StaffName" : this.StaffList[staff_index].name
       });
 
-      
+      this.totalCost = 0;
       this.cartArr.forEach(element => {
         this.totalCost = this.totalCost+parseInt(element.subtotal);
       });
@@ -608,6 +611,7 @@ export class AppointmentLiveComponent implements OnInit {
     });
 
   }
+
 
   fnDeleteItem(elem){
     this.cartArr.splice(elem, 1);
@@ -670,6 +674,66 @@ export class AppointmentLiveComponent implements OnInit {
       this.isLoaderAdmin = false;
 
     });
+
+  }
+
+  fnWatinglist(){
+    
+    var requestObject = {
+      "business_id" : localStorage.getItem('business_id'),
+      //"search" : 
+    };
+
+
+    this.AdminService.getWatinglist(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.Watinglist = response.response;
+        console.log(this.Watinglist);
+      }
+    });
+
+  }
+
+  fncancelOrder(order_item_id){
+
+    var  x = confirm('Are you sure want to Cancel ?');
+
+    if(x){
+      var requestObject = {
+        "business_id" : localStorage.getItem('business_id'),
+        "order_item_id" : order_item_id
+      };
+
+      this.AdminService.cancelOrder(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['green-snackbar']
+          });
+          this.fnWatinglist();
+        }
+      });
+    }
+
+  }
+
+  countDown(countDown){
+    var countDownDate = new Date(countDown).getTime();
+    // var x = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        if (distance < 0) {
+          //clearInterval(x);
+            return "EXPIRED";
+        }else{
+            return  hours + ":" + minutes + ":" + seconds;
+        }
+    //  }, 1000);
 
   }
 }
