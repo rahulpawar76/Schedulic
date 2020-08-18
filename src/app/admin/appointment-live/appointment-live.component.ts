@@ -1431,7 +1431,7 @@ constructor(
 
 
 // }
-
+ 
 @Component({
   selector: 'ontheway-appointment-details',
   templateUrl: '../_dialogs/pending-appointment-details.html',
