@@ -9,60 +9,60 @@
                      </button>
                 </div>
                 <div class="appodetails">
-                    <label class="greenfont" *ngIf="detailsData.booking_date_time && minReschedulingTime.getTime() < detailsData.booking_date_time.getTime()" (click)="fnRescheduleAppointment()"><i class="fa fa-repeat repeat"></i>Reschedule</label>
-                    <label class="fontred pl-3" *ngIf="detailsData.booking_date_time && cancellationBufferTime.getTime() < detailsData.booking_date_time.getTime()" (click)="fnCancelAppointment()"><i class="fa fa-times-circle-o circle"></i>Cancel</label>
+                    <label class="greenfont" (click)="fnRescheduleAppointment()"><i class="fa fa-repeat repeat"></i>Reschedule</label>
+                    <label class="fontred pl-3" (click)="fnCancelAppointment()"><i class="fa fa-times-circle-o circle"></i>Cancel</label>
 
-                    <button mat-button type="button" *ngIf="detailsData.order_status == 'P'" class="d-block float-right confirm-btn" (click)="fnConfirmAppointment()">Confirm</button>
+                    <button mat-button type="button" class="d-block btn-primary float-right paybtn" (click)="fnConfirmAppointment()">Confirm</button>
                 </div>
 
                 <div class="modal-body modal-bcolor p-3">
                     <div class="row">
                         <div class="col-12">
-                            <p class="mb-0 font-weight-bold">{{detailsData.booking_dateForLabel}}</p>
-                            <p>Booked On: {{detailsData.created_atForLabel}}</p>
+                            <span class="mb-0 font-weight-bold pr-1">{{detailsData.booking_date}}</span><span>(Order Id: 123456789)</span>
+                             <p>Booked On: {{detailsData.created_at}}</p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-8">
                             <p class="mb-0">Time</p>
-                            <p class="font-weight-bold">{{detailsData.booking_time}}</p>
+                            <span class="font-weight-bold pr-1">07:00pm - 08:00pm</span><span>(1 hour)</span>
+                            <!-- <p class="font-weight-bold">{{detailsData.booking_time}}</p> -->
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-4">
                             <p class="mb-0 text-right">Order From</p>
-                            <p class="text-capitalize font-weight-bold text-right">WebSite</p>
+                            <p class="text-capitalize font-weight-bold text-right" >WebSite</p>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-12">
                             <p class="mb-0">Service</p>
-                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{detailsData.service.service_name}} ($.{{detailsData.service.service_cost}})</p>
-                            <p class="font-weight-bold">{{detailsData.service.service_name}} ($.{{detailsData.service.service_cost}})</p>
+                            <p class="font-weight-bold">{{detailsData.service.service_name}} = ($.{{detailsData.service.service_cost}})</p>
                         </div>
                     </div>
-
+                    
                     <div class="row">
                         <div class="col-6">
                             <p class="mb-0">SubTotal</p>
-                            <p class="font-weight-bold">200</p>
+                            <p class="font-weight-bold">$.200</p>
                         </div>
 
                         <div class="col-6">
                             <p class="mb-0 text-right">Tax</p>
-                            <p class="text-capitalize font-weight-bold text-right">20</p>
+                            <p class="text-capitalize font-weight-bold text-right" >$.20</p>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-6">
                             <p class="mb-0">Total Amount</p>
-                            <p class="font-weight-bold">220</p>
+                            <p class="font-weight-bold">$.220</p>
                         </div>
 
                         <div class="col-6">
                             <p class="mb-0 text-right">Payment Status</p>
-                            <p class="text-capitalize font-weight-bold text-right">Pending (Cash)</p>
+                            <p class="text-capitalize font-weight-bold text-right" >Pending (Cash)</p>
                         </div>
                     </div>
 
@@ -97,11 +97,11 @@
 
                         <div class="col-6">
                             <p class="mb-0 text-right">Staff Phone No.</p>
-                            <p class="text-capitalize font-weight-bold text-right">9876543210</p>
+                            <p class="text-capitalize font-weight-bold text-right" >9876543210</p>
                         </div>
                     </div>
 
-
+                    
                     <!-- <div>
                         <p class="mb-0">Staff</p>
                         <div class="" *ngIf="detailsData.staff != null">
@@ -122,7 +122,7 @@
                     </div>
                     <p class=" address-fontsize"><i class="fa fa-phone pr-3 bluephone"></i>{{detailsData.customer.phone}}</p>
                     <p class="mb-0 address-fontsize"><img class="map-icon" src="../../assets/images/admin/map.png" /> {{detailsData.customer.address}}</p>
-
+                  
                     <div class="pt-3 pb-3 bottom-border">
                         <h6 (click)="formSettingPage=!formSettingPage" class="pointer w-fc">Note<i class="fa fa-plus-circle pl-2 note-icon"></i></h6>
                         <mat-form-field class="bottom-border-field" *ngIf="formSettingPage">
@@ -131,30 +131,37 @@
                         </mat-form-field>
                         <button mat-button type="button" class="Reschedulebtn accept-btn d-block" *ngIf="formSettingPage" (click)="fnSaveBookingNotes(detailsData.id)">Save</button>
                     </div>
-                </mat-card>
+                  </mat-card>
 
                 <div class="p-1-5 bottom-border">
                     <h6>Activity Log</h6>
                     <div *ngFor="let log of activityLog" class="mb-4">
-                        {{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - {{log.status=='P'?'Pending':''}} {{log.status=='MOD'?'Modified':''}} {{log.status=='CNF'?'Confirm':''}} {{log.user_type=='A' && log.status=='CNF' ? 'By Admin' : log.user_type=='S'
-                        && log.status=='CNF' ? 'By Staff': log.user_type=='C' && log.status=='CNF' ? 'By User' : ''}} {{log.status=='AC'?'Accepted':''}} {{log.user_type=='A' && log.status=='AC' ? 'By Admin' : log.user_type=='S' && log.status=='AC' ? 'By
-                        Staff': log.user_type=='C' && log.status=='AC' ? 'By User' : ''}} {{log.status=='OW'?'On The Way':''}} {{log.status=='WS'?'Work Started':''}}
+                        {{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - 
+                        {{log.status=='P'?'Pending':''}}
+                        {{log.status=='MOD'?'Modified':''}}
+                        {{log.status=='CNF'?'Confirm':''}} {{log.user_type=='A' && log.status=='CNF' ? 'By Admin' : log.user_type=='S' && log.status=='CNF' ? 'By Staff': log.user_type=='C' && log.status=='CNF' ? 'By User' : ''}}
+                        {{log.status=='AC'?'Accepted':''}} {{log.user_type=='A' && log.status=='AC' ? 'By Admin' : log.user_type=='S' && log.status=='AC' ? 'By Staff': log.user_type=='C' && log.status=='AC' ? 'By User' : ''}}
+                        {{log.status=='OW'?'On The Way':''}}
+                        {{log.status=='WS'?'Work Started':''}}
                         <!-- {{log.status=='RSA'?'Rescheduled By Admin':''}}
                         {{log.status=='RSS'?'Rescheduled By Staff':''}}
                         {{log.status=='RSC'?'Rescheduled By Client':''}} -->
-                        {{log.status=='RSA' && log.customer ? 'Rescheduled By '+ log.customer.fullname : log.status=='RSA' ? 'Rescheduled By Admin' :''}} {{log.status=='RSS' && log.customer ? 'Rescheduled By '+ log.customer.fullname : log.status=='RSS' ? 'Rescheduled By Staff'
-                        :''}} {{log.status=='RSC' && log.customer ? 'Rescheduled By '+ log.customer.fullname : log.status=='RSC' ? 'Rescheduled By Client' :''}} {{log.status=='ITR'?'Intrupted':''}}
+                        {{log.status=='RSA' && log.customer ? 'Rescheduled By '+ log.customer.fullname : log.status=='RSA' ? 'Rescheduled By Admin' :''}} 
+                        {{log.status=='RSS' && log.customer ? 'Rescheduled By '+ log.customer.fullname : log.status=='RSS' ? 'Rescheduled By Staff' :''}} 
+                        {{log.status=='RSC' && log.customer ? 'Rescheduled By '+ log.customer.fullname : log.status=='RSC' ? 'Rescheduled By Client' :''}} 
+                        {{log.status=='ITR'?'Intrupted':''}}
                         <!-- {{log.status=='C'?'Cancelled':''}}
                         {{log.status=='CC'?'Cancelled By Client':''}} -->
-                        {{log.status=='C' && log.customer ? 'Cancelled By '+ log.customer.fullname : log.status=='C' ? 'Cancelled' :''}} {{log.status=='CC' && log.customer ? 'Cancelled By '+ log.customer.fullname : log.status=='CC' ? 'Cancelled By Client' :''}} {{log.status=='R'?'Rejected':''}}
-                        {{log.user_type=='A' && log.status=='R' ? 'By Admin' : log.user_type=='S' && log.status=='R' ? 'By Staff': log.user_type=='C' && log.status=='R' ? 'By User' : ''}} {{log.status=='CO'?'Completed':''}} {{log.user_type=='A' && log.status=='CO'
-                        ? 'By Admin' : log.user_type=='S' && log.status=='CO' ? 'By Staff': log.user_type=='C' && log.status=='CO' ? 'By User' : ''}}
-
+                        {{log.status=='C' && log.customer ? 'Cancelled By '+ log.customer.fullname : log.status=='C' ? 'Cancelled' :''}} 
+                        {{log.status=='CC' && log.customer ? 'Cancelled By '+ log.customer.fullname : log.status=='CC' ? 'Cancelled By Client' :''}} 
+                        {{log.status=='R'?'Rejected':''}} {{log.user_type=='A' && log.status=='R' ? 'By Admin' : log.user_type=='S' && log.status=='R' ? 'By Staff': log.user_type=='C' && log.status=='R' ? 'By User' : ''}}
+                        {{log.status=='CO'?'Completed':''}} {{log.user_type=='A' && log.status=='CO' ? 'By Admin' : log.user_type=='S' && log.status=='CO' ? 'By Staff': log.user_type=='C' && log.status=='CO' ? 'By User' : ''}}
+            
                         <p *ngIf="log.notes">
                             <b>Note: </b> {{log.notes}}
                         </p>
                     </div>
-
+                    
                 </div>
 
             </div>
