@@ -26,7 +26,7 @@ export interface DialogData {
 export class AppointmentLiveComponent implements OnInit {
   
   serach:any = '';
-
+  panelOpenState: boolean = false;
   businessId: any;
   animal: string;
   isLoaderAdmin : boolean = false;
@@ -518,8 +518,10 @@ export class AppointmentLiveComponent implements OnInit {
 
     requestObject = {
       "category_id" : category_id==''?'all':category_id, 
-      "business_id" : localStorage.getItem('business_id')
+      "business_id" : localStorage.getItem('business_id'),
+      'search' : this.serach
     };
+
     this.AdminService.getService(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ServiceList = response.response;
@@ -542,6 +544,8 @@ export class AppointmentLiveComponent implements OnInit {
     this.AdminService.getStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.StaffList = response.response;
+      }else{
+        this.StaffList = [];
       }
     });
 
@@ -549,16 +553,18 @@ export class AppointmentLiveComponent implements OnInit {
 
   fnFilterStaff(event){
     
+
     var requestObject = {
       "service_id" : this.service_id, 
       "business_id" : localStorage.getItem('business_id'),
-      'status' : event
+      "status" : event
     };
 
     this.AdminService.getStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.StaffList = response.response;
-        console.log(this.StaffList);
+      }else{
+        this.StaffList = [];
       }
     });
 
@@ -662,12 +668,14 @@ export class AppointmentLiveComponent implements OnInit {
 
   }
 
-  fnplaceOrder(pos_pdf_type ){
+  fnplaceOrder(pos_pdf_type){
 
     if(this.newCustomer.invalid){
       this.newCustomer.get('cus_email').markAsTouched();
       this.newCustomer.get('cus_mobile').markAsTouched();
       this.newCustomer.get('cus_name').markAsTouched();
+      this.panelOpenState = !this.panelOpenState;
+
       return false;
     }
     
@@ -728,6 +736,8 @@ export class AppointmentLiveComponent implements OnInit {
       if(response.data == true){
         this.Watinglist = response.response;
         console.log(this.Watinglist);
+      }else{
+        this.Watinglist = [];
       }
     });
   }
@@ -774,7 +784,7 @@ export class AppointmentLiveComponent implements OnInit {
 
   }
 
-  
+
   /*For notification Dialog*/
   getNotificationCount(business_id){
     let headers;
