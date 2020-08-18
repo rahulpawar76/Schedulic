@@ -116,7 +116,6 @@ export class AppointmentLiveComponent implements OnInit {
     
     localStorage.setItem('isPOS', 'true');
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    alert();
     //this.currentUser = this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x )
     console.log(this.currentUser)
     this.newCustomer = this._formBuilder.group({
@@ -471,19 +470,19 @@ export class AppointmentLiveComponent implements OnInit {
       });
   }
   
-  fnOpenWorkStartedDetails(index){
+  // fnOpenWorkStartedDetails(index){
    
-    const dialogRef = this.dialog.open(WorkStartedAppointmentDetailsDialog, {
-      height: '700px',
-      //data: {animal: this.animal}
-      data :{fulldata : this.workStartedAppointments[index]}
-     });
-      dialogRef.afterClosed().subscribe(result => {
-       this.animal = result;
-      this.getWorkStartedAppointments();
+  //   const dialogRef = this.dialog.open(WorkStartedAppointmentDetailsDialog, {
+  //     height: '700px',
+  //     //data: {animal: this.animal}
+  //     data :{fulldata : this.workStartedAppointments[index]}
+  //    });
+  //     dialogRef.afterClosed().subscribe(result => {
+  //      this.animal = result;
+  //     this.getWorkStartedAppointments();
       
-      });
-  }
+  //     });
+  // }
 
   fnGetCategory(){
 
@@ -735,8 +734,6 @@ export class AppointmentLiveComponent implements OnInit {
       "user_id": userId,
       "user_type": this.userType
     };
-    console.log(requestObject)
-    alert()
     this.CommonService.openNotificationDialog(requestObject, headers).subscribe((response: any) => {
       if (response.data == true) {
         this.notificationData = response.response
@@ -1085,12 +1082,12 @@ constructor(
 
 @Component({
   selector: 'interrupted-reschedule-dialog',
-  templateUrl: '../_dialogs/interrupted-reschedule-dialog.html',
+  templateUrl: '../_dialogs/pending-appointment-details.html',
   providers: [DatePipe]
 })
 export class RescheduleAppointment {
 formAppointmentRescheduleAdmin:FormGroup;
-appointmentDetails:any;
+detailsData:any;
 businessId:any;
 selectedDate:any;
 selectedTimeSlot:any;
@@ -1106,7 +1103,7 @@ constructor(
   private http: HttpClient,
   private _snackBar: MatSnackBar,
   @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.appointmentDetails =  this.data.appointmentDetails;
+    this.detailsData =  this.data.appointmentDetails;
     this.businessId=localStorage.getItem('business_id');
     this.formAppointmentRescheduleAdmin = this._formBuilder.group({
       rescheduleDate: ['', Validators.required],
@@ -1114,7 +1111,7 @@ constructor(
       rescheduleStaff: ['', Validators.required],
       rescheduleNote: ['', Validators.required],
     });
-    console.log(this.appointmentDetails);
+    console.log(this.detailsData);
   }
 
   onNoClick(): void {
@@ -1168,9 +1165,9 @@ constructor(
 
     fnGetStaff(selectedTimeSlot){
       let requestObject = {
-        "postal_code":this.appointmentDetails.postal_code,
+        "postal_code":this.detailsData.postal_code,
         "business_id":this.businessId,
-        "service_id":JSON.stringify(this.appointmentDetails.service_id),
+        "service_id":JSON.stringify(this.detailsData.service_id),
         "book_date":this.selectedDate,
         "book_time":this.selectedTimeSlot
       };
@@ -1203,7 +1200,7 @@ constructor(
       }
 
       let requestObject = {
-       "order_item_id":JSON.stringify(this.appointmentDetails.id),
+       "order_item_id":JSON.stringify(this.detailsData.id),
        "staff_id":this.formAppointmentRescheduleAdmin.get('rescheduleStaff').value,
        "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value),"yyyy-MM-dd"),
        "book_time":this.formAppointmentRescheduleAdmin.get('rescheduleTime').value,
@@ -1232,7 +1229,7 @@ constructor(
 
 @Component({
   selector: 'notassigned-appointment-details',
-  templateUrl: '../_dialogs/notassigned-appointment-details.html',
+  templateUrl: '../_dialogs/pending-appointment-details.html',
   providers:[DatePipe]
 })
 export class NotAssignedAppointmentDetailsDialog {
@@ -1475,7 +1472,7 @@ constructor(
 
 @Component({
   selector: 'ontheway-appointment-details',
-  templateUrl: '../_dialogs/ontheway-appointment-details.html',
+  templateUrl: '../_dialogs/pending-appointment-details.html',
 })
 export class OnTheWayAppointmentDetailsDialog {
   //notes:any;
@@ -1681,211 +1678,211 @@ export class OnTheWayAppointmentDetailsDialog {
 
 }
 
-@Component({
-  selector: 'workstarted-appointment-details',
-  templateUrl: '../_dialogs/workstarted-appointment-details.html',
-})
-export class WorkStartedAppointmentDetailsDialog {
-//notes:any;
-detailsData: any;
-activityLog: any=[];
-formSettingPage:boolean = false;
-appointmentDetails = {
-  bookingNotes : ''
-};
-settingsArr:any =[];
+// @Component({
+//   selector: 'workstarted-appointment-details',
+//   templateUrl: '../_dialogs/pending-appointment-details.html',
+// })
+// export class WorkStartedAppointmentDetailsDialog {
+// //notes:any;
+// detailsData: any;
+// activityLog: any=[];
+// formSettingPage:boolean = false;
+// appointmentDetails = {
+//   bookingNotes : ''
+// };
+// settingsArr:any =[];
 
 
-constructor(
-  public dialogRef: MatDialogRef<WorkStartedAppointmentDetailsDialog>,
-  private AdminService: AdminService,
-  public dialog: MatDialog,
-  private _snackBar: MatSnackBar,
-  @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.detailsData =  this.data.fulldata;
-    console.log(this.detailsData);
-    this.fnGetActivityLog(this.detailsData.id);
-    this.fnGetSettings();
-  }
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
+// constructor(
+//   public dialogRef: MatDialogRef<WorkStartedAppointmentDetailsDialog>,
+//   private AdminService: AdminService,
+//   public dialog: MatDialog,
+//   private _snackBar: MatSnackBar,
+//   @Inject(MAT_DIALOG_DATA) public data: any) {
+//     this.detailsData =  this.data.fulldata;
+//     console.log(this.detailsData);
+//     this.fnGetActivityLog(this.detailsData.id);
+//     this.fnGetSettings();
+//   }
+//   onNoClick(): void {
+//     this.dialogRef.close();
+//   }
 
-  fnGetSettings(){
+//   fnGetSettings(){
 
-      let requestObject = {
-        "business_id" : localStorage.getItem('business_id')
-      };
+//       let requestObject = {
+//         "business_id" : localStorage.getItem('business_id')
+//       };
 
-      this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
-        if(response.data == true){
-          this.settingsArr = response.response;
-        }else if(response.data == false && response.response !== 'api token or userid invaild'){
-            this._snackBar.open(response.response, "X", {
-              duration: 2000,
-              verticalPosition: 'top',
-              panelClass : ['red-snackbar']
-            });
-        }
-      },(err) =>{
-        console.log(err)
-      });
-  }
+//       this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
+//         if(response.data == true){
+//           this.settingsArr = response.response;
+//         }else if(response.data == false && response.response !== 'api token or userid invaild'){
+//             this._snackBar.open(response.response, "X", {
+//               duration: 2000,
+//               verticalPosition: 'top',
+//               panelClass : ['red-snackbar']
+//             });
+//         }
+//       },(err) =>{
+//         console.log(err)
+//       });
+//   }
 
-  fnGetActivityLog(orderItemId){
-    this.appointmentDetails.bookingNotes = this.detailsData.booking_notes;
+//   fnGetActivityLog(orderItemId){
+//     this.appointmentDetails.bookingNotes = this.detailsData.booking_notes;
 
-    let requestObject = {
-      "order_item_id":orderItemId
-    };
-    this.AdminService.getActivityLog(requestObject).subscribe((response:any) => {
-      if(response.data == true){
-        this.activityLog=response.response;
-      }
-      else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
-        this.activityLog=[];
-      }
-    })
-  }
+//     let requestObject = {
+//       "order_item_id":orderItemId
+//     };
+//     this.AdminService.getActivityLog(requestObject).subscribe((response:any) => {
+//       if(response.data == true){
+//         this.activityLog=response.response;
+//       }
+//       else if(response.data == false && response.response !== 'api token or userid invaild'){
+//         this._snackBar.open(response.response, "X", {
+//           duration: 2000,
+//           verticalPosition: 'top',
+//           panelClass : ['red-snackbar']
+//         });
+//         this.activityLog=[];
+//       }
+//     })
+//   }
 
-  fnRescheduleAppointment(){
+//   fnRescheduleAppointment(){
 
-    this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
+//     this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
 
-    var is_cancel = this.fncompereDate(this.detailsData.booking_date_time,this.settingsArr.min_reseduling_time);
+//     var is_cancel = this.fncompereDate(this.detailsData.booking_date_time,this.settingsArr.min_reseduling_time);
 
-    if(is_cancel==true){
-        this._snackBar.open('Minimum notice required for rescheduleing an appointment', "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['red-snackbar']
-        });
-        return;
-    }
+//     if(is_cancel==true){
+//         this._snackBar.open('Minimum notice required for rescheduleing an appointment', "X", {
+//         duration: 2000,
+//         verticalPosition:'top',
+//         panelClass :['red-snackbar']
+//         });
+//         return;
+//     }
 
-    const dialogRef = this.dialog.open(RescheduleAppointment, {
-      height: '700px',
-     data : {appointmentDetails: this.detailsData}
-    });
+//     const dialogRef = this.dialog.open(RescheduleAppointment, {
+//       height: '700px',
+//      data : {appointmentDetails: this.detailsData}
+//     });
       
-    dialogRef.afterClosed().subscribe(result => {
-      this.dialogRef.close();
-    });
-  }
+//     dialogRef.afterClosed().subscribe(result => {
+//       this.dialogRef.close();
+//     });
+//   }
 
-  fnConfirmAppointment(){
-      let requestObject = {
-       "order_item_id":JSON.stringify(this.detailsData.id),
-       "status":"CO"
-      };
-      this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
-        if(response.data == true){
-          this._snackBar.open("Appointment Confirmed.", "X", {
-            duration: 2000,
-            verticalPosition:'top',
-            panelClass :['green-snackbar']
-            });
-          this.dialogRef.close();
-        }
-        else if(response.data == false && response.response !== 'api token or userid invaild'){
-          this._snackBar.open(response.response, "X", {
-            duration: 2000,
-            verticalPosition:'top',
-            panelClass :['red-snackbar']
-            });
-        }
-      })
-  }
+//   fnConfirmAppointment(){
+//       let requestObject = {
+//        "order_item_id":JSON.stringify(this.detailsData.id),
+//        "status":"CO"
+//       };
+//       this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+//         if(response.data == true){
+//           this._snackBar.open("Appointment Confirmed.", "X", {
+//             duration: 2000,
+//             verticalPosition:'top',
+//             panelClass :['green-snackbar']
+//             });
+//           this.dialogRef.close();
+//         }
+//         else if(response.data == false && response.response !== 'api token or userid invaild'){
+//           this._snackBar.open(response.response, "X", {
+//             duration: 2000,
+//             verticalPosition:'top',
+//             panelClass :['red-snackbar']
+//             });
+//         }
+//       })
+//   }
 
 
-  fnCancelAppointment(){
+//   fnCancelAppointment(){
     
-    this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
+//     this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
 
-    var is_cancel = this.fncompereDate(this.detailsData.booking_date_time,this.settingsArr.cancellation_buffer_time);
+//     var is_cancel = this.fncompereDate(this.detailsData.booking_date_time,this.settingsArr.cancellation_buffer_time);
 
-    if(is_cancel==true){
-        this._snackBar.open('Minimum notice required for Cancellation an appointment', "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['red-snackbar']
-        });
-        return;
-    }
+//     if(is_cancel==true){
+//         this._snackBar.open('Minimum notice required for Cancellation an appointment', "X", {
+//         duration: 2000,
+//         verticalPosition:'top',
+//         panelClass :['red-snackbar']
+//         });
+//         return;
+//     }
 
-    let requestObject = {
-     "order_item_id":JSON.stringify(this.detailsData.id),
-     "status":"C"
-    };
-    this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
-      if(response.data == true){
-        this._snackBar.open("Appointment Cancelled.", "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['green-snackbar']
-          });
-        this.dialogRef.close();
-      }
-      else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['red-snackbar']
-          });
-      }
-    })
-  }
+//     let requestObject = {
+//      "order_item_id":JSON.stringify(this.detailsData.id),
+//      "status":"C"
+//     };
+//     this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+//       if(response.data == true){
+//         this._snackBar.open("Appointment Cancelled.", "X", {
+//           duration: 2000,
+//           verticalPosition:'top',
+//           panelClass :['green-snackbar']
+//           });
+//         this.dialogRef.close();
+//       }
+//       else if(response.data == false && response.response !== 'api token or userid invaild'){
+//         this._snackBar.open(response.response, "X", {
+//           duration: 2000,
+//           verticalPosition:'top',
+//           panelClass :['red-snackbar']
+//           });
+//       }
+//     })
+//   }
   
-  fnSaveBookingNotes(orderItemId){
+//   fnSaveBookingNotes(orderItemId){
     
-    if(this.appointmentDetails.bookingNotes == undefined || this.appointmentDetails.bookingNotes == ""){
-      return false;
-    }
-    let requestObject = {
-      "order_item_id":orderItemId,
-      "booking_notes":this.appointmentDetails.bookingNotes
-    };
-    this.AdminService.saveBookingNotes(requestObject).subscribe((response:any) => {
-      if(response.data == true){
-        this._snackBar.open("Booking Notes Updated.", "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['green-snackbar']
-        });
-        this.formSettingPage = false;
-      } else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['red-snackbar']
-        });
-      }
-    })
-  }
+//     if(this.appointmentDetails.bookingNotes == undefined || this.appointmentDetails.bookingNotes == ""){
+//       return false;
+//     }
+//     let requestObject = {
+//       "order_item_id":orderItemId,
+//       "booking_notes":this.appointmentDetails.bookingNotes
+//     };
+//     this.AdminService.saveBookingNotes(requestObject).subscribe((response:any) => {
+//       if(response.data == true){
+//         this._snackBar.open("Booking Notes Updated.", "X", {
+//           duration: 2000,
+//           verticalPosition:'top',
+//           panelClass :['green-snackbar']
+//         });
+//         this.formSettingPage = false;
+//       } else if(response.data == false && response.response !== 'api token or userid invaild'){
+//         this._snackBar.open(response.response, "X", {
+//           duration: 2000,
+//           verticalPosition:'top',
+//           panelClass :['red-snackbar']
+//         });
+//       }
+//     })
+//   }
 
   
-  fncompereDate(APPODate,time){
+//   fncompereDate(APPODate,time){
         
-    var Now = new Date();  
-    var  APPO = new Date(APPODate);
-    console.log(this.settingsArr);
+//     var Now = new Date();  
+//     var  APPO = new Date(APPODate);
+//     console.log(this.settingsArr);
 
-    Now.setMinutes(Now.getMinutes() + parseInt(time));
+//     Now.setMinutes(Now.getMinutes() + parseInt(time));
 
-    if (Now>APPO){
-      return true;
-    }else if (Now<APPO){
-      return false;  
-    } 
+//     if (Now>APPO){
+//       return true;
+//     }else if (Now<APPO){
+//       return false;  
+//     } 
 
-  }
+//   }
 
-}
+// }
 
 
 /*For notification Dialog*/
