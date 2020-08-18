@@ -1192,3 +1192,29 @@ mat-radio-group {
         border: 0;
     }
 }
+
+.left-order-listing {
+    height: calc(100vh - 65px);
+    overflow-y: auto;
+}
+
+.single-booking {
+    label {
+        margin-bottom: 0;
+    }
+}
+
+.customer-details {
+    label {
+        margin-bottom: 0;
+    }
+}
+
+.billing-cart {
+    height: calc(100vh - 65px);
+    overflow-y: auto;
+    .order-items {
+        height: calc(100% - 310px);
+        overflow-y: auto;
+    }
+}

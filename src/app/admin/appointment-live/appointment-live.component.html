@@ -1,6 +1,11 @@
 <div class="content-main" id="live_appointments">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
-    <mat-tab-group mat-align-tabs="start" class="main-tab-grp">
+    <mat-tab-group [(selectedIndex)]="selectedtab" (selectedTabChange)="onTabChanged($event)" mat-align-tabs="start" class="main-tab-grp">
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <span class="material-icons">dashboard</span>
+            </ng-template>
+        </mat-tab>
         <mat-tab label="In Store">
             <ng-template mat-tab-label>
                 <span class="material-icons">store</span> In Store
@@ -511,10 +516,10 @@
             </ng-template>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-8 left-order-listing">
                         <div class="row">
                             <div class="col-4 p-2">
-                                <div class="p-3 rounded unselect-bill">
+                                <div class="p-3 rounded single-booking unselect-bill">
                                     <div class="row ">
                                         <div class="col-6">
                                             <label>Order Id</label><br>
@@ -527,22 +532,22 @@
                                     </div>
 
                                     <div class="row ">
-                                        <div class="col-6 pt-3">
+                                        <div class="col-6 pt-2">
                                             <label>Customer</label><br>
                                             <span>Jay Soni</span>
                                         </div>
-                                        <div class="col-6 pt-3 text-right">
+                                        <div class="col-6 pt-2 text-right">
                                             <label>Phone No.</label><br>
                                             <span>9876543210</span>
                                         </div>
                                     </div>
 
                                     <div class="row ">
-                                        <div class="col-6 pt-3">
+                                        <div class="col-6 pt-2">
                                             <label>Staff</label><br>
                                             <span>Jay Soni</span>
                                         </div>
-                                        <div class="col-6 pt-3 text-right">
+                                        <div class="col-6 pt-2 text-right">
                                             <label>Order From</label><br>
                                             <span>In Store</span>
                                         </div>
@@ -575,7 +580,7 @@
                                 </div>
                             </div>
                             <div class="col-4 p-2">
-                                <div class="p-3 rounded unselect-bill">
+                                <div class="p-3 rounded single-booking unselect-bill">
                                     <div class="row ">
                                         <div class="col-6">
                                             <label>Order Id</label><br>
@@ -588,22 +593,22 @@
                                     </div>
 
                                     <div class="row ">
-                                        <div class="col-6 pt-3">
+                                        <div class="col-6 pt-2">
                                             <label>Customer</label><br>
                                             <span>Jay Soni</span>
                                         </div>
-                                        <div class="col-6 pt-3 text-right">
+                                        <div class="col-6 pt-2 text-right">
                                             <label>Phone No.</label><br>
                                             <span>9876543210</span>
                                         </div>
                                     </div>
 
                                     <div class="row ">
-                                        <div class="col-6 pt-3">
+                                        <div class="col-6 pt-2">
                                             <label>Staff</label><br>
                                             <span>Jay Soni</span>
                                         </div>
-                                        <div class="col-6 pt-3 text-right">
+                                        <div class="col-6 pt-2 text-right">
                                             <label>Order From</label><br>
                                             <span>In Store</span>
                                         </div>
@@ -638,7 +643,7 @@
 
 
                             <div class="col-4 p-2">
-                                <div class="p-3 rounded select-bill shadow">
+                                <div class="p-3 rounded single-booking select-bill shadow">
                                     <div class="row ">
                                         <div class="col-6">
                                             <label>Order Id</label><br>
@@ -651,22 +656,22 @@
                                     </div>
 
                                     <div class="row ">
-                                        <div class="col-6 pt-3">
+                                        <div class="col-6 pt-2">
                                             <label>Customer</label><br>
                                             <span>Jay Soni</span>
                                         </div>
-                                        <div class="col-6 pt-3 text-right">
+                                        <div class="col-6 pt-2 text-right">
                                             <label>Phone No.</label><br>
                                             <span>9876543210</span>
                                         </div>
                                     </div>
 
                                     <div class="row ">
-                                        <div class="col-6 pt-3">
+                                        <div class="col-6 pt-2">
                                             <label>Staff</label><br>
                                             <span>Jay Soni</span>
                                         </div>
-                                        <div class="col-6 pt-3 text-right">
+                                        <div class="col-6 pt-2 text-right">
                                             <label>Order From</label><br>
                                             <span>In Store</span>
                                         </div>
@@ -701,27 +706,27 @@
                         </div>
                     </div>
 
-                    <div class="col-4 p-2 shadow">
-                        <div class="px-3 pt-3 pb-0 ord-bill-head">
+                    <div class="col-4 p-2 shadow billing-cart">
+                        <div class="px-3 pt-2 pb-0 ord-bill-head">
                             Bill Order
                         </div>
-                        <hr>
+                        <hr class="my-2">
                         <div class="px-3">
                             <div class="customer-details">Customer Details
 
                                 <div class="row ">
-                                    <div class="col-6 pt-3">
+                                    <div class="col-6 pt-2">
                                         <label>Name</label><br>
                                         <span>Jay Soni</span>
                                     </div>
-                                    <div class="col-6 pt-3">
+                                    <div class="col-6 pt-2">
                                         <label>Phone No.</label><br>
                                         <span>9876543210</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="px-3 mt-5 py-2 service-details-title">
+                        <div class="px-3 mt-3 py-2 service-details-title">
                             <div class="row ">
                                 <div class="col-6">
                                     <span>Service</span>
@@ -734,49 +739,50 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="px-3 mt-3">
-                            <div class="row ">
-                                <div class="col-6">
-                                    <span>Gold <span class="text-secondary">(Hiar Colour)</span></span>
-                                    <p>Staff Meet Shah</p>
+                        <div class="order-items">
+                            <div class="px-3 mt-3">
+                                <div class="row ">
+                                    <div class="col-6">
+                                        <span>Gold <span class="text-secondary">(Hiar Colour)</span></span>
+                                        <p>Staff Meet Shah</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <span>1</span>
+                                    </div>
+                                    <div class="col-3 pr-3">
+                                        <i class="fa fa-rupee pr-1"></i><span>50</span>
+                                    </div>
                                 </div>
-                                <div class="col-3">
-                                    <span>1</span>
+                            </div>
+                            <hr class="my-2">
+                            <div class="px-3 mt-2">
+                                <div class="row ">
+                                    <div class="col-6">
+                                        <span>Gold <span class="text-secondary">(Hiar Colour)</span></span>
+                                        <p>Staff Waiting</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <span>1</span>
+                                    </div>
+                                    <div class="col-3 pr-3">
+                                        <i class="fa fa-rupee pr-1"></i><span>50</span>
+                                    </div>
                                 </div>
-                                <div class="col-3 pr-3">
-                                    <i class="fa fa-rupee pr-1"></i><span>50</span>
+                            </div>
+                            <hr class="my-2">
+                            <div class="px-3 mt-2">
+                                <div class="row ">
+                                    <div class="col-9">
+                                        <span>Subtotal : <i class="fa fa-rupee pr-1"></i> 100</span>
+                                    </div>
+                                    <div class="col-3 ">
+                                        <span>Tax : <i class="fa fa-rupee pr-1"></i> 10</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <hr>
-                        <div class="px-3 mt-2">
-                            <div class="row ">
-                                <div class="col-6">
-                                    <span>Gold <span class="text-secondary">(Hiar Colour)</span></span>
-                                    <p>Staff Waiting</p>
-                                </div>
-                                <div class="col-3">
-                                    <span>1</span>
-                                </div>
-                                <div class="col-3 pr-3">
-                                    <i class="fa fa-rupee pr-1"></i><span>50</span>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="px-3 mt-2">
-                            <div class="row ">
-                                <div class="col-9">
-                                    <span>Subtotal : <i class="fa fa-rupee pr-1"></i> 100</span>
-                                </div>
-                                <div class="col-3 ">
-                                    <span>Tax : <i class="fa fa-rupee pr-1"></i> 10</span>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="px-3 py-2 mt-5 total-bill">
+                        <hr class="my-2">
+                        <div class="px-3 py-2 mt-3 total-bill">
                             <div class="row ">
                                 <div class="col-9">
                                     <span>Total</span>
