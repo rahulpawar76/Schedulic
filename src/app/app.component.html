@@ -7,7 +7,7 @@
     <mat-drawer-content [ngClass]="{'main-content-top': isFront()}" class="">
         <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
         <main fxLayout="column" fxLayoutGap="0">
-            <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser() && !isBusiness()}" color="primary" class="toolbar menu-comman" *ngIf="isLogin() && !isFront()">
+            <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser() && !isBusiness()}" color="primary" class="toolbar menu-comman" *ngIf="(isLogin() && !isFront()) && !isPOS()">
                 <mat-toolbar-row *ngIf="isCustomerUser()">
                     <div class="logo">
                         <a (click)="fnClickLogo('customer')"><img src="/assets/img/logo.png"></a>
@@ -56,8 +56,7 @@
                             <img *ngIf="pageHeading == 'My Customer'" src="/assets/images/admin/my-customer-icon.png" class="page-top-icon mr-3" aria-hidden="true">
                             <img *ngIf="pageHeading == 'My Reports'" src="/assets/images/admin/my-report-icon.png" class="page-top-icon mr-3" aria-hidden="true">
                             <img *ngIf="pageHeading == 'My Discount Coupon'" src="/assets/images/admin/my-coupon-icon.png" class="page-top-icon mr-3" aria-hidden="true">
-                            <img *ngIf="pageHeading == 'My Profile'" src="/assets/images/admin/my-profile-icon.png" class="page-top-icon mr-3" aria-hidden="true"> 
-                            {{pageHeading}}
+                            <img *ngIf="pageHeading == 'My Profile'" src="/assets/images/admin/my-profile-icon.png" class="page-top-icon mr-3" aria-hidden="true"> {{pageHeading}}
                         </a>
                     </div>
                     <span class="example-fill-remaining-space">
@@ -99,7 +98,7 @@
             </div>
             <div class="bottom_header" *ngIf="isAdminUser() && !isFront()" fxFlex="100">
                 <mat-drawer-container class="main-container left-admin-menu">
-                    <mat-drawer [disableClose]="true" class="main_admin_menu" *ngIf="businessComponent && !isBusiness()" mode="side" opened>
+                    <mat-drawer [disableClose]="true" class="main_admin_menu" *ngIf="(businessComponent && !isBusiness()) && (POSComponent && !isPOS())" mode="side" opened>
                         <div class="top_admin_menu">
                             <mat-list-item role="listitem" class="matlist pointer menuitem logo">
                                 <div (click)="fnClickLogo('admin')" class="logo"><img src="assets/images/admin/admin-logo-orange.png"></div>

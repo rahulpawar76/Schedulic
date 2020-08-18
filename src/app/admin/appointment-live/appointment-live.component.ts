@@ -12,6 +12,7 @@ import { map, catchError } from 'rxjs/operators';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { AppComponent } from '@app/app.component';
 import { AuthenticationService } from '@app/_services';
+import { CommonService } from '../../_services'
 
 export interface DialogData {
   animal: string;
@@ -93,17 +94,31 @@ export class AppointmentLiveComponent implements OnInit {
   service_id:any;
   categoryServiceCheckServiceId = [];
   totalCost = 0;
-
-  constructor(
+  note_description='';
+  paymentData:any;
+  selectedtab:any = 1;
+  pendingBillTab: boolean = false
+  currentUser: any;
+  notificationCount: any = 0;
+  userType:any;
+  notificationData:any;
+    constructor(
     private AdminService: AdminService,
     private datePipe: DatePipe,
     public dialog: MatDialog,
+    private CommonService: CommonService,
     private _formBuilder:FormBuilder,
+    private authenticationService: AuthenticationService,
+    public router: Router,
     private _snackBar: MatSnackBar,
   ) { 
     
     
-    localStorage.setItem('isBusiness', 'true');
+    localStorage.setItem('isPOS', 'true');
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    alert();
+    //this.currentUser = this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x )
+    console.log(this.currentUser)
     this.newCustomer = this._formBuilder.group({
       cus_name : ['', Validators.required],
       cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
@@ -117,7 +132,11 @@ export class AppointmentLiveComponent implements OnInit {
     }
     this.fnGetSettings();
     this.getPendingAppointments();
-    this.getNotAssignedAppointments();
+   // this.getNotAssignedAppointments();
+   if (localStorage.getItem('business_id')) {
+    this.businessId = localStorage.getItem('business_id');
+    this.getNotificationCount(this.businessId)
+  }
     this.getOnThewayAppointments();
     this.getWorkStartedAppointments();
     
@@ -130,6 +149,18 @@ export class AppointmentLiveComponent implements OnInit {
     this.fngetService();
 
     
+  }
+  onTabChanged(event){
+    let clickedIndex = event.index;
+    console.log(clickedIndex)
+    if(clickedIndex == 0){
+      this.router.navigate(['/admin/my-workspace']);
+    }
+    if(clickedIndex == 5){
+      this.pendingBillTab  = true
+    }else{
+      this.pendingBillTab  = false
+    }
   }
 
   fnGetSettings(){
@@ -177,11 +208,11 @@ export class AppointmentLiveComponent implements OnInit {
           element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
         });
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition: 'top',
+        //   panelClass : ['red-snackbar']
+        // });
         this.pendingAppointments = [];
       }
     });
@@ -283,11 +314,11 @@ export class AppointmentLiveComponent implements OnInit {
           
         });
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition: 'top',
+        //   panelClass : ['red-snackbar']
+        // });
         this.onTheWayAppointments = [];
       }
     })
@@ -337,11 +368,11 @@ export class AppointmentLiveComponent implements OnInit {
         });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition: 'top',
+        //   panelClass : ['red-snackbar']
+        // });
         this.workStartedAppointments = [];
       }
     })
@@ -391,17 +422,24 @@ export class AppointmentLiveComponent implements OnInit {
       width: '500px',
      });
       dialogRef.afterClosed().subscribe(result => {
-       this.animal = result;
+       this.note_description = result;
       });
   }
-  fnPaymentMode(index){
+
+  fnPaymentMode(pos_pdf_type){
     
     const dialogRef = this.dialog.open(paymentModeDialog, {
       width: '500px',
      });
-      dialogRef.afterClosed().subscribe(result => {
-       this.animal = result;
-      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+       if(result){
+        this.paymentData = result;
+        this.fnplaceOrder(pos_pdf_type);
+       }
+    });
+
   }
 
   fnOpenNotAssignedDetails(index){
@@ -419,12 +457,12 @@ export class AppointmentLiveComponent implements OnInit {
   }
 
   
-  fnOpenOnTheWayDetails(index){
+  fnOpenOnTheWayDetails(){
     
     const dialogRef = this.dialog.open(OnTheWayAppointmentDetailsDialog, {
       height: '700px',
       //data: {animal: this.animal}
-      data :{fulldata : this.onTheWayAppointments[index]}
+      //data :{fulldata : this.onTheWayAppointments[index]}
      });
       dialogRef.afterClosed().subscribe(result => {
        this.animal = result;
@@ -480,6 +518,7 @@ export class AppointmentLiveComponent implements OnInit {
 
     let requestObject = {
       "service_id" : service_id, 
+      "status" : "all", 
       "business_id" : localStorage.getItem('business_id')
     };
 
@@ -513,15 +552,32 @@ export class AppointmentLiveComponent implements OnInit {
 
   fnAssignStaff(staff_id,staff_index){
 
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+    var yyyy = today.getFullYear();
+    var current_date = yyyy + '-' + mm  + '-' + dd;
+
     this.staff_id = staff_id;
     let index = false;
     if(this.categoryServiceCheckServiceId.length == 0){
+     
       this.categoryServiceCheckServiceId.push(this.ServiceList[this.service_index].id);
+   
     }else{
+
       index = this.categoryServiceCheckServiceId.includes(this.ServiceList[this.service_index].id);
+      var my_index = this.categoryServiceCheckServiceId.indexOf(this.ServiceList[this.service_index].id);
+    
       if(index==false){
         this.categoryServiceCheckServiceId.push(this.ServiceList[this.service_index].id);
       }
+      
+      if(index==true){
+        this.cartArr.splice(my_index, 1);
+        index=false;
+      }
+
     }
     
     if(index==false){
@@ -545,10 +601,8 @@ export class AppointmentLiveComponent implements OnInit {
           "count": 1,
           "subtotal": this.ServiceList[this.service_index].service_cost,
           "totalCost": this.ServiceList[this.service_index].service_cost,
-          "appointmentDate": "2020-07-20",
-          "appointmentDateForLabel": "April 21, 2020",
-          "appointmentTimeSlot": "11:00",
-          "appointmentTimeSlotForLabel": "05:00 PM",
+          "appointmentDate": current_date,
+          "appointmentTimeSlot": this.StaffList[staff_index].from,
           "assignedStaff" : staff_id,
           "StaffName" : this.StaffList[staff_index].name
       });
@@ -557,6 +611,7 @@ export class AppointmentLiveComponent implements OnInit {
       this.cartArr.forEach(element => {
         this.totalCost = this.totalCost+parseInt(element.subtotal);
       });
+
     }
 
     this.fngetService();
@@ -584,53 +639,176 @@ export class AppointmentLiveComponent implements OnInit {
   }
 
   fnDeleteItem(elem){
-
     this.cartArr.splice(elem, 1);
-
     this.totalCost = 0;
     this.cartArr.forEach(element => {
       this.totalCost = this.totalCost+parseInt(element.subtotal);
     });
-   
 
   }
-  fnplaceOrder(){
+
+  fnplaceOrder(pos_pdf_type ){
+
+    if(this.newCustomer.invalid){
+      this.newCustomer.get('cus_email').markAsTouched();
+      this.newCustomer.get('cus_mobile').markAsTouched();
+      this.newCustomer.get('cus_name').markAsTouched();
+      return false;
+    }
+    
+    this.isLoaderAdmin = true;
 
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); 
     var yyyy = today.getFullYear();
-    
     var payment_datetime = yyyy + '-' + mm  + '-' + dd;
 
     var requestObject = {
       "business_id" : localStorage.getItem('business_id'),
-      'serviceInfo' : JSON.stringify(this.cartArr),
-      "customer_name":"abc xyz pqr",
-      "customer_phone":"256256",
-      "customer_email":"vishalbimistry@yahoo.com",
-      "created_by":"admin",
-      "subtotal":this.totalCost,
-      "reference_id": "jsgdsjdgsjdsgdsgjdsgd",
-      "transaction_id": "pay_sdsdgsjdsgdjs",
+      'serviceInfo' : this.cartArr,
+      "customer_name": this.newCustomer.get('cus_name').value,
+      "customer_phone": this.newCustomer.get('cus_mobile').value,
+      "customer_email": this.newCustomer.get('cus_email').value,
+      "created_by": "admin",
+      "subtotal": this.totalCost,
+      "reference_id": "",
+      "transaction_id": "",
       "payment_datetime": payment_datetime,
       "nettotal": this.totalCost,
-      "payment_method":"Paypal",
-      "order_date": payment_datetime
+      "payment_method": this.paymentData ? this.paymentData.payment_method : 'cash',
+      "order_date": payment_datetime,
+      "booking_notes" : this.note_description,
+      'pos_pdf_type' : pos_pdf_type  
     };
-
-    console.log(requestObject);
-    return;
+  
 
     this.AdminService.placeOrder(requestObject).subscribe((response:any) => {
+      
       if(response.data == true){
-        this.StaffList = response.response;
-        console.log(this.StaffList);
+        this.cartArr = [];
+        this.newCustomer.reset();
+        this.totalCost = 0;
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['green-snackbar']
+        });
       }
+
+      this.isLoaderAdmin = false;
+
     });
 
   }
+
+  /*For notification Dialog*/
+  getNotificationCount(business_id){
+    let headers;
+    let userId;
+    if (this.currentUser.user_type == "A") {
+      this.userType = "admin";
+      userId = business_id;
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'admin-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    } else if (this.currentUser.user_type == "SM") {
+      this.userType = "staff";
+      userId = JSON.stringify(this.currentUser.user_id);
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'staff-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    } else if (this.currentUser.user_type == "C") {
+      this.userType = "customer";
+      userId = JSON.stringify(this.currentUser.user_id);
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'customer-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    }
+    let requestObject = {
+      "user_id": userId,
+      "user_type": this.userType
+    };
+    console.log(requestObject)
+    alert()
+    this.CommonService.openNotificationDialog(requestObject, headers).subscribe((response: any) => {
+      if (response.data == true) {
+        this.notificationData = response.response
+        this.notificationCount = this.notificationData.length;
+      }else if(response.data == false){
+        this.notificationCount = 0
+      }
+
+      this.isLoaderAdmin = false;
+    })
+
+  }
+  openNotificationDialog() {
+    this.isLoaderAdmin = true;
+    let headers;
+    let userId;
+    if (this.currentUser.user_type == "A") {
+      this.userType = "admin";
+      userId = this.businessId;
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'admin-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    } else if (this.currentUser.user_type == "SM") {
+      this.userType = "staff";
+      userId = JSON.stringify(this.currentUser.user_id);
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'staff-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    } else if (this.currentUser.user_type == "C") {
+      this.userType = "customer";
+      userId = JSON.stringify(this.currentUser.user_id);
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'customer-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    }
+    let requestObject = {
+      "user_id": userId,
+      "user_type": this.userType
+    };
+    this.CommonService.openNotificationDialog(requestObject, headers).subscribe((response: any) => {
+      if (response.data == true) {
+        this.notificationData = response.response
+        const dialogRef = this.dialog.open(DialogNotification, {
+          height: '500px',
+          data: { fulldata: this.notificationData }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          this.animal = result;
+          this.getNotificationCount(this.businessId)
+        });
+        this.isLoaderAdmin = false;
+      } else {
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+        });
+        this.isLoaderAdmin = false;
+      }
+
+    })
+
+  }
+
 }
+
 
 @Component({
   selector: 'online-payment-mode',
@@ -638,27 +816,34 @@ export class AppointmentLiveComponent implements OnInit {
     providers: [DatePipe]
 })
 export class paymentModeDialog {
-  createNewNote: FormGroup;
-formSettingPage:boolean = false;
-appointmentDetails = {
-  bookingNotes : ''
-};
-settingsArr:any =[];
 
+  res = {
+    'payment_method' : 'cash',
+    'reference_id' : '',
+    'transaction_id' : '',
+  };
 constructor(
   public dialogRef: MatDialogRef<paymentModeDialog>,
-  private AdminService: AdminService,
-  private _snackBar: MatSnackBar,
-  private datePipe: DatePipe,
-  private _formBuilder:FormBuilder,
-  public dialog: MatDialog,
   @Inject(MAT_DIALOG_DATA) public data: any) {
     
 
-  }
+}
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  fnPaymentMethod(payment_method): void {
+     this.res = {
+      'payment_method' : payment_method,
+      'reference_id' : '',
+      'transaction_id' : '',
+    };
+  }
+
+  Confirm(){
+    this.dialogRef.close(this.res);
+  }
+
 }
 
 @Component({
@@ -668,11 +853,12 @@ constructor(
 })
 export class addPOSBookingNoteDialog {
   createNewNote: FormGroup;
-formSettingPage:boolean = false;
-appointmentDetails = {
+  formSettingPage:boolean = false;
+  appointmentDetails = {
   bookingNotes : ''
-};
-settingsArr:any =[];
+  };
+
+  settingsArr:any =[];
 
 constructor(
   public dialogRef: MatDialogRef<addPOSBookingNoteDialog>,
@@ -688,7 +874,11 @@ constructor(
 
   }
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close('');
+  }
+  
+  onAdd(): void {
+    this.dialogRef.close(this.createNewNote.get('note_description').value);
   }
 }
 
@@ -732,8 +922,7 @@ constructor(
       if(response.data == true){
         console.log(response.response);
         this.activityLog=response.response;
-      }
-      else if(response.data == false && response.response !== 'api token or userid invaild'){
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1306,10 +1495,10 @@ export class OnTheWayAppointmentDetailsDialog {
     private http: HttpClient,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      this.detailsData =  this.data.fulldata;
-      console.log(this.detailsData);
-      this.fnGetActivityLog(this.detailsData.id);
-      this.fnGetSettings();
+      // this.detailsData =  this.data.fulldata;
+      // console.log(this.detailsData);
+      // this.fnGetActivityLog(this.detailsData.id);
+      // this.fnGetSettings();
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -1695,5 +1884,156 @@ constructor(
     } 
 
   }
+
+}
+
+
+/*For notification Dialog*/
+
+@Component({
+  selector: 'dialog-notification',
+  templateUrl: '../../_dialogs/dialog-notification.html',
+  providers: [DatePipe]
+})
+export class DialogNotification {
+  notifications: any;
+  currentUser: any;
+  businessId :any;
+  userId: any;
+  userType: any;
+  animal:any;
+  token: any;
+  isLoaderAdmin : boolean = false;
+  order_item_id : any = [];
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogNotification>,
+    private datePipe: DatePipe,
+    private http: HttpClient,
+    private authenticationService: AuthenticationService,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
+    private CommonService: CommonService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+
+    // this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (localStorage.getItem('business_id')) {
+      this.businessId = localStorage.getItem('business_id');
+    }
+    this.notifications = this.data.fulldata
+    // this.notifications = this.notifications.sort(this.dynamicSort("booking_date"))
+    this.notifications.forEach((element) => {
+      var todayDateTime = new Date();
+      //element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
+      var dateTemp = new Date(this.datePipe.transform(element.updated_at, "dd MMM yyyy hh:mm a"));
+      dateTemp.setMinutes(dateTemp.getMinutes() + parseInt(element.service_time));
+      var temp = todayDateTime.getTime() - dateTemp.getTime();
+      element.timeToService = (temp / 3600000).toFixed();
+
+      element.booking_date = this.datePipe.transform(new Date(element.booking_date), "dd MMM yyyy");
+      element.booking_time = this.datePipe.transform(new Date(element.booking_date + " " + element.booking_time), "hh:mm a");
+    });
+  }
+
+  fnViewNotification(index, orderId){
+   this.order_item_id.push(orderId);
+    let headers;
+    if (this.currentUser.user_type == "A") {
+      this.userType = "admin";
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'admin-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    } else if (this.currentUser.user_type == "SM") {
+      this.userType = "staff";
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'staff-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    } else if (this.currentUser.user_type == "C") {
+      this.userType = "customer";
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'customer-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    }
+    let requestObject = {
+      "order_item_id": this.order_item_id,
+    };
+    this.CommonService.fnViewNotification(requestObject, headers).subscribe((response: any) => {
+      if (response.data == true) {
+        this.notificationAppointment(index);
+      }
+    })
+  }
+ 
+   notificationAppointment(index) {
+    const dialogRef = this.dialog.open(DialogNotificationAppointment, {
+      width: '500px',
+      data : { fulldata : this.notifications[index] }
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+    });
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  dynamicSort(property) {
+    var sortOrder = 1;
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+    return function (a, b) {
+      var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+    }
+  }
+
+}
+
+@Component({
+  selector: 'Notification-Appointment',
+  templateUrl: '../../_dialogs/dialog-notification-appointment.html',
+  providers: [DatePipe]
+})
+export class DialogNotificationAppointment {
+  myAppoDetailData:any;
+  bookingDateTime:any;
+  booking_timeForLabel:any;
+  created_atForLabel:any;
+  booking_dateForLabel:any;
+  booking_time_to:any;
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogNotificationAppointment>,
+    public router: Router,
+    private datePipe: DatePipe,
+    private authenticationService: AuthenticationService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.myAppoDetailData = this.data.fulldata
+        this.bookingDateTime = new Date(this.myAppoDetailData.booking_date+" "+this.myAppoDetailData.booking_time);
+        this.booking_timeForLabel = this.datePipe.transform(this.bookingDateTime,"hh:mm a");
+        this.booking_dateForLabel = this.datePipe.transform(new Date(this.myAppoDetailData.booking_date),"dd MMM yyyy");
+        this.created_atForLabel = this.datePipe.transform(new Date(this.myAppoDetailData.created_at),"dd MMM yyyy @ hh:mm a");
+
+        var dateTemp = new Date(this.datePipe.transform(this.bookingDateTime,"dd MMM yyyy hh:mm a"));
+        dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(this.myAppoDetailData.service_time) );
+        this.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+
+     }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 
 }
