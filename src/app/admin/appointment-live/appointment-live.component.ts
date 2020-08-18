@@ -165,7 +165,11 @@ export class AppointmentLiveComponent implements OnInit {
   }
 
   fnSearch(value){
-    console.log(value);
+    if(this.inStoreTabName=='service'){
+
+    }else{
+      
+    }
   }
 
   fnGetSettings(){
