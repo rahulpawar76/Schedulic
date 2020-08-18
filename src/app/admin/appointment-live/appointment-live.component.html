@@ -583,4 +583,18 @@
             <div></div>
         </mat-tab>
     </mat-tab-group>
+    <div class="admin-header">
+        <span class="f13 d-flex align-items-center">
+            <button mat-stroked-button class="bellborder notification-btn bell-color" (click)="openNotificationDialog()">
+                <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
+                <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
+        </button>
+        <span class="profile-head">
+                <div class="customer-profile-img m-2 float-left overflow-hidden" data="aaa">
+                    <img class="h-100 w-100" src="{{currentUser.image}}" onerror="this.src='../assets/img/user.png';" >
+                </div>
+              <p class="my-2 p-1" *ngIf="currentUser.full_name">{{currentUser.full_name}}</p>
+            </span>
+        </span>
+    </div>
 </div>

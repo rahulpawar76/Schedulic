@@ -12,6 +12,7 @@ import { map, catchError } from 'rxjs/operators';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { AppComponent } from '@app/app.component';
 import { AuthenticationService } from '@app/_services';
+import { CommonService } from '../../_services'
 
 export interface DialogData {
   animal: string;
@@ -97,18 +98,27 @@ export class AppointmentLiveComponent implements OnInit {
   paymentData:any;
   selectedtab:any = 1;
   pendingBillTab: boolean = false
-
+  currentUser: any;
+  notificationCount: any = 0;
+  userType:any;
+  notificationData:any;
     constructor(
     private AdminService: AdminService,
     private datePipe: DatePipe,
     public dialog: MatDialog,
+    private CommonService: CommonService,
     private _formBuilder:FormBuilder,
+    private authenticationService: AuthenticationService,
     public router: Router,
     private _snackBar: MatSnackBar,
   ) { 
     
     
     localStorage.setItem('isPOS', 'true');
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    alert();
+    //this.currentUser = this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x )
+    console.log(this.currentUser)
     this.newCustomer = this._formBuilder.group({
       cus_name : ['', Validators.required],
       cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
@@ -123,6 +133,10 @@ export class AppointmentLiveComponent implements OnInit {
     this.fnGetSettings();
     this.getPendingAppointments();
    // this.getNotAssignedAppointments();
+   if (localStorage.getItem('business_id')) {
+    this.businessId = localStorage.getItem('business_id');
+    this.getNotificationCount(this.businessId)
+  }
     this.getOnThewayAppointments();
     this.getWorkStartedAppointments();
     
@@ -687,6 +701,112 @@ export class AppointmentLiveComponent implements OnInit {
     });
 
   }
+
+  /*For notification Dialog*/
+  getNotificationCount(business_id){
+    let headers;
+    let userId;
+    if (this.currentUser.user_type == "A") {
+      this.userType = "admin";
+      userId = business_id;
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'admin-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    } else if (this.currentUser.user_type == "SM") {
+      this.userType = "staff";
+      userId = JSON.stringify(this.currentUser.user_id);
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'staff-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    } else if (this.currentUser.user_type == "C") {
+      this.userType = "customer";
+      userId = JSON.stringify(this.currentUser.user_id);
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'customer-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    }
+    let requestObject = {
+      "user_id": userId,
+      "user_type": this.userType
+    };
+    console.log(requestObject)
+    alert()
+    this.CommonService.openNotificationDialog(requestObject, headers).subscribe((response: any) => {
+      if (response.data == true) {
+        this.notificationData = response.response
+        this.notificationCount = this.notificationData.length;
+      }else if(response.data == false){
+        this.notificationCount = 0
+      }
+
+      this.isLoaderAdmin = false;
+    })
+
+  }
+  openNotificationDialog() {
+    this.isLoaderAdmin = true;
+    let headers;
+    let userId;
+    if (this.currentUser.user_type == "A") {
+      this.userType = "admin";
+      userId = this.businessId;
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'admin-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    } else if (this.currentUser.user_type == "SM") {
+      this.userType = "staff";
+      userId = JSON.stringify(this.currentUser.user_id);
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'staff-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    } else if (this.currentUser.user_type == "C") {
+      this.userType = "customer";
+      userId = JSON.stringify(this.currentUser.user_id);
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'customer-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    }
+    let requestObject = {
+      "user_id": userId,
+      "user_type": this.userType
+    };
+    this.CommonService.openNotificationDialog(requestObject, headers).subscribe((response: any) => {
+      if (response.data == true) {
+        this.notificationData = response.response
+        const dialogRef = this.dialog.open(DialogNotification, {
+          height: '500px',
+          data: { fulldata: this.notificationData }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          this.animal = result;
+          this.getNotificationCount(this.businessId)
+        });
+        this.isLoaderAdmin = false;
+      } else {
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+        });
+        this.isLoaderAdmin = false;
+      }
+
+    })
+
+  }
+
 }
 
 
@@ -1764,5 +1884,156 @@ constructor(
     } 
 
   }
+
+}
+
+
+/*For notification Dialog*/
+
+@Component({
+  selector: 'dialog-notification',
+  templateUrl: '../../_dialogs/dialog-notification.html',
+  providers: [DatePipe]
+})
+export class DialogNotification {
+  notifications: any;
+  currentUser: any;
+  businessId :any;
+  userId: any;
+  userType: any;
+  animal:any;
+  token: any;
+  isLoaderAdmin : boolean = false;
+  order_item_id : any = [];
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogNotification>,
+    private datePipe: DatePipe,
+    private http: HttpClient,
+    private authenticationService: AuthenticationService,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
+    private CommonService: CommonService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+
+    // this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (localStorage.getItem('business_id')) {
+      this.businessId = localStorage.getItem('business_id');
+    }
+    this.notifications = this.data.fulldata
+    // this.notifications = this.notifications.sort(this.dynamicSort("booking_date"))
+    this.notifications.forEach((element) => {
+      var todayDateTime = new Date();
+      //element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
+      var dateTemp = new Date(this.datePipe.transform(element.updated_at, "dd MMM yyyy hh:mm a"));
+      dateTemp.setMinutes(dateTemp.getMinutes() + parseInt(element.service_time));
+      var temp = todayDateTime.getTime() - dateTemp.getTime();
+      element.timeToService = (temp / 3600000).toFixed();
+
+      element.booking_date = this.datePipe.transform(new Date(element.booking_date), "dd MMM yyyy");
+      element.booking_time = this.datePipe.transform(new Date(element.booking_date + " " + element.booking_time), "hh:mm a");
+    });
+  }
+
+  fnViewNotification(index, orderId){
+   this.order_item_id.push(orderId);
+    let headers;
+    if (this.currentUser.user_type == "A") {
+      this.userType = "admin";
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'admin-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    } else if (this.currentUser.user_type == "SM") {
+      this.userType = "staff";
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'staff-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    } else if (this.currentUser.user_type == "C") {
+      this.userType = "customer";
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'customer-id': JSON.stringify(this.currentUser.user_id),
+        "api-token": this.currentUser.token
+      });
+    }
+    let requestObject = {
+      "order_item_id": this.order_item_id,
+    };
+    this.CommonService.fnViewNotification(requestObject, headers).subscribe((response: any) => {
+      if (response.data == true) {
+        this.notificationAppointment(index);
+      }
+    })
+  }
+ 
+   notificationAppointment(index) {
+    const dialogRef = this.dialog.open(DialogNotificationAppointment, {
+      width: '500px',
+      data : { fulldata : this.notifications[index] }
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+    });
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  dynamicSort(property) {
+    var sortOrder = 1;
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+    return function (a, b) {
+      var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+    }
+  }
+
+}
+
+@Component({
+  selector: 'Notification-Appointment',
+  templateUrl: '../../_dialogs/dialog-notification-appointment.html',
+  providers: [DatePipe]
+})
+export class DialogNotificationAppointment {
+  myAppoDetailData:any;
+  bookingDateTime:any;
+  booking_timeForLabel:any;
+  created_atForLabel:any;
+  booking_dateForLabel:any;
+  booking_time_to:any;
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogNotificationAppointment>,
+    public router: Router,
+    private datePipe: DatePipe,
+    private authenticationService: AuthenticationService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.myAppoDetailData = this.data.fulldata
+        this.bookingDateTime = new Date(this.myAppoDetailData.booking_date+" "+this.myAppoDetailData.booking_time);
+        this.booking_timeForLabel = this.datePipe.transform(this.bookingDateTime,"hh:mm a");
+        this.booking_dateForLabel = this.datePipe.transform(new Date(this.myAppoDetailData.booking_date),"dd MMM yyyy");
+        this.created_atForLabel = this.datePipe.transform(new Date(this.myAppoDetailData.created_at),"dd MMM yyyy @ hh:mm a");
+
+        var dateTemp = new Date(this.datePipe.transform(this.bookingDateTime,"dd MMM yyyy hh:mm a"));
+        dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(this.myAppoDetailData.service_time) );
+        this.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+
+     }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 
 }
