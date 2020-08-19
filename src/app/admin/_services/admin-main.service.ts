@@ -618,6 +618,37 @@ export class AdminService {
         catchError(this.handleError));
     }
 
+
+    PendingBilling(requestObject){
+        
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
+        });
+        return this.http.post(`${environment.apiUrl}/get-pos-pending-billing`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
+    pendingbillAction(requestObject){
+        
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
+        });
+        return this.http.post(`${environment.apiUrl}/billing-order`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
     // live pending appointments
 
     getPendingAppointments(URL){
