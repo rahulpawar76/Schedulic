@@ -86,6 +86,16 @@ export class AppointmentLiveComponent implements OnInit {
   next_page_url_workstart:any;
   prev_page_url_workstart:any;
   path_workstart:any;
+  
+  current_page_pendingbilling:any;
+  first_page_url_pendingbilling:any;
+  last_page_pendingbilling:any;
+  last_page_url_pendingbilling:any;
+  next_page_url_pendingbilling:any;
+  prev_page_url_pendingbilling:any;
+  path_pendingbilling:any;
+
+
   inStoreTabName:any = 'service';
   newCustomer:FormGroup;
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
@@ -109,6 +119,11 @@ export class AppointmentLiveComponent implements OnInit {
   }
 
   notificationData:any;
+  pendingBillingData:any = [];
+  selectedBillCustomer:any=null;
+  pendingBillingOrdeTotal = 0;
+  selectedBillCustomerData:any=[];
+
     constructor(
     private AdminService: AdminService,
     private datePipe: DatePipe,
@@ -124,13 +139,14 @@ export class AppointmentLiveComponent implements OnInit {
     localStorage.setItem('isPOS', 'true');
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     //this.currentUser = this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x )
-    console.log(this.currentUser)
     this.newCustomer = this._formBuilder.group({
       cus_name : ['', Validators.required],
       cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
       cus_mobile : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
     });
     this.fnWatinglist();
+    this.fnPendingBilling();
+
   }
 
   ngOnInit() {
@@ -157,9 +173,9 @@ export class AppointmentLiveComponent implements OnInit {
 
     
   }
+
   onTabChanged(event){
     let clickedIndex = event.index;
-    console.log(clickedIndex)
     if(clickedIndex == 0){
       this.router.navigate(['/admin/my-workspace']);
     }
@@ -171,6 +187,8 @@ export class AppointmentLiveComponent implements OnInit {
   }
 
   fnSearch(value){
+    console.log(this.inStoreTabName);
+
     if(this.inStoreTabName=='service'){
       this.serach = value;
       this.fngetService();
@@ -390,8 +408,7 @@ export class AppointmentLiveComponent implements OnInit {
           element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
           
         });
-      }
-      else if(response.data == false && response.response !== 'api token or userid invaild'){
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
         // this._snackBar.open(response.response, "X", {
         //   duration: 2000,
         //   verticalPosition: 'top',
@@ -452,7 +469,15 @@ export class AppointmentLiveComponent implements OnInit {
   }
 
   fnPaymentMode(pos_pdf_type){
-    
+
+    if(this.newCustomer.invalid){
+      this.newCustomer.get('cus_email').markAsTouched();
+      this.newCustomer.get('cus_mobile').markAsTouched();
+      this.newCustomer.get('cus_name').markAsTouched();
+      this.panelOpenState = !this.panelOpenState;
+      return false;
+    }
+
     const dialogRef = this.dialog.open(paymentModeDialog, {
       width: '500px',
      });
@@ -536,6 +561,12 @@ export class AppointmentLiveComponent implements OnInit {
     this.AdminService.getService(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ServiceList = response.response;
+      }else{
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+        });
       }
     });
   
@@ -545,7 +576,7 @@ export class AppointmentLiveComponent implements OnInit {
 
     let requestObject = {
       "service_id" : service_id, 
-      "status" : "all", 
+      "action" : "all", 
       "business_id" : localStorage.getItem('business_id')
     };
 
@@ -556,6 +587,13 @@ export class AppointmentLiveComponent implements OnInit {
       if(response.data == true){
         this.StaffList = response.response;
       }else{
+
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+        });
+
         this.StaffList = [];
       }
     });
@@ -568,13 +606,18 @@ export class AppointmentLiveComponent implements OnInit {
     var requestObject = {
       "service_id" : this.service_id, 
       "business_id" : localStorage.getItem('business_id'),
-      "status" : event
+      "action" : event
     };
 
     this.AdminService.getStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.StaffList = response.response;
       }else{
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+        });
         this.StaffList = [];
       }
     });
@@ -720,10 +763,15 @@ export class AppointmentLiveComponent implements OnInit {
     this.AdminService.placeOrder(requestObject).subscribe((response:any) => {
       
       if(response.data == true){
+
+        if(pos_pdf_type=='print'){
+          window.open(response.response,"_blank");
+        }
+        
         this.cartArr = [];
         this.newCustomer.reset();
         this.totalCost = 0;
-        this._snackBar.open(response.response, "X", {
+        this._snackBar.open('order created', "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
@@ -746,7 +794,6 @@ export class AppointmentLiveComponent implements OnInit {
     this.AdminService.getWatinglist(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.Watinglist = response.response;
-        console.log(this.Watinglist);
       }else{
         this.Watinglist = [];
       }
@@ -897,6 +944,119 @@ export class AppointmentLiveComponent implements OnInit {
 
     })
 
+  }
+
+  fnPendingBilling(serach=null) {
+
+    this.isLoaderAdmin = true;
+  
+    let requestObject = {
+      "business_id": localStorage.getItem('business_id'),
+      "search": serach
+    };
+    this.AdminService.PendingBilling(requestObject).subscribe((response: any) => {
+      if (response.data == true) {
+        this.pendingBillingData = response.response;
+        this.pendingBillingData.forEach( (element) => { 
+          element.orders.booking_date=this.datePipe.transform(new Date(element.orders.booking_date),"dd MMM yyyy")
+          element.orders.booking_time=this.datePipe.transform(new Date(element.orders.booking_date+" "+element.orders.booking_time),"hh:mm a");
+          element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a"),
+          element.is_selected  = false
+        });
+        this.isLoaderAdmin = false;
+      } else {
+
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+        });
+        this.isLoaderAdmin = false;
+      }
+    });
+
+  }
+
+  fnSelect(index,customer_id,order_item_id){
+    
+
+    if(this.selectedBillCustomer==null){
+      this.selectedBillCustomer = customer_id;
+      this.pendingBillingData[index].is_selected = true;
+      this.selectedBillCustomerData = this.pendingBillingData[index];
+    }else if(this.selectedBillCustomer!=customer_id){
+
+      this._snackBar.open('Select Same customer', "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass: ['red-snackbar']
+      });
+      
+      return false;
+    }else{
+      if(true == this.pendingBillingData[index].is_selected){
+        this.pendingBillingData[index].is_selected = false;
+      }else{
+        this.pendingBillingData[index].is_selected = true;
+        this.selectedBillCustomerData = this.pendingBillingData[index];
+      }
+    }
+    this.pendingBillingOrdeTotal = 0;
+    this.pendingBillingData.forEach(element => {
+      if(element.is_selected==true){
+        this.pendingBillingOrdeTotal = this.pendingBillingOrdeTotal + parseInt(element.orders.subtotal);
+      }
+    });
+  }
+
+  fnPendingbillAction(billing_type){
+
+    var tempArr = [];
+    this.pendingBillingData.forEach(element => {
+      if(element.is_selected==true){
+        tempArr.push(element.order_item_id);
+      }
+    });
+    this.isLoaderAdmin = true;
+  
+    let requestObject = {
+      "business_id": localStorage.getItem('business_id'),
+      "order_ids": tempArr,
+      "billing_type" : billing_type
+    };
+
+    this.AdminService.pendingbillAction(requestObject).subscribe((response: any) => {
+      if (response.data == true) {
+
+        if(billing_type=='print'){
+          window.open(response.response,"_blank");
+        }
+
+        this._snackBar.open(billing_type=='print'?'Order printed':response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['green-snackbar']
+        });
+
+        this.isLoaderAdmin = false;
+
+        this.pendingBillingData.forEach(element => {
+          element.is_selected=false;
+        });
+        this.pendingBillingOrdeTotal = 0;
+        
+      } else {
+
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+        });
+        this.isLoaderAdmin = false;
+      }
+    });
+
+  
   }
 
 }

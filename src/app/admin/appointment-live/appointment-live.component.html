@@ -57,7 +57,7 @@
                                              <input class="d-none" type="radio" name="service" id="service-{{i}}">
                                              <div class="service-label">
                                                   <p>{{val.service_name}}</p>
-                                                  <span>₹{{val.service_cost}}</span>
+                                                  <span><i class="fa fa-rupee pr-1"></i> {{val.service_cost}}</span>
                                              </div>
                                         </label>
                                     </div>
@@ -241,7 +241,7 @@
                                     <button mat-fab class="action-btn qty-minus" (click)="fncartUpdate('plus',i)">+</button>
                                 </div>
                             </div>
-                            <div class="" fxFlex="15">₹{{val.totalCost}}</div>
+                            <div class="" fxFlex="15"><i class="fa fa-rupee pr-1"> </i>{{val.totalCost}}</div>
                         </div>
                         <!-- 
                         <div class="item">
@@ -262,9 +262,9 @@
 
                         <div class="item subtotal">
                             <div class="service-name" fxFlex="70">
-                                <label>Subtotal : ₹ {{totalCost}}</label>
+                                <label>Subtotal : <i class="fa fa-rupee pr-1"></i> {{totalCost}}</label>
                             </div>
-                            <div class="" fxFlex="30">Tax : ₹ 0</div>
+                            <div class="" fxFlex="30">Tax : <i class="fa fa-rupee pr-1"></i> 0</div>
                         </div>
                     </div>
                     <div class="cart-footer">
@@ -273,7 +273,7 @@
                         </div>
                         <div class="total">
                             <p fxFlex="50" class="title text-left">Total</p>
-                            <p fxFlex="50" class="amount text-right mb-0">₹ {{totalCost}}</p>
+                            <p fxFlex="50" class="amount text-right mb-0"><i class="fa fa-rupee pr-1"></i> {{totalCost}}</p>
                         </div>
                         <div class="footer-action">
                             <button class="save-btn" [disabled]="cartArr.length == 0" (click)="fnPaymentMode('print')" mat-button>Save & Print</button>
@@ -527,7 +527,7 @@
                 <label class="tab-label">Pending Billing</label>
                 <div class="single-search-bar">
                     <i class="fa fa-search"></i>
-                    <input type="text" placeholder="Search">
+                    <input type="text" placeholder="Search" (keyup)="fnPendingBilling($event.target.value)">
                 </div>
                 <div class="col-2 pendingborder appoint-head">
                     <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
@@ -543,34 +543,35 @@
                 <div class="row">
                     <div class="col-8 left-order-listing">
                         <div class="row">
-                            <div class="col-4 p-2">
-                                <div class="p-3 rounded single-booking unselect-bill">
+                            <!-- {{ pendingBillingData | json}} -->
+                            <div class="col-4 p-2" *ngFor="let val of pendingBillingData;let i=index">
+                                <div class="p-3 rounded single-booking   {{val.is_selected==false?'select-bill shadow':'unselect-bill'}} ">
                                     <div class="row ">
                                         <div class="col-6">
                                             <label>Order Id</label><br>
-                                            <span>123456</span>
+                                            <span>{{val.orders.id}}</span>
                                         </div>
                                         <div class="col-6 text-right">
                                             <label>Time</label><br>
-                                            <span>7:00 pm</span>
+                                            <span>{{val.orders.booking_time}}</span>
                                         </div>
                                     </div>
 
                                     <div class="row ">
                                         <div class="col-6 pt-2">
                                             <label>Customer</label><br>
-                                            <span>Jay Soni</span>
+                                            <span>{{val.get_customer.fullname}}</span>
                                         </div>
                                         <div class="col-6 pt-2 text-right">
                                             <label>Phone No.</label><br>
-                                            <span>9876543210</span>
+                                            <span>{{val.get_customer.phone}}</span>
                                         </div>
                                     </div>
 
                                     <div class="row ">
                                         <div class="col-6 pt-2">
                                             <label>Staff</label><br>
-                                            <span>Jay Soni</span>
+                                            <span>{{val.orders.staff?val.orders.staff.firstname:''}} {{val.orders.staff?val.orders.staff.lastname:''}}</span>
                                         </div>
                                         <div class="col-6 pt-2 text-right">
                                             <label>Order From</label><br>
@@ -589,143 +590,20 @@
                                     <hr>
                                     <div class="row ">
                                         <div class="col-8">
-                                            <span>Gold (Hair Colour)</span>
+                                            <span>{{val.service.service_name}}</span>
                                         </div>
                                         <div class="col-4 text-right">
-                                            <span>1</span>
+                                            <span>{{val.orders.service_qty}}</span>
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="row ">
                                         <div class="col-12 text-center">
-                                            <button class="btn btn-secondary">Unselect</button>
+                                            <button class="btn   {{val.is_selected==false?'btn-primary':'btn-secondary'}} " (click)="fnSelect(i,val.customer_id,val.order_item_id);">
+                                                {{val.is_selected==false?'Seleted':'Unselect'}}
+                                            </button>
                                         </div>
                                     </div>
-
-                                </div>
-                            </div>
-                            <div class="col-4 p-2">
-                                <div class="p-3 rounded single-booking unselect-bill">
-                                    <div class="row ">
-                                        <div class="col-6">
-                                            <label>Order Id</label><br>
-                                            <span>123456</span>
-                                        </div>
-                                        <div class="col-6 text-right">
-                                            <label>Time</label><br>
-                                            <span>7:00 pm</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="row ">
-                                        <div class="col-6 pt-2">
-                                            <label>Customer</label><br>
-                                            <span>Jay Soni</span>
-                                        </div>
-                                        <div class="col-6 pt-2 text-right">
-                                            <label>Phone No.</label><br>
-                                            <span>9876543210</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="row ">
-                                        <div class="col-6 pt-2">
-                                            <label>Staff</label><br>
-                                            <span>Jay Soni</span>
-                                        </div>
-                                        <div class="col-6 pt-2 text-right">
-                                            <label>Order From</label><br>
-                                            <span>In Store</span>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row ">
-                                        <div class="col-6">
-                                            <span>Service</span>
-                                        </div>
-                                        <div class="col-6 text-right">
-                                            <span>QTY.</span>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row ">
-                                        <div class="col-8">
-                                            <span>Gold (Hair Colour)</span>
-                                        </div>
-                                        <div class="col-4 text-right">
-                                            <span>1</span>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row ">
-                                        <div class="col-12 text-center">
-                                            <button class="btn btn-secondary">Unselect</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-                            <div class="col-4 p-2">
-                                <div class="p-3 rounded single-booking select-bill shadow">
-                                    <div class="row ">
-                                        <div class="col-6">
-                                            <label>Order Id</label><br>
-                                            <span>123456</span>
-                                        </div>
-                                        <div class="col-6 text-right">
-                                            <label>Time</label><br>
-                                            <span>7:00 pm</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="row ">
-                                        <div class="col-6 pt-2">
-                                            <label>Customer</label><br>
-                                            <span>Jay Soni</span>
-                                        </div>
-                                        <div class="col-6 pt-2 text-right">
-                                            <label>Phone No.</label><br>
-                                            <span>9876543210</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="row ">
-                                        <div class="col-6 pt-2">
-                                            <label>Staff</label><br>
-                                            <span>Jay Soni</span>
-                                        </div>
-                                        <div class="col-6 pt-2 text-right">
-                                            <label>Order From</label><br>
-                                            <span>In Store</span>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row ">
-                                        <div class="col-6">
-                                            <span>Service</span>
-                                        </div>
-                                        <div class="col-6 text-right">
-                                            <span>QTY.</span>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row ">
-                                        <div class="col-8">
-                                            <span>Gold (Hair Colour)</span>
-                                        </div>
-                                        <div class="col-4 text-right">
-                                            <span>1</span>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row ">
-                                        <div class="col-12 text-center">
-                                            <button class="btn btn-primary">Select</button>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
@@ -738,15 +616,18 @@
                         <hr class="my-2">
                         <div class="px-3">
                             <div class="customer-details">Customer Details
-
                                 <div class="row ">
                                     <div class="col-6 pt-2">
                                         <label>Name</label><br>
-                                        <span>Jay Soni</span>
+                                        <span>
+                                            {{selectedBillCustomerData.get_customer?selectedBillCustomerData.get_customer.fullname:''}}
+                                        </span>
                                     </div>
                                     <div class="col-6 pt-2">
                                         <label>Phone No.</label><br>
-                                        <span>9876543210</span>
+                                        <span>                    
+                                            {{selectedBillCustomerData.get_customer?selectedBillCustomerData.get_customer.phone:''}}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -765,22 +646,25 @@
                             </div>
                         </div>
                         <div class="order-items">
-                            <div class="px-3 mt-3">
-                                <div class="row ">
-                                    <div class="col-6">
-                                        <span>Gold <span class="text-secondary">(Hiar Colour)</span></span>
-                                        <p>Staff Meet Shah</p>
+                            <div *ngFor="let val of pendingBillingData;let i=index">
+                                <div class="px-3 mt-3"   *ngIf="val.is_selected==true">
+                                    <div class="row ">
+                                        <div class="col-6">
+                                            <span>{{val.service.service_name}}</span>
+                                            <p>Staff : {{val.orders.staff?val.orders.staff.firstname:''}} {{val.orders.staff?val.orders.staff.lastname:''}}</p>
+                                        </div>
+                                        <div class="col-3">
+                                            <span>{{val.orders.service_qty}}</span>
+                                        </div>
+                                        <div class="col-3 pr-3">
+                                            <i class="fa fa-rupee pr-1"></i><span>{{val.orders.service_cost}}</span>
+                                        </div>
                                     </div>
-                                    <div class="col-3">
-                                        <span>1</span>
-                                    </div>
-                                    <div class="col-3 pr-3">
-                                        <i class="fa fa-rupee pr-1"></i><span>50</span>
-                                    </div>
+                                    <hr class="my-2">
                                 </div>
                             </div>
-                            <hr class="my-2">
-                            <div class="px-3 mt-2">
+
+                            <!-- <div class="px-3 mt-2">
                                 <div class="row ">
                                     <div class="col-6">
                                         <span>Gold <span class="text-secondary">(Hiar Colour)</span></span>
@@ -794,14 +678,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr class="my-2">
+                            <hr class="my-2"> -->
+
                             <div class="px-3 mt-2">
                                 <div class="row ">
                                     <div class="col-9">
-                                        <span>Subtotal : <i class="fa fa-rupee pr-1"></i> 100</span>
+                                        <span>Subtotal : <i class="fa fa-rupee pr-1"></i> {{pendingBillingOrdeTotal}}</span>
                                     </div>
                                     <div class="col-3 ">
-                                        <span>Tax : <i class="fa fa-rupee pr-1"></i> 10</span>
+                                        <span>Tax : <i class="fa fa-rupee pr-1"></i> 0</span>
                                     </div>
                                 </div>
                             </div>
@@ -813,15 +698,14 @@
                                     <span>Total</span>
                                 </div>
                                 <div class="col-3 ">
-                                    <span> <i class="fa fa-rupee pr-1"></i> 110</span>
+                                    <span> <i class="fa fa-rupee pr-1"></i>{{pendingBillingOrdeTotal}}</span>
                                 </div>
                             </div>
                         </div>
                         <div class="px-3 py-2 text-center">
-                            <button class="btn btn-secondary m-1">Print</button>
-                            <button class="btn btn-secondary m-1">E-Bill</button>
+                            <button class="btn btn-secondary m-1" (click)="fnPendingbillAction('print')">Print</button>
+                            <button class="btn btn-secondary m-1" (click)="fnPendingbillAction('email')">E-Bill</button>
                         </div>
-
                     </div>
                 </div>
             </div>
