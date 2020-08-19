@@ -49,7 +49,7 @@ export class AppointmentLiveComponent implements OnInit {
   currencySymbolPosition:any;
   currencySymbolFormat:any;
 
-  pendingApiUrl:any =  `${environment.apiUrl}/get-pending-live`;
+  pendingApiUrl:any =  `${environment.apiUrl}/get-pos-pending-billing`;
   
   current_page_pending:any;
   first_page_url_pending:any;

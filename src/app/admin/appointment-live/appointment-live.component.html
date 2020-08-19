@@ -289,7 +289,11 @@
                 <span class="material-icons">watch_later</span> Pending
             </ng-template>
             <div class="pendingnotes d-flex">
-                <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
+                <label class="tab-label">Pending</label>
+                <div class="single-search-bar">
+                    <i class="fa fa-search"></i>
+                    <input type="text" placeholder="Search">
+                </div>
                 <div class="col-2 pendingborder appoint-head">
                     <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
                     <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
@@ -368,7 +372,7 @@
                 <i class="fa fa-motorcycle" aria-hidden="true"></i> Out Door
             </ng-template>
             <div class="pendingnotes d-flex">
-                <label class="tab-label">Work Started</label>
+                <label class="tab-label">Out Door</label>
                 <div class="single-search-bar">
                     <i class="fa fa-search"></i>
                     <input type="text" placeholder="Search">
@@ -435,7 +439,11 @@
                 <span class="material-icons">work</span> Work Started
             </ng-template>
             <div class="pendingnotes d-flex">
-                <p class="mb-0 appoint-head">Reference site about Lorem Ipsum,giving information on its origins,as well as a random Lipsum generator,Lorem Ipsum,giving information on its origins.</p>
+                <label class="tab-label">Work Started</label>
+                <div class="single-search-bar">
+                    <i class="fa fa-search"></i>
+                    <input type="text" placeholder="Search">
+                </div>
                 <div class="col-2 pendingborder appoint-head">
                     <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
                     <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
@@ -445,7 +453,6 @@
                     <label class="mb-0 pendingdate">{{todayTime}}</label>
                     <p class="appoint-time-zone" style="text-align: right;">{{todayPeriod}}</p>
                 </div>
-
             </div>
             <div class="col-12 p-0">
                 <div class="table-background">
@@ -514,6 +521,22 @@
                 <img *ngIf="!pendingBillTab" src="/assets/images/admin/receipt.png">
                 <img *ngIf="pendingBillTab" src="/assets/images/admin/receipt-blue.png"> Pending Billing
             </ng-template>
+            <div class="pendingnotes d-flex">
+                <label class="tab-label">Pending Billing</label>
+                <div class="single-search-bar">
+                    <i class="fa fa-search"></i>
+                    <input type="text" placeholder="Search">
+                </div>
+                <div class="col-2 pendingborder appoint-head">
+                    <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
+                    <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
+                </div>
+
+                <div class="appoint-head" style="margin: 0 20px 0 20px;">
+                    <label class="mb-0 pendingdate">{{todayTime}}</label>
+                    <p class="appoint-time-zone" style="text-align: right;">{{todayPeriod}}</p>
+                </div>
+            </div>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-8 left-order-listing">

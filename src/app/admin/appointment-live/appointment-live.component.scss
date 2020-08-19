@@ -1194,7 +1194,7 @@ mat-radio-group {
 }
 
 .left-order-listing {
-    height: calc(100vh - 65px);
+    height: calc(100vh - 140px);
     overflow-y: auto;
 }
 
@@ -1211,7 +1211,7 @@ mat-radio-group {
 }
 
 .billing-cart {
-    height: calc(100vh - 65px);
+    height: calc(100vh - 140px);
     overflow-y: auto;
     .order-items {
         height: calc(100% - 310px);
