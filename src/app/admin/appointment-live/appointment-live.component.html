@@ -120,7 +120,7 @@
                                     <div class="col-6 right-side">
                                         <label class="single-value">
                                         <p class="title">Time</p>
-                                        <p class="value">{{val.booking_time}}</p>
+                                        <p class="value">{{todayTime}}</p>
                                     </label>
                                         <label class="single-value">
                                         <p class="title">Order ID</p>
@@ -144,7 +144,7 @@
                                             {{val.service.service_name}}
                                         </div>
                                         <div class="w-50 float-left title text-right">
-                                            {{val.service.service_qty}}
+                                            {{val.service_qty}}
                                         </div>
                                     </div>
                                     <div class="col-12 action-list px-0">
@@ -171,7 +171,7 @@
                 </div>
                 <div class="customer-container">
                     <mat-accordion>
-                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel [expanded]="panelOpenState" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     <i class="fa fa-user" aria-hidden="true"></i>
