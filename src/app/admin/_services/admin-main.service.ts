@@ -620,10 +620,11 @@ export class AdminService {
 
     // live pending appointments
 
-    getPendingAppointments(URL){
+    getPendingAppointments(search,URL){
         this.checkAuthentication();
         let requestObject = {
             'business_id': this.businessId,
+            'search' : search,
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',

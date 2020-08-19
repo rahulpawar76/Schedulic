@@ -17,6 +17,15 @@
                 </mat-radio-group>
 
             </div>
+            <div class="">
+                <mat-form-field class="bottom-border-field ">
+                    <mat-label>Select Card Option</mat-label>
+                    <mat-select>
+                        <mat-option value="swipe_card">Swipe Through Machine</mat-option>
+                        <mat-option value="send_link">Send Link To Customer</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
             <div class="payment-action-btn">
                 <button mat-button class="cancel-btn" (click)="onNoClick()">Cancel</button>
                 <button mat-button class="confirm-btn" (click)="Confirm()">Confirm</button>

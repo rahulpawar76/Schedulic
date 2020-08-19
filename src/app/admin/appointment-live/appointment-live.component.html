@@ -292,7 +292,7 @@
                 <label class="tab-label">Pending</label>
                 <div class="single-search-bar">
                     <i class="fa fa-search"></i>
-                    <input type="text" placeholder="Search">
+                    <input type="text" [(ngModel)]="search.pendingKeyword" (keyup)="pendingAppointSearch($event)" placeholder="Search">
                 </div>
                 <div class="col-2 pendingborder appoint-head">
                     <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
@@ -331,9 +331,11 @@
                                         <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{pendingAppointments.staff?pendingAppointments.staff.phone:''}}</p>
                                         <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.staff?pendingAppointments.staff.email:''}}</p>
                                     </div>
-                                    <div *ngIf="pendingAppointments.status == 'P'" class="" fxFlex="25">
+                                    <div *ngIf="pendingAppointments.order_status == 'P'" class="" fxFlex="25">
                                         <p class="mb-0">Pending</p>
-
+                                    </div>
+                                    <div *ngIf="pendingAppointments.order_status == 'CNF' && pendingAppointments.staff == null" class="" fxFlex="25">
+                                        <p class="mb-0">--</p>
                                     </div>
                                     <!-- <div class="" fxFlex="10">
                                           {{pendingAppointments.total_cost}}
