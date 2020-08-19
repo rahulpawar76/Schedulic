@@ -763,6 +763,8 @@ table {
         }
     }
     .waiting-container {
+        height: calc(100vh - 135px);
+        overflow-y: auto;
         .card {
             background: #FFFFFF 0% 0% no-repeat padding-box;
             box-shadow: 0px 0px 10px #00000014;
