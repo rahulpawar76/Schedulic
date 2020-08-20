@@ -7,7 +7,7 @@
     <mat-drawer-content [ngClass]="{'main-content-top': isFront()}" class="">
         <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
         <main fxLayout="column" fxLayoutGap="0">
-            <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser() && !isBusiness()}" color="primary" class="toolbar menu-comman" *ngIf="(isLogin() && !isFront()) && !isPOS()">
+            <mat-toolbar [ngClass]="{'admin_top_bar': (isAdminUser() && !isBusiness()) || isSuperAdmin()}" color="primary" class="toolbar menu-comman" *ngIf="(isLogin() && !isFront()) && !isPOS()">
                 <mat-toolbar-row *ngIf="isCustomerUser()">
                     <div class="logo">
                         <a (click)="fnClickLogo('customer')"><img src="/assets/img/logo.png"></a>
@@ -81,6 +81,29 @@
                     <button mat-stroked-button class="bellborder bell-color" (click)="logout2(true)">
             <i mat-list-icon class="fa fa-sign-out"></i>
             </button>
+                    </span>
+                </mat-toolbar-row>
+                <mat-toolbar-row *ngIf="isSuperAdmin()">
+                    <!-- <div class="logo"><a><img src="/assets/img/logo.png"></a></div>  -->
+                    <div class="logo">
+                        <a class='logo-link'>
+                            <img *ngIf="pageHeading == 'My Admins'" src="/assets/images/admin/my-customer-icon.png" class="page-top-icon mr-3" aria-hidden="true"> {{pageHeading}}
+                        </a>
+                    </div>
+                    <span class="f13 ml-auto d-flex align-items-center">
+                        <span class="profile-head">
+                            <div class="customer-profile-img m-2 float-left overflow-hidden" data="aaa">
+                                <img class="h-100 w-100" src="{{currentUser.image}}" onerror="this.src='../assets/img/user.png';" >
+                            </div>
+                            <p class="font-weight-bold my-2 p-1" *ngIf="currentUser.full_name">{{currentUser.full_name}}</p>
+                        </span>
+                    <button *ngIf="!isBusiness()" mat-stroked-button class="bellborder notification-btn bell-color" (click)="openNotificationDialog()">
+                            <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
+                            <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
+                        </button>
+                    <button mat-stroked-button class="bellborder bell-color" (click)="logout2(true)">
+                            <i mat-list-icon class="fa fa-sign-out"></i>
+                        </button>
                     </span>
                 </mat-toolbar-row>
             </mat-toolbar>
@@ -183,6 +206,31 @@
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-settings.png"></div>
                             </mat-list-item>
                             <mat-list-item role="listitem" (click)="MyProfileNav(); fnPostUrl('my-profile');" class="{{pageHeading=='My Profile'?'active':''}}" [ngClass]="{'active': postUrl == 'my-profile' }">
+                                <div class="common-menu"><img src="/assets/images/admin/admin-menu-user-2.png"></div>
+                            </mat-list-item>
+                        </div>
+                    </mat-drawer>
+                    <mat-drawer-content class="main-admin-drawer">
+                        <div class="row mx-0 h-100 w-100">
+                            <router-outlet #outlet="outlet"></router-outlet>
+                        </div>
+                    </mat-drawer-content>
+                </mat-drawer-container>
+            </div>
+            <div class="bottom_header" *ngIf="isSuperAdmin() && !isFront()" fxFlex="100">
+                <mat-drawer-container class="main-container left-admin-menu">
+                    <mat-drawer [disableClose]="true" class="main_admin_menu" mode="side" opened>
+                        <div class="top_admin_menu">
+                            <mat-list-item role="listitem" class="matlist pointer menuitem logo">
+                                <div (click)="fnClickLogo('superAdmin')" class="logo"><img src="assets/images/admin/admin-logo-orange.png"></div>
+                            </mat-list-item>
+                            <mat-list-item role="listitem" class="active" (click)="myAdminsNav(); fnPostUrl('my-workspace');">
+                                <div class="common-menu"><img src="/assets/images/admin/admin-menu-bag.png"></div>
+                            </mat-list-item>
+
+                        </div>
+                        <div class="bottom_admin_menu">
+                            <mat-list-item role="listitem" (click)="MyProfileNav(); fnPostUrl('my-profile');">
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-user-2.png"></div>
                             </mat-list-item>
                         </div>

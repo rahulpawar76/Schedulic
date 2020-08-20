@@ -268,6 +268,7 @@ export class AppComponent implements AfterViewInit {
     if (url) {
       let cleanUrl = url.substr(1);
       const slashIndex = cleanUrl.indexOf("/");
+      console.log(slashIndex)
       if (slashIndex >= 0) {
         cleanUrl = cleanUrl.substr(slashIndex + 1, 8);
         return cleanUrl;
@@ -296,6 +297,9 @@ export class AppComponent implements AfterViewInit {
 
   isAdminUser() {
     return this.currentUser && this.currentUser.user_type === Role.Admin;
+  }
+  isSuperAdmin() {
+    return this.currentUser && this.currentUser.user_type === Role.SuperAdmin;
   }
 
   isCustomerUser() {
@@ -380,7 +384,11 @@ export class AppComponent implements AfterViewInit {
     this.router.navigate(['/admin/settings/business-hours']);
   }
 
+  // Super Admin Navigation
 
+  myAdminsNav(){
+    this.router.navigate(['./super-admin/']);
+  }
 
   /*Admin Dashboard Navigation*/
   myWorkSpaceNav() {

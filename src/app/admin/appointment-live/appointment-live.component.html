@@ -444,7 +444,7 @@
                 <label class="tab-label">Work Started</label>
                 <div class="single-search-bar">
                     <i class="fa fa-search"></i>
-                    <input type="text" placeholder="Search">
+                    <input type="text" [(ngModel)]="search.workStartedKeyword" (keyup)="WSAppointSearch($event)" placeholder="Search">
                 </div>
                 <div class="col-2 pendingborder appoint-head">
                     <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
@@ -647,7 +647,7 @@
                         </div>
                         <div class="order-items">
                             <div *ngFor="let val of pendingBillingData;let i=index">
-                                <div class="px-3 mt-3"   *ngIf="val.is_selected==true">
+                                <div class="px-3 mt-3" *ngIf="val.is_selected==true">
                                     <div class="row ">
                                         <div class="col-6">
                                             <span>{{val.service.service_name}}</span>

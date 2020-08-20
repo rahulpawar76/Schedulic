@@ -77,7 +77,7 @@ export class AppointmentLiveComponent implements OnInit {
   prev_page_url_ontheway:any;
   path_ontheway:any;
 
-  workstartApiUrl:any =  `${environment.apiUrl}/get-workstart-live`;
+  workstartApiUrl:any =  `${environment.apiUrl}/get-pos-workstart-booking`;
   
   current_page_workstart:any;
   first_page_url_workstart:any;
@@ -116,6 +116,7 @@ export class AppointmentLiveComponent implements OnInit {
   userType:any;
   search ={
     pendingKeyword: '',
+    workStartedKeyword: '',
   }
 
   notificationData:any;
@@ -161,7 +162,7 @@ export class AppointmentLiveComponent implements OnInit {
     this.getNotificationCount(this.businessId)
   }
     this.getOnThewayAppointments();
-    this.getWorkStartedAppointments();
+    this.getWorkStartedAppointments(this.search.workStartedKeyword);
     
     this.todayDate = this.datePipe.transform(new Date(),"MMMM d");
     this.todayTime = this.datePipe.transform(new Date(),"h:mm ");
@@ -385,10 +386,17 @@ export class AppointmentLiveComponent implements OnInit {
     return Array(n);
   }
 
+  WSAppointSearch(){
+    if(this.search.workStartedKeyword.length > 1){
+      this.getWorkStartedAppointments(this.search.workStartedKeyword)
+    }else{
+      this.getWorkStartedAppointments('')
+    }
+  }
 
-  getWorkStartedAppointments(){
+  getWorkStartedAppointments(searchKeyword){
 
-    this.AdminService.getWorkStartedAppointments(this.workstartApiUrl).subscribe((response:any) => {
+    this.AdminService.getWorkStartedAppointments(searchKeyword,this.workstartApiUrl).subscribe((response:any) => {
       if(response.data == true){
      //   this.workStartedAppointments = response.response;
 
@@ -422,14 +430,14 @@ export class AppointmentLiveComponent implements OnInit {
   navigateTo_workstart(api_url){
     this.workstartApiUrl=api_url;
     if(this.workstartApiUrl){
-      this.getWorkStartedAppointments();
+      this.getWorkStartedAppointments(this.search.workStartedKeyword);
     }
   }
 
   navigateToPageNumber_workstart(index){
     this.workstartApiUrl=this.path_workstart+'?page='+index;
     if(this.workstartApiUrl){
-      this.getWorkStartedAppointments();
+      this.getWorkStartedAppointments(this.search.workStartedKeyword);
     }
   }
   
@@ -530,7 +538,7 @@ export class AppointmentLiveComponent implements OnInit {
      });
       dialogRef.afterClosed().subscribe(result => {
        this.animal = result;
-      this.getWorkStartedAppointments();
+      this.getWorkStartedAppointments(this.search.workStartedKeyword);
       
       });
   }
@@ -1702,6 +1710,7 @@ constructor(
 @Component({
   selector: 'ontheway-appointment-details',
   templateUrl: '../_dialogs/pending-appointment-details.html',
+  providers: [DatePipe]
 })
 export class OnTheWayAppointmentDetailsDialog {
   //notes:any;
@@ -1717,6 +1726,11 @@ export class OnTheWayAppointmentDetailsDialog {
   currencySymbolFormat:any;
   cancellationBufferTime:any;
   minReschedulingTime:any;
+  taxTotal : any = 0;
+  singleBookingTax:any;
+  initials:any;
+  customerShortName:any;
+  availableStaff: any=[];
 
   constructor(
     public dialogRef: MatDialogRef<OnTheWayAppointmentDetailsDialog>,
@@ -1724,12 +1738,35 @@ export class OnTheWayAppointmentDetailsDialog {
     public dialog: MatDialog,
     private _formBuilder: FormBuilder,
     private http: HttpClient,
+    private datePipe: DatePipe,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
        this.detailsData =  this.data.fulldata;
        console.log(this.detailsData);
        this.fnGetActivityLog(this.detailsData.id);
        this.fnGetSettings();
+    this.fnGetStaff(this.detailsData.booking_date,this.detailsData.booking_time,this.detailsData.service_id,this.detailsData.postal_code);
+    var todayDateTime = new Date();
+    this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
+    var dateTemp = new Date(this.datePipe.transform(this.detailsData.booking_date_time,"dd MMM yyyy hh:mm a"));
+    dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(this.detailsData.service_time) );
+    var temp = dateTemp.getTime() - todayDateTime.getTime();
+    this.detailsData.timeToService=(temp/3600000).toFixed();
+    this.detailsData.booking_timeForLabel=this.datePipe.transform(this.detailsData.booking_date_time,"hh:mm a")
+    this.detailsData.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+    this.detailsData.booking_dateForLabel=this.datePipe.transform(new Date(this.detailsData.booking_date),"dd MMM yyyy")
+    this.detailsData.created_atForLabel=this.datePipe.transform(new Date(this.detailsData.created_at),"dd MMM yyyy @ hh:mm a")
+    if(this.detailsData.tax != null){
+      this.singleBookingTax = JSON.parse(this.detailsData.tax)
+      this.singleBookingTax.forEach( (element) => {
+        this.taxTotal = this.taxTotal + element.amount;
+      });
+    }
+    this.initials = this.detailsData.customer.fullname.split(" ",2);
+    this.customerShortName = '';
+    this.initials.forEach( (element2) => {
+      this.customerShortName = this.customerShortName+element2.charAt(0);
+    });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -1851,6 +1888,64 @@ export class OnTheWayAppointmentDetailsDialog {
         }
       })
   }
+  fnGetStaff(booking_date,booking_time,serviceId,postal_code){
+    let requestObject = {
+      "postal_code":postal_code,
+      "business_id":this.detailsData.business_id,
+      "service_id":JSON.stringify(serviceId),
+      "book_date":this.datePipe.transform(new Date(booking_date),"yyyy-MM-dd"),
+      "book_time":booking_time
+    };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    this.http.post(`${environment.apiUrl}/service-staff`,requestObject,{headers:headers} ).pipe(
+    map((res) => {
+      return res;
+    }),
+    //catchError(this.handleError)
+    ).subscribe((response:any) => {
+      if(response.data == true){
+        this.availableStaff = response.response;
+        console.log(JSON.stringify(this.availableStaff));
+      }
+      else{
+        this.availableStaff.length=0;
+      }
+    },
+    (err) =>{
+      console.log(err)
+    })
+  }
+  fnOnClickStaff(event){
+    console.log(event.value);
+    let requestObject = {
+      "order_item_id":this.detailsData.id,
+      "staff_id":event.value
+      };
+    this.AdminService.assignStaffToOrder(requestObject).subscribe((response:any) => 
+    {
+      if(response.data == true){
+          this._snackBar.open("Staff Assigned.", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+            });
+          this.dialogRef.close();
+        }
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+            });
+        }
+    },
+    (err) => {
+      // this.error = err;
+    })
+  }
 
 
   fnCancelAppointment(){
@@ -1938,6 +2033,7 @@ export class OnTheWayAppointmentDetailsDialog {
 @Component({
   selector: 'workstarted-appointment-details',
   templateUrl: '../_dialogs/pending-appointment-details.html',
+  providers: [DatePipe]
 })
 export class WorkStartedAppointmentDetailsDialog {
 //notes:any;
@@ -1953,18 +2049,47 @@ currencySymbolPosition:any;
 currencySymbolFormat:any;
 cancellationBufferTime:any;
 minReschedulingTime:any;
+taxTotal : any = 0;
+singleBookingTax:any;
+initials:any;
+customerShortName:any;
+availableStaff: any=[];
 
 
 constructor(
   public dialogRef: MatDialogRef<WorkStartedAppointmentDetailsDialog>,
   private AdminService: AdminService,
   public dialog: MatDialog,
+  private http: HttpClient,
+  private datePipe: DatePipe,
   private _snackBar: MatSnackBar,
   @Inject(MAT_DIALOG_DATA) public data: any) {
     this.detailsData =  this.data.fulldata;
     console.log(this.detailsData);
-    this.fnGetActivityLog(this.detailsData.id);
     this.fnGetSettings();
+    this.fnGetActivityLog(this.detailsData.id);
+    this.fnGetStaff(this.detailsData.booking_date,this.detailsData.booking_time,this.detailsData.service_id,this.detailsData.postal_code);
+    var todayDateTime = new Date();
+    this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
+    var dateTemp = new Date(this.datePipe.transform(this.detailsData.booking_date_time,"dd MMM yyyy hh:mm a"));
+    dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(this.detailsData.service_time) );
+    var temp = dateTemp.getTime() - todayDateTime.getTime();
+    this.detailsData.timeToService=(temp/3600000).toFixed();
+    this.detailsData.booking_timeForLabel=this.datePipe.transform(this.detailsData.booking_date_time,"hh:mm a")
+    this.detailsData.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+    this.detailsData.booking_dateForLabel=this.datePipe.transform(new Date(this.detailsData.booking_date),"dd MMM yyyy")
+    this.detailsData.created_atForLabel=this.datePipe.transform(new Date(this.detailsData.created_at),"dd MMM yyyy @ hh:mm a")
+    if(this.detailsData.tax != null){
+      this.singleBookingTax = JSON.parse(this.detailsData.tax)
+      this.singleBookingTax.forEach( (element) => {
+        this.taxTotal = this.taxTotal + element.amount;
+      });
+    }
+    this.initials = this.detailsData.customer.fullname.split(" ",2);
+    this.customerShortName = '';
+    this.initials.forEach( (element2) => {
+      this.customerShortName = this.customerShortName+element2.charAt(0);
+    });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -2084,6 +2209,64 @@ constructor(
       })
   }
 
+  fnGetStaff(booking_date,booking_time,serviceId,postal_code){
+    let requestObject = {
+      "postal_code":postal_code,
+      "business_id":this.detailsData.business_id,
+      "service_id":JSON.stringify(serviceId),
+      "book_date":this.datePipe.transform(new Date(booking_date),"yyyy-MM-dd"),
+      "book_time":booking_time
+    };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    this.http.post(`${environment.apiUrl}/service-staff`,requestObject,{headers:headers} ).pipe(
+    map((res) => {
+      return res;
+    }),
+    //catchError(this.handleError)
+    ).subscribe((response:any) => {
+      if(response.data == true){
+        this.availableStaff = response.response;
+        console.log(JSON.stringify(this.availableStaff));
+      }
+      else{
+        this.availableStaff.length=0;
+      }
+    },
+    (err) =>{
+      console.log(err)
+    })
+  }
+  fnOnClickStaff(event){
+    console.log(event.value);
+    let requestObject = {
+      "order_item_id":this.detailsData.id,
+      "staff_id":event.value
+      };
+    this.AdminService.assignStaffToOrder(requestObject).subscribe((response:any) => 
+    {
+      if(response.data == true){
+          this._snackBar.open("Staff Assigned.", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+            });
+          this.dialogRef.close();
+        }
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+            });
+        }
+    },
+    (err) => {
+      // this.error = err;
+    })
+  }
 
   fnCancelAppointment(){
     

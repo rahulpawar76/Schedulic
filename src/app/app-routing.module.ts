@@ -61,6 +61,7 @@ const routes: Routes = [
     data: {roles: Role.Admin},
     loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule)
   },
+  { path: 'super-admin', loadChildren: () => import('./super-admin/super-admin.module').then(m => m.SuperAdminModule) },
 ];
 
 @NgModule({

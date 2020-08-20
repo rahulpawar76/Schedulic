@@ -126,6 +126,17 @@ export class AuthenticationService {
                 return 'My Profile';
             }
         }
+        if(user_type=='SA'){
+            if(name==null){
+                return 'My Admins'
+            }else if(name=='my-appoi'){
+                return 'My Appointments';
+            }else if(name=='work-pro'){
+                return 'My Work Profile';
+            }else if(name=='my-profi'){
+                return 'My Profile';
+            }
+        }
 
         if(user_type=='C'){
             if(name==null){
