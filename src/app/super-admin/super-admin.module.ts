@@ -6,9 +6,11 @@ import { AdminsComponent } from './admins/admins.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import { MySubscriptionsComponent } from './my-subscriptions/my-subscriptions.component';
+
 
 @NgModule({
-  declarations: [AdminsComponent],
+  declarations: [AdminsComponent, MySubscriptionsComponent],
   imports: [
     CommonModule,
     SuperAdminRoutingModule,
