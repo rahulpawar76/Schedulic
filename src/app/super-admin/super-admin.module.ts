@@ -3,13 +3,18 @@ import { CommonModule } from '@angular/common';
 
 import { SuperAdminRoutingModule } from './super-admin-routing.module';
 import { AdminsComponent } from './admins/admins.component';
-
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [AdminsComponent],
   imports: [
     CommonModule,
-    SuperAdminRoutingModule
+    SuperAdminRoutingModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule
   ]
 })
 export class SuperAdminModule { }

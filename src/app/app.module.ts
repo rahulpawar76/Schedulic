@@ -14,7 +14,6 @@ import { MaterialModule } from './_helpers/material.module';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-
 import { AppComponent, DialogNotification, DialogLogoutAppointment, DialogNotificationAppointment, DialogReAuthentication } from './app.component';
 
 import { LoginComponent } from './login';
@@ -74,7 +73,6 @@ export function provideConfig() {
         DialogLogoutAppointment,
         OnlinePaymentComponent,
         DialogReAuthentication,
-       
         ],
     imports: [
         BrowserModule,
