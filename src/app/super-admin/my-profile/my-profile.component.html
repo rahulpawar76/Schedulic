@@ -26,9 +26,9 @@
                                 <mat-icon class="mr-4" matPrefix>person</mat-icon>
                                 <input maxlength="8" formControlName="first_name" matInput placeholder="First Name">
                             </mat-form-field>
-                            <span class="error-wrap d-flex" *ngIf="settingMyProfile.get('first_name').dirty || settingMyProfile.get('first_name').touched">
-                        <small *ngIf="settingMyProfile.get('first_name').hasError('required')" class="error">Firstname is required.</small>
-                        <small *ngIf="settingMyProfile.get('first_name').hasError('maxlength')" class="error">First Name maximum 10 character.</small>
+                            <span class="error-wrap d-flex" *ngIf="saProfile.get('first_name').dirty || saProfile.get('first_name').touched">
+                        <small *ngIf="saProfile.get('first_name').hasError('required')" class="error">Firstname is required.</small>
+                        <small *ngIf="saProfile.get('first_name').hasError('maxlength')" class="error">First Name maximum 10 character.</small>
                         
                         </span>
                         </div>
@@ -38,9 +38,9 @@
                                 <mat-icon class="mr-4" matPrefix>person</mat-icon>
                                 <input maxlength="8" formControlName="last_name" matInput placeholder="Last Name">
                             </mat-form-field>
-                            <span class="error-wrap d-flex" *ngIf="settingMyProfile.get('last_name').dirty || settingMyProfile.get('last_name').touched">
-                        <small *ngIf="settingMyProfile.get('last_name').hasError('required')" class="error">Lastname is required.</small>
-                        <small *ngIf="settingMyProfile.get('last_name').hasError('maxlength')" class="error">Last Name maximum 10 character.</small>
+                            <span class="error-wrap d-flex" *ngIf="saProfile.get('last_name').dirty || saProfile.get('last_name').touched">
+                        <small *ngIf="saProfile.get('last_name').hasError('required')" class="error">Lastname is required.</small>
+                        <small *ngIf="saProfile.get('last_name').hasError('maxlength')" class="error">Last Name maximum 10 character.</small>
                         
                         </span>
                         </div>
@@ -50,9 +50,9 @@
                                 <mat-icon class="mr-4" matPrefix>mail</mat-icon>
                                 <input formControlName="email" matInput placeholder="Email">
                             </mat-form-field>
-                            <span class="error-wrap d-flex" *ngIf="settingMyProfile.get('email').dirty || settingMyProfile.get('email').touched">
-                            <small *ngIf="settingMyProfile.get('email').hasError('required')" class="error">Email is required.</small>
-                            <small *ngIf="settingMyProfile.get('email').hasError('pattern')" class="error">Email is invalid.</small>
+                            <span class="error-wrap d-flex" *ngIf="saProfile.get('email').dirty || saProfile.get('email').touched">
+                            <small *ngIf="saProfile.get('email').hasError('required')" class="error">Email is required.</small>
+                            <small *ngIf="saProfile.get('email').hasError('pattern')" class="error">Email is invalid.</small>
                         </span>
                         </div>
 
@@ -61,22 +61,22 @@
                                 <mat-icon class="mr-4" matPrefix>phone</mat-icon>
                                 <input formControlName="mobile" matInput placeholder="Mobile">
                             </mat-form-field>
-                            <span class="error-wrap d-flex" *ngIf="settingMyProfile.get('mobile').dirty || settingMyProfile.get('mobile').touched">
-                            <small *ngIf="settingMyProfile.get('mobile').hasError('required')" class="error">Mobile number is required.</small>
-                            <small *ngIf="settingMyProfile.get('mobile').hasError('pattern')" class="error">Mobile number is invalid.</small>
-                            <small *ngIf="settingMyProfile.get('mobile').hasError('minlength') || settingMyProfile.get('mobile').hasError('maxlength')" class="error">Mobile number should be 6 to 15 digit.</small>
+                            <span class="error-wrap d-flex" *ngIf="saProfile.get('mobile').dirty || saProfile.get('mobile').touched">
+                            <small *ngIf="saProfile.get('mobile').hasError('required')" class="error">Mobile number is required.</small>
+                            <small *ngIf="saProfile.get('mobile').hasError('pattern')" class="error">Mobile number is invalid.</small>
+                            <small *ngIf="saProfile.get('mobile').hasError('minlength') || saProfile.get('mobile').hasError('maxlength')" class="error">Mobile number should be 6 to 15 digit.</small>
                         </span>
                         </div>
 
-                        <h4>Stripe Details</h4>
+                        <h4 class="sub-title">Stripe Details</h4>
 
                         <div class="mt-2 text-center mb-3">
                             <mat-form-field class=" bottom-border-field">
                                 <mat-icon class="mr-4" matPrefix>attach_money</mat-icon>
                                 <input formControlName="stripe_secret" matInput placeholder="Stripe Secret Key">
                             </mat-form-field>
-                            <span class="error-wrap d-flex" *ngIf="settingMyProfile.get('stripe_secret').dirty || settingMyProfile.get('stripe_secret').touched">
-                            <small *ngIf="settingMyProfile.get('stripe_secret').hasError('required')" class="error">Mobile number is required</small>
+                            <span class="error-wrap d-flex" *ngIf="saProfile.get('stripe_secret').dirty || saProfile.get('stripe_secret').touched">
+                            <small *ngIf="saProfile.get('stripe_secret').hasError('required')" class="error">Mobile number is required</small>
                         </span>
                         </div>
                         <div class="mt-2 text-center mb-3">
@@ -84,8 +84,8 @@
                                 <mat-icon class="mr-4" matPrefix>attach_money</mat-icon>
                                 <input formControlName="stripe_publish" matInput placeholder="Stripe Publish Key">
                             </mat-form-field>
-                            <span class="error-wrap d-flex" *ngIf="settingMyProfile.get('stripe_publish').dirty || settingMyProfile.get('stripe_publish').touched">
-                            <small *ngIf="settingMyProfile.get('stripe_publish').hasError('required')" class="error">Mobile number is required</small>
+                            <span class="error-wrap d-flex" *ngIf="saProfile.get('stripe_publish').dirty || saProfile.get('stripe_publish').touched">
+                            <small *ngIf="saProfile.get('stripe_publish').hasError('required')" class="error">Mobile number is required</small>
                         </span>
                         </div>
 

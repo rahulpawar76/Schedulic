@@ -4,7 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '@app/_helpers/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import {MatSidenavModule} from '@angular/material/sidenav';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SuperAdminRoutingModule } from './super-admin-routing.module';
 import { AdminsComponent } from './admins/admins.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -26,7 +26,9 @@ import { MyProfileComponent, DialogMyProfileImageUpload } from './my-profile/my-
     MatIconModule,
     FlexLayoutModule,
     HttpClientModule,
-    MatSidenavModule
+    MatSidenavModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class SuperAdminModule { }
