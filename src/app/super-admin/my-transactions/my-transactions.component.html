@@ -1,0 +1,94 @@
+<div class="container-height" id="my-transactions" style="margin-top: 70px;">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
+    <div class="row mx-0">
+        <div class="col-12 px-0">
+            <div class="pendingnotes d-flex">
+                <label class="tab-label">My Transactions</label>
+                <div class="single-search-bar">
+                    <i class="fa fa-search"></i>
+                    <input type="text" placeholder="Search">
+                </div>
+            </div>
+            <div class="postalcode-table">
+                <div class="main-table-content main-cust-table-content">
+                    <div class="">
+                        <div class="heads main-heading-content transactions-list-row header-background " fxLayout="row">
+                            <div class="text-left" fxFlex="20">Admin Name</div>
+                            <div class="text-left" fxFlex="20">Subscription Name</div>
+                            <div class="text-left" fxFlex="15">Amount</div>
+                            <div class="text-left" fxFlex="15">Date</div>
+                            <div class="text-left" fxFlex="15">Status</div>
+                            <div class="text-left" fxFlex="15">Invoice</div>
+                        </div>
+                        <div class="content" class="transactions-list">
+                            <div class="transactions-list-row">
+                                <div class="text-left" fxFlex="20">
+                                    <p class="mb-0">John Doe</p>
+                                </div>
+                                <div class="text-left" fxFlex="20">
+                                    <p class="mb-0">Basic Plan</p>
+                                </div>
+                                <div class="text-left" fxFlex="15">
+                                    <p class="mb-0">$300</p>
+                                </div>
+                                <div class="text-left" fxFlex="15">
+                                    <p class="mb-0">30, July 2020</p>
+                                </div>
+                                <div class="text-left" fxFlex="15">
+                                    <p class="mb-0">
+                                        <mat-chip class="paid" color="primary" selected>Paid</mat-chip>
+                                    </p>
+                                </div>
+                                <div class="text-left" fxFlex="15">
+                                    <p class="mb-0">
+                                        <button mat-button class="invoice-btn"><i class="fa fa-download" aria-hidden="true"></i>Invocie</button>
+                                    </p>
+                                </div>
+
+                            </div>
+                            <div class="transactions-list-row">
+                                <div class="text-left" fxFlex="20">
+                                    <p class="mb-0">John Doe</p>
+                                </div>
+                                <div class="text-left" fxFlex="20">
+                                    <p class="mb-0">Basic Plan</p>
+                                </div>
+                                <div class="text-left" fxFlex="15">
+                                    <p class="mb-0">$300</p>
+                                </div>
+                                <div class="text-left" fxFlex="15">
+                                    <p class="mb-0">30, July 2020</p>
+                                </div>
+                                <div class="text-left" fxFlex="15">
+                                    <p class="mb-0">
+                                        <mat-chip class="failed" color="accent" selected>Payment Failed</mat-chip>
+                                    </p>
+                                </div>
+                                <div class="text-left" fxFlex="15">
+                                    <p class="mb-0">
+                                        <button mat-button class="invoice-btn"><i class="fa fa-download" aria-hidden="true"></i>Invocie</button>
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="table_pagination">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item "><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                            <li class="page-item"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                            <li class="page-item"><a class="page-link">1</a></li>
+                            <li class="page-item"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                            <li class="page-item "><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

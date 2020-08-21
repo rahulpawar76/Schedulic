@@ -127,12 +127,13 @@ export class AuthenticationService {
             }
         }
         if(user_type=='SA'){
+            console.log(name);
             if(name==null){
                 return 'My Admins'
-            }else if(name=='my-appoi'){
-                return 'My Appointments';
-            }else if(name=='work-pro'){
-                return 'My Work Profile';
+            }else if(name=='my-trans'){
+                return 'My Transactions';
+            }else if(name=='my-subsc'){
+                return 'My Subscriptions';
             }else if(name=='my-profi'){
                 return 'My Profile';
             }
