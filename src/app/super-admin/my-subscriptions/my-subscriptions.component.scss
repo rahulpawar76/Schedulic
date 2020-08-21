@@ -1,0 +1,127 @@
+#admin-listing {
+    width: 100%;
+    margin-top: 65px !important;
+    .single-search-bar {
+        margin-left: auto;
+        float: left;
+        width: 350px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        margin-left: auto;
+        margin-right: 15px;
+        input {
+            width: 100%;
+            background-color: #fff;
+            height: 40px;
+            color: #000000;
+            border: 1px solid #DEDEDE;
+            border-radius: 50px;
+            text-indent: 40px;
+            font-weight: 300;
+            &:focus {
+                outline: 0;
+            }
+        }
+        i {
+            position: absolute;
+            left: 10px;
+            color: #B5B5B5;
+            font-size: 19px;
+            border-right: 1px solid #b5b5b5;
+            padding-right: 5px;
+        }
+    }
+    .admin-list {
+        width: 100%;
+        border-radius: 10px;
+        display: block;
+        overflow: hidden;
+        height: calc(100vh - 280px);
+        overflow-y: auto;
+        .service-name {
+            font-weight: 600;
+            font-size: 15px;
+        }
+        small {
+            font-size: 14px;
+        }
+    }
+    table {
+        width: 100%;
+    }
+    .main-table-head {
+        padding: 10px 20px;
+        font-weight: bolder;
+    }
+    .table-background {
+        background-color: #fafafa;
+        padding: 10px 20px;
+        margin-bottom: 0;
+    }
+    .subscription-list-details {
+        padding: 20px 10px;
+        border: solid 3px white;
+        border-radius: 10px;
+        margin: 7px 0px;
+        // border-bottom: solid 1px #ccc;
+        color: rgba(0, 0, 0, 0.87);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+        background: white;
+        font-size: 14px;
+        &.header-background {
+            background-color: #f7f7f7;
+        }
+        label {
+            font-size: 16px;
+            font-weight: 500;
+            color: #417bff;
+            margin-bottom: 0;
+        }
+        p {}
+        .delete-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            background-color: #d40000;
+            width: 50px;
+            height: 50px;
+            mat-icon {
+                font-size: 22px;
+            }
+        }
+    }
+    .pendingnotes {
+        background-color: #DDEAFD;
+        font-size: 16px;
+        padding: 10px;
+        -webkit-box-align: center;
+        align-items: center;
+        z-index: 2;
+        box-shadow: 0 4px 6px #00000020;
+        position: relative;
+        .pendingborder {
+            border-right: 1px solid #1172f4;
+            // margin: 0;
+            text-align: right;
+            margin: 0 20px 0 20px;
+        }
+        .tab-label {
+            margin-bottom: 0;
+            font-size: 20px;
+        }
+        .add-sub-btn {
+            border-radius: 100px;
+            background-color: #3d72f4;
+            color: #fff;
+            margin-right: 15px;
+        }
+    }
+}

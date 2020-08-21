@@ -1534,12 +1534,12 @@ constructor(
 
 @Component({
   selector: 'interrupted-reschedule-dialog',
-  templateUrl: '../_dialogs/interrupted-reschedule-dialog.html',
+  templateUrl: '../_dialogs/reschedule-appointment-dialog.html',
   providers: [DatePipe]
 })
 export class InterruptedReschedulecustomer {
   formAppointmentRescheduleAdmin:FormGroup;
-  appointmentDetails:any;
+  detailsData:any;
   businessId:any;
   selectedDate:any;
   selectedTimeSlot:any;
@@ -1557,7 +1557,7 @@ export class InterruptedReschedulecustomer {
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
       this.businessId=localStorage.getItem('business_id');
-      this.appointmentDetails=this.data.appointmentDetails;
+      this.detailsData=this.data.appointmentDetails;
       this.formAppointmentRescheduleAdmin = this._formBuilder.group({
         rescheduleDate: ['', Validators.required],
         rescheduleTime: ['', Validators.required],
@@ -1614,9 +1614,9 @@ export class InterruptedReschedulecustomer {
 
     fnGetStaff(selectedTimeSlot){
       let requestObject = {
-        "postal_code":this.appointmentDetails.postalCode,
+        "postal_code":this.detailsData.postalCode,
         "business_id":this.businessId,
-        "service_id":JSON.stringify(this.appointmentDetails.serviceId),
+        "service_id":JSON.stringify(this.detailsData.serviceId),
         "book_date":this.selectedDate,
         "book_time":this.selectedTimeSlot
       };
@@ -1653,7 +1653,7 @@ formRescheduleSubmit(){
   }
 
   let requestObject = {
-   "order_item_id":JSON.stringify(this.appointmentDetails.id),
+   "order_item_id":JSON.stringify(this.detailsData.id),
    "staff_id":this.formAppointmentRescheduleAdmin.get('rescheduleStaff').value,
    "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value),"yyyy-MM-dd"),
    "book_time":this.formAppointmentRescheduleAdmin.get('rescheduleTime').value,

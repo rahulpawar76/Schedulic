@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MaterialModule } from '@app/_helpers/material.module';
+import { HttpClientModule } from '@angular/common/http';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 import { SuperAdminRoutingModule } from './super-admin-routing.module';
 import { AdminsComponent } from './admins/admins.component';
@@ -13,10 +17,14 @@ import { MySubscriptionsComponent } from './my-subscriptions/my-subscriptions.co
   declarations: [AdminsComponent, MySubscriptionsComponent],
   imports: [
     CommonModule,
+    MaterialModule,
     SuperAdminRoutingModule,
     MatToolbarModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    FlexLayoutModule,
+    HttpClientModule,
+    MatSidenavModule
   ]
 })
 export class SuperAdminModule { }

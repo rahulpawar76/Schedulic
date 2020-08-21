@@ -1144,7 +1144,7 @@ constructor(
 
 @Component({
   selector: 'pending-appointment-details',
-  templateUrl: '../_dialogs/pending-appointment-details.html',
+  templateUrl: '../_dialogs/admin-appointment-detail.html',
     providers: [DatePipe]
 })
 export class PendingAppointmentDetailsDialog {
@@ -1461,7 +1461,7 @@ constructor(
 
 // @Component({
 //   selector: 'notassigned-appointment-details',
-//   templateUrl: '../_dialogs/pending-appointment-details.html',
+//   templateUrl: '../_dialogs/admin-appointment-detail.html',
 //   providers:[DatePipe]
 // })
 // export class NotAssignedAppointmentDetailsDialog {
@@ -1709,7 +1709,7 @@ constructor(
  
 @Component({
   selector: 'ontheway-appointment-details',
-  templateUrl: '../_dialogs/pending-appointment-details.html',
+  templateUrl: '../_dialogs/admin-appointment-detail.html',
   providers: [DatePipe]
 })
 export class OnTheWayAppointmentDetailsDialog {
@@ -2032,7 +2032,7 @@ export class OnTheWayAppointmentDetailsDialog {
 
 @Component({
   selector: 'workstarted-appointment-details',
-  templateUrl: '../_dialogs/pending-appointment-details.html',
+  templateUrl: '../_dialogs/admin-appointment-detail.html',
   providers: [DatePipe]
 })
 export class WorkStartedAppointmentDetailsDialog {
@@ -2355,7 +2355,7 @@ constructor(
 
 @Component({
   selector: 'interrupted-reschedule-dialog',
-  templateUrl: '../_dialogs/interrupted-reschedule-dialog.html',
+  templateUrl: '../_dialogs/reschedule-appointment-dialog.html',
   providers: [DatePipe]
 })
 export class RescheduleAppointment {

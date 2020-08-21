@@ -1,1 +1,70 @@
-<p>my-subscriptions works!</p>
+<div class="container-height" id="admin-listing" style="margin-top: 70px;">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
+    <div class="row mx-0">
+        <div class="col-12 px-0">
+            <div class="pendingnotes d-flex">
+                <label class="tab-label">My Subscription</label>
+                <div class="single-search-bar">
+                    <i class="fa fa-search"></i>
+                    <input type="text" placeholder="Search">
+                </div>
+                <button mat-button class="add-sub-btn">Add New Subscription</button>
+            </div>
+            <div class="col-12" id="">
+                <div class="w-100" id="">
+                    <div class="table-background">
+                        <div class="Pending-table">
+                            <div class="main-table-content main-cust-table-content">
+                                <div class="content" class="admin-list">
+                                    <div class="subscription-list-details">
+                                        <div class="text-left" fxFlex="30">
+                                            <label class="label">Subscription Name</label>
+                                            <p class="mb-0">Basic Plan</p>
+                                        </div>
+                                        <div class="text-left" fxFlex="15">
+                                            <label class="label">No Of Business</label>
+                                            <p class="mb-0">10</p>
+                                        </div>
+                                        <div class="text-left" fxFlex="15">
+                                            <label class="label">No Of Staff</label>
+                                            <p class="mb-0">10</p>
+                                        </div>
+                                        <div class="text-left" fxFlex="15">
+                                            <label class="label">No Of Customers</label>
+                                            <p class="mb-0">10</p>
+                                        </div>
+                                        <div class="text-left" fxFlex="15">
+                                            <label class="label">No Of Services</label>
+                                            <p class="mb-0">10</p>
+                                        </div>
+                                        <div class="text-left" fxFlex="10">
+                                            <div>
+                                                <button mat-fab class="delete-btn" aria-label="Example icon button with a delete icon">
+                                                    <mat-icon>delete</mat-icon>
+                                                  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="table_pagination">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-end">
+                                    <li class="page-item"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item active"><a class="page-link">1</a></li>
+                                    <li class="page-item"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

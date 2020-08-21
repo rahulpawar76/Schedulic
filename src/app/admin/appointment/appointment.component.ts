@@ -2154,7 +2154,7 @@ export class DialogAddNewAppointment {
 
 @Component({
   selector: 'allappointment-listing-details',
-  templateUrl: '../_dialogs/allappointment-listing-details.html',
+  templateUrl: '../_dialogs/admin-appointment-detail.html',
   providers: [DatePipe]
 })
 export class DialogAllAppointmentDetails {
@@ -2170,9 +2170,7 @@ settingsArr:any=[];
 cancellationBufferTime= new Date();
 minReschedulingTime= new Date();
 formSettingPage:boolean = false;
-appointmentDetails = {
-  bookingNotes : ''
-};
+
 
 constructor(
   public dialogRef: MatDialogRef<DialogAllAppointmentDetails>,
@@ -2187,7 +2185,7 @@ constructor(
     this.fnGetSettingValue();
     
       this.fnGetActivityLog(this.detailsData.id);
-      this.appointmentDetails.bookingNotes = this.detailsData.booking_notes;
+      this.detailsData.bookingNotes = this.detailsData.booking_notes;
       var todayDateTime = new Date();
       this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
       var dateTemp = new Date(this.datePipe.transform(this.detailsData.booking_date_time,"dd MMM yyyy hh:mm a"));
@@ -2282,7 +2280,7 @@ constructor(
 
     const dialogRef = this.dialog.open(RescheduleAppointAdmin, {
       height: '700px',
-     data : {appointmentDetails: this.detailsData}
+     data : {detailsData: this.detailsData}
     });
       
     dialogRef.afterClosed().subscribe(result => {
@@ -2373,12 +2371,12 @@ constructor(
 
     fnSaveBookingNotes(orderItemId){
       
-      if(this.appointmentDetails.bookingNotes == undefined || this.appointmentDetails.bookingNotes == ""){
+      if(this.detailsData.bookingNotes == undefined || this.detailsData.bookingNotes == ""){
         return false;
       }
       let requestObject = {
         "order_item_id":orderItemId,
-        "booking_notes":this.appointmentDetails.bookingNotes
+        "booking_notes":this.detailsData.bookingNotes
       };
       this.AdminService.saveBookingNotes(requestObject).subscribe((response:any) => {
         if(response.data == true){
@@ -2404,12 +2402,12 @@ constructor(
 
 @Component({
   selector: 'interrupted-reschedule-dialog',
-  templateUrl: '../_dialogs/interrupted-reschedule-dialog.html',
+  templateUrl: '../_dialogs/reschedule-appointment-dialog.html',
   providers: [DatePipe]
 })
 export class RescheduleAppointAdmin {
   formAppointmentRescheduleAdmin:FormGroup;
-  appointmentDetails:any;
+  detailsData:any;
   businessId:any;
   selectedDate:any;
   selectedTimeSlot:any;
@@ -2427,8 +2425,8 @@ export class RescheduleAppointAdmin {
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
       this.businessId=localStorage.getItem('business_id');
-      this.appointmentDetails=this.data.appointmentDetails;
-      console.log(this.appointmentDetails);
+      this.detailsData=this.data.appointmentDetails;
+      console.log(this.detailsData);
       this.formAppointmentRescheduleAdmin = this._formBuilder.group({
         rescheduleDate: ['', Validators.required],
         rescheduleTime: ['', Validators.required],
@@ -2485,9 +2483,9 @@ export class RescheduleAppointAdmin {
 
     fnGetStaff(selectedTimeSlot){
       let requestObject = {
-        "postal_code":this.appointmentDetails.postal_code,
+        "postal_code":this.detailsData.postal_code,
         "business_id":this.businessId,
-        "service_id":JSON.stringify(this.appointmentDetails.service_id),
+        "service_id":JSON.stringify(this.detailsData.service_id),
         "book_date":this.selectedDate,
         "book_time":this.selectedTimeSlot
       };
@@ -2524,7 +2522,7 @@ export class RescheduleAppointAdmin {
     }
 
     let requestObject = {
-    "order_item_id":JSON.stringify(this.appointmentDetails.id),
+    "order_item_id":JSON.stringify(this.detailsData.id),
     "staff_id":this.formAppointmentRescheduleAdmin.get('rescheduleStaff').value,
     "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value),"yyyy-MM-dd"),
     "book_time":this.formAppointmentRescheduleAdmin.get('rescheduleTime').value,
