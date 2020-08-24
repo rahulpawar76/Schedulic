@@ -29,6 +29,11 @@ import { MyProfileComponent, DialogMyProfileImageUpload } from './my-profile/my-
     MatSidenavModule,
     FormsModule,
     ReactiveFormsModule
-  ]
+  ],
+  exports: [
+    FormsModule
+  ],
+  entryComponents: [DialogMyProfileImageUpload],
+
 })
 export class SuperAdminModule { }

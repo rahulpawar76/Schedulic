@@ -58,6 +58,20 @@ export class SuperAdminService {
 
     }
 
+    getAdminList(adminListApiUrl){
+        this.checkAuthentication();
+        let requestObject = {
+        };
+        let headers = new HttpHeaders({
+            'superadmin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
+        });
+        return this.http.post(adminListApiUrl,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
     getMyProfileDetails(){
         this.checkAuthentication();
         let requestObject = {
@@ -65,7 +79,6 @@ export class SuperAdminService {
         let headers = new HttpHeaders({
             'superadmin-id' : JSON.stringify(this.currentUser.user_id),
             'api-token' : this.currentUser.token,
-            'Content-Type': 'application/json'
         });
         return this.http.post(`${environment.apiUrl}/super-admin-profile`,requestObject,{headers:headers}).pipe(
         map((res) => {
@@ -78,9 +91,20 @@ export class SuperAdminService {
         let headers = new HttpHeaders({
             'superadmin-id' : JSON.stringify(this.currentUser.user_id),
             'api-token' : this.currentUser.token,
-            'Content-Type': 'application/json'
         });
         return this.http.post(`${environment.apiUrl}/super-admin-profile-update`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    fnChageAdminStatus(requestObject){
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'superadmin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
+        });
+        return this.http.post(`${environment.apiUrl}/admin-status-update`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;
         }),

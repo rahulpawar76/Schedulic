@@ -17,6 +17,7 @@ export interface DialogData {
 })
 export class MyProfileComponent implements OnInit {
 
+  isLoaderAdmin:boolean = false;
   saProfile:FormGroup;
   profileDetails:any;
   updatedAdminProfileData:any;
@@ -44,6 +45,7 @@ export class MyProfileComponent implements OnInit {
   }
 
   getMyProfileDetails(){
+    this.isLoaderAdmin = true;
     this.SuperAdminService.getMyProfileDetails().subscribe((response:any) => {
       if(response.data == true){
         this.profileDetails = response.response;
@@ -51,10 +53,18 @@ export class MyProfileComponent implements OnInit {
         this.saProfile.controls['last_name'].setValue(this.profileDetails.lastname);
         this.saProfile.controls['email'].setValue(this.profileDetails.email);
         this.saProfile.controls['mobile'].setValue(this.profileDetails.phone);
-        this.saProfile.controls['stripe_secret'].setValue(this.profileDetails.stripe_secret_id);
-        this.saProfile.controls['stripe_publish'].setValue(this.profileDetails.stripe_publish_id);
+        this.saProfile.controls['stripe_secret'].setValue(this.profileDetails.stripe_sid);
+        this.saProfile.controls['stripe_publish'].setValue(this.profileDetails.stripe_pid);
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
       }
     })
+    
+    this.isLoaderAdmin = false;
   }
   fnSubmitMyProfile(){
     if(this.saProfile.valid){
@@ -79,9 +89,17 @@ export class MyProfileComponent implements OnInit {
         }
       }
       this.updateProfile(this.updatedAdminProfileData);
+    }else{
+      this.saProfile.get('first_name').markAsTouched;
+      this.saProfile.get('last_name').markAsTouched;
+      this.saProfile.get('mobile').markAsTouched;
+      this.saProfile.get('email').markAsTouched;
+      this.saProfile.get('stripe_secret').markAsTouched;
+      this.saProfile.get('stripe_publish').markAsTouched;
     }
   }
   updateProfile(updatedAdminProfileData){
+    this.isLoaderAdmin = true;
     this.SuperAdminService.updateProfile(updatedAdminProfileData).subscribe((response:any) => {
       if(response.data == true){
         this._snackBar.open("Profile Updated.", "X", {
@@ -93,14 +111,15 @@ export class MyProfileComponent implements OnInit {
         localStorage.setItem('currentUser', JSON.stringify(response.response));
         this.appComponent.loadLocalStorage();
       }
-      else{
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
-          panelClass :['green-snackbar']
+          panelClass :['red-snackbar']
         });
       }
     })
+    this.isLoaderAdmin = false;
   }
 
   myProfleImage() {
