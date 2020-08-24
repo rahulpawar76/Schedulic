@@ -1337,7 +1337,7 @@ customerUpdate(existingCustomerData){
 
 @Component({
   selector: 'customer-appointment-details-dialog',
-  templateUrl: '../_dialogs/customer-appointment-details-dialog.html',
+  templateUrl: '../_dialogs/admin-appointment-detail.html',
   providers: [DatePipe]
 })
 export class CustomerAppointmentDetailsDialog {
@@ -1354,7 +1354,12 @@ export class CustomerAppointmentDetailsDialog {
   appointmentDetails = {
     bookingNotes : ''
   };
-
+  
+  taxTotal : any = 0;
+  singleBookingTax:any;
+  initials:any;
+  customerShortName:any;
+  availableStaff: any=[];
 constructor(
   public dialog: MatDialog,
   public dialogRef: MatDialogRef<CustomerAppointmentDetailsDialog>,
@@ -1372,6 +1377,29 @@ constructor(
       this.businessId = localStorage.getItem('business_id');
     }
     this.fnGetSettingValue();
+
+    this.fnGetStaff(this.detailsData.booking_date,this.detailsData.booking_time,this.detailsData.service_id,this.detailsData.postal_code);
+    var todayDateTime = new Date();
+    this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
+    var dateTemp = new Date(this.datePipe.transform(this.detailsData.booking_date_time,"dd MMM yyyy hh:mm a"));
+    dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(this.detailsData.service_time) );
+    var temp = dateTemp.getTime() - todayDateTime.getTime();
+    this.detailsData.timeToService=(temp/3600000).toFixed();
+    this.detailsData.booking_timeForLabel=this.datePipe.transform(this.detailsData.booking_date_time,"hh:mm a")
+    this.detailsData.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+    this.detailsData.booking_dateForLabel=this.datePipe.transform(new Date(this.detailsData.booking_date),"dd MMM yyyy")
+    this.detailsData.created_atForLabel=this.datePipe.transform(new Date(this.detailsData.created_at),"dd MMM yyyy @ hh:mm a")
+    if(this.detailsData.tax != null){
+      this.singleBookingTax = JSON.parse(this.detailsData.tax)
+      this.singleBookingTax.forEach( (element) => {
+        this.taxTotal = this.taxTotal + element.amount;
+      });
+    }
+    this.initials = this.detailsData.customer.fullname.split(" ",2);
+    this.customerShortName = '';
+    this.initials.forEach( (element2) => {
+      this.customerShortName = this.customerShortName+element2.charAt(0);
+    });
   }
 
   onNoClick(): void {
@@ -1434,29 +1462,15 @@ constructor(
     this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
       if(response.data == true && response.response != ''){
         this.settingsArr=response.response;
-      // console.log(this.settingsArr);
-
         this.currencySymbol = this.settingsArr.currency;
-        //console.log(this.currencySymbol);
-        
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-        //console.log(this.currencySymbolPosition);
-        
         this.currencySymbolFormat = this.settingsArr.currency_format;
-      // console.log(this.currencySymbolFormat);
-        
         let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
         let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
-      // console.log(cancellation_buffer_time);
-      //  console.log(min_rescheduling_time);
-      
         this.cancellationBufferTime = new Date();
         this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
-      // console.log("cancellationBufferTime - "+this.cancellationBufferTime);
-
         this.minReschedulingTime = new Date();
         this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
-      //  console.log("minReschedulingTime - "+this.minReschedulingTime);
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
@@ -1489,6 +1503,64 @@ constructor(
           panelClass :['red-snackbar']
           });
       }
+    })
+  }
+  fnGetStaff(booking_date,booking_time,serviceId,postal_code){
+    let requestObject = {
+      "postal_code":postal_code,
+      "business_id":this.detailsData.business_id,
+      "service_id":JSON.stringify(serviceId),
+      "book_date":this.datePipe.transform(new Date(booking_date),"yyyy-MM-dd"),
+      "book_time":booking_time
+    };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    this.http.post(`${environment.apiUrl}/service-staff`,requestObject,{headers:headers} ).pipe(
+    map((res) => {
+      return res;
+    }),
+    //catchError(this.handleError)
+    ).subscribe((response:any) => {
+      if(response.data == true){
+        this.availableStaff = response.response;
+        console.log(JSON.stringify(this.availableStaff));
+      }
+      else{
+        this.availableStaff.length=0;
+      }
+    },
+    (err) =>{
+      console.log(err)
+    })
+  }
+  fnOnClickStaff(event){
+    console.log(event.value);
+    let requestObject = {
+      "order_item_id":this.detailsData.id,
+      "staff_id":event.value
+      };
+    this.AdminService.assignStaffToOrder(requestObject).subscribe((response:any) => 
+    {
+      if(response.data == true){
+          this._snackBar.open("Staff Assigned.", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+            });
+          this.dialogRef.close();
+        }
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+            });
+        }
+    },
+    (err) => {
+      // this.error = err;
     })
   }
 
@@ -1534,12 +1606,12 @@ constructor(
 
 @Component({
   selector: 'interrupted-reschedule-dialog',
-  templateUrl: '../_dialogs/interrupted-reschedule-dialog.html',
+  templateUrl: '../_dialogs/reschedule-appointment-dialog.html',
   providers: [DatePipe]
 })
 export class InterruptedReschedulecustomer {
   formAppointmentRescheduleAdmin:FormGroup;
-  appointmentDetails:any;
+  detailsData:any;
   businessId:any;
   selectedDate:any;
   selectedTimeSlot:any;
@@ -1557,7 +1629,7 @@ export class InterruptedReschedulecustomer {
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
       this.businessId=localStorage.getItem('business_id');
-      this.appointmentDetails=this.data.appointmentDetails;
+      this.detailsData=this.data.appointmentDetails;
       this.formAppointmentRescheduleAdmin = this._formBuilder.group({
         rescheduleDate: ['', Validators.required],
         rescheduleTime: ['', Validators.required],
@@ -1614,9 +1686,9 @@ export class InterruptedReschedulecustomer {
 
     fnGetStaff(selectedTimeSlot){
       let requestObject = {
-        "postal_code":this.appointmentDetails.postalCode,
+        "postal_code":this.detailsData.postalCode,
         "business_id":this.businessId,
-        "service_id":JSON.stringify(this.appointmentDetails.serviceId),
+        "service_id":JSON.stringify(this.detailsData.serviceId),
         "book_date":this.selectedDate,
         "book_time":this.selectedTimeSlot
       };
@@ -1653,7 +1725,7 @@ formRescheduleSubmit(){
   }
 
   let requestObject = {
-   "order_item_id":JSON.stringify(this.appointmentDetails.id),
+   "order_item_id":JSON.stringify(this.detailsData.id),
    "staff_id":this.formAppointmentRescheduleAdmin.get('rescheduleStaff').value,
    "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value),"yyyy-MM-dd"),
    "book_time":this.formAppointmentRescheduleAdmin.get('rescheduleTime').value,

@@ -1,5 +1,70 @@
-<mat-drawer-container class="bg-info w-100"> 
-    heloo
-  
-  </mat-drawer-container>
-  
+<div class="container-height" id="admin-listing" style="margin-top: 70px;">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
+    <div class="row mx-0">
+        <div class="col-12 px-0">
+            <div class="pendingnotes d-flex">
+                <label class="tab-label">Admin List</label>
+                <div class="single-search-bar ml-auto">
+                    <i class="fa fa-search"></i>
+                    <input type="text" placeholder="Search">
+                </div>
+            </div>
+            <div class="col-12" id="">
+                <div class="w-100" id="">
+                    <div class="table-background">
+                        <div class="Pending-table">
+                            <div class="main-table-content main-cust-table-content">
+                                <div class="main-table-head" fxLayout="row">
+                                    <div class="text-left" fxFlex="30">Admin Name</div>
+                                    <div class="text-left" fxFlex="20">Date Of Reg.</div>
+                                    <div class="text-left" fxFlex="20">No Of Businesses</div>
+                                    <div class="text-left" fxFlex="20">Activated Subscription</div>
+                                    <div class="text-left" fxFlex="10">Action</div>
+                                </div>
+                                <div class="content" class="admin-list">
+                                    <div class="admin-list-details" *ngFor="let adminList of adminList; let i=index;">
+                                        <div class="text-left" fxFlex="30">
+                                            <p class="mb-0 text-capitalize">{{adminList.firstname}} {{adminList.lastname}}</p>
+                                            <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{adminList.phone}}</p>
+                                            <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email: {{adminList.email}}</p>
+                                        </div>
+                                        <div class="text-left" fxFlex="20">
+                                            <p class="mb-0">{{adminList.created_at}}</p>
+                                        </div>
+                                        <div class="text-left" fxFlex="20">
+                                            <p class="mb-0">4</p>
+                                        </div>
+                                        <div class="text-left" fxFlex="20">
+                                            <p class="mb-0">Basic Plan<span>($300)</span></p>
+                                        </div>
+
+                                        <div class="text-left" fxFlex="10">
+                                            <div>
+                                                <mat-slide-toggle (change)="fnChageAdminStatus($event,adminList.id)" [checked]="adminList.login_allowed === 'Y'"></mat-slide-toggle>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="table_pagination">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-end">
+                                    <li class="page-item{{current_page_adminList==1?'pointernone':'' }}" (click)="navigateTo_adminList(first_page_url_adminList)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item" (click)="navigateTo_adminList(prev_page_url_adminList)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item" [ngClass]="{'active':current_page_adminList == i+1}" *ngFor="let pagenumber of arrayOne_adminList(last_page_adminList); let i = index;" (click)="navigateToPageNumber_adminList(i+1)"><a class="page-link">{{i+1}}</a></li>
+                                    <li class="page-item" (click)="navigateTo_adminList(next_page_url_adminList)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{arrayOne_adminList(last_page_adminList).length==current_page_adminList?'pointernone':''}}" (click)="navigateTo_adminList(last_page_url_adminList)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

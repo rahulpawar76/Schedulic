@@ -608,6 +608,7 @@ export class AppointmentLiveComponent implements OnInit {
 
   }
 
+
   fnFilterStaff(event){
     
 
@@ -762,6 +763,7 @@ export class AppointmentLiveComponent implements OnInit {
       "payment_datetime": payment_datetime,
       "nettotal": this.totalCost,
       "payment_method": this.paymentData ? this.paymentData.payment_method : 'cash',
+      "card_option": this.paymentData.payment_method=='Card' ? this.paymentData.card_option : '',
       "order_date": payment_datetime,
       "booking_notes" : this.note_description,
       'pos_pdf_type' : pos_pdf_type  
@@ -896,6 +898,7 @@ export class AppointmentLiveComponent implements OnInit {
     })
 
   }
+
   openNotificationDialog() {
     this.isLoaderAdmin = true;
     let headers;
@@ -1017,7 +1020,21 @@ export class AppointmentLiveComponent implements OnInit {
     });
   }
 
-  fnPendingbillAction(billing_type){
+  fnPaymentBillingMode(billing_type){
+
+    const dialogRef = this.dialog.open(paymentModeDialog, {
+      width: '500px',
+     });
+
+    dialogRef.afterClosed().subscribe(result => {
+       if(result){
+        this.fnPendingbillAction(billing_type,result);
+       }
+    });
+
+  }
+
+  fnPendingbillAction(billing_type,result){
 
     var tempArr = [];
     this.pendingBillingData.forEach(element => {
@@ -1030,7 +1047,9 @@ export class AppointmentLiveComponent implements OnInit {
     let requestObject = {
       "business_id": localStorage.getItem('business_id'),
       "order_ids": tempArr,
-      "billing_type" : billing_type
+      "billing_type" : billing_type,
+      "payment_method": result ? result.payment_method : 'cash',
+      "card_option": result.payment_method=='Card' ? result.card_option : '',
     };
 
     this.AdminService.pendingbillAction(requestObject).subscribe((response: any) => {
@@ -1081,9 +1100,15 @@ export class paymentModeDialog {
     'payment_method' : 'cash',
     'reference_id' : '',
     'transaction_id' : '',
+    'card_option' : ''
   };
+
+  payment_method='';
+  card_option : string = '';
+
 constructor(
   public dialogRef: MatDialogRef<paymentModeDialog>,
+  private _snackBar: MatSnackBar,
   @Inject(MAT_DIALOG_DATA) public data: any) {
     
 
@@ -1093,14 +1118,29 @@ constructor(
   }
 
   fnPaymentMethod(payment_method): void {
+    this.payment_method =  payment_method;
      this.res = {
       'payment_method' : payment_method,
       'reference_id' : '',
       'transaction_id' : '',
+      'card_option' : ''
     };
   }
 
   Confirm(){
+
+    if(this.payment_method=='Card'){
+      if(this.card_option==''){
+        this._snackBar.open('Please Select Card Option ', "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+        });
+        return;
+      }
+      this.res['card_option'] = this.card_option;
+    }
+
     this.dialogRef.close(this.res);
   }
 
@@ -1144,7 +1184,7 @@ constructor(
 
 @Component({
   selector: 'pending-appointment-details',
-  templateUrl: '../_dialogs/pending-appointment-details.html',
+  templateUrl: '../_dialogs/admin-appointment-detail.html',
     providers: [DatePipe]
 })
 export class PendingAppointmentDetailsDialog {
@@ -1461,7 +1501,7 @@ constructor(
 
 // @Component({
 //   selector: 'notassigned-appointment-details',
-//   templateUrl: '../_dialogs/pending-appointment-details.html',
+//   templateUrl: '../_dialogs/admin-appointment-detail.html',
 //   providers:[DatePipe]
 // })
 // export class NotAssignedAppointmentDetailsDialog {
@@ -1709,7 +1749,7 @@ constructor(
  
 @Component({
   selector: 'ontheway-appointment-details',
-  templateUrl: '../_dialogs/pending-appointment-details.html',
+  templateUrl: '../_dialogs/admin-appointment-detail.html',
   providers: [DatePipe]
 })
 export class OnTheWayAppointmentDetailsDialog {
@@ -2032,7 +2072,7 @@ export class OnTheWayAppointmentDetailsDialog {
 
 @Component({
   selector: 'workstarted-appointment-details',
-  templateUrl: '../_dialogs/pending-appointment-details.html',
+  templateUrl: '../_dialogs/admin-appointment-detail.html',
   providers: [DatePipe]
 })
 export class WorkStartedAppointmentDetailsDialog {
@@ -2355,7 +2395,7 @@ constructor(
 
 @Component({
   selector: 'interrupted-reschedule-dialog',
-  templateUrl: '../_dialogs/interrupted-reschedule-dialog.html',
+  templateUrl: '../_dialogs/reschedule-appointment-dialog.html',
   providers: [DatePipe]
 })
 export class RescheduleAppointment {

@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MdePopoverModule } from '@material-extended/mde';
-
+import { SubscriptionComponent  } from './subscription/subscription.component'
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -66,6 +66,7 @@ export function provideConfig() {
         LoaderComponent,
         ConfirmationDialogComponent,
         ForgotPasswordComponent,
+        SubscriptionComponent,
         ResetPasswordComponent,
         FrontbookingComponent,
         DialogNotification,

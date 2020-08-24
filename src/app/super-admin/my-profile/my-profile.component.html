@@ -1,0 +1,101 @@
+<mat-drawer-content id="super-admin-profile" class="ml-0">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
+    <mat-card class="m-0 my-profile h-100">
+        <div class="row">
+            <div class="col-lg-12">
+                <h6>My Profile</h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-6 col-md-4  main-account-my-profile">
+                <div class="ml-3 justify-content-center d-flex">
+                    <!-- <div class="account-my-profile-background mr-3 mt-5">
+                        <img src="/assets/images/admin/Layer6.png" class="my-profile-image">
+                    </div> -->
+                    <div class="profile-img-wrap" (click)="myProfleImage()">
+                        <img *ngIf="myProfileImageUrl != ''" mat-card-avatar class="account-profile-image" src="{{myProfileImageUrl}}">
+                        <img *ngIf="!myProfileImageUrl && 
+                        profileDetails && profileDetails.image" mat-card-avatar class="account-profile-image" src="{{profileDetails.image}}">
+                        <img *ngIf="profileDetails && !profileDetails.image" mat-card-avatar class="account-profile-image" src="/assets/images/admin/picture-user.png">
+                        <div class="camera-alt"><i class="material-icons">camera_alt</i></div>
+                    </div>
+                </div>
+                <div class="">
+                    <form [formGroup]="saProfile">
+                        <div class="mt-3 text-center">
+                            <mat-form-field class=" bottom-border-field">
+                                <mat-icon class="mr-4" matPrefix>person</mat-icon>
+                                <input maxlength="8" formControlName="first_name" matInput placeholder="First Name">
+                            </mat-form-field>
+                            <span class="error-wrap d-flex" *ngIf="saProfile.get('first_name').dirty || saProfile.get('first_name').touched">
+                        <small *ngIf="saProfile.get('first_name').hasError('required')" class="error">Firstname is required.</small>
+                        <small *ngIf="saProfile.get('first_name').hasError('maxlength')" class="error">First Name maximum 10 character.</small>
+                        
+                        </span>
+                        </div>
+
+                        <div class="mt-2 text-center">
+                            <mat-form-field class=" bottom-border-field">
+                                <mat-icon class="mr-4" matPrefix>person</mat-icon>
+                                <input maxlength="8" formControlName="last_name" matInput placeholder="Last Name">
+                            </mat-form-field>
+                            <span class="error-wrap d-flex" *ngIf="saProfile.get('last_name').dirty || saProfile.get('last_name').touched">
+                        <small *ngIf="saProfile.get('last_name').hasError('required')" class="error">Lastname is required.</small>
+                        <small *ngIf="saProfile.get('last_name').hasError('maxlength')" class="error">Last Name maximum 10 character.</small>
+                        
+                        </span>
+                        </div>
+
+                        <div class="mt-2 text-center pointer-none">
+                            <mat-form-field class="bottom-border-field">
+                                <mat-icon class="mr-4" matPrefix>mail</mat-icon>
+                                <input formControlName="email" matInput placeholder="Email">
+                            </mat-form-field>
+                            <span class="error-wrap d-flex" *ngIf="saProfile.get('email').dirty || saProfile.get('email').touched">
+                            <small *ngIf="saProfile.get('email').hasError('required')" class="error">Email is required.</small>
+                            <small *ngIf="saProfile.get('email').hasError('pattern')" class="error">Email is invalid.</small>
+                        </span>
+                        </div>
+
+                        <div class="mt-2 text-center mb-3">
+                            <mat-form-field class=" bottom-border-field">
+                                <mat-icon class="mr-4" matPrefix>phone</mat-icon>
+                                <input formControlName="mobile" matInput placeholder="Mobile">
+                            </mat-form-field>
+                            <span class="error-wrap d-flex" *ngIf="saProfile.get('mobile').dirty || saProfile.get('mobile').touched">
+                            <small *ngIf="saProfile.get('mobile').hasError('required')" class="error">Mobile number is required.</small>
+                            <small *ngIf="saProfile.get('mobile').hasError('pattern')" class="error">Mobile number is invalid.</small>
+                            <small *ngIf="saProfile.get('mobile').hasError('minlength') || saProfile.get('mobile').hasError('maxlength')" class="error">Mobile number should be 6 to 15 digit.</small>
+                        </span>
+                        </div>
+
+                        <h4 class="sub-title">Stripe Details</h4>
+
+                        <div class="mt-2 text-center mb-3">
+                            <mat-form-field class=" bottom-border-field">
+                                <mat-icon class="mr-4" matPrefix>attach_money</mat-icon>
+                                <input formControlName="stripe_secret" matInput placeholder="Stripe Secret Key">
+                            </mat-form-field>
+                            <span class="error-wrap d-flex" *ngIf="saProfile.get('stripe_secret').dirty || saProfile.get('stripe_secret').touched">
+                            <small *ngIf="saProfile.get('stripe_secret').hasError('required')" class="error">Mobile number is required</small>
+                        </span>
+                        </div>
+                        <div class="mt-2 text-center mb-3">
+                            <mat-form-field class=" bottom-border-field">
+                                <mat-icon class="mr-4" matPrefix>attach_money</mat-icon>
+                                <input formControlName="stripe_publish" matInput placeholder="Stripe Publish Key">
+                            </mat-form-field>
+                            <span class="error-wrap d-flex" *ngIf="saProfile.get('stripe_publish').dirty || saProfile.get('stripe_publish').touched">
+                            <small *ngIf="saProfile.get('stripe_publish').hasError('required')" class="error">Mobile number is required</small>
+                        </span>
+                        </div>
+
+                        <div class="action-btn">
+                            <button mat-button type="submit" (click)="fnSubmitMyProfile()" class="profile-save-btn">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+</mat-drawer-content>

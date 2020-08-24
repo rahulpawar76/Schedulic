@@ -389,6 +389,15 @@ export class AppComponent implements AfterViewInit {
   myAdminsNav(){
     this.router.navigate(['./super-admin/']);
   }
+  mySubscriptionsNav(){
+    this.router.navigate(['./super-admin/my-subscriptions']);
+  }
+  myTransactionsNav(){
+    this.router.navigate(['./super-admin/my-transactions']);
+  }
+  MySuperAdinProfileNav(){
+    this.router.navigate(['./super-admin/my-profile']);
+  }
 
   /*Admin Dashboard Navigation*/
   myWorkSpaceNav() {
@@ -592,6 +601,9 @@ export class AppComponent implements AfterViewInit {
     }
     else if(userType == 'admin'){
       this.router.navigate(['/admin/my-workspace']);
+    }
+    else if(userType == 'superAdmin'){
+      this.router.navigate(['/super-admin']);
     }
   }
 

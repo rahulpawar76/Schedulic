@@ -1,6 +1,5 @@
 @import "variables";
-#admin-listing {
-    width: 100%;
+#my-transactions {
     margin-top: 65px !important;
     .single-search-bar {
         margin-left: auto;
@@ -34,50 +33,8 @@
             padding-right: 5px;
         }
     }
-    .admin-list {
-        width: 100%;
-        border-radius: 10px;
-        display: block;
-        overflow: hidden;
-        height: calc(100vh - 280px);
-        overflow-y: auto;
-        .service-name {
-            font-weight: 600;
-            font-size: 15px;
-        }
-        small {
-            font-size: 14px;
-        }
-    }
-    table {
-        width: 100%;
-    }
-    .main-table-head {
-        padding: 10px 20px;
-        font-weight: bolder;
-    }
-    .table-background {
-        background-color: #fafafa;
-        padding: 10px 20px;
-        margin-bottom: 0;
-    }
-    .admin-list-details {
-        padding: 20px 10px;
-        border: solid 3px white;
-        border-radius: 10px;
-        margin: 7px 0px;
-        // border-bottom: solid 1px #ccc;
-        color: rgba(0, 0, 0, 0.87);
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        box-sizing: border-box;
-        background: white;
-        font-size: 14px;
-        &.header-background {
-            background-color: #f7f7f7;
-        }
+    .postalcode-table {
+        padding: 0 15px;
     }
     .pendingnotes {
         background-color: #DDEAFD;
@@ -97,6 +54,44 @@
         .tab-label {
             margin-bottom: 0;
             font-size: 20px;
+        }
+    }
+    .transactions-list-row {
+        padding: 20px 10px;
+        border-bottom: solid 1px #ccc;
+        color: rgba(0, 0, 0, 0.87);
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        flex-direction: row;
+        -webkit-box-align: center;
+        align-items: center;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        box-sizing: border-box;
+        background: white;
+        font-size: 14px;
+    }
+    .header-background {
+        background-color: #f7f7f7 !important;
+    }
+    .invoice-btn {
+        color: #fff;
+        background-color: #007bff;
+        font-size: 16px;
+        i {
+            padding-right: 5px;
+        }
+    }
+    mat-chip {
+        &.paid {
+            background: #4cb100 !important;
+            color: #fff !important;
+        }
+        &.failed {
+            background: #ffc114 !important;
+            color: #fff !important;
         }
     }
 }
