@@ -11,7 +11,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatGridListModule} from '@angular/material/grid-list';
-import { MySubscriptionsComponent } from './my-subscriptions/my-subscriptions.component';
+import { MySubscriptionsComponent, DialogAddNewPlan } from './my-subscriptions/my-subscriptions.component';
 import { MyTransactionsComponent } from './my-transactions/my-transactions.component';
 import { MyProfileComponent, DialogMyProfileImageUpload } from './my-profile/my-profile.component';
 
