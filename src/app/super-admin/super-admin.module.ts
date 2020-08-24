@@ -17,7 +17,7 @@ import { MyProfileComponent, DialogMyProfileImageUpload } from './my-profile/my-
 
 
 @NgModule({
-  declarations: [AdminsComponent, MySubscriptionsComponent, MyTransactionsComponent, MyProfileComponent, DialogMyProfileImageUpload],
+  declarations: [AdminsComponent, MySubscriptionsComponent, MyTransactionsComponent, MyProfileComponent, DialogMyProfileImageUpload, DialogAddNewPlan],
   imports: [
     CommonModule,
     MaterialModule,
@@ -34,7 +34,7 @@ import { MyProfileComponent, DialogMyProfileImageUpload } from './my-profile/my-
   exports: [
     FormsModule
   ],
-  entryComponents: [DialogMyProfileImageUpload],
+  entryComponents: [DialogMyProfileImageUpload, DialogAddNewPlan],
 
 })
 export class SuperAdminModule { }
