@@ -12,15 +12,15 @@
             </div>
             <div>
                 <mat-radio-group class="d-flex justify-content-center my-4">
-                    <mat-radio-button class="mb-0" value="pay2" (change)="fnPaymentMethod('Cash')">Card</mat-radio-button>
+                    <mat-radio-button class="mb-0" value="pay2" (change)="fnPaymentMethod('Card')">Card</mat-radio-button>
                     <mat-radio-button class="mb-0" value="pay1" (change)="fnPaymentMethod('Cash')">Cash</mat-radio-button>
                 </mat-radio-group>
 
             </div>
-            <div class="">
-                <mat-form-field class="bottom-border-field ">
+            <div class="" *ngIf="payment_method=='Card'">
+                <mat-form-field class="bottom-border-field" >
                     <mat-label>Select Card Option</mat-label>
-                    <mat-select>
+                    <mat-select [(ngModel)]="card_option" name="card_option">
                         <mat-option value="swipe_card">Swipe Through Machine</mat-option>
                         <mat-option value="send_link">Send Link To Customer</mat-option>
                     </mat-select>
