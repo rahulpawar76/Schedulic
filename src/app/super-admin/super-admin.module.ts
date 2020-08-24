@@ -6,6 +6,8 @@ import { AdminsComponent } from './admins/admins.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatSidenavModule} from '@angular/material/sidenav';
 import { MySubscriptionsComponent } from './my-subscriptions/my-subscriptions.component';
 
 
@@ -16,7 +18,9 @@ import { MySubscriptionsComponent } from './my-subscriptions/my-subscriptions.co
     SuperAdminRoutingModule,
     MatToolbarModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatGridListModule,
+    MatSidenavModule,
   ]
 })
 export class SuperAdminModule { }
