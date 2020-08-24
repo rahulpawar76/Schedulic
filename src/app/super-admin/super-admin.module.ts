@@ -10,13 +10,13 @@ import { AdminsComponent } from './admins/admins.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
-import { MySubscriptionsComponent } from './my-subscriptions/my-subscriptions.component';
+import { MySubscriptionsComponent, DialogAddNewPlan } from './my-subscriptions/my-subscriptions.component';
 import { MyTransactionsComponent } from './my-transactions/my-transactions.component';
 import { MyProfileComponent, DialogMyProfileImageUpload } from './my-profile/my-profile.component';
 
 
 @NgModule({
-  declarations: [AdminsComponent, MySubscriptionsComponent, MyTransactionsComponent, MyProfileComponent, DialogMyProfileImageUpload],
+  declarations: [AdminsComponent, MySubscriptionsComponent, MyTransactionsComponent, MyProfileComponent, DialogMyProfileImageUpload, DialogAddNewPlan],
   imports: [
     CommonModule,
     MaterialModule,
@@ -33,7 +33,7 @@ import { MyProfileComponent, DialogMyProfileImageUpload } from './my-profile/my-
   exports: [
     FormsModule
   ],
-  entryComponents: [DialogMyProfileImageUpload],
+  entryComponents: [DialogMyProfileImageUpload, DialogAddNewPlan],
 
 })
 export class SuperAdminModule { }

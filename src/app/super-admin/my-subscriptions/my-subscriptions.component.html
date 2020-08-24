@@ -8,7 +8,7 @@
                     <i class="fa fa-search"></i>
                     <input type="text" placeholder="Search">
                 </div>
-                <button mat-button class="add-sub-btn">Add New Subscription</button>
+                <button (click)="fnAddNewPlan()" mat-button class="add-sub-btn">Add New Subscription</button>
             </div>
             <div class="col-12" id="">
                 <div class="w-100" id="">
@@ -16,26 +16,30 @@
                         <div class="Pending-table">
                             <div class="main-table-content main-cust-table-content">
                                 <div class="content" class="admin-list">
-                                    <div class="subscription-list-details">
+                                    <div class="subscription-list-details" *ngFor="let subscriptionList of subscriptionList; let i=index;">
                                         <div class="text-left" fxFlex="30">
                                             <label class="label">Subscription Name</label>
-                                            <p class="mb-0">Basic Plan</p>
+                                            <p class="mb-0 text-capitalize">{{subscriptionList.plan_name}} ({{subscriptionList.amount}})</p>
                                         </div>
-                                        <div class="text-left" fxFlex="15">
+                                        <div class="text-left" fxFlex="20">
+                                            <label class="label">Time Iterval</label>
+                                            <p class="mb-0">{{subscriptionList.interval}}</p>
+                                        </div>
+                                        <div class="text-left" fxFlex="10">
                                             <label class="label">No Of Business</label>
-                                            <p class="mb-0">10</p>
+                                            <p class="mb-0">{{subscriptionList.plan_name}}</p>
                                         </div>
-                                        <div class="text-left" fxFlex="15">
+                                        <div class="text-left" fxFlex="10">
                                             <label class="label">No Of Staff</label>
-                                            <p class="mb-0">10</p>
+                                            <p class="mb-0">{{subscriptionList.plan_name}}</p>
                                         </div>
-                                        <div class="text-left" fxFlex="15">
+                                        <div class="text-left" fxFlex="10">
                                             <label class="label">No Of Customers</label>
-                                            <p class="mb-0">10</p>
+                                            <p class="mb-0">{{subscriptionList.plan_name}}</p>
                                         </div>
-                                        <div class="text-left" fxFlex="15">
+                                        <div class="text-left" fxFlex="10">
                                             <label class="label">No Of Services</label>
-                                            <p class="mb-0">10</p>
+                                            <p class="mb-0">{{subscriptionList.plan_name}}</p>
                                         </div>
                                         <div class="text-left" fxFlex="10">
                                             <div>
@@ -50,17 +54,17 @@
 
                         </div>
 
-                        <div class="table_pagination">
+                        <!-- <div class="table_pagination">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
-                                    <li class="page-item"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
-                                    <li class="page-item"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
-                                    <li class="page-item active"><a class="page-link">1</a></li>
-                                    <li class="page-item"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
-                                    <li class="page-item"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item{{current_page_subscriptionList==1?'pointernone':'' }}" (click)="navigateTo_subscriptionList(first_page_url_subscriptionList)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item" (click)="navigateTo_subscriptionList(prev_page_url_subscriptionList)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item" [ngClass]="{'active':current_page_subscriptionList == i+1}" *ngFor="let pagenumber of arrayOne_subscriptionList(last_page_subscriptionList); let i = index;" (click)="navigateToPageNumber_subscriptionList(i+1)"><a class="page-link">{{i+1}}</a></li>
+                                    <li class="page-item" (click)="navigateTo_subscriptionList(next_page_url_subscriptionList)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{arrayOne_subscriptionList(last_page_subscriptionList).length==current_page_subscriptionList?'pointernone':''}}" (click)="navigateTo_subscriptionList(last_page_url_subscriptionList)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
                                 </ul>
                             </nav>
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>

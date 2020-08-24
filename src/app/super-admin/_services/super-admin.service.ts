@@ -72,6 +72,20 @@ export class SuperAdminService {
         }),
         catchError(this.handleError));
     }
+    getSubscriptionList(){
+        this.checkAuthentication();
+        let requestObject = {
+        };
+        let headers = new HttpHeaders({
+            'superadmin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
+        });
+        return this.http.post(`${environment.apiUrl}/plan-list`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
     getMyProfileDetails(){
         this.checkAuthentication();
         let requestObject = {
