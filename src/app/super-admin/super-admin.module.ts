@@ -29,7 +29,7 @@ import { MyProfileComponent, DialogMyProfileImageUpload } from './my-profile/my-
     HttpClientModule,
     MatSidenavModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   exports: [
     FormsModule
