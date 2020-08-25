@@ -36,7 +36,6 @@ export class SubscriptionComponent implements OnInit {
       width: '800px',
       
     });
-
     dialogRef.afterClosed().subscribe(result => {
     });
   }

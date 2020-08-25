@@ -444,7 +444,7 @@
                 <label class="tab-label">Work Started</label>
                 <div class="single-search-bar">
                     <i class="fa fa-search"></i>
-                    <input type="text" [(ngModel)]="search.workStartedKeyword" (keyup)="WSAppointSearch($event)" placeholder="Search">
+                    <input type="text" [(ngModel)]="search.workStartedKeyword" (keyup)="WSAppointSearch()" placeholder="Search">
                 </div>
                 <div class="col-2 pendingborder appoint-head">
                     <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
