@@ -40,7 +40,7 @@
         border-radius: 10px;
         display: block;
         overflow: hidden;
-        height: calc(100vh - 280px);
+        height: calc(100vh - 150px);
         overflow-y: auto;
         .service-name {
             font-weight: 600;
@@ -125,4 +125,9 @@
             margin-right: 15px;
         }
     }
+}
+
+::ng-deep .create-plan {
+    background-color: #3d72f4;
+    color: #fff;
 }

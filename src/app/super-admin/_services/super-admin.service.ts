@@ -124,6 +124,30 @@ export class SuperAdminService {
         }),
         catchError(this.handleError));
     }
+    fnDeletePlan(requestObject){
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'superadmin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
+        });
+        return this.http.post(`${environment.apiUrl}/plan-delete`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    fnCreateNewPlan(requestObject){
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'superadmin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
+        });
+        return this.http.post(`${environment.apiUrl}/create-plan`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
 
 
 

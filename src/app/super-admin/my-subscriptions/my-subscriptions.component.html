@@ -19,7 +19,7 @@
                                     <div class="subscription-list-details" *ngFor="let subscriptionList of subscriptionList; let i=index;">
                                         <div class="text-left" fxFlex="30">
                                             <label class="label">Subscription Name</label>
-                                            <p class="mb-0 text-capitalize">{{subscriptionList.plan_name}} ({{subscriptionList.amount}})</p>
+                                            <p class="mb-0 text-capitalize">{{subscriptionList.plan_name}} (${{subscriptionList.amount}})</p>
                                         </div>
                                         <div class="text-left" fxFlex="20">
                                             <label class="label">Time Iterval</label>
@@ -27,23 +27,23 @@
                                         </div>
                                         <div class="text-left" fxFlex="10">
                                             <label class="label">No Of Business</label>
-                                            <p class="mb-0">{{subscriptionList.plan_name}}</p>
+                                            <p class="mb-0">{{subscriptionList.business_limit}}</p>
                                         </div>
                                         <div class="text-left" fxFlex="10">
                                             <label class="label">No Of Staff</label>
-                                            <p class="mb-0">{{subscriptionList.plan_name}}</p>
+                                            <p class="mb-0">{{subscriptionList.staff_limit}}</p>
                                         </div>
                                         <div class="text-left" fxFlex="10">
                                             <label class="label">No Of Customers</label>
-                                            <p class="mb-0">{{subscriptionList.plan_name}}</p>
+                                            <p class="mb-0">{{subscriptionList.customer_limit}}</p>
                                         </div>
                                         <div class="text-left" fxFlex="10">
                                             <label class="label">No Of Services</label>
-                                            <p class="mb-0">{{subscriptionList.plan_name}}</p>
+                                            <p class="mb-0">{{subscriptionList.service_limit}}</p>
                                         </div>
                                         <div class="text-left" fxFlex="10">
                                             <div>
-                                                <button mat-fab class="delete-btn" aria-label="Example icon button with a delete icon">
+                                                <button (click)="fnDeletePlan(subscriptionList.plan_id)" mat-fab class="delete-btn" aria-label="Example icon button with a delete icon">
                                                     <mat-icon>delete</mat-icon>
                                                   </button>
                                             </div>
