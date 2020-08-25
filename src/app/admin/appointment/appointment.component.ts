@@ -2170,7 +2170,11 @@ settingsArr:any=[];
 cancellationBufferTime= new Date();
 minReschedulingTime= new Date();
 formSettingPage:boolean = false;
-
+taxTotal : any = 0;
+singleBookingTax:any;
+initials:any;
+customerShortName:any;
+availableStaff: any=[];
 
 constructor(
   public dialogRef: MatDialogRef<DialogAllAppointmentDetails>,
@@ -2196,7 +2200,18 @@ constructor(
       this.detailsData.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
       this.detailsData.booking_dateForLabel=this.datePipe.transform(new Date(this.detailsData.booking_date),"dd MMM yyyy")
       this.detailsData.created_atForLabel=this.datePipe.transform(new Date(this.detailsData.created_at),"dd MMM yyyy @ hh:mm a")
-  }
+      if(this.detailsData.tax != null){
+        this.singleBookingTax = JSON.parse(this.detailsData.tax)
+        this.singleBookingTax.forEach( (element) => {
+          this.taxTotal = this.taxTotal + element.amount;
+        });
+      }
+      this.initials = this.detailsData.customer.fullname.split(" ",2);
+      this.customerShortName = '';
+      this.initials.forEach( (element2) => {
+        this.customerShortName = this.customerShortName+element2.charAt(0);
+      });
+    }
   onNoClick(): void {
     this.dialogRef.close();
   }
