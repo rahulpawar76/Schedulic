@@ -20,7 +20,8 @@ export class AttendeesRegistrationComponent implements OnInit {
 	signUpForm: FormGroup;
 	loginForm: FormGroup;
     dataLoaded: boolean = false;
-    currentUser: any;
+	currentUser: any;
+	adminSignUpData:any;
 
   	constructor(private _formBuilder: FormBuilder,
   		private _snackBar: MatSnackBar,
@@ -76,14 +77,18 @@ export class AttendeesRegistrationComponent implements OnInit {
 			}),
 			catchError(this.handleError)
 			).subscribe((response:any) => {
+				this.adminSignUpData = JSON.stringify(response.response)
+				
+				console.log(this.adminSignUpData);
+				localStorage.setItem('adminData',this.adminSignUpData)
 			  if(response.data == true){
 				this._snackBar.open("Account Succesfully Created", "X", {
 					duration: 2000,
 					verticalPosition: 'top',
 					panelClass : ['green-snackbar']
-					});
+				});
 					this.dataLoaded = false;
-					this.router.navigate(["login"]);
+					this.router.navigate(["admin-select-subscription"]);
 			  }else{
 				this.dataLoaded = false;
 				this._snackBar.open(response.response, "X", {

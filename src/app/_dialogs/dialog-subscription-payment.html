@@ -3,42 +3,64 @@
 
     <div class="modal-content">
         <div class="modal-header">
-            <!-- <p class="heading lead  work-content">Add New Subscription Plan</p> -->
+            <p class="heading lead  work-content">Card Detail</p>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
             <span aria-hidden="true" class="white-text">&times;</span>
             </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body card-form-wrap">
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6 p-3">
-                         <form action="">
-                             <label for="" class="mb-0">Card Holder Name</label>
-                             <input type="text"class="form-control mb-2"/>
+                        <form [formGroup]="cardPaymentForm">
+                            <label for="" class="mb-0">Card Holder Name</label>
+                            <input formControlName="name" type="text" class="form-control mb-2" />
+                            <span class="error-wrap" *ngIf="cardPaymentForm.get('name').dirty || cardPaymentForm.get('name').touched">
+                                <small *ngIf="cardPaymentForm.get('name').hasError('required')" class="error">Name is required.</small>
+                            </span>
 
-                             <label for="" class="mb-0">Card Number</label>
-                             <input type="number"class="form-control mb-2"/>
-
-                             <div class="row">
+                            <label for="" class="mb-0">Card Number</label>
+                            <input formControlName="cardNumber" type="text" class="form-control mb-2" />
+                            <span class="error-wrap" *ngIf="cardPaymentForm.get('cardNumber').dirty || cardPaymentForm.get('cardNumber').touched">
+                                <small *ngIf="cardPaymentForm.get('cardNumber').hasError('required') || (cardPaymentForm.get('cardNumber').hasError('required')) && (cardPaymentForm.get('cardNumber').hasError('maxlength') || cardPaymentForm.get('cardNumber').hasError('minlength'))" class="error">Card Number is required.</small>
+                                <small *ngIf="!cardPaymentForm.get('cardNumber').hasError('pattern') && (cardPaymentForm.get('cardNumber').hasError('maxlength') || cardPaymentForm.get('cardNumber').hasError('minlength'))" class="error">Card Number should be 16 digit.</small>
+                                <small *ngIf="cardPaymentForm.get('cardNumber').hasError('pattern') || (cardPaymentForm.get('cardNumber').hasError('pattern')) && (cardPaymentForm.get('cardNumber').hasError('maxlength') || cardPaymentForm.get('cardNumber').hasError('minlength'))" class="error">Card Number should be numeric.</small>
+                            </span>
+                            <div class="row">
                                 <div class="col-12 my-2">
                                     <label for="" class="mb-0">Expiry Date</label>
-                                 </div>
+                                </div>
                                 <div class="col-4">
                                     <label for="" class="mb-0">Month</label>
-                                    <input type="text" class="form-control mb-1"/>
+                                    <input formControlName="cardEXMonth" type="text" class="form-control mb-1" />
+                                    <span class="error-wrap" *ngIf="cardPaymentForm.get('cardEXMonth').dirty || cardPaymentForm.get('cardEXMonth').touched">
+                                        <small *ngIf="cardPaymentForm.get('cardEXMonth').hasError('required') || (cardPaymentForm.get('cardEXMonth').hasError('required')) && (cardPaymentForm.get('cardEXMonth').hasError('maxlength') || cardPaymentForm.get('cardEXMonth').hasError('minlength'))" class="error">Ex. Month is required.</small>
+                                        <small *ngIf="!cardPaymentForm.get('cardEXMonth').hasError('pattern') && (cardPaymentForm.get('cardEXMonth').hasError('maxlength') || cardPaymentForm.get('cardEXMonth').hasError('minlength'))" class="error">Ex. Month should be 2 digit.</small>
+                                        <small *ngIf="cardPaymentForm.get('cardEXMonth').hasError('pattern') || (cardPaymentForm.get('cardEXMonth').hasError('pattern')) && (cardPaymentForm.get('cardEXMonth').hasError('maxlength') || cardPaymentForm.get('cardEXMonth').hasError('minlength'))" class="error">Ex. Month should be numeric.</small>
+                                    </span>
                                 </div>
 
                                 <div class="col-4">
                                     <label for="" class="mb-0">Year</label>
-                                    <input type="text" class="form-control mb-1"/>
+                                    <input formControlName="cardEXYear" type="text" class="form-control mb-1" />
+                                    <span class="error-wrap" *ngIf="cardPaymentForm.get('cardEXYear').dirty || cardPaymentForm.get('cardEXYear').touched">
+                                        <small *ngIf="cardPaymentForm.get('cardEXYear').hasError('required') || (cardPaymentForm.get('cardEXYear').hasError('required')) && (cardPaymentForm.get('cardEXYear').hasError('maxlength') || cardPaymentForm.get('cardEXYear').hasError('minlength'))" class="error">Ex. Year is required.</small>
+                                        <small *ngIf="!cardPaymentForm.get('cardEXYear').hasError('pattern') && (cardPaymentForm.get('cardEXYear').hasError('maxlength') || cardPaymentForm.get('cardEXYear').hasError('minlength'))" class="error">Ex. Year should be 2 digit.</small>
+                                        <small *ngIf="cardPaymentForm.get('cardEXYear').hasError('pattern') || (cardPaymentForm.get('cardEXYear').hasError('pattern')) && (cardPaymentForm.get('cardEXYear').hasError('maxlength') || cardPaymentForm.get('cardEXYear').hasError('minlength'))" class="error">Ex. Year should be numeric.</small>
+                                    </span>
                                 </div>
 
                                 <div class="col-4">
                                     <label for="" class="mb-0">CVV</label>
-                                    <input type="text" class="form-control mb-1"/>
+                                    <input formControlName="cardCVV" type="text" class="form-control mb-1" />
+                                    <span class="error-wrap" *ngIf="cardPaymentForm.get('cardCVV').dirty || cardPaymentForm.get('cardCVV').touched">
+                                        <small *ngIf="cardPaymentForm.get('cardCVV').hasError('required') || (cardPaymentForm.get('cardCVV').hasError('required')) && (cardPaymentForm.get('cardCVV').hasError('cardCVV') || cardPaymentForm.get('cardCVV').hasError('cardCVV'))" class="error">CVV is required.</small>
+                                        <small *ngIf="!cardPaymentForm.get('cardCVV').hasError('pattern') && (cardPaymentForm.get('cardCVV').hasError('maxlength') || cardPaymentForm.get('cardCVV').hasError('minlength'))" class="error">CVV should be 3 digit.</small>
+                                        <small *ngIf="cardPaymentForm.get('cardCVV').hasError('pattern') || (cardPaymentForm.get('cardCVV').hasError('pattern')) && (cardPaymentForm.get('cardCVV').hasError('maxlength') || cardPaymentForm.get('cardCVV').hasError('minlength'))" class="error">CVV should be numeric.</small>
+                                    </span>
                                 </div>
-                             </div>
-                         </form>
+                            </div>
+                        </form>
                     </div>
                     <div class="col-6 p-5">
                         <img class="w-100" src="../../../assets/images/ATMCard.png">

@@ -1,9 +1,10 @@
-.subscription-title{
+.subscription-title {
     font-size: 35px;
 }
-.plan-content{
+
+.plan-content {
     width: 70%;
-    height:70%;
+    height: 70%;
     position: absolute;
     top: 70px;
     bottom: 0;
@@ -11,9 +12,21 @@
     right: 0;
     margin: auto;
 }
-.plan-name{
+
+.plan-name {
     font-size: 24px;
 }
-.plan-cost .cost{
+
+.plan-cost .cost {
     font-size: 50px;
+}
+
+::ng-deep .card-form-wrap {
+    .error-wrap {
+        display: flex;
+        margin-top: -17px;
+    }
+    input {
+        margin-bottom: 17px !important;
+    }
 }

@@ -23,17 +23,59 @@ export interface DialogData {
 })
 export class SubscriptionComponent implements OnInit {
 
+  planList:any;
+  adminData : any;
+
   constructor(
-    
+    private http: HttpClient,
+    private _snackBar: MatSnackBar,
     public dialog: MatDialog,
-  ) { }
+  ) {
+    this.adminData = JSON.parse(localStorage.getItem('adminData'));
+    this.getSubscriptionPlans();
+   }
+
+  private handleError(error: HttpErrorResponse) {
+    console.log(error);
+    return throwError('Error! something went wrong.');
+  }
+
 
   ngOnInit() {
   }
 
-  fnPaymentNow() {
+  getSubscriptionPlans(){
+    alert();
+    let requestObject = {
+
+    }
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'admin-id': this.adminData.user_id,
+      "api-token": this.adminData.user_id.token
+    });
+    alert();
+    this.http.post(`${environment.apiUrl}/plan-list`,requestObject,{headers:headers}).pipe(
+    map((res) => {
+        return res;
+    }),
+    catchError(this.handleError)
+    ).subscribe((response:any) => {
+  if (response.data == true) {
+        this.planList = response.response
+        console.log(this.planList)
+    }
+    else if(response.data == false){
+    }
+    },(err) =>{
+        console.log(err)
+    });
+}
+
+  fnPaymentNow(planCode) {
     const dialogRef = this.dialog.open(DialogSubscriptionCardForm, {
       width: '800px',
+      data: {planCode :planCode}
       
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -47,10 +89,11 @@ export class SubscriptionComponent implements OnInit {
   providers: [DatePipe]
 })
 export class DialogSubscriptionCardForm {
+  isLoaderAdmin:boolean = false;
   cardForm:FormGroup
   onlynumeric = /^-?(0|[1-9]\d*)?$/
- 
-
+  planCode:any;
+  cardPaymentForm:FormGroup;
   
   constructor(
     public dialogRef: MatDialogRef<DialogSubscriptionCardForm>,
@@ -58,14 +101,21 @@ export class DialogSubscriptionCardForm {
     private http: HttpClient,
     private _snackBar: MatSnackBar,
     private authenticationService:AuthenticationService,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-     
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.planCode = this.data.planCode
     }
     onNoClick(): void {
       this.dialogRef.close();
+      
     }
 
     ngOnInit() {
-      
+      this.cardPaymentForm = this._formBuilder.group({
+        name: ['', Validators.required],
+        cardNumber: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.maxLength(16),Validators.minLength(16)]],
+        cardEXMonth: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.maxLength(2),Validators.minLength(2)]],
+        cardEXYear: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.maxLength(4),Validators.minLength(4)]],
+        cardCVV: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.maxLength(3),Validators.minLength(3)]],
+      });
     }
   }

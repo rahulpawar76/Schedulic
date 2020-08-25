@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./my-transactions.component.scss']
 })
 export class MyTransactionsComponent implements OnInit {
-
+  isLoaderAdmin:boolean = false;
   constructor() { }
 
   ngOnInit() {
