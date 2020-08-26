@@ -53,14 +53,13 @@ export class SubscriptionComponent implements OnInit {
     }
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'admin-id': this.adminData.user_id,
-      "api-token": this.adminData.token
+      'admin-id':   JSON.stringify(this.adminData.user_id),
+      "api-token": JSON.stringify(this.adminData.token)
     });
     console.log(headers)
     this.CommonService.getSubscriptionPlans(requestObject,headers).subscribe((response:any) => {
       if(response.data == true){
       this.planList = response.response
-      console.log(this.planList)
     }
     else if(response.data == false){
     }

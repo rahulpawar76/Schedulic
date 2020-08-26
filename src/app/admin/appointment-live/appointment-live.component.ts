@@ -1022,7 +1022,7 @@ export class AppointmentLiveComponent implements OnInit {
 
     if(this.pendingBillingOrdeTotal==0){
       this.selectedBillCustomer = null;
-      this.selectedBillCustomerData = []
+      this.selectedBillCustomerData = [];
     }
   }
 
@@ -1079,6 +1079,7 @@ export class AppointmentLiveComponent implements OnInit {
 
         this.pendingBillingOrdeTotal = 0;
         this.selectedBillCustomer = null;
+        this.selectedBillCustomerData = [];
 
       } else {
 
