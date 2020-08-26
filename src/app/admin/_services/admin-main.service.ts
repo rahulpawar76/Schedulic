@@ -649,6 +649,36 @@ export class AdminService {
         catchError(this.handleError));
     }
 
+    outdoorOrders(requestObject){
+        
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
+        });
+        return this.http.post(`${environment.apiUrl}/get-pos-ontheway-billing`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
+    OrderUpdateStatus(requestObject){
+        
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
+        });
+        return this.http.post(`${environment.apiUrl}/admin-booking-single-update`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
     // live pending appointments
 
     getPendingAppointments(search,URL){

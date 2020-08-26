@@ -13,6 +13,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { AppComponent } from '@app/app.component';
 import { AuthenticationService } from '@app/_services';
 import { CommonService } from '../../_services'
+//import {ILatLng} from '../../_services/directions-map.directive';
 
 export interface DialogData {
   animal: string;
@@ -124,8 +125,11 @@ export class AppointmentLiveComponent implements OnInit {
   selectedBillCustomer:any=null;
   pendingBillingOrdeTotal = 0;
   selectedBillCustomerData:any=[];
+  outdoorOrdersArr:any = [];
+  
+  
 
-    constructor(
+  constructor(
     private AdminService: AdminService,
     private datePipe: DatePipe,
     public dialog: MatDialog,
@@ -135,8 +139,8 @@ export class AppointmentLiveComponent implements OnInit {
     public router: Router,
     private _snackBar: MatSnackBar,
   ) { 
-    
-    localStorage.setItem('isBusiness', 'true');    
+
+  localStorage.setItem('isBusiness', 'true');    
     localStorage.setItem('isPOS', 'true');
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     //this.currentUser = this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x )
@@ -147,6 +151,7 @@ export class AppointmentLiveComponent implements OnInit {
     });
     this.fnWatinglist();
     this.fnPendingBilling();
+    this.fnOutdoorOrders();
 
   }
 
@@ -515,12 +520,11 @@ export class AppointmentLiveComponent implements OnInit {
   // }
 
   
-  fnOpenOnTheWayDetails(){
-    
+  fnOpenOnTheWayDetails(val){
+
     const dialogRef = this.dialog.open(OnTheWayAppointmentDetailsDialog, {
       height: '700px',
-      //data: {animal: this.animal}
-      //data :{fulldata : this.onTheWayAppointments[index]}
+      data :{fulldata : val}
      });
       dialogRef.afterClosed().subscribe(result => {
        this.animal = result;
@@ -1093,7 +1097,86 @@ export class AppointmentLiveComponent implements OnInit {
     });
   
   }
+   
+  fnOutdoorOrders(){
 
+    let requestObject = {
+      "business_id": localStorage.getItem('business_id'),
+    };
+
+    this.AdminService.outdoorOrders(requestObject).subscribe((response: any) => {
+      if (response.data == true) {
+
+        this.outdoorOrdersArr = response.response;
+        this.isLoaderAdmin = false;
+
+      } else {
+
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+        });
+
+        this.isLoaderAdmin = false;
+
+      }
+    });
+
+  }
+
+  fnOrderUpdateStatus(status,order_item_id,type){
+
+    var new_status = '';
+    console.log(type);
+    if(type=='in_store'){
+      
+      if(status=='AC'){
+        new_status='C';
+      }
+
+    }
+
+    if(type=='out_store'){
+      if(status=='AC'){
+        new_status='OW';
+      }else if(status=='OW'){
+        new_status='C';
+      }else{
+        return false;
+      }
+
+      
+
+    }
+
+    let requestObject = {
+      "order_item_id": order_item_id,
+      'status' : new_status
+    };
+
+    console.log(requestObject);
+
+    this.AdminService.OrderUpdateStatus(requestObject).subscribe((response: any) => {
+      if (response.data == true) {
+
+        this.isLoaderAdmin = false;
+        this.fnOutdoorOrders();
+
+      } else {
+
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+        });
+
+        this.isLoaderAdmin = false;
+
+      }
+    });
+
+  }
 }
 
 
@@ -1223,8 +1306,8 @@ constructor(
   private datePipe: DatePipe,
   public dialog: MatDialog,
   @Inject(MAT_DIALOG_DATA) public data: any) {
+    console.log(this.data);
     this.detailsData =  this.data.fulldata;
-    console.log(this.detailsData);
     this.fnGetSettings();
     this.fnGetActivityLog(this.detailsData.id);
     this.fnGetStaff(this.detailsData.booking_date,this.detailsData.booking_time,this.detailsData.service_id,this.detailsData.postal_code);
@@ -1789,10 +1872,13 @@ export class OnTheWayAppointmentDetailsDialog {
     private datePipe: DatePipe,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-       this.detailsData =  this.data.fulldata;
-       console.log(this.detailsData);
-       this.fnGetActivityLog(this.detailsData.id);
-       this.fnGetSettings();
+     
+    this.detailsData =  this.data.fulldata;
+    console.log(this.data);
+    console.log(this.detailsData);
+
+    this.fnGetActivityLog(this.detailsData.id);
+    this.fnGetSettings();
     this.fnGetStaff(this.detailsData.booking_date,this.detailsData.booking_time,this.detailsData.service_id,this.detailsData.postal_code);
     var todayDateTime = new Date();
     this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
@@ -1823,7 +1909,6 @@ export class OnTheWayAppointmentDetailsDialog {
   fnGetActivityLog(orderItemId){
 
     this.appointmentDetails.bookingNotes = this.detailsData.booking_notes;
-
 
     let requestObject = {
       "order_item_id":orderItemId
