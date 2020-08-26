@@ -66,6 +66,13 @@ export class CommonService {
     }),
     catchError(this.handleError));
   }
+  getSubscriptionPlans(requestObject,headers){
+    return this.http.post(`${environment.apiUrl}/update-notification`,requestObject,{headers:headers}).pipe(
+    map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
 
 
 

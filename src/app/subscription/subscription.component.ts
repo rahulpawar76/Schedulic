@@ -8,6 +8,7 @@ import { Observable, throwError, from } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { DatePipe} from '@angular/common';
 import { AuthenticationService } from '@app/_services';
+import { CommonService } from '../_services/common.service'
 import { AppComponent } from '@app/app.component'
 import { environment } from '@environments/environment';
 
@@ -30,22 +31,22 @@ export class SubscriptionComponent implements OnInit {
     private http: HttpClient,
     private _snackBar: MatSnackBar,
     public dialog: MatDialog,
+    private CommonService: CommonService,
   ) {
     this.adminData = JSON.parse(localStorage.getItem('adminData'));
     this.getSubscriptionPlans();
    }
 
-  private handleError(error: HttpErrorResponse) {
-    console.log(error);
-    return throwError('Error! something went wrong.');
-  }
+  // private handleError(error: HttpErrorResponse) {
+  //   console.log(error);
+  //   return throwError('Error! something went wrong.');
+  // }
 
 
   ngOnInit() {
   }
 
   getSubscriptionPlans(){
-    alert();
     let requestObject = {
 
     }
@@ -54,22 +55,14 @@ export class SubscriptionComponent implements OnInit {
       'admin-id': this.adminData.user_id,
       "api-token": this.adminData.user_id.token
     });
-    alert();
-    this.http.post(`${environment.apiUrl}/plan-list`,requestObject,{headers:headers}).pipe(
-    map((res) => {
-        return res;
-    }),
-    catchError(this.handleError)
-    ).subscribe((response:any) => {
-  if (response.data == true) {
-        this.planList = response.response
-        console.log(this.planList)
+    this.CommonService.getSubscriptionPlans(requestObject,headers).subscribe((response:any) => {
+      if(response.data == true){
+      this.planList = response.response
+      console.log(this.planList)
     }
     else if(response.data == false){
     }
-    },(err) =>{
-        console.log(err)
-    });
+  });
 }
 
   fnPaymentNow(planCode) {
@@ -118,4 +111,6 @@ export class DialogSubscriptionCardForm {
         cardCVV: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.maxLength(3),Validators.minLength(3)]],
       });
     }
+
+    
   }
