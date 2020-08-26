@@ -34,6 +34,7 @@ export class SubscriptionComponent implements OnInit {
     private CommonService: CommonService,
   ) {
     this.adminData = JSON.parse(localStorage.getItem('adminData'));
+    console.log(this.adminData)
     this.getSubscriptionPlans();
    }
 
@@ -53,8 +54,9 @@ export class SubscriptionComponent implements OnInit {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'admin-id': this.adminData.user_id,
-      "api-token": this.adminData.user_id.token
+      "api-token": this.adminData.token
     });
+    console.log(headers)
     this.CommonService.getSubscriptionPlans(requestObject,headers).subscribe((response:any) => {
       if(response.data == true){
       this.planList = response.response
