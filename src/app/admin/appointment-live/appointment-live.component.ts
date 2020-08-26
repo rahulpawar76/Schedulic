@@ -988,7 +988,7 @@ export class AppointmentLiveComponent implements OnInit {
 
   }
 
-  fnSelect(index,customer_id,order_item_id){
+  fnSelect(index,customer_id){
     
 
     if(this.selectedBillCustomer==null){
@@ -1012,12 +1012,18 @@ export class AppointmentLiveComponent implements OnInit {
         this.selectedBillCustomerData = this.pendingBillingData[index];
       }
     }
+
     this.pendingBillingOrdeTotal = 0;
     this.pendingBillingData.forEach(element => {
       if(element.is_selected==true){
         this.pendingBillingOrdeTotal = this.pendingBillingOrdeTotal + parseInt(element.orders.subtotal);
       }
     });
+
+    if(this.pendingBillingOrdeTotal==0){
+      this.selectedBillCustomer = null;
+      this.selectedBillCustomerData = []
+    }
   }
 
   fnPaymentBillingMode(billing_type){
@@ -1070,8 +1076,10 @@ export class AppointmentLiveComponent implements OnInit {
         this.pendingBillingData.forEach(element => {
           element.is_selected=false;
         });
+
         this.pendingBillingOrdeTotal = 0;
-        
+        this.selectedBillCustomer = null;
+
       } else {
 
         this._snackBar.open(response.response, "X", {
@@ -1082,7 +1090,6 @@ export class AppointmentLiveComponent implements OnInit {
         this.isLoaderAdmin = false;
       }
     });
-
   
   }
 

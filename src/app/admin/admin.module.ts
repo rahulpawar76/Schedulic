@@ -119,3 +119,4 @@ import { SupportComponent } from './support/support.component';
     DialogCustomerImageUpload,DialogCouponDetails,CustomerAppointmentDetailsDialog,RescheduleAppointment,DialogInvoiceDialog],
 })
 export class AdminModule { }
+

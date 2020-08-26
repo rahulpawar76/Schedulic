@@ -80,11 +80,11 @@
                                         <div class="left-side">
                                             <label>{{val.name}}</label>
                                             <p>{{val.status}}</p>
-                                            <span class="time">From 6.30 pm</span>
+                                            <span class="time">From {{val.from}}</span>
                                         </div>
                                         <div class="right-side">
                                             <p>Free At</p>
-                                            <span class="time">7.30 pm</span>
+                                            <span class="time">{{val.free_at?val.free_at:'-'}}</span>
                                             <button mat-button class="assign-btn" (click)="fnAssignStaff(val.id,i)">Assign</button>
                                         </div>
                                     </div>
