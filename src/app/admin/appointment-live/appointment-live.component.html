@@ -396,7 +396,53 @@
                         <input type="text" placeholder="Search by Order ID">
                     </div>
                     <div class="order-listing">
-                        <div class="single-order">
+                        <div class="single-order" *ngFor="let val of outdoorOrdersArr;let i=index">
+                          
+                            <label class="order-id">Order ID :  {{val.order_id}}<small></small></label>
+                            <div class="location-container">
+                                <div class="pickup-point">
+                                    <img src="/assets/images/admin/delivery.png">
+                                    <p>Delivery Boy Live Location</p>
+                                </div>
+                                <div class="drop-point">
+                                    <mat-icon>location_on</mat-icon>
+                                    <p>{{val.orders_info.booking_address+', '+val.orders_info.booking_city+' '+val.orders_info.booking_state+' '+val.orders_info.booking_zipcode}}</p>
+                                </div>
+                            </div>
+                            <div class="action-btn">
+                                <button (click)="fnOpenOnTheWayDetails(val)" mat-button class="detail-btn">Appointment Details</button>
+                                <button mat-button *ngIf="val.service.service_sub_type!='in_store'"
+                                    class="{{val.order_status=='AC'?'otw-btn':'ws-btn'}}"
+                                    (click)="fnOrderUpdateStatus(val.order_status,val.order_id,'out_store')">
+                                       {{val.order_status=="AC"?"On The Way":val.order_status=="C"?'Completed':"Work Started"}}
+                                </button>
+                                <button mat-button class="ws-btn" (click)="fnOrderUpdateStatus(val.order_status,val.order_id,'in_store')" 
+                                *ngIf="val.service.service_sub_type=='in_store'">
+                                    {{val.order_status=="AC"?"Work Started ":"Completed"}} 
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- <div class="single-order">
+                            <label class="order-id">Order ID : 1234567890 <small>#1</small></label>
+                            <div class="location-container">
+                                 <div class="pickup-point">
+                                    <img src="/assets/images/admin/delivery.png">
+                                    <p>Delivery Boy Live Location</p>
+                                </div> 
+                                <div class="drop-point">
+                                    <mat-icon>location_on</mat-icon>
+                                    <p>Digfeer Road, Mogadishu, Somalia, Lorem</p>
+                                </div>
+                            </div>
+                            <div class="action-btn">
+                                <button (click)="fnOpenOnTheWayDetails()" mat-button class="detail-btn">Appointment Details</button>
+                                <button mat-button class="otw-btn">On The Way</button>
+                            </div>
+                        </div> -->
+
+
+                        <!-- <div class="single-order">
                             <label class="order-id">Order ID : 1234567890 <small>#1</small></label>
                             <div class="location-container">
                                 <div class="pickup-point">
@@ -416,10 +462,10 @@
                         <div class="single-order">
                             <label class="order-id">Order ID : 1234567890 <small>#1</small></label>
                             <div class="location-container">
-                                <!-- <div class="pickup-point">
+                                 <div class="pickup-point">
                                     <img src="/assets/images/admin/delivery.png">
                                     <p>Delivery Boy Live Location</p>
-                                </div> -->
+                                </div> 
                                 <div class="drop-point">
                                     <mat-icon>location_on</mat-icon>
                                     <p>Digfeer Road, Mogadishu, Somalia, Lorem</p>
@@ -429,9 +475,13 @@
                                 <button (click)="fnOpenOnTheWayDetails()" mat-button class="detail-btn">Appointment Details</button>
                                 <button mat-button class="otw-btn">On The Way</button>
                             </div>
-                        </div>
+                        </div> -->
+
                     </div>
                 </div>
+
+                <!-- <iframe   src="https://www.google.com/maps/dir/?api=1&key=AIzaSyCPJpjD-qcR_yIxJnS8maR5W9KB0E3EzYI&origin=21.693121,71.5574959&destination=21.693121,71.5072847&travelmode=driving" style="width: 80%;"></iframe>
+                 -->
             </div>
 
         </mat-tab>
