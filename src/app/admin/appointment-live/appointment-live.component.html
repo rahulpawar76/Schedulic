@@ -413,10 +413,10 @@
                                 <button (click)="fnOpenOnTheWayDetails(val)" mat-button class="detail-btn">Appointment Details</button>
                                 <button mat-button *ngIf="val.service.service_sub_type!='in_store'"
                                     class="{{val.order_status=='AC'?'otw-btn':'ws-btn'}}"
-                                    (click)="fnOrderUpdateStatus(val.order_status,val.order_id,'out_store')">
-                                       {{val.order_status=="AC"?"On The Way":val.order_status=="C"?'Completed':"Work Started"}}
+                                    (click)="fnOrderUpdateStatus(val.order_status,val.id,'out_store')">
+                                       {{val.order_status=="AC"?"On The Way":val.order_status=="AC"?'Completed':"Work Started"}} 
                                 </button>
-                                <button mat-button class="ws-btn" (click)="fnOrderUpdateStatus(val.order_status,val.order_id,'in_store')" 
+                                <button mat-button class="ws-btn" (click)="fnOrderUpdateStatus(val.order_status,val.id,'in_store')" 
                                 *ngIf="val.service.service_sub_type=='in_store'">
                                     {{val.order_status=="AC"?"Work Started ":"Completed"}} 
                                 </button>

@@ -47,7 +47,6 @@ import { DialogCouponDetails } from './discount-coupon/discount-coupon.component
 
 import { CustomerAppointmentDetailsDialog } from './customers/customers.component';
 import { SupportComponent } from './support/support.component';
-import { AgmCoreModule } from '@agm/core';
 
 
 

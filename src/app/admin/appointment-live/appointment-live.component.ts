@@ -238,7 +238,6 @@ export class AppointmentLiveComponent implements OnInit {
   getPendingAppointments(pendingKeyword){
     this.AdminService.getPendingAppointments(pendingKeyword,this.pendingApiUrl).subscribe((response:any) => {
       if(response.data == true){
-
         this.pendingAppointments = response.response.data;
         
         this.current_page_pending = response.response.current_page;
@@ -1132,7 +1131,7 @@ export class AppointmentLiveComponent implements OnInit {
     if(type=='in_store'){
       
       if(status=='AC'){
-        new_status='C';
+        new_status='CO';
       }
 
     }
@@ -1141,13 +1140,10 @@ export class AppointmentLiveComponent implements OnInit {
       if(status=='AC'){
         new_status='OW';
       }else if(status=='OW'){
-        new_status='C';
+        new_status='CO';
       }else{
         return false;
       }
-
-      
-
     }
 
     let requestObject = {
