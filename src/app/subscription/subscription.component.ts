@@ -54,22 +54,27 @@ export class SubscriptionComponent implements OnInit {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'admin-id':   JSON.stringify(this.adminData.user_id),
-      "api-token": JSON.stringify(this.adminData.token)
+      "api-token": this.adminData.token,
     });
     console.log(headers)
     this.CommonService.getSubscriptionPlans(requestObject,headers).subscribe((response:any) => {
       if(response.data == true){
       this.planList = response.response
     }
-    else if(response.data == false){
+    else if(response.data == false && response.response !== 'api token or userid invaild'){
+      this._snackBar.open(response.response, "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass: ['red-snackbar']
+        });
     }
   });
 }
 
-  fnPaymentNow(planCode) {
+  fnPaymentNow(planId) {
     const dialogRef = this.dialog.open(DialogSubscriptionCardForm, {
       width: '800px',
-      data: {planCode :planCode}
+      data: {planId :planId}
       
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -86,7 +91,8 @@ export class DialogSubscriptionCardForm {
   isLoaderAdmin:boolean = false;
   cardForm:FormGroup
   onlynumeric = /^-?(0|[1-9]\d*)?$/
-  planCode:any;
+  planId:any;
+  adminData:any;
   cardPaymentForm:FormGroup;
   
   constructor(
@@ -94,9 +100,12 @@ export class DialogSubscriptionCardForm {
     private _formBuilder:FormBuilder,
     private http: HttpClient,
     private _snackBar: MatSnackBar,
+    private CommonService: CommonService,
     private authenticationService:AuthenticationService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      this.planCode = this.data.planCode
+      this.planId = this.data.planId
+      
+    this.adminData = JSON.parse(localStorage.getItem('adminData'));
     }
     onNoClick(): void {
       this.dialogRef.close();
@@ -112,6 +121,39 @@ export class DialogSubscriptionCardForm {
         cardCVV: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.maxLength(3),Validators.minLength(3)]],
       });
     }
+
+    fnPayNow(){
+      let requestObject = {
+        'user_id' : JSON.stringify(this.adminData.user_id),
+        'card_name' : this.cardPaymentForm.get('name').value,
+        'card_number' : this.cardPaymentForm.get('cardNumber').value,
+        'exp_month' : this.cardPaymentForm.get('cardEXMonth').value,
+        'exp_year' : this.cardPaymentForm.get('cardEXYear').value,
+        'cvc_number' : this.cardPaymentForm.get('cardCVV').value,
+        'plan_id' :this.planId
+      }
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'admin-id':   JSON.stringify(this.adminData.user_id),
+        "api-token": this.adminData.token,
+      });
+      this.CommonService.getSubscriptionPayment(requestObject,headers).subscribe((response:any) => {
+        if(response.data == true){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass: ['green-snackbar']
+            });
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+          });
+      }
+    });
+  }
 
     
   }
