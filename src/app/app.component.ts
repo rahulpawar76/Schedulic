@@ -734,45 +734,51 @@ export class AppComponent implements AfterViewInit {
   getNotificationCount(business_id){
     let headers;
     let userId;
-    if (this.currentUser.user_type == "A") {
-      this.userType = "admin";
-      userId = business_id;
-      headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'admin-id': JSON.stringify(this.currentUser.user_id),
-        "api-token": this.currentUser.token
-      });
-    } else if (this.currentUser.user_type == "SM") {
-      this.userType = "staff";
-      userId = JSON.stringify(this.currentUser.user_id);
-      headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'staff-id': JSON.stringify(this.currentUser.user_id),
-        "api-token": this.currentUser.token
-      });
-    } else if (this.currentUser.user_type == "C") {
-      this.userType = "customer";
-      userId = JSON.stringify(this.currentUser.user_id);
-      headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'customer-id': JSON.stringify(this.currentUser.user_id),
-        "api-token": this.currentUser.token
-      });
-    }
-    let requestObject = {
-      "user_id": userId,
-      "user_type": this.userType
-    };
-    this.CommonService.openNotificationDialog(requestObject, headers).subscribe((response: any) => {
-      if (response.data == true) {
-        this.notificationData = response.response
-        this.notificationCount = this.notificationData.length;
-      }else if(response.data == false){
-        this.notificationCount = 0
+    if(this.currentUser){
+      if (this.currentUser.user_type == "A") {
+        this.userType = "admin";
+        userId = business_id;
+        headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'admin-id': JSON.stringify(this.currentUser.user_id),
+          "api-token": this.currentUser.token
+        });
+      } else if (this.currentUser.user_type == "SM") {
+        this.userType = "staff";
+        userId = JSON.stringify(this.currentUser.user_id);
+        headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'staff-id': JSON.stringify(this.currentUser.user_id),
+          "api-token": this.currentUser.token
+        });
+      } else if (this.currentUser.user_type == "C") {
+        this.userType = "customer";
+        userId = JSON.stringify(this.currentUser.user_id);
+        headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'customer-id': JSON.stringify(this.currentUser.user_id),
+          "api-token": this.currentUser.token
+        });
       }
-
-      this.isLoaderAdmin = false;
-    })
+      let requestObject = {
+        "user_id": userId,
+        "user_type": this.userType
+      };
+      this.CommonService.openNotificationDialog(requestObject, headers).subscribe((response: any) => {
+        if (response.data == true) {
+          this.notificationData = response.response
+          this.notificationCount = this.notificationData.length;
+        }else if(response.data == false){
+          this.notificationCount = 0
+        }
+  
+        this.isLoaderAdmin = false;
+      })
+    }else{
+      
+    this.router.navigate(['/login']); 
+    }
+    
 
   }
   openNotificationDialog() {

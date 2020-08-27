@@ -4,9 +4,11 @@ import { Observable, throwError, from } from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { environment } from '@environments/environment';
+import { Router, RouterEvent, RouterOutlet } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { AuthenticationService } from '../_services';
+import {  DialogReAuthentication  } from './../app.component';
 export interface DialogData {
   animal: string;
   name: string;
@@ -19,11 +21,14 @@ export class CommonService {
   token : any;
   currentUser:any;
   animal: any;
+  dialogRef:any;
 
   constructor(
     private http: HttpClient,
     private _snackBar: MatSnackBar,
     public dialog: MatDialog,
+    public router: Router,
+    private authenticationService:AuthenticationService,
     ) {
       
     //this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
@@ -42,9 +47,31 @@ export class CommonService {
         
   }
 
- 
+  checkAuthentication(){
+    let requestObject = {
+      "user_type": this.currentUser.user_type,
+      "user_id" : this.currentUser.user_id,
+      "token" : this.currentUser.token
+    };
+    this.http.post(`${environment.apiUrl}/check-token`,requestObject).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(this.handleError)
+    ).subscribe((response:any) => {
+      if (response.data == true) {
+      }
+      else if(response.data == false){
+        this.reAuthenticateUser();
+      }
+    },(err) =>{
+        console.log(err)
+    });
+
+  }
 
   openNotificationDialog(requestObject,headers){
+    this.checkAuthentication();
     return this.http.post(`${environment.apiUrl}/get-notification`,requestObject,{headers:headers}).pipe(
     map((res) => {
         return res;
@@ -53,6 +80,7 @@ export class CommonService {
   }
 
   staffAvaibility(requestObject,headers){
+    this.checkAuthentication();
     return this.http.post(`${environment.apiUrl}/staff-status-update`,requestObject,{headers:headers}).pipe(
     map((res) => {
         return res;
@@ -67,7 +95,16 @@ export class CommonService {
     catchError(this.handleError));
   }
   getSubscriptionPlans(requestObject,headers){
+    this.checkAuthentication();
     return this.http.post(`${environment.apiUrl}/plan-list`,requestObject,{headers:headers}).pipe(
+    map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+  getSubscriptionPayment(requestObject,headers){
+    this.checkAuthentication();
+    return this.http.post(`${environment.apiUrl}/admin-card-details`,requestObject,{headers:headers}).pipe(
     map((res) => {
         return res;
     }),
@@ -75,5 +112,23 @@ export class CommonService {
   }
 
 
+
+  reAuthenticateUser() {
+    if (this.dialogRef) return;
+    this.dialogRef = this.dialog.open(DialogReAuthentication, {
+      width: '500px',
+
+    });
+
+    this.dialogRef.afterClosed().subscribe(result => {
+        if(result){
+            this.currentUser = result
+            console.log(this.currentUser)
+        }else{
+            this.authenticationService.logout();
+            this.router.navigate(['/login']);
+        }
+    });
+  }
 
 }
