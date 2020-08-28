@@ -992,3 +992,155 @@ input:focus {
         margin-bottom: 0;
     }
 }
+
+.theme-main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#theme_2 {
+    .single-service {
+        height: auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 15px 10px;
+        box-shadow: 0px 3px 6px #00000014;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        .cat-img-main {
+            float: left;
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            margin-right: 20px;
+            overflow: hidden;
+            border: 0.5px solid #707070;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .service-title {
+            width: calc(100% - 110px);
+            text-align: left;
+            color: $text-color;
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 0;
+        }
+        mat-icon {
+            color: #808080;
+            font-size: 24px;
+        }
+    }
+    #service_list {
+        .service-list {
+            .single-service-label {
+                .single-service {
+                    background: #FFFFFF 0% 0% no-repeat padding-box;
+                    box-shadow: 0px 3px 6px #00000014;
+                    border: 1px solid #FF2727;
+                    border-radius: 10px;
+                    height: 200px;
+                    overflow: hidden;
+                    width: 100%;
+                    padding: 0;
+                    display: flex;
+                    align-items: flex-start;
+                    transition: all 0.3s;
+                    .service-img-main {
+                        width: 100%;
+                        height: 100px;
+                        margin: 0;
+                        box-shadow: none;
+                        border-radius: 0;
+                        img {
+                            height: 100%;
+                            width: 100%;
+                        }
+                    }
+                    .title-price {
+                        width: 100%;
+                        padding: 5px 10px;
+                        display: flex;
+                        flex-wrap: wrap;
+                        .service-title {
+                            text-align: left;
+                            color: $text-color;
+                            margin-bottom: 0;
+                            width: 50%;
+                            float: left;
+                            font-size: 14px;
+                            font-weight: 500;
+                        }
+                        .service-price {
+                            text-align: right;
+                            color: $text-color;
+                            margin-bottom: 0;
+                            width: 50%;
+                            float: left;
+                            font-size: 14px;
+                            font-weight: 500;
+                        }
+                        .service-des {
+                            font-size: 10px;
+                            color: #2C2C2C;
+                            line-height: 1.6;
+                            margin-bottom: 0;
+                            width: 100%;
+                            display: flex;
+                            margin: 10px 0;
+                        }
+                    }
+                }
+                &:hover .hover-overlay {
+                    transform: scale(1);
+                    transition: all 0.3s;
+                }
+                .hover-overlay {
+                    background-color: #000000ad;
+                    width: calc(100% - 30px);
+                    height: 200px;
+                    overflow: hidden;
+                    display: flex;
+                    transform: scale(0);
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    margin: 10px 15px;
+                    border-radius: 10px;
+                    justify-content: center;
+                    align-items: center;
+                    .btns-wrap {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: center;
+                        .add-to-cart-btn {
+                            width: 130px;
+                            height: 50px;
+                            border-radius: 100px;
+                            background-color: #fff;
+                            color: #000;
+                            font-size: 16px;
+                            text-align: center;
+                            margin-top: 15px;
+                        }
+                        .book-now-btn {
+                            width: 130px;
+                            height: 50px;
+                            border-radius: 100px;
+                            background-color: #FF2727;
+                            color: #fff;
+                            font-size: 16px;
+                            text-align: center;
+                            margin-top: 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

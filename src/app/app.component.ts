@@ -775,7 +775,7 @@ export class AppComponent implements AfterViewInit {
         this.isLoaderAdmin = false;
       })
     }else{
-      
+      this.logout();
     this.router.navigate(['/login']); 
     }
     
