@@ -31,7 +31,7 @@ export class CommonService {
     private authenticationService:AuthenticationService,
     ) {
       
-    //this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
+    this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
    
       localStorage.setItem('isBusiness', 'false');
       if(localStorage.getItem('business_id')){
