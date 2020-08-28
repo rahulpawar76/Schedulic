@@ -224,19 +224,18 @@
                             <mat-list-item role="listitem" class="matlist pointer menuitem logo">
                                 <div (click)="fnClickLogo('superAdmin')" class="logo"><img src="assets/images/admin/admin-logo-orange.png"></div>
                             </mat-list-item>
-                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'myAdmins' }" class="{{pageHeading=='myAdmins'?'active':''}}" (click)="myAdminsNav(); fnPostUrl('myAdmins');">
+                            <mat-list-item  class="{{pageHeading=='My Admins'?'active':''}}" role="listitem" (click)="myAdminsNav(); fnPostUrl('myAdmins');">
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-user.png"></div>
                             </mat-list-item>
-                            <mat-list-item class="{{pageHeading=='my-subscriptions'?'active':''}}" role="listitem" [ngClass]="{'active': postUrl == 'my-subscriptions' }" (click)="mySubscriptionsNav(); fnPostUrl('my-subscriptions');">
+                            <mat-list-item  class="{{pageHeading=='My Subscriptions'?'active':''}}" role="listitem" (click)="mySubscriptionsNav(); fnPostUrl('my-subscriptions');">
                                 <div class="common-menu"><img style="width:33px" src="/assets/images/admin/subscription.png"></div>
                             </mat-list-item>
-                            <mat-list-item class="{{pageHeading=='my-transactions'?'active':''}}" role="listitem" [ngClass]="{'active': postUrl == 'my-transactions' }" (click)="myTransactionsNav(); fnPostUrl('my-transactions');">
+                            <mat-list-item  class="{{pageHeading=='My Transactions'?'active':''}}" role="listitem"  (click)="myTransactionsNav(); fnPostUrl('my-transactions');">
                                 <div class="common-menu"><img style="width:33px" src="/assets/images/admin/transactions.png"></div>
                             </mat-list-item>
-
                         </div>
                         <div class="bottom_admin_menu">
-                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'super-admin-profile' }" (click)="MySuperAdinProfileNav(); fnPostUrl('super-admin-profile');">
+                            <mat-list-item class="{{pageHeading=='My Profile'?'active':''}}" role="listitem"  (click)="MySuperAdinProfileNav(); fnPostUrl('super-admin-profile');">
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-user-2.png"></div>
                             </mat-list-item>
                         </div>

@@ -31,6 +31,8 @@ export class CommonService {
     private authenticationService:AuthenticationService,
     ) {
       
+      this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      
     //this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
    
       localStorage.setItem('isBusiness', 'false');
