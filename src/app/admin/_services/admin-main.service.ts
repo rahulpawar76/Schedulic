@@ -684,7 +684,7 @@ export class AdminService {
     getPendingAppointments(search,URL){
         this.checkAuthentication();
         let requestObject = {
-            'business_id': this.businessId,
+            'business_id': localStorage.getItem('business_id'),
             'search' : search,
         };
         let headers = new HttpHeaders({
