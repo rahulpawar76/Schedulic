@@ -1143,4 +1143,22 @@ input:focus {
             }
         }
     }
+    .common-footer {
+        .cart-btn {
+            width: 270px !important;
+            height: 40px !important;
+            background: $primary-gradient-color;
+            border-radius: 5px 0 0 0 !important;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 2px 2px 14px -2px #3969fb;
+            position: absolute;
+            bottom: 0 !important;
+            color: $text-bg;
+            z-index: 1;
+            right: 0 !important;
+            margin-top: 0 !important;
+            top: unset !important;
+        }
+    }
 }

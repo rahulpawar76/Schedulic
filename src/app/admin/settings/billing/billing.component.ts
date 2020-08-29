@@ -5,7 +5,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { DatePipe} from '@angular/common';
 import { AuthenticationService } from '@app/_services';
-import { CommonService } from '../_services/common.service'
+import { AdminSettingsService } from '../_services/admin-settings.service';
+
 
 
 export interface DialogData {
@@ -13,48 +14,43 @@ export interface DialogData {
   name: string;
 }
 @Component({
-  selector: 'app-subscription',
-  templateUrl: './subscription.component.html',
-  styleUrls: ['./subscription.component.scss']
+  selector: 'app-billing',
+  templateUrl: './billing.component.html',
+  styleUrls: ['./billing.component.scss']
 })
-export class SubscriptionComponent implements OnInit {
-
+export class BillingComponent implements OnInit {
   planList:any;
-  adminData : any;
-
+  currentUser:any;
+  selectedPlanCode:any;
   constructor(
     private http: HttpClient,
     private _snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private CommonService: CommonService,
-  ) {
-    this.adminData = JSON.parse(localStorage.getItem('adminData'));
-    console.log(this.adminData)
-    this.getSubscriptionPlans();
-   }
-
-  // private handleError(error: HttpErrorResponse) {
-  //   console.log(error);
-  //   return throwError('Error! something went wrong.');
-  // }
-
+    private authenticationService:AuthenticationService,
+    private AdminSettingsService: AdminSettingsService,
+  ) { 
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.selectedPlanCode = this.currentUser.plan.plan_id
+  }
 
   ngOnInit() {
+    this.getSubscriptionPlans();
   }
 
   getSubscriptionPlans(){
     let requestObject = {
 
     }
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'admin-id':   JSON.stringify(this.adminData.user_id),
-      "api-token": this.adminData.token,
-    });
-    console.log(headers)
-    this.CommonService.getSubscriptionPlans(requestObject,headers).subscribe((response:any) => {
+    this.AdminSettingsService.getSubscriptionPlans(requestObject).subscribe((response:any) => {
       if(response.data == true){
       this.planList = response.response
+      this.planList.forEach( (element) => { 
+        if(element.plan_id===this.selectedPlanCode){
+          element.selected = true;
+        }else{
+          element.selected = false;
+        }
+      });
     }
     else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
@@ -67,7 +63,7 @@ export class SubscriptionComponent implements OnInit {
 }
 
   fnPaymentNow(planId) {
-    const dialogRef = this.dialog.open(DialogSubscriptionCardForm, {
+    const dialogRef = this.dialog.open(DialogAdminSubscriptionCardForm, {
       width: '800px',
       data: {planId :planId}
       
@@ -77,12 +73,13 @@ export class SubscriptionComponent implements OnInit {
   }
 
 }
+
 @Component({
   selector: 'subscription-payment',
-  templateUrl: '../_dialogs/dialog-subscription-payment.html',
+  templateUrl: '../../../_dialogs/dialog-subscription-payment.html',
   providers: [DatePipe]
 })
-export class DialogSubscriptionCardForm {
+export class DialogAdminSubscriptionCardForm {
   isLoaderAdmin:boolean = false;
   cardForm:FormGroup
   onlynumeric = /^-?(0|[1-9]\d*)?$/
@@ -91,12 +88,12 @@ export class DialogSubscriptionCardForm {
   cardPaymentForm:FormGroup;
   
   constructor(
-    public dialogRef: MatDialogRef<DialogSubscriptionCardForm>,
+    public dialogRef: MatDialogRef<DialogAdminSubscriptionCardForm>,
     private _formBuilder:FormBuilder,
     private http: HttpClient,
     private _snackBar: MatSnackBar,
-    private CommonService: CommonService,
     private authenticationService:AuthenticationService,
+    private AdminSettingsService: AdminSettingsService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.planId = this.data.planId
       
@@ -127,12 +124,7 @@ export class DialogSubscriptionCardForm {
         'cvc_number' : this.cardPaymentForm.get('cardCVV').value,
         'plan_id' :this.planId
       }
-      let headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'admin-id':   JSON.stringify(this.adminData.user_id),
-        "api-token": this.adminData.token,
-      });
-      this.CommonService.getSubscriptionPayment(requestObject,headers).subscribe((response:any) => {
+      this.AdminSettingsService.getSubscriptionPayment(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
@@ -152,3 +144,4 @@ export class DialogSubscriptionCardForm {
 
     
   }
+

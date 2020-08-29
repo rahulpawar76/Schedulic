@@ -42,6 +42,7 @@ import { DialogStaffImageUpload } from './staff/staff.component';
 import { DialogCompanyDetailsImageUpload } from './company-details/company-details.component';
 import {DialogDataExampleDialog} from './services/services.component';
 import { DialogPreviewEmailTemp } from './alertsettings/alertsettings.component';
+import { DialogAdminSubscriptionCardForm } from './billing/billing.component';
 import { SharedModule } from '../../shared.module';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -50,6 +51,7 @@ import { DialogStaffViewReview } from './staff/staff.component';
 import { DndDirective } from './direcitves/dnd.directive';
 import { ProgressComponent } from './components/progress/progress.component';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { BillingComponent } from './billing/billing.component';
 
 
 
@@ -81,8 +83,10 @@ enableRipple(true);
     DialogDataExampleDialog,
     DialogStaffViewReview,
     DialogPreviewEmailTemp,
+    DialogAdminSubscriptionCardForm,
     DndDirective,
-    ProgressComponent
+    ProgressComponent,
+    BillingComponent
   ],
   imports: [
       CommonModule,
@@ -105,6 +109,6 @@ enableRipple(true);
     FormsModule
   ],
   bootstrap: [AppearanceComponent],
-   entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax,DialogAddPostalCode,DialogNewCSVPostalCode,DialogAddNewTimeOffBussiness,DialogCategoryImageUpload,DialogSubCategoryImageUpload,DialogServiceImageUpload,DialogStaffImageUpload,DialogCompanyDetailsImageUpload,DialogDataExampleDialog,DialogStaffViewReview,DialogPreviewEmailTemp],
+   entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax,DialogAddPostalCode,DialogNewCSVPostalCode,DialogAddNewTimeOffBussiness,DialogCategoryImageUpload,DialogSubCategoryImageUpload,DialogServiceImageUpload,DialogStaffImageUpload,DialogCompanyDetailsImageUpload,DialogDataExampleDialog,DialogStaffViewReview,DialogPreviewEmailTemp,DialogAdminSubscriptionCardForm],
 })
 export class SettingsModule {}

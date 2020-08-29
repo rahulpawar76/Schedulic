@@ -1177,7 +1177,7 @@
                             </div>
                         </div>
                     </mat-card-title>
-                    <mat-card-content class="p-4 mt-0 mb-2">
+                    <mat-card-content class="p-4 mt-0 mb-3">
                         <div class="row category-list">
                             <label *ngFor="let category of catdata; let i=
                                 index" for="categoty_{{i}}" class="col-lg-12
@@ -1216,7 +1216,7 @@
                             </button> {{selectedcategoryName}}
                         </div>
                     </mat-card-title>
-                    <mat-card-content class="p-4 mt-0 mb-2">
+                    <mat-card-content class="p-4 mt-0 mb-3">
                         <div class="row subcategory-list" *ngIf="subcatdata.length>
                             0">
                             <label *ngFor="let subcategory of subcatdata; let i= index" for="subcategory_{{i}}" class="col-lg-12 col-sm-12 col-12">
@@ -1266,7 +1266,7 @@
                             </button> {{selectedcategoryName}} - Select Service
                         </div>
                     </mat-card-title>
-                    <mat-card-content class="p-4 mt-0 mb-2">
+                    <mat-card-content class="p-4 mt-0 mb-3">
                         <div class="row service-list" *ngIf="serviceData.length>0">
                             <label class="col-lg-3 col-sm-6 col-12 single-service-label" *ngFor="let services of
                             serviceData; let i= index">
@@ -1306,77 +1306,10 @@
                     </mat-card-content>
                 </div>
                 <!-- common footer -->
-                <div class="common-footer" *ngIf="!thankYouScreen &&
-                        (businessDetail && businessDetail.private_status == 'N')
-                        &&
-                        (businessDetail && businessDetail.status == 'E')">
-                    <div class="cart-btn mt-2" [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click" #popoverTrigger="mdePopoverTrigger" (click)="fnOpenCartbox()">
-                        <i *ngIf="cartOpened" class="material-icons">add_shopping_cart</i>
-                        <i *ngIf="!cartOpened" class="material-icons">close</i>
+                <div class="common-footer" *ngIf="!thankYouScreen && (businessDetail && businessDetail.private_status == 'N') && (businessDetail && businessDetail.status == 'E')">
+                    <div class="cart-btn mt-2" (click)="openTheme2CartPopup()">
+                        <i *ngIf="cartOpened" class="material-icons">add_shopping_cart</i> Cart (2 Items)
                     </div>
-                    <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
-                        <mat-card class="booking-summary p-0" style="width:
-                                380px">
-                            <mat-card-title class="py-2 px-3">
-                                <label class="mb-0">Summary</label><button mat-button class="round-btn
-                                        continue-btn" *ngIf="serviceMainArr.totalNumberServices>0" (click)="fnContinueFromCart()">Checkout<i
-                                            class="material-icons">keyboard_arrow_right</i></button>
-                            </mat-card-title>
-                            <mat-card-content class="py-2 px-3 mt-0">
-                                <div *ngFor="let serviceCart of
-                                        serviceCartArr">
-                                    <div class="row" *ngIf="serviceCart !=
-                                            null">
-                                        <div class="col-lg-8 left-side">
-                                            <label class="service-title">{{serviceCart.service_name}}</label>
-                                            <p><i class="fa fa-calendar"></i>{{serviceCart.appointmentDateForLabel}}</p>
-                                            <p><i class="fa fa-clock-o"></i>{{serviceCart.appointmentTimeSlotForLabel}}</p>
-                                        </div>
-                                        <div class="col-lg-4 right-side">
-                                            <!-- <label class="price">₹ {{serviceCart.subtotal}}</label> -->
-                                            <label *ngIf="currencySymbolPosition=='left'" class="price">{{currencySymbol|
-                                                    currencySymbol:'wide'}} {{
-                                                    serviceCart.subtotal |
-                                                    currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
-                                                    }}</label>
-                                            <label *ngIf="currencySymbolPosition=='right'" class="price">{{
-                                                    serviceCart.subtotal |
-                                                    currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
-                                                    }} {{currencySymbol|
-                                                    currencySymbol:'wide'}}</label>
-                                            <div class="qty-counter">
-                                                <button mat-fab class="action-btn
-                                                        qty-minus" (click)="fnRemove($event,serviceCart.id)">-</button>
-                                                <input type="text" class="qty_value" value="{{serviceCart.count}}" readonly/>
-                                                <button mat-fab class="action-btn
-                                                        qty-minus" (click)="fnAdd($event,serviceCart.id)">+</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-8 left-side">
-                                        <label class="service-title">Sub
-                                                Total</label>
-                                    </div>
-                                    <div class="col-lg-4 right-side">
-                                        <!-- <label class="price">₹ {{serviceMainArr.subtotal}}</label> -->
-                                        <label *ngIf="currencySymbolPosition=='left'" class="price">{{currencySymbol|
-                                                currencySymbol:'wide'}} {{
-                                                serviceMainArr.subtotal |
-                                                currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
-                                                }}</label>
-                                        <label *ngIf="currencySymbolPosition=='right'" class="price">{{
-                                                serviceMainArr.subtotal |
-                                                currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
-                                                }} {{currencySymbol|
-                                                currencySymbol:'wide'}}</label>
-                                    </div>
-                                </div>
-                            </mat-card-content>
-                        </mat-card>
-                    </mde-popover>
-
                 </div>
             </div>
         </mat-card>

@@ -1,0 +1,77 @@
+<div class="modal-dialog modal-lg modal-notify modal-info" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <p class="heading lead  work-content">Cart</p>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+            <span aria-hidden="true" class="white-text">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body card-form-wrap">
+            <div class="modal-body">
+                <div class="row">
+                    <mat-card class="booking-summary p-0" style="width:
+                    380px">
+                        <mat-card-title class="py-2 px-3">
+                            <label class="mb-0">Summary</label><button mat-button class="round-btn
+                            continue-btn" *ngIf="serviceMainArr.totalNumberServices>0" (click)="fnContinueFromCart()">Checkout<i
+                                class="material-icons">keyboard_arrow_right</i></button>
+                        </mat-card-title>
+                        <mat-card-content class="py-2 px-3 mt-0">
+                            <div *ngFor="let serviceCart of
+                            serviceCartArr">
+                                <div class="row" *ngIf="serviceCart !=
+                                null">
+                                    <div class="col-lg-8 left-side">
+                                        <label class="service-title">{{serviceCart.service_name}}</label>
+                                        <p><i class="fa fa-calendar"></i>{{serviceCart.appointmentDateForLabel}}</p>
+                                        <p><i class="fa fa-clock-o"></i>{{serviceCart.appointmentTimeSlotForLabel}}</p>
+                                    </div>
+                                    <div class="col-lg-4 right-side">
+                                        <!-- <label class="price">₹ {{serviceCart.subtotal}}</label> -->
+                                        <label *ngIf="currencySymbolPosition=='left'" class="price">{{currencySymbol|
+                                        currencySymbol:'wide'}} {{
+                                        serviceCart.subtotal |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
+                                        }}</label>
+                                        <label *ngIf="currencySymbolPosition=='right'" class="price">{{
+                                        serviceCart.subtotal |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
+                                        }} {{currencySymbol|
+                                        currencySymbol:'wide'}}</label>
+                                        <div class="qty-counter">
+                                            <button mat-fab class="action-btn
+                                            qty-minus" (click)="fnRemove($event,serviceCart.id)">-</button>
+                                            <input type="text" class="qty_value" value="{{serviceCart.count}}" readonly/>
+                                            <button mat-fab class="action-btn
+                                            qty-minus" (click)="fnAdd($event,serviceCart.id)">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8 left-side">
+                                    <label class="service-title">Sub
+                                    Total</label>
+                                </div>
+                                <div class="col-lg-4 right-side">
+                                    <!-- <label class="price">₹ {{serviceMainArr.subtotal}}</label> -->
+                                    <label *ngIf="currencySymbolPosition=='left'" class="price">{{currencySymbol|
+                                    currencySymbol:'wide'}} {{
+                                    serviceMainArr.subtotal |
+                                    currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
+                                    }}</label>
+                                    <label *ngIf="currencySymbolPosition=='right'" class="price">{{
+                                    serviceMainArr.subtotal |
+                                    currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
+                                    }} {{currencySymbol|
+                                    currencySymbol:'wide'}}</label>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,6 +12,7 @@ import { CompanyDetailsComponent } from './company-details/company-details.compo
 import { AppearanceComponent } from './appearance/appearance.component';
 import { PostalcodesComponent } from './postalcodes/postalcodes.component';
 import { BusinessHoursComponent } from './business-hours/business-hours.component';
+import { BillingComponent } from './billing/billing.component';
 //import{AccountComponent} from './account/account.component';
 //import { GeneralSettingComponent } from './general-setting/general-setting.component';
 
@@ -73,6 +74,11 @@ const routes: Routes = [
 {
   path: 'business-hours',
  component: BusinessHoursComponent 
+
+},
+{
+  path: 'billing',
+ component: BillingComponent 
 
 },
 

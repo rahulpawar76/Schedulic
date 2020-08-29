@@ -42,6 +42,13 @@
             <p>Company Details</p>
         </div>
         <h6 class="pt-3">Payment</h6>
+        <div routerLink="/admin/settings/billing" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/billing.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/billing-color.png" />
+            </div>
+            <p>Billing</p>
+        </div>
         <div routerLink="/admin/settings/payment-gateway" class="d-flex setting-menu-item">
             <div class="menu-icon">
                 <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentgateway.png" />
@@ -87,14 +94,14 @@
                     <div class="row">
                         <div class="col-12 text-center pt-5">
                             <div class="col-3 d-inline-block m-3 theme-div theme-active">
-                                <i class="fa fa-thumbs-o-up fa-2x checkbox" ></i>
+                                <i class="fa fa-thumbs-o-up fa-2x checkbox"></i>
                                 <div class="p-2 theme-title">
                                     Theme 1
                                 </div>
                                 <div class="theme-btn-div">
                                     <div class="theme-btn-sub-div">
                                         <button class="btn preview-color mb-1"><i class="fa fa-eye pr-2"></i>Preview</button>
-                                        <button class="btn set-default-color mt-1"><i class="fa fa-check pr-2"></i>Set Default</button>     
+                                        <button class="btn set-default-color mt-1"><i class="fa fa-check pr-2"></i>Set Default</button>
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +114,7 @@
                                 <div class="theme-btn-div">
                                     <div class="theme-btn-sub-div">
                                         <button class="btn preview-color mb-1"><i class="fa fa-eye pr-2"></i>Preview</button>
-                                        <button class="btn set-default-color mt-1"><i class="fa fa-check pr-2"></i>Set Default</button>     
+                                        <button class="btn set-default-color mt-1"><i class="fa fa-check pr-2"></i>Set Default</button>
                                     </div>
                                 </div>
                             </div>
@@ -120,12 +127,12 @@
                                 <div class="theme-btn-div">
                                     <div class="theme-btn-sub-div">
                                         <button class="btn preview-color mb-1"><i class="fa fa-eye pr-2"></i>Preview</button>
-                                        <button class="btn set-default-color mt-1"><i class="fa fa-check pr-2"></i>Set Default</button>     
+                                        <button class="btn set-default-color mt-1"><i class="fa fa-check pr-2"></i>Set Default</button>
                                     </div>
                                 </div>
                             </div>
 
-                            
+
                         </div>
 
                         <div class="col-12 text-center p-3">
@@ -137,7 +144,7 @@
                                 <div class="theme-btn-div">
                                     <div class="theme-btn-sub-div">
                                         <button class="btn preview-color mb-1"><i class="fa fa-eye pr-2"></i>Preview</button>
-                                        <button class="btn set-default-color mt-1"><i class="fa fa-check pr-2"></i>Set Default</button>     
+                                        <button class="btn set-default-color mt-1"><i class="fa fa-check pr-2"></i>Set Default</button>
                                     </div>
                                 </div>
                             </div>
@@ -163,7 +170,7 @@
                                 <div class="theme-btn-div">
                                     <div class="theme-btn-sub-div">
                                         <button class="btn preview-color mb-1"><i class="fa fa-eye pr-2"></i>Preview</button>
-                                        <button class="btn set-default-color mt-1"><i class="fa fa-check pr-2"></i>Set Default</button>     
+                                        <button class="btn set-default-color mt-1"><i class="fa fa-check pr-2"></i>Set Default</button>
                                     </div>
                                 </div>
                             </div>
@@ -391,23 +398,24 @@
                             </div>
                         </div>
                     </div>
-                </mat-card> 
+                </mat-card>
             </mat-tab>
             <!-- ------------------------------Buttons & Links -------------------------------------- -->
             <mat-tab label="Buttons & Links">
                 <mat-card class="main-form-setting-content">
-                  <h5>Buttons and Links</h5>
-                    <p>Promote your event page with buttons and links.These can be shared on Facebook and Twitter or published on your website.<br>
-                        You can also add a track-able "referral tag" to see how many sales get generated through it.</p>                       
+                    <h5>Buttons and Links</h5>
+                    <p>Promote your event page with buttons and links.These can be shared on Facebook and Twitter or published on your website.<br> You can also add a track-able "referral tag" to see how many sales get generated through it.</p>
                 </mat-card>
 
                 <mat-card class="main-form-setting-content">
-                  
-                      <div class="container p-3 border rounded">
+
+                    <div class="container p-3 border rounded">
                         <div class="row">
-                            <div class="col-6"><h5>Service Booking link</h5></div>
+                            <div class="col-6">
+                                <h5>Service Booking link</h5>
+                            </div>
                             <div class="col-6 text-right"><button class="btn btn-editlink">Edit Link Setting</button></div>
-        
+
                             <div class="col-10">
                                 <p>
                                     You can publish this link anywahere including your website, Facebook, Twitter, posters, brochures and any other marketing channels.
@@ -423,156 +431,158 @@
                             <button class="btn service-booking-link m-2 pr-3"><i class="fa fa-facebook mr-2"></i>Share It</button>
                             <button class="btn service-booking-link m-2 pr-3"><i class="fa fa-twitter mr-2"></i>Tweet It</button>
                         </div>
-                      </div> 
-                  </mat-card>
+                    </div>
+                </mat-card>
 
 
-                  <mat-card class="main-form-setting-content">
-                  
+                <mat-card class="main-form-setting-content">
+
                     <div class="container p-3 border rounded">
-                      <div class="row">
-                          <div class="col-6 "><h5>HTML Buttons</h5></div>
-                          <div class="col-12">
-                            <p>You can use these anywhere where HTML code is permitted. such as your own web site and blog.</p>
-                          </div>
-                        
-                        <div class="col-12">
-                            <div class="row html-btn-title">
-                                <div class="col-4 py-3 pl-5">
-                                    Sample
-                                </div>
-                                <div class="col-8 py-3 ">
-                                    Code to Copy
-                                </div>
+                        <div class="row">
+                            <div class="col-6 ">
+                                <h5>HTML Buttons</h5>
+                            </div>
+                            <div class="col-12">
+                                <p>You can use these anywhere where HTML code is permitted. such as your own web site and blog.</p>
                             </div>
 
-                            <div class="row pt-2">
-                                <div class="col-4 pt-4 pb-1 pl-5">
-                                <a href="#" class="btn-color-dummy">Booking for dummy</a>
+                            <div class="col-12">
+                                <div class="row html-btn-title">
+                                    <div class="col-4 py-3 pl-5">
+                                        Sample
+                                    </div>
+                                    <div class="col-8 py-3 ">
+                                        Code to Copy
+                                    </div>
                                 </div>
-                                <div class="col-8 pt-0 pb-1 pr-5">
-                                    <mat-form-field class=" bottom-border-field">
-                                        <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-4 pt-3 pl-5">
-                                   <button class="btn btn-color-one">BOOK NOW</button>
-                                </div>
-                                <div class="col-8 pt-0 pr-5">
-                                    <mat-form-field class=" bottom-border-field">
-                                        <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-4 pt-3 pl-5">
-                                   <button class="btn btn-color-two">BOOK NOW</button>
-                                </div>
-                                <div class="col-8 pt-0 pr-5">
-                                    <mat-form-field class=" bottom-border-field">
-                                        <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-4 pt-3 pl-5">
-                                   <button class="btn btn-color-three">BOOK NOW</button>
-                                </div>
-                                <div class="col-8 pt-0 pr-5">
-                                    <mat-form-field class=" bottom-border-field">
-                                        <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-4 pt-3 pl-5">
-                                   <button class="btn btn-color-four">BOOK NOW</button>
-                                </div>
-                                <div class="col-8 pt-0 pr-5">
-                                    <mat-form-field class=" bottom-border-field">
-                                        <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-4 pt-3 pl-5">
-                                   <button class="btn btn-color-five">BOOK NOW</button>
-                                </div>
-                                <div class="col-8 pt-0 pr-5">
-                                    <mat-form-field class=" bottom-border-field">
-                                        <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-4 pt-3 pl-5">
-                                   <button class="btn btn-color-six">BOOK NOW</button>
-                                </div>
-                                <div class="col-8 pt-0 pr-5">
-                                    <mat-form-field class=" bottom-border-field">
-                                        <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-4 pt-3 pl-5">
-                                   <button class="btn btn-color-seven">BOOK NOW</button>
-                                </div>
-                                <div class="col-8 pt-0 pr-5">
-                                    <mat-form-field class=" bottom-border-field">
-                                        <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-4 pt-3 pl-5">
-                                   <button class="btn btn-color-eight">BOOK NOW</button>
-                                </div>
-                                <div class="col-8 pt-0 pr-5">
-                                    <mat-form-field class=" bottom-border-field">
-                                        <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-4 pt-3 pl-5">
-                                   <button class="btn btn-color-nine">BOOK NOW</button>
-                                </div>
-                                <div class="col-8 pt-0 pr-5">
-                                    <mat-form-field class=" bottom-border-field">
-                                        <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-4 pt-3 pl-5">
-                                   <button class="btn btn-color-ten">BOOK NOW</button>
-                                </div>
-                                <div class="col-8 pt-0 pr-5">
-                                    <mat-form-field class=" bottom-border-field">
-                                        <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <hr>
 
-                        </div> 
-                        
+                                <div class="row pt-2">
+                                    <div class="col-4 pt-4 pb-1 pl-5">
+                                        <a href="#" class="btn-color-dummy">Booking for dummy</a>
+                                    </div>
+                                    <div class="col-8 pt-0 pb-1 pr-5">
+                                        <mat-form-field class=" bottom-border-field">
+                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-4 pt-3 pl-5">
+                                        <button class="btn btn-color-one">BOOK NOW</button>
+                                    </div>
+                                    <div class="col-8 pt-0 pr-5">
+                                        <mat-form-field class=" bottom-border-field">
+                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-4 pt-3 pl-5">
+                                        <button class="btn btn-color-two">BOOK NOW</button>
+                                    </div>
+                                    <div class="col-8 pt-0 pr-5">
+                                        <mat-form-field class=" bottom-border-field">
+                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-4 pt-3 pl-5">
+                                        <button class="btn btn-color-three">BOOK NOW</button>
+                                    </div>
+                                    <div class="col-8 pt-0 pr-5">
+                                        <mat-form-field class=" bottom-border-field">
+                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-4 pt-3 pl-5">
+                                        <button class="btn btn-color-four">BOOK NOW</button>
+                                    </div>
+                                    <div class="col-8 pt-0 pr-5">
+                                        <mat-form-field class=" bottom-border-field">
+                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-4 pt-3 pl-5">
+                                        <button class="btn btn-color-five">BOOK NOW</button>
+                                    </div>
+                                    <div class="col-8 pt-0 pr-5">
+                                        <mat-form-field class=" bottom-border-field">
+                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-4 pt-3 pl-5">
+                                        <button class="btn btn-color-six">BOOK NOW</button>
+                                    </div>
+                                    <div class="col-8 pt-0 pr-5">
+                                        <mat-form-field class=" bottom-border-field">
+                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-4 pt-3 pl-5">
+                                        <button class="btn btn-color-seven">BOOK NOW</button>
+                                    </div>
+                                    <div class="col-8 pt-0 pr-5">
+                                        <mat-form-field class=" bottom-border-field">
+                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-4 pt-3 pl-5">
+                                        <button class="btn btn-color-eight">BOOK NOW</button>
+                                    </div>
+                                    <div class="col-8 pt-0 pr-5">
+                                        <mat-form-field class=" bottom-border-field">
+                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-4 pt-3 pl-5">
+                                        <button class="btn btn-color-nine">BOOK NOW</button>
+                                    </div>
+                                    <div class="col-8 pt-0 pr-5">
+                                        <mat-form-field class=" bottom-border-field">
+                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-4 pt-3 pl-5">
+                                        <button class="btn btn-color-ten">BOOK NOW</button>
+                                    </div>
+                                    <div class="col-8 pt-0 pr-5">
+                                        <mat-form-field class=" bottom-border-field">
+                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <hr>
 
-                      </div>
-                    </div> 
+                            </div>
+
+
+                        </div>
+                    </div>
                 </mat-card>
 
             </mat-tab>

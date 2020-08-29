@@ -543,6 +543,9 @@ input:focus {
      ::ng-deep app-my-business {
         height: 100%;
     }
+     ::ng-deep app-billing {
+        width: 100%;
+    }
 }
 
 // star ratting
@@ -587,6 +590,7 @@ input:focus {
     position: absolute;
     width: 100%;
     bottom: 0;
+    background-color: #04397f;
 }
 
 .profile-head {

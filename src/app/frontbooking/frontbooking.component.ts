@@ -14,6 +14,7 @@ import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { Meta } from '@angular/platform-browser';
 import { Router, RouterOutlet } from '@angular/router';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 // import { DOCUMENT } from '@angular/platform-browser';
 // import { DOCUMENT } from '@angular/common',
 import { sha512 as sha512 } from 'js-sha512';
@@ -214,6 +215,7 @@ export class FrontbookingComponent implements OnInit {
     private http: HttpClient,
     private calendar: NgbCalendar,
     private snackBar: MatSnackBar,
+    public dialog: MatDialog,
     private authenticationService: AuthenticationService,
     private AppComponent : AppComponent,
     private datePipe: DatePipe,
@@ -2828,6 +2830,79 @@ export class FrontbookingComponent implements OnInit {
       var encrypttext = sha512(string);
       return encrypttext;
    }
-
+   
+   openTheme2CartPopup() {
+     
+    const dialogRef = this.dialog.open(theme2CartPopup, {
+      width: '500px',
+       data: {serviceCartArr : this.serviceCartArr}
+      
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+  selectDataTime() {
+     
+    const dialogRef = this.dialog.open(theme2DateTimeSelection, {
+      width: '500px',
+       data: {serviceCartArr : this.serviceCartArr}
+      
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
 }
 
+
+
+// Theme 2 cart popup
+
+@Component({
+  selector: 'theme-2-cart-popup',
+  templateUrl: '../_dialogs/theme-2-cart-dialog.html',
+  providers: [DatePipe]
+})
+export class theme2CartPopup {
+  serviceCartArr:any;
+  constructor(
+    public dialogRef: MatDialogRef<theme2CartPopup>,
+    private _formBuilder:FormBuilder,
+    private http: HttpClient,
+    private _snackBar: MatSnackBar,
+    private authenticationService:AuthenticationService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.serviceCartArr = this.data.serviceCartArr
+    }
+
+    onNoClick(): void {
+      this.dialogRef.close();
+      
+    }
+    ngOnInit() {}
+}
+
+// Theme 2 Date Time Selection Popup
+
+@Component({
+  selector: 'theme-2-cart-popup',
+  templateUrl: '../_dialogs/theme-2-cart-dialog.html',
+  providers: [DatePipe]
+})
+export class theme2DateTimeSelection {
+  serviceCartArr:any;
+  constructor(
+    public dialogRef: MatDialogRef<theme2DateTimeSelection>,
+    private _formBuilder:FormBuilder,
+    private http: HttpClient,
+    private _snackBar: MatSnackBar,
+    private authenticationService:AuthenticationService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.serviceCartArr = this.data.serviceCartArr
+    }
+
+    onNoClick(): void {
+      this.dialogRef.close();
+      
+    }
+    ngOnInit() {}
+}

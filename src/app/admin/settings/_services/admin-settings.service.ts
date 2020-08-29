@@ -1668,6 +1668,32 @@ export class AdminSettingsService {
         }),
         catchError(this.handleError));
     }
+    getSubscriptionPlans(requestObject){
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/plan-list`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    getSubscriptionPayment(requestObject){
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/admin-card-details`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
     reAuthenticateUser() {
         if (this.dialogRef) {
             return

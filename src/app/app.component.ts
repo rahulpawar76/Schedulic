@@ -250,6 +250,9 @@ export class AppComponent implements AfterViewInit {
       if(this.currentUrl == "/admin/settings/alert-settings"){
         this.activeSettingMenu = "alert-rules";
       }
+      if(this.currentUrl == "/admin/settings/billing"){
+        this.activeSettingMenu = "billing";
+      }
       this.isSettingsModule(url);
     }
   }
