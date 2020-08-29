@@ -30,7 +30,9 @@ export class BillingComponent implements OnInit {
     private AdminSettingsService: AdminSettingsService,
   ) { 
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    this.selectedPlanCode = this.currentUser.plan.plan_id
+    if(this.currentUser.plan){
+      this.selectedPlanCode = this.currentUser.plan.plan_id
+    }
   }
 
   ngOnInit() {
