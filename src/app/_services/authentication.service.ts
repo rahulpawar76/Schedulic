@@ -103,6 +103,7 @@ export class AuthenticationService {
         localStorage.removeItem('internal_staff');
         localStorage.removeItem('business_name');
         localStorage.removeItem('isBusiness');
+        localStorage.removeItem('adminData');
         // localStorage.removeItem('userToken');
         // localStorage.removeItem('userName');
         // localStorage.removeItem('userRole');

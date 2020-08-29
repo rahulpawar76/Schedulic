@@ -7,8 +7,8 @@ import { environment } from '@environments/environment';
 import { Router, RouterEvent, RouterOutlet } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthenticationService } from '../_services';
-import {  DialogReAuthentication  } from './../app.component';
+import {  DialogReAuthentication  } from './auth.component';
+
 export interface DialogData {
   animal: string;
   name: string;
@@ -28,20 +28,15 @@ export class CommonService {
     private _snackBar: MatSnackBar,
     public dialog: MatDialog,
     public router: Router,
-    private authenticationService:AuthenticationService,
-    ) {
+  ) {
       
       this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      
-    //this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
-   
       localStorage.setItem('isBusiness', 'false');
       if(localStorage.getItem('business_id')){
           this.businessId = localStorage.getItem('business_id');
       }
     }  
   private handleError(error: HttpErrorResponse) {
-      console.log(error);
       return throwError('Error! something went wrong.');
   }
 
@@ -89,6 +84,7 @@ export class CommonService {
     }),
     catchError(this.handleError));
   }
+
   fnViewNotification(requestObject,headers){
     return this.http.post(`${environment.apiUrl}/update-notification`,requestObject,{headers:headers}).pipe(
     map((res) => {
@@ -96,6 +92,7 @@ export class CommonService {
     }),
     catchError(this.handleError));
   }
+
   getSubscriptionPlans(requestObject,headers){
     this.checkAuthentication();
     return this.http.post(`${environment.apiUrl}/plan-list`,requestObject,{headers:headers}).pipe(
@@ -104,6 +101,7 @@ export class CommonService {
     }),
     catchError(this.handleError));
   }
+
   getSubscriptionPayment(requestObject,headers){
     this.checkAuthentication();
     return this.http.post(`${environment.apiUrl}/admin-card-details`,requestObject,{headers:headers}).pipe(
@@ -116,21 +114,35 @@ export class CommonService {
 
 
   reAuthenticateUser() {
+
     if (this.dialogRef) return;
     this.dialogRef = this.dialog.open(DialogReAuthentication, {
       width: '500px',
-
     });
 
     this.dialogRef.afterClosed().subscribe(result => {
+
         if(result){
-            this.currentUser = result
-            console.log(this.currentUser)
+          this.currentUser = result;
         }else{
-            this.authenticationService.logout();
-            this.router.navigate(['/login']);
+          this.logout();
         }
+
     });
+
+  }
+
+  logout() {
+      
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('isFront');
+    localStorage.removeItem('logoutTime');
+    localStorage.removeItem('business_id');
+    localStorage.removeItem('internal_staff');
+    localStorage.removeItem('business_name');
+    localStorage.removeItem('isBusiness');
+    localStorage.removeItem('adminData');
+    
   }
 
 }
