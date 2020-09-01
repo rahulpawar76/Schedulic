@@ -112,7 +112,6 @@ export class CommonService {
   }
 
 
-
   reAuthenticateUser() {
 
     if (this.dialogRef) return;
@@ -126,6 +125,7 @@ export class CommonService {
           this.currentUser = result;
         }else{
           this.logout();
+          this.router.navigate(['/login']);
         }
 
     });
