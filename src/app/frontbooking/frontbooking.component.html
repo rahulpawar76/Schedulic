@@ -1132,6 +1132,7 @@
     </mat-card>
 </div>
 </div>
+<!-- 
 <div id="theme_2" class="theme-main" *ngIf="selectedTheme == '2'">
     <div class="card-wrap main-front-container">
         <mat-card class="p-0">
@@ -1143,7 +1144,7 @@
                     <h4>Bussiness Is Not Available For Booking Now</h4>
                 </div>
                 <div id="category_list" class="main-step step_1 p-0" *ngIf="catselection && (businessDetail && businessDetail.private_status == 'N') && (businessDetail && businessDetail.status == 'E')">
-                    <!-- <div class="step-top-head"></div> -->
+                  
                     <div class="col-lg-12 col-sm-12 col-12 float-left loggedin_head" *ngIf="isLoggedIn">
 
                         <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn continue-btn logout-btn">View Dashboard</button>
@@ -1201,7 +1202,6 @@
                     </mat-card-content>
                 </div>
                 <div id="subcategory_list" class="main-step step_1 p-0" *ngIf="subcatselection">
-                    <!-- <div class="step-top-head"></div> -->
                     <div class="col-lg-12 col-sm-12 col-12 float-left loggedin_head" *ngIf="isLoggedIn">
 
                         <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn continue-btn logout-btn">View Dashboard</button>
@@ -1245,7 +1245,6 @@
                     </mat-card-content>
                 </div>
                 <div id="service_list" class="main-step step_1 p-0" *ngIf="serviceselection">
-                    <!-- <div class="step-top-head"></div> -->
                     <div class="col-lg-12 col-sm-12 col-12 float-left loggedin_head" *ngIf="isLoggedIn">
 
                         <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn continue-btn logout-btn">View Dashboard</button>
@@ -1305,7 +1304,6 @@
                         </div>
                     </mat-card-content>
                 </div>
-                <!-- common footer -->
                 <div class="common-footer" *ngIf="!thankYouScreen && (businessDetail && businessDetail.private_status == 'N') && (businessDetail && businessDetail.status == 'E')">
                     <div class="cart-btn mt-2" (click)="openTheme2CartPopup()">
                         <i *ngIf="cartOpened" class="material-icons">add_shopping_cart</i> Cart (2 Items)
@@ -1315,5 +1313,5 @@
         </mat-card>
     </div>
 
-</div>
+</div> -->
 </div>

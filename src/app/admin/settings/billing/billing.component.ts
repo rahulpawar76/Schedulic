@@ -22,6 +22,8 @@ export class BillingComponent implements OnInit {
   planList:any;
   currentUser:any;
   selectedPlanCode:any;
+  settingSideMenuToggle:boolean = false;
+
   constructor(
     private http: HttpClient,
     private _snackBar: MatSnackBar,
@@ -37,6 +39,13 @@ export class BillingComponent implements OnInit {
 
   ngOnInit() {
     this.getSubscriptionPlans();
+  }
+
+  fnSettingMenuToggleSmall(){
+    this.settingSideMenuToggle = true;
+  }
+  fnSettingMenuToggleLarge(){
+    this.settingSideMenuToggle = false;
   }
 
   getSubscriptionPlans(){

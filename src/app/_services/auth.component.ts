@@ -18,13 +18,13 @@ export interface DialogData {
     selector: 're-authentication-popup',
     templateUrl: './../_dialogs/re-authentication-password.html',
 })
-export class DialogReAuthentication {
+export class DialogAuthentication {
 
     currentUser:any;
     reAuthenticationForm :FormGroup
 
     constructor(
-    public dialogRef: MatDialogRef<DialogReAuthentication>,
+    public dialogRef: MatDialogRef<DialogAuthentication>,
     public dialogRef2: MatDialog,
     private _formBuilder: FormBuilder,
     public router: Router,

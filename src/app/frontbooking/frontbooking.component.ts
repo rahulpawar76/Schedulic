@@ -28,7 +28,7 @@ declare const PayUMoneylaunch: any;
   providers: [DatePipe]
 })
 export class FrontbookingComponent implements OnInit {
-  selectedTheme:any = '2';
+  selectedTheme:any = '1';
   formExistingUser : FormGroup;
   formNewUser: FormGroup
   formAppointmentInfo: FormGroup;
@@ -2831,78 +2831,86 @@ export class FrontbookingComponent implements OnInit {
       return encrypttext;
    }
    
-   openTheme2CartPopup() {
+  //  openTheme2CartPopup() {
      
-    const dialogRef = this.dialog.open(theme2CartPopup, {
-      width: '500px',
-       data: {serviceCartArr : this.serviceCartArr}
+  //   const dialogRef = this.dialog.open(theme2CartPopup, {
+  //     width: '500px',
+  //      data: {serviceCartArr : this.serviceCartArr}
       
-    });
-    dialogRef.afterClosed().subscribe(result => {
-    });
-  }
-  selectDataTime() {
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //   });
+  // }
+  // selectDataTime() {
      
-    const dialogRef = this.dialog.open(theme2DateTimeSelection, {
-      width: '500px',
-       data: {serviceCartArr : this.serviceCartArr}
+  //   const dialogRef = this.dialog.open(theme2DateTimeSelection, {
+  //     width: '500px',
+  //      data: {serviceCartArr : this.serviceCartArr}
       
-    });
-    dialogRef.afterClosed().subscribe(result => {
-    });
-  }
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //   });
+  // }
 }
 
 
 
 // Theme 2 cart popup
 
-@Component({
-  selector: 'theme-2-cart-popup',
-  templateUrl: '../_dialogs/theme-2-cart-dialog.html',
-  providers: [DatePipe]
-})
-export class theme2CartPopup {
-  serviceCartArr:any;
-  constructor(
-    public dialogRef: MatDialogRef<theme2CartPopup>,
-    private _formBuilder:FormBuilder,
-    private http: HttpClient,
-    private _snackBar: MatSnackBar,
-    private authenticationService:AuthenticationService,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
-      this.serviceCartArr = this.data.serviceCartArr
-    }
+// @Component({
+//   selector: 'theme-2-cart-popup',
+//   templateUrl: '../_dialogs/theme-2-cart-dialog.html',
+//   providers: [DatePipe]
+// })
+// export class theme2CartPopup {
+//   serviceCartArr:any;
+//   serviceMainArr={
+//     totalNumberServices:0,
+//     subtotal:0,
+//     discount_type:null,
+//     discount_value:null,
+//     discount:0,
+//     netCost:0
+//   }
+//   constructor(
+//     public dialogRef: MatDialogRef<theme2CartPopup>,
+//     private _formBuilder:FormBuilder,
+//     private http: HttpClient,
+//     private _snackBar: MatSnackBar,
+//     private authenticationService:AuthenticationService,
+//     @Inject(MAT_DIALOG_DATA) public data: any) {
+//       this.serviceCartArr = this.data.serviceCartArr
+//     }
 
-    onNoClick(): void {
-      this.dialogRef.close();
+//     onNoClick(): void {
+//       this.dialogRef.close();
       
-    }
-    ngOnInit() {}
-}
+//     }
+//     ngOnInit() {}
+// }
 
 // Theme 2 Date Time Selection Popup
 
-@Component({
-  selector: 'theme-2-cart-popup',
-  templateUrl: '../_dialogs/theme-2-cart-dialog.html',
-  providers: [DatePipe]
-})
-export class theme2DateTimeSelection {
-  serviceCartArr:any;
-  constructor(
-    public dialogRef: MatDialogRef<theme2DateTimeSelection>,
-    private _formBuilder:FormBuilder,
-    private http: HttpClient,
-    private _snackBar: MatSnackBar,
-    private authenticationService:AuthenticationService,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
-      this.serviceCartArr = this.data.serviceCartArr
-    }
+// @Component({
+//   selector: 'theme-2-cart-popup',
+//   templateUrl: '../_dialogs/theme-2-cart-dialog.html',
+//   providers: [DatePipe]
+// })
+// export class theme2DateTimeSelection {
+//   serviceCartArr:any;
+//   constructor(
+//     public dialogRef: MatDialogRef<theme2DateTimeSelection>,
+//     private _formBuilder:FormBuilder,
+//     private http: HttpClient,
+//     private _snackBar: MatSnackBar,
+//     private authenticationService:AuthenticationService,
+//     @Inject(MAT_DIALOG_DATA) public data: any) {
+//       this.serviceCartArr = this.data.serviceCartArr
+//     }
 
-    onNoClick(): void {
-      this.dialogRef.close();
+//     onNoClick(): void {
+//       this.dialogRef.close();
       
-    }
-    ngOnInit() {}
-}
+//     }
+//     ngOnInit() {}
+// }
