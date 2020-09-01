@@ -39,7 +39,8 @@ export class FrontbookingComponent implements OnInit {
   maxDate: {year: number, month: number, day: number};
   displayMonths = 1;
   navigation = 'arrows';
-  
+  is_in_store_service:boolean=false;
+
   // checkpostalcode = true;
   catselection = true;
   subcatselection = false;
@@ -975,10 +976,8 @@ export class FrontbookingComponent implements OnInit {
   }
 
    fnShowCounter(event,service_id){
-     alert()
     this.currentSelectedService=service_id;
     this.serviceCount[service_id].count=1;
-    alert(this.serviceCount[service_id].count)
 
     this.serviceCount[service_id].subtotal = this.serviceCount[service_id].service_cost * this.serviceCount[service_id].count;
     this.serviceCount[service_id].discount_type=null;
@@ -994,7 +993,7 @@ export class FrontbookingComponent implements OnInit {
         name:'',
         amount:0
       }
-      console.log(element.name+" -- "+element.value);
+    //  console.log(element.name+" -- "+element.value);
       if(this.taxType == "P"){
        taxTemp.value= element.value;
        taxTemp.name= element.name;
@@ -1008,23 +1007,23 @@ export class FrontbookingComponent implements OnInit {
       }
       taxMain.push(taxTemp);
       this.serviceCount[service_id].tax=taxMain;
-      console.log(this.serviceCount[service_id].tax);
+     // console.log(this.serviceCount[service_id].tax);
     });
 
     // this.serviceData[id].tax=0;
     this.serviceCount[service_id].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
 
     // this.serviceCount[service_id].totalCost=1*this.serviceCount[service_id].service_cost;
-    console.log(JSON.stringify(this.serviceCount));
+  //  console.log(JSON.stringify(this.serviceCount));
     if(this.serviceCartArr[service_id] != null){
       this.serviceCartArr[service_id]=this.serviceCount[service_id];
-      console.log(JSON.stringify(this.serviceCartArr));
+     // console.log(JSON.stringify(this.serviceCartArr));
     }
     this.serviceMainArr.totalNumberServices=0;
     this.serviceMainArr.subtotal=0;
     this.serviceMainArr.discount=0;
     this.taxAmountArr.length=0;
-    console.log(this.taxAmountArr);
+   // console.log(this.taxAmountArr);
     this.serviceMainArr.netCost=0;
     // this.fncheckavailcoupon('valid');
     this.closecoupon = 'default';
@@ -1046,7 +1045,7 @@ export class FrontbookingComponent implements OnInit {
           name:'',
           amount:0
         }
-        console.log(element.name+" -- "+element.value);
+     //   console.log(element.name+" -- "+element.value);
         if(this.taxType == "P"){
          taxTemp.value= element.value;
          taxTemp.name= element.name;
@@ -1059,7 +1058,7 @@ export class FrontbookingComponent implements OnInit {
           amountAfterTax=amountAfterTax+taxTemp.amount;
         }
         this.taxAmountArr.push(taxTemp);
-        console.log(this.taxAmountArr);
+      //  console.log(this.taxAmountArr);
       });
     }
     // this.taxAmountArr.forEach((element) => {
@@ -1067,8 +1066,11 @@ export class FrontbookingComponent implements OnInit {
     // });
     this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
     //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-    console.log(this.taxAmountArr);
-    console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
+    console.log(this.serviceCount[service_id]);
+ 
+
+    //console.log(this.taxAmountArr);
+  //  console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
   }
 
   fnRemove(event,service_id){
@@ -1468,6 +1470,26 @@ export class FrontbookingComponent implements OnInit {
   }
   // date time 
   fnDatetimeSelection(event){
+    var co = 0;
+    var  Arr_co = 0;
+    this.serviceCartArr.forEach(element => {
+      console.log(element.service_sub_type);
+     if(element.service_sub_type=='in_store'){
+        co = co + 1;
+     }
+     Arr_co = Arr_co + 1;
+   });;
+
+   if(co == Arr_co){
+     console.log('true');
+    this.is_in_store_service  = true;
+   }else{
+    console.log('false');
+    this.is_in_store_service  = false;
+   }
+ 
+ 
+ 
     if(this.isLoggedIn){
       this.dateselection = false;
       this.appointmentinfo = true;
@@ -1965,10 +1987,11 @@ export class FrontbookingComponent implements OnInit {
   } 
 
   fnSameAsBillingAddress(event){
+
     console.log(event.srcElement.checked)
+
     if(event.srcElement.checked == true){
       
-    console.log(event)
       this.formAppointmentInfo.controls['appo_address'].setValue(this.authenticationService.currentUserValue.address);
       this.formAppointmentInfo.controls['appo_state'].setValue(this.authenticationService.currentUserValue.state);
       this.formAppointmentInfo.controls['appo_city'].setValue(this.authenticationService.currentUserValue.city);
@@ -1979,6 +2002,7 @@ export class FrontbookingComponent implements OnInit {
       // this.appo_address_info.appo_city = this.formNewUser.get('newUserCity').value;
       // this.appo_address_info.appo_zipcode = this.formNewUser.get('newUserZipcode').value;
     }else{
+
       this.formAppointmentInfo.controls['appo_address'].setValue('');
       this.formAppointmentInfo.controls['appo_state'].setValue('');
       this.formAppointmentInfo.controls['appo_city'].setValue('');
@@ -1992,18 +2016,21 @@ export class FrontbookingComponent implements OnInit {
   } 
   
   fnappointmentinfo(event){
-    console.log(JSON.stringify(this.appo_address_info));
-    if(!this.formAppointmentInfo.valid){
-      this.formAppointmentInfo.get('appo_address').markAsTouched();
-      this.formAppointmentInfo.get('appo_state').markAsTouched();
-      this.formAppointmentInfo.get('appo_city').markAsTouched();
-      this.formAppointmentInfo.get('appo_zipcode').markAsTouched();
-      return false;
+
+    if(this.is_in_store_service==false){
+      if(!this.formAppointmentInfo.valid){
+        this.formAppointmentInfo.get('appo_address').markAsTouched();
+        this.formAppointmentInfo.get('appo_state').markAsTouched();
+        this.formAppointmentInfo.get('appo_city').markAsTouched();
+        this.formAppointmentInfo.get('appo_zipcode').markAsTouched();
+        return false;
+      }
     }
-    
+
     this.appointmentinfo = false;
     this.summaryScreen = true;
-   }
+
+  }
 
   // coupon code
   fncheckcouponcodebtn(couponStatus){
@@ -2694,10 +2721,11 @@ export class FrontbookingComponent implements OnInit {
       "reference_id": this.reference_id,
       "transaction_id": this.transactionId,
       "payment_datetime": this.paymentDateTime,
-      'fullname' : JSON.parse(localStorage.getItem('currentUser')).full_name,
-      'full_name' : JSON.parse(localStorage.getItem('currentUser')).full_name
+      'fullname' : JSON.parse(localStorage.getItem('currentUser')).fullname,
+      'full_name' : JSON.parse(localStorage.getItem('currentUser')).fullname
     };
-      console.log(JSON.stringify(requestObject));
+     
+      
       // setTimeout(()=>{
       //   this.isLoader=false;
       // },4000)
@@ -2723,15 +2751,13 @@ export class FrontbookingComponent implements OnInit {
             window.location.reload();
           }, 2000);
         }
-      }
-        else{
+      }else{
           console.log(response.response);
         }
-        },
-        (err) =>{
-          
-        })
-      }
+      },(err) =>{
+        
+      })
+    }
 
 
     guid() {
