@@ -1162,3 +1162,71 @@ input:focus {
         }
     }
 }
+
+::ng-deep #datetime_select {
+    .datepicker-main {
+        background: $primary-gradient-color;
+    }
+    @media only screen and (max-width: 600px) {
+        .datepicker-main {
+            overflow-x: scroll;
+        }
+    }
+    .timeslot-main {
+        .top-back-btn {
+            background-color: #e0e0e0;
+        }
+        .selected-date {
+            text-align: center;
+            margin: 15px;
+            font-size: $fs-26;
+            font-weight: $fw-400;
+        }
+        .slot-list {
+            margin: 10px auto;
+            display: table;
+            input[type="radio"] {
+                display: none;
+            }
+            input[type="radio"]:checked+.single-slot {
+                background-color: $front-primary-color;
+                color: $text-bg;
+                border-color: $front-primary-color;
+            }
+            .single-slot {
+                border: 2px solid $grey-3;
+                padding: 20px;
+                font-size: $fs-18;
+                color: $secondary-color;
+                text-align: center;
+                line-height: 1;
+                width: 130px;
+                margin: 7px;
+                cursor: pointer;
+                border-radius: 8px;
+            }
+        }
+        .next-action {
+            margin: 15px;
+            text-align: center;
+            .continue-btn {
+                font-size: $fs-16;
+                background-color: $grey-3;
+                padding: 6px 25px;
+                margin: 10px;
+            }
+        }
+    }
+    .timing {
+        display: inline-block;
+    }
+    @media only screen and (max-width: 600px) {
+        // body {
+        //     display: block !important;
+        // }
+        .slot-list {
+            align-items: center;
+            text-align: center;
+        }
+    }
+}

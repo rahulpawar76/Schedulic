@@ -28,7 +28,7 @@ declare const PayUMoneylaunch: any;
   providers: [DatePipe]
 })
 export class FrontbookingComponent implements OnInit {
-  selectedTheme:any = '1';
+  selectedTheme:any = '2';
   formExistingUser : FormGroup;
   formNewUser: FormGroup
   formAppointmentInfo: FormGroup;
@@ -39,7 +39,7 @@ export class FrontbookingComponent implements OnInit {
   maxDate: {year: number, month: number, day: number};
   displayMonths = 1;
   navigation = 'arrows';
-  
+  directAPI:any;
   // checkpostalcode = true;
   catselection = true;
   subcatselection = false;
@@ -975,11 +975,8 @@ export class FrontbookingComponent implements OnInit {
   }
 
    fnShowCounter(event,service_id){
-     alert()
     this.currentSelectedService=service_id;
     this.serviceCount[service_id].count=1;
-    alert(this.serviceCount[service_id].count)
-
     this.serviceCount[service_id].subtotal = this.serviceCount[service_id].service_cost * this.serviceCount[service_id].count;
     this.serviceCount[service_id].discount_type=null;
     this.serviceCount[service_id].discount_value=null;
@@ -1601,6 +1598,7 @@ export class FrontbookingComponent implements OnInit {
   }
   
   fnSelectStaff(staff_id,index){
+    alert();
     this.isLoader=true;
     console.log(event);
     console.log(staff_id);
@@ -2831,86 +2829,456 @@ export class FrontbookingComponent implements OnInit {
       return encrypttext;
    }
    
-  //  openTheme2CartPopup() {
+   openTheme2CartPopup() {
      
-  //   const dialogRef = this.dialog.open(theme2CartPopup, {
-  //     width: '500px',
-  //      data: {serviceCartArr : this.serviceCartArr}
+    const dialogRef = this.dialog.open(theme2CartPopup, {
+      width: '500px',
+       data: {serviceCartArr : this.serviceCartArr}
       
-  //   });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //   });
-  // }
-  // selectDataTime() {
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+  selectDataTimePopup(serviceId) {
+    let currentSelectedService = serviceId;
+    if(this.serviceCartArr[currentSelectedService] && this.currentSelectedService[currentSelectedService].appointmentDate != ''){
+      let year=this.serviceCartArr[currentSelectedService].appointmentDate.split("-")[0];
+      let month= this.serviceCartArr[currentSelectedService].appointmentDate.split("-")[1];
+      let day=this.serviceCartArr[currentSelectedService].appointmentDate.split("-")[2];
+      console.log(year+"--"+month+"--"+day);
+      let dateTemp={"year":parseInt(year),"month":parseInt(month),"day":parseInt(day)};
+      console.log(JSON.stringify(dateTemp));
+      this.model=dateTemp;
+      this.selecteddate=this.serviceCartArr[currentSelectedService].appointmentDate
+      this.selecteddateForLabel=this.datePipe.transform(new Date(this.serviceCartArr[currentSelectedService].appointmentDate),"EEE, MMM dd");
+
+      this.fnGetTimeSlots();
+      this.directAPI = 'gettimeslote';
+    }else{
+      this.fnSelectNextValidDate(this.minimumAdvanceBookingDateTimeObject);
+      this.directAPI = 'selectnextvalidate';
+    }
+    
      
-  //   const dialogRef = this.dialog.open(theme2DateTimeSelection, {
-  //     width: '500px',
-  //      data: {serviceCartArr : this.serviceCartArr}
+    const dialogRef = this.dialog.open(theme2DateTimeSelection, {
+      width: '850px',
+       data: {
+              settingsArr : this.settingsArr,
+              bookingPostalcode: this.booking.postalcode,
+              currentSelectedService:serviceId,
+              model:this.model,
+              selecteddate:this.selecteddate,
+              selecteddateForLabel:this.selecteddateForLabel,
+              directAPI: this.directAPI
+            }
       
-  //   });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //   });
-  // }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.fnSelectStaff(result.selectedStaff, result.staffIndex)
+      }
+    });
+  }
 }
 
 
 
 // Theme 2 cart popup
 
-// @Component({
-//   selector: 'theme-2-cart-popup',
-//   templateUrl: '../_dialogs/theme-2-cart-dialog.html',
-//   providers: [DatePipe]
-// })
-// export class theme2CartPopup {
-//   serviceCartArr:any;
-//   serviceMainArr={
-//     totalNumberServices:0,
-//     subtotal:0,
-//     discount_type:null,
-//     discount_value:null,
-//     discount:0,
-//     netCost:0
-//   }
-//   constructor(
-//     public dialogRef: MatDialogRef<theme2CartPopup>,
-//     private _formBuilder:FormBuilder,
-//     private http: HttpClient,
-//     private _snackBar: MatSnackBar,
-//     private authenticationService:AuthenticationService,
-//     @Inject(MAT_DIALOG_DATA) public data: any) {
-//       this.serviceCartArr = this.data.serviceCartArr
-//     }
+@Component({
+  selector: 'theme-2-cart-popup',
+  templateUrl: '../_dialogs/theme-2-cart-dialog.html',
+  providers: [DatePipe]
+})
+export class theme2CartPopup {
+  serviceCartArr:any;
+  serviceMainArr={
+    totalNumberServices:0,
+    subtotal:0,
+    discount_type:null,
+    discount_value:null,
+    discount:0,
+    netCost:0
+  }
+  constructor(
+    public dialogRef: MatDialogRef<theme2CartPopup>,
+    private _formBuilder:FormBuilder,
+    private http: HttpClient,
+    private _snackBar: MatSnackBar,
+    private authenticationService:AuthenticationService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.serviceCartArr = this.data.serviceCartArr
+      console.log(this.serviceCartArr)
+    }
 
-//     onNoClick(): void {
-//       this.dialogRef.close();
+    onNoClick(): void {
+      this.dialogRef.close();
       
-//     }
-//     ngOnInit() {}
-// }
+    }
+    ngOnInit() {}
+}
 
 // Theme 2 Date Time Selection Popup
 
-// @Component({
-//   selector: 'theme-2-cart-popup',
-//   templateUrl: '../_dialogs/theme-2-cart-dialog.html',
-//   providers: [DatePipe]
-// })
-// export class theme2DateTimeSelection {
-//   serviceCartArr:any;
-//   constructor(
-//     public dialogRef: MatDialogRef<theme2DateTimeSelection>,
-//     private _formBuilder:FormBuilder,
-//     private http: HttpClient,
-//     private _snackBar: MatSnackBar,
-//     private authenticationService:AuthenticationService,
-//     @Inject(MAT_DIALOG_DATA) public data: any) {
-//       this.serviceCartArr = this.data.serviceCartArr
-//     }
+@Component({
+  selector: 'theme-2-cart-popup',
+  templateUrl: '../_dialogs/theme-2-select-datetime.html',
+  providers: [DatePipe]
+})
+export class theme2DateTimeSelection {
+  isLoader:boolean=false;
+  model: NgbDateStruct;
+  dateformatter: NgbDateParserFormatter;
+  date: {year: number, month: number};
+  minDate: {year: number, month: number, day: number};
+  maxDate: {year: number, month: number, day: number};
+  displayMonths = 1;
+  navigation = 'arrows';
+  minimumAdvanceBookingTime:any;
+  maximumAdvanceBookingTime:any;
+  minimumAdvanceBookingDateTimeObject:any;
+  maximumAdvanceBookingDateTimeObject:any;
+  settingsArr:any=[];
+  staffOnFrontValue:boolean=false;
+  customerLoginValue:boolean=false;
+  urlString:any;
+  businessId:any;
+  offDaysList:any= [];
+  workingHoursOffDaysList:any= [];
+  timeSlotArr:any= [];
+  selectedTimeSlot:any;
+  availableStaff:any= [];
+  serviceCount:any= [];
+  selecteddate: any;
+  selecteddateForLabel: any;
+  timeSlotArrForLabel:any=[];
+  timeslotview: boolean = false;
+  isStaffAvailable:boolean=false;
+  bookingPostalcode:any;
+  currentSelectedService:any;
+  selectedStaff:any;
+  staffIndex:any;
+  directAPI:any;
+  
+  @ViewChildren(MdePopoverTrigger) trigger: QueryList<MdePopoverTrigger>;
+  serviceMainArr={
+    totalNumberServices:0,
+    subtotal:0,
+    discount_type:null,
+    discount_value:null,
+    discount:0,
+    netCost:0
+  }
+  constructor(
+    public dialogRef: MatDialogRef<theme2DateTimeSelection>,
+    private _formBuilder:FormBuilder,
+    private http: HttpClient,
+    private calendar: NgbCalendar,
+    private datePipe: DatePipe,
+    private _snackBar: MatSnackBar,
+    private authenticationService:AuthenticationService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.urlString = window.location.search.split("?business_id="); 
+    this.businessId = window.atob(decodeURIComponent(this.urlString[1]));
+      this.settingsArr = this.data.settingsArr
+      this.bookingPostalcode = this.data.bookingPostalcode
+      this.currentSelectedService = this.data.currentSelectedService
+      this.model = this.data.model
+      this.selecteddate = this.data.selecteddate
+      this.selecteddateForLabel = this.data.selecteddateForLabel
+      this.directAPI = this.data.directAPI
+      if(this.directAPI == 'gettimeslote'){
+        this.fnGetTimeSlots();
+      }else if(this.directAPI == 'selectnextvalidate'){
+        this.fnSelectNextValidDate(this.minimumAdvanceBookingDateTimeObject);
+      }
+      this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
+          this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
+          this.minimumAdvanceBookingDateTimeObject = new Date();
+          this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
+          console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
+          this.minDate = {
+            year: this.minimumAdvanceBookingDateTimeObject.getFullYear(),
+            month: this.minimumAdvanceBookingDateTimeObject.getMonth() + 1,
+            day: this.minimumAdvanceBookingDateTimeObject.getDate()
+          };
+          this.maximumAdvanceBookingDateTimeObject = new Date();
+          this.maximumAdvanceBookingDateTimeObject.setMinutes( this.maximumAdvanceBookingDateTimeObject.getMinutes() + this.maximumAdvanceBookingTime );
+          console.log("maximumAdvanceBookingDateTimeObject - "+this.maximumAdvanceBookingDateTimeObject);
+          this.maxDate = {
+            year: this.maximumAdvanceBookingDateTimeObject.getFullYear(),
+            month: this.maximumAdvanceBookingDateTimeObject.getMonth() + 1,
+            day: this.maximumAdvanceBookingDateTimeObject.getDate(),
+          };
+          this.staffOnFrontValue=JSON.parse(JSON.parse(this.settingsArr.staff_list_on_front).status)
+          this.customerLoginValue=JSON.parse(this.settingsArr.customer_login);
+    }
+    isWeekend(date: NgbDateStruct) {
+      const d = new Date(date.year, date.month - 1, date.day);
+      return d.getDay() === 0 || d.getDay() === 6;
+    }
+    isDisabled = (date: NgbDateStruct, current: {month: number}) => {
+      return this.fnDisableDates(date); // this is undefined
+    }
+    selectToday() {
+      this.model = this.calendar.getToday();
+      console.log(JSON.stringify(this.calendar.getToday()));
+    }
+    fnDisableDates(date: NgbDateStruct){
+      const d = new Date(date.year, date.month - 1, date.day);
+      let temp:any;
+      let temp2:any;
+      for(var i=0; i<this.offDaysList.length; i++){
+        var offDay = new Date(this.offDaysList[i]);
+        if(i==0){
+         temp=date.month==offDay.getMonth()+1 && date.day==offDay.getDate(); 
+        }else{
+          temp+=temp2 || date.month==offDay.getMonth()+1 && date.day==offDay.getDate();
+        }
+      }
+      for(var i=0; i<this.workingHoursOffDaysList.length; i++){
+          temp+=temp2 || d.getDay() === this.workingHoursOffDaysList[i];
+      }
+      return temp;
+    }
+  
+    private handleError(error: HttpErrorResponse) {
+      return throwError('Error! something went wrong.');
+      //return error.error ? error.error : error.statusText;
+    }
 
-//     onNoClick(): void {
-//       this.dialogRef.close();
+    onNoClick(): void {
+      if(this.selectedStaff && this.staffIndex){
+        let result = {
+          'selectedStaff': this.selectedStaff,
+          'staffIndex': this.staffIndex
+        }
+        this.dialogRef.close(result);
+      }
+      this.dialogRef.close();
+     
       
-//     }
-//     ngOnInit() {}
-// }
+    }
+    ngOnInit() {}
+
+
+    fnGetOffDays(){
+      let requestObject = {
+        "business_id": this.businessId
+      };
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+  
+      this.http.post(`${environment.apiUrl}/list-holidays`,requestObject,{headers:headers} ).pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError(this.handleError)
+        ).subscribe((response:any) => {
+          if(response.data == true){
+            if(response.response.holidays.length>0){
+              this.offDaysList = response.response.holidays;
+            }else{
+              this.offDaysList=[];
+            }
+            if(response.response.offday.length>0){
+              this.workingHoursOffDaysList = response.response.offday;
+            }else{
+              this.workingHoursOffDaysList=[];
+            }
+            
+            
+          }
+          else{
+  
+          }
+        },
+        (err) =>{
+          console.log(err)
+        })
+      }
+
+      onDateSelect(event){
+        this.selecteddate = event.year+'-'+event.month+'-'+event.day;
+        this.selecteddate=this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd")
+        this.selecteddateForLabel=this.datePipe.transform(new Date(this.selecteddate),"EEE, MMM dd")
+        this.fnGetTimeSlots();
+      }
+    
+      fnGetTimeSlots(){
+        this.isLoader=true;
+        let requestObject = {
+          "business_id": this.businessId,
+          "selected_date":this.selecteddate
+          };
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+    
+        this.http.post(`${environment.apiUrl}/list-availabel-timings`,requestObject,{headers:headers} ).pipe(
+          map((res) => {
+            return res;
+          }),
+          catchError(this.handleError)
+        ).subscribe((response:any) => {
+          if(response.data == true){
+            this.timeSlotArr=[];
+            this.timeSlotArrForLabel=[];
+            //this.timeSlotArr = response.response;
+            this.minimumAdvanceBookingDateTimeObject = new Date();
+            this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
+            //console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
+            response.response.forEach(element => {
+              //console.log((new Date(this.datePipe.transform(this.selecteddate,"yyyy-MM-dd")+" "+element+":00"))+"----"+(this.minimumAdvanceBookingDateTimeObject));
+              if((new Date(this.datePipe.transform(this.selecteddate,"yyyy-MM-dd")+" "+element+":00")).getTime() > (this.minimumAdvanceBookingDateTimeObject).getTime()){
+                this.timeSlotArr.push(element);
+              }
+            });
+            var i=0;
+            this.timeSlotArr.forEach( (element) => {
+              var dateTemp=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element+":00";
+               this.timeSlotArrForLabel[i]= this.datePipe.transform(new Date(dateTemp),"hh:mm a");
+               i++;
+            });
+            this.timeslotview = true;
+            this.isLoader=false;
+            console.log(this.timeSlotArr);
+          }
+          else{
+            this.timeSlotArr.length=0;
+            this.timeSlotArrForLabel.length=0;
+            this.timeslotview = false;
+            this.isLoader=false;
+          }
+          },
+          (err) =>{
+            this.timeSlotArr.length=0;
+            this.timeSlotArrForLabel.length=0;
+            this.timeslotview = false;
+            this.isLoader=false;
+            console.log(err)
+          })
+      }
+     
+      fnSelectTimeSlot(timeSlot,index){
+        this.selectedTimeSlot=timeSlot;
+        console.log(this.selectedTimeSlot);
+        // console.log(this.selectedTimeSlot)
+        this.availableStaff.length=0;
+        this.isStaffAvailable = false;
+        if(this.staffOnFrontValue == true){
+          this.fnGetStaff();
+        }else{
+          this.fnSelectStaff(null,index);
+        }
+      }
+    
+      fnGetStaff(){
+        this.isLoader=true;
+        let requestObject = {
+          "business_id": this.businessId,
+          "postal_code":this.bookingPostalcode,
+          "service_id":this.currentSelectedService,
+          "book_date" : this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd"),
+          "book_time" : this.selectedTimeSlot, 
+        };
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+    
+        this.http.post(`${environment.apiUrl}/service-staff`,requestObject,{headers:headers} ).pipe(
+          map((res) => {
+            return res;
+          }),
+          catchError(this.handleError)
+        ).subscribe((response:any) => {
+          if(response.data == true){
+              this.availableStaff = response.response;
+              this.isStaffAvailable = true;
+              this.isLoader=false;
+              console.log(JSON.stringify(this.availableStaff));
+          }
+          else{
+            this.availableStaff.length=0;
+           this.isStaffAvailable = false;
+           this.isLoader=false;
+          }
+          },
+          (err) =>{
+            this.isStaffAvailable = false;
+            this.isLoader=false;
+            console.log(err)
+          })
+      }
+   
+    fnSelectStaff(staff_id,index){
+       this.selectedStaff= staff_id;
+       this.staffIndex = index
+      //  if(this.selectedStaff && this.staffIndex){
+      //   let result = {
+      //     'selectedStaff': this.selectedStaff,
+      //     'staffIndex': this.staffIndex
+      //      }
+      //      this.dialogRef.close(result);
+      //    }
+    }
+    fnSelectNextValidDate(mydate){
+    
+      if(mydate=="" || mydate==undefined){
+        console.log('appointment Date not availbled');
+        return false;
+      }
+      
+      if(this.offDaysList.indexOf(this.datePipe.transform(new Date(mydate),"yyyy-MM-dd"))>-1){
+        mydate.setDate(mydate.getDate() + 1)
+        console.log(mydate);
+        this.fnSelectNextValidDate(mydate);
+      }else{
+        let day = this.datePipe.transform(new Date(mydate),"EEE");
+        let dayId;
+        if(day == "Sun"){
+          dayId=0;
+        }
+        if(day == "Mon"){
+          dayId=1;
+        }
+        if(day == "Tue"){
+          dayId=2;
+        }
+        if(day == "Wed"){
+          dayId=3;
+        }
+        if(day == "Thu"){
+          dayId=4;
+        }
+        if(day == "Fri"){
+          dayId=5;
+        }
+        if(day == "Sat"){
+          dayId=6;
+        }
+        console.log(day);
+        if(this.workingHoursOffDaysList.indexOf(dayId)>-1){
+          mydate.setDate(mydate.getDate() + 1)
+          console.log(mydate);
+          this.fnSelectNextValidDate(mydate);
+        }else{
+          this.selecteddate=this.datePipe.transform(new Date(mydate),"yyyy-MM-dd");
+          let year=this.selecteddate.split("-")[0];
+          let month= this.selecteddate.split("-")[1];
+          let day=this.selecteddate.split("-")[2];
+          console.log(year+"--"+month+"--"+day);
+          let dateTemp={"year":parseInt(year),"month":parseInt(month),"day":parseInt(day)};
+          console.log(JSON.stringify(dateTemp));
+          this.model=dateTemp;
+          this.selecteddateForLabel= this.datePipe.transform(new Date(mydate),"EEE, MMM dd");
+          console.log(mydate);
+          console.log(this.selecteddate);
+          console.log(this.selecteddateForLabel);
+          this.fnGetTimeSlots();
+        }
+      }
+    }
+   
+}

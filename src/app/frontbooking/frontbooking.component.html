@@ -1132,7 +1132,7 @@
     </mat-card>
 </div>
 </div>
-<!-- 
+
 <div id="theme_2" class="theme-main" *ngIf="selectedTheme == '2'">
     <div class="card-wrap main-front-container">
         <mat-card class="p-0">
@@ -1144,7 +1144,7 @@
                     <h4>Bussiness Is Not Available For Booking Now</h4>
                 </div>
                 <div id="category_list" class="main-step step_1 p-0" *ngIf="catselection && (businessDetail && businessDetail.private_status == 'N') && (businessDetail && businessDetail.status == 'E')">
-                  
+
                     <div class="col-lg-12 col-sm-12 col-12 float-left loggedin_head" *ngIf="isLoggedIn">
 
                         <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn continue-btn logout-btn">View Dashboard</button>
@@ -1296,8 +1296,8 @@
                                 </div>
                                 <div class="hover-overlay" *ngIf="serviceCount[services.id].count<1">
                                     <div class="btns-wrap">
-                                    <button class="add-to-cart-btn"  (click)="fnShowCounter($event,services.id)">Add To Cart</button>
-                                    <button class="book-now-btn">Book Now</button>
+                                    <button class="add-to-cart-btn" (click)="fnShowCounter($event,services.id)">Add To Cart</button>
+                                    <button class="book-now-btn" (click)="selectDataTimePopup(services.id)">Book Now</button>
                                     </div>
                                 </div>
                             </label>
@@ -1313,5 +1313,5 @@
         </mat-card>
     </div>
 
-</div> -->
+</div>
 </div>

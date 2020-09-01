@@ -27,8 +27,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { ConfirmationDialogComponent } from './_components/confirmation-dialog/confirmation-dialog.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { FrontbookingComponent } from './frontbooking/frontbooking.component';
-// import { FrontbookingComponent, theme2CartPopup,theme2DateTimeSelection } from './frontbooking/frontbooking.component';
+//import { FrontbookingComponent } from './frontbooking/frontbooking.component';
+import { FrontbookingComponent, theme2CartPopup,theme2DateTimeSelection } from './frontbooking/frontbooking.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { NgxPayPalModule } from 'ngx-paypal';
@@ -74,8 +74,8 @@ export function provideConfig() {
         DialogNotification,
         DialogSubscriptionCardForm,
         DialogNotificationAppointment,
-        // theme2CartPopup,
-        // theme2DateTimeSelection,
+        theme2CartPopup,
+        theme2DateTimeSelection,
         DialogLogoutAppointment,
         OnlinePaymentComponent,
         DialogReAuthentication,
@@ -134,8 +134,8 @@ export function provideConfig() {
       DialogNotificationAppointment,
       DialogReAuthentication,
       DialogSubscriptionCardForm,
-      // theme2CartPopup,
-      // theme2DateTimeSelection,
+      theme2CartPopup,
+      theme2DateTimeSelection,
       DialogAuthentication,
     ],
 })
