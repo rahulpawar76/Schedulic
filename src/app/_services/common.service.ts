@@ -7,7 +7,7 @@ import { environment } from '@environments/environment';
 import { Router, RouterEvent, RouterOutlet } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {  DialogReAuthentication  } from './auth.component';
+import {  DialogAuthentication  } from './auth.component';
 
 export interface DialogData {
   animal: string;
@@ -116,7 +116,7 @@ export class CommonService {
   reAuthenticateUser() {
 
     if (this.dialogRef) return;
-    this.dialogRef = this.dialog.open(DialogReAuthentication, {
+    this.dialogRef = this.dialog.open(DialogAuthentication, {
       width: '500px',
     });
 

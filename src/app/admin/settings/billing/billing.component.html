@@ -92,8 +92,8 @@
 
             <div class=" mt-5 plan-content p-2">
                 <div class="row">
-                    <div class="col-4 p-3 text-center" [ngClass]="{'selected-plan':planList.selected === true}" *ngFor="let planList of planList; let i=index;">
-                        <div class="border shadow">
+                    <div class="col-4 p-3 text-center" *ngFor="let planList of planList; let i=index;">
+                        <div class="border shadow" [ngClass]="{'selected-plan':planList.selected === true}">
                             <div class="plan-name py-2 text-center text-capitalize font-weight-bold">
                                 {{planList.plan_name}}
                             </div>
@@ -133,7 +133,7 @@
                             </div>
                             <hr class="m-0">
                             <div class="subscribe-btn text-center py-3">
-                                <button *ngIf="planList.selected == true" mat-flat-button color="primary">Selected</button>
+                                <button *ngIf="planList.selected == true" mat-flat-button class="selected-plan-btn">Selected</button>
                                 <button *ngIf="planList.selected == false" (click)="fnPaymentNow(planList.plan_id)" mat-flat-button color="primary">Subscribe Now</button>
                             </div>
                         </div>
