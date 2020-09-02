@@ -1,4 +1,4 @@
-<div class="modal-dialog modal-lg modal-notify modal-info" role="document">
+<div class="" role="document">
     <div class="step-loader" *ngIf="isLoader">
         <img src="../../assets/loading-spinner.gif" />
     </div>
@@ -24,8 +24,8 @@
                 <div class="slot-list" *ngIf="timeSlotArr.length>0">
                     <div class="timing" *ngFor="let timeSlot of timeSlotArr; let i= index">
                         <label>
-                            <input name="timeslot" type="radio" [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].appointmentTimeSlot==timeSlot" (click)="fnSelectTimeSlot(timeSlot,i)" />
-                            <div class="single-slot"
+                            <!-- <input name="timeslot" type="radio" [checked]="serviceCartArr[currentSelectedService] && serviceCartArr[currentSelectedService].appointmentTimeSlot==timeSlot" (click)="fnSelectTimeSlot(timeSlot,i)" /> -->
+                            <div (click)="fnSelectTimeSlot(timeSlot,i)" class="single-slot"
                                 [mdePopoverTriggerFor]="selectstaff2"
                                 mdePopoverTriggerOn="click"
                                 #popoverTrigger="mdePopoverTrigger">{{timeSlotArrForLabel[i]}}</div>
@@ -42,7 +42,7 @@
                                             <mat-radio-group aria-label="Select Staff" *ngIf="isStaffAvailable">
                                                 <mat-radio-button (change)="fnSelectStaff(null,i)" value="">Any Staff
                                                 </mat-radio-button>
-                                                <mat-radio-button (change)="fnSelectStaff(staff.id,i)" class="text-capitalize" value="{{staff.id}}">{{staff.name}}</mat-radio-button>
+                                                <mat-radio-button *ngFor="let staff of availableStaff" (change)="fnSelectStaff(staff.id,i)" class="text-capitalize" value="{{staff.id}}">{{staff.name}}</mat-radio-button>
                                             </mat-radio-group>
                                         </div>
                                     </div>

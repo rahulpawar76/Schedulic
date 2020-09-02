@@ -1622,7 +1622,6 @@ export class FrontbookingComponent implements OnInit {
   }
   
   fnSelectStaff(staff_id,index){
-    alert();
     this.isLoader=true;
     console.log(event);
     console.log(staff_id);
@@ -2889,7 +2888,7 @@ export class FrontbookingComponent implements OnInit {
     
      
     const dialogRef = this.dialog.open(theme2DateTimeSelection, {
-      width: '850px',
+      width: '800px',
        data: {
               settingsArr : this.settingsArr,
               bookingPostalcode: this.booking.postalcode,
@@ -3151,8 +3150,8 @@ export class theme2DateTimeSelection {
           catchError(this.handleError)
         ).subscribe((response:any) => {
           if(response.data == true){
-            this.timeSlotArr=[];
-            this.timeSlotArrForLabel=[];
+            // this.timeSlotArr=[];
+            // this.timeSlotArrForLabel=[];
             //this.timeSlotArr = response.response;
             this.minimumAdvanceBookingDateTimeObject = new Date();
             this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
@@ -3193,8 +3192,8 @@ export class theme2DateTimeSelection {
         this.selectedTimeSlot=timeSlot;
         console.log(this.selectedTimeSlot);
         // console.log(this.selectedTimeSlot)
-        this.availableStaff.length=0;
-        this.isStaffAvailable = false;
+        // this.availableStaff.length=0;
+        // this.isStaffAvailable = false;
         if(this.staffOnFrontValue == true){
           this.fnGetStaff();
         }else{
