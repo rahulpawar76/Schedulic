@@ -50,6 +50,7 @@ export class DialogAuthentication {
         }
     }
 
+    
     submit(){
 
         if(this.reAuthenticationForm.valid){

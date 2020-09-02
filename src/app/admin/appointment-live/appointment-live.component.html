@@ -377,7 +377,7 @@
                 <label class="tab-label">Out Door</label>
                 <div class="single-search-bar">
                     <i class="fa fa-search"></i>
-                    <input type="text" placeholder="Search">
+                    <input type="text" placeholder="Search" (keyup)="fnOutdoorOrders($event.target.value,'service')">
                 </div>
                 <div class="col-2 pendingborder appoint-head">
                     <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
@@ -393,7 +393,7 @@
                 <div class="left-container">
                     <div class="search-container">
                         <i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search by Order ID">
+                        <input type="text" placeholder="Search by Order ID"  (keyup)="fnOutdoorOrders($event.target.value,'order_id')">
                     </div>
                     <div class="order-listing">
                         <div class="single-order" *ngFor="let val of outdoorOrdersArr;let i=index">
@@ -422,63 +422,34 @@
                                 </button>
                             </div>
                         </div>
-
-                        <!-- <div class="single-order">
-                            <label class="order-id">Order ID : 1234567890 <small>#1</small></label>
-                            <div class="location-container">
-                                 <div class="pickup-point">
-                                    <img src="/assets/images/admin/delivery.png">
-                                    <p>Delivery Boy Live Location</p>
-                                </div> 
-                                <div class="drop-point">
-                                    <mat-icon>location_on</mat-icon>
-                                    <p>Digfeer Road, Mogadishu, Somalia, Lorem</p>
-                                </div>
-                            </div>
-                            <div class="action-btn">
-                                <button (click)="fnOpenOnTheWayDetails()" mat-button class="detail-btn">Appointment Details</button>
-                                <button mat-button class="otw-btn">On The Way</button>
-                            </div>
-                        </div> -->
-
-
-                        <!-- <div class="single-order">
-                            <label class="order-id">Order ID : 1234567890 <small>#1</small></label>
-                            <div class="location-container">
-                                <div class="pickup-point">
-                                    <img src="/assets/images/admin/delivery.png">
-                                    <p>Delivery Boy Live Location</p>
-                                </div>
-                                <div class="drop-point">
-                                    <mat-icon>location_on</mat-icon>
-                                    <p>Digfeer Road, Mogadishu, Somalia, Lorem</p>
-                                </div>
-                            </div>
-                            <div class="action-btn">
-                                <button (click)="fnOpenOnTheWayDetails()" mat-button class="detail-btn">Appointment Details</button>
-                                <button mat-button class="ws-btn">Work Started</button>
-                            </div>
-                        </div>
-                        <div class="single-order">
-                            <label class="order-id">Order ID : 1234567890 <small>#1</small></label>
-                            <div class="location-container">
-                                 <div class="pickup-point">
-                                    <img src="/assets/images/admin/delivery.png">
-                                    <p>Delivery Boy Live Location</p>
-                                </div> 
-                                <div class="drop-point">
-                                    <mat-icon>location_on</mat-icon>
-                                    <p>Digfeer Road, Mogadishu, Somalia, Lorem</p>
-                                </div>
-                            </div>
-                            <div class="action-btn">
-                                <button (click)="fnOpenOnTheWayDetails()" mat-button class="detail-btn">Appointment Details</button>
-                                <button mat-button class="otw-btn">On The Way</button>
-                            </div>
-                        </div> -->
-
                     </div>
                 </div>
+
+                <agm-map [latitude]="lat" [longitude]="lng"    [zoom]="20"  >
+                    <agm-direction 
+                        [origin]="origin" 
+                        [destination]="destination"
+                        [renderOptions]="renderOptions"
+                    >
+                    </agm-direction>
+                </agm-map>
+
+<!--      
+                <google-map
+                    height="500px"
+                    width="1024px"
+                    [zoom]="zoom"
+                    [center]="center"
+
+                >
+
+                <map-marker *ngFor="let marker of markers"
+                [position]="marker.position"
+                [label]="marker.label"
+                [title]="marker.title"
+                [options]="marker.options"> </map-marker>
+
+            </google-map> -->
 
                 <!-- <iframe   src="https://www.google.com/maps/dir/?api=1&key=AIzaSyCPJpjD-qcR_yIxJnS8maR5W9KB0E3EzYI&origin=21.693121,71.5574959&destination=21.693121,71.5072847&travelmode=driving" style="width: 80%;"></iframe>
                  -->

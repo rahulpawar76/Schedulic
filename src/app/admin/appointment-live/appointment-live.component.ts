@@ -126,8 +126,18 @@ export class AppointmentLiveComponent implements OnInit {
   pendingBillingOrdeTotal = 0;
   selectedBillCustomerData:any=[];
   outdoorOrdersArr:any = [];
-  
-  
+  zoom = 25;
+  //markers = []
+
+  // center:any;
+  public lat = 21.2125569;
+  public lng = 72.8872839;
+
+  origin = { lat: 21.2125569, lng: 72.8872839 };
+  destination = { lat: 21.215346, lng: 72.8628563 };
+
+
+  // Current map
 
   constructor(
     private AdminService: AdminService,
@@ -153,6 +163,45 @@ export class AppointmentLiveComponent implements OnInit {
     this.fnPendingBilling();
     this.fnOutdoorOrders();
 
+      // this.markers.push({
+      //   position: {
+      //     lat: 22.258651999999998,
+      //     lng: 71.1923805,
+      //   },
+      //   label: {
+      //     color: 'red',
+      //     text: 'Marker label ' + (this.markers.length + 1),
+      //   },
+      //   title: 'Marker title ' + (this.markers.length + 1),
+      //   info: 'Marker info ' + (this.markers.length + 1),
+      //   options: {
+      //     animation: google.maps.Animation.BOUNCE,
+      //   },
+      // });
+
+      // this.markers.push({
+      //   position: {
+      //     lat: 22.2595274,
+      //     lng: 71.1942935,
+      //   },
+      //   label: {
+      //     color: 'red',
+      //     text: 'Marker label ' + (this.markers.length + 1),
+      //   },
+      //   title: 'Marker title ' + (this.markers.length + 1),
+      //   info: 'Marker info ' + (this.markers.length + 1),
+      //   options: {
+      //     animation: google.maps.Animation.BOUNCE,
+      //   },
+      // });
+
+      // this.center = {
+      //   lat: 22.258651999999998,
+      //   lng: 71.1923805,
+      // }
+
+      
+
   }
 
   ngOnInit() {
@@ -163,9 +212,9 @@ export class AppointmentLiveComponent implements OnInit {
     this.getPendingAppointments(this.search.pendingKeyword);
    // this.getNotAssignedAppointments();
    if (localStorage.getItem('business_id')) {
-    this.businessId = localStorage.getItem('business_id');
-    this.getNotificationCount(this.businessId)
-  }
+      this.businessId = localStorage.getItem('business_id');
+      this.getNotificationCount(this.businessId)
+    }
     this.getOnThewayAppointments();
     this.getWorkStartedAppointments(this.search.workStartedKeyword);
     
@@ -390,6 +439,7 @@ export class AppointmentLiveComponent implements OnInit {
     return Array(n);
   }
 
+   
   WSAppointSearch(){
     if(this.search.workStartedKeyword.length > 1){
       this.getWorkStartedAppointments(this.search.workStartedKeyword)
@@ -1097,10 +1147,13 @@ export class AppointmentLiveComponent implements OnInit {
   
   }
    
-  fnOutdoorOrders(){
+  fnOutdoorOrders(search=null,search_by=null){
+    
 
     let requestObject = {
       "business_id": localStorage.getItem('business_id'),
+      'search' : search,
+      "search_by" : search_by
     };
 
     this.AdminService.outdoorOrders(requestObject).subscribe((response: any) => {
@@ -1111,7 +1164,7 @@ export class AppointmentLiveComponent implements OnInit {
 
       } else {
 
-        this._snackBar.open(response.response, "X", {
+        this._snackBar.open('out door service not found', "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['red-snackbar']

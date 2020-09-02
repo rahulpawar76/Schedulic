@@ -31,6 +31,7 @@ export class CommonService {
   ) {
       
       this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
       localStorage.setItem('isBusiness', 'false');
       if(localStorage.getItem('business_id')){
           this.businessId = localStorage.getItem('business_id');
@@ -45,6 +46,9 @@ export class CommonService {
   }
 
   checkAuthentication(){
+    
+    console.log(this.currentUser);
+
     let requestObject = {
       "user_type": this.currentUser.user_type,
       "user_id" : this.currentUser.user_id,
