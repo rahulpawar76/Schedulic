@@ -1146,7 +1146,7 @@ input:focus {
     .common-footer {
         .cart-btn {
             width: 270px !important;
-            height: 40px !important;
+            height: 50px !important;
             background: $primary-gradient-color;
             border-radius: 5px 0 0 0 !important;
             cursor: pointer;
@@ -1160,6 +1160,9 @@ input:focus {
             margin-top: 0 !important;
             top: unset !important;
         }
+    }
+    .pad-bottom-50 {
+        padding-bottom: 50px !important;
     }
 }
 

@@ -1622,6 +1622,7 @@ export class FrontbookingComponent implements OnInit {
   }
   
   fnSelectStaff(staff_id,index){
+    alert()
     this.isLoader=true;
     console.log(event);
     console.log(staff_id);
@@ -2867,17 +2868,17 @@ export class FrontbookingComponent implements OnInit {
     });
   }
   selectDataTimePopup(serviceId) {
-    let currentSelectedService = serviceId;
-    if(this.serviceCartArr[currentSelectedService] && this.currentSelectedService[currentSelectedService].appointmentDate != ''){
-      let year=this.serviceCartArr[currentSelectedService].appointmentDate.split("-")[0];
-      let month= this.serviceCartArr[currentSelectedService].appointmentDate.split("-")[1];
-      let day=this.serviceCartArr[currentSelectedService].appointmentDate.split("-")[2];
+    this.currentSelectedService = serviceId;
+    if(this.serviceCartArr[this.currentSelectedService] && this.currentSelectedService[this.currentSelectedService].appointmentDate != ''){
+      let year=this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[0];
+      let month= this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[1];
+      let day=this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[2];
       console.log(year+"--"+month+"--"+day);
       let dateTemp={"year":parseInt(year),"month":parseInt(month),"day":parseInt(day)};
       console.log(JSON.stringify(dateTemp));
       this.model=dateTemp;
-      this.selecteddate=this.serviceCartArr[currentSelectedService].appointmentDate
-      this.selecteddateForLabel=this.datePipe.transform(new Date(this.serviceCartArr[currentSelectedService].appointmentDate),"EEE, MMM dd");
+      this.selecteddate=this.serviceCartArr[this.currentSelectedService].appointmentDate
+      this.selecteddateForLabel=this.datePipe.transform(new Date(this.serviceCartArr[this.currentSelectedService].appointmentDate),"EEE, MMM dd");
 
       this.fnGetTimeSlots();
       this.directAPI = 'gettimeslote';
@@ -2902,6 +2903,7 @@ export class FrontbookingComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result){
+        alert();
         this.fnSelectStaff(result.selectedStaff, result.staffIndex)
       }
     });
@@ -3242,6 +3244,7 @@ export class theme2DateTimeSelection {
     fnSelectStaff(staff_id,index){
        this.selectedStaff= staff_id;
        this.staffIndex = index
+      this.trigger.toArray()[index].togglePopover();
       //  if(this.selectedStaff && this.staffIndex){
       //   let result = {
       //     'selectedStaff': this.selectedStaff,
