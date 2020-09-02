@@ -561,7 +561,7 @@
                 <div class="col-lg-12 col-sm-12 col-12 float-left" *ngIf="!showSameAsAboveCheck">
                     <!-- <mat-checkbox (change)="fnsameasabove($event)" class="same-check" id="same_check" name="sameasabove"></mat-checkbox> -->
                     <div class="custom-control custom-checkbox" *ngIf="is_in_store_service==false">
-                        <input type="checkbox" class="custom-control-input" id="same_check" (change)="fnSameAsBillingAddress($event)"  name="sameasabove">
+                        <input type="checkbox" class="custom-control-input" id="same_check" (change)="fnSameAsBillingAddress($event)" name="sameasabove">
                         <label class="custom-control-label same_check_label" for="same_check">Same as Billing Address</label>
                     </div>
                 </div>
@@ -1169,7 +1169,7 @@
                             </div>
                         </div>
                     </mat-card-title>
-                    <mat-card-content class="p-4 mt-0 mb-3">
+                    <mat-card-content class="p-4 mt-0 mb-0 pad-bottom-50">
                         <div class="row category-list">
                             <label *ngFor="let category of catdata; let i=
                                 index" for="categoty_{{i}}" class="col-lg-12
@@ -1207,7 +1207,7 @@
                             </button> {{selectedcategoryName}}
                         </div>
                     </mat-card-title>
-                    <mat-card-content class="p-4 mt-0 mb-3">
+                    <mat-card-content class="p-4 mt-0 mb-0 pad-bottom-50">
                         <div class="row subcategory-list" *ngIf="subcatdata.length>
                             0">
                             <label *ngFor="let subcategory of subcatdata; let i= index" for="subcategory_{{i}}" class="col-lg-12 col-sm-12 col-12">
@@ -1256,7 +1256,7 @@
                             </button> {{selectedcategoryName}} - Select Service
                         </div>
                     </mat-card-title>
-                    <mat-card-content class="p-4 mt-0 mb-3">
+                    <mat-card-content class="p-4 mt-0 mb-0 pad-bottom-50">
                         <div class="row service-list" *ngIf="serviceData.length>0">
                             <label class="col-lg-3 col-sm-6 col-12 single-service-label" *ngFor="let services of
                             serviceData; let i= index">

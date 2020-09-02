@@ -86,6 +86,20 @@ export class SuperAdminService {
         }),
         catchError(this.handleError));
     }
+    getTransactions(){
+        this.checkAuthentication();
+        let requestObject = {
+        };
+        let headers = new HttpHeaders({
+            'superadmin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
+        });
+        return this.http.post(`${environment.apiUrl}/get-all-transactions`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
     getMyProfileDetails(){
         this.checkAuthentication();
         let requestObject = {
