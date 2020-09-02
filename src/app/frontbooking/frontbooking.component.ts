@@ -173,6 +173,7 @@ export class FrontbookingComponent implements OnInit {
   loadAPI: Promise<any>;
   isFound:boolean=false;
   directService:boolean=false;
+  sizeServiceCartArr:any;
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
   emailFormat = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
   onlynumeric = /^-?(0|[1-9]\d*)?$/
@@ -211,6 +212,7 @@ export class FrontbookingComponent implements OnInit {
   customerLoginValue:boolean=false;
   encodedId: any;
   urlString: any;
+  cartPopupCloseType:any;
   constructor(
     private _formBuilder: FormBuilder,
     private http: HttpClient,
@@ -1622,11 +1624,11 @@ export class FrontbookingComponent implements OnInit {
   }
   
   fnSelectStaff(staff_id,index){
-    alert()
     this.isLoader=true;
-    console.log(event);
-    console.log(staff_id);
-    this.trigger.toArray()[index].togglePopover();
+    if(this.selectedTheme !== '2'){
+      this.trigger.toArray()[index].togglePopover();
+      this.serviceCount[this.currentSelectedService].appointmentDateForLabel=this.datePipe.transform(new Date(this.selecteddate),"MMM dd, yyyy");
+    }
     this.serviceCount[this.currentSelectedService].appointmentDate=this.selecteddate;
     this.serviceCount[this.currentSelectedService].appointmentDateForLabel=this.datePipe.transform(new Date(this.selecteddate),"MMMM dd, yyyy");
     this.serviceCount[this.currentSelectedService].assignedStaff=staff_id;
@@ -2861,10 +2863,24 @@ export class FrontbookingComponent implements OnInit {
      
     const dialogRef = this.dialog.open(theme2CartPopup, {
       width: '500px',
-       data: {serviceCartArr : this.serviceCartArr}
+       data: {
+         serviceCartArr : this.serviceCartArr,
+         settingsArr : this.settingsArr,
+         serviceCount: this.serviceCount,
+         currentSelectedService:this.currentSelectedService,
+         taxArr:this.taxArr,
+        }
       
     });
     dialogRef.afterClosed().subscribe(result => {
+      if(result != undefined){
+        this.cartPopupCloseType= result
+        if(this.cartPopupCloseType === 'proceed'){
+          this.theme2CheckoutDialog()
+        }else if(this.cartPopupCloseType === 'add-more'){
+          this.fnbacktofirst();
+        }
+      }
     });
   }
   selectDataTimePopup(serviceId) {
@@ -2902,15 +2918,58 @@ export class FrontbookingComponent implements OnInit {
       
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        alert();
+      if(result != undefined){
+        this.selecteddate = result.selecteddate;
+        this.selecteddateForLabel = result.selecteddateForLabel
+        this.selectedTimeSlot = result.selectedTimeSlot
         this.fnSelectStaff(result.selectedStaff, result.staffIndex)
+        this.fnShowCounter(event,this.currentSelectedService);
       }
+      this.sizeServiceCartArr = 0
+      this.serviceCartArr.forEach(element => {
+        this.sizeServiceCartArr = this.sizeServiceCartArr+1
+      });
+    });
+  }
+  theme2CheckoutDialog() {
+   
+    const dialogRef = this.dialog.open(theme2CheckoutDialog, {
+      width: '800px',
+       data: {
+              settingsArr : this.settingsArr,
+            }
+      
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      
     });
   }
 }
 
+@Component({
+  selector: 'theme-2-checkout-popup',
+  templateUrl: '../_dialogs/theme-2-checkout-popup.html',
+  providers: [DatePipe]
+})
+export class theme2CheckoutDialog {
+  constructor(
+    public dialogRef: MatDialogRef<theme2CheckoutDialog>,
+    private _formBuilder:FormBuilder,
+    private http: HttpClient,
+    private _snackBar: MatSnackBar,
+    private authenticationService:AuthenticationService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      
+    
+    }
 
+    onNoClick(): void {
+      this.dialogRef.close();
+      
+    }
+    ngOnInit() {}
+    
+  }
 
 // Theme 2 cart popup
 
@@ -2929,6 +2988,17 @@ export class theme2CartPopup {
     discount:0,
     netCost:0
   }
+  settingsArr:any;
+  serviceCount:any=[];
+  currentSelectedService:any;
+  taxArr:any=[];
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;
+  taxType:any='P';
+  taxAmountArr:any=[];
+  sizeServiceCartArr:any;
+  cartPopupCloseType:any = 'add-more';
   constructor(
     public dialogRef: MatDialogRef<theme2CartPopup>,
     private _formBuilder:FormBuilder,
@@ -2937,15 +3007,315 @@ export class theme2CartPopup {
     private authenticationService:AuthenticationService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.serviceCartArr = this.data.serviceCartArr
+      this.settingsArr = this.data.settingsArr,
+      this.serviceCount = this.data.serviceCount
+      this.taxArr=this.data.taxArr,
       console.log(this.serviceCartArr)
+      this.sizeServiceCartArr = 0
+      this.serviceCartArr.forEach(element => {
+        this.sizeServiceCartArr = this.sizeServiceCartArr+1
+      });
+      this.currencySymbol = this.settingsArr.currency;
+      this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+      this.currencySymbolFormat = this.settingsArr.currency_format;
+      
+
+      for(let i=0; i< this.serviceCartArr.length; i++){
+        if(this.serviceCartArr[i] != null){
+          this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
+          this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
+        }
+      }
+      var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      var amountAfterTax=0;
+      if(this.serviceMainArr.subtotal > 0){
+        this.taxArr.forEach((element) => {
+          let taxTemp={
+            value:0,
+            name:'',
+            amount:0
+          }
+       //   console.log(element.name+" -- "+element.value);
+          if(this.taxType == "P"){
+           taxTemp.value= element.value;
+           taxTemp.name= element.name;
+           taxTemp.amount= amountAfterDiscount * element.value/100;
+            amountAfterTax=amountAfterTax+taxTemp.amount;
+          }else{
+            taxTemp.value= element.value;
+            taxTemp.name= element.name;
+            taxTemp.amount=  element.value;
+            amountAfterTax=amountAfterTax+taxTemp.amount;
+          }
+          this.taxAmountArr.push(taxTemp);
+        //  console.log(this.taxAmountArr);
+        });
+      }
+      // this.taxAmountArr.forEach((element) => {
+      //   amountAfterDiscount=amountAfterDiscount+element;
+      // });
+      this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
+      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      console.log(this.serviceCount[this.currentSelectedService]);
     }
 
     onNoClick(): void {
-      this.dialogRef.close();
+      this.dialogRef.close(this.cartPopupCloseType);
       
     }
     ngOnInit() {}
+    fnContinueCart(closeType){
+      this.cartPopupCloseType = closeType
+      this.dialogRef.close(this.cartPopupCloseType);
+    }
+    
+  fnRemove(event,service_id){
+    if(this.serviceCount[service_id].count >= 1){
+      this.currentSelectedService=service_id;
+      this.serviceCount[service_id].count=this.serviceCount[service_id].count-1
+
+      this.serviceCount[service_id].subtotal = this.serviceCount[service_id].service_cost * this.serviceCount[service_id].count;
+      this.serviceCount[service_id].discount_type=null;
+      this.serviceCount[service_id].discount_value=null;
+      this.serviceCount[service_id].discount=0;
+      
+      var serviceAmountAfterDiscount= this.serviceCount[service_id].subtotal - this.serviceCount[service_id].discount;
+      var serviceTaxAmount=0;
+      let taxMain=[];
+      this.taxArr.forEach((element) => {
+        let taxTemp={
+          value:0,
+          name:'',
+          amount:0
+        }
+        console.log(element.name+" -- "+element.value);
+        if(this.taxType == "P"){
+         taxTemp.value= element.value;
+         taxTemp.name= element.name;
+         taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+          serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+        }else{
+          taxTemp.value= element.value;
+          taxTemp.name= element.name;
+          taxTemp.amount=  element.value;
+          serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+        }
+        taxMain.push(taxTemp);
+        this.serviceCount[service_id].tax=taxMain;
+        console.log(this.serviceCount[service_id].tax);
+      });
+
+      // this.serviceData[id].tax=0;
+      this.serviceCount[service_id].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
+      // this.serviceCount[service_id].totalCost=this.serviceCount[service_id].count*this.serviceCount[service_id].service_cost;
+      console.log(JSON.stringify(this.serviceCount));
+      if(this.serviceCartArr[service_id] != null){
+        if(this.serviceCount[service_id].count < 1){
+          this.serviceCartArr[service_id]=null;
+        }else{
+          this.serviceCartArr[service_id]=this.serviceCount[service_id]; 
+        }
+        console.log(JSON.stringify(this.serviceCartArr));
+      }
+      this.serviceMainArr.totalNumberServices=0;
+      this.serviceMainArr.subtotal=0;
+      this.serviceMainArr.discount=0;
+      this.taxAmountArr.length=0;
+      console.log(this.taxAmountArr);
+      this.serviceMainArr.netCost=0;
+      for(let i=0; i< this.serviceCartArr.length; i++){
+        if(this.serviceCartArr[i] != null){
+          this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
+          this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
+        }
+      }
+      var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      var amountAfterTax=0;
+      if(this.serviceMainArr.subtotal > 0){
+        this.taxArr.forEach((element) => {
+          // console.log(element.name+" -- "+element.value);
+          // if(this.taxType == "P"){
+          //   this.taxAmountArr[element.name]= amountAfterDiscount * element.value/100;
+          //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
+          // }else{
+          //   this.taxAmountArr[element.name]=  element.value;
+          //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
+          // }
+          let taxTemp={
+          value:0,
+            name:'',
+            amount:0
+          }
+          console.log(element.name+" -- "+element.value);
+          if(this.taxType == "P"){
+           taxTemp.value= element.value;
+           taxTemp.name= element.name;
+           taxTemp.amount= amountAfterDiscount * element.value/100;
+            amountAfterTax=amountAfterTax+taxTemp.amount;
+          }else{
+            taxTemp.value= element.value;
+            taxTemp.name= element.name;
+            taxTemp.amount=  element.value;
+            amountAfterTax=amountAfterTax+taxTemp.amount;
+          }
+          this.taxAmountArr.push(taxTemp);
+          console.log(this.taxAmountArr);
+        });
+      }
+      // this.taxAmountArr.forEach((element) => {
+      //   amountAfterDiscount=amountAfterDiscount+element;
+      // });
+      this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
+      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      console.log(this.taxAmountArr);
+      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
+    }
+  }
+
+  fnAdd(event,service_id){
+    if(this.serviceCount[service_id].count < 10){
+      this.currentSelectedService=service_id;
+      this.serviceCount[service_id].count=this.serviceCount[service_id].count+1
+
+      this.serviceCount[service_id].subtotal = this.serviceCount[service_id].service_cost * this.serviceCount[service_id].count;
+      this.serviceCount[service_id].discount_type=null;
+      this.serviceCount[service_id].discount_value=null;
+      this.serviceCount[service_id].discount=0;
+      
+      var serviceAmountAfterDiscount= this.serviceCount[service_id].subtotal - this.serviceCount[service_id].discount;
+      var serviceTaxAmount=0;
+      let taxMain=[];
+      this.taxArr.forEach((element) => {
+        let taxTemp={
+          value:0,
+          name:'',
+          amount:0
+        }
+        console.log(element.name+" -- "+element.value);
+        if(this.taxType == "P"){
+         taxTemp.value= element.value;
+         taxTemp.name= element.name;
+         taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+          serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+        }else{
+          taxTemp.value= element.value;
+          taxTemp.name= element.name;
+          taxTemp.amount=  element.value;
+          serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+        }
+        taxMain.push(taxTemp);
+        this.serviceCount[service_id].tax=taxMain;
+        console.log(this.serviceCount[service_id].tax);
+      });
+
+      // this.serviceData[id].tax=0;
+      this.serviceCount[service_id].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
+      // this.serviceCount[service_id].totalCost=this.serviceCount[service_id].count*this.serviceCount[service_id].service_cost;
+      console.log(JSON.stringify(this.serviceCount));
+      if(this.serviceCartArr[service_id] != null){
+        this.serviceCartArr[service_id]=this.serviceCount[service_id];
+        console.log(JSON.stringify(this.serviceCartArr));
+      } 
+
+      
+      for(let i=0; i< this.serviceCartArr.length; i++){
+        if(this.serviceCartArr[i] != null){
+          this.serviceCartArr[i].subtotal = this.serviceCartArr[i].service_cost * this.serviceCartArr[i].count;
+          this.serviceCartArr[i].discount_type=null;
+          this.serviceCartArr[i].discount_value=null;
+
+          this.serviceCartArr[i].discount=0;
+
+          var serviceAmountAfterDiscount= this.serviceCartArr[i].subtotal - this.serviceCartArr[i].discount;
+          var serviceTaxAmount=0;
+          let taxMain=[];
+          this.taxArr.forEach((element) => {
+            let taxTemp={
+              value:0,
+              name:'',
+              amount:0
+            }
+            console.log(element.name+" ---- "+element.value);
+            if(this.taxType == "P"){
+             taxTemp.value= element.value;
+             taxTemp.name= element.name;
+             taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+              serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+            }else{
+              taxTemp.value= element.value;
+              taxTemp.name= element.name;
+              taxTemp.amount=  element.value;
+              serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+            }
+            taxMain.push(taxTemp);
+            this.serviceCartArr[i].tax=taxMain;
+            console.log(this.serviceCartArr[i].tax);
+          });
+
+          this.serviceCartArr[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
+          console.log(JSON.stringify(this.serviceCartArr[i]));
+          this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
+          this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
+        }
+      }
+      console.log(JSON.stringify(this.serviceCartArr));
+      
+
+      this.serviceMainArr.totalNumberServices=0;
+      this.serviceMainArr.subtotal=0;
+      this.serviceMainArr.discount=0;
+      this.taxAmountArr.length=0;
+      console.log(this.taxAmountArr);
+      this.serviceMainArr.netCost=0;
+      // this.fncheckavailcoupon('valid');
+     
+
+      for(let i=0; i< this.serviceCartArr.length; i++){
+        if(this.serviceCartArr[i] != null){
+          this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
+          this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
+        }
+      }
+      var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      var amountAfterTax=0;
+      if(this.serviceMainArr.subtotal > 0){
+        this.taxArr.forEach((element) => {
+          let taxTemp={
+            value:0,
+            name:'',
+            amount:0
+          }
+          console.log(element.name+" -- "+element.value);
+          if(this.taxType == "P"){
+           taxTemp.value= element.value;
+           taxTemp.name= element.name;
+           taxTemp.amount= amountAfterDiscount * element.value/100;
+            amountAfterTax=amountAfterTax+taxTemp.amount;
+          }else{
+            taxTemp.value= element.value;
+            taxTemp.name= element.name;
+            taxTemp.amount=  element.value;
+            amountAfterTax=amountAfterTax+taxTemp.amount;
+          }
+          this.taxAmountArr.push(taxTemp);
+          console.log(this.taxAmountArr);
+        });
+      }
+      // this.taxAmountArr.forEach((element) => {
+      //   amountAfterDiscount=amountAfterDiscount+element;
+      // });
+      this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
+      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      console.log(this.taxAmountArr);
+      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
+    }
+  }
 }
+
+
 
 // Theme 2 Date Time Selection Popup
 
@@ -2988,7 +3358,7 @@ export class theme2DateTimeSelection {
   selectedStaff:any;
   staffIndex:any;
   directAPI:any;
-  
+  serviceCartArr:any= [];
   @ViewChildren(MdePopoverTrigger) trigger: QueryList<MdePopoverTrigger>;
   serviceMainArr={
     totalNumberServices:0,
@@ -3008,14 +3378,14 @@ export class theme2DateTimeSelection {
     private authenticationService:AuthenticationService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.urlString = window.location.search.split("?business_id="); 
-    this.businessId = window.atob(decodeURIComponent(this.urlString[1]));
+      this.businessId = window.atob(decodeURIComponent(this.urlString[1]));
       this.settingsArr = this.data.settingsArr
       this.bookingPostalcode = this.data.bookingPostalcode
       this.currentSelectedService = this.data.currentSelectedService
       this.model = this.data.model
       this.selecteddate = this.data.selecteddate
       this.selecteddateForLabel = this.data.selecteddateForLabel
-      this.directAPI = this.data.directAPI
+      this.directAPI = this.data.directAPI;
       if(this.directAPI == 'gettimeslote'){
         this.fnGetTimeSlots();
       }else if(this.directAPI == 'selectnextvalidate'){
@@ -3077,18 +3447,26 @@ export class theme2DateTimeSelection {
     }
 
     onNoClick(): void {
-      if(this.selectedStaff && this.staffIndex){
+      if(this.selectedStaff !== undefined && this.staffIndex !== undefined){
         let result = {
           'selectedStaff': this.selectedStaff,
-          'staffIndex': this.staffIndex
+          'staffIndex': this.staffIndex,
+          'selecteddate': this.selecteddate,
+          'selecteddateForLabel':this.selecteddateForLabel,
+          'selectedTimeSlot':this.selectedTimeSlot,
         }
         this.dialogRef.close(result);
+      }else{
+        this.dialogRef.close();  
       }
-      this.dialogRef.close();
-     
       
     }
-    ngOnInit() {}
+    ngOnInit() {
+
+      
+    // this.serviceCount.length=0
+    // this.serviceCartArr.length=0
+    }
 
 
     fnGetOffDays(){
@@ -3245,24 +3623,15 @@ export class theme2DateTimeSelection {
        this.selectedStaff= staff_id;
        this.staffIndex = index
       this.trigger.toArray()[index].togglePopover();
-      //  if(this.selectedStaff && this.staffIndex){
-      //   let result = {
-      //     'selectedStaff': this.selectedStaff,
-      //     'staffIndex': this.staffIndex
-      //      }
-      //      this.dialogRef.close(result);
-      //    }
     }
     fnSelectNextValidDate(mydate){
     
       if(mydate=="" || mydate==undefined){
-        console.log('appointment Date not availbled');
         return false;
       }
       
       if(this.offDaysList.indexOf(this.datePipe.transform(new Date(mydate),"yyyy-MM-dd"))>-1){
         mydate.setDate(mydate.getDate() + 1)
-        console.log(mydate);
         this.fnSelectNextValidDate(mydate);
       }else{
         let day = this.datePipe.transform(new Date(mydate),"EEE");
@@ -3291,23 +3660,32 @@ export class theme2DateTimeSelection {
         console.log(day);
         if(this.workingHoursOffDaysList.indexOf(dayId)>-1){
           mydate.setDate(mydate.getDate() + 1)
-          console.log(mydate);
           this.fnSelectNextValidDate(mydate);
         }else{
           this.selecteddate=this.datePipe.transform(new Date(mydate),"yyyy-MM-dd");
           let year=this.selecteddate.split("-")[0];
           let month= this.selecteddate.split("-")[1];
           let day=this.selecteddate.split("-")[2];
-          console.log(year+"--"+month+"--"+day);
           let dateTemp={"year":parseInt(year),"month":parseInt(month),"day":parseInt(day)};
-          console.log(JSON.stringify(dateTemp));
           this.model=dateTemp;
           this.selecteddateForLabel= this.datePipe.transform(new Date(mydate),"EEE, MMM dd");
-          console.log(mydate);
-          console.log(this.selecteddate);
-          console.log(this.selecteddateForLabel);
           this.fnGetTimeSlots();
         }
+      }
+    }
+
+    fnClosePopup(){
+      if(this.selectedStaff !== undefined && this.staffIndex !== undefined){
+        let result = {
+          'selectedStaff': this.selectedStaff,
+          'staffIndex': this.staffIndex,
+          'selecteddate': this.selecteddate,
+          'selecteddateForLabel':this.selecteddateForLabel,
+          'selectedTimeSlot':this.selectedTimeSlot,
+        }
+        this.dialogRef.close(result);
+      }else{
+        this.dialogRef.close();  
       }
     }
    

@@ -1077,13 +1077,16 @@ input:focus {
                             font-weight: 500;
                         }
                         .service-price {
-                            text-align: right;
-                            color: $text-color;
                             margin-bottom: 0;
                             width: 50%;
                             float: left;
-                            font-size: 14px;
-                            font-weight: 500;
+                            h4 {
+                                font-size: 14px;
+                                font-weight: 500;
+                                color: $text-color;
+                                text-align: right;
+                                margin-bottom: 0;
+                            }
                         }
                         .service-des {
                             font-size: 10px;
@@ -1164,72 +1167,217 @@ input:focus {
     .pad-bottom-50 {
         padding-bottom: 50px !important;
     }
+     ::ng-deep .qty-counter {
+        text-align: right;
+        margin: 0;
+        border: 1px solid #B5B5B5;
+        border-radius: 3px;
+        .qty_value {
+            width: 30px;
+            font-size: 16px;
+            border: 0;
+            color: var(--text_color);
+            pointer-events: none;
+            margin: 0;
+            text-align: center;
+            background: $grey-3;
+            height: 34px;
+        }
+        .action-btn {
+            width: 25px;
+            height: 30px;
+            color: var(--text_color);
+            font-size: 16px;
+            background-color: #ffffff;
+            border-radius: 4px;
+            box-shadow: unset;
+            border-radius: 3px 0px 0px 3px;
+            &::ng-deep .mat-button-wrapper {
+                line-height: 2;
+                padding: 0;
+            }
+        }
+    }
+}
+
+::ng-deep #cart-container {
+    .qty-counter {
+        text-align: right;
+        margin: 0;
+        border: 1px solid #B5B5B5;
+        border-radius: 3px;
+        width: 85px;
+        .qty_value {
+            width: 30px;
+            font-size: 16px;
+            border: 0;
+            color: var(--text_color);
+            pointer-events: none;
+            margin: 0;
+            text-align: center;
+            background: $grey-3;
+            height: 34px;
+        }
+        .action-btn {
+            width: 25px;
+            height: 30px;
+            color: var(--text_color);
+            font-size: 16px;
+            background-color: #ffffff;
+            border-radius: 4px;
+            box-shadow: unset;
+            border-radius: 3px 0px 0px 3px;
+            &::ng-deep .mat-button-wrapper {
+                line-height: 2;
+                padding: 0;
+            }
+        }
+    }
+    .booking-summary {
+        width: 100%;
+    }
+    .date-label {
+        font-size: 14px;
+    }
+    .cart-subtotal-row {
+        border-top: 1px solid #E3E6EB;
+        padding: 10px 0;
+        .subtotal-row {
+            font-size: 18px;
+            display: flex;
+            flex-wrap: wrap;
+            .service-title {
+                font-weight: 500;
+            }
+            label {
+                color: $text-color
+            }
+        }
+        .tax-row {
+            font-size: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            .service-title {
+                font-weight: 500;
+            }
+        }
+    }
+    .cart-total-row {
+        border-top: 1px solid #E3E6EB;
+        padding: 10px 0;
+        .subtotal-row {
+            display: flex;
+            flex-wrap: wrap;
+            .service-title {
+                font-weight: 500;
+                color: $text-color;
+                font-size: 18px;
+            }
+            label {
+                margin-bottom: 0;
+            }
+        }
+    }
+    .cart-action {
+        display: flex;
+        border-top: 1px solid #E3E6EB;
+        padding-top: 10px;
+        justify-content: space-around;
+        .proceed-btn {
+            background: $front-primary-color;
+            color: $text-bg;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 176px;
+            height: 45px;
+        }
+        .add-more-btn {
+            background: #808080;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 176px;
+            height: 45px;
+        }
+    }
 }
 
 ::ng-deep #datetime_select {
-    .datepicker-main {
-        background: $primary-gradient-color;
-    }
-    @media only screen and (max-width: 600px) {
+    &.popup-date-time {
         .datepicker-main {
-            overflow-x: scroll;
+            background: $primary-gradient-color;
         }
-    }
-    .timeslot-main {
-        .top-back-btn {
-            background-color: #e0e0e0;
-        }
-        .selected-date {
-            text-align: center;
-            margin: 15px;
-            font-size: $fs-26;
-            font-weight: $fw-400;
-        }
-        .slot-list {
-            margin: 10px auto;
-            display: table;
-            input[type="radio"] {
-                display: none;
+        @media only screen and (max-width: 600px) {
+            .datepicker-main {
+                overflow-x: scroll;
             }
-            input[type="radio"]:checked+.single-slot {
-                background-color: $front-primary-color;
-                color: $text-bg;
-                border-color: $front-primary-color;
+        }
+        .timeslot-main {
+            .top-back-btn {
+                background-color: #e0e0e0;
             }
-            .single-slot {
-                border: 2px solid $grey-3;
-                padding: 20px;
-                font-size: $fs-18;
-                color: $secondary-color;
+            .selected-date {
                 text-align: center;
-                line-height: 1;
-                width: 130px;
-                margin: 7px;
-                cursor: pointer;
-                border-radius: 8px;
+                margin: 15px;
+                font-size: $fs-26;
+                font-weight: $fw-400;
+            }
+            .slot-list {
+                margin: 10px auto;
+                height: 55vh;
+                overflow: auto;
+                input[type="radio"] {
+                    display: none;
+                }
+                input[type="radio"]:checked+.single-slot {
+                    background-color: $front-primary-color;
+                    color: $text-bg;
+                    border-color: $front-primary-color;
+                }
+                .single-slot {
+                    border: 2px solid $grey-3;
+                    padding: 14px;
+                    font-size: 15px;
+                    color: $text-color;
+                    text-align: center;
+                    line-height: 1;
+                    width: 100px;
+                    margin: 7px;
+                    cursor: pointer;
+                    border-radius: 8px;
+                }
+            }
+            .next-action {
+                margin: 15px;
+                text-align: right;
+                .continue-btn {
+                    font-size: $fs-16;
+                    background-color: $grey-3;
+                    padding: 6px 25px;
+                    color: $text-color;
+                    margin: 10px;
+                }
             }
         }
-        .next-action {
-            margin: 15px;
-            text-align: center;
-            .continue-btn {
-                font-size: $fs-16;
-                background-color: $grey-3;
-                padding: 6px 25px;
-                margin: 10px;
+        .timing {
+            display: inline-block;
+        }
+        @media only screen and (max-width: 600px) {
+            // body {
+            //     display: block !important;
+            // }
+            .slot-list {
+                align-items: center;
+                text-align: center;
             }
         }
-    }
-    .timing {
-        display: inline-block;
-    }
-    @media only screen and (max-width: 600px) {
-        // body {
-        //     display: block !important;
-        // }
-        .slot-list {
-            align-items: center;
-            text-align: center;
+        .confirm-btn {
+            font-size: $fs-16;
+            background-color: $front-primary-color;
+            padding: 6px 25px;
+            margin: 10px;
+            border-radius: 100px;
+            color: $text-bg;
         }
     }
 }
