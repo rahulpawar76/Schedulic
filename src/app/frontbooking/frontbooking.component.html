@@ -1267,22 +1267,25 @@
                                     </div>
                                     <div class="title-price">
                                         <h3 class="service-title">{{services.service_name}}</h3>
-                                        <h4 class="service-price" *ngIf="currencySymbolPosition=='left'">{{currencySymbol|
-                                            currencySymbol:'wide'}} {{
-                                            services.service_cost |
-                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
-                                            }}</h4>
-                                        <h4 class="service-price" *ngIf="currencySymbolPosition=='right'">{{
-                                            services.service_cost |
-                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
-                                            }} {{currencySymbol|
-                                            currencySymbol:'wide'}}</h4>
-                                        <p class="service-des">{{services.service_description}}</p>
-                                    </div>
+                                        <div class="service-price" *ngIf="serviceCount[services.id].count === 0">
+                                            <h4 class="" *ngIf="currencySymbolPosition=='left'">{{currencySymbol|
+                                                currencySymbol:'wide'}} {{
+                                                services.service_cost |
+                                                currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
+                                                }}</h4>
+                                            <h4 class="" *ngIf="currencySymbolPosition=='right'">{{
+                                                services.service_cost |
+                                                currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
+                                                }} {{currencySymbol|
+                                                currencySymbol:'wide'}}</h4>
+                                        </div>
+                                        
                                     <div class="qty-counter" *ngIf="serviceCount[services.id].count>0">
                                         <button mat-fab class="action-btn qty-minus" (click)="fnRemove($event,services.id)">-</button>
                                         <input type="text" class="qty_value" id="servicecount_{{services.id}}" value="{{serviceCount[services.id].count}}" readonly/>
                                         <button mat-fab class="action-btn qty-minus" (click)="fnAdd($event,services.id)">+</button>
+                                    </div>
+                                        <p class="service-des">{{services.service_description}}</p>
                                     </div>
                                 </div>
                                 <div class="hover-overlay" *ngIf="serviceCount[services.id].count<1">
@@ -1297,7 +1300,7 @@
                 </div>
                 <div class="common-footer" *ngIf="!thankYouScreen && (businessDetail && businessDetail.private_status == 'N') && (businessDetail && businessDetail.status == 'E')">
                     <div class="cart-btn mt-2" (click)="openTheme2CartPopup()">
-                        <i *ngIf="cartOpened" class="material-icons">add_shopping_cart</i> Cart (2 Items)
+                        <i *ngIf="cartOpened" class="material-icons">add_shopping_cart</i> Cart ({{sizeServiceCartArr}} Items)
                     </div>
                 </div>
             </div>
