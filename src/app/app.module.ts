@@ -39,7 +39,7 @@ import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import { OnlinePaymentComponent } from './online-payment/online-payment.component';
 import { BnNgIdleService } from 'bn-ng-idle'; 
-import { GoogleMapsModule } from '@angular/google-maps'
+//import { GoogleMapsModule } from '@angular/google-maps'
 
 registerLocaleData(localeDe);
 
@@ -107,7 +107,7 @@ export function provideConfig() {
 		    NgxIntlTelInputModule,
         NgxPayPalModule,
         SocialLoginModule,
-        GoogleMapsModule
+       // GoogleMapsModule
     ],
     exports: [
         BrowserModule,

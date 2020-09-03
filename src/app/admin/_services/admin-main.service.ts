@@ -664,6 +664,16 @@ export class AdminService {
         catchError(this.handleError));
     }
 
+    outdoorGoogleaddress(address){
+
+        return this.http.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyDIx_jprz_nOTY0XoE8uhbX6oAy16GIyOc`).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+
+    }
+
     OrderUpdateStatus(requestObject){
         
         this.checkAuthentication();

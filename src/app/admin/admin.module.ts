@@ -47,7 +47,7 @@ import { DialogCouponDetails } from './discount-coupon/discount-coupon.component
 
 import { CustomerAppointmentDetailsDialog } from './customers/customers.component';
 import { SupportComponent } from './support/support.component';
-import { GoogleMapsModule } from '@angular/google-maps'
+// import { GoogleMapsModule } from '@angular/google-maps'
 import { AgmCoreModule } from '@agm/core';            // @agm/core
 import { AgmDirectionModule } from 'agm-direction';   // agm-direction
 
@@ -111,7 +111,7 @@ import { AgmDirectionModule } from 'agm-direction';   // agm-direction
     MatSidenavModule,
     NgxDaterangepickerMd.forRoot(),
     SharedModule,
-    GoogleMapsModule
+    //GoogleMapsModule
   ],
   exports: [
     FormsModule

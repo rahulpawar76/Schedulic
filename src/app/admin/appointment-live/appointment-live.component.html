@@ -396,9 +396,8 @@
                         <input type="text" placeholder="Search by Order ID"  (keyup)="fnOutdoorOrders($event.target.value,'order_id')">
                     </div>
                     <div class="order-listing">
-                        <div class="single-order" *ngFor="let val of outdoorOrdersArr;let i=index">
-                          
-                            <label class="order-id">Order ID :  {{val.order_id}}<small></small></label>
+                        <div class="single-order" *ngFor="let val of outdoorOrdersArr;let i=index" >
+                            <label class="order-id">Order ID :  {{val.order_id}}</label>
                             <div class="location-container">
                                 <div class="pickup-point">
                                     <img src="/assets/images/admin/delivery.png">
@@ -410,7 +409,7 @@
                                 </div>
                             </div>
                             <div class="action-btn">
-                                <button (click)="fnOpenOnTheWayDetails(val)" mat-button class="detail-btn">Appointment Details</button>
+                                <button (click)="fnOpenOnTheWayDetails(val); OutDootMap(i)" mat-button class="detail-btn">Appointment Details</button>
                                 <button mat-button *ngIf="val.service.service_sub_type!='in_store'"
                                     class="{{val.order_status=='AC'?'otw-btn':'ws-btn'}}"
                                     (click)="fnOrderUpdateStatus(val.order_status,val.id,'out_store')">
@@ -425,34 +424,15 @@
                     </div>
                 </div>
 
-                <agm-map [latitude]="lat" [longitude]="lng"    [zoom]="20"  >
+                <agm-map [latitude]="lat" [longitude]="lng"    [zoom]="35"  *ngIf="ShowMap">
                     <agm-direction 
                         [origin]="origin" 
                         [destination]="destination"
-                        [renderOptions]="renderOptions"
-                    >
+                        [renderOptions]="renderOptions" >
                     </agm-direction>
                 </agm-map>
 
-<!--      
-                <google-map
-                    height="500px"
-                    width="1024px"
-                    [zoom]="zoom"
-                    [center]="center"
-
-                >
-
-                <map-marker *ngFor="let marker of markers"
-                [position]="marker.position"
-                [label]="marker.label"
-                [title]="marker.title"
-                [options]="marker.options"> </map-marker>
-
-            </google-map> -->
-
-                <!-- <iframe   src="https://www.google.com/maps/dir/?api=1&key=AIzaSyCPJpjD-qcR_yIxJnS8maR5W9KB0E3EzYI&origin=21.693121,71.5574959&destination=21.693121,71.5072847&travelmode=driving" style="width: 80%;"></iframe>
-                 -->
+                <p *ngIf="!ShowMap">Map loading</p>
             </div>
 
         </mat-tab>
