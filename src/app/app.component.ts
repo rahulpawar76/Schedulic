@@ -30,7 +30,6 @@ import { eventNames } from 'process';
 
 
 
-
 export interface DialogData {
   animal: string;
   name: string;

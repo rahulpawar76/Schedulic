@@ -124,12 +124,12 @@ export class AppointmentLiveComponent implements OnInit {
   selectedBillCustomerData:any=[];
   outdoorOrdersArr:any = [];
   
-  public lat = null;
-  public lng = null;
-  public ShowMap:boolean = false;
+  public lat = 40.094882;
+  public lng = 20.214329;
+  public ShowMap:boolean = true;
 
-  origin = { lat: null, lng: null };
-  destination = { lat: null, lng: null };
+  origin = { lat: 40.094882, lng: 20.214329 };
+  destination = { lat: 40.095867, lng: 20.223556 };
 
 
   constructor(
@@ -158,6 +158,7 @@ export class AppointmentLiveComponent implements OnInit {
 
   }
 
+  
   ngOnInit() {
     if(localStorage.getItem('business_id')){
       this.businessId=localStorage.getItem('business_id');
@@ -612,7 +613,6 @@ export class AppointmentLiveComponent implements OnInit {
         this.StaffList = [];
       }
     });
-
   }
 
 

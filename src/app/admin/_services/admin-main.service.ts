@@ -729,7 +729,7 @@ export class AdminService {
     getOnThewayAppointments(URL){
         this.checkAuthentication();
         let requestObject = {
-            'business_id': this.businessId,
+            'business_id': localStorage.getItem('business_id'),
         };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
@@ -747,7 +747,7 @@ export class AdminService {
     getWorkStartedAppointments(searchKeyword,URL){
         this.checkAuthentication();
         let requestObject = {
-            'business_id': this.businessId,
+            'business_id': localStorage.getItem('business_id'),
             'search' : searchKeyword
         };
         let headers = new HttpHeaders({

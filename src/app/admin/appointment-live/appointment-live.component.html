@@ -393,10 +393,10 @@
                 <div class="left-container">
                     <div class="search-container">
                         <i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search by Order ID"  (keyup)="fnOutdoorOrders($event.target.value,'order_id')">
+                        <input type="text" placeholder="Search by Order ID" (keyup)="fnOutdoorOrders($event.target.value,'order_id')">
                     </div>
                     <div class="order-listing">
-                        <div class="single-order" *ngFor="let val of outdoorOrdersArr;let i=index" >
+                        <div class="single-order" *ngFor="let val of outdoorOrdersArr;let i=index">
                             <label class="order-id">Order ID :  {{val.order_id}}</label>
                             <div class="location-container">
                                 <div class="pickup-point">
@@ -410,13 +410,10 @@
                             </div>
                             <div class="action-btn">
                                 <button (click)="fnOpenOnTheWayDetails(val); OutDootMap(i)" mat-button class="detail-btn">Appointment Details</button>
-                                <button mat-button *ngIf="val.service.service_sub_type!='in_store'"
-                                    class="{{val.order_status=='AC'?'otw-btn':'ws-btn'}}"
-                                    (click)="fnOrderUpdateStatus(val.order_status,val.id,'out_store')">
+                                <button mat-button *ngIf="val.service.service_sub_type!='in_store'" class="{{val.order_status=='AC'?'otw-btn':'ws-btn'}}" (click)="fnOrderUpdateStatus(val.order_status,val.id,'out_store')">
                                        {{val.order_status=="AC"?"On The Way":val.order_status=="AC"?'Completed':"Work Started"}} 
                                 </button>
-                                <button mat-button class="ws-btn" (click)="fnOrderUpdateStatus(val.order_status,val.id,'in_store')" 
-                                *ngIf="val.service.service_sub_type=='in_store'">
+                                <button mat-button class="ws-btn" (click)="fnOrderUpdateStatus(val.order_status,val.id,'in_store')" *ngIf="val.service.service_sub_type=='in_store'">
                                     {{val.order_status=="AC"?"Work Started ":"Completed"}} 
                                 </button>
                             </div>
@@ -424,11 +421,8 @@
                     </div>
                 </div>
 
-                <agm-map [latitude]="lat" [longitude]="lng"    [zoom]="35"  *ngIf="ShowMap">
-                    <agm-direction 
-                        [origin]="origin" 
-                        [destination]="destination"
-                        [renderOptions]="renderOptions" >
+                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="35">
+                    <agm-direction [origin]="origin" [destination]="destination" [renderOptions]="renderOptions">
                     </agm-direction>
                 </agm-map>
 
