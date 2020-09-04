@@ -2,64 +2,216 @@
     <div class="step-loader" *ngIf="isLoader">
         <img src="../../assets/loading-spinner.gif" />
     </div>
-    <div id="datetime_select" class="main-step step_5 p-0 h-100 popup-date-time">
-        <div class="row ml-0 mr-0 main-datetime-selection h-100">
-            <div class="col-12 col-lg-6 col-sm-12 datepicker-main">
-                <div class="ngbpicker">
-                    <div class="ngb-dp-header customepickheader">
-                        <div class="ngb-dp-month-name ng-star-inserted">Pick date & time</div>
-                    </div>
-                    <ngb-datepicker [startDate]="today" [minDate]="minDate" [maxDate]="maxDate" [markDisabled]="isDisabled" (dateSelect)="onDateSelect($event)" [displayMonths]="displayMonths" [navigation]="navigation" today={true} class='' #dp [(ngModel)]="model" (navigate)="date= $event.next"></ngb-datepicker>
-                </div>
+    <!-- <div id="personal_info" class="main-step step_6 p-0" *ngIf="personalinfo">
+        <div class="step-top-head"></div>
 
+        <mat-card-title class="p-4 d-flex">
+            <div class="col-lg-12 col-sm-12 col-12 top-title
+                            float-left">
+                Your Personal Details
+                <button mat-fab color="" class="top-back-btn
+                                float-right" (click)="fnbacktofirst()">
+                                <i class="material-icons" color="">close</i>
+                            </button>
             </div>
-            <div class="col-12 col-lg-6 col-sm-12 timeslot-main">
-                <button mat-fab color="" class="top-back-btn float-right" (click)="onNoClick()">
-                    <i class="material-icons" color="">close</i>
-                </button>
-                <h3 class="selected-date">{{selecteddateForLabel != '' ? selecteddateForLabel : ''}}</h3>
-                <div *ngIf="timeSlotArr.length == 0">
-                    No slots available
-                </div>
-                <div class="slot-list" *ngIf="timeSlotArr.length>0">
-                    <div class="timing" *ngFor="let timeSlot of timeSlotArr; let i= index">
-                        <label>
-                            <input name="timeslot" type="radio" />
-                            <div (click)="fnSelectTimeSlot(timeSlot,i)" class="single-slot"
-                                [mdePopoverTriggerFor]="selectstaff2"
-                                mdePopoverTriggerOn="click"
-                                #popoverTrigger="mdePopoverTrigger">{{timeSlotArrForLabel[i]}}</div>
-                        </label>
-                        <mde-popover #selectstaff2="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
-                            <mat-card class="staff-select-box p-0" style="width: 200px">
-                                <mat-card-content class="py-2 px-3 mt-0">
-                                    <div class="row">
-                                        <div class="col staff-selection">
-                                            <mat-radio-group *ngIf="!isStaffAvailable" aria-label="Select Staff">
-                                                <mat-radio-button value="">Any Staff
-                                                </mat-radio-button>
-                                            </mat-radio-group>
-                                            <mat-radio-group aria-label="Select Staff" *ngIf="isStaffAvailable">
-                                                <mat-radio-button (change)="fnSelectStaff(null,i)" value="">Any Staff
-                                                </mat-radio-button>
-                                                <mat-radio-button *ngFor="let staff of availableStaff" (change)="fnSelectStaff(staff.id,i)" class="text-capitalize" value="{{staff.id}}">{{staff.name}}</mat-radio-button>
-                                            </mat-radio-group>
-                                        </div>
-                                    </div>
-                                </mat-card-content>
-                            </mat-card>
-                        </mde-popover>
-                    </div>
-                    <div class="timing" *ngIf="timeSlotArr.length==0">
-                        No Time Slots Available
-                    </div>
-
-
-                </div>
-                <div class="next-action">
-                    <button mat-button class="round-btn confirm-btn" (click)="fnClosePopup()">Confirm</button>
-                </div>
+        </mat-card-title>
+        <mat-card-content class="p-4 mt-0 mb-2">
+             <div class="user-type-selection">
+                <mat-radio-group aria-label="Select an option">
+                    <mat-radio-button checked (click)="fnUserType($event,'existing')" value="exist-user">Existing User</mat-radio-button>
+                    <mat-radio-button (click)="fnUserType($event,'new')" value="new-user">New User</mat-radio-button>
+                </mat-radio-group>
             </div>
-        </div>
-    </div>
+            <div id="existing_user" *ngIf="existinguser" class="">
+                <form [formGroup]="formExistingUser">
+                    <div class="field-list mr-0 ml-0 row">
+                        <div class="col-12 col-lg-6 col-md-6
+                                        col-sm-6">
+                            <label>Email</label>
+                            <input formControlName="existing_mail" class="common-input" type="email" />
+                            <span class="error-wrap" *ngIf="formExistingUser.get('existing_mail').dirty
+                                            ||
+                                            formExistingUser.get('existing_mail').touched
+                                            || formSubmitclicked"><small
+                                                *ngIf="formExistingUser.get('existing_mail').hasError('required')"
+                                                class="error">Email is
+                                                required.</small>
+                                            <small
+                                                *ngIf="formExistingUser.get('existing_mail').hasError('email')"
+                                                class="error">Enter valid
+                                                email.</small></span>
+                        </div>
+                        <div class="col-12 col-lg-6 col-md-6
+                                        col-sm-6">
+                            <label>Password</label>
+                            <input class="common-input" formControlName="existing_password" type="password" />
+                            <span class="error-wrap" *ngIf="formExistingUser.get('existing_password').dirty
+                                            ||
+                                            formExistingUser.get('existing_password').touched
+                                            || formSubmitclicked"><small
+                                                *ngIf="formExistingUser.get('existing_password').hasError('required')"
+                                                class="error">Password is
+                                                required.</small></span>
+                        </div>
+                        <div class="col bottom-ctn-btn">
+                            <button mat-button (click)="fnloginexisinguser()" class="round-btn float-right
+                                            continue-btn">Log In</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="new_user" *ngIf="newuser" class="">
+                <form [formGroup]="formNewUser">
+                    <div class="field-list mr-0 ml-0 row">
+                        <div class="col-12 col-lg-6 col-md-6
+                                        col-sm-6">
+                            <label>Email</label>
+                            <input formControlName="newUserEmail" class="common-input" type="email" />
+                            <span class="error-wrap" *ngIf="formNewUser.get('newUserEmail').dirty
+                                            ||
+                                            formNewUser.get('newUserEmail').touched
+                                            || formSubmitclicked"><small
+                                                *ngIf="formNewUser.get('newUserEmail').hasError('required')"
+                                                class="error">Email is
+                                                required.</small>
+                                            <small
+                                                *ngIf="formNewUser.get('newUserEmail').hasError('email')
+                                                ||
+                                                formNewUser.get('newUserEmail').hasError('pattern')"
+                                                class="error">Enter valid
+                                                email.</small><small
+                                                class="error"
+                                                *ngIf="formNewUser.get('newUserEmail').hasError('isEmailUnique')">Email
+                                                already in use.</small></span>
+                        </div>
+                        <div class="col-12 col-lg-6 col-md-6
+                                        col-sm-6">
+                            <label>Password</label>
+                            <input formControlName="newUserPassword" class="common-input" type="password" />
+                            <span class="error-wrap" *ngIf="formNewUser.get('newUserPassword').dirty
+                                            ||
+                                            formNewUser.get('newUserPassword').touched
+                                            || formSubmitclicked"><small
+                                                *ngIf="formNewUser.get('newUserPassword').hasError('required')"
+                                                class="error">Password is
+                                                required.</small>
+                                            <small
+                                                *ngIf="formNewUser.get('newUserPassword').hasError('minlength')"
+                                                class="error">Minimum 8
+                                                characters.</small>
+
+                                            <small
+                                                *ngIf="formNewUser.get('newUserPassword').hasError('maxlength')"
+                                                class="error">Maximum 12
+                                                characters.</small>
+                                        </span>
+                        </div>
+                        <div class="col-12 col-lg-6 col-md-6
+                                        col-sm-6">
+                            <label>Full Name</label>
+                            <input formControlName="newUserFullname" class="common-input" type="text" />
+                            <span *ngIf="formNewUser.get('newUserFullname').dirty
+                                            ||
+                                            formNewUser.get('newUserFullname').touched
+                                            || formSubmitclicked"><small
+                                                *ngIf="formNewUser.get('newUserFullname').hasError('required')"
+                                                class="error">Fullname is
+                                                required.</small></span>
+                        </div>
+                        <div class="col-12 col-lg-6 col-md-6
+                                        col-sm-6">
+                            <label>Phone</label>
+                            <ngx-intl-tel-input class="common-input
+                                            mobile-intel-input" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2,
+                                            SearchCountryField.Name]" [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.India" (mousedown)="fnPhoneMouceLeave($event)" (keyup)="fnenterPhoneNumber($event)" [maxLength]="10" [phoneValidation]="false"
+                                [separateDialCode]="separateDialCode" formControlName="newUserPhone" placeholder="Mobile">
+                            </ngx-intl-tel-input>
+                            <span *ngIf="phoneNumberInvalid">
+                                            <small *ngIf="phoneNumberInvalid
+                                                ==
+                                                'required'" class="error">Phone
+                                                number is required.</small>
+                                            <small *ngIf="phoneNumberInvalid
+                                                ==
+                                                'length'" class="error">Phone
+                                                number should be 6 to 15
+                                                digits
+                                                long.</small>
+                                        </span>
+                        </div>
+                        <div class="col-12 col-lg-12 col-md-12
+                                        col-sm-12" *ngIf="contactFormSettingsArr.addressField.status
+                                        == 1">
+                            <label>Address</label>
+                            <textarea formControlName="newUserAddress" class="common-input" rows="3"></textarea>
+                            <span class="error-wrap" *ngIf="formNewUser.get('newUserAddress').dirty
+                                            ||
+                                            formNewUser.get('newUserAddress').touched
+                                            || formSubmitclicked"><small
+                                                *ngIf="formNewUser.get('newUserAddress').hasError('required')"
+                                                class="error">Address is
+                                                required.</small></span>
+                        </div>
+                        <div class="col-12 col-lg-4 col-md-4
+                                        col-sm-4" *ngIf="contactFormSettingsArr.addressField.status
+                                        == 1">
+                            <label>State</label>
+                            <input formControlName="newUserState" class="common-input" type="text" />
+                            <span class="error-wrap" *ngIf="formNewUser.get('newUserState').dirty
+                                            ||
+                                            formNewUser.get('newUserState').touched
+                                            || formSubmitclicked"><small
+                                                *ngIf="formNewUser.get('newUserState').hasError('required')"
+                                                class="error">State is
+                                                required.</small></span>
+                        </div>
+                        <div class="col-12 col-lg-4 col-md-4
+                                        col-sm-4" *ngIf="contactFormSettingsArr.addressField.status
+                                        == 1">
+                            <label>City</label>
+                            <input formControlName="newUserCity" class="common-input" type="text" />
+                            <span class="error-wrap" *ngIf="formNewUser.get('newUserCity').dirty
+                                            ||
+                                            formNewUser.get('newUserCity').touched
+                                            || formSubmitclicked"><small
+                                                *ngIf="formNewUser.get('newUserCity').hasError('required')"
+                                                class="error">City is
+                                                required.</small></span>
+                        </div>
+                        <div class="col-12 col-lg-4 col-md-4
+                                        col-sm-4" *ngIf="contactFormSettingsArr.addressField.status
+                                        == 1">
+                            <label>Zip Code</label>
+                            <input formControlName="newUserZipcode" class="common-input" type="text" />
+                            <span class="error-wrap" *ngIf="formNewUser.get('newUserZipcode').dirty
+                                            ||
+                                            formNewUser.get('newUserZipcode').touched
+                                            || formSubmitclicked">
+                                            <small
+                                                *ngIf="formNewUser.get('newUserZipcode').hasError('required')"
+                                                class="error">Zipcode is
+                                                required.</small>
+                                            <small
+                                                *ngIf="formNewUser.get('newUserZipcode').hasError('minlength')
+                                                ||
+                                                formNewUser.get('newUserZipcode').hasError('maxlength')"
+                                                class="error">Zipcode must
+                                                be 5
+                                                to 7 characters.</small></span>
+                        </div>
+                        <div class="col-12 col-lg-12 col-md-12
+                                        col-sm-12">
+                            <label>Special request (Notes)</label>
+                            <textarea formControlName="newUserSplReq" class="common-input" rows="3"></textarea>
+                        </div>
+                    </div>
+                </form>
+                <div class="bottom-ctn-btn">
+                    <button (click)="fnpersonalinfo()" mat-button class="round-btn
+                                    continue-btn">Continue<i
+                                        class="material-icons">keyboard_arrow_right</i></button>
+                </div>
+            </div> 
+        </mat-card-content>
+    </div> -->
 </div>

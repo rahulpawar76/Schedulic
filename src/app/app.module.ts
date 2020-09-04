@@ -28,7 +28,7 @@ import { ConfirmationDialogComponent } from './_components/confirmation-dialog/c
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 //import { FrontbookingComponent } from './frontbooking/frontbooking.component';
-import { FrontbookingComponent, theme2CartPopup,theme2DateTimeSelection,theme2CheckoutDialog } from './frontbooking/frontbooking.component';
+import { FrontbookingComponent, theme2CartPopup,theme2DateTimeSelection, theme2CheckoutDialog } from './frontbooking/frontbooking.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { NgxPayPalModule } from 'ngx-paypal';
@@ -40,6 +40,7 @@ import localeDe from '@angular/common/locales/de';
 import { OnlinePaymentComponent } from './online-payment/online-payment.component';
 import { BnNgIdleService } from 'bn-ng-idle'; 
 import { GoogleMapsModule } from '@angular/google-maps'
+//import { GoogleMapsModule } from '@angular/google-maps'
 
 registerLocaleData(localeDe);
 
@@ -108,7 +109,7 @@ export function provideConfig() {
 		    NgxIntlTelInputModule,
         NgxPayPalModule,
         SocialLoginModule,
-        GoogleMapsModule
+        //GoogleMapsModule
     ],
     exports: [
         BrowserModule,

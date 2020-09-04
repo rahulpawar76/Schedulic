@@ -2875,9 +2875,12 @@ export class FrontbookingComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result != undefined){
         this.cartPopupCloseType= result
+        alert('1')
         if(this.cartPopupCloseType === 'proceed'){
+          alert('11')
           this.theme2CheckoutDialog()
         }else if(this.cartPopupCloseType === 'add-more'){
+          alert('22')
           this.fnbacktofirst();
         }
       }
@@ -2932,7 +2935,7 @@ export class FrontbookingComponent implements OnInit {
     });
   }
   theme2CheckoutDialog() {
-   
+   alert()
     const dialogRef = this.dialog.open(theme2CheckoutDialog, {
       width: '800px',
        data: {
@@ -2952,6 +2955,18 @@ export class FrontbookingComponent implements OnInit {
   providers: [DatePipe]
 })
 export class theme2CheckoutDialog {
+  isLoader:boolean= false;
+  formExistingUser : FormGroup;
+  formNewUser: FormGroup;
+  settingsArr:any;
+  personalinfo:boolean=true;
+  existinguser:boolean=true;
+  newuser:boolean=false;
+  separateDialCode = true;
+	SearchCountryField = SearchCountryField;
+	TooltipLabel = TooltipLabel;
+	CountryISO = CountryISO;
+	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
   constructor(
     public dialogRef: MatDialogRef<theme2CheckoutDialog>,
     private _formBuilder:FormBuilder,
@@ -2959,8 +2974,8 @@ export class theme2CheckoutDialog {
     private _snackBar: MatSnackBar,
     private authenticationService:AuthenticationService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      
-    
+      alert('2')
+      this.settingsArr= this.data.settingsArr;
     }
 
     onNoClick(): void {
