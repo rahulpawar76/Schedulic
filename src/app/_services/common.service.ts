@@ -50,9 +50,9 @@ export class CommonService {
     console.log(this.currentUser);
 
     let requestObject = {
-      "user_type": this.currentUser.user_type,
-      "user_id" : this.currentUser.user_id,
-      "token" : this.currentUser.token
+      "user_type": JSON.parse(localStorage.getItem('currentUser')).user_type,
+      "user_id" : JSON.parse(localStorage.getItem('currentUser')).user_id,
+      "token" : JSON.parse(localStorage.getItem('currentUser')).token
     };
     this.http.post(`${environment.apiUrl}/check-token`,requestObject).pipe(
       map((res) => {

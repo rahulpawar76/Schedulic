@@ -47,9 +47,9 @@ import { DialogCouponDetails } from './discount-coupon/discount-coupon.component
 
 import { CustomerAppointmentDetailsDialog } from './customers/customers.component';
 import { SupportComponent } from './support/support.component';
-//import { GoogleMapsModule } from '@angular/google-maps'
-//import { AgmCoreModule } from '@agm/core';            // @agm/core
-//import { AgmDirectionModule } from 'agm-direction';   // agm-direction
+// import { GoogleMapsModule } from '@angular/google-maps'
+import { AgmCoreModule } from '@agm/core';            // @agm/core
+import { AgmDirectionModule } from 'agm-direction';   // agm-direction
 
 
 
@@ -93,10 +93,10 @@ import { SupportComponent } from './support/support.component';
     //DialogReAuthentication,
     ],
   imports: [
-    // AgmCoreModule.forRoot({ // @agm/core
-    //   apiKey: 'AIzaSyDIx_jprz_nOTY0XoE8uhbX6oAy16GIyOc',
-    // }),
-    // AgmDirectionModule,    
+    AgmCoreModule.forRoot({ // @agm/core
+      apiKey: 'AIzaSyDIx_jprz_nOTY0XoE8uhbX6oAy16GIyOc',
+    }),
+    AgmDirectionModule,    
     CommonModule,
     HttpClientModule,
     AdminRoutingModule,

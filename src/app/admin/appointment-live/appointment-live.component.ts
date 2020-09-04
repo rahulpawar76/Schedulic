@@ -3,17 +3,14 @@ import { DatePipe, JsonPipe } from '@angular/common';
 import { AdminService } from '../_services/admin-main.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { D } from '@angular/cdk/keycodes';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { environment } from '@environments/environment';
 import { Router, RouterOutlet } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { AppComponent } from '@app/app.component';
 import { AuthenticationService } from '@app/_services';
 import { CommonService } from '../../_services'
-//import {ILatLng} from '../../_services/directions-map.directive';
 
 export interface DialogData {
   animal: string;
@@ -126,18 +123,14 @@ export class AppointmentLiveComponent implements OnInit {
   pendingBillingOrdeTotal = 0;
   selectedBillCustomerData:any=[];
   outdoorOrdersArr:any = [];
-  zoom = 25;
-  //markers = []
+  
+  public lat = null;
+  public lng = null;
+  public ShowMap:boolean = false;
 
-  // center:any;
-  public lat = 21.2125569;
-  public lng = 72.8872839;
+  origin = { lat: null, lng: null };
+  destination = { lat: null, lng: null };
 
-  origin = { lat: 21.2125569, lng: 72.8872839 };
-  destination = { lat: 21.215346, lng: 72.8628563 };
-
-
-  // Current map
 
   constructor(
     private AdminService: AdminService,
@@ -150,7 +143,7 @@ export class AppointmentLiveComponent implements OnInit {
     private _snackBar: MatSnackBar,
   ) { 
 
-  localStorage.setItem('isBusiness', 'true');    
+    localStorage.setItem('isBusiness', 'true');    
     localStorage.setItem('isPOS', 'true');
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     //this.currentUser = this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x )
@@ -162,45 +155,6 @@ export class AppointmentLiveComponent implements OnInit {
     this.fnWatinglist();
     this.fnPendingBilling();
     this.fnOutdoorOrders();
-
-      // this.markers.push({
-      //   position: {
-      //     lat: 22.258651999999998,
-      //     lng: 71.1923805,
-      //   },
-      //   label: {
-      //     color: 'red',
-      //     text: 'Marker label ' + (this.markers.length + 1),
-      //   },
-      //   title: 'Marker title ' + (this.markers.length + 1),
-      //   info: 'Marker info ' + (this.markers.length + 1),
-      //   options: {
-      //     animation: google.maps.Animation.BOUNCE,
-      //   },
-      // });
-
-      // this.markers.push({
-      //   position: {
-      //     lat: 22.2595274,
-      //     lng: 71.1942935,
-      //   },
-      //   label: {
-      //     color: 'red',
-      //     text: 'Marker label ' + (this.markers.length + 1),
-      //   },
-      //   title: 'Marker title ' + (this.markers.length + 1),
-      //   info: 'Marker info ' + (this.markers.length + 1),
-      //   options: {
-      //     animation: google.maps.Animation.BOUNCE,
-      //   },
-      // });
-
-      // this.center = {
-      //   lat: 22.258651999999998,
-      //   lng: 71.1923805,
-      // }
-
-      
 
   }
 
@@ -1156,24 +1110,51 @@ export class AppointmentLiveComponent implements OnInit {
       "search_by" : search_by
     };
 
+ 
+
     this.AdminService.outdoorOrders(requestObject).subscribe((response: any) => {
       if (response.data == true) {
-
         this.outdoorOrdersArr = response.response;
         this.isLoaderAdmin = false;
-
+        this.OutDootMap(0);
       } else {
-
         this._snackBar.open('out door service not found', "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['red-snackbar']
         });
-
         this.isLoaderAdmin = false;
-
       }
     });
+
+  }
+
+  OutDootMap(index=0){
+    
+    var data = this.outdoorOrdersArr[index];
+    
+    var customer_address =  data.orders_info.booking_address+'+'+data.orders_info.booking_city+'+'+data.orders_info.booking_state+'+'+data.orders_info.booking_zipcode;
+    var staff_address =  data.staff.address+'+'+data.staff.city+'+'+data.staff.state+'+'+data.staff.zip;
+    
+    this.ShowMap = false;
+
+    this.AdminService.outdoorGoogleaddress(customer_address).subscribe((response: any) => {
+        if(response.status=='OK'){
+          this.ShowMap = true;
+          this.lat = response.results[0].geometry.location.lat;
+          this.lng = response.results[0].geometry.location.lng;
+          this.origin.lat = response.results[0].geometry.location.lat;
+          this.origin.lng = response.results[0].geometry.location.lng;
+
+        }
+    });
+
+    this.AdminService.outdoorGoogleaddress(staff_address).subscribe((response: any) => {
+        if(response.status=='OK'){
+          this.destination.lat = response.results[0].geometry.location.lat;
+          this.destination.lng = response.results[0].geometry.location.lng;
+        }
+     });
 
   }
 
@@ -1226,6 +1207,7 @@ export class AppointmentLiveComponent implements OnInit {
     });
 
   }
+
 }
 
 

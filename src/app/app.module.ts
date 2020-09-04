@@ -108,7 +108,7 @@ export function provideConfig() {
 		    NgxIntlTelInputModule,
         NgxPayPalModule,
         SocialLoginModule,
-        //GoogleMapsModule
+       // GoogleMapsModule
     ],
     exports: [
         BrowserModule,
