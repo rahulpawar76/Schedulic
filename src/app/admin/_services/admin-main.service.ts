@@ -185,11 +185,9 @@ export class AdminService {
 
     // Get All Services
 
-    getAllServices(){
+    getAllServices(requestObject){
         this.checkAuthentication();
-        let requestObject = {
-            'business_id' : localStorage.getItem('business_id'),
-        };
+        
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -203,12 +201,8 @@ export class AdminService {
     }
 
     // Customer Module
-    getAllCustomers(){
+    getAllCustomers(requestObject){
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': localStorage.getItem('business_id'),
-        };
-
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -805,11 +799,9 @@ export class AdminService {
     }
     // Get Tax details
 
-    getTaxDetails(){
+    getTaxDetails(requestObject){
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': this.businessId,
-        };
+        
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),
@@ -1101,11 +1093,8 @@ export class AdminService {
       catchError(this.handleError));
     }
     
-    getPostalCodeList() {
+    getPostalCodeList(requestObject) {
         this.checkAuthentication();
-        let requestObject = {
-            'business_id': this.businessId,
-        };
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : JSON.stringify(this.currentUser.user_id),

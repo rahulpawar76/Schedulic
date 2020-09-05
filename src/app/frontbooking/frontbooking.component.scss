@@ -1,5 +1,5 @@
 @import "variables";
-#booking_flow {
+::ng-deep #booking_flow {
     height: 100vh;
     position: relative;
     font-family: $selected-font-family !important;
@@ -806,7 +806,7 @@
     }
 }
 
-.continue-btn {
+::ng-deep .continue-btn {
     font-size: $fs-20;
     background-color: $grey-3;
     padding: 6px 30px;
@@ -1399,5 +1399,40 @@ input:focus {
                 }
             }
         }
+    }
+}
+
+::ng-deep .field-list {
+    [class*="col-"] {
+        margin: 10px 0;
+    }
+    label {
+        display: block;
+        margin-bottom: 0px;
+        font-size: 18px;
+    }
+    .common-input {
+        display: block;
+        width: 100%;
+        padding: 8px 10px;
+        border-radius: 5px;
+        border: 1px solid #e4e3e3;
+        font-size: $fs-16;
+        transition: all 0.3s;
+        &:focus {
+            box-shadow: $shadow;
+        }
+    }
+}
+
+::ng-deep .step-top-head {
+    background: $primary-gradient-color;
+    width: 100%;
+    height: 15px;
+}
+
+::ng-deep #personal_info {
+    &.theme_2_popup {
+        height: 90vh;
     }
 }

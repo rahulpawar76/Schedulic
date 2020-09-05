@@ -6,6 +6,7 @@ import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular
 import { DatePipe} from '@angular/common';
 import { AuthenticationService } from '@app/_services';
 import { CommonService } from '../_services/common.service'
+import { Router, RouterOutlet } from '@angular/router';
 
 
 export interface DialogData {
@@ -25,10 +26,15 @@ export class SubscriptionComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private _snackBar: MatSnackBar,
+    public router: Router,
     public dialog: MatDialog,
     private CommonService: CommonService,
   ) {
-    this.adminData = JSON.parse(localStorage.getItem('adminData'));
+    if(localStorage.getItem('adminData')){
+      this.adminData = JSON.parse(localStorage.getItem('adminData'));
+    }else{
+      this.router.navigate(['/login']);
+    }
     console.log(this.adminData)
     this.getSubscriptionPlans();
    }
@@ -89,6 +95,7 @@ export class DialogSubscriptionCardForm {
   planId:any;
   adminData:any;
   cardPaymentForm:FormGroup;
+  allCountry:any;
   
   constructor(
     public dialogRef: MatDialogRef<DialogSubscriptionCardForm>,
@@ -96,10 +103,12 @@ export class DialogSubscriptionCardForm {
     private http: HttpClient,
     private _snackBar: MatSnackBar,
     private CommonService: CommonService,
+    public router: Router,
     private authenticationService:AuthenticationService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.planId = this.data.planId
       
+    this.gelAllCountry();
     this.adminData = JSON.parse(localStorage.getItem('adminData'));
     }
     onNoClick(): void {
@@ -110,9 +119,11 @@ export class DialogSubscriptionCardForm {
     ngOnInit() {
       this.cardPaymentForm = this._formBuilder.group({
         name: ['', Validators.required],
+        address: ['', Validators.required],
+        country: ['', Validators.required],
         cardNumber: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.maxLength(16),Validators.minLength(16)]],
         cardEXMonth: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.maxLength(2),Validators.minLength(2)]],
-        cardEXYear: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.maxLength(4),Validators.minLength(4)]],
+        cardEXYear: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.maxLength(2),Validators.minLength(2)]],
         cardCVV: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.maxLength(3),Validators.minLength(3)]],
       });
     }
@@ -121,6 +132,8 @@ export class DialogSubscriptionCardForm {
       let requestObject = {
         'user_id' : JSON.stringify(this.adminData.user_id),
         'card_name' : this.cardPaymentForm.get('name').value,
+        'address' : this.cardPaymentForm.get('address').value,
+        'country' : this.cardPaymentForm.get('country').value,
         'card_number' : this.cardPaymentForm.get('cardNumber').value,
         'exp_month' : this.cardPaymentForm.get('cardEXMonth').value,
         'exp_year' : this.cardPaymentForm.get('cardEXYear').value,
@@ -139,6 +152,7 @@ export class DialogSubscriptionCardForm {
             verticalPosition: 'top',
             panelClass: ['green-snackbar']
             });
+            this.router.navigate(['/login']);
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
@@ -148,6 +162,23 @@ export class DialogSubscriptionCardForm {
           });
       }
     });
+  }
+  gelAllCountry(){
+    this.isLoaderAdmin =true;
+    this.CommonService.gelAllCountry().subscribe((response:any) => {
+      if(response.data == true){
+        this.allCountry = response.response
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this.allCountry = ''
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+    this.isLoaderAdmin =false;
   }
 
     

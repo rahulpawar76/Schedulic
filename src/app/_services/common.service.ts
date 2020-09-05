@@ -98,7 +98,6 @@ export class CommonService {
   }
 
   getSubscriptionPlans(requestObject,headers){
-    this.checkAuthentication();
     return this.http.post(`${environment.apiUrl}/plan-list`,requestObject,{headers:headers}).pipe(
     map((res) => {
         return res;
@@ -107,8 +106,19 @@ export class CommonService {
   }
 
   getSubscriptionPayment(requestObject,headers){
-    this.checkAuthentication();
     return this.http.post(`${environment.apiUrl}/admin-card-details`,requestObject,{headers:headers}).pipe(
+    map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+  gelAllCountry(){
+    let requestObject = {
+    };
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+    });
+    return this.http.post(`${environment.apiUrl}/countries`,requestObject,{headers:headers}).pipe(
     map((res) => {
         return res;
     }),

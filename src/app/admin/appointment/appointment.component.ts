@@ -441,7 +441,10 @@ export class AppointmentComponent implements OnInit {
 
   getAllServices(){
     this.isLoaderAdmin = true;
-    this.AdminService.getAllServices().subscribe((response:any) => {
+    let requestObject = {
+      'business_id' : this.businessId,
+    };
+    this.AdminService.getAllServices(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.allservices = response.response.data;
         this.isLoaderAdmin = false;
@@ -1054,7 +1057,10 @@ export class DialogAddNewAppointment {
   }
 
   fnGetTaxDetails(){
-    this.AdminService.getTaxDetails().subscribe((response:any) => {
+    let requestObject = {
+      "business_id":this.bussinessId
+    };
+    this.AdminService.getTaxDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
         let tax = response.response
         this.taxArr=tax;

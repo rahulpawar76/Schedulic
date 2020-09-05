@@ -42,7 +42,6 @@ import { DialogStaffImageUpload } from './staff/staff.component';
 import { DialogCompanyDetailsImageUpload } from './company-details/company-details.component';
 import {DialogDataExampleDialog} from './services/services.component';
 import { DialogPreviewEmailTemp } from './alertsettings/alertsettings.component';
-import { DialogAdminSubscriptionCardForm } from './billing/billing.component';
 import { SharedModule } from '../../shared.module';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -83,7 +82,6 @@ enableRipple(true);
     DialogDataExampleDialog,
     DialogStaffViewReview,
     DialogPreviewEmailTemp,
-    DialogAdminSubscriptionCardForm,
     DndDirective,
     ProgressComponent,
     BillingComponent
@@ -109,6 +107,6 @@ enableRipple(true);
     FormsModule
   ],
   bootstrap: [AppearanceComponent],
-   entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax,DialogAddPostalCode,DialogNewCSVPostalCode,DialogAddNewTimeOffBussiness,DialogCategoryImageUpload,DialogSubCategoryImageUpload,DialogServiceImageUpload,DialogStaffImageUpload,DialogCompanyDetailsImageUpload,DialogDataExampleDialog,DialogStaffViewReview,DialogPreviewEmailTemp,DialogAdminSubscriptionCardForm],
+   entryComponents: [SettingsComponent,DialogAddNewTimeOff,DialogAddNewTax,DialogAddPostalCode,DialogNewCSVPostalCode,DialogAddNewTimeOffBussiness,DialogCategoryImageUpload,DialogSubCategoryImageUpload,DialogServiceImageUpload,DialogStaffImageUpload,DialogCompanyDetailsImageUpload,DialogDataExampleDialog,DialogStaffViewReview,DialogPreviewEmailTemp],
 })
 export class SettingsModule {}

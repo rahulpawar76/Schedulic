@@ -2,24 +2,20 @@
     <div class="step-loader" *ngIf="isLoader">
         <img src="../../assets/loading-spinner.gif" />
     </div>
-    <!-- <div id="personal_info" class="main-step step_6 p-0" *ngIf="personalinfo">
+    <div id="personal_info" class="main-step step_6 p-0 theme_2_popup" *ngIf="personalinfo">
         <div class="step-top-head"></div>
 
-        <mat-card-title class="p-4 d-flex">
-            <div class="col-lg-12 col-sm-12 col-12 top-title
-                            float-left">
-                Your Personal Details
-                <button mat-fab color="" class="top-back-btn
-                                float-right" (click)="fnbacktofirst()">
-                                <i class="material-icons" color="">close</i>
-                            </button>
+        <mat-card-title class="pt-2 px-4 pb-0 d-flex">
+            <div class="col-lg-12 col-sm-12 col-12 top-title float-left">
+                <h4>Your Personal Details</h4>
+
             </div>
         </mat-card-title>
         <mat-card-content class="p-4 mt-0 mb-2">
-             <div class="user-type-selection">
+            <div class="user-type-selection">
                 <mat-radio-group aria-label="Select an option">
-                    <mat-radio-button checked (click)="fnUserType($event,'existing')" value="exist-user">Existing User</mat-radio-button>
-                    <mat-radio-button (click)="fnUserType($event,'new')" value="new-user">New User</mat-radio-button>
+                    <mat-radio-button class="mb-0" checked (click)="fnUserType($event,'existing')" value="exist-user">Existing User</mat-radio-button>
+                    <mat-radio-button class="mb-0" (click)="fnUserType($event,'new')" value="new-user">New User</mat-radio-button>
                 </mat-radio-group>
             </div>
             <div id="existing_user" *ngIf="existinguser" class="">
@@ -41,8 +37,7 @@
                                                 class="error">Enter valid
                                                 email.</small></span>
                         </div>
-                        <div class="col-12 col-lg-6 col-md-6
-                                        col-sm-6">
+                        <div class="col-12 col-lg-6 col-md-6 col-sm-6">
                             <label>Password</label>
                             <input class="common-input" formControlName="existing_password" type="password" />
                             <span class="error-wrap" *ngIf="formExistingUser.get('existing_password').dirty
@@ -211,7 +206,101 @@
                                     continue-btn">Continue<i
                                         class="material-icons">keyboard_arrow_right</i></button>
                 </div>
-            </div> 
+            </div>
         </mat-card-content>
-    </div> -->
+    </div>
+    <div id="appointment_info" class="main-step step_7 p-0" *ngIf="appointmentinfo">
+        <div class="step-top-head"></div>
+        <div class="col-lg-12 col-sm-12 col-12 float-left
+                        loggedin_head" *ngIf="isLoggedIn">
+            <!-- <p>Welcome, {{customerName}}</p><button (click)="fnLogout()" mat-button class="round-btn continue-btn logout-btn">Logout</button> -->
+            <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn continue-btn logout-btn">View
+                            Dashboard</button><button (click)="fnLogout()" mat-button class="round-btn continue-btn
+                            logout-btn
+                            ml-a">Logout</button>
+        </div>
+        <mat-card-title class="px-4 pt-3 d-flex flex-wrap">
+            <div class="col-lg-12 col-sm-12 col-12 top-title float-left">
+                Appointment Details
+                <button mat-fab color="" class="top-back-btn
+                                float-right" (click)="fnbacktofirst()">
+                                <i class="material-icons" color="">close</i>
+                            </button>
+            </div>
+            <div class="col-lg-12 col-sm-12 col-12 float-left" *ngIf="showSameAsAboveCheck">
+                <!-- <mat-checkbox (change)="fnsameasabove($event)" class="same-check" id="same_check" name="sameasabove"></mat-checkbox> -->
+                <div class="custom-control custom-checkbox" *ngIf="is_in_store_service==false">
+                    <input type="checkbox" class="custom-control-input" id="same_check" (change)="fnsameasabove($event)" name="sameasabove">
+                    <label class="custom-control-label same_check_label" for="same_check">Same as Above</label>
+                </div>
+            </div>
+            <div class="col-lg-12 col-sm-12 col-12 float-left" *ngIf="!showSameAsAboveCheck">
+                <!-- <mat-checkbox (change)="fnsameasabove($event)" class="same-check" id="same_check" name="sameasabove"></mat-checkbox> -->
+                <div class="custom-control custom-checkbox" *ngIf="is_in_store_service==false">
+                    <input type="checkbox" class="custom-control-input" id="same_check" (change)="fnSameAsBillingAddress($event)" name="sameasabove">
+                    <label class="custom-control-label same_check_label" for="same_check">Same as Billing Address</label>
+                </div>
+            </div>
+        </mat-card-title>
+        <mat-card-content class="p-4 mt-0 mb-2">
+            <form [formGroup]="formAppointmentInfo">
+                <div class="field-list mr-0 ml-0 row" *ngIf="is_in_store_service==false">
+                    <div class="col-12 col-lg-12 col-md-12  col-sm-12">
+                        <label>Address</label>
+                        <textarea formControlName="appo_address" class="common-input" rows="3"></textarea>
+                        <span class="error-wrap" *ngIf="formAppointmentInfo.get('appo_address').dirty
+                                        ||
+                                        formAppointmentInfo.get('appo_address').touched
+                                        || formSubmitclicked"><small
+                                            *ngIf="formAppointmentInfo.get('appo_address').hasError('required')"
+                                            class="error">Address is
+                                            required.</small></span>
+                    </div>
+                    <div class="col-12 col-lg-4 col-md-4
+                                    col-sm-4">
+                        <label>State</label>
+                        <input formControlName="appo_state" class="common-input" type="text" />
+                        <span class="error-wrap" *ngIf="formAppointmentInfo.get('appo_state').dirty
+                                        ||
+                                        formAppointmentInfo.get('appo_state').touched
+                                        || formSubmitclicked"><small
+                                            *ngIf="formAppointmentInfo.get('appo_state').hasError('required')"
+                                            class="error">State is required.</small></span>
+                    </div>
+                    <div class="col-12 col-lg-4 col-md-4
+                                    col-sm-4">
+                        <label>City</label>
+                        <input formControlName="appo_city" class="common-input" type="text" />
+                        <span class="error-wrap" *ngIf="formAppointmentInfo.get('appo_city').dirty
+                                        ||
+                                        formAppointmentInfo.get('appo_city').touched
+                                        || formSubmitclicked"><small
+                                            *ngIf="formAppointmentInfo.get('appo_city').hasError('required')"
+                                            class="error">City is required.</small></span>
+                    </div>
+                    <div class="col-12 col-lg-4 col-md-4
+                                    col-sm-4">
+                        <label>Zip Code</label>
+                        <input formControlName="appo_zipcode" class="common-input" type="text" />
+                        <span class="error-wrap" *ngIf="formAppointmentInfo.get('appo_zipcode').dirty
+                                        ||
+                                        formAppointmentInfo.get('appo_zipcode').touched
+                                        || formSubmitclicked"><small
+                                            *ngIf="formAppointmentInfo.get('appo_zipcode').hasError('required')"
+                                            class="error">Zipcode is
+                                            required.</small><small
+                                            *ngIf="formAppointmentInfo.get('appo_zipcode').hasError('minlength')
+                                            ||
+                                            formAppointmentInfo.get('appo_zipcode').hasError('maxlength')"
+                                            class="error">Zipcode must be 5
+                                            to 7
+                                            characters.</small></span>
+                    </div>
+                </div>
+                <div class="bottom-ctn-btn">
+                    <button (click)="fnappointmentinfo($event)" mat-button class="round-btn continue-btn">Confirm</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </div>
 </div>

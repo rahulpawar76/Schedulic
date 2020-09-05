@@ -225,7 +225,10 @@ export class CustomersComponent implements OnInit {
 
   getAllCustomers(){
     this.isLoaderAdmin = true;
-    this.AdminService.getAllCustomers().subscribe((response:any) => {
+    let requestObject = {
+      'business_id': this.businessId,
+    };
+    this.AdminService.getAllCustomers(requestObject).subscribe((response:any) => {
       if(response.data == true && response.response != 'Customer not created.'){
         this.allCustomers = response.response;
         this.allCustomers.forEach( (element) => {
@@ -262,7 +265,10 @@ export class CustomersComponent implements OnInit {
   }
   getAllCustomersAfterNew(){
     this.isLoaderAdmin = true;
-    this.AdminService.getAllCustomers().subscribe((response:any) => {
+    let requestObject = {
+      'business_id': this.businessId,
+    };
+    this.AdminService.getAllCustomers(requestObject).subscribe((response:any) => {
       if(response.data == true && response.response != 'Customer not created.'){
         this.allCustomers = response.response;
         this.allCustomers.forEach( (element) => {
@@ -2028,7 +2034,10 @@ constructor(
   }
 
   getPostalCodeList() {
-    this.AdminService.getPostalCodeList().subscribe((response:any) => {
+    let requestObject = {
+      'business_id': this.bussinessId,
+    };
+    this.AdminService.getPostalCodeList(requestObject).subscribe((response:any) => {
       if(response.data == true){
         let postal = response.response
         this.Postalcode = postal;
@@ -2132,7 +2141,10 @@ constructor(
   }
 
   fnGetTaxDetails(){
-    this.AdminService.getTaxDetails().subscribe((response:any) => {
+    let requestObject = {
+      'business_id': this.bussinessId,
+    };
+    this.AdminService.getTaxDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
         let tax = response.response
         this.taxArr=tax;

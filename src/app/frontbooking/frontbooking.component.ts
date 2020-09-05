@@ -2875,14 +2875,12 @@ export class FrontbookingComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result != undefined){
         this.cartPopupCloseType= result
-        alert('1')
-        if(this.cartPopupCloseType === 'proceed'){
-          alert('11')
+        if(this.cartPopupCloseType.closeType === 'proceed'){
           this.theme2CheckoutDialog()
-        }else if(this.cartPopupCloseType === 'add-more'){
-          alert('22')
+        }else if(this.cartPopupCloseType.closeType === 'add-more'){
           this.fnbacktofirst();
         }
+        this.serviceMainArr = this.cartPopupCloseType.serviceMainArr
       }
     });
   }
@@ -2935,11 +2933,12 @@ export class FrontbookingComponent implements OnInit {
     });
   }
   theme2CheckoutDialog() {
-   alert()
     const dialogRef = this.dialog.open(theme2CheckoutDialog, {
       width: '800px',
        data: {
               settingsArr : this.settingsArr,
+              serviceMainArr:this.serviceMainArr,
+              businessId:this.businessId,
             }
       
     });
@@ -2957,32 +2956,771 @@ export class FrontbookingComponent implements OnInit {
 export class theme2CheckoutDialog {
   isLoader:boolean= false;
   formExistingUser : FormGroup;
+  serviceMainArr={
+    totalNumberServices:0,
+    subtotal:0,
+    discount_type:null,
+    discount_value:null,
+    discount:0,
+    netCost:0
+  }
   formNewUser: FormGroup;
   settingsArr:any;
   personalinfo:boolean=true;
+  appointmentinfo:boolean = false;
+  summaryScreen:boolean = false;
+  paymentScreen:boolean= false;
+  thankYouScreen:boolean = false;
   existinguser:boolean=true;
   newuser:boolean=false;
   separateDialCode = true;
 	SearchCountryField = SearchCountryField;
 	TooltipLabel = TooltipLabel;
 	CountryISO = CountryISO;
-	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
+  preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
+  
+  emailPattern = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
+  onlynumeric = /^-?(0|[1-9]\d*)?$/
+
+
+  termsConditionsStatusValue:boolean = false;
+  termsConditions:any;
+  privacyPolicy:any;
+  thankYou:any;
+  PrivacyPolicyStatusValue:boolean = false;
+  PrivacyPolicyStatusValidation:boolean = false;
+  termsConditionsStatusValidation:boolean = false;
+  contactFormSettingsArr:any=[];
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;
+  paymentDateTime:any;
+  PayUMoneyCredentials:any;
+  paypalSetting:any;
+  stripeSetting:any;
+  bankTransferSetting:any;
+  stripeStatus : boolean = false;
+  bankTransferStatus : boolean = false;
+  PayUMoney={
+    key:'',
+    txnid:'',
+    amount:'',
+    firstname:'',
+    email:'',
+    phone:'',
+    productinfo:'',
+    surl:'',
+    furl:'',
+    mode:'',
+    salt:'',
+    udf1:'',
+    udf2:'',
+    udf3:'',
+    udf4:'',
+    udf5:''
+  }
+  payUmoneyStatus : boolean = false;
+
+  paypalClientId:any="sb";
+  paypalTestMode:any;
+  paypalStatus:boolean=false;
+  formAppointmentInfo: FormGroup;
+  customerLoginValue:boolean=false;
+  private payPalConfig?: IPayPalConfig;
+  itemArr:any= [];
+  taxAmount=0;
+  reference_id:any;
+  transactionId:any=null;
+  phoneNumberInvalid:any = "valid";
+  isLoggedIn:boolean=false;
+  customerName:any;
+  customerFirstname:any;
+  customerLastname:any;
+  customerEmail:any;
+  customerPhone:any;
+  businessId:any;
+  showSameAsAboveCheck:boolean=true;
+  errorMessage:any;
   constructor(
     public dialogRef: MatDialogRef<theme2CheckoutDialog>,
     private _formBuilder:FormBuilder,
+    private snackBar: MatSnackBar,
     private http: HttpClient,
+    private datePipe: DatePipe,
     private _snackBar: MatSnackBar,
     private authenticationService:AuthenticationService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      alert('2')
       this.settingsArr= this.data.settingsArr;
-    }
+      this.serviceMainArr = this.data.serviceMainArr;
+      this.businessId = this.data.businessId;
+      this.formExistingUser = this._formBuilder.group({
+        existing_mail: ['',[Validators.required,Validators.email]],
+        existing_password: ['',Validators.required],
+      });
+      
+      this.formNewUser = this._formBuilder.group({
+        newUserEmail: ['',[Validators.required,Validators.email,Validators.pattern(this.emailPattern)],
+        this.isEmailUnique.bind(this)],
+        newUserPassword: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
+        newUserFullname: ['',Validators.required],
+        newUserPhone: [''],
+        // newUserAddress: ['',Validators.required],
+        // newUserState: ['',Validators.required],
+        // newUserCity: ['',Validators.required],
+        // newUserZipcode: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+        newUserSplReq: ['']
+      })
+      this.formAppointmentInfo = this._formBuilder.group({
+      })
 
+
+      this.currencySymbol = this.settingsArr.currency;
+          console.log(this.currencySymbol);
+          
+          this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+          console.log(this.currencySymbolPosition);
+          
+          this.currencySymbolFormat = this.settingsArr.currency_format;
+          console.log(this.currencySymbolFormat);
+          if(this.settingsArr.payUmoney_settings){
+            this.PayUMoneyCredentials = JSON.parse(this.settingsArr.payUmoney_settings);
+            this.PayUMoney.key= this.PayUMoneyCredentials.merchant_key;
+            this.PayUMoney.salt=this.PayUMoneyCredentials.salt_key;
+            this.payUmoneyStatus=this.PayUMoneyCredentials.status;
+          }
+          
+        if(this.settingsArr.pay_pal_settings){
+          this.paypalSetting = this.settingsArr.pay_pal_settings
+          this.paypalTestMode = this.paypalSetting.test_mode;
+          if(this.paypalTestMode){
+            this.paypalClientId="sb";
+          }else{
+            this.paypalClientId = this.paypalSetting.client_id;
+          }
+          this.paypalStatus = this.paypalSetting.status;
+
+        }
+          
+        if(this.settingsArr.stripe_settings){
+          this.stripeSetting = JSON.parse(this.settingsArr.stripe_settings)
+          this.stripeStatus = this.stripeSetting.status
+        }
+        if(this.settingsArr.bank_transfer){
+          this.bankTransferSetting = JSON.parse(this.settingsArr.bank_transfer)
+          this.bankTransferStatus = this.bankTransferSetting.status
+        }
+          
+
+          this.termsConditions = JSON.parse(this.settingsArr.terms_condition);
+          if(this.termsConditions.status == 'false'){
+            this.termsConditionsStatusValue = true;
+          }
+          console.log(this.termsConditions);
+
+          this.privacyPolicy=JSON.parse(this.settingsArr.privacy_policy)
+          if(this.privacyPolicy && this.privacyPolicy.status == 'false'){
+            this.PrivacyPolicyStatusValue = true;
+          }
+          console.log(this.privacyPolicy);
+
+          this.thankYou=JSON.parse(this.settingsArr.thank_you);
+          console.log(this.thankYou)
+          this.contactFormSettingsArr=JSON.parse(this.settingsArr.form_settings)
+          if(this.contactFormSettingsArr && this.contactFormSettingsArr.contact_field_status == true){
+            if(this.contactFormSettingsArr.addressField.status == 1){
+              if(this.contactFormSettingsArr.addressField.required == 1){
+                const validators = [Validators.required];
+                const validatorsZipCode = [Validators.required,Validators.minLength(5),Validators.maxLength(7)];
+                this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
+                this.formNewUser.addControl('newUserState', new FormControl('', validators));
+                this.formNewUser.addControl('newUserCity', new FormControl('', validators));
+                this.formNewUser.addControl('newUserZipcode', new FormControl('', validatorsZipCode));
+
+                this.formAppointmentInfo.addControl('appo_address', new FormControl('', validators));
+                this.formAppointmentInfo.addControl('appo_state', new FormControl('', validators));
+                this.formAppointmentInfo.addControl('appo_city', new FormControl('', validators));
+                this.formAppointmentInfo.addControl('appo_zipcode', new FormControl('', validatorsZipCode));
+
+              }else{
+                this.formNewUser.addControl('newUserAddress', new FormControl(null));
+                this.formNewUser.addControl('newUserState', new FormControl(null));
+                this.formNewUser.addControl('newUserCity', new FormControl(null));
+                this.formNewUser.addControl('newUserZipcode', new FormControl(null));
+
+                this.formAppointmentInfo.addControl('appo_address', new FormControl(null));
+                this.formAppointmentInfo.addControl('appo_state', new FormControl(null));
+                this.formAppointmentInfo.addControl('appo_city', new FormControl(null));
+                this.formAppointmentInfo.addControl('appo_zipcode', new FormControl(null));
+              }
+            }else{
+              this.formAppointmentInfo.addControl('appo_address', new FormControl(null));
+              this.formAppointmentInfo.addControl('appo_state', new FormControl(null));
+              this.formAppointmentInfo.addControl('appo_city', new FormControl(null));
+              this.formAppointmentInfo.addControl('appo_zipcode', new FormControl(null));
+            }
+          }else{
+            const validators = [Validators.required];
+            const validatorsZipCode = [Validators.required,Validators.minLength(5),Validators.maxLength(7)];
+            this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
+            this.formNewUser.addControl('newUserState', new FormControl('', validators));
+            this.formNewUser.addControl('newUserCity', new FormControl('', validators));
+            this.formNewUser.addControl('newUserZipcode', new FormControl('', validatorsZipCode));
+
+            this.formAppointmentInfo.addControl('appo_address', new FormControl('', validators));
+            this.formAppointmentInfo.addControl('appo_state', new FormControl('', validators));
+            this.formAppointmentInfo.addControl('appo_city', new FormControl('', validators));
+            this.formAppointmentInfo.addControl('appo_zipcode', new FormControl('', validatorsZipCode));
+          }
+          console.log(this.contactFormSettingsArr);
+
+          this.customerLoginValue=JSON.parse(this.settingsArr.customer_login);
+         
+          
+          
+        this.initConfig();
+
+
+
+    }
+    private createErrorMessage(error: HttpErrorResponse){
+      this.errorMessage = error.error ? error.error : error.statusText;
+    }
+    private initConfig(): void {
+      this.payPalConfig = {
+      currency: this.currencySymbol,
+      clientId: this.paypalClientId,
+      createOrderOnClient: (data) => <ICreateOrderRequest>{
+        intent: 'CAPTURE',
+        purchase_units: [
+          {
+            reference_id: this.reference_id,
+            amount: {
+              currency_code: this.currencySymbol,
+              value: JSON.stringify(this.serviceMainArr.netCost),
+              breakdown: {
+                item_total: {
+                  currency_code: this.currencySymbol,
+                  value: JSON.stringify(this.serviceMainArr.subtotal)
+                },
+                tax_total : {
+                  currency_code: this.currencySymbol,
+                  value: JSON.stringify(this.taxAmount)
+                },
+                discount : {
+                  currency_code: this.currencySymbol,
+                  value: JSON.stringify(this.serviceMainArr.discount)
+                }
+              }
+            },
+            items: this.itemArr,
+        
+          }
+        ]
+      },
+      advanced: {
+        commit: 'true'
+      },
+      style: {
+        label: 'paypal',
+        layout: 'vertical',
+        size: "responsive"
+      },
+      onApprove: (data, actions) => {
+      this.isLoader=true
+        console.log('onApprove - transaction was approved, but not authorized', data, actions);
+        actions.order.get().then(details => {
+          console.log('onApprove - you can get full order details inside onApprove: ', details);
+        });
+      },
+      onClientAuthorization: (data) => {
+        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+        //this.showSuccess = true;
+        if(data.status && data.status== "COMPLETED"){
+          this.transactionId=data.id;
+          this.paymentDateTime= this.datePipe.transform(data.create_time,"yyyy-MM-dd HH:mm:ss");
+          console.log(this.transactionId+" "+this.paymentDateTime);
+          this.fnAppointmentBooking();
+        }
+        //this.fnAppointmentBooking();
+      },
+      onCancel: (data, actions) => {
+        console.log('OnCancel', data, actions);
+        this.snackBar.open("Transaction Cancelled", "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+        });
+      },
+      onError: err => {
+        console.log('OnError', err);
+        this.snackBar.open("Error: "+err, "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+        });
+      },
+      onClick: (data, actions) => {
+        console.log('onClick', data, actions);
+      },
+   
+    };
+    }
+    private handleError(error: HttpErrorResponse) {
+      return throwError('Error! something went wrong.');
+      //return error.error ? error.error : error.statusText;
+    }
     onNoClick(): void {
       this.dialogRef.close();
       
     }
-    ngOnInit() {}
+    ngOnInit() {
+
+      if(this.authenticationService.currentUserValue && this.authenticationService.currentUserValue.user_type == "C"){
+        this.isLoggedIn=true;
+        this.customerName=this.authenticationService.currentUserValue.fullname;
+        this.customerFirstname=this.customerName.split(" ")[0];
+        this.customerLastname=this.customerName.split(" ")[1];
+        this.customerEmail=this.authenticationService.currentUserValue.email;
+        this.customerPhone=this.authenticationService.currentUserValue.phone;
+        console.log(this.authenticationService.currentUserValue.user_id+" "+this.isLoggedIn);
+      }
+    }
+
+    fnUserType(event,usertype){
+      if(usertype == "existing"){
+        this.existinguser = true;
+        this.newuser = false;
+      }else{
+        this.newuser = true;
+        this.existinguser = false;
+      }
+      
+    }
+    
+    fnPhoneMouceLeave(){
+
+
+      if(this.formNewUser.get('newUserPhone').value==undefined){
+        this.phoneNumberInvalid = "required";
+        return;
+      }
+  
+      if(this.formNewUser.get('newUserPhone').value === null){
+        this.phoneNumberInvalid = "required";
+      
+      }else if(this.formNewUser.get('newUserPhone').value !== '' || this.formNewUser.get('newUserPhone').value !== null){
+        if(this.formNewUser.get('newUserPhone').value.number.length >= 6 && this.formNewUser.get('newUserPhone').value.number.length <= 15){
+          this.phoneNumberInvalid = "valid";
+        }else{
+          this.phoneNumberInvalid = "length";
+        }
+      }
+    }
+  
+    fnenterPhoneNumber(){
+  
+      if(this.formNewUser.get('newUserPhone').value==undefined){
+        this.phoneNumberInvalid = "valid";
+        return;
+      }
+  
+      if( this.formNewUser.get('newUserPhone').value !== '' || this.formNewUser.get('newUserPhone').value !== null ){
+        if(this.formNewUser.get('newUserPhone').value.number.length >= 6 && this.formNewUser.get('newUserPhone').value.number.length <= 15){
+          this.phoneNumberInvalid = "valid";
+        }else{
+          this.phoneNumberInvalid = "length";
+        }
+      }else if(this.formNewUser.get('newUserPhone').value === '' || this.formNewUser.get('newUserPhone').value === null){
+        this.phoneNumberInvalid = "required";
+      }
+    }
+
+    fnloginexisinguser(){
+      if(!this.formExistingUser.valid){
+       this.formExistingUser.get('existing_mail').markAsTouched();
+       this.formExistingUser.get('existing_password').markAsTouched();
+       
+       return false;
+      }
+      let requestObject = {
+        "email" : this.formExistingUser.get('existing_mail').value,
+        "password" : this.formExistingUser.get('existing_password').value
+        };
+     this.fnLogin(requestObject,false);
+    }
+  
+    fnLogin(requestObject,isAfterSignup){
+      
+     let headers = new HttpHeaders({
+       'Content-Type': 'application/json',
+     });
+  
+     this.http.post(`${environment.apiUrl}/user-login`,requestObject,{headers:headers} ).pipe(
+       map((res) => {
+         return res;
+       }),
+       catchError(this.handleError)).subscribe((response:any) => {
+        if(response.data == true ){
+          // localStorage.setItem("userId",response.response.user_id);
+          // localStorage.setItem("tokenID",response.response.id);
+          // localStorage.setItem("userToken",response.response.token);
+          // localStorage.setItem("userName",response.response.fullname);
+          // localStorage.setItem("userRole",response.response.user_type);
+          // localStorage.setItem("billing_address",response.response.address);
+          // localStorage.setItem("billing_state",response.response.state);
+          // localStorage.setItem("billing_city",response.response.city);
+          // localStorage.setItem("billing_zipcode",response.response.zip);
+          localStorage.setItem('currentUser', JSON.stringify(response.response));
+          localStorage.setItem('isFront', "true");
+          this.authenticationService.currentUserSubject.next(response.response);
+  
+       //   console.log(this.authenticationService.currentUserValue.fullname);
+          console.log(response.response.fullname);
+  
+          this.customerName=response.response.fullname;
+        
+          this.customerFirstname = this.customerName!=undefined?this.customerName.split(" ")[0]:'';
+          this.customerLastname  =  this.customerName!=undefined?this.customerName.split(" ")[1]:'';
+  
+          this.customerEmail=this.authenticationService.currentUserValue.email;
+          this.customerPhone=this.authenticationService.currentUserValue.phone;
+        
+          if(!isAfterSignup){
+            // this.formAppointmentInfo.controls['appo_address'].setValue(response.response.address);
+            // this.formAppointmentInfo.controls['appo_state'].setValue(response.response.state);
+            // this.formAppointmentInfo.controls['appo_city'].setValue(response.response.city);
+            // this.formAppointmentInfo.controls['appo_zipcode'].setValue(response.response.zip);
+            this.showSameAsAboveCheck=false;
+            this.snackBar.open("Login successfull", "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass : ['green-snackbar']
+              });
+          }
+         
+          this.personalinfo = false;
+          this.appointmentinfo = true;
+          this.isLoggedIn=true;
+        }else{
+  
+          this.snackBar.open("Email or Password is incorrect", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+          });
+  
+          this.showSameAsAboveCheck=true;
+        }
+      },(err) =>{ 
+         this.errorMessage = this.handleError;
+      });
+    }
+  
+
+    fnpersonalinfo(){
+      if(this.formNewUser.get('newUserPhone').value === null){
+        this.phoneNumberInvalid = "required";
+        return false;
+      }
+      if(this.formNewUser.get('newUserPhone').value.number.length <= 6 || this.formNewUser.get('newUserPhone').value.number.length >= 15){
+        this.phoneNumberInvalid = "valid";
+        this.formNewUser.get('newUserPhone').markAsTouched();
+        return false;
+      }
+      else if(this.formNewUser.valid){
+        this.fnSignUp();
+      } 
+      
+      if(this.formNewUser.invalid){
+        console.log(this.formNewUser)
+        this.formNewUser.get('newUserEmail').markAsTouched();
+        this.formNewUser.get('newUserPassword').markAsTouched();
+        this.formNewUser.get('newUserFullname').markAsTouched();
+        if(this.contactFormSettingsArr.contact_field_status == true){
+          if(this.contactFormSettingsArr.addressField.status == 1){
+            this.formNewUser.get('newUserAddress').markAsTouched();
+            this.formNewUser.get('newUserState').markAsTouched();
+            this.formNewUser.get('newUserCity').markAsTouched();
+            this.formNewUser.get('newUserZipcode').markAsTouched();
+          }
+        }else{
+          this.formNewUser.get('newUserAddress').markAsTouched();
+          this.formNewUser.get('newUserState').markAsTouched();
+          this.formNewUser.get('newUserCity').markAsTouched();
+          this.formNewUser.get('newUserZipcode').markAsTouched();
+        }
+        return false;
+      }
+     }
+     
+    fnSignUp(){
+      let newUserAddress="";
+      let newUserState="";
+      let newUserCity="";
+      let newUserZipcode="";
+      if(this.contactFormSettingsArr.contact_field_status == true){
+        if(this.contactFormSettingsArr.addressField.status == 1){
+          newUserAddress=this.formNewUser.get('newUserAddress').value;
+          newUserState=this.formNewUser.get('newUserState').value;
+          newUserCity=this.formNewUser.get('newUserCity').value;
+          newUserZipcode=this.formNewUser.get('newUserZipcode').value;
+        }
+      }else{
+        newUserAddress=this.formNewUser.get('newUserAddress').value;
+        newUserState=this.formNewUser.get('newUserState').value;
+        newUserCity=this.formNewUser.get('newUserCity').value;
+        newUserZipcode=this.formNewUser.get('newUserZipcode').value;
+      }
+      let requestObject = {
+        "email" : this.formNewUser.get('newUserEmail').value,
+        "password" : this.formNewUser.get('newUserPassword').value,
+        "fullname":this.formNewUser.get('newUserFullname').value,
+        "phone":this.formNewUser.get('newUserPhone').value.internationalNumber.replace(/\s/g, ""),
+        //"phone":this.formNewUser.get('newUserPhone').value,
+        "address":newUserAddress,
+        "zip":newUserZipcode,
+        "state":newUserState,
+        "city":newUserCity,
+        "business_id": this.businessId
+        };
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+      
+      this.http.post(`${environment.apiUrl}/customer-signup`,requestObject,{headers:headers} ).pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError(this.handleError)
+      ).subscribe((response:any) => {
+        if(response.data == true){
+          this.snackBar.open("Customer Registered", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['green-snackbar']
+          });
+          let requestObject2 = {
+            "email" : this.formNewUser.get('newUserEmail').value,
+            "password" : this.formNewUser.get('newUserPassword').value
+            };
+          this.fnLogin(requestObject2,true);
+        }else{
+          this.personalinfo = true;
+        }
+      },
+      (err) =>{
+        this.personalinfo = true;
+        console.log(err)
+      })
+    }
+  
+    fnsameasabove(event){
+      console.log(event.srcElement.checked)
+      if(event.srcElement.checked == true){
+        
+      console.log(event);
+      if(this.contactFormSettingsArr.contact_field_status == true){
+        if(this.contactFormSettingsArr.addressField.status == 1){
+          this.formAppointmentInfo.controls['appo_address'].setValue(this.formNewUser.get('newUserAddress').value);
+          this.formAppointmentInfo.controls['appo_state'].setValue(this.formNewUser.get('newUserState').value);
+          this.formAppointmentInfo.controls['appo_city'].setValue(this.formNewUser.get('newUserCity').value);
+          this.formAppointmentInfo.controls['appo_zipcode'].setValue(this.formNewUser.get('newUserZipcode').value);
+        }
+      }else{
+        this.formAppointmentInfo.controls['appo_address'].setValue(this.formNewUser.get('newUserAddress').value);
+        this.formAppointmentInfo.controls['appo_state'].setValue(this.formNewUser.get('newUserState').value);
+        this.formAppointmentInfo.controls['appo_city'].setValue(this.formNewUser.get('newUserCity').value);
+        this.formAppointmentInfo.controls['appo_zipcode'].setValue(this.formNewUser.get('newUserZipcode').value);
+      }
+        
+  
+        // this.appo_address_info.appo_address = this.formNewUser.get('newUserAddress').value;
+        // this.appo_address_info.appo_state = this.formNewUser.get('newUserState').value;
+        // this.appo_address_info.appo_city = this.formNewUser.get('newUserCity').value;
+        // this.appo_address_info.appo_zipcode = this.formNewUser.get('newUserZipcode').value;
+      }else{
+        this.formAppointmentInfo.controls['appo_address'].setValue(null);
+        this.formAppointmentInfo.controls['appo_state'].setValue(null);
+        this.formAppointmentInfo.controls['appo_city'].setValue(null);
+        this.formAppointmentInfo.controls['appo_zipcode'].setValue(null);
+  
+        // this.appo_address_info.appo_address = "";
+        // this.appo_address_info.appo_state = "";
+        // this.appo_address_info.appo_city = "";
+        // this.appo_address_info.appo_zipcode = "";
+      }
+    } 
+  
+    fnSameAsBillingAddress(event){
+  
+      console.log(event.srcElement.checked)
+  
+      if(event.srcElement.checked == true){
+        
+        this.formAppointmentInfo.controls['appo_address'].setValue(this.authenticationService.currentUserValue.address);
+        this.formAppointmentInfo.controls['appo_state'].setValue(this.authenticationService.currentUserValue.state);
+        this.formAppointmentInfo.controls['appo_city'].setValue(this.authenticationService.currentUserValue.city);
+        this.formAppointmentInfo.controls['appo_zipcode'].setValue(this.authenticationService.currentUserValue.zip);
+  
+        // this.appo_address_info.appo_address = this.formNewUser.get('newUserAddress').value;
+        // this.appo_address_info.appo_state = this.formNewUser.get('newUserState').value;
+        // this.appo_address_info.appo_city = this.formNewUser.get('newUserCity').value;
+        // this.appo_address_info.appo_zipcode = this.formNewUser.get('newUserZipcode').value;
+      }else{
+  
+        this.formAppointmentInfo.controls['appo_address'].setValue('');
+        this.formAppointmentInfo.controls['appo_state'].setValue('');
+        this.formAppointmentInfo.controls['appo_city'].setValue('');
+        this.formAppointmentInfo.controls['appo_zipcode'].setValue('');
+  
+        // this.appo_address_info.appo_address = "";
+        // this.appo_address_info.appo_state = "";
+        // this.appo_address_info.appo_city = "";
+        // this.appo_address_info.appo_zipcode = "";
+      }
+    } 
+
+    fnAppointmentBooking(){
+      this.isLoader=true;
+      let serviceCartArrTemp:any= [];
+      // for(let i=0; i<this.serviceCartArr.length;i++){
+      //   if(this.serviceCartArr[i]){
+      //     serviceCartArrTemp.push(this.serviceCartArr[i]);
+      //   }
+      // }
+      const currentDateTime = new Date();
+      let requestObject = {
+        //"postal_code" : this.booking.postalcode,
+        //"business_id" : this.businessId,
+        "serviceInfo" : serviceCartArrTemp,
+        "appointment_address" : this.formAppointmentInfo.get('appo_address').value,
+        "appointment_state" : this.formAppointmentInfo.get('appo_state').value,
+        "appointment_city" : this.formAppointmentInfo.get('appo_city').value,
+        "appointment_zipcode" : this.formAppointmentInfo.get('appo_zipcode').value,
+        //"coupon_code" : this.coupon.couponcode_val,
+        "customer_id": this.authenticationService.currentUserValue.user_id,
+        "customer_token" : this.authenticationService.currentUserValue.token,
+        "subtotal" : this.serviceMainArr.subtotal,
+        "discount_type" : this.serviceMainArr.discount_type,
+        "discount_value" : this.serviceMainArr.discount_value,
+        "discount" : this.serviceMainArr.discount,
+        //"tax" : this.taxAmountArr,
+        "nettotal" : this.serviceMainArr.netCost,
+        //"payment_method" : this.paymentMethod,
+        //"order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd"),
+        "reference_id": this.reference_id,
+        "transaction_id": this.transactionId,
+        "payment_datetime": this.paymentDateTime,
+        'fullname' : JSON.parse(localStorage.getItem('currentUser')).fullname,
+        'full_name' : JSON.parse(localStorage.getItem('currentUser')).fullname
+      };
+       
+        
+        // setTimeout(()=>{
+        //   this.isLoader=false;
+        // },4000)
+        // return false;
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+    
+        this.http.post(`${environment.apiUrl}/order-create`,requestObject,{headers:headers} ).pipe(
+          map((res) => {
+            return res;
+          }),
+          catchError(this.handleError)
+        ).subscribe((response:any) => {
+          if(response.data == true){
+            this.isLoader=false;
+            if(this.thankYou.status == 'true'){
+              window.top.location.href = this.thankYou.page_link;
+            }else if(this.thankYou.status == 'false'){
+              //this.thankYouScreen=true;
+              //this.paymentScreen=false;
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+          }
+        }else{
+            console.log(response.response);
+          }
+        },(err) =>{
+          
+        })
+      }
+
+      // fnProceedToPayment(event){
+      //   if(this.PrivacyPolicyStatusValue == false && this.termsConditionsStatusValue == false){
+      //     this.PrivacyPolicyStatusValidation = true;
+      //     this.termsConditionsStatusValidation = true;
+      //     return false;
+      //   }
+      //   else if(this.termsConditionsStatusValue == false){
+      //     this.termsConditionsStatusValidation = true;
+      //     return false;
+      //   }
+      //   else if(this.PrivacyPolicyStatusValue == false){
+      //     this.PrivacyPolicyStatusValidation = true;
+      //     return false;
+      //   }
+      //   if(this.closecoupon != 'valid'){
+      //     this.coupon.couponcode_val=''
+      //   }
+      //   let digit5= Math.floor(Math.random()*90000) + 10000;
+      //   this.reference_id="2_"+digit5+"_"+ this.datePipe.transform(new Date(),"yyyy/MM/dd") ;
+      //   this.itemArr= [];
+      //     for(let i=0; i<this.serviceCartArr.length;i++){
+      //       if(this.serviceCartArr[i]){
+      //         let singleItem={
+      //           name: this.serviceCartArr[i].service_name,
+      //           quantity: '1',
+      //           description : 'Actual Quantity - '+JSON.stringify(this.serviceCartArr[i].count),
+      //           category: 'DIGITAL_GOODS',
+      //          // tax:{currency_code:"USD", value:"1.00"},
+      //           unit_amount: {
+      //             currency_code: this.currencySymbol,
+      //             value: JSON.stringify(this.serviceCartArr[i].subtotal)
+      //           }
+      //         }
+      //         this.itemArr.push(singleItem);
+    
+      //       }
+      //     }
+      //     this.taxAmount=0;
+      //     this.taxAmountArr.forEach(element=>{
+      //       this.taxAmount=this.taxAmount+element.amount;
+      //     });
+      //   this.summaryScreen = false;
+      //   this.paymentScreen =true;
+      // }
+
+
+    isEmailUnique(control: FormControl) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+        return this.http.post(`${environment.apiUrl}/verify-email`,{ emailid: control.value },{headers:headers}).pipe(map((response : any) =>{
+          return response;
+        }),
+        catchError(this.handleError)).subscribe((res) => {
+          if(res){
+            if(res.data == false){
+            resolve({ isEmailUnique: true });
+            // this._snackBar.open("Access PIN already in use", "X", {
+            // duration: 2000,
+            // verticalPosition: 'top',
+            // panelClass : ['red-snackbar']
+            // });
+            }else{
+            resolve(null);
+            }
+          }
+        });
+      }, 500);
+    });
+  }
     
   }
 
@@ -3080,7 +3818,10 @@ export class theme2CartPopup {
     }
     ngOnInit() {}
     fnContinueCart(closeType){
-      this.cartPopupCloseType = closeType
+      this.cartPopupCloseType = {
+        'closeType':closeType,
+        'serviceMainArr' : this.serviceMainArr
+      }
       this.dialogRef.close(this.cartPopupCloseType);
     }
     
@@ -3342,6 +4083,7 @@ export class theme2CartPopup {
 export class theme2DateTimeSelection {
   isLoader:boolean=false;
   model: NgbDateStruct;
+  today:any= new Date();
   dateformatter: NgbDateParserFormatter;
   date: {year: number, month: number};
   minDate: {year: number, month: number, day: number};
