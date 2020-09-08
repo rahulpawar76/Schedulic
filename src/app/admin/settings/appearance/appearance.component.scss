@@ -210,38 +210,73 @@
     }
 }
 
-.theme-div{
+.theme-div {
     height: 150px;
     border-radius: 5px;
     background-image: url("../../../../assets/images/admin/theme1.png");
     background-size: cover;
+    &.theme-1 {
+        background-image: url("../../../../assets/images/admin/appearance-theme/theme1.png");
+    }
+    &.theme-2 {
+        background-image: url("../../../../assets/images/admin/appearance-theme/theme2.png");
+    }
+    &.theme-3 {
+        background-image: url("../../../../assets/images/admin/appearance-theme/theme3.png");
+    }
+    &.theme-4 {
+        background-image: url("../../../../assets/images/admin/appearance-theme/theme4.png");
+    }
+    &.theme-5 {
+        background-image: url("../../../../assets/images/admin/appearance-theme/theme5.png");
+    }
+    &.theme-6 {
+        background-image: url("../../../../assets/images/admin/appearance-theme/theme6.png");
+    }
 }
 
-.theme-active{
+.theme-active {
     border: 5px solid #007BFF;
+    position: relative;
+    .check-icon {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: block !important;
+        background-color: #007BFF;
+        width: 25px;
+        height: 25px;
+        border-radius: 0 0 5px;
+        mat-icon {
+            color: #fff;
+            font-size: 22px;
+        }
+    }
 }
-.checkbox{
+
+.checkbox {
     position: absolute;
     top: 5%;
     left: 5%;
-    color:#007BFF;
+    color: #007BFF;
 }
-.theme-title{
+
+.theme-title {
     width: 100%;
     position: absolute;
     bottom: 0;
     left: 0;
-    text-align:left ;
+    text-align: left;
     color: #fff;
     border-radius: 0px 0px 5px 5px;
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.theme-div:hover .theme-btn-div{
+.theme-div:hover .theme-btn-div {
     display: block;
 }
 
-.theme-btn-div{
+.theme-btn-div {
     position: absolute;
     top: 0;
     left: 0;
@@ -250,7 +285,8 @@
     display: none;
     background-color: rgba(0, 0, 0, 0.4);
 }
-.theme-btn-sub-div{
+
+.theme-btn-sub-div {
     width: 70%;
     height: 50%;
     position: absolute;
@@ -261,86 +297,100 @@
     margin: auto;
 }
 
-.theme-btn-sub-div button{
+.theme-btn-sub-div button {
     width: 100%;
     border-radius: 30px;
 }
 
-.preview-color{
+.preview-color {
     background-color: olive;
-    color:#fff;
-}
-.set-default-color{
-    background-color:#003cff;
-    color:#fff;
+    color: #fff;
 }
 
-.btn-editlink{
-    background-color: #1173f4;
-    color: #fff;
-}
-.service-booking-link-active{
-    background-color: #1173f4;
-    color: #fff;
-}
-.html-btn-title{
-    background-color: #F6F6F6;
-}
-.service-booking-link{
-    background-color: #E1E1E1;
-    color: #000000;
-}
-.btn-color-dummy{
-   text-decoration: underline;
-   color: #007BFF;
-}
-.btn-color-one{
+.set-default-color {
     background-color: #003cff;
     color: #fff;
 }
-.btn-color-two{
+
+.btn-editlink {
+    background-color: #1173f4;
+    color: #fff;
+}
+
+.service-booking-link-active {
+    background-color: #1173f4;
+    color: #fff;
+}
+
+.html-btn-title {
+    background-color: #F6F6F6;
+}
+
+.service-booking-link {
+    background-color: #E1E1E1;
+    color: #000000;
+}
+
+.btn-color-dummy {
+    text-decoration: underline;
+    color: #007BFF;
+}
+
+.btn-color-one {
+    background-color: #003cff;
+    color: #fff;
+}
+
+.btn-color-two {
     background-color: #008AFF;
     color: #fff;
 }
-.btn-color-three{
+
+.btn-color-three {
     background-color: #009315;
     color: #fff;
 }
-.btn-color-four{
+
+.btn-color-four {
     background-color: #FFA800;
     color: #fff;
 }
-.btn-color-five{
+
+.btn-color-five {
     background-color: #FF008A;
     color: #fff;
 }
-.btn-color-six{
+
+.btn-color-six {
     background-color: #8A00FF;
     color: #fff;
 }
-.btn-color-seven{
+
+.btn-color-seven {
     background-color: #FF0000;
     color: #fff;
 }
-.btn-color-eight{
+
+.btn-color-eight {
     background-color: #000000;
     color: #fff;
 }
-.btn-color-nine{
+
+.btn-color-nine {
     background-color: #666666;
     color: #fff;
 }
-.btn-color-ten{
+
+.btn-color-ten {
     background-color: #FDFDFD;
     border: 1px solid #B5B5B5;
     border-radius: 5px;
 }
+
 // .mat-input-border{
 //     border: 1px solid #000000;
 //     border-bottom: none;
 // }
-
-
 // #preview_container {
 //     .datepicker-main {
 //         background: linear-gradient(to right, #38b7fb 0%, #3969fb 100%);

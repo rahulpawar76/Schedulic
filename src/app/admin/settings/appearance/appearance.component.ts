@@ -1,14 +1,21 @@
-import { Component, OnInit,Input,ViewChild, ViewContainerRef  } from '@angular/core';
+import { Component, OnInit,Input,ViewChild, ViewContainerRef, Inject } from '@angular/core';
 import { AppComponent } from '@app/app.component';
 import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import { ColorPickerService, Cmyk } from 'ngx-color-picker';
 import { AdminSettingsService } from '../_services/admin-settings.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '@environments/environment';
 import { NgbDateParserFormatter, NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import { MdePopoverTrigger } from '@material-extended/mde';
 //import { Base64 } from 'base64-string';
 
+
+export interface DialogData {
+  animal: string;
+  name: string;
+  
+}
 
 @Component({
   selector: 'app-appearance',
@@ -61,7 +68,7 @@ export class AppearanceComponent implements OnInit {
   businessId:any
   encodedBusinessId:any;
   selectedFont: any = 'Poppins, sans-serif'
-  
+  defaultTheme:any = '1';
   model: NgbDateStruct;
   dateformatter: NgbDateParserFormatter;
   date: {year: number, month: number};
@@ -77,6 +84,7 @@ export class AppearanceComponent implements OnInit {
     private cpService: ColorPickerService,
     private _snackBar: MatSnackBar,
     private calendar: NgbCalendar,
+    public dialog: MatDialog,
     private AdminSettingsService: AdminSettingsService,
     ) {  
       if (localStorage.getItem('business_id')) {
@@ -108,8 +116,13 @@ export class AppearanceComponent implements OnInit {
         console.log(this.companyDetailsData);
         
       }
-      else if(response.data == false){
-       this.companyDetailsData = [];
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+       
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
       }
     })
   }
@@ -236,6 +249,13 @@ export class AppearanceComponent implements OnInit {
           panelClass :['green-snackbar']
         });
         this.getSettingValue();
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
+       
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
       }
     })
   }
@@ -251,9 +271,6 @@ export class AppearanceComponent implements OnInit {
         if(this.settingData.appearance){
           
         this.getAppearanceData = JSON.parse(this.settingData.appearance); 
-        //this.gradientColorDb = this.getAppearanceData.pri_gradient.split(",", 2)
-        // console.log(this.gradientColorDb)
-        // console.log(this.getAppearanceData);
         this.primarycolor = this.getAppearanceData.pri_color;
         this.primarygradient1 =  this.getAppearanceData.pri_gradient1;
         this.primarygradient2 =  this.getAppearanceData.pri_gradient2;
@@ -265,6 +282,16 @@ export class AppearanceComponent implements OnInit {
         if(this.settingData.form_settings){
           this.formArr=JSON.parse(this.settingData.form_settings);
         }
+        if(this.settingData.theme){
+          this.defaultTheme = this.settingData.theme
+        }
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
+       
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
       }
     })
   }
@@ -280,6 +307,13 @@ export class AppearanceComponent implements OnInit {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
+        });
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
+       
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
         });
       }
     })
@@ -303,4 +337,64 @@ copyEmbedCode(val: string){
     this.getSettingValue();
   }
 
+  fnChnageTheme(selectedTheme){
+    let requestObject = {
+      'business_id': this.businessId,
+      'theme': selectedTheme
+  };
+  this.AdminSettingsService.fnChnageTheme(requestObject).subscribe((response:any)=>{
+    if(response.data == true){
+      this._snackBar.open("Default Theme Updated.", "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['green-snackbar']
+      });
+      this.getSettingValue();
+    }else if(response.data == false && response.response !== 'api token or userid invaild'){
+       
+      this._snackBar.open(response.response, "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+      });
+    }
+  })
+  }
+  fnThemePreview(themeNumber) {
+    const dialogRef = this.dialog.open(DialogPreviewTheme, {
+      width: '900px',
+      data :{themeNumber : themeNumber}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
+
+}
+
+
+@Component({
+  selector: 'dialog-preview-theme',
+  templateUrl: '../_dialogs/appearance-theme-preview.html',
+})
+export class DialogPreviewTheme   {
+
+  businessId :any;
+  themeNumber :any;
+  constructor(
+    public dialogRef: MatDialogRef<DialogPreviewTheme>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    ) {
+      this.themeNumber =  this.data.themeNumber;
+
+    if(localStorage.getItem('business_id')){
+      this.businessId = localStorage.getItem('business_id');
+    }
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+ 
 }

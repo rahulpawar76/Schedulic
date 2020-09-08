@@ -28,7 +28,7 @@ declare const PayUMoneylaunch: any;
   providers: [DatePipe]
 })
 export class FrontbookingComponent implements OnInit {
-  selectedTheme:any = '2';
+  selectedTheme:any = '1';
   formExistingUser : FormGroup;
   formNewUser: FormGroup
   formAppointmentInfo: FormGroup;
@@ -373,21 +373,17 @@ export class FrontbookingComponent implements OnInit {
     ).subscribe((response:any) => {
         if(response.data == true){
           this.settingsArr=response.response;
-          console.log(this.settingsArr);
-
           this.currencySymbol = this.settingsArr.currency;
-          console.log(this.currencySymbol);
-          
           this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-          console.log(this.currencySymbolPosition);
-          
           this.currencySymbolFormat = this.settingsArr.currency_format;
-          console.log(this.currencySymbolFormat);
           if(this.settingsArr.payUmoney_settings){
             this.PayUMoneyCredentials = JSON.parse(this.settingsArr.payUmoney_settings);
             this.PayUMoney.key= this.PayUMoneyCredentials.merchant_key;
             this.PayUMoney.salt=this.PayUMoneyCredentials.salt_key;
             this.payUmoneyStatus=this.PayUMoneyCredentials.status;
+          }
+          if(this.settingsArr.theme){
+            this.selectedTheme=this.settingsArr.theme
           }
           
         if(this.settingsArr.pay_pal_settings){
@@ -5032,7 +5028,8 @@ export class theme2DateTimeSelection {
       this.selecteddate = this.data.selecteddate
       this.selecteddateForLabel = this.data.selecteddateForLabel
       this.directAPI = this.data.directAPI;
-      this.timeSlotArr = this.data.timeSlotArr;
+      this.timeSlotArr = JSON.stringify(this.data.timeSlotArr);
+      this.timeSlotArr = JSON.parse(this.timeSlotArr);
       console.log(this.timeSlotArr)
       var i=0;
       this.timeSlotArr.forEach( (element) => {

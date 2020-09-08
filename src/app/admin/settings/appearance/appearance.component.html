@@ -93,40 +93,46 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12 text-center pt-5">
-                            <div class="col-3 d-inline-block m-3 theme-div theme-active">
-                                <i class="fa fa-thumbs-o-up fa-2x checkbox"></i>
+                            <div class="col-3 d-inline-block m-3 theme-div theme-1" [ngClass]="{'theme-active':defaultTheme === '1'}">
+                                <div class="check-icon d-none">
+                                    <mat-icon>check</mat-icon>
+                                </div>
                                 <div class="p-2 theme-title">
                                     Theme 1
                                 </div>
-                                <div class="theme-btn-div">
+                                <div *ngIf="defaultTheme !== '1'" class="theme-btn-div">
                                     <div class="theme-btn-sub-div">
-                                        <button class="btn preview-color mb-1"><i class="fa fa-eye pr-2"></i>Preview</button>
-                                        <button class="btn set-default-color mt-1"><i class="fa fa-check pr-2"></i>Set Default</button>
+                                        <button (click)="fnThemePreview('1')" class="btn preview-color mb-1"><i class="fa fa-eye pr-2"></i>Preview</button>
+                                        <button (click)="fnChnageTheme('1')" class="btn set-default-color mt-1"><i class="fa fa-check pr-2"></i>Set Default</button>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-3 d-inline-block m-3 theme-div">
-                                <input type="checkbox" class="checkbox">
+                            <div class="col-3 d-inline-block m-3 theme-div theme-2" [ngClass]="{'theme-active':defaultTheme === '2'}">
+                                <div class="check-icon d-none">
+                                    <mat-icon>check</mat-icon>
+                                </div>
                                 <div class="p-2 theme-title">
                                     Theme 2
                                 </div>
-                                <div class="theme-btn-div">
+                                <div *ngIf="defaultTheme !== '2'" class="theme-btn-div">
                                     <div class="theme-btn-sub-div">
-                                        <button class="btn preview-color mb-1"><i class="fa fa-eye pr-2"></i>Preview</button>
-                                        <button class="btn set-default-color mt-1"><i class="fa fa-check pr-2"></i>Set Default</button>
+                                        <button (click)="fnThemePreview('2')" class="btn preview-color mb-1"><i class="fa fa-eye pr-2"></i>Preview</button>
+                                        <button (click)="fnChnageTheme('2')" class="btn set-default-color mt-1"><i class="fa fa-check pr-2"></i>Set Default</button>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-3 d-inline-block m-3 theme-div">
-                                <input type="checkbox" class="checkbox">
+                            <div class="col-3 d-inline-block m-3 theme-div theme-3" [ngClass]="{'theme-active':defaultTheme === '3'}">
+                                <div class="check-icon d-none">
+                                    <mat-icon>check</mat-icon>
+                                </div>
                                 <div class=" p-2 theme-title">
                                     Theme 3
                                 </div>
-                                <div class="theme-btn-div">
+                                <div *ngIf="defaultTheme !== '3'" class="theme-btn-div">
                                     <div class="theme-btn-sub-div">
-                                        <button class="btn preview-color mb-1"><i class="fa fa-eye pr-2"></i>Preview</button>
+                                        <button (click)="fnThemePreview('3')" class="btn preview-color mb-1"><i class="fa fa-eye pr-2"></i>Preview</button>
                                         <button class="btn set-default-color mt-1"><i class="fa fa-check pr-2"></i>Set Default</button>
                                     </div>
                                 </div>
@@ -136,40 +142,46 @@
                         </div>
 
                         <div class="col-12 text-center p-3">
-                            <div class="col-3 d-inline-block m-3 theme-div">
-                                <input type="checkbox" class="checkbox">
+                            <div class="col-3 d-inline-block m-3 theme-div theme-4" [ngClass]="{'theme-active':defaultTheme === '4'}">
+                                <div class="check-icon d-none">
+                                    <mat-icon>check</mat-icon>
+                                </div>
                                 <div class=" p-2 theme-title">
                                     Theme 4
                                 </div>
-                                <div class="theme-btn-div">
+                                <div *ngIf="defaultTheme !== '4'" class="theme-btn-div">
                                     <div class="theme-btn-sub-div">
-                                        <button class="btn preview-color mb-1"><i class="fa fa-eye pr-2"></i>Preview</button>
+                                        <button (click)="fnThemePreview('4')" class="btn preview-color mb-1"><i class="fa fa-eye pr-2"></i>Preview</button>
                                         <button class="btn set-default-color mt-1"><i class="fa fa-check pr-2"></i>Set Default</button>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-3 d-inline-block m-3 theme-div">
-                                <input type="checkbox" class="checkbox">
+                            <div class="col-3 d-inline-block m-3 theme-div theme-5" [ngClass]="{'theme-active':defaultTheme === '5'}">
+                                <div class="check-icon d-none">
+                                    <mat-icon>check</mat-icon>
+                                </div>
                                 <div class="p-2 theme-title">
                                     Theme 5
                                 </div>
-                                <div class="theme-btn-div">
+                                <div *ngIf="defaultTheme !== '5'" class="theme-btn-div">
                                     <div class="theme-btn-sub-div">
-                                        <button class="btn preview-color mb-1"><i class="fa fa-eye pr-2"></i>Preview</button>
+                                        <button (click)="fnThemePreview('5')" class="btn preview-color mb-1"><i class="fa fa-eye pr-2"></i>Preview</button>
                                         <button class="btn set-default-color mt-1"><i class="fa fa-check pr-2"></i>Set Default</button>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-3 d-inline-block m-3 theme-div">
-                                <input type="checkbox" class="checkbox">
+                            <div class="col-3 d-inline-block m-3 theme-div theme-6" [ngClass]="{'theme-active':defaultTheme === '6'}">
+                                <div class="check-icon d-none">
+                                    <mat-icon>check</mat-icon>
+                                </div>
                                 <div class="p-2 theme-title">
                                     Theme 6
                                 </div>
-                                <div class="theme-btn-div">
+                                <div *ngIf="defaultTheme !== '6'" class="theme-btn-div">
                                     <div class="theme-btn-sub-div">
-                                        <button class="btn preview-color mb-1"><i class="fa fa-eye pr-2"></i>Preview</button>
+                                        <button (click)="fnThemePreview('6')" class="btn preview-color mb-1"><i class="fa fa-eye pr-2"></i>Preview</button>
                                         <button class="btn set-default-color mt-1"><i class="fa fa-check pr-2"></i>Set Default</button>
                                     </div>
                                 </div>

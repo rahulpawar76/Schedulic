@@ -1162,6 +1162,9 @@ input:focus {
             right: 0 !important;
             margin-top: 0 !important;
             top: unset !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
     .pad-bottom-50 {
