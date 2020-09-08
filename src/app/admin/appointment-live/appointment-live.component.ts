@@ -130,7 +130,13 @@ export class AppointmentLiveComponent implements OnInit {
 
   origin = { lat: 40.094882, lng: 20.214329 };
   destination = { lat: 40.095867, lng: 20.223556 };
-
+  renderOptions = {
+    polylineOptions: {
+      strokeColor: '#28a745',
+      strokeOpacity: 0.8,
+      strokeWeight: 10,
+    }
+  }
 
   constructor(
     private AdminService: AdminService,

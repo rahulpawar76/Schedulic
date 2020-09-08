@@ -2903,6 +2903,23 @@ export class FrontbookingComponent implements OnInit {
       this.fnSelectNextValidDate(this.minimumAdvanceBookingDateTimeObject);
       this.directAPI = 'selectnextvalidate';
     }
+    var co = 0;
+    var  Arr_co = 0;
+    this.serviceCartArr.forEach(element => {
+      console.log(element.service_sub_type);
+      if(element.service_sub_type=='in_store'){
+          co = co + 1;
+      }
+      Arr_co = Arr_co + 1;
+    });;
+
+    if(co == Arr_co){
+      console.log('true');
+      this.is_in_store_service  = true;
+    }else{
+      console.log('false');
+      this.is_in_store_service  = false;
+    }
     
      
     const dialogRef = this.dialog.open(theme2DateTimeSelection, {
@@ -2914,7 +2931,8 @@ export class FrontbookingComponent implements OnInit {
               model:this.model,
               selecteddate:this.selecteddate,
               selecteddateForLabel:this.selecteddateForLabel,
-              directAPI: this.directAPI
+              directAPI: this.directAPI,
+              timeSlotArr:this.timeSlotArr
             }
       
     });
@@ -2938,7 +2956,12 @@ export class FrontbookingComponent implements OnInit {
        data: {
               settingsArr : this.settingsArr,
               serviceMainArr:this.serviceMainArr,
+              serviceCartArr: this.serviceCartArr,
               businessId:this.businessId,
+              taxArr:this.taxArr,
+              serviceCount: this.serviceCount,
+              bookingPostalcode: this.booking.postalcode,
+              is_in_store_service: this.is_in_store_service,
             }
       
     });
@@ -2966,8 +2989,9 @@ export class theme2CheckoutDialog {
   }
   formNewUser: FormGroup;
   settingsArr:any;
+  bookingPostalcode:any;
   personalinfo:boolean=true;
-  appointmentinfo:boolean = false;
+  appointmentinfo:boolean = true;
   summaryScreen:boolean = false;
   paymentScreen:boolean= false;
   thankYouScreen:boolean = false;
@@ -3041,11 +3065,37 @@ export class theme2CheckoutDialog {
   businessId:any;
   showSameAsAboveCheck:boolean=true;
   errorMessage:any;
+  is_in_store_service:boolean=false;
+  serviceCartArr:any= [];
+  taxArr:any=[];
+  userSelectionMain:boolean=true;
+  coupon = {
+    couponcode_val: ""
+  };
+  couponIcon:any="check";
+  isReadOnly:any="";
+  
+  taxAmountArr:any=[];
+  closecoupon:any = 'default';
+  showCouponError:boolean=false;
+  couponErrorMessage:any;
+  serviceCount:any= [];
+  taxType:any='P';
+  taxValue:any;
+  creditcardform = false;
+  showPaypalButtons = false;
+  showPayUMoneyButton = false;
+  BankDetail:boolean=false;
+  paymentMethod:any="";
+  loadAPI: Promise<any>;
+  isFound:boolean=false;
+  cardForm:FormGroup
   constructor(
     public dialogRef: MatDialogRef<theme2CheckoutDialog>,
     private _formBuilder:FormBuilder,
     private snackBar: MatSnackBar,
     private http: HttpClient,
+    public router: Router,
     private datePipe: DatePipe,
     private _snackBar: MatSnackBar,
     private authenticationService:AuthenticationService,
@@ -3053,6 +3103,11 @@ export class theme2CheckoutDialog {
       this.settingsArr= this.data.settingsArr;
       this.serviceMainArr = this.data.serviceMainArr;
       this.businessId = this.data.businessId;
+      this.serviceCartArr = this.data.serviceCartArr;
+      this.serviceCount= this.data.serviceCount,
+      this.taxArr=this.data.taxArr,
+      this.bookingPostalcode=this.data.bookingPostalcode
+      console.log(this.taxArr)
       this.formExistingUser = this._formBuilder.group({
         existing_mail: ['',[Validators.required,Validators.email]],
         existing_password: ['',Validators.required],
@@ -3064,24 +3119,46 @@ export class theme2CheckoutDialog {
         newUserPassword: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
         newUserFullname: ['',Validators.required],
         newUserPhone: [''],
-        // newUserAddress: ['',Validators.required],
-        // newUserState: ['',Validators.required],
-        // newUserCity: ['',Validators.required],
-        // newUserZipcode: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
         newUserSplReq: ['']
       })
       this.formAppointmentInfo = this._formBuilder.group({
       })
+      this.cardForm = this._formBuilder.group({
+        cardHolderName: ['',[Validators.required]],
+        cardNumber: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+        expiryMonth: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+        expiryYear: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+        cvvCode: ['',[Validators.required]],
+      })
 
-
+      var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      var amountAfterTax=0;
+      if(this.serviceMainArr.subtotal > 0){
+        this.taxArr.forEach((element) => {
+          let taxTemp={
+            value:0,
+            name:'',
+            amount:0
+          }
+      //   console.log(element.name+" -- "+element.value);
+          if(this.taxType == "P"){
+          taxTemp.value= element.value;
+          taxTemp.name= element.name;
+          taxTemp.amount= amountAfterDiscount * element.value/100;
+            amountAfterTax=amountAfterTax+taxTemp.amount;
+          }else{
+            taxTemp.value= element.value;
+            taxTemp.name= element.name;
+            taxTemp.amount=  element.value;
+            amountAfterTax=amountAfterTax+taxTemp.amount;
+          }
+          this.taxAmountArr.push(taxTemp);
+        //  console.log(this.taxAmountArr);
+        });
+      }
       this.currencySymbol = this.settingsArr.currency;
-          console.log(this.currencySymbol);
-          
           this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-          console.log(this.currencySymbolPosition);
-          
           this.currencySymbolFormat = this.settingsArr.currency_format;
-          console.log(this.currencySymbolFormat);
           if(this.settingsArr.payUmoney_settings){
             this.PayUMoneyCredentials = JSON.parse(this.settingsArr.payUmoney_settings);
             this.PayUMoney.key= this.PayUMoneyCredentials.merchant_key;
@@ -3098,7 +3175,6 @@ export class theme2CheckoutDialog {
             this.paypalClientId = this.paypalSetting.client_id;
           }
           this.paypalStatus = this.paypalSetting.status;
-
         }
           
         if(this.settingsArr.stripe_settings){
@@ -3109,78 +3185,62 @@ export class theme2CheckoutDialog {
           this.bankTransferSetting = JSON.parse(this.settingsArr.bank_transfer)
           this.bankTransferStatus = this.bankTransferSetting.status
         }
-          
+        this.termsConditions = JSON.parse(this.settingsArr.terms_condition);
+        if(this.termsConditions.status == 'false'){
+          this.termsConditionsStatusValue = true;
+        }
+        this.privacyPolicy=JSON.parse(this.settingsArr.privacy_policy)
+        if(this.privacyPolicy && this.privacyPolicy.status == 'false'){
+          this.PrivacyPolicyStatusValue = true;
+        }
+        this.thankYou=JSON.parse(this.settingsArr.thank_you);
+        this.contactFormSettingsArr=JSON.parse(this.settingsArr.form_settings)
+        if(this.contactFormSettingsArr && this.contactFormSettingsArr.contact_field_status == true){
+          if(this.contactFormSettingsArr.addressField.status == 1){
+            if(this.contactFormSettingsArr.addressField.required == 1){
+              const validators = [Validators.required];
+              const validatorsZipCode = [Validators.required,Validators.minLength(5),Validators.maxLength(7)];
+              this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
+              this.formNewUser.addControl('newUserState', new FormControl('', validators));
+              this.formNewUser.addControl('newUserCity', new FormControl('', validators));
+              this.formNewUser.addControl('newUserZipcode', new FormControl('', validatorsZipCode));
 
-          this.termsConditions = JSON.parse(this.settingsArr.terms_condition);
-          if(this.termsConditions.status == 'false'){
-            this.termsConditionsStatusValue = true;
-          }
-          console.log(this.termsConditions);
+              this.formAppointmentInfo.addControl('appo_address', new FormControl('', validators));
+              this.formAppointmentInfo.addControl('appo_state', new FormControl('', validators));
+              this.formAppointmentInfo.addControl('appo_city', new FormControl('', validators));
+              this.formAppointmentInfo.addControl('appo_zipcode', new FormControl('', validatorsZipCode));
 
-          this.privacyPolicy=JSON.parse(this.settingsArr.privacy_policy)
-          if(this.privacyPolicy && this.privacyPolicy.status == 'false'){
-            this.PrivacyPolicyStatusValue = true;
-          }
-          console.log(this.privacyPolicy);
-
-          this.thankYou=JSON.parse(this.settingsArr.thank_you);
-          console.log(this.thankYou)
-          this.contactFormSettingsArr=JSON.parse(this.settingsArr.form_settings)
-          if(this.contactFormSettingsArr && this.contactFormSettingsArr.contact_field_status == true){
-            if(this.contactFormSettingsArr.addressField.status == 1){
-              if(this.contactFormSettingsArr.addressField.required == 1){
-                const validators = [Validators.required];
-                const validatorsZipCode = [Validators.required,Validators.minLength(5),Validators.maxLength(7)];
-                this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
-                this.formNewUser.addControl('newUserState', new FormControl('', validators));
-                this.formNewUser.addControl('newUserCity', new FormControl('', validators));
-                this.formNewUser.addControl('newUserZipcode', new FormControl('', validatorsZipCode));
-
-                this.formAppointmentInfo.addControl('appo_address', new FormControl('', validators));
-                this.formAppointmentInfo.addControl('appo_state', new FormControl('', validators));
-                this.formAppointmentInfo.addControl('appo_city', new FormControl('', validators));
-                this.formAppointmentInfo.addControl('appo_zipcode', new FormControl('', validatorsZipCode));
-
-              }else{
-                this.formNewUser.addControl('newUserAddress', new FormControl(null));
-                this.formNewUser.addControl('newUserState', new FormControl(null));
-                this.formNewUser.addControl('newUserCity', new FormControl(null));
-                this.formNewUser.addControl('newUserZipcode', new FormControl(null));
-
-                this.formAppointmentInfo.addControl('appo_address', new FormControl(null));
-                this.formAppointmentInfo.addControl('appo_state', new FormControl(null));
-                this.formAppointmentInfo.addControl('appo_city', new FormControl(null));
-                this.formAppointmentInfo.addControl('appo_zipcode', new FormControl(null));
-              }
             }else{
+              this.formNewUser.addControl('newUserAddress', new FormControl(null));
+              this.formNewUser.addControl('newUserState', new FormControl(null));
+              this.formNewUser.addControl('newUserCity', new FormControl(null));
+              this.formNewUser.addControl('newUserZipcode', new FormControl(null));
+
               this.formAppointmentInfo.addControl('appo_address', new FormControl(null));
               this.formAppointmentInfo.addControl('appo_state', new FormControl(null));
               this.formAppointmentInfo.addControl('appo_city', new FormControl(null));
               this.formAppointmentInfo.addControl('appo_zipcode', new FormControl(null));
             }
           }else{
-            const validators = [Validators.required];
-            const validatorsZipCode = [Validators.required,Validators.minLength(5),Validators.maxLength(7)];
-            this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
-            this.formNewUser.addControl('newUserState', new FormControl('', validators));
-            this.formNewUser.addControl('newUserCity', new FormControl('', validators));
-            this.formNewUser.addControl('newUserZipcode', new FormControl('', validatorsZipCode));
-
-            this.formAppointmentInfo.addControl('appo_address', new FormControl('', validators));
-            this.formAppointmentInfo.addControl('appo_state', new FormControl('', validators));
-            this.formAppointmentInfo.addControl('appo_city', new FormControl('', validators));
-            this.formAppointmentInfo.addControl('appo_zipcode', new FormControl('', validatorsZipCode));
+            this.formAppointmentInfo.addControl('appo_address', new FormControl(null));
+            this.formAppointmentInfo.addControl('appo_state', new FormControl(null));
+            this.formAppointmentInfo.addControl('appo_city', new FormControl(null));
+            this.formAppointmentInfo.addControl('appo_zipcode', new FormControl(null));
           }
-          console.log(this.contactFormSettingsArr);
-
-          this.customerLoginValue=JSON.parse(this.settingsArr.customer_login);
-         
-          
-          
-        this.initConfig();
-
-
-
+        }else{
+          const validators = [Validators.required];
+          const validatorsZipCode = [Validators.required,Validators.minLength(5),Validators.maxLength(7)];
+          this.formNewUser.addControl('newUserAddress', new FormControl('', validators));
+          this.formNewUser.addControl('newUserState', new FormControl('', validators));
+          this.formNewUser.addControl('newUserCity', new FormControl('', validators));
+          this.formNewUser.addControl('newUserZipcode', new FormControl('', validatorsZipCode));
+          this.formAppointmentInfo.addControl('appo_address', new FormControl('', validators));
+          this.formAppointmentInfo.addControl('appo_state', new FormControl('', validators));
+          this.formAppointmentInfo.addControl('appo_city', new FormControl('', validators));
+          this.formAppointmentInfo.addControl('appo_zipcode', new FormControl('', validatorsZipCode));
+        }
+        this.customerLoginValue=JSON.parse(this.settingsArr.customer_login);
+      this.initConfig();
     }
     private createErrorMessage(error: HttpErrorResponse){
       this.errorMessage = error.error ? error.error : error.statusText;
@@ -3282,8 +3342,27 @@ export class theme2CheckoutDialog {
         this.customerLastname=this.customerName.split(" ")[1];
         this.customerEmail=this.authenticationService.currentUserValue.email;
         this.customerPhone=this.authenticationService.currentUserValue.phone;
-        console.log(this.authenticationService.currentUserValue.user_id+" "+this.isLoggedIn);
       }
+
+      if(this.isLoggedIn){
+        this.personalinfo = true;
+        this.userSelectionMain = false;
+        this.appointmentinfo = true;
+        this.showSameAsAboveCheck=false;
+      }else{
+        this.personalinfo = true;
+        this.userSelectionMain = true;
+        this.appointmentinfo = true;
+        this.showSameAsAboveCheck=true;
+      }
+
+      this.is_in_store_service = this.data.is_in_store_service
+      if(this.is_in_store_service && this.isLoggedIn){
+        this.personalinfo = false;
+        this.summaryScreen = true;
+      }
+
+      alert("showSameAsAboveCheck = "+this.showSameAsAboveCheck)
     }
 
     fnUserType(event,usertype){
@@ -3295,6 +3374,15 @@ export class theme2CheckoutDialog {
         this.existinguser = false;
       }
       
+    }
+    fnViewDashboard(){
+      this.dialogRef.close();
+      this.router.navigate(['/user/appointments']);
+    }
+    
+    fnNavigateToLogin(){
+      this.dialogRef.close();
+      this.router.navigate(['/login']);
     }
     
     fnPhoneMouceLeave(){
@@ -3398,7 +3486,7 @@ export class theme2CheckoutDialog {
               });
           }
          
-          this.personalinfo = false;
+          this.personalinfo = true;
           this.appointmentinfo = true;
           this.isLoggedIn=true;
         }else{
@@ -3414,17 +3502,21 @@ export class theme2CheckoutDialog {
       },(err) =>{ 
          this.errorMessage = this.handleError;
       });
+
+      this.fnappointmentinfo();
     }
   
 
     fnpersonalinfo(){
       if(this.formNewUser.get('newUserPhone').value === null){
         this.phoneNumberInvalid = "required";
+        alert("null")
         return false;
       }
-      if(this.formNewUser.get('newUserPhone').value.number.length <= 6 || this.formNewUser.get('newUserPhone').value.number.length >= 15){
+      if(this.formNewUser.get('newUserPhone').value !== null && (this.formNewUser.get('newUserPhone').value.number.length <= 6 || this.formNewUser.get('newUserPhone').value.number.length >= 15)){
         this.phoneNumberInvalid = "valid";
         this.formNewUser.get('newUserPhone').markAsTouched();
+        alert("not null")
         return false;
       }
       else if(this.formNewUser.valid){
@@ -3513,8 +3605,10 @@ export class theme2CheckoutDialog {
         console.log(err)
       })
     }
+    
   
     fnsameasabove(event){
+      alert('new');
       console.log(event.srcElement.checked)
       if(event.srcElement.checked == true){
         
@@ -3552,6 +3646,7 @@ export class theme2CheckoutDialog {
     } 
   
     fnSameAsBillingAddress(event){
+      alert('existing');
   
       console.log(event.srcElement.checked)
   
@@ -3579,148 +3674,942 @@ export class theme2CheckoutDialog {
         // this.appo_address_info.appo_zipcode = "";
       }
     } 
+    fnappointmentinfo(){
 
-    fnAppointmentBooking(){
-      this.isLoader=true;
-      let serviceCartArrTemp:any= [];
-      // for(let i=0; i<this.serviceCartArr.length;i++){
-      //   if(this.serviceCartArr[i]){
-      //     serviceCartArrTemp.push(this.serviceCartArr[i]);
-      //   }
-      // }
-      const currentDateTime = new Date();
-      let requestObject = {
-        //"postal_code" : this.booking.postalcode,
-        //"business_id" : this.businessId,
-        "serviceInfo" : serviceCartArrTemp,
-        "appointment_address" : this.formAppointmentInfo.get('appo_address').value,
-        "appointment_state" : this.formAppointmentInfo.get('appo_state').value,
-        "appointment_city" : this.formAppointmentInfo.get('appo_city').value,
-        "appointment_zipcode" : this.formAppointmentInfo.get('appo_zipcode').value,
-        //"coupon_code" : this.coupon.couponcode_val,
-        "customer_id": this.authenticationService.currentUserValue.user_id,
-        "customer_token" : this.authenticationService.currentUserValue.token,
-        "subtotal" : this.serviceMainArr.subtotal,
-        "discount_type" : this.serviceMainArr.discount_type,
-        "discount_value" : this.serviceMainArr.discount_value,
-        "discount" : this.serviceMainArr.discount,
-        //"tax" : this.taxAmountArr,
-        "nettotal" : this.serviceMainArr.netCost,
-        //"payment_method" : this.paymentMethod,
-        //"order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd"),
-        "reference_id": this.reference_id,
-        "transaction_id": this.transactionId,
-        "payment_datetime": this.paymentDateTime,
-        'fullname' : JSON.parse(localStorage.getItem('currentUser')).fullname,
-        'full_name' : JSON.parse(localStorage.getItem('currentUser')).fullname
-      };
-       
+      if(this.is_in_store_service==false){
+        if(!this.formAppointmentInfo.valid){
+          this.formAppointmentInfo.get('appo_address').markAsTouched();
+          this.formAppointmentInfo.get('appo_state').markAsTouched();
+          this.formAppointmentInfo.get('appo_city').markAsTouched();
+          this.formAppointmentInfo.get('appo_zipcode').markAsTouched();
+          return false;
+        }else{
+          this.personalinfo=false;
+          this.appointmentinfo = false;
+          this.summaryScreen = true;
+        }
+      }else{
+        this.personalinfo=false;
+        this.appointmentinfo = false;
+        this.summaryScreen = true;
+
+      }
+  
+  
+    }
+    
+    isEmailUnique(control: FormControl) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+          });
+          return this.http.post(`${environment.apiUrl}/verify-email`,{ emailid: control.value },{headers:headers}).pipe(map((response : any) =>{
+            return response;
+          }),
+          catchError(this.handleError)).subscribe((res) => {
+            if(res){
+              if(res.data == false){
+              resolve({ isEmailUnique: true });
+              // this._snackBar.open("Access PIN already in use", "X", {
+              // duration: 2000,
+              // verticalPosition: 'top',
+              // panelClass : ['red-snackbar']
+              // });
+              }else{
+              resolve(null);
+              }
+            }
+          });
+        }, 500);
+      });
+    }
+    fnProceedToSummary(event){
+      if(this.isLoggedIn){
+        alert("appoint")
         
-        // setTimeout(()=>{
-        //   this.isLoader=false;
-        // },4000)
-        // return false;
+        this.fnappointmentinfo();
+      }else{
+        alert("personal")
+        if(this.existinguser){
+          this.fnloginexisinguser();
+        }else if(this.newuser){
+          this.fnpersonalinfo();
+        }
+      }
+    }
+    fnRemove(event,service_id){
+      if(this.serviceCount[service_id].count >= 1){
+        //this.currentSelectedService=service_id;
+        this.serviceCount[service_id].count=this.serviceCount[service_id].count-1
+  
+        this.serviceCount[service_id].subtotal = this.serviceCount[service_id].service_cost * this.serviceCount[service_id].count;
+        this.serviceCount[service_id].discount_type=null;
+        this.serviceCount[service_id].discount_value=null;
+        this.serviceCount[service_id].discount=0;
+        
+        var serviceAmountAfterDiscount= this.serviceCount[service_id].subtotal - this.serviceCount[service_id].discount;
+        var serviceTaxAmount=0;
+        let taxMain=[];
+        this.taxArr.forEach((element) => {
+          let taxTemp={
+            value:0,
+            name:'',
+            amount:0
+          }
+          console.log(element.name+" -- "+element.value);
+          if(this.taxType == "P"){
+           taxTemp.value= element.value;
+           taxTemp.name= element.name;
+           taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+            serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+          }else{
+            taxTemp.value= element.value;
+            taxTemp.name= element.name;
+            taxTemp.amount=  element.value;
+            serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+          }
+          taxMain.push(taxTemp);
+          this.serviceCount[service_id].tax=taxMain;
+          console.log(this.serviceCount[service_id].tax);
+        });
+  
+        // this.serviceData[id].tax=0;
+        this.serviceCount[service_id].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+  
+        // this.serviceCount[service_id].totalCost=this.serviceCount[service_id].count*this.serviceCount[service_id].service_cost;
+        console.log(JSON.stringify(this.serviceCount));
+        if(this.serviceCartArr[service_id] != null){
+          if(this.serviceCount[service_id].count < 1){
+            this.serviceCartArr[service_id]=null;
+          }else{
+            this.serviceCartArr[service_id]=this.serviceCount[service_id]; 
+          }
+          console.log(JSON.stringify(this.serviceCartArr));
+        }
+        this.serviceMainArr.totalNumberServices=0;
+        this.serviceMainArr.subtotal=0;
+        this.serviceMainArr.discount=0;
+        this.taxAmountArr.length=0;
+        console.log(this.taxAmountArr);
+        this.serviceMainArr.netCost=0;
+        for(let i=0; i< this.serviceCartArr.length; i++){
+          if(this.serviceCartArr[i] != null){
+            this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
+            this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
+          }
+        }
+        var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+        var amountAfterTax=0;
+        if(this.serviceMainArr.subtotal > 0){
+          this.taxArr.forEach((element) => {
+            // console.log(element.name+" -- "+element.value);
+            // if(this.taxType == "P"){
+            //   this.taxAmountArr[element.name]= amountAfterDiscount * element.value/100;
+            //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
+            // }else{
+            //   this.taxAmountArr[element.name]=  element.value;
+            //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
+            // }
+            let taxTemp={
+            value:0,
+              name:'',
+              amount:0
+            }
+            console.log(element.name+" -- "+element.value);
+            if(this.taxType == "P"){
+             taxTemp.value= element.value;
+             taxTemp.name= element.name;
+             taxTemp.amount= amountAfterDiscount * element.value/100;
+              amountAfterTax=amountAfterTax+taxTemp.amount;
+            }else{
+              taxTemp.value= element.value;
+              taxTemp.name= element.name;
+              taxTemp.amount=  element.value;
+              amountAfterTax=amountAfterTax+taxTemp.amount;
+            }
+            this.taxAmountArr.push(taxTemp);
+            console.log(this.taxAmountArr);
+          });
+        }
+        // this.taxAmountArr.forEach((element) => {
+        //   amountAfterDiscount=amountAfterDiscount+element;
+        // });
+        this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
+        //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+        console.log(this.taxAmountArr);
+        console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
+      }
+    }
+  
+    fnAdd(event,service_id){
+      if(this.serviceCount[service_id].count < 10){
+        //this.currentSelectedService=service_id;
+        this.serviceCount[service_id].count=this.serviceCount[service_id].count+1
+  
+        this.serviceCount[service_id].subtotal = this.serviceCount[service_id].service_cost * this.serviceCount[service_id].count;
+        this.serviceCount[service_id].discount_type=null;
+        this.serviceCount[service_id].discount_value=null;
+        this.serviceCount[service_id].discount=0;
+        
+        var serviceAmountAfterDiscount= this.serviceCount[service_id].subtotal - this.serviceCount[service_id].discount;
+        var serviceTaxAmount=0;
+        let taxMain=[];
+        this.taxArr.forEach((element) => {
+          let taxTemp={
+            value:0,
+            name:'',
+            amount:0
+          }
+          console.log(element.name+" -- "+element.value);
+          if(this.taxType == "P"){
+           taxTemp.value= element.value;
+           taxTemp.name= element.name;
+           taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+            serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+          }else{
+            taxTemp.value= element.value;
+            taxTemp.name= element.name;
+            taxTemp.amount=  element.value;
+            serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+          }
+          taxMain.push(taxTemp);
+          this.serviceCount[service_id].tax=taxMain;
+          console.log(this.serviceCount[service_id].tax);
+        });
+  
+        // this.serviceData[id].tax=0;
+        this.serviceCount[service_id].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+  
+        // this.serviceCount[service_id].totalCost=this.serviceCount[service_id].count*this.serviceCount[service_id].service_cost;
+        console.log(JSON.stringify(this.serviceCount));
+        if(this.serviceCartArr[service_id] != null){
+          this.serviceCartArr[service_id]=this.serviceCount[service_id];
+          console.log(JSON.stringify(this.serviceCartArr));
+        } 
+  
+        
+        for(let i=0; i< this.serviceCartArr.length; i++){
+          if(this.serviceCartArr[i] != null){
+            this.serviceCartArr[i].subtotal = this.serviceCartArr[i].service_cost * this.serviceCartArr[i].count;
+            this.serviceCartArr[i].discount_type=null;
+            this.serviceCartArr[i].discount_value=null;
+  
+            this.serviceCartArr[i].discount=0;
+  
+            var serviceAmountAfterDiscount= this.serviceCartArr[i].subtotal - this.serviceCartArr[i].discount;
+            var serviceTaxAmount=0;
+            let taxMain=[];
+            this.taxArr.forEach((element) => {
+              let taxTemp={
+                value:0,
+                name:'',
+                amount:0
+              }
+              console.log(element.name+" ---- "+element.value);
+              if(this.taxType == "P"){
+               taxTemp.value= element.value;
+               taxTemp.name= element.name;
+               taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+                serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+              }else{
+                taxTemp.value= element.value;
+                taxTemp.name= element.name;
+                taxTemp.amount=  element.value;
+                serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+              }
+              taxMain.push(taxTemp);
+              this.serviceCartArr[i].tax=taxMain;
+              console.log(this.serviceCartArr[i].tax);
+            });
+  
+            this.serviceCartArr[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+  
+            console.log(JSON.stringify(this.serviceCartArr[i]));
+            this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
+            this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
+          }
+        }
+        console.log(JSON.stringify(this.serviceCartArr));
+        
+  
+        this.serviceMainArr.totalNumberServices=0;
+        this.serviceMainArr.subtotal=0;
+        this.serviceMainArr.discount=0;
+        this.taxAmountArr.length=0;
+        console.log(this.taxAmountArr);
+        this.serviceMainArr.netCost=0;
+        // this.fncheckavailcoupon('valid');
+       
+  
+        for(let i=0; i< this.serviceCartArr.length; i++){
+          if(this.serviceCartArr[i] != null){
+            this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
+            this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
+          }
+        }
+        var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+        var amountAfterTax=0;
+        if(this.serviceMainArr.subtotal > 0){
+          this.taxArr.forEach((element) => {
+            let taxTemp={
+              value:0,
+              name:'',
+              amount:0
+            }
+            console.log(element.name+" -- "+element.value);
+            if(this.taxType == "P"){
+             taxTemp.value= element.value;
+             taxTemp.name= element.name;
+             taxTemp.amount= amountAfterDiscount * element.value/100;
+              amountAfterTax=amountAfterTax+taxTemp.amount;
+            }else{
+              taxTemp.value= element.value;
+              taxTemp.name= element.name;
+              taxTemp.amount=  element.value;
+              amountAfterTax=amountAfterTax+taxTemp.amount;
+            }
+            this.taxAmountArr.push(taxTemp);
+            console.log(this.taxAmountArr);
+          });
+        }
+        // this.taxAmountArr.forEach((element) => {
+        //   amountAfterDiscount=amountAfterDiscount+element;
+        // });
+        this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
+        //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+        console.log(this.taxAmountArr);
+        console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
+      }
+    }
+
+    
+      // coupon code
+  fncheckcouponcodebtn(couponStatus){
+    if(this.coupon.couponcode_val == ''){
+      this.closecoupon = 'invalid';
+      this.couponIcon="check";
+      this.isReadOnly="";
+      return false;
+    }
+    this.fncheckavailcoupon(couponStatus);
+  }
+
+  fncheckavailcoupon(couponStatus){
+    if(couponStatus == 'valid'){
+      this.serviceMainArr.discount_type = null;
+      this.serviceMainArr.discount_value=null;
+      // this.serviceMainArr.discount=0;
+      // this.taxAmountArr.length=0;
+
+      console.log(this.serviceCartArr);
+      this.taxAmountArr.length=0;
+              
+      this.serviceMainArr.totalNumberServices=0;
+      this.serviceMainArr.subtotal=0;
+      this.serviceMainArr.discount=0;
+      this.taxAmountArr.length=0;
+      console.log(this.taxAmountArr);
+      this.serviceMainArr.netCost=0;
+
+      for(let i=0; i< this.serviceCartArr.length; i++){
+        if(this.serviceCartArr[i] != null){
+          this.serviceCartArr[i].subtotal = this.serviceCartArr[i].service_cost * this.serviceCartArr[i].count;
+          this.serviceCartArr[i].discount_type=null;
+          this.serviceCartArr[i].discount_value=null;
+
+          this.serviceCartArr[i].discount=0;
+
+          var serviceAmountAfterDiscount= this.serviceCartArr[i].subtotal - this.serviceCartArr[i].discount;
+          var serviceTaxAmount=0;
+          let taxMain=[];
+          this.taxArr.forEach((element) => {
+            let taxTemp={
+              value:0,
+              name:'',
+              amount:0
+            }
+            console.log(element.name+" ---- "+element.value);
+            if(this.taxType == "P"){
+             taxTemp.value= element.value;
+             taxTemp.name= element.name;
+             taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+              serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+            }else{
+              taxTemp.value= element.value;
+              taxTemp.name= element.name;
+              taxTemp.amount=  element.value;
+              serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+            }
+            taxMain.push(taxTemp);
+            this.serviceCartArr[i].tax=taxMain;
+            console.log(this.serviceCartArr[i].tax);
+          });
+
+          this.serviceCartArr[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
+          console.log(JSON.stringify(this.serviceCartArr[i]));
+          this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
+          this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
+        }
+      }
+      console.log(JSON.stringify(this.serviceCartArr));
+      this.serviceMainArr.discount_type = null;
+      this.serviceMainArr.discount_value = null;
+      this.serviceMainArr.discount=0;
+
+      var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      var amountAfterTax=0;
+      if(this.serviceMainArr.subtotal > 0){
+        this.taxArr.forEach((element) => {
+          // console.log(element.name+" -- "+element.value);
+          // if(this.taxType == "P"){
+          //   this.taxAmountArr[element.name]= amountAfterDiscount * element.value/100;
+          //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
+          // }else{
+          //   this.taxAmountArr[element.name]=  element.value;
+          //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
+          // }
+          let taxTemp={
+          value:0,
+            name:'',
+            amount:0
+          }
+          console.log(element.name+" -- "+element.value);
+          if(this.taxType == "P"){
+           taxTemp.value= element.value;
+           taxTemp.name= element.name;
+           taxTemp.amount= amountAfterDiscount * element.value/100;
+            amountAfterTax=amountAfterTax+taxTemp.amount;
+          }else{
+            taxTemp.value= element.value;
+            taxTemp.name= element.name;
+            taxTemp.amount=  element.value;
+            amountAfterTax=amountAfterTax+taxTemp.amount;
+          }
+          this.taxAmountArr.push(taxTemp);
+          console.log(this.taxAmountArr);
+        });
+      }
+      // this.taxAmountArr.forEach((element) => {
+      //   amountAfterDiscount=amountAfterDiscount+element;
+      // });
+      this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
+      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+      console.log(this.taxAmountArr);
+      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
+
+      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal;
+      this.closecoupon = 'default';
+      this.couponIcon="check";
+      this.coupon.couponcode_val ="";
+      this.isReadOnly="";
+    }else{
+      let allServiceIds='';
+      for(let i=0; i<this.serviceCartArr.length; i++){
+        if(this.serviceCartArr[i]){
+          allServiceIds=allServiceIds+this.serviceCartArr[i].id+',';
+        }
+      }
+      allServiceIds=allServiceIds.substring(0, allServiceIds.length - 1);
+      var allServiceIdsArr=allServiceIds.split(",");
+      console.log(allServiceIdsArr);
+
+      let requestObject = {
+      "business_id" : this.businessId,
+      "service_id" : allServiceIds,
+      "coupon_code" : this.coupon.couponcode_val,
+      };
+      console.log(JSON.stringify(requestObject))
+      
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    this.http.post(`${environment.apiUrl}/check-discount-coupon`,requestObject,{headers:headers} ).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(this.handleError)
+    ).subscribe((response:any) => {
+      if(response.data == true){
+        let couponType = response.response.coupon_type;
+        let couponValue = response.response.coupon_value;
+        
+        console.log(this.serviceCartArr);
+        this.taxAmountArr.length=0;
+                
+        this.serviceMainArr.totalNumberServices=0;
+        this.serviceMainArr.subtotal=0;
+        this.serviceMainArr.discount=0;
+        this.taxAmountArr.length=0;
+        console.log(this.taxAmountArr);
+        this.serviceMainArr.netCost=0;
+
+        for(let i=0; i< this.serviceCartArr.length; i++){
+          if(this.serviceCartArr[i] != null){
+            this.serviceCartArr[i].subtotal = this.serviceCartArr[i].service_cost * this.serviceCartArr[i].count;
+            this.serviceCartArr[i].discount_type=couponType;
+            this.serviceCartArr[i].discount_value=parseInt(couponValue);
+
+            if(this.serviceCartArr[i].discount_type == 'P'){
+              this.serviceCartArr[i].discount = (this.serviceCartArr[i].subtotal*parseInt(this.serviceCartArr[i].discount_value))/100;
+            }else{
+              this.serviceCartArr[i].discount = parseInt(this.serviceCartArr[i].discount_value)/allServiceIdsArr.length;
+            }
+
+            var serviceAmountAfterDiscount= this.serviceCartArr[i].subtotal - this.serviceCartArr[i].discount;
+            var serviceTaxAmount=0;
+            let taxMain=[];
+            this.taxArr.forEach((element) => {
+              let taxTemp={
+                value:0,
+                name:'',
+                amount:0
+              }
+              console.log(element.name+" ---- "+element.value);
+              if(this.taxType == "P"){
+               taxTemp.value= element.value;
+               taxTemp.name= element.name;
+               taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
+                serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+              }else{
+                taxTemp.value= element.value;
+                taxTemp.name= element.name;
+                taxTemp.amount=  element.value;
+                serviceTaxAmount=serviceTaxAmount+taxTemp.amount;
+              }
+              taxMain.push(taxTemp);
+              this.serviceCartArr[i].tax=taxMain;
+              console.log(this.serviceCartArr[i].tax);
+            });
+
+            this.serviceCartArr[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
+
+            console.log(JSON.stringify(this.serviceCartArr[i]));
+            this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
+            this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
+          }
+        }
+        console.log(JSON.stringify(this.serviceCartArr));
+        this.serviceMainArr.discount_type = couponType;
+        this.serviceMainArr.discount_value = parseInt(couponValue);
+        if(couponType == 'P'){
+          this.serviceMainArr.discount = (this.serviceMainArr.subtotal*parseInt(couponValue))/100;
+        }else{
+          this.serviceMainArr.discount = parseInt(couponValue);
+        }
+
+        var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
+        var amountAfterTax=0;
+        if(this.serviceMainArr.subtotal > 0){
+          this.taxArr.forEach((element) => {
+            
+            let taxTemp={
+              value:0,
+              name:'',
+              amount:0
+            }
+            console.log(element.name+" -- "+element.value);
+            if(this.taxType == "P"){
+             taxTemp.value= element.value;
+             taxTemp.name= element.name;
+             taxTemp.amount= amountAfterDiscount * element.value/100;
+              amountAfterTax=amountAfterTax+taxTemp.amount;
+            }else{
+              taxTemp.value= element.value;
+              taxTemp.name= element.name;
+              taxTemp.amount=  element.value;
+              amountAfterTax=amountAfterTax+taxTemp.amount;
+            }
+            this.taxAmountArr.push(taxTemp);
+            console.log(this.taxAmountArr);
+          });
+        }
+        this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
+        console.log(this.taxAmountArr);
+        console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
+
+        this.coupon.couponcode_val=response.response.coupon_code;
+        this.couponIcon="close";
+        this.closecoupon = 'valid';
+        this.isReadOnly="readonly";
+        this.showCouponError=false;
+        this.couponErrorMessage="";
+        //console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.taxAmountArr+" "+this.serviceMainArr.netCost));
+      }
+      else{
+        this.closecoupon = 'invalid';
+        this.couponIcon="check";
+        this.isReadOnly="";
+        this.showCouponError=true;
+        this.couponErrorMessage=response.response;
+        console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
+      }
+      },
+      (err) =>{
+        this.closecoupon = 'invalid';
+        this.couponIcon="check";
+        this.isReadOnly="";
+        this.showCouponError=false;
+        this.couponErrorMessage="";
+        console.log(err)
+      })
+    }
+  }
+  fnChangeTermsConditionsStatus(event){
+    console.log(event);
+
+    if(event== true){
+      this.termsConditionsStatusValue=true;
+      this.termsConditionsStatusValidation = false;
+    }
+    else if(event==false){
+      this.termsConditionsStatusValue=false;
+      this.termsConditionsStatusValidation = true;
+    }
+     
+  }
+
+  fnChangePrivacyPolicyStatus(event){
+    console.log(event);
+      if(event == true){
+      this.PrivacyPolicyStatusValue=true;
+      this.PrivacyPolicyStatusValidation = false;
+
+      }else if(event == false){
+        this.PrivacyPolicyStatusValidation = true;
+      this.PrivacyPolicyStatusValue=false;
+
+      }
+
+  }
+
+
+    fnProceedToPayment(event){
+      if(this.PrivacyPolicyStatusValue == false && this.termsConditionsStatusValue == false){
+        this.PrivacyPolicyStatusValidation = true;
+        this.termsConditionsStatusValidation = true;
+        return false;
+      }
+      else if(this.termsConditionsStatusValue == false){
+        this.termsConditionsStatusValidation = true;
+        return false;
+      }
+      else if(this.PrivacyPolicyStatusValue == false){
+        this.PrivacyPolicyStatusValidation = true;
+        return false;
+      }
+      if(this.closecoupon != 'valid'){
+        this.coupon.couponcode_val=''
+      }
+      let digit5= Math.floor(Math.random()*90000) + 10000;
+      this.reference_id="2_"+digit5+"_"+ this.datePipe.transform(new Date(),"yyyy/MM/dd") ;
+      this.itemArr= [];
+        for(let i=0; i<this.serviceCartArr.length;i++){
+          if(this.serviceCartArr[i]){
+            let singleItem={
+              name: this.serviceCartArr[i].service_name,
+              quantity: '1',
+              description : 'Actual Quantity - '+JSON.stringify(this.serviceCartArr[i].count),
+              category: 'DIGITAL_GOODS',
+              // tax:{currency_code:"USD", value:"1.00"},
+              unit_amount: {
+                currency_code: this.currencySymbol,
+                value: JSON.stringify(this.serviceCartArr[i].subtotal)
+              }
+            }
+            this.itemArr.push(singleItem);
+  
+          }
+        }
+        this.taxAmount=0;
+        this.taxAmountArr.forEach(element=>{
+          this.taxAmount=this.taxAmount+element.amount;
+        });
+      this.summaryScreen = false;
+      this.paymentScreen =true;
+    }
+    fnPaymentMethod(paymentMethod){
+      console.log(paymentMethod);
+      if(paymentMethod == 'Cash'){
+        this.creditcardform =false;
+        this.showPaypalButtons =false;
+        this.paymentMethod="Cash";
+        this.BankDetail =false;
+        this.transactionId=null;
+        this.paymentDateTime=this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss");
+      }
+      if(paymentMethod == 'stripe'){
+        this.paymentMethod="stripe";
+        this.creditcardform =true;
+        this.showPaypalButtons =false;
+        this.BankDetail =false;
+        this.transactionId=null;
+        this.paymentDateTime=this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss");
+      }
+      if(paymentMethod == 'BankTransfer'){
+        this.paymentMethod="BankTransfer";
+        this.BankDetail =true;
+        this.creditcardform =false;
+        this.showPaypalButtons =false;
+        this.transactionId=null;
+        this.paymentDateTime=this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss");
+      }
+      if(paymentMethod == 'Paypal'){
+        this.BankDetail =false;
+        this.creditcardform =false;
+        this.showPaypalButtons =true;
+        this.showPayUMoneyButton =false;
+        this.paymentMethod="Paypal";
+        this.transactionId=null;
+        this.paymentDateTime=new Date();
+      }
+      if(paymentMethod == 'PayUMoney'){
+        this.creditcardform =false;
+        this.showPaypalButtons =false;
+        this.showPayUMoneyButton =true;
+        this.BankDetail =false;
+        this.paymentMethod="PayUMoney";
+        this.transactionId=null;
+        this.paymentDateTime=new Date();
+      }
+    }
+
+    fnPayNow(){
+      if(this.paymentMethod == 'Cash'){
+        this.fnAppointmentBooking();
+      }
+      if(this.paymentMethod == 'BankTransfer'){
+        this.fnAppointmentBooking();
+      }
+      if(this.paymentMethod == 'stripe'){
+        this.stripePayment();
+      }
+      if(this.paymentMethod == 'PayUMoney'){
+        if(this.PayUMoney.key!="" && this.PayUMoney.salt!=""){
+          this.fnPayUMoney();
+        }
+      }
+    }
+    stripePayment(){
+      
+      if(this.cardForm.valid){
+        this.isLoader = true;
+        let requestObject ={
+          "name" : this.cardForm.get("cardHolderName").value,
+          "number" : this.cardForm.get("cardNumber").value,
+          "exp_month" : this.cardForm.get("expiryMonth").value,
+          "exp_year" : this.cardForm.get("expiryYear").value,
+          "cvc" : this.cardForm.get("cvvCode").value,
+          "amount" : this.serviceMainArr.netCost,
+          "business_id" : this.businessId,
+        }
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
         });
     
-        this.http.post(`${environment.apiUrl}/order-create`,requestObject,{headers:headers} ).pipe(
+        this.http.post(`${environment.apiUrl}/stripe-payment`,requestObject,{headers:headers} ).pipe(
           map((res) => {
             return res;
           }),
           catchError(this.handleError)
         ).subscribe((response:any) => {
           if(response.data == true){
+            let digit5= Math.floor(Math.random()*90000) + 10000;
+          this.reference_id="2_"+digit5+"_"+ this.datePipe.transform(new Date(),"yyyy/MM/dd") ;
+            this.transactionId = response.response.id 
+            this.paymentDateTime = this. datePipe.transform(new Date(),"yyyy/MM/dd");
             this.isLoader=false;
-            if(this.thankYou.status == 'true'){
-              window.top.location.href = this.thankYou.page_link;
-            }else if(this.thankYou.status == 'false'){
-              //this.thankYouScreen=true;
-              //this.paymentScreen=false;
-            setTimeout(() => {
-              window.location.reload();
-            }, 2000);
-          }
-        }else{
+            this.fnAppointmentBooking();
+        }
+          else{
+            this.snackBar.open("Card Invalid", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+            });
+            this.isLoader=false;
             console.log(response.response);
           }
-        },(err) =>{
-          
-        })
+          },
+          (err) =>{
+            
+          })
+      }else{
+        this.cardForm.get("cardHolderName").markAsTouched();
+        this.cardForm.get("cardNumber").markAsTouched();
+        this.cardForm.get("expiryMonth").markAsTouched();
+        this.cardForm.get("expiryYear").markAsTouched();
+        this.cardForm.get("cvvCode").markAsTouched();
       }
+    }
+    guid() {
+      return this.s4() + this.s4() + this.s4() + this.s4();
+    }
 
-      // fnProceedToPayment(event){
-      //   if(this.PrivacyPolicyStatusValue == false && this.termsConditionsStatusValue == false){
-      //     this.PrivacyPolicyStatusValidation = true;
-      //     this.termsConditionsStatusValidation = true;
-      //     return false;
-      //   }
-      //   else if(this.termsConditionsStatusValue == false){
-      //     this.termsConditionsStatusValidation = true;
-      //     return false;
-      //   }
-      //   else if(this.PrivacyPolicyStatusValue == false){
-      //     this.PrivacyPolicyStatusValidation = true;
-      //     return false;
-      //   }
-      //   if(this.closecoupon != 'valid'){
-      //     this.coupon.couponcode_val=''
-      //   }
-      //   let digit5= Math.floor(Math.random()*90000) + 10000;
-      //   this.reference_id="2_"+digit5+"_"+ this.datePipe.transform(new Date(),"yyyy/MM/dd") ;
-      //   this.itemArr= [];
-      //     for(let i=0; i<this.serviceCartArr.length;i++){
-      //       if(this.serviceCartArr[i]){
-      //         let singleItem={
-      //           name: this.serviceCartArr[i].service_name,
-      //           quantity: '1',
-      //           description : 'Actual Quantity - '+JSON.stringify(this.serviceCartArr[i].count),
-      //           category: 'DIGITAL_GOODS',
-      //          // tax:{currency_code:"USD", value:"1.00"},
-      //           unit_amount: {
-      //             currency_code: this.currencySymbol,
-      //             value: JSON.stringify(this.serviceCartArr[i].subtotal)
-      //           }
-      //         }
-      //         this.itemArr.push(singleItem);
+    s4() {
+      return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+    }
+
+    getTxnId(){
+      return this.guid();
+    }
     
-      //       }
-      //     }
-      //     this.taxAmount=0;
-      //     this.taxAmountArr.forEach(element=>{
-      //       this.taxAmount=this.taxAmount+element.amount;
-      //     });
-      //   this.summaryScreen = false;
-      //   this.paymentScreen =true;
-      // }
+     // Get Random Transaction Id
 
+    fnPayUMoney(){
 
-    isEmailUnique(control: FormControl) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        let headers = new HttpHeaders({
-          'Content-Type': 'application/json',
-        });
-        return this.http.post(`${environment.apiUrl}/verify-email`,{ emailid: control.value },{headers:headers}).pipe(map((response : any) =>{
-          return response;
-        }),
-        catchError(this.handleError)).subscribe((res) => {
-          if(res){
-            if(res.data == false){
-            resolve({ isEmailUnique: true });
-            // this._snackBar.open("Access PIN already in use", "X", {
-            // duration: 2000,
-            // verticalPosition: 'top',
-            // panelClass : ['red-snackbar']
-            // });
-            }else{
-            resolve(null);
+      this.PayUMoney.txnid= this.getTxnId();
+      this.PayUMoney.amount= this.serviceMainArr.netCost.toString();
+      this.PayUMoney.firstname= this.customerFirstname;
+      this.PayUMoney.email= this.customerEmail,
+      this.PayUMoney.phone= this.customerPhone,
+      this.PayUMoney.productinfo= 'Product Description';
+      this.PayUMoney.surl= environment.urlForLink;
+      this.PayUMoney.furl= environment.urlForLink;
+      this.PayUMoney.mode='dropout';// non-mandatory for Customized Response Handling
+      this.PayUMoney.udf1='';
+      this.PayUMoney.udf2='';
+      this.PayUMoney.udf3='';
+      this.PayUMoney.udf4='';
+      this.PayUMoney.udf5='';
+      
+      // #Where salt is available on the PayUMoney dashboard.
+      var RequestData = {
+        key: this.PayUMoney.key,
+        txnid: this.PayUMoney.txnid,
+        hash: '',
+        amount: this.PayUMoney.amount,
+        firstname: this.PayUMoney.firstname,
+        email: this.PayUMoney.email,
+        phone: this.PayUMoney.phone,
+        productinfo: this.PayUMoney.productinfo,
+        surl : this.PayUMoney.surl,
+        furl: this.PayUMoney.furl,
+        // mode:this.PayUMoney.mode// non-mandatory for Customized Response Handling
+      }
+      this.generateRequestHash(RequestData);
+      console.log(JSON.stringify(RequestData));
+      var Handler = {
+        responseHandler: (BOLT) => {
+          console.log(JSON.stringify(BOLT));
+          if(BOLT && BOLT.response.txnStatus == "SUCCESS"){
+            let generatedHash=this.generateResponseHash(BOLT.response);
+            if(BOLT.response.hash == generatedHash){
+              this.reference_id=BOLT.response.txnid;
+              this.transactionId=BOLT.response.payuMoneyId;
+              this.paymentDateTime= this.datePipe.transform(BOLT.response.addedon,"yyyy-MM-dd HH:mm:ss");
+              this.fnAppointmentBooking();
+              console.log("SUCCESS");
             }
+          }else if(BOLT && BOLT.response.txnStatus == "FAILED"){
+            this.snackBar.open("Transaction Failed", "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass : ['red-snackbar']
+            });
+          }else if(BOLT && BOLT.response.txnStatus == "CANCEL"){
+            this.snackBar.open(BOLT.response.txnMessage, "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass : ['red-snackbar']
+            });
           }
-        });
-      }, 500);
-    });
-  }
+          // your payment response Code goes here, BOLT is the response object
+        },
+        catchException: function(BOLT){
+          console.log(BOLT);
+          // the code you use to handle the integration errors goes here
+        }
+      }
+      PayUMoneylaunch(RequestData,Handler);
+      // bolt.launch( RequestData , Handler ); 
+    }
+
+    generateRequestHash(RequestData) {
+      var string = RequestData.key + '|' + RequestData.txnid + '|' + RequestData.amount + '|' + RequestData.productinfo + '|' + RequestData.firstname + '|' + RequestData.email+'|'+this.PayUMoney.udf1+'|'+this.PayUMoney.udf2+'|'+this.PayUMoney.udf3+'|'+this.PayUMoney.udf4+'|'+this.PayUMoney.udf5+'|'+'|'+'|'+'|'+'|'+'|'+this.PayUMoney.salt;
+            
+      var encrypttext = sha512(string);
+      RequestData.hash = encrypttext;
+   }
+   // (d: Date | null): string => {
+    generateResponseHash(Response) {
+      var string = this.PayUMoney.salt +'|'+Response.status+'|'+'|'+'|'+'|'+'|'+'|'+Response.udf5+'|'+this.PayUMoney.udf4+'|'+this.PayUMoney.udf3+'|'+this.PayUMoney.udf2+'|'+this.PayUMoney.udf1+'|'+Response.email+'|'+Response.firstname+'|'+Response.productinfo+'|'+Response.amount+'|'+Response.txnid+'|'+Response.key;
+            
+      var encrypttext = sha512(string);
+      return encrypttext;
+   }
+   
+  
+  fnAppointmentBooking(){
+    this.isLoader=true;
+    let serviceCartArrTemp:any= [];
+    for(let i=0; i<this.serviceCartArr.length;i++){
+      if(this.serviceCartArr[i]){
+        serviceCartArrTemp.push(this.serviceCartArr[i]);
+      }
+    }
+    const currentDateTime = new Date();
+    let requestObject = {
+      "postal_code" : this.bookingPostalcode,
+      "business_id" : this.businessId,
+      "serviceInfo" : serviceCartArrTemp,
+      "appointment_address" : this.formAppointmentInfo.get('appo_address').value,
+      "appointment_state" : this.formAppointmentInfo.get('appo_state').value,
+      "appointment_city" : this.formAppointmentInfo.get('appo_city').value,
+      "appointment_zipcode" : this.formAppointmentInfo.get('appo_zipcode').value,
+      "coupon_code" : this.coupon.couponcode_val,
+      "customer_id": this.authenticationService.currentUserValue.user_id,
+      "customer_token" : this.authenticationService.currentUserValue.token,
+      "subtotal" : this.serviceMainArr.subtotal,
+      "discount_type" : this.serviceMainArr.discount_type,
+      "discount_value" : this.serviceMainArr.discount_value,
+      "discount" : this.serviceMainArr.discount,
+      "tax" : this.taxAmountArr,
+      "nettotal" : this.serviceMainArr.netCost,
+      "payment_method" : this.paymentMethod,
+      "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd"),
+      "reference_id": this.reference_id,
+      "transaction_id": this.transactionId,
+      "payment_datetime": this.paymentDateTime,
+      'fullname' : JSON.parse(localStorage.getItem('currentUser')).fullname,
+      'full_name' : JSON.parse(localStorage.getItem('currentUser')).fullname
+    };
+     
+      
+      // setTimeout(()=>{
+      //   this.isLoader=false;
+      // },4000)
+      // return false;
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+  
+      this.http.post(`${environment.apiUrl}/order-create`,requestObject,{headers:headers} ).pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError(this.handleError)
+      ).subscribe((response:any) => {
+        if(response.data == true){
+          this.isLoader=false;
+          if(this.thankYou.status == 'true'){
+            window.top.location.href = this.thankYou.page_link;
+          }else if(this.thankYou.status == 'false'){
+            //this.thankYouScreen=true;
+            //this.paymentScreen=false;
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        }
+      }else{
+          console.log(response.response);
+        }
+      },(err) =>{
+        
+      })
+    }
     
   }
 
@@ -4143,6 +5032,15 @@ export class theme2DateTimeSelection {
       this.selecteddate = this.data.selecteddate
       this.selecteddateForLabel = this.data.selecteddateForLabel
       this.directAPI = this.data.directAPI;
+      this.timeSlotArr = this.data.timeSlotArr;
+      console.log(this.timeSlotArr)
+      var i=0;
+      this.timeSlotArr.forEach( (element) => {
+        var dateTemp=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element+":00";
+         this.timeSlotArrForLabel[i]= this.datePipe.transform(new Date(dateTemp),"hh:mm a");
+         i++;
+      });
+      console.log(this.timeSlotArrForLabel)
       if(this.directAPI == 'gettimeslote'){
         this.fnGetTimeSlots();
       }else if(this.directAPI == 'selectnextvalidate'){

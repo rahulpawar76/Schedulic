@@ -808,7 +808,7 @@
 
 ::ng-deep .continue-btn {
     font-size: $fs-20;
-    background-color: $grey-3;
+    background-color: $front-primary-color;
     padding: 6px 30px;
     margin: 10px;
 }
@@ -1434,5 +1434,324 @@ input:focus {
 ::ng-deep #personal_info {
     &.theme_2_popup {
         height: 90vh;
+    }
+}
+
+::ng-deep #coupon_code {
+    &.theme_2_popup {
+        height: 90vh;
+    }
+}
+
+::ng-deep #payment_method {
+    &.theme_2_popup {
+        height: 90vh;
+    }
+}
+
+::ng-deep #coupon_code {
+    &.theme_2_popup {
+        height: 90vh;
+    }
+}
+
+::ng-deep .loggedin_head {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    p {
+        margin-bottom: 0;
+    }
+    .logout-btn {
+        display: block;
+        /*margin-left: auto;*/
+        font-size: 16px;
+        padding: 0px 30px;
+        margin: 10px;
+    }
+    .ml-a {
+        margin-left: auto;
+    }
+}
+
+::ng-deep .round-btn {
+    border-radius: 100px;
+}
+
+::ng-deep .continue-btn {
+    font-size: $fs-20;
+    background-color: $front-primary-color;
+    padding: 6px 30px;
+    color: $text-bg;
+    margin: 10px;
+    border-radius: 100px;
+}
+
+::ng-deep .gray-btn {
+    font-size: $fs-20;
+    background-color: $grey-3;
+    padding: 6px 30px;
+    margin: 10px;
+}
+
+::ng-deep .checkout_popup {
+    #coupon_code {
+        .booking-summary {
+            border-top: 1px solid $grey-3;
+            border-bottom: 1px solid $grey-3;
+            padding: 10px 20px;
+            .left-side {
+                .service-title {
+                    font-size: $fs-22;
+                    color: $front-primary-color;
+                    font-weight: $fw-500;
+                    padding: 4px 0;
+                    margin: 0 15px 0 0;
+                }
+                p {
+                    font-size: $fs-16;
+                    color: $secondary-color;
+                    margin: 0 15px 0 0;
+                    padding: 4px 0;
+                    float: left;
+                    i {
+                        font-size: $fs-22;
+                        padding: 2px 4px;
+                        color: $front-primary-color;
+                    }
+                    &.booking-des {
+                        color: $grey-1;
+                    }
+                }
+            }
+            .right-side {
+                .price {
+                    font-size: $fs-20;
+                    color: $grey-1;
+                    font-weight: $fw-500;
+                    display: block;
+                    text-align: right;
+                }
+            }
+            .qty-counter {
+                .action-btn {
+                    width: 40px;
+                    height: 40px;
+                    background-color: $grey-3;
+                    .mat-button-wrapper {
+                        padding: 14px 0;
+                        display: inline-block;
+                        line-height: 1;
+                    }
+                }
+                .qty_value {
+                    width: 20px;
+                    margin: 0 5px;
+                    text-align: center;
+                    border: 0;
+                    font-size: 18px;
+                }
+            }
+        }
+        .total-amount {
+            h3 {
+                text-align: left;
+                font-size: $fs-22;
+                color: $secondary-color;
+            }
+            .price {
+                font-size: $fs-22;
+                text-align: right;
+                display: block;
+                font-weight: $fw-500;
+                color: $secondary-color;
+            }
+            .promocode-main {
+                position: relative;
+                &.invalid {
+                    .coupon-code-submit {
+                        background-color: $error;
+                    }
+                    .coupon-code-input {
+                        border-color: $error;
+                    }
+                }
+                &.valid {
+                    .coupon-code-input {
+                        border: 1px dashed $front-primary-color;
+                    }
+                    .remove-code {
+                        background-color: $front-primary-color;
+                        border: 0;
+                        border-radius: 100%;
+                        height: 30px;
+                        width: 30px;
+                        color: $text-bg;
+                        text-align: center;
+                        position: absolute;
+                        line-height: 1;
+                        right: -10px;
+                        top: -12px;
+                        i {
+                            font-size: $fs-18;
+                            padding: 5px;
+                        }
+                    }
+                }
+                h3 {
+                    i {
+                        color: $front-primary-color;
+                        padding: 5px;
+                        font-size: $fs-24;
+                    }
+                }
+                .coupon-code-input {
+                    width: 100%;
+                    display: block;
+                    padding: 5px 10px;
+                    border-radius: 5px;
+                    border: 1px solid #e4e3e3;
+                    font-size: $fs-20;
+                    transition: all 0.3s;
+                    float: right;
+                    &:focus {
+                        box-shadow: $shadow;
+                    }
+                }
+                .coupon-code-submit {
+                    position: absolute;
+                    width: 80px;
+                    right: 0;
+                    height: auto;
+                    padding: 12px 10px;
+                    border-radius: 0px 5px 5px 0px;
+                    border: 0px;
+                    background-color: $front-primary-color;
+                    color: $text-bg;
+                    text-align: center;
+                    line-height: 1;
+                }
+            }
+        }
+        .Order-total {
+            background-color: #cee8ff;
+            h3 {
+                font-size: $fs-22;
+                color: $secondary-color;
+                line-height: 1;
+            }
+            .price {
+                font-size: $fs-22;
+                font-weight: $fw-500;
+                color: $secondary-color;
+                line-height: 1;
+            }
+        }
+        .bottom-ctn-btn {
+            text-align: right;
+            margin-right: 10px;
+            .proceed {
+                background-color: $front-primary-color;
+                color: $text-bg;
+                font-size: 16px;
+            }
+        }
+    }
+    #payment_method {
+        .single-pay {
+            background-color: #f3f3f3;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            box-shadow: $shadow;
+            .payment-gtw-icon {
+                margin-left: auto;
+                float: right;
+            }
+            &.payment-radio {
+                 ::ng-deep .mat-radio-label {
+                    margin-bottom: 0;
+                    font-size: 22px;
+                    font-weight: 500;
+                    .mat-radio-outer-circle {
+                        border-color: #acacac;
+                        width: 25px;
+                        height: 25px;
+                        top: -3px;
+                    }
+                    .mat-radio-inner-circle {
+                        width: 25px;
+                        height: 25px;
+                        top: -3px;
+                    }
+                    .mat-radio-label-content {
+                        margin-left: 15px;
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+            }
+            &.mat-radio-checked {
+                background-color: $text-bg;
+            }
+        }
+        .credit-card-form {
+            .right-side {
+                text-align: center;
+                img {
+                    max-width: 300px;
+                    margin: 20px 0;
+                }
+            }
+            box-shadow: $shadow;
+        }
+        .bottom-ctn-btn {
+            text-align: right;
+            margin-right: 10px;
+            .proceed {
+                background-color: $front-primary-color;
+                color: $text-bg;
+                font-size: 16px;
+            }
+        }
+    }
+    #thankyou_screen {
+        .top_right_icon {
+            margin: 40px;
+            display: flex;
+            justify-content: center;
+            img {
+                width: 60px;
+            }
+        }
+        .thankyoy_msg {
+            background-color: #e7f1ff;
+            padding: 20px;
+            border-radius: 60px;
+            margin: 20px;
+            h2 {
+                font-size: 24px;
+                font-style: italic;
+                max-width: 700px;
+                display: table;
+                margin: 0 auto;
+                line-height: 1.6;
+            }
+        }
+        .booking_details {
+            margin: 15px 0;
+            p {
+                text-align: center;
+                margin-bottom: 0;
+                padding: 5px;
+                font-size: 20px;
+                color: #404040;
+                span {
+                    color: $text-color;
+                    font-weight: 500;
+                }
+            }
+        }
     }
 }

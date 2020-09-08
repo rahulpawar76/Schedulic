@@ -7,7 +7,7 @@
                     <div class="step-loader" *ngIf="isLoader">
                         <img src="../../assets/loading-spinner.gif" />
                     </div>
-                    <!-- <button (click)="fnPayUMoney()" mat-button class="round-btn continue-btn logout-btn">Temp</button> -->
+                    <!-- <button (click)="fnPayUMoney()" mat-button class="round-btn gray-btn logout-btn">Temp</button> -->
                     <div class="main-step disable-business-container step_1 p-0" *ngIf="(businessDetail && businessDetail.private_status
                         ==
                         'Y') || (businessDetail && businessDetail.status ==
@@ -22,16 +22,16 @@
                         <div class="col-lg-12 col-sm-12 col-12 float-left
                             loggedin_head" *ngIf="isLoggedIn">
 
-                            <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn continue-btn logout-btn">View
+                            <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn gray-btn logout-btn">View
                                 Dashboard</button>
 
                             <button (click)="fnLogout()" mat-button class="round-btn
-                                continue-btn logout-btn ml-a">Logout</button>
+                            gray-btn logout-btn ml-a">Logout</button>
                         </div>
                         <div class="col-lg-12 col-sm-12 col-12 float-left
                             loggedin_head" *ngIf="!isLoggedIn &&
                             customerLoginValue">
-                            <button (click)="fnNavigateToLogin()" mat-button class="round-btn continue-btn logout-btn ml-a">Login</button>
+                            <button (click)="fnNavigateToLogin()" mat-button class="round-btn gray-btn logout-btn ml-a">Login</button>
                         </div>
                         <mat-card-title class="p-4 mx-0 row d-flex">
                             <label class="col-lg-6 col-sm-12 col-12 float-left">{{businessDetail?businessDetail.business_name:''}}</label>
@@ -84,9 +84,9 @@
                         <div class="step-top-head"></div>
                         <div class="col-lg-12 col-sm-12 col-12 float-left
                             loggedin_head" *ngIf="isLoggedIn">
-                            <!-- <p>Welcome, {{customerName}}</p><button (click)="fnLogout()" mat-button class="round-btn continue-btn logout-btn">Logout</button> -->
-                            <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn continue-btn logout-btn">View
-                                Dashboard</button><button (click)="fnLogout()" mat-button class="round-btn continue-btn
+                            <!-- <p>Welcome, {{customerName}}</p><button (click)="fnLogout()" mat-button class="round-btn gray-btn logout-btn">Logout</button> -->
+                            <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn gray-btn logout-btn">View
+                                Dashboard</button><button (click)="fnLogout()" mat-button class="round-btn gray-btn
                                 logout-btn
                                 ml-a">Logout</button>
                         </div>
@@ -137,9 +137,9 @@
                         <div class="step-top-head"></div>
                         <div class="col-lg-12 col-sm-12 col-12 float-left
                             loggedin_head" *ngIf="isLoggedIn">
-                            <!--  <p>Welcome, {{customerName}}</p><button (click)="fnLogout()" mat-button class="round-btn continue-btn logout-btn">Logout</button> -->
-                            <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn continue-btn logout-btn">View
-                                Dashboard</button><button (click)="fnLogout()" mat-button class="round-btn continue-btn
+                            <!--  <p>Welcome, {{customerName}}</p><button (click)="fnLogout()" mat-button class="round-btn gray-btn logout-btn">Logout</button> -->
+                            <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn gray-btn logout-btn">View
+                                Dashboard</button><button (click)="fnLogout()" mat-button class="round-btn gray-btn
                                 logout-btn
                                 ml-a">Logout</button>
                         </div>
@@ -216,7 +216,7 @@
                 </div>
 
                 <div class="bottom-ctn-btn" *ngIf="serviceMainArr.totalNumberServices>0">
-                    <button (click)="fnServiceSelection($event)" mat-button class="round-btn continue-btn">Continue<i
+                    <button (click)="fnServiceSelection($event)" mat-button class="round-btn gray-btn">Continue<i
                                         class="material-icons">keyboard_arrow_right</i></button>
                 </div>
                 </mat-card-content>
@@ -306,9 +306,9 @@
 
                     </div>
                     <div class="next-action">
-                        <button mat-button (click)="fnbacktocategory($event)" class="round-btn continue-btn">Add More
+                        <button mat-button (click)="fnbacktocategory($event)" class="round-btn gray-btn">Add More
                                         Services</button>
-                        <button mat-button *ngIf="serviceMainArr.totalNumberServices>0" (click)="fnDatetimeSelection($event)" class="round-btn continue-btn">Book Now</button>
+                        <button mat-button *ngIf="serviceMainArr.totalNumberServices>0" (click)="fnDatetimeSelection($event)" class="round-btn gray-btn">Book Now</button>
                     </div>
                 </div>
             </div>
@@ -317,9 +317,9 @@
             <div class="step-top-head"></div>
             <div class="col-lg-12 col-sm-12 col-12 float-left
                             loggedin_head" *ngIf="isLoggedIn">
-                <!-- <p>Welcome, {{customerName}}</p><button (click)="fnLogout()" mat-button class="round-btn continue-btn logout-btn">Logout</button> -->
-                <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn continue-btn logout-btn">View
-                                Dashboard</button><button (click)="fnLogout()" mat-button class="round-btn continue-btn
+                <!-- <p>Welcome, {{customerName}}</p><button (click)="fnLogout()" mat-button class="round-btn gray-btn logout-btn">Logout</button> -->
+                <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn gray-btn logout-btn">View
+                                Dashboard</button><button (click)="fnLogout()" mat-button class="round-btn gray-btn
                                 logout-btn
                                 ml-a">Logout</button>
             </div>
@@ -373,7 +373,7 @@
                             </div>
                             <div class="col bottom-ctn-btn">
                                 <button mat-button (click)="fnloginexisinguser()" class="round-btn float-right
-                                                continue-btn">Log In</button>
+                                                gray-btn">Log In</button>
                             </div>
                         </div>
                     </form>
@@ -527,7 +527,7 @@
                     </form>
                     <div class="bottom-ctn-btn">
                         <button (click)="fnpersonalinfo()" mat-button class="round-btn
-                                        continue-btn">Continue<i
+                                        gray-btn">Continue<i
                                             class="material-icons">keyboard_arrow_right</i></button>
                     </div>
                 </div>
@@ -537,9 +537,9 @@
             <div class="step-top-head"></div>
             <div class="col-lg-12 col-sm-12 col-12 float-left
                             loggedin_head" *ngIf="isLoggedIn">
-                <!-- <p>Welcome, {{customerName}}</p><button (click)="fnLogout()" mat-button class="round-btn continue-btn logout-btn">Logout</button> -->
-                <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn continue-btn logout-btn">View
-                                Dashboard</button><button (click)="fnLogout()" mat-button class="round-btn continue-btn
+                <!-- <p>Welcome, {{customerName}}</p><button (click)="fnLogout()" mat-button class="round-btn gray-btn logout-btn">Logout</button> -->
+                <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn gray-btn logout-btn">View
+                                Dashboard</button><button (click)="fnLogout()" mat-button class="round-btn gray-btn
                                 logout-btn
                                 ml-a">Logout</button>
             </div>
@@ -622,7 +622,7 @@
                         </div>
                     </div>
                     <div class="bottom-ctn-btn">
-                        <button (click)="fnappointmentinfo($event)" mat-button class="round-btn continue-btn">Confirm</button>
+                        <button (click)="fnappointmentinfo($event)" mat-button class="round-btn gray-btn">Confirm</button>
                     </div>
                 </form>
             </mat-card-content>
@@ -632,9 +632,9 @@
             <div class="step-top-head"></div>
             <div class="col-lg-12 col-sm-12 col-12 float-left
                             loggedin_head" *ngIf="isLoggedIn">
-                <!-- <p>Welcome, {{customerName}}</p><button (click)="fnLogout()" mat-button class="round-btn continue-btn logout-btn">Logout</button> -->
-                <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn continue-btn logout-btn">View
-                                Dashboard</button><button (click)="fnLogout()" mat-button class="round-btn continue-btn
+                <!-- <p>Welcome, {{customerName}}</p><button (click)="fnLogout()" mat-button class="round-btn gray-btn logout-btn">Logout</button> -->
+                <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn gray-btn logout-btn">View
+                                Dashboard</button><button (click)="fnLogout()" mat-button class="round-btn gray-btn
                                 logout-btn
                                 ml-a">Logout</button>
             </div>
@@ -816,7 +816,7 @@
                                     w-100 pl-3">Please check Terms & Condition.</span>
                 </div>
                 <div class="bottom-ctn-btn">
-                    <button *ngIf='serviceMainArr.totalNumberServices>0' (click)="fnProceedToPayment($event)" mat-button class="round-btn continue-btn
+                    <button *ngIf='serviceMainArr.totalNumberServices>0' (click)="fnProceedToPayment($event)" mat-button class="round-btn gray-btn
                                     proceed">Proceed</button>
                 </div>
             </mat-card-content>
@@ -962,7 +962,7 @@
                         <div class='pm-button'><a href='https://www.payumoney.com/sandbox/paybypayumoney/#/8C489717229C94CF81E97BB992F57B4D'><img src='https://www.payumoney.com/media/images/payby_payumoney/new_buttons/23.png' /></a></div> 
                     </div> -->
                     <!-- <div class="col-12 left-side col-lg-6">
-                        <div class='pm-button'><button (click)="fnPayUMoney()" mat-button class="round-btn continue-btn logout-btn"><img src='https://www.payumoney.com/media/images/payby_payumoney/new_buttons/23.png' /></button></div> 
+                        <div class='pm-button'><button (click)="fnPayUMoney()" mat-button class="round-btn gray-btn logout-btn"><img src='https://www.payumoney.com/media/images/payby_payumoney/new_buttons/23.png' /></button></div> 
                     </div>
                     <div class="col-12 right-side col-lg-6">
                         <img src='../../assets/images/payumoney-logo.png' />
@@ -1008,7 +1008,7 @@
                 <div class="bottom-ctn-btn">
                     <button *ngIf="paymentMethod != '' &&
                                     paymentMethod
-                                    != 'Paypal'" (click)="fnPayNow()" mat-button class="round-btn continue-btn proceed">Pay
+                                    != 'Paypal'" (click)="fnPayNow()" mat-button class="round-btn gray-btn proceed">Pay
                                     Now</button>
                 </div>
 
@@ -1060,7 +1060,7 @@
                                 380px">
                     <mat-card-title class="py-2 px-3">
                         <label class="mb-0">Summary</label><button mat-button class="round-btn
-                                        continue-btn" *ngIf="serviceMainArr.totalNumberServices>0" (click)="fnContinueFromCart()">Checkout<i
+                                        gray-btn" *ngIf="serviceMainArr.totalNumberServices>0" (click)="fnContinueFromCart()">Checkout<i
                                             class="material-icons">keyboard_arrow_right</i></button>
                     </mat-card-title>
                     <mat-card-content class="py-2 px-3 mt-0">
@@ -1138,12 +1138,12 @@
 
                     <div class="col-lg-12 col-sm-12 col-12 float-left loggedin_head" *ngIf="isLoggedIn">
 
-                        <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn continue-btn logout-btn">View Dashboard</button>
+                        <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn gray-btn logout-btn">View Dashboard</button>
 
-                        <button (click)="fnLogout()" mat-button class="round-btn continue-btn logout-btn ml-a">Logout</button>
+                        <button (click)="fnLogout()" mat-button class="round-btn gray-btn logout-btn ml-a">Logout</button>
                     </div>
                     <div class="col-lg-12 col-sm-12 col-12 float-left loggedin_head py-2" *ngIf="!isLoggedIn && customerLoginValue">
-                        <button (click)="fnNavigateToLogin()" mat-button class="round-btn continue-btn logout-btn ml-a">Login</button>
+                        <button (click)="fnNavigateToLogin()" mat-button class="round-btn gray-btn logout-btn ml-a">Login</button>
                     </div>
                     <mat-card-title class="p-4 mx-0 row d-flex">
                         <label class="col-lg-6 col-sm-12 col-12 float-left">{{businessDetail?businessDetail.business_name:''}}</label>
@@ -1195,9 +1195,9 @@
                 <div id="subcategory_list" class="main-step step_1 p-0" *ngIf="subcatselection">
                     <div class="col-lg-12 col-sm-12 col-12 float-left loggedin_head" *ngIf="isLoggedIn">
 
-                        <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn continue-btn logout-btn">View Dashboard</button>
+                        <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn gray-btn logout-btn">View Dashboard</button>
 
-                        <button (click)="fnLogout()" mat-button class="round-btn continue-btn logout-btn ml-a">Logout</button>
+                        <button (click)="fnLogout()" mat-button class="round-btn gray-btn logout-btn ml-a">Logout</button>
                     </div>
                     <mat-card-title class="px-4 py-3 d-flex">
                         <div class="col-lg-12 col-sm-12 col-12 top-title
@@ -1238,9 +1238,9 @@
                 <div id="service_list" class="main-step step_1 p-0" *ngIf="serviceselection">
                     <div class="col-lg-12 col-sm-12 col-12 float-left loggedin_head" *ngIf="isLoggedIn">
 
-                        <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn continue-btn logout-btn">View Dashboard</button>
+                        <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn gray-btn logout-btn">View Dashboard</button>
 
-                        <button (click)="fnLogout()" mat-button class="round-btn continue-btn logout-btn ml-a">Logout</button>
+                        <button (click)="fnLogout()" mat-button class="round-btn gray-btn logout-btn ml-a">Logout</button>
                     </div>
                     <mat-card-title class="px-4 py-3 d-flex">
                         <div *ngIf="!directService" class="col-lg-12 col-sm-12 col-12 top-title
