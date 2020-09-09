@@ -552,14 +552,14 @@
                 </div>
                 <div class="col-lg-12 col-sm-12 col-12 float-left" *ngIf="showSameAsAboveCheck">
                     <!-- <mat-checkbox (change)="fnsameasabove($event)" class="same-check" id="same_check" name="sameasabove"></mat-checkbox> -->
-                    <div class="custom-control custom-checkbox" *ngIf="is_in_store_service==false">
+                    <div class="custom-control custom-checkbox" *ngIf="is_at_home_service==true">
                         <input type="checkbox" class="custom-control-input" id="same_check" (change)="fnsameasabove($event)" name="sameasabove">
                         <label class="custom-control-label same_check_label" for="same_check">Same as Above</label>
                     </div>
                 </div>
                 <div class="col-lg-12 col-sm-12 col-12 float-left" *ngIf="!showSameAsAboveCheck">
                     <!-- <mat-checkbox (change)="fnsameasabove($event)" class="same-check" id="same_check" name="sameasabove"></mat-checkbox> -->
-                    <div class="custom-control custom-checkbox" *ngIf="is_in_store_service==false">
+                    <div class="custom-control custom-checkbox" *ngIf="is_at_home_service==true">
                         <input type="checkbox" class="custom-control-input" id="same_check" (change)="fnSameAsBillingAddress($event)" name="sameasabove">
                         <label class="custom-control-label same_check_label" for="same_check">Same as Billing Address</label>
                     </div>
@@ -567,7 +567,7 @@
             </mat-card-title>
             <mat-card-content class="p-4 mt-0 mb-2">
                 <form [formGroup]="formAppointmentInfo">
-                    <div class="field-list mr-0 ml-0 row" *ngIf="is_in_store_service==false">
+                    <div class="field-list mr-0 ml-0 row" *ngIf="is_at_home_service==true">
                         <div class="col-12 col-lg-12 col-md-12  col-sm-12">
                             <label>Address</label>
                             <textarea formControlName="appo_address" class="common-input" rows="3"></textarea>
