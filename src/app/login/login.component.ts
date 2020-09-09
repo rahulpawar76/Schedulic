@@ -76,41 +76,49 @@ export class LoginComponent implements OnInit {
         }
         this.dataLoaded = false;
         this.authenticationService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
-        .pipe(first())
-        .subscribe(
-            data => {
-                if(data.data == true){
-                    
-                    if(data.response.user_type == "A"){
-                        this.router.navigate(["admin"]);
-                    }else if(data.response.user_type == "SM"){
-                        localStorage.setItem('internal_staff','N');
-                        this.router.navigate(["staff"]);
-                    }else{
-                        this.router.navigate(["user"]);
-                    }
+        .pipe(first()).subscribe(data => {
 
-                    // this.appComponent.initiateTimeout();
-                    this.hideLoginForm = false;
-                    
-                }else if(data.data == false){
-                    this._snackBar.open(data.response, "X", {
-                        duration: 2000,
-                        verticalPosition:'top',
-                        panelClass :['red-snackbar']
-                      });
-                    this.error = data.response; 
-                    this.dataLoaded = true;
+            if(data.data == true){
+              
+                if(data.response.currentPlan == null){
+                    localStorage.setItem('adminData',JSON.stringify(data.response))
+                    localStorage.removeItem('currentUser');
+                    this.router.navigate(["admin-select-subscription"]);
+                    return;    
                 }
-                else{
-                    this.error = "Database Connection Error."; 
-                    this.dataLoaded = true;
+
+                if(data.response.user_type == "A"){
+                    this.router.navigate(["admin"]);
+                }else if(data.response.user_type == "SM"){
+                    localStorage.setItem('internal_staff','N');
+                    this.router.navigate(["staff"]);
+                }else{
+                    this.router.navigate(["user"]);
                 }
-            },
-            error => {  
+
+                // this.appComponent.initiateTimeout();
+                this.hideLoginForm = false;
+                
+            }else if(data.data == false){
+
+                this._snackBar.open(data.response, "X", {
+                    duration: 2000,
+                    verticalPosition:'top',
+                    panelClass :['red-snackbar']
+                    });
+                this.error = data.response; 
+                this.dataLoaded = true;
+
+            }  else{
                 this.error = "Database Connection Error."; 
-                this.dataLoaded = true;  
-            });
+                this.dataLoaded = true;
+            }
+
+        },
+        error => {  
+            this.error = "Database Connection Error."; 
+            this.dataLoaded = true;  
+        });
     }
     forgotPassword(){
         this.router.navigate(['/forgot-password']);

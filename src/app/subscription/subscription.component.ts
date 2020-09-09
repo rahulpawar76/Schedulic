@@ -35,7 +35,6 @@ export class SubscriptionComponent implements OnInit {
     }else{
       this.router.navigate(['/login']);
     }
-    console.log(this.adminData)
     this.getSubscriptionPlans();
    }
 
@@ -128,6 +127,7 @@ export class DialogSubscriptionCardForm {
       });
     }
 
+    
     fnPayNow(){
       let requestObject = {
         'user_id' : JSON.stringify(this.adminData.user_id),
@@ -151,7 +151,7 @@ export class DialogSubscriptionCardForm {
             duration: 2000,
             verticalPosition: 'top',
             panelClass: ['green-snackbar']
-            });
+          });
             this.router.navigate(['/login']);
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){

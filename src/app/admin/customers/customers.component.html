@@ -104,9 +104,12 @@
                                             <mat-form-field>
                                                 <mat-label>Full Name</mat-label>
                                                 <mat-icon class="mr-4" matPrefix>person</mat-icon>
-                                                <input matInput formControlName="cus_fullname" placeholder="Enter Your Full Name">
+                                                <input matInput formControlName="cus_fullname" placeholder="Enter Your Full Name" pattern="[a-zA-Z ]*">
                                             </mat-form-field>
-                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_fullname').dirty || createNewCustomer.get('cus_fullname').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_fullname').hasError('required')" class="error">Fullname is required.</small></span>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_fullname').dirty || createNewCustomer.get('cus_fullname').touched || formSubmitclicked">
+                                                <small *ngIf="createNewCustomer.get('cus_fullname').hasError('required')" class="error">Fullname is required.</small>
+                                                <small *ngIf="createNewCustomer.get('cus_fullname').hasError('pattern')" class="error">Fullname must be string.</small>
+                                            </span>
                                         </div>
                                         <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
                                             <mat-form-field>
@@ -160,23 +163,24 @@
                                         <div class="col-lg-4 col-12 col-md-4 bottom-border-field">
                                             <mat-form-field>
                                                 <mat-label>State</mat-label>
-                                                <input matInput formControlName="cus_state" placeholder="">
+                                                <input matInput formControlName="cus_state" placeholder="" pattern="[a-zA-Z ]*">
                                             </mat-form-field>
                                             <span class="error-wrap" *ngIf="createNewCustomer.get('cus_state').dirty || createNewCustomer.get('cus_state').touched || formSubmitclicked">
-                                <small *ngIf="createNewCustomer.get('cus_state').hasError('required')" class="error">State is required.</small>
-                                <small *ngIf="createNewCustomer.get('cus_state').hasError('minlength') " class="error">State must be at least 2 character.</small>
-                                
-                                </span>
+                                                <small *ngIf="createNewCustomer.get('cus_state').hasError('required')" class="error">State is required.</small>
+                                                <small *ngIf="createNewCustomer.get('cus_state').hasError('minlength') " class="error">State must be at least 2 character.</small>
+                                                <small *ngIf="createNewCustomer.get('cus_state').hasError('required')" class="error">State must be string required.</small>
+                                             </span>
                                         </div>
                                         <div class="col-lg-4 col-12 col-md-4 bottom-border-field">
                                             <mat-form-field>
                                                 <mat-label>City</mat-label>
-                                                <input matInput formControlName="cus_city" placeholder="">
+                                                <input matInput formControlName="cus_city" placeholder="" pattern="[a-zA-Z ]*">
                                             </mat-form-field>
-                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_city').dirty || createNewCustomer.get('cus_city').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_city').hasError('required')" class="error">City is required.</small>
-                                <small *ngIf="createNewCustomer.get('cus_city').hasError('minlength') " class="error">City must be at least 2 character.</small>
-                                
-                                </span>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_city').dirty || createNewCustomer.get('cus_city').touched || formSubmitclicked">
+                                                <small *ngIf="createNewCustomer.get('cus_city').hasError('required')" class="error">City is required.</small>
+                                                <small *ngIf="createNewCustomer.get('cus_city').hasError('required')" class="error">City must be string required.</small>
+                                                <small *ngIf="createNewCustomer.get('cus_city').hasError('minlength') " class="error">City must be at least 2 character.</small>
+                                            </span>
                                         </div>
                                         <div class="col-lg-4 col-12 col-md-4 bottom-border-field">
                                             <mat-form-field>
@@ -186,7 +190,7 @@
                                             <span class="error-wrap" *ngIf="createNewCustomer.get('cus_zip').dirty || createNewCustomer.get('cus_zip').touched || formSubmitclicked">
                                                 <small *ngIf="createNewCustomer.get('cus_zip').hasError('required')" class="error">Zipcode is required.</small>
                                                 <small *ngIf="createNewCustomer.get('cus_zip').hasError('minlength') || createNewCustomer.get('cus_zip').hasError('maxlength')" class="error">Zipcode should be 5 to 7 characters.</small>
-                                                
+                                                <small *ngIf="createNewCustomer.get('cus_zip').hasError('pattern')" class="error">Zipcode must be Numeric.</small>
                                                 <!-- <small *ngIf="createNewCustomer.get('cus_zip').hasError('minlength') || createNewCustomer.get('cus_zip').hasError('maxlength)" class="error">Zipcode should be 5 to 7 characters.</small> -->
                                             </span>
                                         </div>
@@ -371,8 +375,8 @@
                                             <div class="d-flex">
                                                 <h6>{{customerNotes.note_subject}}</h6>
                                                 <div class="d-flex ml-auto">
-                                                    <mat-icon (click)="newAddNote(customerPersonalDetails.id,i)" class="add-note-subject-icon pointer" aria-hidden="false">edit</mat-icon>
-                                                    <mat-icon (click)="fnDeleteNote(customerNotes.id)" class="add-note-subject-icon ml-2 pointer" aria-hidden="false">delete</mat-icon>
+                                                    <mat-icon (click)="newAddNote(customerPersonalDetails.id,i)" class="add-note-subject-icon pointer" aria-hidden="false" matTooltip="Update Notes">edit</mat-icon>
+                                                    <mat-icon (click)="fnDeleteNote(customerNotes.id)" class="add-note-subject-icon ml-2 pointer" aria-hidden="false" matTooltip="Delete Notes">delete</mat-icon>
                                                 </div>
                                             </div>
                                             <div class="py-3">

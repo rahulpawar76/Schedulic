@@ -533,11 +533,13 @@ export class AppointmentComponent implements OnInit {
     }
 
 
-   if (this.orderItemsIdArr.length == this.allAppointments.length ) {
+    if (this.orderItemsIdArr.length == this.allAppointments.length ) {
       this.selectAll = true;
     } else {
       this.selectAll = false;
     }
+
+    console.log(this.orderItemsIdArr);
   }
 
   fnAppointAction(status){

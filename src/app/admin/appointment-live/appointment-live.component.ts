@@ -98,6 +98,8 @@ export class AppointmentLiveComponent implements OnInit {
   newCustomer:FormGroup;
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^-?(0|[1-9]\d*)?$/
+  onlystring = /[a-zA-Z ]*/
+
   service_index:any;
   staff_id:any;
   cartArr:any = [];
@@ -137,7 +139,7 @@ export class AppointmentLiveComponent implements OnInit {
       strokeWeight: 10,
     }
   }
-
+  staff_filter = "all";
   constructor(
     private AdminService: AdminService,
     private datePipe: DatePipe,
@@ -154,7 +156,7 @@ export class AppointmentLiveComponent implements OnInit {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     //this.currentUser = this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x )
     this.newCustomer = this._formBuilder.group({
-      cus_name : ['', Validators.required],
+      cus_name : ['', Validators.required,Validators.pattern(this.onlystring)],
       cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
       cus_mobile : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
     });
@@ -598,7 +600,7 @@ export class AppointmentLiveComponent implements OnInit {
 
     let requestObject = {
       "service_id" : service_id, 
-      "action" : "all", 
+      "action" : this.staff_filter, 
       "business_id" : localStorage.getItem('business_id')
     };
 
@@ -624,6 +626,7 @@ export class AppointmentLiveComponent implements OnInit {
 
   fnFilterStaff(event){
     
+    this.staff_filter = event;
 
     var requestObject = {
       "service_id" : this.service_id, 
@@ -776,13 +779,12 @@ export class AppointmentLiveComponent implements OnInit {
       "payment_datetime": payment_datetime,
       "nettotal": this.totalCost,
       "payment_method": this.paymentData ? this.paymentData.payment_method : 'cash',
-      "card_option": this.paymentData.payment_method=='Card' ? this.paymentData.card_option : '',
+      "card_option": this.paymentData && this.paymentData.payment_method=='Card' ? this.paymentData.card_option : '',
       "order_date": payment_datetime,
       "booking_notes" : this.note_description,
-      'pos_pdf_type' : pos_pdf_type  
+      "pos_pdf_type" : pos_pdf_type  
     };
   
-
     this.AdminService.placeOrder(requestObject).subscribe((response:any) => {
       
       if(response.data == true){
@@ -1138,10 +1140,15 @@ export class AppointmentLiveComponent implements OnInit {
   OutDootMap(index=0){
     
     var data = this.outdoorOrdersArr[index];
+    console.log(data.service.service_sub_type);
     
+    if(data.service.service_sub_type=='in_store'){
+      this.ShowMap  = false;
+      return;
+    }
+
     var customer_address =  data.orders_info.booking_address+'+'+data.orders_info.booking_city+'+'+data.orders_info.booking_state+'+'+data.orders_info.booking_zipcode;
     var staff_address =  data.staff.address+'+'+data.staff.city+'+'+data.staff.state+'+'+data.staff.zip;
-    
     this.ShowMap = false;
 
     this.AdminService.outdoorGoogleaddress(customer_address).subscribe((response: any) => {

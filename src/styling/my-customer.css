@@ -1821,9 +1821,9 @@ th.mat-header-cell {
     color: #f44336
 }
 
-.mat-form-field.mat-form-field-invalid .mat-form-field-label {
+/* .mat-form-field.mat-form-field-invalid .mat-form-field-label {
     color: #f44336
-}
+} */
 
 .mat-form-field.mat-form-field-invalid .mat-form-field-label .mat-form-field-required-marker,
 .mat-form-field.mat-form-field-invalid .mat-form-field-label.mat-accent {

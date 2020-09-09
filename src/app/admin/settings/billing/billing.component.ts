@@ -64,8 +64,7 @@ export class BillingComponent implements OnInit {
           element.selected = false;
         }
       });
-    }
-    else if(response.data == false && response.response !== 'api token or userid invaild'){
+    } else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
         duration: 2000,
         verticalPosition: 'top',

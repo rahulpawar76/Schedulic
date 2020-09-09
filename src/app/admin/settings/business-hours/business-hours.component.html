@@ -285,7 +285,7 @@
                                                 <div class="blue-font" fxFlex="30"></div>
                                             </div>
                                             <div class="d-flex justify-content-end">
-                                                <button mat-button class="cancel-btn my-3" (click)="fnCancelWorkingHours()">Cancel</button>
+                                                <!-- <button mat-button class="cancel-btn my-3" (click)="fnCancelWorkingHours()">Cancel</button> -->
                                                 <button mat-button class="save-btn my-3" (click)="fnCreateWorkingHours()">Save</button>
                                             </div>
                                         </form>
@@ -326,7 +326,7 @@
                                                             <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                                                         </mat-select>
                                                     </mat-form-field>
-                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)" matTooltip="Delete Break"></i></div>
                                                 </div>
                                             </div>
                                             <div *ngIf="showMondayAddForm">
@@ -344,7 +344,7 @@
                                                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="mondayBreakStartTimeIndex >= i || mondayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
                                                         </mat-select>
                                                     </mat-form-field>
-                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Monday')"></i></div>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Monday')" matTooltip="Save Break"></i></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -373,7 +373,7 @@
                                                             <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                                                         </mat-select>
                                                     </mat-form-field>
-                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)" matTooltip="Delete Break"></i></div>
                                                 </div>
                                             </div>
                                             <div *ngIf="showTuesdayAddForm">
@@ -391,7 +391,7 @@
                                                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="tuesdayBreakStartTimeIndex >= i || tuesdayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
                                                         </mat-select>
                                                     </mat-form-field>
-                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Tuesday')"></i></div>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Tuesday')" matTooltip="Save Break"></i></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -402,7 +402,7 @@
                                             <!-- <mat-slide-toggle></mat-slide-toggle> -->
                                         </div>
                                         <div class="" fxFlex="15">Wednesday</div>
-                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="wednesdayOn" (click)="fnShowAddBreakForm('Wednesday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"
+                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="wednesdayOn" (click)="fnShowAddBreakForm('Wednesday')" >Add Break</button><button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"
                                                 *ngIf="!wednesdayOn">Closed</button></div>
                                         <div fxFlex="35" *ngIf="wednesdayOn">
                                             <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
@@ -420,7 +420,7 @@
                                                             <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                                                         </mat-select>
                                                     </mat-form-field>
-                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)" matTooltip="Delete Break"></i></div>
                                                 </div>
                                             </div>
                                             <div *ngIf="showWednesdayAddForm">
@@ -438,7 +438,7 @@
                                                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="wednesdayBreakStartTimeIndex >= i || wednesdayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
                                                         </mat-select>
                                                     </mat-form-field>
-                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Wednesday')"></i></div>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Wednesday')" matTooltip="Save Break"></i></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -449,7 +449,7 @@
                                             <!-- <mat-slide-toggle></mat-slide-toggle> -->
                                         </div>
                                         <div class="" fxFlex="15">Thursday</div>
-                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="thursdayOn" (click)="fnShowAddBreakForm('Thursday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"
+                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="thursdayOn" (click)="fnShowAddBreakForm('Thursday')" >Add Break</button><button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"
                                                 *ngIf="!thursdayOn">Closed</button></div>
                                         <div fxFlex="35" *ngIf="thursdayOn">
                                             <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
@@ -467,7 +467,7 @@
                                                             <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                                                         </mat-select>
                                                     </mat-form-field>
-                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)" matTooltip="Delete Break"></i></div>
                                                 </div>
                                             </div>
                                             <div *ngIf="showThursdayAddForm">
@@ -485,7 +485,7 @@
                                                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="thursdayBreakStartTimeIndex >= i || thursdayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
                                                         </mat-select>
                                                     </mat-form-field>
-                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Thursday')"></i></div>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Thursday')"  matTooltip="Save Break"></i></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -496,8 +496,10 @@
                                             <!-- <mat-slide-toggle></mat-slide-toggle> -->
                                         </div>
                                         <div class="" fxFlex="15">Friday</div>
-                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="fridayOn" (click)="fnShowAddBreakForm('Friday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"
-                                                *ngIf="!fridayOn">Closed</button></div>
+                                        <div class="" fxFlex="15">
+                                            <button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="fridayOn" (click)="fnShowAddBreakForm('Friday')" >Add Break</button>
+                                            <button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"  *ngIf="!fridayOn">Closed</button>
+                                        </div>
                                         <div fxFlex="35" *ngIf="fridayOn">
                                             <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                                 <div class="d-flex" *ngIf="breakTime.week_day_id == '5'">
@@ -514,7 +516,7 @@
                                                             <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                                                         </mat-select>
                                                     </mat-form-field>
-                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)" matTooltip="Delete Break"></i></div>
                                                 </div>
                                             </div>
                                             <div *ngIf="showFridayAddForm">
@@ -532,7 +534,7 @@
                                                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="fridayBreakStartTimeIndex >= i || fridayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
                                                         </mat-select>
                                                     </mat-form-field>
-                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Friday')"></i></div>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Friday')" matTooltip="Save Break"></i></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -543,8 +545,10 @@
                                             <!-- <mat-slide-toggle></mat-slide-toggle> -->
                                         </div>
                                         <div class="" fxFlex="15">Saturday</div>
-                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="saturdayOn" (click)="fnShowAddBreakForm('Saturday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"
-                                                *ngIf="!saturdayOn">Closed</button></div>
+                                        <div class="" fxFlex="15">
+                                            <button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="saturdayOn" (click)="fnShowAddBreakForm('Saturday')">Add Break</button>
+                                            <button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"  *ngIf="!saturdayOn">Closed</button>
+                                        </div>
                                         <div fxFlex="35" *ngIf="saturdayOn">
                                             <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                                 <div class="d-flex" *ngIf="breakTime.week_day_id == '6'">
@@ -561,7 +565,7 @@
                                                             <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                                                         </mat-select>
                                                     </mat-form-field>
-                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)" matTooltip="Delete Break"></i></div>
                                                 </div>
                                             </div>
                                             <div *ngIf="showSaturdayAddForm">
@@ -579,7 +583,7 @@
                                                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="saturdayBreakStartTimeIndex >= i || saturdayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
                                                         </mat-select>
                                                     </mat-form-field>
-                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Saturday')"></i></div>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Saturday')" matTooltip="Save Break"></i></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -590,8 +594,10 @@
                                             <!-- <mat-slide-toggle></mat-slide-toggle> -->
                                         </div>
                                         <div class="" fxFlex="15">Sunday</div>
-                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="sundayOn" (click)="fnShowAddBreakForm('Sunday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"
-                                                *ngIf="!sundayOn">Closed</button></div>
+                                        <div class="" fxFlex="15">
+                                            <button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="sundayOn" (click)="fnShowAddBreakForm('Sunday')" >Add Break</button>
+                                            <button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"*ngIf="!sundayOn">Closed</button>
+                                        </div>
                                         <div fxFlex="35" *ngIf="sundayOn">
                                             <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                                 <div class="d-flex" *ngIf="breakTime.week_day_id == '0'">
@@ -608,7 +614,7 @@
                                                             <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                                                         </mat-select>
                                                     </mat-form-field>
-                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)" matTooltip="Delete Break"></i></div>
                                                 </div>
                                             </div>
                                             <div *ngIf="showSundayAddForm">
@@ -626,7 +632,7 @@
                                                             <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="sundayBreakStartTimeIndex >= i || sundayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
                                                         </mat-select>
                                                     </mat-form-field>
-                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Sunday')"></i></div>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Sunday')" matTooltip="Save Break"></i></div>
                                                 </div>
                                             </div>
                                         </div>

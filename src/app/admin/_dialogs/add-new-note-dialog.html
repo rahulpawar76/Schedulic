@@ -1,7 +1,7 @@
 <div class="modal-dialog modal-notify modal-info" role="document">
     <div class="modal-content">
         <div class="modal-header modal-bcolor-primary">
-            <h5 class="modal-title">New Note</h5>
+            <h5 class="modal-title">{{noteData ? 'Update Note' : 'New Note'}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -21,7 +21,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn cancelbtn" data-dismiss="modal" (click)="onNoClick()">Cancel</button>
-                <button type="button" class="btn savebtn" data-dismiss="modal" (click)="fnSubmit()">Save</button>
+                <button type="button" class="btn savebtn" data-dismiss="modal" (click)="fnSubmit()">{{noteData ? 'Update' : 'Save'}}</button>
             </div>
         </form>
     </div>

@@ -22,7 +22,7 @@
                             <div class="row mx-0">
                                 <div class="col-6">
                                     <label class="mb-0 fontsize-md">{{notifications.service.service_name}}</label>
-                                    <p class="mb-0 x-small">Booked By {{notifications.customer.fullname}}</p>
+                                    <p class="mb-0 x-small">Booked By {{notifications.customer?notifications.customer.fullname:''}}</p>
                                 </div>
                                 <div class="col-6 ">
                                     <p class="mb-0 x-small"><i class="material-icons pr-2">calendar_today</i>{{notifications.booking_date}}</p>
@@ -53,7 +53,7 @@
                                 <div class="col-6 ">
                                     <p class="mb-0 x-small" *ngIf="notifications.staff"><i class="fa fa-briefcase pr-2"></i>{{notifications.staff.firstname}} {{notifications.staff.lastname}}</p>
                                     <p class="mb-0 x-small" *ngIf="!notifications.staff"><i class="fa fa-briefcase pr-2"></i>Not Assigned</p>
-                                    <p class="mb-0 x-small"><i class="fa fa-user-o pr-2"></i>{{notifications.customer.fullname}}
+                                    <p class="mb-0 x-small"><i class="fa fa-user-o pr-2"></i>{{notifications.customer ? notifications.customer.fullname : ''}}
                                     </p>
                                 </div>
                             </div>
@@ -92,7 +92,7 @@
                             <div class="row mx-0">
                                 <div class="col-6">
                                     <label class="mb-0 fontsize-md">{{notifications.service.service_name}}</label>
-                                    <p class="mb-0 x-small"><i class="fa fa-user-o pr-2"></i>{{notifications.customer.fullname}}
+                                    <p class="mb-0 x-small"><i class="fa fa-user-o pr-2"></i>{{notifications.customer ? notifications.customer.fullname : ''}}
                                 </div>
                                 <div class="col-6 ">
                                     <p class="mb-0 x-small"><i class="fa fa-briefcase pr-2"></i>{{notifications.staff?notifications.staff.firstname:''}} {{notifications.staff?notifications.staff.lastname:''}}</p>
