@@ -25,9 +25,9 @@ export class StaffService {
     private authenticationService:AuthenticationService
     ) { 
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    this.staffId=JSON.stringify(this.authenticationService.currentUserValue.user_id);
-    this.staffToken = this.authenticationService.currentUserValue.token;
-    this.bussinessId=this.authenticationService.currentUserValue.business_id
+    this.staffId=JSON.stringify(this.currentUser.user_id);
+    this.staffToken = this.currentUser.token;
+    this.bussinessId=this.currentUser.business_id;
     
   }  
 

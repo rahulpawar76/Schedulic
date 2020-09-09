@@ -76,7 +76,7 @@ export class MyProfileComponent implements OnInit {
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
-          panelClass :['green-snackbar']
+          panelClass :['red-snackbar']
         });
       }
     },

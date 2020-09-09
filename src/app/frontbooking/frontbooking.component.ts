@@ -41,7 +41,7 @@ export class FrontbookingComponent implements OnInit {
   navigation = 'arrows';
   
   directAPI:any;
-  is_in_store_service:boolean=false;
+  is_at_home_service:boolean=true;
   catselection = true;
   subcatselection = false;
   serviceselection = false;
@@ -1064,7 +1064,27 @@ export class FrontbookingComponent implements OnInit {
     this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
     //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
     console.log(this.serviceCount[service_id]);
- 
+    var co = 0;
+    var  Arr_co = 0;
+    console.log(this.serviceCartArr)
+    this.serviceCartArr.forEach(element => {
+      console.log(element.service_sub_type);
+      if(element.service_sub_type !== null || element.service_sub_type !== ''){
+        if(element.service_sub_type=='at_home'){
+          co = co + 1;
+        }
+        Arr_co = Arr_co + 1;
+      }
+      
+    });;
+
+    if(co > 0){
+      console.log('true');
+      this.is_at_home_service  = true;
+    }else{
+      console.log('false');
+      this.is_at_home_service  = false;
+    }
 
     //console.log(this.taxAmountArr);
   //  console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
@@ -1471,18 +1491,20 @@ export class FrontbookingComponent implements OnInit {
     var  Arr_co = 0;
     this.serviceCartArr.forEach(element => {
       console.log(element.service_sub_type);
-     if(element.service_sub_type=='in_store'){
-        co = co + 1;
-     }
-     Arr_co = Arr_co + 1;
+      if(element.service_sub_type !== null){
+        if(element.service_sub_type=='at_home'){
+          co = co + 1;
+        }
+        Arr_co = Arr_co + 1;
+      }
    });;
 
-   if(co == Arr_co){
+   if(co > 0){
      console.log('true');
-    this.is_in_store_service  = true;
+    this.is_at_home_service  = true;
    }else{
     console.log('false');
-    this.is_in_store_service  = false;
+    this.is_at_home_service  = false;
    }
  
  
@@ -2015,7 +2037,7 @@ export class FrontbookingComponent implements OnInit {
   
   fnappointmentinfo(event){
 
-    if(this.is_in_store_service==false){
+    if(this.is_at_home_service==true){
       if(!this.formAppointmentInfo.valid){
         this.formAppointmentInfo.get('appo_address').markAsTouched();
         this.formAppointmentInfo.get('appo_state').markAsTouched();
@@ -2899,23 +2921,26 @@ export class FrontbookingComponent implements OnInit {
       this.fnSelectNextValidDate(this.minimumAdvanceBookingDateTimeObject);
       this.directAPI = 'selectnextvalidate';
     }
-    var co = 0;
-    var  Arr_co = 0;
-    this.serviceCartArr.forEach(element => {
-      console.log(element.service_sub_type);
-      if(element.service_sub_type=='in_store'){
-          co = co + 1;
-      }
-      Arr_co = Arr_co + 1;
-    });;
+    // var co = 0;
+    // var  Arr_co = 0;
+    // this.serviceCartArr.forEach(element => {
+    //   console.log(element.service_sub_type);
+    //   if(element.service_sub_type !== null){
+    //     if(element.service_sub_type=='in_store'){
+    //       co = co + 1;
+    //     }
+    //     Arr_co = Arr_co + 1;
+    //   }
+      
+    // });;
 
-    if(co == Arr_co){
-      console.log('true');
-      this.is_in_store_service  = true;
-    }else{
-      console.log('false');
-      this.is_in_store_service  = false;
-    }
+    // if(co == Arr_co){
+    //   console.log('true');
+    //   this.is_in_store_service  = true;
+    // }else{
+    //   console.log('false');
+    //   this.is_in_store_service  = false;
+    // }
     
      
     const dialogRef = this.dialog.open(theme2DateTimeSelection, {
@@ -2947,6 +2972,7 @@ export class FrontbookingComponent implements OnInit {
     });
   }
   theme2CheckoutDialog() {
+    alert(this.is_at_home_service)
     const dialogRef = this.dialog.open(theme2CheckoutDialog, {
       width: '800px',
        data: {
@@ -2957,7 +2983,7 @@ export class FrontbookingComponent implements OnInit {
               taxArr:this.taxArr,
               serviceCount: this.serviceCount,
               bookingPostalcode: this.booking.postalcode,
-              is_in_store_service: this.is_in_store_service,
+              is_at_home_service: this.is_at_home_service,
             }
       
     });
@@ -3061,7 +3087,7 @@ export class theme2CheckoutDialog {
   businessId:any;
   showSameAsAboveCheck:boolean=true;
   errorMessage:any;
-  is_in_store_service:boolean=false;
+  is_at_home_service:boolean=true;
   serviceCartArr:any= [];
   taxArr:any=[];
   userSelectionMain:boolean=true;
@@ -3352,13 +3378,14 @@ export class theme2CheckoutDialog {
         this.showSameAsAboveCheck=true;
       }
 
-      this.is_in_store_service = this.data.is_in_store_service
-      if(this.is_in_store_service && this.isLoggedIn){
+      this.is_at_home_service = this.data.is_at_home_service
+      if(!this.is_at_home_service && this.isLoggedIn){
         this.personalinfo = false;
         this.summaryScreen = true;
+      }else if(!this.is_at_home_service && !this.isLoggedIn){
+        this.personalinfo = true;
       }
-
-      alert("showSameAsAboveCheck = "+this.showSameAsAboveCheck)
+      alert(this.is_at_home_service)
     }
 
     fnUserType(event,usertype){
@@ -3370,6 +3397,15 @@ export class theme2CheckoutDialog {
         this.existinguser = false;
       }
       
+    }
+    fnLogout(){
+  
+      // remove user from local storage to log user out
+      localStorage.removeItem("currentUser");
+      localStorage.removeItem("isFront");
+      localStorage.clear();
+      this.authenticationService.currentUserSubject.next(null);
+      window.location.reload();
     }
     fnViewDashboard(){
       this.dialogRef.close();
@@ -3485,6 +3521,11 @@ export class theme2CheckoutDialog {
           this.personalinfo = true;
           this.appointmentinfo = true;
           this.isLoggedIn=true;
+          if(this.is_at_home_service == true){
+
+          }else if(this.is_at_home_service == false){
+            this.fnappointmentinfo();
+          }
         }else{
   
           this.snackBar.open("Email or Password is incorrect", "X", {
@@ -3499,20 +3540,17 @@ export class theme2CheckoutDialog {
          this.errorMessage = this.handleError;
       });
 
-      this.fnappointmentinfo();
     }
   
 
     fnpersonalinfo(){
       if(this.formNewUser.get('newUserPhone').value === null){
         this.phoneNumberInvalid = "required";
-        alert("null")
         return false;
       }
       if(this.formNewUser.get('newUserPhone').value !== null && (this.formNewUser.get('newUserPhone').value.number.length <= 6 || this.formNewUser.get('newUserPhone').value.number.length >= 15)){
         this.phoneNumberInvalid = "valid";
         this.formNewUser.get('newUserPhone').markAsTouched();
-        alert("not null")
         return false;
       }
       else if(this.formNewUser.valid){
@@ -3604,7 +3642,6 @@ export class theme2CheckoutDialog {
     
   
     fnsameasabove(event){
-      alert('new');
       console.log(event.srcElement.checked)
       if(event.srcElement.checked == true){
         
@@ -3642,8 +3679,6 @@ export class theme2CheckoutDialog {
     } 
   
     fnSameAsBillingAddress(event){
-      alert('existing');
-  
       console.log(event.srcElement.checked)
   
       if(event.srcElement.checked == true){
@@ -3672,7 +3707,7 @@ export class theme2CheckoutDialog {
     } 
     fnappointmentinfo(){
 
-      if(this.is_in_store_service==false){
+      if(this.is_at_home_service==false){
         if(!this.formAppointmentInfo.valid){
           this.formAppointmentInfo.get('appo_address').markAsTouched();
           this.formAppointmentInfo.get('appo_state').markAsTouched();
@@ -3722,11 +3757,8 @@ export class theme2CheckoutDialog {
     }
     fnProceedToSummary(event){
       if(this.isLoggedIn){
-        alert("appoint")
-        
         this.fnappointmentinfo();
       }else{
-        alert("personal")
         if(this.existinguser){
           this.fnloginexisinguser();
         }else if(this.newuser){
