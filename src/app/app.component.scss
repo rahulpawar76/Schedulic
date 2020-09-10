@@ -582,7 +582,7 @@ input:focus {
 }
 
 .top_admin_menu {
-    height: 75vh;
+    height: calc(100vh - 136px);
     overflow-y: scroll;
 }
 

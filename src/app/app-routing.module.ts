@@ -11,6 +11,7 @@ import { OnlinePaymentComponent } from './online-payment';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FrontBookingThemeFourComponent } from './front-booking-theme-four/front-booking-theme-four.component'
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: 'booking', 
     component:  FrontbookingComponent,
+  },
+  {
+    path: 'booking-4', 
+    component:  FrontBookingThemeFourComponent,
   },
   {
     path: 'online-payment', 
