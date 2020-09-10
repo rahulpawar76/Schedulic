@@ -1490,11 +1490,38 @@ input:focus {
     border-radius: 100px;
 }
 
-::ng-deep .gray-btn {
-    font-size: $fs-20;
+.bottom-ctn-btn {
+    .gray-btn {
+        font-size: $fs-16;
+        background-color: $grey-3;
+        padding: 6px 25px;
+        margin: 10px;
+    }
+}
+
+.next-action {
+    .gray-btn {
+        font-size: $fs-16;
+        background-color: $grey-3;
+        padding: 6px 25px;
+        margin: 10px;
+    }
+}
+
+.booking-summary .gray-btn {
+    font-size: $fs-16;
     background-color: $grey-3;
-    padding: 6px 30px;
+    padding: 6px 25px;
     margin: 10px;
+}
+
+.loggedin_head {
+    .gray-btn {
+        font-size: $fs-16;
+        background-color: $grey-3;
+        padding: 6px 25px;
+        margin: 10px;
+    }
 }
 
 ::ng-deep .checkout_popup {

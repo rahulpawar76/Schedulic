@@ -1510,9 +1510,16 @@ export class FrontbookingComponent implements OnInit {
  
  
     if(this.isLoggedIn){
-      this.dateselection = false;
-      this.appointmentinfo = true;
-      this.showSameAsAboveCheck=false;
+      if(this.is_at_home_service){
+        this.dateselection = false;
+        this.appointmentinfo = true;
+        this.showSameAsAboveCheck=false;
+      }else{
+        this.dateselection = false;
+        this.appointmentinfo = false;
+        this.showSameAsAboveCheck=false;
+        this.summaryScreen=true;
+      }
     }else{
       this.dateselection = false;
       this.personalinfo = true;
@@ -1788,10 +1795,15 @@ export class FrontbookingComponent implements OnInit {
             panelClass : ['green-snackbar']
             });
         }
-       
+       if(this.is_at_home_service){
         this.personalinfo = false;
         this.appointmentinfo = true;
         this.isLoggedIn=true;
+       }else if(this.is_at_home_service){
+        this.personalinfo = false;
+        this.summaryScreen = true;
+        this.isLoggedIn=true;
+       }
       }else{
 
         this.snackBar.open("Email or Password is incorrect", "X", {

@@ -532,7 +532,7 @@
                 </div>
             </mat-card-content>
         </div>
-        <div id="appointment_info" class="main-step step_7 p-0" *ngIf="appointmentinfo">
+        <div id="appointment_info" class="main-step step_7 p-0" *ngIf="appointmentinfo && is_at_home_service">
             <div class="step-top-head"></div>
             <div class="col-lg-12 col-sm-12 col-12 float-left
                             loggedin_head" *ngIf="isLoggedIn">
@@ -552,7 +552,7 @@
                 </div>
                 <div class="col-lg-12 col-sm-12 col-12 float-left" *ngIf="showSameAsAboveCheck">
                     <!-- <mat-checkbox (change)="fnsameasabove($event)" class="same-check" id="same_check" name="sameasabove"></mat-checkbox> -->
-                    <div class="custom-control custom-checkbox" *ngIf="is_at_home_service==true">
+                    <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="same_check" (change)="fnsameasabove($event)" name="sameasabove">
                         <label class="custom-control-label same_check_label" for="same_check">Same as Above</label>
                     </div>
