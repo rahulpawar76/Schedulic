@@ -93,10 +93,11 @@ export class AppearanceComponent implements OnInit {
         // const enc = new Base64();   
         // this.encodedBusinessId = enc.encode(this.businessId);
         // console.log(this.encodedBusinessId);
+        this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+window.btoa(this.businessId)+"'></iframe>";
         
       }
-      this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+window.btoa(this.businessId)+"'></iframe>";
-  }
+      
+    }
 
   ngOnInit() {
     this.Appearance = this._formBuilder.group({
@@ -269,7 +270,6 @@ export class AppearanceComponent implements OnInit {
         this.settingData = response.response
         console.log(this.settingData);
         if(this.settingData.appearance){
-          
         this.getAppearanceData = JSON.parse(this.settingData.appearance); 
         this.primarycolor = this.getAppearanceData.pri_color;
         this.primarygradient1 =  this.getAppearanceData.pri_gradient1;
@@ -282,9 +282,17 @@ export class AppearanceComponent implements OnInit {
         if(this.settingData.form_settings){
           this.formArr=JSON.parse(this.settingData.form_settings);
         }
-        if(this.settingData.theme){
-          this.defaultTheme = this.settingData.theme
-        }
+        // if(this.settingData.theme){
+        //   this.defaultTheme = this.settingData.theme
+        //   if(this.defaultTheme == 1){
+        //     this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+window.btoa(this.businessId)+"'></iframe>";
+        //   }else{
+        //     this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking-"+this.defaultTheme+"?business_id="+window.btoa(this.businessId)+"'></iframe>";
+        //   }
+        // }else{
+        //   this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+window.btoa(this.businessId)+"'></iframe>";
+        // }
+        
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
        
         this._snackBar.open(response.response, "X", {
