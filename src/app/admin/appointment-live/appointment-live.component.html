@@ -174,7 +174,8 @@
                         <mat-expansion-panel [expanded]="panelOpenState" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
-                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <i class="fa fa-user" aria-hidden="true" matTooltip="Please Enter Customer Details"
+                                    aria-label="Please Enter Customer Details"></i>
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
                             <div class="cutomer-form-body">
@@ -205,9 +206,13 @@
                                         <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
                                             <mat-form-field>
                                                 <mat-label>Name</mat-label>
-                                                <input matInput formControlName="cus_name" placeholder="Enter name">
+                                                <input matInput formControlName="cus_name" placeholder="Enter name" pattern="[a-zA-Z ]*" >
                                             </mat-form-field>
-                                            <span class="error-wrap" *ngIf="newCustomer.get('cus_name').dirty || newCustomer.get('cus_name').touched || formSubmitclicked"><small *ngIf="newCustomer.get('cus_name').hasError('required')" class="error">Fullname is required.</small></span>
+                                            <span class="error-wrap" *ngIf="newCustomer.get('cus_name').dirty || newCustomer.get('cus_name').touched || formSubmitclicked">
+                                                <small *ngIf="newCustomer.get('cus_name').hasError('required')" class="error">Fullname is required.</small>
+                                                <small *ngIf="newCustomer.get('cus_name').hasError('pattern')" class="error">Fullname should be string character only.</small>
+
+                                            </span>
                                         </div>
                                     </div>
                                 </form>
@@ -398,7 +403,7 @@
                     <div class="order-listing">
                         <div class="single-order" *ngFor="let val of outdoorOrdersArr;let i=index">
                             <label class="order-id">Order ID :  {{val.order_id}}</label>
-                            <div class="location-container">
+                            <div class="location-container" (click)="OutDootMap(i)">
                                 <div class="pickup-point">
                                     <img src="/assets/images/admin/delivery.png">
                                     <p>Delivery Boy Live Location</p>
@@ -409,7 +414,7 @@
                                 </div>
                             </div>
                             <div class="action-btn">
-                                <button (click)="fnOpenOnTheWayDetails(val); OutDootMap(i)" mat-button class="detail-btn">Appointment Details</button>
+                                <button (click)="fnOpenOnTheWayDetails(val);" mat-button class="detail-btn">Appointment Details</button>
                                 <button mat-button *ngIf="val.service.service_sub_type!='in_store'" class="{{val.order_status=='AC'?'otw-btn':'ws-btn'}}" (click)="fnOrderUpdateStatus(val.order_status,val.id,'out_store')">
                                        {{val.order_status=="AC"?"On The Way":val.order_status=="AC"?'Completed':"Work Started"}} 
                                 </button>
@@ -421,12 +426,11 @@
                     </div>
                 </div>
 
-                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="35">
+                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="35" *ngIf="ShowMap">
                     <agm-direction [origin]="origin" [destination]="destination" [renderOptions]="renderOptions">
                     </agm-direction>
                 </agm-map>
-
-                <p *ngIf="!ShowMap">Map loading</p>
+                <p *ngIf="!ShowMap" class="col-6 text-right mt-4"><strong>In store Service</strong></p>
             </div>
 
         </mat-tab>
@@ -627,22 +631,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="px-3 mt-3 py-2 service-details-title">
-                            <div class="row ">
-                                <div class="col-6">
-                                    <span>Service</span>
-                                </div>
-                                <div class="col-3">
-                                    <span>QTY.</span>
-                                </div>
-                                <div class="col-3 pr-3">
-                                    <span>Price</span>
-                                </div>
-                            </div>
-                        </div>
+                      
                         <div class="order-items">
                             <div *ngFor="let val of pendingBillingData;let i=index">
                                 <div class="px-3 mt-3" *ngIf="val.is_selected==true">
+                                    <div class="px-3 mt-3 py-2 service-details-title">
+                                        <div class="row ">
+                                            <div class="col-6">
+                                                <span>Service</span>
+                                            </div>
+                                            <div class="col-3">
+                                                <span>QTY.</span>
+                                            </div>
+                                            <div class="col-3 pr-3">
+                                                <span>Price</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row ">
                                         <div class="col-6">
                                             <span>{{val.service.service_name}}</span>
@@ -659,21 +664,6 @@
                                 </div>
                             </div>
 
-                            <!-- <div class="px-3 mt-2">
-                                <div class="row ">
-                                    <div class="col-6">
-                                        <span>Gold <span class="text-secondary">(Hiar Colour)</span></span>
-                                        <p>Staff Waiting</p>
-                                    </div>
-                                    <div class="col-3">
-                                        <span>1</span>
-                                    </div>
-                                    <div class="col-3 pr-3">
-                                        <i class="fa fa-rupee pr-1"></i><span>50</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="my-2"> -->
 
                             <div class="px-3 mt-2">
                                 <div class="row ">

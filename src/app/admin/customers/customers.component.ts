@@ -69,6 +69,7 @@ export class CustomersComponent implements OnInit {
 
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^-?(0|[1-9]\d*)?$/
+  onlyString = /^[a-zA-Z]+$/
 
   visible = true;
   selectable = true;
@@ -173,15 +174,15 @@ export class CustomersComponent implements OnInit {
     this.getAllCustomers();
     
     this.createNewCustomer = this._formBuilder.group({
-      cus_fullname : ['', Validators.required],
+      cus_fullname : ['', Validators.required,Validators.pattern('[a-zA-Z ]*')],
       cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
       cus_phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_officenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_homenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_address : ['', Validators.required],
-      cus_state : ['', Validators.required],
-      cus_city : ['', Validators.required],
-      cus_zip : ['',[Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
+      cus_state : ['', Validators.required,Validators.pattern('[a-zA-Z ]*')],
+      cus_city : ['', Validators.required,Validators.pattern('[a-zA-Z ]*')],
+      cus_zip : ['',[Validators.required,Validators.minLength(5),Validators.maxLength(7),Validators.pattern(this.onlynumeric)]],
       customer_id : ['']
     });
     // this.formPayment = this._formBuilder.group({
@@ -193,23 +194,19 @@ export class CustomersComponent implements OnInit {
   }
 
   fnGetSettings(){
+
     let requestObject = {
       "business_id" : this.businessId
-      };
+    };
 
     this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.settingsArr = response.response;
-        console.log(this.settingsArr);
 
+        this.settingsArr = response.response;
         this.currencySymbol = this.settingsArr.currency;
-        console.log(this.currencySymbol);
-        
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-        console.log(this.currencySymbolPosition);
-        
         this.currencySymbolFormat = this.settingsArr.currency_format;
-        console.log(this.currencySymbolFormat);
+
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
@@ -306,8 +303,10 @@ export class CustomersComponent implements OnInit {
   }
 
   fnCreateCustomerSubmit(){
+    console.log(this.createNewCustomer);
+
     if(this.createNewCustomer.get('customer_id').value != null){
-      this.existingUserId = this.createNewCustomer.get('customer_id').value
+      this.existingUserId = this.createNewCustomer.get('customer_id').value;
       if(this.createNewCustomer.valid){
         if(this.customerImageUrl != ''){
           this.existingCustomerData ={
@@ -437,19 +436,18 @@ customerUpdate(existingCustomerData){
 }
 
   fnAddNewCustomer(){
-    alert(this.customerImageUrl)
     this.newCustomer = true;
     this.fullDetailsOfCustomer = false;
     this.createNewCustomer = this._formBuilder.group({
-      cus_fullname : ['', Validators.required],
+      cus_fullname : ['', Validators.required,Validators.pattern('[a-zA-Z ]*')],
       cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
       cus_phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_officenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_homenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_address : ['', Validators.required],
-      cus_state : ['', Validators.required],
-      cus_city : ['', Validators.required],
-      cus_zip : ['',[Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
+      cus_state : ['', Validators.required,Validators.pattern('[a-zA-Z ]*')],
+      cus_city : ['', Validators.required,Validators.pattern('[a-zA-Z ]*')],
+      cus_zip : ['',[Validators.required,Validators.minLength(5),Validators.maxLength(7),Validators.pattern(this.onlynumeric)]],
       customer_id : ['']
     });
     this.createNewCustomer.controls['customer_id'].setValue(null);
@@ -579,29 +577,34 @@ customerUpdate(existingCustomerData){
   }
 
   fnDeleteNote(noteId){
-    this.isLoaderAdmin = true;
-    let requestObject = {
-      "note_id" : noteId
-    }
-  this.AdminService.fnDeleteNote(requestObject).subscribe((response:any) => {
-    if(response.data == true){
-      this._snackBar.open("Note Deleted.", "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['green-snackbar']
+
+    if(confirm('are you sure to delete this notes ?')){
+
+      this.isLoaderAdmin = true;
+      let requestObject = {
+        "note_id" : noteId
+      }
+     
+      this.AdminService.fnDeleteNote(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this._snackBar.open("Note Deleted.", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+          this.getAllCustomers();
+          this.isLoaderAdmin = false;
+        } else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+        this.isLoaderAdmin = false;
+        }
       });
-      this.getAllCustomers();
-      this.isLoaderAdmin = false;
     }
-    else if(response.data == false && response.response !== 'api token or userid invaild'){
-      this._snackBar.open(response.response, "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['green-snackbar']
-      });
-    this.isLoaderAdmin = false;
-    }
-  })
+
   }
   
   editCustomer(customer_id){
@@ -972,14 +975,16 @@ customerUpdate(existingCustomerData){
   }
 
   fnOnChangeDiscount(event){
-    console.log("OnChangeDiscount");
-    console.log(event.target.value);
-    console.log(this.formPayment.get('paymentAmount').value);
+ 
     this.serviceMainArr.subtotal=parseFloat(this.formPayment.get('paymentAmount').value);
     this.taxAmountArr.length=0;
     this.serviceMainArr.discount_type=this.serviceMainArr.discount_type;
     this.serviceMainArr.discount_value=this.serviceMainArr.discount_value;
     this.serviceMainArr.discount=parseFloat(event.target.value);
+
+    if(this.serviceMainArr.subtotal < event.target.value || this.serviceMainArr.subtotal == event.target.value){
+      return false;
+    }
 
     var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
     var amountAfterTax=0;
@@ -1594,7 +1599,7 @@ constructor(
     })
   }
   
-  rescheduleAppointment(){
+  fnRescheduleAppointment (){
     const dialogRef = this.dialog.open(InterruptedReschedulecustomer, {
       height: '700px',
       data : {appointmentDetails: this.detailsData}
@@ -1659,7 +1664,7 @@ export class InterruptedReschedulecustomer {
   fnGetTimeSlots(selectedDate){
     let requestObject = {
       "business_id":this.businessId,
-      "selected_date":selectedDate
+      "selected_date":selectedDate,
     };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -1681,45 +1686,44 @@ export class InterruptedReschedulecustomer {
       (err) =>{
         console.log(err)
       })
-    }
+  }
    
-    fnChangeTimeSlot(selectedTimeSlot){
-      console.log(selectedTimeSlot);
-      this.formAppointmentRescheduleAdmin.controls['rescheduleStaff'].setValue(null);
-      this.selectedTimeSlot=selectedTimeSlot;
-      this.fnGetStaff(selectedTimeSlot);
-    }
+  fnChangeTimeSlot(selectedTimeSlot){
+    console.log(selectedTimeSlot);
+    this.formAppointmentRescheduleAdmin.controls['rescheduleStaff'].setValue(null);
+    this.selectedTimeSlot=selectedTimeSlot;
+    this.fnGetStaff(selectedTimeSlot);
+  }
 
-    fnGetStaff(selectedTimeSlot){
-      let requestObject = {
-        "postal_code":this.detailsData.postalCode,
-        "business_id":this.businessId,
-        "service_id":JSON.stringify(this.detailsData.serviceId),
-        "book_date":this.selectedDate,
-        "book_time":this.selectedTimeSlot
-      };
-      let headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-      });
+  fnGetStaff(selectedTimeSlot){
 
-      this.http.post(`${environment.apiUrl}/service-staff`,requestObject,{headers:headers} ).pipe(
-        map((res) => {
-          return res;
-        }),
-        //catchError(this.handleError)
-      ).subscribe((response:any) => {
-        if(response.data == true){
-            this.availableStaff = response.response;
-            console.log(JSON.stringify(this.availableStaff));
-        }
-        else{
-          this.availableStaff.length=0;
-        }
-        },
-        (err) =>{
-          console.log(err)
-        })
+    let requestObject = {
+      "postal_code":this.detailsData.postal_code,
+      "business_id":this.businessId,
+      "service_id":JSON.stringify(this.detailsData.service_id),
+      "book_date":this.selectedDate,
+      "book_time":this.selectedTimeSlot
+    };
+  
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    this.http.post(`${environment.apiUrl}/service-staff`,requestObject,{headers:headers} ).pipe(
+      map((res) => {
+        return res;
+      }),
+    ).subscribe((response:any) => {
+      if(response.data == true){
+          this.availableStaff = response.response;
+          console.log(JSON.stringify(this.availableStaff));
+      } else{
+        this.availableStaff.length=0;
       }
+    },(err) =>{
+      console.log(err)
+    })
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -2788,7 +2792,6 @@ export class DialogAddNewNote {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.customer_id = this.data.customer_id
       this.noteData = this.data.fulldata
-      console.log(this.noteData);
 
       if(localStorage.getItem('business_id')){
         this.businessId = localStorage.getItem('business_id');

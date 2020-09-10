@@ -78,8 +78,7 @@ export class AttendeesRegistrationComponent implements OnInit {
 			catchError(this.handleError)
 			).subscribe((response:any) => {
 				this.adminSignUpData = JSON.stringify(response.response)
-				
-				console.log(this.adminSignUpData);
+
 				localStorage.setItem('adminData',this.adminSignUpData)
 			  if(response.data == true){
 				this._snackBar.open("Account Succesfully Created", "X", {

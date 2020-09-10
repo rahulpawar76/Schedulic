@@ -78,7 +78,9 @@
             <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
             <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
             </button>
-                    <button mat-stroked-button class="bellborder bell-color" (click)="logout2(true)">
+                    <button mat-stroked-button class="bellborder bell-color" (click)="logout2(true)"
+                    matTooltip="Logout" aria-label="clcik on Logout"
+                    >
             <i mat-list-icon class="fa fa-sign-out"></i>
             </button>
                     </span>
@@ -101,7 +103,7 @@
                             <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
                             <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
                         </button>
-                    <button mat-stroked-button class="bellborder bell-color" (click)="logout2(true)">
+                    <button mat-stroked-button class="bellborder bell-color" (click)="logout2(true)" matTooltip="Logout" aria-label="clcik on Logout">
                             <i mat-list-icon class="fa fa-sign-out"></i>
                         </button>
                     </span>
@@ -183,29 +185,29 @@
                                     </mde-popover>
                                 </div>
                             </mat-list-item>
-                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-workspace' }" class="{{pageHeading=='My Workspace'?'active':''}}" (click)="myWorkSpaceNav(); fnPostUrl('my-workspace');">
+                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-workspace' }" class="{{pageHeading=='My Workspace'?'active':''}}" (click)="myWorkSpaceNav(); fnPostUrl('my-workspace');" matTooltip="Workspace">
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-bag.png"></div>
                             </mat-list-item>
-                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-appointment' }" class="{{pageHeading=='My Appointments'?'active':''}}" (click)="MyAppointmentNav(); fnPostUrl('my-appointment');">
+                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-appointment' }" class="{{pageHeading=='My Appointments'?'active':''}}" (click)="MyAppointmentNav(); fnPostUrl('my-appointment');" matTooltip="Appointment">
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-calendar.png">
                                 </div>
                             </mat-list-item>
-                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-customers' }" class="{{pageHeading=='My Customer'?'active':''}}" (click)="MyCustomerNav(); fnPostUrl('my-customers');">
+                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-customers' }" class="{{pageHeading=='My Customer'?'active':''}}" (click)="MyCustomerNav(); fnPostUrl('my-customers');" matTooltip="Customers">
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-user.png">
                                 </div>
                             </mat-list-item>
-                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-reports' }" class="{{pageHeading=='My Reports'?'active':''}}" (click)="MyReportsNav(); fnPostUrl('my-reports');">
+                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-reports' }" class="{{pageHeading=='My Reports'?'active':''}}" (click)="MyReportsNav(); fnPostUrl('my-reports');" matTooltip="Reports">
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-statistics.png"></div>
                             </mat-list-item>
-                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-discountCoupon' }" class="{{pageHeading=='My Discount Coupon'?'active':''}}" (click)="MyDiscountCouponNav(); fnPostUrl('my-discountCoupon');">
+                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-discountCoupon' }" class="{{pageHeading=='My Discount Coupon'?'active':''}}" (click)="MyDiscountCouponNav(); fnPostUrl('my-discountCoupon');" matTooltip="DiscountCoupon">
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-couon.png"></div>
                             </mat-list-item>
                         </div>
                         <div class="bottom_admin_menu">
-                            <mat-list-item role="listitem" (click)="MySettingsNav(); fnPostUrl('my-settings');" class="{{pageHeading=='My Settings'?'active':''}}" [ngClass]="{'active': postUrl == 'my-settings' }">
+                            <mat-list-item role="listitem" (click)="MySettingsNav(); fnPostUrl('my-settings');" class="{{pageHeading=='My Settings'?'active':''}}" [ngClass]="{'active': postUrl == 'my-settings' }" matTooltip="Settings">
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-settings.png"></div>
                             </mat-list-item>
-                            <mat-list-item role="listitem" (click)="MyProfileNav(); fnPostUrl('my-profile');" class="{{pageHeading=='My Profile'?'active':''}}" [ngClass]="{'active': postUrl == 'my-profile' }">
+                            <mat-list-item role="listitem" (click)="MyProfileNav(); fnPostUrl('my-profile');" class="{{pageHeading=='My Profile'?'active':''}}" [ngClass]="{'active': postUrl == 'my-profile' }" matTooltip="Profile">
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-user-2.png"></div>
                             </mat-list-item>
                         </div>
@@ -261,8 +263,8 @@
                 <button mat-menu-item class="menuitem"><i mat-list-icon   class="fa fa-calendar mr-3"></i>My Appointments</button>
             </mat-list-item>
             <mat-list-item role="listitem">
-                <button mat-menu-item (click)="logout(); drawer.toggle();" class="menuitem">
-        <i mat-list-icon class="fa fa-sign-out mr-3 menuitem"></i>Logout</button>
+                <button mat-menu-item (click)="logout(); drawer.toggle();" class="menuitem" matTooltip="Logout" aria-label="clcik on Logout">
+                     <i mat-list-icon class="fa fa-sign-out mr-3 menuitem"></i>Logout</button>
             </mat-list-item>
         </mat-list>
         <mat-list role="list" *ngIf="isStaffUser()">
@@ -282,8 +284,8 @@
                 <button mat-menu-item class="menuitem"><i mat-list-icon class="material-icons mr-3">people_alt</i>Work Profile</button>
             </mat-list-item>
             <mat-list-item role="listitem">
-                <button mat-menu-item (click)="logout(); drawer.toggle();" class="menuitem">
-        <i mat-list-icon class="fa fa-sign-out mr-3 menuitem"></i>Logout</button>
+                <button mat-menu-item (click)="logout(); drawer.toggle();" class="menuitem" matTooltip="Logout" aria-label="clcik on Logout">
+                    <i mat-list-icon class="fa fa-sign-out mr-3 menuitem"></i>Logout</button>
             </mat-list-item>
         </mat-list>
         <mat-list role="list" *ngIf="isStaffUser() && isAdminUser()">
@@ -306,7 +308,7 @@
         </mat-list-item> -->
             <mat-list-item role="listitem">
                 <button mat-menu-item (click)="logout(); drawer.toggle();" class="menuitem">
-        <i mat-list-icon class="fa fa-sign-out mr-3 menuitem"></i>Logout</button>
+        <i mat-list-icon class="fa fa-sign-out mr-3 menuitem" matTooltip="Logout" aria-label="clcik on Logout"></i>Logout</button>
             </mat-list-item>
         </mat-list>
     </mat-drawer>

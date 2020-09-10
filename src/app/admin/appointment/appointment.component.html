@@ -19,7 +19,6 @@
                             <mat-option *ngFor="let allservices of allservices;" value="{{allservices.id}}">{{allservices.service_name}}</mat-option>
                         </mat-select>
                     </mat-form-field>
-
                     <mat-form-field class="appoint-action bottom-border-field">
                         <mat-label>Actions</mat-label>
                         <mat-select [disabled]="orderItemsIdArr.length == 0" [(ngModel)]="selectedValue" (selectionChange)="fnAppointAction($event.value)">

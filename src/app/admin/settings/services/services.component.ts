@@ -192,6 +192,21 @@ export class ServicesComponent implements OnInit {
     fnSettingMenuToggleLarge(){
         this.settingSideMenuToggle = false;
     }
+
+    conversion(mins) { 
+        
+        // getting the hours. 
+        let hrs = Math.floor(parseInt(mins) / 60);  
+        // getting the minutes. 
+        let min = mins % 60;  
+        // formatting the hours. 
+        let new_hrs = hrs < 10 ? '0' + hrs : hrs;  
+        // formatting the minutes. 
+        let new_min = min < 10 ? '0' + min : min;  
+        // returning them as a string. 
+      return `${new_hrs}:${new_min}`;  
+    } 
+
     fnGetSettings(){
         let requestObject = {
             "business_id" : this.businessId
