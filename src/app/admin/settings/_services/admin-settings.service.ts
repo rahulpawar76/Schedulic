@@ -1694,6 +1694,21 @@ export class AdminSettingsService {
         }),
         catchError(this.handleError));
     }
+
+    cancelSubscriptionPlans(requestObject){
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/admin-cancel-plan`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
     fnChangePlan(requestObject){
         this.checkAuthentication();
         let headers = new HttpHeaders({

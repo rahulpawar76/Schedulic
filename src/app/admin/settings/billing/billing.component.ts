@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+// import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
@@ -7,7 +7,8 @@ import { DatePipe} from '@angular/common';
 import { AuthenticationService } from '@app/_services';
 import { AdminSettingsService } from '../_services/admin-settings.service';
 import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
- 
+import { Router, RouterEvent, RouterOutlet } from '@angular/router';
+
 
 
 export interface DialogData {
@@ -29,6 +30,7 @@ export class BillingComponent implements OnInit {
     private http: HttpClient,
     private _snackBar: MatSnackBar,
     public dialog: MatDialog,
+    public router: Router,
     private authenticationService:AuthenticationService,
     private AdminSettingsService: AdminSettingsService,
   ) { 
@@ -52,7 +54,6 @@ export class BillingComponent implements OnInit {
   getSubscriptionPlans(){
     this.isLoaderAdmin=true;
     let requestObject = {
-
     }
     this.AdminSettingsService.getSubscriptionPlans(requestObject).subscribe((response:any) => {
       if(response.data == true){
@@ -71,7 +72,7 @@ export class BillingComponent implements OnInit {
         panelClass: ['red-snackbar']
         });
     }
-  });
+    });
   this.isLoaderAdmin=false;
 }
 
@@ -90,8 +91,7 @@ export class BillingComponent implements OnInit {
     this.AdminSettingsService.fnChangePlan(requestObject).subscribe((response:any) => {
       if(response.data == true){
       
-    }
-    else if(response.data == false && response.response !== 'api token or userid invaild'){
+    }else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
         duration: 2000,
         verticalPosition: 'top',
@@ -104,4 +104,30 @@ export class BillingComponent implements OnInit {
 });
   }
 
+  fnCancelPlane(){
+    
+    if(confirm('Are you you want to cancel current plan ?')){
+      let requestObject = {
+        'user_id' : this.currentUser.user_id
+      }
+
+      this.AdminSettingsService.cancelSubscriptionPlans(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.authenticationService.logout();
+          this.router.navigate(['/login']);
+          return false;
+        } else if(response.data == false && response.response !== 'api token or userid invaild'){
+
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass: ['red-snackbar']
+          });
+
+        }
+      });
+
+    }
+
+  }
 }

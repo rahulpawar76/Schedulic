@@ -128,6 +128,7 @@ export class DialogSubscriptionCardForm {
     }
 
     
+    
     fnPayNow(){
       let requestObject = {
         'user_id' : JSON.stringify(this.adminData.user_id),

@@ -92,14 +92,14 @@
             <h5>Subscription Plans</h5>
             <mat-card class="current-plan-detail row mx-0">
                 <h3>Current Plan :
-                    <span>Basic Plan</span>
+                    <span>{{currentUser.plan.plan_name}}</span>
                 </h3>
                 <div class="col-12 col-md-6">
-                    <label>Start Date : <span>12, June 2020</span></label>
-                    <label>End Date : <span>12, November 2020</span></label>
+                    <label>Start Date : <span>{{currentUser.currentPlan.start_date}}</span></label>
+                    <label>End Date : <span>{{currentUser.currentPlan.end_date}}</span></label>
                 </div>
                 <div class="action-btn">
-                    <button mat-button class="cancel-btn">Cancel Subscription</button>
+                    <button mat-button class="cancel-btn" (click)="fnCancelPlane();">Cancel Subscription</button>
                 </div>
             </mat-card>
             <div class=" mt-5 plan-content p-2">
