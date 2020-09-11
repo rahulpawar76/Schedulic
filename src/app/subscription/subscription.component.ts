@@ -153,34 +153,35 @@ export class DialogSubscriptionCardForm {
             verticalPosition: 'top',
             panelClass: ['green-snackbar']
           });
-            this.router.navigate(['/login']);
-      }
-      else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this.dialogRef.close();
+          this.router.navigate(['/login']);
+      } else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['red-snackbar']
-          });
-      }
-    });
-  }
-  gelAllCountry(){
-    this.isLoaderAdmin =true;
-    this.CommonService.gelAllCountry().subscribe((response:any) => {
-      if(response.data == true){
-        this.allCountry = response.response
-      }
-      else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this.allCountry = ''
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
         });
       }
-    })
-    this.isLoaderAdmin =false;
-  }
+    });
+    }
+
+    gelAllCountry(){
+      this.isLoaderAdmin =true;
+      this.CommonService.gelAllCountry().subscribe((response:any) => {
+        if(response.data == true){
+          this.allCountry = response.response
+        }
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this.allCountry = ''
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+      })
+      this.isLoaderAdmin =false;
+    }
 
     
   }

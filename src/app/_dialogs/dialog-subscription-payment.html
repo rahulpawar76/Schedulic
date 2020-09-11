@@ -64,7 +64,7 @@
 
                                 <div class="col-4">
                                     <label for="" class="mb-0">CVV</label>
-                                    <input formControlName="cardCVV" type="text" class="form-control mb-1" />
+                                    <input formControlName="cardCVV" type="password" class="form-control mb-1" />
                                     <span class="error-wrap" *ngIf="cardPaymentForm.get('cardCVV').dirty || cardPaymentForm.get('cardCVV').touched">
                                         <small *ngIf="cardPaymentForm.get('cardCVV').hasError('required') || (cardPaymentForm.get('cardCVV').hasError('required')) && (cardPaymentForm.get('cardCVV').hasError('cardCVV') || cardPaymentForm.get('cardCVV').hasError('cardCVV'))" class="error">CVV is required.</small>
                                         <small *ngIf="!cardPaymentForm.get('cardCVV').hasError('pattern') && (cardPaymentForm.get('cardCVV').hasError('maxlength') || cardPaymentForm.get('cardCVV').hasError('minlength'))" class="error">CVV should be 3 digit.</small>

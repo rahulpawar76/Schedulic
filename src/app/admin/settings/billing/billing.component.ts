@@ -84,23 +84,23 @@ export class BillingComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
         this.isLoaderAdmin = true;
-    let requestObject = {
-      'user_id': this.currentUser.user_id,
-      'plan_id':planId
+        let requestObject = {
+          'user_id': this.currentUser.user_id,
+          'plan_id':planId
+        }
+        this.AdminSettingsService.fnChangePlan(requestObject).subscribe((response:any) => {
+          if(response.data == true){
+          
+          }else if(response.data == false && response.response !== 'api token or userid invaild'){
+            this._snackBar.open(response.response, "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass: ['red-snackbar']
+          });
+        }
+      });
+      this.isLoaderAdmin=false;
     }
-    this.AdminSettingsService.fnChangePlan(requestObject).subscribe((response:any) => {
-      if(response.data == true){
-      
-    }else if(response.data == false && response.response !== 'api token or userid invaild'){
-      this._snackBar.open(response.response, "X", {
-        duration: 2000,
-        verticalPosition: 'top',
-        panelClass: ['red-snackbar']
-        });
-    }
-  });
-  this.isLoaderAdmin=false;
-}
 });
   }
 
@@ -108,7 +108,7 @@ export class BillingComponent implements OnInit {
     
     if(confirm('Are you you want to cancel current plan ?')){
       let requestObject = {
-        'user_id' : this.currentUser.user_id
+        'user_id' : this.currentUser.user_id,
       }
 
       this.AdminSettingsService.cancelSubscriptionPlans(requestObject).subscribe((response:any) => {
