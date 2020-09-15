@@ -39,7 +39,9 @@ import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import { OnlinePaymentComponent } from './online-payment/online-payment.component';
 import { BnNgIdleService } from 'bn-ng-idle';
-import { FrontBookingThemeFourComponent, theme4DateTimeSelection } from './front-booking-theme-four/front-booking-theme-four.component'; 
+import { FrontBookingThemeFourComponent, theme4DateTimeSelection } from './front-booking-theme-four/front-booking-theme-four.component';
+import { FrontBookingThemeSixComponent, theme6DateTimeSelection } from './front-booking-theme-six/front-booking-theme-six.component';
+import { FrontBookingThemeThreeComponent, theme3DateTimeSelection } from './front-booking-theme-three/front-booking-theme-three.component'; 
 //import { GoogleMapsModule } from '@angular/google-maps'
 
 registerLocaleData(localeDe);
@@ -81,11 +83,15 @@ export function provideConfig() {
         theme2CheckoutDialog,
         theme2DateTimeSelection,
         theme4DateTimeSelection,
+        theme6DateTimeSelection,
+        theme3DateTimeSelection,
         DialogLogoutAppointment,
         OnlinePaymentComponent,
         DialogReAuthentication,
         DialogAuthentication,
         FrontBookingThemeFourComponent,
+        FrontBookingThemeSixComponent,
+        FrontBookingThemeThreeComponent,
         ],
     imports: [
         BrowserModule,
@@ -145,6 +151,8 @@ export function provideConfig() {
       theme2CheckoutDialog,
       theme2DateTimeSelection,
       theme4DateTimeSelection,
+      theme6DateTimeSelection,
+      theme3DateTimeSelection,
       DialogAuthentication,
     ],
 })

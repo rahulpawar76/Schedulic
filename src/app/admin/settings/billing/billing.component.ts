@@ -26,6 +26,7 @@ export class BillingComponent implements OnInit {
   selectedPlanCode:any;
   settingSideMenuToggle:boolean = false;
   isLoaderAdmin:boolean=false;
+  updatedPlan:any;
   constructor(
     private http: HttpClient,
     private _snackBar: MatSnackBar,
@@ -90,6 +91,15 @@ export class BillingComponent implements OnInit {
         }
         this.AdminSettingsService.fnChangePlan(requestObject).subscribe((response:any) => {
           if(response.data == true){
+            this.updatedPlan= response.response;
+            this.currentUser.currentPlan = this.updatedPlan;
+            this.currentUser.plan = this.updatedPlan.plan;
+            localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+            this._snackBar.open("Plan Updated.", "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass: ['green-snackbar']
+            });
           
           }else if(response.data == false && response.response !== 'api token or userid invaild'){
             this._snackBar.open(response.response, "X", {
@@ -108,7 +118,7 @@ export class BillingComponent implements OnInit {
     
     if(confirm('Are you you want to cancel current plan ?')){
       let requestObject = {
-        'user_id' : this.currentUser.user_id,
+        //'user_id' : this.currentUser.user_id,
       }
 
       this.AdminSettingsService.cancelSubscriptionPlans(requestObject).subscribe((response:any) => {

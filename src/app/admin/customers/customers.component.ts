@@ -182,7 +182,7 @@ export class CustomersComponent implements OnInit {
       cus_address : ['', Validators.required],
       cus_state : ['', Validators.required,Validators.pattern('[a-zA-Z ]*')],
       cus_city : ['', Validators.required,Validators.pattern('[a-zA-Z ]*')],
-      cus_zip : ['',[Validators.required,Validators.minLength(5),Validators.maxLength(7),Validators.pattern(this.onlynumeric)]],
+      cus_zip : ['',[Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
       customer_id : ['']
     });
     // this.formPayment = this._formBuilder.group({
@@ -439,14 +439,14 @@ customerUpdate(existingCustomerData){
     this.newCustomer = true;
     this.fullDetailsOfCustomer = false;
     this.createNewCustomer = this._formBuilder.group({
-      cus_fullname : ['', Validators.required,Validators.pattern('[a-zA-Z ]*')],
+      cus_fullname : ['', Validators.required],
       cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
       cus_phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_officenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_homenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_address : ['', Validators.required],
-      cus_state : ['', Validators.required,Validators.pattern('[a-zA-Z ]*')],
-      cus_city : ['', Validators.required,Validators.pattern('[a-zA-Z ]*')],
+      cus_state : ['', Validators.required],
+      cus_city : ['', Validators.required],
       cus_zip : ['',[Validators.required,Validators.minLength(5),Validators.maxLength(7),Validators.pattern(this.onlynumeric)]],
       customer_id : ['']
     });

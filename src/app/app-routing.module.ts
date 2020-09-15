@@ -12,6 +12,8 @@ import { SubscriptionComponent } from './subscription/subscription.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FrontBookingThemeFourComponent } from './front-booking-theme-four/front-booking-theme-four.component'
+import { FrontBookingThemeSixComponent } from './front-booking-theme-six/front-booking-theme-six.component';
+import { FrontBookingThemeThreeComponent } from './front-booking-theme-three/front-booking-theme-three.component';
 
 const routes: Routes = [
   {
@@ -39,8 +41,16 @@ const routes: Routes = [
     component:  FrontbookingComponent,
   },
   {
+    path: 'booking-3', 
+    component:  FrontBookingThemeThreeComponent,
+  },
+  {
     path: 'booking-4', 
     component:  FrontBookingThemeFourComponent,
+  },
+  {
+    path: 'booking-6', 
+    component:  FrontBookingThemeSixComponent,
   },
   {
     path: 'online-payment', 

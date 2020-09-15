@@ -1,6 +1,6 @@
-<div id="theme_4_booking_flow" class="front-booking-main theme-4 d-flex justify-content-center">
+<div id="theme_6_booking_flow" class="front-booking-main theme-6 d-flex justify-content-center">
     <div class="main_bg"></div>
-    <div id="theme_4" class="theme-main" *ngIf="selectedTheme == '4'">
+    <div id="theme_6" class="theme-main" *ngIf="selectedTheme == '6'">
         <div class="card-wrap main-front-container">
             <mat-card class="p-0">
                 <div class="step-wrapper">
@@ -18,7 +18,6 @@
                         businessDetail.private_status == 'N') && (businessDetail
                         &&
                         businessDetail.status == 'E')">
-                        <div class="step-top-head"></div>
                         <div class="col-lg-12 col-sm-12 col-12 float-left
                             loggedin_head" *ngIf="isLoggedIn">
 
@@ -57,31 +56,30 @@
                                 </div>
                             </div>
                         </mat-card-title>
-                        <mat-card-content class="p-4 mt-0 mx-3 mb-2">
-                            <div class="row service-list">
+                        <mat-card-content class="px-4 pt-0 mx-2 mt-0 mb-0 pad-bottom-50">
+                            <div class="row category-list">
                                 <label *ngFor="let category of catdata; let i=
-                                    index" for="categoty_{{i}}" class="col-lg-6
-                                    col-sm-6 px-4 col-12">
+                                    index" for="categoty_{{i}}" class="col-lg-12
+                                    col-sm-12 col-12">
                                     <input type="radio"
                                         value="category_{{category.id}}"
                                         (click)="fnCategory($event,category.id,category.category_title)"
                                         id="categoty_{{i}}" class="d-none" />
                                     <div class="single-service"
                                         *ngIf="category.status == 'E'">
-                                        <div class="service-img-main">
-                                            <img class="service-img"
+                                        <div class="cat-img-main">
+                                            <img class="cat-img"
                                                 src="{{category.category_image}}"
                                                 />
                                         </div>
                                         <h3 class="service-title">{{category.category_title}}</h3>
-                                        <!-- <p class="service-dec">{{category.category_description}}</p> -->
+                                        <mat-icon>keyboard_arrow_right</mat-icon>
                                     </div>
                                 </label>
                             </div>
                         </mat-card-content>
                     </div>
                     <div id="sub-service_list" class="main-step step_3 p-0" *ngIf="subcatselection">
-                        <div class="step-top-head"></div>
                         <div class="col-lg-12 col-sm-12 col-12 float-left
                             loggedin_head" *ngIf="isLoggedIn">
                             <!-- <p>Welcome, {{customerName}}</p><button (click)="fnLogout()" mat-button class="round-btn gray-btn logout-btn">Logout</button> -->
@@ -97,43 +95,35 @@
                                 </button> {{selectedcategoryName}}
                             </div>
                         </mat-card-title>
-                        <mat-card-content class="p-4 mb-2 mt-0">
-                            <div class="row service-list" *ngIf="subcatdata.length>
+                        <mat-card-content class="p-4 mt-0 mb-0 pad-bottom-50">
+                            <div class="row subcategory-list" *ngIf="subcatdata.length>
                                 0">
-                                <label class="col-lg-4 col-sm-6 col-12" *ngFor="let
-                                    subcategory of subcatdata; let i= index" for="subcategory_{{i}}">
+                                <label *ngFor="let subcategory of subcatdata; let i= index" for="subcategory_{{i}}" class="col-lg-12 col-sm-12 col-12">
                                     <input type="radio"
-                                        value="subcategory_{{subcategory.id}}"
-                                        (change)="fnSubCategory($event,subcategory.id,subcategory.sub_category_name)"
-                                        id="subcategory_{{i}}" class="d-none" />
-                                    <div class="single-service"
-                                        *ngIf="subcategory.sub_category_status
-                                        ==
-                                        'E'">
-                                        <div class="service-img-main">
-                                            <img class="service-img"
+                                            value="subcategory_{{subcategory.id}}"
+                                            (change)="fnSubCategory($event,subcategory.id,subcategory.sub_category_name)"
+                                            id="subcategory_{{i}}" class="d-none" />
+                                    <div class="single-service" *ngIf="subcategory.sub_category_status == 'E'">
+                                        <div class="cat-img-main">
+                                            <img class="cat-img"
                                                 src="{{subcategory.sub_category_image}}"
                                                 />
                                         </div>
                                         <h3 class="service-title">{{subcategory.sub_category_name}}</h3>
-                                        <!-- <p class="service-dec">{{subcategory.sub_category_description}}</p> -->
+                                        <mat-icon>keyboard_arrow_right</mat-icon>
                                     </div>
                                 </label>
                             </div>
-                            <div class="row service-list" *ngIf="subcatdata.length
-                            <1 && !isLoader">
+                            <div class="row service-list" *ngIf="subcatdata.length < 1 && !isLoader">
                                 <label class="col-12">
                                     <div>
-                                        <h3 class="service-title">No
-                                            Sub-Category
-                                            Available</h3>
+                                        <h3 class="service-title">No Sub-Category Available</h3>
                                     </div>
                                 </label>
                             </div>
                         </mat-card-content>
                     </div>
                     <div id="addon_list" class="main-step step_4 p-0" *ngIf="serviceselection">
-                        <div class="step-top-head"></div>
                         <div class="col-lg-12 col-sm-12 col-12 float-left
                             loggedin_head" *ngIf="isLoggedIn">
                             <!--  <p>Welcome, {{customerName}}</p><button (click)="fnLogout()" mat-button class="round-btn gray-btn logout-btn">Logout</button> -->
@@ -159,163 +149,48 @@
                         <mat-card-content class="p-4 mb-2 mt-0">
                             <div class="addon-list" *ngIf="serviceData.length>
                                 0">
-                                <label class="col-lg-4 col-sm-6 col-12
-                                    addon-container" *ngFor="let services of
-                                    serviceData; let i= index" for="subcategory_{{i}}">
-                                    <div class="single-addon d-flex
-                                        align-items-center
-                                        justify-content-center">
+                                <label class="col-lg-12 col-sm-12 col-12 addon-container" *ngFor="let services of serviceData; let i= index" for="subcategory_{{i}}">
+                                    <div class="single-addon d-flex align-items-center justify-content-center">
                                         <div class="addon-img">
-                                            <img class=""
-                                                src="{{services.service_image}}"
-                                                />
+                                            <img class=""  src="{{services.service_image}}" />
                                         </div>
                                         <div class="addon-data">
                                             <h3 class="addon-title">{{services.service_name}}</h3>
-                                        </div>
-                                        <div class="price-cart">
-                                            <label
-                                                *ngIf="currencySymbolPosition=='left'">{{currencySymbol|
-                                                currencySymbol:'wide'}} {{
-                                                services.service_cost |
-                                                currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
-                                                }}</label>
-                                <label *ngIf="currencySymbolPosition=='right'">{{
-                                                services.service_cost |
-                                                currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
-                                                }} {{currencySymbol|
-                                                currencySymbol:'wide'}}</label>
-                                <!-- <label>₹ {{services.service_cost}}</label> -->
-                                <button (click)="fnShowCounter($event,services.id)" *ngIf="serviceCount[services.id].count<1" mat-button class="round-btn
-                                                addon-cart-btn">Add</button>
+                                            <div class="description">
+                                                <span class="duration"><mat-icon>watch_later</mat-icon>{{serviceDataHours[i]}}h {{serviceDataMinutes[i]}}min </span>
+                                                <span *ngIf="services.service_type !== null" class="type"><mat-icon>place</mat-icon>{{services.service_type}} ({{services.service_sub_type}})</span>
+                                            </div>
+                                            <label *ngIf="currencySymbolPosition=='left'">{{currencySymbol|currencySymbol:'wide'}} {{services.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
+                                <label *ngIf="currencySymbolPosition=='right'">{{services.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|currencySymbol:'wide'}}</label>
+                            </div>
+                            <div class="price-cart">
+                                <button (click)="fnShowCounter($event,services.id)" *ngIf="serviceCount[services.id].count<1" mat-button class="addon-cart-btn">Book Now</button>
                                 <input type="checkbox" name="service" value="service_{{services.id}}" class="d-none" />
                                 <div class="qty-counter" *ngIf="serviceCount[services.id].count>0">
-                                    <button mat-fab class="action-btn
-                                                    qty-minus" (click)="fnRemove($event,services.id)">-</button>
+                                    <button mat-fab class="action-btn qty-minus" (click)="fnRemove($event,services.id)">-</button>
                                     <input type="text" class="qty_value" id="servicecount_{{services.id}}" value="{{serviceCount[services.id].count}}" readonly/>
-                                    <button mat-fab class="action-btn
-                                                    qty-minus" (click)="fnAdd($event,services.id)">+</button>
+                                    <button mat-fab class="action-btn qty-minus" (click)="fnAdd($event,services.id)">+</button>
                                 </div>
-                                <button (click)="fnShowCalender(services.id)" *ngIf="serviceCount[services.id].count>0
-                                                && !serviceCartArr[services.id]" mat-button class="round-btn
-                                                addon-cart-btn">Select Date</button>
-                                <div *ngIf="serviceCount[services.id].count>0
-                                                &&
-                                                !serviceCartArr[services.id]">Select Date to confirm your booking</div>
-                                <button (click)="fnShowCalender(services.id)" *ngIf="serviceCount[services.id].count>0
-                                                && serviceCartArr[services.id]" mat-button class="addon-cart-btn">Modify Date</button>
+                                <button (click)="fnShowCalender(services.id)" *ngIf="serviceCount[services.id].count>0 && !serviceCartArr[services.id]" mat-button class="addon-cart-btn">Select Date</button>
+                                <div *ngIf="serviceCount[services.id].count>0 && !serviceCartArr[services.id]">Select Date to confirm your booking</div>
+                                <button (click)="fnShowCalender(services.id)" *ngIf="serviceCount[services.id].count>0 && serviceCartArr[services.id]" mat-button class="addon-cart-btn">Modify Date</button>
                             </div>
                     </div>
                     </label>
                 </div>
-                <div class="row service-list" *ngIf="serviceData.length
-                            <1 && !isLoader">
+                <div class="row service-list" *ngIf="serviceData.length <1 && !isLoader">
                     <label class="col-12">
                                     <div>
-                                        <h3 class="service-title">No Service
-                                            Available</h3>
+                                        <h3 class="service-title">No Service Available</h3>
                                     </div>
                                 </label>
                 </div>
-
                 <div class="bottom-ctn-btn" *ngIf="serviceMainArr.totalNumberServices>0">
-                    <button (click)="fnServiceSelection($event)" mat-button class="round-btn continue-btn">Continue<i
-                                        class="material-icons">keyboard_arrow_right</i></button>
+                    <button (click)="fnServiceSelection($event)" mat-button class="round-btn continue-btn">Continue<i class="material-icons">keyboard_arrow_right</i></button>
                 </div>
                 </mat-card-content>
         </div>
 
-        <div id="datetime_select" class="main-step step_5 p-0 h-100" *ngIf="dateselection">
-            <div class="row ml-0 mr-0 main-datetime-selection
-                            h-100">
-                <div class="col-12 col-lg-6 col-sm-12
-                                datepicker-main">
-                    <div class="ngbpicker">
-                        <div class="ngb-dp-header
-                                        customepickheader">
-                            <div class="ngb-dp-month-name
-                                            ng-star-inserted">Pick date & time</div>
-                        </div>
-                        <ngb-datepicker [startDate]="today" [minDate]="minDate" [maxDate]="maxDate" [markDisabled]="isDisabled" (dateSelect)="onDateSelect($event)" [displayMonths]="displayMonths" [navigation]="navigation" today={true} class='' #dp [(ngModel)]="model" (navigate)="date= $event.next"></ngb-datepicker>
-                    </div>
-
-                </div>
-                <div class="col-12 col-lg-6 col-sm-12
-                                timeslot-main">
-                    <button mat-fab color="" class="top-back-btn
-                                    float-right" (click)="fnbacktofirst()">
-                                    <i class="material-icons" color="">close</i>
-                                </button>
-                    <h3 class="selected-date">{{selecteddateForLabel != '' ? selecteddateForLabel : ''}}</h3>
-                    <div *ngIf="!timeslotview">
-                        No slots available
-                    </div>
-                    <div class="slot-list" *ngIf="timeslotview">
-                        <div class="timing" *ngFor="let timeSlot of
-                                        timeSlotArr, let i= index">
-                            <label>
-                                            <input name="timeslot" type="radio"
-                                                [checked]="serviceCartArr[currentSelectedService]
-                                                &&
-                                                serviceCartArr[currentSelectedService].appointmentTimeSlot==timeSlot"
-                                                (click)="fnSelectTimeSlot(timeSlot,i)"
-                                                />
-                                            <div class="single-slot"
-                                                [mdePopoverTriggerFor]="selectstaff"
-                                                mdePopoverTriggerOn="click"
-                                                #popoverTrigger="mdePopoverTrigger">{{timeSlotArrForLabel[i]}}</div>
-                                        </label>
-                            <mde-popover #selectstaff="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
-                                <mat-card class="staff-select-box
-                                                p-0" style="width: 200px">
-                                    <mat-card-content class="py-2
-                                                    px-3
-                                                    mt-0">
-                                        <div class="row">
-                                            <div class="col
-                                                            staff-selection">
-                                                <mat-radio-group *ngIf="!isStaffAvailable" aria-label="Select
-                                                                Staff">
-                                                    <mat-radio-button [checked]="serviceCartArr[currentSelectedService]
-                                                                    &&
-                                                                    serviceCartArr[currentSelectedService].assignedStaff==null" (change)="fnSelectStaff(null,i)" value="">Any Staff
-                                                    </mat-radio-button>
-                                                </mat-radio-group>
-                                                <!-- <mat-checkbox value="staff1" [checked]="checked" (click)="fnSelectStaff($event,)">Any Staff</mat-checkbox>
-                                                    <mat-checkbox *ngFor="let staff of availableStaff" (click)="fnSelectStaff($event,staff.id)">{{staff.username}} 1</mat-checkbox> -->
-                                                <!-- <p class="mb-0" *ngIf="!isStaffAvailable">No Staff Available</p> -->
-                                                <mat-radio-group aria-label="Select
-                                                                Staff" *ngIf="isStaffAvailable">
-                                                    <mat-radio-button [checked]="serviceCartArr[currentSelectedService]
-                                                                    &&
-                                                                    serviceCartArr[currentSelectedService].assignedStaff==null" (change)="fnSelectStaff(null,i)" value="">Any Staff
-                                                    </mat-radio-button>
-                                                    <mat-radio-button *ngFor="let
-                                                                    staff of
-                                                                    availableStaff" [checked]="serviceCartArr[currentSelectedService]
-                                                                    &&
-                                                                    serviceCartArr[currentSelectedService].assignedStaff==staff.id" (change)="fnSelectStaff(staff.id,i)" class="text-capitalize" value="{{staff.id}}">{{staff.name}}</mat-radio-button>
-                                                </mat-radio-group>
-                                            </div>
-                                        </div>
-                                    </mat-card-content>
-                                </mat-card>
-                            </mde-popover>
-                        </div>
-                        <div class="timing" *ngIf="timeSlotArr.length==0">
-                            No Time Slots Available
-                        </div>
-
-
-                    </div>
-                    <div class="next-action">
-                        <button mat-button (click)="fnbacktocategory($event)" class="round-btn continue-btn">Add More
-                                        Services</button>
-                        <button mat-button *ngIf="serviceMainArr.totalNumberServices>0" (click)="fnDatetimeSelection()" class="round-btn continue-btn">Book Now</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div id="personal_info" class="main-step step_6 p-0" *ngIf="personalinfo || appointmentinfo">
             <div class="step-top-head"></div>
             <div class="col-lg-12 col-sm-12 col-12 float-left
@@ -589,23 +464,10 @@
                                                     *ngIf="formAppointmentInfo.get('appo_city').hasError('required')"
                                                     class="error">City is required.</small></span>
                                 </div>
-                                <div class="col-12 col-lg-4 col-md-4
-                                            col-sm-4">
+                                <div class="col-12 col-lg-4 col-md-4 col-sm-4">
                                     <label>Zip Code</label>
                                     <input formControlName="appo_zipcode" class="common-input" type="text" />
-                                    <span class="error-wrap" *ngIf="formAppointmentInfo.get('appo_zipcode').dirty
-                                                ||
-                                                formAppointmentInfo.get('appo_zipcode').touched
-                                                || formSubmitclicked"><small
-                                                    *ngIf="formAppointmentInfo.get('appo_zipcode').hasError('required')"
-                                                    class="error">Zipcode is
-                                                    required.</small><small
-                                                    *ngIf="formAppointmentInfo.get('appo_zipcode').hasError('minlength')
-                                                    ||
-                                                    formAppointmentInfo.get('appo_zipcode').hasError('maxlength')"
-                                                    class="error">Zipcode must be 5
-                                                    to 7
-                                                    characters.</small></span>
+                                    <span class="error-wrap" *ngIf="formAppointmentInfo.get('appo_zipcode').dirty || formAppointmentInfo.get('appo_zipcode').touched || formSubmitclicked"><small *ngIf="formAppointmentInfo.get('appo_zipcode').hasError('required')" class="error">Zipcode is required.</small><small *ngIf="formAppointmentInfo.get('appo_zipcode').hasError('minlength') || formAppointmentInfo.get('appo_zipcode').hasError('maxlength')" class="error">Zipcode must be 5 to 7 characters.</small></span>
                                 </div>
                             </div>
                         </form>
@@ -616,26 +478,14 @@
                 <button (click)="fnProceedToSummary($event)" mat-button class="round-btn continue-btn">Confirm</button>
             </div>
         </div>
-        <!-- *ngIf="serviceCount[services.id].count<1" -->
         <div id="coupon_code" class="main-step step_8 p-0" *ngIf="summaryScreen">
-            <div class="step-top-head"></div>
-            <div class="col-lg-12 col-sm-12 col-12 float-left
-                            loggedin_head" *ngIf="isLoggedIn">
-                <!-- <p>Welcome, {{customerName}}</p><button (click)="fnLogout()" mat-button class="round-btn gray-btn logout-btn">Logout</button> -->
-                <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn gray-btn logout-btn">View
-                                Dashboard</button><button (click)="fnLogout()" mat-button class="round-btn gray-btn
-                                logout-btn
-                                ml-a">Logout</button>
-            </div>
-            <mat-card-title class="px-3 pt-1 d-flex flex-wrap">
-                <div class="col-lg-12 col-sm-12 p-0 col-12 top-title
-                                float-left">
-                    <button mat-fab color="" class="top-back-btn
-                                    float-right" (click)="fnbacktofirst()">
-                                    <i class="material-icons" color="">close</i>
-                                </button>
+            <div class="col-lg-12 col-sm-12 col-12 float-left loggedin_head" *ngIf="isLoggedIn">
+                <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn gray-btn logout-btn">View Dashboard</button>
+                <div class="ml-a d-flex m-2">
+                    <button (click)="fnLogout()" mat-button class="round-btn gray-btn logout-btn">Logout</button>
+                    <button mat-fab color="" class="top-back-btn float-right" (click)="fnbacktofirst()"><i class="material-icons" color="">close</i></button>
                 </div>
-            </mat-card-title>
+            </div>
 
             <mat-card-content class="py-4 px-0 mt-0 mb-2">
 

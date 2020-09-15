@@ -448,7 +448,9 @@
 }
 
 #sub-header-top {
-    width: 100%;
+    position: fixed;
+    z-index: 9;
+    width: calc(100% - 90px);
     .inner {
         background: #cfe3fc;
         padding: 15px;
@@ -893,8 +895,8 @@ mat-chip-list {
     background-color: #fbfbfb;
     width: 300px;
     position: fixed;
-    top: 157px;
-    height: calc(100vh - 157px);
+    top: 150px;
+    height: calc(100vh - 150px);
     box-shadow: 5px 9px 10px #e5e3e3;
     z-index: 9;
     overflow-y: scroll;
@@ -904,6 +906,9 @@ mat-chip-list {
     margin-left: 300px;
     width: calc(100% - 300px);
     background-color: #fff;
+    height: calc(100vh - 150px);
+    margin-top: 86px;
+    overflow-y: scroll;
 }
 
 .short-menu {

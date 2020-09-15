@@ -1,5 +1,5 @@
 @import "variables";
-#theme_4_booking_flow.theme-4 {
+#theme_6_booking_flow.theme-6 {
     height: 100vh;
     position: relative;
     font-family: $selected-font-family !important;
@@ -48,16 +48,8 @@
                     .top-title {
                         font-size: $fs-28;
                         color: $text-color;
-                        .top-back-btn {
-                            background-color: #e0e0e0;
-                            font-size: $fs-28;
-                            i {
-                                color: $text-color;
-                            }
-                            &:hover {
-                                background-color: #a9a9a9;
-                            }
-                        }
+                        display: flex;
+                        align-items: center;
                     }
                     .right-check-postal-form {
                         .check-aval-postal {
@@ -118,6 +110,59 @@
                                     left: 108px !important;
                                 }
                             }
+                        }
+                    }
+                }
+                .top-back-btn {
+                    background-color: #e0e0e0;
+                    font-size: $fs-28;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-right: 8px;
+                    i {
+                        color: $text-color;
+                    }
+                    &:hover {
+                        background-color: #a9a9a9;
+                    }
+                }
+                .category-list,
+                .subcategory-list {
+                    .single-service {
+                        height: auto;
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        padding: 15px 10px;
+                        box-shadow: 0px 3px 6px #00000014;
+                        border-radius: 5px;
+                        margin-bottom: 10px;
+                        cursor: pointer;
+                        .cat-img-main {
+                            float: left;
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 100%;
+                            margin-right: 20px;
+                            overflow: hidden;
+                            border: 0.5px solid #707070;
+                            img {
+                                width: 100%;
+                                height: 100%;
+                            }
+                        }
+                        .service-title {
+                            width: calc(100% - 110px);
+                            text-align: left;
+                            color: $text-color;
+                            font-size: 18px;
+                            font-weight: 500;
+                            margin-bottom: 0;
+                        }
+                        mat-icon {
+                            color: #808080;
+                            font-size: 24px;
                         }
                     }
                 }
@@ -222,11 +267,11 @@
                 .cart-btn {
                     width: 55px;
                     height: 55px;
-                    background: #A7A7A7;
+                    background: $front-primary-color;
                     border-radius: 100%;
                     cursor: pointer;
                     text-align: center;
-                    box-shadow: 2px 2px 14px -2px #3969fb;
+                    box-shadow: 2px 2px 14px -2px $front-primary-color;
                     position: absolute;
                     top: calc(100% - 55px);
                     z-index: 1;
@@ -253,38 +298,37 @@
                     }
                     .addon-img {
                         float: left;
-                        width: 120px;
-                        height: 120px;
+                        width: 90px;
+                        height: 90px;
                         border-radius: 100%;
                         box-shadow: $shadow;
                         display: flex;
                         overflow: hidden;
                         -webkit-box-pack: center;
                         justify-content: center;
-                        margin: 15px;
+                        margin-right: 15px;
                         img {
-                            height: 120px;
+                            height: 90px;
                         }
                     }
                     .addon-data {
-                        width: 100%;
+                        //width: 100%;
+                        width: calc(100% - 270px);
+                        padding-right: 10px;
                         .addon-title {
-                            text-align: center;
-                            font-size: 18px;
+                            text-align: left;
+                            font-size: 20px;
                             font-weight: 500;
                             color: $text-color
+                        }
+                        label {
+                            font-size: 18px;
+                            font-weight: 600;
+                            color: $front-primary-color;
                         }
                     }
                     .price-cart {
-                        width: 200px;
-                        label {
-                            font-size: $fs-18;
-                            font-weight: $fw-500;
-                            display: block;
-                            text-align: center;
-                            font-weight: 500;
-                            color: $text-color
-                        }
+                        width: 160px;
                         .addon-cart-btn {
                             width: 100%;
                             background: $front-primary-color;
@@ -292,73 +336,6 @@
                             font-size: $fs-20;
                             font-weight: $fw-400;
                         }
-                    }
-                }
-            }
-            #datetime_select {
-                .datepicker-main {
-                    background: $primary-gradient-color;
-                }
-                @media only screen and (max-width: 600px) {
-                    .datepicker-main {
-                        overflow-x: scroll;
-                    }
-                }
-                .timeslot-main {
-                    .top-back-btn {
-                        background-color: #e0e0e0;
-                    }
-                    .selected-date {
-                        text-align: center;
-                        margin: 15px;
-                        font-size: $fs-26;
-                        font-weight: $fw-400;
-                    }
-                    .slot-list {
-                        margin: 10px auto;
-                        display: table;
-                        input[type="radio"] {
-                            display: none;
-                        }
-                        input[type="radio"]:checked+.single-slot {
-                            background-color: $front-primary-color;
-                            color: $text-bg;
-                            border-color: $front-primary-color;
-                        }
-                        .single-slot {
-                            border: 2px solid $grey-3;
-                            padding: 20px;
-                            font-size: $fs-18;
-                            color: $secondary-color;
-                            text-align: center;
-                            line-height: 1;
-                            width: 130px;
-                            margin: 7px;
-                            cursor: pointer;
-                            border-radius: 8px;
-                        }
-                    }
-                    .next-action {
-                        margin: 15px;
-                        text-align: center;
-                        .continue-btn {
-                            font-size: $fs-16;
-                            background-color: $grey-3;
-                            padding: 6px 25px;
-                            margin: 10px;
-                        }
-                    }
-                }
-                .timing {
-                    display: inline-block;
-                }
-                @media only screen and (max-width: 600px) {
-                    // body {
-                    //     display: block !important;
-                    // }
-                    .slot-list {
-                        align-items: center;
-                        text-align: center;
                     }
                 }
             }
@@ -716,13 +693,20 @@
         margin-right: 10px;
         .continue-btn {
             font-size: $fs-20;
-            background-color: $grey-3;
+            background-color: $front-primary-color;
             padding-left: 35px;
             padding-top: 6px;
             padding-right: 30px;
             padding-bottom: 6px;
             margin-right: 50px;
+            color: $text-bg;
         }
+    }
+}
+
+::ng-deep .booking-summary {
+    .qty-counter {
+        text-align: right;
     }
 }
 

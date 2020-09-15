@@ -241,7 +241,7 @@
                                 <div class="col-8">
                                     <div class="mt-3 text-center">
                                         <mat-form-field class=" bottom-border-field">
-                                            <input matInput formControlName="category_name" placeholder="Enter Category Name" >
+                                            <input matInput formControlName="category_name" placeholder="Enter Category Name">
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createCategory.get('category_name').touched || createCategory.get('category_name').dirty">
                                             <small *ngIf="createCategory.get('category_name').hasError('required')"
@@ -355,8 +355,7 @@
                                     </div>
                                     <div class="mt-2 text-center">
                                         <mat-form-field class=" bottom-border-field">
-                                            <textarea rows="0" matInput formControlName="subcategory_description" placeholder="Enter Sub Category Description"
-                                            rows="0"></textarea>
+                                            <textarea rows="0" matInput formControlName="subcategory_description" placeholder="Enter Sub Category Description" rows="0"></textarea>
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createSubCategory.get('subcategory_description').touched || createSubCategory.get('subcategory_description').dirty">
                                             <small
@@ -415,8 +414,8 @@
             <!-- single category page -->
             <div *ngIf="selectedCategoryDetails != '' && (selectCategoryPage == 'services' || selectCategoryPage == 'notservices') " id="Salon_Listing_Service" class="mb-0 w-100 h-100 bg-white">
                 <div class="top-category-bar">
-                    <div class="d-flex pt-1 mb-4 mx-3">
-                        <div class="ml-3 d-flex justify-content-center">
+                    <div class="d-flex pt-1 mb-4 mx-2">
+                        <div class="ml-1 d-flex justify-content-center">
                             <div class="service-profile-background mr-3">
                                 <img *ngIf="selectedCategoryDetails && selectedCategoryDetails.category_image" src="{{selectedCategoryDetails.category_image}}" class="service-profile-image mb-2">
                                 <img *ngIf="selectedCategoryDetails && !selectedCategoryDetails.category_image" src="/assets/images/admin/picture.png" class="service-profile-image mb-2 w-100">
@@ -461,7 +460,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="selectCategoryPage == 'services'" class="service-listing">
+                <div *ngIf="selectCategoryPage == 'services'" class="service-listing for_category">
                     <div class="main-table-content main-cust-table-content">
                         <div *ngIf="categoryServicesList != ''" class="">
                             <div class="heads main-heading-content drageble " fxLayout="row">
@@ -549,9 +548,9 @@
             </div>
             <!-- sub category page -->
             <div *ngIf="selectedSubCategoryDetails != '' && (singleSubCategoryPage == 'services' || singleSubCategoryPage == 'notservices' || singleSubCategoryPage !== '')" class="h-100" id="single_sub_category">
-                <div class="">
-                    <div class="d-flex mt-2 mb-4 mx-3 service-top-bar">
-                        <div class="ml-3 d-flex justify-content-center">
+                <div class="top-category-bar">
+                    <div class="d-flex mt-1 mb-4 mx-2 service-top-bar">
+                        <div class="ml-1 d-flex justify-content-center">
                             <div class="service-profile-background mr-3 ">
                                 <img src="{{selectedSubCategoryDetails?selectedSubCategoryDetails.sub_category_image:''}}" class="service-profile-image mb-2 h-100 w-100">
                             </div>
@@ -594,7 +593,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="singleSubCategoryPage == 'services'" class="service-listing">
+                <div *ngIf="singleSubCategoryPage == 'services'" class="service-listing for_subcategory">
                     <div class="main-table-content main-cust-table-content">
                         <div *ngIf="subCategoryServicesList != ''" class="">
                             <div class="heads main-heading-content drageble" fxLayout="row">
@@ -669,8 +668,8 @@
                 </div>
             </div>
             <!-- create new Service -->
-            <div *ngIf="createNewServicePage" id="create_new_service" class="mb-0 w-100 create-new-page h-100">
-                <mat-card class="h-100">
+            <div *ngIf="createNewServicePage" id="create_new_service" class="mb-0 w-100 create-new-page">
+                <mat-card>
                     <form [formGroup]="createService">
                         <div class="row">
                             <div class="col-lg-6">
@@ -682,7 +681,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xl-9 col-lg-12 col-12 col-md-12 d-flex align-item-start">
+                            <div class="col-xl-8 col-lg-8 col-12 col-md-12 d-flex align-item-start">
                                 <div class="ml-3 justify-content-center " (click)="serviceImage()">
                                     <div class="services-customer-profile-background profile-img-wrap mr-3 mt-5">
                                         <img *ngIf="!editServiceId && serviceImageUrl == ''" src="/assets/images/admin/picture.png" class="service-profile-image-admin w-100">
@@ -711,8 +710,7 @@
                                     </div>
                                     <div class="mt-2 text-center">
                                         <mat-form-field class=" bottom-border-field">
-                                            <textarea matInput formControlName="service_description" placeholder="Enter Service Description"
-                                            rows="0"></textarea>
+                                            <textarea matInput formControlName="service_description" placeholder="Enter Service Description" rows="0"></textarea>
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_description').touched || createService.get('service_description').dirty">
                                             <small *ngIf="createService.get('service_description').hasError('required')"
@@ -863,7 +861,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-12 col-12 col-md-12 d-flex p-0">
+                            <div class="col-xl-4 col-lg-4 col-12 col-md-12 d-flex p-0">
                                 <div class="border p-2 w-100">
                                     <div class="d-flex">
                                         <h6>Select Staff for This Service</h6>
