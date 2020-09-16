@@ -41,7 +41,8 @@ import { OnlinePaymentComponent } from './online-payment/online-payment.componen
 import { BnNgIdleService } from 'bn-ng-idle';
 import { FrontBookingThemeFourComponent, theme4DateTimeSelection } from './front-booking-theme-four/front-booking-theme-four.component';
 import { FrontBookingThemeSixComponent, theme6DateTimeSelection } from './front-booking-theme-six/front-booking-theme-six.component';
-import { FrontBookingThemeThreeComponent, theme3DateTimeSelection } from './front-booking-theme-three/front-booking-theme-three.component'; 
+import { FrontBookingThemeThreeComponent, theme3DateTimeSelection } from './front-booking-theme-three/front-booking-theme-three.component';
+import { FrontBookingThemeFiveComponent } from './front-booking-theme-five/front-booking-theme-five.component'; 
 //import { GoogleMapsModule } from '@angular/google-maps'
 
 registerLocaleData(localeDe);
@@ -92,6 +93,7 @@ export function provideConfig() {
         FrontBookingThemeFourComponent,
         FrontBookingThemeSixComponent,
         FrontBookingThemeThreeComponent,
+        FrontBookingThemeFiveComponent,
         ],
     imports: [
         BrowserModule,

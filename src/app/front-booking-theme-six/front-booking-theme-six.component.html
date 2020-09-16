@@ -667,8 +667,7 @@
                                 px-0
                                 float-left">
                     Payment Method
-                    <button mat-fab color="" class="top-back-btn
-                                    float-right" (click)="fnbacktofirst()">
+                    <button mat-fab class="top-back-btn ml-a float-right" (click)="fnbacktofirst()">
                                     <i class="material-icons" color="">close</i>
                                 </button>
                 </div>
@@ -945,16 +944,8 @@
                             </div>
                             <div class="col-lg-4 right-side">
                                 <!-- <label class="price">₹ {{serviceMainArr.subtotal}}</label> -->
-                                <label *ngIf="currencySymbolPosition=='left'" class="price">{{currencySymbol|
-                                                currencySymbol:'wide'}} {{
-                                                serviceMainArr.subtotal |
-                                                currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
-                                                }}</label>
-                                <label *ngIf="currencySymbolPosition=='right'" class="price">{{
-                                                serviceMainArr.subtotal |
-                                                currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
-                                                }} {{currencySymbol|
-                                                currencySymbol:'wide'}}</label>
+                                <label *ngIf="currencySymbolPosition=='left'" class="price">{{currencySymbol|currencySymbol:'wide'}} {{amountAfterTax | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat}}</label>
+                                <label *ngIf="currencySymbolPosition=='right'" class="price">{{amountAfterTax | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat}} {{currencySymbol|currencySymbol:'wide'}}</label>
                             </div>
                         </div>
                     </mat-card-content>

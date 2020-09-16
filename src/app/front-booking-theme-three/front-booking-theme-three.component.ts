@@ -1378,7 +1378,6 @@ export class FrontBookingThemeThreeComponent implements OnInit {
   }
   // date time 
   fnDatetimeSelection(){
-    console.log(this.serviceCartArr)
     var co = 0;
     var  Arr_co = 0;
     this.serviceCartArr.forEach(element => {

@@ -1,11 +1,10 @@
 @import "variables";
-#theme_3_booking_flow.theme-3 {
+::ng-deep #booking_flow {
     height: 100vh;
     position: relative;
     font-family: $selected-font-family !important;
     .main_bg {
-        // background-image: url("/../../assets/images/booking_bg.png");
-        background-color: $front-primary-color;
+        background-image: url("/../../assets/images/booking_bg.png");
         background-size: cover;
         background-repeat: no-repeat;
         height: 100vh;
@@ -48,8 +47,16 @@
                     .top-title {
                         font-size: $fs-28;
                         color: $text-color;
-                        display: flex;
-                        align-items: center;
+                        .top-back-btn {
+                            background-color: #e0e0e0;
+                            font-size: $fs-28;
+                            i {
+                                color: $text-color;
+                            }
+                            &:hover {
+                                background-color: #a9a9a9;
+                            }
+                        }
                     }
                     .right-check-postal-form {
                         .check-aval-postal {
@@ -113,100 +120,44 @@
                         }
                     }
                 }
-                .top-back-btn {
-                    background-color: #e0e0e0;
-                    font-size: $fs-28;
+                .first-page-theme-5 {
                     display: flex;
-                    align-items: center;
                     justify-content: center;
-                    margin-right: 8px;
-                    i {
-                        color: $text-color;
-                    }
-                    &:hover {
-                        background-color: #a9a9a9;
-                    }
-                }
-                .subcategory-list {
-                    .single-service {
-                        height: auto;
-                        display: flex;
-                        flex-wrap: wrap;
-                        align-items: center;
-                        box-shadow: 0px 3px 6px #00000014;
-                        border-radius: 5px;
-                        margin-bottom: 10px;
-                        cursor: pointer;
-                        height: 150px;
-                        .cat-img-main {
-                            float: left;
-                            width: 150px;
-                            height: 100%;
-                            margin-right: 20px;
-                            overflow: hidden;
-                            img {
-                                width: 100%;
-                                height: 100%;
-                            }
-                        }
-                        .service-detail {
-                            float: left;
-                            padding: 10px;
-                            width: calc(100% - 170px);
-                            height: 100%;
-                            display: flex;
-                            flex-wrap: wrap;
-                            .service-title {
-                                text-align: left;
-                                color: var(--text_color);
-                                font-weight: 500;
-                                margin-bottom: 0;
-                                font-size: 22px;
-                                width: 100%;
-                            }
-                            button {
-                                margin-left: auto;
-                                display: flex;
-                                margin-top: auto;
-                                align-self: flex-end;
-                            }
-                        }
-                    }
-                }
-                .category-list {
-                    justify-content: center;
-                    .cat-select-tabs {
-                        width: 90%;
-                    }
+                    flex-wrap: wrap;
                 }
                 .service-list {
+                    width: 400px;
                     input[type="radio"]:checked+.single-service {
                         border: 3px solid $front-primary-color;
                     }
                     .single-service {
                         width: 100%;
-                        height: 70px;
-                        margin: 15px 0;
+                        height: 300px;
+                        margin: 10px 0;
                         cursor: pointer;
-                        background-color: $front-primary-color;
+                        padding: 10px;
+                        background-color: $text-bg;
                         border-radius: 8px;
                         box-shadow: 2px 2px 6px #3d3d3d60 !important;
                         transition: all 0.3s;
-                        display: flex;
-                        align-items: center;
+                        border: 3px solid transparent;
                         overflow: hidden;
                         .service-img-main {
-                            width: 90px;
+                            width: 120px;
+                            height: 120px;
+                            border-radius: 100%;
+                            box-shadow: 2px 2px 8px #ccc;
+                            margin: 15px auto;
+                            display: flex;
                             overflow: hidden;
-                            margin-right: 15px;
+                            justify-content: center;
                             .service-img {
-                                height: 70px;
-                                width: 100%;
+                                height: 120px;
                             }
                         }
                         .service-title {
-                            color: $text-bg;
-                            font-size: $fs-18;
+                            color: $text-color;
+                            font-size: $fs-26;
                             text-align: center;
                             font-weight: $fw-500;
                         }
@@ -278,75 +229,139 @@
             }
             .common-footer {
                 .cart-btn {
-                    width: 55px;
-                    height: 55px;
-                    background: $front-primary-color;
+                    width: 45px;
+                    height: 45px;
+                    background: $primary-gradient-color;
                     border-radius: 100%;
                     cursor: pointer;
                     text-align: center;
-                    box-shadow: 2px 2px 14px -2px $front-primary-color;
+                    box-shadow: 2px 2px 14px -2px #3969fb;
                     position: absolute;
-                    top: calc(100% - 55px);
+                    top: calc(100% - 80px);
                     z-index: 1;
                     right: 15px;
                     margin-top: 0 !important;
                     i {
-                        font-size: 30px;
+                        font-size: 23px;
                         color: $text-bg;
-                        line-height: 1.9;
+                        line-height: 2.1;
                     }
                 }
             }
             .addon-list {
-                display: flex;
-                flex-wrap: wrap;
-                align-items: stretch;
-                padding: 10px 40px;
                 .addon-container {
-                    .single-addon {
-                        background-color: #fff;
-                        box-shadow: 2px 2px 8px #00000050;
-                        margin-bottom: 15px;
-                        flex-wrap: wrap;
-                    }
+                    background-color: $text-bg;
+                    box-shadow: 2px 2px 8px #00000050;
+                    margin-bottom: 15px;
+                    padding: 10px 15px;
                     .addon-img {
                         float: left;
-                        width: 170px;
-                        height: 170px;
-                        box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.1), 0px 4px 12px 0px rgba(0, 0, 0, 0.1) !important;
+                        width: 120px;
+                        height: 120px;
+                        border-radius: 100%;
+                        box-shadow: $shadow;
                         display: flex;
-                        margin-right: 15px;
                         overflow: hidden;
+                        -webkit-box-pack: center;
+                        justify-content: center;
+                        margin: 15px;
                         img {
-                            height: 170px;
+                            height: 120px;
                         }
                     }
                     .addon-data {
-                        width: calc(100% - 190px);
-                        padding: 10px;
-                        height: 170px;
+                        float: left;
+                        width: calc(85% - 200px);
                         .addon-title {
                             text-align: left;
-                            font-size: 20px;
-                            font-weight: 500;
-                            color: $text-color
                         }
+                        .addon-dec {
+                            text-align: left;
+                        }
+                    }
+                    .price-cart {
+                        width: 200px;
                         label {
-                            font-size: 18px;
-                            font-weight: 600;
-                            color: $front-primary-color;
+                            font-size: $fs-22;
+                            color: $grey-1;
+                            font-weight: $fw-500;
+                            display: block;
+                            text-align: right;
                         }
-                        .price-cart {
+                        .addon-cart-btn {
                             width: 100%;
-                            .addon-cart-btn {
-                                width: 160px;
-                                width: 100%;
-                                background: $front-primary-color;
-                                color: $text-bg;
-                                font-size: $fs-20;
-                                font-weight: $fw-400;
-                            }
+                            background: $primary-gradient-color;
+                            color: $text-bg;
+                            font-size: $fs-20;
+                            font-weight: $fw-400;
                         }
+                    }
+                }
+            }
+            #datetime_select {
+                .datepicker-main {
+                    background: $primary-gradient-color;
+                }
+                @media only screen and (max-width: 600px) {
+                    .datepicker-main {
+                        overflow-x: scroll;
+                    }
+                }
+                .timeslot-main {
+                    .top-back-btn {
+                        background-color: #e0e0e0;
+                    }
+                    .selected-date {
+                        text-align: center;
+                        margin: 15px;
+                        font-size: $fs-26;
+                        font-weight: $fw-400;
+                    }
+                    .slot-list {
+                        margin: 10px auto;
+                        display: table;
+                        input[type="radio"] {
+                            display: none;
+                        }
+                        input[type="radio"]:checked+.single-slot {
+                            background-color: $front-primary-color;
+                            color: $text-bg;
+                            border-color: $front-primary-color;
+                        }
+                        .single-slot {
+                            border: 2px solid $grey-3;
+                            padding: 20px;
+                            font-size: $fs-18;
+                            color: $secondary-color;
+                            text-align: center;
+                            line-height: 1;
+                            width: 130px;
+                            margin: 7px;
+                            cursor: pointer;
+                            border-radius: 8px;
+                        }
+                    }
+                    .next-action {
+                        margin: 15px;
+                        text-align: center;
+                        .continue-btn {
+                            font-size: $fs-16;
+                            background-color: $grey-3;
+                            padding: 6px 25px;
+                            margin: 10px;
+                        }
+                    }
+                }
+                .timing {
+                    display: inline-block;
+                }
+                @media only screen and (max-width: 600px) {
+                    // body {
+                    //     display: block !important;
+                    // }
+                    .slot-list {
+                        align-items: center;
+                        text-align: center;
                     }
                 }
             }
@@ -627,106 +642,25 @@
             }
         }
     }
-    .booking-summary {
-        margin: 0;
-        mat-card-title {
-            background-color: #cee8ff;
-            display: flex;
-            align-items: center;
-            label {
-                font-size: $fs-20;
-                color: $secondary-color;
-            }
-            .continue-btn {
-                background-color: $primary-color;
-                color: $text-bg;
-                font-size: $fs-16;
-                display: block;
-                margin-top: 0;
-                margin-bottom: 0;
-                margin-left: auto;
-                &:focus {
-                    outline: 0;
-                }
-            }
-        }
-        mat-card-content {
-            .row {
-                border-bottom: 1px solid $grey-3;
-                padding: 8px 0;
-                &:last-child {
-                    border-bottom: 0;
-                }
-                .left-side {
-                    .service-title {
-                        font-size: $fs-18;
-                        color: $grey-1;
-                        font-weight: $fw-500;
-                    }
-                    p {
-                        font-size: $fs-14;
-                        color: $grey-2;
-                        margin: 0;
-                        padding: 4px 0;
-                        i {
-                            font-size: $fs-20;
-                            padding: 2px 5px;
-                            color: $front-primary-color;
-                        }
-                    }
-                }
-                .right-side {
-                    .price {
-                        font-size: $fs-18;
-                        color: $grey-1;
-                        font-weight: $fw-500;
-                        display: block;
-                        text-align: right;
-                    }
-                    .qty-counter {
-                        .action-btn {
-                            width: 30px;
-                            height: 30px;
-                            font-size: 16px;
-                            line-height: 1.1;
-                        }
-                        .qty_value {
-                            width: 20px;
-                            font-size: 18px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    .bottom-ctn-btn {
-        text-align: right;
-        margin-right: 10px;
-        .continue-btn {
-            font-size: $fs-20;
-            background-color: $front-primary-color;
-            padding-left: 35px;
-            padding-top: 6px;
-            padding-right: 30px;
-            padding-bottom: 6px;
-            margin-right: 50px;
-            color: $text-bg;
-        }
+}
+
+.bottom-ctn-btn {
+    text-align: right;
+    margin-right: 10px;
+    .continue-btn {
+        font-size: $fs-20;
+        background-color: $grey-3;
+        padding-left: 35px;
+        padding-top: 6px;
+        padding-right: 30px;
+        padding-bottom: 6px;
+        margin-right: 50px;
     }
 }
 
-::ng-deep .booking-summary {
-    .qty-counter {
-        text-align: right;
-    }
-}
-
-::ng-deep .qty-counter {
-    text-align: center;
+.qty-counter {
+    text-align: right;
     margin: 10px 0;
-    border: 1px solid #4d4d4d;
-    display: inline-block;
-    background-color: #e9e9e9;
     .qty_value {
         width: 30px;
         font-size: $fs-20;
@@ -735,66 +669,16 @@
         pointer-events: none;
         margin: 0 5px;
         text-align: center;
-        background-color: #e9e9e9;
     }
     .action-btn {
         width: 40px;
         height: 40px;
-        color: $text-bg;
+        color: $text-color;
         font-size: 20px;
-        border-radius: 0;
-        background-color: $front-primary-color;
+        background-color: $grey-3;
         &::ng-deep .mat-button-wrapper {
             line-height: 14px;
             padding: 0;
-        }
-    }
-}
-
-::ng-deep .mde-popover-panel {
-    .booking-summary {
-        .qty-counter {
-            text-align: center;
-            margin: 10px 0;
-            border: 1px solid #4d4d4d;
-            display: flex;
-            flex-wrap: wrap;
-            background-color: #e9e9e9;
-            height: 32px;
-            .qty_value {
-                width: 30px;
-                font-size: $fs-20;
-                border: 0;
-                color: $text-color;
-                pointer-events: none;
-                margin: 0 5px;
-                text-align: center;
-                background-color: #e9e9e9;
-            }
-            .action-btn {
-                width: 30px;
-                height: 30px;
-                color: $text-bg;
-                font-size: 20px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-radius: 0;
-                background-color: $front-primary-color;
-                &::ng-deep .mat-button-wrapper {
-                    line-height: 14px;
-                    padding: 0;
-                }
-            }
-        }
-        .price {
-            width: 100%;
-            text-align: right;
-        }
-        .subtotal-row {
-            margin: 10px 0;
-            border-top: 1px solid #ccc;
-            padding: 5px 0;
         }
     }
 }
@@ -813,6 +697,79 @@
                     text-transform: capitalize;
                     overflow: hidden;
                     text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+}
+
+.booking-summary {
+    margin: 0;
+    mat-card-title {
+        background-color: #cee8ff;
+        display: flex;
+        align-items: center;
+        label {
+            font-size: $fs-20;
+            color: $secondary-color;
+        }
+        .continue-btn {
+            background-color: $primary-color;
+            color: $text-bg;
+            font-size: $fs-16;
+            display: block;
+            margin-top: 0;
+            margin-bottom: 0;
+            margin-left: auto;
+            &:focus {
+                outline: 0;
+            }
+        }
+    }
+    mat-card-content {
+        .row {
+            border-bottom: 1px solid $grey-3;
+            padding: 8px 0;
+            &:last-child {
+                border-bottom: 0;
+            }
+            .left-side {
+                .service-title {
+                    font-size: $fs-18;
+                    color: $grey-1;
+                    font-weight: $fw-500;
+                }
+                p {
+                    font-size: $fs-14;
+                    color: $grey-2;
+                    margin: 0;
+                    padding: 4px 0;
+                    i {
+                        font-size: $fs-20;
+                        padding: 2px 5px;
+                        color: $front-primary-color;
+                    }
+                }
+            }
+            .right-side {
+                .price {
+                    font-size: $fs-18;
+                    color: $grey-1;
+                    font-weight: $fw-500;
+                    display: block;
+                    text-align: right;
+                }
+                .qty-counter {
+                    .action-btn {
+                        width: 30px;
+                        height: 30px;
+                        font-size: 16px;
+                        line-height: 1.1;
+                    }
+                    .qty_value {
+                        width: 20px;
+                        font-size: 18px;
+                    }
                 }
             }
         }
@@ -859,7 +816,6 @@
     font-size: $fs-20;
     background-color: $front-primary-color;
     padding: 6px 30px;
-    color: $text-bg;
     margin: 10px;
 }
 
@@ -932,6 +888,9 @@ input:focus {
         /*margin-left: auto;*/
         font-size: 16px;
         padding: 0px 30px;
+    }
+    .ml-a {
+        margin-left: auto;
     }
 }
 
@@ -1046,6 +1005,108 @@ input:focus {
     justify-content: center;
 }
 
+::ng-deep #cart-container {
+    .qty-counter {
+        text-align: right;
+        margin: 0;
+        border: 1px solid #B5B5B5;
+        border-radius: 3px;
+        width: 85px;
+        .qty_value {
+            width: 30px;
+            font-size: 16px;
+            border: 0;
+            color: var(--text_color);
+            pointer-events: none;
+            margin: 0;
+            text-align: center;
+            background: $grey-3;
+            height: 34px;
+        }
+        .action-btn {
+            width: 25px;
+            height: 30px;
+            color: var(--text_color);
+            font-size: 16px;
+            background-color: #ffffff;
+            border-radius: 4px;
+            box-shadow: unset;
+            border-radius: 3px 0px 0px 3px;
+            &::ng-deep .mat-button-wrapper {
+                line-height: 2;
+                padding: 0;
+            }
+        }
+    }
+    .booking-summary {
+        width: 100%;
+    }
+    .date-label {
+        font-size: 14px;
+    }
+    .cart-subtotal-row {
+        border-top: 1px solid #E3E6EB;
+        padding: 10px 0;
+        .subtotal-row {
+            font-size: 18px;
+            display: flex;
+            flex-wrap: wrap;
+            .service-title {
+                font-weight: 500;
+            }
+            label {
+                color: $text-color
+            }
+        }
+        .tax-row {
+            font-size: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            .service-title {
+                font-weight: 500;
+            }
+        }
+    }
+    .cart-total-row {
+        border-top: 1px solid #E3E6EB;
+        padding: 10px 0;
+        .subtotal-row {
+            display: flex;
+            flex-wrap: wrap;
+            .service-title {
+                font-weight: 500;
+                color: $text-color;
+                font-size: 18px;
+            }
+            label {
+                margin-bottom: 0;
+            }
+        }
+    }
+    .cart-action {
+        display: flex;
+        border-top: 1px solid #E3E6EB;
+        padding-top: 10px;
+        justify-content: space-around;
+        .proceed-btn {
+            background: $front-primary-color;
+            color: $text-bg;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 176px;
+            height: 45px;
+        }
+        .add-more-btn {
+            background: #808080;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 176px;
+            height: 45px;
+        }
+    }
+}
+
 ::ng-deep #datetime_select {
     &.popup-date-time {
         .datepicker-main {
@@ -1146,11 +1207,96 @@ input:focus {
     }
 }
 
+::ng-deep .field-list {
+    [class*="col-"] {
+        margin: 10px 0;
+    }
+    label {
+        display: block;
+        margin-bottom: 0px;
+        font-size: 18px;
+    }
+    .common-input {
+        display: block;
+        width: 100%;
+        padding: 8px 10px;
+        border-radius: 5px;
+        border: 1px solid #e4e3e3;
+        font-size: $fs-16;
+        transition: all 0.3s;
+        &:focus {
+            box-shadow: $shadow;
+        }
+    }
+}
+
+::ng-deep .step-top-head {
+    background: $primary-gradient-color;
+    width: 100%;
+    height: 15px;
+}
+
+::ng-deep #personal_info {
+    &.theme_2_popup {
+        height: 90vh;
+    }
+}
+
+::ng-deep #coupon_code {
+    &.theme_2_popup {
+        height: 90vh;
+    }
+}
+
+::ng-deep #payment_method {
+    &.theme_2_popup {
+        height: 90vh;
+    }
+}
+
+::ng-deep #coupon_code {
+    &.theme_2_popup {
+        height: 90vh;
+    }
+}
+
+::ng-deep .loggedin_head {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    p {
+        margin-bottom: 0;
+    }
+    .logout-btn {
+        display: block;
+        /*margin-left: auto;*/
+        font-size: 16px;
+        padding: 0px 30px;
+        margin: 10px;
+    }
+    .ml-a {
+        margin-left: auto;
+    }
+}
+
+::ng-deep .round-btn {
+    border-radius: 100px;
+}
+
+::ng-deep .checkout_popup .continue-btn {
+    font-size: $fs-20;
+    background-color: $front-primary-color;
+    padding: 6px 30px;
+    color: $text-bg;
+    margin: 10px;
+    border-radius: 100px;
+}
+
 .bottom-ctn-btn {
     .gray-btn {
         font-size: $fs-16;
         background-color: $grey-3;
-        padding: 0px 20px;
+        padding: 6px 25px;
         margin: 10px;
     }
 }
@@ -1159,7 +1305,7 @@ input:focus {
     .gray-btn {
         font-size: $fs-16;
         background-color: $grey-3;
-        padding: 0px 20px;
+        padding: 6px 25px;
         margin: 10px;
     }
 }
@@ -1167,7 +1313,7 @@ input:focus {
 .booking-summary .gray-btn {
     font-size: $fs-16;
     background-color: $grey-3;
-    padding: 0px 20px;
+    padding: 6px 25px;
     margin: 10px;
 }
 
@@ -1175,17 +1321,7 @@ input:focus {
     .gray-btn {
         font-size: $fs-16;
         background-color: $grey-3;
-        padding: 0px 20px;
+        padding: 6px 25px;
         margin: 10px;
     }
-}
-
-::ng-deep .cat-select-tabs {
-    .mat-tab-body {
-        padding: 15px 50px;
-    }
-}
-
-::ng-deep .ml-a {
-    margin-left: auto !important;
 }
