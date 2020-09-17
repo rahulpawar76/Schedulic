@@ -709,7 +709,7 @@
             padding-top: 6px;
             padding-right: 30px;
             padding-bottom: 6px;
-            margin-right: 50px;
+            margin-right: 70px;
             color: $text-bg;
         }
     }
@@ -861,6 +861,7 @@
     padding: 6px 30px;
     color: $text-bg;
     margin: 10px;
+    line-height: 1.5;
 }
 
 .mde-popover-direction-arrow {
@@ -1100,6 +1101,7 @@ input:focus {
                     padding: 6px 25px;
                     color: $text-color;
                     margin: 10px;
+                    line-height: 1.5;
                 }
             }
         }
@@ -1161,6 +1163,7 @@ input:focus {
         background-color: $grey-3;
         padding: 0px 20px;
         margin: 10px;
+        line-height: 1.5;
     }
 }
 
@@ -1169,6 +1172,7 @@ input:focus {
     background-color: $grey-3;
     padding: 0px 20px;
     margin: 10px;
+    line-height: 1.5;
 }
 
 .loggedin_head {
@@ -1177,6 +1181,7 @@ input:focus {
         background-color: $grey-3;
         padding: 0px 20px;
         margin: 10px;
+        line-height: 1.5;
     }
 }
 

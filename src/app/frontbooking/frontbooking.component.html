@@ -43,8 +43,7 @@
                                     'valid','not-valid':validpostalcode ===
                                     'invalid'}">
                                     <i class="fa fa-map-marker"></i>
-                                    <input type="text" [(ngModel)]="booking.postalcode" class="postcode-input" placeholder="Enter
-                                        the postal code to get our service" (keyup)="fnCheckPostalCode($event)" />
+                                    <input type="text" [(ngModel)]="booking.postalcode" class="postcode-input" placeholder="Enter the postal code to get our service" (keyup)="fnCheckPostalCode($event)" />
                                     <input type="button" value="Check" (click)="fnCheckPostalCode($event)" class="inline-btn" id="check_postal_code" *ngIf="validpostalcode != 'valid'" />
                                     <input type="button" (click)="fnChangePostalCode($event)" value="Change" class="inline-btn" id="check_postal_code" *ngIf="validpostalcode == 'valid'" />
                                     <i class="material-icons">check_circle</i>
@@ -377,8 +376,7 @@
                                                     required.</small></span>
                             </div>
                             <div class="col bottom-ctn-btn">
-                                <button mat-button (click)="fnloginexisinguser()" class="round-btn float-right
-                                                gray-btn">Log In</button>
+                                <button mat-button (click)="fnloginexisinguser()" class="round-btn float-right gray-btn mr-0">Log In</button>
                             </div>
                         </div>
                     </form>
@@ -1152,16 +1150,14 @@
                     </div>
                     <mat-card-title class="px-4 py-2 mx-2 row d-flex">
                         <label class="col-lg-6 px-0 col-sm-12 col-12 float-left">{{businessDetail?businessDetail.business_name:''}}</label>
-                        <div class="col-lg-6 col-sm-12 col-12
-                            right-check-postal-form float-left" *ngIf="postalCodeCondition &&
+                        <div class="col-lg-6 col-sm-12 col-12 right-check-postal-form float-left" *ngIf="postalCodeCondition &&
                             postal_code_status">
                             <div class="check-aval-postal sm-py-2" [ngClass]="{'':validpostalcode ===
                                 'default','valid':validpostalcode ===
                                 'valid','not-valid':validpostalcode ===
                                 'invalid'}">
                                 <i class="fa fa-map-marker"></i>
-                                <input type="text" [(ngModel)]="booking.postalcode" class="postcode-input" placeholder="Enter
-                                    the postal code to get our service" (keyup)="fnCheckPostalCode($event)" />
+                                <input type="text" [(ngModel)]="booking.postalcode" class="postcode-input" placeholder="Enter the postal code to get our service" (keyup)="fnCheckPostalCode($event)" />
                                 <input type="button" value="Check" (click)="fnCheckPostalCode($event)" class="inline-btn" id="check_postal_code" *ngIf="validpostalcode != 'valid'" />
                                 <input type="button" (click)="fnChangePostalCode($event)" value="Change" class="inline-btn" id="check_postal_code" *ngIf="validpostalcode == 'valid'" />
                                 <i class="material-icons">check_circle</i>

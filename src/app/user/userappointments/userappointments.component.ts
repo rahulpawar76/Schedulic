@@ -1523,7 +1523,6 @@ export class rescheduleAppointmentDialog {
     //     ).subscribe((response:any) => {
     //       if(response.data == true){
     //         this.offDaysList = response.response;
-    //         //alert(JSON.stringify(this.offDaysList));
     //       }
     //       else{
 

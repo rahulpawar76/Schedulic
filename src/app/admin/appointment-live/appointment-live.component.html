@@ -205,12 +205,10 @@
                                         <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
                                             <mat-form-field>
                                                 <mat-label>Name</mat-label>
-                                                <input matInput formControlName="cus_name" placeholder="Enter name" pattern="[a-zA-Z ]*">
+                                                <input matInput formControlName="cus_name" placeholder="Enter name">
                                             </mat-form-field>
                                             <span class="error-wrap" *ngIf="newCustomer.get('cus_name').dirty || newCustomer.get('cus_name').touched || formSubmitclicked">
                                                 <small *ngIf="newCustomer.get('cus_name').hasError('required')" class="error">Fullname is required.</small>
-                                                <small *ngIf="newCustomer.get('cus_name').hasError('pattern')" class="error">Fullname should be string character only.</small>
-
                                             </span>
                                         </div>
                                     </div>
@@ -273,7 +271,10 @@
                     </div>
                     <div class="cart-footer">
                         <div class="add-note">
-                            <p (click)="fnAddNote()" class="title">Add Note</p>
+                            <p *ngIf="!note_description" (click)="fnAddNote()" class="title">Add Note</p>
+                            <p *ngIf="note_description" (click)="fnAddNote()" class="title with-icon d-flex">Note :
+                                <mat-icon>sticky_note_2</mat-icon>
+                            </p>
                         </div>
                         <div class="total">
                             <p fxFlex="50" class="title text-left">Total</p>
@@ -539,7 +540,7 @@
             </div>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-8 left-order-listing">
+                    <div class="col-8 col-lg-8 col-xl-9 left-order-listing">
                         <div class="row">
                             <!-- {{ pendingBillingData | json}} -->
                             <div class="col-4 p-2" *ngFor="let val of pendingBillingData;let i=index">
@@ -607,7 +608,7 @@
                         </div>
                     </div>
 
-                    <div class="col-4 p-2 shadow billing-cart">
+                    <div class="col-4 col-lg-4 col-xl-3 p-2 shadow billing-cart">
                         <div class="px-3 pt-2 pb-0 ord-bill-head">
                             Bill Order
                         </div>

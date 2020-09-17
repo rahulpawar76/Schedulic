@@ -1819,9 +1819,16 @@ export class FrontBookingThemeSixComponent implements OnInit {
             });
         }
         if(this.is_at_home_service){
-          this.personalinfo = false;
-          this.appointmentinfo = true;
-          this.isLoggedIn=true;
+          if(this.existinguser){
+            this.personalinfo = false;
+            this.appointmentinfo = true;
+            this.isLoggedIn=true;
+          }else if(this.newuser){
+            this.personalinfo = false;
+            this.appointmentinfo = false;
+            this.summaryScreen = true;
+            this.isLoggedIn=true;
+          }
         }else if(!this.is_at_home_service){
           this.personalinfo = false;
           this.appointmentinfo = false;

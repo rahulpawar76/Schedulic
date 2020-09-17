@@ -75,12 +75,9 @@ export class MyBusinessComponent implements OnInit {
     this.isLoaderAdmin = true;
     this.AdminService.getGeoLocation(IP).subscribe((response:any) => {
       if(response){
-        
-        alert("Response")
         console.log(response.response)
       }
       else {
-        alert("No Response")
       }
       this.isLoaderAdmin = false;
     })

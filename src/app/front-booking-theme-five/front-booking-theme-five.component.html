@@ -43,8 +43,7 @@
                                     'valid','not-valid':validpostalcode ===
                                     'invalid'}">
                                     <i class="fa fa-map-marker"></i>
-                                    <input type="text" [(ngModel)]="booking.postalcode" class="postcode-input" placeholder="Enter
-                                        the postal code to get our service" (keyup)="fnCheckPostalCode($event)" />
+                                    <input type="text" [(ngModel)]="booking.postalcode" class="postcode-input" placeholder="Enter the postal code to get our service" (keyup)="fnCheckPostalCode($event)" />
                                     <input type="button" value="Check" (click)="fnCheckPostalCode($event)" class="inline-btn" id="check_postal_code" *ngIf="validpostalcode != 'valid'" />
                                     <input type="button" (click)="fnChangePostalCode($event)" value="Change" class="inline-btn" id="check_postal_code" *ngIf="validpostalcode == 'valid'" />
                                     <i class="material-icons">check_circle</i>
@@ -232,7 +231,7 @@
                                                                 required.</small></span>
                                             </div>
                                             <div class="col bottom-ctn-btn">
-                                                <button mat-button (click)="fnloginexisinguser()" class="round-btn float-right continue-btn">Log In</button>
+                                                <button mat-button (click)="fnloginexisinguser()" class="round-btn float-right mr-0 continue-btn">Log In</button>
                                             </div>
                                         </div>
                                     </form>
@@ -888,9 +887,7 @@
                             <mat-card class="booking-summary p-0" style="width:
                                 380px">
                                 <mat-card-title class="py-2 px-3">
-                                    <label class="mb-0">Summary</label><button mat-button class="round-btn
-                                        gray-btn" *ngIf="serviceMainArr.totalNumberServices>0" (click)="fnContinueFromCart()">Checkout<i
-                                            class="material-icons">keyboard_arrow_right</i></button>
+                                    <label class="mb-0">Summary</label><button mat-button class="continue-btn" *ngIf="serviceMainArr.totalNumberServices>0" (click)="fnContinueFromCart()">Checkout<i class="material-icons">keyboard_arrow_right</i></button>
                                 </mat-card-title>
                                 <mat-card-content class="py-2 px-3 mt-0">
                                     <div *ngFor="let serviceCart of

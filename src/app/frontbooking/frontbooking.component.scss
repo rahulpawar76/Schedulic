@@ -648,7 +648,7 @@
         padding-top: 6px;
         padding-right: 30px;
         padding-bottom: 6px;
-        margin-right: 50px;
+        margin-right: 70px;
     }
 }
 
@@ -884,7 +884,7 @@ input:focus {
         padding: 0px 30px;
     }
     .ml-a {
-        margin-left: auto;
+        margin-left: auto !important;
     }
 }
 
@@ -1473,7 +1473,7 @@ input:focus {
         margin: 10px;
     }
     .ml-a {
-        margin-left: auto;
+        margin-left: auto !important;
     }
 }
 
@@ -1496,6 +1496,7 @@ input:focus {
         background-color: $grey-3;
         padding: 6px 25px;
         margin: 10px;
+        line-height: 1.5;
     }
 }
 
@@ -1505,6 +1506,7 @@ input:focus {
         background-color: $grey-3;
         padding: 6px 25px;
         margin: 10px;
+        line-height: 1.5;
     }
 }
 
@@ -1513,6 +1515,7 @@ input:focus {
     background-color: $grey-3;
     padding: 6px 25px;
     margin: 10px;
+    line-height: 1;
 }
 
 .loggedin_head {
@@ -1521,6 +1524,7 @@ input:focus {
         background-color: $grey-3;
         padding: 6px 25px;
         margin: 10px;
+        line-height: 1.5;
     }
 }
 

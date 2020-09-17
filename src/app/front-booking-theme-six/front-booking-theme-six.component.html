@@ -42,8 +42,7 @@
                                     'valid','not-valid':validpostalcode ===
                                     'invalid'}">
                                     <i class="fa fa-map-marker"></i>
-                                    <input type="text" [(ngModel)]="booking.postalcode" class="postcode-input" placeholder="Enter
-                                        the postal code to get our service" (keyup)="fnCheckPostalCode($event)" />
+                                    <input type="text" [(ngModel)]="booking.postalcode" class="postcode-input" placeholder="Enter the postal code to get our service" (keyup)="fnCheckPostalCode($event)" />
                                     <input type="button" value="Check" (click)="fnCheckPostalCode($event)" class="inline-btn" id="check_postal_code" *ngIf="validpostalcode != 'valid'" />
                                     <input type="button" (click)="fnChangePostalCode($event)" value="Change" class="inline-btn" id="check_postal_code" *ngIf="validpostalcode == 'valid'" />
                                     <i class="material-icons">check_circle</i>
@@ -157,8 +156,7 @@
                                         <div class="addon-data">
                                             <h3 class="addon-title">{{services.service_name}}</h3>
                                             <div class="description">
-                                                <span class="duration"><mat-icon>watch_later</mat-icon>{{serviceDataHours[i]}}h {{serviceDataMinutes[i]}}min </span>
-                                                <span *ngIf="services.service_type !== null" class="type"><mat-icon>place</mat-icon>{{services.service_type}} ({{services.service_sub_type}})</span>
+                                                <span class="duration"><mat-icon>watch_later</mat-icon>{{serviceDataHours[i]}}h {{serviceDataMinutes[i]}}min </span> | <span *ngIf="services.service_type !== null" class="type"><mat-icon>place</mat-icon>{{services.service_type}} ({{services.service_sub_type}})</span>
                                             </div>
                                             <label *ngIf="currencySymbolPosition=='left'">{{currencySymbol|currencySymbol:'wide'}} {{services.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
                                 <label *ngIf="currencySymbolPosition=='right'">{{services.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|currencySymbol:'wide'}}</label>
@@ -205,8 +203,7 @@
                 <div class="col-lg-12 col-sm-12 col-12 top-title
                                 float-left">
                     Your Personal Details
-                    <button mat-fab color="" class="top-back-btn
-                                    float-right" (click)="fnbacktofirst()">
+                    <button mat-fab class="top-back-btn ml-auto float-right" (click)="fnbacktofirst()">
                                     <i class="material-icons" color="">close</i>
                                 </button>
                 </div>
@@ -251,7 +248,7 @@
                                                     required.</small></span>
                                 </div>
                                 <div class="col bottom-ctn-btn">
-                                    <button mat-button (click)="fnloginexisinguser()" class="round-btn float-right continue-btn">Log In</button>
+                                    <button mat-button (click)="fnloginexisinguser()" class="round-btn float-right mr-0 continue-btn">Log In</button>
                                 </div>
                             </div>
                         </form>
@@ -409,7 +406,7 @@
                     </div>
                 </div>
                 <div id="appointment_info" class="main-step step_7 p-0" *ngIf="appointmentinfo && is_at_home_service">
-                    <div class="px-4 pt-3 d-flex flex-wrap">
+                    <div class="pt-3 d-flex flex-wrap">
                         <div class="col-lg-12 col-sm-12 col-12 top-title float-left">
                             Appointment Details
                         </div>
@@ -428,7 +425,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="p-4 mt-0 mb-2">
+                    <div class="mt-0 mb-2">
                         <form [formGroup]="formAppointmentInfo">
                             <div class="field-list mr-0 ml-0 row" *ngIf="is_at_home_service==true">
                                 <div class="col-12 col-lg-12 col-md-12  col-sm-12">
@@ -667,7 +664,7 @@
                                 px-0
                                 float-left">
                     Payment Method
-                    <button mat-fab class="top-back-btn ml-a float-right" (click)="fnbacktofirst()">
+                    <button mat-fab class="top-back-btn ml-auto float-right" (click)="fnbacktofirst()">
                                     <i class="material-icons" color="">close</i>
                                 </button>
                 </div>

@@ -385,7 +385,6 @@ export class FrontBookingThemeFiveComponent implements OnInit {
             this.PayUMoney.salt=this.PayUMoneyCredentials.salt_key;
             this.payUmoneyStatus=this.PayUMoneyCredentials.status;
           }
-          alert("0")
         if(this.settingsArr.pay_pal_settings){
           this.paypalSetting = JSON.parse(this.settingsArr.pay_pal_settings)
           this.paypalTestMode = this.paypalSetting.test_mode;
@@ -395,7 +394,6 @@ export class FrontBookingThemeFiveComponent implements OnInit {
             this.paypalClientId = this.paypalSetting.client_id;
           }
           this.paypalStatus = this.paypalSetting.status;
-          alert(this.paypalStatus)
         }
           
         if(this.settingsArr.stripe_settings){
@@ -1801,9 +1799,16 @@ export class FrontBookingThemeFiveComponent implements OnInit {
             });
         }
         if(this.is_at_home_service){
-          this.personalinfo = false;
-          this.appointmentinfo = true;
-          this.isLoggedIn=true;
+          if(this.existinguser){
+            this.personalinfo = false;
+            this.appointmentinfo = true;
+            this.isLoggedIn=true;
+          }else if(this.newuser){
+            this.personalinfo = false;
+            this.appointmentinfo = false;
+            this.summaryScreen = true;
+            this.isLoggedIn=true;
+          }
         }else if(!this.is_at_home_service){
           this.personalinfo = false;
           this.appointmentinfo = false;

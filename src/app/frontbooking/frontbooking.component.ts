@@ -378,7 +378,6 @@ export class FrontbookingComponent implements OnInit {
           this.currencySymbolFormat = this.settingsArr.currency_format;
           if(this.settingsArr.theme){
             this.selectedTheme = this.settingsArr.theme;
-            alert(this.selectedTheme)
             if(this.selectedTheme == '4'){
               localStorage.setItem('frontBusiness_id',this.businessId)
               this.router.navigate(['/booking-4']);
@@ -2999,7 +2998,6 @@ export class FrontbookingComponent implements OnInit {
     });
   }
   theme2CheckoutDialog() {
-    alert(this.is_at_home_service)
     const dialogRef = this.dialog.open(theme2CheckoutDialog, {
       width: '800px',
        data: {
@@ -3412,7 +3410,6 @@ export class theme2CheckoutDialog {
       }else if(!this.is_at_home_service && !this.isLoggedIn){
         this.personalinfo = true;
       }
-      alert(this.is_at_home_service)
     }
 
     fnUserType(event,usertype){

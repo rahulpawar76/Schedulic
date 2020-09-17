@@ -43,8 +43,7 @@
                                     'valid','not-valid':validpostalcode ===
                                     'invalid'}">
                                     <i class="fa fa-map-marker"></i>
-                                    <input type="text" [(ngModel)]="booking.postalcode" class="postcode-input" placeholder="Enter
-                                        the postal code to get our service" (keyup)="fnCheckPostalCode($event)" />
+                                    <input type="text" [(ngModel)]="booking.postalcode" class="postcode-input" placeholder="Enter the postal code to get our service" (keyup)="fnCheckPostalCode($event)" />
                                     <input type="button" value="Check" (click)="fnCheckPostalCode($event)" class="inline-btn" id="check_postal_code" *ngIf="validpostalcode != 'valid'" />
                                     <input type="button" (click)="fnChangePostalCode($event)" value="Change" class="inline-btn" id="check_postal_code" *ngIf="validpostalcode == 'valid'" />
                                     <i class="material-icons">check_circle</i>
@@ -376,7 +375,7 @@
                                                     required.</small></span>
                                 </div>
                                 <div class="col bottom-ctn-btn">
-                                    <button mat-button (click)="fnloginexisinguser()" class="round-btn float-right continue-btn">Log In</button>
+                                    <button mat-button (click)="fnloginexisinguser()" class="round-btn float-right continue-btn mr-0">Log In</button>
                                 </div>
                             </div>
                         </form>

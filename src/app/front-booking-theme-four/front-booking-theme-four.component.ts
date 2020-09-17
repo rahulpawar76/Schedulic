@@ -1469,8 +1469,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
  
  
     if(this.isLoggedIn){
-      alert("Loggedin --"+this.isLoggedIn)
-      alert("is_at_home_service --"+this.is_at_home_service)
       if(this.is_at_home_service){
         this.serviceselection = false;
         this.appointmentinfo = true;
@@ -1482,8 +1480,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
         this.summaryScreen=true;
       }
     }else{
-      alert("Loggedin --"+this.isLoggedIn)
-      alert("is_at_home_service --"+this.is_at_home_service)
       if(this.is_at_home_service){
         if(this.newuser){
           this.serviceselection = false;
@@ -1629,7 +1625,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
   }
   
   fnSelectStaff(staff_id,index){
-    alert("0")
     this.isLoader=true;
     if(this.selectedTheme !== '2'){
       //this.trigger.toArray()[index].togglePopover();
@@ -1710,7 +1705,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
 
   fnUserType(event,usertype){
     if(usertype == "existing"){
-      alert("1")
       this.existinguser = true;
       this.newuser = false;
       if(!this.isLoggedIn && this.is_at_home_service){
@@ -1722,7 +1716,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
         this.appointmentinfo = false;
       }
     }else{
-      alert("2")
       this.newuser = true;
       this.existinguser = false;
       if(!this.isLoggedIn && this.is_at_home_service){
@@ -1801,12 +1794,17 @@ export class FrontBookingThemeFourComponent implements OnInit {
             });
         }
         if(this.is_at_home_service){
-          alert("12121")
-          this.personalinfo = false;
-          this.appointmentinfo = true;
-          this.isLoggedIn=true;
+          if(this.existinguser){
+            this.personalinfo = false;
+            this.appointmentinfo = true;
+            this.isLoggedIn=true;
+          }else if(this.newuser){
+            this.personalinfo = false;
+            this.appointmentinfo = false;
+            this.summaryScreen = true;
+            this.isLoggedIn=true;
+          }
         }else if(!this.is_at_home_service){
-          alert("Home")
           this.personalinfo = false;
           this.appointmentinfo = false;
           this.summaryScreen = true;

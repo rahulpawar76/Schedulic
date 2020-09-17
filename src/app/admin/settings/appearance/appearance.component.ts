@@ -282,14 +282,15 @@ export class AppearanceComponent implements OnInit {
         if(this.settingData.form_settings){
           this.formArr=JSON.parse(this.settingData.form_settings);
         }
-        // if(this.settingData.theme){
-        //   this.defaultTheme = this.settingData.theme
-        //   if(this.defaultTheme == 1){
-        //     this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+window.btoa(this.businessId)+"'></iframe>";
-        //   }else{
-        //     this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking-"+this.defaultTheme+"?business_id="+window.btoa(this.businessId)+"'></iframe>";
-        //   }
-        // }else{
+        if(this.settingData.theme){
+          this.defaultTheme = this.settingData.theme
+          // if(this.defaultTheme == 1){
+          //   this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+window.btoa(this.businessId)+"'></iframe>";
+          // }else{
+          //   this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking-"+this.defaultTheme+"?business_id="+window.btoa(this.businessId)+"'></iframe>";
+          // }
+        }
+        // else{
         //   this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+window.btoa(this.businessId)+"'></iframe>";
         // }
         
@@ -349,24 +350,24 @@ copyEmbedCode(val: string){
     let requestObject = {
       'business_id': this.businessId,
       'theme': selectedTheme
-  };
-  this.AdminSettingsService.fnChnageTheme(requestObject).subscribe((response:any)=>{
-    if(response.data == true){
-      this._snackBar.open("Default Theme Updated.", "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['green-snackbar']
-      });
-      this.getSettingValue();
-    }else if(response.data == false && response.response !== 'api token or userid invaild'){
-       
-      this._snackBar.open(response.response, "X", {
-        duration: 2000,
-        verticalPosition: 'top',
-        panelClass : ['red-snackbar']
-      });
-    }
-  })
+    };
+    this.AdminSettingsService.fnChnageTheme(requestObject).subscribe((response:any)=>{
+      if(response.data == true){
+        this._snackBar.open("Default Theme Updated.", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.getSettingValue();
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
+        
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
   }
   fnThemePreview(themeNumber) {
     const dialogRef = this.dialog.open(DialogPreviewTheme, {
