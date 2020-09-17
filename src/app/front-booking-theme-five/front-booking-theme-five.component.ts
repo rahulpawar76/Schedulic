@@ -385,9 +385,9 @@ export class FrontBookingThemeFiveComponent implements OnInit {
             this.PayUMoney.salt=this.PayUMoneyCredentials.salt_key;
             this.payUmoneyStatus=this.PayUMoneyCredentials.status;
           }
-          
+          alert("0")
         if(this.settingsArr.pay_pal_settings){
-          this.paypalSetting = this.settingsArr.pay_pal_settings
+          this.paypalSetting = JSON.parse(this.settingsArr.pay_pal_settings)
           this.paypalTestMode = this.paypalSetting.test_mode;
           if(this.paypalTestMode){
             this.paypalClientId="sb";
@@ -395,7 +395,7 @@ export class FrontBookingThemeFiveComponent implements OnInit {
             this.paypalClientId = this.paypalSetting.client_id;
           }
           this.paypalStatus = this.paypalSetting.status;
-
+          alert(this.paypalStatus)
         }
           
         if(this.settingsArr.stripe_settings){
@@ -763,8 +763,6 @@ export class FrontBookingThemeFiveComponent implements OnInit {
     }
     let id=event.value.split("_")[0];
     let categoryName=event.value.split("_")[1];
-    alert(id)
-    alert(categoryName)
     this.subcatdata=[];
     this.selectedcategory = id;
     this.selectedcategoryName=categoryName
@@ -791,10 +789,12 @@ export class FrontBookingThemeFiveComponent implements OnInit {
       if(response.data == true){
         // this.catselection = false;
         // this.subcatselection = true;
+        this.directService = false;
         this.isLoader=false;
         this.subcatdata = response.response;
       }else{
         this.subcatdata=[];
+        this.directService = true;
         this.serviceData = [];
         this.fnGetAllServicesFromCategory();
       }
@@ -811,8 +811,6 @@ export class FrontBookingThemeFiveComponent implements OnInit {
     // this.serviceselection = true;
     let id = event.value.split("_")[0];
     let subcategoryName = event.value.split("_")[1];
-    alert(id)
-    alert(subcategoryName)
     this.selectedsubcategory = id;
     this.selectedsubcategoryName=subcategoryName
     this.serviceData = [];
@@ -979,7 +977,8 @@ export class FrontBookingThemeFiveComponent implements OnInit {
     })
   }
 
-   fnShowCounter(event,service_id){
+   fnShowCounter(event){
+    let service_id  = event.value.split("_")[0];
     this.currentSelectedService=service_id;
     this.serviceCount[service_id].count=1;
     this.serviceCount[service_id].subtotal = this.serviceCount[service_id].service_cost * this.serviceCount[service_id].count;
@@ -1091,7 +1090,7 @@ export class FrontBookingThemeFiveComponent implements OnInit {
       console.log('false');
       this.is_at_home_service  = false;
     }
-
+    this.fnShowCalender(this.currentSelectedService);
     //console.log(this.taxAmountArr);
   //  console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
   }
@@ -1411,7 +1410,7 @@ export class FrontBookingThemeFiveComponent implements OnInit {
     }else{
       this.fnSelectNextValidDate(this.minimumAdvanceBookingDateTimeObject);
     }
-    this.serviceselection = false;
+    this.catselection = false;
     this.dateselection = true;
   }
   
@@ -1801,15 +1800,16 @@ export class FrontBookingThemeFiveComponent implements OnInit {
             panelClass : ['green-snackbar']
             });
         }
-       if(this.is_at_home_service){
-        this.personalinfo = false;
-        this.appointmentinfo = true;
-        this.isLoggedIn=true;
-       }else if(this.is_at_home_service){
-        this.personalinfo = false;
-        this.summaryScreen = true;
-        this.isLoggedIn=true;
-       }
+        if(this.is_at_home_service){
+          this.personalinfo = false;
+          this.appointmentinfo = true;
+          this.isLoggedIn=true;
+        }else if(!this.is_at_home_service){
+          this.personalinfo = false;
+          this.appointmentinfo = false;
+          this.summaryScreen = true;
+          this.isLoggedIn=true;
+        }
       }else{
 
         this.snackBar.open("Email or Password is incorrect", "X", {
@@ -2053,7 +2053,7 @@ export class FrontBookingThemeFiveComponent implements OnInit {
     }
   } 
   
-  fnappointmentinfo(event){
+  fnappointmentinfo(){
 
     if(this.is_at_home_service==true){
       if(!this.formAppointmentInfo.valid){
@@ -2068,6 +2068,18 @@ export class FrontBookingThemeFiveComponent implements OnInit {
     this.appointmentinfo = false;
     this.summaryScreen = true;
 
+  }
+
+  fnProceedToSummary(event){
+    if(this.isLoggedIn){
+      this.fnappointmentinfo();
+    }else{
+      if(this.existinguser){
+        this.fnloginexisinguser();
+      }else if(this.newuser){
+        this.fnpersonalinfo();
+      }
+    }
   }
 
   // coupon code

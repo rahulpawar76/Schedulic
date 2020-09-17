@@ -3216,7 +3216,7 @@ export class theme2CheckoutDialog {
           }
           
         if(this.settingsArr.pay_pal_settings){
-          this.paypalSetting = this.settingsArr.pay_pal_settings
+          this.paypalSetting = JSON.parse(this.settingsArr.pay_pal_settings)
           this.paypalTestMode = this.paypalSetting.test_mode;
           if(this.paypalTestMode){
             this.paypalClientId="sb";

@@ -174,8 +174,7 @@
                         <mat-expansion-panel [expanded]="panelOpenState" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
-                                    <i class="fa fa-user" aria-hidden="true" matTooltip="Please Enter Customer Details"
-                                    aria-label="Please Enter Customer Details"></i>
+                                    <i class="fa fa-user" aria-hidden="true" matTooltip="Please Enter Customer Details" aria-label="Please Enter Customer Details"></i>
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
                             <div class="cutomer-form-body">
@@ -206,7 +205,7 @@
                                         <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
                                             <mat-form-field>
                                                 <mat-label>Name</mat-label>
-                                                <input matInput formControlName="cus_name" placeholder="Enter name" pattern="[a-zA-Z ]*" >
+                                                <input matInput formControlName="cus_name" placeholder="Enter name" pattern="[a-zA-Z ]*">
                                             </mat-form-field>
                                             <span class="error-wrap" *ngIf="newCustomer.get('cus_name').dirty || newCustomer.get('cus_name').touched || formSubmitclicked">
                                                 <small *ngIf="newCustomer.get('cus_name').hasError('required')" class="error">Fullname is required.</small>
@@ -556,7 +555,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row ">
+                                    <div *ngIf="val.get_customer" class="row ">
                                         <div class="col-6 pt-2">
                                             <label>Customer</label><br>
                                             <span>{{val.get_customer.fullname}}</span>
@@ -631,7 +630,7 @@
                                 </div>
                             </div>
                         </div>
-                      
+
                         <div class="order-items">
                             <div *ngFor="let val of pendingBillingData;let i=index">
                                 <div class="px-3 mt-3" *ngIf="val.is_selected==true">
