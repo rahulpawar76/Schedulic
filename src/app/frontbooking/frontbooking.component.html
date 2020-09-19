@@ -186,7 +186,7 @@
                                                 }} {{currencySymbol|
                                                 currencySymbol:'wide'}}</label>
                                 <!-- <label>₹ {{services.service_cost}}</label> -->
-                                <button (click)="fnShowCounter($event,services.id)" *ngIf="serviceCount[services.id].count<1" mat-button class="round-btn
+                                <button (click)="fnShowCounter(services.id)" *ngIf="serviceCount[services.id].count<1" mat-button class="round-btn
                                                 addon-cart-btn">Add To Cart</button>
                                 <input type="checkbox" name="service" value="service_{{services.id}}" class="d-none" />
                                 <div class="qty-counter" *ngIf="serviceCount[services.id].count>0">
@@ -1291,8 +1291,8 @@
                                 </div>
                                 <div class="hover-overlay" *ngIf="serviceCount[services.id].count<1">
                                     <div class="btns-wrap">
-                                    <button class="add-to-cart-btn" (click)="selectDataTimePopup(services.id)">Add To Cart</button>
-                                    <button class="book-now-btn" (click)="selectDataTimePopup(services.id)">Book Now</button>
+                                    <button class="add-to-cart-btn" (click)="selectDataTimePopup(services.id,'add_to_cart')">Add To Cart</button>
+                                    <button class="book-now-btn" (click)="selectDataTimePopup(services.id,'book_now')">Book Now</button>
                                     </div>
                                 </div>
                             </label>

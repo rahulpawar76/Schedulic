@@ -570,6 +570,13 @@ export class FrontBookingThemeThreeComponent implements OnInit {
   }
 
   fnCategoryTabIndex(selectedIndex){
+    if(this.booking.postalcode == '' && this.postalCodeCondition && this.postal_code_status){
+      this.validpostalcode = 'invalid';
+      return false;
+    }
+    if(this.validpostalcode == 'invalid'){
+      return false;
+    }
     this.isLoader=true;
     this.selectedcategory = this.catdata[selectedIndex].id;
     this.selectedcategoryName = this.catdata[selectedIndex].category_title;
@@ -783,6 +790,13 @@ export class FrontBookingThemeThreeComponent implements OnInit {
 
   // Sub Category
   fnSubCategory(event,id,subcategoryName){
+    if(this.booking.postalcode == '' && this.postalCodeCondition && this.postal_code_status){
+      this.validpostalcode = 'invalid';
+      return false;
+    }
+    if(this.validpostalcode == 'invalid'){
+      return false;
+    }
     this.catselection = false;
     this.serviceselection = true;
     this.selectedsubcategory = id;
@@ -927,6 +941,13 @@ export class FrontBookingThemeThreeComponent implements OnInit {
         }
         this.isLoader=false;
         this.directService=true;
+        if(this.booking.postalcode == '' && this.postalCodeCondition && this.postal_code_status){
+          this.validpostalcode = 'invalid';
+          return false;
+        }
+        if(this.validpostalcode == 'invalid'){
+          return false;
+        }
         this.catselection = false;
         this.serviceselection = true;
       }else{
@@ -946,6 +967,7 @@ export class FrontBookingThemeThreeComponent implements OnInit {
   }
 
    fnShowCounter(event,service_id){
+    
     this.fnShowCalender(service_id);
     this.currentSelectedService=service_id;
     this.serviceCount[service_id].count=1;

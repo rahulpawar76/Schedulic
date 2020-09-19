@@ -152,7 +152,7 @@
                                             <button mat-button class="cancel-btn" (click)="fncancelOrder(val.id);">Cancel</button>
                                         </div>
                                         <div class="w-50 float-left text-right right-side">
-                                            <mat-icon>sticky_note_2</mat-icon>
+                                            <mat-icon *ngIf="val.booking_notes !== null" (click)="fnShowNote(val.booking_notes)">sticky_note_2</mat-icon>
                                             <img src="/assets/images/admin/stopwatch.png">
                                             <span class="timing"><small class="title">mm:ss</small>
                                                 {{countDown(val.booking_date+' '+val.booking_time)}}

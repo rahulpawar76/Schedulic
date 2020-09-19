@@ -2,7 +2,7 @@
     <div class="step-loader" *ngIf="isLoader">
         <img src="../../assets/loading-spinner.gif" />
     </div>
-    <div id="personal_info" class="main-step step_6 p-0 theme_2_popup" *ngIf="personalinfo">
+    <div id="personal_info" class="main-step step_6 p-0 theme_2_popup" *ngIf="personalinfo || appointmentinfo">
         <div class="step-top-head"></div>
         <div class="col-lg-12 col-sm-12 col-12 float-left
         loggedin_head" *ngIf="isLoggedIn">
@@ -15,7 +15,7 @@
             </div>
         </mat-card-title>
         <mat-card-content class="p-4 mt-0 mb-2">
-            <div class="" *ngIf="userSelectionMain">
+            <div class="" *ngIf="personalinfo">
                 <div class="user-type-selection">
                     <mat-radio-group aria-label="Select an option">
                         <mat-radio-button class="mb-0" checked (click)="fnUserType($event,'existing')" value="exist-user">Existing User</mat-radio-button>
@@ -34,12 +34,10 @@
                                             formExistingUser.get('existing_mail').touched
                                             || formSubmitclicked"><small
                                                 *ngIf="formExistingUser.get('existing_mail').hasError('required')"
-                                                class="error">Email is
-                                                required.</small>
+                                                class="error">Email is required.</small>
                                             <small
-                                                *ngIf="formExistingUser.get('existing_mail').hasError('email')"
-                                                class="error">Enter valid
-                                                email.</small></span>
+                                                *ngIf="formExistingUser.get('existing_mail').hasError('pattern')"
+                                                class="error">Enter valid email.</small></span>
                             </div>
                             <div class="col-12 col-lg-6 col-md-6 col-sm-6">
                                 <label>Password</label>
@@ -210,7 +208,7 @@
                 </div> -->
                 </div>
             </div>
-            <div id="appointment_info" *ngIf="is_at_home_service==true" class="main-step step_7 p-0">
+            <div id="appointment_info" *ngIf="appointmentinfo && is_at_home_service" class="main-step step_7 p-0">
                 <div *ngIf="appointmentinfo">
                     <div class="d-flex flex-wrap">
                         <div class="col-lg-12 col-sm-12 col-12 top-title float-left">
@@ -329,8 +327,8 @@
                             }} {{currencySymbol|
                             currencySymbol:'wide'}}</label>
                     </div>
-                    <div class="col-lg-2 col-12 p-0 right-side">
-                        <div class="qty-counter">
+                    <div class="col-lg-2 col-12 d-flex justify-content-end p-0 right-side right-side">
+                        <div class="qty-counter d-inline-block">
                             <button mat-fab class="action-btn
                                             qty-minus" (click)="fnRemove($event,serviceCart.id)">-</button>
                             <input type="text" class="qty_value" value="{{serviceCart.count}}" readonly/>

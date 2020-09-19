@@ -493,6 +493,16 @@ export class AppointmentLiveComponent implements OnInit {
        this.note_description = result;
       });
   }
+  fnShowNote(note){
+    
+    const dialogRef = this.dialog.open(addPOSBookingNoteDialog, {
+      width: '500px',
+      data :{note :note, view: 'only_view'}
+     });
+      dialogRef.afterClosed().subscribe(result => {
+       this.note_description = result;
+      });
+  }
 
   fnPaymentMode(pos_pdf_type){
 
@@ -1290,11 +1300,11 @@ constructor(
 export class addPOSBookingNoteDialog {
   createNewNote: FormGroup;
   formSettingPage:boolean = false;
-  note_description:any;
+  note_description_val:any;
   appointmentDetails = {
   bookingNotes : ''
   };
-
+  viewType:any;
   settingsArr:any =[];
 
 constructor(
@@ -1305,14 +1315,14 @@ constructor(
   private _formBuilder:FormBuilder,
   public dialog: MatDialog,
   @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.note_description = this.data.note
-    alert(this.data.note)
-    if(this.note_description && this.note_description !== null || this.note_description !== ''){
-      // this.createNewNote.controls['note_description'].setValue(this.note_description);
-      this.createNewNote.controls['note_description'].setValue(this.note_description);
-    }
+    this.note_description_val = this.data.note
+    this.viewType= this.data.view
+    // if(this.note_description_val && this.note_description_val !== null || this.note_description_val !== ''){
+    // this.createNewNote.controls['note_description'].setValue(this.note_description);
+    // this.createNewNote.controls['note_description'].setValue(this.note_description_val);
+    // }
     this.createNewNote = this._formBuilder.group({
-      note_description : ['', Validators.required],
+      note_description : [this.note_description_val, Validators.required,],
     });
 
 

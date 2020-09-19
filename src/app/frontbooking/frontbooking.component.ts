@@ -301,7 +301,6 @@ export class FrontbookingComponent implements OnInit {
       this.customerLastname=this.customerName.split(" ")[1];
       this.customerEmail=this.authenticationService.currentUserValue.email;
       this.customerPhone=this.authenticationService.currentUserValue.phone;
-      console.log(this.authenticationService.currentUserValue.user_id+" "+this.isLoggedIn);
     }
    // this.formNewUser.controls['newUserPhone'].setValue(this.phone)
     this.fnGetTaxDetails();
@@ -329,8 +328,6 @@ export class FrontbookingComponent implements OnInit {
     return script;
   }
   fnChangeTermsConditionsStatus(event){
-    console.log(event);
-
     if(event== true){
       this.termsConditionsStatusValue=true;
       this.termsConditionsStatusValidation = false;
@@ -343,7 +340,6 @@ export class FrontbookingComponent implements OnInit {
   }
 
   fnChangePrivacyPolicyStatus(event){
-    console.log(event);
       if(event == true){
       this.PrivacyPolicyStatusValue=true;
       this.PrivacyPolicyStatusValidation = false;
@@ -363,10 +359,8 @@ export class FrontbookingComponent implements OnInit {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    console.log(requestObject);
     this.http.post(`${environment.apiUrl}/get-front-setting`,requestObject,{headers:headers} ).pipe(
       map((res) => {
-        console.log(res);
         return res;
       }),
       catchError(this.handleError)
@@ -426,16 +420,11 @@ export class FrontbookingComponent implements OnInit {
           if(this.termsConditions.status == 'false'){
             this.termsConditionsStatusValue = true;
           }
-          console.log(this.termsConditions);
-
           this.privacyPolicy=JSON.parse(this.settingsArr.privacy_policy)
           if(this.privacyPolicy && this.privacyPolicy.status == 'false'){
             this.PrivacyPolicyStatusValue = true;
           }
-          console.log(this.privacyPolicy);
-
           this.thankYou=JSON.parse(this.settingsArr.thank_you);
-          console.log(this.thankYou)
           this.contactFormSettingsArr=JSON.parse(this.settingsArr.form_settings)
           if(this.contactFormSettingsArr && this.contactFormSettingsArr.contact_field_status == true){
             if(this.contactFormSettingsArr.addressField.status == 1){
@@ -482,13 +471,11 @@ export class FrontbookingComponent implements OnInit {
             this.formAppointmentInfo.addControl('appo_city', new FormControl('', validators));
             this.formAppointmentInfo.addControl('appo_zipcode', new FormControl('', validatorsZipCode));
           }
-          console.log(this.contactFormSettingsArr);
 
           this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
           this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
           this.minimumAdvanceBookingDateTimeObject = new Date();
           this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
-          console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
           this.minDate = {
             year: this.minimumAdvanceBookingDateTimeObject.getFullYear(),
             month: this.minimumAdvanceBookingDateTimeObject.getMonth() + 1,
@@ -496,7 +483,6 @@ export class FrontbookingComponent implements OnInit {
           };
           this.maximumAdvanceBookingDateTimeObject = new Date();
           this.maximumAdvanceBookingDateTimeObject.setMinutes( this.maximumAdvanceBookingDateTimeObject.getMinutes() + this.maximumAdvanceBookingTime );
-          console.log("maximumAdvanceBookingDateTimeObject - "+this.maximumAdvanceBookingDateTimeObject);
           this.maxDate = {
             year: this.maximumAdvanceBookingDateTimeObject.getFullYear(),
             month: this.maximumAdvanceBookingDateTimeObject.getMonth() + 1,
@@ -543,7 +529,6 @@ export class FrontbookingComponent implements OnInit {
     this.getTaxDetails().subscribe((response:any) => {
       if(response.data == true){
         this.taxArr=response.response
-        console.log(this.taxArr);
       }
       else if(response.data == false){
         
@@ -568,32 +553,7 @@ export class FrontbookingComponent implements OnInit {
 
   selectToday() {
     this.model = this.calendar.getToday();
-    console.log(JSON.stringify(this.calendar.getToday()));
   }
-  
-  //isDisabled(date: NgbDateStruct) {
-    //const d = new Date(date.year, date.month - 1, date.day);
-
-    //if you want to disable week
-    // return d.getDay() == 5
-
-    //if you want to disable particular day for every month
-    // return date.day==13
-
-    //if you want to disable particular month
-    // return date.month - 1 ==0
-
-    //if you want to disable particular day for particular month
-    // date.month + 1 ==0 && date.day==1 || date.month + 1 ==0 && date.day==2;
-    //return date.month && date.day==13 || date.month + 1  && date.day==13 || date.month + 2  && date.day==13;
-    // let temp:any;
-    // let temp2:any;
-    // temp=date.month==2 && date.day==13;
-    // temp+=temp2 || date.month==4 && date.day==13;
-    // temp+=temp2 || date.month==3 && date.day==13;
-    //return date.month==4 && date.day==13 || date.month==3 && date.day==13;
-  //   return temp;
-  // }
 
   isWeekend(date: NgbDateStruct) {
     const d = new Date(date.year, date.month - 1, date.day);
@@ -727,8 +687,6 @@ export class FrontbookingComponent implements OnInit {
       }
       },
       (err) =>{
-        // this.validpostalcode = 'invalid';
-        // this.postalCodeError = true;
         console.log(err)
       })
   }
@@ -987,7 +945,7 @@ export class FrontbookingComponent implements OnInit {
     })
   }
 
-   fnShowCounter(event,service_id){
+   fnShowCounter(service_id){
     this.currentSelectedService=service_id;
     this.serviceCount[service_id].count=1;
     this.serviceCount[service_id].subtotal = this.serviceCount[service_id].service_cost * this.serviceCount[service_id].count;
@@ -2928,7 +2886,7 @@ export class FrontbookingComponent implements OnInit {
       }
     });
   }
-  selectDataTimePopup(serviceId) {
+  selectDataTimePopup(serviceId,type) {
     this.currentSelectedService = serviceId;
     if(this.serviceCartArr[this.currentSelectedService] && this.serviceCartArr[this.currentSelectedService].appointmentDate != ''){
       let year=this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[0];
@@ -2947,55 +2905,39 @@ export class FrontbookingComponent implements OnInit {
       this.fnSelectNextValidDate(this.minimumAdvanceBookingDateTimeObject);
       this.directAPI = 'selectnextvalidate';
     }
-    // var co = 0;
-    // var  Arr_co = 0;
-    // this.serviceCartArr.forEach(element => {
-    //   console.log(element.service_sub_type);
-    //   if(element.service_sub_type !== null){
-    //     if(element.service_sub_type=='in_store'){
-    //       co = co + 1;
-    //     }
-    //     Arr_co = Arr_co + 1;
-    //   }
-      
-    // });;
-
-    // if(co == Arr_co){
-    //   console.log('true');
-    //   this.is_in_store_service  = true;
-    // }else{
-    //   console.log('false');
-    //   this.is_in_store_service  = false;
-    // }
     
-     
-    const dialogRef = this.dialog.open(theme2DateTimeSelection, {
-      width: '800px',
-       data: {
-              settingsArr : this.settingsArr,
-              bookingPostalcode: this.booking.postalcode,
-              currentSelectedService:serviceId,
-              model:this.model,
-              selecteddate:this.selecteddate,
-              selecteddateForLabel:this.selecteddateForLabel,
-              directAPI: this.directAPI,
-              timeSlotArr:this.timeSlotArr
-            }
-      
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if(result != undefined){
-        this.selecteddate = result.selecteddate;
-        this.selecteddateForLabel = result.selecteddateForLabel
-        this.selectedTimeSlot = result.selectedTimeSlot
-        this.fnSelectStaff(result.selectedStaff, result.staffIndex)
-        this.fnShowCounter(event,this.currentSelectedService);
-      }
-      this.sizeServiceCartArr = 0
-      this.serviceCartArr.forEach(element => {
-        this.sizeServiceCartArr = this.sizeServiceCartArr+1
+    setTimeout(() => {
+      const dialogRef = this.dialog.open(theme2DateTimeSelection, {
+        width: '800px',
+        data: {
+                settingsArr : this.settingsArr,
+                bookingPostalcode: this.booking.postalcode,
+                currentSelectedService:serviceId,
+                model:this.model,
+                selecteddate:this.selecteddate,
+                selecteddateForLabel:this.selecteddateForLabel,
+                directAPI: this.directAPI,
+                timeSlotArr:this.timeSlotArr
+              }
+        
       });
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        if(result != undefined){
+          this.selecteddate = result.selecteddate;
+          this.selecteddateForLabel = result.selecteddateForLabel
+          this.selectedTimeSlot = result.selectedTimeSlot
+          this.fnSelectStaff(result.selectedStaff, result.staffIndex)
+          this.fnShowCounter(this.currentSelectedService);
+          if(type == 'book_now'){
+            this.theme2CheckoutDialog()
+          }
+        }
+        this.sizeServiceCartArr = 0
+        this.serviceCartArr.forEach(element => {
+          this.sizeServiceCartArr = this.sizeServiceCartArr+1
+        });
+      });
+    }, 500 );
   }
   theme2CheckoutDialog() {
     const dialogRef = this.dialog.open(theme2CheckoutDialog, {
@@ -3050,7 +2992,7 @@ export class theme2CheckoutDialog {
 	CountryISO = CountryISO;
   preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
   
-  emailPattern = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
+  emailPattern = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^-?(0|[1-9]\d*)?$/
 
 
@@ -3136,7 +3078,7 @@ export class theme2CheckoutDialog {
   paymentMethod:any="";
   loadAPI: Promise<any>;
   isFound:boolean=false;
-  cardForm:FormGroup
+  cardForm:FormGroup;
   constructor(
     public dialogRef: MatDialogRef<theme2CheckoutDialog>,
     private _formBuilder:FormBuilder,
@@ -3153,10 +3095,10 @@ export class theme2CheckoutDialog {
       this.serviceCartArr = this.data.serviceCartArr;
       this.serviceCount= this.data.serviceCount,
       this.taxArr=this.data.taxArr,
-      this.bookingPostalcode=this.data.bookingPostalcode
+      this.bookingPostalcode=this.data.bookingPostalcode;
       console.log(this.taxArr)
       this.formExistingUser = this._formBuilder.group({
-        existing_mail: ['',[Validators.required,Validators.email]],
+        existing_mail: ['',[Validators.required,Validators.pattern(this.emailPattern)]],
         existing_password: ['',Validators.required],
       });
       
@@ -3177,6 +3119,32 @@ export class theme2CheckoutDialog {
         expiryYear: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
         cvvCode: ['',[Validators.required]],
       })
+      if(this.authenticationService.currentUserValue && this.authenticationService.currentUserValue.user_type == "C"){
+        this.isLoggedIn=true;
+        this.customerName=this.authenticationService.currentUserValue.fullname;
+        this.customerFirstname=this.customerName.split(" ")[0];
+        this.customerLastname=this.customerName.split(" ")[1];
+        this.customerEmail=this.authenticationService.currentUserValue.email;
+        this.customerPhone=this.authenticationService.currentUserValue.phone;
+      }
+
+      if(this.isLoggedIn){
+        this.personalinfo = false;
+        this.appointmentinfo = true;
+        this.showSameAsAboveCheck=false;
+      }else{
+        this.personalinfo = true;
+        this.userSelectionMain = true;
+        this.appointmentinfo = true;
+        this.showSameAsAboveCheck=true;
+      }
+      this.is_at_home_service = this.data.is_at_home_service
+      if(!this.is_at_home_service && this.isLoggedIn){
+        this.personalinfo = false;
+        this.summaryScreen = true;
+      }else if(!this.is_at_home_service && !this.isLoggedIn){
+        this.personalinfo = true;
+      }
 
       var amountAfterDiscount=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
       var amountAfterTax=0;
@@ -3203,7 +3171,7 @@ export class theme2CheckoutDialog {
         //  console.log(this.taxAmountArr);
         });
       }
-      this.currencySymbol = this.settingsArr.currency;
+          this.currencySymbol = this.settingsArr.currency;
           this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
           this.currencySymbolFormat = this.settingsArr.currency_format;
           if(this.settingsArr.payUmoney_settings){
@@ -3382,34 +3350,9 @@ export class theme2CheckoutDialog {
     }
     ngOnInit() {
 
-      if(this.authenticationService.currentUserValue && this.authenticationService.currentUserValue.user_type == "C"){
-        this.isLoggedIn=true;
-        this.customerName=this.authenticationService.currentUserValue.fullname;
-        this.customerFirstname=this.customerName.split(" ")[0];
-        this.customerLastname=this.customerName.split(" ")[1];
-        this.customerEmail=this.authenticationService.currentUserValue.email;
-        this.customerPhone=this.authenticationService.currentUserValue.phone;
-      }
+      
 
-      if(this.isLoggedIn){
-        this.personalinfo = true;
-        this.userSelectionMain = false;
-        this.appointmentinfo = true;
-        this.showSameAsAboveCheck=false;
-      }else{
-        this.personalinfo = true;
-        this.userSelectionMain = true;
-        this.appointmentinfo = true;
-        this.showSameAsAboveCheck=true;
-      }
-
-      this.is_at_home_service = this.data.is_at_home_service
-      if(!this.is_at_home_service && this.isLoggedIn){
-        this.personalinfo = false;
-        this.summaryScreen = true;
-      }else if(!this.is_at_home_service && !this.isLoggedIn){
-        this.personalinfo = true;
-      }
+      
     }
 
     fnUserType(event,usertype){
@@ -3541,15 +3484,28 @@ export class theme2CheckoutDialog {
               panelClass : ['green-snackbar']
               });
           }
-         
-          this.personalinfo = true;
-          this.appointmentinfo = true;
           this.isLoggedIn=true;
-          if(this.is_at_home_service == true){
-
-          }else if(this.is_at_home_service == false){
-            this.fnappointmentinfo();
+          if(this.newuser){
+            this.personalinfo =false;
+            this.appointmentinfo = false;
+            this.summaryScreen = true;
+          }else if(this.existinguser && this.is_at_home_service){
+            this.personalinfo = false;
+            this.appointmentinfo = true;
+          }else if(this.existinguser && !this.is_at_home_service){
+            this.personalinfo = false;
+            this.appointmentinfo = false;
+            this.summaryScreen = true;
           }
+         
+          // this.personalinfo = true;
+          // this.appointmentinfo = true;
+          // this.isLoggedIn=true;
+          // if(this.is_at_home_service == true){
+
+          // }else if(this.is_at_home_service == false){
+          //   this.fnappointmentinfo();
+          // }
         }else{
   
           this.snackBar.open("Email or Password is incorrect", "X", {

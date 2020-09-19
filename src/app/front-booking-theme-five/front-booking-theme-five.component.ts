@@ -1493,7 +1493,6 @@ export class FrontBookingThemeFiveComponent implements OnInit {
     var co = 0;
     var  Arr_co = 0;
     this.serviceCartArr.forEach(element => {
-      console.log(element.service_sub_type);
       if(element.service_sub_type !== null){
         if(element.service_sub_type=='at_home'){
           co = co + 1;
@@ -1503,10 +1502,8 @@ export class FrontBookingThemeFiveComponent implements OnInit {
    });;
 
    if(co > 0){
-     console.log('true');
     this.is_at_home_service  = true;
    }else{
-    console.log('false');
     this.is_at_home_service  = false;
    }
  
@@ -1524,9 +1521,18 @@ export class FrontBookingThemeFiveComponent implements OnInit {
         this.summaryScreen=true;
       }
     }else{
-      this.dateselection = false;
-      this.personalinfo = true;
-      this.showSameAsAboveCheck=true;
+      if(this.is_at_home_service){
+        this.dateselection = false;
+        this.personalinfo = true;
+        this.appointmentinfo = true;
+        this.showSameAsAboveCheck=true;
+      }else{
+        this.dateselection = false;
+        this.appointmentinfo = false;
+        this.personalinfo = true;
+        this.showSameAsAboveCheck=true;
+        this.summaryScreen=false;
+      }
     }
   }
 
