@@ -813,6 +813,7 @@ export class AppointmentLiveComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
+      this.note_description = null;
       this.fnWatinglist();
       this.isLoaderAdmin = false;
 
