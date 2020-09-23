@@ -597,7 +597,7 @@ table {
                 font-size: 16px;
             }
             .item-list {
-                height: calc(100vh - 500px);
+                height: calc(100vh - 360px);
                 overflow-y: auto;
                 .item {
                     border-bottom: 1px solid #ccc;
@@ -646,6 +646,16 @@ table {
                     font-weight: 500;
                     margin-bottom: 0;
                     cursor: pointer;
+                    &.with-icon {
+                        text-decoration: none;
+                        mat-icon {
+                            font-size: 20px;
+                            display: flex;
+                            align-items: center;
+                            padding-left: 10px;
+                            border-bottom: 0;
+                        }
+                    }
                 }
             }
             .total {
@@ -1217,7 +1227,7 @@ mat-radio-group {
     height: calc(100vh - 140px);
     overflow-y: auto;
     .order-items {
-        height: calc(100% - 310px);
+        height: calc(100vh - 415px);
         overflow-y: auto;
     }
 }

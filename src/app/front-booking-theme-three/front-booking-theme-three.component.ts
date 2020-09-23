@@ -17,15 +17,18 @@ import { Router, RouterOutlet } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { sha512 as sha512 } from 'js-sha512';
 
+
 declare const PayUMoneylaunch: any;
 
 @Component({
-  selector: 'app-front-booking-theme-four',
-  templateUrl: './front-booking-theme-four.component.html',
-  styleUrls: ['./front-booking-theme-four.component.scss'],
+  selector: 'app-front-booking-theme-three',
+  templateUrl: './front-booking-theme-three.component.html',
+  styleUrls: ['./front-booking-theme-three.component.scss'],
   providers: [DatePipe]
 })
-export class FrontBookingThemeFourComponent implements OnInit {
+export class FrontBookingThemeThreeComponent implements OnInit {
+
+  
   selectedTheme:any = '1';
   formExistingUser : FormGroup;
   formNewUser: FormGroup
@@ -63,7 +66,7 @@ export class FrontBookingThemeFourComponent implements OnInit {
   phoneNumberInvalid:any = "valid";
   checked = false;
   minVal=1;
-  catdata :[];
+  catdata:any =[];
   subcatdata :[];
   serviceData:any= [];
   selectedsubcategory = "";
@@ -212,6 +215,7 @@ export class FrontBookingThemeFourComponent implements OnInit {
   encodedId: any;
   urlString: any;
   cartPopupCloseType:any;
+  subcateLength:any = 0;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -225,9 +229,8 @@ export class FrontBookingThemeFourComponent implements OnInit {
     private meta: Meta,
     private renderer2: Renderer2,
     public router: Router,
-    @Inject(DOCUMENT) private _document
   ) { 
-   
+    
     if(localStorage.getItem('frontBusiness_id')){
       this.businessId = localStorage.getItem('frontBusiness_id');
     }
@@ -276,12 +279,8 @@ export class FrontBookingThemeFourComponent implements OnInit {
 
     this.formAppointmentInfo = this._formBuilder.group({
     })
-
-
   }
 
-  
-  
   ngOnInit() {
     this.fnGetSettings();
     this.fnIsPostalCodeAdded();
@@ -294,7 +293,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
       this.customerLastname=this.customerName.split(" ")[1];
       this.customerEmail=this.authenticationService.currentUserValue.email;
       this.customerPhone=this.authenticationService.currentUserValue.phone;
-      console.log(this.authenticationService.currentUserValue.user_id+" "+this.isLoggedIn);
     }
    // this.formNewUser.controls['newUserPhone'].setValue(this.phone)
     this.fnGetTaxDetails();
@@ -322,8 +320,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
     return script;
   }
   fnChangeTermsConditionsStatus(event){
-    console.log(event);
-
     if(event== true){
       this.termsConditionsStatusValue=true;
       this.termsConditionsStatusValidation = false;
@@ -336,7 +332,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
   }
 
   fnChangePrivacyPolicyStatus(event){
-    console.log(event);
       if(event == true){
       this.PrivacyPolicyStatusValue=true;
       this.PrivacyPolicyStatusValidation = false;
@@ -356,10 +351,8 @@ export class FrontBookingThemeFourComponent implements OnInit {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    console.log(requestObject);
     this.http.post(`${environment.apiUrl}/get-front-setting`,requestObject,{headers:headers} ).pipe(
       map((res) => {
-        console.log(res);
         return res;
       }),
       catchError(this.handleError)
@@ -408,16 +401,11 @@ export class FrontBookingThemeFourComponent implements OnInit {
           if(this.termsConditions.status == 'false'){
             this.termsConditionsStatusValue = true;
           }
-          console.log(this.termsConditions);
-
           this.privacyPolicy=JSON.parse(this.settingsArr.privacy_policy)
           if(this.privacyPolicy && this.privacyPolicy.status == 'false'){
             this.PrivacyPolicyStatusValue = true;
           }
-          console.log(this.privacyPolicy);
-
           this.thankYou=JSON.parse(this.settingsArr.thank_you);
-          console.log(this.thankYou)
           this.contactFormSettingsArr=JSON.parse(this.settingsArr.form_settings)
           if(this.contactFormSettingsArr && this.contactFormSettingsArr.contact_field_status == true){
             if(this.contactFormSettingsArr.addressField.status == 1){
@@ -464,13 +452,10 @@ export class FrontBookingThemeFourComponent implements OnInit {
             this.formAppointmentInfo.addControl('appo_city', new FormControl('', validators));
             this.formAppointmentInfo.addControl('appo_zipcode', new FormControl('', validatorsZipCode));
           }
-          console.log(this.contactFormSettingsArr);
-
           this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
           this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
           this.minimumAdvanceBookingDateTimeObject = new Date();
           this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
-          console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
           this.minDate = {
             year: this.minimumAdvanceBookingDateTimeObject.getFullYear(),
             month: this.minimumAdvanceBookingDateTimeObject.getMonth() + 1,
@@ -478,7 +463,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
           };
           this.maximumAdvanceBookingDateTimeObject = new Date();
           this.maximumAdvanceBookingDateTimeObject.setMinutes( this.maximumAdvanceBookingDateTimeObject.getMinutes() + this.maximumAdvanceBookingTime );
-          console.log("maximumAdvanceBookingDateTimeObject - "+this.maximumAdvanceBookingDateTimeObject);
           this.maxDate = {
             year: this.maximumAdvanceBookingDateTimeObject.getFullYear(),
             month: this.maximumAdvanceBookingDateTimeObject.getMonth() + 1,
@@ -525,7 +509,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
     this.getTaxDetails().subscribe((response:any) => {
       if(response.data == true){
         this.taxArr=response.response
-        console.log(this.taxArr);
       }
       else if(response.data == false){
         
@@ -550,7 +533,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
 
   selectToday() {
     this.model = this.calendar.getToday();
-    console.log(JSON.stringify(this.calendar.getToday()));
   }
   
   isWeekend(date: NgbDateStruct) {
@@ -586,6 +568,29 @@ export class FrontBookingThemeFourComponent implements OnInit {
   private createErrorMessage(error: HttpErrorResponse){
     this.errorMessage = error.error ? error.error : error.statusText;
   }
+
+  fnCategoryTabIndex(selectedIndex){
+    if(this.booking.postalcode == '' && this.postalCodeCondition && this.postal_code_status){
+      this.validpostalcode = 'invalid';
+      return false;
+    }
+    if(this.validpostalcode == 'invalid'){
+      return false;
+    }
+    this.isLoader=true;
+    this.selectedcategory = this.catdata[selectedIndex].id;
+    this.selectedcategoryName = this.catdata[selectedIndex].category_title;
+    if(this.catdata[selectedIndex].subcategory == [] || this.catdata[selectedIndex].subcategory == '' || this.catdata[selectedIndex].subcategory == null){
+      this.catselection = false;
+      this.serviceselection = true;
+      this.fnGetAllServicesFromCategory()
+    }
+    this.isLoader=false;
+  }
+  fnCategoryTabChange(event,id,categoryName){
+    this.fnCategory(event,id,categoryName);
+  }
+
   
   fnLogout(){
   
@@ -711,7 +716,15 @@ export class FrontBookingThemeFourComponent implements OnInit {
       ).subscribe((response:any) => {
         if(response.data == true){
             this.catdata = response.response;
+            console.log(this.catdata)
+            this.selectedcategory = this.catdata[0].id;
+            this.selectedcategoryName = this.catdata[0].category_title;
             this.isLoader=false;
+            if(this.catdata[0].subcategory == [] || this.catdata[0].subcategory == null){
+              // this.catselection = false;
+              // this.serviceselection = true;
+              this.fnGetAllServicesFromCategory()
+            }
         }else{
           this.catdata = [];
           this.isLoader=false;
@@ -737,46 +750,54 @@ export class FrontBookingThemeFourComponent implements OnInit {
     this.subcatdata=[];
     this.selectedcategory = id;
     this.selectedcategoryName=categoryName
-    this.fnGetSubCategory();
+    //this.fnGetSubCategory();
   }
    
   // get Sub Category function
-  fnGetSubCategory(){
-    this.isLoader=true;
-    let requestObject = {
-      "category_id":this.selectedcategory,
-      "sub_category_status":"E"
-    };
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+  // fnGetSubCategory(){
+  //   this.isLoader=true;
+  //   let requestObject = {
+  //     "category_id":this.selectedcategory,
+  //     "sub_category_status":"E"
+  //   };
+  //   let headers = new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //   });
 
-    this.http.post(`${environment.apiUrl}/get-sub-category`,requestObject,{headers:headers} ).pipe(
-      map((res) => {
-        return res;
-      }),
-      catchError(this.handleError)
-    ).subscribe((response:any) => {
-      if(response.data == true){
-        this.catselection = false;
-        this.subcatselection = true;
-        this.isLoader=false;
-        this.subcatdata = response.response;
-      }else{
-        this.subcatdata=[];
-        this.serviceData = [];
-        this.fnGetAllServicesFromCategory();
-      }
-    },
-    (err) =>{
-      this.isLoader=false;
-      console.log(err)
-    })
-  }
+  //   this.http.post(`${environment.apiUrl}/get-sub-category`,requestObject,{headers:headers} ).pipe(
+  //     map((res) => {
+  //       return res;
+  //     }),
+  //     catchError(this.handleError)
+  //   ).subscribe((response:any) => {
+  //     if(response.data == true){
+  //       this.catselection = false;
+  //       this.subcatselection = true;
+  //       this.isLoader=false;
+  //       this.subcatdata = response.response;
+  //       this.subcateLength = this.subcatdata.length;
+  //     }else{
+  //       this.subcatdata=[];
+  //       this.serviceData = [];
+  //       this.fnGetAllServicesFromCategory();
+  //     }
+  //   },
+  //   (err) =>{
+  //     this.isLoader=false;
+  //     console.log(err)
+  //   })
+  // }
 
   // Sub Category
   fnSubCategory(event,id,subcategoryName){
-    this.subcatselection = false;
+    if(this.booking.postalcode == '' && this.postalCodeCondition && this.postal_code_status){
+      this.validpostalcode = 'invalid';
+      return false;
+    }
+    if(this.validpostalcode == 'invalid'){
+      return false;
+    }
+    this.catselection = false;
     this.serviceselection = true;
     this.selectedsubcategory = id;
     this.selectedsubcategoryName=subcategoryName
@@ -803,7 +824,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
   ).subscribe((response:any) => {
     if(response.data == true){
       this.serviceData = response.response;
-      console.log(JSON.stringify(this.serviceCount));
       for(let i=0; i<this.serviceData.length;i++){
         if(this.serviceCount[this.serviceData[i].id] == null){
           this.serviceData[i].count=0;
@@ -820,7 +840,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
               name:'',
               amount:0
             }
-            console.log(element.name+" -- "+element.value);
             if(this.taxType == "P"){
              taxTemp.value= element.value;
              taxTemp.name= element.name;
@@ -834,7 +853,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
             }
             taxMain.push(taxTemp);
             this.serviceData[i].tax=taxMain;
-            console.log(this.serviceData[i].tax);
           });
 
           // this.serviceData[i].tax=0;
@@ -850,7 +868,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
         
       }
       this.isLoader=false;
-      console.log(JSON.stringify(this.serviceCount));
     }else{
       this.isLoader=false;
     }
@@ -879,7 +896,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
     ).subscribe((response:any) => {
       if(response.data == true){
         this.serviceData = response.response;
-        console.log(JSON.stringify(this.serviceCount));
         for(let i=0; i<this.serviceData.length;i++){
           if(this.serviceCount[this.serviceData[i].id] == null){
             this.serviceData[i].count=0;
@@ -897,7 +913,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
                 name:'',
                 amount:0
               }
-              console.log(element.name+" -- "+element.value);
               if(this.taxType == "P"){
                taxTemp.value= element.value;
                taxTemp.name= element.name;
@@ -911,7 +926,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
               }
               taxMain.push(taxTemp);
               this.serviceData[i].tax=taxMain;
-              console.log(this.serviceData[i].tax);
             });
 
             // this.serviceData[i].tax=0;
@@ -927,15 +941,22 @@ export class FrontBookingThemeFourComponent implements OnInit {
         }
         this.isLoader=false;
         this.directService=true;
+        if(this.booking.postalcode == '' && this.postalCodeCondition && this.postal_code_status){
+          this.validpostalcode = 'invalid';
+          return false;
+        }
+        if(this.validpostalcode == 'invalid'){
+          return false;
+        }
         this.catselection = false;
         this.serviceselection = true;
-        console.log(JSON.stringify(this.serviceCount));
       }else{
-        this.snackBar.open("No Sub-Category or Service Available", "X", {
+        this.snackBar.open("No Sub-Category or Service Available.", "X", {
         duration: 2000,
         verticalPosition: 'top',
         panelClass : ['red-snackbar']
         });
+        this.serviceData = [];
         this.isLoader=false;
       }
     },
@@ -946,6 +967,8 @@ export class FrontBookingThemeFourComponent implements OnInit {
   }
 
    fnShowCounter(event,service_id){
+    
+    this.fnShowCalender(service_id);
     this.currentSelectedService=service_id;
     this.serviceCount[service_id].count=1;
     this.serviceCount[service_id].subtotal = this.serviceCount[service_id].service_cost * this.serviceCount[service_id].count;
@@ -962,7 +985,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
         name:'',
         amount:0
       }
-    //  console.log(element.name+" -- "+element.value);
       if(this.taxType == "P"){
        taxTemp.value= element.value;
        taxTemp.name= element.name;
@@ -976,25 +998,18 @@ export class FrontBookingThemeFourComponent implements OnInit {
       }
       taxMain.push(taxTemp);
       this.serviceCount[service_id].tax=taxMain;
-     // console.log(this.serviceCount[service_id].tax);
     });
 
-    // this.serviceData[id].tax=0;
     this.serviceCount[service_id].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
 
-    // this.serviceCount[service_id].totalCost=1*this.serviceCount[service_id].service_cost;
-  //  console.log(JSON.stringify(this.serviceCount));
     if(this.serviceCartArr[service_id] != null){
       this.serviceCartArr[service_id]=this.serviceCount[service_id];
-     // console.log(JSON.stringify(this.serviceCartArr));
     }
     this.serviceMainArr.totalNumberServices=0;
     this.serviceMainArr.subtotal=0;
     this.serviceMainArr.discount=0;
     this.taxAmountArr.length=0;
-   // console.log(this.taxAmountArr);
     this.serviceMainArr.netCost=0;
-    // this.fncheckavailcoupon('valid');
     this.closecoupon = 'default';
       this.couponIcon="check";
       this.coupon.couponcode_val ="";
@@ -1014,7 +1029,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
           name:'',
           amount:0
         }
-     //   console.log(element.name+" -- "+element.value);
         if(this.taxType == "P"){
          taxTemp.value= element.value;
          taxTemp.name= element.name;
@@ -1027,20 +1041,12 @@ export class FrontBookingThemeFourComponent implements OnInit {
           this.amountAfterTax=this.amountAfterTax+taxTemp.amount;
         }
         this.taxAmountArr.push(taxTemp);
-      //  console.log(this.taxAmountArr);
       });
     }
-    // this.taxAmountArr.forEach((element) => {
-    //   amountAfterDiscount=amountAfterDiscount+element;
-    // });
     this.serviceMainArr.netCost=amountAfterDiscount+this.amountAfterTax;
-    //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-    console.log(this.serviceCount[service_id]);
     var co = 0;
     var  Arr_co = 0;
-    console.log(this.serviceCartArr)
     this.serviceCartArr.forEach(element => {
-      console.log(element.service_sub_type);
       if(element.service_sub_type !== null || element.service_sub_type !== ''){
         if(element.service_sub_type=='at_home'){
           co = co + 1;
@@ -1051,15 +1057,10 @@ export class FrontBookingThemeFourComponent implements OnInit {
     });;
 
     if(co > 0){
-      console.log('true');
       this.is_at_home_service  = true;
     }else{
-      console.log('false');
       this.is_at_home_service  = false;
     }
-
-    //console.log(this.taxAmountArr);
-  //  console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
   }
 
   fnRemove(event,service_id){
@@ -1081,7 +1082,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
           name:'',
           amount:0
         }
-        console.log(element.name+" -- "+element.value);
         if(this.taxType == "P"){
          taxTemp.value= element.value;
          taxTemp.name= element.name;
@@ -1095,27 +1095,21 @@ export class FrontBookingThemeFourComponent implements OnInit {
         }
         taxMain.push(taxTemp);
         this.serviceCount[service_id].tax=taxMain;
-        console.log(this.serviceCount[service_id].tax);
       });
 
       // this.serviceData[id].tax=0;
       this.serviceCount[service_id].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
-
-      // this.serviceCount[service_id].totalCost=this.serviceCount[service_id].count*this.serviceCount[service_id].service_cost;
-      console.log(JSON.stringify(this.serviceCount));
       if(this.serviceCartArr[service_id] != null){
         if(this.serviceCount[service_id].count < 1){
           this.serviceCartArr[service_id]=null;
         }else{
           this.serviceCartArr[service_id]=this.serviceCount[service_id]; 
         }
-        console.log(JSON.stringify(this.serviceCartArr));
       }
       this.serviceMainArr.totalNumberServices=0;
       this.serviceMainArr.subtotal=0;
       this.serviceMainArr.discount=0;
       this.taxAmountArr.length=0;
-      console.log(this.taxAmountArr);
       this.serviceMainArr.netCost=0;
       // this.fncheckavailcoupon('valid');
       this.closecoupon = 'default';
@@ -1138,7 +1132,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
             name:'',
             amount:0
           }
-          console.log(element.name+" -- "+element.value);
           if(this.taxType == "P"){
            taxTemp.value= element.value;
            taxTemp.name= element.name;
@@ -1151,17 +1144,13 @@ export class FrontBookingThemeFourComponent implements OnInit {
             amountAfterTax=amountAfterTax+taxTemp.amount;
           }
           this.taxAmountArr.push(taxTemp);
-          console.log(this.taxAmountArr);
         });
       }
       // this.taxAmountArr.forEach((element) => {
       //   amountAfterDiscount=amountAfterDiscount+element;
       // });
       this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
-      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-      console.log(this.taxAmountArr);
-      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
-    }
+      }
   }
 
   fnAdd(event,service_id){
@@ -1183,7 +1172,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
           name:'',
           amount:0
         }
-        console.log(element.name+" -- "+element.value);
         if(this.taxType == "P"){
          taxTemp.value= element.value;
          taxTemp.name= element.name;
@@ -1197,17 +1185,13 @@ export class FrontBookingThemeFourComponent implements OnInit {
         }
         taxMain.push(taxTemp);
         this.serviceCount[service_id].tax=taxMain;
-        console.log(this.serviceCount[service_id].tax);
       });
 
       // this.serviceData[id].tax=0;
       this.serviceCount[service_id].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
 
-      // this.serviceCount[service_id].totalCost=this.serviceCount[service_id].count*this.serviceCount[service_id].service_cost;
-      console.log(JSON.stringify(this.serviceCount));
       if(this.serviceCartArr[service_id] != null){
         this.serviceCartArr[service_id]=this.serviceCount[service_id];
-        console.log(JSON.stringify(this.serviceCartArr));
       } 
 
       
@@ -1228,7 +1212,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
               name:'',
               amount:0
             }
-            console.log(element.name+" ---- "+element.value);
             if(this.taxType == "P"){
              taxTemp.value= element.value;
              taxTemp.name= element.name;
@@ -1242,24 +1225,19 @@ export class FrontBookingThemeFourComponent implements OnInit {
             }
             taxMain.push(taxTemp);
             this.serviceCartArr[i].tax=taxMain;
-            console.log(this.serviceCartArr[i].tax);
           });
 
           this.serviceCartArr[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
-
-          console.log(JSON.stringify(this.serviceCartArr[i]));
           this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
           this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
         }
       }
-      console.log(JSON.stringify(this.serviceCartArr));
       
 
       this.serviceMainArr.totalNumberServices=0;
       this.serviceMainArr.subtotal=0;
       this.serviceMainArr.discount=0;
       this.taxAmountArr.length=0;
-      console.log(this.taxAmountArr);
       this.serviceMainArr.netCost=0;
       // this.fncheckavailcoupon('valid');
       this.closecoupon = 'default';
@@ -1283,7 +1261,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
             name:'',
             amount:0
           }
-          console.log(element.name+" -- "+element.value);
           if(this.taxType == "P"){
            taxTemp.value= element.value;
            taxTemp.name= element.name;
@@ -1296,17 +1273,13 @@ export class FrontBookingThemeFourComponent implements OnInit {
             amountAfterTax=amountAfterTax+taxTemp.amount;
           }
           this.taxAmountArr.push(taxTemp);
-          console.log(this.taxAmountArr);
         });
       }
       // this.taxAmountArr.forEach((element) => {
       //   amountAfterDiscount=amountAfterDiscount+element;
       // });
       this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
-      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-      console.log(this.taxAmountArr);
-      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
-    }
+     }
   } 
 
   fnGetOffDays(){
@@ -1353,9 +1326,7 @@ export class FrontBookingThemeFourComponent implements OnInit {
     //   let year=this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[0];
     //   let month= this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[1];
     //   let day=this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[2];
-    //   console.log(year+"--"+month+"--"+day);
     //   let dateTemp={"year":parseInt(year),"month":parseInt(month),"day":parseInt(day)};
-    //   console.log(JSON.stringify(dateTemp));
     //   this.model=dateTemp;
     //   this.selecteddate=this.serviceCartArr[this.currentSelectedService].appointmentDate
     //   this.selecteddateForLabel=this.datePipe.transform(new Date(this.serviceCartArr[this.currentSelectedService].appointmentDate),"EEE, MMM dd");
@@ -1371,13 +1342,11 @@ export class FrontBookingThemeFourComponent implements OnInit {
   fnSelectNextValidDate(mydate){
     
     if(mydate=="" || mydate==undefined){
-      console.log('appointment Date not availbled');
       return false;
     }
     
     if(this.offDaysList.indexOf(this.datePipe.transform(new Date(mydate),"yyyy-MM-dd"))>-1){
       mydate.setDate(mydate.getDate() + 1)
-      console.log(mydate);
       this.fnSelectNextValidDate(mydate);
     }else{
       let day = this.datePipe.transform(new Date(mydate),"EEE");
@@ -1403,39 +1372,24 @@ export class FrontBookingThemeFourComponent implements OnInit {
       if(day == "Sat"){
         dayId=6;
       }
-      console.log(day);
       if(this.workingHoursOffDaysList.indexOf(dayId)>-1){
         mydate.setDate(mydate.getDate() + 1)
-        console.log(mydate);
         this.fnSelectNextValidDate(mydate);
       }else{
         this.selecteddate=this.datePipe.transform(new Date(mydate),"yyyy-MM-dd");
         let year=this.selecteddate.split("-")[0];
         let month= this.selecteddate.split("-")[1];
         let day=this.selecteddate.split("-")[2];
-        console.log(year+"--"+month+"--"+day);
         let dateTemp={"year":parseInt(year),"month":parseInt(month),"day":parseInt(day)};
-        console.log(JSON.stringify(dateTemp));
         this.model=dateTemp;
         this.selecteddateForLabel= this.datePipe.transform(new Date(mydate),"EEE, MMM dd");
-        console.log(mydate);
-        console.log(this.selecteddate);
-        console.log(this.selecteddateForLabel);
         this.fnGetTimeSlots();
       }
     }
   }
   // services
   fnServiceSelection(event){
-    if(this.isLoggedIn){
-      this.serviceselection = false;
-      this.appointmentinfo = true;
-      this.showSameAsAboveCheck=false;
-    }else{
-      this.serviceselection = false;
-      this.personalinfo = true;
-      this.showSameAsAboveCheck=true;
-    }
+    this.fnDatetimeSelection();
    }
 
   onDateSelect(event){
@@ -1449,7 +1403,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
     var co = 0;
     var  Arr_co = 0;
     this.serviceCartArr.forEach(element => {
-      console.log(element.service_sub_type);
       if(element.service_sub_type !== null){
         if(element.service_sub_type=='at_home'){
           co = co + 1;
@@ -1459,10 +1412,8 @@ export class FrontBookingThemeFourComponent implements OnInit {
    });;
 
    if(co > 0){
-     console.log('true');
     this.is_at_home_service  = true;
    }else{
-    console.log('false');
     this.is_at_home_service  = false;
    }
  
@@ -1525,9 +1476,7 @@ export class FrontBookingThemeFourComponent implements OnInit {
         //this.timeSlotArr = response.response;
         this.minimumAdvanceBookingDateTimeObject = new Date();
         this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
-        //console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
         response.response.forEach(element => {
-          //console.log((new Date(this.datePipe.transform(this.selecteddate,"yyyy-MM-dd")+" "+element+":00"))+"----"+(this.minimumAdvanceBookingDateTimeObject));
           if((new Date(this.datePipe.transform(this.selecteddate,"yyyy-MM-dd")+" "+element+":00")).getTime() > (this.minimumAdvanceBookingDateTimeObject).getTime()){
             this.timeSlotArr.push(element);
           }
@@ -1540,7 +1489,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
         });
         this.timeslotview = true;
         this.isLoader=false;
-        console.log(this.timeSlotArr);
       }
       else{
         this.timeSlotArr.length=0;
@@ -1554,14 +1502,11 @@ export class FrontBookingThemeFourComponent implements OnInit {
         this.timeSlotArrForLabel.length=0;
         this.timeslotview = false;
         this.isLoader=false;
-        console.log(err)
       })
   }
  
   fnSelectTimeSlot(timeSlot,index){
     this.selectedTimeSlot=timeSlot;
-    console.log(this.selectedTimeSlot);
-    // console.log(this.selectedTimeSlot)
     this.availableStaff.length=0;
     this.isStaffAvailable = false;
     if(this.staffOnFrontValue == true){
@@ -1594,7 +1539,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
           this.availableStaff = response.response;
           this.isStaffAvailable = true;
           this.isLoader=false;
-          console.log(JSON.stringify(this.availableStaff));
       }
       else{
         this.availableStaff.length=0;
@@ -1605,7 +1549,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
       (err) =>{
         this.isStaffAvailable = false;
         this.isLoader=false;
-        console.log(err)
       })
   }
   
@@ -1613,31 +1556,22 @@ export class FrontBookingThemeFourComponent implements OnInit {
     this.trigger.toArray()[0].togglePopover();
   }
   fnOpenCartbox(){
-    // console.log("outer"+this.cartOpened);
     // if(this.cartOpened==true){
     //   this.cartOpened=false;
-    //   console.log("1"+this.cartOpened);
     // }else{
     //   this.cartOpened=true;
-    //   console.log("2"+this.cartOpened);
     // }
     
   }
   
   fnSelectStaff(staff_id,index){
     this.isLoader=true;
-    if(this.selectedTheme !== '2'){
-      //this.trigger.toArray()[index].togglePopover();
-      this.serviceCount[this.currentSelectedService].appointmentDateForLabel=this.datePipe.transform(new Date(this.selecteddate),"MMM dd, yyyy");
-    }
     this.serviceCount[this.currentSelectedService].appointmentDate=this.selecteddate;
     this.serviceCount[this.currentSelectedService].appointmentDateForLabel=this.datePipe.transform(new Date(this.selecteddate),"MMMM dd, yyyy");
     this.serviceCount[this.currentSelectedService].assignedStaff=staff_id;
     this.serviceCount[this.currentSelectedService].appointmentTimeSlot=this.selectedTimeSlot;
     this.serviceCount[this.currentSelectedService].appointmentTimeSlotForLabel=this.datePipe.transform(new Date(this.selecteddate+" "+this.selectedTimeSlot),"hh:mm a");
     this.serviceCartArr[this.currentSelectedService]=this.serviceCount[this.currentSelectedService]
-    //console.log(JSON.stringify(this.selecteddate));
-    //console.log(JSON.stringify(this.serviceCartArr[this.currentSelectedService])); 
     this.serviceMainArr.totalNumberServices=0;
     this.serviceMainArr.subtotal=0;
     this.serviceMainArr.discount=0;
@@ -1658,7 +1592,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
     this.amountAfterTax=0;
     if(this.serviceMainArr.subtotal > 0){
       this.taxArr.forEach((element) => {
-        // console.log(element.name+" -- "+element.value);
         // if(this.taxType == "P"){
         //   this.taxAmountArr[element.name]= amountAfterDiscount * element.value/100;
         //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
@@ -1671,7 +1604,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
           name:'',
           amount:0
         }
-        console.log(element.name+" -- "+element.value);
         if(this.taxType == "P"){
          taxTemp.value= element.value;
          taxTemp.name= element.name;
@@ -1684,22 +1616,11 @@ export class FrontBookingThemeFourComponent implements OnInit {
           this.amountAfterTax=this.amountAfterTax+taxTemp.amount;
         }
         this.taxAmountArr.push(taxTemp);
-        console.log(this.taxAmountArr);
         
       });
-      
-      console.log(this.amountAfterTax)
-      console.log(this.serviceMainArr)
     }
-    // this.taxAmountArr.forEach((element) => {
-    //   amountAfterDiscount=amountAfterDiscount+element;
-    // });
     this.serviceMainArr.netCost=amountAfterDiscount+this.amountAfterTax;
-    //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-    console.log(this.taxAmountArr);
-    console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
     this.isLoader=false;
-    this.fnDatetimeSelection()
   }
   
 
@@ -1770,8 +1691,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
         localStorage.setItem('isFront', "true");
         this.authenticationService.currentUserSubject.next(response.response);
 
-     //   console.log(this.authenticationService.currentUserValue.fullname);
-        console.log(response.response.fullname);
 
         this.customerName=response.response.fullname;
       
@@ -1905,7 +1824,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
     } 
     
     if(this.formNewUser.invalid){
-      console.log(this.formNewUser)
       this.formNewUser.get('newUserEmail').markAsTouched();
       this.formNewUser.get('newUserPassword').markAsTouched();
       this.formNewUser.get('newUserFullname').markAsTouched();
@@ -1983,15 +1901,12 @@ export class FrontBookingThemeFourComponent implements OnInit {
     },
     (err) =>{
       this.personalinfo = true;
-      console.log(err)
     })
   }
 
   fnsameasabove(event){
-    console.log(event.srcElement.checked)
     if(event.srcElement.checked == true){
       
-    console.log(event);
     if(this.contactFormSettingsArr.contact_field_status == true){
       if(this.contactFormSettingsArr.addressField.status == 1){
         this.formAppointmentInfo.controls['appo_address'].setValue(this.formNewUser.get('newUserAddress').value);
@@ -2025,31 +1940,18 @@ export class FrontBookingThemeFourComponent implements OnInit {
   } 
 
   fnSameAsBillingAddress(event){
-
-    console.log(event.srcElement.checked)
-
     if(event.srcElement.checked == true){
       
       this.formAppointmentInfo.controls['appo_address'].setValue(this.authenticationService.currentUserValue.address);
       this.formAppointmentInfo.controls['appo_state'].setValue(this.authenticationService.currentUserValue.state);
       this.formAppointmentInfo.controls['appo_city'].setValue(this.authenticationService.currentUserValue.city);
       this.formAppointmentInfo.controls['appo_zipcode'].setValue(this.authenticationService.currentUserValue.zip);
-
-      // this.appo_address_info.appo_address = this.formNewUser.get('newUserAddress').value;
-      // this.appo_address_info.appo_state = this.formNewUser.get('newUserState').value;
-      // this.appo_address_info.appo_city = this.formNewUser.get('newUserCity').value;
-      // this.appo_address_info.appo_zipcode = this.formNewUser.get('newUserZipcode').value;
     }else{
 
       this.formAppointmentInfo.controls['appo_address'].setValue('');
       this.formAppointmentInfo.controls['appo_state'].setValue('');
       this.formAppointmentInfo.controls['appo_city'].setValue('');
       this.formAppointmentInfo.controls['appo_zipcode'].setValue('');
-
-      // this.appo_address_info.appo_address = "";
-      // this.appo_address_info.appo_state = "";
-      // this.appo_address_info.appo_city = "";
-      // this.appo_address_info.appo_zipcode = "";
     }
   } 
   
@@ -2082,7 +1984,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
     }
   }
 
-  // coupon code
   fncheckcouponcodebtn(couponStatus){
     if(this.coupon.couponcode_val == ''){
       this.closecoupon = 'invalid';
@@ -2097,17 +1998,12 @@ export class FrontBookingThemeFourComponent implements OnInit {
     if(couponStatus == 'valid'){
       this.serviceMainArr.discount_type = null;
       this.serviceMainArr.discount_value=null;
-      // this.serviceMainArr.discount=0;
-      // this.taxAmountArr.length=0;
-
-      console.log(this.serviceCartArr);
       this.taxAmountArr.length=0;
               
       this.serviceMainArr.totalNumberServices=0;
       this.serviceMainArr.subtotal=0;
       this.serviceMainArr.discount=0;
       this.taxAmountArr.length=0;
-      console.log(this.taxAmountArr);
       this.serviceMainArr.netCost=0;
 
       for(let i=0; i< this.serviceCartArr.length; i++){
@@ -2127,7 +2023,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
               name:'',
               amount:0
             }
-            console.log(element.name+" ---- "+element.value);
             if(this.taxType == "P"){
              taxTemp.value= element.value;
              taxTemp.name= element.name;
@@ -2141,17 +2036,13 @@ export class FrontBookingThemeFourComponent implements OnInit {
             }
             taxMain.push(taxTemp);
             this.serviceCartArr[i].tax=taxMain;
-            console.log(this.serviceCartArr[i].tax);
           });
 
           this.serviceCartArr[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
-
-          console.log(JSON.stringify(this.serviceCartArr[i]));
           this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
           this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
         }
       }
-      console.log(JSON.stringify(this.serviceCartArr));
       this.serviceMainArr.discount_type = null;
       this.serviceMainArr.discount_value = null;
       this.serviceMainArr.discount=0;
@@ -2160,7 +2051,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
       this.amountAfterTax=0;
       if(this.serviceMainArr.subtotal > 0){
         this.taxArr.forEach((element) => {
-          // console.log(element.name+" -- "+element.value);
           // if(this.taxType == "P"){
           //   this.taxAmountArr[element.name]= amountAfterDiscount * element.value/100;
           //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
@@ -2173,7 +2063,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
             name:'',
             amount:0
           }
-          console.log(element.name+" -- "+element.value);
           if(this.taxType == "P"){
            taxTemp.value= element.value;
            taxTemp.name= element.name;
@@ -2186,18 +2075,12 @@ export class FrontBookingThemeFourComponent implements OnInit {
             this.amountAfterTax=this.amountAfterTax+taxTemp.amount;
           }
           this.taxAmountArr.push(taxTemp);
-          console.log(this.taxAmountArr);
         });
       }
       // this.taxAmountArr.forEach((element) => {
       //   amountAfterDiscount=amountAfterDiscount+element;
       // });
       this.serviceMainArr.netCost=amountAfterDiscount+this.amountAfterTax;
-      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-      console.log(this.taxAmountArr);
-      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
-
-      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal;
       this.closecoupon = 'default';
       this.couponIcon="check";
       this.coupon.couponcode_val ="";
@@ -2211,15 +2094,11 @@ export class FrontBookingThemeFourComponent implements OnInit {
       }
       allServiceIds=allServiceIds.substring(0, allServiceIds.length - 1);
       var allServiceIdsArr=allServiceIds.split(",");
-      console.log(allServiceIdsArr);
-
       let requestObject = {
       "business_id" : this.businessId,
       "service_id" : allServiceIds,
       "coupon_code" : this.coupon.couponcode_val,
-      };
-      console.log(JSON.stringify(requestObject))
-      
+      };      
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
@@ -2234,14 +2113,12 @@ export class FrontBookingThemeFourComponent implements OnInit {
         let couponType = response.response.coupon_type;
         let couponValue = response.response.coupon_value;
         
-        console.log(this.serviceCartArr);
         this.taxAmountArr.length=0;
                 
         this.serviceMainArr.totalNumberServices=0;
         this.serviceMainArr.subtotal=0;
         this.serviceMainArr.discount=0;
         this.taxAmountArr.length=0;
-        console.log(this.taxAmountArr);
         this.serviceMainArr.netCost=0;
 
         for(let i=0; i< this.serviceCartArr.length; i++){
@@ -2265,7 +2142,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
                 name:'',
                 amount:0
               }
-              console.log(element.name+" ---- "+element.value);
               if(this.taxType == "P"){
                taxTemp.value= element.value;
                taxTemp.name= element.name;
@@ -2279,17 +2155,13 @@ export class FrontBookingThemeFourComponent implements OnInit {
               }
               taxMain.push(taxTemp);
               this.serviceCartArr[i].tax=taxMain;
-              console.log(this.serviceCartArr[i].tax);
             });
 
             this.serviceCartArr[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
-
-            console.log(JSON.stringify(this.serviceCartArr[i]));
             this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
             this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
           }
         }
-        console.log(JSON.stringify(this.serviceCartArr));
         this.serviceMainArr.discount_type = couponType;
         this.serviceMainArr.discount_value = parseInt(couponValue);
         if(couponType == 'P'){
@@ -2308,7 +2180,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
               name:'',
               amount:0
             }
-            console.log(element.name+" -- "+element.value);
             if(this.taxType == "P"){
              taxTemp.value= element.value;
              taxTemp.name= element.name;
@@ -2321,20 +2192,15 @@ export class FrontBookingThemeFourComponent implements OnInit {
               this.amountAfterTax=this.amountAfterTax+taxTemp.amount;
             }
             this.taxAmountArr.push(taxTemp);
-            console.log(this.taxAmountArr);
           });
         }
         this.serviceMainArr.netCost=amountAfterDiscount+this.amountAfterTax;
-        console.log(this.taxAmountArr);
-        console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
-
         this.coupon.couponcode_val=response.response.coupon_code;
         this.couponIcon="close";
         this.closecoupon = 'valid';
         this.isReadOnly="readonly";
         this.showCouponError=false;
         this.couponErrorMessage="";
-        //console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.taxAmountArr+" "+this.serviceMainArr.netCost));
       }
       else{
         this.closecoupon = 'invalid';
@@ -2342,7 +2208,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
         this.isReadOnly="";
         this.showCouponError=true;
         this.couponErrorMessage=response.response;
-        console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
       }
       },
       (err) =>{
@@ -2351,7 +2216,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
         this.isReadOnly="";
         this.showCouponError=false;
         this.couponErrorMessage="";
-        console.log(err)
       })
     }
   }
@@ -2408,13 +2272,13 @@ export class FrontBookingThemeFourComponent implements OnInit {
 
 
    fnbackfromsubservice(){
-    if(this.directService){
+    // if(this.directService){
       this.serviceselection =false;
       this.catselection = true;
-    }else{
-      this.serviceselection =false;
-      this.subcatselection = true;
-    }
+    // }else{
+    //   this.serviceselection =false;
+    //   this.subcatselection = true;
+    // }
    }
 
    fnbackfromservice(){
@@ -2439,7 +2303,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
    }
 
   fnPaymentMethod(paymentMethod){
-    console.log(paymentMethod);
     if(paymentMethod == 'Cash'){
       this.creditcardform =false;
       this.showPaypalButtons =false;
@@ -2486,30 +2349,32 @@ export class FrontBookingThemeFourComponent implements OnInit {
   
   // date time 
   fnContinueFromCart(){
-    if(this.isLoggedIn){
-      this.dateselection = false;
-      this.catselection=false;
-      this.subcatselection=false;
-      this.dateselection=false;
-      this.serviceselection=false;
-      this.personalinfo=false;
-      this.summaryScreen=false;
-      this.paymentScreen=false;
-      this.appointmentinfo = true;
-      this.showSameAsAboveCheck=false;
-    }else{
-      this.dateselection = false;
-      this.catselection=false;
-      this.subcatselection=false;
-      this.dateselection=false;
-      this.serviceselection=false;
-      this.summaryScreen=false;
-      this.paymentScreen=false;
-      this.appointmentinfo = false;
-      this.dateselection = false;
-      this.personalinfo = true;
-      this.showSameAsAboveCheck=true;
-    }
+    
+    this.fnDatetimeSelection()
+    // if(this.isLoggedIn){
+    //   this.dateselection = false;
+    //   this.catselection=false;
+    //   this.subcatselection=false;
+    //   this.dateselection=false;
+    //   this.serviceselection=false;
+    //   this.personalinfo=false;
+    //   this.summaryScreen=false;
+    //   this.paymentScreen=false;
+    //   this.appointmentinfo = true;
+    //   this.showSameAsAboveCheck=false;
+    // }else{
+    //   this.dateselection = false;
+    //   this.catselection=false;
+    //   this.subcatselection=false;
+    //   this.dateselection=false;
+    //   this.serviceselection=false;
+    //   this.summaryScreen=false;
+    //   this.paymentScreen=false;
+    //   this.appointmentinfo = false;
+    //   this.dateselection = false;
+    //   this.personalinfo = true;
+    //   this.showSameAsAboveCheck=true;
+    // }
   }
 
   fnPayNow(){
@@ -2566,7 +2431,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
           panelClass : ['red-snackbar']
           });
           this.isLoader=false;
-          console.log(response.response);
         }
         },
         (err) =>{
@@ -2630,12 +2494,11 @@ export class FrontBookingThemeFourComponent implements OnInit {
         });
       },
       onClientAuthorization: (data) => {
-        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
         //this.showSuccess = true;
         if(data.status && data.status== "COMPLETED"){
           this.transactionId=data.id;
           this.paymentDateTime= this.datePipe.transform(data.create_time,"yyyy-MM-dd HH:mm:ss");
-          console.log(this.transactionId+" "+this.paymentDateTime);
+          
           this.fnAppointmentBooking();
         }
         //this.fnAppointmentBooking();
@@ -2725,7 +2588,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
           }, 2000);
         }
       }else{
-          console.log(response.response);
         }
       },(err) =>{
         
@@ -2779,10 +2641,8 @@ export class FrontBookingThemeFourComponent implements OnInit {
         // mode:this.PayUMoney.mode// non-mandatory for Customized Response Handling
       }
       this.generateRequestHash(RequestData);
-      console.log(JSON.stringify(RequestData));
       var Handler = {
         responseHandler: (BOLT) => {
-          console.log(JSON.stringify(BOLT));
           if(BOLT && BOLT.response.txnStatus == "SUCCESS"){
             let generatedHash=this.generateResponseHash(BOLT.response);
             if(BOLT.response.hash == generatedHash){
@@ -2790,7 +2650,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
               this.transactionId=BOLT.response.payuMoneyId;
               this.paymentDateTime= this.datePipe.transform(BOLT.response.addedon,"yyyy-MM-dd HH:mm:ss");
               this.fnAppointmentBooking();
-              console.log("SUCCESS");
             }
           }else if(BOLT && BOLT.response.txnStatus == "FAILED"){
             this.snackBar.open("Transaction Failed", "X", {
@@ -2808,7 +2667,6 @@ export class FrontBookingThemeFourComponent implements OnInit {
           // your payment response Code goes here, BOLT is the response object
         },
         catchException: function(BOLT){
-          console.log(BOLT);
           // the code you use to handle the integration errors goes here
         }
       }
@@ -2836,9 +2694,7 @@ export class FrontBookingThemeFourComponent implements OnInit {
       let year=this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[0];
       let month= this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[1];
       let day=this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[2];
-      console.log(year+"--"+month+"--"+day);
       let dateTemp={"year":parseInt(year),"month":parseInt(month),"day":parseInt(day)};
-      console.log(JSON.stringify(dateTemp));
       this.model=dateTemp;
       this.selecteddate=this.serviceCartArr[this.currentSelectedService].appointmentDate
       this.selecteddateForLabel=this.datePipe.transform(new Date(this.serviceCartArr[this.currentSelectedService].appointmentDate),"EEE, MMM dd");
@@ -2852,7 +2708,7 @@ export class FrontBookingThemeFourComponent implements OnInit {
     
      
     setTimeout(() => {
-    const dialogRef = this.dialog.open(theme4DateTimeSelection, {
+    const dialogRef = this.dialog.open(theme3DateTimeSelection, {
       width: '800px',
        data: {
               settingsArr : this.settingsArr,
@@ -2891,7 +2747,7 @@ export class FrontBookingThemeFourComponent implements OnInit {
   templateUrl: '../_dialogs/theme-2-select-datetime.html',
   providers: [DatePipe]
 })
-export class theme4DateTimeSelection {
+export class theme3DateTimeSelection {
   isLoader:boolean=false;
   model: NgbDateStruct;
   today:any= new Date();
@@ -2937,7 +2793,7 @@ export class theme4DateTimeSelection {
     netCost:0
   }
   constructor(
-    public dialogRef: MatDialogRef<theme4DateTimeSelection>,
+    public dialogRef: MatDialogRef<theme3DateTimeSelection>,
     private _formBuilder:FormBuilder,
     private http: HttpClient,
     private calendar: NgbCalendar,
@@ -2956,14 +2812,12 @@ export class theme4DateTimeSelection {
       this.directAPI = this.data.directAPI;
       this.timeSlotArr = JSON.stringify(this.data.timeSlotArr);
       this.timeSlotArr = JSON.parse(this.timeSlotArr);
-      console.log(this.timeSlotArr)
       var i=0;
       this.timeSlotArr.forEach( (element) => {
         var dateTemp=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element+":00";
          this.timeSlotArrForLabel[i]= this.datePipe.transform(new Date(dateTemp),"hh:mm a");
          i++;
       });
-      console.log(this.timeSlotArrForLabel)
       if(this.directAPI == 'gettimeslote'){
         this.fnGetTimeSlots();
       }else if(this.directAPI == 'selectnextvalidate'){
@@ -2973,7 +2827,6 @@ export class theme4DateTimeSelection {
           this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
           this.minimumAdvanceBookingDateTimeObject = new Date();
           this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
-          console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
           this.minDate = {
             year: this.minimumAdvanceBookingDateTimeObject.getFullYear(),
             month: this.minimumAdvanceBookingDateTimeObject.getMonth() + 1,
@@ -2981,8 +2834,7 @@ export class theme4DateTimeSelection {
           };
           this.maximumAdvanceBookingDateTimeObject = new Date();
           this.maximumAdvanceBookingDateTimeObject.setMinutes( this.maximumAdvanceBookingDateTimeObject.getMinutes() + this.maximumAdvanceBookingTime );
-          console.log("maximumAdvanceBookingDateTimeObject - "+this.maximumAdvanceBookingDateTimeObject);
-          this.maxDate = {
+         this.maxDate = {
             year: this.maximumAdvanceBookingDateTimeObject.getFullYear(),
             month: this.maximumAdvanceBookingDateTimeObject.getMonth() + 1,
             day: this.maximumAdvanceBookingDateTimeObject.getDate(),
@@ -2999,7 +2851,6 @@ export class theme4DateTimeSelection {
     }
     selectToday() {
       this.model = this.calendar.getToday();
-      console.log(JSON.stringify(this.calendar.getToday()));
     }
     fnDisableDates(date: NgbDateStruct){
       const d = new Date(date.year, date.month - 1, date.day);
@@ -3080,7 +2931,6 @@ export class theme4DateTimeSelection {
           }
         },
         (err) =>{
-          console.log(err)
         })
       }
 
@@ -3113,9 +2963,7 @@ export class theme4DateTimeSelection {
             //this.timeSlotArr = response.response;
             this.minimumAdvanceBookingDateTimeObject = new Date();
             this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
-            //console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
             response.response.forEach(element => {
-              //console.log((new Date(this.datePipe.transform(this.selecteddate,"yyyy-MM-dd")+" "+element+":00"))+"----"+(this.minimumAdvanceBookingDateTimeObject));
               if((new Date(this.datePipe.transform(this.selecteddate,"yyyy-MM-dd")+" "+element+":00")).getTime() > (this.minimumAdvanceBookingDateTimeObject).getTime()){
                 this.timeSlotArr.push(element);
               }
@@ -3128,7 +2976,6 @@ export class theme4DateTimeSelection {
             });
             this.timeslotview = true;
             this.isLoader=false;
-            console.log(this.timeSlotArr);
           }
           else{
             this.timeSlotArr.length=0;
@@ -3142,16 +2989,11 @@ export class theme4DateTimeSelection {
             this.timeSlotArrForLabel.length=0;
             this.timeslotview = false;
             this.isLoader=false;
-            console.log(err)
           })
       }
      
       fnSelectTimeSlot(timeSlot,index){
         this.selectedTimeSlot=timeSlot;
-        console.log(this.selectedTimeSlot);
-        // console.log(this.selectedTimeSlot)
-        // this.availableStaff.length=0;
-        // this.isStaffAvailable = false;
         if(this.staffOnFrontValue == true){
           this.fnGetStaff();
         }else{
@@ -3182,7 +3024,6 @@ export class theme4DateTimeSelection {
               this.availableStaff = response.response;
               this.isStaffAvailable = true;
               this.isLoader=false;
-              console.log(JSON.stringify(this.availableStaff));
           }
           else{
             this.availableStaff.length=0;
@@ -3193,7 +3034,6 @@ export class theme4DateTimeSelection {
           (err) =>{
             this.isStaffAvailable = false;
             this.isLoader=false;
-            console.log(err)
           })
       }
    
@@ -3235,7 +3075,6 @@ export class theme4DateTimeSelection {
         if(day == "Sat"){
           dayId=6;
         }
-        console.log(day);
         if(this.workingHoursOffDaysList.indexOf(dayId)>-1){
           mydate.setDate(mydate.getDate() + 1)
           this.fnSelectNextValidDate(mydate);
@@ -3268,3 +3107,4 @@ export class theme4DateTimeSelection {
     }
    
 }
+

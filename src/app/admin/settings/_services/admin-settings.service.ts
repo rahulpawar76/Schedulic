@@ -31,18 +31,21 @@ export class AdminSettingsService {
         this.adminToken = this.authenticationService.currentUserValue.token;
         localStorage.setItem('isBusiness', 'false');
         this.businessId = localStorage.getItem('business_id')
-        // if (localStorage.getItem('business_id')) {
-        //     this.businessId = localStorage.getItem('business_id');
-        // }
-        console.log(this.businessId);
     }
 
     private handleError(error: HttpErrorResponse) {
-        console.log(error);
+        console.log("test----"+error);
         return throwError('Error! something went wrong.');
     }
 
     ngOnInit() { 
+        // const http$ = this.http.get<Course[]>('/api/courses'); 
+
+        // http$.subscribe(
+        //     res => console.log('HTTP response', res),
+        //     err => console.log('HTTP Error', err),
+        //     () => console.log('HTTP request completed.')
+        // );
     }
 
     checkAuthentication(){

@@ -150,7 +150,7 @@
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="discountCoupon.get('coupon_code').touched || discountCoupon.get('coupon_code').dirty || formSubmitclicked">
                                 <small *ngIf="discountCoupon.get('coupon_code').hasError('required')" class="error">Coupon code is required.</small>   
-                                <small *ngIf="discountCoupon.get('coupon_code').hasError('maxlength')" class="error">Coupon codemust be at least 15character.</small>
+                                <small *ngIf="discountCoupon.get('coupon_code').hasError('maxlength')" class="error">Coupon code should be maximum 15 character.</small>
                             </span>
                         </div>
 

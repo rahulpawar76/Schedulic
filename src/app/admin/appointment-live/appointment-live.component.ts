@@ -156,7 +156,7 @@ export class AppointmentLiveComponent implements OnInit {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     //this.currentUser = this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x )
     this.newCustomer = this._formBuilder.group({
-      cus_name : ['', Validators.required,Validators.pattern(this.onlystring)],
+      cus_name : ['', Validators.required],
       cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
       cus_mobile : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
     });
@@ -487,6 +487,17 @@ export class AppointmentLiveComponent implements OnInit {
     
     const dialogRef = this.dialog.open(addPOSBookingNoteDialog, {
       width: '500px',
+      data :{note :this.note_description}
+     });
+      dialogRef.afterClosed().subscribe(result => {
+       this.note_description = result;
+      });
+  }
+  fnShowNote(note){
+    
+    const dialogRef = this.dialog.open(addPOSBookingNoteDialog, {
+      width: '500px',
+      data :{note :note, view: 'only_view'}
      });
       dialogRef.afterClosed().subscribe(result => {
        this.note_description = result;
@@ -802,7 +813,8 @@ export class AppointmentLiveComponent implements OnInit {
           panelClass : ['green-snackbar']
         });
       }
-
+      this.note_description = null;
+      this.fnWatinglist();
       this.isLoaderAdmin = false;
 
     });
@@ -1087,7 +1099,7 @@ export class AppointmentLiveComponent implements OnInit {
         });
 
         this.isLoaderAdmin = false;
-
+        this.fnPendingBilling();
         this.pendingBillingData.forEach(element => {
           element.is_selected=false;
         });
@@ -1289,10 +1301,11 @@ constructor(
 export class addPOSBookingNoteDialog {
   createNewNote: FormGroup;
   formSettingPage:boolean = false;
+  note_description_val:any;
   appointmentDetails = {
   bookingNotes : ''
   };
-
+  viewType:any;
   settingsArr:any =[];
 
 constructor(
@@ -1303,9 +1316,17 @@ constructor(
   private _formBuilder:FormBuilder,
   public dialog: MatDialog,
   @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.note_description_val = this.data.note
+    this.viewType= this.data.view
+    // if(this.note_description_val && this.note_description_val !== null || this.note_description_val !== ''){
+    // this.createNewNote.controls['note_description'].setValue(this.note_description);
+    // this.createNewNote.controls['note_description'].setValue(this.note_description_val);
+    // }
     this.createNewNote = this._formBuilder.group({
-      note_description : ['', Validators.required],
+      note_description : [this.note_description_val, Validators.required,],
     });
+
+
 
   }
   onNoClick(): void {

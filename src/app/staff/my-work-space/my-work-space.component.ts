@@ -86,7 +86,6 @@ export class MyWorkSpaceComponent implements OnInit {
     })
   }
   changeBookingStatus(order_item_id, status){
-    alert(order_item_id+status)
     this.isLoader=true;
     let requestObject = {
       'order_item_id': order_item_id,

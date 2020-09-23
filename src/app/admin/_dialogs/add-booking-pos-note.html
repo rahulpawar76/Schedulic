@@ -10,7 +10,7 @@
             <div class="modal-body pb-0">
                 <mat-form-field class="bottom-border-field">
                     <mat-label>Note</mat-label>
-                    <textarea class="min-h-70" rows="5" matInput formControlName="note_description" placeholder="Type Note Here"></textarea>
+                    <textarea [disabled]="viewType == 'only_view'" class="min-h-70" rows="5" matInput formControlName="note_description" placeholder="Type Note Here"></textarea>
                 </mat-form-field>
                 <span class="error-wrap" *ngIf="createNewNote.get('note_description').dirty || createNewNote.get('note_description').touched"><small *ngIf="createNewNote.get('note_description').hasError('required')" class="error">Note is required.</small></span>
             </div>

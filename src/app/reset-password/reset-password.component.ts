@@ -67,7 +67,6 @@ export class ResetPasswordComponent implements OnInit {
   fnSubmitResetPassword() {   
     if (this.resetPasswordForm.valid) {
       this.newPassword = this.resetPasswordForm.get('ReNewPassword').value
-     // alert(this.accesToken);
       let requestObject = {
         "password":this.newPassword,
         "token" : this.accesToken

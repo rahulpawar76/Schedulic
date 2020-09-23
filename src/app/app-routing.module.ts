@@ -12,6 +12,9 @@ import { SubscriptionComponent } from './subscription/subscription.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FrontBookingThemeFourComponent } from './front-booking-theme-four/front-booking-theme-four.component'
+import { FrontBookingThemeSixComponent } from './front-booking-theme-six/front-booking-theme-six.component';
+import { FrontBookingThemeThreeComponent } from './front-booking-theme-three/front-booking-theme-three.component';
+import { FrontBookingThemeFiveComponent } from './front-booking-theme-five/front-booking-theme-five.component';
 
 const routes: Routes = [
   {
@@ -39,8 +42,20 @@ const routes: Routes = [
     component:  FrontbookingComponent,
   },
   {
+    path: 'booking-3', 
+    component:  FrontBookingThemeThreeComponent,
+  },
+  {
     path: 'booking-4', 
     component:  FrontBookingThemeFourComponent,
+  },
+  {
+    path: 'booking-5', 
+    component:  FrontBookingThemeFiveComponent,
+  },
+  {
+    path: 'booking-6', 
+    component:  FrontBookingThemeSixComponent,
   },
   {
     path: 'online-payment', 
@@ -71,7 +86,11 @@ const routes: Routes = [
     data: {roles: Role.Admin},
     loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule)
   },
-  { path: 'super-admin', loadChildren: () => import('./super-admin/super-admin.module').then(m => m.SuperAdminModule) },
+  { 
+    path: 'super-admin', 
+    canActivate: [AuthGuard],
+    data: {roles: Role.SuperAdmin},
+    loadChildren: () => import('./super-admin/super-admin.module').then(m => m.SuperAdminModule) },
 ];
 
 @NgModule({
