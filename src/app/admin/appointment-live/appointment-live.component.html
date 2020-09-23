@@ -57,7 +57,10 @@
                                              <input class="d-none" type="radio" name="service" id="service-{{i}}">
                                              <div class="service-label">
                                                   <p>{{val.service_name}}</p>
-                                                  <span><i class="fa fa-rupee pr-1"></i> {{val.service_cost}}</span>
+                                                  <span *ngIf="currencySymbolPosition=='left'">
+                                                    {{currencySymbol| currencySymbol:'wide'}} {{ val.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                                                  <span *ngIf="currencySymbolPosition=='right'">
+                                                    {{ val.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</span>
                                              </div>
                                         </label>
                                     </div>
@@ -243,9 +246,11 @@
                                     <button mat-fab class="action-btn qty-minus" (click)="fncartUpdate('plus',i)">+</button>
                                 </div>
                             </div>
-                            <div class="" fxFlex="15"><i class="fa fa-rupee pr-1"> </i>{{val.totalCost}}</div>
-                        </div>
-                        <!-- 
+                            <div class="" fxFlex="15" *ngIf="currencySymbolPosition=='left'">
+                                <{{currencySymbol| currencySymbol: 'wide'}} {{ val.totalCost | currency:selectedCurrency: '': '1.2-2':currencySymbolFormat }}</div>
+                                    <div class="" fxFlex="15" *ngIf="currencySymbolPosition=='right'">{{ val.totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
+                            </div>
+                            <!-- 
                         <div class="item">
                             <div class="" fxFlex="10"><button mat-icon-button class="close-btn"> <mat-icon>close</mat-icon></button></div>
                             <div class="service-name" fxFlex="45">
@@ -262,32 +267,34 @@
                             <div class="" fxFlex="15">$40</div>
                         </div> -->
 
-                        <div class="item subtotal">
-                            <div class="service-name" fxFlex="70">
-                                <label>Subtotal : <i class="fa fa-rupee pr-1"></i> {{totalCost}}</label>
+                            <div class="item subtotal">
+                                <div class="service-name" fxFlex="70">
+                                    <label *ngIf="currencySymbolPosition=='left'">Subtotal : {{currencySymbol| currencySymbol:'wide'}} {{ totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
+                                    <label *ngIf="currencySymbolPosition=='right'">Subtotal :  {{ totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
+                                </div>
+                                <div class="" fxFlex="30">Tax : <i class="fa fa-rupee pr-1"></i> 0</div>
                             </div>
-                            <div class="" fxFlex="30">Tax : <i class="fa fa-rupee pr-1"></i> 0</div>
                         </div>
-                    </div>
-                    <div class="cart-footer">
-                        <div class="add-note">
-                            <p *ngIf="!note_description" (click)="fnAddNote()" class="title">Add Note</p>
-                            <p *ngIf="note_description" (click)="fnAddNote()" class="title with-icon d-flex">Note :
-                                <mat-icon>sticky_note_2</mat-icon>
-                            </p>
-                        </div>
-                        <div class="total">
-                            <p fxFlex="50" class="title text-left">Total</p>
-                            <p fxFlex="50" class="amount text-right mb-0"><i class="fa fa-rupee pr-1"></i> {{totalCost}}</p>
-                        </div>
-                        <div class="footer-action">
-                            <button class="save-btn" [disabled]="cartArr.length == 0" (click)="fnPaymentMode('print')" mat-button>Save & Print</button>
-                            <button class="save-btn" [disabled]="cartArr.length == 0" (click)="fnPaymentMode('email')" mat-button>Save & Ebill</button>
-                            <button class="place-btn" [disabled]="cartArr.length == 0" mat-button (click)="fnplaceOrder('place')">Place</button>
+                        <div class="cart-footer">
+                            <div class="add-note">
+                                <p *ngIf="!note_description" (click)="fnAddNote()" class="title">Add Note</p>
+                                <p *ngIf="note_description" (click)="fnAddNote()" class="title with-icon d-flex">Note :
+                                    <mat-icon>sticky_note_2</mat-icon>
+                                </p>
+                            </div>
+                            <div class="total">
+                                <p fxFlex="50" class="title text-left">Total</p>
+                                <p fxFlex="50" class="amount text-right mb-0" *ngIf="currencySymbolPosition=='left'">Subtotal : {{currencySymbol| currencySymbol:'wide'}} {{ totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                                <p fxFlex="50" class="amount text-right mb-0" *ngIf="currencySymbolPosition=='right'">Subtotal : {{ totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+                            </div>
+                            <div class="footer-action">
+                                <button class="save-btn" [disabled]="cartArr.length == 0" (click)="fnPaymentMode('print')" mat-button>Save & Print</button>
+                                <button class="save-btn" [disabled]="cartArr.length == 0" (click)="fnPaymentMode('email')" mat-button>Save & Ebill</button>
+                                <button class="place-btn" [disabled]="cartArr.length == 0" mat-button (click)="fnplaceOrder('place')">Place</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </mat-tab>
         <mat-tab>
             <ng-template mat-tab-label>
@@ -657,7 +664,8 @@
                                             <span>{{val.orders.service_qty}}</span>
                                         </div>
                                         <div class="col-3 pr-3">
-                                            <i class="fa fa-rupee pr-1"></i><span>{{val.orders.service_cost}}</span>
+                                            <span *ngIf="currencySymbolPosition=='left'"> {{currencySymbol| currencySymbol:'wide'}} {{ val.orders.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                                            <span *ngIf="currencySymbolPosition=='right'"> {{ val.orders.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</span>
                                         </div>
                                     </div>
                                     <hr class="my-2">
@@ -668,7 +676,8 @@
                             <div class="px-3 mt-2">
                                 <div class="row ">
                                     <div class="col-9">
-                                        <span>Subtotal : <i class="fa fa-rupee pr-1"></i> {{pendingBillingOrdeTotal}}</span>
+                                        <span *ngIf="currencySymbolPosition=='left'"> Subtotal : {{currencySymbol| currencySymbol:'wide'}} {{ pendingBillingOrdeTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                                        <span *ngIf="currencySymbolPosition=='right'"> Subtotal : {{ pendingBillingOrdeTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</span>
                                     </div>
                                     <div class="col-3 ">
                                         <span>Tax : <i class="fa fa-rupee pr-1"></i> 0</span>
@@ -683,7 +692,8 @@
                                     <span>Total</span>
                                 </div>
                                 <div class="col-3 ">
-                                    <span> <i class="fa fa-rupee pr-1"></i>{{pendingBillingOrdeTotal}}</span>
+                                    <span *ngIf="currencySymbolPosition=='left'"> {{currencySymbol| currencySymbol:'wide'}} {{ pendingBillingOrdeTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                                    <span *ngIf="currencySymbolPosition=='right'"> {{ pendingBillingOrdeTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</span>
                                 </div>
                             </div>
                         </div>
@@ -710,4 +720,4 @@
         </span>
         </span>
     </div>
-</div>
+    </div>
