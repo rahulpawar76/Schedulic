@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
 
             if(data.data == true){
               
-                if(data.response.currentPlan == null){
+                if(data.response.user_type == 'A' &&  data.response.currentPlan == null){
                     localStorage.setItem('adminData',JSON.stringify(data.response))
                     localStorage.removeItem('currentUser');
                     this.router.navigate(["admin-select-subscription"]);
