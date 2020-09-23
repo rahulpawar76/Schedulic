@@ -559,11 +559,11 @@
                                     <div class="row ">
                                         <div class="col-6 pt-2">
                                             <label>Customer</label><br>
-                                            <span>{{val.get_customer.fullname}}</span>
+                                            <span>{{val.get_customer?val.get_customer.fullname:''}}</span>
                                         </div>
                                         <div class="col-6 pt-2 text-right">
                                             <label>Phone No.</label><br>
-                                            <span>{{val.get_customer.phone}}</span>
+                                            <span>{{val.get_customer?val.get_customer.phone:''}}</span>
                                         </div>
                                     </div>
 
