@@ -588,16 +588,12 @@ export class FrontbookingComponent implements OnInit {
   private createErrorMessage(error: HttpErrorResponse){
     this.errorMessage = error.error ? error.error : error.statusText;
   }
-  
-  fnLogout(){
-  
-    // remove user from local storage to log user out
-    localStorage.removeItem("currentUser");
-    localStorage.removeItem("isFront");
-    localStorage.clear();
-    this.authenticationService.currentUserSubject.next(null);
-    window.location.reload();
-  }
+fnLogout(){
+
+this.authenticationService.currentUserSubject.next(null);
+this.authenticationService.logout();
+this.router.navigate(['/login']);
+}
   
   fnViewDashboard(){
     this.router.navigate(['/user/appointments']);
@@ -3365,15 +3361,21 @@ export class theme2CheckoutDialog {
       }
       
     }
+    // fnLogout(){
+      
+    //   // remove user from local storage to log user out
+    //   localStorage.removeItem("currentUser");
+    //   localStorage.removeItem("isFront");
+    //   localStorage.clear();
+    //   this.authenticationService.currentUserSubject.next(null);
+    //   window.location.reload();
+    // }
     fnLogout(){
-  
-      // remove user from local storage to log user out
-      localStorage.removeItem("currentUser");
-      localStorage.removeItem("isFront");
-      localStorage.clear();
+
       this.authenticationService.currentUserSubject.next(null);
-      window.location.reload();
-    }
+      this.authenticationService.logout();
+      this.router.navigate(['/login']);
+      }
     fnViewDashboard(){
       this.dialogRef.close();
       this.router.navigate(['/user/appointments']);

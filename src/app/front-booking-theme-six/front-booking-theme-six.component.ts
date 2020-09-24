@@ -597,14 +597,11 @@ export class FrontBookingThemeSixComponent implements OnInit {
   }
   
   fnLogout(){
-  
-    // remove user from local storage to log user out
-    localStorage.removeItem("currentUser");
-    localStorage.removeItem("isFront");
-    localStorage.clear();
+
     this.authenticationService.currentUserSubject.next(null);
-    window.location.reload();
-  }
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
+    }
   
   fnViewDashboard(){
     this.router.navigate(['/user/appointments']);

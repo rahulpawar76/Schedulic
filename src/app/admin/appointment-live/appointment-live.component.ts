@@ -1385,12 +1385,13 @@ constructor(
   @Inject(MAT_DIALOG_DATA) public data: any) {
     this.note_description_val = this.data.note
     this.viewType= this.data.view
+    alert(this.viewType)
     // if(this.note_description_val && this.note_description_val !== null || this.note_description_val !== ''){
     // this.createNewNote.controls['note_description'].setValue(this.note_description);
     // this.createNewNote.controls['note_description'].setValue(this.note_description_val);
     // }
     this.createNewNote = this._formBuilder.group({
-      note_description : [this.note_description_val, Validators.required,],
+      note_description : [{value:this.note_description_val, disabled: this.viewType?'only_view':false}, Validators.required,],
     });
 
 
