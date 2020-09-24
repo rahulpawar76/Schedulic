@@ -49,7 +49,7 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field class="pr-3 bottom-border-field" *ngIf="isSalesReport">
+                <mat-form-field class="pr-3 bottom-border-field status-filter" *ngIf="isSalesReport">
                     <mat-select (selectionChange)="fnChangeStatusFilter($event)" [(value)]="statusFilter">
                         <mat-option value="all">
                             All
@@ -62,7 +62,7 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field class="pr-3 bottom-border-field" *ngIf="isCustomerReport">
+                <mat-form-field class="pr-3 bottom-border-field status-filter" *ngIf="isCustomerReport">
                     <mat-select (selectionChange)="fnChangeCreatedByFilter($event)" [(value)]="createdByFilter">
                         <mat-option value="all">
                             Registration By All
