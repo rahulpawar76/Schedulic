@@ -125,11 +125,13 @@ export class AppointmentLiveComponent implements OnInit {
   pendingBillingOrdeTotal = 0;
   selectedBillCustomerData:any=[];
   outdoorOrdersArr:any = [];
-  
+  textPercentage = 0;
+  totalTax = 0;
+
   public lat = 40.094882;
   public lng = 20.214329;
   public ShowMap:boolean = true;
-
+  taxArr:any= [];
   origin = { lat: 40.094882, lng: 20.214329 };
   destination = { lat: 40.095867, lng: 20.223556 };
   renderOptions = {
@@ -188,7 +190,7 @@ export class AppointmentLiveComponent implements OnInit {
 
     this.fnGetCategory();
     this.fngetService();
-
+    this.fnGetTaxDetails();
     
   }
 
@@ -216,10 +218,33 @@ export class AppointmentLiveComponent implements OnInit {
     }
   }
 
+  fnGetTaxDetails(){
+    let requestObject = {
+      'business_id': this.businessId,
+    };
+    this.AdminService.getTaxDetails(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        let tax = response.response
+        this.taxArr=tax;
+
+        this.taxArr.forEach((element) => {
+          this.textPercentage = this.textPercentage + parseInt(element.value);
+        });
+
+      } else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+    });
+  }
+
   fnGetSettings(){
     let requestObject = {
       "business_id" : this.businessId
-      };
+    };
 
     this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
       if(response.data == true){
@@ -493,15 +518,15 @@ export class AppointmentLiveComponent implements OnInit {
        this.note_description = result;
       });
   }
+
   fnShowNote(note){
-    
     const dialogRef = this.dialog.open(addPOSBookingNoteDialog, {
       width: '500px',
       data :{note :note, view: 'only_view'}
      });
-      dialogRef.afterClosed().subscribe(result => {
-       this.note_description = result;
-      });
+    dialogRef.afterClosed().subscribe(result => {
+      this.note_description = result;
+    });
   }
 
   fnPaymentMode(pos_pdf_type){
@@ -527,20 +552,6 @@ export class AppointmentLiveComponent implements OnInit {
     });
 
   }
-
-  // fnOpenNotAssignedDetails(index){
-    
-  //   const dialogRef = this.dialog.open(NotAssignedAppointmentDetailsDialog, {
-  //     height: '700px',
-  //     //data: {animal: this.animal}
-  //     data :{fulldata : this.notAssignedAppointments[index]}
-  //    });
-  //     dialogRef.afterClosed().subscribe(result => {
-  //      this.animal = result;
-  //     this.getNotAssignedAppointments();
-      
-  //     });
-  // }
 
   
   fnOpenOnTheWayDetails(val){
@@ -661,7 +672,7 @@ export class AppointmentLiveComponent implements OnInit {
   }
 
   fnAssignStaff(staff_id,staff_index){
-
+  
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); 
@@ -709,8 +720,8 @@ export class AppointmentLiveComponent implements OnInit {
           "updated_at": this.ServiceList[this.service_index].updated_at,
           "deleted_at": this.ServiceList[this.service_index].deleted_at,
           "count": 1,
-          "subtotal": this.ServiceList[this.service_index].service_cost,
-          "totalCost": this.ServiceList[this.service_index].service_cost,
+          "subtotal": parseInt(this.ServiceList[this.service_index].service_cost),
+          "totalCost": parseInt(this.ServiceList[this.service_index].service_cost),
           "appointmentDate": current_date,
           "appointmentTimeSlot": this.StaffList[staff_index].from,
           "assignedStaff" : staff_id,
@@ -722,6 +733,10 @@ export class AppointmentLiveComponent implements OnInit {
       this.cartArr.forEach(element => {
         this.totalCost = this.totalCost+parseInt(element.subtotal);
       });
+
+      if(this.textPercentage > 0){
+        this.totalTax = this.totalCost*this.textPercentage/100;
+      }
 
     }
 
@@ -747,6 +762,10 @@ export class AppointmentLiveComponent implements OnInit {
       this.totalCost = this.totalCost+parseInt(element.subtotal);
     });
 
+    if(this.textPercentage > 0){
+      this.totalTax = this.totalCost*this.textPercentage/100;
+    }
+
   }
 
   fnDeleteItem(elem){
@@ -756,6 +775,10 @@ export class AppointmentLiveComponent implements OnInit {
       this.totalCost = this.totalCost+parseInt(element.subtotal);
     });
 
+    if(this.textPercentage > 0){
+      this.totalTax = this.totalCost*this.textPercentage/100;
+    }
+    
   }
 
   fnplaceOrder(pos_pdf_type){
@@ -776,6 +799,35 @@ export class AppointmentLiveComponent implements OnInit {
     var mm = String(today.getMonth() + 1).padStart(2, '0'); 
     var yyyy = today.getFullYear();
     var payment_datetime = yyyy + '-' + mm  + '-' + dd;
+    var newTaxArr = [];
+
+
+    this.cartArr.forEach(cartelement => {
+      var tmpItemTaxArr = [];
+      var itemTaxTotal = 0;
+
+      this.taxArr.forEach(element => {
+        
+        itemTaxTotal = itemTaxTotal + parseInt(cartelement.subtotal)*parseInt(element.value)/100;
+
+        tmpItemTaxArr.push({
+          'amount' : cartelement.subtotal*element.value/100,
+          'name' : element.name,
+          'value' : element.value
+        });
+      });
+      cartelement.tax = tmpItemTaxArr;
+      console.log(itemTaxTotal);
+      cartelement.totalCost = parseInt(cartelement.subtotal) + itemTaxTotal;
+    });
+
+    this.taxArr.forEach(element => {
+      newTaxArr.push({
+        'amount' : this.totalCost*element.value/100,
+        'name' : element.name,
+        'value' : element.value
+      });
+    });
 
     var requestObject = {
       "business_id" : localStorage.getItem('business_id'),
@@ -788,14 +840,18 @@ export class AppointmentLiveComponent implements OnInit {
       "reference_id": "",
       "transaction_id": "",
       "payment_datetime": payment_datetime,
-      "nettotal": this.totalCost,
+      "nettotal": this.totalCost+this.totalTax,
+      "tax" :  newTaxArr,
+      "totalTax" : this.totalTax,
       "payment_method": this.paymentData ? this.paymentData.payment_method : 'cash',
       "card_option": this.paymentData && this.paymentData.payment_method=='Card' ? this.paymentData.card_option : '',
       "order_date": payment_datetime,
       "booking_notes" : this.note_description,
       "pos_pdf_type" : pos_pdf_type  
     };
-  
+   
+    console.log(requestObject);
+   
     this.AdminService.placeOrder(requestObject).subscribe((response:any) => {
       
       if(response.data == true){
@@ -812,10 +868,21 @@ export class AppointmentLiveComponent implements OnInit {
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
+        
+        this.note_description = null;
+        this.fnWatinglist();
+        this.isLoaderAdmin = false;
+
+      }else if(response.data == false){
+
+        this.isLoaderAdmin = false;
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
       }
-      this.note_description = null;
-      this.fnWatinglist();
-      this.isLoaderAdmin = false;
+      
 
     });
 
