@@ -702,8 +702,8 @@ export class AppointmentLiveComponent implements OnInit {
     }
     
     if(index==false){
-
-      this.cartArr.push({
+      if(this.StaffList[staff_index].status == 'ideal'){
+        this.cartArr.push({
           "id":   this.ServiceList[this.service_index].id,
           "category_id":  this.ServiceList[this.service_index].category_id,
           "sub_category_id":  this.ServiceList[this.service_index].sub_category_id,
@@ -726,7 +726,35 @@ export class AppointmentLiveComponent implements OnInit {
           "appointmentTimeSlot": this.StaffList[staff_index].from,
           "assignedStaff" : staff_id,
           "StaffName" : this.StaffList[staff_index].name
+        });
+      }else if(this.StaffList[staff_index].status == 'working'){
+        this.cartArr.push({
+          "id":   this.ServiceList[this.service_index].id,
+          "category_id":  this.ServiceList[this.service_index].category_id,
+          "sub_category_id":  this.ServiceList[this.service_index].sub_category_id,
+          "service_name":   this.ServiceList[this.service_index].service_name,
+          "service_description":  this.ServiceList[this.service_index].service_description,
+          "service_image":  this.ServiceList[this.service_index].service_image,
+          "service_cost": this.ServiceList[this.service_index].service_cost,
+          "service_time": this.ServiceList[this.service_index].service_time,
+          "service_unit":   this.ServiceList[this.service_index].service_unit,
+          "status":   this.ServiceList[this.service_index].status,
+          "private_status":   this.ServiceList[this.service_index].private_status,
+          "business_id": localStorage.getItem('business_id'),
+          "created_at": this.ServiceList[this.service_index].created_at,
+          "updated_at": this.ServiceList[this.service_index].updated_at,
+          "deleted_at": this.ServiceList[this.service_index].deleted_at,
+          "count": 1,
+          "subtotal": parseInt(this.ServiceList[this.service_index].service_cost),
+          "totalCost": parseInt(this.ServiceList[this.service_index].service_cost),
+          "appointmentDate": current_date,
+          "appointmentTimeSlot": this.StaffList[staff_index].free_at,
+          "assignedStaff" : staff_id,
+          "StaffName" : this.StaffList[staff_index].name
       });
+      }
+      
+      
 
       
       this.totalCost = 0;
@@ -1257,7 +1285,7 @@ export class AppointmentLiveComponent implements OnInit {
     if(type=='in_store'){
       
       if(status=='AC'){
-        new_status='CO';
+        new_status='WS';
       }
 
     }
@@ -1266,7 +1294,7 @@ export class AppointmentLiveComponent implements OnInit {
       if(status=='AC'){
         new_status='OW';
       }else if(status=='OW'){
-        new_status='CO';
+        new_status='WS';
       }else{
         return false;
       }
@@ -1385,17 +1413,9 @@ constructor(
   @Inject(MAT_DIALOG_DATA) public data: any) {
     this.note_description_val = this.data.note
     this.viewType= this.data.view
-    alert(this.viewType)
-    // if(this.note_description_val && this.note_description_val !== null || this.note_description_val !== ''){
-    // this.createNewNote.controls['note_description'].setValue(this.note_description);
-    // this.createNewNote.controls['note_description'].setValue(this.note_description_val);
-    // }
     this.createNewNote = this._formBuilder.group({
       note_description : [{value:this.note_description_val, disabled: this.viewType?'only_view':false}, Validators.required,],
     });
-
-
-
   }
   onNoClick(): void {
     this.dialogRef.close('');

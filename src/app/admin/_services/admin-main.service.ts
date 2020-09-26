@@ -1118,13 +1118,6 @@ export class AdminService {
             return res;
         }),
         catchError(this.handleError));
-    //    alert("1")
-    //     let url = "https://api.ipgeolocation.io/ipgeo?apiKey=AIzaSyDIx_jprz_nOTY0XoE8uhbX6oAy16GIyOc&ip="+IP; 
-    //     return this.http
-    //           .get(url)
-    //           .pipe(
-    //             catchError(this.handleError)
-    //           );
     }
 
     reAuthenticateUser() {
