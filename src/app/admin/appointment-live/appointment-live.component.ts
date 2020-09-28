@@ -130,7 +130,7 @@ export class AppointmentLiveComponent implements OnInit {
 
   public lat = 40.094882;
   public lng = 20.214329;
-  public ShowMap:boolean = true;
+  public ShowMap:boolean = false;
   taxArr:any= [];
   origin = { lat: 40.094882, lng: 20.214329 };
   destination = { lat: 40.095867, lng: 20.223556 };
@@ -2633,6 +2633,32 @@ constructor(
     }else if (Now<APPO){
       return false;  
     } 
+
+  }
+
+  fnWorkStarting(){
+
+    let requestObject = {
+     "order_item_id":JSON.stringify(this.detailsData.id),
+     "status":"WS"
+    };
+
+    this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+      if(response.data == true){
+        this._snackBar.open("Appointment Started.", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.dialogRef.close();
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+      }
+    });
 
   }
 

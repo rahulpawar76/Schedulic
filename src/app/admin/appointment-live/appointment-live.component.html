@@ -496,7 +496,8 @@
                                         <p class="mb-0">Not Assigned</p>
                                     </div>
                                     <div class="" fxFlex="10">
-                                        {{workStartedAppointments.total_cost}}
+                                        <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ workStartedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                                        <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{ workStartedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
                                     </div>
                                     <div class="" fxFlex="10">
                                         {{workStartedAppointments.booking_date}}
