@@ -506,3 +506,9 @@
 .statick-rating {
     justify-content: flex-end;
 }
+
+::ng-deep .cdk-overlay-container {
+    .cdk-overlay-pane {
+        overflow-y: auto;
+    }
+}

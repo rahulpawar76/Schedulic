@@ -36,7 +36,9 @@
                                     <div class="row">
                                         <div class="col staff-selection">
                                             <mat-radio-group *ngIf="!isStaffAvailable" aria-label="Select Staff">
-                                                <mat-radio-button value="">Any Staff
+                                                <mat-radio-button [checked]="serviceCartArr[currentSelectedService]
+                                                &&
+                                                serviceCartArr[currentSelectedService].assignedStaff==null" (change)="fnSelectStaff(null,i)" value="">Any Staff
                                                 </mat-radio-button>
                                             </mat-radio-group>
                                             <mat-radio-group aria-label="Select Staff" *ngIf="isStaffAvailable">

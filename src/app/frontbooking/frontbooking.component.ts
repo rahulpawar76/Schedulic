@@ -228,7 +228,7 @@ export class FrontbookingComponent implements OnInit {
     @Inject(DOCUMENT) private _document
     
   ) { 
-
+    console.log(window.location.search)
     this.urlString = window.location.search.split("?business_id="); 
     this.businessId = window.atob(decodeURIComponent(this.urlString[1]));
    
@@ -1763,15 +1763,32 @@ this.router.navigate(['/login']);
             panelClass : ['green-snackbar']
             });
         }
-       if(this.is_at_home_service){
-        this.personalinfo = false;
-        this.appointmentinfo = true;
-        this.isLoggedIn=true;
-       }else if(this.is_at_home_service){
-        this.personalinfo = false;
-        this.summaryScreen = true;
-        this.isLoggedIn=true;
-       }
+      //  if(this.is_at_home_service){
+      //   this.personalinfo = false;
+      //   this.appointmentinfo = true;
+      //   this.isLoggedIn=true;
+      //  }else if(this.is_at_home_service){
+      //   this.personalinfo = false;
+      //   this.summaryScreen = true;
+      //   this.isLoggedIn=true;
+      //  }
+        if(this.is_at_home_service){
+          if(this.existinguser){
+            this.personalinfo = false;
+            this.appointmentinfo = true;
+            this.isLoggedIn=true;
+          }else if(this.newuser){
+            this.personalinfo = false;
+            this.appointmentinfo = true;
+            this.summaryScreen = false;
+            this.isLoggedIn=true;
+          }
+        }else if(!this.is_at_home_service){
+          this.personalinfo = false;
+          this.appointmentinfo = false;
+          this.summaryScreen = true;
+          this.isLoggedIn=true;
+        }
       }else{
 
         this.snackBar.open("Email or Password is incorrect", "X", {
@@ -3487,17 +3504,39 @@ export class theme2CheckoutDialog {
               });
           }
           this.isLoggedIn=true;
-          if(this.newuser){
-            this.personalinfo =false;
+          // if(this.newuser){
+          //   this.personalinfo =false;
+          //   this.appointmentinfo = false;
+          //   this.summaryScreen = true;
+          // }else if(this.existinguser && this.is_at_home_service){
+          //   this.personalinfo = false;
+          //   this.appointmentinfo = true;
+          // }else if(this.existinguser && !this.is_at_home_service){
+          //   this.personalinfo = false;
+          //   this.appointmentinfo = false;
+          //   this.summaryScreen = true;
+          // }
+
+          if(this.is_at_home_service){
+            alert('0')
+            if(this.existinguser){
+              alert('1')
+              this.personalinfo = false;
+              this.appointmentinfo = true;
+              this.isLoggedIn=true;
+            }else if(this.newuser){
+              alert('2')
+              this.personalinfo = false;
+              this.appointmentinfo = true;
+              this.summaryScreen = false;
+              this.isLoggedIn=true;
+            }
+          }else if(!this.is_at_home_service){
+            alert('3')
+            this.personalinfo = false;
             this.appointmentinfo = false;
             this.summaryScreen = true;
-          }else if(this.existinguser && this.is_at_home_service){
-            this.personalinfo = false;
-            this.appointmentinfo = true;
-          }else if(this.existinguser && !this.is_at_home_service){
-            this.personalinfo = false;
-            this.appointmentinfo = false;
-            this.summaryScreen = true;
+            this.isLoggedIn=true;
           }
          
           // this.personalinfo = true;
