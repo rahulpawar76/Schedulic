@@ -651,6 +651,14 @@ export class AppComponent implements AfterViewInit {
 
   fnLoginWithGoogleFacebook(user){
     this.isAllowed=false;
+    if(user.email == ''){
+          this._snackBar.open('Please add email id in your facebook account.', "X", {
+              duration: 2000,
+              verticalPosition:'top',
+              panelClass :['red-snackbar']
+          });
+          return false;
+      }
     this.authenticationService.loginWithGoogleFacebook(user.id,user.email,user.provider).pipe(first()).subscribe(data => {
       if(data.idExists == true){
         if(data.userData.user_type == "A"){

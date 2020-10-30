@@ -24,9 +24,9 @@
                                 <small *ngIf="cardPaymentForm.get('address').hasError('required')" class="error">Address is required.</small>
                             </span>
                             <label for="" class="mb-0">Country</label>
-                            <select class="form-control" formControlName="country">
-                                <option *ngFor="let allCountry of allCountry; let i=index;" value="{{allCountry.id}}">{{allCountry.name}}</option>
-                            </select>
+                            <mat-select class="form-control" formControlName="country">
+                                <mat-option *ngFor="let allCountry of allCountry; let i=index;" value="{{allCountry.id}}">{{allCountry.name}}</mat-option>
+                            </mat-select>
                             <span class="error-wrap" *ngIf="cardPaymentForm.get('country').dirty || cardPaymentForm.get('country').touched">
                                 <small *ngIf="cardPaymentForm.get('country').hasError('required')" class="error">Address is required.</small>
                             </span>

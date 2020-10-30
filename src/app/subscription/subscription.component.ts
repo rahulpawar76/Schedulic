@@ -90,7 +90,7 @@ export class SubscriptionComponent implements OnInit {
 export class DialogSubscriptionCardForm {
   isLoaderAdmin:boolean = false;
   cardForm:FormGroup
-  onlynumeric = /^-?(0|[1-9]\d*)?$/
+  onlynumeric = /^-?(0|[0-9]\d*)?$/
   planId:any;
   adminData:any;
   cardPaymentForm:FormGroup;

@@ -159,7 +159,7 @@
                             <div class="" fxFlex="10"></div>
                         </div>
                         <div class="content" class="drageble-list" cdkDropList (cdkDropListDropped)="drop($event)">
-                            <div class="drageble-box" *ngFor="let allServicesList of allServicesList; let i=index" cdkDrag fxLayout="row">
+                            <div class="drageble-box mx-0" *ngFor="let allServicesList of allServicesList; let i=index" cdkDrag fxLayout="row">
                                 <div class="text-left" fxFlex="5">
                                     <mat-checkbox [checked]="allServicesList.is_selected" (change)="fnAddStaffId($event.checked,allServicesList.id,i)"></mat-checkbox>
                                 </div>
@@ -179,7 +179,7 @@
                                 </div>
                                 <div class="" fxFlex="10" cdkDragHandle class="handler"><i class="fa fa-arrows" aria-hidden="true"></i></div>
                             </div>
-                            <div class="drageble-box row" *ngIf="allServicesList == ''">
+                            <div class="drageble-box row mx-0" *ngIf="allServicesList == ''">
                                 <p class="mx-auto">Record not found.</p>
                             </div>
                         </div>
@@ -476,7 +476,7 @@
                                 <div class="" fxFlex="10"></div>
                             </div>
                             <div class="content" class="drageble-list" cdkDropList (cdkDropListDropped)="dropCategory($event)">
-                                <div class="drageble-box" *ngFor="let categoryServicesList of categoryServicesList; let i=index" cdkDrag fxLayout="row">
+                                <div class="drageble-box mx-0" *ngFor="let categoryServicesList of categoryServicesList; let i=index" cdkDrag fxLayout="row">
                                     <div class="" fxFlex="5">
                                         <mat-checkbox [checked]="categoryServicesList.is_selected" (change)="fnActionServiceId($event.checked,categoryServicesList.id,i); ">
                                         </mat-checkbox>
@@ -609,7 +609,7 @@
                                 <div class="" fxFlex="10"></div>
                             </div>
                             <div class="content" class="drageble-list" cdkDropList (cdkDropListDropped)="dropSubCategory($event)">
-                                <div class="drageble-box" *ngFor="let subCategoryServicesList of subCategoryServicesList; let i=index" cdkDrag fxLayout="row">
+                                <div class="drageble-box mx-0" *ngFor="let subCategoryServicesList of subCategoryServicesList; let i=index" cdkDrag fxLayout="row">
                                     <div class="" fxFlex="5">
                                         <mat-checkbox [checked]="subCategoryServicesList.is_selected" (change)="fnAddStaffIdSub($event.checked,subCategoryServicesList.id,i)">
                                         </mat-checkbox>
@@ -878,7 +878,7 @@
                                     </mat-list-item> 
                                </mat-list> -->
                                     <div *ngIf="staffList != ''" class="select_staff_list">
-                                        <div class="drageble-box" *ngFor="let staffList of staffList" fxLayout="row">
+                                        <div class="drageble-box mx-0" *ngFor="let staffList of staffList" fxLayout="row">
                                             <div class="staff-list" fxFlex="90">
                                                 <mat-checkbox (change)="fnAssignStaffToService($event.checked, staffList.id)" [checked]="assignStaffArr.indexOf(staffList.id) > -1">
                                                     {{staffList.firstname}} {{staffList.lastname}}</mat-checkbox>

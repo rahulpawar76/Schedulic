@@ -1687,6 +1687,8 @@ this.router.navigate(['/login']);
     console.log(this.taxAmountArr);
     console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
     this.isLoader=false;
+    console.log(this.serviceCartArr)
+    console.log(this.serviceMainArr)
   }
   
 

@@ -905,7 +905,7 @@ export class DialogAddNewAppointment {
         customerAppoAddress: [this.appointmentData.customerAppoAddress, [Validators.required]],
         customerAppoState: [this.appointmentData.customerAppoState, [Validators.required]],
         customerAppoCity: [this.appointmentData.customerAppoCity, [Validators.required]],
-        customerAppoPostalCode: [this.appointmentData.customerAppoPostalCode, [Validators.required,Validators.minLength(5),Validators.maxLength(6)],this.isPostalcodeValid.bind(this)],
+        customerAppoPostalCode: [this.appointmentData.customerAppoPostalCode, [Validators.required,Validators.minLength(5),Validators.maxLength(7)],this.isPostalcodeValid.bind(this)],
 
         //customerPostalCode: new FormControl({ value: this.appointmentData.zip, disabled: this.disablePostalCode },[Validators.required,Validators.pattern(this.onlynumeric)]),
       });
@@ -1942,6 +1942,7 @@ export class DialogAddNewAppointment {
   }
 
   fnBookAppointment(){
+    this.isLoaderAdmin = true;
     let serviceCartArrTemp:any= [];
     for(let i=0; i<this.serviceCount.length;i++){
       if(this.serviceCount[i] != null && this.serviceCount[i].count > 0){
@@ -2020,7 +2021,6 @@ export class DialogAddNewAppointment {
       'api-token': this.token,
       'admin-id': JSON.stringify(this.adminId),
     });
-    this.isLoaderAdmin = true;
     this.http.post(`${environment.apiUrl}/order-create-check`,requestObject,{headers:headers} ).pipe(map((res) => {
       return res;
     }),).subscribe((response:any) => {
@@ -2031,18 +2031,16 @@ export class DialogAddNewAppointment {
             panelClass :['green-snackbar']
         });
         this.dialogRef.close();
-        this.isLoaderAdmin = false;
       }else{
         this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['red-snackbar']
         });
-        this.isLoaderAdmin = false;
       }
     },(err) =>{
-      this.isLoaderAdmin = false;
     })
+    this.isLoaderAdmin = false;
   }
 
   fnEditAppointment(){

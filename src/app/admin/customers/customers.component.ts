@@ -1266,8 +1266,8 @@ customerUpdate(existingCustomerData){
       "order_item_id": this.serviceMainArr.order_item_id,
       "orders":orders,
       "orderItem":orderItems,
-      //"email" : this.serviceMainArr.customer_email,
-      "email" : "bikalpitbhadani@gmail.com",
+      "email" : this.serviceMainArr.customer_email,
+      //"email" : "bikalpitbhadani@gmail.com",
       "URL": environment.urlForLink+'/online-payment?order-item='+this.serviceMainArr.order_item_id
     }
     this.AdminService.onlinePayment(requestObject).subscribe((response:any) => {
@@ -2975,7 +2975,7 @@ uploadImage() {
 
 
 @Component({
-  selector: 'new-appointment',
+  selector: 'payment-note',
   templateUrl: '../_dialogs/payment-note-dialog.html',
 })
 export class DialogPaymentNote {
@@ -2991,7 +2991,7 @@ onNoClick(): void {
 }
 
 @Component({
-  selector: 'new-appointment',
+  selector: 'view-review',
   templateUrl: '../_dialogs/view-review-dialog.html',
 })
 export class DialogViewReview {

@@ -100,6 +100,8 @@ export class BillingComponent implements OnInit {
               verticalPosition: 'top',
               panelClass: ['green-snackbar']
             });
+            
+          this.getSubscriptionPlans();
           
           }else if(response.data == false && response.response !== 'api token or userid invaild'){
             this._snackBar.open(response.response, "X", {

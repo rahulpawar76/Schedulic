@@ -145,7 +145,7 @@
                             <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').dirty || formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').touched">
                                 <small *ngIf="formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').hasError('required')" class="error"> Postal code is required.</small>
                                 <!-- <small *ngIf="formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').hasError('pattern')" class="error"> Enter a valid postal code.</small> -->
-                                <small *ngIf="formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').hasError('maxlength')" class="error">Postal code should be 5 to 6 digit.</small>
+                                <small *ngIf="formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').hasError('maxlength')" class="error">Postal code should be 5 to 7 digit.</small>
                                 <small *ngIf="formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').hasError('isPostalcodeValid')" class="error">We do not provide service at this location.</small>
                             </span>
                         </div>
