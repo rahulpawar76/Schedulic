@@ -237,7 +237,8 @@
         background: white;
         border-radius: 4px;
         overflow-y: scroll;
-        height: calc(100vh - 192px);
+        overflow-x: hidden;
+        height: calc(100vh - 118px);
     }
     .drageble-box {
         padding: 20px 10px;
@@ -315,7 +316,7 @@
     top: 64px;
     height: calc(100vh - 64px);
      ::ng-deep .mat-drawer-inner-container {
-        overflow: initial;
+        overflow: scroll;
     }
     .category-list {
         .category-main {

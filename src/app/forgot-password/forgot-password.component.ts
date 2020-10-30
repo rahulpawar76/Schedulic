@@ -9,6 +9,7 @@ import { Observable, throwError } from 'rxjs';
 import { AppComponent } from '@app/app.component';
 import { map, catchError, filter } from 'rxjs/operators';
 
+
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
