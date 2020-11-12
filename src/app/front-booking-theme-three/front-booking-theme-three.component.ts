@@ -1537,6 +1537,7 @@ export class FrontBookingThemeThreeComponent implements OnInit {
       "service_id":this.currentSelectedService,
       "book_date" : this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd"),
       "book_time" : this.selectedTimeSlot, 
+      "internal_staff" : "N"
     };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -1823,20 +1824,9 @@ export class FrontBookingThemeThreeComponent implements OnInit {
   }
 
   fnpersonalinfo(){
-    if(this.formNewUser.get('newUserPhone').value === null){
-      this.phoneNumberInvalid = "required";
-      return false;
-    }
-    if(this.formNewUser.get('newUserPhone').value.number.length <= 6 || this.formNewUser.get('newUserPhone').value.number.length >= 15){
-      this.phoneNumberInvalid = "valid";
-      this.formNewUser.get('newUserPhone').markAsTouched();
-      return false;
-    }
-    else if(this.formNewUser.valid){
-      this.fnSignUp();
-    } 
-    
+
     if(this.formNewUser.invalid){
+
       this.formNewUser.get('newUserEmail').markAsTouched();
       this.formNewUser.get('newUserPassword').markAsTouched();
       this.formNewUser.get('newUserFullname').markAsTouched();
@@ -1853,9 +1843,36 @@ export class FrontBookingThemeThreeComponent implements OnInit {
         this.formNewUser.get('newUserCity').markAsTouched();
         this.formNewUser.get('newUserZipcode').markAsTouched();
       }
+
+      if(this.formNewUser.get('newUserPhone').value === null){
+        this.phoneNumberInvalid = "required";
+        return false;
+      }
+      
+      if(this.formNewUser.get('newUserPhone').value !== null && (this.formNewUser.get('newUserPhone').value.number.length <= 6 || this.formNewUser.get('newUserPhone').value.number.length >= 15)){
+        this.phoneNumberInvalid = "valid";
+        this.formNewUser.get('newUserPhone').markAsTouched();
+        return false;
+      }
+
       return false;
     }
-   }
+
+    if(this.formNewUser.get('newUserPhone').value === null){
+      this.phoneNumberInvalid = "required";
+      return false;
+    }
+
+    if(this.formNewUser.get('newUserPhone').value !== null && (this.formNewUser.get('newUserPhone').value.number.length <= 6 || this.formNewUser.get('newUserPhone').value.number.length >= 15)){
+      this.phoneNumberInvalid = "valid";
+      this.formNewUser.get('newUserPhone').markAsTouched();
+      return false;
+    }else if(this.formNewUser.valid){
+      this.fnSignUp();
+    } 
+  }
+
+
    
   fnSignUp(){
     let newUserAddress="";
@@ -3022,6 +3039,7 @@ export class theme3DateTimeSelection {
           "service_id":this.currentSelectedService,
           "book_date" : this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd"),
           "book_time" : this.selectedTimeSlot, 
+          "internal_staff" : "N"
         };
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',

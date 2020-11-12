@@ -1620,6 +1620,7 @@ export class FrontBookingThemeSixComponent implements OnInit {
       "service_id":this.currentSelectedService,
       "book_date" : this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd"),
       "book_time" : this.selectedTimeSlot, 
+      "internal_staff" : "N"
     };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -1931,41 +1932,55 @@ export class FrontBookingThemeSixComponent implements OnInit {
     }
   }
 
-  fnpersonalinfo(){
-    if(this.formNewUser.get('newUserPhone').value === null){
-      this.phoneNumberInvalid = "required";
-      return false;
-    }
-    if(this.formNewUser.get('newUserPhone').value.number.length <= 6 || this.formNewUser.get('newUserPhone').value.number.length >= 15){
-      this.phoneNumberInvalid = "valid";
-      this.formNewUser.get('newUserPhone').markAsTouched();
-      return false;
-    }
-    else if(this.formNewUser.valid){
-      this.fnSignUp();
-    } 
-    
-    if(this.formNewUser.invalid){
-      console.log(this.formNewUser)
-      this.formNewUser.get('newUserEmail').markAsTouched();
-      this.formNewUser.get('newUserPassword').markAsTouched();
-      this.formNewUser.get('newUserFullname').markAsTouched();
-      if(this.contactFormSettingsArr.contact_field_status == true){
-        if(this.contactFormSettingsArr.addressField.status == 1){
-          this.formNewUser.get('newUserAddress').markAsTouched();
-          this.formNewUser.get('newUserState').markAsTouched();
-          this.formNewUser.get('newUserCity').markAsTouched();
-          this.formNewUser.get('newUserZipcode').markAsTouched();
+    fnpersonalinfo(){
+
+        if(this.formNewUser.invalid){
+
+          this.formNewUser.get('newUserEmail').markAsTouched();
+          this.formNewUser.get('newUserPassword').markAsTouched();
+          this.formNewUser.get('newUserFullname').markAsTouched();
+          if(this.contactFormSettingsArr.contact_field_status == true){
+            if(this.contactFormSettingsArr.addressField.status == 1){
+              this.formNewUser.get('newUserAddress').markAsTouched();
+              this.formNewUser.get('newUserState').markAsTouched();
+              this.formNewUser.get('newUserCity').markAsTouched();
+              this.formNewUser.get('newUserZipcode').markAsTouched();
+            }
+          }else{
+            this.formNewUser.get('newUserAddress').markAsTouched();
+            this.formNewUser.get('newUserState').markAsTouched();
+            this.formNewUser.get('newUserCity').markAsTouched();
+            this.formNewUser.get('newUserZipcode').markAsTouched();
+          }
+
+          if(this.formNewUser.get('newUserPhone').value === null){
+            this.phoneNumberInvalid = "required";
+            return false;
+          }
+          
+          if(this.formNewUser.get('newUserPhone').value !== null && (this.formNewUser.get('newUserPhone').value.number.length <= 6 || this.formNewUser.get('newUserPhone').value.number.length >= 15)){
+            this.phoneNumberInvalid = "valid";
+            this.formNewUser.get('newUserPhone').markAsTouched();
+            return false;
+          }
+
+          return false;
         }
-      }else{
-        this.formNewUser.get('newUserAddress').markAsTouched();
-        this.formNewUser.get('newUserState').markAsTouched();
-        this.formNewUser.get('newUserCity').markAsTouched();
-        this.formNewUser.get('newUserZipcode').markAsTouched();
-      }
-      return false;
+
+        if(this.formNewUser.get('newUserPhone').value === null){
+          this.phoneNumberInvalid = "required";
+          return false;
+        }
+
+        if(this.formNewUser.get('newUserPhone').value !== null && (this.formNewUser.get('newUserPhone').value.number.length <= 6 || this.formNewUser.get('newUserPhone').value.number.length >= 15)){
+          this.phoneNumberInvalid = "valid";
+          this.formNewUser.get('newUserPhone').markAsTouched();
+          return false;
+        }else if(this.formNewUser.valid){
+          this.fnSignUp();
+        } 
     }
-   }
+   
    
   fnSignUp(){
     let newUserAddress="";
@@ -3237,7 +3252,8 @@ export class theme6DateTimeSelection {
           "postal_code":this.bookingPostalcode,
           "service_id":this.currentSelectedService,
           "book_date" : this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd"),
-          "book_time" : this.selectedTimeSlot, 
+          "book_time" : this.selectedTimeSlot,
+          "internal_staff" : "N"
         };
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
