@@ -184,10 +184,13 @@ export class StaffComponent implements OnInit {
   }
  
   deleteFile(index: number) {
-    if (this.files[index].progress < 100) {
-      return;
+    var x = confirm('Are you sure you want delete this document ?');
+      if(x){
+        if (this.files[index].progress < 100) {
+          return;
+        }
+      this.files.splice(index, 1);
     }
-    this.files.splice(index, 1);
   }
 
   deleteOldFile(index,document_id: number) {
@@ -283,7 +286,7 @@ export class StaffComponent implements OnInit {
       this.businessId = localStorage.getItem('business_id');
     }
     this.fnGetWorkingHours();
-    this.fnGetTimeSlotsList("00:00","24:00","30");
+    this.fnGetTimeSlotsList("00:00","23:30","30");
     this.formSetWorkingHours = this._formBuilder.group({
       mondayToggle: [false],
       mondayStartTime: [this.timeSlotList[0].long],

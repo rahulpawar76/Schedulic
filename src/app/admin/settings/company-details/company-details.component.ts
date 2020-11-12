@@ -283,7 +283,10 @@ export class CompanyDetailsComponent implements OnInit {
       this.phoneNumberInvalid = "length";
       return;
     }
-  
+    
+    var phone = this.companyDetails.get('comp_mobile').value.number.replace(/\s/g, "");
+
+    
     if(this.companyDetails.valid){
       if( this.companyDetailsImageUrl != ''){
         this.updateCompanyDetailsData ={
@@ -291,7 +294,7 @@ export class CompanyDetailsComponent implements OnInit {
           "company_name" : this.companyDetails.get('company_name').value,
           "email" : this.companyDetails.get('comp_email').value,
           "website" : this.companyDetails.get('comp_website').value,
-          "phone" : this.companyDetails.get('comp_mobile').value.number.replace(/\s/g, ""),
+          "phone" : phone.split('-').join(''),
           "country_code" : this.companyDetails.get('comp_mobile').value.dialCode.replace(/\s/g, ""),
           "country" : this.companyDetails.get('country').value,
           "address" : this.companyDetails.get('comp_address').value,

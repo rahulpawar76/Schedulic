@@ -166,7 +166,9 @@ export class AppointmentComponent implements OnInit {
 
   selectdurationType(type){
     this.durationType = type;
-  
+    
+    this.selected = null;
+
     // this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
     if(this.durationType=='all'){
       this.startDate = '';
@@ -220,7 +222,7 @@ export class AppointmentComponent implements OnInit {
     if (data.startDate == null || data.endDate == null) {
       return;
     }else{
-      this.durationType="custom";
+      this.durationType="all";
       this.startDate = this.datePipe.transform(new Date(data.startDate._d),"dd MMM yyyy");
       this.endDate = this.datePipe.transform(new Date(data.endDate._d),"dd MMM yyyy");
       this.staffApiUrl =  `${environment.apiUrl}/admin-booking-listing`;
