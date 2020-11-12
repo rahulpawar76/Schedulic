@@ -256,9 +256,13 @@
         }
         .report-menu-item {
             justify-content: center;
+            display: flex;
             padding: 10px;
             p {
                 display: none;
+            }
+            i {
+                height: 20px;
             }
         }
     }
@@ -342,4 +346,8 @@
             margin-bottom: 0px;
         }
     }
+}
+
+.report-dwnd-icon {
+    transform: rotate(180deg);
 }

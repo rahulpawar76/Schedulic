@@ -267,12 +267,17 @@ export class AppComponent implements AfterViewInit {
   }
 
   private cleanUrl(url: string) {
+    console.log(url)
+    // const mod = this.cleanUrl(url || this.currentUrl);
+    // this.pageHeading = this.authenticationService.pageName(mod,this.currentUser?this.currentUser.user_type:null);
     if (url) {
       let cleanUrl = url.substr(1);
       const slashIndex = cleanUrl.indexOf("/");
       console.log(slashIndex)
       if (slashIndex >= 0) {
         cleanUrl = cleanUrl.substr(slashIndex + 1, 8);
+        this.pageHeading = this.authenticationService.pageName(cleanUrl,this.currentUser?this.currentUser.user_type:null);
+        console.log(this.pageHeading)
         return cleanUrl;
       } else {
         return null;

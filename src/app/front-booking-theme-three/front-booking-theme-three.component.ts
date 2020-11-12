@@ -1744,7 +1744,7 @@ export class FrontBookingThemeThreeComponent implements OnInit {
         }
       }else{
 
-        this.snackBar.open("Email or Password is incorrect", "X", {
+        this.snackBar.open(response.response, "X", {
         duration: 2000,
         verticalPosition: 'top',
         panelClass : ['red-snackbar']
@@ -3053,7 +3053,9 @@ export class theme3DateTimeSelection {
     fnSelectStaff(staff_id,index){
        this.selectedStaff= staff_id;
        this.staffIndex = index
-       this.trigger.toArray()[index].togglePopover();
+       if(this.staffOnFrontValue){
+        this.trigger.toArray()[index].togglePopover();
+      }
     }
     fnSelectNextValidDate(mydate){
     

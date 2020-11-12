@@ -118,10 +118,16 @@
                                                 serviceCartArr[currentSelectedService].appointmentTimeSlot==timeSlot"
                                                 (click)="fnSelectTimeSlot(timeSlot,i)"
                                                 />
-                                            <div class="single-slot"
+                                            <!-- <div class="single-slot"
+                                                [mdePopoverTriggerFor]="selectstaff"
+                                                mdePopoverTriggerOn="click"
+                                                #popoverTrigger="mdePopoverTrigger">{{timeSlotArrForLabel[i]}}</div> -->
+                                                <div *ngIf="staffOnFrontValue" class="single-slot"
                                                 [mdePopoverTriggerFor]="selectstaff"
                                                 mdePopoverTriggerOn="click"
                                                 #popoverTrigger="mdePopoverTrigger">{{timeSlotArrForLabel[i]}}</div>
+                                            <div *ngIf="!staffOnFrontValue" class="single-slot"
+                                                >{{timeSlotArrForLabel[i]}}</div>
                                         </label>
                                         <mde-popover #selectstaff="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
                                             <mat-card class="staff-select-box

@@ -689,6 +689,22 @@ export class BookingrulesComponent implements OnInit {
   }
 
   fnUpdatePrivacyPolicyStatusValues(requestObject){
+    console.log(requestObject)
+    // if(requestObject.privacy_policy.status == true && requestObject.privacy_policy.label === ''){
+    //   this.snackBar.open("Label is required.", "X", {
+    //     duration: 2000,
+    //     verticalPosition: 'top',
+    //     panelClass : ['red-snackbar']
+    //   });
+    //   return false
+    // }else if(requestObject.privacy_policy.status == true && requestObject.privacy_policy.page_link === ''){
+    //   this.snackBar.open("Page link is required.", "X", {
+    //     duration: 2000,
+    //     verticalPosition: 'top',
+    //     panelClass : ['red-snackbar']
+    //   });
+    //   return false
+    // }
     this.adminSettingsService.updatePrivacyPolicyStatusValues(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.snackBar.open("Privacy Policy Status Updated.", "X", {
@@ -698,7 +714,7 @@ export class BookingrulesComponent implements OnInit {
         });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
-       this.snackBar.open("Privacy Policy Status Not Updated.", "X", {
+       this.snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
@@ -738,11 +754,22 @@ export class BookingrulesComponent implements OnInit {
       "business_id":this.businessId,
       "thank_you":thankyouPageArr
     }
+    alert(requestObject.thank_you.status)
+    alert(requestObject.thank_you.page_link)
+    if(requestObject.thank_you.status == true && (requestObject.thank_you.page_link === '' || requestObject.thank_you.page_link === null)){
+      this.snackBar.open("Link is required.", "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+      });
+      return false
+    }
     console.log(JSON.stringify(requestObject));
     this.fnUpdateThankyouPageStatusValues(requestObject);
   }
 
   fnUpdateThankyouPageStatusValues(requestObject){
+    
     this.adminSettingsService.updateThankyouPageStatusValues(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.snackBar.open("Thankyou Page Status Updated.", "X", {

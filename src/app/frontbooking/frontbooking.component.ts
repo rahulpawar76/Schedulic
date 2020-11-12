@@ -1638,7 +1638,9 @@ this.router.navigate(['/login']);
   fnSelectStaff(staff_id,index){
     this.isLoader=true;
     if(this.selectedTheme !== '2'){
-      this.trigger.toArray()[index].togglePopover();
+      if(this.staffOnFrontValue){
+        this.trigger.toArray()[index].togglePopover();
+      }
       this.serviceCount[this.currentSelectedService].appointmentDateForLabel=this.datePipe.transform(new Date(this.selecteddate),"MMM dd, yyyy");
     }
     this.serviceCount[this.currentSelectedService].appointmentDate=this.selecteddate;
@@ -1812,7 +1814,7 @@ this.router.navigate(['/login']);
         }
       }else{
 
-        this.snackBar.open("Email or Password is incorrect", "X", {
+        this.snackBar.open(response.response, "X", {
         duration: 2000,
         verticalPosition: 'top',
         panelClass : ['red-snackbar']
@@ -3201,6 +3203,7 @@ export class theme2CheckoutDialog {
       this.is_at_home_service = this.data.is_at_home_service
       if(!this.is_at_home_service && this.isLoggedIn){
         this.personalinfo = false;
+        this.appointmentinfo = false;
         this.summaryScreen = true;
       }else if(!this.is_at_home_service && !this.isLoggedIn){
         this.personalinfo = true;
@@ -3592,7 +3595,7 @@ export class theme2CheckoutDialog {
           // }
         }else{
   
-          this.snackBar.open("Email or Password is incorrect", "X", {
+          this.snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
@@ -5370,7 +5373,9 @@ export class theme2DateTimeSelection {
     fnSelectStaff(staff_id,index){
        this.selectedStaff= staff_id;
        this.staffIndex = index
-      this.trigger.toArray()[index].togglePopover();
+       if(this.staffOnFrontValue){
+        this.trigger.toArray()[index].togglePopover();
+      }
     }
     fnSelectNextValidDate(mydate){
     

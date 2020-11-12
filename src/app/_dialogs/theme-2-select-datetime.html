@@ -25,10 +25,12 @@
                     <div class="timing" *ngFor="let timeSlot of timeSlotArr; let i= index">
                         <label *ngIf="timeSlotArrForLabel[i]">
                             <input name="timeslot" type="radio" />
-                            <div (click)="fnSelectTimeSlot(timeSlot,i)" class="single-slot"
+                            <div *ngIf="staffOnFrontValue" (click)="fnSelectTimeSlot(timeSlot,i)" class="single-slot"
                                 [mdePopoverTriggerFor]="selectstaff2"
                                 mdePopoverTriggerOn="click"
                                 #popoverTrigger="mdePopoverTrigger">{{timeSlotArrForLabel[i]}}</div>
+                            <div *ngIf="!staffOnFrontValue" (click)="fnSelectTimeSlot(timeSlot,i)" class="single-slot"
+                                >{{timeSlotArrForLabel[i]}}</div>
                         </label>
                         <mde-popover #selectstaff2="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
                             <mat-card class="staff-select-box p-0" style="width: 200px">

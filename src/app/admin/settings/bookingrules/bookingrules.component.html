@@ -893,7 +893,7 @@
                             <input matInput placeholder="Add a label to your Terms & Conditions." [ngModel]="termsConditionsLabelValue" (ngModelChange)="setTermConditionsLabelValue($event)" maxlength="150">
                         </mat-form-field>
                         <div class="d-flex example-full-width ">
-                            <mat-hint class="ml-auto"><i>maximum characters allowed<span class="text-danger"> 150</span></i></mat-hint>
+                            <mat-hint class="ml-auto"><i>Maximum characters allowed<span class="text-danger"> 150</span></i></mat-hint>
                         </div>
                     </div>
                     <div class="example-form" *ngIf="termsConditionsStatusValue=='true'">
@@ -929,12 +929,12 @@
                             <input matInput placeholder="Add a label to your Privacy Policy." [ngModel]="privacyPolicyLabelValue" (ngModelChange)="setPrivacyPolicyLabelValue($event)" maxlength="150">
                         </mat-form-field>
                         <div class="d-flex example-full-width ">
-                            <mat-hint class="ml-auto"><i>maximum characters allowed<span class="text-danger"> 150</span></i></mat-hint>
+                            <mat-hint class="ml-auto"><i>Maximum characters allowed<span class="text-danger"> 150</span></i></mat-hint>
                         </div>
                     </div>
                     <div class="example-form" *ngIf="privacyPolicyStatusValue=='true'">
                         <mat-form-field class="example-full-width bottom-border-field">
-                            <input matInput placeholder="Add a label to your Privacy Policy." [ngModel]="privacyPolicyPageLinkValue" (ngModelChange)="setPrivacyPolicyPageLinkValue($event)">
+                            <input matInput placeholder="Add a Page link of your Privacy Policy." [ngModel]="privacyPolicyPageLinkValue" (ngModelChange)="setPrivacyPolicyPageLinkValue($event)">
                         </mat-form-field>
                         <div class="d-flex example-full-width ">
                             <mat-hint class="ml-auto"><i>Link will open in a new browser window</i></mat-hint>

@@ -120,6 +120,8 @@ table {
     box-sizing: border-box;
     background: white;
     font-size: 14px;
+    transition: all 0.3s;
+    cursor: pointer;
     &.header-background {
         background-color: #f7f7f7;
     }
@@ -137,6 +139,9 @@ table {
         height: 50px;
         border-radius: 34px;
         background-color: #11acf4;
+    }
+    &:hover {
+        background-color: #ddeafd;
     }
 }
 

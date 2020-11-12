@@ -1663,7 +1663,9 @@ export class FrontBookingThemeFiveComponent implements OnInit {
   fnSelectStaff(staff_id,index){
     this.isLoader=true;
     if(this.selectedTheme !== '2'){
-      this.trigger.toArray()[index].togglePopover();
+      if(this.staffOnFrontValue){
+        this.trigger.toArray()[index].togglePopover();
+      }
       this.serviceCount[this.currentSelectedService].appointmentDateForLabel=this.datePipe.transform(new Date(this.selecteddate),"MMM dd, yyyy");
     }
     this.serviceCount[this.currentSelectedService].appointmentDate=this.selecteddate;
@@ -1840,7 +1842,7 @@ export class FrontBookingThemeFiveComponent implements OnInit {
         }
       }else{
 
-        this.snackBar.open("Email or Password is incorrect", "X", {
+        this.snackBar.open(response.response, "X", {
         duration: 2000,
         verticalPosition: 'top',
         panelClass : ['red-snackbar']
