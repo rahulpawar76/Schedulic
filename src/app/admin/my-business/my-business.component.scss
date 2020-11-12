@@ -203,3 +203,14 @@
 ::ng-deep .bottom-border-field .mat-form-field-infix {
     padding: 0.5em 0 !important;
 }
+
+::ng-deep .time-zone-dropdown {
+    mat-form-field {
+        // &.ng-invalid.ng-touched {
+        //     margin-bottom: -24px;
+        // }
+        .mat-form-field-wrapper {
+            width: 100%;
+        }
+    }
+}

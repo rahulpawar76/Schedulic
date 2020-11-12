@@ -120,7 +120,7 @@ export class BillingComponent implements OnInit {
     
     if(confirm('Are you you want to cancel current plan ?')){
       let requestObject = {
-        //'user_id' : this.currentUser.user_id,
+        'user_id' : this.currentUser.user_id,
       }
 
       this.AdminSettingsService.cancelSubscriptionPlans(requestObject).subscribe((response:any) => {

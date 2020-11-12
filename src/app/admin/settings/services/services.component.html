@@ -147,10 +147,10 @@
                 <div class="main-table-content main-cust-table-content">
                     <div class="">
                         <div class="heads main-heading-content drageble " fxLayout="row">
-                            <div class="" fxFlex="5">
+                            <!-- <div class="" fxFlex="5">
                                 <mat-checkbox [checked]="selectAll" (change)="checkAll($event)" class=""></mat-checkbox>
-                            </div>
-                            <div class="" fxFlex="25">Service</div>
+                            </div> -->
+                            <div class="" fxFlex="30">Service</div>
                             <div class="" fxFlex="15">Duration</div>
                             <div class="" fxFlex="13">Price</div>
                             <div class="" fxFlex="10">Unit</div>
@@ -160,9 +160,9 @@
                         </div>
                         <div class="content" class="drageble-list" cdkDropList (cdkDropListDropped)="drop($event)">
                             <div class="drageble-box mx-0" *ngFor="let allServicesList of allServicesList; let i=index" cdkDrag fxLayout="row">
-                                <div class="text-left" fxFlex="5">
+                                <!-- <div class="text-left" fxFlex="5">
                                     <mat-checkbox [checked]="allServicesList.is_selected" (change)="fnAddStaffId($event.checked,allServicesList.id,i)"></mat-checkbox>
-                                </div>
+                                </div> -->
                                 <div class="wrap-column" fxFlex="30">{{allServicesList.service_name}}</div>
                                 <div class="wrap-column" fxFlex="15">{{conversion(allServicesList.service_time)}}</div>
                                 <!-- <div class="wrap-column" fxFlex="13">$ {{allServicesList.service_cost}}</div> -->
@@ -247,9 +247,9 @@
                                             <small *ngIf="createCategory.get('category_name').hasError('required')"
                                                 class="error">Category name is required.</small>
                                             <small *ngIf="createCategory.get('category_name').hasError('minlength')"
-                                                class="error">Category name can not be less than 3 character.</small>
+                                                class="error">Category name can not be less than 1 character.</small>
                                             <small *ngIf="createCategory.get('category_name').hasError('maxlength')"
-                                                class="error">Category name may not be greater than 20
+                                                class="error">Category name may not be greater than 30
                                                 character.</small>
                                         </span>
                                     </div>
@@ -345,11 +345,11 @@
                                                 class="error">Subcategory name is required.</small>
                                             <small
                                                 *ngIf="createSubCategory.get('subcategory_name').hasError('minlength')"
-                                                class="error">Subcategory length can not be less than 3
+                                                class="error">Subcategory length can not be less than 1
                                                 characters.</small>
                                             <small
                                                 *ngIf="createSubCategory.get('subcategory_name').hasError('maxlength')"
-                                                class="error">Subcategory length can not be graeter than 20
+                                                class="error">Subcategory length can not be graeter than 30
                                                 characters.</small>
                                         </span>
                                     </div>
@@ -437,9 +437,9 @@
                             <button mat-button *ngIf="categoryServicesList != '' && categoryServicesList[0].sub_category_id != null" (click)="fnCreateNewSubCategoryPage(selectedCategoryDetails.id,'upper')" class="addservice-btn d-block ml-auto">Add Sub Category</button>
                             <button mat-button *ngIf="categoryServicesList != '' && categoryServicesList[0].sub_category_id == null" (click)="fnCreateNewServicePage(selectedCategoryDetails.id,'category','upper')" class="addservice-btn d-block ml-auto">Add Service</button>
                             <div class="mt-2 d-flex">
-                                <mat-form-field *ngIf="categoryServicesList != ''" class=" bottom-border-field mt-3 filter-feild">
+                                <mat-form-field class=" bottom-border-field mt-3 filter-feild">
                                     <mat-label>Filter</mat-label>
-                                    <mat-select (selectionChange)="fnFilterService(selectedCategoryDetails.id,$event.value,'category')">
+                                    <mat-select [(ngModel)]="selectedFilter" (selectionChange)="fnFilterService(selectedCategoryDetails.id,$event.value,'category')">
                                         <mat-option value="all">All</mat-option>
                                         <mat-option value="E">Active</mat-option>
                                         <mat-option value="D">Inactive</mat-option>
@@ -448,7 +448,7 @@
                                     </mat-select>
                                 </mat-form-field>
 
-                                <mat-form-field *ngIf="categoryServicesList != ''" class=" bottom-border-field ml-3 mt-3">
+                                <mat-form-field class=" bottom-border-field ml-3 mt-3">
                                     <mat-label>Action</mat-label>
                                     <mat-select [disabled]="actionServiceIdarr == [] || actionServiceIdarr == ''" [(ngModel)]="selectedValue" (selectionChange)="fnServiceAction($event.value,selectedCategoryDetails.id,'category')">
                                         <mat-option value="E">Active</mat-option>
@@ -538,7 +538,7 @@
                             <h5>Add Service</h5>
                         </div>
                         <div class="pb-2 content">
-                           <b> "A valuable deed, action or effort performed to fulfill a demand or tosatisfy a need of the customer."</b>
+                            <b> "A valuable deed, action or effort performed to fulfill a demand or tosatisfy a need of the customer."</b>
                         </div>
                         <div class="pt-2">
                             <button (click)="fnCreateNewServicePage(selectedCategoryDetails.id,'category','main')" mat-button class="addsubcategory-btn">Add Service</button>
@@ -570,9 +570,9 @@
                         <div class="ml-auto">
                             <button mat-button (click)="fnCreateNewServicePage(selectedSubCategoryDetails.id,'subcategory','upper')" class="addservice-btn d-block ml-auto" *ngIf="singleSubCategoryPage == 'services'">Add Service</button>
                             <div class="mt-2 d-flex">
-                                <mat-form-field *ngIf="subCategoryServicesList != ''" class=" bottom-border-field mt-3 filter-feild">
+                                <mat-form-field class=" bottom-border-field mt-3 filter-feild">
                                     <mat-label>Filter</mat-label>
-                                    <mat-select (selectionChange)="fnFilterService(selectedSubCategoryDetails.id,$event.value,'subcategory')">
+                                    <mat-select [(ngModel)]="selectedFilter" (selectionChange)="fnFilterService(selectedSubCategoryDetails.id,$event.value,'subcategory')">
                                         <mat-option value="all">All</mat-option>
                                         <mat-option value="E">Active</mat-option>
                                         <mat-option value="D">Inactive</mat-option>
@@ -581,7 +581,7 @@
                                     </mat-select>
                                 </mat-form-field>
 
-                                <mat-form-field *ngIf="subCategoryServicesList != ''" class=" bottom-border-field ml-3 mt-3">
+                                <mat-form-field class=" bottom-border-field ml-3 mt-3">
                                     <mat-label>Action</mat-label>
                                     <mat-select [disabled]="actionServiceIdarr == [] || actionServiceIdarr == ''" [(ngModel)]="selectedValue" (selectionChange)="fnServiceAction($event.value,selectedSubCategoryDetails.id,'subcategory')">
                                         <mat-option value="E">Active</mat-option>
@@ -702,9 +702,9 @@
                                             <small *ngIf="createService.get('service_name').hasError('required')"
                                                 class="error">Service name is required.</small>
                                             <small *ngIf="createService.get('service_name').hasError('minlength')"
-                                                class="error">Service name can not be less than 3 character.</small>
+                                                class="error">Service name can not be less than 1 character.</small>
                                             <small *ngIf="createService.get('service_name').hasError('maxlength')"
-                                                class="error">Service name length cannot be greater than 20
+                                                class="error">Service name length cannot be greater than 30
                                                 characters.</small>
                                         </span>
                                     </div>
@@ -836,8 +836,8 @@
                                         </mat-form-field>
                                         <span class="error-wrap d-flex flex-wrap" *ngIf="createService.get('phoneNo').touched || createService.get('phoneNo').dirty">
                                             <small *ngIf="createService.get('phoneNo').hasError('required') || (createService.get('phoneNo').hasError('required') && (createService.get('phoneNo').hasError('minlength') || createService.get('phoneNo').hasError('maxlength')))" class="error w-100">Phone Number is required.</small>
-                                            <small *ngIf="createService.get('phoneNo').hasError('pattern')" class="error w-100">Phone Number should be numeric.</small>
-                                            <small *ngIf="createService.get('phoneNo').hasError('minlength') || createService.get('phoneNo').hasError('maxlength')" class="error w-100">Phone Number should be minimum 6 and maximum 15 digits.</small>
+                                            <small *ngIf="createService.get('phoneNo').hasError('pattern') && (createService.get('phoneNo').hasError('minlength') || createService.get('phoneNo').hasError('maxlength'))" class="error w-100">Phone Number should be numeric.</small>
+                                            <small *ngIf="!createService.get('phoneNo').hasError('pattern') && (createService.get('phoneNo').hasError('minlength') || createService.get('phoneNo').hasError('maxlength'))" class="error w-100">Phone Number should be minimum 6 and maximum 15 digits.</small>
                                         </span>
                                     </div>
                                     <div class="service-statustoggle for-service" *ngIf="!editServiceId">

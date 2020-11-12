@@ -63,7 +63,8 @@
                     <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i>{{appoDetail.customer.address}}</p>
                     <p class="pl-4 address-fontsize">{{appoDetail.customer.city}}, {{appoDetail.customer.state}}, {{appoDetail.customer.zip}}</p>
                     <p>Appointment Notes</p>
-                    <p>{{appoDetail.booking_notes}}</p>
+                    <p *ngIf="appoDetail.booking_notes != null">{{detailData.booking_notes}}</p>
+                    <p *ngIf="appoDetail.booking_notes == null">--</p>
                 </mat-card>
                 <div class="p-1-5 bottom-border">
                     <h6>Activity Log</h6>

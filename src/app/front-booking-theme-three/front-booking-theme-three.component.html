@@ -59,7 +59,7 @@
                             <div class="row category-list">
                                 <mat-tab-group (selectedIndexChange)="fnCategoryTabIndex($event)" class="cat-select-tabs" mat-align-tabs="start">
                                     <mat-tab class="single-cat-tab" (click)="fnCategoryTabChange($event,category.id,category.category_title)" *ngFor="let category of catdata; let i= index" label="{{category.category_title}}">
-                                        <div class="row mx-0 subcategory-list">
+                                        <div class="row mx-0 subcategory-list" *ngIf="category.subcategory != undefined">
                                             <label *ngFor="let subcategory of category.subcategory; let i= index" for="subcategory_{{i}}" class="col-lg-6 col-sm-6 col-12">
                                             <input type="radio"
                                                     value="subcategory_{{subcategory.id}}"
@@ -78,13 +78,17 @@
                                             </div>
                                         </label>
                                         </div>
-                                        <div class="row mx-0 service-list" *ngIf="category.subcategory.length < 1 && !isLoader">
+                                        <div class="d-flex justify-content-center flex-wrap" *ngIf="category.subcategory == undefined">
+                                            <h4 class="my-3 text-center w-100">Select Servcies</h4>
+                                            <button (click)="fnSelectDirectService();" mat-button class="continue-btn">View Service</button>
+                                        </div>
+                                        <!-- <div class="row mx-0 service-list" *ngIf="category.subcategory.length < 1 && !isLoader">
                                             <label class="col-12">
                                             <div>
                                                 <h3 class="service-title">No Sub-Category Available</h3>
                                             </div>
                                         </label>
-                                        </div>
+                                        </div> -->
 
                                     </mat-tab>
                                 </mat-tab-group>
@@ -439,9 +443,9 @@
                                 </div>
                             </div>
                         </form>
-                        <!-- <div class="bottom-ctn-btn">
-                        <button (click)="fnpersonalinfo()" mat-button class="round-btn continue-btn">Continue<i class="material-icons">keyboard_arrow_right</i></button>
-                    </div> -->
+                        <div *ngIf="!is_at_home_service" class="bottom-ctn-btn">
+                            <button (click)="fnpersonalinfo()" mat-button class="round-btn continue-btn">Continue<i class="material-icons">keyboard_arrow_right</i></button>
+                        </div>
                     </div>
                 </div>
                 <div id="appointment_info" class="main-step step_7 p-0" *ngIf="appointmentinfo && is_at_home_service">
@@ -510,7 +514,7 @@
                     </div>
                 </div>
             </mat-card-content>
-            <div class="bottom-ctn-btn mb-3" *ngIf="is_at_home_service">
+            <div class="bottom-ctn-btn mb-3" *ngIf="is_at_home_service && ((newuser && !isLoggedIn) || (existinguser && isLoggedIn))">
                 <button (click)="fnProceedToSummary($event)" mat-button class="round-btn continue-btn">Confirm</button>
             </div>
         </div>
@@ -718,7 +722,7 @@
 
                     <mat-radio-button *ngIf="stripeStatus" [checked]="paymentMethod == 'stripe'" (change)="fnPaymentMethod('stripe')" class="col-12 w-auto mt-4 mx-4 p-4
                                     credit-payment single-pay payment-radio px-3
-                                    mb-0" value="pay2">Credit Card
+                                    mb-0" value="pay2">Debit Card / Credit Card
                         <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" />
                     </mat-radio-button>
                     <div *ngIf="creditcardform">

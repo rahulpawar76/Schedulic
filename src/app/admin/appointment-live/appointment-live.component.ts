@@ -1672,6 +1672,7 @@ constructor(
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
+        this.dialogRef.close();
         this.formSettingPage = false;
       } else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
@@ -2285,8 +2286,9 @@ export class OnTheWayAppointmentDetailsDialog {
         this._snackBar.open("Booking Notes Updated.", "X", {
           duration: 2000,
           verticalPosition:'top',
-          panelClass :['green-snackbar']
+          panelClass :['green-snackbar'] 
         });
+        this.dialogRef.close();
         this.formSettingPage = false;
       } else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
@@ -2608,6 +2610,7 @@ constructor(
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
+        this.dialogRef.close();
         this.formSettingPage = false;
       } else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {

@@ -1504,7 +1504,7 @@ export class FrontBookingThemeFiveComponent implements OnInit {
     this.is_at_home_service  = false;
    }
  
- 
+   console.log('At Home ---- '+this.is_at_home_service)
  
     if(this.isLoggedIn){
       if(this.is_at_home_service){
@@ -1518,11 +1518,17 @@ export class FrontBookingThemeFiveComponent implements OnInit {
         this.summaryScreen=true;
       }
     }else{
-      if(this.is_at_home_service){
+      if(this.is_at_home_service && this.existinguser){
         this.dateselection = false;
         this.personalinfo = true;
+        this.appointmentinfo = false;
+        this.showSameAsAboveCheck=false;
+      }else if(this.is_at_home_service && this.newuser){
+        this.dateselection = false;
         this.appointmentinfo = true;
+        this.personalinfo = true;
         this.showSameAsAboveCheck=true;
+        this.summaryScreen=false;
       }else{
         this.dateselection = false;
         this.appointmentinfo = false;
@@ -1732,9 +1738,23 @@ export class FrontBookingThemeFiveComponent implements OnInit {
     if(usertype == "existing"){
       this.existinguser = true;
       this.newuser = false;
+        this.appointmentinfo = false;
     }else{
       this.newuser = true;
       this.existinguser = false;
+      if(this.is_at_home_service){
+        this.dateselection = false;
+        this.appointmentinfo = true;
+        this.personalinfo = true;
+        this.showSameAsAboveCheck=true;
+        this.summaryScreen=false;
+      }else{
+        this.dateselection = false;
+        this.appointmentinfo = false;
+        this.personalinfo = true;
+        this.showSameAsAboveCheck=true;
+        this.summaryScreen=false;
+      }
     }
     
   }
@@ -2495,16 +2515,42 @@ export class FrontBookingThemeFiveComponent implements OnInit {
   // date time 
   fnContinueFromCart(){
     if(this.isLoggedIn){
-      this.dateselection = false;
-      this.catselection=false;
-      this.subcatselection=false;
-      this.dateselection=false;
-      this.serviceselection=false;
-      this.personalinfo=false;
-      this.summaryScreen=false;
-      this.paymentScreen=false;
-      this.appointmentinfo = true;
-      this.showSameAsAboveCheck=false;
+      if(this.is_at_home_service){
+        this.dateselection = false;
+        this.catselection=false;
+        this.subcatselection=false;
+        this.dateselection=false;
+        this.serviceselection=false;
+        this.personalinfo=false;
+        this.summaryScreen=false;
+        this.paymentScreen=false;
+        this.appointmentinfo = true;
+        this.showSameAsAboveCheck=false;
+      }else{
+        this.serviceselection = false;
+        this.appointmentinfo = false;
+        this.summaryScreen = true;
+        this.showSameAsAboveCheck=false;
+        this.dateselection = false;
+        this.catselection=false;
+        this.subcatselection=false;
+        this.dateselection=false;
+        this.serviceselection=false;
+        this.personalinfo=false;
+        this.paymentScreen=false;
+        this.appointmentinfo = true;
+        this.showSameAsAboveCheck=false;
+      }
+      // this.dateselection = false;
+      // this.catselection=false;
+      // this.subcatselection=false;
+      // this.dateselection=false;
+      // this.serviceselection=false;
+      // this.personalinfo=false;
+      // this.summaryScreen=false;
+      // this.paymentScreen=false;
+      // this.appointmentinfo = true;
+      // this.showSameAsAboveCheck=false;
     }else{
       this.dateselection = false;
       this.catselection=false;

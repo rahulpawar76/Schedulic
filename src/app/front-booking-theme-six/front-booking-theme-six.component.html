@@ -156,7 +156,17 @@
                                         <div class="addon-data">
                                             <h3 class="addon-title">{{services.service_name}}</h3>
                                             <div class="description">
-                                                <span class="duration"><mat-icon>watch_later</mat-icon>{{serviceDataHours[i]}}h {{serviceDataMinutes[i]}}min </span> | <span *ngIf="services.service_type !== null" class="type"><mat-icon>place</mat-icon>{{services.service_type}} ({{services.service_sub_type}})</span>
+                                                <span class="duration"><mat-icon>watch_later</mat-icon>{{serviceDataHours[i]}}h {{serviceDataMinutes[i]}}min </span> | 
+                                                
+                                                <span *ngIf="services.service_type !== null" class="type">
+                                                    <mat-icon>place</mat-icon>{{services.service_type}} 
+                                                    <span *ngIf="services.service_sub_type == 'in_store'">(In Store)</span>
+                                                    <span *ngIf="services.service_sub_type == 'at_home'">(In Home)</span>
+                                                    <span *ngIf="services.service_sub_type == 'zoom'">(Zoom)</span>
+                                                    <span *ngIf="services.service_sub_type == 'google-duo'">(Google Duo)</span>
+                                                    <span *ngIf="services.service_sub_type == 'skype'">(Skype)</span>
+                                                    <span *ngIf="services.service_sub_type == 'jio-meet'">(Jio Meet)</span>
+                                                </span>
                                             </div>
                                             <label *ngIf="currencySymbolPosition=='left'">{{currencySymbol|currencySymbol:'wide'}} {{services.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
                                 <label *ngIf="currencySymbolPosition=='right'">{{services.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|currencySymbol:'wide'}}</label>
@@ -400,9 +410,9 @@
                                 </div>
                             </div>
                         </form>
-                        <!-- <div class="bottom-ctn-btn">
-                        <button (click)="fnpersonalinfo()" mat-button class="round-btn continue-btn">Continue<i class="material-icons">keyboard_arrow_right</i></button>
-                    </div> -->
+                        <div *ngIf="!is_at_home_service" class="bottom-ctn-btn">
+                            <button (click)="fnpersonalinfo()" mat-button class="round-btn continue-btn">Continue<i class="material-icons">keyboard_arrow_right</i></button>
+                        </div>
                     </div>
                 </div>
                 <div id="appointment_info" class="main-step step_7 p-0" *ngIf="appointmentinfo && is_at_home_service">
@@ -471,7 +481,7 @@
                     </div>
                 </div>
             </mat-card-content>
-            <div class="bottom-ctn-btn mb-3" *ngIf="is_at_home_service">
+            <div class="bottom-ctn-btn mb-3" *ngIf="is_at_home_service && ((newuser && !isLoggedIn) || (existinguser && isLoggedIn))">
                 <button (click)="fnProceedToSummary($event)" mat-button class="round-btn continue-btn">Confirm</button>
             </div>
         </div>
@@ -679,7 +689,7 @@
 
                     <mat-radio-button *ngIf="stripeStatus" [checked]="paymentMethod == 'stripe'" (change)="fnPaymentMethod('stripe')" class="col-12 w-auto mt-4 mx-4 p-4
                                     credit-payment single-pay payment-radio px-3
-                                    mb-0" value="pay2">Credit Card
+                                    mb-0" value="pay2">Debit Card / Credit Card
                         <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" />
                     </mat-radio-button>
                     <div *ngIf="creditcardform">

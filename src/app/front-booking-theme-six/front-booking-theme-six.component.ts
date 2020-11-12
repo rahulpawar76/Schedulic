@@ -810,6 +810,16 @@ export class FrontBookingThemeSixComponent implements OnInit {
     if(response.data == true){
       this.serviceData = response.response;
       console.log(JSON.stringify(this.serviceCount));
+
+      this.serviceData.forEach(element => {
+        if(element.service_type == 'face_to_face'){
+          element.service_type = 'Face To Face';
+        }else if(element.service_type == 'online'){
+          element.service_type = 'Online';
+        }else if(element.service_type == 'phone'){
+          element.service_type = 'Phone';
+        }
+      });
       for(let i=0; i<this.serviceData.length;i++){
         this.serviceDataHours[i]=this.serviceData[i].service_time;
         let RAM = this.serviceDataHours[i]%(30*24*60);
@@ -894,6 +904,15 @@ export class FrontBookingThemeSixComponent implements OnInit {
       if(response.data == true){
         this.serviceData = response.response;
         console.log(JSON.stringify(this.serviceCount));
+        this.serviceData.forEach(element => {
+          if(element.service_type == 'face_to_face'){
+            element.service_type = 'Face To Face';
+          }else if(element.service_type == 'online'){
+            element.service_type = 'Online';
+          }else if(element.service_type == 'phone'){
+            element.service_type = 'Phone';
+          }
+        });
         for(let i=0; i<this.serviceData.length;i++){
           this.serviceDataHours[i]=this.serviceData[i].service_time;
           let RAM = this.serviceDataHours[i]%(30*24*60);
@@ -2509,16 +2528,42 @@ export class FrontBookingThemeSixComponent implements OnInit {
   // date time 
   fnContinueFromCart(){
     if(this.isLoggedIn){
-      this.dateselection = false;
-      this.catselection=false;
-      this.subcatselection=false;
-      this.dateselection=false;
-      this.serviceselection=false;
-      this.personalinfo=false;
-      this.summaryScreen=false;
-      this.paymentScreen=false;
-      this.appointmentinfo = true;
-      this.showSameAsAboveCheck=false;
+      if(this.is_at_home_service){
+        this.dateselection = false;
+        this.catselection=false;
+        this.subcatselection=false;
+        this.dateselection=false;
+        this.serviceselection=false;
+        this.personalinfo=false;
+        this.summaryScreen=false;
+        this.paymentScreen=false;
+        this.appointmentinfo = true;
+        this.showSameAsAboveCheck=false;
+      }else{
+        this.serviceselection = false;
+        this.appointmentinfo = false;
+        this.summaryScreen = true;
+        this.showSameAsAboveCheck=false;
+        this.dateselection = false;
+        this.catselection=false;
+        this.subcatselection=false;
+        this.dateselection=false;
+        this.serviceselection=false;
+        this.personalinfo=false;
+        this.paymentScreen=false;
+        this.appointmentinfo = true;
+        this.showSameAsAboveCheck=false;
+      }
+      // this.dateselection = false;
+      // this.catselection=false;
+      // this.subcatselection=false;
+      // this.dateselection=false;
+      // this.serviceselection=false;
+      // this.personalinfo=false;
+      // this.summaryScreen=false;
+      // this.paymentScreen=false;
+      // this.appointmentinfo = true;
+      // this.showSameAsAboveCheck=false;
     }else{
       this.dateselection = false;
       this.catselection=false;

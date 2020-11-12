@@ -214,8 +214,8 @@ export class DialogAddNewTax {
       }
       this.fnAddTax(this.createAddTaxData);
     }else{
-      this.taxAdd.get("tax_name").markAsTouched;
-      this.taxAdd.get("tax_per").markAsTouched;
+      this.taxAdd.get("tax_name").markAsTouched();
+      this.taxAdd.get("tax_per").markAsTouched();
     }
   }
   fnAddTax(createAddTaxData) {

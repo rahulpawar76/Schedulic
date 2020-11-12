@@ -1,7 +1,7 @@
-<div class="loader-main" *ngIf="isLoaderAdmin">
-    <img src="../../../assets/images/step-loader.gif" />
-</div>
 <div class="modal-dialog modal-notify modal-info" role="document">
+    <div class="loader-main" *ngIf="isLoaderAdmin">
+        <img src="../../../assets/loading-spinner.gif" />
+    </div>
     <div class="modal-content ">
         <div class="modal-header modal-bcolor-primary">
             <p class="heading lead  work-content">{{dialogTitle}}</p>

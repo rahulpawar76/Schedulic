@@ -113,9 +113,10 @@
                                     <input formControlName="company_name" matInput placeholder="Company Name">
                                 </mat-form-field>
                                 <span class="error-wrap d-flex" *ngIf="companyDetails.get('company_name').dirty || companyDetails.get('company_name').touched">
-                                            <small *ngIf="companyDetails.get('company_name').hasError('required')" class="error">Company name is required</small>
-                                            <small *ngIf="companyDetails.get('company_name').hasError('minlength') || companyDetails.get('company_name').hasError('maxlength')" class="error">Company name must be between 3 to 255 characters.</small>
-                                            <small *ngIf="companyDetails.get('company_name').hasError('whiteSpaceValidation')" class="error">Company name can not consist of white spaces.</small></span>
+                                    <small *ngIf="companyDetails.get('company_name').hasError('required')" class="error">Company name is required</small>
+                                    <small *ngIf="companyDetails.get('company_name').hasError('minlength') || companyDetails.get('company_name').hasError('maxlength')" class="error">Company name must be between 3 to 255 characters.</small>
+                                    <small *ngIf="companyDetails.get('company_name').hasError('whiteSpaceValidation')" class="error">Company name can not consist of white spaces.</small>
+                                </span>
 
                             </div>
 
@@ -132,6 +133,9 @@
                             <div class="mt-2 text-center">
                                 <mat-form-field class=" bottom-border-field">
                                     <input formControlName="comp_website" matInput placeholder="Website">
+                                    <span class="error-wrap d-flex" *ngIf="companyDetails.get('comp_website').dirty || companyDetails.get('comp_website').touched">
+                                        <small *ngIf="companyDetails.get('comp_website').hasError('required')" class="error">Enter valid wabsite.</small>
+                                    </span>
                                 </mat-form-field>
                             </div>
 
@@ -174,7 +178,7 @@
 
                             </div>
                             <div class="row">
-                              
+
 
                                 <div class="mt-2 text-center col-3">
                                     <mat-form-field class=" bottom-border-field">
@@ -188,7 +192,7 @@
                                     <span class="error-wrap d-flex" *ngIf="companyDetails.get('state').dirty || companyDetails.get('state').touched">
                                     <small *ngIf="companyDetails.get('state').hasError('required')" class="error">State is required.</small></span>
                                 </div>
-                                
+
                                 <div class="mt-2 text-center col-6">
                                     <mat-form-field class="bottom-border-field">
                                         <mat-label>City</mat-label>
@@ -221,7 +225,7 @@
                                 <span class="error-wrap d-flex" *ngIf="companyDetails.get('comp_address').dirty || companyDetails.get('comp_address').touched">
                                     <small *ngIf="companyDetails.get('comp_address').hasError('required')" class="error">Address is required.</small></span>
                             </div>
-                           
+
                             <div class="mt-2 text-center">
                                 <mat-form-field class=" bottom-border-field">
                                     <mat-label>Description</mat-label>

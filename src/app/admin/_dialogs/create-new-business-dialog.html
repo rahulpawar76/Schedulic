@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-12 inner-pad">
             <div class="text-center ">
-                <h2>Welcome To Go!Appointin</h2>
+                <h2>Welcome To Schedulic</h2>
                 <h4>We'll get your booking appointment in no time</h4>
             </div>
             <div>
@@ -30,7 +30,7 @@
                                 </mat-form-field>
                                 <span class="error-wrap" *ngIf="createBusiness.get('business_address').dirty || createBusiness.get('business_address').touched"><small *ngIf="createBusiness.get('business_address').hasError('required')" class="error">Business address is required.</small>
                                 <small *ngIf="createBusiness.get('business_address').hasError('minlength')"class="error">Business address must be at least 2 character.</small>
-                                <small *ngIf="createBusiness.get('business_address').hasError('maxlength') "class="error">Business address can not be greater than 20 character.</small></span>
+                                <small *ngIf="createBusiness.get('business_address').hasError('maxlength') "class="error">Business address can not be greater than 30 character.</small></span>
                             </div>
                         </div>
                         <div class="form-row">
@@ -59,8 +59,8 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6 col-lg-6 col-sm-12 mt-res bottom-border-field align-bottom">
-                                <mat-form-field>
+                            <div class="form-group col-md-6 col-lg-6 col-sm-12 mt-res bottom-border-field align-bottom time-zone-dropdown flex-wrap">
+                                <mat-form-field class="d-flex flex-wrap w-100">
                                     <mat-label>Time zone</mat-label>
                                     <mat-select formControlName="business_timezone">
                                         <mat-option *ngFor="let listTimeZone of listTimeZone" [value]="listTimeZone.name">

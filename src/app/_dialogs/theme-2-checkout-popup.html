@@ -203,9 +203,9 @@
                             </div>
                         </div>
                     </form>
-                    <!-- <div class="bottom-ctn-btn">
-                    <button (click)="fnpersonalinfo()" mat-button class="round-btn continue-btn">Continue<i class="material-icons">keyboard_arrow_right</i></button>
-                </div> -->
+                    <div *ngIf="!is_at_home_service" class="bottom-ctn-btn">
+                        <button (click)="fnpersonalinfo()" mat-button class="round-btn continue-btn">Continue<i class="material-icons">keyboard_arrow_right</i></button>
+                    </div>
                 </div>
             </div>
             <div id="appointment_info" *ngIf="appointmentinfo && is_at_home_service" class="main-step step_7 p-0">
@@ -471,7 +471,7 @@
 
                 <mat-radio-button *ngIf="stripeStatus" [checked]="paymentMethod == 'stripe'" (change)="fnPaymentMethod('stripe')" class="col-12 w-auto mt-4 mx-4 p-4
                                 credit-payment single-pay payment-radio px-3
-                                mb-0" value="pay2">Credit Card
+                                mb-0" value="pay2">Debit Card / Credit Card
                     <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" />
                 </mat-radio-button>
                 <div *ngIf="creditcardform">

@@ -161,7 +161,7 @@
                             </span>
                             <mat-form-field class="bottom-border-field">
                                 <mat-label>Description</mat-label>
-                                <textarea formControlName="description" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="7"></textarea>
+                                <textarea formControlName="description" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="1"></textarea>
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="StaffCreate.get('description').touched || StaffCreate.get('description').dirty || formSubmitclicked">
                                 <small *ngIf="StaffCreate.get('description').hasError('maxlength')" class="error">Description can not be greater than 255 character.</small>
@@ -630,7 +630,7 @@
                     <div class="">
                         <div class="Customer-appointment-table">
                             <div class="main-table-content main-cust-table-content">
-                                <div class="">
+                                <div *ngIf="singleStaffDetail.postalCode != undefined" class="">
                                     <div class="heads main-heading-content example-box header-background " fxLayout="row">
                                         <div class="" fxFlex="10"></div>
                                         <div class="" fxFlex="30">Zipcode</div>
@@ -649,6 +649,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div *ngIf="singleStaffDetail.postalCode == undefined">
+                                    <p class="text-center"> No postal code found.</p>
                                 </div>
                             </div>
                         </div>

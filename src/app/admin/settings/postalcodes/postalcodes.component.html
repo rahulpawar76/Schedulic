@@ -93,12 +93,12 @@
                 <h5>Postal Code</h5>
                 <p class="mb-0">Postal codes are defined geographical boundaries within a location. </p>
                 <p class="mb-0"> Staff can be these area code.</p>
+                <mat-slide-toggle [checked]="PostalCodeCheckStatus" (change)="fnChangePostalCodeCheck($event.checked)" class="postalcode-check-status">Check Postal Code for Booking</mat-slide-toggle>
             </div>
-            <div class="d-flex float-right flex-wrap justify-content-end">
+            <div class="d-flex float-right mt-2 flex-wrap justify-content-end">
                 <!-- <button mat-button appearance="fill" class="time-of-btn ml-2 mr-2">Upload Postal Code</button> -->
                 <button (click)="addcsvPostalCode()" class="time-of-btn ml-2 mr-2" style="width: 190px;">Upload Postal Code</button>
                 <button (click)="addPostalCode()" class="time-of-btn ml-2 mr-2">Add Postal Code</button>
-                <mat-slide-toggle [checked]="PostalCodeCheckStatus" (change)="fnChangePostalCodeCheck($event.checked)" class="postalcode-check-status">Check Postalcode for Booking</mat-slide-toggle>
             </div>
             <div class="d-flex w-100">
                 <mat-form-field class="bottom-border-field dropdown-width">

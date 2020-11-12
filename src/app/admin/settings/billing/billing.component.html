@@ -90,7 +90,7 @@
     <div class="setting-right-side-content" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
         <mat-card class="main-card-container">
             <h5>Subscription Plans</h5>
-            <mat-card class="current-plan-detail row mx-0">
+            <mat-card *ngIf="currentUser.plan" class="current-plan-detail row mx-0">
                 <h3>Current Plan :
                     <span>{{currentUser.plan.plan_name}}</span>
                 </h3>

@@ -16,6 +16,7 @@ import { Meta } from '@angular/platform-browser';
 import { Router, RouterOutlet } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { sha512 as sha512 } from 'js-sha512';
+// import { Console } from 'console';
 
 
 declare const PayUMoneylaunch: any;
@@ -580,13 +581,21 @@ export class FrontBookingThemeThreeComponent implements OnInit {
     this.isLoader=true;
     this.selectedcategory = this.catdata[selectedIndex].id;
     this.selectedcategoryName = this.catdata[selectedIndex].category_title;
-    if(this.catdata[selectedIndex].subcategory == [] || this.catdata[selectedIndex].subcategory == '' || this.catdata[selectedIndex].subcategory == null){
-      this.catselection = false;
-      this.serviceselection = true;
-      this.fnGetAllServicesFromCategory()
-    }
+    // if(this.catdata[selectedIndex].subcategory == [] || this.catdata[selectedIndex].subcategory == '' || this.catdata[selectedIndex].subcategory == null){
+    //   this.catselection = false;
+    //   this.serviceselection = true;
+    //   this.fnGetAllServicesFromCategory()
+    // }
     this.isLoader=false;
   }
+
+  fnSelectDirectService(){
+    this.catselection = false;
+    this.serviceselection = true;
+    this.fnGetAllServicesFromCategory()
+
+  }
+
   fnCategoryTabChange(event,id,categoryName){
     this.fnCategory(event,id,categoryName);
   }
@@ -703,7 +712,6 @@ export class FrontBookingThemeThreeComponent implements OnInit {
       'Content-Type': 'application/json',
       'admin-id' : '',
       'api-token' : '' 
-     // 'mode': 'no-cors'
     });
     this.http.post(`${environment.apiUrl}/get-all-category`,requestObject,{headers:headers} ).pipe(
       map((res) => {
@@ -717,11 +725,19 @@ export class FrontBookingThemeThreeComponent implements OnInit {
             this.selectedcategory = this.catdata[0].id;
             this.selectedcategoryName = this.catdata[0].category_title;
             this.isLoader=false;
-            if(this.catdata[0].subcategory == [] || this.catdata[0].subcategory == null){
-              // this.catselection = false;
-              // this.serviceselection = true;
-              this.fnGetAllServicesFromCategory()
-            }
+            this.catdata.forEach(element => {
+              if(element.subcategory.length == 0 || element.subcategory == null){
+                this.fnGetAllServicesFromCategory()
+                element.subcategory = undefined;
+                console.log(element);
+              }else{
+              }
+            });
+            // if(this.catdata[0].subcategory == [] || this.catdata[0].subcategory == null){
+              
+            //   this.fnGetAllServicesFromCategory()
+              
+            // }
         }else{
           this.catdata = [];
           this.isLoader=false;

@@ -157,6 +157,9 @@ export class PaymentgatewayComponent implements OnInit {
   }
 
   fnSubmitPaypal(){
+    if(this.paypal.invalid){
+      this.paypal.get('clientId').markAsTouched();
+    }
     if(this.paypal.valid){
       let PaypalSetting = {
         "client_id":this.paypal.get('clientId').value,
@@ -215,6 +218,10 @@ export class PaymentgatewayComponent implements OnInit {
       this.updateStripeSetting(requestObject);
   }
   fnSubmitStripe(){
+    if(this.stripe.invalid){
+      this.stripe.get('secretKey').markAsTouched();
+      this.stripe.get('publishableKey').markAsTouched();
+    }
     if(this.stripe.valid){
       let stripeSetting = {
         "secret_key":this.stripe.get('secretKey').value,
@@ -267,6 +274,10 @@ export class PaymentgatewayComponent implements OnInit {
     this.updatePayumoneySetting(requestObject);
   }
   fnSubmitPayumoney(){
+    if(this.payumoney.invalid){
+      this.payumoney.get('merchantKey').markAsTouched();
+      this.payumoney.get('saltKey').markAsTouched();
+    }
     if(this.payumoney.valid){
       let payumoneySetting = {
         "merchant_key":this.payumoney.get('merchantKey').value,
@@ -321,6 +332,14 @@ export class PaymentgatewayComponent implements OnInit {
     this.updateBankTransferSetting(requestObject);
   }
   fnSubmitBankTransfer(){
+    if(this.bankTransfer.invalid){
+      this.bankTransfer.get('bankName').markAsTouched();
+      this.bankTransfer.get('accountName').markAsTouched();
+      this.bankTransfer.get('accountNumber').markAsTouched();
+      this.bankTransfer.get('IFSCCode').markAsTouched();
+      this.bankTransfer.get('branchCode').markAsTouched();
+      this.bankTransfer.get('bankDescription').markAsTouched();
+    }
     if(this.bankTransfer.valid){
       let bankTransferSetting = {
         "bank_name":this.bankTransfer.get('bankName').value,

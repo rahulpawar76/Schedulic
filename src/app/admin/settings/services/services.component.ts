@@ -44,6 +44,7 @@ export class ServicesComponent implements OnInit {
     currentSubCategoryStatus: any;
     businessId: any;
     selectedValue: any;
+    selectedFilter: any;
     createServiceCategoryId: any;
     createServiceCategoryType: any;
     editServiceId: any;
@@ -150,17 +151,17 @@ export class ServicesComponent implements OnInit {
         this.fnAllServicesNavigation();
 
         this.createSubCategory = this._formBuilder.group({
-            subcategory_name: ['',  [Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
+            subcategory_name: ['',  [Validators.required,Validators.minLength(1),Validators.maxLength(30)]],
             subcategory_description: ['', [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
             subcategory_id: [''],
         });
         this.createCategory = this._formBuilder.group({
-            category_name: ['', [Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
+            category_name: ['', [Validators.required,Validators.minLength(1),Validators.maxLength(30)]],
             category_description: ['', [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
             category_id: [''],
         });
         this.createService = this._formBuilder.group({
-            service_name: ['', [Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
+            service_name: ['', [Validators.required,Validators.minLength(1),Validators.maxLength(30)]],
             service_description: ['',  [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
             service_cost: ['', [Validators.required, Validators.pattern(this.onlynumeric)]],
             service_duration: ['', [Validators.required, Validators.pattern(this.onlynumeric)]],
@@ -511,6 +512,7 @@ export class ServicesComponent implements OnInit {
     }
 
     fnSelectCategoryNavigation(categoryId, index){
+        this.selectedFilter = undefined;
         this.serviceApiUrl2=environment.apiUrl+"/list-service";
         this.fnSelectCategory(categoryId, index);  
         this.categoryImageUrl = '';
@@ -709,11 +711,14 @@ export class ServicesComponent implements OnInit {
                 this.newSubcategoryStatus = 'D';
                 this.newSubcategoryPrivate = 'N';
                 this.fnAllCategory();
-                this.fnSelectCategoryNavigation(this.selectedCategoryID , this.selectedCategoryIndex);
-                this.createSubCategory.reset();
-                this.servicesList = false;
-                this.selectCategoryPage = 'notservices';
-                this.createNewSubCategoryPage = false;
+                setTimeout(() => {
+                    this.fnSelectCategoryNavigation(this.selectedCategoryID , this.selectedCategoryIndex);
+                    this.createSubCategory.reset();
+                    this.servicesList = false;
+                    this.selectCategoryPage = 'notservices';
+                    this.createNewSubCategoryPage = false;
+                }, 300);
+               
                 this.isLoaderAdmin = false;
             }else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open(response.response, "X", {
@@ -849,16 +854,18 @@ export class ServicesComponent implements OnInit {
                     verticalPosition: 'top',
                     panelClass: ['green-snackbar']
                 });
-                this.createCategory.reset();
                 this.allowedCat=false;
                 this.newcategoryStatus = 'D';
                 this.newcategoryPrivate = 'N';
                 this.fnAllCategory();
-                this.fnSelectCategory(this.editCategoryId, this.selectedCategoryIndex);                
+                setTimeout(() => {
+                    this.fnSelectCategory(this.editCategoryId, this.selectedCategoryIndex);
+                    this.createCategory.reset();
+                    this.createNewCategoryPage = false;
+                    this.categoryImageUrl = '';
+                    this.editCategoryId = undefined;
+                }, 300);           
                 //this.servicesList = true;
-                this.createNewCategoryPage = false;
-                this.categoryImageUrl = '';
-                this.editCategoryId = undefined;
                 this.isLoaderAdmin = false;
             }
             else if(response.data == false && response.response !== 'api token or userid invaild'){
@@ -1104,17 +1111,19 @@ export class ServicesComponent implements OnInit {
     }
 
     fnFilterService(categoryId, filter, type) {
+        this.selectedFilter = filter;
         if (type == 'category') {
-            this.service_filter = filter
+            this.service_filter = this.selectedFilter
             this.fnSelectCategory(categoryId, this.selectedCategoryIndex)
         } else if (type == 'subcategory') {
-            this.subcategory_service_filter = filter
+            this.subcategory_service_filter = this.selectedFilter
             this.fnSelectSubCategory(categoryId, this.selectedSubCategoryIndex)
         }
 
     }
 
     fnSelectSubCategoryNavigate(subCategoryId, index){
+        this.selectedFilter = undefined;
         this.serviceApiUrl3=environment.apiUrl+"/list-subcategory-service";;
        this.fnSelectSubCategory(subCategoryId, index); 
        this.selectedSubCategoryID = subCategoryId;

@@ -742,7 +742,7 @@ export class DialogAddNewAppointment {
   showSubCatDropDown=true;
   is_checked:boolean=false;
   valide_postal_code:boolean =false;
-  isLoaderAdmin:boolean = false;
+  isLoaderAdmin:boolean = true;
   emailPattern:any;
   onlynumeric:any;
   Postalcode:any = [];
@@ -879,6 +879,7 @@ export class DialogAddNewAppointment {
   }
 
   fnIsPostalCodeAdded(){
+    this.isLoaderAdmin = true;
     let requestObject = {
       "business_id" : this.bussinessId
       };
@@ -931,6 +932,7 @@ export class DialogAddNewAppointment {
       (err) =>{
         console.log(err)
       })
+      this.isLoaderAdmin = false;
   }
   isEmailUnique(control: FormControl) {
     return new Promise((resolve, reject) => {
@@ -987,6 +989,7 @@ export class DialogAddNewAppointment {
   }
   
   getPostalCodeList() {
+    this.isLoaderAdmin = true;
     let requestObject = {
       'business_id': localStorage.getItem('business_id'),
   };
@@ -1011,6 +1014,7 @@ export class DialogAddNewAppointment {
         this.Postalcode = [];
       }
     });
+    this.isLoaderAdmin = false;
   }
 
   numberOnly(event): boolean {
@@ -1023,6 +1027,7 @@ export class DialogAddNewAppointment {
   }
   
   fnGetSettingValue(){
+    this.isLoaderAdmin = true;
     let requestObject = {
       "business_id":this.bussinessId
     };
@@ -1056,9 +1061,11 @@ export class DialogAddNewAppointment {
         });
       }
     })
+    this.isLoaderAdmin = false;
   }
 
   fnGetTaxDetails(){
+    this.isLoaderAdmin = true;
     let requestObject = {
       "business_id":this.bussinessId
     };
@@ -1076,9 +1083,11 @@ export class DialogAddNewAppointment {
         // });
       }
     })
+    this.isLoaderAdmin = false;
   }
 
   fnGetOffDays(){
+    this.isLoaderAdmin = true;
     let requestObject = {
       "business_id":this.bussinessId
     };
@@ -1136,6 +1145,7 @@ export class DialogAddNewAppointment {
     (err) =>{
       console.log(err)
     })
+    this.isLoaderAdmin = false;
   }
 
   onNoClick(): void {
@@ -1208,6 +1218,7 @@ export class DialogAddNewAppointment {
 
   fnGetCategories(){
 
+    this.isLoaderAdmin = true;
     let requestObject = {
       "business_id":this.bussinessId,
       "status":"E"
@@ -1229,32 +1240,7 @@ export class DialogAddNewAppointment {
         console.log(err);
     });
 
-    // alert();
-    // let requestObject = {
-    //   "business_id": this.bussinessId.toString(),
-    //   "status":"E"
-    // };
-    // let headers = new HttpHeaders({
-    //   'Content-Type': 'application/json',
-    //   'admin-id' : JSON.stringify(this.currentUser.user_id),
-    //   'api-token' : this.currentUser.token 
-    // });
-
-    // this.http.post(`${environment.apiUrl}/get-all-category`,requestObject,{headers:headers} )
-    // .pipe(
-    // map((res) => {
-    //   return res;
-    // })
-    // ).subscribe((response:any) => {
-    //   if(response.data == true){
-    //     this.catdata = response.response;
-    //     //console.log(this.catdata);
-    //   }else{
-    //   }
-    // },
-    // (err) =>{
-    //   console.log(err)
-    // })
+    this.isLoaderAdmin = false;
   }
 
   fnSelectCat(selected_cat_id){
@@ -1274,6 +1260,7 @@ export class DialogAddNewAppointment {
 
   // get Sub Category function
   fnGetSubCategory(selected_cat_id){
+    this.isLoaderAdmin = true;
     let requestObject = {
       "category_id":selected_cat_id,
       "sub_category_status":"E"
@@ -1305,6 +1292,7 @@ export class DialogAddNewAppointment {
     (err) =>{
       console.log(err)
     })
+    this.isLoaderAdmin = false;
   }
 
   fnSelectSubCat(selected_subcat_id){
@@ -1319,6 +1307,7 @@ export class DialogAddNewAppointment {
   }
 
   fnGetAllServices(selected_subcat_id){
+    this.isLoaderAdmin = true;
     let requestObject = {
       "sub_category_id":selected_subcat_id,
       "status":"E"
@@ -1472,9 +1461,11 @@ export class DialogAddNewAppointment {
     (err) =>{
       console.log(err)
     })
+    this.isLoaderAdmin = false;
   }
    
   fnGetAllServicesFromCategory(){
+    this.isLoaderAdmin = true;
     let requestObject = {
       "business_id":2,
       "category_id":this.selectedCatId
@@ -1645,6 +1636,7 @@ export class DialogAddNewAppointment {
     (err) =>{
       console.log(err)
     })
+    this.isLoaderAdmin = false;
   }
 
   fnSelectService(selected_service_id){
@@ -1777,6 +1769,7 @@ export class DialogAddNewAppointment {
   }
 
   fnGetTimeSlots(date){
+    this.isLoaderAdmin = true;
     let requestObject = {
       "business_id":this.bussinessId,
       "selected_date":date
@@ -1818,6 +1811,7 @@ export class DialogAddNewAppointment {
     (err) =>{
       console.log(err)
     })
+    this.isLoaderAdmin = false;
   }
 
   fnSelectTime(timeSlot){
@@ -1836,6 +1830,7 @@ export class DialogAddNewAppointment {
   }
 
   fnGetStaff(){
+    this.isLoaderAdmin = true;
     if(this.valide_postal_code){
       let requestObject = {
         "business_id":this.bussinessId,
@@ -1907,6 +1902,7 @@ export class DialogAddNewAppointment {
         console.log(err);
       })
     }
+    this.isLoaderAdmin = false;
     
   }
 
@@ -2044,6 +2040,7 @@ export class DialogAddNewAppointment {
   }
 
   fnEditAppointment(){
+    this.isLoaderAdmin = true;
     let serviceCartArrTemp:any= [];
     for(let i=0; i<this.serviceCount.length;i++){
       if(this.serviceCount[i] != null && this.serviceCount[i].count > 0){
@@ -2127,7 +2124,6 @@ export class DialogAddNewAppointment {
       'api-token': this.token,
       'admin-id': JSON.stringify(this.adminId),
     });
-    this.isLoaderAdmin = true;
     this.http.post(`${environment.apiUrl}/order-item-edit`,requestObject,{headers:headers} ).pipe(map((res) => {
       return res;
     }),).subscribe((response:any) => {
@@ -2138,18 +2134,16 @@ export class DialogAddNewAppointment {
             panelClass :['green-snackbar']
         });
         this.dialogRef.close();
-        this.isLoaderAdmin = false;
       } else{
         this._snackBar.open("Appointment not Updated", "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['red-snackbar']
         });
-        this.isLoaderAdmin = false;
       }
     },(err) =>{
-      this.isLoaderAdmin = false;
     });
+    this.isLoaderAdmin = true;
   }
   
   

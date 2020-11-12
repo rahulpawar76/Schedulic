@@ -89,11 +89,11 @@ export class MyBusinessComponent implements OnInit {
         this.allBusiness = response.response
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['red-snackbar']
-        });
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition:'top',
+        //   panelClass :['red-snackbar']
+        // });
         this.allBusiness = ''
       }
       this.isLoaderAdmin = false;
@@ -158,7 +158,7 @@ export class myCreateNewBusinessDialog {
 
     this.createBusiness = this._formBuilder.group({
       business_name : ['', [Validators.required]],
-      business_address : ['', [Validators.required,Validators.minLength(2),Validators.maxLength(20)]],
+      business_address : ['', [Validators.required,Validators.minLength(2),Validators.maxLength(30)]],
       business_country : ['', Validators.required],
       business_state : ['', Validators.required],
       business_timezone : ['', Validators.required],
@@ -260,8 +260,18 @@ export class myCreateNewBusinessDialog {
         "time_zone" : this.createBusiness.get('business_timezone').value,
         "zipcode" : this.createBusiness.get('business_zip').value,
       }
-    }
+      
     this.createNewBusiness(this.newBusinessData);
+    }else{
+      this.createBusiness.get('business_name').markAsTouched();
+      this.createBusiness.get('business_address').markAsTouched();
+      this.createBusiness.get('business_country').markAsTouched();
+      this.createBusiness.get('business_state').markAsTouched();
+      this.createBusiness.get('business_city').markAsTouched();
+      this.createBusiness.get('business_timezone').markAsTouched();
+      this.createBusiness.get('business_zip').markAsTouched();
+      return false;
+    }
   }
   createNewBusiness(newBusinessData){
     this.AdminService.createNewBusiness(newBusinessData).subscribe((response:any) => {

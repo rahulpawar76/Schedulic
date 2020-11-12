@@ -66,15 +66,18 @@
                 <mat-card class="card-body-marginn booking-detail-main mb-0">
                     <h6 class="text-left mb-3">Booking Details</h6>
                     <div class="row align-items-center">
-                        <p class="customer-profile-img">SP</p>
+                        <p class="customer-profile-img">{{myAppoDetailData.customer.initials}}</p>
                         <div class="customer-name pr-3">
                             <p class="font-weight-bold mb-0">{{myAppoDetailData.customer.fullname?myAppoDetailData.customer.fullname:'-'}}</p>
                             <p class="address-fontsize mb-0">{{myAppoDetailData.customer.email?myAppoDetailData.customer.email:'-'}}</p>
                         </div>
                     </div>
                     <p class=" address-fontsize"><i class="fa fa-phone pr-3 bluephone"></i>{{myAppoDetailData.customer?.phone}}</p>
-                    <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i>{{myAppoDetailData.customer.address}}</p>
-                    <p class="pl-4 address-fontsize">{{myAppoDetailData.customer.city}}, {{myAppoDetailData.customer.state}}, {{myAppoDetailData.customer.zip}}</p>
+                    <div *ngIf="myAppoDetailData.service.service_type == 'face_to_face' && myAppoDetailData.service.service_sub_type == 'at_home'">
+                        <p>Appointment Address</p>
+                        <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i>{{myAppoDetailData.orders_info.booking_address}}</p>
+                        <p class="pl-4 address-fontsize">{{myAppoDetailData.orders_info.booking_city}}, {{myAppoDetailData.orders_info.booking_state}}, {{myAppoDetailData.orders_info.booking_zipcode}}</p>
+                    </div>
                 </mat-card>
                 <!-- <div class="p-1-5 bottom-border">
                     <h6>Activity Log</h6>

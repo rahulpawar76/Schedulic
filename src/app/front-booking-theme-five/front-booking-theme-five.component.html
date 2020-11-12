@@ -60,19 +60,19 @@
                             <div class="row service-list">
                                 <div class="cate-select-box">
                                     <mat-label>Category</mat-label>
-                                    <mat-select (selectionChange)="fnCategory($event)" class="form-control">
+                                    <mat-select placeholder="Select" (selectionChange)="fnCategory($event)" class="form-control">
                                         <mat-option value="{{category.id}}_{{category.category_title}}" *ngFor="let category of catdata; let i=index">{{category.category_title}}</mat-option>
                                     </mat-select>
                                 </div>
                                 <div *ngIf="!directService" class="cate-select-box">
                                     <mat-label>Sub Category</mat-label>
-                                    <mat-select (selectionChange)="fnSubCategory($event)" class="form-control">
+                                    <mat-select placeholder="Select" (selectionChange)="fnSubCategory($event)" class="form-control">
                                         <mat-option value="{{subcategory.id}}_{{subcategory.sub_category_name}}" *ngFor="let subcategory of subcatdata; let i= index">{{subcategory.sub_category_name}}</mat-option>
                                     </mat-select>
                                 </div>
                                 <div class="cate-select-box">
                                     <mat-label>Service</mat-label>
-                                    <mat-select (selectionChange)="fnShowCounter($event)" class="form-control">
+                                    <mat-select placeholder="Select" (selectionChange)="fnShowCounter($event)" class="form-control">
                                         <mat-option value="{{services.id}}_{{services.service_name}}" *ngFor="let services of serviceData; let i= index">{{services.service_name}}</mat-option>
                                     </mat-select>
                                 </div>
@@ -383,9 +383,9 @@
                                             </div>
                                         </div>
                                     </form>
-                                    <!-- <div class="bottom-ctn-btn">
-                                    <button (click)="fnpersonalinfo()" mat-button class="round-btn continue-btn">Continue<i class="material-icons">keyboard_arrow_right</i></button>
-                                </div> -->
+                                    <div *ngIf="!is_at_home_service" class="bottom-ctn-btn">
+                                        <button (click)="fnpersonalinfo()" mat-button class="round-btn continue-btn">Continue<i class="material-icons">keyboard_arrow_right</i></button>
+                                    </div>
                                 </div>
                             </div>
                             <div id="appointment_info" class="main-step step_7 p-0" *ngIf="appointmentinfo && is_at_home_service">
@@ -454,7 +454,7 @@
                                 </div>
                             </div>
                         </mat-card-content>
-                        <div class="bottom-ctn-btn mb-3" *ngIf="is_at_home_service">
+                        <div class="bottom-ctn-btn mb-3" *ngIf="is_at_home_service && ((newuser && !isLoggedIn) || (existinguser && isLoggedIn))">
                             <button (click)="fnProceedToSummary($event)" mat-button class="round-btn continue-btn">Confirm</button>
                         </div>
                     </div>
@@ -676,7 +676,7 @@
 
                                 <mat-radio-button *ngIf="stripeStatus" [checked]="paymentMethod == 'stripe'" (change)="fnPaymentMethod('stripe')" class="col-12 w-auto mt-4 mx-4 p-4
                                     credit-payment single-pay payment-radio px-3
-                                    mb-0" value="pay2">Credit Card
+                                    mb-0" value="pay2">Debit Card / Credit Card
                                     <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" />
                                 </mat-radio-button>
                                 <div *ngIf="creditcardform">

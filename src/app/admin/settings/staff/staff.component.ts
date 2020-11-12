@@ -283,7 +283,7 @@ export class StaffComponent implements OnInit {
       this.businessId = localStorage.getItem('business_id');
     }
     this.fnGetWorkingHours();
-    this.fnGetTimeSlotsList("00:00","23:30","30");
+    this.fnGetTimeSlotsList("00:00","24:00","30");
     this.formSetWorkingHours = this._formBuilder.group({
       mondayToggle: [false],
       mondayStartTime: [this.timeSlotList[0].long],
@@ -737,6 +737,9 @@ export class StaffComponent implements OnInit {
       if (response.data == true) {
         this.singleStaffDetail = response.response
         console.log(this.singleStaffDetail);
+        if(this.singleStaffDetail.postalCode.length == 0){
+          this.singleStaffDetail.postalCode = undefined;
+        }
         this.selectedServiceNewStaff=[];
         this.singleStaffDetail.staff[0].services.forEach(element => {
           // this.selectedServicesArr.push(element.id);

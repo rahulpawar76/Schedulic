@@ -20,10 +20,16 @@
                     <mat-datepicker-toggle matSuffix [for]="enddate"></mat-datepicker-toggle>
                     <mat-datepicker #enddate></mat-datepicker>
                 </mat-form-field>
+                <span class="error-wrap offset-6 d-block col-6" *ngIf="formAddNewTimeOff.get('endDate').touched || formAddNewTimeOff.get('endDate').dirty">
+                    <small *ngIf="formAddNewTimeOff.get('endDate').hasError('required')" class="error">End Date is required.</small>
+                </span>
                 <mat-form-field class="bottom-border-field col mb-3">
                     <mat-label>Description</mat-label>
                     <textarea class="min-height" matInput placeholder="Vacation, Holiday, Other" formControlName="description"></textarea>
                 </mat-form-field>
+                <span class="error-wrap" *ngIf="formAddNewTimeOff.get('description').touched || formAddNewTimeOff.get('description').dirty">
+                    <small *ngIf="formAddNewTimeOff.get('description').hasError('required')" class="error">Description is required.</small>
+                </span>
             </form>
             <div>
                 <button class="d-block btn btn-primary addbtn" (click)="fnAddNewTimeOff()">Save</button>

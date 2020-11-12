@@ -1226,6 +1226,11 @@ export class DialogCancelReason {
         this.fnGetActivityLog(this.myAppoDetailData.id);
         this.bussinessId=this.authenticationService.currentUserValue.business_id;
         this.fnGetSettingValue();
+        var splitted = this.myAppoDetailData.customer.fullname.split(" ",2);
+        this.myAppoDetailData.customer.initials='';
+        splitted.forEach( (element2) => {
+          this.myAppoDetailData.customer.initials=this.myAppoDetailData.customer.initials+element2.charAt(0);
+        });
       }
 
     onNoClick(): void {
@@ -1316,6 +1321,11 @@ export class DialogCancelReason {
            dateTemp2.setMinutes( dateTemp2.getMinutes());
           var serviceTimeTamp =  dateTemp2.getTime() - todayDateTime.getTime();
           this.timeToServiceDecimal=(serviceTimeTamp/60000).toFixed();
+          var splitted = this.myAppoDetailData.customer.fullname.split(" ",2);
+        this.myAppoDetailData.customer.initials='';
+        splitted.forEach( (element2) => {
+          this.myAppoDetailData.customer.initials=this.myAppoDetailData.customer.initials+element2.charAt(0);
+        });
       }
     onNoClick(): void {
       this.dialogRef.close();
@@ -1778,6 +1788,11 @@ export class rescheduleAppointmentDialog {
         this.fnGetActivityLog(this.myAppoDetailData.id);
         this.bussinessId=this.authenticationService.currentUserValue.business_id;
         this.fnGetSettingValue();
+        var splitted = this.myAppoDetailData.customer.fullname.split(" ",2);
+        this.myAppoDetailData.customer.initials='';
+        splitted.forEach( (element2) => {
+          this.myAppoDetailData.customer.initials=this.myAppoDetailData.customer.initials+element2.charAt(0);
+        });
       }
 
     onNoClick(): void {

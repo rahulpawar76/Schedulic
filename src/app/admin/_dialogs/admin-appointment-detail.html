@@ -143,7 +143,13 @@
                     </div>
                     <div>
                         <p class="mb-0 title">Address</p>
-                        <p class="mb-0 address-fontsize">{{detailsData.customer.address}}</p>
+                        <p class="mb-0 address-fontsize" *ngIf="detailsData.customer.address !== ''">{{detailsData.customer.address}}</p>
+                        <p class=" address-fontsize" *ngIf="detailsData.customer.address === ''">--</p>
+                    </div>
+                    <div>
+                        <p class="mb-0 title">Note</p>
+                        <p *ngIf="detailsData.booking_notes !== null" class="mb-0 address-fontsize">{{detailsData.booking_notes}}</p>
+                        <p *ngIf="detailsData.booking_notes === null" class="address-fontsize">--</p>
                     </div>
 
                     <div class="pt-3 pb-3 bottom-border">
@@ -152,7 +158,7 @@
                             <mat-label>Notes</mat-label>
                             <textarea rows="5" matInput [(ngModel)]="appointmentDetails.bookingNotes" placeholder="Type Note Description Here"></textarea>
                         </mat-form-field>
-                        <button mat-button type="button" class="Reschedulebtn accept-btn d-block" *ngIf="formSettingPage" (click)="fnSaveBookingNotes(detailsData.id)">Save</button>
+                        <button mat-button type="button" class="Reschedulebtn common-blue-btn accept-btn d-block mt-2" *ngIf="formSettingPage" (click)="fnSaveBookingNotes(detailsData.id)">Save</button>
                     </div>
                 </mat-card>
 

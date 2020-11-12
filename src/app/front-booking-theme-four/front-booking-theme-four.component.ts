@@ -2484,16 +2484,42 @@ export class FrontBookingThemeFourComponent implements OnInit {
   // date time 
   fnContinueFromCart(){
     if(this.isLoggedIn){
-      this.dateselection = false;
-      this.catselection=false;
-      this.subcatselection=false;
-      this.dateselection=false;
-      this.serviceselection=false;
-      this.personalinfo=false;
-      this.summaryScreen=false;
-      this.paymentScreen=false;
-      this.appointmentinfo = true;
-      this.showSameAsAboveCheck=false;
+      if(this.is_at_home_service){
+        this.dateselection = false;
+        this.catselection=false;
+        this.subcatselection=false;
+        this.dateselection=false;
+        this.serviceselection=false;
+        this.personalinfo=false;
+        this.summaryScreen=false;
+        this.paymentScreen=false;
+        this.appointmentinfo = true;
+        this.showSameAsAboveCheck=false;
+      }else{
+        this.serviceselection = false;
+        this.appointmentinfo = false;
+        this.summaryScreen = true;
+        this.showSameAsAboveCheck=false;
+        this.dateselection = false;
+        this.catselection=false;
+        this.subcatselection=false;
+        this.dateselection=false;
+        this.serviceselection=false;
+        this.personalinfo=false;
+        this.paymentScreen=false;
+        this.appointmentinfo = true;
+        this.showSameAsAboveCheck=false;
+      }
+      // this.dateselection = false;
+      // this.catselection=false;
+      // this.subcatselection=false;
+      // this.dateselection=false;
+      // this.serviceselection=false;
+      // this.personalinfo=false;
+      // this.summaryScreen=false;
+      // this.paymentScreen=false;
+      // this.appointmentinfo = true;
+      // this.showSameAsAboveCheck=false;
     }else{
       this.dateselection = false;
       this.catselection=false;
@@ -2507,6 +2533,8 @@ export class FrontBookingThemeFourComponent implements OnInit {
       this.personalinfo = true;
       this.showSameAsAboveCheck=true;
     }
+    
+    this.closePopover();
   }
 
   fnPayNow(){

@@ -367,6 +367,7 @@ export class FrontbookingComponent implements OnInit {
     ).subscribe((response:any) => {
         if(response.data == true){
           this.settingsArr=response.response;
+          console.log(this.settingsArr)
           this.currencySymbol = this.settingsArr.currency;
           this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
           this.currencySymbolFormat = this.settingsArr.currency_format;
@@ -395,7 +396,7 @@ export class FrontbookingComponent implements OnInit {
           }
           
         if(this.settingsArr.pay_pal_settings){
-          this.paypalSetting = this.settingsArr.pay_pal_settings
+          this.paypalSetting = JSON.parse(this.settingsArr.pay_pal_settings)
           this.paypalTestMode = this.paypalSetting.test_mode;
           if(this.paypalTestMode){
             this.paypalClientId="sb";
@@ -476,6 +477,7 @@ export class FrontbookingComponent implements OnInit {
           this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
           this.minimumAdvanceBookingDateTimeObject = new Date();
           this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
+          console.log(this.minimumAdvanceBookingDateTimeObject)
           this.minDate = {
             year: this.minimumAdvanceBookingDateTimeObject.getFullYear(),
             month: this.minimumAdvanceBookingDateTimeObject.getMonth() + 1,
@@ -1036,12 +1038,13 @@ this.router.navigate(['/login']);
     var  Arr_co = 0;
     console.log(this.serviceCartArr)
     this.serviceCartArr.forEach(element => {
-      console.log(element.service_sub_type);
       if(element.service_sub_type !== null || element.service_sub_type !== ''){
         if(element.service_sub_type=='at_home'){
           co = co + 1;
         }
         Arr_co = Arr_co + 1;
+        
+      console.log(element.service_sub_type);
       }
       
     });;
@@ -1434,12 +1437,20 @@ this.router.navigate(['/login']);
       }
     }
   }
+
   // services
   fnServiceSelection(event){
     if(this.isLoggedIn){
-      this.serviceselection = false;
-      this.appointmentinfo = true;
-      this.showSameAsAboveCheck=false;
+      if(this.is_at_home_service){
+        this.serviceselection = false;
+        this.appointmentinfo = true;
+        this.showSameAsAboveCheck=false;
+      }else{
+        this.serviceselection = false;
+        this.appointmentinfo = false;
+        this.summaryScreen = true;
+        this.showSameAsAboveCheck=false;
+      }
     }else{
       this.serviceselection = false;
       this.personalinfo = true;
@@ -1517,13 +1528,21 @@ this.router.navigate(['/login']);
         //this.timeSlotArr = response.response;
         this.minimumAdvanceBookingDateTimeObject = new Date();
         this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
-        //console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
+        console.log(response.response)
+        console.log(this.selecteddate);
+        console.log(this.minimumAdvanceBookingTime)
+        console.log(this.minimumAdvanceBookingTime)
+        console.log(this.minimumAdvanceBookingDateTimeObject)
+        console.log(this.minimumAdvanceBookingDateTimeObject.getTime())
+
+        
         response.response.forEach(element => {
-          //console.log((new Date(this.datePipe.transform(this.selecteddate,"yyyy-MM-dd")+" "+element+":00"))+"----"+(this.minimumAdvanceBookingDateTimeObject));
+          console.log((new Date(this.datePipe.transform(this.selecteddate,"yyyy-MM-dd")+" "+element+":00")).getTime())
           if((new Date(this.datePipe.transform(this.selecteddate,"yyyy-MM-dd")+" "+element+":00")).getTime() > (this.minimumAdvanceBookingDateTimeObject).getTime()){
+            console.log(element)
             this.timeSlotArr.push(element);
           }
-        });
+        }); 
         var i=0;
         this.timeSlotArr.forEach( (element) => {
           var dateTemp=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element+":00";
@@ -2456,16 +2475,42 @@ this.router.navigate(['/login']);
   // date time 
   fnContinueFromCart(){
     if(this.isLoggedIn){
-      this.dateselection = false;
-      this.catselection=false;
-      this.subcatselection=false;
-      this.dateselection=false;
-      this.serviceselection=false;
-      this.personalinfo=false;
-      this.summaryScreen=false;
-      this.paymentScreen=false;
-      this.appointmentinfo = true;
-      this.showSameAsAboveCheck=false;
+      if(this.is_at_home_service){
+        this.dateselection = false;
+        this.catselection=false;
+        this.subcatselection=false;
+        this.dateselection=false;
+        this.serviceselection=false;
+        this.personalinfo=false;
+        this.summaryScreen=false;
+        this.paymentScreen=false;
+        this.appointmentinfo = true;
+        this.showSameAsAboveCheck=false;
+      }else{
+        this.serviceselection = false;
+        this.appointmentinfo = false;
+        this.summaryScreen = true;
+        this.showSameAsAboveCheck=false;
+        this.dateselection = false;
+        this.catselection=false;
+        this.subcatselection=false;
+        this.dateselection=false;
+        this.serviceselection=false;
+        this.personalinfo=false;
+        this.paymentScreen=false;
+        this.appointmentinfo = true;
+        this.showSameAsAboveCheck=false;
+      }
+      // this.dateselection = false;
+      // this.catselection=false;
+      // this.subcatselection=false;
+      // this.dateselection=false;
+      // this.serviceselection=false;
+      // this.personalinfo=false;
+      // this.summaryScreen=false;
+      // this.paymentScreen=false;
+      // this.appointmentinfo = true;
+      // this.showSameAsAboveCheck=false;
     }else{
       this.dateselection = false;
       this.catselection=false;
@@ -3520,21 +3565,17 @@ export class theme2CheckoutDialog {
           // }
 
           if(this.is_at_home_service){
-            alert('0')
             if(this.existinguser){
-              alert('1')
               this.personalinfo = false;
               this.appointmentinfo = true;
               this.isLoggedIn=true;
             }else if(this.newuser){
-              alert('2')
               this.personalinfo = false;
               this.appointmentinfo = true;
               this.summaryScreen = false;
               this.isLoggedIn=true;
             }
           }else if(!this.is_at_home_service){
-            alert('3')
             this.personalinfo = false;
             this.appointmentinfo = false;
             this.summaryScreen = true;

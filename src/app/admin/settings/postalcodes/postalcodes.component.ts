@@ -349,7 +349,7 @@ export class DialogAddPostalCode {
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
-          panelClass :['green-snackbar']
+          panelClass :['red-snackbar']
           });
       }
     })
@@ -369,7 +369,7 @@ export class DialogNewCSVPostalCode {
   formCreatePostalCode : FormGroup;
   businessId : any;
   staffList : any;
-  
+  uploadedFile:any
   fileToUpload:any;
   isLoaderAdmin : boolean = false;
 
@@ -399,8 +399,12 @@ export class DialogNewCSVPostalCode {
   }
 
   handleFileInput(files): void {
-
-      this.fileToUpload = files.item(0);
+    console.log(files)
+    this.uploadedFile = files
+      
+  }
+  uploadPostal(){
+    this.fileToUpload = this.uploadedFile.item(0);
       if(this.fileToUpload.type != "application/vnd.ms-excel"){
 
           this._snackBar.open("Please select CSV file.", "X", {

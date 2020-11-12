@@ -693,3 +693,12 @@ input:focus {
 .pointernone {
     pointer-events: none;
 }
+
+::ng-deep .common-blue-btn {
+    border-radius: 5px;
+    font-size: 13px;
+    background: #1172F4 0% 0% no-repeat padding-box;
+    width: 105px;
+    color: #fff;
+    height: 35px;
+}

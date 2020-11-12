@@ -259,8 +259,18 @@ export class CompanyDetailsComponent implements OnInit {
   }
 
   fnUpdateCompanyDetail(){
-
-    
+    if(this.companyDetails.invalid){
+    this.companyDetails.get('company_name').markAsTouched();
+      this.companyDetails.get('comp_email').markAllAsTouched();
+      this.companyDetails.get('comp_website').markAsTouched();
+      this.companyDetails.get('comp_mobile').markAsTouched();
+      this.companyDetails.get('country').markAsTouched();
+      this.companyDetails.get('comp_address').markAsTouched();
+      this.companyDetails.get('city').markAsTouched();
+      this.companyDetails.get('state').markAsTouched();
+      this.companyDetails.get('zip_code').markAsTouched();
+      this.companyDetails.get('comp_decs').markAsTouched();
+    }
     var comp_mobile =  this.companyDetails.get('comp_mobile').value;
     console.log(comp_mobile);
     
@@ -313,17 +323,6 @@ export class CompanyDetailsComponent implements OnInit {
         }
       }
       this.fnupdateBusineData(this.updateCompanyDetailsData);
-    }else{
-      this.companyDetails.get('company_name').markAsTouched();
-      this.companyDetails.get('comp_email').markAsTouched();
-      this.companyDetails.get('comp_website').markAsTouched();
-      this.companyDetails.get('comp_mobile').markAsTouched();
-      this.companyDetails.get('country').markAsTouched();
-      this.companyDetails.get('comp_address').markAsTouched();
-      this.companyDetails.get('city').markAsTouched();
-      this.companyDetails.get('state').markAsTouched();
-      this.companyDetails.get('zip_code').markAsTouched();
-      this.companyDetails.get('comp_decs').markAsTouched();
     }
   }
 
