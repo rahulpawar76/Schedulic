@@ -143,8 +143,12 @@
                     </div>
                     <div>
                         <p class="mb-0 title">Address</p>
-                        <p class="mb-0 address-fontsize" *ngIf="detailsData.customer.address !== ''">{{detailsData.customer.address}}</p>
-                        <p class=" address-fontsize" *ngIf="detailsData.customer.address === ''">--</p>
+                        <p class="mb-0 address-fontsize" *ngIf="detailsData.orders_info.booking_address !== ''"> {{detailsData.orders_info ? detailsData.orders_info.booking_address : ''}}</p>
+                        <p class="mb-0 address-fontsize" *ngIf="detailsData.orders_info.booking_city !== ''"> {{detailsData.orders_info ? detailsData.orders_info.booking_city : ''}}</p>
+                        <p class="mb-0 address-fontsize" *ngIf="detailsData.orders_info.booking_state !== ''"> {{detailsData.orders_info ? detailsData.orders_info.booking_state : ''}}</p>
+                        <p class="mb-0 address-fontsize" *ngIf="detailsData.orders_info.booking_zipcode !== ''"> {{detailsData.orders_info ? detailsData.orders_info.booking_zipcode : ''}}</p>
+                        
+                        <p class=" address-fontsize" *ngIf="detailsData?.orders_info.booking_address == ''">--</p>
                     </div>
                     <div>
                         <p class="mb-0 title">Note</p>

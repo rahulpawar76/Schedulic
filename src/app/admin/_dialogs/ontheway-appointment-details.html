@@ -68,7 +68,10 @@
           </div>
           <p class=" address-fontsize"><i class="fa fa-phone pr-3 bluephone"></i>{{detailsData.customer.phone}}</p>
           <p class="mb-0 address-fontsize"><img class="map-icon" src="../../assets/images/admin/map.png" /> {{detailsData.customer.address}}</p>
-        
+          <p class="mb-0 address-fontsize" *ngIf="detailsData.orders_info.booking_city !== ''"> {{detailsData.orders_info ? detailsData.orders_info.booking_city : ''}}</p>
+          <p class="mb-0 address-fontsize" *ngIf="detailsData.orders_info.booking_state !== ''"> {{detailsData.orders_info ? detailsData.orders_info.booking_state : ''}}</p>
+          <p class="mb-0 address-fontsize" *ngIf="detailsData.orders_info.booking_zipcode !== ''"> {{detailsData.orders_info ? detailsData.orders_info.booking_zipcode : ''}}</p>
+          
           <div class="pt-3 pb-3 bottom-border">
               <h6 (click)="formSettingPage=!formSettingPage" class="pointer w-fc">Note<i class="fa fa-plus-circle pl-2 note-icon"></i></h6>
               <mat-form-field class="bottom-border-field" *ngIf="formSettingPage">

@@ -399,7 +399,7 @@
                                             <th scope="col">Mode</th>
                                             <th scope="col">Amount</th>
                                             <th scope="col">Status</th>
-                                            <th scope="col">Action</th>
+                                            <th scope="col " class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -411,7 +411,7 @@
                                             <td *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ payment.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>
                                             <td *ngIf="currencySymbolPosition=='right'">{{ payment.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</td>
                                             <td class="text-capitalize">{{payment.payment_status=='paid'?'Paid':'Pending'}}</td>
-                                            <td class="text-capitalize">
+                                            <td class="text-capitalize text-center">
                                                 <button mat-button appearance="fill" class="view-btn" (click)="invoice(i)"><mat-icon class="" aria-hidden="false">description</mat-icon></button>
                                                 <button mat-button *ngIf="payment.payment_status != 'paid'" appearance="fill" class="view-btn ml-2" (click)="fnShowPaymentForm(i,null,null)"><mat-icon class="" aria-hidden="false">edit</mat-icon></button>
                                                 <!-- <button mat-button appearance="fill" class="view-btn ml-2"><mat-icon class="" aria-hidden="false">print</mat-icon></button> -->

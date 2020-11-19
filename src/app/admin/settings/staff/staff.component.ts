@@ -184,6 +184,7 @@ export class StaffComponent implements OnInit {
   }
  
   deleteFile(index: number) {
+ 
     var x = confirm('Are you sure you want delete this document ?');
       if(x){
         if (this.files[index].progress < 100) {
@@ -194,7 +195,7 @@ export class StaffComponent implements OnInit {
   }
 
   deleteOldFile(index,document_id: number) {
-    
+   
     var x = confirm('Are you sure you want delete this document ?');
 
     if(x){

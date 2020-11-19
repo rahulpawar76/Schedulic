@@ -47,8 +47,21 @@
         </div>
       </div>
         <p class=" address-fontsize"><i class="fa fa-phone pr-3 bluephone"></i>{{appoDetail.customer.phone}}</p>
-        <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i>{{appoDetail.customer.address}}</p>
-        <p class="pl-4 address-fontsize">{{appoDetail.customer.city}}, {{appoDetail.customer.state}}, {{appoDetail.customer.zip}}</p>
+
+        <p class="mb-0 address-fontsize">
+          <i class="fa fa-map-marker bluemap pr-3"></i>
+          {{detailData.orders_info ? detailData.orders_info.booking_address : ''}}
+        </p>
+
+        <p class="pl-4 address-fontsize">
+            {{detailData.orders_info ? detailData.orders_info.booking_city : ''}},
+            {{detailData.orders_info ? detailData.orders_info.booking_state : ''}},
+            {{detailData.orders_info ? detailData.orders_info.booking_zipcode : ''}}
+        </p>
+        
+        <!-- <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i>{{appoDetail.customer.address}}</p>
+        <p class="pl-4 address-fontsize">{{appoDetail.customer.city}}, {{appoDetail.customer.state}}, {{appoDetail.customer.zip}}</p> -->
+
         <p>Appointment Notes</p>
         <p>{{appoDetail.booking_notes}}</p>
     </mat-card>
