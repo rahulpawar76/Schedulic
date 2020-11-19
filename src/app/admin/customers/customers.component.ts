@@ -881,10 +881,7 @@ customerUpdate(existingCustomerData){
     });
 
      dialogRef.afterClosed().subscribe(result => {
-        // if(result != undefined){
-        //     this.subCategoryImageUrl = result;
-        //     console.log(result);
-        //    }
+       this.getAllCustomers();
      });
   }
 
