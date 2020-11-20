@@ -95,10 +95,10 @@ export class AppointmentComponent implements OnInit {
     ) {
       localStorage.setItem('isBusiness', 'false');
       this.businessId=localStorage.getItem('business_id');
-      this.durationType = 'daily';
+      this.durationType = 'all';
       this.selectedServices =  'all';
-      this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
-      this.endDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
+      // this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
+      // this.endDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
       this.fnGetSettingValue();
       this.getAllAppointments();
       this.getAllServices();

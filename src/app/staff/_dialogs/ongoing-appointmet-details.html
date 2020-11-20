@@ -64,16 +64,13 @@
                     <!-- <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i>{{appoDetail.customer.address}}</p>
                     <p class="pl-4 address-fontsize">{{appoDetail.customer.city}}, {{appoDetail.customer.state}}, {{appoDetail.customer.zip}}</p> -->
 
-                    <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i>
-                        {{detailData.orders_info ? detailData.orders_info.booking_address : ''}}</p>
+                    <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i> {{appoDetail.orders_info ? appoDetail.orders_info.booking_address : ''}}</p>
                     <p class="pl-4 address-fontsize">
-                        {{detailData.orders_info ? detailData.orders_info.booking_city : ''}},
-                        {{detailData.orders_info ? detailData.orders_info.booking_state : ''}},
-                        {{detailData.orders_info ? detailData.orders_info.booking_zipcode : ''}}
+                        {{appoDetail.orders_info ? appoDetail.orders_info.booking_city : ''}}, {{appoDetail.orders_info ? appoDetail.orders_info.booking_state : ''}}, {{appoDetail.orders_info ? appoDetail.orders_info.booking_zipcode : ''}}
                     </p>
 
                     <p>Appointment Notes</p>
-                    <p *ngIf="appoDetail.booking_notes != null">{{detailData.booking_notes}}</p>
+                    <p *ngIf="appoDetail.booking_notes != null">{{appoDetail.booking_notes}}</p>
                     <p *ngIf="appoDetail.booking_notes == null">--</p>
                 </mat-card>
                 <div class="p-1-5 bottom-border">
