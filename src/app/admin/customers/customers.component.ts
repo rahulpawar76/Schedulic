@@ -17,6 +17,7 @@ import { ExportToCsv } from 'export-to-csv';
 import * as domtoimage from 'dom-to-image';
 import * as jspdf from 'jspdf';
 //import { IgxExcelExporterService, IgxExcelExporterOptions } from "igniteui-angular";
+import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
 
 
 export interface DialogData {
@@ -544,32 +545,42 @@ customerUpdate(existingCustomerData){
       }
     })
   }
+
   fnDeleteCustomer(customerId){
-    var is_confirm  = confirm('Are you sure you want to delete?')
-    if(!is_confirm){
-        return false;
-    }
-  this.isLoaderAdmin = true;
-  this.AdminService.fnDeleteCustomer(customerId).subscribe((response:any) => {
-    if(response.data == true){
-      this._snackBar.open("Customer Deleted.", "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['green-snackbar']
-      });
-      this.getAllCustomers();
-      this.isLoaderAdmin = false;
-    }
-    else if(response.data == false && response.response !== 'api token or userid invaild'){
-      this._snackBar.open(response.response, "X", {
-        duration: 2000,
-        verticalPosition: 'top',
-        panelClass : ['red-snackbar']
-      });
-      // this.allCustomers = ''
-    this.isLoaderAdmin = false;
-    }
-  })
+
+   
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure?"
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+        if(result){
+            this.isLoaderAdmin = true;
+            this.AdminService.fnDeleteCustomer(customerId).subscribe((response:any) => {
+              if(response.data == true){
+                this._snackBar.open("Customer Deleted.", "X", {
+                  duration: 2000,
+                  verticalPosition:'top',
+                  panelClass :['green-snackbar']
+                });
+                this.getAllCustomers();
+                this.isLoaderAdmin = false;
+              } else if(response.data == false && response.response !== 'api token or userid invaild'){
+                this._snackBar.open(response.response, "X", {
+                  duration: 2000,
+                  verticalPosition: 'top',
+                  panelClass : ['red-snackbar']
+                });
+                // this.allCustomers = ''
+              this.isLoaderAdmin = false;
+              }
+            });
+        }
+    });
+
+    
+
   }
   fnTabValue(tab){
     this.showPaymentForm=false;
@@ -578,32 +589,41 @@ customerUpdate(existingCustomerData){
 
   fnDeleteNote(noteId){
 
-    if(confirm('are you sure to delete this notes ?')){
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "are you sure to delete this notes?"
+    });
 
-      this.isLoaderAdmin = true;
-      let requestObject = {
-        "note_id" : noteId
-      }
-     
-      this.AdminService.fnDeleteNote(requestObject).subscribe((response:any) => {
-        if(response.data == true){
-          this._snackBar.open("Note Deleted.", "X", {
-            duration: 2000,
-            verticalPosition:'top',
-            panelClass :['green-snackbar']
-          });
-          this.getAllCustomers();
-          this.isLoaderAdmin = false;
-        } else if(response.data == false && response.response !== 'api token or userid invaild'){
-          this._snackBar.open(response.response, "X", {
-            duration: 2000,
-            verticalPosition:'top',
-            panelClass :['green-snackbar']
-          });
-        this.isLoaderAdmin = false;
+    dialogRef.afterClosed().subscribe(result => {
+
+      if(result){
+      
+        this.isLoaderAdmin = true;
+        
+        let requestObject = {
+          "note_id" : noteId
         }
-      });
-    }
+      
+        this.AdminService.fnDeleteNote(requestObject).subscribe((response:any) => {
+          if(response.data == true){
+            this._snackBar.open("Note Deleted.", "X", {
+              duration: 2000,
+              verticalPosition:'top',
+              panelClass :['green-snackbar']
+            });
+            this.getAllCustomers();
+            this.isLoaderAdmin = false;
+          } else if(response.data == false && response.response !== 'api token or userid invaild'){
+            this._snackBar.open(response.response, "X", {
+              duration: 2000,
+              verticalPosition:'top',
+              panelClass :['green-snackbar']
+            });
+          this.isLoaderAdmin = false;
+          }
+        });
+      }
+    });
 
   }
   

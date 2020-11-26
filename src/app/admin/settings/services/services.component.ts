@@ -10,6 +10,7 @@ import { AuthenticationService } from '@app/_services';
 import { AdminSettingsService } from '../_services/admin-settings.service'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {TooltipPosition} from '@angular/material/tooltip';
+import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 
 export interface DialogData {
     animal: string;
@@ -455,14 +456,17 @@ export class ServicesComponent implements OnInit {
                     verticalPosition: 'top',
                     panelClass: ['red-snackbar']
                 });
-            }
-            else if(response.data == false && response.response !== 'api token or userid invaild'){
+                this.allCetegoryList = [];
+                this.allCategoryCount = 0;
+
+            } else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open(response.response, "X", {
                     duration: 2000,
                     verticalPosition: 'top',
                     panelClass: ['red-snackbar']
                 });
                 this.allCetegoryList = [];
+                this.allCategoryCount = 0;
                 this.isLoaderAdmin = false;
             }
         })
@@ -920,79 +924,92 @@ export class ServicesComponent implements OnInit {
     }
 
     deleteCategory(deleteCategoryId) {
-        var is_confirm  = confirm('Are you sure you want to delete?')
-        if(!is_confirm){
-            return false;
-        }
-     
-        
-        this.isLoaderAdmin = true;
-        let requestObject = {
-            'business_id': this.businessId,
-            'category_id': deleteCategoryId,
-            'filter': 'filter'
-        };
-        this.adminSettingsService.deleteCategory(requestObject).subscribe((response: any) => {
-            if (response.data == true) {
-                this._snackBar.open("Category deleted", "X", {
-                    duration: 2000,
-                    verticalPosition: 'top',
-                    panelClass: ['green-snackbar']
+
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+            width: '400px',
+            data: "Are you sure you want to delete?"
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if(result){
+                this.isLoaderAdmin = true;
+                let requestObject = {
+                    'business_id': this.businessId,
+                    'category_id': deleteCategoryId,
+                    'filter': 'filter'
+                };
+                this.adminSettingsService.deleteCategory(requestObject).subscribe((response: any) => {
+                    if (response.data == true) {
+                        this._snackBar.open("Category deleted", "X", {
+                            duration: 2000,
+                            verticalPosition: 'top',
+                            panelClass: ['green-snackbar']
+                        });
+                        
+                        this.fnAllServices();
+                        this.fnAllCategory();
+                        this.fnAllServicesNavigation();
+                        this.servicesList = true;
+                        this.createNewCategoryPage = false;
+                        this.isLoaderAdmin = false;
+                    }else if(response.data == false && response.response !== 'api token or userid invaild'){
+                        this._snackBar.open("Category Not deleted", "X", {
+                            duration: 2000,
+                            verticalPosition: 'top',
+                            panelClass: ['red-snackbar']
+                        });
+                        this.isLoaderAdmin = false;
+                    }
                 });
-                
-                this.fnAllServices();
-                this.fnAllCategory();
-                this.fnAllServicesNavigation();
-                this.servicesList = true;
-                this.createNewCategoryPage = false;
-                this.isLoaderAdmin = false;
-            }else if(response.data == false && response.response !== 'api token or userid invaild'){
-                this._snackBar.open("Category Not deleted", "X", {
-                    duration: 2000,
-                    verticalPosition: 'top',
-                    panelClass: ['red-snackbar']
-                });
-                this.isLoaderAdmin = false;
+
             }
-        })
+        });
+
+       
     }
 
     deleteSubCategory(deleteSubCategoryId) {
 
-        var is_confirm  = confirm('Are you sure you want to delete?');
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+            width: '400px',
+            data: "Are you sure you want to delete?"
+        });
+      
+        dialogRef.afterClosed().subscribe(result => {
+            if(result){
+                this.isLoaderAdmin = true;
+                this.adminSettingsService.deleteSubCategory(deleteSubCategoryId).subscribe((response: any) => {
+                    if (response.data == true) {
+                        this._snackBar.open(response.response, "X", {
+                            duration: 2000,
+                            verticalPosition: 'top',
+                            panelClass: ['green-snackbar']
+                        });
 
-        if(!is_confirm){
-            return false;
-        }
+                        this.fnAllServices();
+                        this.fnAllCategory();
+                        this.fnSelectCategoryNavigation(this.selectedCategoryID , this.selectedCategoryIndex);
+                        this.servicesList = false;
+                        this.selectCategoryPage = 'notservices';
+                        this.createNewSubCategoryPage = false;
+                        this.isLoaderAdmin = false;
+                        this.singleSubCategoryPage = '';
 
-        this.isLoaderAdmin = true;
-        this.adminSettingsService.deleteSubCategory(deleteSubCategoryId).subscribe((response: any) => {
-            if (response.data == true) {
-                this._snackBar.open(response.response, "X", {
-                    duration: 2000,
-                    verticalPosition: 'top',
-                    panelClass: ['green-snackbar']
+                        
+                    } else if(response.data == false && response.response !== 'api token or userid invaild'){
+                        this._snackBar.open(response.response, "X", {
+                            duration: 2000,
+                            verticalPosition: 'top',
+                            panelClass: ['red-snackbar']
+                        });
+                        this.isLoaderAdmin = false;
+                    }
                 });
 
-                this.fnAllServices();
-                this.fnAllCategory();
-                this.fnSelectCategoryNavigation(this.selectedCategoryID , this.selectedCategoryIndex);
-                this.servicesList = false;
-                this.selectCategoryPage = 'notservices';
-                this.createNewSubCategoryPage = false;
-                this.isLoaderAdmin = false;
-                this.singleSubCategoryPage = '';
-
-                
-            } else if(response.data == false && response.response !== 'api token or userid invaild'){
-                this._snackBar.open(response.response, "X", {
-                    duration: 2000,
-                    verticalPosition: 'top',
-                    panelClass: ['red-snackbar']
-                });
-                this.isLoaderAdmin = false;
             }
-        })
+        });
+
+        
     }
 
     changeCategoryStatus(categoryStatus, categoryId) {

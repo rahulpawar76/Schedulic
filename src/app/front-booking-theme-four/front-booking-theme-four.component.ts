@@ -2723,6 +2723,7 @@ export class FrontBookingThemeFourComponent implements OnInit {
       "coupon_code" : this.coupon.couponcode_val,
       "customer_id": this.authenticationService.currentUserValue.user_id,
       "customer_token" : this.authenticationService.currentUserValue.token,
+      "booking_notes" : this.formNewUser.get('newUserSplReq').value ? this.formNewUser.get('newUserSplReq').value : null,
       "subtotal" : this.serviceMainArr.subtotal,
       "discount_type" : this.serviceMainArr.discount_type,
       "discount_value" : this.serviceMainArr.discount_value,
