@@ -479,6 +479,7 @@ export class ReportsComponent implements OnInit {
         'start_date':this.selectedStartDate,
         'end_date': this.selectedEndDate,
         'search': this.search.keyword,
+        'file' : 'pdf'
       };
       window.open(environment.apiUrl+'/appointment-reports-pdf?param='+JSON.stringify(requestObject), '_blank');
 
@@ -491,6 +492,7 @@ export class ReportsComponent implements OnInit {
         'start_date':this.selectedStartDate,
         'end_date': this.selectedEndDate,
         'search': this.search.keyword,
+        'file' : 'pdf'
       };
 
       window.open(environment.apiUrl+'/sales-reports-pdf?param='+JSON.stringify(requestObject), '_blank');
@@ -503,6 +505,7 @@ export class ReportsComponent implements OnInit {
         'end_date':this.selectedEndDate,
         'filter':this.createdByFilter,
         'search': this.search.keyword,
+        'file' : 'pdf'
       };
 
       window.open(environment.apiUrl+'/customer-reports-pdf?param='+JSON.stringify(requestObject), '_blank');
@@ -597,9 +600,10 @@ export class ReportsComponent implements OnInit {
         'start_date':this.selectedStartDate,
         'end_date': this.selectedEndDate,
         'search': this.search.keyword,
+        'file' : 'csv'
       };
 
-      window.open(environment.apiUrl+'/appointment-reports-csv?param='+JSON.stringify(requestObject), '_blank');
+      window.open(environment.apiUrl+'/appointment-reports-pdf?param='+JSON.stringify(requestObject), '_blank');
 
     } else if(this.isSalesReport){
 
@@ -610,9 +614,10 @@ export class ReportsComponent implements OnInit {
         'start_date':this.selectedStartDate,
         'end_date': this.selectedEndDate,
         'search': this.search.keyword,
+        'file' : 'csv'
       };
 
-      window.open(environment.apiUrl+'/sales-reports-csv?param='+JSON.stringify(requestObject), '_blank');
+      window.open(environment.apiUrl+'/sales-reports-pdf?param='+JSON.stringify(requestObject), '_blank');
       
     }else if(this.isCustomerReport){
 
@@ -622,9 +627,10 @@ export class ReportsComponent implements OnInit {
         'end_date':this.selectedEndDate,
         'filter':this.createdByFilter,
         'search': this.search.keyword,
+        'file' : 'csv'
       };
 
-      window.open(environment.apiUrl+'/customer-reports-csv?param='+JSON.stringify(requestObject), '_blank');
+      window.open(environment.apiUrl+'/customer-reports-pdf?param='+JSON.stringify(requestObject), '_blank');
       
     }
 

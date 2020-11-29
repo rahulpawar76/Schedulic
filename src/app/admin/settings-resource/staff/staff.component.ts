@@ -184,37 +184,50 @@ export class StaffComponent implements OnInit {
   }
  
   deleteFile(index: number) {
-    var x = confirm('Are you sure you want delete this document ?');
-      if(x){
-        if (this.files[index].progress < 100) {
-          return;
+ 
+   
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        width: '400px',
+        data: "Are you sure?"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          if (this.files[index].progress < 100) {
+            return;
+          }
+        this.files.splice(index, 1);
         }
-      this.files.splice(index, 1);
-    }
+    });
+
   }
 
   deleteOldFile(index,document_id: number) {
-    
-    var x = confirm('Are you sure you want delete this document ?');
+   
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        width: '400px',
+        data: "Are you sure?"
+    });
 
-    if(x){
-
-      this.isLoaderAdmin = true;
-      this.adminSettingsService.fnRemovedocument(document_id).subscribe((response: any) => {
-        if (response.data == true) {
-          this._snackBar.open("document deleted.", "X", {
-            duration: 2000,
-            verticalPosition: 'top',
-            panelClass: ['green-snackbar']
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+          this.isLoaderAdmin = true;
+          this.adminSettingsService.fnRemovedocument(document_id).subscribe((response: any) => {
+            if (response.data == true) {
+              this._snackBar.open("document deleted.", "X", {
+                duration: 2000,
+                verticalPosition: 'top',
+                panelClass: ['green-snackbar']
+              });
+              this.isLoaderAdmin = false;
+            }else if (response.data == false) {
+              this.isLoaderAdmin = false;
+            }
           });
-          this.isLoaderAdmin = false;
-        }else if (response.data == false) {
-          this.isLoaderAdmin = false;
-        }
-      });
 
-      this.singleStaffDetail.staff[0].getdocument.splice(index, 1);
-    }
+          this.singleStaffDetail.staff[0].getdocument.splice(index, 1);
+      }
+    });
     
     
   }

@@ -118,28 +118,34 @@ export class BillingComponent implements OnInit {
 
   fnCancelPlane(){
     
-    if(confirm('Are you you want to cancel current plan ?')){
-      let requestObject = {
-        'user_id' : this.currentUser.user_id,
-      }
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you you want to cancel current plan ?"
+    });
 
-      this.AdminSettingsService.cancelSubscriptionPlans(requestObject).subscribe((response:any) => {
-        if(response.data == true){
-          this.authenticationService.logout();
-          this.router.navigate(['/login']);
-          return false;
-        } else if(response.data == false && response.response !== 'api token or userid invaild'){
+    dialogRef.afterClosed().subscribe(result => {
 
-          this._snackBar.open(response.response, "X", {
-            duration: 2000,
-            verticalPosition: 'top',
-            panelClass: ['red-snackbar']
-          });
-
+      if(result){
+        let requestObject = {
+          'user_id' : this.currentUser.user_id,
         }
-      });
+        this.AdminSettingsService.cancelSubscriptionPlans(requestObject).subscribe((response:any) => {
+          if(response.data == true){
+            this.authenticationService.logout();
+            this.router.navigate(['/login']);
+            return false;
+          } else if(response.data == false && response.response !== 'api token or userid invaild'){
+            this._snackBar.open(response.response, "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass: ['red-snackbar']
+            });
+          }
+        });
+      }
+      
+    });
 
-    }
 
   }
 }

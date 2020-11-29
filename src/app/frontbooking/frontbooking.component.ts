@@ -228,7 +228,6 @@ export class FrontbookingComponent implements OnInit {
     @Inject(DOCUMENT) private _document
     
   ) { 
-    console.log(window.location.search)
     this.urlString = window.location.search.split("?business_id="); 
     this.businessId = window.atob(decodeURIComponent(this.urlString[1]));
    
@@ -1894,24 +1893,27 @@ this.router.navigate(['/login']);
   }
 
   fnpersonalinfo(){
-    if(this.formNewUser.get('newUserPhone').value === null){
-      this.phoneNumberInvalid = "required";
-      return false;
-    }
-    if(this.formNewUser.get('newUserPhone').value.number.length <= 6 || this.formNewUser.get('newUserPhone').value.number.length >= 15){
-      this.phoneNumberInvalid = "valid";
-      this.formNewUser.get('newUserPhone').markAsTouched();
-      return false;
-    }
-    else if(this.formNewUser.valid){
-      this.fnSignUp();
-    } 
+    
+  
+    
     
     if(this.formNewUser.invalid){
       console.log(this.formNewUser)
       this.formNewUser.get('newUserEmail').markAsTouched();
       this.formNewUser.get('newUserPassword').markAsTouched();
       this.formNewUser.get('newUserFullname').markAsTouched();
+      
+      if(this.formNewUser.get('newUserPhone').value === null){
+        this.phoneNumberInvalid = "required";
+        return false;
+      }
+      
+      if(this.formNewUser.get('newUserPhone').value.number.length <= 6 || this.formNewUser.get('newUserPhone').value.number.length >= 15){
+        this.phoneNumberInvalid = "valid";
+        this.formNewUser.get('newUserPhone').markAsTouched();
+        return false;
+      }
+
       if(this.contactFormSettingsArr.contact_field_status == true){
         if(this.contactFormSettingsArr.addressField.status == 1){
           this.formNewUser.get('newUserAddress').markAsTouched();
@@ -1927,6 +1929,22 @@ this.router.navigate(['/login']);
       }
       return false;
     }
+
+    if(this.formNewUser.get('newUserPhone').value === null){
+      this.phoneNumberInvalid = "required";
+      return false;
+    }
+    
+    if(this.formNewUser.get('newUserPhone').value.number.length <= 6 || this.formNewUser.get('newUserPhone').value.number.length >= 15){
+      this.phoneNumberInvalid = "valid";
+      this.formNewUser.get('newUserPhone').markAsTouched();
+      return false;
+    }
+
+    if(this.formNewUser.valid){
+      this.fnSignUp();
+    } 
+    
    }
    
   fnSignUp(){
@@ -2763,6 +2781,7 @@ this.router.navigate(['/login']);
     for(let i=0; i<this.serviceCartArr.length;i++){
       if(this.serviceCartArr[i]){
         serviceCartArrTemp.push(this.serviceCartArr[i]);
+      //  this.serviceCartArr[i].
       }
     }
     const currentDateTime = new Date();
@@ -2777,6 +2796,7 @@ this.router.navigate(['/login']);
       "coupon_code" : this.coupon.couponcode_val,
       "customer_id": this.authenticationService.currentUserValue.user_id,
       "customer_token" : this.authenticationService.currentUserValue.token,
+      "booking_notes" : this.formNewUser.get('newUserSplReq').value ? this.formNewUser.get('newUserSplReq').value : null,
       "subtotal" : this.serviceMainArr.subtotal,
       "discount_type" : this.serviceMainArr.discount_type,
       "discount_value" : this.serviceMainArr.discount_value,
@@ -2788,18 +2808,14 @@ this.router.navigate(['/login']);
       "reference_id": this.reference_id,
       "transaction_id": this.transactionId,
       "payment_datetime": this.paymentDateTime,
-      'fullname' : JSON.parse(localStorage.getItem('currentUser')).fullname,
-      'full_name' : JSON.parse(localStorage.getItem('currentUser')).fullname
+      'fullname' : JSON.parse(localStorage.getItem('currentUser')).full_name ? JSON.parse(localStorage.getItem('currentUser')).full_name : JSON.parse(localStorage.getItem('currentUser')).fullname,
+      'full_name' : JSON.parse(localStorage.getItem('currentUser')).full_name ? JSON.parse(localStorage.getItem('currentUser')).full_name : JSON.parse(localStorage.getItem('currentUser')).fullname,
     };
      
-      
-      // setTimeout(()=>{
-      //   this.isLoader=false;
-      // },4000)
-      // return false;
-      let headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-      });
+   
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
   
       this.http.post(`${environment.apiUrl}/order-create`,requestObject,{headers:headers} ).pipe(
         map((res) => {
@@ -4673,6 +4689,7 @@ export class theme2CheckoutDialog {
       "coupon_code" : this.coupon.couponcode_val,
       "customer_id": this.authenticationService.currentUserValue.user_id,
       "customer_token" : this.authenticationService.currentUserValue.token,
+      "booking_notes" : this.formNewUser.get('newUserSplReq').value ? this.formNewUser.get('newUserSplReq').value : null,
       "subtotal" : this.serviceMainArr.subtotal,
       "discount_type" : this.serviceMainArr.discount_type,
       "discount_value" : this.serviceMainArr.discount_value,
@@ -4684,15 +4701,14 @@ export class theme2CheckoutDialog {
       "reference_id": this.reference_id,
       "transaction_id": this.transactionId,
       "payment_datetime": this.paymentDateTime,
-      'fullname' : JSON.parse(localStorage.getItem('currentUser')).fullname,
-      'full_name' : JSON.parse(localStorage.getItem('currentUser')).fullname
+      'fullname' : JSON.parse(localStorage.getItem('currentUser')).full_name ? JSON.parse(localStorage.getItem('currentUser')).full_name : JSON.parse(localStorage.getItem('currentUser')).fullname,
+      'full_name' : JSON.parse(localStorage.getItem('currentUser')).full_name ? JSON.parse(localStorage.getItem('currentUser')).full_name : JSON.parse(localStorage.getItem('currentUser')).fullname,
     };
      
       
-      // setTimeout(()=>{
-      //   this.isLoader=false;
-      // },4000)
-      // return false;
+    console.log(requestObject);
+    return;
+
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
       });

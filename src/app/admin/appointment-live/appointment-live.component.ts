@@ -11,6 +11,7 @@ import { map, catchError } from 'rxjs/operators';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { AuthenticationService } from '@app/_services';
 import { CommonService } from '../../_services'
+import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
 
 export interface DialogData {
   animal: string;
@@ -933,25 +934,33 @@ export class AppointmentLiveComponent implements OnInit {
   }
 
   fncancelOrder(order_item_id){
-    var  x = confirm('Are you sure want to Cancel ?');
 
-    if(x){
-      var requestObject = {
-        "business_id" : localStorage.getItem('business_id'),
-        "order_item_id" : order_item_id
-      };
 
-      this.AdminService.cancelOrder(requestObject).subscribe((response:any) => {
-        if(response.data == true){
-          this._snackBar.open(response.response, "X", {
-            duration: 2000,
-            verticalPosition: 'top',
-            panelClass : ['green-snackbar']
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        width: '400px',
+        data: "Are you sure?"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          var requestObject = {
+            "business_id" : localStorage.getItem('business_id'),
+            "order_item_id" : order_item_id
+          };
+    
+          this.AdminService.cancelOrder(requestObject).subscribe((response:any) => {
+            if(response.data == true){
+              this._snackBar.open(response.response, "X", {
+                duration: 2000,
+                verticalPosition: 'top',
+                panelClass : ['green-snackbar']
+              });
+              this.fnWatinglist();
+            }
           });
-          this.fnWatinglist();
         }
-      });
-    }
+    });
+
+  
 
   }
 
