@@ -219,37 +219,37 @@ export class AppComponent implements AfterViewInit {
     const url = this.getUrl(event);
     if (this.urlIsNew(url)) {
       this.currentUrl = url;
-      if(this.currentUrl == "/admin/settings/services"){
+      if(this.currentUrl == "/admin/settings-resource/services"){
         this.activeSettingMenu = "services";
       }
-      if(this.currentUrl == "/admin/settings/staff"){
+      if(this.currentUrl == "/admin/settings-resource/staff"){
         this.activeSettingMenu = "staff";
       }
-      if(this.currentUrl == "/admin/settings/business-hours"){
+      if(this.currentUrl == "/admin/settings-resource/business-hours"){
         this.activeSettingMenu = "bussiness-hours";
       }
-      if(this.currentUrl == "/admin/settings/postalcode"){
+      if(this.currentUrl == "/admin/settings-resource/postalcode"){
         this.activeSettingMenu = "postal-code";
       }
-      if(this.currentUrl == "/admin/settings/company-details"){
+      if(this.currentUrl == "/admin/settings-account/company-details"){
         this.activeSettingMenu = "company-details";
       }
-      if(this.currentUrl == "/admin/settings/payment-gateway"){
+      if(this.currentUrl == "/admin/settings-payment/payment-gateway"){
         this.activeSettingMenu = "payment-gateway";
       }
-      if(this.currentUrl == "/admin/settings/payment-rules"){
+      if(this.currentUrl == "/admin/settings-payment/payment-rules"){
         this.activeSettingMenu = "payment-rules";
       }
-      if(this.currentUrl == "/admin/settings/appearance"){
+      if(this.currentUrl == "/admin/settings-general/appearance"){
         this.activeSettingMenu = "appearance";
       }
-      if(this.currentUrl == "/admin/settings/booking-rules"){
+      if(this.currentUrl == "/admin/settings-general/booking-rules"){
         this.activeSettingMenu = "booking-rules";
       }
-      if(this.currentUrl == "/admin/settings/alert-settings"){
+      if(this.currentUrl == "/admin/settings-general/alert-settings"){
         this.activeSettingMenu = "alert-rules";
       }
-      if(this.currentUrl == "/admin/settings/billing"){
+      if(this.currentUrl == "/admin/settings-payment/billing"){
         this.activeSettingMenu = "billing";
       }
       this.isSettingsModule(url);
@@ -370,25 +370,25 @@ export class AppComponent implements AfterViewInit {
     this.router.navigate(['/admin/my-appointment']);
   }
   addNewCategoryNav() {
-    this.router.navigate(['/admin/settings/']);
+    this.router.navigate(['/admin/settings-resource/']);
   }
   addNewServicesNav() {
-    this.router.navigate(['/admin/settings/services']);
+    this.router.navigate(['/admin/settings-resource/services']);
   }
   addNewStaffNav() {
-    this.router.navigate(['/admin/settings/staff']);
+    this.router.navigate(['/admin/settings-resource/staff']);
   }
   addNewCustomerNav() {
     this.router.navigate(['/admin/my-customer']);
   }
   addNewPostalCodeNav() {
-    this.router.navigate(['/admin/settings/postalcode']);
+    this.router.navigate(['/admin/settings-resource/postalcode']);
   }
   addNewDiscountCouponNav() {
     this.router.navigate(['/admin/my-discountcoupon']);
   }
   addNewTimeOffNav() {
-    this.router.navigate(['/admin/settings/business-hours']);
+    this.router.navigate(['/admin/settings-resource/business-hours']);
   }
 
   // Super Admin Navigation
@@ -436,51 +436,51 @@ export class AppComponent implements AfterViewInit {
   // Setting Menus
   MySettingsNav() {
     this.activeSettingMenu="services";
-    this.router.navigate(['/admin/settings']);
+    this.router.navigate(['/admin/settings-resource']);
   }
   MySettingsStaffNav() {
     this.activeSettingMenu="staff";
-    this.router.navigate(['/admin/settings/staff']);
+    this.router.navigate(['/admin/settings-resource/staff']);
   }
   MySettingsServicesNav() {
     this.activeSettingMenu="services";
-    this.router.navigate(['/admin/settings/services']);
+    this.router.navigate(['/admin/settings-resource/services']);
   }
   MySettingsBusinessHoursNav() {
     this.activeSettingMenu="bussiness-hours";
-    this.router.navigate(['/admin/settings/business-hours']);
+    this.router.navigate(['/admin/settings-resource/business-hours']);
   }
   MySettingsProfileNav() {
     this.activeSettingMenu="services";
-    this.router.navigate(['/admin/settings/setting-my-profile']);
+    this.router.navigate(['/admin/setting-my-profile']);
   }
   MySettingsCompanyDetailsNav() {
     this.activeSettingMenu="company-details";
-    this.router.navigate(['/admin/settings/company-details']);
+    this.router.navigate(['/admin/settings-account/company-details']);
   }
   MySettingsPaymentGatewayNav() {
     this.activeSettingMenu="payment-gateway";
-    this.router.navigate(['/admin/settings/payment-gateway']);
+    this.router.navigate(['/admin/settings-payment/payment-gateway']);
   }
   MySettingsPaymentRulesNav() {
     this.activeSettingMenu="payment-rules";
-    this.router.navigate(['/admin/settings/payment-rules']);
+    this.router.navigate(['/admin/settings-payment/payment-rules']);
   }
   MySettingsBookingRulesNav() {
     this.activeSettingMenu="booking-rules";
-    this.router.navigate(['/admin/settings/booking-rules']);
+    this.router.navigate(['/admin/settings-general/booking-rules']);
   }
   MySettingAlertsNav() {
     this.activeSettingMenu="alert-rules";
-    this.router.navigate(['/admin/settings/alert-settings']);
+    this.router.navigate(['/admin/settings-general/alert-settings']);
   }
   MySettingsApperenceNav() {
     this.activeSettingMenu="appearance";
-    this.router.navigate(['/admin/settings/appearance']);
+    this.router.navigate(['/admin/settings-general/appearance']);
   }
   MySettingsPostalCodesNav() {
     this.activeSettingMenu="postal-code";
-    this.router.navigate(['/admin/settings/postalcode']);
+    this.router.navigate(['/admin/settings-resource/postalcode']);
   }
 
 

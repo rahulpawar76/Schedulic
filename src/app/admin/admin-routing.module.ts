@@ -64,11 +64,36 @@ const routes: Routes = [
     component: SupportComponent 
 
   },
+  // {
+  //   path: 'settings',
+  //   canActivate: [AuthGuard],
+  //   data: {roles: Role.Admin},
+  //   loadChildren: () => import('./settings/settings.module').then(mod => mod.SettingsModule)
+  // },
+
   {
-    path: 'settings',
+    path: 'settings-account',
     canActivate: [AuthGuard],
     data: {roles: Role.Admin},
-    loadChildren: () => import('./settings/settings.module').then(mod => mod.SettingsModule)
+    loadChildren: () => import('./settings-account/settings-account.module').then(mod => mod.SettingsAccountModule)
+  },
+  {
+    path: 'settings-resource',
+    canActivate: [AuthGuard],
+    data: {roles: Role.Admin},
+    loadChildren: () => import('./settings-resource/settings-resource.module').then(mod => mod.SettingsResourceModule)
+  },
+  {
+    path: 'settings-payment',
+    canActivate: [AuthGuard],
+    data: {roles: Role.Admin},
+    loadChildren: () => import('./setting-payment/setting-payment.module').then(mod => mod.SettingPaymentModule)
+  },
+  {
+    path: 'settings-general',
+    canActivate: [AuthGuard],
+    data: {roles: Role.Admin},
+    loadChildren: () => import('./setting-general/setting-general.module').then(mod => mod.SettingGeneralModule)
   },
 ];
 

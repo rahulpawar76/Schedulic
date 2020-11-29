@@ -1,0 +1,157 @@
+<mat-drawer-content id="billing" class="ml-0">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
+    <div class="left-side-menu setting-menu" [ngClass]="{ 'short-menu': settingSideMenuToggle === true }">
+        <div class="leftarrow-icon d-flex">
+            <mat-icon (click)="fnSettingMenuToggleSmall()" *ngIf="!settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_back</mat-icon>
+            <mat-icon (click)="fnSettingMenuToggleLarge()" *ngIf="settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_forward</mat-icon>
+        </div>
+        <h6>Resource Management</h6>
+        <div routerLink="/admin/settings-resource" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/service.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/service-color.png" />
+            </div>
+            <p>Services</p>
+        </div>
+        <div routerLink="/admin/settings-resource/staff" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/staff.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/staff-color.png" />
+            </div>
+            <p>Staff</p>
+        </div>
+        <div routerLink="/admin/settings-resource/business-hours" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/business-hours.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/business-hours-color.png" />
+            </div>
+            <p>Business Hours</p>
+        </div>
+        <div routerLink="/admin/settings-resource/postalcode" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/postalcode.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/postalcode-color.png" />
+            </div>
+            <p>Postal Codes</p>
+        </div>
+        <h6 class="pt-3">Account</h6>
+        <div routerLink="/admin/settings-account/company-details" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/companydetails.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/companydetails-color.png" />
+            </div>
+            <p>Company Details</p>
+        </div>
+        <h6 class="pt-3">Payment</h6>
+        <div routerLink="/admin/settings-payment/billing" class="d-flex setting-menu-item setting-menu-active">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/billing.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/billing-color.png" />
+            </div>
+            <p>Billing</p>
+        </div>
+        <div routerLink="/admin/settings-payment/payment-gateway" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentgateway.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/paymentgateway-color.png" />
+            </div>
+            <p>Payment Gateway</p>
+        </div>
+        <div routerLink="/admin/settings-payment/payment-rules" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentrules.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/paymentrules-color.png" />
+            </div>
+            <p>Payment Rules</p>
+        </div>
+        <h6 class="pt-3">General Setting</h6>
+        <div routerLink="/admin/settings-general/appearance" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/appearance.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/appearance-color.png" />
+            </div>
+            <p>Appearance</p>
+        </div>
+        <div routerLink="/admin/settings-general/booking-rules" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/bookingrules.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/bookingrules-color.png" />
+            </div>
+            <p>Booking Rules</p>
+        </div>
+        <div routerLink="/admin/settings-general/alert-rules" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/alert.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/alert-color.png" />
+            </div>
+            <p>Alert Rules</p>
+        </div>
+    </div>
+    <div class="setting-right-side-content" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
+        <mat-card class="main-card-container">
+            <h5>Subscription Plans</h5>
+            <mat-card *ngIf="currentUser.plan" class="current-plan-detail row mx-0">
+                <h3>Current Plan :
+                    <span>{{currentUser.plan.plan_name}}</span>
+                </h3>
+                <div class="col-12 col-md-6">
+                    <label>Start Date : <span>{{currentUser.currentPlan.start_date}}</span></label>
+                    <label>End Date : <span>{{currentUser.currentPlan.end_date}}</span></label>
+                </div>
+                <div class="action-btn">
+                    <button mat-button class="cancel-btn" (click)="fnCancelPlane();">Cancel Subscription</button>
+                </div>
+            </mat-card>
+            <div class=" mt-5 plan-content p-2">
+                <div class="row">
+                    <div class="col-4 p-3 text-center" *ngFor="let planList of planList; let i=index;">
+                        <div class="border shadow" [ngClass]="{'selected-plan':planList.selected === true}">
+                            <div class="plan-name py-2 text-center text-capitalize font-weight-bold">
+                                {{planList.plan_name}}
+                            </div>
+                            <hr class="m-0">
+                            <div class="plan-cost py-2 text-center">
+                                <i class="fa  fa-usd pr-2"></i> <span class="cost pr-2">{{planList.amount}}/-</span> <span>per {{planList.interval}}</span>
+                            </div>
+                            <!-- <hr class="m-0"> -->
+                            <div class="paln-business-staff p-2">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <i class="fa fa-briefcase pr-2"></i><span>Business</span>
+                                        <p *ngIf="planList.business_limit" class="font-weight-bold">{{planList.business_limit}}</p>
+                                        <p *ngIf="!planList.business_limit" class="font-weight-bold">--</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <i class="fa fa-id-card pr-2"></i> <span>Staff</span>
+                                        <p *ngIf="planList.staff_limit" class="font-weight-bold">{{planList.staff_limit}}</p>
+                                        <p *ngIf="!planList.staff_limit" class="font-weight-bold">--</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <hr class="m-0"> -->
+                            <div class="paln-business-staff p-2">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <i class="fa fa-users pr-2"></i> <span>Customers</span>
+                                        <p *ngIf="planList.customer_limit" class="font-weight-bold">{{planList.customer_limit}}</p>
+                                        <p *ngIf="!planList.customer_limit" class="font-weight-bold">--</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <i class="fa fa-bookmark pr-2"></i> <span>Services</span>
+                                        <p *ngIf="planList.service_limit" class="font-weight-bold">{{planList.service_limit}}</p>
+                                        <p *ngIf="!planList.service_limit" class="font-weight-bold">--</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="m-0">
+                            <div class="subscribe-btn text-center py-3">
+                                <button *ngIf="planList.selected == true" mat-flat-button class="selected-plan-btn">Selected</button>
+                                <button *ngIf="planList.selected == false" (click)="fnChangePlan(planList.plan_id)" mat-flat-button color="primary">Subscribe Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</mat-drawer-content>

@@ -13,7 +13,7 @@ import { map, catchError } from 'rxjs/operators';
 import { AppComponent } from '@app/app.component';
 import { Observable, throwError } from 'rxjs';
 import { AuthenticationService } from '@app/_services';
-import { AdminSettingsService } from '../../admin/settings/_services/admin-settings.service';
+import { AdminSettingsService } from '../_services/admin-settings.service';
 
 export interface DialogData {
   animal: string;

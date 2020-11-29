@@ -1,0 +1,975 @@
+<mat-drawer-content id="booking-rules" class="ml-0">
+    <div class="left-side-menu setting-menu" [ngClass]="{ 'short-menu': settingSideMenuToggle === true }">
+        <div class="leftarrow-icon d-flex">
+            <mat-icon (click)="fnSettingMenuToggleSmall()" *ngIf="!settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_back</mat-icon>
+            <mat-icon (click)="fnSettingMenuToggleLarge()" *ngIf="settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_forward</mat-icon>
+        </div>
+        <h6>Resource Management</h6>
+        <div routerLink="/admin/settings-resource" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/service.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/service-color.png" />
+            </div>
+            <p>Services</p>
+        </div>
+        <div routerLink="/admin/settings-resource/staff" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/staff.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/staff-color.png" />
+            </div>
+            <p>Staff</p>
+        </div>
+        <div routerLink="/admin/settings-resource/business-hours" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/business-hours.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/business-hours-color.png" />
+            </div>
+            <p>Business Hours</p>
+        </div>
+        <div routerLink="/admin/settings-resource/postalcode" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/postalcode.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/postalcode-color.png" />
+            </div>
+            <p>Postal Codes</p>
+        </div>
+        <h6 class="pt-3">Account</h6>
+        <div routerLink="/admin/settings-account/company-details" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/companydetails.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/companydetails-color.png" />
+            </div>
+            <p>Company Details</p>
+        </div>
+        <h6 class="pt-3">Payment</h6>
+        <div routerLink="/admin/settings-payment/billing" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/billing.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/billing-color.png" />
+            </div>
+            <p>Billing</p>
+        </div>
+        <div routerLink="/admin/settings-payment/payment-gateway" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentgateway.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/paymentgateway-color.png" />
+            </div>
+            <p>Payment Gateway</p>
+        </div>
+        <div routerLink="/admin/settings-payment/payment-rules" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentrules.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/paymentrules-color.png" />
+            </div>
+            <p>Payment Rules</p>
+        </div>
+        <h6 class="pt-3">General Setting</h6>
+        <div routerLink="/admin/settings-general/appearance" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/appearance.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/appearance-color.png" />
+            </div>
+            <p>Appearance</p>
+        </div>
+        <div routerLink="/admin/settings-general/booking-rules" class="d-flex setting-menu-item setting-menu-active">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/bookingrules.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/bookingrules-color.png" />
+            </div>
+            <p>Booking Rules</p>
+        </div>
+        <div routerLink="/admin/settings-general/alert-rules" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/alert.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/alert-color.png" />
+            </div>
+            <p>Alert Rules</p>
+        </div>
+    </div>
+    <div class="setting-right-side-content" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
+        <mat-card class="main-card-container">
+            <h5>Booking Rules</h5>
+            <mat-card>
+                <div class="">
+                    <div class="Customer-appointment-table">
+                        <div class="main-table-content main-cust-table-content">
+                            <div class="">
+                                <div class="" fxLayout="row">
+                                    <div class="" fxFlex="52"></div>
+                                    <div class="" fxFlex="12"></div>
+                                    <div class="" fxFlex="12"></div>
+                                    <div class="" fxFlex="12"></div>
+                                    <div class="" fxFlex="12"></div>
+                                </div>
+                                <div class="content" class="example-list">
+                                    <div class="example-box p-3">
+                                        <div class="" fxFlex="52">
+                                            <h6>Minimum Advance booking Time</h6>
+                                            <p class="mb-0">Minimum advance notice do you need before a client books an appointment?</p>
+                                        </div>
+                                        <div class="" fxFlex="12">
+
+                                        </div>
+                                        <div class=" mx-2" fxFlex="12">
+                                            <mat-form-field class="bottom-border-field">
+                                                <mat-label></mat-label>
+                                                <mat-select (selectionChange)="fnSetMinAdvBookingTime($event)" [(value)]="minAdvBookingTimeDays">
+                                                    <mat-option value="0">0 days</mat-option>
+                                                    <mat-option value="1">1 days</mat-option>
+                                                    <mat-option value="2">2 days</mat-option>
+                                                    <mat-option value="3">3 days</mat-option>
+                                                    <mat-option value="4">4 days</mat-option>
+                                                    <mat-option value="5">5 days</mat-option>
+                                                    <mat-option value="6">6 days</mat-option>
+                                                    <mat-option value="7">7 days</mat-option>
+                                                    <mat-option value="8">8 days</mat-option>
+                                                    <mat-option value="9">9 days</mat-option>
+                                                    <mat-option value="10">10 days</mat-option>
+                                                    <mat-option value="11">11 days</mat-option>
+                                                    <mat-option value="12">12 days</mat-option>
+                                                    <mat-option value="13">13 days</mat-option>
+                                                    <mat-option value="14">14 days</mat-option>
+                                                    <mat-option value="15">15 days</mat-option>
+                                                    <mat-option value="16">16 days</mat-option>
+                                                    <mat-option value="17">17 days</mat-option>
+                                                    <mat-option value="18">18 days</mat-option>
+                                                    <mat-option value="19">19 days</mat-option>
+                                                    <mat-option value="20">20 days</mat-option>
+                                                    <mat-option value="21">21 days</mat-option>
+                                                    <mat-option value="22">22 days</mat-option>
+                                                    <mat-option value="23">23 days</mat-option>
+                                                    <mat-option value="24">24 days</mat-option>
+                                                    <mat-option value="25">25 days</mat-option>
+                                                    <mat-option value="26">26 days</mat-option>
+                                                    <mat-option value="27">27 days</mat-option>
+                                                    <mat-option value="28">28 days</mat-option>
+                                                    <mat-option value="29">29 days</mat-option>
+                                                    <mat-option value="30">30 days</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class=" mx-2" fxFlex="12">
+                                            <mat-form-field class="bottom-border-field">
+                                                <mat-label></mat-label>
+                                                <mat-select (selectionChange)="fnSetMinAdvBookingTime($event)" [(value)]="minAdvBookingTimeHours">
+                                                    <mat-option value="0">0 Hours</mat-option>
+                                                    <mat-option value="1">1 Hours</mat-option>
+                                                    <mat-option value="2">2 Hours</mat-option>
+                                                    <mat-option value="3">3 Hours</mat-option>
+                                                    <mat-option value="4">4 Hours</mat-option>
+                                                    <mat-option value="5">5 Hours</mat-option>
+                                                    <mat-option value="6">6 Hours</mat-option>
+                                                    <mat-option value="7">7 Hours</mat-option>
+                                                    <mat-option value="8">8 Hours</mat-option>
+                                                    <mat-option value="9">9 Hours</mat-option>
+                                                    <mat-option value="10">10 Hours</mat-option>
+                                                    <mat-option value="11">11 Hours</mat-option>
+                                                    <mat-option value="12">12 Hours</mat-option>
+                                                    <mat-option value="13">13 Hours</mat-option>
+                                                    <mat-option value="14">14 Hours</mat-option>
+                                                    <mat-option value="15">15 Hours</mat-option>
+                                                    <mat-option value="16">16 Hours</mat-option>
+                                                    <mat-option value="17">17 Hours</mat-option>
+                                                    <mat-option value="18">18 Hours</mat-option>
+                                                    <mat-option value="19">19 Hours</mat-option>
+                                                    <mat-option value="20">20 Hours</mat-option>
+                                                    <mat-option value="21">21 Hours</mat-option>
+                                                    <mat-option value="22">22 Hours</mat-option>
+                                                    <mat-option value="23">23 Hours</mat-option>
+                                                    <!-- <mat-option value="24">24 Hours</mat-option> -->
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class=" mx-2" fxFlex="12">
+                                            <mat-form-field class="bottom-border-field">
+                                                <mat-label></mat-label>
+                                                <mat-select (selectionChange)="fnSetMinAdvBookingTime($event)" [(value)]="minAdvBookingTimeMinutes">
+                                                    <mat-option value="0">0 Minutes</mat-option>
+                                                    <mat-option value="1">1 Minutes</mat-option>
+                                                    <mat-option value="2">2 Minutes</mat-option>
+                                                    <mat-option value="3">3 Minutes</mat-option>
+                                                    <mat-option value="4">4 Minutes</mat-option>
+                                                    <mat-option value="5">5 Minutes</mat-option>
+                                                    <mat-option value="6">6 Minutes</mat-option>
+                                                    <mat-option value="7">7 Minutes</mat-option>
+                                                    <mat-option value="8">8 Minutes</mat-option>
+                                                    <mat-option value="9">9 Minutes</mat-option>
+                                                    <mat-option value="10">10 Minutes</mat-option>
+                                                    <mat-option value="11">11 Minutes</mat-option>
+                                                    <mat-option value="12">12 Minutes</mat-option>
+                                                    <mat-option value="13">13 Minutes</mat-option>
+                                                    <mat-option value="14">14 Minutes</mat-option>
+                                                    <mat-option value="15">15 Minutes</mat-option>
+                                                    <mat-option value="16">16 Minutes</mat-option>
+                                                    <mat-option value="17">17 Minutes</mat-option>
+                                                    <mat-option value="18">18 Minutes</mat-option>
+                                                    <mat-option value="19">19 Minutes</mat-option>
+                                                    <mat-option value="20">20 Minutes</mat-option>
+                                                    <mat-option value="21">21 Minutes</mat-option>
+                                                    <mat-option value="22">22 Minutes</mat-option>
+                                                    <mat-option value="23">23 Minutes</mat-option>
+                                                    <mat-option value="24">24 Minutes</mat-option>
+                                                    <mat-option value="25">25 Minutes</mat-option>
+                                                    <mat-option value="26">26 Minutes</mat-option>
+                                                    <mat-option value="27">27 Minutes</mat-option>
+                                                    <mat-option value="28">28 Minutes</mat-option>
+                                                    <mat-option value="29">29 Minutes</mat-option>
+                                                    <mat-option value="30">30 Minutes</mat-option>
+                                                    <mat-option value="31">31 Minutes</mat-option>
+                                                    <mat-option value="32">32 Minutes</mat-option>
+                                                    <mat-option value="33">33 Minutes</mat-option>
+                                                    <mat-option value="34">34 Minutes</mat-option>
+                                                    <mat-option value="35">35 Minutes</mat-option>
+                                                    <mat-option value="36">36 Minutes</mat-option>
+                                                    <mat-option value="37">37 Minutes</mat-option>
+                                                    <mat-option value="38">38 Minutes</mat-option>
+                                                    <mat-option value="39">39 Minutes</mat-option>
+                                                    <mat-option value="40">40 Minutes</mat-option>
+                                                    <mat-option value="41">41 Minutes</mat-option>
+                                                    <mat-option value="42">42 Minutes</mat-option>
+                                                    <mat-option value="43">43 Minutes</mat-option>
+                                                    <mat-option value="44">44 Minutes</mat-option>
+                                                    <mat-option value="45">45 Minutes</mat-option>
+                                                    <mat-option value="46">46 Minutes</mat-option>
+                                                    <mat-option value="47">47 Minutes</mat-option>
+                                                    <mat-option value="48">48 Minutes</mat-option>
+                                                    <mat-option value="49">49 Minutes</mat-option>
+                                                    <mat-option value="50">50 Minutes</mat-option>
+                                                    <mat-option value="51">51 Minutes</mat-option>
+                                                    <mat-option value="52">52 Minutes</mat-option>
+                                                    <mat-option value="53">53 Minutes</mat-option>
+                                                    <mat-option value="54">54 Minutes</mat-option>
+                                                    <mat-option value="55">55 Minutes</mat-option>
+                                                    <mat-option value="56">56 Minutes</mat-option>
+                                                    <mat-option value="57">57 Minutes</mat-option>
+                                                    <mat-option value="58">58 Minutes</mat-option>
+                                                    <mat-option value="59">59 Minutes</mat-option>
+                                                    <!-- <mat-option value="60">60 Minutes</mat-option> -->
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="bottom-line"></div>
+                                    <div class="example-box p-3">
+                                        <div class="" fxFlex="52">
+                                            <h6>Maximum Advance booking Time</h6>
+                                            <p class="mb-0">Maximum advance notice do you need before a client books an appointment?</p>
+                                        </div>
+                                        <div class="" fxFlex="12">
+                                            <mat-form-field class="bottom-border-field">
+                                                <mat-label></mat-label>
+                                                <mat-select (selectionChange)="fnSetMaxAdvBookingTime($event)" [(value)]="maxAdvBookingTimeMonths">
+                                                    <mat-option value="0">0 Months</mat-option>
+                                                    <mat-option value="1">1 Months</mat-option>
+                                                    <mat-option value="2">2 Months</mat-option>
+                                                    <mat-option value="3">3 Months</mat-option>
+                                                    <mat-option value="4">4 Months</mat-option>
+                                                    <mat-option value="5">5 Months</mat-option>
+                                                    <mat-option value="6">6 Months</mat-option>
+                                                    <mat-option value="7">7 Months</mat-option>
+                                                    <mat-option value="8">8 Months</mat-option>
+                                                    <mat-option value="9">9 Months</mat-option>
+                                                    <mat-option value="10">10 Months</mat-option>
+                                                    <mat-option value="11">11 Months</mat-option>
+                                                    <mat-option value="12">12 Months</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class=" mx-2" fxFlex="12">
+                                            <mat-form-field class="bottom-border-field">
+                                                <mat-label></mat-label>
+                                                <mat-select (selectionChange)="fnSetMaxAdvBookingTime($event)" [(value)]="maxAdvBookingTimeDays">
+                                                    <mat-option value="0">0 days</mat-option>
+                                                    <mat-option value="1">1 days</mat-option>
+                                                    <mat-option value="2">2 days</mat-option>
+                                                    <mat-option value="3">3 days</mat-option>
+                                                    <mat-option value="4">4 days</mat-option>
+                                                    <mat-option value="5">5 days</mat-option>
+                                                    <mat-option value="6">6 days</mat-option>
+                                                    <mat-option value="7">7 days</mat-option>
+                                                    <mat-option value="8">8 days</mat-option>
+                                                    <mat-option value="9">9 days</mat-option>
+                                                    <mat-option value="10">10 days</mat-option>
+                                                    <mat-option value="11">11 days</mat-option>
+                                                    <mat-option value="12">12 days</mat-option>
+                                                    <mat-option value="13">13 days</mat-option>
+                                                    <mat-option value="14">14 days</mat-option>
+                                                    <mat-option value="15">15 days</mat-option>
+                                                    <mat-option value="16">16 days</mat-option>
+                                                    <mat-option value="17">17 days</mat-option>
+                                                    <mat-option value="18">18 days</mat-option>
+                                                    <mat-option value="19">19 days</mat-option>
+                                                    <mat-option value="20">20 days</mat-option>
+                                                    <mat-option value="21">21 days</mat-option>
+                                                    <mat-option value="22">22 days</mat-option>
+                                                    <mat-option value="23">23 days</mat-option>
+                                                    <mat-option value="24">24 days</mat-option>
+                                                    <mat-option value="25">25 days</mat-option>
+                                                    <mat-option value="26">26 days</mat-option>
+                                                    <mat-option value="27">27 days</mat-option>
+                                                    <mat-option value="28">28 days</mat-option>
+                                                    <mat-option value="29">29 days</mat-option>
+                                                    <mat-option value="30">30 days</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class=" mx-2" fxFlex="12">
+                                            <mat-form-field class="bottom-border-field">
+                                                <mat-label></mat-label>
+                                                <mat-select (selectionChange)="fnSetMaxAdvBookingTime($event)" [(value)]="maxAdvBookingTimeHours">
+                                                    <mat-option value="0">0 Hours</mat-option>
+                                                    <mat-option value="1">1 Hours</mat-option>
+                                                    <mat-option value="2">2 Hours</mat-option>
+                                                    <mat-option value="3">3 Hours</mat-option>
+                                                    <mat-option value="4">4 Hours</mat-option>
+                                                    <mat-option value="5">5 Hours</mat-option>
+                                                    <mat-option value="6">6 Hours</mat-option>
+                                                    <mat-option value="7">7 Hours</mat-option>
+                                                    <mat-option value="8">8 Hours</mat-option>
+                                                    <mat-option value="9">9 Hours</mat-option>
+                                                    <mat-option value="10">10 Hours</mat-option>
+                                                    <mat-option value="11">11 Hours</mat-option>
+                                                    <mat-option value="12">12 Hours</mat-option>
+                                                    <mat-option value="13">13 Hours</mat-option>
+                                                    <mat-option value="14">14 Hours</mat-option>
+                                                    <mat-option value="15">15 Hours</mat-option>
+                                                    <mat-option value="16">16 Hours</mat-option>
+                                                    <mat-option value="17">17 Hours</mat-option>
+                                                    <mat-option value="18">18 Hours</mat-option>
+                                                    <mat-option value="19">19 Hours</mat-option>
+                                                    <mat-option value="20">20 Hours</mat-option>
+                                                    <mat-option value="21">21 Hours</mat-option>
+                                                    <mat-option value="22">22 Hours</mat-option>
+                                                    <mat-option value="23">23 Hours</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class=" mx-2" fxFlex="12">
+                                            <mat-form-field class="bottom-border-field">
+                                                <mat-label></mat-label>
+                                                <mat-select (selectionChange)="fnSetMaxAdvBookingTime($event)" [(value)]="maxAdvBookingTimeMinutes">
+                                                    <mat-option value="0">0 Minutes</mat-option>
+                                                    <mat-option value="1">1 Minutes</mat-option>
+                                                    <mat-option value="2">2 Minutes</mat-option>
+                                                    <mat-option value="3">3 Minutes</mat-option>
+                                                    <mat-option value="4">4 Minutes</mat-option>
+                                                    <mat-option value="5">5 Minutes</mat-option>
+                                                    <mat-option value="6">6 Minutes</mat-option>
+                                                    <mat-option value="7">7 Minutes</mat-option>
+                                                    <mat-option value="8">8 Minutes</mat-option>
+                                                    <mat-option value="9">9 Minutes</mat-option>
+                                                    <mat-option value="10">10 Minutes</mat-option>
+                                                    <mat-option value="11">11 Minutes</mat-option>
+                                                    <mat-option value="12">12 Minutes</mat-option>
+                                                    <mat-option value="13">13 Minutes</mat-option>
+                                                    <mat-option value="14">14 Minutes</mat-option>
+                                                    <mat-option value="15">15 Minutes</mat-option>
+                                                    <mat-option value="16">16 Minutes</mat-option>
+                                                    <mat-option value="17">17 Minutes</mat-option>
+                                                    <mat-option value="18">18 Minutes</mat-option>
+                                                    <mat-option value="19">19 Minutes</mat-option>
+                                                    <mat-option value="20">20 Minutes</mat-option>
+                                                    <mat-option value="21">21 Minutes</mat-option>
+                                                    <mat-option value="22">22 Minutes</mat-option>
+                                                    <mat-option value="23">23 Minutes</mat-option>
+                                                    <mat-option value="24">24 Minutes</mat-option>
+                                                    <mat-option value="25">25 Minutes</mat-option>
+                                                    <mat-option value="26">26 Minutes</mat-option>
+                                                    <mat-option value="27">27 Minutes</mat-option>
+                                                    <mat-option value="28">28 Minutes</mat-option>
+                                                    <mat-option value="29">29 Minutes</mat-option>
+                                                    <mat-option value="30">30 Minutes</mat-option>
+                                                    <mat-option value="31">31 Minutes</mat-option>
+                                                    <mat-option value="32">32 Minutes</mat-option>
+                                                    <mat-option value="33">33 Minutes</mat-option>
+                                                    <mat-option value="34">34 Minutes</mat-option>
+                                                    <mat-option value="35">35 Minutes</mat-option>
+                                                    <mat-option value="36">36 Minutes</mat-option>
+                                                    <mat-option value="37">37 Minutes</mat-option>
+                                                    <mat-option value="38">38 Minutes</mat-option>
+                                                    <mat-option value="39">39 Minutes</mat-option>
+                                                    <mat-option value="40">40 Minutes</mat-option>
+                                                    <mat-option value="41">41 Minutes</mat-option>
+                                                    <mat-option value="42">42 Minutes</mat-option>
+                                                    <mat-option value="43">43 Minutes</mat-option>
+                                                    <mat-option value="44">44 Minutes</mat-option>
+                                                    <mat-option value="45">45 Minutes</mat-option>
+                                                    <mat-option value="46">46 Minutes</mat-option>
+                                                    <mat-option value="47">47 Minutes</mat-option>
+                                                    <mat-option value="48">48 Minutes</mat-option>
+                                                    <mat-option value="49">49 Minutes</mat-option>
+                                                    <mat-option value="50">50 Minutes</mat-option>
+                                                    <mat-option value="51">51 Minutes</mat-option>
+                                                    <mat-option value="52">52 Minutes</mat-option>
+                                                    <mat-option value="53">53 Minutes</mat-option>
+                                                    <mat-option value="54">54 Minutes</mat-option>
+                                                    <mat-option value="55">55 Minutes</mat-option>
+                                                    <mat-option value="56">56 Minutes</mat-option>
+                                                    <mat-option value="57">57 Minutes</mat-option>
+                                                    <mat-option value="58">58 Minutes</mat-option>
+                                                    <mat-option value="59">59 Minutes</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="bottom-line"></div>
+                                    <div class="example-box p-3">
+                                        <div class="" fxFlex="52">
+                                            <h6>Time Interval</h6>
+                                            <p class="mb-0">e.g 15 min slots will show open slots at 8:00, 8:15, 8:30 etc</p>
+                                        </div>
+                                        <div class="" fxFlex="12">
+
+                                        </div>
+                                        <div class=" mx-2" fxFlex="12">
+
+                                        </div>
+                                        <div class=" mx-2" fxFlex="12">
+                                            <mat-form-field class="bottom-border-field">
+                                                <mat-label></mat-label>
+                                                <mat-select (selectionChange)="fnSetTimeInterval($event)" [(value)]="timeIntervalHours">
+                                                    <mat-option value="0">0 Hours</mat-option>
+                                                    <mat-option value="1">1 Hours</mat-option>
+                                                    <mat-option value="2">2 Hours</mat-option>
+                                                    <mat-option value="3">3 Hours</mat-option>
+                                                    <mat-option value="4">4 Hours</mat-option>
+                                                    <mat-option value="5">5 Hours</mat-option>
+                                                    <mat-option value="6">6 Hours</mat-option>
+                                                    <mat-option value="7">7 Hours</mat-option>
+                                                    <mat-option value="8">8 Hours</mat-option>
+                                                    <mat-option value="9">9 Hours</mat-option>
+                                                    <mat-option value="10">10 Hours</mat-option>
+                                                    <mat-option value="11">11 Hours</mat-option>
+                                                    <mat-option value="12">12 Hours</mat-option>
+                                                    <mat-option value="13">13 Hours</mat-option>
+                                                    <mat-option value="14">14 Hours</mat-option>
+                                                    <mat-option value="15">15 Hours</mat-option>
+                                                    <mat-option value="16">16 Hours</mat-option>
+                                                    <mat-option value="17">17 Hours</mat-option>
+                                                    <mat-option value="18">18 Hours</mat-option>
+                                                    <mat-option value="19">19 Hours</mat-option>
+                                                    <mat-option value="20">20 Hours</mat-option>
+                                                    <mat-option value="21">21 Hours</mat-option>
+                                                    <mat-option value="22">22 Hours</mat-option>
+                                                    <mat-option value="23">23 Hours</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class=" mx-2" fxFlex="12">
+                                            <mat-form-field class="bottom-border-field">
+                                                <mat-label></mat-label>
+                                                <mat-select (selectionChange)="fnSetTimeInterval($event)" [(value)]="timeIntervalMinutes">
+                                                    <mat-option value="0">0 Minutes</mat-option>
+                                                    <mat-option value="1">1 Minutes</mat-option>
+                                                    <mat-option value="2">2 Minutes</mat-option>
+                                                    <mat-option value="3">3 Minutes</mat-option>
+                                                    <mat-option value="4">4 Minutes</mat-option>
+                                                    <mat-option value="5">5 Minutes</mat-option>
+                                                    <mat-option value="6">6 Minutes</mat-option>
+                                                    <mat-option value="7">7 Minutes</mat-option>
+                                                    <mat-option value="8">8 Minutes</mat-option>
+                                                    <mat-option value="9">9 Minutes</mat-option>
+                                                    <mat-option value="10">10 Minutes</mat-option>
+                                                    <mat-option value="11">11 Minutes</mat-option>
+                                                    <mat-option value="12">12 Minutes</mat-option>
+                                                    <mat-option value="13">13 Minutes</mat-option>
+                                                    <mat-option value="14">14 Minutes</mat-option>
+                                                    <mat-option value="15">15 Minutes</mat-option>
+                                                    <mat-option value="16">16 Minutes</mat-option>
+                                                    <mat-option value="17">17 Minutes</mat-option>
+                                                    <mat-option value="18">18 Minutes</mat-option>
+                                                    <mat-option value="19">19 Minutes</mat-option>
+                                                    <mat-option value="20">20 Minutes</mat-option>
+                                                    <mat-option value="21">21 Minutes</mat-option>
+                                                    <mat-option value="22">22 Minutes</mat-option>
+                                                    <mat-option value="23">23 Minutes</mat-option>
+                                                    <mat-option value="24">24 Minutes</mat-option>
+                                                    <mat-option value="25">25 Minutes</mat-option>
+                                                    <mat-option value="26">26 Minutes</mat-option>
+                                                    <mat-option value="27">27 Minutes</mat-option>
+                                                    <mat-option value="28">28 Minutes</mat-option>
+                                                    <mat-option value="29">29 Minutes</mat-option>
+                                                    <mat-option value="30">30 Minutes</mat-option>
+                                                    <mat-option value="31">31 Minutes</mat-option>
+                                                    <mat-option value="32">32 Minutes</mat-option>
+                                                    <mat-option value="33">33 Minutes</mat-option>
+                                                    <mat-option value="34">34 Minutes</mat-option>
+                                                    <mat-option value="35">35 Minutes</mat-option>
+                                                    <mat-option value="36">36 Minutes</mat-option>
+                                                    <mat-option value="37">37 Minutes</mat-option>
+                                                    <mat-option value="38">38 Minutes</mat-option>
+                                                    <mat-option value="39">39 Minutes</mat-option>
+                                                    <mat-option value="40">40 Minutes</mat-option>
+                                                    <mat-option value="41">41 Minutes</mat-option>
+                                                    <mat-option value="42">42 Minutes</mat-option>
+                                                    <mat-option value="43">43 Minutes</mat-option>
+                                                    <mat-option value="44">44 Minutes</mat-option>
+                                                    <mat-option value="45">45 Minutes</mat-option>
+                                                    <mat-option value="46">46 Minutes</mat-option>
+                                                    <mat-option value="47">47 Minutes</mat-option>
+                                                    <mat-option value="48">48 Minutes</mat-option>
+                                                    <mat-option value="49">49 Minutes</mat-option>
+                                                    <mat-option value="50">50 Minutes</mat-option>
+                                                    <mat-option value="51">51 Minutes</mat-option>
+                                                    <mat-option value="52">52 Minutes</mat-option>
+                                                    <mat-option value="53">53 Minutes</mat-option>
+                                                    <mat-option value="54">54 Minutes</mat-option>
+                                                    <mat-option value="55">55 Minutes</mat-option>
+                                                    <mat-option value="56">56 Minutes</mat-option>
+                                                    <mat-option value="57">57 Minutes</mat-option>
+                                                    <mat-option value="58">58 Minutes</mat-option>
+                                                    <mat-option value="59">59 Minutes</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="bottom-line"></div>
+                                    <div class="example-box p-3">
+                                        <div class="" fxFlex="52">
+                                            <h6>Cancellation Buffer Time </h6>
+                                            <p class="mb-0">Minimum notice required for Cancellation an appointment</p>
+                                        </div>
+                                        <div class="" fxFlex="12">
+
+                                        </div>
+                                        <div class=" mx-2" fxFlex="12">
+                                            <mat-form-field class="bottom-border-field">
+                                                <mat-label></mat-label>
+                                                <mat-select (selectionChange)="fnSetCancellationBufferTime($event)" [(value)]="cancellationBufferTimeDays">
+                                                    <mat-option value="0">0 days</mat-option>
+                                                    <mat-option value="1">1 days</mat-option>
+                                                    <mat-option value="2">2 days</mat-option>
+                                                    <mat-option value="3">3 days</mat-option>
+                                                    <mat-option value="4">4 days</mat-option>
+                                                    <mat-option value="5">5 days</mat-option>
+                                                    <mat-option value="6">6 days</mat-option>
+                                                    <mat-option value="7">7 days</mat-option>
+                                                    <mat-option value="8">8 days</mat-option>
+                                                    <mat-option value="9">9 days</mat-option>
+                                                    <mat-option value="10">10 days</mat-option>
+                                                    <mat-option value="11">11 days</mat-option>
+                                                    <mat-option value="12">12 days</mat-option>
+                                                    <mat-option value="13">13 days</mat-option>
+                                                    <mat-option value="14">14 days</mat-option>
+                                                    <mat-option value="15">15 days</mat-option>
+                                                    <mat-option value="16">16 days</mat-option>
+                                                    <mat-option value="17">17 days</mat-option>
+                                                    <mat-option value="18">18 days</mat-option>
+                                                    <mat-option value="19">19 days</mat-option>
+                                                    <mat-option value="20">20 days</mat-option>
+                                                    <mat-option value="21">21 days</mat-option>
+                                                    <mat-option value="22">22 days</mat-option>
+                                                    <mat-option value="23">23 days</mat-option>
+                                                    <mat-option value="24">24 days</mat-option>
+                                                    <mat-option value="25">25 days</mat-option>
+                                                    <mat-option value="26">26 days</mat-option>
+                                                    <mat-option value="27">27 days</mat-option>
+                                                    <mat-option value="28">28 days</mat-option>
+                                                    <mat-option value="29">29 days</mat-option>
+                                                    <mat-option value="30">30 days</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class=" mx-2" fxFlex="12">
+                                            <mat-form-field class="bottom-border-field">
+                                                <mat-label></mat-label>
+                                                <mat-select (selectionChange)="fnSetCancellationBufferTime($event)" [(value)]="cancellationBufferTimeHours">
+                                                    <mat-option value="0">0 Hours</mat-option>
+                                                    <mat-option value="1">1 Hours</mat-option>
+                                                    <mat-option value="2">2 Hours</mat-option>
+                                                    <mat-option value="3">3 Hours</mat-option>
+                                                    <mat-option value="4">4 Hours</mat-option>
+                                                    <mat-option value="5">5 Hours</mat-option>
+                                                    <mat-option value="6">6 Hours</mat-option>
+                                                    <mat-option value="7">7 Hours</mat-option>
+                                                    <mat-option value="8">8 Hours</mat-option>
+                                                    <mat-option value="9">9 Hours</mat-option>
+                                                    <mat-option value="10">10 Hours</mat-option>
+                                                    <mat-option value="11">11 Hours</mat-option>
+                                                    <mat-option value="12">12 Hours</mat-option>
+                                                    <mat-option value="13">13 Hours</mat-option>
+                                                    <mat-option value="14">14 Hours</mat-option>
+                                                    <mat-option value="15">15 Hours</mat-option>
+                                                    <mat-option value="16">16 Hours</mat-option>
+                                                    <mat-option value="17">17 Hours</mat-option>
+                                                    <mat-option value="18">18 Hours</mat-option>
+                                                    <mat-option value="19">19 Hours</mat-option>
+                                                    <mat-option value="20">20 Hours</mat-option>
+                                                    <mat-option value="21">21 Hours</mat-option>
+                                                    <mat-option value="22">22 Hours</mat-option>
+                                                    <mat-option value="23">23 Hours</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class=" mx-2" fxFlex="12">
+                                            <mat-form-field class="bottom-border-field">
+                                                <mat-label></mat-label>
+                                                <mat-select (selectionChange)="fnSetCancellationBufferTime($event)" [(value)]="cancellationBufferTimeMinutes">
+                                                    <mat-option value="0">0 Minutes</mat-option>
+                                                    <mat-option value="1">1 Minutes</mat-option>
+                                                    <mat-option value="2">2 Minutes</mat-option>
+                                                    <mat-option value="3">3 Minutes</mat-option>
+                                                    <mat-option value="4">4 Minutes</mat-option>
+                                                    <mat-option value="5">5 Minutes</mat-option>
+                                                    <mat-option value="6">6 Minutes</mat-option>
+                                                    <mat-option value="7">7 Minutes</mat-option>
+                                                    <mat-option value="8">8 Minutes</mat-option>
+                                                    <mat-option value="9">9 Minutes</mat-option>
+                                                    <mat-option value="10">10 Minutes</mat-option>
+                                                    <mat-option value="11">11 Minutes</mat-option>
+                                                    <mat-option value="12">12 Minutes</mat-option>
+                                                    <mat-option value="13">13 Minutes</mat-option>
+                                                    <mat-option value="14">14 Minutes</mat-option>
+                                                    <mat-option value="15">15 Minutes</mat-option>
+                                                    <mat-option value="16">16 Minutes</mat-option>
+                                                    <mat-option value="17">17 Minutes</mat-option>
+                                                    <mat-option value="18">18 Minutes</mat-option>
+                                                    <mat-option value="19">19 Minutes</mat-option>
+                                                    <mat-option value="20">20 Minutes</mat-option>
+                                                    <mat-option value="21">21 Minutes</mat-option>
+                                                    <mat-option value="22">22 Minutes</mat-option>
+                                                    <mat-option value="23">23 Minutes</mat-option>
+                                                    <mat-option value="24">24 Minutes</mat-option>
+                                                    <mat-option value="25">25 Minutes</mat-option>
+                                                    <mat-option value="26">26 Minutes</mat-option>
+                                                    <mat-option value="27">27 Minutes</mat-option>
+                                                    <mat-option value="28">28 Minutes</mat-option>
+                                                    <mat-option value="29">29 Minutes</mat-option>
+                                                    <mat-option value="30">30 Minutes</mat-option>
+                                                    <mat-option value="31">31 Minutes</mat-option>
+                                                    <mat-option value="32">32 Minutes</mat-option>
+                                                    <mat-option value="33">33 Minutes</mat-option>
+                                                    <mat-option value="34">34 Minutes</mat-option>
+                                                    <mat-option value="35">35 Minutes</mat-option>
+                                                    <mat-option value="36">36 Minutes</mat-option>
+                                                    <mat-option value="37">37 Minutes</mat-option>
+                                                    <mat-option value="38">38 Minutes</mat-option>
+                                                    <mat-option value="39">39 Minutes</mat-option>
+                                                    <mat-option value="40">40 Minutes</mat-option>
+                                                    <mat-option value="41">41 Minutes</mat-option>
+                                                    <mat-option value="42">42 Minutes</mat-option>
+                                                    <mat-option value="43">43 Minutes</mat-option>
+                                                    <mat-option value="44">44 Minutes</mat-option>
+                                                    <mat-option value="45">45 Minutes</mat-option>
+                                                    <mat-option value="46">46 Minutes</mat-option>
+                                                    <mat-option value="47">47 Minutes</mat-option>
+                                                    <mat-option value="48">48 Minutes</mat-option>
+                                                    <mat-option value="49">49 Minutes</mat-option>
+                                                    <mat-option value="50">50 Minutes</mat-option>
+                                                    <mat-option value="51">51 Minutes</mat-option>
+                                                    <mat-option value="52">52 Minutes</mat-option>
+                                                    <mat-option value="53">53 Minutes</mat-option>
+                                                    <mat-option value="54">54 Minutes</mat-option>
+                                                    <mat-option value="55">55 Minutes</mat-option>
+                                                    <mat-option value="56">56 Minutes</mat-option>
+                                                    <mat-option value="57">57 Minutes</mat-option>
+                                                    <mat-option value="58">58 Minutes</mat-option>
+                                                    <mat-option value="59">59 Minutes</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="bottom-line"></div>
+                                    <div class="example-box p-3">
+                                        <div class="" fxFlex="52">
+                                            <h6>Reschedule an Appointment</h6>
+                                            <p class="mb-0">Minimum notice required for rescheduleing an appointment</p>
+                                        </div>
+                                        <div class="" fxFlex="12">
+
+                                        </div>
+                                        <div class=" mx-2" fxFlex="12">
+                                            <mat-form-field class="bottom-border-field">
+                                                <mat-label></mat-label>
+                                                <mat-select (selectionChange)="fnSetMinResedulingTime($event)" [(value)]="minResedulingTimeDays">
+                                                    <mat-option value="0">0 days</mat-option>
+                                                    <mat-option value="1">1 days</mat-option>
+                                                    <mat-option value="2">2 days</mat-option>
+                                                    <mat-option value="3">3 days</mat-option>
+                                                    <mat-option value="4">4 days</mat-option>
+                                                    <mat-option value="5">5 days</mat-option>
+                                                    <mat-option value="6">6 days</mat-option>
+                                                    <mat-option value="7">7 days</mat-option>
+                                                    <mat-option value="8">8 days</mat-option>
+                                                    <mat-option value="9">9 days</mat-option>
+                                                    <mat-option value="10">10 days</mat-option>
+                                                    <mat-option value="11">11 days</mat-option>
+                                                    <mat-option value="12">12 days</mat-option>
+                                                    <mat-option value="13">13 days</mat-option>
+                                                    <mat-option value="14">14 days</mat-option>
+                                                    <mat-option value="15">15 days</mat-option>
+                                                    <mat-option value="16">16 days</mat-option>
+                                                    <mat-option value="17">17 days</mat-option>
+                                                    <mat-option value="18">18 days</mat-option>
+                                                    <mat-option value="19">19 days</mat-option>
+                                                    <mat-option value="20">20 days</mat-option>
+                                                    <mat-option value="21">21 days</mat-option>
+                                                    <mat-option value="22">22 days</mat-option>
+                                                    <mat-option value="23">23 days</mat-option>
+                                                    <mat-option value="24">24 days</mat-option>
+                                                    <mat-option value="25">25 days</mat-option>
+                                                    <mat-option value="26">26 days</mat-option>
+                                                    <mat-option value="27">27 days</mat-option>
+                                                    <mat-option value="28">28 days</mat-option>
+                                                    <mat-option value="29">29 days</mat-option>
+                                                    <mat-option value="30">30 days</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class=" mx-2" fxFlex="12">
+                                            <mat-form-field class="bottom-border-field">
+                                                <mat-label></mat-label>
+                                                <mat-select (selectionChange)="fnSetMinResedulingTime($event)" [(value)]="minResedulingTimeHours">
+                                                    <mat-option value="0">0 Hours</mat-option>
+                                                    <mat-option value="1">1 Hours</mat-option>
+                                                    <mat-option value="2">2 Hours</mat-option>
+                                                    <mat-option value="3">3 Hours</mat-option>
+                                                    <mat-option value="4">4 Hours</mat-option>
+                                                    <mat-option value="5">5 Hours</mat-option>
+                                                    <mat-option value="6">6 Hours</mat-option>
+                                                    <mat-option value="7">7 Hours</mat-option>
+                                                    <mat-option value="8">8 Hours</mat-option>
+                                                    <mat-option value="9">9 Hours</mat-option>
+                                                    <mat-option value="10">10 Hours</mat-option>
+                                                    <mat-option value="11">11 Hours</mat-option>
+                                                    <mat-option value="12">12 Hours</mat-option>
+                                                    <mat-option value="13">13 Hours</mat-option>
+                                                    <mat-option value="14">14 Hours</mat-option>
+                                                    <mat-option value="15">15 Hours</mat-option>
+                                                    <mat-option value="16">16 Hours</mat-option>
+                                                    <mat-option value="17">17 Hours</mat-option>
+                                                    <mat-option value="18">18 Hours</mat-option>
+                                                    <mat-option value="19">19 Hours</mat-option>
+                                                    <mat-option value="20">20 Hours</mat-option>
+                                                    <mat-option value="21">21 Hours</mat-option>
+                                                    <mat-option value="22">22 Hours</mat-option>
+                                                    <mat-option value="23">23 Hours</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class=" mx-2" fxFlex="12">
+                                            <mat-form-field class="bottom-border-field">
+                                                <mat-label></mat-label>
+                                                <mat-select (selectionChange)="fnSetMinResedulingTime($event)" [(value)]="minResedulingTimeMinutes">
+                                                    <mat-option value="0">0 Minutes</mat-option>
+                                                    <mat-option value="1">1 Minutes</mat-option>
+                                                    <mat-option value="2">2 Minutes</mat-option>
+                                                    <mat-option value="3">3 Minutes</mat-option>
+                                                    <mat-option value="4">4 Minutes</mat-option>
+                                                    <mat-option value="5">5 Minutes</mat-option>
+                                                    <mat-option value="6">6 Minutes</mat-option>
+                                                    <mat-option value="7">7 Minutes</mat-option>
+                                                    <mat-option value="8">8 Minutes</mat-option>
+                                                    <mat-option value="9">9 Minutes</mat-option>
+                                                    <mat-option value="10">10 Minutes</mat-option>
+                                                    <mat-option value="11">11 Minutes</mat-option>
+                                                    <mat-option value="12">12 Minutes</mat-option>
+                                                    <mat-option value="13">13 Minutes</mat-option>
+                                                    <mat-option value="14">14 Minutes</mat-option>
+                                                    <mat-option value="15">15 Minutes</mat-option>
+                                                    <mat-option value="16">16 Minutes</mat-option>
+                                                    <mat-option value="17">17 Minutes</mat-option>
+                                                    <mat-option value="18">18 Minutes</mat-option>
+                                                    <mat-option value="19">19 Minutes</mat-option>
+                                                    <mat-option value="20">20 Minutes</mat-option>
+                                                    <mat-option value="21">21 Minutes</mat-option>
+                                                    <mat-option value="22">22 Minutes</mat-option>
+                                                    <mat-option value="23">23 Minutes</mat-option>
+                                                    <mat-option value="24">24 Minutes</mat-option>
+                                                    <mat-option value="25">25 Minutes</mat-option>
+                                                    <mat-option value="26">26 Minutes</mat-option>
+                                                    <mat-option value="27">27 Minutes</mat-option>
+                                                    <mat-option value="28">28 Minutes</mat-option>
+                                                    <mat-option value="29">29 Minutes</mat-option>
+                                                    <mat-option value="30">30 Minutes</mat-option>
+                                                    <mat-option value="31">31 Minutes</mat-option>
+                                                    <mat-option value="32">32 Minutes</mat-option>
+                                                    <mat-option value="33">33 Minutes</mat-option>
+                                                    <mat-option value="34">34 Minutes</mat-option>
+                                                    <mat-option value="35">35 Minutes</mat-option>
+                                                    <mat-option value="36">36 Minutes</mat-option>
+                                                    <mat-option value="37">37 Minutes</mat-option>
+                                                    <mat-option value="38">38 Minutes</mat-option>
+                                                    <mat-option value="39">39 Minutes</mat-option>
+                                                    <mat-option value="40">40 Minutes</mat-option>
+                                                    <mat-option value="41">41 Minutes</mat-option>
+                                                    <mat-option value="42">42 Minutes</mat-option>
+                                                    <mat-option value="43">43 Minutes</mat-option>
+                                                    <mat-option value="44">44 Minutes</mat-option>
+                                                    <mat-option value="45">45 Minutes</mat-option>
+                                                    <mat-option value="46">46 Minutes</mat-option>
+                                                    <mat-option value="47">47 Minutes</mat-option>
+                                                    <mat-option value="48">48 Minutes</mat-option>
+                                                    <mat-option value="49">49 Minutes</mat-option>
+                                                    <mat-option value="50">50 Minutes</mat-option>
+                                                    <mat-option value="51">51 Minutes</mat-option>
+                                                    <mat-option value="52">52 Minutes</mat-option>
+                                                    <mat-option value="53">53 Minutes</mat-option>
+                                                    <mat-option value="54">54 Minutes</mat-option>
+                                                    <mat-option value="55">55 Minutes</mat-option>
+                                                    <mat-option value="56">56 Minutes</mat-option>
+                                                    <mat-option value="57">57 Minutes</mat-option>
+                                                    <mat-option value="58">58 Minutes</mat-option>
+                                                    <mat-option value="59">59 Minutes</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+            <mat-card class="matcard-space">
+                <div class="d-flex">
+                    <div>
+                        <h6>Customer Login</h6>
+                        <p class="mb-0">Create an exclusive profile with a username and password for your customer.</p>
+                        <p class="mb-0">Mandatory Customer Login will reduce duplicate contacts from your booking page.</p>
+                    </div>
+                    <div class="ml-auto mx-3">
+                        <mat-slide-toggle (change)="fnChangeCustomerLoginStatus($event)" [checked]="customerLoginValue === 'true' ? true : false"></mat-slide-toggle>
+                    </div>
+                </div>
+            </mat-card>
+            <mat-card class="matcard-space">
+                <div class="d-flex">
+                    <div>
+                        <h6>Staff List On Front</h6>
+                        <p class="mb-0">By Enabling this feature, Staff list will be shown in the Front.</p>
+                        <p class="mb-0"></p>
+                    </div>
+                    <div class="ml-auto mx-3">
+                        <mat-slide-toggle (change)="fnChangeStaffOnFrontStatus($event)" [checked]="staffListOnFrontValue === 'true' ? true : false"></mat-slide-toggle>
+                    </div>
+                </div>
+            </mat-card>
+            <mat-card class="matcard-space">
+                <div class="d-flex">
+                    <div>
+                        <h6>Appointment auto confirm</h6>
+                        <p class="mb-0">By Enabling this feature, Appointment request from clients will be auto confirmed.</p>
+                    </div>
+                    <div class="ml-auto mx-3">
+                        <mat-slide-toggle (change)="fnChangeAppAutoConfirmStatus($event)" [checked]="appAutoConfirmValue === 'true' ? true : false"></mat-slide-toggle>
+                    </div>
+                </div>
+                <div class="pt-4" *ngIf="appAutoConfirmValue === 'true'">
+                    <div class="d-flex">
+                        <mat-checkbox class="pr-3" (change)="fnChangeAutoAssignStaffStatus($event)" [checked]="autoAssignStaffValue === 'true' ? true : false"></mat-checkbox>
+                        <h6>Auto assign to staff</h6>
+                    </div>
+                    <div>
+                        <p class="mb-0">By enabling this feature services will get assigned to the staff automatically, otherwise it has to be done manually by the admin.</p>
+                    </div>
+                </div>
+            </mat-card>
+            <mat-card class="matcard-space">
+                <div class="d-flex">
+                    <div>
+                        <h6>Allow Customers for Staff Rating</h6>
+                        <p class="mb-0">By Enabling this Feature, Customers can rate your staff from their account</p>
+                    </div>
+                    <div class="ml-auto mx-3">
+                        <mat-slide-toggle (change)="fnChangeCustomerAllowStaffRatingStatus($event)" [checked]="customerAllowStaffRatingValue === 'true' ? true : false"></mat-slide-toggle>
+                    </div>
+                </div>
+            </mat-card>
+            <div>
+                <h6 class="py-4">Terms & Conditions </h6>
+                <mat-card class="matcard-space">
+                    <div class="d-flex">
+                        <div>
+                            <h6>Terms & Conditions </h6>
+                        </div>
+                        <div class="ml-auto mx-3">
+                            <mat-slide-toggle (change)="fnChangeTermsConditionsStatus($event)" [checked]="termsConditionsStatusValue === 'true' ? true : false"></mat-slide-toggle>
+                        </div>
+                    </div>
+                    <div class="example-form" *ngIf="termsConditionsStatusValue=='true'">
+                        <mat-form-field class="example-full-width bottom-border-field">
+                            <!-- <mat-label></mat-label> -->
+                            <input matInput placeholder="Add a label to your Terms & Conditions." [ngModel]="termsConditionsLabelValue" (ngModelChange)="setTermConditionsLabelValue($event)" maxlength="150">
+                        </mat-form-field>
+                        <div class="d-flex example-full-width ">
+                            <mat-hint class="ml-auto"><i>Maximum characters allowed<span class="text-danger"> 150</span></i></mat-hint>
+                        </div>
+                    </div>
+                    <div class="example-form" *ngIf="termsConditionsStatusValue=='true'">
+                        <mat-form-field class="example-full-width bottom-border-field">
+                            <!-- <mat-label></mat-label> -->
+                            <input matInput placeholder="Add a link to your Terms & Conditions." [ngModel]="termsConditionsPageLinkValue" (ngModelChange)="setTermConditionsPageLinkValue($event)">
+                        </mat-form-field>
+                        <div class="d-flex example-full-width ">
+                            <mat-hint class="ml-auto"><i>Link will open in a new browser window</i></mat-hint>
+                        </div>
+                    </div>
+                    <div class="example-form" *ngIf="termsConditionsStatusValue=='true'">
+                        <div class="d-flex example-full-width ">
+                            <button mat-button class="staff-reset-btn" (click)="fnSaveTermsConditionsValues()">Save</button>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+            <div>
+                <h6 class="py-4">Privacy Policy </h6>
+                <mat-card class="matcard-space">
+                    <div class="d-flex">
+                        <div>
+                            <h6>Privacy Policy </h6>
+                        </div>
+                        <div class="ml-auto mx-3">
+                            <mat-slide-toggle (change)="fnChangePrivacyPolicyStatus($event)" [checked]="privacyPolicyStatusValue === 'true' ? true : false"></mat-slide-toggle>
+                        </div>
+                    </div>
+                    <div class="example-form" *ngIf="privacyPolicyStatusValue=='true'">
+                        <p>Display as hyperlink text next to a checkbox that the user must accept.</p>
+                        <mat-form-field class="example-full-width bottom-border-field">
+                            <input matInput placeholder="Add a label to your Privacy Policy." [ngModel]="privacyPolicyLabelValue" (ngModelChange)="setPrivacyPolicyLabelValue($event)" maxlength="150">
+                        </mat-form-field>
+                        <div class="d-flex example-full-width ">
+                            <mat-hint class="ml-auto"><i>Maximum characters allowed<span class="text-danger"> 150</span></i></mat-hint>
+                        </div>
+                    </div>
+                    <div class="example-form" *ngIf="privacyPolicyStatusValue=='true'">
+                        <mat-form-field class="example-full-width bottom-border-field">
+                            <input matInput placeholder="Add a Page link of your Privacy Policy." [ngModel]="privacyPolicyPageLinkValue" (ngModelChange)="setPrivacyPolicyPageLinkValue($event)">
+                        </mat-form-field>
+                        <div class="d-flex example-full-width ">
+                            <mat-hint class="ml-auto"><i>Link will open in a new browser window</i></mat-hint>
+                        </div>
+                    </div>
+                    <div class="example-form" *ngIf="privacyPolicyStatusValue=='true'">
+                        <div class="d-flex example-full-width ">
+                            <button mat-button class="staff-reset-btn" (click)="fnSavePrivacyPolicyValues()">Save</button>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+            <div>
+                <h6 class="py-4">Thank You Page</h6>
+                <mat-card class="matcard-space">
+                    <div class="d-flex">
+                        <div>
+                            <h6>Thank You Page</h6>
+                        </div>
+                        <div class="ml-auto mx-3">
+                            <mat-slide-toggle (change)="fnChangeThankyouPageStatus($event)" [checked]="thankyouPageStatusValue === 'true' ? true : false"></mat-slide-toggle>
+                        </div>
+                    </div>
+                    <div class="example-form" *ngIf="thankyouPageStatusValue=='true'">
+                        <mat-form-field class="example-full-width bottom-border-field">
+                            <input matInput placeholder="Add a link to your Thank You page" [ngModel]="thankyouPageLinkValue" (ngModelChange)="setThankyouPageLinkValue($event)">
+                        </mat-form-field>
+                    </div>
+                    <div class="example-form" *ngIf="thankyouPageStatusValue=='true'">
+                        <div class="d-flex example-full-width ">
+                            <button mat-button class="staff-reset-btn mt-3" (click)="fnSaveThankyouPageValues()">Save</button>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </mat-card>
+    </div>
+</mat-drawer-content>

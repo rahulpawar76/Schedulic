@@ -1,0 +1,687 @@
+<mat-drawer-content id="business_hours" class="ml-0">
+    <div class="left-side-menu setting-menu" [ngClass]="{ 'short-menu': settingSideMenuToggle === true }">
+        <div class="leftarrow-icon d-flex">
+            <mat-icon (click)="fnSettingMenuToggleSmall()" *ngIf="!settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_back</mat-icon>
+            <mat-icon (click)="fnSettingMenuToggleLarge()" *ngIf="settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_forward</mat-icon>
+        </div>
+        <h6>Resource Management</h6>
+        <div routerLink="/admin/settings-resource" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/service.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/service-color.png" />
+            </div>
+            <p>Services</p>
+        </div>
+        <div routerLink="/admin/settings-resource/staff" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/staff.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/staff-color.png" />
+            </div>
+            <p>Staff</p>
+        </div>
+        <div routerLink="/admin/settings-resource/business-hours" class="d-flex setting-menu-item setting-menu-active">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/business-hours.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/business-hours-color.png" />
+            </div>
+            <p>Business Hours</p>
+        </div>
+        <div routerLink="/admin/settings-resource/postalcode" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/postalcode.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/postalcode-color.png" />
+            </div>
+            <p>Postal Codes</p>
+        </div>
+        <h6 class="pt-3">Account</h6>
+        <div routerLink="/admin/settings-account/company-details" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/companydetails.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/companydetails-color.png" />
+            </div>
+            <p>Company Details</p>
+        </div>
+        <h6 class="pt-3">Payment</h6>
+        <div routerLink="/admin/settings-payment/billing" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/billing.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/billing-color.png" />
+            </div>
+            <p>Billing</p>
+        </div>
+        <div routerLink="/admin/settings-payment/payment-gateway" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentgateway.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/paymentgateway-color.png" />
+            </div>
+            <p>Payment Gateway</p>
+        </div>
+        <div routerLink="/admin/settings-payment/payment-rules" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentrules.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/paymentrules-color.png" />
+            </div>
+            <p>Payment Rules</p>
+        </div>
+        <h6 class="pt-3">General Setting</h6>
+        <div routerLink="/admin/settings-general/appearance" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/appearance.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/appearance-color.png" />
+            </div>
+            <p>Appearance</p>
+        </div>
+        <div routerLink="/admin/settings-general/booking-rules" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/bookingrules.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/bookingrules-color.png" />
+            </div>
+            <p>Booking Rules</p>
+        </div>
+        <div routerLink="/admin/settings-general/alert-rules" class="d-flex setting-menu-item">
+            <div class="menu-icon">
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/alert.png" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/alert-color.png" />
+            </div>
+            <p>Alert Rules</p>
+        </div>
+    </div>
+    <div class="setting-right-side-content" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
+        <h2 class="text-left pl-3">Business Hours</h2>
+        <mat-tab-group>
+            <mat-tab label="Working Hours">
+                <div class="main-working-hours-content">
+                    <div class="d-flex mb-3">
+                        <p class="mt-4">Time Zone</p>
+                        <mat-form-field class=" bottom-border-field col-6">
+                            <mat-label></mat-label>
+                            <mat-select (selectionChange)="fnChangeTimeZone($event)" [(value)]="selectedTimeZone">
+                                <mat-option value="{{timeZone.name}}" *ngFor="let timeZone of timeZoneList">({{timeZone.utc}}) {{timeZone.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="">
+                        <div class="Customer-appointment-table">
+                            <div class="main-table-content main-cust-table-content">
+                                <div class="">
+
+                                    <div class="content" class="example-list">
+                                        <form [formGroup]="formSetWorkingHours">
+                                            <div class=" working-hour-box">
+                                                <div class="" fxFlex="10">
+                                                    <mat-slide-toggle formControlName="mondayToggle" (change)="fnChangeToggle($event,'Monday')"></mat-slide-toggle>
+                                                </div>
+                                                <div class="" fxFlex="10">Monday</div>
+                                                <div class="" fxFlex="30" *ngIf="mondayOn">
+                                                    <div class="d-flex">
+                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                            <mat-label></mat-label>
+                                                            <mat-select formControlName="mondayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Monday')">
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                        <div class="to-center">to</div>
+                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                            <mat-label></mat-label>
+                                                            <mat-select formControlName="mondayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Monday')">
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="mondayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                                <div class="" *ngIf="!mondayOn">Closed for Business</div>
+                                                <div class="blue-font pointer ml-2" fxFlex="30">
+                                                    <p class="mb-0" (click)="fnApplyToAll()"> Apply to all </p>
+                                                </div>
+                                            </div>
+                                            <div class="working-hour-box">
+                                                <div class="" fxFlex="10">
+                                                    <mat-slide-toggle formControlName="tuesdayToggle" (change)="fnChangeToggle($event,'Tuesday')"></mat-slide-toggle>
+                                                </div>
+                                                <div class="" fxFlex="10">Tuesday</div>
+                                                <div class="" fxFlex="30" *ngIf="tuesdayOn">
+                                                    <div class="d-flex">
+                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                            <mat-label></mat-label>
+                                                            <mat-select formControlName="tuesdayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Tuesday')">
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                        <div class="to-center">to</div>
+                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                            <mat-label></mat-label>
+                                                            <mat-select formControlName="tuesdayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Tuesday')">
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="tuesdayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                                <div class="" *ngIf="!tuesdayOn">Closed for Business</div>
+                                                <div class="blue-font" fxFlex="30"></div>
+                                            </div>
+                                            <div class="working-hour-box">
+                                                <div class="" fxFlex="10">
+                                                    <mat-slide-toggle formControlName="wednesdayToggle" (change)="fnChangeToggle($event,'Wednesday')"></mat-slide-toggle>
+                                                </div>
+                                                <div class="" fxFlex="10">Wednesday</div>
+                                                <div class="" fxFlex="30" *ngIf="wednesdayOn">
+                                                    <div class="d-flex">
+                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                            <mat-label></mat-label>
+                                                            <mat-select formControlName="wednesdayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Wednesday')">
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                        <div class="to-center">to</div>
+                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                            <mat-label></mat-label>
+                                                            <mat-select formControlName="wednesdayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Wednesday')">
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="wednesdayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                                <div class="" *ngIf="!wednesdayOn">Closed for Business</div>
+                                                <div class="blue-font" fxFlex="30"></div>
+                                            </div>
+                                            <div class="working-hour-box">
+                                                <div class="" fxFlex="10">
+                                                    <mat-slide-toggle formControlName="thursdayToggle" (change)="fnChangeToggle($event,'Thursday')"></mat-slide-toggle>
+                                                </div>
+                                                <div class="" fxFlex="10">Thursday</div>
+                                                <div class="" fxFlex="30" *ngIf="thursdayOn">
+                                                    <div class="d-flex">
+                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                            <mat-label></mat-label>
+                                                            <mat-select formControlName="thursdayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Thursday')">
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                        <div class="to-center">to</div>
+                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                            <mat-label></mat-label>
+                                                            <mat-select formControlName="thursdayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Thursday')">
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="thursdayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                                <div class="" *ngIf="!thursdayOn">Closed for Business</div>
+                                                <div class="blue-font" fxFlex="30"></div>
+                                            </div>
+                                            <div class="working-hour-box">
+                                                <div class="" fxFlex="10">
+                                                    <mat-slide-toggle formControlName="fridayToggle" (change)="fnChangeToggle($event,'Friday')"></mat-slide-toggle>
+                                                </div>
+                                                <div class="" fxFlex="10">Friday</div>
+                                                <div class="" fxFlex="30" *ngIf="fridayOn">
+                                                    <div class="d-flex">
+                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                            <mat-label></mat-label>
+                                                            <mat-select formControlName="fridayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Friday')">
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                        <div class="to-center">to</div>
+                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                            <mat-label></mat-label>
+                                                            <mat-select formControlName="fridayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Friday')">
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="fridayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                                <div class="" *ngIf="!fridayOn">Closed for Business</div>
+                                                <div class="blue-font" fxFlex="30"></div>
+                                            </div>
+                                            <div class="working-hour-box">
+                                                <div class="" fxFlex="10">
+                                                    <mat-slide-toggle formControlName="saturdayToggle" (change)="fnChangeToggle($event,'Saturday')"></mat-slide-toggle>
+                                                </div>
+                                                <div class="" fxFlex="10">Saturday</div>
+                                                <div class="" fxFlex="30" *ngIf="saturdayOn">
+                                                    <div class="d-flex">
+                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                            <mat-label></mat-label>
+                                                            <mat-select formControlName="saturdayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Saturday')">
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                        <div class="to-center">to</div>
+                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                            <mat-label></mat-label>
+                                                            <mat-select formControlName="saturdayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Saturday')">
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="saturdayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                                <div class="" *ngIf="!saturdayOn">Closed for Business</div>
+                                                <div class="blue-font" fxFlex="30"></div>
+                                            </div>
+                                            <div class="working-hour-box">
+                                                <div class="" fxFlex="10">
+                                                    <mat-slide-toggle formControlName="sundayToggle" (change)="fnChangeToggle($event,'Sunday')"></mat-slide-toggle>
+                                                </div>
+                                                <div class="" fxFlex="10">Sunday</div>
+                                                <div class="" fxFlex="30" *ngIf="sundayOn">
+                                                    <div class="d-flex">
+                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                            <mat-label></mat-label>
+                                                            <mat-select formControlName="sundayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Sunday')">
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                        <div class="to-center">to</div>
+                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                            <mat-label></mat-label>
+                                                            <mat-select formControlName="sundayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Sunday')">
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="sundayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                                <div class="" *ngIf="!sundayOn">Closed for Business</div>
+                                                <div class="blue-font" fxFlex="30"></div>
+                                            </div>
+                                            <div class="d-flex justify-content-end">
+                                                <!-- <button mat-button class="cancel-btn my-3" (click)="fnCancelWorkingHours()">Cancel</button> -->
+                                                <button mat-button class="save-btn my-3" (click)="fnCreateWorkingHours()">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Breaks">
+                <div class="">
+                    <div class="Customer-appointment-table">
+                        <div class="main-table-content main-cust-table-content">
+                            <div class="">
+                                <div class="content" class="example-list">
+                                    <div class="example-box my-2">
+                                        <div class="" fxFlex="5">
+                                            <!-- <mat-slide-toggle></mat-slide-toggle> -->
+                                        </div>
+                                        <div class="" fxFlex="15">Monday</div>
+                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="mondayOn" (click)="fnShowAddBreakForm('Monday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"
+                                                *ngIf="!mondayOn">Closed</button></div>
+                                        <div fxFlex="35" *ngIf="mondayOn">
+                                            <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
+                                                <div class="d-flex" *ngIf="breakTime.week_day_id == '1'">
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="breakTime.break_start_time" [disabled]="true">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                    <div class="to-center">to</div>
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="breakTime.break_end_time" [disabled]="true">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)" matTooltip="Delete Break"></i></div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="showMondayAddForm">
+                                                <div class="d-flex">
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="selectedStartTimeMonday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Monday')">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="mondayWorkingHourStartTimeIndex > i || mondayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="to-center">to</div>
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="selectedEndTimeMonday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Monday')">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="mondayBreakStartTimeIndex >= i || mondayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Monday')" matTooltip="Save Break"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="!mondayOn" fxFlex="35">Day Off</div>
+                                    </div>
+                                    <div class="example-box my-2">
+                                        <div class="" fxFlex="5">
+                                            <!-- <mat-slide-toggle></mat-slide-toggle> -->
+                                        </div>
+                                        <div class="" fxFlex="15">Tuesday</div>
+                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="tuesdayOn" (click)="fnShowAddBreakForm('Tuesday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"
+                                                *ngIf="!tuesdayOn">Closed</button></div>
+                                        <div fxFlex="35" *ngIf="tuesdayOn">
+                                            <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
+                                                <div class="d-flex" *ngIf="breakTime.week_day_id == '2'">
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="breakTime.break_start_time" [disabled]="true">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="to-center">to</div>
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="breakTime.break_end_time" [disabled]="true">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)" matTooltip="Delete Break"></i></div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="showTuesdayAddForm">
+                                                <div class="d-flex">
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="selectedStartTimeTuesday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Tuesday')">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="tuesdayWorkingHourStartTimeIndex > i || tuesdayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="to-center">to</div>
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="selectedEndTimeTuesday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Tuesday')">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="tuesdayBreakStartTimeIndex >= i || tuesdayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Tuesday')" matTooltip="Save Break"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="!tuesdayOn" fxFlex="35">Day Off</div>
+                                    </div>
+                                    <div class="example-box my-2">
+                                        <div class="" fxFlex="5">
+                                            <!-- <mat-slide-toggle></mat-slide-toggle> -->
+                                        </div>
+                                        <div class="" fxFlex="15">Wednesday</div>
+                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="wednesdayOn" (click)="fnShowAddBreakForm('Wednesday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"
+                                                *ngIf="!wednesdayOn">Closed</button></div>
+                                        <div fxFlex="35" *ngIf="wednesdayOn">
+                                            <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
+                                                <div class="d-flex" *ngIf="breakTime.week_day_id == '3'">
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="breakTime.break_start_time" [disabled]="true">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="to-center">to</div>
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="breakTime.break_end_time" [disabled]="true">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)" matTooltip="Delete Break"></i></div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="showWednesdayAddForm">
+                                                <div class="d-flex">
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="selectedStartTimeWednesday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Wednesday')">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="wednesdayWorkingHourStartTimeIndex > i || wednesdayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="to-center">to</div>
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="selectedEndTimeWednesday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Wednesday')">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="wednesdayBreakStartTimeIndex >= i || wednesdayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Wednesday')" matTooltip="Save Break"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="!wednesdayOn" fxFlex="35">Day Off</div>
+                                    </div>
+                                    <div class="example-box my-2">
+                                        <div class="" fxFlex="5">
+                                            <!-- <mat-slide-toggle></mat-slide-toggle> -->
+                                        </div>
+                                        <div class="" fxFlex="15">Thursday</div>
+                                        <div class="" fxFlex="15"><button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="thursdayOn" (click)="fnShowAddBreakForm('Thursday')">Add Break</button><button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2"
+                                                *ngIf="!thursdayOn">Closed</button></div>
+                                        <div fxFlex="35" *ngIf="thursdayOn">
+                                            <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
+                                                <div class="d-flex" *ngIf="breakTime.week_day_id == '4'">
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="breakTime.break_start_time" [disabled]="true">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="to-center">to</div>
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="breakTime.break_end_time" [disabled]="true">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)" matTooltip="Delete Break"></i></div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="showThursdayAddForm">
+                                                <div class="d-flex">
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="selectedStartTimeThursday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Thursday')">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="thursdayWorkingHourStartTimeIndex > i || thursdayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="to-center">to</div>
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="selectedEndTimeThursday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Thursday')">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="thursdayBreakStartTimeIndex >= i || thursdayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Thursday')" matTooltip="Save Break"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="!thursdayOn" fxFlex="35">Day Off</div>
+                                    </div>
+                                    <div class="example-box my-2">
+                                        <div class="" fxFlex="5">
+                                            <!-- <mat-slide-toggle></mat-slide-toggle> -->
+                                        </div>
+                                        <div class="" fxFlex="15">Friday</div>
+                                        <div class="" fxFlex="15">
+                                            <button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="fridayOn" (click)="fnShowAddBreakForm('Friday')">Add Break</button>
+                                            <button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2" *ngIf="!fridayOn">Closed</button>
+                                        </div>
+                                        <div fxFlex="35" *ngIf="fridayOn">
+                                            <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
+                                                <div class="d-flex" *ngIf="breakTime.week_day_id == '5'">
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="breakTime.break_start_time" [disabled]="true">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="to-center">to</div>
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="breakTime.break_end_time" [disabled]="true">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)" matTooltip="Delete Break"></i></div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="showFridayAddForm">
+                                                <div class="d-flex">
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="selectedStartTimeFriday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Friday')">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="fridayWorkingHourStartTimeIndex > i || fridayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="to-center">to</div>
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="selectedEndTimeFriday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Friday')">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="fridayBreakStartTimeIndex >= i || fridayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Friday')" matTooltip="Save Break"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="!fridayOn" fxFlex="35">Day Off</div>
+                                    </div>
+                                    <div class="example-box my-2">
+                                        <div class="" fxFlex="5">
+                                            <!-- <mat-slide-toggle></mat-slide-toggle> -->
+                                        </div>
+                                        <div class="" fxFlex="15">Saturday</div>
+                                        <div class="" fxFlex="15">
+                                            <button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="saturdayOn" (click)="fnShowAddBreakForm('Saturday')">Add Break</button>
+                                            <button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2" *ngIf="!saturdayOn">Closed</button>
+                                        </div>
+                                        <div fxFlex="35" *ngIf="saturdayOn">
+                                            <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
+                                                <div class="d-flex" *ngIf="breakTime.week_day_id == '6'">
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="breakTime.break_start_time" [disabled]="true">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="to-center">to</div>
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="breakTime.break_end_time" [disabled]="true">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)" matTooltip="Delete Break"></i></div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="showSaturdayAddForm">
+                                                <div class="d-flex">
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="selectedStartTimeSaturday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Saturday')">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="saturdayWorkingHourStartTimeIndex > i || saturdayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="to-center">to</div>
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="selectedEndTimeSaturday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Saturday')">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="saturdayBreakStartTimeIndex >= i || saturdayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Saturday')" matTooltip="Save Break"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="!saturdayOn" fxFlex="35">Day Off</div>
+                                    </div>
+                                    <div class="example-box my-2">
+                                        <div class="" fxFlex="5">
+                                            <!-- <mat-slide-toggle></mat-slide-toggle> -->
+                                        </div>
+                                        <div class="" fxFlex="15">Sunday</div>
+                                        <div class="" fxFlex="15">
+                                            <button mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2" *ngIf="sundayOn" (click)="fnShowAddBreakForm('Sunday')">Add Break</button>
+                                            <button mat-button appearance="fill" class="Add-braek-btn braek-closed ml-2 mr-2" *ngIf="!sundayOn">Closed</button>
+                                        </div>
+                                        <div fxFlex="35" *ngIf="sundayOn">
+                                            <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
+                                                <div class="d-flex" *ngIf="breakTime.week_day_id == '0'">
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="breakTime.break_start_time" [disabled]="true">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="to-center">to</div>
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="breakTime.break_end_time" [disabled]="true">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)" matTooltip="Delete Break"></i></div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="showSundayAddForm">
+                                                <div class="d-flex">
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="selectedStartTimeSunday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Sunday')">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="sundayWorkingHourStartTimeIndex > i || sundayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="to-center">to</div>
+                                                    <mat-form-field class="bottom-border-field workinghour-dropdown">
+                                                        <mat-label></mat-label>
+                                                        <mat-select [(value)]="selectedEndTimeSunday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Sunday')">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="sundayBreakStartTimeIndex >= i || sundayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddBreak('Sunday')" matTooltip="Save Break"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="!sundayOn" fxFlex="35">Day Off</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Time Off">
+                <div class="Time-off-table">
+                    <div class="main-table-content main-time-off-table-content">
+                        <div class="">
+                            <div *ngIf="timeOffList != ''" class="heads main-heading-content time-of-box " fxLayout="row">
+                                <div class="" fxFlex="6"></div>
+                                <div class="" fxFlex="54"></div>
+                                <div class="" fxFlex="10"></div>
+                                <div class="" fxFlex="5"></div>
+                                <div *ngIf="timeOffList != ''" class="" fxFlex="15">
+                                    <button mat-button appearance="fill" (click)="addTimeOff()" class="time-off-btn ml-2 mr-2"><i class="material-icons mr-2">add</i>Add Time Off</button>
+                                </div>
+                            </div>
+                            <div *ngIf="timeOffList != ''" class="content" class="example-list" cdkDropList>
+                                <div class="time-of-box" cdkDrag fxLayout="row" *ngFor="let timeOff of timeOffList">
+                                    <div class="" fxFlex="7">
+                                        <div class="calendar-background">
+                                            <img src="/assets/images/admin/calendar-3.png" class="staff-calendar-image">
+                                        </div>
+                                    </div>
+                                    <div class="mt-2" fxFlex="73">
+                                        <p class="mb-0">{{timeOff.start_date}} - {{timeOff.end_date}}</p>
+                                        <p class="blue-font">{{timeOff.description}}</p>
+                                    </div>
+                                    <div class="" fxFlex="15">
+                                        <mat-slide-toggle (change)="fnChangeTimeOffStatus($event,timeOff.id)" [checked]="timeOff.status == 'E'?true:false"></mat-slide-toggle>
+                                    </div>
+                                    <div class="pointer d-flex align-items-center ml-3" fxFlex="5" (click)="fnDeleteTimeOff(timeOff.id)"><i class="fa fa-trash-o delete-box"></i></div>
+                                    <div class="" fxFlex="10"></div>
+                                </div>
+                            </div>
+                            <div *ngIf="timeOffList == ''" class="content" class="example-list blank-time-off" cdkDropList>
+                                <button mat-button appearance="fill" (click)="addTimeOff()" class="big-single-btn ml-2 mr-2"><i class="material-icons mr-2">add</i>Add Time Off</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</mat-drawer-content>
