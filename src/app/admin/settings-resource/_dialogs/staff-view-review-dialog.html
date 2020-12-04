@@ -10,68 +10,68 @@
                 </div>
 
                 <div class="modal-body modal-bcolor">
-                    <p class="mb-0 font-weight-bold">{{orderDataFull.booking_date}}</p>
-                    <p class="small-font">Booked On: {{orderDataFull.created_at}}</p>
+                    <p class="mb-0 font-weight-bold">{{detailsData.booking_date}}</p>
+                    <p class="small-font">Booked On: {{detailsData.created_at}}</p>
                     <p class="mb-0 small-font">Service</p>
-                    <p class="font-weight-bold">{{orderDataFull.service.service_name}} ($.{{orderDataFull.service.service_cost}})</p>
+                    <p class="font-weight-bold">{{detailsData.service.service_name}} ($.{{detailsData.service.service_cost}})</p>
                     <p class="mb-0 small-font">Time</p>
-                    <p class="font-weight-bold">{{orderDataFull.booking_time}} ({{orderDataFull.service_time}})</p>
+                    <p class="font-weight-bold">{{detailsData.booking_time}} ({{detailsData.service_time}})</p>
                     <div class="d-flex">
                         <div class="pl-0">
                             <p class="mb-0 small-font">Order By</p>
-                            <p class="font-weight-bold">{{orderDataFull.order_by}}</p>
+                            <p class="font-weight-bold">{{detailsData.order_by}}</p>
                         </div>
                         <div class="pl-5">
                             <p class="mb-0 small-font">Status</p>
-                            <p class="text-capitalize font-weight-bold" *ngIf="orderDataFull.order_status == 'P'">Waiting For Confirmation</p>
-                            <p class="text-capitalize font-weight-bold" *ngIf="orderDataFull.order_status == 'AC'">Confirm</p>
-                            <p class="text-capitalize font-weight-bold" *ngIf="orderDataFull.order_status == 'RSA'">Rescheduled By Admin</p>
-                            <p class="text-capitalize font-weight-bold" *ngIf="orderDataFull.order_status == 'RSS'">Rescheduled</p>
-                            <p class="text-capitalize font-weight-bold" *ngIf="orderDataFull.order_status == 'RSC'">Rescheduled By Customer</p>
-                            <p class="text-capitalize font-weight-bold" *ngIf="orderDataFull.order_status == 'R'">Rejected</p>
-                            <p class="text-capitalize font-weight-bold" *ngIf="orderDataFull.order_status == 'CO'">Confirm</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'P'">Waiting For Confirmation</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'AC'">Confirm</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'RSA'">Rescheduled By Admin</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'RSS'">Rescheduled</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'RSC'">Rescheduled By Customer</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'R'">Rejected</p>
+                            <p class="text-capitalize font-weight-bold" *ngIf="detailsData.order_status == 'CO'">Confirm</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="card-body-marginn booking-detail-main pl-3 mb-0">
-                    <h6 class="text-left mb-0 font-weight-bold">Staff Details</h6>
-                    <div class="row align-items-center">
-                        <p class="customer-profile-img">NP</p>
+                <div class="card-body-marginn booking-detail-main pl-3 mt-2 mb-0">
+                    <h6 class="text-left mb-0 font-weight-bold">Customer Details</h6>
+                    <div class="row mx-0 align-items-center">
+                        <p class="customer-profile-img text-uppercase">{{customerShortName}}</p>
                         <div class="customer-name pr-3 address-fontsize">
-                            <p class="mb-0 address-fontsize">{{orderDataFull.staff.firstname}} {{orderDataFull.staff.lastname}}</p>
-                            <p class="small-font mb-0 address-fontsize">{{orderDataFull.staff.email}}</p>
+                            <p class="mb-0 address-fontsize">{{detailsData.customer.fullname}}</p>
+                            <p class="small-font mb-0 address-fontsize">{{detailsData.customer.email}}</p>
                         </div>
                     </div>
                     <div class="d-flex">
                         <mat-icon aria-hidden="false" class="call-icon bluephone">call</mat-icon>
-                        <p class="mb-0 text-left">{{orderDataFull.staff.phone}}</p>
+                        <p class="mb-0 text-left">{{detailsData.customer.phone}}</p>
                     </div>
 
                 </div>
-                <div class="booking-detail-main pl-3">
+                <div class="booking-detail-main pl-3 mt-2">
                     <p class="font-weight-bold mb-0">Review</p>
                     <div class="d-flex star-icon ">
-                        <div class="d-flex statick-rating w-100" *ngIf="detailsData.rating != null">
+                        <div class="d-flex statick-rating w-100" *ngIf="reviewData.rating != null">
 
                             <div class="star-rating">
-                                <input type="radio" [checked]="detailsData.rating == 5" id="5-stars_{{detailsData.order_id}}" name="rating_{{detailsData.order_id}}" value="5" />
-                                <label for="5-stars_{{detailsData.order_id}}">&#9733;</label>
-                                <input type="radio" [checked]="detailsData.rating == 4" id="4-stars_{{detailsData.order_id}}" name="rating_{{detailsData.order_id}}" value="4" />
-                                <label for="4-stars_{{detailsData.order_id}}">&#9733;</label>
-                                <input type="radio" [checked]="detailsData.rating == 3" id="3-stars_{{detailsData.order_id}}" name="rating_{{detailsData.order_id}}" value="3" />
-                                <label for="3-stars_{{detailsData.order_id}}">&#9733;</label>
-                                <input type="radio" [checked]="detailsData.rating == 2" id="2-stars_{{detailsData.order_id}}" name="rating_{{detailsData.order_id}}" value="2" />
-                                <label for="2-stars_{{detailsData.order_id}}">&#9733;</label>
-                                <input type="radio" [checked]="detailsData.rating == 1" id="1-star_{{detailsData.order_id}}" name="rating_{{detailsData.order_id}}" value="1" />
-                                <label for="1-star_{{detailsData.order_id}}">&#9733;</label>
+                                <input type="radio" [checked]="reviewData.rating == 5" id="5-stars_{{reviewData.order_id}}" name="rating_{{reviewData.order_id}}" value="5" />
+                                <label for="5-stars_{{reviewData.order_id}}">&#9733;</label>
+                                <input type="radio" [checked]="reviewData.rating == 4" id="4-stars_{{reviewData.order_id}}" name="rating_{{reviewData.order_id}}" value="4" />
+                                <label for="4-stars_{{reviewData.order_id}}">&#9733;</label>
+                                <input type="radio" [checked]="reviewData.rating == 3" id="3-stars_{{reviewData.order_id}}" name="rating_{{reviewData.order_id}}" value="3" />
+                                <label for="3-stars_{{reviewData.order_id}}">&#9733;</label>
+                                <input type="radio" [checked]="reviewData.rating == 2" id="2-stars_{{reviewData.order_id}}" name="rating_{{reviewData.order_id}}" value="2" />
+                                <label for="2-stars_{{reviewData.order_id}}">&#9733;</label>
+                                <input type="radio" [checked]="reviewData.rating == 1" id="1-star_{{detailsData.order_id}}" name="rating_{{detailsData.order_id}}" value="1" />
+                                <label for="1-star_{{reviewData.order_id}}">&#9733;</label>
                             </div>
                         </div>
 
                     </div>
                     <div>
-                        <h6>{{detailsData.rating_title}}</h6>
-                        <p class="small-font">{{detailsData.review}}</p>
+                        <h6>{{reviewData.rating_title}}</h6>
+                        <p class="small-font">{{reviewData.review}}</p>
                     </div>
                 </div>
 

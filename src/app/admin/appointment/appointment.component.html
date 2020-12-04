@@ -21,7 +21,7 @@
                     </mat-form-field>
                     <mat-form-field class="appoint-action bottom-border-field">
                         <mat-label>Actions</mat-label>
-                        <mat-select [disabled]="orderItemsIdArr.length == 0" [(ngModel)]="selectedValue" (selectionChange)="fnAppointAction($event.value)">
+                        <mat-select matTooltip="Action" [disabled]="orderItemsIdArr.length == 0" [(ngModel)]="selectedValue" (selectionChange)="fnAppointAction($event.value)">
                             <mat-option value="AC" *ngIf="!ConfirmError">Confirm</mat-option>
                             <mat-option value="C" *ngIf="!cancelError">Cancel</mat-option>
                         </mat-select>

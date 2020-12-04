@@ -759,7 +759,7 @@ export class DialogAddNewAppointment {
     private AdminSettingsService:AdminSettingsService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
-    this.onlynumeric = /^-?(0|[1-9]\d*)?$/
+    this.onlynumeric = /^-?(0|[0-9]\d*)?$/
     if(this.data.appointmentData){
       console.log(this.data.appointmentData);
       this.appointmentData.business_id=this.data.appointmentData.business_id;
@@ -914,7 +914,7 @@ export class DialogAddNewAppointment {
       });
       }else{
         this.formAddNewAppointmentStaffStep1 = this._formBuilder.group({
-        customerFullName: [this.appointmentData.fullName, [Validators.required, Validators.maxLength(12), Validators.minLength(4)]],
+        customerFullName: [this.appointmentData.fullName, [Validators.required]],
         customerEmail: [this.appointmentData.email,[Validators.required,Validators.email,Validators.pattern(this.emailPattern)], this.validationArr],
         customerPhone: [this.appointmentData.phone, [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
         customerAddress: [this.appointmentData.address, Validators.required],

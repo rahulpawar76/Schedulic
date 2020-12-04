@@ -309,7 +309,7 @@ export class StaffAppointmentComponent implements OnInit {
   StaffMyAppointmentDetails(index){
     const dialogRef = this.dialog.open(DialogStaffMyAppointmentDetails, {
      height: '700px',
-     data :{fulldata : this.newAppointmentData[index]}
+     data :{fulldata : this.newAppointmentData[index], dialogType: 'new'}
     });
      dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
@@ -322,7 +322,7 @@ export class StaffAppointmentComponent implements OnInit {
   OnGoingAppointmentDetails(index){
     const dialogRef = this.dialog.open(OnGoingAppointmentDetails, {
       height: '700px',
-      data: {fuldata: this.onGoingAppointmentData[index]}
+      data: {fuldata: this.onGoingAppointmentData[index], dialogType :'ongoing'}
     });
       dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
@@ -1918,7 +1918,10 @@ export class StaffAppointmentComponent implements OnInit {
     currencySymbolPosition:any;
     currencySymbolFormat:any;
     activityLog:any=[];
-    staffId:any
+    staffId:any;
+    initials:any;
+    customerShortName:any;
+    dialogType:any;
     constructor(
       public dialogRef: MatDialogRef<DialogStaffMyAppointmentDetails>,
       private StaffService: StaffService,
@@ -1926,10 +1929,16 @@ export class StaffAppointmentComponent implements OnInit {
       private authenticationService: AuthenticationService,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.detailData =  this.data.fulldata;
+        this.dialogType =  this.data.dialogType;
         this.fnGetActivityLog(this.detailData.id);
         this.bussinessId=this.authenticationService.currentUserValue.business_id
         this.staffId = this.authenticationService.currentUserValue.user_id
         console.log(this.detailData);
+        this.initials = this.detailData.customer.fullname.split(" ",2);
+      this.customerShortName = '';
+      this.initials.forEach( (element2) => {
+        this.customerShortName = this.customerShortName+element2.charAt(0);
+      });
         this.fnGetSettingValue();
       }
     onNoClick(): void {
@@ -2021,13 +2030,13 @@ export class StaffAppointmentComponent implements OnInit {
 
    @Component({
       selector: 'ongoing-appointmet-details',
-      templateUrl: '../_dialogs/ongoing-appointmet-details.html',
+      templateUrl: '../_dialogs/new-appointment-details.html',
   providers: [DatePipe]
   })
   export class OnGoingAppointmentDetails {
     
   status: any;
-  appoDetail: any;
+  detailData: any;
   bussinessId: any;
   cancellationBufferTime=new Date();
   minReschedulingTime=new Date();
@@ -2038,6 +2047,9 @@ export class StaffAppointmentComponent implements OnInit {
   booking_date_time:any;
   timeToServiceDecimal:any;
   activityLog:any=[];
+  dialogType:any;
+  initials:any;
+  customerShortName:any;
     constructor(
       public dialogRef: MatDialogRef<OnGoingAppointmentDetails>,
       public dialog: MatDialog,
@@ -2046,13 +2058,19 @@ export class StaffAppointmentComponent implements OnInit {
       private StaffService: StaffService,
       @Inject(MAT_DIALOG_DATA) public data: any) {
 
-        this.appoDetail = this.data.fuldata;
-        console.log(this.appoDetail);
-        this.fnGetActivityLog(this.appoDetail.id);
+        this.detailData = this.data.fuldata;
+        this.dialogType = this.data.dialogType;
+        console.log(this.detailData);
+        this.initials = this.detailData.customer.fullname.split(" ",2);
+        this.customerShortName = '';
+        this.initials.forEach( (element2) => {
+          this.customerShortName = this.customerShortName+element2.charAt(0);
+        });
+        this.fnGetActivityLog(this.detailData.id);
         this.bussinessId=this.authenticationService.currentUserValue.business_id
         this.fnGetSettingValue();
          var todayDateTime = new Date();
-           this.booking_date_time=new Date( this.appoDetail.booking_date+" "+ this.appoDetail.booking_time);
+           this.booking_date_time=new Date( this.detailData.booking_date+" "+ this.detailData.booking_time);
           var dateTemp2 = new Date(this.datePipe.transform(this.booking_date_time,"dd MMM yyyy hh:mm a"));
            dateTemp2.setMinutes( dateTemp2.getMinutes());
           var serviceTimeTamp =  dateTemp2.getTime() - todayDateTime.getTime();
@@ -2159,7 +2177,7 @@ export class StaffAppointmentComponent implements OnInit {
     rescheduleAppointment(){
       const dialogRef = this.dialog.open(InterruptedReschedule, {
          width: '500px',
-         data : {fulldata: this.appoDetail}
+         data : {fulldata: this.detailData}
        });
  
          dialogRef.afterClosed().subscribe(result => {
@@ -2168,15 +2186,6 @@ export class StaffAppointmentComponent implements OnInit {
             this.dialogRef.close();
          }
          });
-     // const dialogRef = this.dialog.open(InterruptedReschedule, {
-     //   height: '700px',
-     //   data : {fulldata: this.onGoingAppointmentData[index]}
-     // });
-     //   console.log(this.onGoingAppointmentData[index]);
-     // dialogRef.afterClosed().subscribe(result => {
-     
-     // this.getOnGoingAppointment();
-     // });
  
    }
 
@@ -2184,7 +2193,7 @@ export class StaffAppointmentComponent implements OnInit {
 
   @Component({
       selector: 'complete-appointment-details',
-      templateUrl: '../_dialogs/complete-appointment-details.html',
+      templateUrl: '../_dialogs/new-appointment-details.html',
   })
   export class CompleteAppointmentDetails {
     detailData: any;
@@ -2194,6 +2203,9 @@ export class StaffAppointmentComponent implements OnInit {
     currencySymbolPosition:any;
     currencySymbolFormat:any;
     activityLog:any=[];
+    dialogType:any;
+    initials:any;
+    customerShortName:any;
     constructor(
       private authenticationService:AuthenticationService,
       private StaffService:StaffService,
@@ -2201,6 +2213,11 @@ export class StaffAppointmentComponent implements OnInit {
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.detailData = this.data.fuldata;
         console.log(this.detailData);
+        this.initials = this.detailData.customer.fullname.split(" ",2);
+        this.customerShortName = '';
+        this.initials.forEach( (element2) => {
+          this.customerShortName = this.customerShortName+element2.charAt(0);
+        });
         this.fnGetActivityLog(this.detailData.id);
         this.bussinessId=this.authenticationService.currentUserValue.business_id
         this.fnGetSettingValue();

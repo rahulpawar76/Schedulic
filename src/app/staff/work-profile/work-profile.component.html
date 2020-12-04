@@ -2,7 +2,7 @@
     <mat-tab-group mat-align-tabs="start">
         <mat-tab label="Services">
             <div class="staff-work-profile work-profile-category">
-                <div *ngIf="serviceData != ''" class="single-booking">
+                <div *ngIf="serviceData != ''" class="single-booking row mx-0">
                     <div *ngFor="let serviceData of serviceData; let i = index" class="col-sm-3 col-lg-3 col-md-6 profile-single-slot float-left">
                         <mat-card class="card">
                             <div class="card-body-content mt-3">
@@ -19,7 +19,7 @@
         </mat-tab>
 
         <mat-tab label="Postal Codes">
-            <div *ngIf="postalCodeData != ''" class="staff-work-profile">
+            <div *ngIf="postalCodeData != ''" class="staff-work-profile row mx-0">
                 <div *ngFor="let postalCodeData of postalCodeData; let i=index" class="col-sm-3 col-lg-3 col-md-6 profile-single-slot float-left">
                     <mat-card class="card">
                         <div class="card-body-workinghour mt-3">
@@ -40,7 +40,7 @@
             </div>
         </mat-tab>
         <mat-tab label="Working Hours">
-            <div *ngIf="workingHours != ''" class="staff-work-profile work-prfile-w-hours">
+            <div *ngIf="workingHours != ''" class="staff-work-profile work-prfile-w-hours row mx-0">
                 <div *ngFor="let workingHours of workingHours; let i = index" class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
                     <mat-card class="card">
                         <div class="card-body-workinghour mt-3">
@@ -74,7 +74,7 @@
         </mat-tab>
 
         <mat-tab label="Breaks">
-            <div *ngIf="breakHours != ''" class="staff-work-profile work-prfile-breaks">
+            <div *ngIf="breakHours != ''" class="staff-work-profile work-prfile-breaks row mx-0">
                 <div *ngFor="let breakHours of breakHours; let i = index" class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
                     <mat-card class="card">
                         <div class="card-body-workinghour mt-3">
@@ -130,7 +130,7 @@
         </mat-tab>
 
         <mat-tab label="Time Off">
-            <div *ngIf="holidayData != ''" class="staff-work-profile work-profile-time-off">
+            <div *ngIf="holidayData != ''" class="staff-work-profile work-profile-time-off row mx-0">
                 <div *ngFor="let holidayData of holidayData; let i=index" class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
                     <mat-card class="card">
                         <div class="card-body-workinghour mt-3">

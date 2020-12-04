@@ -540,15 +540,16 @@ export class AlertsettingsComponent implements OnInit {
             this.twilio.controls['authToken'].setValue(this.twilioSettingValue.auth_token);
             this.twilio.controls['twilioSender'].setValue(this.twilioSettingValue.twilo_sender_number);
             this.twilio.controls['adminNumber'].setValue(this.twilioSettingValue.admin_phone_number);
-            
-            this. selectedCountryISO = this.fnCheckCountry(this.twilioSettingValue.countryCode);
+            this.twilliStatus = this.twilioSettingValue.status;
+            this. selectedCountryISO = this.fnCheckCountry(this.twilioSettingValue.countryCodeTwo);
             
           }
           if(response.response.textlocal_setting){
             this.textLocalSettingValue = JSON.parse(response.response.textlocal_setting);
             this.textLocal.controls['apiKey'].setValue(this.textLocalSettingValue.api_key);
             this.textLocal.controls['adminNumber'].setValue(this.textLocalSettingValue.admin_number);
-            this. selectedCountryISO1 = this.fnCheckCountry(this.textLocalSettingValue.countryCode);
+            this.textLocalStatus = this.textLocalSettingValue.status;
+            this. selectedCountryISO1 = this.fnCheckCountry(this.textLocalSettingValue.countryCodeTwo);
 
           }
 
@@ -1730,7 +1731,9 @@ fnAppointmentsReminderSMS(event){
       "account_sid":this.twilio.get("accountSID").value,
       "auth_token":this.twilio.get("authToken").value,
       "twilo_sender_number":this.twilio.get("twilioSender").value,
-      "admin_phone_number":this.twilio.get("adminNumber").value.dialCode.replace(/\s/g, ""),
+      "admin_phone_number":this.twilio.get("adminNumber").value.number.replace(/\s/g, ""),
+      "countryCode":this.twilio.get("adminNumber").value.dialCode,
+      "countryCodeTwo":this.twilio.get("adminNumber").value.countryCode,
       "status": this.twilliStatus,
     }
 
@@ -1770,22 +1773,45 @@ fnAppointmentsReminderSMS(event){
 
   
   fnSubmitTwillioSettings(){
+    console.log(this.twilio.get("adminNumber").value)
     if(this.twilio.get('adminNumber').value === null){
       this.phoneNumberInvalidTwilio = "required";
-    
     }else if(this.twilio.get('adminNumber').value !== '' || this.twilio.get('adminNumber').value !== null){
-      if(this.twilio.get('adminNumber').value.number.length >= 6 && this.twilio.get('adminNumber').value.number.length <= 15){
-        this.phoneNumberInvalidTwilio = "valid";
-      }else{
+      if(this.twilio.get('adminNumber').value.number.length < 6 && this.twilio.get('adminNumber').value.number.length > 15){
+      //   alert('4')
+      //   this.phoneNumberInvalidTwilio = "valid";
+      // }else{
         this.phoneNumberInvalidTwilio = "length";
+      }else if(this.twilio.valid){
+        this.phoneNumberInvalidTwilio = "valid";
+        let twilioSetting = {
+          "account_sid":this.twilio.get("accountSID").value,
+          "auth_token":this.twilio.get("authToken").value,
+          "twilo_sender_number":this.twilio.get("twilioSender").value,
+          "admin_phone_number":this.twilio.get("adminNumber").value.number.replace(/\s/g, ""),
+          "countryCode":this.twilio.get("adminNumber").value.dialCode,
+          "countryCodeTwo":this.twilio.get("adminNumber").value.countryCode,
+          "status": this.twilliStatus,
+        }
+  
+        let requestObject = {
+          "business_id" :this.businessId,
+          "status":this.twilliStatus,
+          "twilo_setting" : twilioSetting
+        }
+        console.log(requestObject)
+        this.updateTwillioSettings(requestObject);
       }
+
     }else if(this.twilio.valid){
+      this.phoneNumberInvalidTwilio = "valid";
       let twilioSetting = {
         "account_sid":this.twilio.get("accountSID").value,
         "auth_token":this.twilio.get("authToken").value,
         "twilo_sender_number":this.twilio.get("twilioSender").value,
         "admin_phone_number":this.twilio.get("adminNumber").value.number.replace(/\s/g, ""),
-        "countryCode":this.twilio.get("adminNumber").value.countryCode,
+        "countryCode":this.twilio.get("adminNumber").value.dialCode,
+        "countryCodeTwo":this.twilio.get("adminNumber").value.countryCode,
         "status": this.twilliStatus,
       }
 
@@ -1794,6 +1820,7 @@ fnAppointmentsReminderSMS(event){
         "status":this.twilliStatus,
         "twilo_setting" : twilioSetting
       }
+      console.log(requestObject)
       this.updateTwillioSettings(requestObject);
     }
   }
@@ -1825,7 +1852,8 @@ fnAppointmentsReminderSMS(event){
     let textLocalSetting = {
       "api_key":this.textLocal.get("apiKey").value,
       "admin_number" : this.textLocal.get("adminNumber").value.number.replace(/\s/g, ""),
-      "countryCode":this.textLocal.get("adminNumber").value.countryCode,
+      "countryCode":this.textLocal.get("adminNumber").value.dialCode,
+      "countryCodeTwo":this.textLocal.get("adminNumber").value.countryCode,
       "status":this.textLocalStatus,
     }
 
@@ -1866,17 +1894,32 @@ fnAppointmentsReminderSMS(event){
       this.phoneNumberInvalidTxtLocal = "required";
       return false;
     }else if(this.textLocal.get('adminNumber').value !== '' || this.textLocal.get('adminNumber').value !== null){
-      if(this.textLocal.get('adminNumber').value.number.length >= 6 && this.textLocal.get('adminNumber').value.number.length <= 15){
-        this.phoneNumberInvalidTxtLocal = "valid";
-      }else{
+      if(this.textLocal.get('adminNumber').value.number.length < 6 && this.textLocal.get('adminNumber').value.number.length > 15){
         this.phoneNumberInvalidTxtLocal = "length";
         return false;
-      }
+      }else if(this.textLocal.valid){
+          this.phoneNumberInvalidTxtLocal = "valid";
+          let textLocalSetting = {
+            "api_key":this.textLocal.get("apiKey").value,
+            "admin_number" : this.textLocal.get("adminNumber").value.number.replace(/\s/g, ""),
+            "countryCode":this.textLocal.get("adminNumber").value.dialCode,
+            "countryCodeTwo":this.textLocal.get("adminNumber").value.countryCode,
+            "status":this.textLocalStatus,
+          }
+    
+          let requestObject = {
+            "business_id" :this.businessId,
+            "status":this.textLocalStatus,
+            "textlocal_setting" : textLocalSetting
+          }
+          this.updateTextLocalSettings(requestObject);
+        }
     }else if(this.textLocal.valid){
       let textLocalSetting = {
         "api_key":this.textLocal.get("apiKey").value,
         "admin_number" : this.textLocal.get("adminNumber").value.number.replace(/\s/g, ""),
-        "countryCode":this.textLocal.get("adminNumber").value.countryCode,
+        "countryCode":this.textLocal.get("adminNumber").value.dialCode,
+        "countryCodeTwo":this.textLocal.get("adminNumber").value.countryCode,
         "status":this.textLocalStatus,
       }
 

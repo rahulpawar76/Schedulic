@@ -801,11 +801,6 @@
                         <a *ngIf="termsConditions.page_link != ''" href="{{termsConditions.page_link}}" target="blank">{{termsConditions.label}}</a>
                         <a *ngIf="termsConditions.page_link == ''" target="blank">{{termsConditions.label}}</a>
                     </mat-checkbox>
-                    <!-- <label *ngIf="termsConditions.status == 'true'"><input id="check" type="checkbox" class="termscondition ml-3" (change)="fnChangeTermsConditionsStatus($event.target.checked)" > 
-                    <a *ngIf="termsConditions.page_link != ''" href="{{termsConditions.page_link}}" target="blank">{{termsConditions.label}}</a>
-
-                    <a *ngIf="termsConditions.page_link == ''" target="blank">{{termsConditions.label}}</a>
-                </label> -->
                     <mat-checkbox *ngIf="privacyPolicy.status ==
                                     'true'" class="termscondition ml-3" (change)="fnChangePrivacyPolicyStatus($event.checked)">
                         <a *ngIf="privacyPolicy.page_link !=''" href="{{privacyPolicy.page_link}}" target="blank">{{privacyPolicy.label}}</a>

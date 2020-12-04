@@ -1455,7 +1455,7 @@ export class rescheduleAppointmentDialog {
   availableStaff:any= [];
   selectedDate:any;
   maxDate = new Date();
-
+  isLoader:boolean=false;
   myFilter:any;
   offDaysList:any=[];
   workingHoursOffDaysList:any=[];
@@ -1544,6 +1544,7 @@ export class rescheduleAppointmentDialog {
     //   }
 
     fnGetSettingValue(){
+      this.isLoader = true;
       let requestObject = {
         "business_id":this.businessId
       };
@@ -1573,9 +1574,11 @@ export class rescheduleAppointmentDialog {
           
         }
       })
+      this.isLoader = false;
     }
 
     fnGetOffDays(){
+      this.isLoader = true;
       let requestObject = {
         "business_id":this.businessId
       };
@@ -1629,6 +1632,7 @@ export class rescheduleAppointmentDialog {
       (err) =>{
         console.log(err)
       })
+      this.isLoader = false;
     }
 
       fnDateChange(event: MatDatepickerInputEvent<Date>) {
@@ -1643,6 +1647,7 @@ export class rescheduleAppointmentDialog {
       }
 
       fnGetTimeSlots(rescheduleServiceId,rescheduleDate){
+        this.isLoader = true;
         let requestObject = {
           "business_id":this.myAppoDetailData.business_id,
           "selected_date":rescheduleDate
@@ -1672,6 +1677,7 @@ export class rescheduleAppointmentDialog {
           (err) =>{
             console.log(err)
           })
+          this.isLoader = false;
         }
      
         fnChangeTimeSlot(event){
@@ -1681,6 +1687,7 @@ export class rescheduleAppointmentDialog {
         }
 
         fnGetStaff(slot){
+          this.isLoader = true;
           let requestObject = {
             "business_id":this.myAppoDetailData.business_id,
             "book_date":this.selectedDate,
@@ -1714,6 +1721,7 @@ export class rescheduleAppointmentDialog {
             (err) =>{
               console.log(err)
             })
+            this.isLoader = false;
         }
 
   onNoClick(): void {
@@ -1734,6 +1742,8 @@ export class rescheduleAppointmentDialog {
     // console.log(this.formAppointmentReschedule.get('rescheduleTime').value);
     // console.log(this.formAppointmentReschedule.get('rescheduleStaff').value);
     // console.log(this.formAppointmentReschedule.get('rescheduleNote').value);
+      this.isLoader = true;
+      alert('11')
     let requestObject = {
      "order_item_id":JSON.stringify(this.myAppoDetailData.id),
      "staff_id":this.formAppointmentReschedule.get('rescheduleStaff').value,
@@ -1749,6 +1759,7 @@ export class rescheduleAppointmentDialog {
           panelClass :['green-snackbar']
           });
           this.dialogRef.close();
+          this.isLoader = false;
      }
       
      else if(response.data == false && response.response !== 'api token or userid invaild'){
@@ -1757,6 +1768,7 @@ export class rescheduleAppointmentDialog {
         verticalPosition:'top',
         panelClass :['red-snackbar']
       });
+      this.isLoader = false;
     }
     })
   }

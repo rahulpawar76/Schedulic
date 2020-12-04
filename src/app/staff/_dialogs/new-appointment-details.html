@@ -8,18 +8,35 @@
           <span aria-hidden="true">&times;</span>
         </button>
                 </div>
-                <div class="d-flex m-2">
+                <div class="d-flex m-2" *ngIf="dialogType=='new'">
                     <button class="d-block btn btn-danger rejectbtn " (click)="changeBookingStatus(detailData.id, 'R')">Reject</button>
                     <button class="d-block btn btn-primary acceptbtn " (click)="changeBookingStatus(detailData.id, 'AC')">Accept</button>
                 </div>
+                <div class="d-flex m-2" *ngIf="dialogType=='ongoing'">
+                    <div class="row ongoingdetails mx-0">
+                        <div class="col-6 col-lg-6 col-sm-3 col-md-6 d-flex">
+                            <button mat-button class="d-block reschedulebtn" (click)="rescheduleAppointment(i)" *ngIf="minReschedulingTime && detailData.booking_date_time && minReschedulingTime.getTime() < detailData.booking_date_time.getTime()">Reschedule</button>
+                        </div>
+                        <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right">
+                            <form>
+                                <mat-form-field class="bottom-border-field">
+                                    <mat-label>Change Status</mat-label>
+                                    <mat-select [disabled]="timeToServiceDecimal < 0 || timeToServiceDecimal > 60" name="status" [(value)]="detailData.order_status" (selectionChange)="someMethod(detailData.id, $event.value)">
+                                        <mat-option *ngIf="timeToServiceDecimal < 60" value="OW">On The Way</mat-option>
+                                        <mat-option *ngIf="timeToServiceDecimal < 30" value="WS">Work Started</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="modal-body modal-bcolor">
+                <!-- <div class="modal-body modal-bcolor">
 
                     <p class="mb-0 font-weight-bold"> {{detailData.booking_dateForLabel}}</p>
                     <p>Booked On: {{detailData.created_atForLabel}}</p>
 
                     <p class="mb-0">Service</p>
-                    <!-- <p class="font-weight-bold">{{detailData.service.service_name}}($ {{detailData.service.service_cost}})</p> -->
                     <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{detailData.service.service_name}}({{currencySymbol| currencySymbol:'wide'}} {{ detailData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</p>
                     <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{detailData.service.service_name}}({{ detailData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}})</p>
                     <p class="mb-0">Time</p>
@@ -40,11 +57,94 @@
                             <p class="text-capitalize" *ngIf="detailData.order_status == 'R'">Rejected</p>
                         </div>
                     </div>
+                </div> -->
+                <div class="modal-body modal-bcolor p-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="mb-0 font-weight-bold pr-1">{{detailData.booking_date}}</span><span>(Order Id: {{detailData.id}})</span>
+                            <p>Booked On: {{detailData.created_at}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <p class="mb-0 title">Time</p>
+                            <span class="font-weight-bold pr-1">{{detailData.booking_timeForLabel}} - {{detailData.booking_time_to}}</span><span>({{detailData.service_time}}Min) </span>
+                            <!-- <p class="font-weight-bold">{{detailData.booking_time}}</p> -->
+                        </div>
+
+                        <div class="col-4">
+                            <p class="mb-0 title text-right">Order From</p>
+                            <p class="text-capitalize font-weight-bold text-right">{{detailData.order_from}}</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="mb-0 title">Service</p>
+                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{detailData.service.service_name}} = ({{currencySymbol| currencySymbol:'wide'}} {{ detailData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</p>
+                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{detailData.service.service_name}} = ({{ detailData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}})</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="mb-0 title">SubTotal</p>
+                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ detailData.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{ detailData.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+                        </div>
+
+                        <div class="col-6">
+                            <p class="mb-0 title text-right">Tax</p>
+                            <p class="font-weight-bold text-right" *ngIf="currencySymbolPosition=='left' && detailData.tax != null">{{currencySymbol| currencySymbol:'wide'}} {{ taxTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                            <p class="font-weight-bold text-right" *ngIf="currencySymbolPosition=='right' && detailData.tax != null">{{ taxTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+                            <p class="font-weight-bold text-right" *ngIf="detailData.tax == null">--</p>
+                            <!-- <p class="text-capitalize font-weight-bold text-right" >$.20</p> -->
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="mb-0 title">Total Amount</p>
+                            <p class="font-weight-bold text-left" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ detailData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                            <p class="font-weight-bold text-left" *ngIf="currencySymbolPosition=='right'">{{ detailData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+                        </div>
+
+                        <div class="col-6">
+                            <p class="mb-0 title text-right">Payment Status</p>
+                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.payment">{{detailData.payment.payment_status}} ({{detailData.payment.payment_mode}})</p>
+                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.payment == null || !detailData.payment">--</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <p class="mb-0 title">Order By</p>
+                            <p class="font-weight-bold">{{detailData.order_by}}</p>
+                        </div>
+
+                        <div class="col-8">
+                            <p class="mb-0 title text-right">Status</p>
+                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'P'">Waiting For Confirmation</p>
+                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'CNF'">Confirm</p>
+                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'AC'">Accepted</p>
+                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'RSA'">Rescheduled By You</p>
+                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'RSS'">Rescheduled By Staff</p>
+                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'RSC'">Rescheduled By Customer</p>
+                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'R'">Rejected</p>
+                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'C'">Cancelled</p>
+                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'CC'">Cancelled By Customer</p>
+                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'OW'">On The Way</p>
+                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'WS'">Work Started</p>
+                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'CO'">Completed</p>
+                        </div>
+                    </div>
+
+
                 </div>
                 <mat-card class="card-body-marginn booking-detail-main mb-0">
-                    <h6 class="text-left mb-3">Booking Details</h6>
+                    <h6 class="text-left mb-3">Customer Details</h6>
                     <div class="row align-items-center">
-                        <p class="customer-profile-img">SP</p>
+                        <p class="customer-profile-img">{{customerShortName}}</p>
                         <div class="customer-name pr-3">
                             <p class="font-weight-bold mb-0">{{detailData.customer.fullname}}</p>
                             <p class="address-fontsize mb-0">{{detailData.customer.email}}</p>
@@ -55,12 +155,9 @@
                     <!-- <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i>{{detailData.customer.address}}</p>
                     <p class="pl-4 address-fontsize">{{detailData.customer.city}}, {{detailData.customer.state}}, {{detailData.customer.zip}}</p> -->
 
-                    <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i>
-                        {{detailData.orders_info ? detailData.orders_info.booking_address : ''}}</p>
+                    <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i> {{detailData.orders_info ? detailData.orders_info.booking_address : ''}}</p>
                     <p class="pl-4 address-fontsize">
-                        {{detailData.orders_info ? detailData.orders_info.booking_city : ''}},
-                        {{detailData.orders_info ? detailData.orders_info.booking_state : ''}},
-                        {{detailData.orders_info ? detailData.orders_info.booking_zipcode : ''}}
+                        {{detailData.orders_info ? detailData.orders_info.booking_city : ''}}, {{detailData.orders_info ? detailData.orders_info.booking_state : ''}}, {{detailData.orders_info ? detailData.orders_info.booking_zipcode : ''}}
                     </p>
 
                     <p>Appointment Notes</p>

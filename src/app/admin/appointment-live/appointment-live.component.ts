@@ -1510,11 +1510,11 @@ constructor(
         console.log(response.response);
         this.activityLog=response.response;
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition: 'top',
+        //   panelClass : ['red-snackbar']
+        // });
         this.activityLog=[];
       }
     })
@@ -2081,11 +2081,11 @@ export class OnTheWayAppointmentDetailsDialog {
         this.activityLog=response.response;
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition: 'top',
+        //   panelClass : ['red-snackbar']
+        // });
         this.activityLog=[];
       }
     })
@@ -2447,11 +2447,11 @@ constructor(
         this.activityLog=response.response;
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition: 'top',
+        //   panelClass : ['red-snackbar']
+        // });
         this.activityLog=[];
       }
     })

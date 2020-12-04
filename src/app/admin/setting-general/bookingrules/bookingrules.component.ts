@@ -42,16 +42,16 @@ export class BookingrulesComponent implements OnInit {
   appAutoConfirmValue:any;
   autoAssignStaffValue:any;
   customerAllowStaffRatingValue:any;
-  termsConditionsStatusValue:any;
+  termsConditionsStatusValue:boolean;
   termsConditionsLabelValue:any;
   termsConditionsPageLinkValue:any;
-  privacyPolicyStatusValue:any;
+  privacyPolicyStatusValue:boolean;
   privacyPolicyLabelValue:any;
   privacyPolicyPageLinkValue:any;
-  thankyouPageStatusValue:any;
+  thankyouPageStatusValue:boolean = false;
   thankyouPageLinkValue:any;
   settingSideMenuToggle : boolean = false;
-
+websiteUrlFormate = '/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/'
   constructor(
     private appComponent : AppComponent,
     public dialog: MatDialog, 
@@ -84,13 +84,13 @@ export class BookingrulesComponent implements OnInit {
     this.appAutoConfirmValue="false";
     this.autoAssignStaffValue="false";
     this.customerAllowStaffRatingValue="false";
-    this.termsConditionsStatusValue="false";
+    this.termsConditionsStatusValue=false;
     this.termsConditionsLabelValue="";
     this.termsConditionsPageLinkValue="";
-    this.privacyPolicyStatusValue="false";
+    this.privacyPolicyStatusValue=false;
     this.privacyPolicyLabelValue="";
     this.privacyPolicyPageLinkValue="";
-    this.thankyouPageStatusValue="false";
+    this.thankyouPageStatusValue=false;
     this.thankyouPageLinkValue="";
   }
 
@@ -153,31 +153,6 @@ export class BookingrulesComponent implements OnInit {
         }
         
 
-       // // if(this.settingsArr.min_advance_booking_time >= 1440){
-       //    let min_advance_booking_time=this.settingsArr.min_advance_booking_time;
-       //    let days = min_advance_booking_time/(24*60);
-       //    // if(days >= 1){
-       //      this.minAdvBookingTimeDays=(parseInt(days)).toString();
-       //      alert(this.minAdvBookingTimeDays);
-       //      let RAD = min_advance_booking_time%(24*60);
-       //      alert(RAD);
-       //      // if(RAD >= 60){
-       //        let hours= RAD/60;
-       //        // if(hours >= 1){
-       //          this.minAdvBookingTimeHours=(parseInt(hours)).toString();
-       //          alert(this.minAdvBookingTimeHours);
-       //          let RAH = RAD%(60);
-       //          alert(RAH);
-       //          this.minAdvBookingTimeMinutes=(parseInt(RAH)).toString();
-       //          alert(this.minAdvBookingTimeMinutes);
-       //        // }
-       //      // }
-       //    // }
-       //  // }else{
-       //  //   let min_advance_booking_time=this.settingsArr.min_advance_booking_time;
-       //  //   let RAD = min_advance_booking_time%(24*60);
-       //  //   alert(RAD);
-       //  // }
         if(this.settingsArr.customer_login){
           this.customerLoginValue=this.settingsArr.customer_login;
         }
@@ -596,12 +571,10 @@ export class BookingrulesComponent implements OnInit {
   }
   
   fnChangeTermsConditionsStatus(event){
-    console.log(event.checked);
-    this.termsConditionsStatusValue=JSON.stringify(event.checked);
-    console.log(this.termsConditionsStatusValue);
+    this.termsConditionsStatusValue=event.checked;
 
     let termsConditionsArr={
-      "status":JSON.stringify(event.checked),
+      "status":event.checked,
       "label":this.termsConditionsLabelValue,
       "page_link":this.termsConditionsPageLinkValue
     }
@@ -609,8 +582,18 @@ export class BookingrulesComponent implements OnInit {
       "business_id":this.businessId,
       "terms_condition":termsConditionsArr
     }
-    console.log(JSON.stringify(requestObject));
-    this.fnUpdateTermsConditionsStatusValues(requestObject);
+    if(this.termsConditionsLabelValue && this.termsConditionsStatusValue && this.termsConditionsPageLinkValue.match(/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/)){
+      this.fnUpdateTermsConditionsStatusValues(requestObject);
+    }else if(!this.termsConditionsStatusValue){
+      this.fnUpdateTermsConditionsStatusValues(requestObject);
+    }else{
+      this.snackBar.open("Please enter valid link.", "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+      });
+      return false
+    }
   }
 
   fnSaveTermsConditionsValues(){
@@ -624,8 +607,16 @@ export class BookingrulesComponent implements OnInit {
       "business_id":this.businessId,
       "terms_condition":termsConditionsArr
     }
-    console.log(JSON.stringify(requestObject));
-    this.fnUpdateTermsConditionsStatusValues(requestObject);
+    if(this.termsConditionsLabelValue && this.termsConditionsPageLinkValue.match(/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/)){
+      this.fnUpdateTermsConditionsStatusValues(requestObject);
+    }else{
+      this.snackBar.open("Please enter valid link and lable.", "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+      });
+      return false
+    }
   }
 
   fnUpdateTermsConditionsStatusValues(requestObject){
@@ -656,12 +647,10 @@ export class BookingrulesComponent implements OnInit {
   }
   
   fnChangePrivacyPolicyStatus(event){
-    console.log(event.checked);
-    this.privacyPolicyStatusValue=JSON.stringify(event.checked);
-    console.log(this.privacyPolicyStatusValue);
+    this.privacyPolicyStatusValue=event.checked;
 
     let privacyPolicyArr={
-      "status":JSON.stringify(event.checked),
+      "status":event.checked,
       "label":this.privacyPolicyLabelValue,
       "page_link":this.privacyPolicyPageLinkValue
     }
@@ -669,8 +658,18 @@ export class BookingrulesComponent implements OnInit {
       "business_id":this.businessId,
       "privacy_policy":privacyPolicyArr
     }
-    console.log(JSON.stringify(requestObject));
-    this.fnUpdatePrivacyPolicyStatusValues(requestObject);
+    if(this.privacyPolicyLabelValue && this.privacyPolicyStatusValue && this.privacyPolicyPageLinkValue.match(/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/)){
+      this.fnUpdatePrivacyPolicyStatusValues(requestObject);
+    }else if(!this.privacyPolicyStatusValue){
+      this.fnUpdatePrivacyPolicyStatusValues(requestObject);
+    }else{
+      this.snackBar.open("Please enter valid link.", "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+      });
+      return false
+    }
   }
 
   fnSavePrivacyPolicyValues(){
@@ -684,8 +683,16 @@ export class BookingrulesComponent implements OnInit {
       "business_id":this.businessId,
       "privacy_policy":privacyPolicyArr
     }
-    console.log(JSON.stringify(requestObject));
-    this.fnUpdatePrivacyPolicyStatusValues(requestObject);
+    if(this.privacyPolicyLabelValue && this.privacyPolicyPageLinkValue.match(/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/)){
+      this.fnUpdatePrivacyPolicyStatusValues(requestObject);
+    }else{
+      this.snackBar.open("Please enter valid link and lable.", "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+      });
+      return false
+    }
   }
 
   fnUpdatePrivacyPolicyStatusValues(requestObject){
@@ -728,20 +735,28 @@ export class BookingrulesComponent implements OnInit {
   }
   
   fnChangeThankyouPageStatus(event){
-    console.log(event.checked);
-    this.thankyouPageStatusValue=JSON.stringify(event.checked);
-    console.log(this.thankyouPageStatusValue);
+    this.thankyouPageStatusValue=event.checked;
 
     let thankyouPageArr={
-      "status":JSON.stringify(event.checked),
+      "status":event.checked,
       "page_link":this.thankyouPageLinkValue
     }
     let requestObject={
       "business_id":this.businessId,
       "thank_you":thankyouPageArr
     }
-    console.log(JSON.stringify(requestObject));
-    this.fnUpdateThankyouPageStatusValues(requestObject);
+    if(this.thankyouPageStatusValue && this.thankyouPageLinkValue.match(/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/)){
+      this.fnUpdateThankyouPageStatusValues(requestObject);
+    }else if(!this.thankyouPageStatusValue){
+      this.fnUpdateThankyouPageStatusValues(requestObject);
+    }else{
+      this.snackBar.open("Please enter valid link.", "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+      });
+      return false
+    }
   }
 
   fnSaveThankyouPageValues(){
@@ -754,18 +769,16 @@ export class BookingrulesComponent implements OnInit {
       "business_id":this.businessId,
       "thank_you":thankyouPageArr
     }
-    alert(requestObject.thank_you.status)
-    alert(requestObject.thank_you.page_link)
-    if(requestObject.thank_you.status == true && (requestObject.thank_you.page_link === '' || requestObject.thank_you.page_link === null)){
-      this.snackBar.open("Link is required.", "X", {
+    if(this.thankyouPageStatusValue && this.thankyouPageLinkValue.match(/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/)){
+      this.fnUpdateThankyouPageStatusValues(requestObject);
+    }else{
+      this.snackBar.open("Please enter valid link.", "X", {
         duration: 2000,
         verticalPosition: 'top',
         panelClass : ['red-snackbar']
       });
       return false
     }
-    console.log(JSON.stringify(requestObject));
-    this.fnUpdateThankyouPageStatusValues(requestObject);
   }
 
   fnUpdateThankyouPageStatusValues(requestObject){
@@ -779,7 +792,7 @@ export class BookingrulesComponent implements OnInit {
         });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
-       this.snackBar.open("Thankyou Page Status Not Updated.", "X", {
+       this.snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['red-snackbar']

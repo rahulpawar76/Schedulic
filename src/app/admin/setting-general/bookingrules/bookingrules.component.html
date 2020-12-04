@@ -884,10 +884,10 @@
                             <h6>Terms & Conditions </h6>
                         </div>
                         <div class="ml-auto mx-3">
-                            <mat-slide-toggle (change)="fnChangeTermsConditionsStatus($event)" [checked]="termsConditionsStatusValue === 'true' ? true : false"></mat-slide-toggle>
+                            <mat-slide-toggle (change)="fnChangeTermsConditionsStatus($event)" [checked]="termsConditionsStatusValue === true ? true : false"></mat-slide-toggle>
                         </div>
                     </div>
-                    <div class="example-form" *ngIf="termsConditionsStatusValue=='true'">
+                    <div class="example-form" *ngIf="termsConditionsStatusValue==true">
                         <mat-form-field class="example-full-width bottom-border-field">
                             <!-- <mat-label></mat-label> -->
                             <input matInput placeholder="Add a label to your Terms & Conditions." [ngModel]="termsConditionsLabelValue" (ngModelChange)="setTermConditionsLabelValue($event)" maxlength="150">
@@ -896,7 +896,7 @@
                             <mat-hint class="ml-auto"><i>Maximum characters allowed<span class="text-danger"> 150</span></i></mat-hint>
                         </div>
                     </div>
-                    <div class="example-form" *ngIf="termsConditionsStatusValue=='true'">
+                    <div class="example-form" *ngIf="termsConditionsStatusValue==true">
                         <mat-form-field class="example-full-width bottom-border-field">
                             <!-- <mat-label></mat-label> -->
                             <input matInput placeholder="Add a link to your Terms & Conditions." [ngModel]="termsConditionsPageLinkValue" (ngModelChange)="setTermConditionsPageLinkValue($event)">
@@ -905,7 +905,7 @@
                             <mat-hint class="ml-auto"><i>Link will open in a new browser window</i></mat-hint>
                         </div>
                     </div>
-                    <div class="example-form" *ngIf="termsConditionsStatusValue=='true'">
+                    <div class="example-form" *ngIf="termsConditionsStatusValue==true">
                         <div class="d-flex example-full-width ">
                             <button mat-button class="staff-reset-btn" (click)="fnSaveTermsConditionsValues()">Save</button>
                         </div>
@@ -920,10 +920,10 @@
                             <h6>Privacy Policy </h6>
                         </div>
                         <div class="ml-auto mx-3">
-                            <mat-slide-toggle (change)="fnChangePrivacyPolicyStatus($event)" [checked]="privacyPolicyStatusValue === 'true' ? true : false"></mat-slide-toggle>
+                            <mat-slide-toggle (change)="fnChangePrivacyPolicyStatus($event)" [checked]="privacyPolicyStatusValue === true ? true : false"></mat-slide-toggle>
                         </div>
                     </div>
-                    <div class="example-form" *ngIf="privacyPolicyStatusValue=='true'">
+                    <div class="example-form" *ngIf="privacyPolicyStatusValue==true">
                         <p>Display as hyperlink text next to a checkbox that the user must accept.</p>
                         <mat-form-field class="example-full-width bottom-border-field">
                             <input matInput placeholder="Add a label to your Privacy Policy." [ngModel]="privacyPolicyLabelValue" (ngModelChange)="setPrivacyPolicyLabelValue($event)" maxlength="150">
@@ -932,7 +932,7 @@
                             <mat-hint class="ml-auto"><i>Maximum characters allowed<span class="text-danger"> 150</span></i></mat-hint>
                         </div>
                     </div>
-                    <div class="example-form" *ngIf="privacyPolicyStatusValue=='true'">
+                    <div class="example-form" *ngIf="privacyPolicyStatusValue==true">
                         <mat-form-field class="example-full-width bottom-border-field">
                             <input matInput placeholder="Add a Page link of your Privacy Policy." [ngModel]="privacyPolicyPageLinkValue" (ngModelChange)="setPrivacyPolicyPageLinkValue($event)">
                         </mat-form-field>
@@ -940,7 +940,7 @@
                             <mat-hint class="ml-auto"><i>Link will open in a new browser window</i></mat-hint>
                         </div>
                     </div>
-                    <div class="example-form" *ngIf="privacyPolicyStatusValue=='true'">
+                    <div class="example-form" *ngIf="privacyPolicyStatusValue==true">
                         <div class="d-flex example-full-width ">
                             <button mat-button class="staff-reset-btn" (click)="fnSavePrivacyPolicyValues()">Save</button>
                         </div>
@@ -955,15 +955,15 @@
                             <h6>Thank You Page</h6>
                         </div>
                         <div class="ml-auto mx-3">
-                            <mat-slide-toggle (change)="fnChangeThankyouPageStatus($event)" [checked]="thankyouPageStatusValue === 'true' ? true : false"></mat-slide-toggle>
+                            <mat-slide-toggle (change)="fnChangeThankyouPageStatus($event)" [checked]="thankyouPageStatusValue === true ? true : false"></mat-slide-toggle>
                         </div>
                     </div>
-                    <div class="example-form" *ngIf="thankyouPageStatusValue=='true'">
+                    <div class="example-form" *ngIf="thankyouPageStatusValue==true">
                         <mat-form-field class="example-full-width bottom-border-field">
                             <input matInput placeholder="Add a link to your Thank You page" [ngModel]="thankyouPageLinkValue" (ngModelChange)="setThankyouPageLinkValue($event)">
                         </mat-form-field>
                     </div>
-                    <div class="example-form" *ngIf="thankyouPageStatusValue=='true'">
+                    <div class="example-form" *ngIf="thankyouPageStatusValue==true">
                         <div class="d-flex example-full-width ">
                             <button mat-button class="staff-reset-btn mt-3" (click)="fnSaveThankyouPageValues()">Save</button>
                         </div>

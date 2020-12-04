@@ -2726,6 +2726,8 @@ export class StaffComponent implements OnInit {
   }
 
   viewStaffReviewDetail(index,OrderId){
+    alert(index)
+    console.log(this.singleStaffDetail.staff[0].review[index])
     this.isLoaderAdmin = true;
     this.adminSettingsService.viewStaffReviewDetail(OrderId).subscribe((response:any) => {
       if(response.data == true){
@@ -2905,16 +2907,24 @@ export class StaffComponent implements OnInit {
 })
 export class DialogStaffViewReview {
 detailsData: any;
-orderDataFull:any;
+reviewData:any;
+initials:any;
+customerShortName:any;
 constructor(
   public dialogRef: MatDialogRef<DialogStaffViewReview>,
   @Inject(AdminSettingsService) public adminSettingsService: AdminSettingsService,
   @Inject(MAT_DIALOG_DATA) public data: any) {
 
-     this.detailsData =  this.data.fulldata;
-     this.orderDataFull =  this.data.orderData[0];
-     console.log(this.orderDataFull);
+     this.detailsData =  this.data.orderData[0];
+     this.reviewData =  this.data.fulldata;
+     this.initials = this.detailsData.customer.fullname.split(" ",2);
+      this.customerShortName = '';
+      this.initials.forEach( (element2) => {
+        this.customerShortName = this.customerShortName+element2.charAt(0);
+      });
+    //  console.log(this.orderDataFull);
     console.log(this.detailsData);
+    console.log(this.reviewData);
   }
 
 onNoClick(): void {

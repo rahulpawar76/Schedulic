@@ -55,7 +55,6 @@ export class PaymentrulesComponent implements OnInit {
     this.AdminSettingsService.getSettingValue(requestObject).subscribe((response: any) => {
       if (response.data == true) {
         this.selectedCurrency = response.response.currency;
-        alert(this.selectedCurrency)
         this.selectedCurrencyPosition = response.response.currency_symbol_position;
         this.selectedCurrencyFormat = response.response.currency_format;
      //   console.log(this.taxesData);

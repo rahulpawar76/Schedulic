@@ -3,7 +3,7 @@
 <div class="content-main">
     <mat-tab-group (selectedIndexChange)="fnTabValue($event)" mat-align-tabs="start">
         <mat-tab label="New" class="appointmentlabel">
-            <div class="bookings-details-main" *ngIf="newAppointmentData != ''">
+            <div class="bookings-details-main row mx-0" *ngIf="newAppointmentData != ''">
                 <div *ngFor="let newAppointmentData of newAppointmentData; let i=index" class="col-sm-6 col-md-6 col-12 col-lg-4 single-booking float-left">
                     <mat-card class="col card mt-3 ">
                         <div class="card-body">
@@ -110,7 +110,7 @@
         </mat-tab> -->
 
         <mat-tab label="Ongoing" class="appointmentlabel">
-            <div *ngIf="onGoingAppointmentData != ''" class="bookings-details-main">
+            <div *ngIf="onGoingAppointmentData != ''" class="bookings-details-main row mx-0">
                 <div *ngFor="let onGoingAppointmentData of onGoingAppointmentData; let i=index" class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
                     <mat-card class="col card mt-3 ">
                         <div class="card-body">
@@ -173,7 +173,7 @@
             </div>
         </mat-tab>
         <mat-tab label="Completed" class="appointmentlabel">
-            <div class="bookings-details-main" *ngIf="completedAppointmentData != ''">
+            <div class="bookings-details-main row mx-0" *ngIf="completedAppointmentData != ''">
                 <div *ngFor="let completedAppointmentData of completedAppointmentData; let i=index" class="col-sm-6 col-md-6 col-lg-4 single-booking float-left">
                     <mat-card class="col card mt-3 ">
                         <div class="card-body">
