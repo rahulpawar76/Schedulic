@@ -2041,7 +2041,7 @@ constructor(
                 verticalPosition: 'top',
                 panelClass : ['red-snackbar']
                 });
-                this.formAddNewAppointmentStaffStep2.get('customerPostalCode').markAsTouched;
+                this.formAddNewAppointmentStaffStep2.get('customerPostalCode').markAsTouched();
               this.valide_postal_code = false;
             resolve({ isPostalcodeValid: true });
             }else{

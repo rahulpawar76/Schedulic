@@ -8,7 +8,7 @@ import { AdminService } from '../_services/admin-main.service'
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { AppComponent } from '@app/app.component';
 import { AuthenticationService } from '@app/_services';
-
+import { environment } from '@environments/environment'
 export interface DialogData {
   animal: string;
   name: string;
@@ -258,6 +258,7 @@ export class myCreateNewBusinessDialog {
         "state" : this.createBusiness.get('business_state').value,
         "city" : this.createBusiness.get('business_city').value,
         "time_zone" : this.createBusiness.get('business_timezone').value,
+        "site_url" : environment.urlForLink,
         "zipcode" : this.createBusiness.get('business_zip').value,
       }
       

@@ -155,13 +155,13 @@ export class DialogAddNewPlan {
         this.fnCreateNewPlan(this.newPlanData);
       }else{
         console.log(this.addPlanForm)
-        this.addPlanForm.get('name').markAsTouched;
-        this.addPlanForm.get('amount').markAsTouched;
-        this.addPlanForm.get('interval').markAsTouched;
-        this.addPlanForm.get('business').markAsTouched;
-        this.addPlanForm.get('staff').markAsTouched;
-        this.addPlanForm.get('customer').markAsTouched;
-        this.addPlanForm.get('service').markAsTouched;
+        this.addPlanForm.get('name').markAsTouched();
+        this.addPlanForm.get('amount').markAsTouched();
+        this.addPlanForm.get('interval').markAsTouched();
+        this.addPlanForm.get('business').markAsTouched();
+        this.addPlanForm.get('staff').markAsTouched();
+        this.addPlanForm.get('customer').markAsTouched();
+        this.addPlanForm.get('service').markAsTouched();
       }
     }
     fnCreateNewPlan(requestObject){

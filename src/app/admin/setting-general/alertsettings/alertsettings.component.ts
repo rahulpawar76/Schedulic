@@ -870,8 +870,8 @@ fnAppointmentsReminderSMS(event){
       this.isLoaderAdmin = false;
     })
     }else{
-      this.customizeAlert.get('senderName').markAsTouched;
-      this.customizeAlert.get('emailSignature').markAsTouched;
+      this.customizeAlert.get('senderName').markAsTouched();
+      this.customizeAlert.get('emailSignature').markAsTouched();
     }
   }
 
@@ -906,11 +906,11 @@ fnAppointmentsReminderSMS(event){
       this.isLoaderAdmin = false;
     })
     }else{
-      this.smtpForm.get('mailHost').markAsTouched;
-      this.smtpForm.get('mailPort').markAsTouched;
-      this.smtpForm.get('mailUsername').markAsTouched;
-      this.smtpForm.get('mailPassword').markAsTouched;
-      this.smtpForm.get('mailEncryption').markAsTouched;
+      this.smtpForm.get('mailHost').markAsTouched();
+      this.smtpForm.get('mailPort').markAsTouched();
+      this.smtpForm.get('mailUsername').markAsTouched();
+      this.smtpForm.get('mailPassword').markAsTouched();
+      this.smtpForm.get('mailEncryption').markAsTouched();
     }
   }
 

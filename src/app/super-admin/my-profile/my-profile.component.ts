@@ -90,12 +90,12 @@ export class MyProfileComponent implements OnInit {
       }
       this.updateProfile(this.updatedAdminProfileData);
     }else{
-      this.saProfile.get('first_name').markAsTouched;
-      this.saProfile.get('last_name').markAsTouched;
-      this.saProfile.get('mobile').markAsTouched;
-      this.saProfile.get('email').markAsTouched;
-      this.saProfile.get('stripe_secret').markAsTouched;
-      this.saProfile.get('stripe_publish').markAsTouched;
+      this.saProfile.get('first_name').markAsTouched();
+      this.saProfile.get('last_name').markAsTouched();
+      this.saProfile.get('mobile').markAsTouched();
+      this.saProfile.get('email').markAsTouched();
+      this.saProfile.get('stripe_secret').markAsTouched();
+      this.saProfile.get('stripe_publish').markAsTouched();
     }
   }
   updateProfile(updatedAdminProfileData){

@@ -1099,7 +1099,9 @@ export class AppointmentLiveComponent implements OnInit {
     this.AdminService.PendingBilling(requestObject).subscribe((response: any) => {
       if (response.data == true) {
         this.pendingBillingData = response.response;
+        var count  = 0;
         this.pendingBillingData.forEach( (element) => { 
+          count = count+1;
           element.orders.booking_date=this.datePipe.transform(new Date(element.orders.booking_date),"dd MMM yyyy")
           element.orders.booking_time=this.datePipe.transform(new Date(element.orders.booking_date+" "+element.orders.booking_time),"hh:mm a");
           element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a"),
