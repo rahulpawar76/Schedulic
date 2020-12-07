@@ -327,8 +327,8 @@
                             }} {{currencySymbol|
                             currencySymbol:'wide'}}</label>
                     </div>
-                    <div class="col-lg-2 col-12 d-flex justify-content-end p-0 right-side right-side">
-                        <div class="qty-counter d-inline-block">
+                    <div class="col-lg-2 col-12 d-flex align-items-start justify-content-end p-0 right-side right-side">
+                        <div class="qty-counter d-flex">
                             <button mat-fab class="action-btn
                                             qty-minus" (click)="fnRemove($event,serviceCart.id)">-</button>
                             <input type="text" class="qty_value" value="{{serviceCart.count}}" readonly/>
@@ -428,20 +428,20 @@
             <div *ngIf="termsConditions && privacyPolicy" class="d-flex flex-wrap">
 
                 <mat-checkbox *ngIf="termsConditions.status ==
-                                'true'" class="termscondition ml-3" (change)="fnChangeTermsConditionsStatus($event.checked)">
+                                true" class="termscondition ml-3" (change)="fnChangeTermsConditionsStatus($event.checked)">
                     <a *ngIf="termsConditions.page_link != ''" href="{{termsConditions.page_link}}" target="blank">{{termsConditions.label}}</a>
                     <a *ngIf="termsConditions.page_link == ''" target="blank">{{termsConditions.label}}</a>
                 </mat-checkbox>
                 <mat-checkbox *ngIf="privacyPolicy.status ==
-                                'true'" class="termscondition ml-3" (change)="fnChangePrivacyPolicyStatus($event.checked)">
+                                true" class="termscondition ml-3" (change)="fnChangePrivacyPolicyStatus($event.checked)">
                     <a *ngIf="privacyPolicy.page_link !=''" href="{{privacyPolicy.page_link}}" target="blank">{{privacyPolicy.label}}</a>
                     <a *ngIf="privacyPolicy.page_link ==''" target="blank">{{privacyPolicy.label}}</a>
                 </mat-checkbox>
-                <span *ngIf="privacyPolicy.status == 'true' &&
+                <span *ngIf="privacyPolicy.status == true &&
                                 !PrivacyPolicyStatusValue &&
                                 PrivacyPolicyStatusValidation" class="error
                                 w-100 pl-3">Please check Privacy Policy.</span>
-                <span *ngIf="termsConditions.status == 'true' &&
+                <span *ngIf="termsConditions.status == true &&
                                 !termsConditionsStatusValue &&
                                 termsConditionsStatusValidation" class="error
                                 w-100 pl-3">Please check Terms & Condition.</span>

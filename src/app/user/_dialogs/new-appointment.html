@@ -149,6 +149,7 @@
                                 </div>
                             </div>
                             <mat-select class="form-control formcontrol" [disabled]="" formControlName="customerStaff" (selectionChange)="fnSelectStaff($event.value)">
+                                <mat-option *ngFor="let staff of availableStaff" value="null">Any Staff</mat-option>
                                 <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">{{staff.name}}</mat-option>
                                 <mat-option *ngIf="availableStaff.length==0" disabled>No Staff Available</mat-option>
                             </mat-select>

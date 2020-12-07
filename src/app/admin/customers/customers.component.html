@@ -130,6 +130,7 @@
                                             </mat-form-field>
                                             <span class="error-wrap" *ngIf="createNewCustomer.get('cus_phone').dirty || createNewCustomer.get('cus_phone').touched || formSubmitclicked">
                                                 <small *ngIf="createNewCustomer.get('cus_phone').hasError('required')" class="error">Contact number is required.</small>
+                                                <small *ngIf="createNewCustomer.get('cus_phone').hasError('isPhoneUnique')" class="error">Contact number already exist.</small>
                                                 <small *ngIf="createNewCustomer.get('cus_phone').hasError('pattern') || (createNewCustomer.get('cus_phone').hasError('pattern') && (createNewCustomer.get('cus_phone').hasError('minlength') || createNewCustomer.get('cus_phone').hasError('maxlength')))" class="error">Contact number should be in numbers.</small>
                                                 <small *ngIf="!createNewCustomer.get('cus_phone').hasError('pattern') && (createNewCustomer.get('cus_phone').hasError('minlength') || createNewCustomer.get('cus_phone').hasError('maxlength'))" class="error">Contact number should minimum 6 and maximum 15 digits.</small>
                                             </span>

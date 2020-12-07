@@ -233,7 +233,6 @@ export class FrontbookingComponent implements OnInit {
    
     meta.addTag({name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'});
     this.renderExternalScript('https://checkout-static.citruspay.com/bolt/run/bolt.min.js').onload = () => {
-      console.log('Google API Script loaded');
     }
 
     this.AppComponent.setcompanycolours(this.businessId);
@@ -366,7 +365,6 @@ export class FrontbookingComponent implements OnInit {
     ).subscribe((response:any) => {
         if(response.data == true){
           this.settingsArr=response.response;
-          console.log(this.settingsArr)
           this.currencySymbol = this.settingsArr.currency;
           this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
           this.currencySymbolFormat = this.settingsArr.currency_format;
@@ -417,11 +415,11 @@ export class FrontbookingComponent implements OnInit {
           
 
           this.termsConditions = JSON.parse(this.settingsArr.terms_condition);
-          if(this.termsConditions.status == 'false'){
+          if(this.termsConditions.status == false){
             this.termsConditionsStatusValue = true;
           }
           this.privacyPolicy=JSON.parse(this.settingsArr.privacy_policy)
-          if(this.privacyPolicy && this.privacyPolicy.status == 'false'){
+          if(this.privacyPolicy && this.privacyPolicy.status == false){
             this.PrivacyPolicyStatusValue = true;
           }
           this.thankYou=JSON.parse(this.settingsArr.thank_you);
@@ -476,7 +474,6 @@ export class FrontbookingComponent implements OnInit {
           this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
           this.minimumAdvanceBookingDateTimeObject = new Date();
           this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
-          console.log(this.minimumAdvanceBookingDateTimeObject)
           this.minDate = {
             year: this.minimumAdvanceBookingDateTimeObject.getFullYear(),
             month: this.minimumAdvanceBookingDateTimeObject.getMonth() + 1,
@@ -500,7 +497,6 @@ export class FrontbookingComponent implements OnInit {
         }else{
         }
       },(err) =>{
-        console.log(err)
       });
   }
 
@@ -521,7 +517,6 @@ export class FrontbookingComponent implements OnInit {
               this.businessDetail = response.response;
             }
         },(err) =>{
-            console.log(err)
         });
     }
 
@@ -655,7 +650,6 @@ this.router.navigate(['/login']);
         this.isLoader=false;
       this.validpostalcode = 'invalid';
       this.postalCodeError = true;
-        console.log(err)
       })
   }
 
@@ -684,7 +678,7 @@ this.router.navigate(['/login']);
       }
       },
       (err) =>{
-        console.log(err)
+       
       })
   }
 
@@ -717,7 +711,7 @@ this.router.navigate(['/login']);
       },
       (err) =>{
         this.isLoader=false;
-        console.log(err)
+       
       })
     }
 
@@ -767,7 +761,7 @@ this.router.navigate(['/login']);
     },
     (err) =>{
       this.isLoader=false;
-      console.log(err)
+     
     })
   }
 
@@ -800,7 +794,6 @@ this.router.navigate(['/login']);
   ).subscribe((response:any) => {
     if(response.data == true){
       this.serviceData = response.response;
-      console.log(JSON.stringify(this.serviceCount));
       for(let i=0; i<this.serviceData.length;i++){
         if(this.serviceCount[this.serviceData[i].id] == null){
           this.serviceData[i].count=0;
@@ -817,7 +810,6 @@ this.router.navigate(['/login']);
               name:'',
               amount:0
             }
-            console.log(element.name+" -- "+element.value);
             if(this.taxType == "P"){
              taxTemp.value= element.value;
              taxTemp.name= element.name;
@@ -831,7 +823,6 @@ this.router.navigate(['/login']);
             }
             taxMain.push(taxTemp);
             this.serviceData[i].tax=taxMain;
-            console.log(this.serviceData[i].tax);
           });
 
           // this.serviceData[i].tax=0;
@@ -847,14 +838,13 @@ this.router.navigate(['/login']);
         
       }
       this.isLoader=false;
-      console.log(JSON.stringify(this.serviceCount));
     }else{
       this.isLoader=false;
     }
   },
     (err) =>{
       this.isLoader=false;
-      console.log(err)
+     
     })
   }
    
@@ -876,7 +866,6 @@ this.router.navigate(['/login']);
     ).subscribe((response:any) => {
       if(response.data == true){
         this.serviceData = response.response;
-        console.log(JSON.stringify(this.serviceCount));
         for(let i=0; i<this.serviceData.length;i++){
           if(this.serviceCount[this.serviceData[i].id] == null){
             this.serviceData[i].count=0;
@@ -894,7 +883,6 @@ this.router.navigate(['/login']);
                 name:'',
                 amount:0
               }
-              console.log(element.name+" -- "+element.value);
               if(this.taxType == "P"){
                taxTemp.value= element.value;
                taxTemp.name= element.name;
@@ -908,7 +896,6 @@ this.router.navigate(['/login']);
               }
               taxMain.push(taxTemp);
               this.serviceData[i].tax=taxMain;
-              console.log(this.serviceData[i].tax);
             });
 
             // this.serviceData[i].tax=0;
@@ -926,7 +913,6 @@ this.router.navigate(['/login']);
         this.directService=true;
         this.catselection = false;
         this.serviceselection = true;
-        console.log(JSON.stringify(this.serviceCount));
       }else{
         this.snackBar.open("No Sub-Category or Service Available", "X", {
         duration: 2000,
@@ -938,7 +924,7 @@ this.router.navigate(['/login']);
     },
     (err) =>{
       this.isLoader=false;
-      console.log(err)
+     
     })
   }
 
@@ -959,7 +945,6 @@ this.router.navigate(['/login']);
         name:'',
         amount:0
       }
-    //  console.log(element.name+" -- "+element.value);
       if(this.taxType == "P"){
        taxTemp.value= element.value;
        taxTemp.name= element.name;
@@ -973,25 +958,17 @@ this.router.navigate(['/login']);
       }
       taxMain.push(taxTemp);
       this.serviceCount[service_id].tax=taxMain;
-     // console.log(this.serviceCount[service_id].tax);
     });
 
-    // this.serviceData[id].tax=0;
     this.serviceCount[service_id].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
-
-    // this.serviceCount[service_id].totalCost=1*this.serviceCount[service_id].service_cost;
-  //  console.log(JSON.stringify(this.serviceCount));
     if(this.serviceCartArr[service_id] != null){
       this.serviceCartArr[service_id]=this.serviceCount[service_id];
-     // console.log(JSON.stringify(this.serviceCartArr));
     }
     this.serviceMainArr.totalNumberServices=0;
     this.serviceMainArr.subtotal=0;
     this.serviceMainArr.discount=0;
     this.taxAmountArr.length=0;
-   // console.log(this.taxAmountArr);
     this.serviceMainArr.netCost=0;
-    // this.fncheckavailcoupon('valid');
     this.closecoupon = 'default';
       this.couponIcon="check";
       this.coupon.couponcode_val ="";
@@ -1011,7 +988,6 @@ this.router.navigate(['/login']);
           name:'',
           amount:0
         }
-     //   console.log(element.name+" -- "+element.value);
         if(this.taxType == "P"){
          taxTemp.value= element.value;
          taxTemp.name= element.name;
@@ -1024,40 +1000,26 @@ this.router.navigate(['/login']);
           amountAfterTax=amountAfterTax+taxTemp.amount;
         }
         this.taxAmountArr.push(taxTemp);
-      //  console.log(this.taxAmountArr);
       });
     }
-    // this.taxAmountArr.forEach((element) => {
-    //   amountAfterDiscount=amountAfterDiscount+element;
-    // });
     this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
-    //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-    console.log(this.serviceCount[service_id]);
     var co = 0;
     var  Arr_co = 0;
-    console.log(this.serviceCartArr)
     this.serviceCartArr.forEach(element => {
       if(element.service_sub_type !== null || element.service_sub_type !== ''){
         if(element.service_sub_type=='at_home'){
           co = co + 1;
         }
         Arr_co = Arr_co + 1;
-        
-      console.log(element.service_sub_type);
       }
       
     });;
 
     if(co > 0){
-      console.log('true');
       this.is_at_home_service  = true;
     }else{
-      console.log('false');
       this.is_at_home_service  = false;
     }
-
-    //console.log(this.taxAmountArr);
-  //  console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
   }
 
   fnRemove(event,service_id){
@@ -1079,7 +1041,6 @@ this.router.navigate(['/login']);
           name:'',
           amount:0
         }
-        console.log(element.name+" -- "+element.value);
         if(this.taxType == "P"){
          taxTemp.value= element.value;
          taxTemp.name= element.name;
@@ -1093,27 +1054,20 @@ this.router.navigate(['/login']);
         }
         taxMain.push(taxTemp);
         this.serviceCount[service_id].tax=taxMain;
-        console.log(this.serviceCount[service_id].tax);
       });
-
-      // this.serviceData[id].tax=0;
       this.serviceCount[service_id].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
 
-      // this.serviceCount[service_id].totalCost=this.serviceCount[service_id].count*this.serviceCount[service_id].service_cost;
-      console.log(JSON.stringify(this.serviceCount));
       if(this.serviceCartArr[service_id] != null){
         if(this.serviceCount[service_id].count < 1){
           this.serviceCartArr[service_id]=null;
         }else{
           this.serviceCartArr[service_id]=this.serviceCount[service_id]; 
         }
-        console.log(JSON.stringify(this.serviceCartArr));
       }
       this.serviceMainArr.totalNumberServices=0;
       this.serviceMainArr.subtotal=0;
       this.serviceMainArr.discount=0;
       this.taxAmountArr.length=0;
-      console.log(this.taxAmountArr);
       this.serviceMainArr.netCost=0;
       // this.fncheckavailcoupon('valid');
       this.closecoupon = 'default';
@@ -1130,20 +1084,11 @@ this.router.navigate(['/login']);
       var amountAfterTax=0;
       if(this.serviceMainArr.subtotal > 0){
         this.taxArr.forEach((element) => {
-          // console.log(element.name+" -- "+element.value);
-          // if(this.taxType == "P"){
-          //   this.taxAmountArr[element.name]= amountAfterDiscount * element.value/100;
-          //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
-          // }else{
-          //   this.taxAmountArr[element.name]=  element.value;
-          //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
-          // }
           let taxTemp={
           value:0,
             name:'',
             amount:0
           }
-          console.log(element.name+" -- "+element.value);
           if(this.taxType == "P"){
            taxTemp.value= element.value;
            taxTemp.name= element.name;
@@ -1156,16 +1101,10 @@ this.router.navigate(['/login']);
             amountAfterTax=amountAfterTax+taxTemp.amount;
           }
           this.taxAmountArr.push(taxTemp);
-          console.log(this.taxAmountArr);
         });
       }
-      // this.taxAmountArr.forEach((element) => {
-      //   amountAfterDiscount=amountAfterDiscount+element;
-      // });
       this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
-      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-      console.log(this.taxAmountArr);
-      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
+      
     }
   }
 
@@ -1188,7 +1127,6 @@ this.router.navigate(['/login']);
           name:'',
           amount:0
         }
-        console.log(element.name+" -- "+element.value);
         if(this.taxType == "P"){
          taxTemp.value= element.value;
          taxTemp.name= element.name;
@@ -1202,17 +1140,13 @@ this.router.navigate(['/login']);
         }
         taxMain.push(taxTemp);
         this.serviceCount[service_id].tax=taxMain;
-        console.log(this.serviceCount[service_id].tax);
       });
 
       // this.serviceData[id].tax=0;
       this.serviceCount[service_id].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
 
-      // this.serviceCount[service_id].totalCost=this.serviceCount[service_id].count*this.serviceCount[service_id].service_cost;
-      console.log(JSON.stringify(this.serviceCount));
       if(this.serviceCartArr[service_id] != null){
         this.serviceCartArr[service_id]=this.serviceCount[service_id];
-        console.log(JSON.stringify(this.serviceCartArr));
       } 
 
       
@@ -1233,7 +1167,6 @@ this.router.navigate(['/login']);
               name:'',
               amount:0
             }
-            console.log(element.name+" ---- "+element.value);
             if(this.taxType == "P"){
              taxTemp.value= element.value;
              taxTemp.name= element.name;
@@ -1247,24 +1180,20 @@ this.router.navigate(['/login']);
             }
             taxMain.push(taxTemp);
             this.serviceCartArr[i].tax=taxMain;
-            console.log(this.serviceCartArr[i].tax);
           });
 
           this.serviceCartArr[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
 
-          console.log(JSON.stringify(this.serviceCartArr[i]));
           this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
           this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
         }
       }
-      console.log(JSON.stringify(this.serviceCartArr));
       
 
       this.serviceMainArr.totalNumberServices=0;
       this.serviceMainArr.subtotal=0;
       this.serviceMainArr.discount=0;
       this.taxAmountArr.length=0;
-      console.log(this.taxAmountArr);
       this.serviceMainArr.netCost=0;
       // this.fncheckavailcoupon('valid');
       this.closecoupon = 'default';
@@ -1282,20 +1211,11 @@ this.router.navigate(['/login']);
       var amountAfterTax=0;
       if(this.serviceMainArr.subtotal > 0){
         this.taxArr.forEach((element) => {
-          // console.log(element.name+" -- "+element.value);
-          // if(this.taxType == "P"){
-          //   this.taxAmountArr[element.name]= amountAfterDiscount * element.value/100;
-          //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
-          // }else{
-          //   this.taxAmountArr[element.name]=  element.value;
-          //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
-          // }
           let taxTemp={
           value:0,
             name:'',
             amount:0
           }
-          console.log(element.name+" -- "+element.value);
           if(this.taxType == "P"){
            taxTemp.value= element.value;
            taxTemp.name= element.name;
@@ -1308,16 +1228,12 @@ this.router.navigate(['/login']);
             amountAfterTax=amountAfterTax+taxTemp.amount;
           }
           this.taxAmountArr.push(taxTemp);
-          console.log(this.taxAmountArr);
         });
       }
       // this.taxAmountArr.forEach((element) => {
       //   amountAfterDiscount=amountAfterDiscount+element;
       // });
       this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
-      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-      console.log(this.taxAmountArr);
-      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
     }
   } 
 
@@ -1354,7 +1270,7 @@ this.router.navigate(['/login']);
         }
       },
       (err) =>{
-        console.log(err)
+       
       })
     }
 
@@ -1364,9 +1280,7 @@ this.router.navigate(['/login']);
       let year=this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[0];
       let month= this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[1];
       let day=this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[2];
-      console.log(year+"--"+month+"--"+day);
       let dateTemp={"year":parseInt(year),"month":parseInt(month),"day":parseInt(day)};
-      console.log(JSON.stringify(dateTemp));
       this.model=dateTemp;
       this.selecteddate=this.serviceCartArr[this.currentSelectedService].appointmentDate
       this.selecteddateForLabel=this.datePipe.transform(new Date(this.serviceCartArr[this.currentSelectedService].appointmentDate),"EEE, MMM dd");
@@ -1382,13 +1296,11 @@ this.router.navigate(['/login']);
   fnSelectNextValidDate(mydate){
     
     if(mydate=="" || mydate==undefined){
-      console.log('appointment Date not availbled');
       return false;
     }
     
     if(this.offDaysList.indexOf(this.datePipe.transform(new Date(mydate),"yyyy-MM-dd"))>-1){
       mydate.setDate(mydate.getDate() + 1)
-      console.log(mydate);
       this.fnSelectNextValidDate(mydate);
     }else{
       let day = this.datePipe.transform(new Date(mydate),"EEE");
@@ -1414,24 +1326,17 @@ this.router.navigate(['/login']);
       if(day == "Sat"){
         dayId=6;
       }
-      console.log(day);
       if(this.workingHoursOffDaysList.indexOf(dayId)>-1){
         mydate.setDate(mydate.getDate() + 1)
-        console.log(mydate);
         this.fnSelectNextValidDate(mydate);
       }else{
         this.selecteddate=this.datePipe.transform(new Date(mydate),"yyyy-MM-dd");
         let year=this.selecteddate.split("-")[0];
         let month= this.selecteddate.split("-")[1];
         let day=this.selecteddate.split("-")[2];
-        console.log(year+"--"+month+"--"+day);
         let dateTemp={"year":parseInt(year),"month":parseInt(month),"day":parseInt(day)};
-        console.log(JSON.stringify(dateTemp));
         this.model=dateTemp;
         this.selecteddateForLabel= this.datePipe.transform(new Date(mydate),"EEE, MMM dd");
-        console.log(mydate);
-        console.log(this.selecteddate);
-        console.log(this.selecteddateForLabel);
         this.fnGetTimeSlots();
       }
     }
@@ -1468,7 +1373,6 @@ this.router.navigate(['/login']);
     var co = 0;
     var  Arr_co = 0;
     this.serviceCartArr.forEach(element => {
-      console.log(element.service_sub_type);
       if(element.service_sub_type !== null){
         if(element.service_sub_type=='at_home'){
           co = co + 1;
@@ -1478,10 +1382,8 @@ this.router.navigate(['/login']);
    });;
 
    if(co > 0){
-     console.log('true');
     this.is_at_home_service  = true;
    }else{
-    console.log('false');
     this.is_at_home_service  = false;
    }
  
@@ -1527,18 +1429,12 @@ this.router.navigate(['/login']);
         //this.timeSlotArr = response.response;
         this.minimumAdvanceBookingDateTimeObject = new Date();
         this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
-        console.log(response.response)
-        console.log(this.selecteddate);
-        console.log(this.minimumAdvanceBookingTime)
-        console.log(this.minimumAdvanceBookingTime)
-        console.log(this.minimumAdvanceBookingDateTimeObject)
-        console.log(this.minimumAdvanceBookingDateTimeObject.getTime())
 
         
         response.response.forEach(element => {
-          console.log((new Date(this.datePipe.transform(this.selecteddate,"yyyy-MM-dd")+" "+element+":00")).getTime())
+         
           if((new Date(this.datePipe.transform(this.selecteddate,"yyyy-MM-dd")+" "+element+":00")).getTime() > (this.minimumAdvanceBookingDateTimeObject).getTime()){
-            console.log(element)
+           
             this.timeSlotArr.push(element);
           }
         }); 
@@ -1550,7 +1446,6 @@ this.router.navigate(['/login']);
         });
         this.timeslotview = true;
         this.isLoader=false;
-        console.log(this.timeSlotArr);
       }
       else{
         this.timeSlotArr.length=0;
@@ -1564,14 +1459,12 @@ this.router.navigate(['/login']);
         this.timeSlotArrForLabel.length=0;
         this.timeslotview = false;
         this.isLoader=false;
-        console.log(err)
+       
       })
   }
  
   fnSelectTimeSlot(timeSlot,index){
     this.selectedTimeSlot=timeSlot;
-    console.log(this.selectedTimeSlot);
-    // console.log(this.selectedTimeSlot)
     this.availableStaff.length=0;
     this.isStaffAvailable = false;
     if(this.staffOnFrontValue == true){
@@ -1605,7 +1498,6 @@ this.router.navigate(['/login']);
           this.availableStaff = response.response;
           this.isStaffAvailable = true;
           this.isLoader=false;
-          console.log(JSON.stringify(this.availableStaff));
       }
       else{
         this.availableStaff.length=0;
@@ -1616,7 +1508,7 @@ this.router.navigate(['/login']);
       (err) =>{
         this.isStaffAvailable = false;
         this.isLoader=false;
-        console.log(err)
+       
       })
   }
   
@@ -1624,15 +1516,6 @@ this.router.navigate(['/login']);
     this.trigger.toArray()[0].togglePopover();
   }
   fnOpenCartbox(){
-    // console.log("outer"+this.cartOpened);
-    // if(this.cartOpened==true){
-    //   this.cartOpened=false;
-    //   console.log("1"+this.cartOpened);
-    // }else{
-    //   this.cartOpened=true;
-    //   console.log("2"+this.cartOpened);
-    // }
-    
   }
   
   fnSelectStaff(staff_id,index){
@@ -1649,8 +1532,6 @@ this.router.navigate(['/login']);
     this.serviceCount[this.currentSelectedService].appointmentTimeSlot=this.selectedTimeSlot;
     this.serviceCount[this.currentSelectedService].appointmentTimeSlotForLabel=this.datePipe.transform(new Date(this.selecteddate+" "+this.selectedTimeSlot),"hh:mm a");
     this.serviceCartArr[this.currentSelectedService]=this.serviceCount[this.currentSelectedService]
-    //console.log(JSON.stringify(this.selecteddate));
-    //console.log(JSON.stringify(this.serviceCartArr[this.currentSelectedService])); 
     this.serviceMainArr.totalNumberServices=0;
     this.serviceMainArr.subtotal=0;
     this.serviceMainArr.discount=0;
@@ -1671,20 +1552,11 @@ this.router.navigate(['/login']);
     var amountAfterTax=0;
     if(this.serviceMainArr.subtotal > 0){
       this.taxArr.forEach((element) => {
-        // console.log(element.name+" -- "+element.value);
-        // if(this.taxType == "P"){
-        //   this.taxAmountArr[element.name]= amountAfterDiscount * element.value/100;
-        //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
-        // }else{
-        //   this.taxAmountArr[element.name]=  element.value;
-        //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
-        // }
         let taxTemp={
           value:0,
           name:'',
           amount:0
         }
-        console.log(element.name+" -- "+element.value);
         if(this.taxType == "P"){
          taxTemp.value= element.value;
          taxTemp.name= element.name;
@@ -1697,19 +1569,13 @@ this.router.navigate(['/login']);
           amountAfterTax=amountAfterTax+taxTemp.amount;
         }
         this.taxAmountArr.push(taxTemp);
-        console.log(this.taxAmountArr);
       });
     }
     // this.taxAmountArr.forEach((element) => {
     //   amountAfterDiscount=amountAfterDiscount+element;
     // });
     this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
-    //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-    console.log(this.taxAmountArr);
-    console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
     this.isLoader=false;
-    console.log(this.serviceCartArr)
-    console.log(this.serviceMainArr)
   }
   
 
@@ -1763,9 +1629,6 @@ this.router.navigate(['/login']);
         localStorage.setItem('isFront', "true");
         this.authenticationService.currentUserSubject.next(response.response);
 
-     //   console.log(this.authenticationService.currentUserValue.fullname);
-        console.log(response.response.fullname);
-
         this.customerName=response.response.fullname;
       
         this.customerFirstname = this.customerName!=undefined?this.customerName.split(" ")[0]:'';
@@ -1775,10 +1638,6 @@ this.router.navigate(['/login']);
         this.customerPhone=this.authenticationService.currentUserValue.phone;
       
         if(!isAfterSignup){
-          // this.formAppointmentInfo.controls['appo_address'].setValue(response.response.address);
-          // this.formAppointmentInfo.controls['appo_state'].setValue(response.response.state);
-          // this.formAppointmentInfo.controls['appo_city'].setValue(response.response.city);
-          // this.formAppointmentInfo.controls['appo_zipcode'].setValue(response.response.zip);
           this.showSameAsAboveCheck=false;
           this.snackBar.open("Login successfull", "X", {
             duration: 2000,
@@ -1786,15 +1645,6 @@ this.router.navigate(['/login']);
             panelClass : ['green-snackbar']
             });
         }
-      //  if(this.is_at_home_service){
-      //   this.personalinfo = false;
-      //   this.appointmentinfo = true;
-      //   this.isLoggedIn=true;
-      //  }else if(this.is_at_home_service){
-      //   this.personalinfo = false;
-      //   this.summaryScreen = true;
-      //   this.isLoggedIn=true;
-      //  }
         if(this.is_at_home_service){
           if(this.existinguser){
             this.personalinfo = false;
@@ -1898,7 +1748,6 @@ this.router.navigate(['/login']);
     
     
     if(this.formNewUser.invalid){
-      console.log(this.formNewUser)
       this.formNewUser.get('newUserEmail').markAsTouched();
       this.formNewUser.get('newUserPassword').markAsTouched();
       this.formNewUser.get('newUserFullname').markAsTouched();
@@ -2004,15 +1853,13 @@ this.router.navigate(['/login']);
     },
     (err) =>{
       this.personalinfo = true;
-      console.log(err)
+     
     })
   }
 
   fnsameasabove(event){
-    console.log(event.srcElement.checked)
     if(event.srcElement.checked == true){
       
-    console.log(event);
     if(this.contactFormSettingsArr.contact_field_status == true){
       if(this.contactFormSettingsArr.addressField.status == 1){
         this.formAppointmentInfo.controls['appo_address'].setValue(this.formNewUser.get('newUserAddress').value);
@@ -2027,27 +1874,17 @@ this.router.navigate(['/login']);
       this.formAppointmentInfo.controls['appo_zipcode'].setValue(this.formNewUser.get('newUserZipcode').value);
     }
       
-
-      // this.appo_address_info.appo_address = this.formNewUser.get('newUserAddress').value;
-      // this.appo_address_info.appo_state = this.formNewUser.get('newUserState').value;
-      // this.appo_address_info.appo_city = this.formNewUser.get('newUserCity').value;
-      // this.appo_address_info.appo_zipcode = this.formNewUser.get('newUserZipcode').value;
     }else{
       this.formAppointmentInfo.controls['appo_address'].setValue(null);
       this.formAppointmentInfo.controls['appo_state'].setValue(null);
       this.formAppointmentInfo.controls['appo_city'].setValue(null);
       this.formAppointmentInfo.controls['appo_zipcode'].setValue(null);
 
-      // this.appo_address_info.appo_address = "";
-      // this.appo_address_info.appo_state = "";
-      // this.appo_address_info.appo_city = "";
-      // this.appo_address_info.appo_zipcode = "";
     }
   } 
 
   fnSameAsBillingAddress(event){
 
-    console.log(event.srcElement.checked)
 
     if(event.srcElement.checked == true){
       
@@ -2056,10 +1893,6 @@ this.router.navigate(['/login']);
       this.formAppointmentInfo.controls['appo_city'].setValue(this.authenticationService.currentUserValue.city);
       this.formAppointmentInfo.controls['appo_zipcode'].setValue(this.authenticationService.currentUserValue.zip);
 
-      // this.appo_address_info.appo_address = this.formNewUser.get('newUserAddress').value;
-      // this.appo_address_info.appo_state = this.formNewUser.get('newUserState').value;
-      // this.appo_address_info.appo_city = this.formNewUser.get('newUserCity').value;
-      // this.appo_address_info.appo_zipcode = this.formNewUser.get('newUserZipcode').value;
     }else{
 
       this.formAppointmentInfo.controls['appo_address'].setValue('');
@@ -2067,10 +1900,6 @@ this.router.navigate(['/login']);
       this.formAppointmentInfo.controls['appo_city'].setValue('');
       this.formAppointmentInfo.controls['appo_zipcode'].setValue('');
 
-      // this.appo_address_info.appo_address = "";
-      // this.appo_address_info.appo_state = "";
-      // this.appo_address_info.appo_city = "";
-      // this.appo_address_info.appo_zipcode = "";
     }
   } 
   
@@ -2106,17 +1935,12 @@ this.router.navigate(['/login']);
     if(couponStatus == 'valid'){
       this.serviceMainArr.discount_type = null;
       this.serviceMainArr.discount_value=null;
-      // this.serviceMainArr.discount=0;
-      // this.taxAmountArr.length=0;
-
-      console.log(this.serviceCartArr);
       this.taxAmountArr.length=0;
               
       this.serviceMainArr.totalNumberServices=0;
       this.serviceMainArr.subtotal=0;
       this.serviceMainArr.discount=0;
       this.taxAmountArr.length=0;
-      console.log(this.taxAmountArr);
       this.serviceMainArr.netCost=0;
 
       for(let i=0; i< this.serviceCartArr.length; i++){
@@ -2136,7 +1960,6 @@ this.router.navigate(['/login']);
               name:'',
               amount:0
             }
-            console.log(element.name+" ---- "+element.value);
             if(this.taxType == "P"){
              taxTemp.value= element.value;
              taxTemp.name= element.name;
@@ -2150,17 +1973,13 @@ this.router.navigate(['/login']);
             }
             taxMain.push(taxTemp);
             this.serviceCartArr[i].tax=taxMain;
-            console.log(this.serviceCartArr[i].tax);
           });
 
           this.serviceCartArr[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
-
-          console.log(JSON.stringify(this.serviceCartArr[i]));
           this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
           this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
         }
       }
-      console.log(JSON.stringify(this.serviceCartArr));
       this.serviceMainArr.discount_type = null;
       this.serviceMainArr.discount_value = null;
       this.serviceMainArr.discount=0;
@@ -2169,20 +1988,12 @@ this.router.navigate(['/login']);
       var amountAfterTax=0;
       if(this.serviceMainArr.subtotal > 0){
         this.taxArr.forEach((element) => {
-          // console.log(element.name+" -- "+element.value);
-          // if(this.taxType == "P"){
-          //   this.taxAmountArr[element.name]= amountAfterDiscount * element.value/100;
-          //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
-          // }else{
-          //   this.taxAmountArr[element.name]=  element.value;
-          //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
-          // }
+         
           let taxTemp={
           value:0,
             name:'',
             amount:0
           }
-          console.log(element.name+" -- "+element.value);
           if(this.taxType == "P"){
            taxTemp.value= element.value;
            taxTemp.name= element.name;
@@ -2195,18 +2006,9 @@ this.router.navigate(['/login']);
             amountAfterTax=amountAfterTax+taxTemp.amount;
           }
           this.taxAmountArr.push(taxTemp);
-          console.log(this.taxAmountArr);
         });
       }
-      // this.taxAmountArr.forEach((element) => {
-      //   amountAfterDiscount=amountAfterDiscount+element;
-      // });
       this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
-      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-      console.log(this.taxAmountArr);
-      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
-
-      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal;
       this.closecoupon = 'default';
       this.couponIcon="check";
       this.coupon.couponcode_val ="";
@@ -2220,16 +2022,13 @@ this.router.navigate(['/login']);
       }
       allServiceIds=allServiceIds.substring(0, allServiceIds.length - 1);
       var allServiceIdsArr=allServiceIds.split(",");
-      console.log(allServiceIdsArr);
-
+     
       let requestObject = {
       "business_id" : this.businessId,
       "service_id" : allServiceIds,
       "coupon_code" : this.coupon.couponcode_val,
       };
-      console.log(JSON.stringify(requestObject))
-      
-    let headers = new HttpHeaders({
+     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
 
@@ -2242,16 +2041,13 @@ this.router.navigate(['/login']);
       if(response.data == true){
         let couponType = response.response.coupon_type;
         let couponValue = response.response.coupon_value;
-        
-        console.log(this.serviceCartArr);
         this.taxAmountArr.length=0;
                 
         this.serviceMainArr.totalNumberServices=0;
         this.serviceMainArr.subtotal=0;
         this.serviceMainArr.discount=0;
         this.taxAmountArr.length=0;
-        console.log(this.taxAmountArr);
-        this.serviceMainArr.netCost=0;
+       this.serviceMainArr.netCost=0;
 
         for(let i=0; i< this.serviceCartArr.length; i++){
           if(this.serviceCartArr[i] != null){
@@ -2274,8 +2070,7 @@ this.router.navigate(['/login']);
                 name:'',
                 amount:0
               }
-              console.log(element.name+" ---- "+element.value);
-              if(this.taxType == "P"){
+             if(this.taxType == "P"){
                taxTemp.value= element.value;
                taxTemp.name= element.name;
                taxTemp.amount= serviceAmountAfterDiscount * element.value/100;
@@ -2288,17 +2083,13 @@ this.router.navigate(['/login']);
               }
               taxMain.push(taxTemp);
               this.serviceCartArr[i].tax=taxMain;
-              console.log(this.serviceCartArr[i].tax);
             });
 
             this.serviceCartArr[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
-
-            console.log(JSON.stringify(this.serviceCartArr[i]));
             this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
             this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
           }
         }
-        console.log(JSON.stringify(this.serviceCartArr));
         this.serviceMainArr.discount_type = couponType;
         this.serviceMainArr.discount_value = parseInt(couponValue);
         if(couponType == 'P'){
@@ -2317,7 +2108,6 @@ this.router.navigate(['/login']);
               name:'',
               amount:0
             }
-            console.log(element.name+" -- "+element.value);
             if(this.taxType == "P"){
              taxTemp.value= element.value;
              taxTemp.name= element.name;
@@ -2330,29 +2120,23 @@ this.router.navigate(['/login']);
               amountAfterTax=amountAfterTax+taxTemp.amount;
             }
             this.taxAmountArr.push(taxTemp);
-            console.log(this.taxAmountArr);
           });
         }
         this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
-        console.log(this.taxAmountArr);
-        console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
-
         this.coupon.couponcode_val=response.response.coupon_code;
         this.couponIcon="close";
         this.closecoupon = 'valid';
         this.isReadOnly="readonly";
         this.showCouponError=false;
         this.couponErrorMessage="";
-        //console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.taxAmountArr+" "+this.serviceMainArr.netCost));
-      }
+        }
       else{
         this.closecoupon = 'invalid';
         this.couponIcon="check";
         this.isReadOnly="";
         this.showCouponError=true;
         this.couponErrorMessage=response.response;
-        console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
-      }
+        }
       },
       (err) =>{
         this.closecoupon = 'invalid';
@@ -2360,7 +2144,7 @@ this.router.navigate(['/login']);
         this.isReadOnly="";
         this.showCouponError=false;
         this.couponErrorMessage="";
-        console.log(err)
+       
       })
     }
   }
@@ -2448,7 +2232,6 @@ this.router.navigate(['/login']);
    }
 
   fnPaymentMethod(paymentMethod){
-    console.log(paymentMethod);
     if(paymentMethod == 'Cash'){
       this.creditcardform =false;
       this.showPaypalButtons =false;
@@ -2522,16 +2305,6 @@ this.router.navigate(['/login']);
         this.appointmentinfo = true;
         this.showSameAsAboveCheck=false;
       }
-      // this.dateselection = false;
-      // this.catselection=false;
-      // this.subcatselection=false;
-      // this.dateselection=false;
-      // this.serviceselection=false;
-      // this.personalinfo=false;
-      // this.summaryScreen=false;
-      // this.paymentScreen=false;
-      // this.appointmentinfo = true;
-      // this.showSameAsAboveCheck=false;
     }else{
       this.dateselection = false;
       this.catselection=false;
@@ -2601,7 +2374,6 @@ this.router.navigate(['/login']);
           panelClass : ['red-snackbar']
           });
           this.isLoader=false;
-          console.log(response.response);
         }
         },
         (err) =>{
@@ -2646,61 +2418,10 @@ this.router.navigate(['/login']);
               }
             },
             items: this.itemArr,
-            // items: [
-            //   {
-            //     name: 'Enterprise Subscription',
-            //     quantity: '1',
-            //     description : 'quantity 1',
-            //     category: 'DIGITAL_GOODS',
-            //    // tax:{currency_code:"USD", value:"1.00"},
-            //     unit_amount: {
-            //       currency_code: 'USD',
-            //       value: '8.99',
-            //     }
-            //   },
-            //   {
-            //     name: 'Enterprise Subscription2',
-            //     quantity: '1',
-            //     description : 'quantity 1',
-            //     category: 'DIGITAL_GOODS',
-            //    // tax:{currency_code:"USD", value:"1.00"},
-            //     unit_amount: {
-            //       currency_code: 'USD',
-            //       value: '8.99',
-            //     }
-            //   }
-            // ]
           }
         ]
       },
-      // createOrderOnClient: (data) => <ICreateOrderRequest>{
-      //   intent: 'CAPTURE',
-      //   purchase_units: [
-      //     {
-      //       amount: {
-      //         currency_code: 'EUR',
-      //         value: '9.99',
-      //         breakdown: {
-      //           item_total: {
-      //             currency_code: 'EUR',
-      //             value: '9.99'
-      //           }
-      //         }
-      //       },
-      //       items: [
-      //         {
-      //           name: 'Enterprise Subscription',
-      //           quantity: '1',
-      //           category: 'DIGITAL_GOODS',
-      //           unit_amount: {
-      //             currency_code: 'EUR',
-      //             value: '9.99',
-      //           },
-      //         }
-      //       ]
-      //     }
-      //   ]
-      // },
+   
       advanced: {
         commit: 'true'
       },
@@ -2711,32 +2432,25 @@ this.router.navigate(['/login']);
       },
       onApprove: (data, actions) => {
       this.isLoader=true
-        console.log('onApprove - transaction was approved, but not authorized', data, actions);
         actions.order.get().then(details => {
-          console.log('onApprove - you can get full order details inside onApprove: ', details);
         });
       },
       onClientAuthorization: (data) => {
-        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-        //this.showSuccess = true;
-        if(data.status && data.status== "COMPLETED"){
+         if(data.status && data.status== "COMPLETED"){
           this.transactionId=data.id;
           this.paymentDateTime= this.datePipe.transform(data.create_time,"yyyy-MM-dd HH:mm:ss");
-          console.log(this.transactionId+" "+this.paymentDateTime);
           this.fnAppointmentBooking();
         }
         //this.fnAppointmentBooking();
       },
       onCancel: (data, actions) => {
-        console.log('OnCancel', data, actions);
-        this.snackBar.open("Transaction Cancelled", "X", {
+       this.snackBar.open("Transaction Cancelled", "X", {
         duration: 2000,
         verticalPosition: 'top',
         panelClass : ['red-snackbar']
         });
       },
       onError: err => {
-        console.log('OnError', err);
         this.snackBar.open("Error: "+err, "X", {
         duration: 2000,
         verticalPosition: 'top',
@@ -2744,34 +2458,8 @@ this.router.navigate(['/login']);
         });
       },
       onClick: (data, actions) => {
-        console.log('onClick', data, actions);
       },
-    //   // onInit is called when the button first renders
-    // onInit: function(data, actions) {
-
-    //   // Disable the buttons
-    //   actions.disable();
-
-    //   // Listen for changes to the checkbox
-    //   document.querySelector('#check').addEventListener('change', function(event) {
-
-    //       // Enable or disable the button when it is checked or unchecked
-    //       if (event.target.checked) {
-    //         actions.enable();
-    //       } else {
-    //         actions.disable();
-    //       }
-    //     });
-    // },
-
-    // // onClick is called when the button is clicked
-    // onClick: function() {
-
-    //   // Show a validation error if the checkbox is not checked
-    //   if (!document.querySelector('#check').checked) {
-    //     // document.querySelector('#error').classList.remove('hidden');
-    //   }
-    // }
+   
     };
     }
 
@@ -2825,9 +2513,9 @@ this.router.navigate(['/login']);
       ).subscribe((response:any) => {
         if(response.data == true){
           this.isLoader=false;
-          if(this.thankYou.status == 'true'){
+          if(this.thankYou.status == true){
             window.top.location.href = this.thankYou.page_link;
-          }else if(this.thankYou.status == 'false'){
+          }else if(this.thankYou.status == false){
             this.thankYouScreen=true;
             this.paymentScreen=false;
           setTimeout(() => {
@@ -2835,7 +2523,6 @@ this.router.navigate(['/login']);
           }, 2000);
         }
       }else{
-          console.log(response.response);
         }
       },(err) =>{
         
@@ -2889,10 +2576,8 @@ this.router.navigate(['/login']);
         // mode:this.PayUMoney.mode// non-mandatory for Customized Response Handling
       }
       this.generateRequestHash(RequestData);
-      console.log(JSON.stringify(RequestData));
       var Handler = {
         responseHandler: (BOLT) => {
-          console.log(JSON.stringify(BOLT));
           if(BOLT && BOLT.response.txnStatus == "SUCCESS"){
             let generatedHash=this.generateResponseHash(BOLT.response);
             if(BOLT.response.hash == generatedHash){
@@ -2900,7 +2585,6 @@ this.router.navigate(['/login']);
               this.transactionId=BOLT.response.payuMoneyId;
               this.paymentDateTime= this.datePipe.transform(BOLT.response.addedon,"yyyy-MM-dd HH:mm:ss");
               this.fnAppointmentBooking();
-              console.log("SUCCESS");
             }
           }else if(BOLT && BOLT.response.txnStatus == "FAILED"){
             this.snackBar.open("Transaction Failed", "X", {
@@ -2918,7 +2602,6 @@ this.router.navigate(['/login']);
           // your payment response Code goes here, BOLT is the response object
         },
         catchException: function(BOLT){
-          console.log(BOLT);
           // the code you use to handle the integration errors goes here
         }
       }
@@ -2971,9 +2654,7 @@ this.router.navigate(['/login']);
       let year=this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[0];
       let month= this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[1];
       let day=this.serviceCartArr[this.currentSelectedService].appointmentDate.split("-")[2];
-      console.log(year+"--"+month+"--"+day);
       let dateTemp={"year":parseInt(year),"month":parseInt(month),"day":parseInt(day)};
-      console.log(JSON.stringify(dateTemp));
       this.model=dateTemp;
       this.selecteddate=this.serviceCartArr[this.currentSelectedService].appointmentDate
       this.selecteddateForLabel=this.datePipe.transform(new Date(this.serviceCartArr[this.currentSelectedService].appointmentDate),"EEE, MMM dd");
@@ -3175,7 +2856,6 @@ export class theme2CheckoutDialog {
       this.serviceCount= this.data.serviceCount,
       this.taxArr=this.data.taxArr,
       this.bookingPostalcode=this.data.bookingPostalcode;
-      console.log(this.taxArr)
       this.formExistingUser = this._formBuilder.group({
         existing_mail: ['',[Validators.required,Validators.pattern(this.emailPattern)]],
         existing_password: ['',Validators.required],
@@ -3235,7 +2915,6 @@ export class theme2CheckoutDialog {
             name:'',
             amount:0
           }
-      //   console.log(element.name+" -- "+element.value);
           if(this.taxType == "P"){
           taxTemp.value= element.value;
           taxTemp.name= element.name;
@@ -3248,7 +2927,6 @@ export class theme2CheckoutDialog {
             amountAfterTax=amountAfterTax+taxTemp.amount;
           }
           this.taxAmountArr.push(taxTemp);
-        //  console.log(this.taxAmountArr);
         });
       }
           this.currencySymbol = this.settingsArr.currency;
@@ -3281,11 +2959,11 @@ export class theme2CheckoutDialog {
           this.bankTransferStatus = this.bankTransferSetting.status
         }
         this.termsConditions = JSON.parse(this.settingsArr.terms_condition);
-        if(this.termsConditions.status == 'false'){
+        if(this.termsConditions.status == false){
           this.termsConditionsStatusValue = true;
         }
         this.privacyPolicy=JSON.parse(this.settingsArr.privacy_policy)
-        if(this.privacyPolicy && this.privacyPolicy.status == 'false'){
+        if(this.privacyPolicy && this.privacyPolicy.status == false){
           this.PrivacyPolicyStatusValue = true;
         }
         this.thankYou=JSON.parse(this.settingsArr.thank_you);
@@ -3382,24 +3060,18 @@ export class theme2CheckoutDialog {
       },
       onApprove: (data, actions) => {
       this.isLoader=true
-        console.log('onApprove - transaction was approved, but not authorized', data, actions);
         actions.order.get().then(details => {
-          console.log('onApprove - you can get full order details inside onApprove: ', details);
         });
       },
       onClientAuthorization: (data) => {
-        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-        //this.showSuccess = true;
         if(data.status && data.status== "COMPLETED"){
           this.transactionId=data.id;
           this.paymentDateTime= this.datePipe.transform(data.create_time,"yyyy-MM-dd HH:mm:ss");
-          console.log(this.transactionId+" "+this.paymentDateTime);
           this.fnAppointmentBooking();
         }
         //this.fnAppointmentBooking();
       },
       onCancel: (data, actions) => {
-        console.log('OnCancel', data, actions);
         this.snackBar.open("Transaction Cancelled", "X", {
         duration: 2000,
         verticalPosition: 'top',
@@ -3407,7 +3079,6 @@ export class theme2CheckoutDialog {
         });
       },
       onError: err => {
-        console.log('OnError', err);
         this.snackBar.open("Error: "+err, "X", {
         duration: 2000,
         verticalPosition: 'top',
@@ -3415,7 +3086,6 @@ export class theme2CheckoutDialog {
         });
       },
       onClick: (data, actions) => {
-        console.log('onClick', data, actions);
       },
    
     };
@@ -3445,15 +3115,6 @@ export class theme2CheckoutDialog {
       }
       
     }
-    // fnLogout(){
-      
-    //   // remove user from local storage to log user out
-    //   localStorage.removeItem("currentUser");
-    //   localStorage.removeItem("isFront");
-    //   localStorage.clear();
-    //   this.authenticationService.currentUserSubject.next(null);
-    //   window.location.reload();
-    // }
     fnLogout(){
 
       this.authenticationService.currentUserSubject.next(null);
@@ -3534,22 +3195,9 @@ export class theme2CheckoutDialog {
        }),
        catchError(this.handleError)).subscribe((response:any) => {
         if(response.data == true ){
-          // localStorage.setItem("userId",response.response.user_id);
-          // localStorage.setItem("tokenID",response.response.id);
-          // localStorage.setItem("userToken",response.response.token);
-          // localStorage.setItem("userName",response.response.fullname);
-          // localStorage.setItem("userRole",response.response.user_type);
-          // localStorage.setItem("billing_address",response.response.address);
-          // localStorage.setItem("billing_state",response.response.state);
-          // localStorage.setItem("billing_city",response.response.city);
-          // localStorage.setItem("billing_zipcode",response.response.zip);
           localStorage.setItem('currentUser', JSON.stringify(response.response));
           localStorage.setItem('isFront', "true");
           this.authenticationService.currentUserSubject.next(response.response);
-  
-       //   console.log(this.authenticationService.currentUserValue.fullname);
-          console.log(response.response.fullname);
-  
           this.customerName=response.response.fullname;
         
           this.customerFirstname = this.customerName!=undefined?this.customerName.split(" ")[0]:'';
@@ -3559,10 +3207,6 @@ export class theme2CheckoutDialog {
           this.customerPhone=this.authenticationService.currentUserValue.phone;
         
           if(!isAfterSignup){
-            // this.formAppointmentInfo.controls['appo_address'].setValue(response.response.address);
-            // this.formAppointmentInfo.controls['appo_state'].setValue(response.response.state);
-            // this.formAppointmentInfo.controls['appo_city'].setValue(response.response.city);
-            // this.formAppointmentInfo.controls['appo_zipcode'].setValue(response.response.zip);
             this.showSameAsAboveCheck=false;
             this.snackBar.open("Login successfull", "X", {
               duration: 2000,
@@ -3571,19 +3215,6 @@ export class theme2CheckoutDialog {
               });
           }
           this.isLoggedIn=true;
-          // if(this.newuser){
-          //   this.personalinfo =false;
-          //   this.appointmentinfo = false;
-          //   this.summaryScreen = true;
-          // }else if(this.existinguser && this.is_at_home_service){
-          //   this.personalinfo = false;
-          //   this.appointmentinfo = true;
-          // }else if(this.existinguser && !this.is_at_home_service){
-          //   this.personalinfo = false;
-          //   this.appointmentinfo = false;
-          //   this.summaryScreen = true;
-          // }
-
           if(this.is_at_home_service){
             if(this.existinguser){
               this.personalinfo = false;
@@ -3602,14 +3233,6 @@ export class theme2CheckoutDialog {
             this.isLoggedIn=true;
           }
          
-          // this.personalinfo = true;
-          // this.appointmentinfo = true;
-          // this.isLoggedIn=true;
-          // if(this.is_at_home_service == true){
-
-          // }else if(this.is_at_home_service == false){
-          //   this.fnappointmentinfo();
-          // }
         }else{
   
           this.snackBar.open(response.response, "X", {
@@ -3735,16 +3358,14 @@ export class theme2CheckoutDialog {
       },
       (err) =>{
         this.personalinfo = true;
-        console.log(err)
+       
       })
     }
     
   
     fnsameasabove(event){
-      console.log(event.srcElement.checked)
       if(event.srcElement.checked == true){
         
-      console.log(event);
       if(this.contactFormSettingsArr.contact_field_status == true){
         if(this.contactFormSettingsArr.addressField.status == 1){
           this.formAppointmentInfo.controls['appo_address'].setValue(this.formNewUser.get('newUserAddress').value);
@@ -3760,10 +3381,6 @@ export class theme2CheckoutDialog {
       }
         
   
-        // this.appo_address_info.appo_address = this.formNewUser.get('newUserAddress').value;
-        // this.appo_address_info.appo_state = this.formNewUser.get('newUserState').value;
-        // this.appo_address_info.appo_city = this.formNewUser.get('newUserCity').value;
-        // this.appo_address_info.appo_zipcode = this.formNewUser.get('newUserZipcode').value;
       }else{
         this.formAppointmentInfo.controls['appo_address'].setValue(null);
         this.formAppointmentInfo.controls['appo_state'].setValue(null);
@@ -3778,7 +3395,6 @@ export class theme2CheckoutDialog {
     } 
   
     fnSameAsBillingAddress(event){
-      console.log(event.srcElement.checked)
   
       if(event.srcElement.checked == true){
         
@@ -3787,10 +3403,6 @@ export class theme2CheckoutDialog {
         this.formAppointmentInfo.controls['appo_city'].setValue(this.authenticationService.currentUserValue.city);
         this.formAppointmentInfo.controls['appo_zipcode'].setValue(this.authenticationService.currentUserValue.zip);
   
-        // this.appo_address_info.appo_address = this.formNewUser.get('newUserAddress').value;
-        // this.appo_address_info.appo_state = this.formNewUser.get('newUserState').value;
-        // this.appo_address_info.appo_city = this.formNewUser.get('newUserCity').value;
-        // this.appo_address_info.appo_zipcode = this.formNewUser.get('newUserZipcode').value;
       }else{
   
         this.formAppointmentInfo.controls['appo_address'].setValue('');
@@ -3798,10 +3410,6 @@ export class theme2CheckoutDialog {
         this.formAppointmentInfo.controls['appo_city'].setValue('');
         this.formAppointmentInfo.controls['appo_zipcode'].setValue('');
   
-        // this.appo_address_info.appo_address = "";
-        // this.appo_address_info.appo_state = "";
-        // this.appo_address_info.appo_city = "";
-        // this.appo_address_info.appo_zipcode = "";
       }
     } 
     fnappointmentinfo(){
@@ -3841,11 +3449,6 @@ export class theme2CheckoutDialog {
             if(res){
               if(res.data == false){
               resolve({ isEmailUnique: true });
-              // this._snackBar.open("Access PIN already in use", "X", {
-              // duration: 2000,
-              // verticalPosition: 'top',
-              // panelClass : ['red-snackbar']
-              // });
               }else{
               resolve(null);
               }
@@ -3884,7 +3487,6 @@ export class theme2CheckoutDialog {
             name:'',
             amount:0
           }
-          console.log(element.name+" -- "+element.value);
           if(this.taxType == "P"){
            taxTemp.value= element.value;
            taxTemp.name= element.name;
@@ -3898,27 +3500,22 @@ export class theme2CheckoutDialog {
           }
           taxMain.push(taxTemp);
           this.serviceCount[service_id].tax=taxMain;
-          console.log(this.serviceCount[service_id].tax);
         });
   
         // this.serviceData[id].tax=0;
         this.serviceCount[service_id].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
   
-        // this.serviceCount[service_id].totalCost=this.serviceCount[service_id].count*this.serviceCount[service_id].service_cost;
-        console.log(JSON.stringify(this.serviceCount));
         if(this.serviceCartArr[service_id] != null){
           if(this.serviceCount[service_id].count < 1){
             this.serviceCartArr[service_id]=null;
           }else{
             this.serviceCartArr[service_id]=this.serviceCount[service_id]; 
           }
-          console.log(JSON.stringify(this.serviceCartArr));
         }
         this.serviceMainArr.totalNumberServices=0;
         this.serviceMainArr.subtotal=0;
         this.serviceMainArr.discount=0;
         this.taxAmountArr.length=0;
-        console.log(this.taxAmountArr);
         this.serviceMainArr.netCost=0;
         for(let i=0; i< this.serviceCartArr.length; i++){
           if(this.serviceCartArr[i] != null){
@@ -3930,20 +3527,11 @@ export class theme2CheckoutDialog {
         var amountAfterTax=0;
         if(this.serviceMainArr.subtotal > 0){
           this.taxArr.forEach((element) => {
-            // console.log(element.name+" -- "+element.value);
-            // if(this.taxType == "P"){
-            //   this.taxAmountArr[element.name]= amountAfterDiscount * element.value/100;
-            //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
-            // }else{
-            //   this.taxAmountArr[element.name]=  element.value;
-            //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
-            // }
             let taxTemp={
             value:0,
               name:'',
               amount:0
             }
-            console.log(element.name+" -- "+element.value);
             if(this.taxType == "P"){
              taxTemp.value= element.value;
              taxTemp.name= element.name;
@@ -3956,22 +3544,14 @@ export class theme2CheckoutDialog {
               amountAfterTax=amountAfterTax+taxTemp.amount;
             }
             this.taxAmountArr.push(taxTemp);
-            console.log(this.taxAmountArr);
           });
         }
-        // this.taxAmountArr.forEach((element) => {
-        //   amountAfterDiscount=amountAfterDiscount+element;
-        // });
         this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
-        //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-        console.log(this.taxAmountArr);
-        console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
-      }
+        }
     }
   
     fnAdd(event,service_id){
       if(this.serviceCount[service_id].count < 10){
-        //this.currentSelectedService=service_id;
         this.serviceCount[service_id].count=this.serviceCount[service_id].count+1
   
         this.serviceCount[service_id].subtotal = this.serviceCount[service_id].service_cost * this.serviceCount[service_id].count;
@@ -3988,7 +3568,6 @@ export class theme2CheckoutDialog {
             name:'',
             amount:0
           }
-          console.log(element.name+" -- "+element.value);
           if(this.taxType == "P"){
            taxTemp.value= element.value;
            taxTemp.name= element.name;
@@ -4002,17 +3581,12 @@ export class theme2CheckoutDialog {
           }
           taxMain.push(taxTemp);
           this.serviceCount[service_id].tax=taxMain;
-          console.log(this.serviceCount[service_id].tax);
         });
   
-        // this.serviceData[id].tax=0;
         this.serviceCount[service_id].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
   
-        // this.serviceCount[service_id].totalCost=this.serviceCount[service_id].count*this.serviceCount[service_id].service_cost;
-        console.log(JSON.stringify(this.serviceCount));
         if(this.serviceCartArr[service_id] != null){
           this.serviceCartArr[service_id]=this.serviceCount[service_id];
-          console.log(JSON.stringify(this.serviceCartArr));
         } 
   
         
@@ -4033,7 +3607,6 @@ export class theme2CheckoutDialog {
                 name:'',
                 amount:0
               }
-              console.log(element.name+" ---- "+element.value);
               if(this.taxType == "P"){
                taxTemp.value= element.value;
                taxTemp.name= element.name;
@@ -4047,24 +3620,19 @@ export class theme2CheckoutDialog {
               }
               taxMain.push(taxTemp);
               this.serviceCartArr[i].tax=taxMain;
-              console.log(this.serviceCartArr[i].tax);
             });
   
             this.serviceCartArr[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
-  
-            console.log(JSON.stringify(this.serviceCartArr[i]));
             this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
             this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
           }
         }
-        console.log(JSON.stringify(this.serviceCartArr));
         
   
         this.serviceMainArr.totalNumberServices=0;
         this.serviceMainArr.subtotal=0;
         this.serviceMainArr.discount=0;
         this.taxAmountArr.length=0;
-        console.log(this.taxAmountArr);
         this.serviceMainArr.netCost=0;
         // this.fncheckavailcoupon('valid');
        
@@ -4084,7 +3652,6 @@ export class theme2CheckoutDialog {
               name:'',
               amount:0
             }
-            console.log(element.name+" -- "+element.value);
             if(this.taxType == "P"){
              taxTemp.value= element.value;
              taxTemp.name= element.name;
@@ -4097,17 +3664,13 @@ export class theme2CheckoutDialog {
               amountAfterTax=amountAfterTax+taxTemp.amount;
             }
             this.taxAmountArr.push(taxTemp);
-            console.log(this.taxAmountArr);
           });
         }
         // this.taxAmountArr.forEach((element) => {
         //   amountAfterDiscount=amountAfterDiscount+element;
         // });
         this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
-        //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-        console.log(this.taxAmountArr);
-        console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
-      }
+        }
     }
 
     
@@ -4126,17 +3689,12 @@ export class theme2CheckoutDialog {
     if(couponStatus == 'valid'){
       this.serviceMainArr.discount_type = null;
       this.serviceMainArr.discount_value=null;
-      // this.serviceMainArr.discount=0;
-      // this.taxAmountArr.length=0;
-
-      console.log(this.serviceCartArr);
       this.taxAmountArr.length=0;
               
       this.serviceMainArr.totalNumberServices=0;
       this.serviceMainArr.subtotal=0;
       this.serviceMainArr.discount=0;
       this.taxAmountArr.length=0;
-      console.log(this.taxAmountArr);
       this.serviceMainArr.netCost=0;
 
       for(let i=0; i< this.serviceCartArr.length; i++){
@@ -4156,7 +3714,6 @@ export class theme2CheckoutDialog {
               name:'',
               amount:0
             }
-            console.log(element.name+" ---- "+element.value);
             if(this.taxType == "P"){
              taxTemp.value= element.value;
              taxTemp.name= element.name;
@@ -4170,17 +3727,13 @@ export class theme2CheckoutDialog {
             }
             taxMain.push(taxTemp);
             this.serviceCartArr[i].tax=taxMain;
-            console.log(this.serviceCartArr[i].tax);
           });
 
           this.serviceCartArr[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
-
-          console.log(JSON.stringify(this.serviceCartArr[i]));
           this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
           this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
         }
       }
-      console.log(JSON.stringify(this.serviceCartArr));
       this.serviceMainArr.discount_type = null;
       this.serviceMainArr.discount_value = null;
       this.serviceMainArr.discount=0;
@@ -4189,20 +3742,11 @@ export class theme2CheckoutDialog {
       var amountAfterTax=0;
       if(this.serviceMainArr.subtotal > 0){
         this.taxArr.forEach((element) => {
-          // console.log(element.name+" -- "+element.value);
-          // if(this.taxType == "P"){
-          //   this.taxAmountArr[element.name]= amountAfterDiscount * element.value/100;
-          //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
-          // }else{
-          //   this.taxAmountArr[element.name]=  element.value;
-          //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
-          // }
           let taxTemp={
           value:0,
             name:'',
             amount:0
           }
-          console.log(element.name+" -- "+element.value);
           if(this.taxType == "P"){
            taxTemp.value= element.value;
            taxTemp.name= element.name;
@@ -4215,17 +3759,9 @@ export class theme2CheckoutDialog {
             amountAfterTax=amountAfterTax+taxTemp.amount;
           }
           this.taxAmountArr.push(taxTemp);
-          console.log(this.taxAmountArr);
         });
       }
-      // this.taxAmountArr.forEach((element) => {
-      //   amountAfterDiscount=amountAfterDiscount+element;
-      // });
       this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
-      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-      console.log(this.taxAmountArr);
-      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
-
       //this.serviceMainArr.netCost=this.serviceMainArr.subtotal;
       this.closecoupon = 'default';
       this.couponIcon="check";
@@ -4240,14 +3776,12 @@ export class theme2CheckoutDialog {
       }
       allServiceIds=allServiceIds.substring(0, allServiceIds.length - 1);
       var allServiceIdsArr=allServiceIds.split(",");
-      console.log(allServiceIdsArr);
 
       let requestObject = {
       "business_id" : this.businessId,
       "service_id" : allServiceIds,
       "coupon_code" : this.coupon.couponcode_val,
       };
-      console.log(JSON.stringify(requestObject))
       
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -4263,14 +3797,12 @@ export class theme2CheckoutDialog {
         let couponType = response.response.coupon_type;
         let couponValue = response.response.coupon_value;
         
-        console.log(this.serviceCartArr);
         this.taxAmountArr.length=0;
                 
         this.serviceMainArr.totalNumberServices=0;
         this.serviceMainArr.subtotal=0;
         this.serviceMainArr.discount=0;
         this.taxAmountArr.length=0;
-        console.log(this.taxAmountArr);
         this.serviceMainArr.netCost=0;
 
         for(let i=0; i< this.serviceCartArr.length; i++){
@@ -4294,7 +3826,6 @@ export class theme2CheckoutDialog {
                 name:'',
                 amount:0
               }
-              console.log(element.name+" ---- "+element.value);
               if(this.taxType == "P"){
                taxTemp.value= element.value;
                taxTemp.name= element.name;
@@ -4308,17 +3839,13 @@ export class theme2CheckoutDialog {
               }
               taxMain.push(taxTemp);
               this.serviceCartArr[i].tax=taxMain;
-              console.log(this.serviceCartArr[i].tax);
             });
 
             this.serviceCartArr[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
-
-            console.log(JSON.stringify(this.serviceCartArr[i]));
             this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
             this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
           }
         }
-        console.log(JSON.stringify(this.serviceCartArr));
         this.serviceMainArr.discount_type = couponType;
         this.serviceMainArr.discount_value = parseInt(couponValue);
         if(couponType == 'P'){
@@ -4337,7 +3864,6 @@ export class theme2CheckoutDialog {
               name:'',
               amount:0
             }
-            console.log(element.name+" -- "+element.value);
             if(this.taxType == "P"){
              taxTemp.value= element.value;
              taxTemp.name= element.name;
@@ -4350,20 +3876,15 @@ export class theme2CheckoutDialog {
               amountAfterTax=amountAfterTax+taxTemp.amount;
             }
             this.taxAmountArr.push(taxTemp);
-            console.log(this.taxAmountArr);
           });
         }
         this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
-        console.log(this.taxAmountArr);
-        console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
-
         this.coupon.couponcode_val=response.response.coupon_code;
         this.couponIcon="close";
         this.closecoupon = 'valid';
         this.isReadOnly="readonly";
         this.showCouponError=false;
         this.couponErrorMessage="";
-        //console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.taxAmountArr+" "+this.serviceMainArr.netCost));
       }
       else{
         this.closecoupon = 'invalid';
@@ -4371,8 +3892,7 @@ export class theme2CheckoutDialog {
         this.isReadOnly="";
         this.showCouponError=true;
         this.couponErrorMessage=response.response;
-        console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
-      }
+       }
       },
       (err) =>{
         this.closecoupon = 'invalid';
@@ -4380,13 +3900,11 @@ export class theme2CheckoutDialog {
         this.isReadOnly="";
         this.showCouponError=false;
         this.couponErrorMessage="";
-        console.log(err)
+       
       })
     }
   }
   fnChangeTermsConditionsStatus(event){
-    console.log(event);
-
     if(event== true){
       this.termsConditionsStatusValue=true;
       this.termsConditionsStatusValidation = false;
@@ -4399,7 +3917,6 @@ export class theme2CheckoutDialog {
   }
 
   fnChangePrivacyPolicyStatus(event){
-    console.log(event);
       if(event == true){
       this.PrivacyPolicyStatusValue=true;
       this.PrivacyPolicyStatusValidation = false;
@@ -4458,7 +3975,6 @@ export class theme2CheckoutDialog {
       this.paymentScreen =true;
     }
     fnPaymentMethod(paymentMethod){
-      console.log(paymentMethod);
       if(paymentMethod == 'Cash'){
         this.creditcardform =false;
         this.showPaypalButtons =false;
@@ -4557,7 +4073,6 @@ export class theme2CheckoutDialog {
             panelClass : ['red-snackbar']
             });
             this.isLoader=false;
-            console.log(response.response);
           }
           },
           (err) =>{
@@ -4617,10 +4132,8 @@ export class theme2CheckoutDialog {
         // mode:this.PayUMoney.mode// non-mandatory for Customized Response Handling
       }
       this.generateRequestHash(RequestData);
-      console.log(JSON.stringify(RequestData));
       var Handler = {
         responseHandler: (BOLT) => {
-          console.log(JSON.stringify(BOLT));
           if(BOLT && BOLT.response.txnStatus == "SUCCESS"){
             let generatedHash=this.generateResponseHash(BOLT.response);
             if(BOLT.response.hash == generatedHash){
@@ -4628,7 +4141,6 @@ export class theme2CheckoutDialog {
               this.transactionId=BOLT.response.payuMoneyId;
               this.paymentDateTime= this.datePipe.transform(BOLT.response.addedon,"yyyy-MM-dd HH:mm:ss");
               this.fnAppointmentBooking();
-              console.log("SUCCESS");
             }
           }else if(BOLT && BOLT.response.txnStatus == "FAILED"){
             this.snackBar.open("Transaction Failed", "X", {
@@ -4646,7 +4158,6 @@ export class theme2CheckoutDialog {
           // your payment response Code goes here, BOLT is the response object
         },
         catchException: function(BOLT){
-          console.log(BOLT);
           // the code you use to handle the integration errors goes here
         }
       }
@@ -4705,9 +4216,7 @@ export class theme2CheckoutDialog {
       'full_name' : JSON.parse(localStorage.getItem('currentUser')).full_name ? JSON.parse(localStorage.getItem('currentUser')).full_name : JSON.parse(localStorage.getItem('currentUser')).fullname,
     };
      
-      
-    console.log(requestObject);
-    return;
+    // return;
 
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
@@ -4721,9 +4230,9 @@ export class theme2CheckoutDialog {
       ).subscribe((response:any) => {
         if(response.data == true){
           this.isLoader=false;
-          if(this.thankYou.status == 'true'){
+          if(this.thankYou.status == true){
             window.top.location.href = this.thankYou.page_link;
-          }else if(this.thankYou.status == 'false'){
+          }else if(this.thankYou.status == false){
             //this.thankYouScreen=true;
             //this.paymentScreen=false;
           setTimeout(() => {
@@ -4731,7 +4240,6 @@ export class theme2CheckoutDialog {
           }, 2000);
         }
       }else{
-          console.log(response.response);
         }
       },(err) =>{
         
@@ -4779,7 +4287,6 @@ export class theme2CartPopup {
       this.settingsArr = this.data.settingsArr,
       this.serviceCount = this.data.serviceCount
       this.taxArr=this.data.taxArr,
-      console.log(this.serviceCartArr)
       this.sizeServiceCartArr = 0
       this.serviceCartArr.forEach(element => {
         this.sizeServiceCartArr = this.sizeServiceCartArr+1
@@ -4804,7 +4311,6 @@ export class theme2CartPopup {
             name:'',
             amount:0
           }
-       //   console.log(element.name+" -- "+element.value);
           if(this.taxType == "P"){
            taxTemp.value= element.value;
            taxTemp.name= element.name;
@@ -4817,15 +4323,9 @@ export class theme2CartPopup {
             amountAfterTax=amountAfterTax+taxTemp.amount;
           }
           this.taxAmountArr.push(taxTemp);
-        //  console.log(this.taxAmountArr);
         });
       }
-      // this.taxAmountArr.forEach((element) => {
-      //   amountAfterDiscount=amountAfterDiscount+element;
-      // });
       this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
-      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-      console.log(this.serviceCount[this.currentSelectedService]);
     }
 
     onNoClick(): void {
@@ -4860,7 +4360,6 @@ export class theme2CartPopup {
           name:'',
           amount:0
         }
-        console.log(element.name+" -- "+element.value);
         if(this.taxType == "P"){
          taxTemp.value= element.value;
          taxTemp.name= element.name;
@@ -4874,27 +4373,23 @@ export class theme2CartPopup {
         }
         taxMain.push(taxTemp);
         this.serviceCount[service_id].tax=taxMain;
-        console.log(this.serviceCount[service_id].tax);
       });
 
       // this.serviceData[id].tax=0;
       this.serviceCount[service_id].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
 
       // this.serviceCount[service_id].totalCost=this.serviceCount[service_id].count*this.serviceCount[service_id].service_cost;
-      console.log(JSON.stringify(this.serviceCount));
       if(this.serviceCartArr[service_id] != null){
         if(this.serviceCount[service_id].count < 1){
           this.serviceCartArr[service_id]=null;
         }else{
           this.serviceCartArr[service_id]=this.serviceCount[service_id]; 
         }
-        console.log(JSON.stringify(this.serviceCartArr));
       }
       this.serviceMainArr.totalNumberServices=0;
       this.serviceMainArr.subtotal=0;
       this.serviceMainArr.discount=0;
       this.taxAmountArr.length=0;
-      console.log(this.taxAmountArr);
       this.serviceMainArr.netCost=0;
       for(let i=0; i< this.serviceCartArr.length; i++){
         if(this.serviceCartArr[i] != null){
@@ -4906,20 +4401,12 @@ export class theme2CartPopup {
       var amountAfterTax=0;
       if(this.serviceMainArr.subtotal > 0){
         this.taxArr.forEach((element) => {
-          // console.log(element.name+" -- "+element.value);
-          // if(this.taxType == "P"){
-          //   this.taxAmountArr[element.name]= amountAfterDiscount * element.value/100;
-          //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
-          // }else{
-          //   this.taxAmountArr[element.name]=  element.value;
-          //   amountAfterTax=amountAfterTax+this.taxAmountArr[element.name];
-          // }
+         
           let taxTemp={
           value:0,
             name:'',
             amount:0
           }
-          console.log(element.name+" -- "+element.value);
           if(this.taxType == "P"){
            taxTemp.value= element.value;
            taxTemp.name= element.name;
@@ -4932,16 +4419,12 @@ export class theme2CartPopup {
             amountAfterTax=amountAfterTax+taxTemp.amount;
           }
           this.taxAmountArr.push(taxTemp);
-          console.log(this.taxAmountArr);
         });
       }
       // this.taxAmountArr.forEach((element) => {
       //   amountAfterDiscount=amountAfterDiscount+element;
       // });
       this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
-      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-      console.log(this.taxAmountArr);
-      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
     }
   }
 
@@ -4964,7 +4447,6 @@ export class theme2CartPopup {
           name:'',
           amount:0
         }
-        console.log(element.name+" -- "+element.value);
         if(this.taxType == "P"){
          taxTemp.value= element.value;
          taxTemp.name= element.name;
@@ -4978,17 +4460,12 @@ export class theme2CartPopup {
         }
         taxMain.push(taxTemp);
         this.serviceCount[service_id].tax=taxMain;
-        console.log(this.serviceCount[service_id].tax);
       });
 
       // this.serviceData[id].tax=0;
       this.serviceCount[service_id].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
-
-      // this.serviceCount[service_id].totalCost=this.serviceCount[service_id].count*this.serviceCount[service_id].service_cost;
-      console.log(JSON.stringify(this.serviceCount));
       if(this.serviceCartArr[service_id] != null){
         this.serviceCartArr[service_id]=this.serviceCount[service_id];
-        console.log(JSON.stringify(this.serviceCartArr));
       } 
 
       
@@ -5009,7 +4486,6 @@ export class theme2CartPopup {
               name:'',
               amount:0
             }
-            console.log(element.name+" ---- "+element.value);
             if(this.taxType == "P"){
              taxTemp.value= element.value;
              taxTemp.name= element.name;
@@ -5023,24 +4499,19 @@ export class theme2CartPopup {
             }
             taxMain.push(taxTemp);
             this.serviceCartArr[i].tax=taxMain;
-            console.log(this.serviceCartArr[i].tax);
           });
 
           this.serviceCartArr[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
-
-          console.log(JSON.stringify(this.serviceCartArr[i]));
           this.serviceMainArr.totalNumberServices=this.serviceMainArr.totalNumberServices+this.serviceCartArr[i].count;
           this.serviceMainArr.subtotal=this.serviceMainArr.subtotal+this.serviceCartArr[i].subtotal;
         }
       }
-      console.log(JSON.stringify(this.serviceCartArr));
       
 
       this.serviceMainArr.totalNumberServices=0;
       this.serviceMainArr.subtotal=0;
       this.serviceMainArr.discount=0;
       this.taxAmountArr.length=0;
-      console.log(this.taxAmountArr);
       this.serviceMainArr.netCost=0;
       // this.fncheckavailcoupon('valid');
      
@@ -5060,7 +4531,6 @@ export class theme2CartPopup {
             name:'',
             amount:0
           }
-          console.log(element.name+" -- "+element.value);
           if(this.taxType == "P"){
            taxTemp.value= element.value;
            taxTemp.name= element.name;
@@ -5073,16 +4543,12 @@ export class theme2CartPopup {
             amountAfterTax=amountAfterTax+taxTemp.amount;
           }
           this.taxAmountArr.push(taxTemp);
-          console.log(this.taxAmountArr);
         });
       }
       // this.taxAmountArr.forEach((element) => {
       //   amountAfterDiscount=amountAfterDiscount+element;
       // });
       this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
-      //this.serviceMainArr.netCost=this.serviceMainArr.subtotal - this.serviceMainArr.discount;
-      console.log(this.taxAmountArr);
-      console.log(JSON.stringify(this.serviceMainArr.totalNumberServices+" "+this.serviceMainArr.subtotal+" "+this.serviceMainArr.discount+" "+this.serviceMainArr.netCost));
     }
   }
 }
@@ -5161,14 +4627,12 @@ export class theme2DateTimeSelection {
       this.directAPI = this.data.directAPI;
       this.timeSlotArr = JSON.stringify(this.data.timeSlotArr);
       this.timeSlotArr = JSON.parse(this.timeSlotArr);
-      console.log(this.timeSlotArr)
       var i=0;
       this.timeSlotArr.forEach( (element) => {
         var dateTemp=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element+":00";
          this.timeSlotArrForLabel[i]= this.datePipe.transform(new Date(dateTemp),"hh:mm a");
          i++;
       });
-      console.log(this.timeSlotArrForLabel)
       if(this.directAPI == 'gettimeslote'){
         this.fnGetTimeSlots();
       }else if(this.directAPI == 'selectnextvalidate'){
@@ -5178,16 +4642,14 @@ export class theme2DateTimeSelection {
           this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
           this.minimumAdvanceBookingDateTimeObject = new Date();
           this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
-          console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
-          this.minDate = {
+         this.minDate = {
             year: this.minimumAdvanceBookingDateTimeObject.getFullYear(),
             month: this.minimumAdvanceBookingDateTimeObject.getMonth() + 1,
             day: this.minimumAdvanceBookingDateTimeObject.getDate()
           };
           this.maximumAdvanceBookingDateTimeObject = new Date();
           this.maximumAdvanceBookingDateTimeObject.setMinutes( this.maximumAdvanceBookingDateTimeObject.getMinutes() + this.maximumAdvanceBookingTime );
-          console.log("maximumAdvanceBookingDateTimeObject - "+this.maximumAdvanceBookingDateTimeObject);
-          this.maxDate = {
+         this.maxDate = {
             year: this.maximumAdvanceBookingDateTimeObject.getFullYear(),
             month: this.maximumAdvanceBookingDateTimeObject.getMonth() + 1,
             day: this.maximumAdvanceBookingDateTimeObject.getDate(),
@@ -5204,7 +4666,6 @@ export class theme2DateTimeSelection {
     }
     selectToday() {
       this.model = this.calendar.getToday();
-      console.log(JSON.stringify(this.calendar.getToday()));
     }
     fnDisableDates(date: NgbDateStruct){
       const d = new Date(date.year, date.month - 1, date.day);
@@ -5285,7 +4746,7 @@ export class theme2DateTimeSelection {
           }
         },
         (err) =>{
-          console.log(err)
+         
         })
       }
 
@@ -5318,9 +4779,7 @@ export class theme2DateTimeSelection {
             //this.timeSlotArr = response.response;
             this.minimumAdvanceBookingDateTimeObject = new Date();
             this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
-            //console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
             response.response.forEach(element => {
-              //console.log((new Date(this.datePipe.transform(this.selecteddate,"yyyy-MM-dd")+" "+element+":00"))+"----"+(this.minimumAdvanceBookingDateTimeObject));
               if((new Date(this.datePipe.transform(this.selecteddate,"yyyy-MM-dd")+" "+element+":00")).getTime() > (this.minimumAdvanceBookingDateTimeObject).getTime()){
                 this.timeSlotArr.push(element);
               }
@@ -5333,7 +4792,6 @@ export class theme2DateTimeSelection {
             });
             this.timeslotview = true;
             this.isLoader=false;
-            console.log(this.timeSlotArr);
           }
           else{
             this.timeSlotArr.length=0;
@@ -5347,16 +4805,12 @@ export class theme2DateTimeSelection {
             this.timeSlotArrForLabel.length=0;
             this.timeslotview = false;
             this.isLoader=false;
-            console.log(err)
+           
           })
       }
      
       fnSelectTimeSlot(timeSlot,index){
         this.selectedTimeSlot=timeSlot;
-        console.log(this.selectedTimeSlot);
-        // console.log(this.selectedTimeSlot)
-        // this.availableStaff.length=0;
-        // this.isStaffAvailable = false;
         if(this.staffOnFrontValue == true){
           this.fnGetStaff();
         }else{
@@ -5388,7 +4842,6 @@ export class theme2DateTimeSelection {
               this.availableStaff = response.response;
               this.isStaffAvailable = true;
               this.isLoader=false;
-              console.log(JSON.stringify(this.availableStaff));
           }
           else{
             this.availableStaff.length=0;
@@ -5399,7 +4852,7 @@ export class theme2DateTimeSelection {
           (err) =>{
             this.isStaffAvailable = false;
             this.isLoader=false;
-            console.log(err)
+           
           })
       }
    
@@ -5443,7 +4896,6 @@ export class theme2DateTimeSelection {
         if(day == "Sat"){
           dayId=6;
         }
-        console.log(day);
         if(this.workingHoursOffDaysList.indexOf(dayId)>-1){
           mydate.setDate(mydate.getDate() + 1)
           this.fnSelectNextValidDate(mydate);

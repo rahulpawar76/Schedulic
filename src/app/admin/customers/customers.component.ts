@@ -124,7 +124,8 @@ export class CustomersComponent implements OnInit {
   customerPaymentIndex:number;
   customerDetailId : any;
   customerSideMenuToggle:boolean=false;
-
+  emailCheckRequestObject:any;
+  phoneCheckRequestObject:any;
 
   constructor(
     public dialog: MatDialog,
@@ -176,8 +177,8 @@ export class CustomersComponent implements OnInit {
     
     this.createNewCustomer = this._formBuilder.group({
       cus_fullname : ['', Validators.required,Validators.pattern('[a-zA-Z ]*')],
-      cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
-      cus_phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
+      cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isCustomerEmailUnique.bind(this)],
+      cus_phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric),this.isCustomerPhoneUnique.bind(this)]],
       cus_officenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_homenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_address : ['', Validators.required],
@@ -441,8 +442,8 @@ customerUpdate(existingCustomerData){
     this.fullDetailsOfCustomer = false;
     this.createNewCustomer = this._formBuilder.group({
       cus_fullname : ['', Validators.required],
-      cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
-      cus_phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
+      cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isCustomerEmailUnique.bind(this)],
+      cus_phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric),this.isCustomerPhoneUnique.bind(this)]],
       cus_officenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_homenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_address : ['', Validators.required],
@@ -632,13 +633,12 @@ customerUpdate(existingCustomerData){
     this.newCustomer = true;
     this.fullDetailsOfCustomer = false;
     this.isLoaderAdmin = true;
-    console.log(this.customerPersonalDetails);
     this.createNewCustomer = this._formBuilder.group({
       cus_fullname : ['', Validators.required],
-      cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUniqueForEdit.bind(this)],
-      cus_phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
-      cus_officenumber : ['', [Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
-      cus_homenumber : ['', [Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isCustomerEmailUnique.bind(this)],
+      cus_phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric),this.isCustomerPhoneUnique.bind(this)]],
+      cus_officenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
+      cus_homenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_address : ['', Validators.required],
       cus_state : ['', Validators.required],
       cus_city : ['', Validators.required],
@@ -659,13 +659,41 @@ customerUpdate(existingCustomerData){
   }
 
   // email check
-  isEmailUnique(control: FormControl) {
+  // isEmailUnique(control: FormControl) {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       let headers = new HttpHeaders({
+  //         'Content-Type': 'application/json',
+  //       });
+  //       return this.http.post(`${environment.apiUrl}/verify-email`,{ emailid: control.value },{headers:headers}).pipe(map((response : any) =>{
+  //         return response;
+  //       }),
+  //       catchError(this.handleError)).subscribe((res) => {
+  //         if(res){
+  //           if(res.data == false){
+  //           resolve({ isEmailUnique: true });
+  //           }else{
+  //           resolve(null);
+  //           }
+  //         }
+  //       });
+  //     }, 500);
+  //   });
+  // }
+  isCustomerEmailUnique(control: FormControl) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
+          this.emailCheckRequestObject = {
+            'business_id':this.businessId,
+            'email': control.value,
+            'phone': null,
+            'customer_id':this.existingUserId,
+            'checkType':'email', 
+          }
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
         });
-        return this.http.post(`${environment.apiUrl}/verify-email`,{ emailid: control.value },{headers:headers}).pipe(map((response : any) =>{
+        return this.http.post(`${environment.apiUrl}/customer-check`, this.emailCheckRequestObject,{headers:headers}).pipe(map((response : any) =>{
           return response;
         }),
         catchError(this.handleError)).subscribe((res) => {
@@ -680,20 +708,28 @@ customerUpdate(existingCustomerData){
       }, 500);
     });
   }
-
-  isEmailUniqueForEdit(control: FormControl) {
+  isCustomerPhoneUnique(control: FormControl) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
+        this.phoneCheckRequestObject = {
+          'business_id':this.businessId,
+          'email': null,
+          'customer_id':this.existingUserId,
+          'phone': control.value,
+          'checkType':'phone', 
+        }
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
         });
-        return this.http.post(`${environment.apiUrl}/check-emailid`,{ emailid: control.value,customer_id:this.existingUserId },{headers:headers}).pipe(map((response : any) =>{
+        return this.http.post(`${environment.apiUrl}/customer-check`, this.phoneCheckRequestObject,{headers:headers}).pipe(map((response : any) =>{
           return response;
         }),
         catchError(this.handleError)).subscribe((res) => {
+          console.log(this.createNewCustomer)
           if(res){
             if(res.data == false){
-            resolve({ isEmailUniqueForEdit: true });
+            resolve({ isPhoneUnique: true });
+            
             }else{
             resolve(null);
             }
@@ -702,6 +738,28 @@ customerUpdate(existingCustomerData){
       }, 500);
     });
   }
+
+  // isEmailUniqueForEdit(control: FormControl) {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       let headers = new HttpHeaders({
+  //         'Content-Type': 'application/json',
+  //       });
+  //       return this.http.post(`${environment.apiUrl}/check-emailid`,{ emailid: control.value,customer_id:this.existingUserId },{headers:headers}).pipe(map((response : any) =>{
+  //         return response;
+  //       }),
+  //       catchError(this.handleError)).subscribe((res) => {
+  //         if(res){
+  //           if(res.data == false){
+  //           resolve({ isEmailUniqueForEdit: true });
+  //           }else{
+  //           resolve(null);
+  //           }
+  //         }
+  //       });
+  //     }, 500);
+  //   });
+  // }
 
   newCustomerAppointment() {
     const dialogRef = this.dialog.open(DialogNewCustomerAppointment, {
@@ -728,7 +786,7 @@ customerUpdate(existingCustomerData){
       
     });
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      
       this.fnSelectCustomer(customer_id);
       this.animal = result;
      });
@@ -740,7 +798,7 @@ customerUpdate(existingCustomerData){
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      
       this.animal = result;
      });
   }
@@ -763,7 +821,7 @@ customerUpdate(existingCustomerData){
         });
 
         dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
+          
           this.animal = result;
         });
         this.isLoaderAdmin = false;

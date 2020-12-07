@@ -236,14 +236,17 @@
                                 <label class="greenfont pt-2 pointer d-flex align-items-center" (click)="rescheduleAppointment()" *ngIf="minReschedulingTime && appointmentDetails.booking_date_time &&  minReschedulingTime.getTime() < appointmentDetails.booking_date_time.getTime()"><i class="fa fa-repeat repeat pr-1"></i>Reschedule</label>
                                 <label class="fontred  pt-2 pl-2 pointer d-flex align-items-center" (click)="fnCancelAppointment()" *ngIf="cancellationBufferTime && appointmentDetails.booking_date_time && cancellationBufferTime.getTime() < appointmentDetails.booking_date_time.getTime()"><i class="fa fa-times-circle-o pr-1"></i>Cancel</label>
                                 <button mat-button type="button" class="d-block btn-primary float-right acceptbtn" (click)="fnConfirmAppointment()" *ngIf="appointmentDetails.order_status == 'P'">Confirm</button>
+                                <button mat-button type="button" class="d-block btn-primary float-right acceptbtn" *ngIf="(appointmentDetails.order_status == 'RSA' || appointmentDetails.order_status == 'RSC' || appointmentDetails.order_status == 'RSS' || appointmentDetails.order_status == 'CNF') && (appointmentDetails.staffId != '' || appointmentDetails.staffId != null)">Assigned</button>
+                                <button mat-button type="button" class="d-block btn-primary float-right acceptbtn" (click)="fnCompleteAppointment()" *ngIf="appointmentDetails.order_status == 'AC'">Complete</button>
+                            </div>
+                            <div class="pt-2 pb-2 d-flex bottom-border pl-3 pr-3">
+
                                 <mat-form-field class="d-block float-right acceptbtn bottom-border-field" *ngIf="appointmentDetails.order_status == 'CNF' && (appointmentDetails.staffId == '' || appointmentDetails.staffId == null)">
                                     <mat-label>AssignTo</mat-label>
                                     <mat-select [(value)]="selectedStaff" (selectionChange)="fnOnClickStaff($event)">
                                         <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">{{staff.name}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
-                                <button mat-button type="button" class="d-block btn-primary float-right acceptbtn" *ngIf="(appointmentDetails.order_status == 'RSA' || appointmentDetails.order_status == 'RSC' || appointmentDetails.order_status == 'RSS' || appointmentDetails.order_status == 'CNF') && (appointmentDetails.staffId != '' || appointmentDetails.staffId != null)">Assigned</button>
-                                <button mat-button type="button" class="d-block btn-primary float-right acceptbtn" (click)="fnCompleteAppointment()" *ngIf="appointmentDetails.order_status == 'AC'">Complete</button>
                             </div>
                             <div class="pt-2 pb-2 d-flex bottom-border pl-3 pr-3" *ngIf="appointmentDetails.order_status == 'CO'">Completed</div>
                             <div class="pt-2 pb-2 d-flex bottom-border pl-3 pr-3" *ngIf="appointmentDetails.order_status == 'C' || appointmentDetails.order_status == 'CC'">Cancelled</div>

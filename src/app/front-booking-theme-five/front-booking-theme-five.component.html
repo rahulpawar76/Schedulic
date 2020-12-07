@@ -629,7 +629,7 @@
                             <div *ngIf="termsConditions && privacyPolicy" class="d-flex flex-wrap">
 
                                 <mat-checkbox *ngIf="termsConditions.status ==
-                                    'true'" class="termscondition ml-3" (change)="fnChangeTermsConditionsStatus($event.checked)">
+                                    true" class="termscondition ml-3" (change)="fnChangeTermsConditionsStatus($event.checked)">
                                     <a *ngIf="termsConditions.page_link != ''" href="{{termsConditions.page_link}}" target="blank">{{termsConditions.label}}</a>
                                     <a *ngIf="termsConditions.page_link == ''" target="blank">{{termsConditions.label}}</a>
                                 </mat-checkbox>
@@ -639,15 +639,15 @@
                     <a *ngIf="termsConditions.page_link == ''" target="blank">{{termsConditions.label}}</a>
                 </label> -->
                                 <mat-checkbox *ngIf="privacyPolicy.status ==
-                                    'true'" class="termscondition ml-3" (change)="fnChangePrivacyPolicyStatus($event.checked)">
+                                    true" class="termscondition ml-3" (change)="fnChangePrivacyPolicyStatus($event.checked)">
                                     <a *ngIf="privacyPolicy.page_link !=''" href="{{privacyPolicy.page_link}}" target="blank">{{privacyPolicy.label}}</a>
                                     <a *ngIf="privacyPolicy.page_link ==''" target="blank">{{privacyPolicy.label}}</a>
                                 </mat-checkbox>
-                                <span *ngIf="privacyPolicy.status == 'true' &&
+                                <span *ngIf="privacyPolicy.status == true &&
                                     !PrivacyPolicyStatusValue &&
                                     PrivacyPolicyStatusValidation" class="error
                                     w-100 pl-3">Please check Privacy Policy.</span>
-                                <span *ngIf="termsConditions.status == 'true' &&
+                                <span *ngIf="termsConditions.status == true &&
                                     !termsConditionsStatusValue &&
                                     termsConditionsStatusValidation" class="error
                                     w-100 pl-3">Please check Terms & Condition.</span>

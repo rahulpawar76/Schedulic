@@ -159,11 +159,7 @@ export class UserappointmentsComponent implements OnInit {
     this.UserService.getSettingValue(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.settingsArr=response.response;
-        console.log(this.settingsArr);
-
         this.currencySymbol = this.settingsArr.currency;
-        console.log(this.currencySymbol);
-        
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
         this.currencySymbolFormat = this.settingsArr.currency_format;
 
@@ -420,7 +416,6 @@ export class UserappointmentsComponent implements OnInit {
   }
   payAppoint(index){
     this.appointDetailForPayment = this.appointmentData[index];
-    console.log(this.appointDetailForPayment);
     this.paymentScreen = true;
     this.taxAmount=0;
     if(this.appointDetailForPayment.tax){
@@ -434,7 +429,6 @@ export class UserappointmentsComponent implements OnInit {
     }
   }
   fnPaymentMethod(paymentMethod){
-    console.log(paymentMethod);
     if(paymentMethod == 'Stripe'){
       this.paymentMethod="Stripe";
       this.creditcardform =true;
@@ -566,24 +560,18 @@ export class UserappointmentsComponent implements OnInit {
     },
     onApprove: (data, actions) => {
     this.isLoader=true
-      console.log('onApprove - transaction was approved, but not authorized', data, actions);
       actions.order.get().then(details => {
-        console.log('onApprove - you can get full order details inside onApprove: ', details);
       });
     },
     onClientAuthorization: (data) => {
-      console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-      //this.showSuccess = true;
       if(data.status && data.status== "COMPLETED"){
         this.transactionId=data.id;
         this.paymentDateTime= this.datePipe.transform(data.create_time,"yyyy-MM-dd HH:mm:ss");
-        console.log(this.transactionId+" "+this.paymentDateTime);
         this.confirmPayment();
       }
       //this.fnAppointmentBooking();
     },
     onCancel: (data, actions) => {
-      console.log('OnCancel', data, actions);
       this._snackBar.open("Transaction Cancelled", "X", {
       duration: 2000,
       verticalPosition: 'top',
@@ -591,7 +579,6 @@ export class UserappointmentsComponent implements OnInit {
       });
     },
     onError: err => {
-      console.log('OnError', err);
       this._snackBar.open("Error: "+err, "X", {
       duration: 2000,
       verticalPosition: 'top',
@@ -599,7 +586,6 @@ export class UserappointmentsComponent implements OnInit {
       });
     },
     onClick: (data, actions) => {
-      console.log('onClick', data, actions);
     },
   //   // onInit is called when the button first renders
   // onInit: function(data, actions) {
@@ -673,10 +659,8 @@ export class UserappointmentsComponent implements OnInit {
       // mode:this.PayUMoney.mode// non-mandatory for Customized Response Handling
     }
     this.generateRequestHash(RequestData);
-    console.log(JSON.stringify(RequestData));
     var Handler = {
       responseHandler: (BOLT) => {
-        console.log(JSON.stringify(BOLT));
         if(BOLT && BOLT.response.txnStatus == "SUCCESS"){
           let generatedHash=this.generateResponseHash(BOLT.response);
           if(BOLT.response.hash == generatedHash){
@@ -684,7 +668,6 @@ export class UserappointmentsComponent implements OnInit {
             this.transactionId=BOLT.response.payuMoneyId;
             this.paymentDateTime= this.datePipe.transform(BOLT.response.addedon,"yyyy-MM-dd HH:mm:ss");
             this.confirmPayment();
-            console.log("SUCCESS");
           }
         }else if(BOLT && BOLT.response.txnStatus == "FAILED"){
           this._snackBar.open("Transaction Failed", "X", {
@@ -702,8 +685,6 @@ export class UserappointmentsComponent implements OnInit {
         // your payment response Code goes here, BOLT is the response object
       },
       catchException: function(BOLT){
-        console.log(BOLT);
-        // the code you use to handle the integration errors goes here
       }
     }
     //bolt.launch( RequestData , Handler ); 
@@ -782,12 +763,10 @@ export class UserappointmentsComponent implements OnInit {
         "business_id":this.bussinessId,
         "booking_type" : this.openedTab
       }
-      console.log(requestObject);
       this.UserService.customerSearchAppointment(requestObject).subscribe((response:any) =>{
         if(response.data == true){
           if(this.openedTab == 'new'){
             this.appointmentData = response.response;
-            console.log(this.appointmentData)
             this.appointmentData.forEach( (element) => {
               element.bookingDateTime = new Date(element.booking_date+" "+element.booking_time);
               element.booking_timeForLabel = this.datePipe.transform(element.bookingDateTime,"hh:mm a");
@@ -875,12 +854,13 @@ export class DialogOverviewExampleDialog {
     this.ratingValueNo = event.srcElement.value
   }
   fnRatingSubmit(){
-    console.log(this.appoId);
-    console.log(this.ratingValueNo);
-    console.log(this.ratingTitle);
-    console.log(this.ratingDecreption);
     if(this.appoId == undefined || this.ratingValueNo == undefined || this.ratingTitle == undefined || this.ratingDecreption == undefined)
     {
+      this._snackBar.open("Please fill details.", "X", {
+        duration: 2000,
+        verticalPosition:'top',
+        panelClass :['red-snackbar']
+        });
       return false;
     }
     
@@ -996,7 +976,6 @@ export class DialogCancelReason {
         this.tax = JSON.parse(this.myAppoDetailData.tax)
         this.myAppoDetailData.invoice_date=this.datePipe.transform(new Date(), 'dd/MM/yyyy');
         this.myAppoDetailData.invoiceNumber = "2"+this.myAppoDetailData.id+this.datePipe.transform(new Date(),"yyyy/MM/dd");
-        console.log(this.myAppoDetailData);
         this.bussinessId=this.authenticationService.currentUserValue.business_id;
         this.getBusinessDetail();
         this.fnGetSettingValue();
@@ -1013,7 +992,6 @@ export class DialogCancelReason {
       this.UserService.getBusinessDetail(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.businessData=response.response;
-          console.log(this.businessData);
         }else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
@@ -1042,17 +1020,9 @@ export class DialogCancelReason {
       this.UserService.getSettingValue(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.settingsArr=response.response;
-          console.log(this.settingsArr);
-
           this.currencySymbol = this.settingsArr.currency;
-          console.log(this.currencySymbol);
-          
-          
           this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-          console.log(this.currencySymbolPosition);
-          
           this.currencySymbolFormat = this.settingsArr.currency_format;
-          console.log(this.currencySymbolFormat);
         }
         else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
@@ -1160,46 +1130,6 @@ export class DialogCancelReason {
                   });
                 }
             });
-         // }, 5000);
-
-      // });
-
-        // domtoimage.toPng(document.getElementById('printInvoice'))
-        //   .then(function (blob) {
-        //     var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
-        //     pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-        //     for (let i = 1; i <= totalPDFPages; i++) {
-        //       pdf.addPage(PDF_Width, PDF_Height);
-        //       pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
-        //     }
-        //     console.log(pdf);
-        //     // pdf.save("invoice_" + today + ".pdf");
-        //     // that.loader = false;
-        //     setTimeout(() => { 
-              
-        //       // formData.append('data' , pdf);
-        //       formData.append('invoice_pdf', pdf);
-        //       // formData.append('email', that.myAppoDetailData.customer.email);
-        //       formData.append('email', "akie.5609@gmail.com");
-        //         console.log(formData);
-        //         that.UserService.sendInvoiceEmail(formData).subscribe((response:any) => {
-        //           if(response.data == true){
-        //             that._snackBar.open(response.response, "X", {
-        //               duration: 2000,
-        //               verticalPosition:'top',
-        //               panelClass :['green-snackbar']
-        //             });
-        //           }
-        //           else if(response.data == false && response.response !== 'api token or userid invaild'){
-        //             that._snackBar.open(response.response, "X", {
-        //               duration: 2000,
-        //               verticalPosition:'top',
-        //               panelClass :['red-snackbar']
-        //             });
-        //           }
-        //         })
-        //     }, 3000);
-        // });
     }
 
 	}
@@ -1243,7 +1173,6 @@ export class DialogCancelReason {
       };
       this.UserService.getActivityLog(requestObject).subscribe((response:any) => {
         if(response.data == true){
-          console.log(response.response);
           this.activityLog=response.response;
         }
         else if(response.data == false && response.response !== 'api token or userid invaild'){
@@ -1259,16 +1188,9 @@ export class DialogCancelReason {
       this.UserService.getSettingValue(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.settingsArr=response.response;
-          console.log(this.settingsArr);
-
           this.currencySymbol = this.settingsArr.currency;
-          console.log(this.currencySymbol);
-          
           this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-          console.log(this.currencySymbolPosition);
-          
           this.currencySymbolFormat = this.settingsArr.currency_format;
-          console.log(this.currencySymbolFormat);
         }
         else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
@@ -1337,7 +1259,6 @@ export class DialogCancelReason {
       };
       this.UserService.getActivityLog(requestObject).subscribe((response:any) => {
         if(response.data == true){
-          console.log(response.response);
           this.activityLog=response.response;
         }
         else if(response.data == false && response.response !== 'api token or userid invaild'){
@@ -1356,14 +1277,10 @@ export class DialogCancelReason {
           this.currencySymbol = this.settingsArr.currency;
           this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
           this.currencySymbolFormat = this.settingsArr.currency_format;
-
-          
             let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
             let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
-
             this.cancellationBufferTime = new Date();
             this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
-
             this.minReschedulingTime = new Date();
             this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
             
@@ -1474,7 +1391,6 @@ export class rescheduleAppointmentDialog {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.myAppoDetailData = this.data.fulldata;
       this.businessId = this.myAppoDetailData.business_id;
-      console.log(JSON.stringify(this.myAppoDetailData));
       this.fnGetSettingValue();
       this.fnGetOffDays();
 
@@ -1517,31 +1433,6 @@ export class rescheduleAppointmentDialog {
       this.formAppointmentReschedule.controls['rescheduleServiceId'].setValue(this.myAppoDetailData.service.id);
     }
 
-    // fnGetOffDays(){
-    //   let requestObject = {
-    //     "business_id":2
-    //   };
-    //   let headers = new HttpHeaders({
-    //     'Content-Type': 'application/json',
-    //   });
-
-    //   this.http.post(`${environment.apiUrl}/list-holidays`,requestObject,{headers:headers} ).pipe(
-    //     map((res) => {
-    //       return res;
-    //     }),
-    //     catchError(this.handleError)
-    //     ).subscribe((response:any) => {
-    //       if(response.data == true){
-    //         this.offDaysList = response.response;
-    //       }
-    //       else{
-
-    //       }
-    //     },
-    //     (err) =>{
-    //       console.log(err)
-    //     })
-    //   }
 
     fnGetSettingValue(){
       this.isLoader = true;
@@ -1557,18 +1448,11 @@ export class rescheduleAppointmentDialog {
           
           this.minimumAdvanceBookingDateTimeObject = new Date();
           this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
-          console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
           this.minDate = this.minimumAdvanceBookingDateTimeObject;
 
           this.maximumAdvanceBookingDateTimeObject = new Date();
           this.maximumAdvanceBookingDateTimeObject.setMinutes( this.maximumAdvanceBookingDateTimeObject.getMinutes() + this.maximumAdvanceBookingTime );
-          console.log("maximumAdvanceBookingDateTimeObject - "+this.maximumAdvanceBookingDateTimeObject);
           this.maxDate = this.maximumAdvanceBookingDateTimeObject;
-
-          // if(!this.data.appointmentData){
-          //   this.formAddNewAppointmentStaffStep2.controls['customerDate'].setValue(this.minimumAdvanceBookingDateTimeObject);
-          //   this.selectedDate = this.datePipe.transform(new Date(this.minimumAdvanceBookingDateTimeObject),"yyyy-MM-dd");
-          // }
         }
         else if(response.data == false && response.response !== 'api token or userid invaild'){
           
@@ -1596,10 +1480,6 @@ export class rescheduleAppointmentDialog {
           }
 
           this.myFilter = (d: Date | null): boolean => {
-          // const day = (d || new Date()).getDay();
-          // const month = (d || new Date()).getMonth();
-          // Prevent Saturday and Sunday from being selected.
-          // return day !== 0 && day !== 6;
           let temp:any;
           let temp2:any;
           if(this.offDaysList.length>0 || this.workingHoursOffDaysList.length>0){
@@ -1630,13 +1510,11 @@ export class rescheduleAppointmentDialog {
         }
       },
       (err) =>{
-        console.log(err)
       })
       this.isLoader = false;
     }
 
       fnDateChange(event: MatDatepickerInputEvent<Date>) {
-        console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
         let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd");
         this.selectedDate=date;
         this.formAppointmentReschedule.controls['rescheduleTime'].setValue(null);
@@ -1664,7 +1542,6 @@ export class rescheduleAppointmentDialog {
           ).subscribe((response:any) => {
             if(response.data == true){
               this.timeSlotArr=response.response;
-              console.log(this.timeSlotArr);
             }
             else if(response.data == false && response.response !== 'api token or userid invaild'){
               this._snackBar.open(response.response, "X", {
@@ -1675,13 +1552,11 @@ export class rescheduleAppointmentDialog {
             }
           },
           (err) =>{
-            console.log(err)
           })
           this.isLoader = false;
         }
      
         fnChangeTimeSlot(event){
-          console.log(event);
           this.formAppointmentReschedule.controls['rescheduleStaff'].setValue(null);
           this.fnGetStaff(event);
         }
@@ -1707,7 +1582,6 @@ export class rescheduleAppointmentDialog {
           ).subscribe((response:any) => {
             if(response.data == true){
                 this.availableStaff = response.response;
-                console.log(JSON.stringify(this.availableStaff));
             }
               else if(response.data == false && response.response !== 'api token or userid invaild'){
                 this._snackBar.open(response.response, "X", {
@@ -1719,7 +1593,6 @@ export class rescheduleAppointmentDialog {
             }
             },
             (err) =>{
-              console.log(err)
             })
             this.isLoader = false;
         }
@@ -1735,15 +1608,7 @@ export class rescheduleAppointmentDialog {
       this.formAppointmentReschedule.get('rescheduleDate').markAsTouched();
       return false;
     }
-
-    // console.log(this.myAppoDetailData.order_id);
-    // console.log(this.formAppointmentReschedule.get('rescheduleServiceId').value);
-    // console.log(this.datePipe.transform(new Date(this.formAppointmentReschedule.get('rescheduleDate').value),"yyyy-MM-dd"));
-    // console.log(this.formAppointmentReschedule.get('rescheduleTime').value);
-    // console.log(this.formAppointmentReschedule.get('rescheduleStaff').value);
-    // console.log(this.formAppointmentReschedule.get('rescheduleNote').value);
       this.isLoader = true;
-      alert('11')
     let requestObject = {
      "order_item_id":JSON.stringify(this.myAppoDetailData.id),
      "staff_id":this.formAppointmentReschedule.get('rescheduleStaff').value,
@@ -1817,7 +1682,6 @@ export class rescheduleAppointmentDialog {
       };
       this.UserService.getActivityLog(requestObject).subscribe((response:any) => {
         if(response.data == true){
-          console.log(response.response);
           this.activityLog=response.response;
         }
         else if(response.data == false && response.response !== 'api token or userid invaild'){
@@ -1833,16 +1697,9 @@ export class rescheduleAppointmentDialog {
       this.UserService.getSettingValue(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.settingsArr=response.response;
-          console.log(this.settingsArr);
-
           this.currencySymbol = this.settingsArr.currency;
-          console.log(this.currencySymbol);
-          
           this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-          console.log(this.currencySymbolPosition);
-          
           this.currencySymbolFormat = this.settingsArr.currency_format;
-          console.log(this.currencySymbolFormat);
         }
         else if(response.data == false && response.response !== 'api token or userid invaild'){
           
@@ -2112,7 +1969,6 @@ export class rescheduleAppointmentDialog {
              });
           }
         },(err) =>{
-          console.log(err)
         })
     }
 
@@ -2149,13 +2005,11 @@ export class rescheduleAppointmentDialog {
       this.userService.getSettingValue(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.settingsArr=response.response;
-          console.log(this.settingsArr);
           this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
           this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
           
           this.minimumAdvanceBookingDateTimeObject = new Date();
           this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
-          console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
           this.minDate = this.minimumAdvanceBookingDateTimeObject;
   
           this.maximumAdvanceBookingDateTimeObject = new Date();

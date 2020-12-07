@@ -405,13 +405,13 @@ export class FrontBookingThemeFourComponent implements OnInit {
           
 
           this.termsConditions = JSON.parse(this.settingsArr.terms_condition);
-          if(this.termsConditions.status == 'false'){
+          if(this.termsConditions.status == false){
             this.termsConditionsStatusValue = true;
           }
           console.log(this.termsConditions);
 
           this.privacyPolicy=JSON.parse(this.settingsArr.privacy_policy)
-          if(this.privacyPolicy && this.privacyPolicy.status == 'false'){
+          if(this.privacyPolicy && this.privacyPolicy.status == false){
             this.PrivacyPolicyStatusValue = true;
           }
           console.log(this.privacyPolicy);
