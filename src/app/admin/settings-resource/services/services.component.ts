@@ -527,15 +527,14 @@ export class ServicesComponent implements OnInit {
     }
 
     fnSelectCategory(categoryId, index) {
+        this.isLoaderAdmin = true;
         this.selectCategoryPage = '';
         this.singleSubCategoryPage = '';
-        this.isLoaderAdmin = true;
         this.createNewSubCategoryPage = false;
         this.selectedCategoryID = categoryId
         this.selectedCategoryIndex = index
         this.createNewCategoryPage = false;
         this.createNewServicePage = false;
-        this.singleSubCategoryPage = '';
         this.selectedSubCategoryDetails = '';
         this.fromcategory=true;
         this.actionServiceIdarr = [];
@@ -716,10 +715,11 @@ export class ServicesComponent implements OnInit {
                 this.newSubcategoryPrivate = 'N';
                 this.fnAllCategory();
                 setTimeout(() => {
-                    this.fnSelectCategoryNavigation(this.selectedCategoryID , this.selectedCategoryIndex);
+                    // this.fnSelectCategoryNavigation(this.selectedCategoryID , this.selectedCategoryIndex);
+
                     this.createSubCategory.reset();
                     this.servicesList = false;
-                    this.selectCategoryPage = 'notservices';
+                    this.selectCategoryPage = '';
                     this.createNewSubCategoryPage = false;
                 }, 300);
                
@@ -1749,6 +1749,9 @@ export class ServicesComponent implements OnInit {
         this.whichServiceButton="upper";
 
 
+
+        if (type == 'category') {
+            
         if(this.categoryServicesList[index] && this.categoryServicesList[index].staffs){
             this.assignedStaff = this.categoryServicesList[index].staffs;
         }
@@ -1758,7 +1761,6 @@ export class ServicesComponent implements OnInit {
              });
         }
 
-        if (type == 'category') {
             this.createService.controls['service_id'].setValue(this.editServiceId);
             this.createService.controls['service_name'].setValue(this.categoryServicesList[index].service_name);
             this.createService.controls['service_description'].setValue(this.categoryServicesList[index].service_description);
@@ -1780,6 +1782,14 @@ export class ServicesComponent implements OnInit {
             this.editServiceImage = this.categoryServicesList[index].service_image
         }
         else if(type == 'subcategory'){
+            if(this.subCategoryServicesList[index] && this.subCategoryServicesList[index].staffs){
+                this.assignedStaff = this.subCategoryServicesList[index].staffs;
+            }
+            if(this.assignedStaff != '' || this.assignedStaff != [] || this.assignedStaff != undefined){
+                this.assignedStaff.forEach(element => {
+                     this.assignStaffArr.push(element.id);
+                 });
+            }
             this.createService.controls['service_id'].setValue(this.editServiceId);
             this.createService.controls['service_name'].setValue(this.subCategoryServicesList[index].service_name);
             this.createService.controls['service_description'].setValue(this.subCategoryServicesList[index].service_description);

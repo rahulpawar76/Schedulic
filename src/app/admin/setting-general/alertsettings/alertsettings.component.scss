@@ -244,3 +244,15 @@
 .main-card-container {
     padding: 0 30px;
 }
+
+.template-textarea {
+    width: calc(100% - 220px);
+    margin-right: 20px;
+    mat-form-field {
+        padding: 15px;
+    }
+}
+
+.template-variable-list {
+    width: 200px;
+}

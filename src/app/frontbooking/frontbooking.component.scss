@@ -544,7 +544,7 @@
                 .proceed {
                     background-color: $front-primary-color;
                     color: $text-bg;
-                    margin-right: 70px;
+                    // margin-right: 70px;
                 }
             }
             #payment_method {
@@ -1746,7 +1746,7 @@ input:focus {
                 }
             }
             &.mat-radio-checked {
-                background-color: $text-bg;
+                background-color: #f3f3f3;
             }
         }
         .credit-card-form {

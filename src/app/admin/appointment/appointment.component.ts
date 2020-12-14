@@ -759,7 +759,7 @@ export class DialogAddNewAppointment {
     private AdminSettingsService:AdminSettingsService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
-    this.onlynumeric = /^-?(0|[0-9]\d*)?$/
+    this.onlynumeric = /^\+(?:[0-9] ?){6,14}[0-9]$/
     if(this.data.appointmentData){
       console.log(this.data.appointmentData);
       this.appointmentData.business_id=this.data.appointmentData.business_id;
@@ -1019,14 +1019,14 @@ export class DialogAddNewAppointment {
     this.isLoaderAdmin = false;
   }
 
-  numberOnly(event): boolean {
-    const charCode = (event.which) ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      return false;
-    }
-    return true;
+  // numberOnly(event): boolean {
+  //   const charCode = (event.which) ? event.which : event.keyCode;
+  //   if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+  //     return false;
+  //   }
+  //   return true;
 
-  }
+  // }
   
   fnGetSettingValue(){
     this.isLoaderAdmin = true;

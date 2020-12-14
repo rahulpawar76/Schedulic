@@ -191,10 +191,12 @@ export class myCreateNewBusinessDialog {
     this.AdminService.gelAllState(country_id).subscribe((response:any) => {
       if(response.data == true){
         this.allStates = response.response
+        this.createBusiness.controls['business_state'].setValue('');
         this.isLoaderAdmin =false;
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.allStates = ''
+        this.createBusiness.controls['business_state'].setValue('');
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -208,19 +210,13 @@ export class myCreateNewBusinessDialog {
     this.isLoaderAdmin =true;
     this.AdminService.gelAllCities(state_id).subscribe((response:any) => {
       if(response.data == true){
+        this.createBusiness.controls['business_city'].setValue('');
         this.allCities = response.response
-        if(response.response == "no city found"){
-          this._snackBar.open("City is not Found.", "X", {
-            duration: 2000,
-            verticalPosition: 'top',
-            panelClass : ['red-snackbar']
-          });
-        }
-         
         this.isLoaderAdmin =false;
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this.allCities = ''
+        this.allCities = [];
+        this.createBusiness.controls['business_city'].setValue('');
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',

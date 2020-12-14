@@ -12,6 +12,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 //import { DialogReAuthentication } from './_services'
 
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 
@@ -111,6 +112,7 @@ import { AgmDirectionModule } from 'agm-direction';   // agm-direction
     MatSidenavModule,
     NgxDaterangepickerMd.forRoot(),
     SharedModule,
+    NgxMatSelectSearchModule,
     //GoogleMapsModule
   ],
   exports: [

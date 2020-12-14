@@ -71,12 +71,12 @@
                                     <mat-form-field class="form-group  bottom-border-field">
                                         <mat-label>Mobile</mat-label>
                                         <mat-icon matPrefix><i class="fa fa-phone"></i></mat-icon>
-                                        <input maxlength="10" matInput formControlName="user_phone" value="" placeholder="Enter Mobile Number" type="number">
+                                        <input matInput formControlName="user_phone" value="" placeholder="Enter Mobile Number">
                                     </mat-form-field>
                                     <span class="error-wrap" *ngIf="customerProfile.get('user_phone').touched || customerProfile.get('user_phone').dirty">
-                <small *ngIf="customerProfile.get('user_phone').hasError('required')" class="error">Phone number is required</small>
-                <small *ngIf="customerProfile.get('user_phone').hasError('pattern')" class="error">Enter valid phone number</small>
-                <small *ngIf="customerProfile.get('user_phone').hasError('minlength') || customerProfile.get('user_phone').hasError('maxlength')" class="error">Phone number should be 10 digits long</small>
+                <small *ngIf="customerProfile.get('user_phone').hasError('required')" class="error">Phone number is required.</small>
+                <small *ngIf="customerProfile.get('user_phone').hasError('pattern') || (customerProfile.get('user_phone').hasError('pattern') && (customerProfile.get('user_phone').hasError('minlength') || customerProfile.get('user_phone').hasError('maxlength')))" class="error">Enter valid phone number.</small>
+                <small *ngIf="!customerProfile.get('user_phone').hasError('pattern') && (customerProfile.get('user_phone').hasError('minlength') || customerProfile.get('user_phone').hasError('maxlength'))" class="error">Phone number should minimum 6 and maximum 15 digits.</small>
               </span>
                                 </div>
                             </div>

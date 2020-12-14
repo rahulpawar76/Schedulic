@@ -59,10 +59,16 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6 col-lg-6 col-sm-12 mt-res bottom-border-field align-bottom time-zone-dropdown flex-wrap">
+                            <div class="form-group col-md-6 col-lg-6 col-sm-12 mt-res bottom-border-field time-zone-dropdown flex-wrap">
+
+                                <mat-label class="select-hide">&nbsp; </mat-label>
                                 <mat-form-field class="d-flex flex-wrap w-100">
                                     <mat-label>Time zone</mat-label>
                                     <mat-select formControlName="business_timezone">
+                                        <!-- <mat-option>
+                                            <ngx-mat-select-search [formControl]="bankFilterCtrl"></ngx-mat-select-search>
+                                        </mat-option> -->
+                                        <!-- <mat-select-search [formControl]="bankFilterCtrl"></mat-select-search> -->
                                         <mat-option *ngFor="let listTimeZone of listTimeZone" [value]="listTimeZone.name">
                                             ({{listTimeZone.utc}}) {{listTimeZone.name}}
                                         </mat-option>

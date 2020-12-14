@@ -207,7 +207,7 @@
                             <mat-form-field>
                                 <mat-label>Valid Till</mat-label>
                                 <mat-icon matPrefix><img src="../../../assets/images/admin/calendar.png" class=""></mat-icon>
-                                <input matInput (dateChange)="fnTillDateChange()" (click)="valid_till_picker.open()" [min]="minTillDate" [matDatepicker]="valid_till_picker" formControlName="valid_till" placeholder="MM/DD/YYYY">
+                                <input matInput (click)="valid_till_picker.open()" [min]="minTillDate" [matDatepicker]="valid_till_picker" formControlName="valid_till" placeholder="MM/DD/YYYY">
                                 <!-- <mat-datepicker-toggle matPrefix [for]="valid_till_picker"></mat-datepicker-toggle> -->
                                 <mat-datepicker #valid_till_picker></mat-datepicker>
                             </mat-form-field>

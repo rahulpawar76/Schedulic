@@ -27,7 +27,7 @@ export class MyProfileComponent implements OnInit {
 
   
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
-  onlynumeric = /^-?(0|[1-9]\d*)?$/
+  onlynumeric = /^\+(?:[0-9] ?){6,14}[0-9]$/
   constructor(
     public dialog: MatDialog,
     private appComponent : AppComponent,

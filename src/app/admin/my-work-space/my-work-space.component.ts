@@ -109,6 +109,7 @@ export class MyWorkSpaceComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private http: HttpClient,
+    private _formBuilder: FormBuilder,
     public router: Router,
     private adminService: AdminService,
     private _snackBar: MatSnackBar,
@@ -119,6 +120,9 @@ export class MyWorkSpaceComponent implements OnInit {
     localStorage.setItem('isPOS', 'false');
     localStorage.setItem('isBusiness', 'false');
     this.businessId=localStorage.getItem('business_id');
+    this.filterDate = this._formBuilder.group({
+      filterDate: [''],
+    });
    }
 
   ngOnInit() {

@@ -903,8 +903,8 @@ fnAppointmentsReminderSMS(event){
           panelClass : ['red-snackbar']
         });
       }
-      this.isLoaderAdmin = false;
     })
+    this.isLoaderAdmin = false;
     }else{
       this.smtpForm.get('mailHost').markAsTouched();
       this.smtpForm.get('mailPort').markAsTouched();

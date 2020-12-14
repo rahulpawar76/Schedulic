@@ -35,12 +35,12 @@
                 <mat-form-field class="form-group  bottom-border-field">
                     <mat-label>Customer Contact Number</mat-label>
                     <mat-icon matPrefix><i class="fa fa-phone"></i></mat-icon>
-                    <input type="text" matInput formControlName="customerPhone" placeholder="Enter Customer Contact Number" (keypress)="numberOnly($event)">
+                    <input matInput formControlName="customerPhone" placeholder="Enter Customer Contact Number">
                 </mat-form-field>
                 <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').dirty || formAddNewAppointmentStaffStep1.get('customerPhone').touched">
                     <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('required')" class="error">Phone is required.</small>
-                    <small *ngIf=" formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern')" class="error">Enter a valid Phone.</small>
-                    <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerPhone').hasError('maxlength')" class="error">Phone number should be 6 to 15 digits long.</small>
+                    <small *ngIf=" formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern') || (formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern') && (formAddNewAppointmentStaffStep1.get('customerPhone').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerPhone').hasError('maxlength')))" class="error">Enter a valid Phone. (Country code is required.)</small>
+                    <small *ngIf="!formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern') && (formAddNewAppointmentStaffStep1.get('customerPhone').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerPhone').hasError('maxlength'))" class="error">Phone number should be 6 to 15 digits long.</small>
                 </span>
 
                 <mat-form-field class="form-group  bottom-border-field">

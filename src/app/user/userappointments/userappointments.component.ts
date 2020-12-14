@@ -2014,7 +2014,6 @@ export class rescheduleAppointmentDialog {
   
           this.maximumAdvanceBookingDateTimeObject = new Date();
           this.maximumAdvanceBookingDateTimeObject.setMinutes( this.maximumAdvanceBookingDateTimeObject.getMinutes() + this.maximumAdvanceBookingTime );
-          console.log("maximumAdvanceBookingDateTimeObject - "+this.maximumAdvanceBookingDateTimeObject);
           this.maxDate = this.maximumAdvanceBookingDateTimeObject;
   
         }
@@ -2033,7 +2032,6 @@ export class rescheduleAppointmentDialog {
         if(response.data == true){
           let tax = response.response
           this.taxArr=tax;
-          console.log(this.taxArr);
         }
         else if(response.data == false && response.response !== 'api token or userid invaild'){
           
@@ -2063,7 +2061,6 @@ export class rescheduleAppointmentDialog {
         }
       },
       (err) =>{
-        console.log(err)
       })
     }
   
@@ -2095,12 +2092,10 @@ export class rescheduleAppointmentDialog {
         }
       },
       (err) =>{
-        console.log(err)
       })
     }
   
     fnSelectCat(selected_cat_id){
-      console.log(selected_cat_id)
       this.fnGetSubCategory(selected_cat_id);
       this.subcatdata.length = 0;
       this.serviceData.length = 0;
@@ -2111,7 +2106,6 @@ export class rescheduleAppointmentDialog {
       this.selectedSubCatId=undefined;
       this.selectedServiceId=undefined;
       this.selectedStaffId=undefined;
-      console.log(this.selectedSubCatId);
     }
     // get Sub Category function
     fnGetSubCategory(selected_cat_id){
@@ -2133,7 +2127,6 @@ export class rescheduleAppointmentDialog {
           this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].updateValueAndValidity();           
          this.showSubCatDropDown=true;
         this.subcatdata = response.response;
-        // console.log(this.subcatdata)
         }else{
           this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].clearValidators();
           this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].updateValueAndValidity();           
@@ -2142,12 +2135,10 @@ export class rescheduleAppointmentDialog {
         }
       },
       (err) =>{
-        console.log(err)
       })
     }
   
     fnSelectSubCat(selected_subcat_id){
-      console.log(selected_subcat_id)
       this.fnGetAllServices(selected_subcat_id);
       this.serviceData.length = 0;
       this.formAddNewAppointmentStaffStep2.controls['customerService'].setValue(null);
@@ -2189,7 +2180,6 @@ export class rescheduleAppointmentDialog {
                 name:'',
                 amount:0
               }
-              console.log(element.name+" -- "+element.value);
               if(this.taxType == "P"){
                taxTemp.value= element.value;
                taxTemp.name= element.name;
@@ -2203,7 +2193,6 @@ export class rescheduleAppointmentDialog {
               }
               taxMain.push(taxTemp);
               this.serviceData[i].tax=taxMain;
-              console.log(this.serviceData[i].tax);
             });
   
             // this.serviceData[i].tax=0;
@@ -2215,12 +2204,10 @@ export class rescheduleAppointmentDialog {
             this.serviceData[i].assignedStaff=null;
             this.serviceCount[this.serviceData[i].id]=this.serviceData[i];
           }
-          console.log(JSON.stringify(this.serviceCount));
         }else{
         }
       },
       (err) =>{
-        console.log(err)
       })
     }
   
@@ -2256,7 +2243,6 @@ export class rescheduleAppointmentDialog {
                 name:'',
                 amount:0
               }
-              console.log(element.name+" -- "+element.value);
               if(this.taxType == "P"){
                taxTemp.value= element.value;
                taxTemp.name= element.name;
@@ -2270,7 +2256,6 @@ export class rescheduleAppointmentDialog {
               }
               taxMain.push(taxTemp);
               this.serviceData[i].tax=taxMain;
-              console.log(this.serviceData[i].tax);
             });
   
             this.serviceData[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
@@ -2281,7 +2266,6 @@ export class rescheduleAppointmentDialog {
             this.serviceCount[this.serviceData[i].id]=this.serviceData[i];
          
           }
-          console.log(JSON.stringify(this.serviceCount));
         }else{
           this._snackBar.open(response.response, "X", {
           duration: 2000,
@@ -2291,12 +2275,10 @@ export class rescheduleAppointmentDialog {
         }
       },
       (err) =>{
-        console.log(err)
       })
     }
   
     fnSelectService(selected_service_id){
-      console.log(selected_service_id)
       this.availableStaff=[];
       this.formAddNewAppointmentStaffStep2.controls['customerStaff'].setValue(null);
       this.selectedStaffId=undefined;
@@ -2318,7 +2300,6 @@ export class rescheduleAppointmentDialog {
               name:'',
               amount:0
             }
-            console.log(element.name+" -- "+element.value);
             if(this.taxType == "P"){
              taxTemp.value= element.value;
              taxTemp.name= element.name;
@@ -2332,13 +2313,9 @@ export class rescheduleAppointmentDialog {
             }
             taxMain.push(taxTemp);
             this.serviceCount[i].tax=taxMain;
-            console.log(this.serviceCount[i].tax);
           });
   
           this.serviceCount[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
-  
-          console.log(JSON.stringify(this.serviceCount));
-  
           if(this.selectedDate){
             this.serviceCount[i].appointmentDate=this.selectedDate;
             this.fnGetTimeSlots(this.selectedDate);
@@ -2368,7 +2345,6 @@ export class rescheduleAppointmentDialog {
               name:'',
               amount:0
             }
-            console.log(element.name+" -- "+element.value);
             if(this.taxType == "P"){
              taxTemp.value= element.value;
              taxTemp.name= element.name;
@@ -2382,14 +2358,11 @@ export class rescheduleAppointmentDialog {
             }
             taxMain.push(taxTemp);
             this.serviceCount[i].tax=taxMain;
-            console.log(this.serviceCount[i].tax);
           });
   
           // this.serviceData[id].tax=0;
           this.serviceCount[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
   
-          // this.serviceCount[service_id].totalCost=1*this.serviceCount[service_id].service_cost;
-          console.log(JSON.stringify(this.serviceCount));
   
           // this.serviceCount[i].totalCost=0;
           this.serviceCount[i].appointmentDate='';
@@ -2400,11 +2373,9 @@ export class rescheduleAppointmentDialog {
       if(this.bussinessId != undefined && this.selectedServiceId != undefined && this.selectedDate != undefined && this.selectedTime != undefined){
         this.fnGetStaff();
       }
-      console.log(JSON.stringify(this.serviceCount));
     }
   
     fnDateChange(event: MatDatepickerInputEvent<Date>) {
-      console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
       let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
       this.formAddNewAppointmentStaffStep2.controls['customerTime'].setValue(null);
       this.formAddNewAppointmentStaffStep2.controls['customerStaff'].setValue(null);
@@ -2417,7 +2388,6 @@ export class rescheduleAppointmentDialog {
         this.serviceCount[this.selectedServiceId].appointmentDate=date
       }
       this.selectedDate=date;
-      console.log(JSON.stringify(this.serviceCount));
       this.fnGetTimeSlots(date);
     }
   
@@ -2461,12 +2431,10 @@ export class rescheduleAppointmentDialog {
         }
       },
       (err) =>{
-        console.log(err)
       })
     }
   
     fnSelectTime(timeSlot){
-      console.log(timeSlot);
       this.availableStaff=[];
       if(this.selectedServiceId != undefined){
         this.serviceCount[this.selectedServiceId].appointmentTimeSlot =timeSlot;
@@ -2474,7 +2442,6 @@ export class rescheduleAppointmentDialog {
       this.formAddNewAppointmentStaffStep2.controls['customerStaff'].setValue(null);
       this.selectedStaffId=undefined;
       this.selectedTime=timeSlot;
-      console.log(JSON.stringify(this.serviceCount));
      
       if(this.bussinessId != undefined && this.selectedServiceId != undefined && this.selectedDate != undefined && this.selectedTime != undefined){
         this.fnGetStaff();
@@ -2510,7 +2477,6 @@ export class rescheduleAppointmentDialog {
         if(response.data == true){
           this.availableStaff = response.response;
           this.isStaffAvailable = true;
-          console.log(JSON.stringify(this.availableStaff));
         }else if(response.data == false && response.response !== 'api token or userid invaild'){
           this.availableStaff=[];
           this.isStaffAvailable = false;
@@ -2518,23 +2484,19 @@ export class rescheduleAppointmentDialog {
       },
       (err) =>{
         this.isStaffAvailable = false;
-        console.log(err);
       })
     }
   
     fnSelectStaff(selected_staff_id){
-      console.log(selected_staff_id);
       this.selectedStaffId=selected_staff_id;
       if(this.selectedServiceId != undefined){
         this.serviceCount[this.selectedServiceId].assignedStaff =this.selectedStaffId;
       }
-      console.log(JSON.stringify(this.serviceCount));
     }
   
     fnNewAppointmentStep2(){
       
       if(this.valide_postal_code == false){
-        console.log("enter valide pin code");
         this.formAddNewAppointmentStaffStep2.get('customerPostalCode').markAsTouched();
         return false;
       }
@@ -2575,7 +2537,6 @@ export class rescheduleAppointmentDialog {
             name:'',
             amount:0
           }
-          console.log(element.name+" -- "+element.value);
           if(this.taxType == "P"){
             taxTemp.value= element.value;
             taxTemp.name= element.name;
@@ -2588,13 +2549,10 @@ export class rescheduleAppointmentDialog {
             amountAfterTax=amountAfterTax+taxTemp.amount;
           }
           this.taxAmountArr.push(taxTemp);
-          console.log(this.taxAmountArr);
         });
       }
       this.netCost=amountAfterDiscount+amountAfterTax;
   
-      console.log(this.taxAmountArr);
-      console.log(JSON.stringify(serviceCartArrTemp));
       const currentDateTime = new Date();
       let requestObject = {
         "postal_code": this.formAddNewAppointmentStaffStep2.get('customerPostalCode').value,
@@ -2618,7 +2576,7 @@ export class rescheduleAppointmentDialog {
         "discount": 0,
         "tax": this.taxAmountArr,
         "nettotal": this.netCost,
-        "created_by": "admin",
+        "created_by": "customer",
         "payment_method": "Cash",
         "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd hh:mm:ss") 
       };

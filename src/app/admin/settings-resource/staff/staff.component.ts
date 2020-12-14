@@ -1110,6 +1110,7 @@ export class StaffComponent implements OnInit {
     this.staffListPage = false;
     this.singleStaffView = false;
     this.isLoaderAdmin = false;
+    this.StaffCreate.reset();
     this.selectedServiceNewStaff=[];
     this.files=[];
     if(this.singleStaffDetail){ 
@@ -2726,7 +2727,6 @@ export class StaffComponent implements OnInit {
   }
 
   viewStaffReviewDetail(index,OrderId){
-    alert(index)
     console.log(this.singleStaffDetail.staff[0].review[index])
     this.isLoaderAdmin = true;
     this.adminSettingsService.viewStaffReviewDetail(OrderId).subscribe((response:any) => {

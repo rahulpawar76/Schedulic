@@ -69,7 +69,7 @@ export class CustomersComponent implements OnInit {
   paymentMethod : any = "Cash";
 
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
-  onlynumeric = /^-?(0|[1-9]\d*)?$/
+  onlynumeric = /^\+(?:[0-9] ?){6,14}[0-9]$/
   onlyString = /^[a-zA-Z]+$/
 
   visible = true;
@@ -178,7 +178,7 @@ export class CustomersComponent implements OnInit {
     this.createNewCustomer = this._formBuilder.group({
       cus_fullname : ['', Validators.required,Validators.pattern('[a-zA-Z ]*')],
       cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isCustomerEmailUnique.bind(this)],
-      cus_phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric),this.isCustomerPhoneUnique.bind(this)]],
+      cus_phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)],this.isCustomerPhoneUnique.bind(this)],
       cus_officenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_homenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_address : ['', Validators.required],
@@ -443,7 +443,7 @@ customerUpdate(existingCustomerData){
     this.createNewCustomer = this._formBuilder.group({
       cus_fullname : ['', Validators.required],
       cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isCustomerEmailUnique.bind(this)],
-      cus_phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric),this.isCustomerPhoneUnique.bind(this)]],
+      cus_phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)],this.isCustomerPhoneUnique.bind(this)],
       cus_officenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_homenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_address : ['', Validators.required],
@@ -635,8 +635,8 @@ customerUpdate(existingCustomerData){
     this.isLoaderAdmin = true;
     this.createNewCustomer = this._formBuilder.group({
       cus_fullname : ['', Validators.required],
-      cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isCustomerEmailUnique.bind(this)],
-      cus_phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric),this.isCustomerPhoneUnique.bind(this)]],
+      cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat),this.isCustomerEmailUnique.bind(this)]],
+      cus_phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)],this.isCustomerPhoneUnique.bind(this)],
       cus_officenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_homenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_address : ['', Validators.required],
@@ -700,6 +700,7 @@ customerUpdate(existingCustomerData){
           if(res){
             if(res.data == false){
             resolve({ isEmailUnique: true });
+            alert('2')
             }else{
             resolve(null);
             }
@@ -729,7 +730,7 @@ customerUpdate(existingCustomerData){
           if(res){
             if(res.data == false){
             resolve({ isPhoneUnique: true });
-            
+            alert('1')
             }else{
             resolve(null);
             }

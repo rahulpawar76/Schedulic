@@ -164,8 +164,8 @@ export class AppointmentLiveComponent implements OnInit {
       cus_mobile : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
     });
     this.fnWatinglist();
-    this.fnPendingBilling();
-    this.fnOutdoorOrders();
+    // this.fnPendingBilling();
+    // this.fnOutdoorOrders();
 
   }
 
@@ -175,14 +175,13 @@ export class AppointmentLiveComponent implements OnInit {
       this.businessId=localStorage.getItem('business_id');
     }
     this.fnGetSettings();
-    this.getPendingAppointments(this.search.pendingKeyword);
+    // this.getPendingAppointments(this.search.pendingKeyword);
    // this.getNotAssignedAppointments();
    if (localStorage.getItem('business_id')) {
       this.businessId = localStorage.getItem('business_id');
       this.getNotificationCount(this.businessId)
     }
-    this.getOnThewayAppointments();
-    this.getWorkStartedAppointments(this.search.workStartedKeyword);
+    // this.getOnThewayAppointments();
     
     this.todayDate = this.datePipe.transform(new Date(),"MMMM d");
     this.todayTime = this.datePipe.transform(new Date(),"h:mm ");
@@ -202,7 +201,17 @@ export class AppointmentLiveComponent implements OnInit {
     }
     if(clickedIndex == 5){
       this.pendingBillTab  = true
-    }else{
+     this.fnPendingBilling();
+    }else if(clickedIndex == 3){
+      this.fnOutdoorOrders();
+      this.pendingBillTab  = false
+    }else if(clickedIndex == 1){
+      this.pendingBillTab  = false
+    }else if(clickedIndex == 2){
+      this.getPendingAppointments(this.search.pendingKeyword)
+      this.pendingBillTab  = false
+    }else if(clickedIndex == 4){
+      this.getWorkStartedAppointments(this.search.workStartedKeyword);
       this.pendingBillTab  = false
     }
   }
@@ -1244,11 +1253,12 @@ export class AppointmentLiveComponent implements OnInit {
         this.isLoaderAdmin = false;
         this.OutDootMap(0);
       } else {
-        this._snackBar.open('out door service not found', "X", {
+        this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['red-snackbar']
         });
+        this.outdoorOrdersArr=[];
         this.isLoaderAdmin = false;
       }
     });
@@ -1293,21 +1303,14 @@ export class AppointmentLiveComponent implements OnInit {
 
     var new_status = '';
     console.log(type);
-    if(type=='in_store'){
-      
-      if(status=='AC'){
-        new_status='WS';
-      }
-
-    }
 
     if(type=='out_store'){
-      if(status=='AC'){
-        new_status='OW';
-      }else if(status=='OW'){
+      if(status=='OW'){
         new_status='WS';
+       }else if(status=='WS'){
+        new_status='CO';
       }else{
-        return false;
+        new_status='OW';
       }
     }
 

@@ -18,7 +18,7 @@
                     </div>
                     <div class="seach-bar">
                         <i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search" (keyup)="fnSearch($event.target.value)">
+                        <input type="text" placeholder="Search By Name, Phone Number, Service" (keyup)="fnSearch($event.target.value)">
                     </div>
                     <div class="today-time-function">
                         <div class="pendingborder appoint-head">
@@ -117,7 +117,7 @@
                                     </label>
                                         <label class="single-value">
                                         <p class="title">Staff</p>
-                                        <p class="value">{{val.staff.firstname +' '+val.staff.lastname}}</p>
+                                        <p class="value">{{val.staff ? val.staff.firstname : '-' +' '+val.staff?val.staff.lastname:'-'}}</p>
                                     </label>
                                     </div>
                                     <div class="col-6 right-side">
@@ -303,7 +303,7 @@
                 <label class="tab-label">Pending</label>
                 <div class="single-search-bar">
                     <i class="fa fa-search"></i>
-                    <input type="text" [(ngModel)]="search.pendingKeyword" (keyup)="pendingAppointSearch($event)" placeholder="Search">
+                    <input type="text" [(ngModel)]="search.pendingKeyword" (keyup)="pendingAppointSearch($event)" placeholder="Search By Name, Phone Number, Service">
                 </div>
                 <div class="col-2 pendingborder appoint-head">
                     <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
@@ -388,7 +388,7 @@
                 <label class="tab-label">Out Door</label>
                 <div class="single-search-bar">
                     <i class="fa fa-search"></i>
-                    <input type="text" placeholder="Search" (keyup)="fnOutdoorOrders($event.target.value,'service')">
+                    <input type="text" placeholder="Search By Name, Phone Number, Service" (keyup)="fnOutdoorOrders($event.target.value,'service')">
                 </div>
                 <div class="col-2 pendingborder appoint-head">
                     <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
@@ -421,12 +421,16 @@
                             </div>
                             <div class="action-btn">
                                 <button (click)="fnOpenOnTheWayDetails(val);" mat-button class="detail-btn">Appointment Details</button>
-                                <button mat-button *ngIf="val.service.service_sub_type!='in_store'" class="{{val.order_status=='AC'?'otw-btn':'ws-btn'}}" (click)="fnOrderUpdateStatus(val.order_status,val.id,'out_store')">
-                                       {{val.order_status=="AC"?"On The Way":val.order_status=="AC"?'Completed':"Work Started"}} 
+                                <button *ngIf="val.order_status=='OW'" mat-button class="ws-btn" (click)="fnOrderUpdateStatus(val.order_status,val.id,'out_store')">Work Started
                                 </button>
-                                <button mat-button class="ws-btn" (click)="fnOrderUpdateStatus(val.order_status,val.id,'in_store')" *ngIf="val.service.service_sub_type=='in_store'">
-                                    {{val.order_status=="AC"?"Work Started ":"Completed"}} 
+                                <button *ngIf="val.order_status=='WS'" mat-button class="ws-btn" (click)="fnOrderUpdateStatus(val.order_status,val.id,'out_store')">Completed
                                 </button>
+                                <button *ngIf="val.order_status!='WS' && val.order_status!='OW'" mat-button class="otw-btn" (click)="fnOrderUpdateStatus(val.order_status,val.id,'out_store')">
+                                       On The Way
+                                </button>
+                                <!-- <button mat-button class="ws-btn" (click)="fnOrderUpdateStatus(val.order_status,val.id,'in_store')" *ngIf="val.service.service_sub_type=='in_store'">
+                                    {{val.order_status=="AC"?"Work Started ":"Completedeed"}} 
+                                </button> -->
                             </div>
                         </div>
                     </div>
@@ -449,7 +453,7 @@
                 <label class="tab-label">Work Started</label>
                 <div class="single-search-bar">
                     <i class="fa fa-search"></i>
-                    <input type="text" [(ngModel)]="search.workStartedKeyword" (keyup)="WSAppointSearch()" placeholder="Search">
+                    <input type="text" [(ngModel)]="search.workStartedKeyword" (keyup)="WSAppointSearch()" placeholder="Search By Name, Phone Number, Service">
                 </div>
                 <div class="col-2 pendingborder appoint-head">
                     <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
@@ -488,7 +492,7 @@
                                         <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.customer.email}}</p>
                                     </div>
                                     <div *ngIf="workStartedAppointments.staff != null" class="" fxFlex="20">
-                                        <p class="mb-0">{{workStartedAppointments.staff.firstname}} {{workStartedAppointments.staff.lastname}}</p>
+                                        <p class="mb-0">{{workStartedAppointments.staff?workStartedAppointments.staff.firstname:'-'}} {{workStartedAppointments.staff?workStartedAppointments.staff.lastname:'-'}}</p>
                                         <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{workStartedAppointments.staff.phone?workStartedAppointments.staff.phone:''}}</p>
                                         <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.staff.email?workStartedAppointments.staff.email:''}}</p>
                                     </div>
@@ -533,7 +537,7 @@
                 <label class="tab-label">Pending Billing</label>
                 <div class="single-search-bar">
                     <i class="fa fa-search"></i>
-                    <input type="text" placeholder="Search" (keyup)="fnPendingBilling($event.target.value)">
+                    <input type="text" placeholder="Search By Name, Phone Number, Service" (keyup)="fnPendingBilling($event.target.value)">
                 </div>
                 <div class="col-2 pendingborder appoint-head">
                     <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
@@ -577,7 +581,7 @@
                                     <div class="row ">
                                         <div class="col-6 pt-2">
                                             <label>Staff</label><br>
-                                            <span>{{val.orders ? val.orders.staff.firstname:''}} {{val.orders ? val.orders.staff.lastname:''}}</span>
+                                            <span>{{val.orders.staff ? val.orders.staff.firstname:''}} {{val.orders.staff ? val.orders.staff.lastname:''}}</span>
                                         </div>
                                         <div class="col-6 pt-2 text-right">
                                             <label>Order From</label><br>

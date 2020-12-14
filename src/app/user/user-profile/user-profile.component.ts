@@ -29,7 +29,7 @@ export class UserProfileComponent implements OnInit {
   profileUrl:any;
   error:any;
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
-  onlynumeric = /^-?(0|[1-9]\d*)?$/
+  onlynumeric = /^\+(?:[0-9] ?){6,14}[0-9]$/
 
   constructor(
     private userService: UserService,
@@ -51,7 +51,7 @@ export class UserProfileComponent implements OnInit {
     this.customerProfile = this._formBuilder.group({
       user_fullname : ['', Validators.required],
       user_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
-      user_phone : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      user_phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       user_address : ['', Validators.required],
       user_state : ['', Validators.required],
       user_city : ['', Validators.required],

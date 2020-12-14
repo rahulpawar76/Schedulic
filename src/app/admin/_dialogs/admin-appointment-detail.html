@@ -141,14 +141,12 @@
                         <p class="mb-0 title">Phone No.</p>
                         <p class=" address-fontsize">{{detailsData.customer.phone}}</p>
                     </div>
-                    <div>
+                    <div *ngIf="detailsData.service.service_sub_type == 'at_home'">
                         <p class="mb-0 title">Address</p>
-                        <p class="mb-0 address-fontsize" *ngIf="detailsData.orders_info.booking_address !== ''"> {{detailsData.orders_info ? detailsData.orders_info.booking_address : ''}}</p>
-                        <p class="mb-0 address-fontsize" *ngIf="detailsData.orders_info.booking_city !== ''"> {{detailsData.orders_info ? detailsData.orders_info.booking_city : ''}}</p>
-                        <p class="mb-0 address-fontsize" *ngIf="detailsData.orders_info.booking_state !== ''"> {{detailsData.orders_info ? detailsData.orders_info.booking_state : ''}}</p>
-                        <p class="mb-0 address-fontsize" *ngIf="detailsData.orders_info.booking_zipcode !== ''"> {{detailsData.orders_info ? detailsData.orders_info.booking_zipcode : ''}}</p>
-                        
-                        <p class=" address-fontsize" *ngIf="detailsData?.orders_info.booking_address == ''">--</p>
+                        <p class="mb-0 address-fontsize"> {{detailsData.orders_info ? detailsData.orders_info.booking_address : ''}}</p>
+                        <p class="mb-0 address-fontsize"> {{detailsData.orders_info ? detailsData.orders_info.booking_city : ''}}</p>
+                        <p class="mb-0 address-fontsize"> {{detailsData.orders_info ? detailsData.orders_info.booking_state : ''}}</p>
+                        <p class="mb-0 address-fontsize"> {{detailsData.orders_info ? detailsData.orders_info.booking_zipcode : ''}}</p>
                     </div>
                     <div>
                         <p class="mb-0 title">Note</p>

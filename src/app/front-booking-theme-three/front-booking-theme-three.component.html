@@ -351,7 +351,7 @@
                                                 formNewUser.get('newUserFullname').touched
                                                 || formSubmitclicked"><small
                                                     *ngIf="formNewUser.get('newUserFullname').hasError('required')"
-                                                    class="error">Fullname is
+                                                    class="error">Full name is
                                                     required.</small></span>
                                 </div>
                                 <div class="col-12 col-lg-6 col-md-6
@@ -920,7 +920,7 @@
 
 
         <!-- common footer -->
-        <div class="common-footer" *ngIf="!catselection && !thankYouScreen && !paymentScreen && (businessDetail && businessDetail.private_status == 'N') && (businessDetail && businessDetail.status == 'E')">
+        <div class="common-footer" *ngIf="!summaryScreen && !catselection && !thankYouScreen && !paymentScreen && (businessDetail && businessDetail.private_status == 'N') && (businessDetail && businessDetail.status == 'E')">
             <div class="cart-btn mt-2" [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click" #popoverTrigger="mdePopoverTrigger" (click)="fnOpenCartbox()">
                 <i *ngIf="cartOpened" class="fa fa-shopping-cart"></i>
                 <i *ngIf="!cartOpened" class="material-icons">close</i>
