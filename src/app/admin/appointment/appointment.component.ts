@@ -748,6 +748,7 @@ export class DialogAddNewAppointment {
   emailPattern:any;
   onlynumeric:any;
   Postalcode:any = [];
+  existingCustomerId:any;
   constructor(
     public dialogRef: MatDialogRef<DialogAddNewAppointment>,
     public dialog: MatDialog,
@@ -766,6 +767,7 @@ export class DialogAddNewAppointment {
       this.appointmentData.order_id=this.data.appointmentData.order_id;
       this.appointmentData.order_item_id=this.data.appointmentData.id;
       this.appointmentData.customer_id=this.data.appointmentData.customer_id;
+      this.existingCustomerId=this.data.appointmentData.customer_id;
       this.appointmentData.fullName=this.data.appointmentData.customer.fullname;
       this.appointmentData.email=this.data.appointmentData.customer.email;
       this.appointmentData.phone=this.data.appointmentData.customer.phone;
@@ -790,7 +792,6 @@ export class DialogAddNewAppointment {
       this.disableSubCategory=true;
       this.disableService=true;
       this.dialogTitle="Edit Appointment";
-      this.validationArr=this.isEmailUnique.bind(this);
 
       this.appointmentData.customerAppoAddress=this.data.appointmentData.orders_info.booking_address;
       this.appointmentData.customerAppoState = this.data.appointmentData.orders_info.booking_state;
@@ -880,6 +881,64 @@ export class DialogAddNewAppointment {
     //return error.error ? error.error : error.statusText;
   }
 
+
+  isCustomerEmailUnique(control: FormControl) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+          let emailCheckRequestObject = {
+            'business_id':this.bussinessId,
+            'email': control.value,
+            'phone': null,
+            'customer_id':this.existingCustomerId,
+            'checkType':'email', 
+          }
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+        return this.http.post(`${environment.apiUrl}/customer-check`, emailCheckRequestObject,{headers:headers}).pipe(map((response : any) =>{
+          return response;
+        }),
+        catchError(this.handleError)).subscribe((res) => {
+          if(res){
+            if(res.data == false){
+            resolve({ isEmailUnique: true });
+            }else{
+            resolve(null);
+            }
+          }
+        });
+      }, 500);
+    });
+  }
+  isCustomerPhoneUnique(control: FormControl) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        let phoneCheckRequestObject = {
+          'business_id':this.bussinessId,
+          'email': null,
+          'customer_id':this.existingCustomerId,
+          'phone': control.value,
+          'checkType':'phone', 
+        }
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+        return this.http.post(`${environment.apiUrl}/customer-check`, phoneCheckRequestObject,{headers:headers}).pipe(map((response : any) =>{
+          return response;
+        }),
+        catchError(this.handleError)).subscribe((res) => {
+          if(res){
+            if(res.data == false){
+            resolve({ isPhoneUnique: true });
+            }else{
+            resolve(null);
+            }
+          }
+        });
+      }, 500);
+    });
+  }
+
   fnIsPostalCodeAdded(){
     this.isLoaderAdmin = true;
     let requestObject = {
@@ -898,8 +957,8 @@ export class DialogAddNewAppointment {
       if(response.data == true){
         this.formAddNewAppointmentStaffStep1 = this._formBuilder.group({
         customerFullName: [this.appointmentData.fullName, [Validators.required]],
-        customerEmail: [this.appointmentData.email,[Validators.required,Validators.email,Validators.pattern(this.emailPattern)], this.validationArr],
-        customerPhone: [this.appointmentData.phone, [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
+        customerEmail: [this.appointmentData.email,[Validators.required,Validators.email,Validators.pattern(this.emailPattern)],this.isCustomerEmailUnique.bind(this)],
+        customerPhone: [this.appointmentData.phone, [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)],this.isCustomerPhoneUnique.bind(this)],
         customerAddress: [this.appointmentData.address, Validators.required],
         customerState: [this.appointmentData.state, Validators.required],
         customerCity: [this.appointmentData.city, Validators.required],
@@ -915,8 +974,8 @@ export class DialogAddNewAppointment {
       }else{
         this.formAddNewAppointmentStaffStep1 = this._formBuilder.group({
         customerFullName: [this.appointmentData.fullName, [Validators.required]],
-        customerEmail: [this.appointmentData.email,[Validators.required,Validators.email,Validators.pattern(this.emailPattern)], this.validationArr],
-        customerPhone: [this.appointmentData.phone, [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
+        customerEmail: [this.appointmentData.email,[Validators.required,Validators.email,Validators.pattern(this.emailPattern)],this.isCustomerEmailUnique.bind(this)],
+        customerPhone: [this.appointmentData.phone, [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)],this.isCustomerPhoneUnique.bind(this)],
         customerAddress: [this.appointmentData.address, Validators.required],
         customerState: [this.appointmentData.state, Validators.required],
         customerCity: [this.appointmentData.city, Validators.required],
@@ -936,27 +995,7 @@ export class DialogAddNewAppointment {
       })
       this.isLoaderAdmin = false;
   }
-  isEmailUnique(control: FormControl) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        let headers = new HttpHeaders({
-          'Content-Type': 'application/json',
-        });
-        return this.http.post(`${environment.apiUrl}/check-emailid`,{ emailid: control.value,customer_id:this.appointmentData.customer_id },{headers:headers}).pipe(map((response : any) =>{
-          return response;
-        }),
-        catchError(this.handleError)).subscribe((res) => {
-          if(res){
-            if(res.data == false){
-            resolve({ isEmailUnique: true });
-            }else{
-            resolve(null);
-            }
-          }
-        });
-      }, 500);
-    });
-  }
+  
 
   isPostalcodeValid(control: FormControl) {
     

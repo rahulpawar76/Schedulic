@@ -44,24 +44,16 @@
                     </mat-form-field>
                     <!-- <input type="email" formControlName="customerEmail" class="form-control formcontrol" placeholder="Enter Customer Email"> -->
                     <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep1.get('customerEmail').dirty || formAddNewAppointmentStaffStep1.get('customerEmail').touched || formSubmitclicked">
-                        <small *ngIf="formAddNewAppointmentStaffStep1.get('customerEmail').hasError('required')" class="error">Email is required</small><small *ngIf="formAddNewAppointmentStaffStep1.get('customerEmail').hasError('email') || formAddNewAppointmentStaffStep1.get('customerEmail').hasError('pattern')" class="error">Enter a valid email.</small>
+                        <small *ngIf="formAddNewAppointmentStaffStep1.get('customerEmail').hasError('required')" class="error">Email is required.</small><small *ngIf="formAddNewAppointmentStaffStep1.get('customerEmail').hasError('email') || formAddNewAppointmentStaffStep1.get('customerEmail').hasError('pattern')" class="error">Enter a valid email.</small>
                         <small class="error" *ngIf="formAddNewAppointmentStaffStep1.get('customerEmail').hasError('isEmailUnique')">Email already in use.</small>
                     </span>
                 </div>
-
-                <!-- <label class="mb-0">Customer Contact Number</label>
-           <div class="input-group mb-2">
-             <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="fa fa-phone"></i>
-                    </div>
-                 </div> -->
                 <div>
                     <mat-form-field class="form-group  bottom-border-field">
                         <mat-label>Customer Contact Number</mat-label>
                         <mat-icon matPrefix><i class="fa fa-phone"></i></mat-icon>
-                        <input type="text" matInput formControlName="customerPhone" placeholder="Enter Customer Contact Number" (keypress)="numberOnly($event)">
+                        <input type="text" matInput formControlName="customerPhone" placeholder="Enter Customer Contact Number">
                     </mat-form-field>
-
                     <!-- <input type="text" formControlName="customerPhone" class="form-control formcontrol" placeholder="Enter Customer Phone Number"> -->
                     <!-- <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').dirty || formAddNewAppointmentStaffStep1.get('customerPhone').touched || formSubmitclicked">
                         <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('required')" class="error">Phone is required</small><small *ngIf=" formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern')" class="error">Enter a valid phone</small>
@@ -70,7 +62,7 @@
 
 
                     <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').dirty || formAddNewAppointmentStaffStep1.get('customerPhone').touched || formSubmitclicked">
-                        <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('required')" class="error">Phone is required.</small><small *ngIf="(formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern') && (formAddNewAppointmentStaffStep1.get('customerPhone').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerPhone').hasError('maxlength')))" class="error">Enter a valid phone.</small>
+                        <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('required')" class="error">Phone is required.</small><small *ngIf="(formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern') && (formAddNewAppointmentStaffStep1.get('customerPhone').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerPhone').hasError('maxlength')))" class="error">Enter a valid Phone (Country code is required).</small>
                         <small *ngIf="(!formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern') && (formAddNewAppointmentStaffStep1.get('customerPhone').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerPhone').hasError('maxlength')))" class="error">Phone number should be minimum 6 and maximum 15 digits long.</small>
                         </span>
                 </div>

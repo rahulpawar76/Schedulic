@@ -112,7 +112,7 @@
         </div>
     </div>
     <mat-card *ngIf="addNewCouponCode" class="h-100">
-        <form [formGroup]="discountCoupon">
+        <form [formGroup]="discountCoupon" class="add-coupon-form">
             <div class="row">
                 <div class="col-lg-8 col-sm-12 col-md-12 col-12">
                     <h5>Add Discount Coupon</h5>
@@ -223,7 +223,7 @@
                         <h6>Select Service</h6>
                         <mat-form-field class="pb-3 bottom-border-field">
                             <!-- <mat-label>Outline form field</mat-label> -->
-                            <input (keyup)="fnsearchService($event);" matInput placeholder="Category,Subcategory,Service">
+                            <input (keyup)="fnsearchService($event);" matInput placeholder="Category, Subcategory, Service">
                             <mat-icon matPrefix>search</mat-icon>
                         </mat-form-field>
 

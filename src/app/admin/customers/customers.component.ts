@@ -635,7 +635,7 @@ customerUpdate(existingCustomerData){
     this.isLoaderAdmin = true;
     this.createNewCustomer = this._formBuilder.group({
       cus_fullname : ['', Validators.required],
-      cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat),this.isCustomerEmailUnique.bind(this)]],
+      cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isCustomerEmailUnique.bind(this)],
       cus_phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)],this.isCustomerPhoneUnique.bind(this)],
       cus_officenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_homenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
@@ -683,7 +683,7 @@ customerUpdate(existingCustomerData){
   isCustomerEmailUnique(control: FormControl) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-          this.emailCheckRequestObject = {
+          let emailCheckRequestObject = {
             'business_id':this.businessId,
             'email': control.value,
             'phone': null,
@@ -693,14 +693,13 @@ customerUpdate(existingCustomerData){
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
         });
-        return this.http.post(`${environment.apiUrl}/customer-check`, this.emailCheckRequestObject,{headers:headers}).pipe(map((response : any) =>{
+        return this.http.post(`${environment.apiUrl}/customer-check`, emailCheckRequestObject,{headers:headers}).pipe(map((response : any) =>{
           return response;
         }),
         catchError(this.handleError)).subscribe((res) => {
           if(res){
             if(res.data == false){
             resolve({ isEmailUnique: true });
-            alert('2')
             }else{
             resolve(null);
             }
@@ -712,7 +711,7 @@ customerUpdate(existingCustomerData){
   isCustomerPhoneUnique(control: FormControl) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        this.phoneCheckRequestObject = {
+        let phoneCheckRequestObject = {
           'business_id':this.businessId,
           'email': null,
           'customer_id':this.existingUserId,
@@ -722,7 +721,7 @@ customerUpdate(existingCustomerData){
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
         });
-        return this.http.post(`${environment.apiUrl}/customer-check`, this.phoneCheckRequestObject,{headers:headers}).pipe(map((response : any) =>{
+        return this.http.post(`${environment.apiUrl}/customer-check`, phoneCheckRequestObject,{headers:headers}).pipe(map((response : any) =>{
           return response;
         }),
         catchError(this.handleError)).subscribe((res) => {
@@ -730,7 +729,6 @@ customerUpdate(existingCustomerData){
           if(res){
             if(res.data == false){
             resolve({ isPhoneUnique: true });
-            alert('1')
             }else{
             resolve(null);
             }

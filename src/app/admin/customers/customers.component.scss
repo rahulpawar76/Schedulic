@@ -159,6 +159,7 @@
             width: 100px;
             height: 39px;
             border-radius: 7px;
+            color: #fff;
             background-color: #dddddd;
         }
         .customer-save-btn {
@@ -366,6 +367,7 @@
         width: 100px;
         height: 39px;
         border-radius: 7px;
+        color: #fff;
         background-color: #dddddd;
     }
     .customer-pay-btn {
@@ -399,13 +401,14 @@
 // <!---add-new-note-dialog style ---->
 ::ng-deep .modal-footer {
     border: none !important;
-     ::ng-deep .cancelbtn {
+    .cancelbtn {
         width: 112px;
         height: 37px;
         border-radius: 25px;
+        color: #fff;
         background-color: #9b9b9b;
     }
-     ::ng-deep .savebtn {
+    .savebtn {
         width: 112px;
         height: 37px;
         border-radius: 25px;
@@ -969,6 +972,14 @@ mat-chip-list {
         span {
             width: 100%;
             font-size: 35px;
+        }
+    }
+}
+
+::ng-deep .tag-disabled {
+    &.mat-focused {
+        .mat-form-field-ripple {
+            opacity: 0 !important;
         }
     }
 }

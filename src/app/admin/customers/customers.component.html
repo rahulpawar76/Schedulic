@@ -131,7 +131,7 @@
                                             <span class="error-wrap" *ngIf="createNewCustomer.get('cus_phone').dirty || createNewCustomer.get('cus_phone').touched || formSubmitclicked">
                                                 <small *ngIf="createNewCustomer.get('cus_phone').hasError('required')" class="error">Contact number is required.</small>
                                                 <small *ngIf="createNewCustomer.get('cus_phone').hasError('isPhoneUnique')" class="error">Contact number already exist.</small>
-                                                <small *ngIf="createNewCustomer.get('cus_phone').hasError('pattern') || (createNewCustomer.get('cus_phone').hasError('pattern') && (createNewCustomer.get('cus_phone').hasError('minlength') || createNewCustomer.get('cus_phone').hasError('maxlength')))" class="error">Contact number should be in numbers.</small>
+                                                <small *ngIf="createNewCustomer.get('cus_phone').hasError('pattern') || (createNewCustomer.get('cus_phone').hasError('pattern') && (createNewCustomer.get('cus_phone').hasError('minlength') || createNewCustomer.get('cus_phone').hasError('maxlength')))" class="error">Enter a valid Contact Number (Country code is required). </small>
                                                 <small *ngIf="!createNewCustomer.get('cus_phone').hasError('pattern') && (createNewCustomer.get('cus_phone').hasError('minlength') || createNewCustomer.get('cus_phone').hasError('maxlength'))" class="error">Contact number should minimum 6 and maximum 15 digits.</small>
                                             </span>
                                         </div>
@@ -263,12 +263,12 @@
                                             <h6 class="mr-2">Tags</h6>
                                             <mat-icon (click)="fnAddNewTag('TagInput')" class="add-tag-icon pointer">add_circle</mat-icon>
                                         </div>
-                                        <mat-form-field class="w-100 tags-input bottom-border-field">
+                                        <mat-form-field [ngClass]="{'tag-disabled':!addNewTag}" class="w-100 tags-input bottom-border-field">
                                             <mat-chip-list #chipList aria-label="Tag selection">
                                                 <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">{{tag}}
                                                     <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                                                 </mat-chip>
-                                                <input #TagInput [disabled]="(!addNewTag)" placeholder="New tags.." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+                                                <input #TagInput [ngStyle]="{'pointer-events':addNewTag ? 'all' : 'none'}" [disabled]="(!addNewTag)" placeholder="New tags.." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
                                             </mat-chip-list>
                                         </mat-form-field>
                                     </div>
@@ -400,7 +400,7 @@
                                             <th scope="col">Mode</th>
                                             <th scope="col">Amount</th>
                                             <th scope="col">Status</th>
-                                            <th scope="col " class="text-center">Action</th>
+                                            <th scope="col " class="text-left">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -412,7 +412,7 @@
                                             <td *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ payment.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>
                                             <td *ngIf="currencySymbolPosition=='right'">{{ payment.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</td>
                                             <td class="text-capitalize">{{payment.payment_status=='paid'?'Paid':'Pending'}}</td>
-                                            <td class="text-capitalize text-center">
+                                            <td class="text-capitalize text-left">
                                                 <button mat-button appearance="fill" class="view-btn" (click)="invoice(i)"><mat-icon class="" aria-hidden="false">description</mat-icon></button>
                                                 <button mat-button *ngIf="payment.payment_status != 'paid'" appearance="fill" class="view-btn ml-2" (click)="fnShowPaymentForm(i,null,null)"><mat-icon class="" aria-hidden="false">edit</mat-icon></button>
                                                 <!-- <button mat-button appearance="fill" class="view-btn ml-2"><mat-icon class="" aria-hidden="false">print</mat-icon></button> -->

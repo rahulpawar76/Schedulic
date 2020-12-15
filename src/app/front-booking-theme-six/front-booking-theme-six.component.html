@@ -328,7 +328,7 @@
                                     <ngx-intl-tel-input class="common-input
                                                 mobile-intel-input" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2,
                                                 SearchCountryField.Name]" [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.India" (mousedown)="fnPhoneMouceLeave($event)" (keyup)="fnenterPhoneNumber($event)" [maxLength]="10" [phoneValidation]="false"
-                                        [separateDialCode]="separateDialCode" formControlName="newUserPhone" placeholder="Mobile">
+                                        [separateDialCode]="separateDialCode" formControlName="newUserPhone">
                                     </ngx-intl-tel-input>
                                     <span *ngIf="phoneNumberInvalid">
                                                 <small *ngIf="phoneNumberInvalid

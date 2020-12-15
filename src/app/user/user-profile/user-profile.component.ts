@@ -3,6 +3,7 @@ import { UserService } from '../_services/user.service';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { environment } from '@environments/environment';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthenticationService } from '@app/_services';
@@ -30,7 +31,7 @@ export class UserProfileComponent implements OnInit {
   error:any;
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^\+(?:[0-9] ?){6,14}[0-9]$/
-
+  bussinessId
   constructor(
     private userService: UserService,
     private _formBuilder:FormBuilder,
@@ -42,7 +43,15 @@ export class UserProfileComponent implements OnInit {
 
     ){
       this.userId=this.authenticationService.currentUserValue.user_id
+      this.bussinessId=this.authenticationService.currentUserValue.business_id
      }
+
+     
+  private handleError(error: HttpErrorResponse) {
+    return throwError('Error! something went wrong.');
+    //return error.error ? error.error : error.statusText;
+  }
+
 
   ngOnInit() {
     localStorage.setItem['session_user_id'] = this.profiledata.id,
@@ -50,8 +59,8 @@ export class UserProfileComponent implements OnInit {
     localStorage.setItem['session_user_type'] = 'C',
     this.customerProfile = this._formBuilder.group({
       user_fullname : ['', Validators.required],
-      user_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
-      user_phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
+      user_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isCustomerEmailUnique.bind(this)],
+      user_phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)],this.isCustomerPhoneUnique.bind(this)],
       user_address : ['', Validators.required],
       user_state : ['', Validators.required],
       user_city : ['', Validators.required],
@@ -76,6 +85,64 @@ export class UserProfileComponent implements OnInit {
        }
       
      });
+  }
+
+  
+  isCustomerEmailUnique(control: FormControl) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+          let emailCheckRequestObject = {
+            'business_id':this.bussinessId,
+            'email': control.value,
+            'phone': null,
+            'customer_id':this.userId,
+            'checkType':'email', 
+          }
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+        return this.http.post(`${environment.apiUrl}/customer-check`, emailCheckRequestObject,{headers:headers}).pipe(map((response : any) =>{
+          return response;
+        }),
+        catchError(this.handleError)).subscribe((res) => {
+          if(res){
+            if(res.data == false){
+            resolve({ isEmailUnique: true });
+            }else{
+            resolve(null);
+            }
+          }
+        });
+      }, 500);
+    });
+  }
+  isCustomerPhoneUnique(control: FormControl) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        let phoneCheckRequestObject = {
+          'business_id':this.bussinessId,
+          'email': null,
+          'customer_id':this.userId,
+          'phone': control.value,
+          'checkType':'phone', 
+        }
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+        return this.http.post(`${environment.apiUrl}/customer-check`, phoneCheckRequestObject,{headers:headers}).pipe(map((response : any) =>{
+          return response;
+        }),
+        catchError(this.handleError)).subscribe((res) => {
+          if(res){
+            if(res.data == false){
+            resolve({ isPhoneUnique: true });
+            }else{
+            resolve(null);
+            }
+          }
+        });
+      }, 500);
+    });
   }
 
 getUserProfileData(): void {

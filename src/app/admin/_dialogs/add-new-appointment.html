@@ -39,7 +39,7 @@
                 </mat-form-field>
                 <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').dirty || formAddNewAppointmentStaffStep1.get('customerPhone').touched">
                     <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('required')" class="error">Phone is required.</small>
-                    <small *ngIf=" formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern') || (formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern') && (formAddNewAppointmentStaffStep1.get('customerPhone').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerPhone').hasError('maxlength')))" class="error">Enter a valid Phone. (Country code is required.)</small>
+                    <small *ngIf=" formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern') || (formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern') && (formAddNewAppointmentStaffStep1.get('customerPhone').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerPhone').hasError('maxlength')))" class="error">Enter a valid Phone (Country code is required). </small>
                     <small *ngIf="!formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern') && (formAddNewAppointmentStaffStep1.get('customerPhone').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerPhone').hasError('maxlength'))" class="error">Phone number should be 6 to 15 digits long.</small>
                 </span>
 

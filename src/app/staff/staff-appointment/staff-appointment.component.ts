@@ -572,7 +572,7 @@ export class StaffAppointmentComponent implements OnInit {
       this.bussinessId=this.authenticationService.currentUserValue.business_id
       this.staffId=JSON.stringify(this.authenticationService.currentUserValue.user_id);
       this.emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
-      this.onlynumeric = /^-?(0|[1-9]\d*)?$/
+      this.onlynumeric = /^\+(?:[0-9] ?){6,14}[0-9]$/
       this.subcatdata=[];
       this.serviceData=[];
       this.formAddNewAppointmentStaffStep1 = this._formBuilder.group({

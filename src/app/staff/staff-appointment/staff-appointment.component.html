@@ -23,12 +23,11 @@
                             <div class="row">
                                 <div class="col-6 col-sm-3 col-md-6 col-lg-8">
                                     <label class="font-weight-bold">Service</label>
-                                    <p>{{newAppointmentData.service.service_name}}</p>
-                                    <p>Duration:{{newAppointmentData.service.service_time}}</p>
+                                    <p>{{newAppointmentData.service?newAppointmentData.service.service_name:'-'}}</p>
+                                    <p>Duration:{{newAppointmentData.service?newAppointmentData.service.service_time:'-'}}</p>
                                     <label class="font-weight-bold">Amount</label>
-                                    <!-- <p>$ {{newAppointmentData.service.service_cost}}</p> -->
-                                    <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ newAppointmentData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                                    <p *ngIf="currencySymbolPosition=='right'">{{ newAppointmentData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+                                    <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ newAppointmentData.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                                    <p *ngIf="currencySymbolPosition=='right'">{{ newAppointmentData.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
                                     <label class="font-weight-bold">Customer</label>
                                     <p class="text-capitalize">{{newAppointmentData.customer.fullname}}</p>
                                     <p class="text-capitalize">Phone No:{{newAppointmentData.customer.phone}}</p>
@@ -146,12 +145,12 @@
                             <div class="row">
                                 <div class="col-6 col-sm-3 col-md-6 col-lg-8">
                                     <label class="font-weight-bold">Service</label>
-                                    <p>{{onGoingAppointmentData.service.service_name}}</p>
-                                    <p>Duration:{{onGoingAppointmentData.service.service_time}}</p>
+                                    <p>{{onGoingAppointmentData.service?onGoingAppointmentData.service.service_name:''}}</p>
+                                    <p>Duration:{{onGoingAppointmentData.service?onGoingAppointmentData.service.service_time:'-'}}</p>
                                     <label class="font-weight-bold">Amount</label>
                                     <!-- <p>$ {{onGoingAppointmentData.service.service_cost}}</p> -->
-                                    <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ onGoingAppointmentData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                                    <p *ngIf="currencySymbolPosition=='right'">{{ onGoingAppointmentData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+                                    <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ onGoingAppointmentData.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                                    <p *ngIf="currencySymbolPosition=='right'">{{ onGoingAppointmentData.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
                                     <label class="font-weight-bold">Customer</label>
                                     <p class="text-capitalize">{{onGoingAppointmentData.customer.fullname}}</p>
                                     <p class="text-capitalize">Phone No:{{onGoingAppointmentData.customer.phone}}</p>
@@ -191,12 +190,12 @@
                             <div class="row">
                                 <div class="col-6 col-sm-3 col-md-6 col-lg-8">
                                     <label class="font-weight-bold">Service</label>
-                                    <p>{{completedAppointmentData.service.service_name}}</p>
-                                    <p>Duration:{{completedAppointmentData.service.service_time}}</p>
+                                    <p>{{completedAppointmentData.service?completedAppointmentData.service.service_name:'-'}}</p>
+                                    <p>Duration:{{completedAppointmentData.service?completedAppointmentData.service.service_time:'-'}}</p>
                                     <label class="font-weight-bold">Amount</label>
                                     <!-- <p>$ {{completedAppointmentData.service.service_cost}}</p> -->
-                                    <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ completedAppointmentData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                                    <p *ngIf="currencySymbolPosition=='right'">{{ completedAppointmentData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+                                    <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ completedAppointmentData.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                                    <p *ngIf="currencySymbolPosition=='right'">{{ completedAppointmentData.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
                                     <label class="font-weight-bold">Customer</label>
                                     <p class="text-capitalize">{{completedAppointmentData.customer.fullname}}</p>
                                     <p class="text-capitalize">Phone No:{{completedAppointmentData.customer.phone}}</p>

@@ -1762,26 +1762,28 @@ export class FrontBookingThemeThreeComponent implements OnInit {
   isEmailUnique(control: FormControl) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        let headers = new HttpHeaders({
-          'Content-Type': 'application/json',
-        });
-        return this.http.post(`${environment.apiUrl}/verify-email`,{ emailid: control.value },{headers:headers}).pipe(map((response : any) =>{
-          return response;
-        }),
-        catchError(this.handleError)).subscribe((res) => {
-          if(res){
-            if(res.data == false){
-            resolve({ isEmailUnique: true });
-            // this._snackBar.open("Access PIN already in use", "X", {
-            // duration: 2000,
-            // verticalPosition: 'top',
-            // panelClass : ['red-snackbar']
-            // });
-            }else{
-            resolve(null);
-            }
+        let emailCheckRequestObject = {
+          'business_id':this.businessId,
+          'email': control.value,
+          'phone': null,
+          'customer_id':null,
+          'checkType':'email', 
+        }
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+      return this.http.post(`${environment.apiUrl}/customer-check`, emailCheckRequestObject,{headers:headers}).pipe(map((response : any) =>{
+        return response;
+      }),
+      catchError(this.handleError)).subscribe((res) => {
+        if(res){
+          if(res.data == false){
+          resolve({ isEmailUnique: true });
+          }else{
+          resolve(null);
           }
-        });
+        }
+      });
       }, 500);
     });
   }
