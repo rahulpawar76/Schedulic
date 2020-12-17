@@ -64,12 +64,12 @@
                                 <mat-label class="select-hide">&nbsp; </mat-label>
                                 <mat-form-field class="d-flex flex-wrap w-100">
                                     <mat-label>Time zone</mat-label>
-                                    <mat-select formControlName="business_timezone">
-                                        <!-- <mat-option>
-                                            <ngx-mat-select-search [formControl]="bankFilterCtrl"></ngx-mat-select-search>
-                                        </mat-option> -->
+                                    <mat-select formControlName="business_timezone" #singleSelect>
+                                        <mat-option>
+                                            <ngx-mat-select-search [formControl]="timeZoneFilterCtrl"></ngx-mat-select-search>
+                                        </mat-option>
                                         <!-- <mat-select-search [formControl]="bankFilterCtrl"></mat-select-search> -->
-                                        <mat-option *ngFor="let listTimeZone of listTimeZone" [value]="listTimeZone.name">
+                                        <mat-option *ngFor="let listTimeZone of listTimeZoneList | async" [value]="listTimeZone.name">
                                             ({{listTimeZone.utc}}) {{listTimeZone.name}}
                                         </mat-option>
                                     </mat-select>

@@ -1,16 +1,22 @@
-import { Component, Inject, OnInit} from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy, AfterViewInit, ViewChild} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, ReplaySubject, Subject } from 'rxjs';
 import { AdminService } from '../_services/admin-main.service'
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { AppComponent } from '@app/app.component';
 import { AuthenticationService } from '@app/_services';
-import { environment } from '@environments/environment'
+import { environment } from '@environments/environment';
+import { take, takeUntil } from 'rxjs/operators';
 export interface DialogData {
   animal: string;
+  name: string;
+}
+
+export interface ListTimeZoneListArry {
+  id: string;
   name: string;
 }
 
@@ -67,21 +73,21 @@ export class MyBusinessComponent implements OnInit {
   fnGetIpAddress(){
     this.authenticationService.getIPAddress().subscribe((res:any)=>{  
       this.getIpAddress=res.ip; 
-      this.getGeoLocation(this.getIpAddress);
+      // this.getGeoLocation(this.getIpAddress);
     });  
   }
   
-  getGeoLocation(IP){
-    this.isLoaderAdmin = true;
-    this.AdminService.getGeoLocation(IP).subscribe((response:any) => {
-      if(response){
-        console.log(response.response)
-      }
-      else {
-      }
-      this.isLoaderAdmin = false;
-    })
-  }
+  // getGeoLocation(IP){
+  //   this.isLoaderAdmin = true;
+  //   this.AdminService.getGeoLocation(IP).subscribe((response:any) => {
+  //     if(response){
+  //       console.log(response.response)
+  //     }
+  //     else {
+  //     }
+  //     this.isLoaderAdmin = false;
+  //   })
+  // }
   getAllBusiness(){
     this.isLoaderAdmin = true;
     this.AdminService.getAllBusiness().subscribe((response:any) => {
@@ -127,16 +133,23 @@ export class MyBusinessComponent implements OnInit {
   selector: 'Create-New-Business',
   templateUrl: '../_dialogs/create-new-business-dialog.html',
 })
+
+
 export class myCreateNewBusinessDialog {
   allCountry: any;
   allStates: any;
   allCities: any;
-  listTimeZone: any;
+  // listTimeZoneList: any;
   newBusinessData: any;
   createBusiness :FormGroup;
   isLoaderAdmin : boolean = false;
   onlynumeric = /^-?(0|[1-9]\d*)?$/
   
+  protected listTimeZoneListArry: ListTimeZoneListArry[];
+  public timeZoneFilterCtrl: FormControl = new FormControl();
+  public listTimeZoneList: ReplaySubject<ListTimeZoneListArry[]> = new ReplaySubject<ListTimeZoneListArry[]>(1);
+  protected _onDestroy = new Subject<void>();
+
   constructor(
     public dialogRef: MatDialogRef<myCreateNewBusinessDialog>,
     private http: HttpClient,
@@ -151,6 +164,12 @@ export class myCreateNewBusinessDialog {
     this.dialogRef.close();
     
   }
+
+  
+  ngAfterViewInit() {
+    this.setInitialValue();
+  }
+  
   ngOnInit() {
     this.gelAllCountry();
     this.getTimeZone();
@@ -230,12 +249,20 @@ export class myCreateNewBusinessDialog {
     this.isLoaderAdmin =true;
     this.AdminService.getTimeZone().subscribe((response:any) => {
       if(response.data == true){
-        this.listTimeZone = response.response
+        this.listTimeZoneListArry = response.response
+        // load the initial bank list
+        this.listTimeZoneList.next(this.listTimeZoneListArry.slice());
+        this.timeZoneFilterCtrl.valueChanges
+        .pipe(takeUntil(this._onDestroy))
+        .subscribe(() => {
+        this.filterBanks();
+      });
+
         this.isLoaderAdmin =false;
         
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this.listTimeZone = ''
+        this.listTimeZoneListArry = []
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -288,6 +315,35 @@ export class myCreateNewBusinessDialog {
         });
       }
     })
+  }
+
+    /**
+   * Sets the initial value after the filteredBanks are loaded initially
+   */
+  protected setInitialValue() {
+    this.listTimeZoneList
+      .pipe(take(1), takeUntil(this._onDestroy))
+      .subscribe(() => {
+        console.log('fail')
+      });
+  }
+
+  protected filterBanks() {
+    if (!this.listTimeZoneListArry) {
+      return;
+    }
+    // get the search keyword
+    let search = this.timeZoneFilterCtrl.value;
+    if (!search) {
+      this.listTimeZoneList.next(this.listTimeZoneListArry.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the banks
+    this.listTimeZoneList.next(
+      this.listTimeZoneListArry.filter(listTimeZoneListArry => listTimeZoneListArry.name.toLowerCase().indexOf(search) > -1)
+    );
   }
 
   

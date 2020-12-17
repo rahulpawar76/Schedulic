@@ -39,16 +39,12 @@ import { RescheduleAppointAdmin } from './appointment/appointment.component';
 import { MyProfileComponent } from './settings-my-profile/settings-my-profile.component';
 import { OnTheWayAppointmentDetailsDialog, WorkStartedAppointmentDetailsDialog, PendingAppointmentDetailsDialog, addPOSBookingNoteDialog, paymentModeDialog, DialogNotification, DialogNotificationAppointment } from './appointment-live/appointment-live.component';
 import {DialogAllAppointmentDetails} from './appointment/appointment.component';
-//import { IgxExcelExporterService } from "igniteui-angular";
 import { DialogMyProfileImageUpload } from './settings-my-profile/settings-my-profile.component';
 import { DialogCustomerImageUpload } from './customers/customers.component';
 import { SharedModule } from '../shared.module';
-
 import { DialogCouponDetails } from './discount-coupon/discount-coupon.component';
-
 import { CustomerAppointmentDetailsDialog } from './customers/customers.component';
 import { SupportComponent } from './support/support.component';
-// import { GoogleMapsModule } from '@angular/google-maps'
 import { AgmCoreModule } from '@agm/core';            // @agm/core
 import { AgmDirectionModule } from 'agm-direction';   // agm-direction
 

@@ -1,4 +1,4 @@
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AppComponent } from '@app/app.component';
 import { AdminSettingsService } from '../../_services/admin-settings.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -7,13 +7,20 @@ import { MatSnackBar} from '@angular/material/snack-bar';
 import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-
+import { take, takeUntil } from 'rxjs/operators';
+import { Observable, throwError, ReplaySubject, Subject } from 'rxjs';
 
 export interface DialogData {
   animal: string;
   name: string;
   
 }
+export interface ListTimeZoneListArry {
+  id: string;
+  name: string;
+}
+
+
 @Component({
   selector: 'app-business-hours',
   templateUrl: './business-hours.component.html',
@@ -88,6 +95,13 @@ export class BusinessHoursComponent implements OnInit {
   sundayBreakEndTimeIndex:any;
   formSetWorkingHours: FormGroup;
   settingSideMenuToggle : boolean = false;
+
+  
+  protected listTimeZoneListArry: ListTimeZoneListArry[];
+  public timeZoneFilterCtrl: FormControl = new FormControl();
+  public listTimeZoneList: ReplaySubject<ListTimeZoneListArry[]> = new ReplaySubject<ListTimeZoneListArry[]>(1);
+  protected _onDestroy = new Subject<void>();
+
   constructor(private appComponent : AppComponent,
     public dialog: MatDialog, 
     @Inject(AdminSettingsService) public adminSettingsService: AdminSettingsService,
@@ -358,32 +372,45 @@ export class BusinessHoursComponent implements OnInit {
     this.adminSettingsService.getTimeZone().subscribe((response:any) => {
       
     if(response.data == true){
-      this.timeZoneList = response.response;
-        console.log(this.timeZoneList)
-      // // this.timeZoneList.forEach(element => {\
-      //   var aestTime = new Date().toLocaleString("en-US", {timeZone: "Australia/Brisbane"});
-      //   aestTime = new Date(aestTime);
-      //   console.log('AEST time: '+aestTime.toLocaleString())
-
-      //   var asiaTime = new Date().toLocaleString("en-US", {timeZone: "Asia/Shanghai"});
-      //   asiaTime = new Date(asiaTime);
-      //   console.log('Asia time: '+asiaTime.toLocaleString())
-
-      //   var usaTime = new Date().toLocaleString("en-US", {timeZone: "America/New_York"});
-      //   usaTime = new Date(usaTime);
-      //   console.log('USA time: '+usaTime.toLocaleString())
-
-      //   var indiaTime = new Date().toLocaleString("en-US", {timeZone: "Asia/Kolkata"});
-      //   indiaTime = new Date(indiaTime);
-      //   console.log('India time: '+indiaTime.toLocaleString());
-
-      //   console.log(this.datePipe.transform(new Date(this.timeZoneList[399].gmtOffset),"z"))
-      // // });
+      this.listTimeZoneListArry = response.response
+      // load the initial bank list
+      this.listTimeZoneList.next(this.listTimeZoneListArry.slice());
+      this.timeZoneFilterCtrl.valueChanges
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe(() => {
+      this.filterBanks();
+    });
     }
     else{
      this.timeZoneList = [];
     }
     })
+  }
+
+  protected setInitialValue() {
+    this.listTimeZoneList
+      .pipe(take(1), takeUntil(this._onDestroy))
+      .subscribe(() => {
+        console.log('fail')
+      });
+  }
+
+  protected filterBanks() {
+    if (!this.listTimeZoneListArry) {
+      return;
+    }
+    // get the search keyword
+    let search = this.timeZoneFilterCtrl.value;
+    if (!search) {
+      this.listTimeZoneList.next(this.listTimeZoneListArry.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the banks
+    this.listTimeZoneList.next(
+      this.listTimeZoneListArry.filter(listTimeZoneListArry => listTimeZoneListArry.name.toLowerCase().indexOf(search) > -1)
+    );
   }
 
   fnChangeTimeZone(event){

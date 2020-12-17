@@ -189,7 +189,7 @@
                                             <span class="error-wrap" *ngIf="createNewCustomer.get('cus_zip').dirty || createNewCustomer.get('cus_zip').touched || formSubmitclicked">
                                                 <small *ngIf="createNewCustomer.get('cus_zip').hasError('required')" class="error">Zipcode is required.</small>
                                                 <small *ngIf="createNewCustomer.get('cus_zip').hasError('minlength') || createNewCustomer.get('cus_zip').hasError('maxlength')" class="error">Zipcode should be 5 to 7 characters.</small>
-                                                <small *ngIf="createNewCustomer.get('cus_zip').hasError('pattern')" class="error">Zipcode must be Numeric.</small>
+                                                <!-- <small *ngIf="createNewCustomer.get('cus_zip').hasError('pattern')" class="error">Zipcode must be Numeric.</small> -->
                                                 <!-- <small *ngIf="createNewCustomer.get('cus_zip').hasError('minlength') || createNewCustomer.get('cus_zip').hasError('maxlength)" class="error">Zipcode should be 5 to 7 characters.</small> -->
                                             </span>
                                         </div>
@@ -318,7 +318,7 @@
                                             <tr (click)="fnCustomerAppointmentDetails(i)" *ngFor="let customerAppoint of customerAppoint; let i=index" class="devider-slim">
                                                 <td scope="row">{{customerAppoint.booking_date}}</td>
                                                 <td>{{customerAppoint.booking_time}}</td>
-                                                <td>{{customerAppoint.service.service_name}}</td>
+                                                <td>{{customerAppoint.service?customerAppoint.service.service_name:'-'}}</td>
                                                 <td *ngIf="customerAppoint.staff">{{customerAppoint.staff.firstname}} {{customerAppoint.staff.lastname}}</td>
                                                 <td *ngIf="!customerAppoint.staff">Staff Not Assigned</td>
                                                 <!-- <td>$.{{customerAppoint.total_cost}}</td> -->
@@ -407,7 +407,7 @@
                                         <tr *ngFor="let payment of customerPayments; let i =index;">
                                             <td scope="row">{{payment.payment_status=='paid'?payment.paymentDate:'----'}}</td>
                                             <td>{{payment.payment_status=='paid'?payment.paymentTime:'----'}}</td>
-                                            <td class="text-capitalize" *ngIf="payment.service">{{payment.service.service_name}}</td>
+                                            <td class="text-capitalize" *ngIf="payment.service">{{payment.service?payment.service.service_name:'-'}}</td>
                                             <td class="text-capitalize">{{payment.payment_status=='paid'?payment.payment_mode:'----'}}</td>
                                             <td *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ payment.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>
                                             <td *ngIf="currencySymbolPosition=='right'">{{ payment.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</td>

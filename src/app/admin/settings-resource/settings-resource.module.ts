@@ -14,14 +14,13 @@ import { enableRipple } from '@syncfusion/ej2-base';
 import { SharedModule } from '../../shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-
-
 import { ProgressComponent } from './components/progress/progress.component';
 import { DndDirective } from './direcitves/dnd.directive';
 import { ServicesComponent, DialogCategoryImageUpload, DialogServiceImageUpload, DialogDataExampleDialog, DialogSubCategoryImageUpload } from './services/services.component';
 import { StaffComponent, DialogStaffViewReview, DialogAddNewTimeOff, DialogStaffImageUpload } from './staff/staff.component';
 import { BusinessHoursComponent, DialogAddNewTimeOffBussiness } from './business-hours/business-hours.component';
 import { PostalcodesComponent, DialogAddPostalCode, DialogNewCSVPostalCode } from './postalcodes/postalcodes.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 
@@ -62,6 +61,7 @@ enableRipple(true);
       NgbModule,
       SharedModule,
       NgxIntlTelInputModule,
+      NgxMatSelectSearchModule,
   ],
   exports: [
     FormsModule
