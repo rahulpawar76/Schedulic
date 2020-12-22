@@ -449,7 +449,7 @@ customerUpdate(existingCustomerData){
       cus_address : ['', Validators.required],
       cus_state : ['', Validators.required],
       cus_city : ['', Validators.required],
-      cus_zip : ['',[Validators.required,Validators.minLength(5),Validators.maxLength(7),Validators.pattern(this.onlynumeric)]],
+      cus_zip : ['',[Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
       customer_id : ['']
     });
     this.createNewCustomer.controls['customer_id'].setValue(null);
