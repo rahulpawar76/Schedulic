@@ -177,6 +177,7 @@ export class StaffComponent implements OnInit {
 
   onFileDropped($event) {
     this.prepareFilesList($event);  
+    console.log($event)
   }
  
   fileBrowseHandler(files) {
@@ -251,6 +252,8 @@ export class StaffComponent implements OnInit {
   }
 
   prepareFilesList(files: Array<any>) {
+    alert('1')
+    console.log(files)
     for (const item of files) {
       item.progress = 0;
 
@@ -339,7 +342,7 @@ export class StaffComponent implements OnInit {
       email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
       phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       description : ['',Validators.maxLength(255)],
-      staff_id : [''],
+      staff_id : [null],
     });
   }
 
@@ -1125,7 +1128,7 @@ export class StaffComponent implements OnInit {
       email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
       phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       description : ['',Validators.maxLength(255)],
-      staff_id : [''],
+      staff_id : [null],
     });  
   }
 
@@ -1384,12 +1387,13 @@ export class StaffComponent implements OnInit {
   }
 
   fnSubmitCreateStaff(){
-
-    if(this.StaffCreate.get('staff_id').value != ''){
+    if(this.editStaffId){
+    // if(this.StaffCreate.get('staff_id').value != '' || this.StaffCreate.get('staff_id').value != null){
       if(this.StaffCreate.valid){
         // New code by RJ
           let formData = new FormData();
           var i=0;
+          console.log(this.files)
           this.files.forEach(element => {
             formData.append('document[]', this.files[i]); 
             i++;
@@ -1485,6 +1489,7 @@ export class StaffComponent implements OnInit {
          this.staffImageUrl = undefined
          this.addStaffPage = false;
          this.staffListPage = false;
+         this.editStaffId=undefined;
          this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
          this.singleStaffView = true;
         this.isLoaderAdmin = false;
@@ -1552,7 +1557,7 @@ export class StaffComponent implements OnInit {
       email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUniqueForEdit.bind(this)],
       phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       description : ['',Validators.maxLength(255)],
-      staff_id : [''],
+      staff_id : [null],
     });
 
     this.StaffCreate.controls['firstname'].setValue(this.singleStaffDetail.staff[0].firstname);

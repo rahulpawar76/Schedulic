@@ -1754,12 +1754,13 @@ export class ServicesComponent implements OnInit {
             
         if(this.categoryServicesList[index] && this.categoryServicesList[index].staffs){
             this.assignedStaff = this.categoryServicesList[index].staffs;
+            if(this.assignedStaff != '' || this.assignedStaff != [] || this.assignedStaff != undefined){
+                this.assignedStaff.forEach(element => {
+                     this.assignStaffArr.push(element.id);
+                 });
+            }
         }
-        if(this.assignedStaff != '' || this.assignedStaff != [] || this.assignedStaff != undefined){
-            this.assignedStaff.forEach(element => {
-                 this.assignStaffArr.push(element.id);
-             });
-        }
+     
 
             this.createService.controls['service_id'].setValue(this.editServiceId);
             this.createService.controls['service_name'].setValue(this.categoryServicesList[index].service_name);
@@ -1784,12 +1785,13 @@ export class ServicesComponent implements OnInit {
         else if(type == 'subcategory'){
             if(this.subCategoryServicesList[index] && this.subCategoryServicesList[index].staffs){
                 this.assignedStaff = this.subCategoryServicesList[index].staffs;
+                if(this.assignedStaff != '' || this.assignedStaff != [] || this.assignedStaff != undefined){
+                    this.assignedStaff.forEach(element => {
+                         this.assignStaffArr.push(element.id);
+                     });
+                }
             }
-            if(this.assignedStaff != '' || this.assignedStaff != [] || this.assignedStaff != undefined){
-                this.assignedStaff.forEach(element => {
-                     this.assignStaffArr.push(element.id);
-                 });
-            }
+            
             this.createService.controls['service_id'].setValue(this.editServiceId);
             this.createService.controls['service_name'].setValue(this.subCategoryServicesList[index].service_name);
             this.createService.controls['service_description'].setValue(this.subCategoryServicesList[index].service_description);

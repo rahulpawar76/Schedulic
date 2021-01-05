@@ -662,7 +662,7 @@
                                     <div class="row ">
                                         <div class="col-6">
                                             <span>{{val.service.service_name}}</span>
-                                            <p>Staff : {{val.orders ? val.orders.staff.firstname:''}} {{val.orders ? val.orders.staff.lastname:''}}</p>
+                                            <p>Staff : {{val.orders.staff ? val.orders.staff.firstname:''}} {{val.orders.staff ? val.orders.staff.lastname:''}}</p>
                                         </div>
                                         <div class="col-3">
                                             <span>{{val.orders ? val.orders.service_qty: '-'}}</span>
