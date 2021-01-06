@@ -112,7 +112,6 @@ export class AppointmentComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   dynamicSort(property) {

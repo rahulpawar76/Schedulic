@@ -69,7 +69,7 @@ export class CustomersComponent implements OnInit {
   paymentMethod : any = "Cash";
 
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
-  onlynumeric = /^\+(?:[0-9] ?){6,14}[0-9]$/
+  onlynumeric = /^-?(0|[1-9]\d*)?$/
   onlyString = /^[a-zA-Z]+$/
 
   visible = true;
@@ -341,6 +341,8 @@ export class CustomersComponent implements OnInit {
           }
         }
       this.customerUpdate(this.existingCustomerData);
+      this.getAllCustomers();
+      this.getAllCustomersAfterNew();
     } else{
         this.createNewCustomer.get('cus_fullname').markAsTouched();
         this.createNewCustomer.get('cus_email').markAsTouched();
@@ -1020,7 +1022,7 @@ customerUpdate(existingCustomerData){
       paymentMode : ['Cash', [Validators.required]],
       paymentNote : ['', [Validators.required]],
     });
-    this.formPayment.controls['paymentAmount'].setValue(this.serviceMainArr.subtotal);
+    this.formPayment.controls['paymentAmount'].setValue(this.serviceMainArr.netCost);
     this.formPayment.controls['paymentDiscount'].setValue(this.serviceMainArr.discount);
     console.log(this.serviceMainArr);
     console.log(this.taxAmountArr);

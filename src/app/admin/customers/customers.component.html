@@ -442,7 +442,11 @@
                                                     <div class="form-group has-search">
                                                         <span class="form-control-feedback">{{currencySymbol| currencySymbol:'wide'}}</span>
                                                         <input type="text" class="form-control" placeholder="3000.00" formControlName="paymentAmount" (change)="fnOnChangeAmount($event)">
-                                                        <span class="error-wrap" *ngIf="formPayment.get('paymentAmount').dirty || formPayment.get('paymentAmount').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentAmount').hasError('required')" class="error">Amount is required.</small><small *ngIf="formPayment.get('paymentAmount').hasError('pattern')" class="error">Enter valid amount.</small><small *ngIf="formPayment.get('paymentAmount').hasError('min')" class="error">Amount should grater then Original Amount.</small></span>
+                                                        <span class="error-wrap" *ngIf="formPayment.get('paymentAmount').dirty || formPayment.get('paymentAmount').touched || formSubmitclicked">
+                                                            <small *ngIf="formPayment.get('paymentAmount').hasError('required')" class="error">Amount is required.</small>
+                                                            <small *ngIf="formPayment.get('paymentAmount').hasError('pattern')" class="error">Enter valid amount.</small>
+                                                            <small *ngIf="formPayment.get('paymentAmount').hasError('min')" class="error">Amount should grater then Original Amount.</small>
+                                                        </span>
                                                     </div>
                                                 </div>
                                                 <div class="searchbox col-lg-6 col-12 col-md-6  pb-2">
@@ -450,7 +454,10 @@
                                                     <div class="form-group has-search ">
                                                         <span class="form-control-feedback">{{currencySymbol| currencySymbol:'wide'}}</span>
                                                         <input type="text" class="form-control" placeholder="Enter Discount" formControlName="paymentDiscount" (change)="fnOnChangeDiscount($event)">
-                                                        <span class="error-wrap" *ngIf="formPayment.get('paymentDiscount').dirty || formPayment.get('paymentDiscount').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentDiscount').hasError('required')" class="error">Discount is required.</small><small *ngIf="formPayment.get('paymentDiscount').hasError('pattern')" class="error">Enter valid discount value.</small></span>
+                                                        <span class="error-wrap" *ngIf="formPayment.get('paymentDiscount').dirty || formPayment.get('paymentDiscount').touched || formSubmitclicked">
+                                                            <small *ngIf="formPayment.get('paymentDiscount').hasError('required')" class="error">Discount is required.</small>
+                                                            <small *ngIf="formPayment.get('paymentDiscount').hasError('pattern')" class="error">Enter valid discount value.</small>
+                                                        </span>
                                                     </div>
                                                 </div>
                                                 <div class=" pb-3 col-lg-6 col-12 col-md-6">
@@ -459,7 +466,9 @@
                                                         <mat-radio-button value="Cash">Cash</mat-radio-button>
                                                         <mat-radio-button value="Stripe">Online</mat-radio-button>
                                                     </mat-radio-group>
-                                                    <span class="error-wrap" *ngIf="formPayment.get('paymentMode').dirty || formPayment.get('paymentMode').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentMode').hasError('required')" class="error">Payment mode is required.</small></span>
+                                                    <span class="error-wrap" *ngIf="formPayment.get('paymentMode').dirty || formPayment.get('paymentMode').touched || formSubmitclicked">
+                                                        <small *ngIf="formPayment.get('paymentMode').hasError('required')" class="error">Payment mode is required.</small>
+                                                    </span>
                                                 </div>
                                                 <div>
                                                     <div class="form-group col-lg-6 col-12 col-md-6">
