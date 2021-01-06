@@ -23,7 +23,7 @@
                         </div>
                         <div class="col-6 col-lg-6 col-sm-6 text-right pr-4">
                             <h5 class="text-right">
-                                <p class="font-weight-bold mb-1 subcolor-title">INVOICE</p>
+                                <p class="font-weight-bold mb-1 subcolor-title text-primary">INVOICE</p>
                             </h5>
                             <p *ngIf="businessData && businessData.phone" class="mb-0">Phone No. {{businessData.phone}}</p>
                             <p *ngIf="businessData && businessData.email" class="mb-1">Email: {{businessData.email}}</p>
@@ -35,7 +35,7 @@
 
                     <div class="row p-4 header-color">
                         <div class="col-6 col-md-6 col-sm-6 col-lg-6">
-                            <p class="font-weight-bold mb-2 subcolor-title">Bill To</p>
+                            <p class="font-weight-bold mb-2 subcolor-title text-primary">Bill To</p>
                             <p class="mb-1 font-weight-bold">
                                 {{paymentInfo.customer_name}}
                             </p>
@@ -93,7 +93,7 @@
                                         <td class="fieldcolor">{{tax.name}}({{tax.value}}%)</td>
                                         <td></td>
                                         <td *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ tax.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>
-                                        <td *ngIf="currencySymbolPosition=='right'">{{ tax.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</td>
+                                        <td *ngIf="currencySymbolPosition=='right'">{{currencySymbol| currencySymbol:'wide'}} {{ tax.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} </td>
                                     </tr>
                                     <tr>
                                         <td></td>

@@ -809,6 +809,7 @@ textarea {
         width: 115px;
         text-align: center;
     }
+    
 }
 
 ::ng-deep .mat-tab-label {
@@ -989,4 +990,8 @@ mat-chip-list {
             opacity: 0 !important;
         }
     }
+}
+
+::ng-deep .fieldcolor{
+    color: #007bff;
 }

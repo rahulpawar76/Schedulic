@@ -156,7 +156,7 @@
                                 <mat-slide-toggle *ngIf="paypalSettingValue" [checked]="paypalSettingValue.paypal_guest_payment" (change)="fnPaypalGuest($event.checked)" class="ml-auto"></mat-slide-toggle>
                             </div> -->
                                 <div class="d-flex flex-wrap mt-3">
-                                    <label class="">Test Mode</label>
+                                    <label class="payment-label">Test Mode</label>
                                     <mat-slide-toggle [checked]="paypalTestStatus" (change)="fnPaypalTest($event.checked)" class="ml-auto"></mat-slide-toggle>
                                 </div>
                                 <div class="">
