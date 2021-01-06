@@ -734,8 +734,8 @@
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_cost').touched || createService.get('service_cost').dirty">
                                             <small *ngIf="createService.get('service_cost').hasError('required')"
                                                 class="error">Service cost is required.</small>
-                                            <small *ngIf="createService.get('service_cost').hasError('pattern')"
-                                                class="error">Service cost must be numeric.</small>
+                                            <small *ngIf="createService.get('service_cost').hasError('pattern')" class="error">Service cost must be numeric.</small>
+                                            <small *ngIf="createService.get('service_cost').hasError('min')" class="error">Service cost should at least 1.</small>
                                         </span>
                                     </div>
                                     <div class="mt-2 text-center">
@@ -749,8 +749,8 @@
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_duration').touched || createService.get('service_duration').dirty">
                                             <small *ngIf="createService.get('service_duration').hasError('required')"
                                                 class="error">Service duration is required.</small>
-                                            <small *ngIf="createService.get('service_duration').hasError('pattern')"
-                                                class="error">Service duration must be numeric.</small>
+                                            <small *ngIf="createService.get('service_duration').hasError('pattern')" class="error">Service duration must be numeric.</small>
+                                            <small *ngIf="createService.get('service_duration').hasError('min')" class="error">Service duration should at least 1.</small>
                                         </span>
                                     </div>
                                     <div class="mt-2 text-center">
@@ -764,10 +764,9 @@
                                         <span class="unit-info" #tooltip="matTooltip" matTooltip="Info about the Service Unit" matTooltipPosition="above"><i class="fa fa-question-circle"></i>
                                         </span>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_unit').touched || createService.get('service_unit').dirty">
-                                            <small *ngIf="createService.get('service_unit').hasError('required')"
-                                                class="error">Service unit is required.</small>
-                                            <small *ngIf="createService.get('service_unit').hasError('pattern')"
-                                                class="error">Service unit must be numeric.</small>
+                                            <small *ngIf="createService.get('service_unit').hasError('required')" class="error">Service unit is required.</small>
+                                            <small *ngIf="createService.get('service_unit').hasError('pattern')" class="error">Service unit must be numeric.</small>
+                                            <small *ngIf="createService.get('service_unit').hasError('min')" class="error">Service unit should at least 1.</small>
                                         </span>
                                     </div>
                                     <div class="my-3 text-left">

@@ -102,7 +102,8 @@ export class ServicesComponent implements OnInit {
     currencySymbolPosition:any;
     currencySymbolFormat:any;
     search:any;
-    onlynumeric = /^-?(0|[1-9]\d*)?$/
+    // onlynumeric = /^-?(0|[1-9]\d*)?$/
+    onlynumeric = /^[0-9+]*$/
     serviceApiUrl1 : any;
     serviceApiUrl2 : any;
     serviceApiUrl3 : any;
@@ -123,7 +124,7 @@ export class ServicesComponent implements OnInit {
     allowed:boolean=false;
     allowedCat:boolean=false;
     NewisLoaderAdmin:boolean =true;
-    serviceType:any = 'face_to_face';
+    serviceType:any;
     constructor(
         // private userService: UserService,
         public Change:ChangeDetectorRef,
@@ -164,9 +165,9 @@ export class ServicesComponent implements OnInit {
         this.createService = this._formBuilder.group({
             service_name: ['', [Validators.required,Validators.minLength(1),Validators.maxLength(30)]],
             service_description: ['',  [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
-            service_cost: ['', [Validators.required, Validators.pattern(this.onlynumeric)]],
-            service_duration: ['', [Validators.required, Validators.pattern(this.onlynumeric)]],
-            service_unit: ['', [Validators.required, Validators.pattern(this.onlynumeric)]],
+            service_cost: ['', [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
+            service_duration: ['', [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1),]],
+            service_unit: ['', [Validators.required, Validators.min(1), Validators.pattern(this.onlynumeric)]],
             serviceType: [this.serviceType, [Validators.required]],
             ftfType: ['', [Validators.required]],
             onlineType: [''],
@@ -1816,9 +1817,9 @@ export class ServicesComponent implements OnInit {
             this.createService = this._formBuilder.group({
                 service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
                 service_description: [this.createService.get('service_description').value,  [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
-                service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
-                service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
-                service_unit: [this.createService.get('service_unit').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
+                service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
+                service_unit: [this.createService.get('service_unit').value, [Validators.required, Validators.min(1), Validators.pattern(this.onlynumeric)]],
                 serviceType: [this.serviceType, [Validators.required]],
                 ftfType: [this.createService.get('ftfType').value, [Validators.required]],
                 onlineType: [this.createService.get('onlineType').value],
@@ -1830,9 +1831,9 @@ export class ServicesComponent implements OnInit {
             this.createService = this._formBuilder.group({
                 service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
                 service_description: [this.createService.get('service_description').value,  [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
-                service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
-                service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
-                service_unit: [this.createService.get('service_unit').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
+                service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
+                service_unit: [this.createService.get('service_unit').value, [Validators.required, Validators.min(1), Validators.pattern(this.onlynumeric)]],
                 serviceType: [this.serviceType, [Validators.required]],
                 ftfType: [this.createService.get('ftfType').value],
                 onlineType: [this.createService.get('onlineType').value, [Validators.required]],
@@ -1844,9 +1845,9 @@ export class ServicesComponent implements OnInit {
             this.createService = this._formBuilder.group({
                 service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
                 service_description: [this.createService.get('service_description').value,  [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
-                service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
-                service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
-                service_unit: [this.createService.get('service_unit').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
+                service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
+                service_unit: [this.createService.get('service_unit').value, [Validators.required, Validators.min(1), Validators.pattern(this.onlynumeric)]],
                 serviceType: [this.serviceType, [Validators.required]],
                 ftfType: [this.createService.get('ftfType').value],
                 onlineType: [this.createService.get('onlineType').value],
@@ -1906,9 +1907,9 @@ export class ServicesComponent implements OnInit {
             this.createService = this._formBuilder.group({
                 service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
                 service_description: [this.createService.get('service_description').value,  [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
-                service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
-                service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
-                service_unit: [this.createService.get('service_unit').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
+                service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
+                service_unit: [this.createService.get('service_unit').value, [Validators.required, Validators.min(1), Validators.pattern(this.onlynumeric)]],
                 serviceType: [this.serviceType, [Validators.required]],
                 ftfType: [this.createService.get('ftfType').value, [Validators.required]],
                 onlineType: [this.createService.get('onlineType').value],
@@ -1920,9 +1921,9 @@ export class ServicesComponent implements OnInit {
             this.createService = this._formBuilder.group({
                 service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
                 service_description: [this.createService.get('service_description').value,  [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
-                service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
-                service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
-                service_unit: [this.createService.get('service_unit').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
+                service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
+                service_unit: [this.createService.get('service_unit').value, [Validators.required, Validators.min(1), Validators.pattern(this.onlynumeric)]],
                 serviceType: [this.serviceType, [Validators.required]],
                 ftfType: [this.createService.get('ftfType').value],
                 onlineType: [this.createService.get('onlineType').value, [Validators.required]],
@@ -1934,9 +1935,9 @@ export class ServicesComponent implements OnInit {
             this.createService = this._formBuilder.group({
                 service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
                 service_description: [this.createService.get('service_description').value,  [Validators.required,Validators.minLength(2),Validators.maxLength(255)]],
-                service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
-                service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
-                service_unit: [this.createService.get('service_unit').value, [Validators.required, Validators.pattern(this.onlynumeric)]],
+                service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
+                service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
+                service_unit: [this.createService.get('service_unit').value, [Validators.required, Validators.min(1), Validators.pattern(this.onlynumeric)]],
                 serviceType: [this.serviceType, [Validators.required]],
                 ftfType: [this.createService.get('ftfType').value],
                 onlineType: [this.createService.get('onlineType').value],

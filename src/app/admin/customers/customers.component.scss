@@ -13,8 +13,10 @@
     }
     #Customer-list {
         background-color: #f2f2f2;
-         ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
-            padding: 10px 0 10px 10px;
+         ::ng-deep .customer-action {
+            .mat-form-field-infix {
+                padding: 10px 0 10px 10px;
+            }
         }
          ::ng-deep .mat-form-field-infix {
             border-top: unset;
@@ -54,6 +56,7 @@
             ;
         }
         .searchbox {
+            margin-bottom: 10px;
             // width: 60%;  
             .serch_input-appoint {
                 height: 39px;
@@ -109,6 +112,8 @@
                 height: 45px;
                 text-align: center;
                 overflow: hidden;
+                background-size: cover;
+                background-position: center;
                 img {
                     width: 100%;
                     height: 100%;
@@ -210,7 +215,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #f1f1f1;
+        background-position: center;
+        background-size: cover;
     }
     .customerName-width {
         width: 60%;
@@ -456,7 +462,7 @@
     width: calc(100% - 90px);
     .inner {
         background: #cfe3fc;
-        padding: 15px;
+        padding: 5px 15px;
         .first {
             align-items: center;
             span {
@@ -532,6 +538,7 @@
             outline: none;
             opacity: 0;
             cursor: pointer;
+            margin-top: -30px;
             top: 0;
         }
     }
@@ -898,8 +905,8 @@ mat-chip-list {
     background-color: #fbfbfb;
     width: 300px;
     position: fixed;
-    top: 150px;
-    height: calc(100vh - 150px);
+    top: 131px;
+    height: calc(100vh - 131px);
     box-shadow: 5px 9px 10px #e5e3e3;
     z-index: 9;
     overflow-y: scroll;
@@ -909,8 +916,8 @@ mat-chip-list {
     margin-left: 300px;
     width: calc(100% - 300px);
     background-color: #fff;
-    height: calc(100vh - 150px);
-    margin-top: 86px;
+    height: calc(100vh - 133px);
+    margin-top: 68px;
     overflow-y: scroll;
 }
 
