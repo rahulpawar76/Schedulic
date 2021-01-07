@@ -771,6 +771,7 @@
 // calendar css
 ::ng-deep .mat-calendar {
     min-width: 400px;
+    height: 100% !important;
     .mat-calendar-header {
         .mat-calendar-spacer {
             display: none;
@@ -778,10 +779,11 @@
         .mat-calendar-period-button {
             order: 2;
             background: transparent;
-            color: $text-bg;
+            // color: $text-bg;
             font-size: 24px;
             font-weight: 400;
             width: calc(100% - 80px);
+            color:#000;
         }
         .mat-calendar-previous-button {
             background: transparent;

@@ -571,3 +571,18 @@
 .appearance-tabs-group {
     height: calc(100vh - 120px);
 }
+
+
+// @media only screen and (max-width: 1024px){
+    ::ng-deep .datepicker-main{
+        .ngbpicker{
+            margin-top: 20px !important;
+        }
+        .ngb-dp-weekday{
+            margin: 5px 5px !important;
+        }
+        .ngbpicker .ngb-dp-day{
+            margin: 5px 5px !important;
+        }
+    }
+// }
