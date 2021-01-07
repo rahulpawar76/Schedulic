@@ -702,3 +702,11 @@ input:focus {
     color: #fff;
     height: 35px;
 }
+
+::ng-deep mat-toolbar-row {
+    .logo {
+        display: flex !important;
+        align-items: center;
+        padding: 0 !important;
+    }
+}

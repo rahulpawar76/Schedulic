@@ -256,3 +256,19 @@
 .template-variable-list {
     width: 200px;
 }
+
+::ng-deep .mobile-intel-input {
+    width: 100%;
+    .iti__selected-flag.dropdown-toggle {
+        background-color: transparent !important;
+    }
+    input {
+        border: 0px;
+        border-bottom: 1px solid #000;
+        border-radius: 0;
+        &:focus {
+            outline: 0px;
+            box-shadow: unset;
+        }
+    }
+}

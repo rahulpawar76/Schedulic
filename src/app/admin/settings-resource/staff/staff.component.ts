@@ -396,7 +396,7 @@ export class StaffComponent implements OnInit {
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
         });
-        return this.http.post(`${environment.apiUrl}/check-staff-emailid`,{ emailid: control.value,staff_id:parseInt(this.editStaffId) },{headers:headers}).pipe(map((response : any) =>{
+        return this.http.post(`${environment.apiUrl}/admin-staff-email-check`,{ emailid: control.value,user_id:parseInt(this.editStaffId) },{headers:headers}).pipe(map((response : any) =>{
           return response;
         }),
         catchError(this.handleError)).subscribe((res) => {

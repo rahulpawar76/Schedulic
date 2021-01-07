@@ -47,12 +47,17 @@ export class MyProfileComponent implements OnInit {
       this.staffId=JSON.stringify(this.authenticationService.currentUserValue.user_id);
     }
 
+    private handleError(error: HttpErrorResponse) {
+      return throwError('Error! something went wrong.');
+      //return error.error ? error.error : error.statusText;
+    }
+
   ngOnInit() {
 
     this.myProfile = this._formBuilder.group({
       user_FirstName : ['', Validators.required],
       user_LastName : ['', Validators.required],
-      user_Email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
+      user_Email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUniqueForEdit.bind(this)],
       user_Mobile : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
     });
     this.titleService.setTitle('My Profile');
@@ -122,6 +127,30 @@ export class MyProfileComponent implements OnInit {
         this.error = err;
       }
     )
+  }
+
+  isEmailUniqueForEdit(control: FormControl) {
+
+    return new Promise((resolve, reject) => {
+
+      setTimeout(() => {
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+        return this.http.post(`${environment.apiUrl}/admin-staff-email-check`,{ emailid: control.value,user_id:parseInt(this.staffId) },{headers:headers}).pipe(map((response : any) =>{
+          return response;
+        }),
+        catchError(this.handleError)).subscribe((res) => {
+          if(res){
+            if(res.data == false){
+            resolve({ isEmailUniqueForEdit: true });
+            }else{
+            resolve(null);
+            }
+          }
+        });
+      }, 500);
+    });
   }
   
      ImgUpload() {

@@ -881,6 +881,14 @@
             margin-left: 60px;
             width: calc(100% - 60px);
         }
+        &.with-footer {
+            height: calc(100vh - 135px) !important;
+            overflow-y: scroll;
+        }
+        &.without-footer {
+            height: calc(100vh - 65px) !important;
+            overflow-y: scroll;
+        }
     }
     
     .break-word {
