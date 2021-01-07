@@ -194,7 +194,7 @@
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-user.png">
                                 </div>
                             </mat-list-item>
-                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-reports', 'active': Heading=='My Reports' }" (click)="MyReportsNav(); fnPostUrl('my-reports');" matTooltip="Reports">
+                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-reports', 'active': pageHeading=='My Reports' }" (click)="MyReportsNav(); fnPostUrl('my-reports');" matTooltip="Reports">
                                 <div class="common-menu"><img src="/assets/images/admin/admin-menu-statistics.png"></div>
                             </mat-list-item>
                             <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-discountCoupon', 'active': pageHeading=='My Discount Coupon' }" (click)="MyDiscountCouponNav(); fnPostUrl('my-discountCoupon');" matTooltip="DiscountCoupon">

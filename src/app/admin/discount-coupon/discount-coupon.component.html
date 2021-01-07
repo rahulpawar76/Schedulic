@@ -1,15 +1,15 @@
 <div class="container-height" id="Discount-Coupon" style="margin-top: 70px;">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
     <div *ngIf="couponCodeListing" class="row mx-0">
-        <div class="col-12">
-            <div class="d-flex mb-1">
+        <div class="col-12 px-0">
+            <div class="d-flex mb-1 px-3">
                 <h5>Discount Coupon</h5>
                 <div>
                     <button (click)="fnNewCouponCode()" mat-button class="discountcoupon-btn"><mat-icon aria-hidden="false">add</mat-icon>Discount Coupon</button>
                 </div>
             </div>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
-            <div class="d-flex mb-3">
+            <p class="px-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
+            <div class="d-flex mb-3 px-3">
                 <mat-form-field class="dropdown bottom-border-field">
                     <mat-label>Status</mat-label>
                     <mat-select (selectionChange)="fnStatusChange($event.value)" [(value)]="selected">
@@ -30,12 +30,12 @@
                     </form>
                 </div>
             </div>
-            <div class="col-12" id="">
+            <div class="col-12 px-0" id="">
                 <div class="w-100" id="">
                     <div class="postalcode-table">
                         <div class="main-table-content main-cust-table-content">
                             <div class="">
-                                <div class="heads main-heading-content staff-list-row header-background " fxLayout="row">
+                                <div class="heads main-heading-content px-4 staff-list-row header-background " fxLayout="row">
                                     <div class="text-left" fxFlex="10">Title</div>
                                     <div class="text-left" fxFlex="10">Coupon Code</div>
                                     <div class="text-left" fxFlex="10">Created On</div>
@@ -48,7 +48,7 @@
                                     <div class="text-left" fxFlex="10">View</div>
                                 </div>
                                 <div class="content" class="staff-list">
-                                    <div class="staff-list-row" *ngFor="let allCouponCode of allCouponCode; let i=index">
+                                    <div class="staff-list-row px-4" *ngFor="let allCouponCode of allCouponCode; let i=index">
 
                                         <div class="text-left" fxFlex="10">
                                             <p>{{allCouponCode.coupon_title}}</p>

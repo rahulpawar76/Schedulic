@@ -571,3 +571,16 @@
 .appearance-tabs-group {
     height: 100%;
 }
+
+::ng-deep .main-appearance-content {
+    .timeslot-main {
+        .top-back-btn {
+            width: 35px;
+            height: 35px;
+            .mat-button-wrapper {
+                padding: 0;
+                line-height: 1;
+            }
+        }
+    }
+}

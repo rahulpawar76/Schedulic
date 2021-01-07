@@ -100,8 +100,8 @@
                 <button (click)="addcsvPostalCode()" class="time-of-btn ml-2 mr-2" style="width: 190px;">Upload Postal Code</button>
                 <button (click)="addPostalCode()" class="time-of-btn ml-2 mr-2">Add Postal Code</button>
             </div>
-            <div class="d-flex w-100">
-                <mat-form-field class="bottom-border-field dropdown-width">
+            <div class="d-flex w-100 my-2">
+                <mat-form-field class="bottom-border-field dropdown-width mt-0">
                     <mat-label>Select</mat-label>
                     <mat-select [(ngModel)]="selectedValue" (selectionChange)="fnSelectedPostalCodeStatus($event)" [disabled]="arr.length==0">
 

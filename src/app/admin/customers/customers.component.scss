@@ -208,8 +208,8 @@
     }
     .customerProfile-width {
         border-radius: 50%!important;
-        width: 120px;
-        height: 120px;
+        width: 90px;
+        height: 90px;
         overflow: hidden;
         margin-right: 10px;
         display: flex;
@@ -809,7 +809,6 @@ textarea {
         width: 115px;
         text-align: center;
     }
-    
 }
 
 ::ng-deep .mat-tab-label {
@@ -992,6 +991,6 @@ mat-chip-list {
     }
 }
 
-::ng-deep .fieldcolor{
+::ng-deep .fieldcolor {
     color: #007bff;
 }
