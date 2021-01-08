@@ -79,12 +79,11 @@ export class LoginComponent implements OnInit {
         .pipe(first()).subscribe(data => {
 
             if(data.data == true){
-              
-                if(data.response.user_type == 'A' &&  data.response.currentPlan == null){
+                if(data.response.user_type == 'A' &&  (data.response.currentPlan == null || data.response.currentPlan.stripe_status == 'canceled' || data.response.currentPlan.stripe_status == 'incomplete')){
                     localStorage.setItem('adminData',JSON.stringify(data.response))
                     localStorage.removeItem('currentUser');
                     this.router.navigate(["admin-select-subscription"]);
-                    return;    
+                    return; 
                 }
 
                 if(data.response.user_type == "A"){

@@ -41,6 +41,9 @@
 }
 
 .payment-gateways {
+    h5{
+       margin-left: 10px !important;
+    }
      ::ng-deep .mat-accordion {
         .mat-expansion-indicator {
             display: none;
