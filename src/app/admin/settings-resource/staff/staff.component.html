@@ -556,7 +556,7 @@
                         <h6>Documents</h6>
                         <div *ngIf="singleStaffDetail.staff[0].getdocument" class="d-flex mt-3">
                             <div *ngFor="let staffDocument of singleStaffDetail.staff[0].getdocument" class="pan-card file-border d-flex mr-2">
-                                <a href="{{staffDocument.documents}}" download target="_blank">
+                                <a href="{{staffDocument.documents}}" download class="d-flex" target="_blank">
                                     <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
                                     <p class="pr-1 mb-0">{{staffDocument.filename}}</p>
                                 </a>
