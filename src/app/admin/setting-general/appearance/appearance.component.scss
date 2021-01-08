@@ -569,18 +569,20 @@
 }
 
 .appearance-tabs-group {
-    height: 100%;
+    height: calc(100vh - 120px);
 }
 
-::ng-deep .main-appearance-content {
-    .timeslot-main {
-        .top-back-btn {
-            width: 35px;
-            height: 35px;
-            .mat-button-wrapper {
-                padding: 0;
-                line-height: 1;
-            }
+
+// @media only screen and (max-width: 1024px){
+    ::ng-deep .datepicker-main{
+        .ngbpicker{
+            margin-top: 20px !important;
+        }
+        .ngb-dp-weekday{
+            margin: 5px 5px !important;
+        }
+        .ngbpicker .ngb-dp-day{
+            margin: 5px 5px !important;
         }
     }
-}
+// }

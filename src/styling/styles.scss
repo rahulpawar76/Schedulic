@@ -946,3 +946,11 @@
      ::ng-deep #mat-tab-label-0-0.mat-tab-label {
         min-width: 80px;
     }
+
+    ::ng-deep .mat-calendar {
+        height: auto !important;
+    
+        .mat-calendar-period-button{
+            color: #000000;
+        }
+    }
