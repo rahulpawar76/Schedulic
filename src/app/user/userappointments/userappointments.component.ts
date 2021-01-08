@@ -1395,7 +1395,6 @@ export class rescheduleAppointmentDialog {
       this.fnGetOffDays();
 
       this.myFilter = (d: Date | null): boolean => {
-        console.log(this.offDaysList)
         // const day = (d || new Date()).getDay();
         // const month = (d || new Date()).getMonth();
         // Prevent Saturday and Sunday from being selected.
@@ -1404,6 +1403,12 @@ export class rescheduleAppointmentDialog {
         let temp2:any;
         if(this.offDaysList.length>0 || this.workingHoursOffDaysList.length>0){
           for(var i=0; i<this.offDaysList.length; i++){
+            // var offDay = new Date(this.offDaysList[i]);
+            // if(i==0){
+            //  temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+            // }else{
+            //   temp=temp && (d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+            // }
             var offDay = new Date(this.offDaysList[i]);
             if(i==0){
              temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
@@ -1481,30 +1486,30 @@ export class rescheduleAppointmentDialog {
           }
 
           this.myFilter = (d: Date | null): boolean => {
-          let temp:any;
-          let temp2:any;
-          if(this.offDaysList.length>0 || this.workingHoursOffDaysList.length>0){
-            for(var i=0; i<this.offDaysList.length; i++){
-              var offDay = new Date(this.offDaysList[i]);
-              if(i==0){
-               temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
-              }else{
-                temp=temp && (d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+            let temp:any;
+            let temp2:any;
+            if(this.offDaysList.length>0 || this.workingHoursOffDaysList.length>0){
+              for(var i=0; i<this.offDaysList.length; i++){
+                var offDay = new Date(this.offDaysList[i]);
+                if(i==0){
+                temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+                }else{
+                  temp=temp && (d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+                }
               }
-            }
-            for(var i=0; i<this.workingHoursOffDaysList.length; i++){
-              if(this.offDaysList.length>0){
-                temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
-              }else{
-                temp=(d.getDay() !== this.workingHoursOffDaysList[i]);
+              for(var i=0; i<this.workingHoursOffDaysList.length; i++){
+                if(this.offDaysList.length>0){
+                  temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
+                }else{
+                  temp=(d.getDay() !== this.workingHoursOffDaysList[i]);
+                }
               }
+              //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
+              return temp;
+            }else{
+              return true;
             }
-            //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
-            return temp;
-          }else{
-            return true;
           }
-        }
         }
         else{
 
@@ -1850,8 +1855,6 @@ export class rescheduleAppointmentDialog {
       this.getPostalCodeList();
 
       this.myFilter = (d: Date | null): boolean => {
-        console.log(this.offDaysList);
-        console.log(this.workingHoursOffDaysList);
       // const day = (d || new Date()).getDay();
       // const month = (d || new Date()).getMonth();
       // Prevent Saturday and Sunday from being selected.
@@ -1860,7 +1863,6 @@ export class rescheduleAppointmentDialog {
       let temp2:any;
       if(this.offDaysList.length>0 || this.workingHoursOffDaysList.length>0){
         for(var i=0; i<this.offDaysList.length; i++){
-          console.log('offDaysList')
           var offDay = new Date(this.offDaysList[i]);
           if(i==0){
            temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
@@ -1869,7 +1871,6 @@ export class rescheduleAppointmentDialog {
           }
         }
         for(var i=0; i<this.workingHoursOffDaysList.length; i++){
-          console.log('workingHoursOffDaysList')
             // temp=temp2 && (d.getDay() !== this.workingHoursOffDaysList[i]);
             if(this.offDaysList.length>0){
               temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
@@ -1877,7 +1878,6 @@ export class rescheduleAppointmentDialog {
               temp=(d.getDay() !== this.workingHoursOffDaysList[i]);
             }
         }
-        console.log(temp)
         //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
         return temp;
         }else{
@@ -2058,21 +2058,43 @@ export class rescheduleAppointmentDialog {
         if(response.data == true){
           if(response.response.holidays.length>0){
             this.offDaysList = response.response.holidays;
-          }else{
+          }else if(response.data == false && response.response !== 'api token or userid invaild'){
             this.offDaysList=[];
           }
           if(response.response.offday.length>0){
             this.workingHoursOffDaysList = response.response.offday;
-          }else{
+          }else if(response.data == false && response.response !== 'api token or userid invaild'){
             this.workingHoursOffDaysList=[];
           }
-        }
-        else{
-  
+          this.myFilter = (d: Date | null): boolean => {
+            let temp:any;
+            let temp2:any;
+            if(this.offDaysList.length>0 || this.workingHoursOffDaysList.length>0){
+              for(var i=0; i<this.offDaysList.length; i++){
+                var offDay = new Date(this.offDaysList[i]);
+                if(i==0){
+                 temp=(d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+                }else{
+                  temp=temp && (d.getMonth()+1!==offDay.getMonth()+1 || d.getDate()!==offDay.getDate());
+                }
+              }
+              for(var i=0; i<this.workingHoursOffDaysList.length; i++){
+                if(this.offDaysList.length>0){
+                  temp=temp && (d.getDay() !== this.workingHoursOffDaysList[i]);
+                }else{
+                  temp=(d.getDay() !== this.workingHoursOffDaysList[i]);
+                }
+              }
+              //return (d.getMonth()+1!==4 || d.getDate()!==30) && (d.getMonth()+1!==5 || d.getDate()!==15);
+              return temp;
+            }else{
+              return true;
+            }
+          }
         }
       },
       (err) =>{
-      })
+      });
     }
   
     onNoClick(): void {
