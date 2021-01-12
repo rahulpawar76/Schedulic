@@ -743,7 +743,7 @@
 }
 
 .h-100vh {
-    height: 100vh;
+    height: 100%;
 }
 
 .single-staff-header {
@@ -790,7 +790,8 @@
 
 ::ng-deep .mat-tab-body-wrapper {
     height: 100%;
-}
+    padding: 10px;
+}   
 
 .upload-title-content {
     font-size: 14px;
