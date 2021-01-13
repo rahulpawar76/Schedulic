@@ -252,7 +252,7 @@ export class StaffComponent implements OnInit {
   }
 
   prepareFilesList(files: Array<any>) {
-    alert('1')
+  
     console.log(files)
     for (const item of files) {
       item.progress = 0;
@@ -396,7 +396,7 @@ export class StaffComponent implements OnInit {
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
         });
-        return this.http.post(`${environment.apiUrl}/admin-staff-email-check`,{ emailid: control.value,user_id:parseInt(this.editStaffId) },{headers:headers}).pipe(map((response : any) =>{
+        return this.http.post(`${environment.apiUrl}/admin-staff-email-check`,{ email: control.value,user_id:parseInt(this.editStaffId) },{headers:headers}).pipe(map((response : any) =>{
           return response;
         }),
         catchError(this.handleError)).subscribe((res) => {
@@ -1441,6 +1441,9 @@ export class StaffComponent implements OnInit {
         formData.append('servicelist', this.categoryServiceCheckServiceId);
         formData.append('image', this.staffImageUrl);
          this.createNewStaff(formData);
+
+         console.log('-----------------------------++++++++++++++++++++++++++++++++++++++++++++')
+         console.log(this.StaffCreate.get('description').value)
       }else{
         this.StaffCreate.get('firstname').markAsTouched();
         this.StaffCreate.get('lastname').markAsTouched();
@@ -2771,7 +2774,7 @@ export class StaffComponent implements OnInit {
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
         });
-        return this.http.post(`${environment.apiUrl}/verify-email`,{ emailid: control.value },{headers:headers}).pipe(map((response : any) =>{
+        return this.http.post(`${environment.apiUrl}/verify-email`,{ email: control.value },{headers:headers}).pipe(map((response : any) =>{
           return response;
         }),
         catchError(this.handleError)).subscribe((res) => {

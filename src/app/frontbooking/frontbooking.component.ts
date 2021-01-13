@@ -2183,6 +2183,7 @@ this.router.navigate(['/login']);
   }
 
   fnProceedToPayment(event){
+    
     if(this.PrivacyPolicyStatusValue == false && this.termsConditionsStatusValue == false){
       this.PrivacyPolicyStatusValidation = true;
       this.termsConditionsStatusValidation = true;
@@ -2199,6 +2200,7 @@ this.router.navigate(['/login']);
     if(this.closecoupon != 'valid'){
       this.coupon.couponcode_val=''
     }
+
     let digit5= Math.floor(Math.random()*90000) + 10000;
     this.reference_id="2_"+digit5+"_"+ this.datePipe.transform(new Date(),"yyyy/MM/dd") ;
     this.itemArr= [];
@@ -2548,7 +2550,7 @@ this.router.navigate(['/login']);
           this.isLoader=false;
           if(this.thankYou.status == true){
             window.top.location.href = this.thankYou.page_link;
-          }else if(this.thankYou.status == false){
+          }else {
             this.thankYouScreen=true;
             this.paymentScreen=false;
           setTimeout(() => {
@@ -4272,9 +4274,9 @@ export class theme2CheckoutDialog {
           this.isLoader=false;
           if(this.thankYou.status == true){
             window.top.location.href = this.thankYou.page_link;
-          }else if(this.thankYou.status == false){
-            //this.thankYouScreen=true;
-            //this.paymentScreen=false;
+          }else {
+            this.thankYouScreen=true;
+            this.paymentScreen=false;
           setTimeout(() => {
             window.location.reload();
           }, 2000);

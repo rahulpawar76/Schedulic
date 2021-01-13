@@ -89,7 +89,7 @@ export class PaymentrulesComponent implements OnInit {
         this._snackBar.open("Tax Deleted.", "X", {
           duration: 2000,
           verticalPosition: 'top',
-          panelClass: ['green-snackbar']
+          panelClass: ['red-snackbar']
         });
         this.getAllTax()
         //this.isLoaderAdmin = false;

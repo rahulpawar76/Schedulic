@@ -249,11 +249,12 @@ export class ReportsComponent implements OnInit {
     };
     this.adminService.getAppointmentsReports(requestObject,this.appointmentReportApiUrl).subscribe((response:any) => {
       if(response.data == true){
-
+        
         this.appointmentReportTotalRecords = response.response[0].TotalRecord;
         this.appointmentReportExpectedRevenue = response.response[0].expectedRevenue;
         this.appointmentReport = response.response[0].list.data;
-
+        console.log(this.appointmentReport)
+        console.log('------------------------------------+++++++++++++++++++++++++++++++++')
         this.appointmentReportcurrent_page = response.response[0].list.current_page;
         this.appointmentReportfirst_page_url = response.response[0].list.first_page_url;
         this.appointmentReportlast_page = response.response[0].list.last_page;
@@ -261,7 +262,6 @@ export class ReportsComponent implements OnInit {
         this.appointmentReportnext_page_url = response.response[0].list.next_page_url;
         this.appointmentReportprev_page_url = response.response[0].list.prev_page_url;
         this.appointmentReportpath = response.response[0].list.path;
-
         this.appointmentReport.forEach(element=>{
           if(this.reportFilter=="all"){
             element.booking_date=this.datePipe.transform(new Date(element.booking_date),"EEE, dd MMM yyyy");

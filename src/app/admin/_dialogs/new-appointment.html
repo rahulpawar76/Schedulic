@@ -76,7 +76,6 @@
                     <div class="col-4 mb-3">
                         <mat-label class="mb-1">Category</mat-label>
                         <mat-select [(value)]="selectedCatId" (selectionChange)="fnSelectCat($event.value)" class="form-control formcontrol" formControlName="customerCategory" [disabled]="disableCategory">
-                            <mat-option  selected value="">Select Category</mat-option>
                             <mat-option *ngFor="let cat of catdata" value="{{cat.id}}">{{cat.category_title}}</mat-option>
                             <mat-option *ngIf="catdata && catdata.length==0" disabled>No Category Available</mat-option>
                         </mat-select>
@@ -88,7 +87,6 @@
                     <div class="col-4 mb-3" *ngIf="showSubCatDropDown">
                         <mat-label class="mb-1">Sub Category</mat-label>
                         <mat-select class="form-control formcontrol" [(value)]="selectedSubCatId" (selectionChange)="fnSelectSubCat($event.value)" formControlName="customerSubCategory" [disabled]="disableSubCategory">
-                            <mat-option  selected value="">Select Sub Category</mat-option>
                             <mat-option *ngFor="let subcat of subcatdata" value="{{subcat.id}}">{{subcat.sub_category_name}}</mat-option>
                             <mat-option *ngIf="subcatdata.length==0" disabled>No Sub-Category Available</mat-option>
                         </mat-select>
@@ -100,7 +98,6 @@
                     <div [ngClass]="showSubCatDropDown?'col-4 mb-3':'col-4 mb-3'">
                         <mat-label class="mb-1">Service</mat-label>
                         <mat-select class="form-control formcontrol" [(value)]="selectedServiceId" (selectionChange)="fnSelectService($event.value)" formControlName="customerService" [disabled]="disableService">
-                            <mat-option  selected value="">Select Service</mat-option>
                             <mat-option *ngFor="let service of serviceData" value="{{service.id}}">{{service.service_name}}</mat-option>
                             <mat-option *ngIf="serviceData.length==0" disabled>No Service Available</mat-option>
                         </mat-select>
@@ -152,6 +149,7 @@
                                 </div>
                             </div>
                             <mat-select class="form-control formcontrol" [disabled]="" formControlName="customerStaff" (selectionChange)="fnSelectStaff($event.value)">
+                                <mat-option value="Any Staff">Any Staff</mat-option>
                                 <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">{{staff.name}}</mat-option>
                                 <mat-option *ngIf="availableStaff.length==0" disabled>No Staff Available</mat-option>
                             </mat-select>

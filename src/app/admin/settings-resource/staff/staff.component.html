@@ -159,7 +159,7 @@
                                 <small *ngIf="StaffCreate.get('address').hasError('minlength')" class="error">Address must be at least 3 character.</small>
                                 <small *ngIf="StaffCreate.get('address').hasError('maxlength')" class="error">Address can not be greater than 255 character.</small>
                             </span>
-                            <mat-form-field class="bottom-border-field">
+                            <mat-form-field class="bottom-border-field description-bottom-field">
                                 <mat-label>Description</mat-label>
                                 <textarea formControlName="description" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="1"></textarea>
                             </mat-form-field>

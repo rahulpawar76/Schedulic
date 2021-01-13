@@ -153,6 +153,7 @@ export class CustomersComponent implements OnInit {
       
       // Add our fruit
       if ((value || '').trim()) {
+      
         this.tags.push(value.trim());
       }
 
@@ -489,10 +490,10 @@ customerUpdate(existingCustomerData){
         }
 
         this.customerPersonalDetails = response.response.customer_details;
-        this.tags = [];
+        // this.tags = [];
         this.customerPersonalDetails.created_at=this.datePipe.transform(new Date(this.customerPersonalDetails.created_at),"d MMM y, h:mm a");
         if(this.customerPersonalDetails.tag_id != null){
-          this.tags = this.customerPersonalDetails.tag_id.split(",");
+          this.tags = this.customerPersonalDetails.tag_id;
         }
 
 
