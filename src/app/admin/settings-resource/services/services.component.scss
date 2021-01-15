@@ -702,7 +702,8 @@ textarea {
 }
 
 mat-drawer-content {
-    height: auto;
+    // height: auto;
+    overflow:  hidden !important;
 }
 
 #create_new_service {

@@ -174,13 +174,13 @@
                                             <p class="addon-dec">{{services.service_description}}</p>
                                         </div>
                                         <div class="price-cart">
-                                            <label
+                                            <label class="text-center"
                                                 *ngIf="currencySymbolPosition=='left'">{{currencySymbol|
                                                 currencySymbol:'wide'}} {{
                                                 services.service_cost |
                                                 currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
                                                 }}</label>
-                                <label *ngIf="currencySymbolPosition=='right'">{{
+                                            <label class="text-center" *ngIf="currencySymbolPosition=='right'">{{
                                                 services.service_cost |
                                                 currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
                                                 }} {{currencySymbol|
@@ -189,7 +189,7 @@
                                 <button (click)="fnShowCounter(services.id)" *ngIf="serviceCount[services.id].count<1" mat-button class="round-btn
                                                 addon-cart-btn">Add To Cart</button>
                                 <input type="checkbox" name="service" value="service_{{services.id}}" class="d-none" />
-                                <div class="qty-counter" *ngIf="serviceCount[services.id].count>0">
+                                <div class="qty-counter text-center" *ngIf="serviceCount[services.id].count>0">
                                     <button mat-fab class="action-btn
                                                     qty-minus" (click)="fnRemove($event,services.id)">-</button>
                                     <input type="text" class="qty_value" id="servicecount_{{services.id}}" value="{{serviceCount[services.id].count}}" readonly/>

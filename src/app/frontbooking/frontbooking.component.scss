@@ -231,11 +231,14 @@
                     cursor: pointer;
                     text-align: center;
                     box-shadow: 2px 2px 14px -2px #3969fb;
-                    position: absolute;
-                    top: calc(100% - 30px);
-                    z-index: 1;
-                    right: 15px;
-                    margin-top: 0 !important;
+                    float: right;
+                    margin-right: 20px;
+                    margin-bottom: 10px;
+                    // position: absolute;
+                    // top: calc(100% - 50px);
+                    // z-index: 1;
+                    // right: 15px;
+                    // margin-top: 0 !important;
                     i {
                         font-size: 23px;
                         color: $text-bg;
@@ -275,7 +278,7 @@
                         }
                     }
                     .price-cart {
-                        width: 200px;
+                        width: 280px;
                         label {
                             font-size: $fs-22;
                             color: $grey-1;
@@ -1436,25 +1439,25 @@ input:focus {
 
 ::ng-deep #personal_info {
     &.theme_2_popup {
-        height: 90vh;
+        height: auto;
     }
 }
 
 ::ng-deep #coupon_code {
     &.theme_2_popup {
-        height: 90vh;
+        height: auto;
     }
 }
 
 ::ng-deep #payment_method {
     &.theme_2_popup {
-        height: 90vh;
+        height: auto;
     }
 }
 
 ::ng-deep #coupon_code {
     &.theme_2_popup {
-        height: 90vh;
+        height: auto;
     }
 }
 

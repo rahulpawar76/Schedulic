@@ -227,11 +227,14 @@
                     cursor: pointer;
                     text-align: center;
                     box-shadow: 2px 2px 14px -2px #3969fb;
-                    position: absolute;
-                    top: calc(100% - 55px);
-                    z-index: 1;
-                    right: 15px;
-                    margin-top: 0 !important;
+                    float: right;
+                    margin-bottom: 10px;
+                    margin-right: 20px;
+                    // position: absolute;
+                    // top: calc(100% - 55px);
+                    // z-index: 1;
+                    // right: 15px;
+                    // margin-top: 0 !important;
                     i {
                         font-size: 30px;
                         color: $text-bg;
@@ -276,7 +279,7 @@
                         }
                     }
                     .price-cart {
-                        width: 200px;
+                        width: 100%;
                         label {
                             font-size: $fs-18;
                             font-weight: $fw-500;

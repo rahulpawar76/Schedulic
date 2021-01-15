@@ -198,7 +198,7 @@
                                 <button (click)="fnShowCalender(services.id)" *ngIf="serviceCount[services.id].count>0
                                                 && !serviceCartArr[services.id]" mat-button class="round-btn
                                                 addon-cart-btn">Select Date</button>
-                                <div *ngIf="serviceCount[services.id].count>0
+                                <div style="font-size: 13px;" *ngIf="serviceCount[services.id].count>0
                                                 &&
                                                 !serviceCartArr[services.id]">Select Date to confirm your booking</div>
                                 <button (click)="fnShowCalender(services.id)" *ngIf="serviceCount[services.id].count>0
