@@ -258,10 +258,13 @@ export class StaffComponent implements OnInit {
       item.progress = 0;
 
       var file_type = item.type;
+      alert('file type')
+      console.log(file_type);
+      console.log('----------------------------------------------------------------');
 
-      if( file_type!='application/pdf' &&  file_type!='application/msword' && file_type!='image/jpeg' &&  file_type!='image/png' && file_type!='image/jpg' &&  file_type!='image/gif'){
+      if( file_type!='application/pdf' &&  file_type!='application/vnd.openxmlformats-officedocument.wordprocessingml.document' && file_type!='image/jpeg' &&  file_type!='image/png' && file_type!='image/jpg' &&  file_type!='image/gif'){
           
-          this._snackBar.open("Sorry, only PDF, JPG, PNG, DOC & DOC files are allowed", "X", {
+          this._snackBar.open("Sorry, only PDF, JPG, PNG & DOC files are allowed", "X", {
               duration: 2000,
               verticalPosition: 'top',
               panelClass: ['red-snackbar']
