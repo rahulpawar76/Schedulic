@@ -1631,6 +1631,7 @@ export class ServicesComponent implements OnInit {
                 this.createService.reset();
                 this.assignStaffArr.length = 0;
                 this.createNewServicePage = false;
+                this.serviceType="";
                 this.servicesList = false;
                 this.newServicePrivate = 'N';
                 this.newServiceStatus = 'D';
@@ -1671,6 +1672,7 @@ export class ServicesComponent implements OnInit {
                 this.editServiceStatus = '';
                 this.editServicePrivate = '';
                 this.editServiceImage = '';
+                this.serviceType="";
                 this.serviceImageUrl = undefined;
                 // this.fnAllCategory();
                 if(this.createServiceCategoryType == 'category'){
