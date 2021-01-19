@@ -339,9 +339,9 @@ export class StaffComponent implements OnInit {
     this.getAllStaff();
 
     this.StaffCreate = this._formBuilder.group({
-      firstname : ['',[ Validators.required,]],
-      lastname : ['', [Validators.required]],
-      address : ['', [Validators.required,]],
+      firstname : ['',[ Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
+      lastname : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
+      address : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
       phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       description : ['',Validators.maxLength(255)],
@@ -1125,8 +1125,8 @@ export class StaffComponent implements OnInit {
     this.editStaffId=null;
     this.getCateServiceList();
     this.StaffCreate = this._formBuilder.group({
-      firstname : ['',[ Validators.required,Validators]],
-      lastname : ['', [Validators.required,Validators]],
+      firstname : ['',[ Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
+      lastname : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
       address : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
       phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],

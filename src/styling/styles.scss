@@ -3,6 +3,12 @@
     @import "intel-input.css";
     @import "../assets/fonts/stamper-fonts.css";
     @import "../assets/fonts/trebuchet-font.css";
+    // @font-face {
+    //     font-family: 'Trebuchet MS Bold';
+    //     src: url('../assets/fonts/trebuchet-ms-grassetto.ttf') format('truetype');
+    //     font-weight: bold;
+    //     font-style: normal;
+    // }
     $light-gray: #f3f3f3;
     ////////// GENERAL //////////
     html,
@@ -946,11 +952,10 @@
      ::ng-deep #mat-tab-label-0-0.mat-tab-label {
         min-width: 80px;
     }
-
-    ::ng-deep .mat-calendar {
-        height: auto !important;
     
-        .mat-calendar-period-button{
+     ::ng-deep .mat-calendar {
+        height: auto !important;
+        .mat-calendar-period-button {
             color: #000000;
         }
     }
