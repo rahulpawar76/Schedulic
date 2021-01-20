@@ -148,19 +148,20 @@
                         <p class="mb-0 address-fontsize"> {{detailsData.orders_info ? detailsData.orders_info.booking_state : ''}}</p>
                         <p class="mb-0 address-fontsize"> {{detailsData.orders_info ? detailsData.orders_info.booking_zipcode : ''}}</p>
                     </div>
-                    <div>
+                    <!-- <div>
                         <p class="mb-0 title">Note</p>
                         <p *ngIf="detailsData.booking_notes !== null" class="mb-0 address-fontsize">{{detailsData.booking_notes}}</p>
                         <p *ngIf="detailsData.booking_notes === null" class="address-fontsize">--</p>
-                    </div>
+                    </div> -->
 
                     <div class="pt-3 pb-3 bottom-border">
                         <h6 (click)="formSettingPage=!formSettingPage" class="pointer w-fc">Note<i class="fa fa-plus-circle pl-2 note-icon"></i></h6>
                         <mat-form-field class="bottom-border-field" *ngIf="formSettingPage">
                             <mat-label>Notes</mat-label>
-                            <textarea rows="5" matInput [(ngModel)]="appointmentDetails.bookingNotes" placeholder="Type Note Description Here"></textarea>
+                            <textarea rows="5" matInput [(ngModel)]="singlenote" placeholder="Type Note Description Here"></textarea>
                         </mat-form-field>
                         <button mat-button type="button" class="Reschedulebtn common-blue-btn accept-btn d-block mt-2" *ngIf="formSettingPage" (click)="fnSaveBookingNotes(detailsData.id)">Save</button>
+                        <p class="mb-1" *ngFor="let note of singleBookingNotes; let i=index">{{note.notes}}, Added by {{note.user_type=='A'?'Admin':''}} {{note.user_type=='SM'?'Staff':''}} {{note.user_type=='C'?'Customer':''}} @{{note.created_at | date:'longDate'}} {{note.created_at | date:'shortTime'}}</p>
                     </div>
                 </mat-card>
 
