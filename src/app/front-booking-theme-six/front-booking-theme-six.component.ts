@@ -1553,7 +1553,6 @@ export class FrontBookingThemeSixComponent implements OnInit {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-
     this.http.post(`${environment.apiUrl}/list-availabel-timings`,requestObject,{headers:headers} ).pipe(
       map((res) => {
         return res;
@@ -2967,9 +2966,6 @@ export class FrontBookingThemeSixComponent implements OnInit {
     }, 500
     
     );
-     
-      
-    
     
   }
 }
@@ -3176,9 +3172,12 @@ export class theme6DateTimeSelection {
       }
 
       onDateSelect(event){
+        this.timeSlotArr = [];
         this.selecteddate = event.year+'-'+event.month+'-'+event.day;
         this.selecteddate=this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd")
         this.selecteddateForLabel=this.datePipe.transform(new Date(this.selecteddate),"EEE, MMM dd")
+        
+       
         this.fnGetTimeSlots();
       }
     
@@ -3191,7 +3190,7 @@ export class theme6DateTimeSelection {
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
         });
-    
+
         this.http.post(`${environment.apiUrl}/list-availabel-timings`,requestObject,{headers:headers} ).pipe(
           map((res) => {
             return res;
