@@ -1150,12 +1150,12 @@ export class FrontBookingThemeThreeComponent implements OnInit {
            taxTemp.value= element.value;
            taxTemp.name= element.name;
            taxTemp.amount= amountAfterDiscount * element.value/100;
-            amountAfterTax=amountAfterTax+taxTemp.amount;
+            amountAfterTax=amountAfterTax-taxTemp.amount;
           }else{
             taxTemp.value= element.value;
             taxTemp.name= element.name;
             taxTemp.amount=  element.value;
-            amountAfterTax=amountAfterTax+taxTemp.amount;
+            amountAfterTax=amountAfterTax-taxTemp.amount;
           }
           this.taxAmountArr.push(taxTemp);
         });
@@ -1163,7 +1163,7 @@ export class FrontBookingThemeThreeComponent implements OnInit {
       // this.taxAmountArr.forEach((element) => {
       //   amountAfterDiscount=amountAfterDiscount+element;
       // });
-      this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
+      this.serviceMainArr.netCost=amountAfterDiscount-amountAfterTax;
       }
   }
 
