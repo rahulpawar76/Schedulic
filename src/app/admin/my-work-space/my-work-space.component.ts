@@ -106,6 +106,7 @@ export class MyWorkSpaceComponent implements OnInit {
   singleBookingNotes:any;
   currentUser : any;
   activityLog:any=[];
+  singlenote:any;
   startWorkSpacePage : boolean = true;
   constructor(
     public dialog: MatDialog,
@@ -210,7 +211,7 @@ export class MyWorkSpaceComponent implements OnInit {
   }
 
   fnSaveBookingNotes(orderItemId){
-    if(this.appointmentDetails.bookingNotes == undefined || this.appointmentDetails.bookingNotes == ""){
+    if(this.singlenote == undefined || this.singlenote == ""){
       return false;
     }
     let requestObject = {
@@ -218,7 +219,7 @@ export class MyWorkSpaceComponent implements OnInit {
       "user_id": this.currentUser.user_id,
       "user_type": 'A',
       "note_type": 'normal',
-      "notes":this.appointmentDetails.bookingNotes
+      "notes":this.singlenote
     };
     this.adminService.saveBookingNotes(requestObject).subscribe((response:any) => {
       if(response.data == true){
@@ -227,7 +228,7 @@ export class MyWorkSpaceComponent implements OnInit {
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
-        this.appointmentDetails.bookingNotes="";
+        this.singlenote="";
         this.formSettingPage = false;
         this.fnGetAllAppointmentsByCategoryAndStatus();
       }

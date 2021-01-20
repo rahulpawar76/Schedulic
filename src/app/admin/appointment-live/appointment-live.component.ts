@@ -147,7 +147,7 @@ export class AppointmentLiveComponent implements OnInit {
   }
   staff_filter = "all";
   constructor(
-    private AdminService: AdminService,
+    private adminService: AdminService,
     private datePipe: DatePipe,
     public dialog: MatDialog,
     private CommonService: CommonService,
@@ -299,7 +299,7 @@ export class AppointmentLiveComponent implements OnInit {
     let requestObject = {
       'business_id': this.businessId,
     };
-    this.AdminService.getTaxDetails(requestObject).subscribe((response:any) => {
+    this.adminService.getTaxDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
         let tax = response.response
         this.taxArr=tax;
@@ -323,7 +323,7 @@ export class AppointmentLiveComponent implements OnInit {
       "business_id" : this.businessId
     };
 
-    this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
+    this.adminService.getSettingValue(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.settingsArr = response.response;
         this.currencySymbol = this.settingsArr.currency;
@@ -350,7 +350,7 @@ export class AppointmentLiveComponent implements OnInit {
   }
 
   getPendingAppointments(pendingKeyword){
-    this.AdminService.getPendingAppointments(pendingKeyword,this.pendingApiUrl).subscribe((response:any) => {
+    this.adminService.getPendingAppointments(pendingKeyword,this.pendingApiUrl).subscribe((response:any) => {
       if(response.data == true){
         this.pendingAppointments = response.response.data;
         
@@ -401,7 +401,7 @@ export class AppointmentLiveComponent implements OnInit {
   
   getNotAssignedAppointments(){
 
-    this.AdminService.getNotAssignedAppointments(this.notassignApiUrl).subscribe((response:any) => {
+    this.adminService.getNotAssignedAppointments(this.notassignApiUrl).subscribe((response:any) => {
       if(response.data == true){
 
         this.notAssignedAppointments = response.response.data;
@@ -454,7 +454,7 @@ export class AppointmentLiveComponent implements OnInit {
 
 
   getOnThewayAppointments(){
-    this.AdminService.getOnThewayAppointments(this.onthewayApiUrl).subscribe((response:any) => {
+    this.adminService.getOnThewayAppointments(this.onthewayApiUrl).subscribe((response:any) => {
       if(response.data == true){
         this.onTheWayAppointments = response.response;
         
@@ -515,7 +515,7 @@ export class AppointmentLiveComponent implements OnInit {
 
   getWorkStartedAppointments(searchKeyword){
 
-    this.AdminService.getWorkStartedAppointments(searchKeyword,this.workstartApiUrl).subscribe((response:any) => {
+    this.adminService.getWorkStartedAppointments(searchKeyword,this.workstartApiUrl).subscribe((response:any) => {
       if(response.data == true){
      //   this.workStartedAppointments = response.response;
 
@@ -664,7 +664,7 @@ export class AppointmentLiveComponent implements OnInit {
       "business_id" : localStorage.getItem('business_id')
     };
 
-    this.AdminService.getGetCategory(requestObject).subscribe((response:any) => {
+    this.adminService.getGetCategory(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.CategoryList = response.response;
       }
@@ -681,7 +681,7 @@ export class AppointmentLiveComponent implements OnInit {
       'search' : this.serach
     };
 
-    this.AdminService.getService(requestObject).subscribe((response:any) => {
+    this.adminService.getService(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ServiceList = response.response;
       }else{
@@ -706,7 +706,7 @@ export class AppointmentLiveComponent implements OnInit {
     this.service_index = index;
     this.service_id = service_id;
 
-    this.AdminService.getStaff(requestObject).subscribe((response:any) => {
+    this.adminService.getStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.StaffList = response.response;
       }else{
@@ -733,7 +733,7 @@ export class AppointmentLiveComponent implements OnInit {
       "action" : event
     };
 
-    this.AdminService.getStaff(requestObject).subscribe((response:any) => {
+    this.adminService.getStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.StaffList = response.response;
       }else{
@@ -962,7 +962,7 @@ export class AppointmentLiveComponent implements OnInit {
    
     console.log(requestObject);
    
-    this.AdminService.placeOrder(requestObject).subscribe((response:any) => {
+    this.adminService.placeOrder(requestObject).subscribe((response:any) => {
       
       if(response.data == true){
 
@@ -1005,7 +1005,7 @@ export class AppointmentLiveComponent implements OnInit {
       "search" : this.serach 
     };
 
-    this.AdminService.getWatinglist(requestObject).subscribe((response:any) => {
+    this.adminService.getWatinglist(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.Watinglist = response.response;
       }else{
@@ -1028,7 +1028,7 @@ export class AppointmentLiveComponent implements OnInit {
             "order_item_id" : order_item_id
           };
     
-          this.AdminService.cancelOrder(requestObject).subscribe((response:any) => {
+          this.adminService.cancelOrder(requestObject).subscribe((response:any) => {
             if(response.data == true){
               this._snackBar.open(response.response, "X", {
                 duration: 2000,
@@ -1177,7 +1177,7 @@ export class AppointmentLiveComponent implements OnInit {
       "business_id": localStorage.getItem('business_id'),
       "search": serach
     };
-    this.AdminService.PendingBilling(requestObject).subscribe((response: any) => {
+    this.adminService.PendingBilling(requestObject).subscribe((response: any) => {
       if (response.data == true) {
         this.pendingBillingData = response.response;
         var count  = 0;
@@ -1272,7 +1272,7 @@ export class AppointmentLiveComponent implements OnInit {
       "card_option": result.payment_method=='Card' ? result.card_option : '',
     };
 
-    this.AdminService.pendingbillAction(requestObject).subscribe((response: any) => {
+    this.adminService.pendingbillAction(requestObject).subscribe((response: any) => {
       if (response.data == true) {
 
         if(billing_type=='print'){
@@ -1319,7 +1319,7 @@ export class AppointmentLiveComponent implements OnInit {
 
  
 
-    this.AdminService.outdoorOrders(requestObject).subscribe((response: any) => {
+    this.adminService.outdoorOrders(requestObject).subscribe((response: any) => {
       if (response.data == true) {
         this.outdoorOrdersArr = response.response;
         this.isLoaderAdmin = false;
@@ -1351,7 +1351,7 @@ export class AppointmentLiveComponent implements OnInit {
     var staff_address =  data.staff.address+'+'+data.staff.city+'+'+data.staff.state+'+'+data.staff.zip;
     this.ShowMap = false;
 
-    this.AdminService.outdoorGoogleaddress(customer_address).subscribe((response: any) => {
+    this.adminService.outdoorGoogleaddress(customer_address).subscribe((response: any) => {
         if(response.status=='OK'){
           this.ShowMap = true;
           this.lat = response.results[0].geometry.location.lat;
@@ -1362,7 +1362,7 @@ export class AppointmentLiveComponent implements OnInit {
         }
     });
 
-    this.AdminService.outdoorGoogleaddress(staff_address).subscribe((response: any) => {
+    this.adminService.outdoorGoogleaddress(staff_address).subscribe((response: any) => {
         if(response.status=='OK'){
           this.destination.lat = response.results[0].geometry.location.lat;
           this.destination.lng = response.results[0].geometry.location.lng;
@@ -1393,7 +1393,7 @@ export class AppointmentLiveComponent implements OnInit {
 
     console.log(requestObject);
 
-    this.AdminService.OrderUpdateStatus(requestObject).subscribe((response: any) => {
+    this.adminService.OrderUpdateStatus(requestObject).subscribe((response: any) => {
       if (response.data == true) {
 
         this.isLoaderAdmin = false;
@@ -1491,7 +1491,7 @@ export class addPOSBookingNoteDialog {
 
 constructor(
   public dialogRef: MatDialogRef<addPOSBookingNoteDialog>,
-  private AdminService: AdminService,
+  private adminService: AdminService,
   private _snackBar: MatSnackBar,
   private datePipe: DatePipe,
   private _formBuilder:FormBuilder,
@@ -1539,19 +1539,25 @@ singleBookingTax:any;
 initials:any;
 customerShortName:any;
 availableStaff: any=[];
+singlenote:any;
+currentUser : any;
+singleBookingNotes:any;
 
 constructor(
   public dialogRef: MatDialogRef<PendingAppointmentDetailsDialog>,
-  private AdminService: AdminService,
+  private adminService: AdminService,
   private _snackBar: MatSnackBar,
   private http: HttpClient,
   private datePipe: DatePipe,
   public dialog: MatDialog,
+  private authenticationService : AuthenticationService,
   @Inject(MAT_DIALOG_DATA) public data: any) {
     console.log(this.data);
     this.detailsData =  this.data.fulldata;
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.fnGetSettings();
     this.fnGetActivityLog(this.detailsData.id);
+    this.fnGetBookingNotes(this.detailsData.id);
     this.fnGetStaff(this.detailsData.booking_date,this.detailsData.booking_time,this.detailsData.service_id,this.detailsData.postal_code);
     var todayDateTime = new Date();
     this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
@@ -1585,7 +1591,7 @@ constructor(
     };
     this.appointmentDetails.bookingNotes = this.detailsData.booking_notes;
 
-    this.AdminService.getActivityLog(requestObject).subscribe((response:any) => {
+    this.adminService.getActivityLog(requestObject).subscribe((response:any) => {
       if(response.data == true){
         console.log(response.response);
         this.activityLog=response.response;
@@ -1628,7 +1634,7 @@ constructor(
        "order_item_id":JSON.stringify(this.detailsData.id),
        "status":"CNF"
       };
-      this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+      this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
         if(response.data == true){
           this._snackBar.open("Appointment Confirmed.", "X", {
             duration: 2000,
@@ -1682,7 +1688,7 @@ constructor(
       "order_item_id":this.detailsData.id,
       "staff_id":event.value
       };
-    this.AdminService.assignStaffToOrder(requestObject).subscribe((response:any) => 
+    this.adminService.assignStaffToOrder(requestObject).subscribe((response:any) => 
     {
       if(response.data == true){
           this._snackBar.open("Staff Assigned.", "X", {
@@ -1725,7 +1731,7 @@ constructor(
      "order_item_id":JSON.stringify(this.detailsData.id),
      "status":"C"
     };
-    this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+    this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
       if(response.data == true){
         this._snackBar.open("Appointment Cancelled.", "X", {
           duration: 2000,
@@ -1745,25 +1751,16 @@ constructor(
   }
 
  
-  fnSaveBookingNotes(orderItemId){
-    
-    if(this.appointmentDetails.bookingNotes == undefined || this.appointmentDetails.bookingNotes == ""){
-      return false;
-    }
+  fnGetBookingNotes(bookingId){
     let requestObject = {
-      "order_item_id":orderItemId,
-      "booking_notes":this.appointmentDetails.bookingNotes
+      "order_item_id":bookingId
     };
-    this.AdminService.saveBookingNotes(requestObject).subscribe((response:any) => {
+    this.adminService.getBookingNotes(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Booking Notes Updated.", "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['green-snackbar']
-        });
-        this.dialogRef.close();
-        this.formSettingPage = false;
-      } else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this.singleBookingNotes = response.response;
+       
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -1773,12 +1770,43 @@ constructor(
     })
   }
 
+    fnSaveBookingNotes(orderItemId){
+      
+      if(this.singlenote == undefined || this.singlenote == ""){
+        return false;
+      }
+      let requestObject = {
+        "order_item_id":orderItemId,
+        "user_id": this.currentUser.user_id,
+        "user_type": 'A',
+        "note_type": 'normal',
+        "notes":this.singlenote
+      };
+      this.adminService.saveBookingNotes(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this._snackBar.open("Booking note added successfully.", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+          this.formSettingPage = false;
+          this.fnGetBookingNotes(this.detailsData.id);
+        } else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+        }
+      })
+    }
+
   fnGetSettings(){
     let requestObject = {
       "business_id" : localStorage.getItem('business_id')
     };
 
-    this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
+    this.adminService.getSettingValue(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.settingsArr = response.response;
 
@@ -1858,7 +1886,7 @@ constructor(
 
 // constructor(
 //   public dialogRef: MatDialogRef<NotAssignedAppointmentDetailsDialog>,
-//   private AdminService: AdminService,
+//   private adminService: AdminService,
 //   public dialog: MatDialog,
 //   private datePipe: DatePipe,
 //   private _formBuilder: FormBuilder,
@@ -1881,7 +1909,7 @@ constructor(
 
 //     this.appointmentDetails.bookingNotes = this.detailsData.booking_notes;
 
-//     this.AdminService.getActivityLog(requestObject).subscribe((response:any) => {
+//     this.adminService.getActivityLog(requestObject).subscribe((response:any) => {
 //       if(response.data == true){
 //         this.activityLog=response.response;
 //       }
@@ -1956,7 +1984,7 @@ constructor(
 //       "order_item_id":this.detailsData.id,
 //       "staff_id":event.value
 //       };
-//     this.AdminService.assignStaffToOrder(requestObject).subscribe((response:any) => 
+//     this.adminService.assignStaffToOrder(requestObject).subscribe((response:any) => 
 //     {
 //       if(response.data == true){
 //           this._snackBar.open("Staff Assigned.", "X", {
@@ -1997,7 +2025,7 @@ constructor(
 //      "order_item_id":JSON.stringify(this.detailsData.id),
 //      "status":"C"
 //     };
-//     this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+//     this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
 //       if(response.data == true){
 //         this._snackBar.open("Appointment Cancelled.", "X", {
 //           duration: 2000,
@@ -2025,7 +2053,7 @@ constructor(
 //       "order_item_id":orderItemId,
 //       "booking_notes":this.appointmentDetails.bookingNotes
 //     };
-//     this.AdminService.saveBookingNotes(requestObject).subscribe((response:any) => {
+//     this.adminService.saveBookingNotes(requestObject).subscribe((response:any) => {
 //       if(response.data == true){
 //         this._snackBar.open("Booking Notes Updated.", "X", {
 //           duration: 2000,
@@ -2048,7 +2076,7 @@ constructor(
 //       "business_id" : localStorage.getItem('business_id')
 //     };
 
-//     this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
+//     this.adminService.getSettingValue(requestObject).subscribe((response:any) => {
 //       if(response.data == true){
 //         this.settingsArr = response.response;
 //       }else if(response.data == false && response.response !== 'api token or userid invaild'){
@@ -2105,22 +2133,28 @@ export class OnTheWayAppointmentDetailsDialog {
   initials:any;
   customerShortName:any;
   availableStaff: any=[];
+  singlenote:any;
+  currentUser : any;
+  singleBookingNotes:any;
 
   constructor(
     public dialogRef: MatDialogRef<OnTheWayAppointmentDetailsDialog>,
-    private AdminService: AdminService,
+    private adminService: AdminService,
     public dialog: MatDialog,
     private _formBuilder: FormBuilder,
     private http: HttpClient,
     private datePipe: DatePipe,
     private _snackBar: MatSnackBar,
+    private authenticationService : AuthenticationService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
      
     this.detailsData =  this.data.fulldata;
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     console.log(this.data);
     console.log(this.detailsData);
 
     this.fnGetActivityLog(this.detailsData.id);
+    this.fnGetBookingNotes(this.detailsData.id);
     this.fnGetSettings();
     this.fnGetStaff(this.detailsData.booking_date,this.detailsData.booking_time,this.detailsData.service_id,this.detailsData.postal_code);
     var todayDateTime = new Date();
@@ -2156,7 +2190,7 @@ export class OnTheWayAppointmentDetailsDialog {
     let requestObject = {
       "order_item_id":orderItemId
     };
-    this.AdminService.getActivityLog(requestObject).subscribe((response:any) => {
+    this.adminService.getActivityLog(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.activityLog=response.response;
       }
@@ -2177,7 +2211,7 @@ export class OnTheWayAppointmentDetailsDialog {
       "business_id" : localStorage.getItem('business_id')
     };
 
-    this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
+    this.adminService.getSettingValue(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.settingsArr = response.response;
 
@@ -2246,7 +2280,7 @@ export class OnTheWayAppointmentDetailsDialog {
        "order_item_id":JSON.stringify(this.detailsData.id),
        "status":"CO"
       };
-      this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+      this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
         if(response.data == true){
           this._snackBar.open("Appointment Confirmed.", "X", {
             duration: 2000,
@@ -2300,7 +2334,7 @@ export class OnTheWayAppointmentDetailsDialog {
       "order_item_id":this.detailsData.id,
       "staff_id":event.value
       };
-    this.AdminService.assignStaffToOrder(requestObject).subscribe((response:any) => 
+    this.adminService.assignStaffToOrder(requestObject).subscribe((response:any) => 
     {
       if(response.data == true){
           this._snackBar.open("Staff Assigned.", "X", {
@@ -2342,7 +2376,7 @@ export class OnTheWayAppointmentDetailsDialog {
      "order_item_id":JSON.stringify(this.detailsData.id),
      "status":"C"
     };
-    this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+    this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
       if(response.data == true){
         this._snackBar.open("Appointment Cancelled.", "X", {
           duration: 2000,
@@ -2360,26 +2394,16 @@ export class OnTheWayAppointmentDetailsDialog {
       }
     })
   }
-
-  fnSaveBookingNotes(orderItemId){
-    
-    if(this.appointmentDetails.bookingNotes == undefined || this.appointmentDetails.bookingNotes == ""){
-      return false;
-    }
+  fnGetBookingNotes(bookingId){
     let requestObject = {
-      "order_item_id":orderItemId,
-      "booking_notes":this.appointmentDetails.bookingNotes
+      "order_item_id":bookingId
     };
-    this.AdminService.saveBookingNotes(requestObject).subscribe((response:any) => {
+    this.adminService.getBookingNotes(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Booking Notes Updated.", "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['green-snackbar'] 
-        });
-        this.dialogRef.close();
-        this.formSettingPage = false;
-      } else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this.singleBookingNotes = response.response;
+       
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -2388,6 +2412,37 @@ export class OnTheWayAppointmentDetailsDialog {
       }
     })
   }
+
+    fnSaveBookingNotes(orderItemId){
+      
+      if(this.singlenote == undefined || this.singlenote == ""){
+        return false;
+      }
+      let requestObject = {
+        "order_item_id":orderItemId,
+        "user_id": this.currentUser.user_id,
+        "user_type": 'A',
+        "note_type": 'normal',
+        "notes":this.singlenote
+      };
+      this.adminService.saveBookingNotes(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this._snackBar.open("Booking note added successfully.", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+          this.formSettingPage = false;
+          this.fnGetBookingNotes(this.detailsData.id);
+        } else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+        }
+      })
+    }
 
   fncompereDate(APPODate,time){
       
@@ -2431,20 +2486,26 @@ singleBookingTax:any;
 initials:any;
 customerShortName:any;
 availableStaff: any=[];
+singlenote:any;
+currentUser : any;
+singleBookingNotes:any;
 
 
 constructor(
   public dialogRef: MatDialogRef<WorkStartedAppointmentDetailsDialog>,
-  private AdminService: AdminService,
+  private adminService: AdminService,
   public dialog: MatDialog,
   private http: HttpClient,
   private datePipe: DatePipe,
   private _snackBar: MatSnackBar,
+  private authenticationService : AuthenticationService,
   @Inject(MAT_DIALOG_DATA) public data: any) {
     this.detailsData =  this.data.fulldata;
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     console.log(this.detailsData);
     this.fnGetSettings();
     this.fnGetActivityLog(this.detailsData.id);
+    this.fnGetBookingNotes(this.detailsData.id);
     this.fnGetStaff(this.detailsData.booking_date,this.detailsData.booking_time,this.detailsData.service_id,this.detailsData.postal_code);
     var todayDateTime = new Date();
     this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
@@ -2478,7 +2539,7 @@ constructor(
         "business_id" : localStorage.getItem('business_id')
       };
 
-      this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
+      this.adminService.getSettingValue(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.settingsArr = response.response;
 
@@ -2522,7 +2583,7 @@ constructor(
     let requestObject = {
       "order_item_id":orderItemId
     };
-    this.AdminService.getActivityLog(requestObject).subscribe((response:any) => {
+    this.adminService.getActivityLog(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.activityLog=response.response;
       }
@@ -2567,7 +2628,7 @@ constructor(
        "order_item_id":JSON.stringify(this.detailsData.id),
        "status":"CO"
       };
-      this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+      this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
         if(response.data == true){
           this._snackBar.open("Appointment Confirmed.", "X", {
             duration: 2000,
@@ -2622,7 +2683,7 @@ constructor(
       "order_item_id":this.detailsData.id,
       "staff_id":event.value
       };
-    this.AdminService.assignStaffToOrder(requestObject).subscribe((response:any) => 
+    this.adminService.assignStaffToOrder(requestObject).subscribe((response:any) => 
     {
       if(response.data == true){
           this._snackBar.open("Staff Assigned.", "X", {
@@ -2664,7 +2725,7 @@ constructor(
      "order_item_id":JSON.stringify(this.detailsData.id),
      "status":"C"
     };
-    this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+    this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
       if(response.data == true){
         this._snackBar.open("Appointment Cancelled.", "X", {
           duration: 2000,
@@ -2683,25 +2744,16 @@ constructor(
     })
   }
   
-  fnSaveBookingNotes(orderItemId){
-    
-    if(this.appointmentDetails.bookingNotes == undefined || this.appointmentDetails.bookingNotes == ""){
-      return false;
-    }
+  fnGetBookingNotes(bookingId){
     let requestObject = {
-      "order_item_id":orderItemId,
-      "booking_notes":this.appointmentDetails.bookingNotes
+      "order_item_id":bookingId
     };
-    this.AdminService.saveBookingNotes(requestObject).subscribe((response:any) => {
+    this.adminService.getBookingNotes(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Booking Notes Updated.", "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['green-snackbar']
-        });
-        this.dialogRef.close();
-        this.formSettingPage = false;
-      } else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this.singleBookingNotes = response.response;
+       
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -2710,6 +2762,37 @@ constructor(
       }
     })
   }
+
+    fnSaveBookingNotes(orderItemId){
+      
+      if(this.singlenote == undefined || this.singlenote == ""){
+        return false;
+      }
+      let requestObject = {
+        "order_item_id":orderItemId,
+        "user_id": this.currentUser.user_id,
+        "user_type": 'A',
+        "note_type": 'normal',
+        "notes":this.singlenote
+      };
+      this.adminService.saveBookingNotes(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this._snackBar.open("Booking note added successfully.", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+          this.formSettingPage = false;
+          this.fnGetBookingNotes(this.detailsData.id);
+        } else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+        }
+      })
+    }
 
   
   fncompereDate(APPODate,time){
@@ -2735,7 +2818,7 @@ constructor(
      "status":"WS"
     };
 
-    this.AdminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+    this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
       if(response.data == true){
         this._snackBar.open("Appointment Started.", "X", {
           duration: 2000,
@@ -2774,7 +2857,7 @@ timeSlotArr:any= [];
 availableStaff:any= [];
 constructor(
   public dialogRef: MatDialogRef<RescheduleAppointment>,
-  private AdminService: AdminService,
+  private adminService: AdminService,
   private datePipe: DatePipe,
   private _formBuilder: FormBuilder,
   private http: HttpClient,
@@ -2883,7 +2966,7 @@ constructor(
        "book_time":this.formAppointmentRescheduleAdmin.get('rescheduleTime').value,
        "book_notes":this.formAppointmentRescheduleAdmin.get('rescheduleNote').value
       };
-      this.AdminService.rescheduleAppointment(requestObject).subscribe((response:any) =>{
+      this.adminService.rescheduleAppointment(requestObject).subscribe((response:any) =>{
         if(response.data == true){
           this._snackBar.open("Appointment Rescheduled.", "X", {
             duration: 2000,
