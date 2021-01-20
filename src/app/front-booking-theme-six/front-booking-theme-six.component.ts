@@ -3045,7 +3045,8 @@ export class theme6DateTimeSelection {
       this.selecteddate = this.data.selecteddate
       this.selecteddateForLabel = this.data.selecteddateForLabel
       this.directAPI = this.data.directAPI;
-      this.timeSlotArr = this.data.timeSlotArr;
+      this.timeSlotArr = JSON.stringify(this.data.timeSlotArr);
+      this.timeSlotArr = JSON.parse(this.timeSlotArr);
       console.log(this.timeSlotArr)
       var i=0;
       this.timeSlotArr.forEach( (element) => {
@@ -3256,7 +3257,7 @@ export class theme6DateTimeSelection {
           "postal_code":this.bookingPostalcode,
           "service_id":this.currentSelectedService,
           "book_date" : this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd"),
-          "book_time" : this.selectedTimeSlot,
+          "book_time" : this.selectedTimeSlot, 
           "internal_staff" : "N"
         };
         let headers = new HttpHeaders({
