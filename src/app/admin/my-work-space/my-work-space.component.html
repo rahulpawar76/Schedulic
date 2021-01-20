@@ -230,9 +230,9 @@
                             <div class="pt-2 pb-2 d-flex bottom-border pl-3 pr-3" *ngIf="appointmentDetails.order_status != 'CO' && appointmentDetails.order_status != 'C' && appointmentDetails.order_status != 'CC'">
                                 <label class="greenfont pt-2 pointer d-flex align-items-center" (click)="rescheduleAppointment()" *ngIf="minReschedulingTime && appointmentDetails.booking_date_time &&  minReschedulingTime.getTime() < appointmentDetails.booking_date_time.getTime()"><i class="fa fa-repeat repeat pr-1"></i>Reschedule</label>
                                 <label class="fontred  pt-2 pl-2 pointer d-flex align-items-center" (click)="fnCancelAppointment()" *ngIf="cancellationBufferTime && appointmentDetails.booking_date_time && cancellationBufferTime.getTime() < appointmentDetails.booking_date_time.getTime()"><i class="fa fa-times-circle-o pr-1"></i>Cancel</label>
-                                <button mat-button type="button" class="d-block btn-primary float-right acceptbtn" (click)="fnConfirmAppointment()" *ngIf="appointmentDetails.order_status == 'P'">Confirm</button>
+                                <button mat-button type="button" class="d-block btn-primary float-right add-booking-notes bg-btn" (click)="fnConfirmAppointment()" *ngIf="appointmentDetails.order_status == 'P'">Confirm</button>
                                 <button mat-button type="button" class="d-block btn-primary float-right acceptbtn" *ngIf="(appointmentDetails.order_status == 'RSA' || appointmentDetails.order_status == 'RSC' || appointmentDetails.order_status == 'RSS' || appointmentDetails.order_status == 'CNF') && (appointmentDetails.staffId != '' || appointmentDetails.staffId != null)">Assigned</button>
-                                <button mat-button type="button" class="d-block btn-primary float-right acceptbtn" (click)="fnCompleteAppointment()" *ngIf="appointmentDetails.order_status == 'AC'">Complete</button>
+                                <button mat-button type="button" class="d-block btn-primary float-right add-booking-notes" (click)="fnCompleteAppointment()" *ngIf="appointmentDetails.order_status == 'AC'">Complete</button>
                             </div>
                             <div class="pt-2 pb-2 d-flex bottom-border pl-3 pr-3">
 
@@ -310,12 +310,15 @@
                             </div>
 
                             <div class="p-1-5 bottom-border">
-                                <h6 (click)="fnOpenNote()" class="pointer w-fc">Note<i class="fa fa-plus-circle pl-2 note-icon"></i></h6>
+                                <h6 (click)="fnOpenNote()" class="pointer w-fc">Notes <i class="fa fa-plus-circle pl-2 note-icon"></i></h6>
                                 <mat-form-field class="bottom-border-field" *ngIf="formSettingPage">
                                     <mat-label>Notes</mat-label>
-                                    <textarea rows="5" matInput [(ngModel)]="appointmentDetails.bookingNotes" placeholder="Type Note Description Here"></textarea>
+                                    <textarea rows="5" [(ngModel)]="appointmentDetails.bookingNotes" matInput placeholder="Type Note Description Here"></textarea>
                                 </mat-form-field>
-                                <button mat-button type="button" class="Reschedulebtn accept-btn d-block" *ngIf="formSettingPage" (click)="fnSaveBookingNotes(appointmentDetails.id)">Save</button>
+                                <button mat-button type="button" class="Reschedulebtn mt-2 bg-btn d-block" *ngIf="formSettingPage" (click)="fnSaveBookingNotes(appointmentDetails.id)">Save</button>
+
+
+                                <p *ngFor="let note of singleBookingNotes; let i=index">{{note.notes}}, Added by {{note.user_type=='A'?'Admin':''}} {{note.user_type=='SM'?'Staff':''}} {{note.user_type=='C'?'Customer':''}} @{{note.created_at | date:'longDate'}} {{note.created_at | date:'shortTime'}}</p>
                             </div>
 
                             <div class="p-1-5 bottom-border">

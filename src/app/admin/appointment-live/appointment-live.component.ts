@@ -11,6 +11,7 @@ import { map, catchError } from 'rxjs/operators';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { AuthenticationService } from '@app/_services';
 import { CommonService } from '../../_services'
+import { Observable, throwError } from 'rxjs';
 import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
 
 export interface DialogData {
@@ -42,6 +43,7 @@ export class AppointmentLiveComponent implements OnInit {
   ServiceList :any = [];
   StaffList:any = [];
 
+  existingCustomerId:any;
   booking_date:any;
   settingsArr:any=[];
   currencySymbol:any;
@@ -98,7 +100,8 @@ export class AppointmentLiveComponent implements OnInit {
   inStoreTabName:any = 'service';
   newCustomer:FormGroup;
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
-  onlynumeric = /^-?(0|[1-9]\d*)?$/
+  // onlynumeric = /^-?(0|[1-9]\d*)?$/
+  onlynumeric = /^\+(?:[0-9] ?){6,14}[0-9]$/
   onlystring = /[a-zA-Z ]*/
 
   service_index:any;
@@ -149,6 +152,7 @@ export class AppointmentLiveComponent implements OnInit {
     public dialog: MatDialog,
     private CommonService: CommonService,
     private _formBuilder:FormBuilder,
+    private http: HttpClient,
     private authenticationService: AuthenticationService,
     public router: Router,
     private _snackBar: MatSnackBar,
@@ -160,8 +164,8 @@ export class AppointmentLiveComponent implements OnInit {
     //this.currentUser = this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x )
     this.newCustomer = this._formBuilder.group({
       cus_name : ['', Validators.required],
-      cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
-      cus_mobile : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
+      cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isCustomerEmailUnique.bind(this)],
+      cus_mobile : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)],this.isCustomerPhoneUnique.bind(this)],
     });
     this.fnWatinglist();
     // this.fnPendingBilling();
@@ -193,6 +197,69 @@ export class AppointmentLiveComponent implements OnInit {
     this.fnGetTaxDetails();
     
   }
+
+  private handleError(error: HttpErrorResponse) {
+    return throwError('Error! something went wrong.');
+    //return error.error ? error.error : error.statusText;
+  }
+
+  isCustomerEmailUnique(control: FormControl) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+          let emailCheckRequestObject = {
+            'business_id':this.businessId,
+            'email': control.value,
+            'phone': null,
+            'customer_id':this.existingCustomerId,
+            'checkType':'email', 
+          }
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+        return this.http.post(`${environment.apiUrl}/customer-check`, emailCheckRequestObject,{headers:headers}).pipe(map((response : any) =>{
+          return response;
+        }),
+        catchError(this.handleError)).subscribe((res) => {
+          if(res){
+            if(res.data == false){
+            resolve({ isEmailUnique: true });
+            }else{
+            resolve(null);
+            }
+          }
+        });
+      }, 500);
+    });
+  }
+  isCustomerPhoneUnique(control: FormControl) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        let phoneCheckRequestObject = {
+          'business_id':this.businessId,
+          'email': null,
+          'customer_id':this.existingCustomerId,
+          'phone': control.value,
+          'checkType':'phone', 
+        }
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+        return this.http.post(`${environment.apiUrl}/customer-check`, phoneCheckRequestObject,{headers:headers}).pipe(map((response : any) =>{
+          return response;
+        }),
+        catchError(this.handleError)).subscribe((res) => {
+          if(res){
+            if(res.data == false){
+            resolve({ isPhoneUnique: true });
+            }else{
+            resolve(null);
+            }
+          }
+        });
+      }, 500);
+    });
+  }
+
 
   onTabChanged(event){
     let clickedIndex = event.index;
@@ -867,6 +934,11 @@ export class AppointmentLiveComponent implements OnInit {
       });
     });
 
+    let bookingNotes = {
+      "user_type": 'A',
+      "note_type": 'normal',
+      "notes":this.note_description
+    }
     var requestObject = {
       "business_id" : localStorage.getItem('business_id'),
       'serviceInfo' : this.cartArr,
@@ -884,7 +956,7 @@ export class AppointmentLiveComponent implements OnInit {
       "payment_method": this.paymentData ? this.paymentData.payment_method : 'cash',
       "card_option": this.paymentData && this.paymentData.payment_method=='Card' ? this.paymentData.card_option : '',
       "order_date": payment_datetime,
-      "booking_notes" : this.note_description,
+      "notes" : bookingNotes,
       "pos_pdf_type" : pos_pdf_type  
     };
    
@@ -1432,6 +1504,9 @@ constructor(
     });
   }
   onNoClick(): void {
+    this.dialogRef.close(this.createNewNote.get('note_description').value);
+  }
+  deleteNote(): void {
     this.dialogRef.close('');
   }
   

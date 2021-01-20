@@ -4,7 +4,7 @@
     </div>
     <div class="modal-content ">
         <div class="modal-header modal-bcolor-primary">
-            <p class="heading lead  work-content">{{dialogTitle}}</p>
+            <p class="heading lead mb-0  work-content">{{dialogTitle}}</p>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
         <span aria-hidden="true" class="white-text">&times;</span>
       </button>
@@ -41,6 +41,7 @@
                     <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('required')" class="error">Phone is required.</small>
                     <small *ngIf=" formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern') || (formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern') && (formAddNewAppointmentStaffStep1.get('customerPhone').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerPhone').hasError('maxlength')))" class="error">Enter a valid Phone (Country code is required). </small>
                     <small *ngIf="!formAddNewAppointmentStaffStep1.get('customerPhone').hasError('pattern') && (formAddNewAppointmentStaffStep1.get('customerPhone').hasError('minlength') || formAddNewAppointmentStaffStep1.get('customerPhone').hasError('maxlength'))" class="error">Phone number should be 6 to 15 digits long.</small>
+                    <small *ngIf="formAddNewAppointmentStaffStep1.get('customerPhone').hasError('isPhoneUnique')" class="error">Phone No is already in use.</small>
                 </span>
 
                 <mat-form-field class="form-group  bottom-border-field">
@@ -230,7 +231,7 @@
                         </div>
                     </div>
                     <mat-select placeholder="Select Staff" class="form-control formcontrol" [disabled]="" formControlName="customerStaff" (selectionChange)="fnSelectStaff($event.value)">
-                        <mat-option  value="Any Staff">Any Staff</mat-option>
+                        <mat-option value="null">Any Staff</mat-option>
                         <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">{{staff.name}}</mat-option>
                         <mat-option *ngIf="availableStaff.length==0" disabled>No Staff Available</mat-option>
                     </mat-select>

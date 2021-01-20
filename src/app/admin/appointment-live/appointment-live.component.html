@@ -192,6 +192,7 @@
                                             <span class="error-wrap" *ngIf="newCustomer.get('cus_email').dirty || newCustomer.get('cus_email').touched">
                                                 <small *ngIf="newCustomer.get('cus_email').hasError('required')" class="error">Email is required.</small>
                                                 <small *ngIf="newCustomer.get('cus_email').hasError('pattern')" class="error">Enter valid email address.</small>
+                                                <small *ngIf="newCustomer.get('cus_email').hasError('isEmailUnique')" class="error">Email already in use.</small>
                                             </span>
                                         </div>
                                         <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
@@ -202,7 +203,8 @@
                                             <span class="error-wrap" *ngIf="newCustomer.get('cus_mobile').dirty || newCustomer.get('cus_mobile').touched">
                                                 <small *ngIf="newCustomer.get('cus_mobile').hasError('required') || (newCustomer.get('cus_mobile').hasError('required') && newCustomer.get('cus_mobile').hasError('minlength') || newCustomer.get('cus_mobile').hasError('maxlength'))" class="error">Mobile number is  required.</small>
                                                 <small *ngIf="newCustomer.get('cus_mobile').hasError('minlength') || newCustomer.get('cus_mobile').hasError('maxlength')" class="error">Mobile number should be minimum 6 or maximum 15 digits.</small>
-                                                <small *ngIf="newCustomer.get('cus_mobile').hasError('pattern')" class="error">Mobile number should be numbers only.</small>
+                                                <small *ngIf="newCustomer.get('cus_mobile').hasError('pattern')" class="error">Mobile number should be numbers only (Country code is required)..</small>
+                                                <small *ngIf="newCustomer.get('cus_mobile').hasError('isPhoneUnique')" class="error">Phone No is already in use.</small>
                                             </span>
                                         </div>
                                         <div class="col-lg-6 col-12 col-md-6 bottom-border-field">

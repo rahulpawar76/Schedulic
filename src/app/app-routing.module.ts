@@ -4,6 +4,7 @@ import { Role } from './_models';
 import { AuthGuard } from './_helpers';
 import { AttendeesRegistrationComponent } from './attendees-registration'
 import { LoginComponent } from './login';
+import { CustomerLoginComponent } from './customer-login';
 import { ForgotPasswordComponent } from './forgot-password';
 import { ResetPasswordComponent } from './reset-password';
 import { FrontbookingComponent } from './frontbooking';
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: '', 
     component: LoginComponent 
+  },
+  {
+    path: 'customer-login/:id', 
+    component: CustomerLoginComponent 
   },
   {
     path: 'login', 

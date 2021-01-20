@@ -1,34 +1,32 @@
- 
-
- <div class="modal-dialog modal-notify modal-info" role="document" >
+<div class="modal-dialog modal-notify modal-info" role="document">
     <div class="modal-content">
-      <div class="modal-header modal-bcolor">
-        <p class="heading lead font-weight-bold fontfamily" >Rate & Review</p>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+        <div class="modal-header modal-bcolor">
+            <p class="heading lead mb-0 fontfamily">Rate & Review</p>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
           <span aria-hidden="true" class="white-text">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">
-          <p class="h5 fontfamily">How would you rate our Staff?</p>
-          <div class="star-rating">
-            <input type="radio" (change)="ratingValue($event)" id="5-stars-submit" name="rating-submit" value="5" />
-            <label for="5-stars-submit" class="star">&#9733;</label>
-            <input type="radio" (change)="ratingValue($event)" id="4-stars-submit" name="rating-submit" value="4" />
-            <label for="4-stars-submit" class="star">&#9733;</label>
-            <input type="radio" (change)="ratingValue($event)" id="3-stars-submit" name="rating-submit" value="3" />
-            <label for="3-stars-submit" class="star">&#9733;</label>
-            <input type="radio" (change)="ratingValue($event)" id="2-stars-submit" name="rating-submit" value="2" />
-            <label for="2-stars-submit" class="star">&#9733;</label>
-            <input type="radio" (change)="ratingValue($event)" id="1-star-submit" name="rating-submit" value="1" />
-            <label for="1-star-submit" class="star">&#9733;</label>
-          </div>
-          <p class="h5 fontfamily">Write a Review</p>
-          <label>Title</label>
-          <input type="text" [(ngModel)]="ratingTitle" class="form-control ">
-          <label>Description</label>
-          <textarea class="form-control mb-2" [(ngModel)]="ratingDecreption"></textarea>
+        </div>
+        <div class="modal-body">
+            <p class="h5 fontfamily">How would you rate our Staff?</p>
+            <div class="star-rating">
+                <input type="radio" (change)="ratingValue($event)" id="5-stars-submit" name="rating-submit" value="5" />
+                <label for="5-stars-submit" class="star">&#9733;</label>
+                <input type="radio" (change)="ratingValue($event)" id="4-stars-submit" name="rating-submit" value="4" />
+                <label for="4-stars-submit" class="star">&#9733;</label>
+                <input type="radio" (change)="ratingValue($event)" id="3-stars-submit" name="rating-submit" value="3" />
+                <label for="3-stars-submit" class="star">&#9733;</label>
+                <input type="radio" (change)="ratingValue($event)" id="2-stars-submit" name="rating-submit" value="2" />
+                <label for="2-stars-submit" class="star">&#9733;</label>
+                <input type="radio" (change)="ratingValue($event)" id="1-star-submit" name="rating-submit" value="1" />
+                <label for="1-star-submit" class="star">&#9733;</label>
+            </div>
+            <p class="h5 fontfamily">Write a Review</p>
+            <label>Title</label>
+            <input type="text" [(ngModel)]="ratingTitle" class="form-control ">
+            <label>Description</label>
+            <textarea class="form-control mb-2" [(ngModel)]="ratingDecreption"></textarea>
 
-           <button class="d-block btn btn-primary ratedetails" (click)="fnRatingSubmit()">Submit</button>
-      </div>
+            <button class="d-block btn btn-primary ratedetails" (click)="fnRatingSubmit()">Submit</button>
+        </div>
     </div>
-  </div>
+</div>

@@ -18,6 +18,7 @@ import { AppComponent, DialogNotification, DialogLogoutAppointment, DialogNotifi
 import { DialogAuthentication } from './_services/auth.component'
 import { DialogSubscriptionCardForm } from './subscription/subscription.component'
 import { LoginComponent } from './login';
+import { CustomerLoginComponent } from './customer-login';
 import { AttendeesRegistrationComponent } from './attendees-registration'
 import { LoaderComponent } from './_components/loader/loader.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -70,6 +71,7 @@ export function provideConfig() {
     declarations: [
         AppComponent,
         LoginComponent,
+        CustomerLoginComponent,
         AttendeesRegistrationComponent,
         LoaderComponent,
         ConfirmationDialogComponent,

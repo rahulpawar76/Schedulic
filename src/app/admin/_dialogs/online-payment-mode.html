@@ -1,7 +1,7 @@
 <div class="modal-dialog modal-notify modal-info" role="document">
     <div class="modal-content">
         <div class="modal-header modal-bcolor-primary">
-            <p class="heading lead  interrupted-content">Payment Mode</p>
+            <p class="heading lead mb-0 interrupted-content">Payment Mode</p>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
         <span aria-hidden="true" class="white-text">&times;</span>
       </button>
@@ -18,7 +18,7 @@
 
             </div>
             <div class="" *ngIf="payment_method=='Card'">
-                <mat-form-field class="bottom-border-field" >
+                <mat-form-field class="bottom-border-field">
                     <mat-label>Select Card Option</mat-label>
                     <mat-select [(ngModel)]="card_option" name="card_option">
                         <mat-option value="swipe_card">Swipe Through Machine</mat-option>

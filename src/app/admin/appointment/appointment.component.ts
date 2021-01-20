@@ -1507,7 +1507,7 @@ export class DialogAddNewAppointment {
   fnGetAllServicesFromCategory(){
     this.isLoaderAdmin = true;
     let requestObject = {
-      "business_id":2,
+      "business_id":this.bussinessId,
       "category_id":this.selectedCatId
     };
     let headers = new HttpHeaders({
@@ -1949,7 +1949,9 @@ export class DialogAddNewAppointment {
   fnSelectStaff(selected_staff_id){
     console.log(selected_staff_id);
     this.selectedStaffId=selected_staff_id;
-    if(this.selectedServiceId != undefined){
+    if(this.selectedStaffId == 'null'){
+      this.serviceCount[this.selectedServiceId].assignedStaff = null;
+    }else if(this.selectedStaffId != undefined){
       this.serviceCount[this.selectedServiceId].assignedStaff =this.selectedStaffId;
     }
     console.log(JSON.stringify(this.serviceCount));

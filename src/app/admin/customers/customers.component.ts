@@ -2758,7 +2758,9 @@ constructor(
   fnSelectStaff(selected_staff_id){
     console.log(selected_staff_id);
     this.selectedStaffId=selected_staff_id;
-    if(this.selectedServiceId != undefined){
+    if(this.selectedStaffId == 'null'){
+      this.serviceCount[this.selectedServiceId].assignedStaff = null;
+    }else if(this.selectedServiceId != undefined){
       this.serviceCount[this.selectedServiceId].assignedStaff =this.selectedStaffId;
     }
     console.log(JSON.stringify(this.serviceCount));

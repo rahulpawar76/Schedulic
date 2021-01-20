@@ -103,7 +103,8 @@ export class MyWorkSpaceComponent implements OnInit {
   currencySymbol:any;
   currencySymbolPosition:any;
   currencySymbolFormat:any;
-  
+  singleBookingNotes:any;
+  currentUser : any;
   activityLog:any=[];
   startWorkSpacePage : boolean = true;
   constructor(
@@ -120,6 +121,7 @@ export class MyWorkSpaceComponent implements OnInit {
     localStorage.setItem('isPOS', 'false');
     localStorage.setItem('isBusiness', 'false');
     this.businessId=localStorage.getItem('business_id');
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.filterDate = this._formBuilder.group({
       filterDate: [''],
     });
@@ -188,17 +190,39 @@ export class MyWorkSpaceComponent implements OnInit {
 
   }
 
+  fnGetBookingNotes(bookingId){
+    let requestObject = {
+      "order_item_id":bookingId
+    };
+    this.adminService.getBookingNotes(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.singleBookingNotes = response.response;
+       
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+      }
+    })
+  }
+
   fnSaveBookingNotes(orderItemId){
     if(this.appointmentDetails.bookingNotes == undefined || this.appointmentDetails.bookingNotes == ""){
       return false;
     }
     let requestObject = {
       "order_item_id":orderItemId,
-      "booking_notes":this.appointmentDetails.bookingNotes
+      "user_id": this.currentUser.user_id,
+      "user_type": 'A',
+      "note_type": 'normal',
+      "notes":this.appointmentDetails.bookingNotes
     };
     this.adminService.saveBookingNotes(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Booking Notes Updated.", "X", {
+        this._snackBar.open("Booking note added successfully.", "X", {
           duration: 2000,
           verticalPosition:'top',
           panelClass :['green-snackbar']
@@ -296,6 +320,8 @@ export class MyWorkSpaceComponent implements OnInit {
         this.formSettingPage = false;
         this.appointmentDetails.bookingNotes=this.appointments[0].booking_notes;
         this.fnGetActivityLog(this.appointmentDetails.id);
+        this.fnGetBookingNotes(this.appointmentDetails.id);
+        
         if(this.appointmentDetails.order_status == "CNF" && this.appointments[0].staff_id == null){
           this.selectedStaff=null;
           this.availableStaff.length=0;
@@ -350,6 +376,7 @@ export class MyWorkSpaceComponent implements OnInit {
         this.formSettingPage = false;
         this.appointmentDetails.bookingNotes=this.appointments[i].booking_notes;
         this.fnGetActivityLog(this.appointmentDetails.id);
+        this.fnGetBookingNotes(this.appointmentDetails.id);
         if(this.appointmentDetails.order_status == "CNF" && this.appointments[i].staff_id == null){
         this.selectedStaff=null;
         this.availableStaff.length=0;
