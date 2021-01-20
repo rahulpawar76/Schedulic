@@ -234,6 +234,7 @@ export class FrontBookingThemeThreeComponent implements OnInit {
     
     if(localStorage.getItem('frontBusiness_id')){
       this.businessId = localStorage.getItem('frontBusiness_id');
+      this.urlString = window.btoa(this.businessId)
     }
    
     meta.addTag({name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'});
@@ -605,7 +606,7 @@ export class FrontBookingThemeThreeComponent implements OnInit {
 
     this.authenticationService.currentUserSubject.next(null);
     this.authenticationService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/customer-login/'+this.urlString]);
     }
   
   fnViewDashboard(){
@@ -613,7 +614,7 @@ export class FrontBookingThemeThreeComponent implements OnInit {
   }
   
   fnNavigateToLogin(){
-    this.router.navigate(['/login']);
+    this.router.navigate(['/customer-login/'+this.urlString]);
   }
 
   // postal code

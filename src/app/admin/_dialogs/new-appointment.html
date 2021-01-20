@@ -5,7 +5,7 @@
 <div class="modal-dialog modal-notify modal-lg modal-info" role="document">
     <div class="modal-content">
         <div class="modal-header modal-bcolor-primary">
-            <p class="heading lead  fontfamily">New Appointment</p>
+            <p class="heading lead mb-0 fontfamily">New Appointment</p>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
           <span aria-hidden="true" class="white-text">&times;</span>
         </button>
@@ -149,7 +149,7 @@
                                 </div>
                             </div>
                             <mat-select class="form-control formcontrol" [disabled]="" formControlName="customerStaff" (selectionChange)="fnSelectStaff($event.value)">
-                                <mat-option value="Any Staff">Any Staff</mat-option>
+                                <mat-option value="null">Any Staff</mat-option>
                                 <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">{{staff.name}}</mat-option>
                                 <mat-option *ngIf="availableStaff.length==0" disabled>No Staff Available</mat-option>
                             </mat-select>

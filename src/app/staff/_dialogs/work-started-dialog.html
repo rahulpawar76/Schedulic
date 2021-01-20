@@ -1,18 +1,18 @@
-<div class="modal-dialog modal-notify modal-info" role="document" >
+<div class="modal-dialog modal-notify modal-info" role="document">
     <div class="modal-content">
-      <div class="modal-header modal-bcolor-primary">
-        <p class="heading lead  work-content" >Work Started</p>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+        <div class="modal-header modal-bcolor-primary">
+            <p class="heading lead mb-0 work-content">Work Started</p>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
           <span aria-hidden="true" class="white-text">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">
-          <p class="h5 work-content">You have started the work!</p>
-           
-          <label>Add Note</label>
-          <textarea class="form-control mb-2" [(ngModel)]="notes" placeholder="Dummy text lorem ipsum"></textarea>
+        </div>
+        <div class="modal-body">
+            <p class="h5 work-content">You have started the work!</p>
 
-           <button class="d-block btn btn-primary addbtn float-right" (click)="changeBookingStatus(booking_id, status)">Add Status</button>
-      </div>
+            <label>Add Note</label>
+            <textarea class="form-control mb-2" [(ngModel)]="notes" placeholder="Dummy text lorem ipsum"></textarea>
+
+            <button class="d-block btn btn-primary addbtn float-right" (click)="changeBookingStatus(booking_id, status)">Add Status</button>
+        </div>
     </div>
-  </div>
+</div>

@@ -15,7 +15,7 @@
                 <span class="error-wrap" *ngIf="createNewNote.get('note_description').dirty || createNewNote.get('note_description').touched"><small *ngIf="createNewNote.get('note_description').hasError('required')" class="error">Note is required.</small></span>
             </div>
             <div class="modal-footer" *ngIf="!viewType || viewType !== 'only_view'">
-                <button type="button" mat-button class="btn cancelbtn" data-dismiss="modal" (click)="onNoClick()">Cancel</button>
+                <button type="button" mat-button class="btn cancelbtn" data-dismiss="modal" (click)="deleteNote()">Delete</button>
                 <button type="button" mat-button class="btn savebtn" data-dismiss="modal" (click)="onAdd()">Add</button>
             </div>
         </form>

@@ -119,7 +119,7 @@
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="StaffCreate.get('firstname').touched || StaffCreate.get('firstname').dirty || formSubmitclicked">
                                 <small *ngIf="StaffCreate.get('firstname').hasError('required')" class="error">First name is required.</small>
-                                <small *ngIf="StaffCreate.get('firstname').hasError('minlength') || taffCreate.get('firstname').hasError('maxlength')" class="error">First name should 3 to 11 charactor.</small>
+                                <small *ngIf="StaffCreate.get('firstname').hasError('minlength') || StaffCreate.get('firstname').hasError('maxlength')" class="error">First name should 3 to 11 charactor.</small>
                             </span>
 
                             <mat-form-field class="bottom-border-field">
@@ -129,7 +129,7 @@
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="StaffCreate.get('lastname').touched || StaffCreate.get('lastname').dirty || formSubmitclicked">
                                 <small *ngIf="StaffCreate.get('lastname').hasError('required')" class="error">Last name is required.</small>
-                                <small *ngIf="StaffCreate.get('lastname').hasError('minlength') || taffCreate.get('lastname').hasError('maxlength')" class="error">Last name should 3 to 11 charactor.</small>
+                                <small *ngIf="StaffCreate.get('lastname').hasError('minlength') || StaffCreate.get('lastname').hasError('maxlength')" class="error">Last name should 3 to 11 charactor.</small>
                             </span>
 
                             <mat-form-field class="bottom-border-field">

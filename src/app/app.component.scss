@@ -710,3 +710,9 @@ input:focus {
         padding: 0 !important;
     }
 }
+
+ ::ng-deep .cdk-global-overlay-wrapper {
+    .cdk-overlay-pane {
+        overflow: auto;
+    }
+}

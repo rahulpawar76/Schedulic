@@ -2774,7 +2774,7 @@ export class StaffComponent implements OnInit {
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
         });
-        return this.http.post(`${environment.apiUrl}/verify-email`,{ email: control.value },{headers:headers}).pipe(map((response : any) =>{
+        return this.http.post(`${environment.apiUrl}/admin-staff-email-check`,{ email: control.value },{headers:headers}).pipe(map((response : any) =>{
           return response;
         }),
         catchError(this.handleError)).subscribe((res) => {

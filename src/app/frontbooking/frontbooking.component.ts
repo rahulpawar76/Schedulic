@@ -232,8 +232,8 @@ export class FrontbookingComponent implements OnInit {
     this.businessId = window.atob(decodeURIComponent(this.urlString[1]));
    
     meta.addTag({name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'});
-    this.renderExternalScript('https://checkout-static.citruspay.com/bolt/run/bolt.min.js').onload = () => {
-    }
+    // this.renderExternalScript('https://checkout-static.citruspay.com/bolt/run/bolt.min.js').onload = () => {
+    // }
 
     this.AppComponent.setcompanycolours(this.businessId);
     localStorage.setItem('isFront', "true");
@@ -588,7 +588,7 @@ fnLogout(){
 
 this.authenticationService.currentUserSubject.next(null);
 this.authenticationService.logout();
-this.router.navigate(['/login']);
+this.router.navigate(['/customer-login/'+this.urlString[1]]);
 }
   
   fnViewDashboard(){
@@ -596,7 +596,7 @@ this.router.navigate(['/login']);
   }
   
   fnNavigateToLogin(){
-    this.router.navigate(['/login']);
+    this.router.navigate(['/customer-login/'+this.urlString[1]]);
   }
 
   // postal code
@@ -2508,6 +2508,11 @@ this.router.navigate(['/login']);
       }
     }
     const currentDateTime = new Date();
+    let bookingNotes = {
+      "user_type": 'C',
+      "note_type": 'normal',
+      "notes":this.formNewUser.get('newUserSplReq').value ? this.formNewUser.get('newUserSplReq').value : null
+    }
     let requestObject = {
       "postal_code" : this.booking.postalcode,
       "business_id" : this.businessId,
@@ -2519,7 +2524,7 @@ this.router.navigate(['/login']);
       "coupon_code" : this.coupon.couponcode_val,
       "customer_id": this.authenticationService.currentUserValue.user_id,
       "customer_token" : this.authenticationService.currentUserValue.token,
-      "booking_notes" : this.formNewUser.get('newUserSplReq').value ? this.formNewUser.get('newUserSplReq').value : null,
+      "notes" : bookingNotes,
       "subtotal" : this.serviceMainArr.subtotal,
       "discount_type" : this.serviceMainArr.discount_type,
       "discount_value" : this.serviceMainArr.discount_value,
@@ -3154,7 +3159,7 @@ export class theme2CheckoutDialog {
 
       this.authenticationService.currentUserSubject.next(null);
       this.authenticationService.logout();
-      this.router.navigate(['/login']);
+      this.router.navigate(['/customer-login']);
       }
     fnViewDashboard(){
       this.dialogRef.close();
@@ -3163,7 +3168,7 @@ export class theme2CheckoutDialog {
     
     fnNavigateToLogin(){
       this.dialogRef.close();
-      this.router.navigate(['/login']);
+      this.router.navigate(['/customer-login']);
     }
     
     fnPhoneMouceLeave(){
