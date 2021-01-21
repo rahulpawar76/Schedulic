@@ -120,6 +120,35 @@ export class UserService {
 		}),
 		catchError(this.handleError));
 	}
+
+	saveBookingNotes(requestObject){
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/add-booking-notes`,requestObject,{headers:headers}).pipe(
+        // return this.http.post(`${environment.apiUrl}/booking-note-update`,requestObject,{headers:headers}).pipe(
+            map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    getBookingNotes(requestObject){
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/get-booking-notes`,requestObject,{headers:headers}).pipe(
+           map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
 	getCompletedAppointments(){
 		this.checkAuthentication();
 		let requestObject = {

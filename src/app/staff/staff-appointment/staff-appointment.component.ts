@@ -1922,6 +1922,9 @@ export class StaffAppointmentComponent implements OnInit {
     initials:any;
     customerShortName:any;
     dialogType:any;
+    formSettingPage:boolean = false;
+    singlenote:any;
+    singleBookingNotes:any;
     constructor(
       public dialogRef: MatDialogRef<DialogStaffMyAppointmentDetails>,
       private StaffService: StaffService,
