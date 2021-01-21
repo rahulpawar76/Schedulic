@@ -66,6 +66,16 @@
                         <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i>{{myAppoDetailData.orders_info.booking_address}}</p>
                         <p class="pl-4 address-fontsize">{{myAppoDetailData.orders_info.booking_city}}, {{myAppoDetailData.orders_info.booking_state}}, {{myAppoDetailData.orders_info.booking_zipcode}}</p>
                     </div>
+
+                    <div class="pt-3 pb-3 bottom-border">
+                        <h6 (click)="formSettingPage=!formSettingPage" class="pointer w-fc">Note<i class="fa fa-plus-circle pl-2 note-icon"></i></h6>
+                        <mat-form-field class="bottom-border-field mb-2" *ngIf="formSettingPage">
+                            <mat-label>Notes</mat-label>
+                            <textarea rows="5" matInput [(ngModel)]="singlenote" placeholder="Type Note Description Here"></textarea>
+                        </mat-form-field>
+                        <button mat-button type="button" class="Reschedulebtn mt-2 common-blue-btn accept-btn d-block mt-2" *ngIf="formSettingPage" (click)="fnSaveBookingNotes(myAppoDetailData.id)">Save</button>
+                        <p class="mb-1" *ngFor="let note of singleBookingNotes; let i=index">{{note.notes}}, Added by {{note.user_type=='A'?'Admin':''}} {{note.user_type=='SM'?'Staff':''}} {{note.user_type=='C'?'Customer':''}} @{{note.created_at | date:'longDate'}} {{note.created_at | date:'shortTime'}}</p>
+                    </div>
                 </mat-card>
                 <!-- <div  class="p-1-5 bottom-border">
                     <h6>Activity Log</h6>

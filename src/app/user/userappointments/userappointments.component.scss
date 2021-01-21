@@ -284,7 +284,7 @@
 #search_container_userappo {
     position: absolute;
     top: 0px;
-    z-index: 10;
+    z-index: 1;
     right: 50px;
     height: 63px;
     .search-input-container {
@@ -516,5 +516,3 @@
 ::ng-deep .mat-select-panel {
     min-width: 100% !important;
 }
-
-
