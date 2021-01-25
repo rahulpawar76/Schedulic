@@ -179,7 +179,7 @@ export class FrontBookingThemeThreeComponent implements OnInit {
   sizeServiceCartArr:any;
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
   emailFormat = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
-  onlynumeric = /^-?(0|[1-9]\d*)?$/
+  onlynumeric = /^(\d*\.)?\d+$/
   private payPalConfig?: IPayPalConfig;
   cardForm:FormGroup
 
@@ -262,7 +262,7 @@ export class FrontBookingThemeThreeComponent implements OnInit {
     })
     this.cardForm = this._formBuilder.group({
       cardHolderName: ['',[Validators.required]],
-      cardNumber: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+      cardNumber: ['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(16),Validators.maxLength(16)]],
       expiryMonth: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
       expiryYear: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
       cvvCode: ['',[Validators.required]],
@@ -1078,6 +1078,7 @@ export class FrontBookingThemeThreeComponent implements OnInit {
   }
 
   fnRemove(event,service_id){
+    alert('1')
     if(this.serviceCount[service_id].count >= 1){
       this.currentSelectedService=service_id;
       this.serviceCount[service_id].count=this.serviceCount[service_id].count-1

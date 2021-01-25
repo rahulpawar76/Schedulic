@@ -704,14 +704,10 @@
                                             <div class="col-12 mb-4">
                                                 <label>Card Number</label>
                                                 <input formControlName="cardNumber" class="common-input" type="text" />
-                                                <span class="error-wrap" *ngIf="cardForm.get('cardNumber').dirty
-                                                    ||
-                                                    cardForm.get('cardNumber').touched"><small
-                                                        *ngIf="cardForm.get('cardNumber').hasError('required')"
-                                                        class="error">Card
-                                                        number is
-                                                        required.</small>
-                                                    <!-- <small *ngIf="cardForm.get('cardNumber').hasError('pattern)" class="error">Card Number should Numeric</small> -->
+                                                <span class="error-wrap" *ngIf="cardForm.get('cardNumber').dirty || cardForm.get('cardNumber').touched">
+                                                    <small *ngIf="cardForm.get('cardNumber').hasError('required')" class="error">Card number is required.</small>
+                                                    <small *ngIf="!cardForm.get('cardNumber').hasError('pattern') && (cardForm.get('cardNumber').hasError('minlength') || cardForm.get('cardNumber').hasError('maxlength'))" class="error">Please enter 16 digit card number.</small>
+                                                    <small *ngIf="cardForm.get('cardNumber').hasError('pattern')" class="error">Please enter numaric only.</small>
                                                 </span>
                                             </div>
 
