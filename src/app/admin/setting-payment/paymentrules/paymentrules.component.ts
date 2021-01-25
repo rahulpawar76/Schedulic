@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { AppComponent } from '@app/app.component'
 import { AdminSettingsService } from '../../_services/admin-settings.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { ConfirmationDialogComponent } from '@app/_components/confirmation-dialog/confirmation-dialog.component';
 
 
 export interface DialogData {
@@ -28,6 +28,7 @@ export class PaymentrulesComponent implements OnInit {
   selectedCurrencyPosition: any;
   selectedCurrencyFormat: any;
   settingSideMenuToggle : boolean = false;
+  isLoaderAdmin:any;
 
   constructor(
     public dialog: MatDialog,
@@ -82,23 +83,35 @@ export class PaymentrulesComponent implements OnInit {
     this.settingSideMenuToggle = false;
   }
 
+  
+
   deleteTax(tax_id) {
-    //this.isLoaderAdmin = true;
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure?"
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    if(result){
+        this.isLoaderAdmin = true;
     this.AdminSettingsService.deleteTax(tax_id).subscribe((response: any) => {
       if (response.data == true) {
         this._snackBar.open("Tax Deleted.", "X", {
           duration: 2000,
           verticalPosition: 'top',
-          panelClass: ['red-snackbar']
+          panelClass: ['green-snackbar']
         });
-        this.getAllTax()
-        //this.isLoaderAdmin = false;
+        this.getAllTax();
+        this.isLoaderAdmin = false;
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         // this.allCustomers = ''
-        //this.isLoaderAdmin = false;
+        this.getAllTax();
+        this.isLoaderAdmin = false;
       }
     })
+    }
+  });
+    
   }
 
   addTax() {

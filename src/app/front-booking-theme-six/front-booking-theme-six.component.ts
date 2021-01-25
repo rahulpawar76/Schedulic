@@ -1782,7 +1782,8 @@ export class FrontBookingThemeSixComponent implements OnInit {
     }
     let requestObject = {
       "email" : this.formExistingUser.get('existing_mail').value,
-      "password" : this.formExistingUser.get('existing_password').value
+      "password" : this.formExistingUser.get('existing_password').value,
+      "business_id": this.businessId
       };
    this.fnLogin(requestObject,false);
   }
@@ -1793,7 +1794,7 @@ export class FrontBookingThemeSixComponent implements OnInit {
      'Content-Type': 'application/json',
    });
 
-   this.http.post(`${environment.apiUrl}/user-login`,requestObject,{headers:headers} ).pipe(
+   this.http.post(`${environment.apiUrl}/customer-login`,requestObject,{headers:headers} ).pipe(
      map((res) => {
        return res;
      }),
