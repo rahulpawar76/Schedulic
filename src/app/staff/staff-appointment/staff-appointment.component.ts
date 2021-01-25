@@ -2053,11 +2053,15 @@ export class StaffAppointmentComponent implements OnInit {
   dialogType:any;
   initials:any;
   customerShortName:any;
+  formSettingPage:boolean = false;
+  singlenote:any;
+  singleBookingNotes:any;
     constructor(
       public dialogRef: MatDialogRef<OnGoingAppointmentDetails>,
       public dialog: MatDialog,
       public authenticationService: AuthenticationService,
       private datePipe: DatePipe,
+      private _snackBar: MatSnackBar,
       private StaffService: StaffService,
       @Inject(MAT_DIALOG_DATA) public data: any) {
 
@@ -2070,6 +2074,7 @@ export class StaffAppointmentComponent implements OnInit {
           this.customerShortName = this.customerShortName+element2.charAt(0);
         });
         this.fnGetActivityLog(this.detailData.id);
+        this.fnGetBookingNotes(this.detailData.id);
         this.bussinessId=this.authenticationService.currentUserValue.business_id
         this.fnGetSettingValue();
          var todayDateTime = new Date();
@@ -2092,6 +2097,56 @@ export class StaffAppointmentComponent implements OnInit {
     onNoClick(): void {
       this.dialogRef.close();
     }
+    fnGetBookingNotes(bookingId){
+      let requestObject = {
+        "order_item_id":bookingId
+      };
+      this.StaffService.getBookingNotes(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.singleBookingNotes = response.response;
+         
+        }
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+        }
+      })
+    }
+  
+      fnSaveBookingNotes(orderItemId){
+        
+        if(this.singlenote == undefined || this.singlenote == ""){
+          return false;
+        }
+        let requestObject = {
+          "order_item_id":orderItemId,
+          "user_id": this.authenticationService.currentUserValue.user_id,
+          "user_type": 'C',
+          "note_type": 'normal',
+          "notes":this.singlenote
+        };
+        this.StaffService.saveBookingNotes(requestObject).subscribe((response:any) => {
+          if(response.data == true){
+            this._snackBar.open("Booking note added successfully.", "X", {
+              duration: 2000,
+              verticalPosition:'top',
+              panelClass :['green-snackbar']
+            });
+            this.formSettingPage = false;
+            this.fnGetBookingNotes(this.detailData.id);
+          } else if(response.data == false && response.response !== 'api token or userid invaild'){
+            this._snackBar.open(response.response, "X", {
+              duration: 2000,
+              verticalPosition:'top',
+              panelClass :['red-snackbar']
+            });
+          }
+        })
+      }
+
 
     fnGetActivityLog(orderItemId){
       let requestObject = {
@@ -2209,9 +2264,13 @@ export class StaffAppointmentComponent implements OnInit {
     dialogType:any;
     initials:any;
     customerShortName:any;
+    formSettingPage:boolean = false;
+    singlenote:any;
+    singleBookingNotes:any;
     constructor(
       private authenticationService:AuthenticationService,
       private StaffService:StaffService,
+      private _snackBar: MatSnackBar,
       public dialogRef: MatDialogRef<CompleteAppointmentDetails>,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.detailData = this.data.fuldata;
@@ -2222,6 +2281,7 @@ export class StaffAppointmentComponent implements OnInit {
           this.customerShortName = this.customerShortName+element2.charAt(0);
         });
         this.fnGetActivityLog(this.detailData.id);
+        this.fnGetBookingNotes(this.detailData.id);
         this.bussinessId=this.authenticationService.currentUserValue.business_id
         this.fnGetSettingValue();
       }
@@ -2229,6 +2289,57 @@ export class StaffAppointmentComponent implements OnInit {
     onNoClick(): void {
       this.dialogRef.close();
     }
+
+    fnGetBookingNotes(bookingId){
+      let requestObject = {
+        "order_item_id":bookingId
+      };
+      this.StaffService.getBookingNotes(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.singleBookingNotes = response.response;
+         
+        }
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+        }
+      })
+    }
+  
+      fnSaveBookingNotes(orderItemId){
+        
+        if(this.singlenote == undefined || this.singlenote == ""){
+          return false;
+        }
+        let requestObject = {
+          "order_item_id":orderItemId,
+          "user_id": this.authenticationService.currentUserValue.user_id,
+          "user_type": 'C',
+          "note_type": 'normal',
+          "notes":this.singlenote
+        };
+        this.StaffService.saveBookingNotes(requestObject).subscribe((response:any) => {
+          if(response.data == true){
+            this._snackBar.open("Booking note added successfully.", "X", {
+              duration: 2000,
+              verticalPosition:'top',
+              panelClass :['green-snackbar']
+            });
+            this.formSettingPage = false;
+            this.fnGetBookingNotes(this.detailData.id);
+          } else if(response.data == false && response.response !== 'api token or userid invaild'){
+            this._snackBar.open(response.response, "X", {
+              duration: 2000,
+              verticalPosition:'top',
+              panelClass :['red-snackbar']
+            });
+          }
+        })
+      }
+
     fnGetSettingValue(){
       let requestObject = {
         "business_id":this.bussinessId

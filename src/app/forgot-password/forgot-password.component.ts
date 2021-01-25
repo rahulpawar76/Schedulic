@@ -21,6 +21,7 @@ export class ForgotPasswordComponent implements OnInit {
    forgotPwdContainer: boolean = true;
    emailSentContainer: boolean = false;
    forgotEmail: any;
+   businessId:any;
    error = '';
    emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   
@@ -33,6 +34,9 @@ export class ForgotPasswordComponent implements OnInit {
         public AppComponent:AppComponent,
         private authenticationService: AuthenticationService        
         ){ 
+          if(localStorage.getItem('frontBusiness_id') && localStorage.getItem('isFront') == 'true'){
+            this.businessId = localStorage.getItem('frontBusiness_id');
+          }
 
   }
 
@@ -53,6 +57,7 @@ export class ForgotPasswordComponent implements OnInit {
       let site_url = environment.urlForLink;
     let requestObject = {
           "email":this.forgotEmail,
+          "business_id":this.businessId,
           "url" : site_url+"/reset-password?accessToken"
         };
     let headers = new HttpHeaders({

@@ -814,7 +814,7 @@
 }
 
 .sub-container.container-fluid {
-    height: auto;
+    height: calc(100vh - 64px);
 }
 
 .bg-btn {

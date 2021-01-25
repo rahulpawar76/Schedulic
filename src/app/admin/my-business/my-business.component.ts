@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, OnDestroy, AfterViewInit, ViewChild} from '@
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterEvent, RouterOutlet,ActivatedRoute } from '@angular/router';
 import { Observable, throwError, ReplaySubject, Subject } from 'rxjs';
 import { AdminService } from '../_services/admin-main.service'
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -43,6 +43,7 @@ export class MyBusinessComponent implements OnInit {
   adminId:any;
   token:any;
   getIpAddress : any;
+  pageSlug:any;
    
   constructor(
     public dialog: MatDialog,
@@ -53,6 +54,10 @@ export class MyBusinessComponent implements OnInit {
     private authenticationService:AuthenticationService,
     private _snackBar: MatSnackBar) {
     localStorage.setItem('isBusiness', 'true');
+    this.router.events.subscribe(event => {
+      if (event instanceof RouterEvent) this.handleRoute(event);
+        const url = this.getUrl(event);
+    });
     this.currentUser=this.authenticationService.currentUserValue;
     this.adminId=this.currentUser.user_id;
     this.token=this.currentUser.token;
@@ -124,6 +129,47 @@ export class MyBusinessComponent implements OnInit {
       this.animal = result;
       this.getAllBusiness();
      });
+  }
+
+  
+    
+  // page url conditions
+  dynamicSort(property: string) {
+    let sortOrder = 1;
+
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+
+    return (a, b) => {
+      const result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+    };
+  }
+  private getUrl(event: any) {
+    if (event && event.url) {
+      this.pageSlug = event.url.split('/' , 2)
+      const url = event.url;
+      const state = (event.state) ? event.state.url : null;
+      const redirect = (event.urlAfterRedirects) ? event.urlAfterRedirects : null;
+      const longest = [url, state, redirect].filter(value => !!value).sort(this.dynamicSort('-length'));
+      if (longest.length > 0) return longest[0];
+    }
+  }
+
+  private handleRoute(event: RouterEvent) {
+    const url = this.getUrl(event);
+    let devidedUrl = url.split('/',4);
+    console.log(devidedUrl)
+    if((devidedUrl[1] == 'admin' && devidedUrl.length == 2) || devidedUrl[2] == 'my-business'){
+      console.log('isBusiness yes')
+      // this.AppComponent
+      localStorage.setItem('isBusiness','true');
+    }else{
+      console.log('isBusiness no')
+      localStorage.setItem('isBusiness','false');
+    }
   }
   
 }

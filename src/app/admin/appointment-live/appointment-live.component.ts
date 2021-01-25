@@ -6,11 +6,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { environment } from '@environments/environment';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterEvent, RouterOutlet,ActivatedRoute } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { AuthenticationService } from '@app/_services';
 import { CommonService } from '../../_services'
+import { AppComponent } from '../../app.component'
 import { Observable, throwError } from 'rxjs';
 import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
 
@@ -131,6 +132,7 @@ export class AppointmentLiveComponent implements OnInit {
   outdoorOrdersArr:any = [];
   textPercentage = 0;
   totalTax = 0;
+  pageSlug:any;
 
   public lat = 40.094882;
   public lng = 20.214329;
@@ -152,6 +154,7 @@ export class AppointmentLiveComponent implements OnInit {
     public dialog: MatDialog,
     private CommonService: CommonService,
     private _formBuilder:FormBuilder,
+    private appComponent : AppComponent,
     private http: HttpClient,
     private authenticationService: AuthenticationService,
     public router: Router,
@@ -160,6 +163,11 @@ export class AppointmentLiveComponent implements OnInit {
 
     localStorage.setItem('isBusiness', 'true');    
     localStorage.setItem('isPOS', 'true');
+    this.router.events.subscribe(event => {
+      if (event instanceof RouterEvent) this.handleRoute(event);
+        const url = this.getUrl(event);
+    });
+
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     //this.currentUser = this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x )
     this.newCustomer = this._formBuilder.group({
@@ -1412,6 +1420,47 @@ export class AppointmentLiveComponent implements OnInit {
       }
     });
 
+  }
+
+  
+  // page url conditions
+  dynamicSort(property: string) {
+    let sortOrder = 1;
+
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+
+    return (a, b) => {
+      const result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+    };
+  }
+  private getUrl(event: any) {
+    if (event && event.url) {
+      this.pageSlug = event.url.split('/' , 2)
+      const url = event.url;
+      const state = (event.state) ? event.state.url : null;
+      const redirect = (event.urlAfterRedirects) ? event.urlAfterRedirects : null;
+      const longest = [url, state, redirect].filter(value => !!value).sort(this.dynamicSort('-length'));
+      if (longest.length > 0) return longest[0];
+    }
+  }
+
+  private handleRoute(event: RouterEvent) {
+    const url = this.getUrl(event);
+    let devidedUrl = url.split('/',4);
+    console.log(devidedUrl)
+    if(devidedUrl[2] == 'my-appointment-live'){
+      console.log('POS yes')
+      this.appComponent.isPOS();
+      localStorage.setItem('isPOS','true');
+    }else{
+      console.log('POS no')
+      this.appComponent.isPOS();
+      localStorage.setItem('isPOS','false');
+    }
   }
 
 }
