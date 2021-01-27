@@ -1834,34 +1834,39 @@ export class InterruptedReschedulecustomer {
   }
 
 formRescheduleSubmit(){
-  if(this.formAppointmentRescheduleAdmin.invalid){
-    return false;
+  if(this.formAppointmentRescheduleAdmin.valid){
+    let requestObject = {
+      "order_item_id":JSON.stringify(this.detailsData.id),
+      "staff_id":this.formAppointmentRescheduleAdmin.get('rescheduleStaff').value,
+      "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value),"yyyy-MM-dd"),
+      "book_time":this.formAppointmentRescheduleAdmin.get('rescheduleTime').value,
+      "book_notes":this.formAppointmentRescheduleAdmin.get('rescheduleNote').value
+     };
+     this.adminService.rescheduleAppointment(requestObject).subscribe((response:any) =>{
+       if(response.data == true){
+         this._snackBar.open("Appointment Rescheduled.", "X", {
+           duration: 2000,
+           verticalPosition:'top',
+           panelClass :['green-snackbar']
+           });
+           this.dialogRef.close();
+      }
+       else if(response.data == false && response.response !== 'api token or userid invaild'){
+         this._snackBar.open(response.response, "X", {
+           duration: 2000,
+           verticalPosition:'top',
+           panelClass :['red-snackbar']
+           });
+       }
+     })
+  }else{
+    this.formAppointmentRescheduleAdmin.get('rescheduleStaff').markAllAsTouched();
+    this.formAppointmentRescheduleAdmin.get('rescheduleDate').markAllAsTouched();
+    this.formAppointmentRescheduleAdmin.get('rescheduleTime').markAllAsTouched();
+    this.formAppointmentRescheduleAdmin.get('rescheduleNote').markAllAsTouched();
   }
 
-  let requestObject = {
-   "order_item_id":JSON.stringify(this.detailsData.id),
-   "staff_id":this.formAppointmentRescheduleAdmin.get('rescheduleStaff').value,
-   "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value),"yyyy-MM-dd"),
-   "book_time":this.formAppointmentRescheduleAdmin.get('rescheduleTime').value,
-   "book_notes":this.formAppointmentRescheduleAdmin.get('rescheduleNote').value
-  };
-  this.adminService.rescheduleAppointment(requestObject).subscribe((response:any) =>{
-    if(response.data == true){
-      this._snackBar.open("Appointment Rescheduled.", "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['green-snackbar']
-        });
-        this.dialogRef.close();
-   }
-    else if(response.data == false && response.response !== 'api token or userid invaild'){
-      this._snackBar.open(response.response, "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['red-snackbar']
-        });
-    }
-  })
+  
 }
 
 }
@@ -3310,7 +3315,7 @@ onNoClick(): void {
     }
 
     fnSendInvoiceEmail(){
-     
+     alert('123456')
       // let setLable = "invoice";
       // if (!document.getElementById('printInvoice')) {
       //   return false;

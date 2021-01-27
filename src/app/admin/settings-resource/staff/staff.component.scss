@@ -660,6 +660,8 @@
 
 .files-list {
     margin-top: 1.5rem;
+    height: calc(100vh - 380px);
+    overflow: auto;
     .single-file {
         display: flex;
         padding: 0.5rem;
@@ -845,3 +847,4 @@
 .mat-card {
     background-color: #fafafa;
 }
+

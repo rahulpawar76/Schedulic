@@ -176,7 +176,7 @@ export class FrontbookingComponent implements OnInit {
   sizeServiceCartArr:any;
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
   emailFormat = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
-  onlynumeric = /^-?(0|[1-9]\d*)?$/
+  onlynumeric = /^(\d*\.)?\d+$/
   private payPalConfig?: IPayPalConfig;
   cardForm:FormGroup
 
@@ -256,7 +256,7 @@ export class FrontbookingComponent implements OnInit {
     })
     this.cardForm = this._formBuilder.group({
       cardHolderName: ['',[Validators.required]],
-      cardNumber: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+      cardNumber: ['',[Validators.required,Validators.minLength(16), Validators.maxLength(16),Validators.pattern(this.onlynumeric)]],
       expiryMonth: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
       expiryYear: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
       cvvCode: ['',[Validators.required]],
@@ -3526,7 +3526,7 @@ export class theme2CheckoutDialog {
         this.serviceCount[service_id].subtotal = this.serviceCount[service_id].service_cost * this.serviceCount[service_id].count;
         this.serviceCount[service_id].discount_type=null;
         this.serviceCount[service_id].discount_value=null;
-        this.serviceCount[service_id].discount=0;
+        this.serviceCount[service_id].discount = 0;
         
         var serviceAmountAfterDiscount= this.serviceCount[service_id].subtotal - this.serviceCount[service_id].discount;
         var serviceTaxAmount=0;

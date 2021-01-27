@@ -744,15 +744,11 @@
                                 <div class="col-12 mb-4">
                                     <label>Card Number</label>
                                     <input formControlName="cardNumber" class="common-input" type="text" />
-                                    <span class="error-wrap" *ngIf="cardForm.get('cardNumber').dirty
-                                                    ||
-                                                    cardForm.get('cardNumber').touched"><small
-                                                        *ngIf="cardForm.get('cardNumber').hasError('required')"
-                                                        class="error">Card
-                                                        number is
-                                                        required.</small>
-                                                    <!-- <small *ngIf="cardForm.get('cardNumber').hasError('pattern)" class="error">Card Number should Numeric</small> -->
-                                                </span>
+                                    <span class="error-wrap" *ngIf="cardForm.get('cardNumber').dirty || cardForm.get('cardNumber').touched">
+                                        <small *ngIf="cardForm.get('cardNumber').hasError('required')" class="error">Card number is required.</small>
+                                        <small *ngIf="!cardForm.get('cardNumber').hasError('pattern') && (cardForm.get('cardNumber').hasError('minlength') || cardForm.get('cardNumber').hasError('maxlength'))" class="error">Please enter 16 digit card number.</small>
+                                        <small *ngIf="cardForm.get('cardNumber').hasError('pattern')" class="error">Please enter numaric only.</small>
+                                    </span>
                                 </div>
 
                                 <div class="col-6 float-left">
@@ -975,18 +971,19 @@
                                                 }} {{currencySymbol|
                                                 currencySymbol:'wide'}}</label>
                             </div>
-                            <div class="col-lg-8 left-side">
+                            <!-- <div class="col-lg-8 left-side">
                                 <label class="service-title">Tax</label>
                             </div>
                             <div class="col-lg-4 right-side">
-                                <!-- <label class="price">₹ {{serviceMainArr.subtotal}}</label> -->
+                                <label class="price">₹ {{serviceMainArr.subtotal}}</label>
                                 <label *ngIf="currencySymbolPosition=='left'" class="price">{{currencySymbol|
                                                 currencySymbol:'wide'}} {{amountAfterTax |
                                                 currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
                                                 }}</label>
-                                <label *ngIf="currencySymbolPosition=='right'" class="price">{{amountAfterTax | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
+                                <label *ngIf="currencySymbolPosition=='right'" class="price">{{amountAfterTax | 
+                                                currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
                                                 currencySymbol:'wide'}}</label>
-                            </div>
+                            </div> -->
                         </div>
                     </mat-card-content>
                 </mat-card>
