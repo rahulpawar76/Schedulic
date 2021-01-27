@@ -301,7 +301,7 @@ export class myCreateNewBusinessDialog {
         this.timeZoneFilterCtrl.valueChanges
         .pipe(takeUntil(this._onDestroy))
         .subscribe(() => {
-        this.filterBanks();
+        this.filterTimezones();
       });
 
         this.isLoaderAdmin =false;
@@ -374,7 +374,7 @@ export class myCreateNewBusinessDialog {
       });
   }
 
-  protected filterBanks() {
+  protected filterTimezones() {
     if (!this.listTimeZoneListArry) {
       return;
     }
