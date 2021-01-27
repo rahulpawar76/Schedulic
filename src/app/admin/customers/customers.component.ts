@@ -163,6 +163,7 @@ export class CustomersComponent implements OnInit {
         input.value = '';
       }
       console.log(this.tags);
+      
     }
 
     remove(tg: Tag): void {
@@ -493,8 +494,17 @@ customerUpdate(existingCustomerData){
         this.customerPersonalDetails = response.response.customer_details;
         // this.tags = [];
         this.customerPersonalDetails.created_at=this.datePipe.transform(new Date(this.customerPersonalDetails.created_at),"d MMM y, h:mm a");
+        console.log('this.customerPersonalDetails--------------');
+        console.log(this.customerPersonalDetails);
         if(this.customerPersonalDetails.tag_id != null){
           this.tags = this.customerPersonalDetails.tag_id;
+          
+          console.log('---------------this.tags----------------')
+          console.log(this.tags)
+        //  alert('not null')
+        }else{
+          // alert('null')
+          this.tags = [];
         }
 
 
@@ -508,10 +518,10 @@ customerUpdate(existingCustomerData){
         this.customerNotes = response.response.notes;
 
         this.customerReviews = response.response.revirew;
-        console.log(this.customerReviews);
+        // console.log(this.customerReviews);
 
         this.customerPayments = response.response.payment;
-        console.log(this.customerPayments);
+        // console.log(this.customerPayments);
         this.customerPayments.forEach( (element) => { 
           element.paymentDate=this.datePipe.transform(new Date(element.updated_at),"dd MMM yyyy");
           element.paymentTime=this.datePipe.transform(new Date(element.updated_at),"hh:mm a");

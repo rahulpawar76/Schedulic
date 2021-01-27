@@ -36,7 +36,7 @@
                 border-radius: 4px;
             }
             .appoint-action {
-                width: 32%;
+                width: 40%;
                 background: #fff;
                 border: 1px solid #e0e0e0;
                 padding: 0 10px;
@@ -288,12 +288,13 @@
         font: normal normal normal 14px/1 FontAwesome;
         position: absolute;
         font-size: 24px;
-        left: 20px;
+        left: 45px;
         color: #6d6d6d;
         line-height: 1.5;
     }
     input {
         width: 200px;
         text-indent: 30px;
+        margin-left: 20px;
     }
 }
