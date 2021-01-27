@@ -3526,7 +3526,7 @@ export class theme2CheckoutDialog {
         this.serviceCount[service_id].subtotal = this.serviceCount[service_id].service_cost * this.serviceCount[service_id].count;
         this.serviceCount[service_id].discount_type=null;
         this.serviceCount[service_id].discount_value=null;
-        this.serviceCount[service_id].discount=0;
+        this.serviceCount[service_id].discount = 0;
         
         var serviceAmountAfterDiscount= this.serviceCount[service_id].subtotal - this.serviceCount[service_id].discount;
         var serviceTaxAmount=0;

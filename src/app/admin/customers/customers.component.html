@@ -293,7 +293,10 @@
                                     </div>
                                     <div class="lastBookedService">
                                         <h6>LAST BOOKED SERVICE</h6>
-                                        <p class="detail-color">{{customersDetails.lastBooking?customersDetails.lastBooking.service.service_name:''}} {{customersDetails.lastBooking && customersDetails.lastBooking.service && customersDetails.lastBooking.service.category && customersDetails.lastBooking.service.category.category_title?(customersDetails.lastBooking.service.category.category_title):''}}</p>
+                                        <p class="detail-color">
+                                            {{customersDetails.lastBooking?customersDetails.lastBooking.service.service_name:''}} 
+                                            ({{customersDetails.lastBooking && customersDetails.lastBooking.service && customersDetails.lastBooking.service.category && customersDetails.lastBooking.service.category.category_title?(customersDetails.lastBooking.service.category.category_title):''}})
+                                        </p>
                                     </div>
 
                                 </div>
@@ -517,10 +520,13 @@
                                                                 <h6 *ngIf="serviceMainArr.order_status == 'R'">Rejected</h6>
                                                                 <h6 *ngIf="serviceMainArr.order_status == 'CO'">Completed</h6>
                                                             </div>
-                                                            <div class="Staff-width">
-                                                                <p class="small-font">Staff</p>
-                                                                <h6>{{serviceMainArr.staff_name!=''?serviceMainArr.staff_name:'----'}}</h6>
-                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="px-3 pb-3">
+                                                        <div class="Staff-width">
+                                                            <p class="small-font">Staff</p>
+                                                            <h6>{{serviceMainArr.staff_name!=''?serviceMainArr.staff_name:'----'}}</h6>
                                                         </div>
                                                     </div>
                                                     <div class="subtotal p-3">

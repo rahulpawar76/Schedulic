@@ -153,8 +153,9 @@
                                     <p *ngIf="currencySymbolPosition=='right'">Price: {{ appRep.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
                                 </td>
                                 <td *ngIf="appRep.staff !== null" scope="col" class="text-center">
-                                    <p>{{appRep.staff.firstname}}</p>
-                                    <p>{{appRep.staff.lastname}}</p>
+                                    {{appRep.staff.firstname}}
+                                    <p>{{appRep.staff.lastname}} </p>
+                                    
                                 </td>
                                 <td *ngIf="appRep.staff === null" scope="col" class="text-center">
                                     <p class="mb-0">Not Assigned</p>
