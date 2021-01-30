@@ -2984,5 +2984,9 @@ export class FrontBookingThemeFiveComponent implements OnInit {
       var encrypttext = sha512(string);
       return encrypttext;
    }
+   
+  fnForgotPWD(){
+    this.router.navigate(['/forgot-password']);
+  }
 }
 

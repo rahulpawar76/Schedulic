@@ -1010,3 +1010,20 @@ input:focus {
         }
     }
 }
+
+::ng-deep .exi-user-login-btn {
+    text-align: right;
+    margin-right: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-content: center;
+    .forgot-pwd-link {
+        margin-bottom: 0;
+        align-self: center;
+        display: flex;
+        cursor: pointer;
+        text-decoration: underline;
+        font-size: 16px;
+        font-weight: 500;
+    }
+}

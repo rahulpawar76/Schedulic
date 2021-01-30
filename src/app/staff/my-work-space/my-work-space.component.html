@@ -1,5 +1,8 @@
 <div class="content-main work-space-main" id="my-work-space">
-    <div class="bg-image"></div>
+    <div (click)="fnUploadDashBG()" class="dash-ng-image-upload">
+        <img src="../../../assets/images/images-interface-symbol.png" />
+    </div>
+    <div class="bg-image" [ngStyle]="{'background-image':'url(' + dashBGImage+ ')'}"></div>
     <div class="loader-main" *ngIf="isLoader">
         <img src="../../../assets/images/step-loader.gif" /></div>
     <div class="container">

@@ -638,7 +638,8 @@
         }
     }
 }
-.dec-overflow{
+
+.dec-overflow {
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -792,7 +793,7 @@
             font-size: 24px;
             font-weight: 400;
             width: calc(100% - 80px);
-            color:#000;
+            color: #000;
         }
         .mat-calendar-previous-button {
             background: transparent;
@@ -1817,5 +1818,22 @@ input:focus {
                 }
             }
         }
+    }
+}
+
+::ng-deep .exi-user-login-btn {
+    text-align: right;
+    margin-right: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-content: center;
+    .forgot-pwd-link {
+        margin-bottom: 0;
+        align-self: center;
+        display: flex;
+        cursor: pointer;
+        text-decoration: underline;
+        font-size: 16px;
+        font-weight: 500;
     }
 }

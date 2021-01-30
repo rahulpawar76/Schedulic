@@ -39,7 +39,7 @@
                 <img class="normal" src="../../../../assets/images/admin/settings-menu/companydetails.png" />
                 <img class="colored" src="../../../../assets/images/admin/settings-menu/companydetails-color.png" />
             </div>
-            <p>Company Details</p>
+            <p>Business Details</p>
         </div>
         <h6 class="pt-3">Payment</h6>
         <div routerLink="/admin/settings-payment/billing" class="d-flex setting-menu-item">
@@ -215,6 +215,16 @@
                     </mat-card>
                     <div>
                         <button mat-button type="submit" (click)="copyEmbedCode(embededCode)" class="appearance-save-btn">Copy Code</button>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="main-getting-content">
+                        <h5 class="mb-3">Widget Background Image</h5>
+                        <button mat-button type="submit" (click)="uploadWidgetBGImage()" class="image-upload-btn">Upload Image</button>
+                    </div>
+
+                    <div class="widget-image-preview">
+                        <img src="{{widgetBGImage}}">
                     </div>
                 </div>
             </mat-tab>
@@ -435,7 +445,7 @@
                             </div>
                             <div class="col-12 mb-2">
                                 <mat-form-field class=" bottom-border-field ">
-                                    <input formControlName="" matInput placeholder="https://app.schedulic.com/book/service">
+                                    <input matInput placeholder="https://app.schedulic.com/book/service">
                                 </mat-form-field>
                             </div>
 
@@ -474,7 +484,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pb-1 pr-5">
                                         <mat-form-field class=" bottom-border-field">
-                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                            <input matInput placeholder="https://app.schedulic.com/book/service">
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -485,7 +495,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                         <mat-form-field class=" bottom-border-field">
-                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                            <input matInput placeholder="https://app.schedulic.com/book/service">
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -496,7 +506,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                         <mat-form-field class=" bottom-border-field">
-                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                            <input matInput placeholder="https://app.schedulic.com/book/service">
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -507,7 +517,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                         <mat-form-field class=" bottom-border-field">
-                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                            <input matInput placeholder="https://app.schedulic.com/book/service">
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -518,7 +528,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                         <mat-form-field class=" bottom-border-field">
-                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                            <input matInput placeholder="https://app.schedulic.com/book/service">
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -529,7 +539,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                         <mat-form-field class=" bottom-border-field">
-                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                            <input matInput placeholder="https://app.schedulic.com/book/service">
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -540,7 +550,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                         <mat-form-field class=" bottom-border-field">
-                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                            <input matInput placeholder="https://app.schedulic.com/book/service">
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -551,7 +561,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                         <mat-form-field class=" bottom-border-field">
-                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                            <input matInput placeholder="https://app.schedulic.com/book/service">
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -562,7 +572,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                         <mat-form-field class=" bottom-border-field">
-                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                            <input matInput placeholder="https://app.schedulic.com/book/service">
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -573,7 +583,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                         <mat-form-field class=" bottom-border-field">
-                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                            <input matInput placeholder="https://app.schedulic.com/book/service">
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -584,7 +594,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                         <mat-form-field class=" bottom-border-field">
-                                            <input formControlName="comp_website" matInput placeholder="https://app.schedulic.com/book/service">
+                                            <input matInput placeholder="https://app.schedulic.com/book/service">
                                         </mat-form-field>
                                     </div>
                                 </div>

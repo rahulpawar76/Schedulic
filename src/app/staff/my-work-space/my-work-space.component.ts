@@ -5,6 +5,7 @@ import { DatePipe} from '@angular/common';
 import { AuthenticationService } from '@app/_services';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 export interface status {
   
@@ -40,7 +41,8 @@ export class MyWorkSpaceComponent implements OnInit {
   staffId :any
   notes:any;
   isLoader:boolean= false;
-  token :any
+  token :any;
+  dashBGImage:any;
   constructor(
     public dialog: MatDialog,
     private StaffService: StaffService,
@@ -155,6 +157,79 @@ export class MyWorkSpaceComponent implements OnInit {
      dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
      });
+  }
+
+  fnUploadDashBG(){
+    const dialogRef = this.dialog.open(DialogStaffDashBGUpload, {
+      width: '500px',
+    });
+
+     dialogRef.afterClosed().subscribe(result => {
+       if(result != undefined){
+        this.dashBGImage = result;
+       }
+     });
+  }
+
+}
+
+
+@Component({
+  selector: 'bg-image-upload-dialog',
+  templateUrl: '../_dialogs/image-upload-dialog.html',
+})
+export class DialogStaffDashBGUpload {
+
+  uploadForm: FormGroup;  
+  imageSrc: any;  
+  profileImage: string;
+  constructor(
+    public dialogRef: MatDialogRef<DialogStaffDashBGUpload>,
+    private _formBuilder:FormBuilder,
+    private _snackBar: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  ngOnInit() {
+    this.uploadForm = this._formBuilder.group({
+      profile: ['']
+    });
+  }
+  get f() {
+    return this.uploadForm.controls;
+  }
+  onFileChange(event) {
+
+    var file_type = event.target.files[0].type;
+
+    if(file_type!='image/jpeg' &&  file_type!='image/png' && file_type!='image/jpg' &&  file_type!='image/gif'){
+        
+        this._snackBar.open("Sorry, only JPG, JPEG, PNG & GIF files are allowed", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass: ['red-snackbar']
+        });
+        return;
+    }
+   
+    
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+        const [file] = event.target.files;
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            this.imageSrc = reader.result as string;
+            this.uploadForm.patchValue({
+                fileSource: reader.result
+            });
+        };
+    }
+  }
+  uploadImage(){
+    this.profileImage = this.imageSrc
+    this.dialogRef.close(this.profileImage);
   }
 
 }

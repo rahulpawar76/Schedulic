@@ -2760,6 +2760,10 @@ this.router.navigate(['/customer-login/'+this.urlString[1]]);
       
     });
   }
+
+  fnForgotPWD(){
+    this.router.navigate(['/forgot-password']);
+  }
 }
 
 @Component({
@@ -4301,6 +4305,11 @@ export class theme2CheckoutDialog {
         
       })
     }
+    
+  fnForgotPWD(){
+    this.dialogRef.close();
+    this.router.navigate(['/forgot-password']);
+  }
     
   }
 

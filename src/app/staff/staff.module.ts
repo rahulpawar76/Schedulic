@@ -34,6 +34,7 @@ import { DialogOnlinePaymentDetails } from './staff-appointment/staff-appointmen
 import { DialogTodayAppointmentDetail } from './my-work-space/my-work-space.component';
 
 import { DialogStaffImageUpload } from './my-profile/my-profile.component';
+import { DialogStaffDashBGUpload } from './my-work-space/my-work-space.component';
 import { SharedModule } from '../shared.module';
 
 @NgModule({
@@ -56,7 +57,8 @@ import { SharedModule } from '../shared.module';
 		DialogCashPaymentDetails,
 		DialogOnlinePaymentDetails,
     DialogStaffImageUpload,
-    DialogTodayAppointmentDetail
+    DialogTodayAppointmentDetail,
+    DialogStaffDashBGUpload
   ],
   imports: [
     CommonModule,
@@ -79,6 +81,6 @@ import { SharedModule } from '../shared.module';
     InterruptedReschedule,DialogAddNewAppointment,
     DialogStaffMyAppointmentDetails,OnGoingAppointmentDetails,CompleteAppointmentDetails,
     DialogCashPaymentMode,DialogOnlinePaymentMode,DialogCashPaymentDetails,
-    DialogOnlinePaymentDetails,DialogStaffImageUpload,DialogTodayAppointmentDetail],
+    DialogOnlinePaymentDetails,DialogStaffImageUpload,DialogTodayAppointmentDetail,DialogStaffDashBGUpload],
 })
 export class StaffModule { }

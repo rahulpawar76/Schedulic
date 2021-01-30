@@ -2773,6 +2773,10 @@ export class FrontBookingThemeThreeComponent implements OnInit {
     });
   }, 500);
   }
+
+  fnForgotPWD(){
+    this.router.navigate(['/forgot-password']);
+  }
 }
 
 

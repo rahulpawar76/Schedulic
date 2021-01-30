@@ -2969,6 +2969,9 @@ export class FrontBookingThemeSixComponent implements OnInit {
     );
     
   }
+  fnForgotPWD(){
+    this.router.navigate(['/forgot-password']);
+  }
 }
 
 

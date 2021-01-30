@@ -14,7 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 import { SettingGeneralRoutingModule } from './setting-general-routing.module';
-import { AppearanceComponent, DialogPreviewTheme } from './appearance/appearance.component';
+import { AppearanceComponent, DialogPreviewTheme, DialogWidgetBGUpload } from './appearance/appearance.component';
 import { BookingrulesComponent } from './bookingrules/bookingrules.component';
 import { AlertsettingsComponent, DialogPreviewEmailTemp } from './alertsettings/alertsettings.component';
 
@@ -30,6 +30,7 @@ enableRipple(true);
     AlertsettingsComponent,
     DialogPreviewEmailTemp,
     DialogPreviewTheme,
+    DialogWidgetBGUpload,
   ],
   imports: [
     CommonModule,
@@ -55,6 +56,7 @@ enableRipple(true);
   entryComponents: [
     DialogPreviewEmailTemp,
     DialogPreviewTheme,
+    DialogWidgetBGUpload,
   ],
 })
 export class SettingGeneralModule { }

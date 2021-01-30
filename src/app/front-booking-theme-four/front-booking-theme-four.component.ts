@@ -2926,6 +2926,10 @@ export class FrontBookingThemeFourComponent implements OnInit {
     });
   }, 500);
   }
+  
+  fnForgotPWD(){
+    this.router.navigate(['/forgot-password']);
+  }
 }
 
 

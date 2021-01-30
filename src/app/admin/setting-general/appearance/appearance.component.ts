@@ -77,6 +77,7 @@ export class AppearanceComponent implements OnInit {
   displayMonths = 1;
   companyDetailsData:any;
   navigation = 'arrows';
+  widgetBGImage:any;
   constructor(
     private appComponent : AppComponent,
     private _formBuilder: FormBuilder,
@@ -232,17 +233,17 @@ export class AppearanceComponent implements OnInit {
         'pri_gradient2':this.primarygradient2,
         'text_color':this.textcolor,
         'text_bgcolor':this.textbgcolor,
-        'font':this.Appearance.controls['font'].value
+        'font':this.Appearance.controls['font'].value,
       }
       this.fnCreateAppearance(this.AppearanceData);
     }
   }
 
   fnCreateAppearance(AppearanceData){
-        let requestObject = {
-            'business_id': this.businessId,
-            "appearance": AppearanceData
-        };
+    let requestObject = {
+      'business_id': this.businessId,
+      "appearance": AppearanceData
+    };
     this.AdminSettingsService.fnCreateAppearance(requestObject).subscribe((response:any)=>{
       if(response.data == true){
         this._snackBar.open("Appearance Updated.", "X", {
@@ -277,6 +278,7 @@ export class AppearanceComponent implements OnInit {
         this.primarygradient2 =  this.getAppearanceData.pri_gradient2;
         this.textcolor = this.getAppearanceData.text_color;
         this.textbgcolor = this.getAppearanceData.text_bgcolor;
+        this.widgetBGImage = this.getAppearanceData.widget_image;
         this.Appearance.controls['font'].setValue(this.getAppearanceData.font);
         this.update_SCSS_var();
         }
@@ -381,8 +383,91 @@ copyEmbedCode(val: string){
     });
   }
 
+  uploadWidgetBGImage(){
+    const dialogRef = this.dialog.open(DialogWidgetBGUpload, {
+      width: '500px',
+    });
+
+     dialogRef.afterClosed().subscribe(result => {
+       if(result != undefined){
+        this.widgetBGImage = result;
+        alert('1')
+        this.AppearanceData ={
+          'pri_color' : this.primarycolor,
+          'pri_gradient1':this.primarygradient1,
+          'pri_gradient2':this.primarygradient2,
+          'text_color':this.textcolor,
+          'text_bgcolor':this.textbgcolor,
+          'font':this.Appearance.controls['font'].value,
+          'widget_image': this.widgetBGImage,
+        }
+        this.fnCreateAppearance(this.AppearanceData);
+       }
+     });
+  }
+
 }
 
+
+@Component({
+  selector: 'bg-image-upload-dialog',
+  templateUrl: '../_dialogs/image-upload-dialog.html',
+})
+export class DialogWidgetBGUpload {
+
+  uploadForm: FormGroup;  
+  imageSrc: any;  
+  profileImage: string;
+  constructor(
+    public dialogRef: MatDialogRef<DialogWidgetBGUpload>,
+    private _formBuilder:FormBuilder,
+    private _snackBar: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  ngOnInit() {
+    this.uploadForm = this._formBuilder.group({
+      profile: ['']
+    });
+  }
+  get f() {
+    return this.uploadForm.controls;
+  }
+  onFileChange(event) {
+
+    var file_type = event.target.files[0].type;
+
+    if(file_type!='image/jpeg' &&  file_type!='image/png' && file_type!='image/jpg' &&  file_type!='image/gif'){
+        
+        this._snackBar.open("Sorry, only JPG, JPEG, PNG & GIF files are allowed", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass: ['red-snackbar']
+        });
+        return;
+    }
+   
+    
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+        const [file] = event.target.files;
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            this.imageSrc = reader.result as string;
+            this.uploadForm.patchValue({
+                fileSource: reader.result
+            });
+        };
+    }
+  }
+  uploadImage(){
+    this.profileImage = this.imageSrc
+    this.dialogRef.close(this.profileImage);
+  }
+
+}
 
 @Component({
   selector: 'dialog-preview-theme',

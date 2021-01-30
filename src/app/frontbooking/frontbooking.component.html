@@ -178,7 +178,7 @@
                                                 services.service_cost |
                                                 currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
                                                 }}</label>
-                                            <label class="text-center" *ngIf="currencySymbolPosition=='right'">{{
+                                <label class="text-center" *ngIf="currencySymbolPosition=='right'">{{
                                                 services.service_cost |
                                                 currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
                                                 }} {{currencySymbol|
@@ -375,7 +375,8 @@
                                                     class="error">Password is
                                                     required.</small></span>
                             </div>
-                            <div class="col bottom-ctn-btn">
+                            <div class="col bottom-ctn-btn exi-user-login-btn">
+                                <p (click)="fnForgotPWD()" class="forgot-pwd-link">Forgot Password?</p>
                                 <button mat-button (click)="fnloginexisinguser()" class="round-btn float-right gray-btn mr-0">Log In</button>
                             </div>
                         </div>
