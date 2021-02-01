@@ -278,7 +278,7 @@ export class AppearanceComponent implements OnInit {
         this.primarygradient2 =  this.getAppearanceData.pri_gradient2;
         this.textcolor = this.getAppearanceData.text_color;
         this.textbgcolor = this.getAppearanceData.text_bgcolor;
-        this.widgetBGImage = this.getAppearanceData.widget_image;
+        this.widgetBGImage = this.getAppearanceData.image;
         this.Appearance.controls['font'].setValue(this.getAppearanceData.font);
         this.update_SCSS_var();
         }
@@ -391,7 +391,6 @@ copyEmbedCode(val: string){
      dialogRef.afterClosed().subscribe(result => {
        if(result != undefined){
         this.widgetBGImage = result;
-        alert('1')
         this.AppearanceData ={
           'pri_color' : this.primarycolor,
           'pri_gradient1':this.primarygradient1,
@@ -399,7 +398,7 @@ copyEmbedCode(val: string){
           'text_color':this.textcolor,
           'text_bgcolor':this.textbgcolor,
           'font':this.Appearance.controls['font'].value,
-          'widget_image': this.widgetBGImage,
+          'image': this.widgetBGImage,
         }
         this.fnCreateAppearance(this.AppearanceData);
        }

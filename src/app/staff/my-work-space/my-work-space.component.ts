@@ -167,8 +167,34 @@ export class MyWorkSpaceComponent implements OnInit {
      dialogRef.afterClosed().subscribe(result => {
        if(result != undefined){
         this.dashBGImage = result;
+        this.updateStaffBGImage();
        }
+       
      });
+  }
+  updateStaffBGImage(){
+    this.isLoader=true;
+    let requestObject = {
+      'image' : this.dashBGImage,
+      'staff_id' : this.staffId
+    };
+    this.StaffService.updateStaffBGImage(requestObject).subscribe((response:any) =>{
+      if(response.data == true){
+        this._snackBar.open("Dashboard image updated.", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+      }
+      else if(response.data == false) {
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        }); 
+      }
+    })
+    this.isLoader=false;
   }
 
 }
@@ -186,6 +212,7 @@ export class DialogStaffDashBGUpload {
   constructor(
     public dialogRef: MatDialogRef<DialogStaffDashBGUpload>,
     private _formBuilder:FormBuilder,
+    private StaffService: StaffService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
@@ -229,6 +256,8 @@ export class DialogStaffDashBGUpload {
   }
   uploadImage(){
     this.profileImage = this.imageSrc
+    
+  
     this.dialogRef.close(this.profileImage);
   }
 
