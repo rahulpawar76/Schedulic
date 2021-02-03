@@ -234,6 +234,8 @@ export class AppearanceComponent implements OnInit {
         'text_color':this.textcolor,
         'text_bgcolor':this.textbgcolor,
         'font':this.Appearance.controls['font'].value,
+        'old_image' : true,
+        'image':this.widgetBGImage
       }
       this.fnCreateAppearance(this.AppearanceData);
     }
@@ -398,6 +400,7 @@ copyEmbedCode(val: string){
           'text_color':this.textcolor,
           'text_bgcolor':this.textbgcolor,
           'font':this.Appearance.controls['font'].value,
+          'old_image' : false,
           'image': this.widgetBGImage,
         }
         this.fnCreateAppearance(this.AppearanceData);

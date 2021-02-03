@@ -43,6 +43,7 @@ export class MyWorkSpaceComponent implements OnInit {
   isLoader:boolean= false;
   token :any;
   dashBGImage:any;
+  currentUser:any;
   constructor(
     public dialog: MatDialog,
     private StaffService: StaffService,
@@ -52,7 +53,9 @@ export class MyWorkSpaceComponent implements OnInit {
     private titleService: Title
 
   ) {
+    this.currentUser = this.authenticationService.currentUserValue
     this.bussinessId=this.authenticationService.currentUserValue.business_id
+    // this.dashBGImage = this.currentUser.staff_bg_image
     this.staffId=JSON.stringify(this.authenticationService.currentUserValue.user_id);
     this.token=this.authenticationService.currentUserValue.token;
   }
@@ -62,6 +65,17 @@ export class MyWorkSpaceComponent implements OnInit {
     this.todayDate = this.datePipe.transform(new Date(),"dd MMM yyyy");
     this.fnGetSettingValue();
     this.getTodayAppointment();
+    this.getProfiledata();
+  }
+
+  getProfiledata(){
+    this.StaffService.getProfiledata().subscribe((response:any) => 
+    {
+      if(response.data == true){
+        this.isLoader=false;
+        this.dashBGImage = response.response.staff_bg_image;
+      }
+    })
   }
 
   fnGetSettingValue(){
@@ -71,16 +85,9 @@ export class MyWorkSpaceComponent implements OnInit {
     this.StaffService.getSettingValue(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.settingsArr=response.response;
-        console.log(this.settingsArr);
-
         this.currencySymbol = this.settingsArr.currency;
-        console.log(this.currencySymbol);
-        
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-        console.log(this.currencySymbolPosition);
-        
         this.currencySymbolFormat = this.settingsArr.currency_format;
-        console.log(this.currencySymbolFormat);
       }
       else if(response.data == false){
         
@@ -285,7 +292,6 @@ constructor(
     this.fnGetActivityLog(this.appoDetail.id);
     this.bussinessId=this.authenticationService.currentUserValue.business_id
     this.fnGetSettingValue();
-    console.log(this.appoDetail);
   }
 
 onNoClick(): void {
@@ -298,16 +304,9 @@ onNoClick(): void {
       this.StaffService.getSettingValue(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.settingsArr=response.response;
-          console.log(this.settingsArr);
-
           this.currencySymbol = this.settingsArr.currency;
-          console.log(this.currencySymbol);
-          
           this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-          console.log(this.currencySymbolPosition);
-          
           this.currencySymbolFormat = this.settingsArr.currency_format;
-          console.log(this.currencySymbolFormat);
         }
         else if(response.data == false){
           
@@ -321,7 +320,6 @@ onNoClick(): void {
       };
       this.StaffService.getActivityLog(requestObject).subscribe((response:any) => {
         if(response.data == true){
-          console.log(response.response);
           this.activityLog=response.response;
         }
         else if(response.data == false){
