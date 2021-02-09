@@ -1878,7 +1878,8 @@ this.router.navigate(['/customer-login/'+this.urlString[1]]);
         });
         let requestObject2 = {
           "email" : this.formNewUser.get('newUserEmail').value,
-          "password" : this.formNewUser.get('newUserPassword').value
+          "password" : this.formNewUser.get('newUserPassword').value,
+          "business_id": this.businessId
           };
         this.fnLogin(requestObject2,true);
       }else{
@@ -3396,7 +3397,8 @@ export class theme2CheckoutDialog {
           });
           let requestObject2 = {
             "email" : this.formNewUser.get('newUserEmail').value,
-            "password" : this.formNewUser.get('newUserPassword').value
+            "password" : this.formNewUser.get('newUserPassword').value,
+            "business_id": this.businessId
             };
           this.fnLogin(requestObject2,true);
         }else{

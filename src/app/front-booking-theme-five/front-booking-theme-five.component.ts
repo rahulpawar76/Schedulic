@@ -2025,7 +2025,8 @@ export class FrontBookingThemeFiveComponent implements OnInit {
         });
         let requestObject2 = {
           "email" : this.formNewUser.get('newUserEmail').value,
-          "password" : this.formNewUser.get('newUserPassword').value
+          "password" : this.formNewUser.get('newUserPassword').value,
+          "business_id": this.businessId
           };
         this.fnLogin(requestObject2,true);
       }else{
