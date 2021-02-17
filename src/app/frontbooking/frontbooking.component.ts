@@ -1371,6 +1371,7 @@ this.router.navigate(['/customer-login/'+this.urlString[1]]);
    }
 
   onDateSelect(event){
+    this.timeSlotArr = [];
     this.selecteddate = event.year+'-'+event.month+'-'+event.day;
     this.selecteddate=this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd")
     this.selecteddateForLabel=this.datePipe.transform(new Date(this.selecteddate),"EEE, MMM dd")
@@ -4826,6 +4827,7 @@ export class theme2DateTimeSelection {
       }
 
       onDateSelect(event){
+        this.timeSlotArr = [];
         this.selecteddate = event.year+'-'+event.month+'-'+event.day;
         this.selecteddate=this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd")
         this.selecteddateForLabel=this.datePipe.transform(new Date(this.selecteddate),"EEE, MMM dd")
