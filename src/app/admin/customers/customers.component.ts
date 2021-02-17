@@ -63,6 +63,7 @@ export class CustomersComponent implements OnInit {
   addNewTag: boolean = false;
   tagsnew: any=[];
   customerImageUrl:any = '';
+  actionValue:any;
   search = {
     keyword: ""
   };
@@ -920,36 +921,55 @@ customerUpdate(existingCustomerData){
             verticalPosition: 'top',
             panelClass : ['red-snackbar']
           });
+          
           this.isLoaderAdmin = false;
         }
       })
     }
   }
   fnMultiDeleteCustomer(action){
-    let requestObject = {
-      "action" : action,
-      "customer_id" : this.selectedCustomerId
-    }
-    this.adminService.fnMultiDeleteCustomer(requestObject).subscribe((response:any) => {
-      if(response.data == true){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['green-snackbar']
-        });
-        this.selectedCustomerId.length = 0;
-        this.getAllCustomers();
-        this.isLoaderAdmin = false;
-      }
-      else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['green-snackbar']
-        });
-        this.isLoaderAdmin = false;
-      }
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width:'400px',
+      data: 'Are you sure you want to delete?'
     })
+
+    dialogRef.afterClosed().subscribe(result =>{
+      if(result){
+        let requestObject = {
+          "action" : action,
+          "customer_id" : this.selectedCustomerId
+        }
+        this.adminService.fnMultiDeleteCustomer(requestObject).subscribe((response:any) => {
+          if(response.data == true){
+            this._snackBar.open(response.response, "X", {
+              duration: 2000,
+              verticalPosition:'top',
+              panelClass :['green-snackbar']
+            });
+            this.selectedCustomerId.length = 0;
+            this.getAllCustomers();
+            this.actionValue = null;
+            this.isLoaderAdmin = false;
+          }
+          else if(response.data == false && response.response !== 'api token or userid invaild'){
+            this._snackBar.open(response.response, "X", {
+              duration: 2000,
+              verticalPosition:'top',
+              panelClass :['green-snackbar']
+              
+            });
+            this.actionValue = null;
+            this.isLoaderAdmin = false;
+          }
+          this.actionValue = null;
+        });
+        
+      }
+      this.actionValue = null;
+    })
+
+   
   }
 
   customerImage() {
