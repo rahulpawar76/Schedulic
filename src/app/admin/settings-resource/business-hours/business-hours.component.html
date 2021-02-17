@@ -87,11 +87,11 @@
         </div>
     </div>
     <div class="setting-right-side-content" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
-        <h2 class="text-left pl-3">Business Hours</h2>
+        <h5 class="text-left pl-3 mt-3">Business Hours</h5>
         <mat-tab-group>
             <mat-tab label="Working Hours">
                 <div class="main-working-hours-content">
-                    <div class="d-flex mb-3">
+                    <!-- <div class="d-flex mb-3">
                         <p class="mt-4">Time Zone</p>
                         <mat-form-field class=" bottom-border-field col-6">
                             <mat-label></mat-label>
@@ -102,7 +102,7 @@
                                 <mat-option value="{{listTimeZone.name}}" *ngFor="let listTimeZone of listTimeZoneList | async">({{listTimeZone.utc}}) {{listTimeZone.name}}</mat-option>
                             </mat-select>
                         </mat-form-field>
-                    </div>
+                    </div> -->
                     <div class="">
                         <div class="Customer-appointment-table">
                             <div class="main-table-content main-cust-table-content">
@@ -647,7 +647,7 @@
                     </div>
                 </div>
             </mat-tab>
-            <mat-tab label="Time Off">
+            <mat-tab label="Holidays">
                 <div class="Time-off-table">
                     <div class="main-table-content main-time-off-table-content">
                         <div class="">

@@ -212,6 +212,9 @@ export class FrontBookingThemeFiveComponent implements OnInit {
   encodedId: any;
   urlString: any;
   cartPopupCloseType:any;
+  canCustomerLogin:boolean= false
+
+  frontBgImage:any;
   constructor(
     private _formBuilder: FormBuilder,
     private http: HttpClient,
@@ -377,8 +380,16 @@ export class FrontBookingThemeFiveComponent implements OnInit {
           this.currencySymbol = this.settingsArr.currency;
           this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
           this.currencySymbolFormat = this.settingsArr.currency_format;
+          if(this.settingsArr.customer_login == 'true'){
+            this.canCustomerLogin  = true;
+          }else{
+            this.canCustomerLogin  = false;
+          }
           if(this.settingsArr.theme){
             this.selectedTheme = this.settingsArr.theme;
+          }
+          if(this.settingsArr.appearance){
+            this.frontBgImage = JSON.parse(this.settingsArr.appearance).image
           }
           if(this.settingsArr.payUmoney_settings){
             this.PayUMoneyCredentials = JSON.parse(this.settingsArr.payUmoney_settings);

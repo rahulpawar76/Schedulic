@@ -111,7 +111,7 @@ export class BusinessHoursComponent implements OnInit {
     if(localStorage.getItem('business_id')){
       this.businessId = localStorage.getItem('business_id');
     }
-    this.fnGetTimeZone();
+    // this.fnGetTimeZone();
     this.fnGetTimeSlotsList("00:00","23:30","30");
     this.fnGetBussinessTimeZone();
     this.fnGetWorkingHours();
@@ -368,73 +368,73 @@ export class BusinessHoursComponent implements OnInit {
 
 
 
-  fnGetTimeZone(){
-    this.adminSettingsService.getTimeZone().subscribe((response:any) => {
+  // fnGetTimeZone(){
+  //   this.adminSettingsService.getTimeZone().subscribe((response:any) => {
       
-    if(response.data == true){
-      this.listTimeZoneListArry = response.response
-      // load the initial bank list
-      this.listTimeZoneList.next(this.listTimeZoneListArry.slice());
-      this.timeZoneFilterCtrl.valueChanges
-      .pipe(takeUntil(this._onDestroy))
-      .subscribe(() => {
-      this.filterBanks();
-    });
-    }
-    else{
-     this.timeZoneList = [];
-    }
-    })
-  }
+  //   if(response.data == true){
+  //     this.listTimeZoneListArry = response.response
+  //     // load the initial bank list
+  //     this.listTimeZoneList.next(this.listTimeZoneListArry.slice());
+  //     this.timeZoneFilterCtrl.valueChanges
+  //     .pipe(takeUntil(this._onDestroy))
+  //     .subscribe(() => {
+  //     this.filterBanks();
+  //   });
+  //   }
+  //   else{
+  //    this.timeZoneList = [];
+  //   }
+  //   })
+  // }
 
-  protected setInitialValue() {
-    this.listTimeZoneList
-      .pipe(take(1), takeUntil(this._onDestroy))
-      .subscribe(() => {
-        console.log('fail')
-      });
-  }
+  // protected setInitialValue() {
+  //   this.listTimeZoneList
+  //     .pipe(take(1), takeUntil(this._onDestroy))
+  //     .subscribe(() => {
+  //       console.log('fail')
+  //     });
+  // }
 
-  protected filterBanks() {
-    if (!this.listTimeZoneListArry) {
-      return;
-    }
-    // get the search keyword
-    let search = this.timeZoneFilterCtrl.value;
-    if (!search) {
-      this.listTimeZoneList.next(this.listTimeZoneListArry.slice());
-      return;
-    } else {
-      search = search.toLowerCase();
-    }
-    // filter the banks
-    this.listTimeZoneList.next(
-      this.listTimeZoneListArry.filter(listTimeZoneListArry => listTimeZoneListArry.name.toLowerCase().indexOf(search) > -1)
-    );
-  }
+  // protected filterBanks() {
+  //   if (!this.listTimeZoneListArry) {
+  //     return;
+  //   }
+  //   // get the search keyword
+  //   let search = this.timeZoneFilterCtrl.value;
+  //   if (!search) {
+  //     this.listTimeZoneList.next(this.listTimeZoneListArry.slice());
+  //     return;
+  //   } else {
+  //     search = search.toLowerCase();
+  //   }
+  //   // filter the banks
+  //   this.listTimeZoneList.next(
+  //     this.listTimeZoneListArry.filter(listTimeZoneListArry => listTimeZoneListArry.name.toLowerCase().indexOf(search) > -1)
+  //   );
+  // }
 
-  fnChangeTimeZone(event){
-    let requestObject={
-      "business_id":this.businessId,
-      "timezone":event.value
-    }
-    this.adminSettingsService.changeTimeZone(requestObject).subscribe((response:any) => {
-      if(response.data == true){
-        this.snackBar.open("Timezone Updated.", "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['green-snackbar']
-        });
-      }
-       else if(response.data == false && response.response !== 'api token or userid invaild'){
-       this.snackBar.open("Timezone Not Updated.", "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
-      }
-    })
-  }
+  // fnChangeTimeZone(event){
+  //   let requestObject={
+  //     "business_id":this.businessId,
+  //     "timezone":event.value
+  //   }
+  //   this.adminSettingsService.changeTimeZone(requestObject).subscribe((response:any) => {
+  //     if(response.data == true){
+  //       this.snackBar.open("Timezone Updated.", "X", {
+  //         duration: 2000,
+  //         verticalPosition: 'top',
+  //         panelClass : ['green-snackbar']
+  //       });
+  //     }
+  //      else if(response.data == false && response.response !== 'api token or userid invaild'){
+  //      this.snackBar.open("Timezone Not Updated.", "X", {
+  //         duration: 2000,
+  //         verticalPosition: 'top',
+  //         panelClass : ['red-snackbar']
+  //       });
+  //     }
+  //   })
+  // }
 
   fnGetWorkingHours(){
     let requestObject={
@@ -912,7 +912,7 @@ export class BusinessHoursComponent implements OnInit {
   fnDeleteTimeOff(timeOffId){
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '400px',
-      data: "Are you sure?"
+      data: "Are you sure you want to delete?"
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result) {

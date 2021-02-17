@@ -141,9 +141,9 @@
                                     <p>Time : {{appRep.booking_time}}</p>
                                 </td>
                                 <td scope="col" class="text-center">
-                                    <p class="mb-0">{{appRep.customer.fullname}}</p>
-                                    <p class="mb-0">Phone No:{{appRep.customer.phone}}</p>
-                                    <p>Email:{{appRep.customer.email}}</p>
+                                    <p class="mb-0">{{appRep.customer?appRep.customer.fullname:'-'}}</p>
+                                    <p class="mb-0">Phone No:{{appRep.customer?appRep.customer.phone:'-'}}</p>
+                                    <p>Email:{{appRep.customer?appRep.customer.email:'-'}}</p>
                                 </td>
                                 <td scope="col" class="text-center">
                                     <p class="mb-0">{{appRep.service.service_name}}</p>
@@ -155,7 +155,7 @@
                                 <td *ngIf="appRep.staff !== null" scope="col" class="text-center">
                                     {{appRep.staff.firstname}}
                                     <p>{{appRep.staff.lastname}} </p>
-                                    
+
                                 </td>
                                 <td *ngIf="appRep.staff === null" scope="col" class="text-center">
                                     <p class="mb-0">Not Assigned</p>
@@ -235,7 +235,7 @@
 
                 <label class="custrecords" *ngIf="reportFilter=='date' || reportFilter=='month'">Total Records :</label><label *ngIf="reportFilter=='date' || reportFilter=='month'">0,</label>
                 <label class="custrecords" *ngIf="reportFilter=='date' || reportFilter=='month'">Appointments :</label><label *ngIf="reportFilter=='date' || reportFilter=='month'">{{salesReportTotalAppointments}},</label>
-                <label class="custrecords" *ngIf="reportFilter=='date' || reportFilter=='month'"> Customers:</label><label *ngIf="reportFilter=='date' || reportFilter=='month'"> $.{{salesReportCustomers}},</label>
+                <label class="custrecords" *ngIf="reportFilter=='date' || reportFilter=='month'"> Customers:</label><label *ngIf="reportFilter=='date' || reportFilter=='month'">{{salesReportCustomers}},</label>
                 <label class="custrecords" *ngIf="reportFilter=='date' || reportFilter=='month'"> Total Revenue:</label>
                 <!-- <label *ngIf="reportFilter=='date' || reportFilter=='month'"> $.{{salesReportTotalRevenue}},</label> --><label *ngIf="(reportFilter=='date' || reportFilter=='month') && currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ salesReportTotalRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }},</label>
                 <label *ngIf="(reportFilter=='date' || reportFilter=='month') && currencySymbolPosition=='right'">{{ salesReportTotalRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}},</label>
@@ -258,13 +258,13 @@
                                     <p class="mb-0">{{sales.payment_date}}</p>
                                 </td>
                                 <td class="text-center">
-                                    <p class="mb-0">{{sales.get_customer.fullname}}</p>
-                                    <p class="mb-0">Phone No:{{sales.get_customer.phone}}</p>
+                                    <p class="mb-0">{{sales.get_customer?sales.get_customer.fullname:'-'}}</p>
+                                    <p class="mb-0">Phone No:{{sales.get_customer?sales.get_customer.phone:'-'}}</p>
                                 </td>
                                 <td class="text-center">
-                                    <p class="mb-0">{{sales.service.service_name}}</p>
-                                    <p class="mb-0">{{sales.orders.booking_date}},</p>
-                                    <p>{{sales.orders.booking_time}}</p>
+                                    <p class="mb-0">{{sales.service?sales.service.service_name:'-'}}</p>
+                                    <p class="mb-0">{{sales.service?sales.orders.booking_date:'-'}},</p>
+                                    <p>{{sales.orders?sales.orders.booking_time:'-'}}</p>
                                 </td>
                                 <!-- <td class="text-center">
                       {{sales.amount}}

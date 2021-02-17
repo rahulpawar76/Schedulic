@@ -269,7 +269,23 @@
             <mat-menu></mat-menu>
             <mat-list-item role="listitem" (click)="drawer.toggle()" (click)=" StaffProfile('./staff-profile')" class="matlist pointer menuitem">
                 <img class="customer-profile-img ml-2 mr-2 mb-2" src="{{currentUser.image}}">
-                <p class="font-weight-bold mt-2 p-1">{{currentUser.full_name}}</p>
+                <div>
+                    <p class="font-weight-bold mt-2 p-1 mb-0">{{currentUser.full_name}}</p>
+                    <div *ngIf="currentUser.avgRatings != ''" class="d-flex statick-rating staff-dash w-100">
+                        <div class="star-rating" *ngIf="currentUser.avgRatings">
+                            <input type="radio" [checked]="currentUser.avgRatings[0].aggregate == '5'" id="5-stars_{{currentUser.id}}" name="rating_2" value="5" />
+                            <label for="5-stars_{{currentUser.id}}" class="star">&#9733;</label>
+                            <input [checked]="currentUser.avgRatings[0].aggregate == '4'" type="radio" id="4-stars_{{currentUser.id}}" name="rating_2" value="4" />
+                            <label for="4-stars_{{currentUser.id}}" class="star">&#9733;</label>
+                            <input [checked]="currentUser.avgRatings[0].aggregate == '3'" type="radio" id="3-stars_{{currentUser.id}}" name="rating_2" value="3" />
+                            <label for="3-stars_{{currentUser.id}}" class="star">&#9733;</label>
+                            <input [checked]="currentUser.avgRatings[0].aggregate == '2'" type="radio" id="2-stars_{{currentUser.id}}" name="rating_2" value="2" />
+                            <label for="2-stars_{{currentUser.id}}" class="star">&#9733;</label>
+                            <input [checked]="currentUser.avgRatings[0].aggregate == '1'" type="radio" id="1-star_{{currentUser.id}}" name="rating_2" value="1" />
+                            <label for="1-star_{{currentUser.id}}" class="star">&#9733;</label>
+                        </div>
+                    </div>
+                </div>
             </mat-list-item>
             <mat-list-item role="listitem" (click)="WorkSpace('./my-work-space')" (click)="drawer.toggle()">
                 <button mat-menu-item class="menuitem">

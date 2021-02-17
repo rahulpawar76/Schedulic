@@ -88,7 +88,7 @@ export class PaymentrulesComponent implements OnInit {
   deleteTax(tax_id) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '400px',
-      data: "Are you sure?"
+      data: "Are you sure you want to delete?"
   });
   dialogRef.afterClosed().subscribe(result => {
     if(result){

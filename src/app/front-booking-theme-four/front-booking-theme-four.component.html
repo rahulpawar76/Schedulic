@@ -1,5 +1,5 @@
 <div id="theme_4_booking_flow" class="front-booking-main theme-4 d-flex justify-content-center">
-    <div class="main_bg"></div>
+    <div class="main_bg" [ngStyle]="{'background-image': 'url(' + frontBgImage + ')'}"></div>
     <div id="theme_4" class="theme-main" *ngIf="selectedTheme == '4'">
         <div class="card-wrap main-front-container">
             <mat-card class="p-0">
@@ -20,7 +20,7 @@
                         businessDetail.status == 'E')">
                         <div class="step-top-head"></div>
                         <div class="col-lg-12 col-sm-12 col-12 float-left
-                            loggedin_head" *ngIf="isLoggedIn">
+                            loggedin_head" *ngIf="isLoggedIn && canCustomerLogin">
 
                             <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn gray-btn logout-btn">View
                                 Dashboard</button>
@@ -29,8 +29,8 @@
                             gray-btn logout-btn ml-a">Logout</button>
                         </div>
                         <div class="col-lg-12 col-sm-12 col-12 float-left
-                            loggedin_head" *ngIf="!isLoggedIn &&
-                            customerLoginValue">
+                            loggedin_head" *ngIf="(!isLoggedIn &&
+                            customerLoginValue) && canCustomerLogin">
                             <button (click)="fnNavigateToLogin()" mat-button class="round-btn gray-btn logout-btn ml-a">Login</button>
                         </div>
                         <mat-card-title class="px-4 py-2 mx-0 row d-flex">

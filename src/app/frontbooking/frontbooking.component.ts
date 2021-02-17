@@ -213,6 +213,8 @@ export class FrontbookingComponent implements OnInit {
   encodedId: any;
   urlString: any;
   cartPopupCloseType:any;
+  canCustomerLogin:boolean= false
+  frontBgImage:any;
   constructor(
     private _formBuilder: FormBuilder,
     private http: HttpClient,
@@ -338,16 +340,13 @@ export class FrontbookingComponent implements OnInit {
   }
 
   fnChangePrivacyPolicyStatus(event){
-      if(event == true){
+    if(event == true){
       this.PrivacyPolicyStatusValue=true;
       this.PrivacyPolicyStatusValidation = false;
-
-      }else if(event == false){
-        this.PrivacyPolicyStatusValidation = true;
+    }else if(event == false){
+      this.PrivacyPolicyStatusValidation = true;
       this.PrivacyPolicyStatusValue=false;
-
-      }
-
+    }
   }
 
   fnGetSettings(){
@@ -365,7 +364,16 @@ export class FrontbookingComponent implements OnInit {
     ).subscribe((response:any) => {
         if(response.data == true){
           this.settingsArr=response.response;
+          console.log(this.settingsArr)
           this.currencySymbol = this.settingsArr.currency;
+          if(this.settingsArr.customer_login == 'true'){
+            this.canCustomerLogin  = true;
+          }else{
+            this.canCustomerLogin  = false;
+          }
+          if(this.settingsArr.appearance){
+            this.frontBgImage = JSON.parse(this.settingsArr.appearance).image
+          }
           this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
           this.currencySymbolFormat = this.settingsArr.currency_format;
           if(this.settingsArr.theme){
@@ -415,11 +423,11 @@ export class FrontbookingComponent implements OnInit {
           
 
           this.termsConditions = JSON.parse(this.settingsArr.terms_condition);
-          if(this.termsConditions.status == false){
+          if(this.termsConditions.status == 'false'){
             this.termsConditionsStatusValue = true;
           }
           this.privacyPolicy=JSON.parse(this.settingsArr.privacy_policy)
-          if(this.privacyPolicy && this.privacyPolicy.status == false){
+          if(this.privacyPolicy && this.privacyPolicy.status == 'false'){
             this.PrivacyPolicyStatusValue = true;
           }
           this.thankYou=JSON.parse(this.settingsArr.thank_you);

@@ -6,7 +6,7 @@
                 <div class="col-lg-3 col-12 col-md-3 col-sm-12 d-flex">
                     <mat-form-field class="appoint-daily mr-2 bottom-border-field">
                         <mat-select (selectionChange)="selectdurationType($event.value)" [(value)]="durationType">
-                            <mat-option value="all">All</mat-option>
+                            <mat-option value="all">All Day</mat-option>
                             <mat-option value="daily">Daily</mat-option>
                             <mat-option value="week">Weekly</mat-option>
                             <mat-option value="month">Monthly</mat-option>
@@ -15,15 +15,15 @@
 
                     <mat-form-field class="appoint-service mr-2 bottom-border-field">
                         <mat-select (selectionChange)="selectService($event.value)" [(value)]="selectedServices">
-                            <mat-option selected value="all">All</mat-option>
+                            <mat-option selected value="all">All Services</mat-option>
                             <mat-option *ngFor="let allservices of allservices;" value="{{allservices.id}}">{{allservices.service_name}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field class="appoint-action bottom-border-field">
                         <mat-label>Actions</mat-label>
                         <mat-select matTooltip="Action" [disabled]="orderItemsIdArr.length == 0" [(ngModel)]="selectedValue" (selectionChange)="fnAppointAction($event.value)">
-                            <mat-option value="AC" *ngIf="!ConfirmError">Confirm</mat-option>
-                            <mat-option value="C" *ngIf="!cancelError">Cancel</mat-option>
+                            <mat-option value="AC" [disabled]="ConfirmError">Confirm</mat-option>
+                            <mat-option value="C" [disabled]="cancelError">Cancel</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -33,7 +33,7 @@
 
                 <div class="col-lg-3 col-12 col-md-3 col-sm-12 d-flex header-date">
                     <div id="head-date" class=" .offset-lg-4">
-                        <div class="d-flex">
+                        <div *ngIf="startDate || endDate" class="d-flex">
                             <button class="date-btn pr-2" (click)="fnPrev()" *ngIf="durationType != 'custom'"><i class="fa fa-angle-left date-icon" aria-hidden="true"></i></button>
                             <p class="date-para pr-2">{{startDate}}</p>
                             <p class="date-para pr-2" *ngIf="startDate != endDate"> - {{endDate | date:'dd MMM yyyy'}}</p>

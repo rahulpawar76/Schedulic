@@ -121,7 +121,7 @@ export class AuthenticationService {
 
     logout() {
       
-
+        alert('0')
         // remove user from local storage to log user out
         // localStorage.removeItem('userId');
         localStorage.removeItem('currentUser');
@@ -132,11 +132,11 @@ export class AuthenticationService {
         localStorage.removeItem('business_name');
         localStorage.removeItem('isBusiness');
         localStorage.removeItem('adminData');
+        localStorage.clear();
         // localStorage.removeItem('userToken');
         // localStorage.removeItem('userName');
         // localStorage.removeItem('userRole');
         // localStorage.removeItem('tokenID');
-        // localStorage.clear();
         this.currentUserSubject.next(null);
         //window.location.reload(true);
      //   console.log(this.currentUserValue);

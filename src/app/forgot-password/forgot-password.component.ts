@@ -23,6 +23,7 @@ export class ForgotPasswordComponent implements OnInit {
    forgotEmail: any;
    businessId:any;
    error = '';
+   saveDisabled:boolean=false;
    emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   
   constructor(
@@ -63,6 +64,7 @@ export class ForgotPasswordComponent implements OnInit {
     let headers = new HttpHeaders({
           'Content-Type': 'application/json',
         });
+        this.saveDisabled = true;
         return this.http.post(`${environment.apiUrl}/forgot-password`,requestObject,{headers:headers}).pipe(
         map((res) => {
             return res;
@@ -70,25 +72,30 @@ export class ForgotPasswordComponent implements OnInit {
         catchError(this.handleError)
         ).subscribe((response:any) => {
           if(response.data == true){
-            // this._snackBar.open("Reset password link sent in your mail", "X", {
-            //   duration: 2000,
-            //   verticalPosition:'top',
-            //   panelClass :['green-snackbar']
-            // });
             this.forgotPwdContainer =false
             this.emailSentContainer = true;
             if(!this.businessId){
               setTimeout(() => {
+                this.saveDisabled = false
                 this.router.navigate(['/login']);
-              }, 4000);
+              }, 3000);
+            }else{
+              setTimeout(() => {
+                this.saveDisabled = false
+                this.router.navigate(['/customer-login']);
+              }, 3000);
+             
             }
           }
           else if(response.data == false){
-            this._snackBar.open(response.response, "X", {
-              duration: 2000,
-              verticalPosition:'top',
-              panelClass :['red-snackbar']
-            });
+            setTimeout(() => {
+              this.saveDisabled = false
+              this._snackBar.open(response.response, "X", {
+                duration: 2000,
+                verticalPosition:'top',
+                panelClass :['red-snackbar']
+              });
+            }, 3000);
           }
         }, (err) =>{
           console.log(err)

@@ -249,7 +249,7 @@
                                             <small *ngIf="createCategory.get('category_name').hasError('minlength')"
                                                 class="error">Category name can not be less than 1 character.</small>
                                             <small *ngIf="createCategory.get('category_name').hasError('maxlength')"
-                                                class="error">Category name may not be greater than 30
+                                                class="error">Category name may not be greater than 50
                                                 character.</small>
                                         </span>
                                     </div>
@@ -258,9 +258,9 @@
                                             <textarea rows="0" matInput formControlName="category_description" rows="0" placeholder="Enter Category Description"></textarea>
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createCategory.get('category_description').touched || createCategory.get('category_description').dirty">
-                                            <small
+                                            <!-- <small
                                                 *ngIf="createCategory.get('category_description').hasError('required')"
-                                                class="error">Category description is required.</small>
+                                                class="error">Category description is required.</small> -->
                                             <small
                                                 *ngIf="createCategory.get('category_description').hasError('minlength')"
                                                 class="error">Category description name can not be less than 2
@@ -349,7 +349,7 @@
                                                 characters.</small>
                                             <small
                                                 *ngIf="createSubCategory.get('subcategory_name').hasError('maxlength')"
-                                                class="error">Subcategory length can not be graeter than 30
+                                                class="error">Subcategory length can not be graeter than 50
                                                 characters.</small>
                                         </span>
                                     </div>
@@ -358,9 +358,9 @@
                                             <textarea rows="0" matInput formControlName="subcategory_description" placeholder="Enter Sub Category Description" rows="0"></textarea>
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createSubCategory.get('subcategory_description').touched || createSubCategory.get('subcategory_description').dirty">
-                                            <small
+                                            <!-- <small
                                                 *ngIf="createSubCategory.get('subcategory_description').hasError('required')"
-                                                class="error">Subcategory description is required.</small>
+                                                class="error">Subcategory description is required.</small> -->
                                             <small
                                                 *ngIf="createSubCategory.get('subcategory_description').hasError('minlength')"
                                                 class="error">Description length cannot be less than 2
@@ -704,7 +704,7 @@
                                             <small *ngIf="createService.get('service_name').hasError('minlength')"
                                                 class="error">Service name can not be less than 1 character.</small>
                                             <small *ngIf="createService.get('service_name').hasError('maxlength')"
-                                                class="error">Service name length cannot be greater than 30
+                                                class="error">Service name length cannot be greater than 50
                                                 characters.</small>
                                         </span>
                                     </div>
@@ -713,8 +713,6 @@
                                             <textarea matInput formControlName="service_description" placeholder="Enter Service Description" rows="0"></textarea>
                                         </mat-form-field>
                                         <span class="error-wrap d-flex" *ngIf="createService.get('service_description').touched || createService.get('service_description').dirty">
-                                            <small *ngIf="createService.get('service_description').hasError('required')"
-                                                class="error">Service description is required.</small>
                                             <small
                                                 *ngIf="createService.get('service_description').hasError('minlength')"
                                                 class="error">Description length cannot be less than 2
