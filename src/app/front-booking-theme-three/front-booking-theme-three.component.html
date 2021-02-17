@@ -708,7 +708,7 @@
                                 float-left">
                     Payment Method
                     <button mat-fab color="" class="top-back-btn
-                                    float-right" (click)="fnbacktofirst()">
+                                    float-right ml-auto" (click)="fnbacktofirst()">
                                     <i class="material-icons" color="">close</i>
                                 </button>
                 </div>
@@ -918,7 +918,7 @@
 
         <!-- common footer -->
         <div class="common-footer" *ngIf="!summaryScreen && !catselection && !thankYouScreen && !paymentScreen && (businessDetail && businessDetail.private_status == 'N') && (businessDetail && businessDetail.status == 'E')">
-            <div class="cart-btn mt-2" [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click" #popoverTrigger="mdePopoverTrigger" (click)="fnOpenCartbox()">
+            <div class="cart-btn mt-2" matBadge="{{serviceMainArr.totalNumberServices}}" matBadgePosition="before" [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click" #popoverTrigger="mdePopoverTrigger" (click)="fnOpenCartbox()">
                 <i *ngIf="cartOpened" class="fa fa-shopping-cart"></i>
                 <i *ngIf="!cartOpened" class="material-icons">close</i>
             </div>

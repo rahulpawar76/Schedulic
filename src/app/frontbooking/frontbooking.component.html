@@ -1,5 +1,5 @@
 <div id="booking_flow" class="front-booking-main d-flex justify-content-center">
-    <div class="main_bg" [ngStyle]="{'background-image': 'url(' + frontBgImage + ')'}"></div>
+    <div class="main_bg"></div>
     <div id="theme_1" class="theme-main" *ngIf="selectedTheme == '1'">
         <div class="card-wrap main-front-container">
             <mat-card class="p-0">
@@ -20,7 +20,7 @@
                         businessDetail.status == 'E')">
                         <div class="step-top-head"></div>
                         <div class="col-lg-12 col-sm-12 col-12 float-left
-                            loggedin_head" *ngIf="isLoggedIn && canCustomerLogin">
+                            loggedin_head" *ngIf="isLoggedIn">
 
                             <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn gray-btn logout-btn">View
                                 Dashboard</button>
@@ -29,8 +29,8 @@
                             gray-btn logout-btn ml-a">Logout</button>
                         </div>
                         <div class="col-lg-12 col-sm-12 col-12 float-left
-                            loggedin_head" *ngIf="(!isLoggedIn &&
-                            customerLoginValue) && canCustomerLogin">
+                            loggedin_head" *ngIf="!isLoggedIn &&
+                            customerLoginValue">
                             <button (click)="fnNavigateToLogin()" mat-button class="round-btn gray-btn logout-btn ml-a">Login</button>
                         </div>
                         <mat-card-title class="px-4 py-2 mx-0 row d-flex">
@@ -991,8 +991,8 @@
         <!-- common footer -->
         <div class="common-footer" *ngIf="!summaryScreen && !thankYouScreen && 
         !paymentScreen && (businessDetail && businessDetail.private_status == 'N') && (businessDetail && businessDetail.status == 'E')">
-            <div class="cart-btn mt-2" [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click" #popoverTrigger="mdePopoverTrigger" (click)="fnOpenCartbox()">
-                <i *ngIf="cartOpened" class="material-icons">add_shopping_cart</i>
+            <div class="cart-btn mt-2" matBadge="{{serviceMainArr.totalNumberServices}}" matBadgePosition="before" [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click" #popoverTrigger="mdePopoverTrigger" (click)="fnOpenCartbox()">
+                <i *ngIf="cartOpened"  class="material-icons">add_shopping_cart</i>
                 <i *ngIf="!cartOpened" class="material-icons">close</i>
             </div>
             <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
@@ -1074,13 +1074,13 @@
                 </div>
                 <div id="category_list" class="main-step step_1 p-0" *ngIf="catselection && (businessDetail && businessDetail.private_status == 'N') && (businessDetail && businessDetail.status == 'E')">
 
-                    <div class="col-lg-12 col-sm-12 col-12 float-left loggedin_head" *ngIf="isLoggedIn && canCustomerLogin">
+                    <div class="col-lg-12 col-sm-12 col-12 float-left loggedin_head" *ngIf="isLoggedIn">
 
                         <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn gray-btn logout-btn">View Dashboard</button>
 
                         <button (click)="fnLogout()" mat-button class="round-btn gray-btn logout-btn ml-a">Logout</button>
                     </div>
-                    <div class="col-lg-12 col-sm-12 col-12 float-left loggedin_head py-2" *ngIf="(!isLoggedIn && customerLoginValue) && canCustomerLogin">
+                    <div class="col-lg-12 col-sm-12 col-12 float-left loggedin_head py-2" *ngIf="!isLoggedIn && customerLoginValue">
                         <button (click)="fnNavigateToLogin()" mat-button class="round-btn gray-btn logout-btn ml-a">Login</button>
                     </div>
                     <mat-card-title class="px-4 py-2 mx-2 row d-flex">
