@@ -1861,33 +1861,44 @@ export class ServicesComponent implements OnInit {
         this.isLoaderAdmin = false;
     }
     fnDeleteService(){
-        this.isLoaderAdmin = true;
-        this.adminSettingsService.fnDeleteService(this.editServiceId).subscribe((response: any) => {
-            if (response.data == true) {
-                this._snackBar.open("Service Deleted.", "X", {
-                    duration: 2000,
-                    verticalPosition: 'top',
-                    panelClass: ['green-snackbar']
-                });
-                this.fnAllServices();
-                if(this.createServiceCategoryType == 'category'){
-                    this.fnSelectCategoryNavigation(this.selectedCategoryID,this.selectedCategoryIndex);
-                    this.singleSubCategoryPage = 'services'
-                }else if(this.createServiceCategoryType == 'subcategory'){
-                    this.fnSelectSubCategoryNavigate(this.selectedSubCategoryID,this.selectedSubCategoryIndex);
-                    this.selectCategoryPage = 'services'
-                }
-                this.isLoaderAdmin = false;
-            }
-            else if(response.data == false && response.response !== 'api token or userid invaild'){ 
-                this._snackBar.open(response.response, "X", {
-                duration: 2000,
-                verticalPosition: 'top',
-                panelClass: ['red-snackbar']
-            });
-                this.isLoaderAdmin = false;
-            }
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
+            width:'400px',
+            data: 'Are you sure you want to delete?',
         })
+
+        dialogRef.afterClosed().subscribe(result =>{
+            if(result){
+                this.isLoaderAdmin = true;
+                this.adminSettingsService.fnDeleteService(this.editServiceId).subscribe((response: any) => {
+                    if (response.data == true) {
+                        this._snackBar.open("Service Deleted.", "X", {
+                            duration: 2000,
+                            verticalPosition: 'top',
+                            panelClass: ['green-snackbar']
+                        });
+                        this.fnAllServices();
+                        if(this.createServiceCategoryType == 'category'){
+                            this.fnSelectCategoryNavigation(this.selectedCategoryID,this.selectedCategoryIndex);
+                            this.singleSubCategoryPage = 'services'
+                        }else if(this.createServiceCategoryType == 'subcategory'){
+                            this.fnSelectSubCategoryNavigate(this.selectedSubCategoryID,this.selectedSubCategoryIndex);
+                            this.selectCategoryPage = 'services'
+                        }
+                        this.isLoaderAdmin = false;
+                    }
+                    else if(response.data == false && response.response !== 'api token or userid invaild'){ 
+                        this._snackBar.open(response.response, "X", {
+                        duration: 2000,
+                        verticalPosition: 'top',
+                        panelClass: ['red-snackbar']
+                    });
+                        this.isLoaderAdmin = false;
+                    }
+                })
+            }
+
+        });
+        
     }
 
     fnAssignStaffToService(event, staffId){

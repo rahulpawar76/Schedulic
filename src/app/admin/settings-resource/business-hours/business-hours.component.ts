@@ -912,7 +912,7 @@ export class BusinessHoursComponent implements OnInit {
   fnDeleteTimeOff(timeOffId){
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '400px',
-      data: "Are you sure?"
+      data: "Are you sure you want to delete?"
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
@@ -1516,7 +1516,7 @@ export class BusinessHoursComponent implements OnInit {
   fnDeleteBreak(breakId){
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '400px',
-      data: "Are you sure?"
+      data: "Are you sure you want to delete?"
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
