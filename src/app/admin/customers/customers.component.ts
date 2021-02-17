@@ -2828,12 +2828,6 @@ constructor(
   }
 
   fnNewAppointmentStep2(){
-
-    if(this.valide_postal_code == false){
-      this.formAddNewAppointmentStaffStep2.get('customerPostalCode').markAsTouched();
-      return false;
-    }
-
     if(this.formAddNewAppointmentStaffStep2.invalid){
       this.formAddNewAppointmentStaffStep2.get('customerPostalCode').markAsTouched();
       this.formAddNewAppointmentStaffStep2.get('customerCategory').markAsTouched();
@@ -2850,6 +2844,12 @@ constructor(
       return false;
     }
 
+    if(this.valide_postal_code == false){
+      this.formAddNewAppointmentStaffStep2.get('customerPostalCode').markAsTouched();
+      return false;
+    }
+
+    
     this.fnBookAppointment();
   }
 
@@ -3251,9 +3251,8 @@ onNoClick(): void {
         this.currencySymbolFormat = this.settingsArr.currency_format;
         this.paymentInfo.invoice_date=this.datePipe.transform(new Date(), 'dd/MM/yyyy');
         this.paymentData = this.data.fulldata;
-        
-
-        this.paymentInfo.invoiceNumber = "2"+this.paymentData.id+this.datePipe.transform(new Date(),"yyyy/MM/dd");
+        console.log(this.paymentData)
+        this.paymentInfo.invoiceNumber = "2"+this.paymentData.id+this.datePipe.transform(this.paymentData.paymentDate,"yyyy/MM/dd");
         this.paymentInfo.customer_name=this.paymentData.get_customer.fullname;
         this.paymentInfo.customer_email=this.paymentData.get_customer.email;
         this.paymentInfo.customer_address=this.paymentData.get_customer.address;

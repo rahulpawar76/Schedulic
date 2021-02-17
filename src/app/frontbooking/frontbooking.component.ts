@@ -3015,11 +3015,11 @@ export class theme2CheckoutDialog {
           this.bankTransferStatus = this.bankTransferSetting.status
         }
         this.termsConditions = JSON.parse(this.settingsArr.terms_condition);
-        if(this.termsConditions.status == false){
+        if(this.termsConditions.status == 'false'){
           this.termsConditionsStatusValue = true;
         }
         this.privacyPolicy=JSON.parse(this.settingsArr.privacy_policy)
-        if(this.privacyPolicy && this.privacyPolicy.status == false){
+        if(this.privacyPolicy && this.privacyPolicy.status == 'false'){
           this.PrivacyPolicyStatusValue = true;
         }
         this.thankYou=JSON.parse(this.settingsArr.thank_you);

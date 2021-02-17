@@ -995,3 +995,9 @@ mat-chip-list {
 ::ng-deep .fieldcolor {
     color: #007bff;
 }
+
+::ng-deep #printInvoice {
+    p {
+        line-height: 1rem;
+    }
+}
