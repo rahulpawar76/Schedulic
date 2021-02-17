@@ -2678,7 +2678,7 @@ this.router.navigate(['/customer-login/'+this.urlString[1]]);
    openTheme2CartPopup() {
      
     const dialogRef = this.dialog.open(theme2CartPopup, {
-      width: '500px',
+      width: '700px',
        data: {
          serviceCartArr : this.serviceCartArr,
          settingsArr : this.settingsArr,

@@ -76,14 +76,14 @@
                                     </tr>
                                     <tr>
                                         <td></td>
-                                        <td class="fieldcolor">SUBTOTAL</td>
+                                        <td class="fieldcolor">SUBTOTAL :</td>
                                         <td></td>
                                         <td *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ paymentInfo.service_subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>
                                         <td *ngIf="currencySymbolPosition=='right'">{{currencySymbol| currencySymbol:'wide'}} {{ paymentInfo.service_subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} </td>
                                     </tr>
                                     <tr>
                                         <td></td>
-                                        <td class="fieldcolor">DISCOUNT</td>
+                                        <td class="fieldcolor">DISCOUNT :</td>
                                         <td></td>
                                         <td *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ paymentInfo.service_discount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>
                                         <td *ngIf="currencySymbolPosition=='right'">{{currencySymbol| currencySymbol:'wide'}} {{ paymentInfo.service_discount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} </td>
@@ -97,7 +97,7 @@
                                     </tr>
                                     <tr>
                                         <td></td>
-                                        <td>TOTAL</td>
+                                        <td>TOTAL :</td>
                                         <td></td>
                                         <td class="fieldcolor" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ paymentInfo.service_netCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>
                                         <td class="fieldcolor" *ngIf="currencySymbolPosition=='right'"> {{currencySymbol| currencySymbol:'wide'}} {{ paymentInfo.service_netCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>

@@ -986,6 +986,10 @@ input:focus {
     bottom: unset;
 }
 
+::ng-deep .credit-card-form.field-list .error-wrap {
+    bottom: unset;
+}
+
 .disable-business-container {
     height: 75vh;
     display: flex;
