@@ -975,7 +975,8 @@ export class DialogCancelReason {
         this.myAppoDetailData = this.data.fulldata;
         this.tax = JSON.parse(this.myAppoDetailData.tax)
         this.myAppoDetailData.invoice_date=this.datePipe.transform(new Date(), 'dd/MM/yyyy');
-        this.myAppoDetailData.invoiceNumber = "2"+this.myAppoDetailData.id+this.datePipe.transform(new Date(),"yyyy/MM/dd");
+        // this.myAppoDetailData.invoiceNumber = "2"+this.myAppoDetailData.id+this.datePipe.transform(new Date(),"yyyy/MM/dd");
+        this.myAppoDetailData.invoiceNumber = "2"+this.myAppoDetailData.id+this.datePipe.transform(this.myAppoDetailData.paymentDate,"yyyy/MM/dd");
         this.bussinessId=this.authenticationService.currentUserValue.business_id;
         this.getBusinessDetail();
         this.fnGetSettingValue();

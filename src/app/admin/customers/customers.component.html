@@ -28,7 +28,7 @@
                     <mat-label>Action</mat-label>
                     <mat-select [ngModel]="actionValue" (selectionChange)="fnMultiDeleteCustomer($event.value)">
                         <!-- <mat-option>None</mat-option> -->
-                        <mat-option value="delete" >Delete</mat-option>
+                        <mat-option value="delete">Delete</mat-option>
                     </mat-select>
                 </mat-form-field>
 
@@ -36,7 +36,7 @@
                     <form class="serch_input-appoint">
                         <div class="form-group has-search">
                             <span class="fa fa-search form-control-feedback verticalLine"></span>
-                            <input name="searchKeyword" [(ngModel)]="search.keyword" (keyup)="customerSearch($event)" type="text" class="form-control searchbox_appointment " placeholder="Name, Area, Tag, Mobile No.">
+                            <input name="searchKeyword" [(ngModel)]="search.keyword" (keyup)="customerSearch($event)" type="text" class="form-control searchbox_appointment " placeholder="Name, Tag, Mobile No.">
                         </div>
                     </form>
                 </div>
@@ -294,8 +294,7 @@
                                     <div class="lastBookedService">
                                         <h6>LAST BOOKED SERVICE</h6>
                                         <p class="detail-color">
-                                            {{customersDetails.lastBooking?customersDetails.lastBooking.service.service_name:''}} 
-                                            ({{customersDetails.lastBooking && customersDetails.lastBooking.service && customersDetails.lastBooking.service.category && customersDetails.lastBooking.service.category.category_title?(customersDetails.lastBooking.service.category.category_title):''}})
+                                            {{customersDetails.lastBooking?customersDetails.lastBooking.service.service_name:''}} ({{customersDetails.lastBooking && customersDetails.lastBooking.service && customersDetails.lastBooking.service.category && customersDetails.lastBooking.service.category.category_title?(customersDetails.lastBooking.service.category.category_title):''}})
                                         </p>
                                     </div>
 
@@ -520,7 +519,7 @@
                                                                 <h6 *ngIf="serviceMainArr.order_status == 'R'">Rejected</h6>
                                                                 <h6 *ngIf="serviceMainArr.order_status == 'CO'">Completed</h6>
                                                             </div>
-                                                            
+
                                                         </div>
                                                     </div>
                                                     <div class="px-3 pb-3">

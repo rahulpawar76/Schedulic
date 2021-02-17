@@ -93,7 +93,7 @@
                             <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{ detailData.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
                         </div>
 
-                        <div class="col-6">
+                        <div *ngIf="taxTotal" class="col-6">
                             <p class="mb-0 title text-right">Tax</p>
                             <p class="font-weight-bold text-right" *ngIf="currencySymbolPosition=='left' && detailData.tax != null">{{currencySymbol| currencySymbol:'wide'}} {{ taxTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
                             <p class="font-weight-bold text-right" *ngIf="currencySymbolPosition=='right' && detailData.tax != null">{{ taxTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>

@@ -2225,6 +2225,7 @@ constructor(
   private adminService: AdminService,
   private _snackBar: MatSnackBar,
   private datePipe: DatePipe,
+  private http: HttpClient,
   private authenticationService : AuthenticationService,
   public dialog: MatDialog,
   @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -2233,7 +2234,7 @@ constructor(
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.detailsData =  this.data.appointmentData;
     this.fnGetSettingValue();
-    
+    this.fnGetStaff(this.detailsData.booking_date,this.detailsData.booking_time,this.detailsData.service_id,this.detailsData.postal_code);
       this.fnGetActivityLog(this.detailsData.id);
       this.fnGetBookingNotes(this.detailsData.id);
       this.detailsData.bookingNotes = this.detailsData.booking_notes;
@@ -2303,7 +2304,64 @@ constructor(
     })
   }
 
-  
+  fnGetStaff(booking_date,booking_time,serviceId,postal_code){
+    let requestObject = {
+      "postal_code":postal_code,
+      "business_id":this.detailsData.business_id,
+      "service_id":JSON.stringify(serviceId),
+      "book_date":this.datePipe.transform(new Date(booking_date),"yyyy-MM-dd"),
+      "book_time":booking_time
+    };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    this.http.post(`${environment.apiUrl}/service-staff`,requestObject,{headers:headers} ).pipe(
+    map((res) => {
+      return res;
+    }),
+    //catchError(this.handleError)
+    ).subscribe((response:any) => {
+      if(response.data == true){
+        this.availableStaff = response.response;
+        console.log(JSON.stringify(this.availableStaff));
+      }
+      else{
+        this.availableStaff.length=0;
+      }
+    },
+    (err) =>{
+      console.log(err)
+    })
+  }
+  fnOnClickStaff(event){
+    console.log(event.value);
+    let requestObject = {
+      "order_item_id":this.detailsData.id,
+      "staff_id":event.value
+      };
+    this.adminService.assignStaffToOrder(requestObject).subscribe((response:any) => 
+    {
+      if(response.data == true){
+          this._snackBar.open("Staff Assigned.", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+            });
+          this.dialogRef.close();
+        }
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+            });
+        }
+    },
+    (err) => {
+      // this.error = err;
+    })
+  }
 
   fnGetActivityLog(orderItemId){
     let requestObject = {
