@@ -1446,6 +1446,7 @@ export class FrontBookingThemeFourComponent implements OnInit {
    }
 
   onDateSelect(event){
+    this.timeSlotArr = [];
     this.selecteddate = event.year+'-'+event.month+'-'+event.day;
     this.selecteddate=this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd")
     this.selecteddateForLabel=this.datePipe.transform(new Date(this.selecteddate),"EEE, MMM dd")
@@ -3144,6 +3145,7 @@ export class theme4DateTimeSelection {
       }
 
       onDateSelect(event){
+        this.timeSlotArr = [];
         this.selecteddate = event.year+'-'+event.month+'-'+event.day;
         this.selecteddate=this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd")
         this.selecteddateForLabel=this.datePipe.transform(new Date(this.selecteddate),"EEE, MMM dd")

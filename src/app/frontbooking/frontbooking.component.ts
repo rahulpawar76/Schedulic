@@ -1371,6 +1371,7 @@ this.router.navigate(['/customer-login/'+this.urlString[1]]);
    }
 
   onDateSelect(event){
+    this.timeSlotArr = [];
     this.selecteddate = event.year+'-'+event.month+'-'+event.day;
     this.selecteddate=this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd")
     this.selecteddateForLabel=this.datePipe.transform(new Date(this.selecteddate),"EEE, MMM dd")
@@ -2677,7 +2678,7 @@ this.router.navigate(['/customer-login/'+this.urlString[1]]);
    openTheme2CartPopup() {
      
     const dialogRef = this.dialog.open(theme2CartPopup, {
-      width: '500px',
+      width: '700px',
        data: {
          serviceCartArr : this.serviceCartArr,
          settingsArr : this.settingsArr,
@@ -4826,6 +4827,7 @@ export class theme2DateTimeSelection {
       }
 
       onDateSelect(event){
+        this.timeSlotArr = [];
         this.selecteddate = event.year+'-'+event.month+'-'+event.day;
         this.selecteddate=this.datePipe.transform(new Date(this.selecteddate),"yyyy-MM-dd")
         this.selecteddateForLabel=this.datePipe.transform(new Date(this.selecteddate),"EEE, MMM dd")
