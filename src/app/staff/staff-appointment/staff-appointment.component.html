@@ -123,12 +123,18 @@
                                     <form>
                                         <mat-form-field class=" bottom-border-field">
                                             <mat-label>Change Status</mat-label>
-                                            <mat-select [disabled]="onGoingAppointmentData.timeToServiceDecimal < 0 || onGoingAppointmentData.timeToServiceDecimal > 60" name="status" [(value)]="onGoingAppointmentData.order_status" (selectionChange)="someMethod(onGoingAppointmentData.id, $event.value)"
-                                                [disabled]="onGoingAppointmentData.timeToServiceDecimal >= 60 && onGoingAppointmentData.timeToServiceDecimal >= 30">
-                                                <mat-option *ngIf="(onGoingAppointmentData.timeToServiceDecimal < 60) && onGoingAppointmentData.service.service_sub_type != 'in_store'" [disabled]="onGoingAppointmentData.order_status == 'WS'" value="OW">On The Way</mat-option>
-                                                <mat-option *ngIf="onGoingAppointmentData.timeToServiceDecimal < 30" value="WS">Work Started</mat-option>
+                                            <mat-select name="status" [(value)]="onGoingAppointmentData.order_status" (selectionChange)="someMethod(onGoingAppointmentData.id, $event.value)">
+                                                <mat-option [disabled]="(onGoingAppointmentData.timeToServiceDecimal > 60) || onGoingAppointmentData.service.service_sub_type == 'in_store' || onGoingAppointmentData.order_status == 'WS'" value="OW">On The Way</mat-option>
+                                                <mat-option [disabled]="onGoingAppointmentData.timeToServiceDecimal > 30" value="WS">Work Started</mat-option>
                                             </mat-select>
                                         </mat-form-field>
+                                        <!-- <mat-form-field class=" bottom-border-field">
+                                            <mat-label>Change Status</mat-label>
+                                            <mat-select [disabled]="onGoingAppointmentData.timeToServiceDecimal < 0 || onGoingAppointmentData.timeToServiceDecimal > 60" name="status" [(value)]="onGoingAppointmentData.order_status" (selectionChange)="someMethod(onGoingAppointmentData.id, $event.value)" [disabled]="onGoingAppointmentData.timeToServiceDecimal >= 60 && onGoingAppointmentData.timeToServiceDecimal >= 30">
+                                                <mat-option [disabled]="(onGoingAppointmentData.timeToServiceDecimal > 60) && onGoingAppointmentData.service.service_sub_type == 'in_store' && onGoingAppointmentData.order_status == 'WS'" value="OW">On The Way</mat-option>
+                                                <mat-option [disabled]="onGoingAppointmentData.timeToServiceDecimal > 30" value="WS">Work Started</mat-option>
+                                            </mat-select>
+                                        </mat-form-field> -->
                                     </form>
                                     <label class="font-weight-bold">Current Status</label>
                                     <p class="text-capitalize" *ngIf="onGoingAppointmentData.order_status == 'P'">Waiting For Confirmation</p>

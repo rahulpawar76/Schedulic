@@ -131,6 +131,10 @@ export class AppComponent implements AfterViewInit {
       this.businessId = localStorage.getItem('business_id');
       this.getNotificationCount(this.businessId)
     }
+    console.log(this.authenticationService.currentUserValue)
+    if(this.authenticationService.currentUserValue.user_type != 'A'){
+      this.getNotificationCount(null)
+    }
 
     this.bnIdle.startWatching(6600).subscribe((res) => {
       if(res) {
@@ -750,6 +754,7 @@ export class AppComponent implements AfterViewInit {
     let headers;
     let userId;
     if(this.currentUser){
+    if(business_id != null){
       if (this.currentUser.user_type == "A") {
         this.userType = "admin";
         userId = business_id;
@@ -775,6 +780,35 @@ export class AppComponent implements AfterViewInit {
           "api-token": this.currentUser.token
         });
       }
+    }else{
+      if (this.currentUser.user_type == "A") {
+        this.userType = "admin";
+        userId = business_id;
+        headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'admin-id': JSON.stringify(this.currentUser.user_id),
+          "api-token": this.currentUser.token
+        });
+      } else if (this.currentUser.user_type == "SM") {
+        this.userType = "staff";
+        userId = JSON.stringify(this.currentUser.user_id);
+        headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'staff-id': JSON.stringify(this.currentUser.user_id),
+          "api-token": this.currentUser.token
+        });
+      } else if (this.currentUser.user_type == "C") {
+        this.userType = "customer";
+        userId = JSON.stringify(this.currentUser.user_id);
+        headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'customer-id': JSON.stringify(this.currentUser.user_id),
+          "api-token": this.currentUser.token
+        });
+      }
+    }
+   
+      
       let requestObject = {
         "user_id": userId,
         "user_type": this.userType

@@ -1654,6 +1654,7 @@ constructor(
     let requestObject = {
       "postal_code":postal_code,
       "business_id":this.detailsData.business_id,
+      "customer_id":this.detailsData.customer.id,
       "service_id":JSON.stringify(serviceId),
       "book_date":this.datePipe.transform(new Date(booking_date),"yyyy-MM-dd"),
       "book_time":booking_time
@@ -1834,6 +1835,7 @@ export class InterruptedReschedulecustomer {
     let requestObject = {
       "postal_code":this.detailsData.postal_code,
       "business_id":this.businessId,
+      "customer_id":this.detailsData.customer.id,
       "service_id":JSON.stringify(this.detailsData.service_id),
       "book_date":this.selectedDate,
       "book_time":this.selectedTimeSlot

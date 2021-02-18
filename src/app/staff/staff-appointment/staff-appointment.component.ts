@@ -1922,6 +1922,8 @@ export class StaffAppointmentComponent implements OnInit {
     initials:any;
     customerShortName:any;
     dialogType:any;
+    taxTotal : any = 0;
+    singleBookingTax:any;
     formSettingPage:boolean = false;
     singlenote:any;
     singleBookingNotes:any;
@@ -1943,6 +1945,12 @@ export class StaffAppointmentComponent implements OnInit {
         this.customerShortName = this.customerShortName+element2.charAt(0);
       });
         this.fnGetSettingValue();
+        if(this.detailData.tax != null){
+          this.singleBookingTax = JSON.parse(this.detailData.tax)
+          this.singleBookingTax.forEach( (element) => {
+            this.taxTotal = this.taxTotal + element.amount;
+          });
+        }
       }
     onNoClick(): void {
       this.dialogRef.close();
@@ -2056,6 +2064,8 @@ export class StaffAppointmentComponent implements OnInit {
   formSettingPage:boolean = false;
   singlenote:any;
   singleBookingNotes:any;
+  taxTotal : any = 0;
+  singleBookingTax:any;
     constructor(
       public dialogRef: MatDialogRef<OnGoingAppointmentDetails>,
       public dialog: MatDialog,
@@ -2084,7 +2094,12 @@ export class StaffAppointmentComponent implements OnInit {
           var serviceTimeTamp =  dateTemp2.getTime() - todayDateTime.getTime();
           this.timeToServiceDecimal=(serviceTimeTamp/60000).toFixed();
 
-
+          if(this.detailData.tax != null){
+            this.singleBookingTax = JSON.parse(this.detailData.tax)
+            this.singleBookingTax.forEach( (element) => {
+              this.taxTotal = this.taxTotal + element.amount;
+            });
+          }
 
       }
 
@@ -2267,6 +2282,8 @@ export class StaffAppointmentComponent implements OnInit {
     formSettingPage:boolean = false;
     singlenote:any;
     singleBookingNotes:any;
+    taxTotal : any = 0;
+    singleBookingTax:any;
     constructor(
       private authenticationService:AuthenticationService,
       private StaffService:StaffService,
@@ -2284,6 +2301,12 @@ export class StaffAppointmentComponent implements OnInit {
         this.fnGetBookingNotes(this.detailData.id);
         this.bussinessId=this.authenticationService.currentUserValue.business_id
         this.fnGetSettingValue();
+        if(this.detailData.tax != null){
+          this.singleBookingTax = JSON.parse(this.detailData.tax)
+          this.singleBookingTax.forEach( (element) => {
+            this.taxTotal = this.taxTotal + element.amount;
+          });
+        }
       }
 
     onNoClick(): void {

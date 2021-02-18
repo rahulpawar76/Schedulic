@@ -1704,6 +1704,7 @@ constructor(
   fnGetStaff(booking_date,booking_time,serviceId,postal_code){
     let requestObject = {
       "postal_code":postal_code,
+      "customer_id":this.detailsData.customer.id,
       "business_id":this.detailsData.business_id,
       "service_id":JSON.stringify(serviceId),
       "book_date":this.datePipe.transform(new Date(booking_date),"yyyy-MM-dd"),
@@ -2351,6 +2352,7 @@ export class OnTheWayAppointmentDetailsDialog {
     let requestObject = {
       "postal_code":postal_code,
       "business_id":this.detailsData.business_id,
+      "customer_id":this.detailsData.customer.id,
       "service_id":JSON.stringify(serviceId),
       "book_date":this.datePipe.transform(new Date(booking_date),"yyyy-MM-dd"),
       "book_time":booking_time
@@ -2700,6 +2702,7 @@ constructor(
     let requestObject = {
       "postal_code":postal_code,
       "business_id":this.detailsData.business_id,
+      "customer_id":this.detailsData.customer.id,
       "service_id":JSON.stringify(serviceId),
       "book_date":this.datePipe.transform(new Date(booking_date),"yyyy-MM-dd"),
       "book_time":booking_time
@@ -2975,6 +2978,7 @@ constructor(
     fnGetStaff(selectedTimeSlot){
       let requestObject = {
         "postal_code":this.detailsData.postal_code,
+        "customer_id":this.detailsData.customer.id,
         "business_id":this.businessId,
         "service_id":JSON.stringify(this.detailsData.service_id),
         "book_date":this.selectedDate,
