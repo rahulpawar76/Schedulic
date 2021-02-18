@@ -157,7 +157,7 @@
                                         <div class="w-50 float-left text-right right-side">
                                             <mat-icon *ngIf="val.booking_notes !== null" (click)="fnShowNote(val.booking_notes)">sticky_note_2</mat-icon>
                                             <img src="/assets/images/admin/stopwatch.png">
-                                            <span class="timing"><small class="title">mm:ss</small>
+                                            <span class="timing"><small class="title">hh:mm:ss</small>
                                                 {{countDown(val.booking_date+' '+val.booking_time)}}
                                             </span>
                                         </div>
@@ -442,7 +442,7 @@
                     <agm-direction [origin]="origin" [destination]="destination" [renderOptions]="renderOptions">
                     </agm-direction>
                 </agm-map>
-                <p *ngIf="!ShowMap" class="col-6 text-right mt-4"><strong>In store Service</strong></p>
+                <p *ngIf="!ShowMap" class="col-6 text-right mt-4"><strong>No At Home Bookings</strong></p>
             </div>
 
         </mat-tab>
@@ -602,7 +602,8 @@
                                     <hr>
                                     <div class="row ">
                                         <div class="col-8">
-                                            <span>{{val.service.service_name}}</span>
+                                            <span *ngIf="val.service && val.service.service_sub_type == 'in_store'">{{val.service.service_name}} (In Store)</span>
+                                            <span *ngIf="val.service && val.service.service_sub_type == 'at_home'">{{val.service.service_name}} (At Home)</span>
                                         </div>
                                         <div class="col-4 text-right">
                                             <span>{{val.orders ? val.orders.service_qty : '-'}}</span>

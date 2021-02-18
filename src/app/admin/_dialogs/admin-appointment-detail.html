@@ -9,19 +9,19 @@
                      </button>
                 </div>
                 <div class="appodetails">
-                   <div  *ngIf="detailsData.order_status != 'C' && detailsData.order_status != 'CO'">
-                    <label class="greenfont pointer" (click)="fnRescheduleAppointment()" *ngIf="detailsData.booking_date_time && minReschedulingTime && detailsData.booking_date_time && minReschedulingTime.getTime() < detailsData.booking_date_time.getTime()"><i class="fa fa-repeat repeat"></i>Reschedule</label>
-                    <label class="fontred pl-3 pointer" (click)="fnCancelAppointment()" *ngIf="detailsData.booking_date_time && cancellationBufferTime && detailsData.booking_date_time && cancellationBufferTime.getTime() < detailsData.booking_date_time.getTime()"><i class="fa fa-times-circle-o circle"></i>Cancel</label>
-                   </div>
+                    <div *ngIf="detailsData.order_status != 'C' && detailsData.order_status != 'CO'">
+                        <label class="greenfont pointer" (click)="fnRescheduleAppointment()" *ngIf="detailsData.booking_date_time && minReschedulingTime && detailsData.booking_date_time && minReschedulingTime.getTime() < detailsData.booking_date_time.getTime()"><i class="fa fa-repeat repeat"></i>Reschedule</label>
+                        <label class="fontred pl-3 pointer" (click)="fnCancelAppointment()" *ngIf="detailsData.booking_date_time && cancellationBufferTime && detailsData.booking_date_time && cancellationBufferTime.getTime() < detailsData.booking_date_time.getTime()"><i class="fa fa-times-circle-o circle"></i>Cancel</label>
+                    </div>
 
-                   <div *ngIf="detailsData.order_status == 'C'">
-                     Cancelled
-                   </div>
-                    
-                   <div *ngIf="detailsData.order_status == 'CO'">
+                    <div *ngIf="detailsData.order_status == 'C'">
+                        Cancelled
+                    </div>
+
+                    <div *ngIf="detailsData.order_status == 'CO'">
                         Completed
-                  </div>                   
-                   
+                    </div>
+
                     <button mat-button type="button" *ngIf="detailsData.order_status == 'P'" class="d-block float-right confirm-btn" (click)="fnConfirmAppointment()">Confirm</button>
 
                     <button mat-button type="button" *ngIf="detailsData.order_status == 'AC'" class="d-block float-right confirm-btn" (click)="fnWorkStarting()">Work Start</button>
@@ -69,7 +69,7 @@
                             <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{ detailsData.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
                         </div>
 
-                        <div class="col-6">
+                        <div *ngIf="taxTotal" class="col-6">
                             <p class="mb-0 title text-right">Tax</p>
                             <p class="font-weight-bold text-right" *ngIf="currencySymbolPosition=='left' && detailsData.tax != null">{{currencySymbol| currencySymbol:'wide'}} {{ taxTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
                             <p class="font-weight-bold text-right" *ngIf="currencySymbolPosition=='right' && detailsData.tax != null">{{ taxTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>

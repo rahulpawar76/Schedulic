@@ -81,6 +81,7 @@ export class MyWorkSpaceComponent implements OnInit {
     categoryName: "",
     initials: "",
     service_name: "",
+    customer_id: "",
     bookingNotes: ""
   };
   categories:any=[];
@@ -302,6 +303,7 @@ export class MyWorkSpaceComponent implements OnInit {
         this.appointmentDetails.timeToService=this.appointments[0].timeToService;
         this.appointmentDetails.order_by=this.appointments[0].order_by;
         this.appointmentDetails.order_status=this.appointments[0].order_status;
+        this.appointmentDetails.customer_id=this.appointments[0].customer.id;
         if(this.appointments[0].staff){
           this.appointmentDetails.staffName=this.appointments[0].staff.firstname+" "+this.appointments[0].staff.lastname;
         }
@@ -326,7 +328,7 @@ export class MyWorkSpaceComponent implements OnInit {
         if(this.appointmentDetails.order_status == "CNF" && this.appointments[0].staff_id == null){
           this.selectedStaff=null;
           this.availableStaff.length=0;
-          this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId,this.appointmentDetails.postalCode);
+          this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.customer_id,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId,this.appointmentDetails.postalCode);
         }
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
@@ -358,6 +360,7 @@ export class MyWorkSpaceComponent implements OnInit {
         this.appointmentDetails.booking_time_to=this.appointments[i].booking_time_to;
         this.appointmentDetails.order_by=this.appointments[i].order_by;
         this.appointmentDetails.order_status=this.appointments[i].order_status;
+        this.appointmentDetails.customer_id=this.appointments[i].customer.id;
         if(this.appointments[i].staff){
           this.appointmentDetails.staffName=this.appointments[i].staff.firstname+" "+this.appointments[i].staff.lastname;
         }
@@ -381,7 +384,7 @@ export class MyWorkSpaceComponent implements OnInit {
         if(this.appointmentDetails.order_status == "CNF" && this.appointments[i].staff_id == null){
         this.selectedStaff=null;
         this.availableStaff.length=0;
-          this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId,this.appointmentDetails.postalCode);
+          this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.customer_id,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId,this.appointmentDetails.postalCode);
         }
         
   }
@@ -405,10 +408,11 @@ export class MyWorkSpaceComponent implements OnInit {
     })
   }
 
-  fnGetStaff(booking_date,booking_time,serviceId,postal_code){
+  fnGetStaff(booking_date,customerID,booking_time,serviceId,postal_code){
     let requestObject = {
       "postal_code":postal_code,
       "business_id":this.businessId,
+      "customer_id":customerID,
       "service_id":JSON.stringify(serviceId),
       "book_date":this.datePipe.transform(new Date(booking_date),"yyyy-MM-dd"),
       "book_time":booking_time
@@ -684,7 +688,7 @@ export class MyWorkSpaceComponent implements OnInit {
             if(this.appointmentDetails.order_status == "CNF" && this.appointments[0].staff_id == null){
               this.selectedStaff=null;
               this.availableStaff.length=0;
-              this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId,this.appointmentDetails.postalCode);
+              this.fnGetStaff(this.appointmentDetails.booking_date,this.appointmentDetails.customer_id,this.appointmentDetails.booking_time,this.appointmentDetails.serviceId,this.appointmentDetails.postalCode);
             }
             this.isLoaderAdmin=false;
           }
@@ -926,6 +930,7 @@ export class MyWorkSpaceComponent implements OnInit {
       fnGetStaff(selectedTimeSlot){
         let requestObject = {
           "postal_code":this.detailsData.postalCode,
+          "customer_id":this.detailsData.customer.id,
           "business_id":this.businessId,
           "service_id":JSON.stringify(this.detailsData.serviceId),
           "book_date":this.selectedDate,
