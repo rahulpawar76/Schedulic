@@ -31,7 +31,7 @@
                                 <div *ngIf="appointmentData.service != null" class="col-6 col-sm-3 col-md-6 col-lg-8">
                                     <label class="font-weight-bold">Service</label>
                                     <p>{{appointmentData.service.service_name}}</p>
-                                    <p>Duration:{{appointmentData.service.service_time}}</p>
+                                    <p>Duration: {{appointmentData.service.service_time}} Min</p>
                                     <label class="font-weight-bold">Amount</label>
                                     <!-- <p>$ {{appointmentData.service.service_cost}}</p> -->
                                     <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ appointmentData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
@@ -168,9 +168,9 @@
         </mat-tab>
     </mat-tab-group>
     <form class="form-inline" id="search_container_userappo">
-        <div class="search-input-container">
+        <div class="search-input-container"  >
             <i class="fa fa-search before-search"></i>
-            <input class="form-control searchbox_userappo" name="searchKeyword" [(ngModel)]="search.keyword" (keyup)="customerSearchAppointment($event)" type="text" placeholder="Search By Categories, Subcategories, Services, Staff">
+            <input class="form-control searchbox_userappo" name="searchKeyword" [(ngModel)]="search.keyword" (keyup)="customerSearchAppointment($event)" type="text" matTooltip="Search By Categories, Subcategories, Services, Staff" placeholder="Search By Categories, Subcategories, Services, Staff">
         </div>
         <button type="button" class="btn btn-primary btnappoint_userappo" (click)="frontBooking()">Add Appointment</button>
 
@@ -212,9 +212,9 @@
                                 </span>
                             </div>
 
-                            <div class="col-6 float-left">
+                            <div class="col-6 float-left p-0">
                                 <label>Expiry Date</label>
-                                <div class="col-6 float-left mb-4 p-0">
+                                <div class="col-6 float-left mb-4 p-0 pr-1">
                                     <label>Month</label>
                                     <input formControlName="expiryMonth" class="common-input" type="text" (keypress)="numberOnly($event)" />
                                     <span class="error-wrap" *ngIf="cardForm.get('expiryMonth').dirty || cardForm.get('expiryMonth').touched"><small *ngIf="cardForm.get('expiryMonth').hasError('required')" class="error">Expiry month is required</small><small *ngIf="cardForm.get('expiryMonth').hasError('minlength') || cardForm.get('expiryMonth').hasError('maxlength')" class="error">Expiry month is invalid</small></span>

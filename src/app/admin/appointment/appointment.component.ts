@@ -476,9 +476,11 @@ export class AppointmentComponent implements OnInit {
 
   fnEditAppointment(index) {
     console.log(this.allAppointments[index])
+    console.log(this.allAppointments[index].is_selected)
     const dialogRef = this.dialog.open(DialogAddNewAppointment, {
       width: '500px',
-      data: {appointmentData : this.allAppointments[index]},
+      data: {appointmentData : this.allAppointments[index],
+              is_checked:this.allAppointments[index].is_selected},
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -978,7 +980,7 @@ export class DialogAddNewAppointment {
         customerAddress: [this.appointmentData.address, Validators.required],
         customerState: [this.appointmentData.state, Validators.required],
         customerCity: [this.appointmentData.city, Validators.required],
-        customerPostalCode: [{ value: this.appointmentData.zip, disabled: this.disablePostalCode }, [Validators.required,Validators.minLength(6),Validators.maxLength(6)]],
+        customerPostalCode: [{ value: this.appointmentData.zip, disabled: this.disablePostalCode }, [Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
        
         customerAppoAddress: [this.appointmentData.customerAppoAddress, [Validators.required]],
         customerAppoState: [this.appointmentData.customerAppoState, [Validators.required]],
