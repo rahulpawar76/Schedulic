@@ -110,6 +110,7 @@
                                             </mat-form-field>
                                             <span class="error-wrap" *ngIf="createNewCustomer.get('cus_fullname').dirty || createNewCustomer.get('cus_fullname').touched || formSubmitclicked">
                                                 <small *ngIf="createNewCustomer.get('cus_fullname').hasError('required')" class="error">Fullname is required.</small>
+                                                <small *ngIf="createNewCustomer.get('cus_fullname').hasError('pattern')" class="error">Number is not allow.</small>
                                             </span>
                                         </div>
                                         <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
@@ -440,7 +441,7 @@
                                     <form [formGroup]="formPayment">
                                         <div class="row mx-0">
                                             <div class="col-lg-8 col-md-8 col-12 col-sm-12">
-                                                <h6 class="pb-4 Customer-payment">Payment</h6>
+                                                <h6 class="py-2 Customer-payment">Payment</h6>
                                                 <div class="searchbox col-lg-6 col-12 col-md-6 pb-2">
                                                     <h6>Amount</h6>
                                                     <div class="form-group has-search">

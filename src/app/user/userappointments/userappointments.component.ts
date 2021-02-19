@@ -115,7 +115,7 @@ export class UserappointmentsComponent implements OnInit {
       cardHolderName: ['',[Validators.required]],
       cardNumber: ['',[Validators.required,Validators.minLength(4),Validators.maxLength(20)]],
       expiryMonth: ['',[Validators.required,Validators.minLength(2),Validators.maxLength(2)]],
-      expiryYear: ['',[Validators.required,Validators.minLength(4),Validators.maxLength(4)]],
+      expiryYear: ['',[Validators.required,Validators.minLength(2),Validators.maxLength(4)]],
       cvvCode: ['',[Validators.required,Validators.minLength(2),Validators.maxLength(6)]],
     });
 
@@ -457,6 +457,7 @@ export class UserappointmentsComponent implements OnInit {
   }
   fnBackToPayment(){
     this.paymentScreen = false;
+    this.cardForm.reset();
   }
   fnPayNow(){
     if(this.paymentMethod == 'Stripe'){

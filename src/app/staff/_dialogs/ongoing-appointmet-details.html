@@ -32,7 +32,7 @@
                     <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{appoDetail.service.service_name}}({{currencySymbol| currencySymbol:'wide'}} {{ appoDetail.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</p>
                     <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{appoDetail.service.service_name}}({{ appoDetail.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}})</p>
                     <p class="mb-0">Time</p>
-                    <p class="font-weight-bold">{{appoDetail.booking_timeForLabel}} - {{appoDetail.booking_time_to}} ({{appoDetail.service_time}})</p>
+                    <p class="font-weight-bold">{{appoDetail.booking_timeForLabel}} - {{appoDetail.booking_time_to}}  ({{appoDetail.service_time}} Min)</p>
                     <div class="d-flex">
                         <div class="pl-0">
                             <p class="mb-0">Order By</p>
