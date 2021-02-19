@@ -16,6 +16,7 @@ import { FrontBookingThemeFourComponent } from './front-booking-theme-four/front
 import { FrontBookingThemeSixComponent } from './front-booking-theme-six/front-booking-theme-six.component';
 import { FrontBookingThemeThreeComponent } from './front-booking-theme-three/front-booking-theme-three.component';
 import { FrontBookingThemeFiveComponent } from './front-booking-theme-five/front-booking-theme-five.component';
+import { ResponsePageComponent } from './response-page/response-page.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: 'forgot-password', 
     component: ForgotPasswordComponent 
+  },
+  {
+    path: 'thank-you', 
+    component: ResponsePageComponent 
   },
   {
     path: 'reset-password', 
