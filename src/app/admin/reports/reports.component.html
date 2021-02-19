@@ -147,7 +147,7 @@
                                 </td>
                                 <td scope="col" class="text-center">
                                     <p class="mb-0">{{appRep.service.service_name}}</p>
-                                    <p class="mb-0">Duration:{{appRep.service.service_time}}</p>
+                                    <p class="mb-0">Duration: {{appRep.service.service_time}} Min</p>
                                     <!-- <p>Price:{{appRep.service.service_cost}}</p> -->
                                     <p *ngIf="currencySymbolPosition=='left'">Price: {{currencySymbol| currencySymbol:'wide'}} {{ appRep.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
                                     <p *ngIf="currencySymbolPosition=='right'">Price: {{ appRep.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
