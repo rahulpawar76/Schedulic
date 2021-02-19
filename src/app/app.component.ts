@@ -132,7 +132,10 @@ export class AppComponent implements AfterViewInit {
       this.getNotificationCount(this.businessId)
     }
     console.log(this.authenticationService.currentUserValue)
-    if(this.authenticationService.currentUserValue.user_type != 'A'){
+    if(this.authenticationService.currentUserValue && this.authenticationService.currentUserValue.user_type == 'SM'){
+      this.getNotificationCount(null)
+    }
+    else if(this.authenticationService.currentUserValue && this.authenticationService.currentUserValue.user_type == 'C'){
       this.getNotificationCount(null)
     }
 
