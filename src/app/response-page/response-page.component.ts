@@ -12,6 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 export class ResponsePageComponent implements OnInit {
   responseMessage:any
   token:any
+  pageView:any
+  isLoaderAdmin: boolean = false;
   constructor(
     private http:HttpClient,
     private router: ActivatedRoute
@@ -31,6 +33,7 @@ export class ResponsePageComponent implements OnInit {
 }
 
   getResponse(){
+    this.isLoaderAdmin = true;
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
@@ -40,12 +43,19 @@ export class ResponsePageComponent implements OnInit {
     }),
       catchError(this.handleError)
     ).subscribe((response:any) =>{
+
       if(response.data == true){
+        this.pageView = 'thankyou'
         this.responseMessage = response.response
-      }else if(response.data == false){
-        this.responseMessage = 'token invalid'
       }
+      
+      if(response.data == false){
+        this.pageView = 'oops'
+        this.responseMessage = response.response
+      }
+      this.isLoaderAdmin = false;
     })
+   
   }
 
 }
