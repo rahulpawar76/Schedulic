@@ -47,7 +47,7 @@
                                     <div class="text-left" fxFlex="10">Action</div>
                                     <div class="text-left" fxFlex="10">View</div>
                                 </div>
-                                <div class="content" class="staff-list">
+                                <div class="content" class="staff-list" *ngIf="allCouponCode != ''">
                                     <div class="staff-list-row px-4" *ngFor="let allCouponCode of allCouponCode; let i=index">
 
                                         <div class="text-left" fxFlex="10">
@@ -86,9 +86,10 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="staff-list-row" *ngIf="allCouponCode == ''">
-                                        <p class="mx-auto">Record not found.</p>
-                                    </div>
+
+                                </div>
+                                <div class="staff-list-row" *ngIf="allCouponCode == ''">
+                                    <p class="mx-auto">No record found.</p>
                                 </div>
                             </div>
 

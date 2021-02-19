@@ -74,7 +74,7 @@ export class CustomersComponent implements OnInit {
   onlynumericAmount = /^(\d*\.)?\d+$/
   onlynumericWithCountry = /^\+(?:[0-9] ?){6,14}[0-9]$/
   onlyString = /^[a-zA-Z]+$/
-
+  exportType :any;
   visible = true;
   selectable = true;
   removable = true;
@@ -892,13 +892,14 @@ customerUpdate(existingCustomerData){
   }
 
   fnExportCustomer(exportType){
+    this.exportType = exportType
     const options = { 
       fieldSeparator: ',',
       quoteStrings: '"',
       decimalSeparator: '.',
       showLabels: true, 
       showTitle: true,
-      title: 'My Awesome CSV',
+      title: 'Exported Customer Data',
       useTextFile: false,
       useBom: true,
       useKeysAsHeaders: true,
@@ -907,10 +908,12 @@ customerUpdate(existingCustomerData){
     const csvExporter = new ExportToCsv(options);
     if(exportType == 'all'){
       csvExporter.generateCsv(this.allCustomers);
+      this.exportType = null;
     }else if(exportType == 'selected'){
       this.adminService.fnExportCustomer(this.selectedCustomerId).subscribe((response:any) => {
         if(response.data == true){
           this.selectedCustomerArr = response.response
+          this.exportType = null;
           csvExporter.generateCsv(this.selectedCustomerArr);
           this.selectedCustomerId.length = 0;
           this.isLoaderAdmin = false;

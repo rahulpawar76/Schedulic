@@ -18,7 +18,7 @@
                     </div>
                     <div class="seach-bar">
                         <i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search By Name, Phone Number, Service" (keyup)="fnSearch($event.target.value)">
+                        <input type="text" placeholder="Search By Service" (keyup)="fnSearch($event.target.value)">
                     </div>
                     <div class="today-time-function">
                         <div class="pendingborder appoint-head">
@@ -40,11 +40,11 @@
                                     <li class="bottom-border plr-25">
                                         <p class="category-lable">Category</p>
                                     </li>
-                                    <li class="bottom-border plr-25 pointer active">
+                                    <li class="bottom-border plr-25 pointer " [ngClass]="{'active':inStoreSelectedCat === 'all'}">
                                         <p class="title-main" (click)="fngetService('')">All Services<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
                                     </li>
 
-                                    <li class="bottom-border plr-25 pointer" *ngFor="let val of CategoryList; let i=index">
+                                    <li [ngClass]="{'active':inStoreSelectedCat === val.id}" class="bottom-border plr-25 pointer" *ngFor="let val of CategoryList; let i=index">
                                         <p class="title-main" (click)="fngetService(val.id)">{{val.category_title}}<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
                                     </li>
 
