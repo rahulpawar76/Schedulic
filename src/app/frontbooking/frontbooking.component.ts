@@ -2564,17 +2564,25 @@ this.router.navigate(['/customer-login/'+this.urlString[1]]);
         catchError(this.handleError)
       ).subscribe((response:any) => {
         if(response.data == true){
+          
           this.isLoader=false;
+          this.paymentScreen=false;
+          this.thankYouScreen=true;
           if(this.thankYou.status == true){
-            window.top.location.href = this.thankYou.page_link;
+            setTimeout(() => {
+              window.top.location.href = this.thankYou.page_link;
+            }, 2000);
           }else {
-            this.thankYouScreen=true;
-            this.paymentScreen=false;
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
-        }
-      }else{
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+          }
+        }else{
+          this.snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
         }
       },(err) =>{
         
@@ -4301,16 +4309,23 @@ export class theme2CheckoutDialog {
       ).subscribe((response:any) => {
         if(response.data == true){
           this.isLoader=false;
+          this.thankYouScreen=true;
+          this.paymentScreen=false;
           if(this.thankYou.status == true){
-            window.top.location.href = this.thankYou.page_link;
+            setTimeout(() => {
+              window.top.location.href = this.thankYou.page_link;
+            }, 2000);
           }else {
-            this.thankYouScreen=true;
-            this.paymentScreen=false;
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
-        }
-      }else{
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+          }
+        }else{
+          this.snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
         }
       },(err) =>{
         

@@ -147,6 +147,7 @@ export class AppointmentLiveComponent implements OnInit {
       strokeWeight: 10,
     }
   }
+  inStoreSelectedCat = 'all';
   staff_filter = "all";
   constructor(
     private adminService: AdminService,
@@ -682,7 +683,7 @@ export class AppointmentLiveComponent implements OnInit {
   fngetService(category_id=''){
   
     let  requestObject = {}
-
+    this.inStoreSelectedCat =  category_id==''?'all':category_id
     requestObject = {
       "category_id" : category_id==''?'all':category_id, 
       "business_id" : localStorage.getItem('business_id'),

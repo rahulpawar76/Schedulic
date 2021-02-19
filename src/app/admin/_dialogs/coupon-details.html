@@ -28,7 +28,9 @@
                         <div class="pl-5">
                             <p class="mb-0 ">Discount</p>
                             <p class="font-weight-bold" *ngIf="detailsData.coupon_type == 'P'">{{detailsData.coupon_value}}%</p>
-                            <p class="font-weight-bold" *ngIf="detailsData.coupon_type == 'F'">${{detailsData.coupon_value}}</p>
+                            <p class="font-weight-bold" *ngIf="detailsData.coupon_type == 'F' && currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ detailsData.coupon_value | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                            <p class="font-weight-bold" *ngIf="detailsData.coupon_type == 'F' && currencySymbolPosition=='right'"> {{ detailsData.coupon_value | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+
                         </div>
                     </div>
                     <hr>

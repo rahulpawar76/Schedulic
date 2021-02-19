@@ -2811,17 +2811,23 @@ export class FrontBookingThemeSixComponent implements OnInit {
       ).subscribe((response:any) => {
         if(response.data == true){
           this.isLoader=false;
-          if(this.thankYou.status == 'true'){
-            window.top.location.href = this.thankYou.page_link;
-          }else if(this.thankYou.status == 'false'){
-            this.thankYouScreen=true;
-            this.paymentScreen=false;
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
-        }
-      }else{
-          console.log(response.response);
+          this.thankYouScreen=true;
+          this.paymentScreen=false;
+          if(this.thankYou.status == true){
+            setTimeout(() => {
+              window.top.location.href = this.thankYou.page_link;
+            }, 2000);
+          }else {
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+          }
+        }else{
+          this.snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
         }
       },(err) =>{
         

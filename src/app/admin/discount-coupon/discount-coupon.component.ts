@@ -65,7 +65,10 @@ export class DiscountCouponComponent implements OnInit {
   minTillDate : any = new Date();
   discountApiUrl:any =  `${environment.apiUrl}/discount-coupon-list`;
   diccount_error:boolean=false;
-
+  settingsArr: any;
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;
   
   constructor(
     private AdminService: AdminService,
@@ -86,6 +89,7 @@ export class DiscountCouponComponent implements OnInit {
   ngOnInit() {
     this.couponListFilter = 'All';
     this.getAllCouponCode();
+    this.fnGetSettingValue();
     this.discountCoupon = this._formBuilder.group({
       coupan_name : ['', [Validators.required,Validators.maxLength(15)]],
       max_redemption : ['', [Validators.required,Validators.pattern(this.onlynumeric)]],
@@ -107,6 +111,23 @@ export class DiscountCouponComponent implements OnInit {
     this.search = value
     this.discountApiUrl= `${environment.apiUrl}/discount-coupon-list`;
     this.getAllCouponCode();
+  }
+
+  fnGetSettingValue(){
+    let requestObject = {
+      "business_id":this.businessId
+    };
+    this.AdminService.getSettingValue(requestObject).subscribe((response:any) => {
+      if(response.data == true && response.response != ''){
+        this.settingsArr=response.response;
+        this.currencySymbol = this.settingsArr.currency;
+        this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+        this.currencySymbolFormat = this.settingsArr.currency_format;
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+        
+      }
+    })
   }
 
   getAllCouponCode(){
@@ -137,18 +158,12 @@ export class DiscountCouponComponent implements OnInit {
           element.coupon_valid_till=this.datePipe.transform(new Date(element.coupon_valid_till),"MMM d, y")
           element.created_at=this.datePipe.transform(new Date(element.created_at),"MMM d, y")
         });
-        console.log(this.allCouponCode);
-        this.isLoaderAdmin = false;
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['red-snackbar']
-        });
+       
         this.allCouponCode = ''
-        this.isLoaderAdmin = false;
       }
+        this.isLoaderAdmin = false;
     })
   }
    
@@ -552,7 +567,13 @@ export class DiscountCouponComponent implements OnInit {
       const dialogRef = this.dialog.open(DialogCouponDetails, {
         height: '700px',
     
-        data :{fulldata : this.allCouponCode[index], couponId : CouponId}
+        data :{
+          fulldata : this.allCouponCode[index], 
+          couponId : CouponId,
+          currencySymbol : this.currencySymbol,
+          currencySymbolPosition : this.currencySymbolPosition,
+          currencySymbolFormat : this.currencySymbolFormat,
+        }
         
       });
 
@@ -616,6 +637,9 @@ export class DialogCouponDetails {
   couponCodeStatus:any;
   couponId:any;
   couponCodeDetail:any;
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;
   
 constructor(
   public dialogRef: MatDialogRef<DialogCouponDetails>,
@@ -624,6 +648,10 @@ constructor(
   @Inject(MAT_DIALOG_DATA) public data: any) {
 
     this.detailsData =  this.data.fulldata;
+    
+    this.currencySymbol = this.data.currencySymbol
+    this.currencySymbolPosition = this.data.currencySymbolPosition
+    this.currencySymbolFormat = this.data.currencySymbolFormat
     this.couponId = this.data.couponId
     console.log(this.detailsData);
     this.getServiceListForCoupon();

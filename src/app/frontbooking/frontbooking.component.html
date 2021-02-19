@@ -1,5 +1,5 @@
 <div id="booking_flow" class="front-booking-main d-flex justify-content-center">
-    <div class="main_bg"></div>
+    <div class="main_bg" [ngStyle]="{'background-image': 'url(' + frontBgImage + ')'}"></div>
     <div id="theme_1" class="theme-main" *ngIf="selectedTheme == '1'">
         <div class="card-wrap main-front-container">
             <mat-card class="p-0">
@@ -904,7 +904,7 @@
                         </div>
                     </div>
 
-                    <mat-radio-button *ngIf="payUmoneyStatus" [checked]="paymentMethod == 'PayUMoney'" (change) ="fnPaymentMethod('PayUMoney')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay4">PayUMoney
+                    <mat-radio-button *ngIf="payUmoneyStatus" [checked]="paymentMethod == 'PayUMoney'" (change)="fnPaymentMethod('PayUMoney')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay4">PayUMoney
                         <!-- <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" /> -->
                         <img src="../../assets/images/payumoney-logo.png" alt="PayPal" class="payment-gtw-icon  cash-payment payumoney-logo-width" />
                         <!-- <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal"  class="payment-gtw-icon cash-payment"/> -->
@@ -992,7 +992,7 @@
         <div class="common-footer" *ngIf="!summaryScreen && !thankYouScreen && 
         !paymentScreen && (businessDetail && businessDetail.private_status == 'N') && (businessDetail && businessDetail.status == 'E')">
             <div class="cart-btn mt-2" matBadge="{{serviceMainArr.totalNumberServices}}" matBadgePosition="before" [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click" #popoverTrigger="mdePopoverTrigger" (click)="fnOpenCartbox()">
-                <i *ngIf="cartOpened"  class="material-icons">add_shopping_cart</i>
+                <i *ngIf="cartOpened" class="material-icons">add_shopping_cart</i>
                 <i *ngIf="!cartOpened" class="material-icons">close</i>
             </div>
             <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">

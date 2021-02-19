@@ -128,7 +128,7 @@
                             </mat-list-item>
                             <mat-list-item role="listitem" class="add">
                                 <div>
-                                    <div class="add common-menu" [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click">
+                                    <div matTooltip="Add New" class="add common-menu" [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click">
                                         <img src="/assets/images/admin/add.png">
                                     </div>
                                     <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
@@ -147,11 +147,11 @@
                                                             <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/Category.png" /> Category
                                                         </div>
                                                     </mat-list-item>
-                                                    <mat-list-item role="listitem" (click)="addNewServicesNav()">
+                                                    <!-- <mat-list-item role="listitem" (click)="addNewServicesNav()">
                                                         <div class="common-menu">
                                                             <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/Customer.png" /> Services
                                                         </div>
-                                                    </mat-list-item>
+                                                    </mat-list-item> -->
                                                     <mat-list-item role="listitem" (click)="addNewStaffNav()">
                                                         <div class="common-menu">
                                                             <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/Staff.png" /> Staff
@@ -172,11 +172,11 @@
                                                             <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/discount.png" /> Discount Coupon
                                                         </div>
                                                     </mat-list-item>
-                                                    <mat-list-item role="listitem" (click)="addNewTimeOffNav()">
+                                                    <!-- <mat-list-item role="listitem" (click)="addNewTimeOffNav()">
                                                         <div class="common-menu">
                                                             <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/Time-off.png" /> Time off
                                                         </div>
-                                                    </mat-list-item>
+                                                    </mat-list-item> -->
                                                 </ul>
                                             </mat-card-content>
                                         </mat-card>
