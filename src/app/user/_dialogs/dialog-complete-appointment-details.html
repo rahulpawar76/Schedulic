@@ -41,7 +41,7 @@
                     <p class="font-weight-bold" *ngIf="myAppoDetailData.service.service_type && myAppoDetailData.service.service_type=='online'">{{myAppoDetailData.service.service_sub_type}}({{myAppoDetailData.service.service_sub_type_value}})</p>
                     <p class="font-weight-bold" *ngIf="myAppoDetailData.service.service_type && myAppoDetailData.service.service_type=='phone'">{{myAppoDetailData.service.service_type}}({{myAppoDetailData.service.service_sub_type_value}})</p>
                     <p class="mb-0">Time</p>
-                    <p class="font-weight-bold">{{myAppoDetailData.booking_timeForLabel}} - {{myAppoDetailData.booking_time_to}} ({{myAppoDetailData.service.service_time}})</p>
+                    <p class="font-weight-bold">{{myAppoDetailData.booking_timeForLabel}} - {{myAppoDetailData.booking_time_to}} ({{myAppoDetailData.service.service_time}} Min)</p>
                     <p class="mb-0" *ngIf="myAppoDetailData.service.service_type != null">
                         <span *ngIf="myAppoDetailData.service.service_type == 'face_to_face' && myAppoDetailData.service.service_sub_type == 'in_store'">Service Type : Face To Face(In Store)</span>
                         <span *ngIf="myAppoDetailData.service.service_type == 'face_to_face' && myAppoDetailData.service.service_sub_type == 'at_home'">Service Type : Face To Face(At Home)</span>

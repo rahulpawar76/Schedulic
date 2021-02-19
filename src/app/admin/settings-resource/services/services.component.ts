@@ -1094,38 +1094,44 @@ export class ServicesComponent implements OnInit {
 
     fnServiceAction(action, categoryId, type) {
         if(action=='DEL'){
-            var is_confirm  = confirm('Are you sure you want to delete?');
-            if(!is_confirm){
-                return false;
-            }
-        }
+            const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
+                width:'400px',
+                data:'Are you sure you want to delete?'
+            });
 
-        if (this.actionServiceIdarr.length > 0) {
-            this.adminSettingsService.fnServiceAction(this.actionServiceIdarr, action).subscribe((response: any) => {
-                if (response.data == true) {
-                    this._snackBar.open("Status Updated.", "X", {
-                        duration: 2000,
-                        verticalPosition: 'top',
-                        panelClass: ['green-snackbar']
-                    });
-                    this.actionServiceIdarr.length = 0;
-                this.fnAllServices();
-                    this.selectedValue = undefined;
-                    if (type == 'category') {
-                        this.fnSelectCategory(categoryId, this.selectedCategoryIndex);
-                    } else if (type == 'subcategory') {
-                        this.fnSelectSubCategory(categoryId, this.selectedSubCategoryIndex)
+            dialogRef.afterClosed().subscribe(result =>{
+                if(result){
+                    if (this.actionServiceIdarr.length > 0) {
+                        this.adminSettingsService.fnServiceAction(this.actionServiceIdarr, action).subscribe((response: any) => {
+                            if (response.data == true) {
+                                this._snackBar.open("Status Updated.", "X", {
+                                    duration: 2000,
+                                    verticalPosition: 'top',
+                                    panelClass: ['green-snackbar']
+                                });
+                                this.actionServiceIdarr.length = 0;
+                            this.fnAllServices();
+                                this.selectedValue = undefined;
+                                if (type == 'category') {
+                                    this.fnSelectCategory(categoryId, this.selectedCategoryIndex);
+                                } else if (type == 'subcategory') {
+                                    this.fnSelectSubCategory(categoryId, this.selectedSubCategoryIndex)
+                                }
+                            }
+                            else if(response.data == false && response.response !== 'api token or userid invaild'){
+                                this._snackBar.open(response.response, "X", {
+                                    duration: 2000,
+                                    verticalPosition: 'top',
+                                    panelClass: ['red-snackbar']
+                                });
+                            }
+                        })
                     }
-                }
-                else if(response.data == false && response.response !== 'api token or userid invaild'){
-                    this._snackBar.open(response.response, "X", {
-                        duration: 2000,
-                        verticalPosition: 'top',
-                        panelClass: ['red-snackbar']
-                    });
                 }
             })
         }
+
+        
     }
 
     fnFilterService(categoryId, filter, type) {
