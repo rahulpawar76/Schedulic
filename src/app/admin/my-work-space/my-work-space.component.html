@@ -318,7 +318,11 @@
                                 <button mat-button type="button" class="Reschedulebtn mt-2 bg-btn d-block" *ngIf="formSettingPage" (click)="fnSaveBookingNotes(appointmentDetails.id)">Save</button>
 
 
-                                <p class="mb-1" *ngFor="let note of singleBookingNotes; let i=index">{{note.notes}}, Added by {{note.user_type=='A'?'Admin':''}} {{note.user_type=='SM'?'Staff':''}} {{note.user_type=='C'?'Customer':''}} @{{note.created_at | date:'longDate'}} {{note.created_at | date:'shortTime'}}</p>
+                                <p class="mb-1" *ngFor="let note of singleBookingNotes; let i=index">
+                                    {{note.notes}}, <br> 
+                                    Added by <br> 
+                                    {{note.user_type=='A'?'Admin':''}} {{note.user_type=='SM'?'Staff':''}} {{note.user_type=='C'?'Customer':''}} @{{note.created_at | date:'longDate'}} {{note.created_at | date:'shortTime'}}
+                                </p>
                             </div>
 
                             <div class="p-1-5 bottom-border">
