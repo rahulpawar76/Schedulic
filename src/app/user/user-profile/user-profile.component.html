@@ -148,8 +148,9 @@
                                     <input matInput formControlName="user_postalcode" value="" placeholder="Postal Code">
                                 </mat-form-field>
                                 <span class="error-wrap" *ngIf="customerProfile.get('user_postalcode').touched || customerProfile.get('user_postalcode').dirty">
-                <small *ngIf="customerProfile.get('user_postalcode').hasError('required')" class="error">Postal code is required</small>
-                <small *ngIf="customerProfile.get('user_postalcode').hasError('pattern')" class="error">Enter valid postalcode</small>
+                                <small *ngIf="customerProfile.get('user_postalcode').hasError('required')" class="error">Postal code is required</small>
+                                <small *ngIf="customerProfile.get('user_postalcode').hasError('minlength')" class="error">Code not valid please enter min 5 digit</small>
+                                <small *ngIf="!customerProfile.get('user_postalcode').hasError('minlength') && customerProfile.get('user_postalcode').hasError('maxlength')" class="error">Code allow only 7 digit</small>
              </span>
                             </div>
                         </div>

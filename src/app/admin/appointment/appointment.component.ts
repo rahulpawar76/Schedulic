@@ -730,6 +730,7 @@ export class DialogAddNewAppointment {
     booking_date:new Date(),
     booking_time:'',
     staff:'',
+    is_selected:'',
     customerAppoAddress:'',
     customerAppoState:'',
     customerAppoCity:'',
@@ -782,6 +783,7 @@ export class DialogAddNewAppointment {
       this.appointmentData.booking_date=new Date(this.data.appointmentData.booking_date);
       this.appointmentData.booking_time=this.datePipe.transform(new Date(this.data.appointmentData.booking_date+" "+this.data.appointmentData.booking_time),"HH:mm");
       this.bussinessId=this.appointmentData.business_id;
+      // this.appointmentData.is_selected=this.data.appointmentDate.is_selected;
       if(this.data.appointmentData.staff_id){
         this.appointmentData.staff=JSON.parse(this.data.appointmentData.staff_id);
       }
@@ -828,7 +830,6 @@ export class DialogAddNewAppointment {
       customerAppoState: [this.appointmentData.customerAppoState],
       customerAppoCity: [this.appointmentData.customerAppoCity],
       customerAppoPostalCode: [this.appointmentData.customerAppoPostalCode],
-
       //customerPostalCode: new FormControl({ value: this.appointmentData.zip, disabled: this.disablePostalCode },[Validators.required,Validators.pattern(this.onlynumeric)]),
     });
 
@@ -986,7 +987,7 @@ export class DialogAddNewAppointment {
         customerAppoState: [this.appointmentData.customerAppoState, [Validators.required]],
         customerAppoCity: [this.appointmentData.customerAppoCity, [Validators.required]],
         customerAppoPostalCode: [this.appointmentData.customerAppoPostalCode, [Validators.required,Validators.minLength(5),Validators.maxLength(6)],this.isPostalcodeValid.bind(this)],
-
+        
         //customerPostalCode: new FormControl({ value: this.appointmentData.zip, disabled: this.disablePostalCode },[Validators.required,Validators.pattern(this.onlynumeric)]),
       });
       }

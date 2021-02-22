@@ -24,7 +24,7 @@
                                 <div class="col-6 col-sm-3 col-md-6 col-lg-8">
                                     <label class="font-weight-bold">Service</label>
                                     <p>{{newAppointmentData.service?newAppointmentData.service.service_name:'-'}}</p>
-                                    <p>Duration:{{newAppointmentData.service?newAppointmentData.service.service_time:'-'}}</p>
+                                    <p>Duration: {{newAppointmentData.service?newAppointmentData.service.service_time:'-'}} Min</p>
                                     <label class="font-weight-bold">Amount</label>
                                     <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ newAppointmentData.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
                                     <p *ngIf="currencySymbolPosition=='right'">{{ newAppointmentData.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
@@ -152,7 +152,7 @@
                                 <div class="col-6 col-sm-3 col-md-6 col-lg-8">
                                     <label class="font-weight-bold">Service</label>
                                     <p>{{onGoingAppointmentData.service?onGoingAppointmentData.service.service_name:''}}</p>
-                                    <p>Duration:{{onGoingAppointmentData.service?onGoingAppointmentData.service.service_time:'-'}}</p>
+                                    <p>Duration: {{onGoingAppointmentData.service?onGoingAppointmentData.service.service_time:'-'}} Min</p>
                                     <label class="font-weight-bold">Amount</label>
                                     <!-- <p>$ {{onGoingAppointmentData.service.service_cost}}</p> -->
                                     <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ onGoingAppointmentData.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
@@ -197,7 +197,7 @@
                                 <div class="col-6 col-sm-3 col-md-6 col-lg-8">
                                     <label class="font-weight-bold">Service</label>
                                     <p>{{completedAppointmentData.service?completedAppointmentData.service.service_name:'-'}}</p>
-                                    <p>Duration:{{completedAppointmentData.service?completedAppointmentData.service.service_time:'-'}}</p>
+                                    <p>Duration: {{completedAppointmentData.service?completedAppointmentData.service.service_time:'-'}} Min</p>
                                     <label class="font-weight-bold">Amount</label>
                                     <!-- <p>$ {{completedAppointmentData.service.service_cost}}</p> -->
                                     <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ completedAppointmentData.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>

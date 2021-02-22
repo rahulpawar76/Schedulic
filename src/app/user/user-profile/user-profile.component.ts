@@ -64,7 +64,7 @@ export class UserProfileComponent implements OnInit {
       user_address : ['', Validators.required],
       user_state : ['', Validators.required],
       user_city : ['', Validators.required],
-      user_postalcode : ['',[Validators.required,Validators.pattern(this.onlynumeric)]]
+      user_postalcode : ['',[Validators.required,Validators.maxLength(7),Validators.minLength(5)]]
     });
 
 

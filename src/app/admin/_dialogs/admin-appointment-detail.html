@@ -57,8 +57,8 @@
                     <div class="row">
                         <div class="col-12">
                             <p class="mb-0 title">Service</p>
-                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{detailsData.service.service_name}} = ({{currencySymbol| currencySymbol:'wide'}} {{ detailsData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</p>
-                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{detailsData.service.service_name}} = ({{ detailsData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}})</p>
+                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{detailsData.service.service_name}}  ({{currencySymbol| currencySymbol:'wide'}} {{ detailsData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</p>
+                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{detailsData.service.service_name}}  ({{ detailsData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}})</p>
                         </div>
                     </div>
 
