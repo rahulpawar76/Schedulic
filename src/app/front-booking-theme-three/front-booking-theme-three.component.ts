@@ -1087,7 +1087,6 @@ export class FrontBookingThemeThreeComponent implements OnInit {
   }
 
   fnRemove(event,service_id){
-    alert('1')
     if(this.serviceCount[service_id].count >= 1){
       this.currentSelectedService=service_id;
       this.serviceCount[service_id].count=this.serviceCount[service_id].count-1

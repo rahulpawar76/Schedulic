@@ -332,6 +332,8 @@
                             <div class="content" class="appointment-live-list">
                                 <div (click)="fnOpenDetails(i)" *ngFor="let pendingAppointments of pendingAppointments; let i=index" class="appointment-live-list-details">
                                     <div class="" fxFlex="20">
+                                        <p class="mb-0">Order Id: {{pendingAppointments.id}}</p>
+                                        <p class="mb-0">Unit : {{pendingAppointments.service?pendingAppointments.service.service_unit:''}}</p>
                                         <p class="mb-0">{{pendingAppointments.service?pendingAppointments.service.service_name:''}}</p>
                                     </div>
                                     <div class=" " fxFlex="25">

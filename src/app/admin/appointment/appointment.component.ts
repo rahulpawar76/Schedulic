@@ -147,6 +147,7 @@ export class AppointmentComponent implements OnInit {
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
         
         this.currencySymbolFormat = this.settingsArr.currency_format;
+        alert(this.currencySymbolFormat)
         
         let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
         let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);

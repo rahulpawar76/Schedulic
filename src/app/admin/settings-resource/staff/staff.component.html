@@ -1186,19 +1186,19 @@
                         </div>
                     </div>
                 </mat-tab>
-                <mat-tab label="Time Off">
+                <mat-tab label="Holidays">
                     <div class="d-flex bottom-border" *ngIf="timeOffList != ''">
                         <button mat-button class="reset-button ml-auto" (click)="fnResetToDefaultTimeOff()">Reset to Default</button>
                         <button (click)="addTimeOff()" mat-button class="time-off-button ml-2">
                             <mat-icon aria-hidden="false">add</mat-icon>
-                            Add Time Off
+                            Add Holiday
                         </button>
                     </div>
                     <div class="d-flex button-container" *ngIf="timeOffList == ''">
                         <button mat-button class="reset-button" (click)="fnResetToDefaultTimeOff()">Reset to Default</button>
                         <button (click)="addTimeOff()" mat-button class="time-off-button ml-2">
                             <mat-icon aria-hidden="false">add</mat-icon>
-                            Add Time Off
+                            Add Holiday
                         </button>
                     </div>
                     <div class="bottom-border d-flex" *ngFor="let timeOff of timeOffList">

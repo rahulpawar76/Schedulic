@@ -57,8 +57,8 @@
                     <div class="row">
                         <div class="col-12">
                             <p class="mb-0 title">Service</p>
-                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{detailsData.service.service_name}}  ({{currencySymbol| currencySymbol:'wide'}} {{ detailsData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</p>
-                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{detailsData.service.service_name}}  ({{ detailsData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}})</p>
+                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{detailsData.service.service_name}} ({{currencySymbol| currencySymbol:'wide'}} {{ detailsData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</p>
+                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{detailsData.service.service_name}} ({{ detailsData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}})</p>
                         </div>
                     </div>
 
@@ -173,9 +173,7 @@
                         </mat-form-field>
                         <button mat-button type="button" class="Reschedulebtn common-blue-btn accept-btn d-block mt-2" *ngIf="formSettingPage" (click)="fnSaveBookingNotes(detailsData.id)">Save</button>
                         <p class="mb-1 border-bottom pb-1" *ngFor="let note of singleBookingNotes; let i=index">
-                            {{note.notes}}, <br> 
-                            Added by <br> 
-                            {{note.user_type=='A'?'Admin':''}} {{note.user_type=='SM'?'Staff':''}} {{note.user_type=='C'?'Customer':''}} @{{note.created_at | date:'longDate'}} {{note.created_at | date:'shortTime'}}
+                            {{note.notes}}, <br> Added by {{note.user_type=='A'?'Admin':''}} {{note.user_type=='SM'?'Staff':''}} {{note.user_type=='C'?'Customer':''}} @{{note.created_at | date:'longDate'}} {{note.created_at | date:'shortTime'}}
                         </p>
                     </div>
                 </mat-card>
@@ -183,7 +181,7 @@
                 <div class="p-1-5 bottom-border">
                     <h6>Activity Log</h6>
                     <div *ngFor="let log of activityLog" class="mb-4">
-                        {{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - {{log.status=='P'?'Pending':''}} {{log.status=='MOD'?'Modified':''}} {{log.status=='CNF'?'Confirm':''}} {{log.user_type=='A' && log.status=='CNF' ? 'By Admin' : log.user_type=='S'
+                        {{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - {{log.status=='P'?'Pending':''}} {{log.status=='MOD'?'Modified':''}} {{log.status=='CNF'?'Confirmed':''}} {{log.user_type=='A' && log.status=='CNF' ? 'By Admin' : log.user_type=='S'
                         && log.status=='CNF' ? 'By Staff': log.user_type=='C' && log.status=='CNF' ? 'By User' : ''}} {{log.status=='AC'?'Accepted':''}} {{log.user_type=='A' && log.status=='AC' ? 'By Admin' : log.user_type=='S' && log.status=='AC' ? 'By
                         Staff': log.user_type=='C' && log.status=='AC' ? 'By User' : ''}} {{log.status=='OW'?'On The Way':''}} {{log.status=='WS'?'Work Started':''}}
                         <!-- {{log.status=='RSA'?'Rescheduled By Admin':''}}
