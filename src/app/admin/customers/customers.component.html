@@ -311,6 +311,7 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
+                                                <th scope="col">Order ID</th>
                                                 <th scope="col">Date</th>
                                                 <th scope="col">Time</th>
                                                 <th scope="col">Service</th>
@@ -321,6 +322,7 @@
                                         </thead>
                                         <tbody>
                                             <tr (click)="fnCustomerAppointmentDetails(i)" *ngFor="let customerAppoint of customerAppoint; let i=index" class="devider-slim">
+                                                <td>{{customerAppoint.id}}</td>
                                                 <td scope="row">{{customerAppoint.booking_date}}</td>
                                                 <td>{{customerAppoint.booking_time}}</td>
                                                 <td>{{customerAppoint.service?customerAppoint.service.service_name:'-'}}</td>

@@ -65,6 +65,7 @@
                                 <div class="text-left" fxFlex="10">
                                     <mat-checkbox [checked]="selectAll" (change)="checkAll($event)" class=""></mat-checkbox>
                                 </div>
+                                <div class="text-left" fxFlex="10">Order ID</div>
                                 <div class="text-left" fxFlex="10">Date & Time</div>
                                 <div class="text-left" fxFlex="20">Customer</div>
                                 <div class="text-left" fxFlex="15">Service</div>
@@ -77,6 +78,9 @@
                                 <div class="staff-list-row {{fnOpenDetailsRow==i?'activeRow':''}}" *ngFor="let allAppointmentsData of allAppointments; let i=index">
                                     <div class="text-left" fxFlex="10">
                                         <mat-checkbox [checked]="allAppointmentsData.is_selected" (change)="fnAddOrderId($event.checked, allAppointmentsData.id,i)" class=""></mat-checkbox>
+                                    </div>
+                                    <div class="text-left" fxFlex="15">
+                                        <p>{{allAppointmentsData.id}}</p>                                        
                                     </div>
                                     <div class="text-left hyperlink" fxFlex="10" (click)="fnOpenDetails(i)">
                                         <p>{{allAppointmentsData.booking_date}},</p>

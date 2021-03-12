@@ -486,6 +486,7 @@
                             <div class="content" class="appointment-live-list">
                                 <div (click)="fnOpenWorkStartedDetails(i)" *ngFor="let workStartedAppointments of workStartedAppointments; let i=index" class="appointment-live-list-details">
                                     <div class="" *ngIf="workStartedAppointments.service" fxFlex="20">
+                                        <p class="mb-0">Order Id: {{workStartedAppointments.id}}</p>
                                         <p class="mb-0">{{workStartedAppointments.service.service_name}}</p>
                                     </div>
                                     <div class="" fxFlex="10">
