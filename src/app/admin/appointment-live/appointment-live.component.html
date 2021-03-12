@@ -370,6 +370,7 @@
                         </div>
 
                         <div class="table_pagination" *ngIf="pendingAppointments != ''">
+                            <div class="col-3 pull-left">Showing record of {{fromRecord_pending}}-{{toRecord_pending}} ( Total {{totalRecord_pending}} )</div>
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
                                     <li class="page-item {{current_page_pending==1?'pointernone':''}} " (click)="navigateTo_pending(first_page_url_pending)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
@@ -517,6 +518,7 @@
                             </div>
                         </div>
                         <div class="table_pagination" *ngIf="workStartedAppointments != ''">
+                            <div class="col-3 pull-left">Showing record of {{fromRecord_workstart}}-{{toRecord_workstart}} ( Total {{totalRecord_workstart}} )</div>
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
                                     <li class="page-item {{current_page_workstart==1?'pointernone':'' }}" (click)="navigateTo_workstart(first_page_url_workstart)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>

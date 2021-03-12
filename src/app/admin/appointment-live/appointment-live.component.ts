@@ -56,6 +56,9 @@ export class AppointmentLiveComponent implements OnInit {
   current_page_pending:any;
   first_page_url_pending:any;
   last_page_pending:any;
+  totalRecord_pending : any;
+  fromRecord_pending : any;
+  toRecord_pending : any;
   last_page_url_pending:any;
   next_page_url_pending:any;
   prev_page_url_pending:any;
@@ -84,6 +87,9 @@ export class AppointmentLiveComponent implements OnInit {
   current_page_workstart:any;
   first_page_url_workstart:any;
   last_page_workstart:any;
+  totalRecord_workstart :any;
+  fromRecord_workstart :any;
+  toRecord_workstart :any;
   last_page_url_workstart:any;
   next_page_url_workstart:any;
   prev_page_url_workstart:any;
@@ -366,6 +372,9 @@ export class AppointmentLiveComponent implements OnInit {
         this.current_page_pending = response.response.current_page;
         this.first_page_url_pending = response.response.first_page_url;
         this.last_page_pending = response.response.last_page;
+        this.totalRecord_pending = response.response.total;
+        this.fromRecord_pending = response.response.from;
+        this.toRecord_pending= response.response.to;
         this.last_page_url_pending = response.response.last_page_url;
         this.next_page_url_pending = response.response.next_page_url;
         this.prev_page_url_pending = response.response.prev_page_url;
@@ -533,6 +542,9 @@ export class AppointmentLiveComponent implements OnInit {
         this.current_page_workstart = response.response.current_page;
         this.first_page_url_workstart = response.response.first_page_url;
         this.last_page_workstart = response.response.last_page;
+        this.totalRecord_workstart = response.response.total;
+        this.fromRecord_workstart = response.response.from;
+        this.toRecord_workstart = response.response.to;
         this.last_page_url_workstart = response.response.last_page_url;
         this.next_page_url_workstart = response.response.next_page_url;
         this.prev_page_url_workstart = response.response.prev_page_url;

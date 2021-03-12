@@ -110,6 +110,9 @@ export class ServicesComponent implements OnInit {
     current_page : any;
     first_page_url : any;
     last_page : any;
+    totalRecord : any;
+    fromRecord : any;
+    toRecord : any;
     last_page_url : any;
     next_page_url : any;
     prev_page_url : any;
@@ -308,6 +311,9 @@ export class ServicesComponent implements OnInit {
                 this.current_page = response.response.current_page;
                 this.first_page_url = response.response.first_page_url;
                 this.last_page = response.response.last_page;
+                this.totalRecord = response.response.total;
+                this.fromRecord = response.response.from;
+                this.toRecord = response.response.to;
                 this.last_page_url = response.response.last_page_url;
                 this.next_page_url = response.response.next_page_url;
                 this.prev_page_url = response.response.prev_page_url;
@@ -353,6 +359,9 @@ export class ServicesComponent implements OnInit {
                 this.current_page = response.response.current_page;
                 this.first_page_url = response.response.first_page_url;
                 this.last_page = response.response.last_page;
+                this.totalRecord = response.response.total;
+                this.fromRecord = response.response.from;
+                this.toRecord = response.response.to;
                 this.last_page_url = response.response.last_page_url;
                 this.next_page_url = response.response.next_page_url;
                 this.prev_page_url = response.response.prev_page_url;
@@ -551,6 +560,9 @@ export class ServicesComponent implements OnInit {
                 this.current_page = response.response.current_page;
                 this.first_page_url = response.response.first_page_url;
                 this.last_page = response.response.last_page;
+                this.totalRecord = response.response.total;
+                this.fromRecord = response.response.from;
+                this.toRecord = response.response.to;
                 this.last_page_url = response.response.last_page_url;
                 this.next_page_url = response.response.next_page_url;
                 this.prev_page_url = response.response.prev_page_url;
@@ -1177,6 +1189,9 @@ export class ServicesComponent implements OnInit {
                 this.current_page = response.response.current_page;
                 this.first_page_url = response.response.first_page_url;
                 this.last_page = response.response.last_page;
+                this.totalRecord = response.response.total;
+                this.fromRecord = response.response.from;
+                this.toRecord = response.response.to;
                 this.last_page_url = response.response.last_page_url;
                 this.next_page_url = response.response.next_page_url;
                 this.prev_page_url = response.response.prev_page_url;

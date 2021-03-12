@@ -90,6 +90,9 @@ export class ReportsComponent implements OnInit {
   appointmentReportcurrent_page : any;
   appointmentReportfirst_page_url : any;
   appointmentReportlast_page : any;
+  appointmentTotalRecord : any;
+  appointmentFromRecord : any;
+  appointmentToRecord : any;
   appointmentReportlast_page_url : any;
   appointmentReportnext_page_url : any;
   appointmentReportprev_page_url : any;
@@ -97,6 +100,9 @@ export class ReportsComponent implements OnInit {
   salesReportcurrent_page : any;
   salesReportfirst_page_url : any;
   salesReportlast_page : any;
+  salesReportTotalRecord : any;
+  salesReportFromRecord : any;
+  salesReportToRecord : any;
   salesReportlast_page_url : any;
   salesReportnext_page_url : any;
   salesReportprev_page_url : any;
@@ -104,6 +110,9 @@ export class ReportsComponent implements OnInit {
   customerReportcurrent_page : any;
   customerReportfirst_page_url : any;
   customerReportlast_page : any;
+  customerReportTotalRecord : any;
+  customerReportFromRecord : any;
+  customerReportToRecord : any;
   customerReportlast_page_url : any;
   customerReportnext_page_url : any;
   customerReportprev_page_url : any;
@@ -257,7 +266,10 @@ export class ReportsComponent implements OnInit {
         console.log('------------------------------------+++++++++++++++++++++++++++++++++')
         this.appointmentReportcurrent_page = response.response[0].list.current_page;
         this.appointmentReportfirst_page_url = response.response[0].list.first_page_url;
-        this.appointmentReportlast_page = response.response[0].list.last_page;
+        this.appointmentReportlast_page = response.response[0].list.last_page;        
+        this.appointmentTotalRecord = response.response[0].list.total;
+        this.appointmentFromRecord = response.response[0].list.from;
+        this.appointmentToRecord = response.response[0].list.to;
         this.appointmentReportlast_page_url = response.response[0].list.last_page_url;
         this.appointmentReportnext_page_url = response.response[0].list.next_page_url;
         this.appointmentReportprev_page_url = response.response[0].list.prev_page_url;
@@ -321,6 +333,9 @@ export class ReportsComponent implements OnInit {
         this.salesReportcurrent_page = response.response.list.current_page;
         this.salesReportfirst_page_url = response.response.list.first_page_url;
         this.salesReportlast_page = response.response.list.last_page;
+        this.salesReportTotalRecord = response.response.list.total;
+        this.salesReportFromRecord = response.response.list.from;
+        this.salesReportToRecord = response.response.list.to;
         this.salesReportlast_page_url = response.response.list.last_page_url;
         this.salesReportnext_page_url = response.response.list.next_page_url;
         this.salesReportprev_page_url = response.response.list.prev_page_url;
@@ -391,6 +406,9 @@ export class ReportsComponent implements OnInit {
         this.customerReportcurrent_page = response.response.current_page;
         this.customerReportfirst_page_url = response.response.first_page_url;
         this.customerReportlast_page = response.response.last_page;
+        this.customerReportTotalRecord = response.response.list.total;
+        this.customerReportFromRecord = response.response.list.from;
+        this.customerReportToRecord = response.response.list.to;
         this.customerReportlast_page_url = response.response.last_page_url;
         this.customerReportnext_page_url = response.response.next_page_url;
         this.customerReportprev_page_url = response.response.prev_page_url;
