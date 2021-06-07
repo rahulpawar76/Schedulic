@@ -40,6 +40,8 @@
                     <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{myAppoDetailData.service.service_name}}({{ myAppoDetailData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}})</p>
                     <p class="font-weight-bold" *ngIf="myAppoDetailData.service.service_type && myAppoDetailData.service.service_type=='online'">{{myAppoDetailData.service.service_sub_type}}({{myAppoDetailData.service.service_sub_type_value}})</p>
                     <p class="font-weight-bold" *ngIf="myAppoDetailData.service.service_type && myAppoDetailData.service.service_type=='phone'">{{myAppoDetailData.service.service_type}}({{myAppoDetailData.service.service_sub_type_value}})</p>
+                    <p class="mb-0" *ngIf="myAppoDetailData.service.service_type=='online'">ID</p>
+                    <p class="font-weight-bold" *ngIf="myAppoDetailData.service.service_type=='online'">{{myAppoDetailData.service.service_sub_type}} - {{myAppoDetailData.service.service_sub_type_value}}</p>
                     <p class="mb-0">Time</p>
                     <p class="font-weight-bold">{{myAppoDetailData.booking_timeForLabel}} - {{myAppoDetailData.booking_time_to}} ({{myAppoDetailData.service.service_time}} Min)</p>
                     <p class="mb-0" *ngIf="myAppoDetailData.service.service_type != null">

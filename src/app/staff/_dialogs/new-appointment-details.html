@@ -79,10 +79,14 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-8">
                             <p class="mb-0 title">Service</p>
                             <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{detailData.service.service_name}} = ({{currencySymbol| currencySymbol:'wide'}} {{ detailData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</p>
                             <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{detailData.service.service_name}} = ({{ detailData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}})</p>
+                        </div>
+                        <div class="col-4" *ngIf="detailData.service.service_type=='online'">
+                            <p class="mb-0 title">ID</p>
+                            <p class="font-weight-bold" >{{detailData.service.service_sub_type}} - {{detailData.service.service_sub_type_value}}</p>
                         </div>
                     </div>
 
