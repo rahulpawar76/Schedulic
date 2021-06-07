@@ -251,6 +251,7 @@
         box-sizing: border-box;
         background: white;
         font-size: 14px;
+        display: flex !important;
     }
     .cdk-drag-preview {
         box-sizing: border-box;
