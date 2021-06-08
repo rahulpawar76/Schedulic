@@ -2086,9 +2086,9 @@ export class DialogAddNewAppointment {
             panelClass :['red-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     },(err) =>{
     })
-    this.isLoaderAdmin = false;
   }
 
   fnEditAppointment(){
