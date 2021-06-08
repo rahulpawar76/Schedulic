@@ -632,6 +632,20 @@ textarea {
     }
 }
 
+.action-feild {
+    margin-left: 15px;
+    position: relative;
+     :before {
+        content: "\f044";
+        position: absolute;
+        color: #4f4f4f;
+        font-size: 22px;
+        font-family: FontAwesome;
+        left: -25px;
+        bottom: -2px;
+    }
+}
+
 .align-item-start {
     align-items: flex-start;
 }

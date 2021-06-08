@@ -449,7 +449,7 @@
                                     </mat-select>
                                 </mat-form-field>
 
-                                <mat-form-field class=" bottom-border-field ml-3 mt-3">
+                                <mat-form-field class=" bottom-border-field ml-3 mt-3 action-feild">
                                     <mat-label>Action</mat-label>
                                     <mat-select [disabled]="actionServiceIdarr == [] || actionServiceIdarr == ''" [(ngModel)]="selectedValue" (selectionChange)="fnServiceAction($event.value,selectedCategoryDetails.id,'category')">
                                         <mat-option value="E">Active</mat-option>
