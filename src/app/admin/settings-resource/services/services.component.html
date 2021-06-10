@@ -250,7 +250,7 @@
                                             <small *ngIf="createCategory.get('category_name').hasError('minlength')"
                                                 class="error">Category name can not be less than 1 character.</small>
                                             <small *ngIf="createCategory.get('category_name').hasError('maxlength')"
-                                                class="error">Category name may not be greater than 50
+                                                class="error">Category name may not be greater than 30
                                                 character.</small>
                                         </span>
                                     </div>
@@ -350,7 +350,7 @@
                                                 characters.</small>
                                             <small
                                                 *ngIf="createSubCategory.get('subcategory_name').hasError('maxlength')"
-                                                class="error">Subcategory length can not be graeter than 50
+                                                class="error">Subcategory length can not be graeter than 30
                                                 characters.</small>
                                         </span>
                                     </div>
@@ -705,7 +705,7 @@
                                             <small *ngIf="createService.get('service_name').hasError('minlength')"
                                                 class="error">Service name can not be less than 1 character.</small>
                                             <small *ngIf="createService.get('service_name').hasError('maxlength')"
-                                                class="error">Service name length cannot be greater than 50
+                                                class="error">Service name length cannot be greater than 30
                                                 characters.</small>
                                         </span>
                                     </div>

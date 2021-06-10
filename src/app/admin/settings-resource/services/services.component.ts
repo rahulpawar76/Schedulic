@@ -156,17 +156,17 @@ export class ServicesComponent implements OnInit {
         this.fnAllServicesNavigation();
 
         this.createSubCategory = this._formBuilder.group({
-            subcategory_name: ['',  [Validators.required,Validators.minLength(1),Validators.maxLength(50)]],
+            subcategory_name: ['',  [Validators.required,Validators.minLength(1),Validators.maxLength(30)]],
             subcategory_description: ['', [Validators.minLength(2),Validators.maxLength(255)]],
             subcategory_id: [''],
         });
         this.createCategory = this._formBuilder.group({
-            category_name: ['', [Validators.required,Validators.minLength(1),Validators.maxLength(50)]],
+            category_name: ['', [Validators.required,Validators.minLength(1),Validators.maxLength(30)]],
             category_description: ['', [Validators.minLength(2),Validators.maxLength(255)]],
             category_id: [''],
         });
         this.createService = this._formBuilder.group({
-            service_name: ['', [Validators.required,Validators.minLength(1),Validators.maxLength(50)]],
+            service_name: ['', [Validators.required,Validators.minLength(1),Validators.maxLength(30)]],
             service_description: ['',  [Validators.minLength(2),Validators.maxLength(255)]],
             service_cost: ['', [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
             service_duration: ['', [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1),]],
@@ -1838,7 +1838,7 @@ export class ServicesComponent implements OnInit {
         }
         if(this.serviceType == 'face_to_face'){
             this.createService = this._formBuilder.group({
-                service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(50)]],
+                service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(30)]],
                 service_description: [this.createService.get('service_description').value,  [Validators.minLength(2),Validators.maxLength(255)]],
                 service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
                 service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
@@ -1852,7 +1852,7 @@ export class ServicesComponent implements OnInit {
             });
         }else if(this.serviceType == 'online'){
             this.createService = this._formBuilder.group({
-                service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(50)]],
+                service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(30)]],
                 service_description: [this.createService.get('service_description').value,  [Validators.minLength(2),Validators.maxLength(255)]],
                 service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
                 service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
@@ -1866,7 +1866,7 @@ export class ServicesComponent implements OnInit {
             });
         }else if(this.serviceType == 'phone'){
             this.createService = this._formBuilder.group({
-                service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(50)]],
+                service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(30)]],
                 service_description: [this.createService.get('service_description').value,  [Validators.minLength(2),Validators.maxLength(255)]],
                 service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
                 service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
@@ -1939,7 +1939,7 @@ export class ServicesComponent implements OnInit {
         this.serviceType= event.value
         if(this.serviceType == 'face_to_face'){
             this.createService = this._formBuilder.group({
-                service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(50)]],
+                service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(30)]],
                 service_description: [this.createService.get('service_description').value,  [Validators.minLength(2),Validators.maxLength(255)]],
                 service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
                 service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
@@ -1953,7 +1953,7 @@ export class ServicesComponent implements OnInit {
             });
         }else if(this.serviceType == 'online'){
             this.createService = this._formBuilder.group({
-                service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(50)]],
+                service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(30)]],
                 service_description: [this.createService.get('service_description').value,  [Validators.minLength(2),Validators.maxLength(255)]],
                 service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
                 service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
@@ -1967,7 +1967,7 @@ export class ServicesComponent implements OnInit {
             });
         }else if(this.serviceType == 'phone'){
             this.createService = this._formBuilder.group({
-                service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(50)]],
+                service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(30)]],
                 service_description: [this.createService.get('service_description').value,  [Validators.minLength(2),Validators.maxLength(255)]],
                 service_cost: [this.createService.get('service_cost').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
                 service_duration: [this.createService.get('service_duration').value, [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
