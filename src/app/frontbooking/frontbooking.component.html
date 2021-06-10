@@ -170,6 +170,7 @@
                                         <div class="addon-data">
                                             <h3 class="addon-title">{{services.service_name}}</h3>
                                             <p class="addon-dec">{{services.service_description}}</p>
+                                            <p class="service-des">Service Type : {{services.service_type | titlecase}}</p>
                                         </div>
                                         <div class="price-cart">
                                             <label class="text-center"
@@ -1220,6 +1221,7 @@
                                         <button mat-fab class="action-btn qty-minus" (click)="fnAdd($event,services.id)">+</button>
                                     </div>
                                         <p class="service-des">{{services.service_description}}</p>
+                                        <p class="service-des">Service Type : {{services.service_type  | titlecase}}</p>                                        
                                     </div>
                                 </div>
                                 <div class="hover-overlay" *ngIf="serviceCount[services.id].count<1">

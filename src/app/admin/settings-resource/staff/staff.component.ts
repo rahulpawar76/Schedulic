@@ -2873,7 +2873,7 @@ export class StaffComponent implements OnInit {
 
   staffSearch(){
     
-    if(this.search.staff.length > 2){
+    if(this.search.staff.length >= 1){
       this.isLoaderAdmin=true;
       let requestObject = {
         "search":this.search.staff,

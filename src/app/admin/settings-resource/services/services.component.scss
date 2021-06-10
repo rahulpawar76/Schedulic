@@ -251,6 +251,7 @@
         box-sizing: border-box;
         background: white;
         font-size: 14px;
+        display: flex !important;
     }
     .cdk-drag-preview {
         box-sizing: border-box;
@@ -622,6 +623,20 @@ textarea {
     position: relative;
      :before {
         content: "\f0b0";
+        position: absolute;
+        color: #4f4f4f;
+        font-size: 22px;
+        font-family: FontAwesome;
+        left: -25px;
+        bottom: -2px;
+    }
+}
+
+.action-feild {
+    margin-left: 15px;
+    position: relative;
+     :before {
+        content: "\f044";
         position: absolute;
         color: #4f4f4f;
         font-size: 22px;

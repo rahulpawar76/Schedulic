@@ -807,6 +807,7 @@ this.router.navigate(['/customer-login/'+this.urlString[1]]);
           this.serviceData[i].count=0;
           this.serviceData[i].subtotal = this.serviceData[i].service_cost * this.serviceData[i].count;
           this.serviceData[i].discount_type=null;
+          this.serviceData[i].service_type= this.serviceData[i].service_type.replace(/_/g," ");
           this.serviceData[i].discount_value=null;
           this.serviceData[i].discount=0;
           var serviceAmountAfterDiscount= this.serviceData[i].subtotal - this.serviceData[i].discount;
@@ -845,6 +846,7 @@ this.router.navigate(['/customer-login/'+this.urlString[1]]);
         }
         
       }
+      console.log(this.serviceData);
       this.isLoader=false;
     }else{
       this.isLoader=false;
