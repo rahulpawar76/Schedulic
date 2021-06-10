@@ -460,6 +460,7 @@ getBookingNotes(requestObject){
     }),
     catchError(this.handleError));
 }
+
 updateStaffBGImage(requestObject){
     this.checkAuthentication();
     let headers = new HttpHeaders({
@@ -468,6 +469,20 @@ updateStaffBGImage(requestObject){
         'Content-Type': 'application/json'
     });
     return this.http.post(`${environment.apiUrl}/staff-bg-image-update`,requestObject,{headers:headers}).pipe(
+       map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+}
+
+changePassword(requestObject){
+    this.checkAuthentication();
+    let headers = new HttpHeaders({
+        'staff-id' : JSON.stringify(this.currentUser.user_id),
+        'api-token' : this.currentUser.token,
+        'Content-Type': 'application/json'
+    });
+    return this.http.post(`${environment.apiUrl}/change-password`,requestObject,{headers:headers}).pipe(
        map((res) => {
         return res;
     }),

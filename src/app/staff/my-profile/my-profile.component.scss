@@ -62,7 +62,7 @@
 .d-block {
     margin-top: 10px;
     border-radius: 25px;
-    width: 130px;
+    // width: 130px;
     float: right;
 }
 
@@ -229,4 +229,12 @@ i {
 
  ::ng-deep .mat-dialog-container {
     padding: 0 !important;
+}
+
+::ng-deep .bottom-border-field{
+    .mat-form-field-suffix{
+        .mat-icon{
+            border-right: 0;
+        }
+    }
 }

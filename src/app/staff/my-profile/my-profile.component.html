@@ -1,11 +1,12 @@
 <div class="loader-main" *ngIf="isLoader">
     <img src="../../../assets/images/step-loader.gif" /></div>
-<div class="profile-main col-8">
+<div class="profile-main col-12">
     <mat-card-title class="title">My Profile</mat-card-title>
+    <mat-card class="row mx-0 d-flex">
+        <div class="col-6">
     <form [formGroup]="myProfile">
-        <mat-card class="card">
-            <div class="card-body row">
-                <div class="col-lg-3 col-sm-3 col-md-3">
+            <div class="card-body row ">
+                <div class="col-lg-3 col-sm-12 col-md-3 col-12">
                     <div class="profile-img-wrap" (click)="ImgUpload()">
                         <img mat-card-avatar *ngIf="profiledata.image != '' && profileImage" class="customer-profile-img" src="{{profileImage}}">
                         <img mat-card-avatar *ngIf="profiledata.image != '' && !profileImage" class="customer-profile-img" src="{{profiledata.image}}">
@@ -14,9 +15,8 @@
                         <div class="camera-alt"><i class="material-icons"> camera_alt</i></div>
                     </div>
                 </div>
-                <div class="col-8">
+                <div class="col-lg-9 col-sm-12 col-md-9 col-12">
                     <div class="form-group row">
-                        <div class="col-9 col-lg-9">
                             <div>
                                 <mat-form-field class="form-group  bottom-border-field">
                                     <mat-label>First Name</mat-label>
@@ -27,11 +27,9 @@
 									<small *ngIf="myProfile.get('user_FirstName').hasError('required')" class="error">Firstname is required</small>
 								 </span>
                             </div>
-                        </div>
                     </div>
 
                     <div class="form-group row">
-                        <div class="col-9 col-lg-9">
                             <div>
                                 <mat-form-field class="form-group  bottom-border-field">
                                     <mat-label>Last Name</mat-label>
@@ -42,11 +40,9 @@
 									<small *ngIf="myProfile.get('user_LastName').hasError('required')" class="error">Lastname is required</small>
 								 </span>
                             </div>
-                        </div>
                     </div>
 
                     <div class="form-group row">
-                        <div class="col-9 col-lg-9">
                             <div>
                                 <mat-form-field class="form-group  bottom-border-field">
                                     <mat-label> Email</mat-label>
@@ -58,11 +54,9 @@
 									<small *ngIf="myProfile.get('user_Email').hasError('email') || myProfile.get('user_Email').hasError('emailFormat')" class="error">Email address is not valid</small>
 								 </span>
                             </div>
-                        </div>
                     </div>
 
                     <div class="form-group row">
-                        <div class="col-9 col-lg-9">
                             <div>
                                 <mat-form-field class="form-group  bottom-border-field">
                                     <mat-label>Mobile</mat-label>
@@ -75,7 +69,6 @@
 									<small *ngIf="myProfile.get('user_Mobile').hasError('onlynumeric')" class="error">Mobile number should be Number only</small>
 								 </span>
                             </div>
-                        </div>
                     </div>
 
                     <div class="form-group row">
@@ -87,6 +80,69 @@
                 </div>
             </div>
 
-        </mat-card>
+        
     </form>
+</div>
+    <div class="change-password-container col-6">
+               
+        <form [formGroup]="changePwd" class="with-validation">
+            <div class="row mx-0 mt-4">
+                <div class="col-12 mb-3">
+                    <!-- <label for="old-pwd" class="">Old Password</label>
+                    <div class="input-with-icon">
+                        <input  [type]="hide1 ? 'text' : 'password'" class="form-control" formControlName="oldPassword">
+                        <mat-icon class="hide-show-pswd pointer" (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide1">{{hide1 ? 'visibility' : 'visibility_off'}}</mat-icon>
+                    </div> -->
+                    <mat-form-field class="form-group  bottom-border-field">
+                        <mat-label>Old Password</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="oldPassword">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <span class="error-wrap" *ngIf="changePwd.get('oldPassword').touched || changePwd.get('oldPassword').dirty">
+                        <small *ngIf="changePwd.get('oldPassword').hasError('required')" class="error">Old password is required.</small>
+                    </span>
+                </div>
+                <div class="col-12 mb-3">
+                    <!-- <label for="new-pwd" class="">New Password</label>
+                    <div class="input-with-icon">
+                        <input  [type]="hide2 ? 'text' : 'password'" class="form-control" formControlName="newPassword">
+                        <mat-icon class="hide-show-pswd pointer" (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2">{{hide2 ? 'visibility' : 'visibility_off'}}</mat-icon>
+                    </div> -->
+                    <mat-form-field class="form-group  bottom-border-field">
+                        <mat-label>New Password</mat-label>
+                        <input matInput [type]="hide2 ? 'password' : 'text'" formControlName="newPassword">
+                        <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2">
+                          <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <span class="error-wrap" *ngIf="changePwd.get('newPassword').touched || changePwd.get('newPassword').dirty">
+                        <small *ngIf="changePwd.get('newPassword').hasError('required')" class="error">New Password is required.</small>
+                        <small *ngIf="changePwd.get('newPassword').hasError('minlength')" class="error">New Password should be minimum 8 character.</small>
+                    </span>
+                </div>
+                <div class="col-12 mb-3">
+                    <!-- <label for="new-pwd" class="">Confirm New Password</label>
+                    <input type="password" formControlName="ReNewPassword" placeholder="Re-Enter New Password" class="common-input form-control" /> -->
+                    <mat-form-field class="form-group  bottom-border-field">
+                        <mat-label>Confirm New Password</mat-label>
+                        <input type="password"  matInput formControlName="ReNewPassword" value="" placeholder="Re-Enter New Password">
+                    </mat-form-field>
+                    <span class="error-wrap" *ngIf="changePwd.get('ReNewPassword').dirty || changePwd.get('ReNewPassword').touched">
+                        <small *ngIf="changePwd.get('ReNewPassword').hasError('required') || (changePwd.get('ReNewPassword').hasError('required') && changePwd.hasError('notSame'))" class="error text-left">Confirm password is required.</small>
+                        <small *ngIf="!changePwd.get('ReNewPassword').hasError('required') && changePwd.hasError('notSame')" class="error text-left">Passwords do not match.</small>
+                    </span>
+                </div>
+                <div class="col-12 mb-3">
+                    <div class="d-block">
+                        <button mat-flat-button class=" px-3 d-block ml-auto mr-2 bg-primary text-light" (click)="fnChangePassword()">Change Password</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    
+</mat-card>
 </div>

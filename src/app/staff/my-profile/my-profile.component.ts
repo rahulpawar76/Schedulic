@@ -34,6 +34,9 @@ export class MyProfileComponent implements OnInit {
  emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
  onlynumeric = /^-?(0|[1-9]\d*)?$/
  isLoader : boolean=true;
+ changePwd:FormGroup;
+ hide1 = true;
+ hide2 = true;
 
   constructor(
     public dialog: MatDialog, private http: HttpClient,
@@ -62,7 +65,22 @@ export class MyProfileComponent implements OnInit {
     });
     this.titleService.setTitle('My Profile');
 
+    this.changePwd = this._formBuilder.group({
+      oldPassword : ['',[Validators.required]],
+      newPassword:['',[Validators.required,Validators.minLength(8)]],
+      ReNewPassword: ['', Validators.required]            
+    
+    },{validator: this.checkPasswords });
+
     this.getProfiledata();
+  }
+
+  
+  checkPasswords(group: FormGroup) { // here we have the 'passwords' group
+    let pass = group.controls.newPassword.value;
+    let confirmPass = group.controls.ReNewPassword.value;
+
+    return pass === confirmPass ? null : { notSame: true }
   }
 
   getProfiledata(){
@@ -129,6 +147,44 @@ export class MyProfileComponent implements OnInit {
     )
   }
 
+  
+  fnChangePassword(){
+    if(this.changePwd.valid){
+      this.isLoader = true;
+      let requestObject = {
+        'user_id': this.staffId,
+        'user_type':'SM',
+        "old_password" : this.changePwd.get('oldPassword').value,
+        "new_password" : this.changePwd.get('ReNewPassword').value,
+      }
+      this.StaffService.changePassword(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+          // this.changePwd.reset();
+          this.changePwd.controls['oldPassword'].setValue(null);
+          this.changePwd.controls['newPassword'].setValue(null);
+          this.changePwd.controls['ReNewPassword'].setValue(null);
+        }
+        else if(response.data == false){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+        }
+        this.isLoader = false;
+      })
+    }
+    else{
+      this.changePwd.get("oldPassword").markAsTouched();
+      this.changePwd.get("newPassword").markAsTouched();
+    }
+  }
+
   isEmailUniqueForEdit(control: FormControl) {
 
     return new Promise((resolve, reject) => {
@@ -137,7 +193,7 @@ export class MyProfileComponent implements OnInit {
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
         });
-        return this.http.post(`${environment.apiUrl}/admin-staff-email-check`,{ emailid: control.value,user_id:parseInt(this.staffId) },{headers:headers}).pipe(map((response : any) =>{
+        return this.http.post(`${environment.apiUrl}/admin-staff-email-check`,{ email: control.value,user_id:parseInt(this.staffId) },{headers:headers}).pipe(map((response : any) =>{
           return response;
         }),
         catchError(this.handleError)).subscribe((res) => {
