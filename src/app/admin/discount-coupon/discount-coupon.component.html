@@ -174,14 +174,15 @@
                                 <mat-label>Discount Type</mat-label>
                                 <mat-icon matPrefix>
                                     <img *ngIf="discountType == 'P'" src="../../../assets/images/admin/percentage.png" class="">
-                                    <img *ngIf="discountType == 'F'" src="../../../assets/images/admin/rupee.png" class="">
+                                    <!---<img src="../../../assets/images/admin/rupee.png" class="">-->
+                                    <mat-icon  *ngIf="discountType == 'F'" matPrefix>{{currencySymbol}}</mat-icon>
                                 </mat-icon>
                                 <mat-select (selectionChange)="fnChangeDiscountType($event)" [(value)]="selected" formControlName="discount_type">
                                     <mat-option>None</mat-option>
                                     <mat-option value="P">
-                                        <mat-icon matPrefix><img src="../../../assets/images/admin/percentage.png" class=""></mat-icon>Percentage</mat-option>
+                                        <!---<mat-icon matPrefix><img src="../../../assets/images/admin/percentage.png" class=""></mat-icon>-->Percentage</mat-option>
                                     <mat-option value="F">
-                                        <mat-icon matPrefix><img src="../../../assets/images/admin/rupee.png" class=""></mat-icon>Fixed Amount</mat-option>
+                                        <!---<mat-icon matPrefix></mat-icon>-->Fixed Amount</mat-option>
                                 </mat-select>
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="discountCoupon.get('discount_type').touched || discountCoupon.get('discount_type').dirty || formSubmitclicked">
@@ -194,7 +195,7 @@
                                 <mat-label>Discount</mat-label>
                                 <mat-icon matPrefix>
                                     <img *ngIf="discountType == 'P'" src="../../../assets/images/admin/percentage.png" class="">
-                                    <img *ngIf="discountType == 'F'" src="../../../assets/images/admin/rupee.png" class="">
+                                    <mat-icon  *ngIf="discountType == 'F'" matPrefix>{{currencySymbol}}</mat-icon>
                                 </mat-icon>
                                 <input (keyup)="discount_check()" matInput formControlName="discount_value" placeholder="Value">
                             </mat-form-field>
