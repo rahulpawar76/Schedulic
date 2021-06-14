@@ -309,6 +309,40 @@ export class CustomersComponent implements OnInit {
     })
   }
 
+  fnUploadImage(){
+    this.customerImage();
+  }
+
+  fnRemoveImage(){
+    let requestObject = {
+      'user_type': 'C',
+      'user_id': this.existingUserId
+    }
+    this.isLoaderAdmin = true;
+    this.adminService.removeImage(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.getAllCustomersAfterNew();
+        this.createNewCustomer.reset();
+        this.fnCancelNewCustomer();
+        // this.customerImageUrl = '';
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        // this.allCustomers = ''
+      }
+      this.isLoaderAdmin = false;
+    })
+  }
+
   fnCreateCustomerSubmit(){
     console.log(this.createNewCustomer);
 
@@ -984,6 +1018,7 @@ customerUpdate(existingCustomerData){
      dialogRef.afterClosed().subscribe(result => {
         if(result != undefined){
             this.customerImageUrl = result;
+            // this.fnCreateCustomerSubmit();
             console.log(result);
            }
      });
