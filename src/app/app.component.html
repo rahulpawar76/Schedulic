@@ -270,7 +270,7 @@
             <mat-list-item role="listitem" (click)="drawer.toggle()" (click)=" StaffProfile('./staff-profile')" class="matlist pointer menuitem">
                 <img class="customer-profile-img ml-2 mr-2 mb-2" src="{{currentUser.image}}">
                 <div>
-                    <p class="font-weight-bold mt-2 p-1 mb-0">{{currentUser.full_name}}</p>
+                    <p class="font-weight-bold p-1 mb-0">{{currentUser.full_name}}</p>
                     <div *ngIf="currentUser.avgRatings != ''" class="d-flex statick-rating staff-dash w-100">
                         <div class="star-rating" *ngIf="currentUser.avgRatings">
                             <input type="radio" [checked]="currentUser.avgRatings[0].aggregate == '5'" id="5-stars_{{currentUser.id}}" name="rating_2" value="5" />

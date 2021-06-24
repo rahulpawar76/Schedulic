@@ -113,7 +113,7 @@
                 <h5 class="ml-3">Category ({{allCategoryCount ? allCategoryCount : 0}})</h5>
                 <i class="material-icons add-icon pointer" (click)="fnCreateNewCategory()">add_circle</i>
             </div>
-            <div class="single-box" (click)="fnAllServicesNavigation()">
+            <div class="single-box" (click)="fnAllServicesNavigation('not-new')">
                 <p class="ml-4 mb-0">All Services ({{allServiceCount ? allServiceCount : 0}})</p>
             </div>
             <mat-accordion class="category-list" cdkDropList (cdkDropListDropped)="drop($event)">
@@ -250,7 +250,7 @@
                                             <small *ngIf="createCategory.get('category_name').hasError('minlength')"
                                                 class="error">Category name can not be less than 1 character.</small>
                                             <small *ngIf="createCategory.get('category_name').hasError('maxlength')"
-                                                class="error">Category name may not be greater than 30
+                                                class="error">Category name may not be greater than 50
                                                 character.</small>
                                         </span>
                                     </div>
@@ -350,7 +350,7 @@
                                                 characters.</small>
                                             <small
                                                 *ngIf="createSubCategory.get('subcategory_name').hasError('maxlength')"
-                                                class="error">Subcategory length can not be graeter than 30
+                                                class="error">Subcategory length can not be graeter than 50
                                                 characters.</small>
                                         </span>
                                     </div>
@@ -449,7 +449,7 @@
                                     </mat-select>
                                 </mat-form-field>
 
-                                <mat-form-field class=" bottom-border-field ml-3 mt-3 action-feild">
+                                <mat-form-field class=" bottom-border-field ml-5 mt-3 action-feild">
                                     <mat-label>Action</mat-label>
                                     <mat-select [disabled]="actionServiceIdarr == [] || actionServiceIdarr == ''" [(ngModel)]="selectedValue" (selectionChange)="fnServiceAction($event.value,selectedCategoryDetails.id,'category')">
                                         <mat-option value="E">Active</mat-option>
@@ -582,7 +582,7 @@
                                     </mat-select>
                                 </mat-form-field>
 
-                                <mat-form-field class=" bottom-border-field ml-3 mt-3">
+                                <mat-form-field class=" bottom-border-field ml-5 mt-3 action-feild">
                                     <mat-label>Action</mat-label>
                                     <mat-select [disabled]="actionServiceIdarr == [] || actionServiceIdarr == ''" [(ngModel)]="selectedValue" (selectionChange)="fnServiceAction($event.value,selectedSubCategoryDetails.id,'subcategory')">
                                         <mat-option value="E">Active</mat-option>
@@ -705,7 +705,7 @@
                                             <small *ngIf="createService.get('service_name').hasError('minlength')"
                                                 class="error">Service name can not be less than 1 character.</small>
                                             <small *ngIf="createService.get('service_name').hasError('maxlength')"
-                                                class="error">Service name length cannot be greater than 30
+                                                class="error">Service name length cannot be greater than 50
                                                 characters.</small>
                                         </span>
                                     </div>

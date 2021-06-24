@@ -198,6 +198,12 @@ export class CustomersComponent implements OnInit {
     //   paymentMode : ['Cash', [Validators.required]],
     //   paymentNote : ['', [Validators.required]],
     // });
+    
+    let addNewAction = window.location.search.split("?customer")
+    if(addNewAction.length > 1){
+      // this.addNewEvents = false; 
+      this.fnAddNewCustomer();
+    }
   }
 
   fnGetSettings(){
@@ -242,7 +248,16 @@ export class CustomersComponent implements OnInit {
             element.initials=element.initials+element2.charAt(0);
           });
         });
-        this.fnSelectCustomer(this.allCustomers[0].id);
+        var action = '';
+        let addNewAction = window.location.search.split("?customer")
+        if(addNewAction.length > 1){
+          // this.addNewEvents = false; 
+          this.fnAddNewCustomer();
+          action = 'new'
+        }else{
+          action = 'not-new'
+        }
+        this.fnSelectCustomer(this.allCustomers[0].id,action);
         this.customerDetailId = this.allCustomers[0].id
         this.isLoaderAdmin = false;
       }
@@ -283,7 +298,7 @@ export class CustomersComponent implements OnInit {
           });
         });
         
-        this.fnSelectCustomer(this.allCustomers[this.allCustomers.length-1].id);
+        this.fnSelectCustomer(this.allCustomers[this.allCustomers.length-1].id, 'not-new');
         this.customerDetailId = this.allCustomers[this.allCustomers.length-1].id
         this.isLoaderAdmin = false;
       }
@@ -459,7 +474,7 @@ customerUpdate(existingCustomerData){
         verticalPosition:'top',
         panelClass :['green-snackbar']
       });
-      this.fnSelectCustomer(existingCustomerData.customer_id);
+      this.fnSelectCustomer(existingCustomerData.customer_id, 'not-new');
       this.existingUserId = undefined;
       this.fnCancelNewCustomer();
       this.customerImageUrl='';
@@ -512,7 +527,7 @@ customerUpdate(existingCustomerData){
   }
 
   
-  fnSelectCustomer(customer_id){
+  fnSelectCustomer(customer_id, action){
 
     this.showPaymentForm=false;
     this.showPaymentTable = true;
@@ -594,7 +609,13 @@ customerUpdate(existingCustomerData){
         this.customersDetails = ''
         this.isLoaderAdmin = false;
       }
+      let addNewAction = window.location.search.split("?customer")
+      if(addNewAction.length > 1 && action != 'not-new'){
+        // this.addNewEvents = false; 
+        this.fnAddNewCustomer();
+      }
     })
+
   }
 
   fnDeleteCustomer(customerId){
@@ -818,7 +839,7 @@ customerUpdate(existingCustomerData){
 
      dialogRef.afterClosed().subscribe(result => {
       if(result && result.data){
-        this.fnSelectCustomer(this.customerPersonalDetails.id);
+        this.fnSelectCustomer(this.customerPersonalDetails.id,'not-new');
       }
      });
   }
@@ -836,7 +857,7 @@ customerUpdate(existingCustomerData){
     });
      dialogRef.afterClosed().subscribe(result => {
       
-      this.fnSelectCustomer(customer_id);
+      this.fnSelectCustomer(customer_id,'not-new');
       this.animal = result;
      });
   }
@@ -900,7 +921,7 @@ customerUpdate(existingCustomerData){
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
-        this.fnSelectCustomer(customerId);
+        this.fnSelectCustomer(customerId,'not-new');
         this.isLoaderAdmin = false;
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
@@ -932,8 +953,8 @@ customerUpdate(existingCustomerData){
       quoteStrings: '"',
       decimalSeparator: '.',
       showLabels: true, 
-      showTitle: true,
-      title: 'Exported Customer Data',
+      showTitle: false,
+      // title: 'Exported Customer Data',
       useTextFile: false,
       useBom: true,
       useKeysAsHeaders: true,
@@ -1044,7 +1065,7 @@ customerUpdate(existingCustomerData){
      });
       dialogRef.afterClosed().subscribe(result => {
        this.animal = result;
-      this.fnSelectCustomer(this.customerDetailId);
+      this.fnSelectCustomer(this.customerDetailId,'not-new');
      
       });
 
@@ -1316,7 +1337,7 @@ customerUpdate(existingCustomerData){
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
-       this.fnSelectCustomer(this.serviceMainArr.customer_id);
+       this.fnSelectCustomer(this.serviceMainArr.customer_id,'not-new');
        this.formPayment.reset();
        //this.formPayment.controls['paymentMode'].setValue('Cash');
        this.fnShowPaymentTable();
@@ -1424,7 +1445,7 @@ customerUpdate(existingCustomerData){
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
-       this.fnSelectCustomer(this.serviceMainArr.customer_id);
+       this.fnSelectCustomer(this.serviceMainArr.customer_id, 'not-new');
        this.formPayment.reset();
        //this.formPayment.controls['paymentMode'].setValue('Cash');
        this.fnShowPaymentTable();
@@ -1473,7 +1494,7 @@ customerUpdate(existingCustomerData){
               element.initials=element.initials+element2.charAt(0);
             });
           });
-          this.fnSelectCustomer(this.allCustomers[0].id);
+          this.fnSelectCustomer(this.allCustomers[0].id,'not-new');
           this.isLoaderAdmin=false;
         }
         else if(response.data == false && response.response !== 'api token or userid invaild'){

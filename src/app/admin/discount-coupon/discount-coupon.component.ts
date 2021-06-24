@@ -84,8 +84,12 @@ export class DiscountCouponComponent implements OnInit {
     localStorage.setItem('isBusiness', 'false');
     if(localStorage.getItem('business_id')){
       this.businessId = localStorage.getItem('business_id');
-      
-  }
+    }
+    let addNewAction = window.location.search.split("?coupon")
+    if(addNewAction.length > 1){
+      // this.addNewEvents = false; 
+      this.fnNewCouponCode();
+    }
   //this.appComponent.settingsModule(this.adminSettings);
    }
 
@@ -166,7 +170,9 @@ export class DiscountCouponComponent implements OnInit {
         });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
-       
+        this.fromRecord = 0;
+        this.toRecord = 0;
+        this.totalRecord = 0;
         this.allCouponCode = ''
       }
         this.isLoaderAdmin = false;

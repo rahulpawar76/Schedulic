@@ -676,7 +676,7 @@ export class AdminService {
 
     outdoorGoogleaddress(address){
 
-        return this.http.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyDIx_jprz_nOTY0XoE8uhbX6oAy16GIyOc`).pipe(
+        return this.http.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${environment.googleMapAPIKey}`).pipe(
             map((res) => {
                 return res;
             }),

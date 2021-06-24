@@ -100,6 +100,11 @@ export class AppointmentComponent implements OnInit {
       this.businessId=localStorage.getItem('business_id');
       this.durationType = 'all';
       this.selectedServices =  'all';
+      let addNewAction = window.location.search.split("?appointment")
+      if(addNewAction.length > 1){
+        // this.addNewEvents = false; 
+        this.addAppointment();
+      }
       // this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
       // this.endDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
       this.fnGetSettingValue();

@@ -374,28 +374,23 @@ export class AppComponent implements AfterViewInit {
 
   /*Add New Navigation */
   addNewAppointNav() {
-    this.router.navigate(['/admin/my-appointment']);
+    
+    this.router.navigate(['/admin/my-appointment'], { queryParams: { appointment: 'new' } });
   }
   addNewCategoryNav() {
-    this.router.navigate(['/admin/settings-resource/']);
-  }
-  addNewServicesNav() {
-    this.router.navigate(['/admin/settings-resource/services']);
+    this.router.navigate(['/admin/settings-resource/'], { queryParams: { category: 'new' } });
   }
   addNewStaffNav() {
-    this.router.navigate(['/admin/settings-resource/staff']);
+    this.router.navigate(['/admin/settings-resource/staff'], { queryParams: { staff: 'new' } });
   }
   addNewCustomerNav() {
-    this.router.navigate(['/admin/my-customer']);
+    this.router.navigate(['/admin/my-customer'], { queryParams: { customer: 'new' } });
   }
   addNewPostalCodeNav() {
-    this.router.navigate(['/admin/settings-resource/postalcode']);
+    this.router.navigate(['/admin/settings-resource/postalcode'], { queryParams: { postalcode: 'new' } });
   }
   addNewDiscountCouponNav() {
-    this.router.navigate(['/admin/my-discountcoupon']);
-  }
-  addNewTimeOffNav() {
-    this.router.navigate(['/admin/settings-resource/business-hours']);
+    this.router.navigate(['/admin/my-discountcoupon'], { queryParams: { coupon: 'new' } });
   }
 
   // Super Admin Navigation

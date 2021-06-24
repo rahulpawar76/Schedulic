@@ -179,8 +179,8 @@ export class AppointmentLiveComponent implements OnInit {
     //this.currentUser = this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x )
     this.newCustomer = this._formBuilder.group({
       cus_name : ['', Validators.required],
-      cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isCustomerEmailUnique.bind(this)],
-      cus_mobile : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)],this.isCustomerPhoneUnique.bind(this)],
+      cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
+      cus_mobile : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
     });
     this.fnWatinglist();
     // this.fnPendingBilling();
@@ -1363,14 +1363,15 @@ export class AppointmentLiveComponent implements OnInit {
     var data = this.outdoorOrdersArr[index];
     console.log(data.service.service_sub_type);
     
-    if(data.service.service_sub_type=='in_store'){
-      this.ShowMap  = false;
+    if(data.service.service_sub_type=='at_home'){
+      this.ShowMap  = true;
+    }else{
       return;
     }
 
     var customer_address =  data.orders_info.booking_address+'+'+data.orders_info.booking_city+'+'+data.orders_info.booking_state+'+'+data.orders_info.booking_zipcode;
     var staff_address =  data.staff.address+'+'+data.staff.city+'+'+data.staff.state+'+'+data.staff.zip;
-    this.ShowMap = false;
+    // this.ShowMap = false;
 
     this.adminService.outdoorGoogleaddress(customer_address).subscribe((response: any) => {
         if(response.status=='OK'){

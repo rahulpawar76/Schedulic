@@ -5,7 +5,7 @@
 export const environment = {
     production: false,
     
- 
+    googleMapAPIKey: 'AIzaSyA8RwRCpG7ajbR-pl0D58oUGzi83c6RCYk',
     apiUrl:         'https://api.schedulic.com/api',
     authApiUrl:     'https://api.schedulic.com/api',
     urlForLink :    'http://localhost:4200',

@@ -43,6 +43,11 @@ export class PostalcodesComponent implements OnInit {
       this.businessId = localStorage.getItem('business_id');
     }
     this.getSettingValue();
+    let addNewAction = window.location.search.split("?postalcode")
+    if(addNewAction.length > 1){
+      // this.addNewEvents = false; 
+      this.addPostalCode();
+    }
   }
 
   ngOnInit() {}

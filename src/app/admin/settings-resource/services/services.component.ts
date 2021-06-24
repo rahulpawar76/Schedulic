@@ -153,20 +153,20 @@ export class ServicesComponent implements OnInit {
 
         this.fnGetSettings();
         this.fnAllCategory();
-        this.fnAllServicesNavigation();
+        this.fnAllServicesNavigation('new');
 
         this.createSubCategory = this._formBuilder.group({
-            subcategory_name: ['',  [Validators.required,Validators.minLength(1),Validators.maxLength(30)]],
+            subcategory_name: ['',  [Validators.required,Validators.minLength(1),Validators.maxLength(50)]],
             subcategory_description: ['', [Validators.minLength(2),Validators.maxLength(255)]],
             subcategory_id: [''],
         });
         this.createCategory = this._formBuilder.group({
-            category_name: ['', [Validators.required,Validators.minLength(1),Validators.maxLength(30)]],
+            category_name: ['', [Validators.required,Validators.minLength(1),Validators.maxLength(50)]],
             category_description: ['', [Validators.minLength(2),Validators.maxLength(255)]],
             category_id: [''],
         });
         this.createService = this._formBuilder.group({
-            service_name: ['', [Validators.required,Validators.minLength(1),Validators.maxLength(30)]],
+            service_name: ['', [Validators.required,Validators.minLength(1),Validators.maxLength(50)]],
             service_description: ['',  [Validators.minLength(2),Validators.maxLength(255)]],
             service_cost: ['', [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1)]],
             service_duration: ['', [Validators.required, Validators.pattern(this.onlynumeric), Validators.min(1),]],
@@ -288,9 +288,9 @@ export class ServicesComponent implements OnInit {
         }
     }
 
-    fnAllServicesNavigation(){
+    fnAllServicesNavigation(action){
         this.serviceApiUrl1=environment.apiUrl+"/admin-service-list";
-        this.fnAllServices2();   
+        this.fnAllServices2(action);   
     }
 
     fnAllServices() {
@@ -341,7 +341,7 @@ export class ServicesComponent implements OnInit {
             }
         })
     }
-    fnAllServices2() {
+    fnAllServices2(action) {
         this.isLoaderAdmin = true;
         this.createNewCategoryPage = false;
         this.createNewSubCategoryPage = false;
@@ -387,6 +387,11 @@ export class ServicesComponent implements OnInit {
                 this.allServicesList = [];
                 this.isLoaderAdmin = false;
             }
+            let addNewAction = window.location.search.split("?category")
+        if(addNewAction.length > 1 && action != 'not-new'){
+        // this.addNewEvents = false; 
+            this.fnCreateNewCategory();
+        }
         })
     }
     
@@ -479,6 +484,12 @@ export class ServicesComponent implements OnInit {
                 this.allCategoryCount = 0;
                 this.isLoaderAdmin = false;
             }
+            
+        let addNewAction = window.location.search.split("?category")
+        if(addNewAction.length > 1){
+        // this.addNewEvents = false; 
+            this.fnCreateNewCategory();
+        }
         })
     }
 
@@ -961,7 +972,7 @@ export class ServicesComponent implements OnInit {
                         
                         this.fnAllServices();
                         this.fnAllCategory();
-                        this.fnAllServicesNavigation();
+                        this.fnAllServicesNavigation('not-new');
                         this.servicesList = true;
                         this.createNewCategoryPage = false;
                         this.isLoaderAdmin = false;

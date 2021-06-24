@@ -1600,7 +1600,7 @@ fnAddNewTimeOff(){
     this.adminSettingsService.addNewTimeOff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.dialogRef.close({ call: true });
-        this.snackBar.open("Time off added.", "X", {
+        this.snackBar.open("Holiday added.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
