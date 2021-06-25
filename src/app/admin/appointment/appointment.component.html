@@ -5,7 +5,7 @@
             <div class="d-flex mt-2 mb-2  mr-4 col-12 header-content">
                 <div class="col-lg-3 col-12 col-md-3 col-sm-12 d-flex">
                     <mat-form-field class="appoint-daily mr-2 bottom-border-field">
-                        <mat-select (selectionChange)="selectdurationType($event.value)" [(value)]="durationType">
+                        <mat-select matTooltip="{{durationType == 'all'? 'All Day' : ''}}" (selectionChange)="selectdurationType($event.value)" [(value)]="durationType">
                             <mat-option value="all">All Day</mat-option>
                             <mat-option value="daily">Daily</mat-option>
                             <mat-option value="week">Weekly</mat-option>
@@ -14,7 +14,7 @@
                     </mat-form-field>
 
                     <mat-form-field class="appoint-service mr-2 bottom-border-field">
-                        <mat-select (selectionChange)="selectService($event.value)" [(value)]="selectedServices">
+                        <mat-select matTooltip="{{selectedServices == 'all'? 'All Service' : ''}}" (selectionChange)="selectService($event.value)" [(value)]="selectedServices">
                             <mat-option selected value="all">All Services</mat-option>
                             <mat-option *ngFor="let allservices of allservices;" value="{{allservices.id}}">{{allservices.service_name}}</mat-option>
                         </mat-select>
@@ -30,7 +30,6 @@
                 <div class="col-lg-2 col-12 col-md-2 col-sm-12 d-flex appoint-date-range-main">
                     <input class="form-control" ngxDaterangepickerMd [locale]="{applyLabel: 'Apply', format: 'DD/MM/YYYY'}" [(ngModel)]="selected" placeholder="Search date" (change)="customeRange($event)" />
                 </div>
-
                 <div class="col-lg-3 col-12 col-md-3 col-sm-12 d-flex header-date">
                     <div id="head-date" class=" .offset-lg-4">
                         <div *ngIf="startDate || endDate" class="d-flex">

@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class SupportComponent implements OnInit {
 
   constructor() { }
-
+  
   ngOnInit() {
   }
 
