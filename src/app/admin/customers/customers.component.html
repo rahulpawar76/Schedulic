@@ -42,7 +42,7 @@
                 </div>
                 <div *ngIf="allCustomers != ''">
                     <div [ngClass]="{'active':customerDetailId === allCustomers.id}" *ngFor="let allCustomers of allCustomers; let i=index" class="d-flex single-customer-list devider-slim py-2 mx-2">
-                        <mat-checkbox (change)="fnAddCustomerId($event.checked, allCustomers.id)" class="customer-checkbox"></mat-checkbox>
+                        <mat-checkbox (change)="fnAddCustomerId($event.checked, allCustomers.id)" [checked]="selectedCustomerId.indexOf(allCustomers.id) > -1" class="customer-checkbox"></mat-checkbox>
                         <div (click)="fnSelectCustomer(allCustomers.id,'not-new')" class="customer-name-width pointer">
                             <div [ngStyle]="{'background-image': 'url(' + allCustomers.image + ')'}" class="customer-name text-uppercase">
                                 <!-- <img src="{{allCustomers.image}}"> -->

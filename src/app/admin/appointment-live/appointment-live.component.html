@@ -411,7 +411,7 @@
                         <i class="fa fa-search"></i>
                         <input type="text" placeholder="Search by Order ID" (keyup)="fnOutdoorOrders($event.target.value,'order_id')">
                     </div>
-                    <div class="order-listing">
+                    <div class="order-listing" *ngIf="outdoorOrdersArr.length > 0">
                         <div class="single-order" *ngFor="let val of outdoorOrdersArr;let i=index">
                             <label class="order-id">Order ID :  {{val.order_id}}</label>
                             <div class="location-container" (click)="OutDootMap(i)">
@@ -439,13 +439,18 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="order-listing" *ngIf="outdoorOrdersArr.length == 0">
+                        <p class="my-3 text-center">No Record Found.</p>
+                    </div>
                 </div>
 
                 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="35" *ngIf="ShowMap">
                     <agm-direction [origin]="origin" [destination]="destination" [renderOptions]="renderOptions">
                     </agm-direction>
                 </agm-map>
-                <p *ngIf="!ShowMap" class="col-6 text-right mt-4"><strong>No At Home Bookings</strong></p>
+                <!-- <p *ngIf="!ShowMap && outdoorOrdersArr.length > 0" class="col-6 text-right mt-4"><strong>No At Home Bookings</strong></p> -->
+                <p *ngIf="outdoorOrdersArr.length == 0" class="col-6 text-right mt-4">No Record Found.</p>
             </div>
 
         </mat-tab>

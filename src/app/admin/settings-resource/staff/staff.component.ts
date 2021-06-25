@@ -347,6 +347,11 @@ export class StaffComponent implements OnInit {
       description : ['',Validators.maxLength(255)],
       staff_id : [null],
     });
+    let addNewAction = window.location.search.split("?staff")
+      if(addNewAction.length > 1){
+        // this.addNewEvents = false; 
+        this.fnAddNewStaff();
+      }
   }
 
   // private handleError(error: HttpErrorResponse) {

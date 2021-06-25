@@ -2471,7 +2471,13 @@ export class FrontBookingThemeSixComponent implements OnInit {
   }
   
   fnbacktocategory(event){
+    this.subcatselection = false;
+    this.serviceselection =false;
     this.dateselection = false;
+    this.personalinfo = false;
+    this.appointmentinfo = false;
+    this.summaryScreen = false;
+    this.paymentScreen= false;
     this.catselection = true;
    }
 

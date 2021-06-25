@@ -285,7 +285,7 @@
                         color: #2C2C2C;
                         line-height: 1.6;
                         margin-bottom: 0;
-                        width: 100%;                        
+                        width: 100%;
                         margin: 5px 0;
                     }
                     .price-cart {
@@ -957,6 +957,7 @@ input:focus {
     color: #000000;
     box-shadow: 2px 2px #888888;
 }
+
 @media only screen and (min-width: 480px) and (max-width: 767px) {
     .addon-list {
         .single-addon {
@@ -1177,6 +1178,14 @@ input:focus {
         margin: 10px;
         line-height: 1.5;
     }
+}
+
+.gray-btn {
+    font-size: $fs-16;
+    background-color: $grey-3;
+    padding: 0px 20px;
+    margin: 10px;
+    line-height: 1.5;
 }
 
 .next-action {

@@ -323,19 +323,15 @@
             <div class="col-lg-12 col-sm-12 col-12 float-left
                             loggedin_head" *ngIf="isLoggedIn">
                 <!-- <p>Welcome, {{customerName}}</p><button (click)="fnLogout()" mat-button class="round-btn gray-btn logout-btn">Logout</button> -->
-                <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn gray-btn logout-btn">View
-                                Dashboard</button><button (click)="fnLogout()" mat-button class="round-btn gray-btn
-                                logout-btn
-                                ml-a">Logout</button>
+                <p>Welcome {{customerName}},</p>
+                <button (click)="fnViewDashboard()" mat-button class="round-btn gray-btn logout-btn">View Dashboard</button>
+                <button (click)="fnLogout()" mat-button class="round-btn gray-btn logout-btn ml-a">Logout</button>
             </div>
             <mat-card-title class="p-4 d-flex">
                 <div class="col-lg-12 col-sm-12 col-12 top-title
                                 float-left">
                     Your Personal Details
-                    <button mat-fab color="" class="top-back-btn
-                                    float-right" (click)="fnbacktofirst()">
-                                    <i class="material-icons" color="">close</i>
-                                </button>
+                    <button mat-button (click)="fnbacktocategory($event)" class="round-btn gray-btn float-right">Add More Services</button>
                 </div>
             </mat-card-title>
             <mat-card-content class="p-4 mt-0 mb-2">

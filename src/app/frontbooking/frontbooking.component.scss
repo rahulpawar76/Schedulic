@@ -245,6 +245,10 @@
                         color: $text-bg;
                         line-height: 2.1;
                     }
+                     ::ng-deep .mat-badge-content {
+                        background: $primary-gradient-color;
+                        color: $text-bg;
+                    }
                 }
             }
             .addon-list {
@@ -1522,6 +1526,14 @@ input:focus {
         margin: 10px;
         line-height: 1.5;
     }
+}
+
+.gray-btn {
+    font-size: $fs-16;
+    background-color: $grey-3;
+    padding: 6px 25px;
+    margin: 10px;
+    line-height: 1.5;
 }
 
 .next-action {

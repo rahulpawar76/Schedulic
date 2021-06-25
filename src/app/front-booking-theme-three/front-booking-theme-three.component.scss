@@ -1173,6 +1173,13 @@ input:focus {
     }
 }
 
+.gray-btn {
+    font-size: $fs-16;
+    background-color: $grey-3;
+    padding: 0px 20px;
+    margin: 10px;
+}
+
 .next-action {
     .gray-btn {
         font-size: $fs-16;
