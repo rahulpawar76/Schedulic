@@ -10,6 +10,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { MaterialModule } from '@app/_helpers/material.module';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 //import { DialogReAuthentication } from './_services'
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
@@ -87,6 +88,7 @@ import { AgmDirectionModule } from 'agm-direction';   // agm-direction
     DialogCouponDetails,
     CustomerAppointmentDetailsDialog,
     SupportComponent,
+    
     //DialogReAuthentication,
     ],
   imports: [
@@ -109,6 +111,7 @@ import { AgmDirectionModule } from 'agm-direction';   // agm-direction
     NgxDaterangepickerMd.forRoot(),
     SharedModule,
     NgxMatSelectSearchModule,
+    NgbModule
     //GoogleMapsModule
   ],
   exports: [

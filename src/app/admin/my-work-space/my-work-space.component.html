@@ -10,11 +10,7 @@
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-card> -->
                     <mat-card class="mt-2 mb-3" *ngIf="revenue != null && revenue != undefined">
-                        <div class="col-lg-2 col-md-4 col-6 flex-align-center">
-                            <h6 class="category">Category</h6>
-                            <p class="font-gray pt-1 mb-0">{{selectedCategoryName}}</p>
-                        </div>
-                        <div class="col-lg-2 col-md-4 col-6  left-border flex-align-center">
+                        <!-- <div class="col-lg-2 col-md-4 col-6 flex-align-center">
                             <div class="d-flex" [formGroup]="filterDate">
 
                                 <mat-form-field class="bottom-border-field mt-0">
@@ -22,10 +18,42 @@
                                     <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
                                 </mat-form-field>
-                                <!-- <p class="category font-blue pt-0">{{todayDate}}</p> -->
+                                 <p class="category font-blue pt-0">{{todayDate}}</p>
                             </div>
-                            <!-- <h6 class="font-blue mb-0">Today</h6> -->
+                             <h6 class="font-blue mb-0">Today</h6>
+                        </div> -->
+                        <div class="col-lg-2 col-md-4 col-6 flex-align-center">
+                            <h6 [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="mb-0 font-blue cursor-pointer">This Month <i class="fa fa-chevron-down" aria-hidden="true"></i> </h6>
+
+                            <ng-template class="popover common-popover" #popContent>
+                                <div class="common-text">
+                                    <a> Today </a>
+                                </div>
+                                <div class="common-text">
+                                    <a> Tomorrow </a>
+                                </div>
+                                <div class="common-text">
+                                    <a> This Week </a>
+                                </div>
+                                <div class="common-text">
+                                    <a> This Month </a>
+                                </div>
+                                <div class="common-text">
+                                    <a> This Year </a>
+                                </div>
+                                <div class="common-text">
+                                    <a> Custom Date </a>
+                                </div>
+
+                            </ng-template>
+
+                            <p class="font-gray pt-1 mb-0">sep 2021</p>
                         </div>
+                        <div class="col-lg-2 col-md-4 col-6 left-border flex-align-center">
+                            <h6 class="category">Category</h6>
+                            <p class="font-gray pt-1 mb-0">{{selectedCategoryName}}</p>
+                        </div>
+
                         <div class="col-lg-2 col-md-4 col-6  flex-align-center left-border">
                             <h6 class="font-blue mb-0">{{revenue.appointments}}</h6>
                             <!-- <h6 class="font-blue mb-0" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ revenue.appointments | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
@@ -75,7 +103,13 @@
                         <div>
                             <div class="d-flex bottom-border align-items-center p-2">
                                 <div class="appointment pl-2 pr-2">
-                                    <p class="title-main mb-0">Appointments</p>
+                                    <!-- <p class="title-main mb-0">Appointments</p> -->
+                                    <div>
+                                        <a class="heading-booking">Show new booking request  </a>
+                                        <span class="badge-red"> 5 </span>
+                                    </div>
+                                    <!-- <a class="heading-booking">Show all bookings  </a> -->
+
                                 </div>
                                 <form class="search_input-appoint">
                                     <div class="form-group has-search">
@@ -84,8 +118,29 @@
                                     </div>
                                 </form>
                                 <div class="filter-btn-appoint">
-                                    <!-- <button class="btn-secondary filter-btn" mat-button><i class="material-icons mr-1">filter_list_alt</i>Filter</button> -->
-                                    <mat-form-field class="my-2 all-customer-list col-lg-12 col-12 col-md-12 bottom-border-field">
+                                    <a [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="filter-btn"><i class="material-icons mr-1">filter_list_alt</i> </a>
+                                    <ng-template class="popover common-popover" #popContent>
+                                        <div class="common-text">
+                                            <a> All </a>
+                                        </div>
+                                        <div class="common-text">
+                                            <a> Pending </a>
+                                        </div>
+                                        <div class="common-text">
+                                            <a> Confirm </a>
+                                        </div>
+                                        <div class="common-text">
+                                            <a> Accepted </a>
+                                        </div>
+                                        <div class="common-text">
+                                            <a> On The Way </a>
+                                        </div>
+                                        <div class="common-text">
+                                            <a> Work Started </a>
+                                        </div>
+
+                                    </ng-template>
+                                    <!-- <mat-form-field class="my-2 all-customer-list col-lg-12 col-12 col-md-12 bottom-border-field">
                                         <mat-label class="">Filter</mat-label>
                                         <mat-select (selectionChange)="fnOnClickStatus($event)">
                                             <mat-option value="all">All</mat-option>
@@ -103,7 +158,7 @@
                                             <mat-option value="R">Rejected</mat-option>
                                             <mat-option value="CO">Completed</mat-option>
                                         </mat-select>
-                                    </mat-form-field>
+                                    </mat-form-field> -->
                                 </div>
                             </div>
                         </div>
@@ -319,9 +374,7 @@
 
 
                                 <p class="mb-1" *ngFor="let note of singleBookingNotes; let i=index">
-                                    {{note.notes}}, <br> 
-                                    Added by <br> 
-                                    {{note.user_type=='A'?'Admin':''}} {{note.user_type=='SM'?'Staff':''}} {{note.user_type=='C'?'Customer':''}} @{{note.created_at | date:'longDate'}} {{note.created_at | date:'shortTime'}}
+                                    {{note.notes}}, <br> Added by <br> {{note.user_type=='A'?'Admin':''}} {{note.user_type=='SM'?'Staff':''}} {{note.user_type=='C'?'Customer':''}} @{{note.created_at | date:'longDate'}} {{note.created_at | date:'shortTime'}}
                                 </p>
                             </div>
 
