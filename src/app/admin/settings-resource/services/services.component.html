@@ -451,7 +451,7 @@
 
                                 <mat-form-field class=" bottom-border-field ml-5 mt-3 action-feild">
                                     <mat-label>Action</mat-label>
-                                    <mat-select [disabled]="actionServiceIdarr == [] || actionServiceIdarr == ''" [(ngModel)]="selectedValue" (selectionChange)="fnServiceAction($event.value,selectedCategoryDetails.id,'category')">
+                                    <mat-select [disabled]="actionServiceIdarr.length == 0" [(ngModel)]="selectedValue" (selectionChange)="fnServiceAction($event.value,selectedCategoryDetails.id,'category')">
                                         <mat-option value="E">Active</mat-option>
                                         <mat-option value="D">Inactive</mat-option>
                                         <mat-option value="DEL">Delete</mat-option>
@@ -612,7 +612,7 @@
                             <div class="content" class="drageble-list" cdkDropList (cdkDropListDropped)="dropSubCategory($event)">
                                 <div class="drageble-box mx-0" *ngFor="let subCategoryServicesList of subCategoryServicesList; let i=index" cdkDrag fxLayout="row">
                                     <div class="" fxFlex="5">
-                                        <mat-checkbox [checked]="subCategoryServicesList.is_selected" (change)="fnAddStaffIdSub($event.checked,subCategoryServicesList.id,i)">
+                                        <mat-checkbox [checked]="subCategoryServicesList.is_selected" (change)="fnActionServiceId($event.checked,subCategoryServicesList.id,i)">
                                         </mat-checkbox>
                                     </div>
                                     <div class="wrap-column" fxFlex="30">{{subCategoryServicesList.service_name}}</div>

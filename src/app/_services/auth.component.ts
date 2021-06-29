@@ -85,7 +85,6 @@ export class DialogAuthentication {
                 }
 
             },(err) =>{
-                console.log(err)
             });
         }else{
             this.reAuthenticationForm.get('user_password').markAsTouched();

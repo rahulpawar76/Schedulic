@@ -1,2 +1,4 @@
-fullname,email,password,phone,phone_office,phone_home,address,zip,state,city,created_by
-Ankush Sali,jalodarajayeshd@gmail.com,12345678,1234567890,1234567890,,Surat,900001,Gujarat,Surat,admin
+name,email,phone,phone office,phone home,address,zip,state,city
+Ankush Sali,demoTest@gmail.com,1234567890,1234567890,,Surat,900001,Gujarat,Surat
+vishal,vishal.abcdf@gmail.com,223344,,,,,,
+abc xyz,abcxyz123@gmail.com,11334455,,,,,,

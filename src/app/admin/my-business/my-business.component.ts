@@ -20,6 +20,16 @@ export interface ListTimeZoneListArry {
   name: string;
 }
 
+export interface ListTimeZoneListArry {
+  id: string;
+  name: string;
+}
+
+export interface countryArry {
+  id: string;
+  name: string;
+}
+
 
 // export interface status {
   
@@ -194,6 +204,13 @@ export class myCreateNewBusinessDialog {
   protected listTimeZoneListArry: ListTimeZoneListArry[];
   public timeZoneFilterCtrl: FormControl = new FormControl();
   public listTimeZoneList: ReplaySubject<ListTimeZoneListArry[]> = new ReplaySubject<ListTimeZoneListArry[]>(1);
+  
+  protected countryArry: countryArry[];
+  public countryFilterCtrl: FormControl = new FormControl();
+  public countryList: ReplaySubject<countryArry[]> = new ReplaySubject<countryArry[]>(1);
+  
+
+
   protected _onDestroy = new Subject<void>();
 
   constructor(
@@ -213,7 +230,8 @@ export class myCreateNewBusinessDialog {
 
   
   ngAfterViewInit() {
-    this.setInitialValue();
+    this.setInitialValueTimeZone();
+    this.setInitialValueCountry();
   }
   
   ngOnInit() {
@@ -237,7 +255,14 @@ export class myCreateNewBusinessDialog {
     this.isLoaderAdmin =true;
     this.AdminService.gelAllCountry().subscribe((response:any) => {
       if(response.data == true){
-        this.allCountry = response.response
+        // this.allCountry = response.response
+        this.listTimeZoneListArry = response.response
+        this.countryList.next(this.listTimeZoneListArry.slice());
+        this.countryFilterCtrl.valueChanges
+        .pipe(takeUntil(this._onDestroy))
+        .subscribe(() => {
+        this.filterCountries();
+      });
         this.isLoaderAdmin =false;
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
@@ -296,16 +321,12 @@ export class myCreateNewBusinessDialog {
     this.AdminService.getTimeZone().subscribe((response:any) => {
       if(response.data == true){
         this.listTimeZoneListArry = response.response
-        // load the initial bank list
         this.listTimeZoneList.next(this.listTimeZoneListArry.slice());
         this.timeZoneFilterCtrl.valueChanges
         .pipe(takeUntil(this._onDestroy))
         .subscribe(() => {
         this.filterTimezones();
       });
-
-        this.isLoaderAdmin =false;
-        
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.listTimeZoneListArry = []
@@ -314,8 +335,8 @@ export class myCreateNewBusinessDialog {
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
-        this.isLoaderAdmin =false;
       }
+        this.isLoaderAdmin =false;
     })
   }
   fnCreateBusiness(){
@@ -364,9 +385,9 @@ export class myCreateNewBusinessDialog {
   }
 
     /**
-   * Sets the initial value after the filteredBanks are loaded initially
+   * Sets the initial value after the filteredTimezones are loaded initially
    */
-  protected setInitialValue() {
+  protected setInitialValueTimeZone() {
     this.listTimeZoneList
       .pipe(take(1), takeUntil(this._onDestroy))
       .subscribe(() => {
@@ -389,6 +410,35 @@ export class myCreateNewBusinessDialog {
     // filter the banks
     this.listTimeZoneList.next(
       this.listTimeZoneListArry.filter(listTimeZoneListArry => listTimeZoneListArry.name.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+    /**
+   * Sets the initial value after the filteredCountry are loaded initially
+   */
+  protected setInitialValueCountry() {
+    this.listTimeZoneList
+      .pipe(take(1), takeUntil(this._onDestroy))
+      .subscribe(() => {
+        console.log('fail')
+      });
+  }
+
+  protected filterCountries() {
+    if (!this.countryArry) {
+      return;
+    }
+    // get the search keyword
+    let search = this.countryFilterCtrl.value;
+    if (!search) {
+      this.countryList.next(this.countryArry.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the banks
+    this.countryList.next(
+      this.countryArry.filter(countryArry => countryArry.name.toLowerCase().indexOf(search) > -1)
     );
   }
 

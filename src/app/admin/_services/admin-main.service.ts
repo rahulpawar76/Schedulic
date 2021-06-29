@@ -445,6 +445,32 @@ export class AdminService {
         }),
         catchError(this.handleError));
     }
+    updateCouponCode(createdCouponCodeData){
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
+        });
+        return this.http.post(`${environment.apiUrl}/discount-coupon-update`,createdCouponCodeData,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+    deleteCoupon(requestObject){
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
+        });
+        return this.http.post(`${environment.apiUrl}/discount-coupon-delete`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
     changeCouponStaus(couponCodeStatus,coupon_id){
         this.checkAuthentication();
         let requestObject = {
