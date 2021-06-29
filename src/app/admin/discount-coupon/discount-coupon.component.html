@@ -44,9 +44,10 @@
                                     <div class="text-left" fxFlex="10">Maximum Redemptions</div>
                                     <div class="text-left" fxFlex="10">Used</div>
                                     <div class="text-left" fxFlex="10">Status</div>
-                                    <div class="text-left" fxFlex="10">Action</div>
+                                    <div class="text-left" fxFlex="5">Action</div>
                                     <div class="text-left" fxFlex="5">View</div>
                                     <div class="text-left" fxFlex="5">Edit</div>
+                                    <div class="text-left" fxFlex="5">Delete</div>
                                 </div>
                                 <div class="content" class="staff-list" *ngIf="allCouponCode != ''">
                                     <div class="staff-list-row px-4" *ngFor="let allCouponCode of allCouponCode; let i=index">
@@ -90,6 +91,11 @@
                                         <div class="text-left" fxFlex="5">
                                             <button mat-mini-fab (click)="fnCouponEdit(i)">
                                                 <mat-icon class="text-white ml-2">mode_edit</mat-icon>
+                                            </button>
+                                        </div>
+                                        <div class="text-left" fxFlex="5">
+                                            <button mat-mini-fab color="warn" (click)="fnCouponDelete(allCouponCode.id)">
+                                                <mat-icon class="text-white ml-2">delete_outline</mat-icon>
                                             </button>
                                         </div>
                                     </div>
