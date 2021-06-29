@@ -38,20 +38,15 @@ export class DiscountCouponComponent implements OnInit {
   valid_till : any;
   selectedService : any = [];
   categoryServiceList : any = '';
-  
   categoryServiceCheckCatId: any = [];
   categoryServiceChecksubCatId: any = [];
   categoryServiceCheckServiceId: any = [];
   categoryServiceListTemp: any=[];
-
   minDate = new Date();
   discountCoupon: FormGroup;
-
-
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^-?(0|[1-9]\d*)?$/
   search:any;
-  
   current_page : any;
   first_page_url : any;
   last_page : any;
@@ -72,7 +67,7 @@ export class DiscountCouponComponent implements OnInit {
   currencySymbol:any;
   currencySymbolPosition:any;
   currencySymbolFormat:any;
-  
+  singleCouponDetail:any;
   constructor(
     private AdminService: AdminService,
     private _formBuilder: FormBuilder,
@@ -87,10 +82,8 @@ export class DiscountCouponComponent implements OnInit {
     }
     let addNewAction = window.location.search.split("?coupon")
     if(addNewAction.length > 1){
-      // this.addNewEvents = false; 
       this.fnNewCouponCode();
     }
-  //this.appComponent.settingsModule(this.adminSettings);
    }
 
   ngOnInit() {
@@ -211,7 +204,6 @@ export class DiscountCouponComponent implements OnInit {
 
   fnvalideFrom(){
     this.minTillDate =this.discountCoupon.get('valid_from').value;
-    console.log(this.discountCoupon)
     this.discountCoupon.get('valid_till').setValue('');
   }
     
@@ -255,7 +247,12 @@ export class DiscountCouponComponent implements OnInit {
         "services" : this.categoryServiceCheckServiceId
       }
       if(this.categoryServiceCheckServiceId != ''){
-        this.createNewCouponCode(this.createdCouponCodeData);
+        if(this.singleCouponDetail){
+          this.createdCouponCodeData['coupon_id'] = this.singleCouponDetail.id
+          this.updateCouponCode(this.createdCouponCodeData);
+        }else{
+          this.createNewCouponCode(this.createdCouponCodeData);
+        }
       }else if(this.categoryServiceCheckServiceId == ''){
         this._snackBar.open("Select At Lease 1 Service.", "X", {
           duration: 2000,
@@ -272,7 +269,6 @@ export class DiscountCouponComponent implements OnInit {
       this.discountCoupon.get('valid_till').markAsTouched()
       this.discountCoupon.get("discount_value").markAsTouched();
     }
-    
   }
 
   fnChangeDiscountType(event){
@@ -290,6 +286,35 @@ export class DiscountCouponComponent implements OnInit {
         });
         this.couponCodeListing = true;
         this.discountCoupon.reset();
+        this.categoryServiceCheckServiceId.length = 0;
+        this.getAllCouponCode();
+        this.addNewCouponCode = false;
+        this.isLoaderAdmin = false;
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+        this.isLoaderAdmin = false;
+        
+      }
+    })
+  }
+
+  updateCouponCode(createdCouponCodeData){
+    this.isLoaderAdmin = true;
+    this.AdminService.updateCouponCode(createdCouponCodeData).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.couponCodeListing = true;
+        this.discountCoupon.reset();
+        this.singleCouponDetail= null;
         this.categoryServiceCheckServiceId.length = 0;
         this.getAllCouponCode();
         this.addNewCouponCode = false;
@@ -478,12 +503,7 @@ export class DiscountCouponComponent implements OnInit {
         });
       });
     });
-
     this.categoryServiceListTemp=this.categoryServiceList;
-
-  
-    console.log(this.categoryServiceCheckServiceId);
-
   }
 
   checkCategoryServie(event,Category_index){
@@ -497,11 +517,8 @@ export class DiscountCouponComponent implements OnInit {
         this.categoryServiceCheckServiceId.splice(index, 1);
       }
     });
-    
     this.removeDuplicates(this.categoryServiceCheckServiceId);
     this.categoryServiceListTemp=this.categoryServiceList;
-
-    //console.log(this.categoryServiceCheckServiceId);
   }
 
   fnNewCheckService(event,serviceId,index,service_index){
@@ -527,11 +544,7 @@ export class DiscountCouponComponent implements OnInit {
     }else{
       this.categoryServiceList[index].is_selected = false;
     }
-
     this.categoryServiceListTemp=this.categoryServiceList;
-
-    console.log(this.categoryServiceCheckServiceId);
-
   }
 
     removeDuplicates(num) {
@@ -546,23 +559,8 @@ export class DiscountCouponComponent implements OnInit {
       for (x in obj) {
         out.push(parseInt(x));
       }
-      
       this.categoryServiceCheckServiceId = out;
-      console.log(this.categoryServiceCheckServiceId);
     }
-
-    // fnCheckService(event,serviceId){
-
-    //   if(event == true){
-    //     this.selectedService.push(serviceId) 
-    //   }else if(event == false){
-    //     const index = this.selectedService.indexOf(serviceId);
-    //     this.selectedService.splice(index, 1);
-    //   }
-
-    //   console.log(this.selectedService);
-    // }
-
     fnNewCouponCode(){
       this.couponCodeListing = false;
       this.addNewCouponCode = true;
@@ -573,6 +571,27 @@ export class DiscountCouponComponent implements OnInit {
       this.couponCodeListing = true;
       this.categoryServiceCheckServiceId.length = 0;
       this.addNewCouponCode = false;
+    }
+
+    fnCouponEdit(i){
+      this.couponCodeListing = false;
+      this.singleCouponDetail = this.allCouponCode[i];
+      this.addNewCouponCode = true;
+      
+      this.getCateServiceList();
+      console.log(this.singleCouponDetail)
+      this.discountCoupon.controls['coupan_name'].setValue(this.singleCouponDetail.coupon_title);
+      this.discountCoupon.controls['max_redemption'].setValue(this.singleCouponDetail.coupon_max_redemptions);
+      this.discountCoupon.controls['coupon_code'].setValue(this.singleCouponDetail.coupon_code);
+      this.discountCoupon.controls['valid_from'].setValue(this.datePipe.transform(new Date(this.singleCouponDetail.coupon_valid_from),"M/d/yy"));
+      this.discountCoupon.controls['discount_type'].setValue(this.singleCouponDetail.coupon_type);
+      this.discountCoupon.controls['discount_value'].setValue(this.singleCouponDetail.coupon_value);
+      this.discountCoupon.controls['valid_till'].setValue(this.datePipe.transform(new Date(this.singleCouponDetail.coupon_valid_till),"M/d/yy"));
+
+      this.categoryServiceCheckServiceId = this.singleCouponDetail.service_id.split(',').map(function(item) {
+        return parseInt(item);
+      });
+      console.log(this.categoryServiceCheckServiceId);
     }
 
     fnCouponDetails(index, CouponId){
@@ -590,7 +609,6 @@ export class DiscountCouponComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed.');
         this.animal = result;
         this.getAllCouponCode();
       });
@@ -598,14 +616,10 @@ export class DiscountCouponComponent implements OnInit {
     }
 
     fnsearchService(event){
-
       this.categoryServiceListTemp=[];
-      console.log(event.target.value);
-
       this.categoryServiceList.forEach(element => {
         if(element.category_title && element.category_title.toLowerCase().includes(event.target.value.toLowerCase())){
           this.categoryServiceListTemp.push(element);
-          console.log(element.category_title);
           return;
         }
         element.subcategory.forEach(subelement => {
@@ -613,7 +627,6 @@ export class DiscountCouponComponent implements OnInit {
             if(!this.categoryServiceListTemp.some((item) => item.id == element.id)){
               this.categoryServiceListTemp.push(element);
             }
-            console.log(subelement.sub_category_name);
             return;
           }
           subelement.services.forEach(serviceselement => {
@@ -621,7 +634,6 @@ export class DiscountCouponComponent implements OnInit {
               if(!this.categoryServiceListTemp.some((item) => item.id == element.id)){
                 this.categoryServiceListTemp.push(element);
               }
-              console.log(serviceselement.service_name);
               return;
             }
           });
@@ -665,7 +677,6 @@ constructor(
     this.currencySymbolPosition = this.data.currencySymbolPosition
     this.currencySymbolFormat = this.data.currencySymbolFormat
     this.couponId = this.data.couponId
-    console.log(this.detailsData);
     this.getServiceListForCoupon();
   }
 
@@ -679,7 +690,6 @@ constructor(
       if(response.data == true){
         this.couponCodeDetail = response.response
         this.isLoaderAdmin = false;
-        console.log(this.couponCodeDetail);
 
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
