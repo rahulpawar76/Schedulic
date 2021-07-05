@@ -44,8 +44,10 @@
                                     <div class="text-left" fxFlex="10">Maximum Redemptions</div>
                                     <div class="text-left" fxFlex="10">Used</div>
                                     <div class="text-left" fxFlex="10">Status</div>
-                                    <div class="text-left" fxFlex="10">Action</div>
-                                    <div class="text-left" fxFlex="10">View</div>
+                                    <div class="text-left" fxFlex="5">Action</div>
+                                    <div class="text-left" fxFlex="5">View</div>
+                                    <div class="text-left" fxFlex="5">Edit</div>
+                                    <div class="text-left" fxFlex="5">Delete</div>
                                 </div>
                                 <div class="content" class="staff-list" *ngIf="allCouponCode != ''">
                                     <div class="staff-list-row px-4" *ngFor="let allCouponCode of allCouponCode; let i=index">
@@ -80,9 +82,20 @@
                                             </div>
                                         </div>
 
-                                        <div class="text-left" fxFlex="10">
+                                        <div class="text-left" fxFlex="5">
                                             <button mat-mini-fab (click)="fnCouponDetails(i, allCouponCode.id)">
                                                 <mat-icon class="text-white ml-2">visibility</mat-icon>
+                                            </button>
+                                        </div>
+
+                                        <div class="text-left" fxFlex="5">
+                                            <button mat-mini-fab (click)="fnCouponEdit(i)">
+                                                <mat-icon class="text-white ml-2">mode_edit</mat-icon>
+                                            </button>
+                                        </div>
+                                        <div class="text-left" fxFlex="5">
+                                            <button mat-mini-fab color="warn" (click)="fnCouponDelete(allCouponCode.id)">
+                                                <mat-icon class="text-white ml-2">delete_outline</mat-icon>
                                             </button>
                                         </div>
                                     </div>
@@ -175,7 +188,7 @@
                                 <mat-icon matPrefix>
                                     <img *ngIf="discountType == 'P'" src="../../../assets/images/admin/percentage.png" class="">
                                     <!---<img src="../../../assets/images/admin/rupee.png" class="">-->
-                                    <span  *ngIf="discountType == 'F'">{{currencySymbol}}</span>
+                                    <span *ngIf="discountType == 'F'">{{currencySymbol}}</span>
                                 </mat-icon>
                                 <mat-select (selectionChange)="fnChangeDiscountType($event)" [(value)]="selected" formControlName="discount_type">
                                     <mat-option>None</mat-option>
@@ -211,7 +224,6 @@
                                 <mat-label>Valid Till</mat-label>
                                 <mat-icon matPrefix><img src="../../../assets/images/admin/calendar.png" class=""></mat-icon>
                                 <input matInput (click)="valid_till_picker.open()" [min]="minTillDate" [matDatepicker]="valid_till_picker" formControlName="valid_till" placeholder="MM/DD/YYYY">
-                                <!-- <mat-datepicker-toggle matPrefix [for]="valid_till_picker"></mat-datepicker-toggle> -->
                                 <mat-datepicker #valid_till_picker></mat-datepicker>
                             </mat-form-field>
                             <span class="error-wrap" *ngIf="discountCoupon.get('valid_till').touched || discountCoupon.get('valid_till').dirty || formSubmitclicked">
@@ -247,13 +259,13 @@
                                         </mat-panel-title>
                                     </mat-expansion-panel-header>
                                     <div *ngFor="let serviceList of subcategoryList.services; let service_index=index" class="py-3">
-                                        <mat-checkbox [checked]="serviceList.is_selected" (change)="checkServie($event,'service',i,sub_index,service_index)">{{serviceList.service_name}}</mat-checkbox>
-                                        <!-- <mat-checkbox (change)="fnCheckService($event.checked,serviceList.id)">{{serviceList.service_name}}</mat-checkbox> -->
+                                        <mat-checkbox [checked]="serviceList.is_selected || categoryServiceCheckServiceId.indexOf(serviceList.id) > -1" (change)="checkServie($event,'service',i,sub_index,service_index)">{{serviceList.service_name}}</mat-checkbox>
                                     </div>
                                 </mat-expansion-panel>
                                 <div *ngFor="let serviceList of categoryServiceListval.getservices; let service_index=index" class="py-3">
-                                    <mat-checkbox [checked]="serviceList.is_selected" (change)="fnNewCheckService($event.checked,serviceList.id,i,service_index)" *ngIf="categoryServiceCheckServiceId.indexOf(serviceList.id) > -1" checked="true">{{serviceList.service_name}} </mat-checkbox>
-                                    <mat-checkbox [checked]="serviceList.is_selected" (change)="fnNewCheckService($event.checked,serviceList.id,i,service_index)" *ngIf="categoryServiceCheckServiceId.indexOf(serviceList.id) < 0">{{serviceList.service_name}}</mat-checkbox>
+                                    <mat-checkbox [checked]="serviceList.is_selected || categoryServiceCheckServiceId.indexOf(serviceList.id) > -1" (change)="fnNewCheckService($event.checked,serviceList.id,i,service_index)" *ngIf="categoryServiceCheckServiceId.indexOf(serviceList.id) > -1"
+                                        checked="true">{{serviceList.service_name}} </mat-checkbox>
+                                    <mat-checkbox [checked]="serviceList.is_selected || categoryServiceCheckServiceId.indexOf(serviceList.id) > -1" (change)="fnNewCheckService($event.checked,serviceList.id,i,service_index)" *ngIf="categoryServiceCheckServiceId.indexOf(serviceList.id) < 0">{{serviceList.service_name}}</mat-checkbox>
                                 </div>
                             </mat-expansion-panel>
                         </mat-accordion>
@@ -266,7 +278,10 @@
                         <button (click)="fnCancelNewCoupon()" mat-button appearance="fill" class="discount-cancel-btn">Cancel</button>
                     </div>
                     <div class="mx-2">
-                        <button mat-button type="submit" appearance="fill" (click)="fnCreateCouponSubmit()" class="discount-save-btn">Add Coupon</button>
+                        <button mat-button type="submit" *ngIf="!singleCouponDetail" appearance="fill" (click)="fnCreateCouponSubmit()" class="discount-save-btn">Add Coupon</button>
+                    </div>
+                    <div class="mx-2">
+                        <button mat-button type="submit" *ngIf="singleCouponDetail" appearance="fill" (click)="fnCreateCouponSubmit()" class="discount-save-btn">Update Coupon</button>
                     </div>
                 </div>
             </mat-card>

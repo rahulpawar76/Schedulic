@@ -9,7 +9,7 @@
                         <mat-label>Export</mat-label>
                         <mat-select [(ngModel)]="exportType" (selectionChange)="fnExportCustomer($event.value)">
                             <mat-option value="all">All</mat-option>
-                            <mat-option value="selected">Selected</mat-option>
+                            <mat-option [disabled]="selectedCustomerId.length == 0" value="selected">Selected</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <button (click)="ImportFileUpload()" mat-button appearance="fill" class="import">Import</button>

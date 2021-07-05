@@ -50,33 +50,30 @@
                             <p class="font-gray pt-1 mb-0">sep 2021</p>
                         </div>
                         <div class="col-lg-2 col-md-4 col-6 left-border flex-align-center">
-                            <h6 class="category">Category</h6>
+                            <h6 *ngIf="selectedCategoryName == 'Services'" class="category">All</h6>
                             <p class="font-gray pt-1 mb-0">{{selectedCategoryName}}</p>
                         </div>
 
                         <div class="col-lg-2 col-md-4 col-6  flex-align-center left-border">
-                            <h6 class="font-blue mb-0">{{revenue.appointments}}</h6>
+                            <h6 class="mb-0">{{revenue.appointments}}</h6>
                             <!-- <h6 class="font-blue mb-0" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ revenue.appointments | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
                         <h6 class="font-blue mb-0" *ngIf="currencySymbolPosition=='right'">{{ revenue.appointments | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6> -->
-                            <p class="font-blue mb-0">Appointments</p>
+                            <p class="mb-0">Appointments</p>
                         </div>
                         <div class="col-lg-2 col-md-4 col-6 flex-align-center left-border">
-                            <!-- <h6 class="font-blue mb-0">${{revenue.confirmRevenue}}.00</h6> -->
-                            <h6 class="font-blue mb-0" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ revenue.confirmRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
-                            <h6 class="font-blue mb-0" *ngIf="currencySymbolPosition=='right'">{{ revenue.confirmRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6>
-                            <p class="font-blue mb-0">Confirmed Revenue </p>
+                            <h6 class="mb-0" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ revenue.confirmRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
+                            <h6 class="mb-0" *ngIf="currencySymbolPosition=='right'">{{ revenue.confirmRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6>
+                            <p class="mb-0">Confirmed Revenue </p>
                         </div>
                         <div class="col-lg-2 col-md-4 col-6 flex-align-center left-border">
-                            <!-- <h6 class="font-blue mb-0">${{revenue.projectedRevenue}}.00</h6> -->
-                            <h6 class="font-blue mb-0" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ revenue.projectedRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
-                            <h6 class="font-blue mb-0" *ngIf="currencySymbolPosition=='right'">{{ revenue.projectedRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6>
-                            <p class="font-blue mb-0">Projected Revenue</p>
+                            <h6 class="mb-0" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ revenue.projectedRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
+                            <h6 class="mb-0" *ngIf="currencySymbolPosition=='right'">{{ revenue.projectedRevenue | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6>
+                            <p class="mb-0">Projected Revenue</p>
                         </div>
                         <div class="col-lg-2 col-md-4 col-6 flex-align-center left-border">
-                            <!-- <h6 class="font-blue mb-0">${{revenue.totalEstimate}}.00</h6> -->
-                            <h6 class="font-blue mb-0" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ revenue.totalEstimate | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
-                            <h6 class="font-blue mb-0" *ngIf="currencySymbolPosition=='right'">{{ revenue.totalEstimate | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6>
-                            <p class="font-blue mb-0">Total Estimated</p>
+                            <h6 class="mb-0" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ revenue.totalEstimate | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
+                            <h6 class="mb-0" *ngIf="currencySymbolPosition=='right'">{{ revenue.totalEstimate | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6>
+                            <p class="mb-0">Total Estimated</p>
                         </div>
                     </mat-card>
                 </div>
@@ -90,8 +87,8 @@
                                 <li class="bottom-border plr-25">
                                     <p class="title-main">Category</p>
                                 </li>
-                                <li class="bottom-border plr-25 pointer" [ngClass]="{'active': selectedCategory == 'all' }" (click)="fnOnClickCategory('all','All Services'); fnselectCategoryActive('all');">
-                                    <p class="title-main">All Services<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+                                <li class="bottom-border plr-25 pointer" [ngClass]="{'active': selectedCategory == 'all' }" (click)="fnOnClickCategory('all','Services'); fnselectCategoryActive('all');">
+                                    <p class="title-main">All<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
                                 </li>
                                 <li class="bottom-border plr-25 pointer" [ngClass]="{'active': selectedCategory == i }" *ngFor="let category of categories; let i=index" (click)="fnOnClickCategory(category.id,category.category_title); fnselectCategoryActive(i);">
                                     <p class="title-main">{{category.category_title}}<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
@@ -104,11 +101,14 @@
                             <div class="d-flex bottom-border align-items-center p-2">
                                 <div class="appointment pl-2 pr-2">
                                     <!-- <p class="title-main mb-0">Appointments</p> -->
-                                    <div>
+                                    <div *ngIf="bookingTypeView == 'all'" (click)="fnChangeBookingStatus('P')">
                                         <a class="heading-booking">Show new booking request  </a>
                                         <span class="badge-red"> 5 </span>
                                     </div>
-                                    <!-- <a class="heading-booking">Show all bookings  </a> -->
+                                    <div *ngIf="bookingTypeView == 'P'" (click)="fnChangeBookingStatus('all')">
+                                        <a class="heading-booking">Show all bookings  </a>
+                                        <!-- <span class="badge-red"> 5 </span> -->
+                                    </div>
 
                                 </div>
                                 <form class="search_input-appoint">
@@ -120,23 +120,26 @@
                                 <div class="filter-btn-appoint">
                                     <a [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="filter-btn"><i class="material-icons mr-1">filter_list_alt</i> </a>
                                     <ng-template class="popover common-popover" #popContent>
-                                        <div class="common-text">
+                                        <div (click)="fnOnClickStatus('all')" class="common-text">
                                             <a> All </a>
                                         </div>
-                                        <div class="common-text">
+                                        <!-- <div class="common-text">
                                             <a> Pending </a>
-                                        </div>
-                                        <div class="common-text">
+                                        </div> -->
+                                        <div (click)="fnOnClickStatus('CNF')" class="common-text">
                                             <a> Confirm </a>
                                         </div>
-                                        <div class="common-text">
+                                        <div (click)="fnOnClickStatus('AC')" class="common-text">
                                             <a> Accepted </a>
                                         </div>
-                                        <div class="common-text">
+                                        <div (click)="fnOnClickStatus('OW')" class="common-text">
                                             <a> On The Way </a>
                                         </div>
-                                        <div class="common-text">
+                                        <div (click)="fnOnClickStatus('WS')" class="common-text">
                                             <a> Work Started </a>
+                                        </div>
+                                        <div (click)="fnOnClickStatus('GL')" class="common-text">
+                                            <a> Getting Late </a>
                                         </div>
 
                                     </ng-template>
@@ -167,44 +170,6 @@
                             <div class="justify-content-center timeframe-main ">
                                 <div class="work-service-bg-main">
                                     <div class="service-background pt-4">
-                                        <!-- <div class="left-time-main pointer py-3 position-relative active_booking">
-                                <span class="font-blue left-font">8.00 PM</span>
-                                <div class="pl-5">
-                                    <div class="d-flex">
-                                        <p class="mb-0 work-space-font">in 6 hours</p>
-                                        <p class="status-stamp ff-stamper pt-0 ">Pending</p>
-                                      </div>
-                                    <h5>Hair Spa<small class="work-space-font">(hair)</small></h5>
-                                </div>
-                                <div class="d-flex flex-wrap pl-5 mb-4">
-                                    <div class="d-flex Time">
-                                        <i class="fa fa-clock-o  pr-2" aria-hidden="true"></i>  
-                                        <p class="work-space-font pt-0">08:30 PM</p>
-                                    </div>
-                                    <div class="d-flex customer-name">
-                                        <i class="fa fa-user-o pr-2" aria-hidden="true"></i>
-                                        <p class="work-space-font pt-0 ">Anuj Sachdeva</p>
-                                    </div>
-                                    <div class="d-flex service-person">
-                                        <i class="fa fa-briefcase pr-2 " aria-hidden="true"></i>
-                                        <p class="work-space-font pt-0 ">jay singh</p>
-                                    </div>
-                                    <div class="money">
-                                        <p class="work-space-font pt-0 ">$ 800</p>
-                                    </div>
-                                </div>
-                                <div class="d-flex pl-3 active-btns">
-                                    <div class="reschedulebtn-width">
-                                     <button mat-button type="button" class=" Reschedulebtn d-block " (click)="rescheduleAppointment()">Reschedule</button>
-                                    </div>
-                                    <div class="cancelbtn-width">
-                                     <button mat-button type="button" class=" Reschedulebtn d-block ">Cancel</button>
-                                     </div>
-                                     <div class="acceptbtn-width">
-                                     <button mat-button type="button" class=" Reschedulebtn accept-btn d-block ">Accept</button>
-                                      </div>
-                                </div>
-                            </div> -->
                                         <div class="left-time-main pointer py-3 position-relative" *ngFor="let appointment of appointments;let i=index" (click)="fnOnClickAppointment(i)" [ngClass]="{'active_booking':activeBooking === i}">
                                             <span class="font-blue left-font">{{appointment.booking_time}}</span>
                                             <div class="pl-5">
@@ -271,7 +236,9 @@
                                             </div>
                                             <div class="line ml-1 mr-1 ml-5"></div>
                                         </div>
-                                        <div *ngIf="appointments.length==0">No Appointments</div>
+                                        <div *ngIf="appointments.length==0">
+                                            <p class="text-center">No Record Found.</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

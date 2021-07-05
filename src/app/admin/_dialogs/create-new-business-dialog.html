@@ -38,9 +38,15 @@
                                 <mat-form-field class="mb-0">
                                     <mat-label>Country</mat-label>
                                     <mat-select formControlName="business_country" (selectionChange)="selectCountry($event.value)">
-                                        <mat-option *ngFor="let allCountry of allCountry" [value]="allCountry.id">
-                                            {{allCountry.name}}
+                                        <mat-option>
+                                            <ngx-mat-select-search [formControl]="countryFilterCtrl"></ngx-mat-select-search>
                                         </mat-option>
+                                        <mat-option *ngFor="let country of countryList | async" [value]="country.id">
+                                            {{country.name}}
+                                        </mat-option>
+                                        <!-- <mat-option *ngFor="let allCountry of allCountry" [value]="allCountry.id">
+                                            {{allCountry.name}}
+                                        </mat-option> -->
                                     </mat-select>
                                 </mat-form-field>
                                 <span class="error-wrap" *ngIf="createBusiness.get('business_country').dirty || createBusiness.get('business_country').touched">

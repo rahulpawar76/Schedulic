@@ -129,7 +129,7 @@ export class CustomersComponent implements OnInit {
   customerSideMenuToggle:boolean=false;
   emailCheckRequestObject:any;
   phoneCheckRequestObject:any;
-
+  allcustomerIds :any=[];
   constructor(
     public dialog: MatDialog,
     private adminService: AdminService,
@@ -242,6 +242,7 @@ export class CustomersComponent implements OnInit {
       if(response.data == true && response.response != 'Customer not created.'){
         this.allCustomers = response.response;
         this.allCustomers.forEach( (element) => {
+          this.allcustomerIds.push(element.id)
           var splitted = element.fullname.split(" ",2);
           element.initials='';
           splitted.forEach( (element2) => {
@@ -962,16 +963,13 @@ customerUpdate(existingCustomerData){
     };
     const csvExporter = new ExportToCsv(options);
     if(exportType == 'all'){
-      csvExporter.generateCsv(this.allCustomers);
-      this.exportType = null;
-    }else if(exportType == 'selected'){
-      this.adminService.fnExportCustomer(this.selectedCustomerId).subscribe((response:any) => {
+      this.isLoaderAdmin = true;
+      this.adminService.fnExportCustomer(this.allcustomerIds).subscribe((response:any) => {
         if(response.data == true){
           this.selectedCustomerArr = response.response
           this.exportType = null;
           csvExporter.generateCsv(this.selectedCustomerArr);
           this.selectedCustomerId.length = 0;
-          this.isLoaderAdmin = false;
         }
         else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
@@ -979,9 +977,27 @@ customerUpdate(existingCustomerData){
             verticalPosition: 'top',
             panelClass : ['red-snackbar']
           });
-          
-          this.isLoaderAdmin = false;
         }
+        this.isLoaderAdmin = false;
+      })
+      this.exportType = null;
+    }else if(exportType == 'selected'){
+      this.isLoaderAdmin = true;
+      this.adminService.fnExportCustomer(this.selectedCustomerId).subscribe((response:any) => {
+        if(response.data == true){
+          this.selectedCustomerArr = response.response
+          this.exportType = null;
+          csvExporter.generateCsv(this.selectedCustomerArr);
+          this.selectedCustomerId.length = 0;
+        }
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+          this.isLoaderAdmin = false;
       })
     }
   }

@@ -131,7 +131,6 @@ export class AppComponent implements AfterViewInit {
       this.businessId = localStorage.getItem('business_id');
       this.getNotificationCount(this.businessId)
     }
-    console.log(this.authenticationService.currentUserValue)
     if(this.authenticationService.currentUserValue && this.authenticationService.currentUserValue.user_type == 'SM'){
       this.getNotificationCount(null)
     }
@@ -142,7 +141,6 @@ export class AppComponent implements AfterViewInit {
     this.bnIdle.startWatching(6600).subscribe((res) => {
       if(res) {
         if(this.authenticationService.currentUserValue){
-          console.log("session expired");
           if(this.authenticationService.currentUserValue.google_id || this.authenticationService.currentUserValue.facebook_id){
             this.logout2(true);
           }else{
@@ -153,7 +151,6 @@ export class AppComponent implements AfterViewInit {
     })
   }
   private handleError(error: HttpErrorResponse) {
-    console.log(error);
     return throwError('Error! something went wrong.');
   }
   
@@ -178,21 +175,6 @@ export class AppComponent implements AfterViewInit {
     if(localStorage.getItem('currentUser') && localStorage.getItem('isBusiness') && localStorage.getItem('isBusiness') == "true"){
     }  
   }
-
-  // checkAuthentication(){
-  //   let requestObject = {
-  //     "user_type": this.currentUser.user_type,
-  //     "user_id" : this.currentUser.user_id,
-  //     "token" : this.currentUser.token
-  //   };
-  //   this.CommonService.checkAuthentication(requestObject).subscribe((response: any) => {
-  //     if (response.data == true) {
-  //     }
-  //     else if(response.data == false){
-  //       this.reAuthenticateUser();
-  //     }
-  //   })
-  // }
   
 
 
@@ -274,17 +256,12 @@ export class AppComponent implements AfterViewInit {
   }
 
   private cleanUrl(url: string) {
-    console.log(url)
-    // const mod = this.cleanUrl(url || this.currentUrl);
-    // this.pageHeading = this.authenticationService.pageName(mod,this.currentUser?this.currentUser.user_type:null);
     if (url) {
       let cleanUrl = url.substr(1);
       const slashIndex = cleanUrl.indexOf("/");
-      console.log(slashIndex)
       if (slashIndex >= 0) {
         cleanUrl = cleanUrl.substr(slashIndex + 1, 8);
         this.pageHeading = this.authenticationService.pageName(cleanUrl,this.currentUser?this.currentUser.user_type:null);
-        console.log(this.pageHeading)
         return cleanUrl;
       } else {
         return null;
@@ -637,7 +614,6 @@ export class AppComponent implements AfterViewInit {
   signInWithFB(loginForm): void {
     this.loginForm=loginForm;
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(res=>{
-      console.log("facebook res=>",res);
       this.fnLoginWithGoogleFacebook(res);
 
     });
@@ -949,7 +925,6 @@ export class AppComponent implements AfterViewInit {
         }
       }
     }, (err) => {
-      console.log(err)
     })
   }
 
@@ -1211,17 +1186,14 @@ export class DialogReAuthentication {
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
         
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
-    console.log(this.currentUser)
         this.reAuthenticationForm = this._formBuilder.group({
          user_password : ['',[ Validators.required]],
         });
     }
     private handleError(error: HttpErrorResponse) {
-        console.log(error);
         return throwError('Error! something went wrong.');
     }
     fnEnterKeyPress(event){
-      console.log(eventNames)
       if(event.keyCode === 13){
         this.submit();
       }
@@ -1260,7 +1232,6 @@ export class DialogReAuthentication {
         this.reAuthenticationForm.get('user_password').markAsTouched();
         }
         },(err) =>{
-            console.log(err)
         });
     }else{
         this.reAuthenticationForm.get('user_password').markAsTouched();
@@ -1269,15 +1240,6 @@ export class DialogReAuthentication {
 
     onNoClick(): void {
     this.dialogRef.close(); 
-    //this.authenticationService.logout();
-    // // if (this.timer) {
-    // //   clearTimeout(this.timer);
-    // //   this.timer = 0;
-    // // }
-    // setTimeout(() => {
-    //   window.location.reload();
-    // }, 1000);
-     //this.router.navigate(['/login']);
     
     }
 

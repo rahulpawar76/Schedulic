@@ -1124,37 +1124,43 @@ export class ServicesComponent implements OnInit {
 
             dialogRef.afterClosed().subscribe(result =>{
                 if(result){
-                    if (this.actionServiceIdarr.length > 0) {
-                        this.adminSettingsService.fnServiceAction(this.actionServiceIdarr, action).subscribe((response: any) => {
-                            if (response.data == true) {
-                                this._snackBar.open("Status Updated.", "X", {
-                                    duration: 2000,
-                                    verticalPosition: 'top',
-                                    panelClass: ['green-snackbar']
-                                });
-                                this.actionServiceIdarr.length = 0;
-                            this.fnAllServices();
-                                this.selectedValue = undefined;
-                                if (type == 'category') {
-                                    this.fnSelectCategory(categoryId, this.selectedCategoryIndex);
-                                } else if (type == 'subcategory') {
-                                    this.fnSelectSubCategory(categoryId, this.selectedSubCategoryIndex)
-                                }
-                            }
-                            else if(response.data == false && response.response !== 'api token or userid invaild'){
-                                this._snackBar.open(response.response, "X", {
-                                    duration: 2000,
-                                    verticalPosition: 'top',
-                                    panelClass: ['red-snackbar']
-                                });
-                            }
-                        })
-                    }
+                   this.serviceStatusAction(action, categoryId, type)
                 }
             })
+        }else{
+            this.serviceStatusAction(action, categoryId, type)
         }
 
         
+    }
+
+    serviceStatusAction(action, categoryId, type){
+        if (this.actionServiceIdarr.length > 0) {
+            this.adminSettingsService.fnServiceAction(this.actionServiceIdarr, action).subscribe((response: any) => {
+                if (response.data == true) {
+                    this._snackBar.open("Status Updated.", "X", {
+                        duration: 2000,
+                        verticalPosition: 'top',
+                        panelClass: ['green-snackbar']
+                    });
+                    this.actionServiceIdarr.length = 0;
+                this.fnAllServices();
+                    this.selectedValue = undefined;
+                    if (type == 'category') {
+                        this.fnSelectCategory(categoryId, this.selectedCategoryIndex);
+                    } else if (type == 'subcategory') {
+                        this.fnSelectSubCategory(categoryId, this.selectedSubCategoryIndex)
+                    }
+                }
+                else if(response.data == false && response.response !== 'api token or userid invaild'){
+                    this._snackBar.open(response.response, "X", {
+                        duration: 2000,
+                        verticalPosition: 'top',
+                        panelClass: ['red-snackbar']
+                    });
+                }
+            })
+        }
     }
 
     fnFilterService(categoryId, filter, type) {
