@@ -74,6 +74,66 @@
                     </form>
                 </div>
             </div>
+            <div class="change-password-container col-6">
+               
+                <form [formGroup]="changePwd" class="with-validation">
+                    <div class="row mx-0 mt-4">
+                        <div class="col-12 mb-3">
+                            <!-- <label for="old-pwd" class="">Old Password</label>
+                            <div class="input-with-icon">
+                                <input  [type]="hide1 ? 'text' : 'password'" class="form-control" formControlName="oldPassword">
+                                <mat-icon class="hide-show-pswd pointer" (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide1">{{hide1 ? 'visibility' : 'visibility_off'}}</mat-icon>
+                            </div> -->
+                            <mat-form-field class="form-group  bottom-border-field">
+                                <mat-label>Old Password</mat-label>
+                                <input matInput [type]="hide1 ? 'password' : 'text'" formControlName="oldPassword">
+                                <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide1">
+                                  <mat-icon>{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                            </mat-form-field>
+                            <span class="error-wrap" *ngIf="changePwd.get('oldPassword').touched || changePwd.get('oldPassword').dirty">
+                                <small *ngIf="changePwd.get('oldPassword').hasError('required')" class="error">Old password is required.</small>
+                            </span>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <!-- <label for="new-pwd" class="">New Password</label>
+                            <div class="input-with-icon">
+                                <input  [type]="hide2 ? 'text' : 'password'" class="form-control" formControlName="newPassword">
+                                <mat-icon class="hide-show-pswd pointer" (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2">{{hide2 ? 'visibility' : 'visibility_off'}}</mat-icon>
+                            </div> -->
+                            <mat-form-field class="form-group  bottom-border-field">
+                                <mat-label>New Password</mat-label>
+                                <input matInput [type]="hide2 ? 'password' : 'text'" formControlName="newPassword">
+                                <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2">
+                                  <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                            </mat-form-field>
+                            <span class="error-wrap" *ngIf="changePwd.get('newPassword').touched || changePwd.get('newPassword').dirty">
+                                <small *ngIf="changePwd.get('newPassword').hasError('required')" class="error">New Password is required.</small>
+                                <small *ngIf="changePwd.get('newPassword').hasError('minlength')" class="error">New Password should be minimum 8 character.</small>
+                            </span>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <!-- <label for="new-pwd" class="">Confirm New Password</label>
+                            <input type="password" formControlName="ReNewPassword" placeholder="Re-Enter New Password" class="common-input form-control" /> -->
+                            <mat-form-field class="form-group  bottom-border-field">
+                                <mat-label>Confirm New Password</mat-label>
+                                <input type="password"  matInput formControlName="ReNewPassword" value="" placeholder="Re-Enter New Password">
+                            </mat-form-field>
+                            <span class="error-wrap" *ngIf="changePwd.get('ReNewPassword').dirty || changePwd.get('ReNewPassword').touched">
+                                <small *ngIf="changePwd.get('ReNewPassword').hasError('required') || (changePwd.get('ReNewPassword').hasError('required') && changePwd.hasError('notSame'))" class="error text-left">Confirm password is required.</small>
+                                <small *ngIf="!changePwd.get('ReNewPassword').hasError('required') && changePwd.hasError('notSame')" class="error text-left">Passwords do not match.</small>
+                            </span>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <div class="d-block">
+                                <button mat-flat-button class=" px-3 d-block ml-auto mr-2 bg-primary text-light" (click)="fnChangePassword()">Change Password</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+        
+            </div>
         </div>
     </mat-card>
 </mat-drawer-content>

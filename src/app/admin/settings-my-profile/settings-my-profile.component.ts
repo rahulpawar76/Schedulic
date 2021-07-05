@@ -4,6 +4,8 @@ import { AdminService } from '../_services/admin-main.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { AuthenticationService } from '@app/_services';
+
 
 export interface DialogData {
   animal: string;
@@ -21,19 +23,24 @@ export class MyProfileComponent implements OnInit {
 
   profileDetails: any;
   settingMyProfile:FormGroup;
+  changePwd:FormGroup;
   updatedAdminProfileData:any;
-
+  adminId:any;
   myProfileImageUrl:any = '';
 
-  
+  isLoader : boolean=true;
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^\+(?:[0-9] ?){6,14}[0-9]$/
+  hide1 = true;
+  hide2 = true;
   constructor(
     public dialog: MatDialog,
     private appComponent : AppComponent,
     private AdminService: AdminService,
     private _snackBar: MatSnackBar,
+    private authenticationService:AuthenticationService,
     private _formBuilder:FormBuilder) {
+      this.adminId=JSON.stringify(this.authenticationService.currentUserValue.user_id);
 
     //this.appComponent.settingsModule(this.adminSettings);
    }
@@ -47,7 +54,19 @@ export class MyProfileComponent implements OnInit {
       email : ['', [Validators.required]],
       mobile : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
     });
+    this.changePwd = this._formBuilder.group({
+      oldPassword : ['',[Validators.required]],
+      newPassword:['',[Validators.required,Validators.minLength(8)]],
+      ReNewPassword: ['', Validators.required]            
     
+    },{validator: this.checkPasswords });
+    
+  }
+  checkPasswords(group: FormGroup) { // here we have the 'passwords' group
+    let pass = group.controls.newPassword.value;
+    let confirmPass = group.controls.ReNewPassword.value;
+
+    return pass === confirmPass ? null : { notSame: true }
   }
   getMyProfileDetails(){
     this.AdminService.getMyProfileDetails().subscribe((response:any) => {
@@ -92,6 +111,7 @@ export class MyProfileComponent implements OnInit {
         this.getMyProfileDetails();
         localStorage.setItem('currentUser', JSON.stringify(response.response));
         this.appComponent.loadLocalStorage();
+        window.location.reload();
       }
       else{
         this._snackBar.open(response.response, "X", {
@@ -102,7 +122,42 @@ export class MyProfileComponent implements OnInit {
       }
     })
   }
-
+  fnChangePassword(){
+    if(this.changePwd.valid){
+      this.isLoader = true;
+      let requestObject = {
+        'user_id': this.adminId,
+        'user_type':'SM',
+        "old_password" : this.changePwd.get('oldPassword').value,
+        "new_password" : this.changePwd.get('ReNewPassword').value,
+      }
+      this.AdminService.changePassword(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+          // this.changePwd.reset();
+          this.changePwd.controls['oldPassword'].setValue(null);
+          this.changePwd.controls['newPassword'].setValue(null);
+          this.changePwd.controls['ReNewPassword'].setValue(null);
+        }
+        else if(response.data == false){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+        }
+        this.isLoader = false;
+      })
+    }
+    else{
+      this.changePwd.get("oldPassword").markAsTouched();
+      this.changePwd.get("newPassword").markAsTouched();
+    }
+  }
   myProfleImage() {
     const dialogRef = this.dialog.open(DialogMyProfileImageUpload, {
       width: '500px',
