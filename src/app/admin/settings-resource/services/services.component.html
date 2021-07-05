@@ -156,7 +156,7 @@
                             <div class="" fxFlex="10">Unit</div>
                             <div class="" fxFlex="12">Visibility</div>
                             <div class="" fxFlex="10">Status</div>
-                            <div class="" fxFlex="10"></div>
+                            <div class="" fxFlex="10">Action</div>
                         </div>
                         <div class="content" class="drageble-list" cdkDropList (cdkDropListDropped)="drop($event)">
                             <div class="drageble-box mx-0" *ngFor="let allServicesList of allServicesList; let i=index" cdkDrag fxLayout="row">
@@ -173,7 +173,7 @@
                                     {{ allServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
                                 <div class="wrap-column" fxFlex="10">{{allServicesList.service_unit}}</div>
                                 <div class="" *ngIf="allServicesList.private_status == 'N'" fxFlex="12">Public</div>
-                                <div class="" *ngIf="allServicesList.private_status == 'Y'" fxFlex="12">Private</div>
+                                <div class="private-color" *ngIf="allServicesList.private_status == 'Y'" fxFlex="12">Private</div>
                                 <div class="" fxFlex="10">
                                     <mat-slide-toggle (change)="changeServiceStaus($event.checked,allServicesList.id)" [checked]="allServicesList.status == 'E'"></mat-slide-toggle>
                                 </div>
@@ -278,7 +278,7 @@
 
                         <div class="service-statustoggle" *ngIf="!editCategoryId">
                             <p>
-                                <mat-slide-toggle (change)="newCategoryStatus($event.checked)">Status</mat-slide-toggle>
+                                <mat-slide-toggle [checked]="newcategoryStatus == 'D'" (change)="newCategoryStatus($event.checked)">Status</mat-slide-toggle>
                             </p>
                             <p>
                                 <mat-slide-toggle (change)="newCategoryPrivate($event.checked)">Private
@@ -425,7 +425,7 @@
                                 <div class=" Details-button-width d-flex">
                                     <h5 class="mt-2 mb-2">{{selectedCategoryDetails.category_title}}</h5>
                                     <button *ngIf="selectedCategoryDetails && selectedCategoryDetails.private_status == 'N'" mat-button class="public-button">Public</button>
-                                    <button *ngIf="selectedCategoryDetails && selectedCategoryDetails.private_status == 'Y'" mat-button class="public-button">Private</button>
+                                    <button *ngIf="selectedCategoryDetails && selectedCategoryDetails.private_status == 'Y'" mat-button class="private-button">Private</button>
                                 </div>
                                 <!-- <button class="salon-cancel-btn mr-2"><i class="fa fa-eye salon-icon" ></i></button>   -->
                                 <button (click)="editCategory(selectedCategoryDetails.id)" class="salon-edit-btn mr-2"><i class="fa fa-pencil salon-icon"></i></button>
