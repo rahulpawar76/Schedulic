@@ -1042,8 +1042,8 @@
             </div>
             <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
                 <mat-card class="booking-summary p-0" style="width:380px">
-                    <mat-card-title class="py-2 px-3 d-flex">
-                        <label class="mb-0">Summary</label><button mat-button class="ml-a continue-btn" *ngIf="serviceMainArr.totalNumberServices>0" (click)="fnContinueFromCart()">Proceed</button>
+                    <mat-card-title class="py-2 px-3 d-flex justify-content-between">
+                        <label class="mb-0">Summary</label><button mat-button class="ml-a continue-btn" *ngIf="serviceMainArr.totalNumberServices>0 && (!personalinfo && !appointmentinfo)" (click)="fnContinueFromCart()">Proceed</button>
                     </mat-card-title>
                     <mat-card-content class="py-2 px-3 mt-0">
                         <div *ngFor="let serviceCart of serviceCartArr">

@@ -708,3 +708,23 @@
  ::ng-deep .mat-dialog-container {
     padding: 0 !important;
 }
+
+::ng-deep .theame-modal{
+    position: relative;
+    .close-theame{
+        display: flex;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        right: 0;
+        background-color: #fff;
+        border-radius: 50%;
+        opacity: 1;
+        margin: 10px 14px;
+        align-items: center;
+        justify-content: center;
+        .material-icons-outlined{
+            font-size: 22px;
+        }
+    }
+}
