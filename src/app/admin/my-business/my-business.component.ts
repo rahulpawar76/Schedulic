@@ -241,7 +241,7 @@ export class myCreateNewBusinessDialog {
 
     this.createBusiness = this._formBuilder.group({
       business_name : ['', [Validators.required]],
-      business_address : ['', [Validators.required,Validators.minLength(2),Validators.maxLength(30)]],
+      business_address : ['', [Validators.required,Validators.minLength(2),Validators.maxLength(50)]],
       business_country : ['', Validators.required],
       business_state : ['', Validators.required],
       business_timezone : ['', Validators.required],

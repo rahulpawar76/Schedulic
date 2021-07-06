@@ -35,6 +35,7 @@ export class AppearanceComponent implements OnInit {
   ChangeRequired:boolean=false;
   ChangeAddress:boolean=false;
   settingSideMenuToggle:boolean =false;
+  isLoaderAdmin:boolean =false;
   gradientColorDb:any;
   appearanceValue :any;
   formArr= {
@@ -110,6 +111,7 @@ export class AppearanceComponent implements OnInit {
     this.getCompanyDetails();
   }
   getCompanyDetails(){
+    this.isLoaderAdmin = true;
     let requestObject = {
       "business_id" : this.businessId
     }
@@ -127,6 +129,7 @@ export class AppearanceComponent implements OnInit {
           panelClass : ['red-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     })
   }
 
@@ -177,19 +180,6 @@ export class AppearanceComponent implements OnInit {
     }
     return getComputedStyle(document.documentElement).getPropertyValue(key);
   }
-
-
-  // public onChangeColor(color: string): Cmyk {
-  //   const hsva = this.cpService.stringToHsva(color);
-
-  //   const rgba = this.cpService.hsvaToRgba(hsva);
-
-
-  //   console.log(color);
-  //    console.log(rgba);
-
-  //   return this.cpService.rgbaToCmyk(rgba);
-  // }
 
   fnChangeContactFormStatus(event){
     if(event == true){
@@ -242,6 +232,7 @@ export class AppearanceComponent implements OnInit {
   }
 
   fnCreateAppearance(AppearanceData){
+    this.isLoaderAdmin = true;
     let requestObject = {
       'business_id': this.businessId,
       "appearance": AppearanceData
@@ -262,10 +253,12 @@ export class AppearanceComponent implements OnInit {
           panelClass : ['red-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     })
   }
 
   getSettingValue(){
+    this.isLoaderAdmin = true;
     let requestObject = {
       'business_id': this.businessId,
     };
@@ -307,10 +300,12 @@ export class AppearanceComponent implements OnInit {
           panelClass : ['red-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     })
   }
 
   fnFormSetting(){
+    this.isLoaderAdmin = true;
     let requestObject = {
         'business_id': this.businessId,
         'form_settings': this.formArr
@@ -330,6 +325,7 @@ export class AppearanceComponent implements OnInit {
           panelClass : ['red-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     })
   }
   /* To copy any Text */
@@ -352,6 +348,7 @@ copyEmbedCode(val: string){
   }
 
   fnChnageTheme(selectedTheme){
+    this.isLoaderAdmin = true;
     let requestObject = {
       'business_id': this.businessId,
       'theme': selectedTheme
@@ -372,6 +369,7 @@ copyEmbedCode(val: string){
           panelClass : ['red-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     })
   }
   fnThemePreview(themeNumber) {

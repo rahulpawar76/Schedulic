@@ -30,7 +30,7 @@
                                 </mat-form-field>
                                 <span class="error-wrap" *ngIf="createBusiness.get('business_address').dirty || createBusiness.get('business_address').touched"><small *ngIf="createBusiness.get('business_address').hasError('required')" class="error">Business address is required.</small>
                                 <small *ngIf="createBusiness.get('business_address').hasError('minlength')"class="error">Business address must be at least 2 character.</small>
-                                <small *ngIf="createBusiness.get('business_address').hasError('maxlength') "class="error">Business address can not be greater than 30 character.</small></span>
+                                <small *ngIf="createBusiness.get('business_address').hasError('maxlength') "class="error">Business address can not be greater than 50 character.</small></span>
                             </div>
                         </div>
                         <div class="form-row">

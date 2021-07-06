@@ -1,4 +1,5 @@
 <mat-drawer-content id="business_hours" class="ml-0">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
     <div class="left-side-menu setting-menu" [ngClass]="{ 'short-menu': settingSideMenuToggle === true }">
         <div class="leftarrow-icon d-flex">
             <mat-icon (click)="fnSettingMenuToggleSmall()" *ngIf="!settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_back</mat-icon>
@@ -86,7 +87,7 @@
             <p>Alert Rules</p>
         </div>
     </div>
-    <div class="setting-right-side-content" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
+    <div class="setting-right-side-content with-footer" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
         <h5 class="text-left pl-3 mt-3">Business Hours</h5>
         <mat-tab-group>
             <mat-tab label="Working Hours">
@@ -287,10 +288,18 @@
                                                 <div class="" *ngIf="!sundayOn">Closed for Business</div>
                                                 <div class="blue-font" fxFlex="30"></div>
                                             </div>
-                                            <div class="d-flex justify-content-end">
-                                                <!-- <button mat-button class="cancel-btn my-3" (click)="fnCancelWorkingHours()">Cancel</button> -->
+                                            <mat-card class="row footer-save-container">
+                                                <div class="company-action-btn d-flex">
+                                                    <div class="mx-2">
+                                                        <button mat-button class="business-cancel-btn" (click)="fnCancelWorkingHours()">Cancel</button>
+                                                        <button mat-button type="submit" (click)="fnCreateWorkingHours()" appearance="fill" class="company-save-btn">Save</button>
+                                                    </div>
+                                                </div>
+                                            </mat-card>
+                                            <!-- <div class="d-flex justify-content-end">
+                                                <button mat-button class="cancel-btn my-3" (click)="fnCancelWorkingHours()">Cancel</button>
                                                 <button mat-button class="save-btn my-3" (click)="fnCreateWorkingHours()">Save</button>
-                                            </div>
+                                            </div> -->
                                         </form>
                                     </div>
                                 </div>

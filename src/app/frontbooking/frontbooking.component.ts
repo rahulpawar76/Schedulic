@@ -391,6 +391,8 @@ export class FrontbookingComponent implements OnInit {
             }else if(this.selectedTheme == '6'){
               localStorage.setItem('frontBusiness_id',this.businessId)
               this.router.navigate(['/booking-6']);
+            }else{
+              localStorage.setItem('frontBusiness_id',this.businessId)
             }
           }
           if(this.settingsArr.payUmoney_settings){

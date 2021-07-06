@@ -92,6 +92,7 @@ export class MyProfileComponent implements OnInit {
         this.getMyProfileDetails();
         localStorage.setItem('currentUser', JSON.stringify(response.response));
         this.appComponent.loadLocalStorage();
+        window.location.reload();
       }
       else{
         this._snackBar.open(response.response, "X", {

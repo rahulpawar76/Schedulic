@@ -28,6 +28,7 @@ export interface ListTimeZoneListArry {
   providers: [DatePipe]
 })
 export class BusinessHoursComponent implements OnInit {
+  isLoaderAdmin : boolean = false;
   adminSettings : boolean = true;
   mondayOn : boolean;
   tuesdayOn : boolean;
@@ -147,6 +148,7 @@ export class BusinessHoursComponent implements OnInit {
   }
 
   fnGetBussinessTimeZone(){
+    this.isLoaderAdmin = true;
     let requestObject={
       "business_id":this.businessId
     }
@@ -155,6 +157,7 @@ export class BusinessHoursComponent implements OnInit {
       if(response.data == true){
        this.selectedTimeZone= response.response[0].time_zone;
       }
+      this.isLoaderAdmin = false;
     })
   }
 
@@ -233,6 +236,7 @@ export class BusinessHoursComponent implements OnInit {
     }
     console.log(JSON.stringify(requestObject));
 
+    this.isLoaderAdmin = true;
     this.adminSettingsService.createWorkingHours(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fnGetWorkingHours();
@@ -254,6 +258,7 @@ export class BusinessHoursComponent implements OnInit {
           panelClass : ['red-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     })
   }
 
@@ -278,7 +283,7 @@ export class BusinessHoursComponent implements OnInit {
       "off_day":this.formSetWorkingHours.get("mondayToggle").value?"N":"Y"
     }
     console.log(JSON.stringify(requestObject));
-
+    this.isLoaderAdmin = true;
     this.adminSettingsService.applyToAll(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fnGetWorkingHours();
@@ -295,6 +300,7 @@ export class BusinessHoursComponent implements OnInit {
           panelClass : ['red-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     })
   }
   fnCancelWorkingHours(){
@@ -366,77 +372,8 @@ export class BusinessHoursComponent implements OnInit {
      return tempArr;
   }
 
-
-
-  // fnGetTimeZone(){
-  //   this.adminSettingsService.getTimeZone().subscribe((response:any) => {
-      
-  //   if(response.data == true){
-  //     this.listTimeZoneListArry = response.response
-  //     // load the initial bank list
-  //     this.listTimeZoneList.next(this.listTimeZoneListArry.slice());
-  //     this.timeZoneFilterCtrl.valueChanges
-  //     .pipe(takeUntil(this._onDestroy))
-  //     .subscribe(() => {
-  //     this.filterBanks();
-  //   });
-  //   }
-  //   else{
-  //    this.timeZoneList = [];
-  //   }
-  //   })
-  // }
-
-  // protected setInitialValue() {
-  //   this.listTimeZoneList
-  //     .pipe(take(1), takeUntil(this._onDestroy))
-  //     .subscribe(() => {
-  //       console.log('fail')
-  //     });
-  // }
-
-  // protected filterBanks() {
-  //   if (!this.listTimeZoneListArry) {
-  //     return;
-  //   }
-  //   // get the search keyword
-  //   let search = this.timeZoneFilterCtrl.value;
-  //   if (!search) {
-  //     this.listTimeZoneList.next(this.listTimeZoneListArry.slice());
-  //     return;
-  //   } else {
-  //     search = search.toLowerCase();
-  //   }
-  //   // filter the banks
-  //   this.listTimeZoneList.next(
-  //     this.listTimeZoneListArry.filter(listTimeZoneListArry => listTimeZoneListArry.name.toLowerCase().indexOf(search) > -1)
-  //   );
-  // }
-
-  // fnChangeTimeZone(event){
-  //   let requestObject={
-  //     "business_id":this.businessId,
-  //     "timezone":event.value
-  //   }
-  //   this.adminSettingsService.changeTimeZone(requestObject).subscribe((response:any) => {
-  //     if(response.data == true){
-  //       this.snackBar.open("Timezone Updated.", "X", {
-  //         duration: 2000,
-  //         verticalPosition: 'top',
-  //         panelClass : ['green-snackbar']
-  //       });
-  //     }
-  //      else if(response.data == false && response.response !== 'api token or userid invaild'){
-  //      this.snackBar.open("Timezone Not Updated.", "X", {
-  //         duration: 2000,
-  //         verticalPosition: 'top',
-  //         panelClass : ['red-snackbar']
-  //       });
-  //     }
-  //   })
-  // }
-
   fnGetWorkingHours(){
+    this.isLoaderAdmin = true;
     let requestObject={
       "business_id":this.businessId
     }
@@ -613,6 +550,7 @@ export class BusinessHoursComponent implements OnInit {
       else{
        
       }
+      this.isLoaderAdmin = false;
     })
   }
 
@@ -942,6 +880,7 @@ export class BusinessHoursComponent implements OnInit {
   }
 
   fnChangeTimeOffStatus(event,timeOffId){
+    this.isLoaderAdmin = true;
     console.log(event.checked+"--"+timeOffId);
     let requestObject={
       "time_off_id":timeOffId,
@@ -963,10 +902,12 @@ export class BusinessHoursComponent implements OnInit {
           panelClass : ['red-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     })
   }
 
   fnGetBreakTimeList(){
+    this.isLoaderAdmin = true;
     let requestObject={
       "business_id":this.businessId
     }
@@ -986,60 +927,9 @@ export class BusinessHoursComponent implements OnInit {
       }else{
         this.breakTimeList= [];
       }
+      this.isLoaderAdmin = false;
     })
   }
-
-  // fnShowAddBreakForm(day){
-  //   if(day == "Monday"){
-  //     this.selectedStartTimeMonday=this.formSetWorkingHours.get("mondayStartTime").value;
-  //     this.selectedEndTimeMonday=this.formSetWorkingHours.get("mondayEndTime").value;
-  //     this.showMondayAddForm=this.showMondayAddForm==true?false:true;
-  //     this.mondayBreakStartTimeIndex=0;
-  //     this.mondayBreakEndTimeIndex=this.timeSlotList.length-1;
-  //   }
-  //   if(day == "Tuesday"){
-  //     this.selectedStartTimeTuesday=this.formSetWorkingHours.get("tuesdayStartTime").value;
-  //     this.selectedEndTimeTuesday=this.formSetWorkingHours.get("tuesdayEndTime").value;
-  //     this.showTuesdayAddForm=this.showTuesdayAddForm==true?false:true;
-  //     this.tuesdayBreakStartTimeIndex=0;
-  //     this.tuesdayBreakEndTimeIndex=this.timeSlotList.length-1;
-  //   }
-  //   if(day == "Wednesday"){
-  //     this.selectedStartTimeWednesday=this.formSetWorkingHours.get("wednesdayStartTime").value;
-  //     this.selectedEndTimeWednesday=this.formSetWorkingHours.get("wednesdayEndTime").value;
-  //     this.showWednesdayAddForm=this.showWednesdayAddForm==true?false:true;
-  //     this.wednesdayBreakStartTimeIndex=0;
-  //     this.wednesdayBreakEndTimeIndex=this.timeSlotList.length-1;
-  //   }
-  //   if(day == "Thursday"){
-  //     this.selectedStartTimeThursday=this.formSetWorkingHours.get("thursdayStartTime").value;
-  //     this.selectedEndTimeThursday=this.formSetWorkingHours.get("thursdayEndTime").value;
-  //     this.showThursdayAddForm=this.showThursdayAddForm==true?false:true;
-  //     this.thursdayBreakStartTimeIndex=0;
-  //     this.thursdayBreakEndTimeIndex=this.timeSlotList.length-1;
-  //   }
-  //   if(day == "Friday"){
-  //     this.selectedStartTimeFriday=this.formSetWorkingHours.get("fridayStartTime").value;
-  //     this.selectedEndTimeFriday=this.formSetWorkingHours.get("fridayEndTime").value;
-  //     this.showFridayAddForm=this.showFridayAddForm==true?false:true;
-  //     this.fridayBreakStartTimeIndex=0;
-  //     this.fridayBreakEndTimeIndex=this.timeSlotList.length-1;
-  //   }
-  //   if(day == "Saturday"){
-  //     this.selectedStartTimeSaturday=this.formSetWorkingHours.get("saturdayStartTime").value;
-  //     this.selectedEndTimeSaturday=this.formSetWorkingHours.get("saturdayEndTime").value;
-  //     this.showSaturdayAddForm=this.showSaturdayAddForm==true?false:true;
-  //     this.saturdayBreakStartTimeIndex=0;
-  //     this.saturdayBreakEndTimeIndex=this.timeSlotList.length-1;
-  //   }
-  //   if(day == "Sunday"){
-  //     this.selectedStartTimeSunday=this.formSetWorkingHours.get("sundayStartTime").value;
-  //     this.selectedEndTimeSunday=this.formSetWorkingHours.get("sundayEndTime").value;
-  //     this.showSundayAddForm=this.showSundayAddForm==true?false:true;
-  //     this.sundayBreakStartTimeIndex=0;
-  //     this.sundayBreakEndTimeIndex=this.timeSlotList.length-1;
-  //   }
-  // }
 
   fnShowAddBreakForm(day){
     if(day == "Monday"){

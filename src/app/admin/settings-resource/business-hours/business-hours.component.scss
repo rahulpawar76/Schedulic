@@ -301,3 +301,38 @@
         line-height: 2;
     }
 }
+
+.setting-right-side-content {
+    .footer-save-container {
+        position: fixed;
+        bottom: 0;
+        width: calc(100% - 300px);
+        margin: 0;
+        right: 0;
+        box-shadow: 0 2px 2px -1px rgba(0, 0, 0, .4), 0 4px 12px 0 rgba(0, 0, 0, .4)!important;
+        .company-action-btn {
+            justify-content: flex-end;
+        }
+    }
+    &.short-content-area {
+        .footer-save-container {
+            width: calc(100% - 160px);
+        }
+    }
+}
+
+.business-cancel-btn {
+    width: 128px;
+    height: 37px;
+    border-radius: 7px;
+    margin-right: 7px;
+    background-color: #dddddd;
+    margin-left: auto;
+}
+.company-save-btn {
+    width: 109px;
+    height: 39px;
+    border-radius: 7px;
+    background-color: #1173f4;
+    color: white;
+}
