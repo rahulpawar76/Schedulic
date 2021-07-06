@@ -1193,6 +1193,20 @@ export class AdminService {
             }
         });
       }
+
+      changePassword(requestObject){
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'staff-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/change-password`,requestObject,{headers:headers}).pipe(
+           map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
     
 }
 

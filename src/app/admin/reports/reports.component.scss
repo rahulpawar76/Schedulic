@@ -288,20 +288,40 @@
     width: calc(100% - 70px);
 }
 
-.report-date-range-main {
-    min-width: 240px;
-    width: 180px;
-    margin-left: 40px;
-    &::before {
-        content: "\f073";
-        font: normal normal normal 14px/1 FontAwesome;
-        position: absolute;
-        font-size: 30px;
-        left: -35px;
-        color: #6d6d6d;
+::ng-deep body{
+    .report-date-range-main {
+        min-width: 240px;
+        width: 180px;
+        margin-left: 40px;
+        &::before {
+            content: "\f073";
+            font: normal normal normal 14px/1 FontAwesome;
+            position: absolute;
+            font-size: 30px;
+            left: -35px;
+            color: #6d6d6d;
+        }
+        .btn{
+            text-transform: capitalize !important;
+            margin-right: 16px;
+            padding: 0px 12px !important;
+            font-size: 14px;
+            line-height: 2.2 !important;
+            background-color: #1173f4;
+            &:hover{
+                background-color: #1173f4;
+            }
+            &:last-child{
+                margin-right: 0px;
+            }
+        }
     }
+} 
+::ng-deep .report-date-range-main .md-drppicker td.active, .report-date-range-main .md-drppicker td.active:hover {
+    background-color: #1173f4;
+    border-color: transparent;
+    color: #fff;
 }
-
 .filter-bydate {
     width: 230px;
 }

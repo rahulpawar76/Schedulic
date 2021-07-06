@@ -233,7 +233,7 @@ export class DiscountCouponComponent implements OnInit {
   }
 
   fnCreateCouponSubmit() {
-    alert();
+   
     if (this.discountCoupon.valid) {
       this.valid_from = this.discountCoupon.get("valid_from").value;
       this.valid_till = this.discountCoupon.get("valid_till").value;
