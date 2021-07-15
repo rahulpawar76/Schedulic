@@ -124,7 +124,50 @@ export class CommonService {
     }),
     catchError(this.handleError));
   }
+//   gelAllState(country_id){
+//     this.checkAuthentication();
+//     let requestObject = {
+//         'country_id' : country_id
+//     };
+//     let headers = new HttpHeaders({
+//         'Content-Type': 'application/json',
+//     });
+//     return this.http.post(`${environment.apiUrl}/states`,requestObject,{headers:headers}).pipe(
+//     map((res) => {
+//         return res;
+//     }),
+//     catchError(this.handleError));
+// }
+gelAllState(country_id){
+  // console.log("1111111111111111111",country_id);
+  // this.checkAuthentication();
+  let requestObject = {
+      'country_id' : country_id,
+  };
+  let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+  });
+  return this.http.post(`${environment.apiUrl}/states`,requestObject).pipe(
+  map((res) => {
+      return res;
+  }),
+  catchError(this.handleError));
+}
 
+// gelAllCities
+gelAllCities(state_id){
+  let requestObject = {
+      'state_id' : state_id
+  };
+  let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+  });
+  return this.http.post(`${environment.apiUrl}/cities`,requestObject).pipe(
+  map((res) => {
+      return res;
+  }),
+  catchError(this.handleError));
+}
 
   reAuthenticateUser() {
 

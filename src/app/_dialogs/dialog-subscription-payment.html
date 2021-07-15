@@ -24,11 +24,37 @@
                                 <small *ngIf="cardPaymentForm.get('address').hasError('required')" class="error">Address is required.</small>
                             </span>
                             <label for="" class="mb-0">Country</label>
-                            <mat-select class="form-control" formControlName="country">
+                            <mat-select class="form-control" formControlName="country" (selectionChange)="selectCountry($event.value)">
                                 <mat-option *ngFor="let allCountry of allCountry; let i=index;" value="{{allCountry.id}}">{{allCountry.name}}</mat-option>
                             </mat-select>
                             <span class="error-wrap" *ngIf="cardPaymentForm.get('country').dirty || cardPaymentForm.get('country').touched">
-                                <small *ngIf="cardPaymentForm.get('country').hasError('required')" class="error">Address is required.</small>
+                                <small *ngIf="cardPaymentForm.get('country').hasError('required')" class="error">Country is required.</small>
+                            </span>
+                            <label for="" class="mb-0">State</label>
+                                <mat-select class="form-control" formControlName="state" (selectionChange)="selectStates($event.value)">
+                                    <mat-option *ngFor="let allStates of allStates" [value]="allStates.id">
+                                        {{allStates.name}}
+                                    </mat-option>
+                                </mat-select>
+                            <span class="error-wrap" *ngIf="cardPaymentForm.get('state').dirty || cardPaymentForm.get('state').touched"><small *ngIf="cardPaymentForm.get('state').hasError('required')" class="error">State is required.</small></span>
+
+                            <label for="" class="mb-0">City</label>
+                            <mat-select class="form-control" formControlName="city">
+                                <mat-option *ngFor="let city of allCities" [value]="city.id">
+                                    {{city.name}}
+                                </mat-option>
+                            
+                                
+                            </mat-select>
+                            <span class="error-wrap" *ngIf="cardPaymentForm.get('city').dirty || cardPaymentForm.get('city').touched">
+                                <small *ngIf="cardPaymentForm.get('city').hasError('required')" class="error">State is required.</small>
+                            </span>
+
+                            <label for="" class="mb-0">Zip Code</label>
+                            <input formControlName="zipcode" type="text" class="form-control mb-2" />
+                            <span class="error-wrap" *ngIf="cardPaymentForm.get('zipcode').dirty || cardPaymentForm.get('zipcode').touched">
+                                <small *ngIf="cardPaymentForm.get('zipcode').hasError('required')" class="error">Zip Code is required.</small>
+                                <small *ngIf="!cardPaymentForm.get('zipcode').hasError('pattern') && (cardPaymentForm.get('zipcode').hasError('maxlength') || cardPaymentForm.get('zipcode').hasError('minlength'))" class="error">Zipcode should be 6 digit.</small>
                             </span>
 
                             <label for="" class="mb-0">Card Number</label>
