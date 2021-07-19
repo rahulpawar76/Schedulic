@@ -1189,32 +1189,52 @@ export class StaffComponent implements OnInit {
         this.categoryServiceList.forEach(element => {
           element.is_selected  = false;
           
+          let subCategoryLength = element.subcategory.length ;
+          let selectedSubCategoryCount = 0;
           element.subcategory.forEach(subelement => {
             subelement.is_selected = false;
+            let serviceLength = subelement.services.length ;
+            let selectedServiceCount = 0;
             subelement.services.forEach(serviceselement => {
               serviceselement.is_selected = false;
+              
               const index = this.selectedServiceNewStaff.indexOf(serviceselement.id, 0);
               if (index > -1) {
                 this.categoryServiceCheckServiceId.push(serviceselement.id);
                 serviceselement.is_selected = true;
+                selectedServiceCount++;
               }
             });
+            if(selectedServiceCount == serviceLength){
+              subelement.is_selected = true;
+              selectedSubCategoryCount++;
+            }
           });
+          if(selectedSubCategoryCount == subCategoryLength){
+            element.is_selected = true;
+          }
 
-          if(element.getservices){
+          if(element.getservices.length > 0){
+            let dserviceLength = element.getservices.length ;
+            let dselectedServiceCount = 0;
             element.getservices.forEach(serviceselement => {
               serviceselement.is_selected = false;
               const index = this.selectedServiceNewStaff.indexOf(serviceselement.id, 0);
               if (index > -1) {
                 this.categoryServiceCheckServiceId.push(serviceselement.id);
                 serviceselement.is_selected = true;
+                dselectedServiceCount++;
               }
             });
+            if(dserviceLength == dselectedServiceCount){
+              element.is_selected = true;
+            }
           }
         });
 
         this.categoryServiceListTemp=this.categoryServiceList;
-
+        console.log(" this.categoryServiceListTemp>>>>>>>>>>>", this.categoryServiceListTemp);
+        
         this.isLoaderAdmin = false;
       } else if(response.data == false && response.response !== 'api token or userid invaild'){
 
@@ -1228,12 +1248,13 @@ export class StaffComponent implements OnInit {
   }
   
   checkServie(event,type,index,sub_index=null,service_index=null){
-
+    
+    console.log("categoryServiceList>>>>>>>>>>index",this.categoryServiceList[index]);
     if(type=='category'){
         if(event.checked == true) {  this.categoryServiceList[index].is_selected=true; }else{ this.categoryServiceList[index].is_selected=false; }
 
         this.categoryServiceList[index].subcategory.forEach(subelement => {
-          if(event.checked == true) {  
+          if(event.checked == true) {
             subelement.is_selected=true;
            }else{ 
             subelement.is_selected=false;
@@ -1573,7 +1594,8 @@ export class StaffComponent implements OnInit {
       description : ['',Validators.maxLength(255)],
       staff_id : [null],
     });
-
+    console.log("this.singleStaffDetail.staff--------",this.singleStaffDetail);
+    
     this.StaffCreate.controls['firstname'].setValue(this.singleStaffDetail.staff[0].firstname);
     this.StaffCreate.controls['lastname'].setValue(this.singleStaffDetail.staff[0].lastname);
     this.StaffCreate.controls['phone'].setValue(this.singleStaffDetail.staff[0].phone);

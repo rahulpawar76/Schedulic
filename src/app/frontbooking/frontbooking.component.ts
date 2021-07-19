@@ -2832,7 +2832,9 @@ this.router.navigate(['/customer-login/'+this.urlString[1]]);
       
     });
     dialogRef.afterClosed().subscribe(result => {
-      
+      if(result == 'forgot-pwd'){
+        this.router.navigate(['/forgot-password']);
+      }
     });
   }
 
@@ -4448,8 +4450,7 @@ export class theme2CheckoutDialog {
     }
     
   fnForgotPWD(){
-    this.dialogRef.close();
-    this.router.navigate(['/forgot-password']);
+    this.dialogRef.close('forgot-pwd');
   }
     
   }

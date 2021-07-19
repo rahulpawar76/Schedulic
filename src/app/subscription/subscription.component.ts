@@ -95,6 +95,8 @@ export class DialogSubscriptionCardForm {
   adminData:any;
   cardPaymentForm:FormGroup;
   allCountry:any;
+  allStates: any;
+  allCities: any;
   
   constructor(
     public dialogRef: MatDialogRef<DialogSubscriptionCardForm>,
@@ -119,8 +121,11 @@ export class DialogSubscriptionCardForm {
       this.cardPaymentForm = this._formBuilder.group({
         name: ['', Validators.required],
         address: ['', Validators.required],
-        country: ['', Validators.required],
+        country: ['', Validators.required], 
+        city: ['', Validators.required],
+        state: ['', Validators.required],
         cardNumber: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.maxLength(16),Validators.minLength(16)]],
+        zipcode: ['', [Validators.required,Validators.maxLength(6),Validators.minLength(3)]],
         cardEXMonth: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.maxLength(2),Validators.minLength(2)]],
         cardEXYear: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.maxLength(2),Validators.minLength(2)]],
         cardCVV: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.maxLength(3),Validators.minLength(3)]],
@@ -135,6 +140,9 @@ export class DialogSubscriptionCardForm {
         'card_name' : this.cardPaymentForm.get('name').value,
         'address' : this.cardPaymentForm.get('address').value,
         'country' : this.cardPaymentForm.get('country').value,
+        'state' : this.cardPaymentForm.get('state').value,
+        'city' : this.cardPaymentForm.get('city').value,
+        'zip' : this.cardPaymentForm.get('zipcode').value,
         'card_number' : this.cardPaymentForm.get('cardNumber').value,
         'exp_month' : this.cardPaymentForm.get('cardEXMonth').value,
         'exp_year' : this.cardPaymentForm.get('cardEXYear').value,
@@ -147,6 +155,7 @@ export class DialogSubscriptionCardForm {
         "api-token": this.adminData.token,
       });
       this.CommonService.getSubscriptionPayment(requestObject,headers).subscribe((response:any) => {
+       
         if(response.data == true){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
@@ -183,5 +192,69 @@ export class DialogSubscriptionCardForm {
       this.isLoaderAdmin =false;
     }
 
+    selectCountry(country_id){
+      this.isLoaderAdmin =true;
+      this.CommonService.gelAllState(country_id).subscribe((response:any) => {
+     
+
+        if(response.data == true){
+          this.allStates = response.response
+          this.isLoaderAdmin =false;
+        }
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this.allStates = ''
+          this.cardPaymentForm.controls['business_state'].setValue('');
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+          this.isLoaderAdmin =false;
+        }
+      })
+    }
+
+    // selectCountry(country_id){
+    //   this.isLoaderAdmin =true;
+    //   this.CommonService.gelAllState(country_id).subscribe((response:any) => {
+    //   console.log(">>>>>>>>>>cccccccccc",country_id);
+
+    //     if(response.data == true){
+    //       this.allStates = response.response
+    //       this.cardPaymentForm.controls['business_state'].setValue('');
+    //       this.isLoaderAdmin =false;
+    //     }
+    //     else if(response.data == false && response.response !== 'api token or userid invaild'){
+    //       this.allStates = ''
+    //       this.cardPaymentForm.controls['business_state'].setValue('');
+    //       this._snackBar.open(response.response, "X", {
+    //         duration: 2000,
+    //         verticalPosition: 'top',
+    //         panelClass : ['red-snackbar']
+    //       });
+    //       this.isLoaderAdmin =false;
+    //     }
+    //   })
+    // }
+
+    selectStates(state_id){
+     
+      this.isLoaderAdmin =true;
+      this.CommonService.gelAllCities(state_id).subscribe((response:any) => {
+        if(response.data == true){
+          this.allCities = response.response
+          this.isLoaderAdmin =false;
+        }
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this.allCities = [];
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+          this.isLoaderAdmin =false;
+        }
+      })
+    }
     
   }

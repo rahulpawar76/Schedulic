@@ -121,7 +121,7 @@
             </div>
             <div class="bottom_header" *ngIf="isAdminUser() && !isFront()" fxFlex="100">
                 <mat-drawer-container class="main-container left-admin-menu">
-                    <mat-drawer [disableClose]="true" class="main_admin_menu" *ngIf="(businessComponent && !isBusiness()) && (POSComponent && !isPOS())" mode="side" opened>
+                    <mat-drawer [disableClose]="true" class="main_admin_menu" [opened]="(businessComponent && !isBusiness()) && (POSComponent && !isPOS())" mode="side">
                         <div class="top_admin_menu">
                             <mat-list-item role="listitem" class="matlist pointer menuitem logo">
                                 <div (click)="fnClickLogo('admin')" class="logo"><img src="assets/images/admin/admin-logo-orange.png"></div>
@@ -308,7 +308,7 @@
                 <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg">
                 <p class="font-weight-bold mt-2 p-1">Userxyzee</p>
             </mat-list-item>
-            <!-- <mat-list-item role="listitem" (click)="UserAppointment('./userappointments')" 
+            <!-- <mat-list-item role="listitem" (click)="UserAppointment('./userappointments')"
         (click)="drawer.toggle()">
         <button mat-menu-item (click)="drawer.toggle()" class="menuitem">
         <i mat-list-icon class="fa fa-briefcase mr-3"></i>My Work Space</button>
@@ -316,7 +316,7 @@
             <mat-list-item role="listitem" (click)="myWorkSpaceNav()" (click)="drawer.toggle()">
                 <button mat-menu-item class="menuitem"><i mat-list-icon  class="fa fa-calendar mr-3"></i>My Appointmets</button>
             </mat-list-item>
-            <!--  <mat-list-item role="listitem"  (click)="WorkProfile('./work-profile')" 
+            <!--  <mat-list-item role="listitem"  (click)="WorkProfile('./work-profile')"
         (click)="drawer.toggle()">
         <button mat-menu-item (click)="drawer.toggle()" class="menuitem"><i mat-list-icon    class="material-icons mr-3">people_alt</i>Work Profile</button>
         </mat-list-item> -->

@@ -268,7 +268,7 @@
                                         <mat-expansion-panel class="my-3" *ngFor="let subcategoryList of categoryServiceListval.subcategory; let sub_index=index">
                                             <mat-expansion-panel-header>
                                                 <mat-panel-title>
-                                                    <mat-checkbox (change)="checkServie($event,'subcategory',i,sub_index)" [checked]="subcategoryList.is_selected">{{subcategoryList.sub_category_name}}</mat-checkbox>
+                                                    <mat-checkbox (change)="checkServie($event,'subcategory',i,sub_index)" [checked]="subcategoryList.is_selected ? true: ''">{{subcategoryList.sub_category_name}}</mat-checkbox>
                                                 </mat-panel-title>
                                             </mat-expansion-panel-header>
                                             <div *ngFor="let serviceList of subcategoryList.services; let service_index=index" class="py-3">

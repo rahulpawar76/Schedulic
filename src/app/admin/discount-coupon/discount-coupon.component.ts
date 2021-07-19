@@ -422,12 +422,50 @@ export class DiscountCouponComponent implements OnInit {
           this.categoryServiceList = response.response;
           this.categoryServiceList.forEach((element) => {
             element.is_selected = false;
+            let subCategoryLength = element.subcategory.length ;
+            let selectedSubCategoryCount = 0; 
+
             element.subcategory.forEach((subelement) => {
               subelement.is_selected = false;
+              let serviceLength = subelement.services.length ;
+              let selectedServiceCount = 0;
+
               subelement.services.forEach((serviceselement) => {
                 serviceselement.is_selected = false;
+                // categoryServiceList
+                const index = this.categoryServiceCheckServiceId.indexOf(serviceselement.id, 0);
+                if (index > -1) {
+                  this.categoryServiceCheckServiceId.push(serviceselement.id);
+                  serviceselement.is_selected = true;
+                  selectedServiceCount++;
+                }
               });
+                if(selectedServiceCount == serviceLength){
+                  subelement.is_selected = true;
+                  selectedSubCategoryCount++;
+                }
             });
+              if(selectedSubCategoryCount == subCategoryLength){
+                element.is_selected = true;
+              }
+
+              if(element.getservices.length > 0){
+                let dserviceLength = element.getservices.length ;
+                let dselectedServiceCount = 0;
+                element.getservices.forEach(serviceselement => {
+                  serviceselement.is_selected = false;
+                  const index = this.categoryServiceCheckServiceId.indexOf(serviceselement.id, 0);
+                  if (index > -1) {
+                    this.categoryServiceCheckServiceId.push(serviceselement.id);
+                    serviceselement.is_selected = true;
+                    dselectedServiceCount++;
+                  }
+                });
+                if(dserviceLength == dselectedServiceCount){
+                  element.is_selected = true;
+                }
+              }
+  
           });
 
           this.categoryServiceListTemp = this.categoryServiceList;
@@ -632,6 +670,8 @@ export class DiscountCouponComponent implements OnInit {
     this.couponCodeListing = true;
     this.categoryServiceCheckServiceId.length = 0;
     this.addNewCouponCode = false;
+    this.discountCoupon.reset();
+
   }
 
   fnCouponEdit(i) {
