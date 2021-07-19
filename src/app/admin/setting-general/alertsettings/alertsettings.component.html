@@ -1157,6 +1157,101 @@
                                 <mat-panel-title>
                                     <div class="d-flex">
                                         <div>
+                                            <img src="/assets/images/admin/nexmo_logo.png" class="payment-image">
+                                        </div>
+                                        <div class="payment-toggle-btn">
+                                            <mat-slide-toggle *ngIf="nexmoSettingValue" [checked]="nexmoSettingValue.status" (change)="fnTwillioStatus($event.checked)" class=""></mat-slide-toggle>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="mb-0 pt-2 pl-3">Nexmo SMS Gateway</p>
+                                    </div>
+                                </mat-panel-title>
+                                <mat-panel-description>
+
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+
+                            <div class="account-setting">
+                                <p class="mb-0 py-2 account-para">Nexmo Account Settings</p>
+                            </div>
+                            <div class="p-2">
+                                <div class="main-account-details">
+                                    <div class="">
+                                        <div class="main-table-content main-cust-table-content">
+                                            <form [formGroup]="nexmo">
+                                                <div class="">
+                                                    <div class="" fxLayout="row">
+                                                        <div class="" fxFlex="20"></div>
+                                                        <div class="" fxFlex="80"></div>
+                                                    </div>
+                                                    <div class="content" class="">
+                                                        <div class="">
+                                                            <div class="mx-2" fxFlex="20">
+                                                                <label class="payment-label">API Key</label>
+                                                            </div>
+                                                            <div class="mx-2" fxFlex="80">
+                                                                <mat-form-field class="example-full-width bottom-border-field">
+                                                                    <input formControlName="api_key" matInput placeholder="" value="">
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <span class="w-100 error-wrap" *ngIf="nexmo.get('api_key').dirty || nexmo.get('api_key').touched">
+                                                        <small *ngIf="nexmo.get('api_key').hasError('required')" class="error">API key is required.</small>
+                                                    </span>
+                                                    </div>
+                                                    <div class="content" class="">
+                                                        <div class="">
+                                                            <div class="mx-2" fxFlex="20">
+                                                                <label class="payment-label">API Secret</label>
+                                                            </div>
+                                                            <div class="mx-2" fxFlex="80">
+                                                                <mat-form-field class="example-full-width bottom-border-field">
+                                                                    <input formControlName="api_secret" matInput placeholder="" value="">
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <span class="w-100 error-wrap" *ngIf="nexmo.get('api_secret').dirty || nexmo.get('api_secret').touched">
+                                                        <small *ngIf="nexmo.get('api_secret').hasError('required')" class="error">API secret is required.</small>
+                                                    </span>
+                                                    </div>
+                                                    <div class="content" class="">
+                                                        <div class="">
+                                                            <div class="mx-2" fxFlex="20">
+                                                                <label class="payment-label">Admin Phone Number</label>
+                                                            </div>
+                                                            <div class="mx-2" fxFlex="80">
+                                                                <!-- <mat-form-field class="example-full-width bottom-border-field">
+                                                                    <mat-icon matPrefix><img src="/assets/images/admin/india.png"></mat-icon>
+                                                                    <input formControlName="adminNumber" type="number" matInput placeholder="" value="">
+                                                                </mat-form-field> -->
+                                                                <ngx-intl-tel-input class="common-input mobile-intel-input bottom-border-field" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                                                    [selectFirstCountry]="true" [selectedCountryISO]="selectedCountryISO" [maxLength]="15" [phoneValidation]="false" (mousedown)="fnPhoneMouceLeaveNexmo()" (keyup)="fnenterPhoneNumberNexmo()"
+                                                                    [separateDialCode]="separateDialCode" formControlName="adminNumber" placeholder="Mobile">
+                                                                </ngx-intl-tel-input>
+                                                                <span class="" *ngIf="phoneNumberInvalidNexmo">
+                                                                    <small *ngIf="phoneNumberInvalidNexmo == 'required'" class="error">Admin number is required.</small>
+                                                                    <small *ngIf="phoneNumberInvalidNexmo == 'length'" class="error">Admin number should be 6 to 15 digits long.</small>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <button mat-button class="save-btn my-3" (click)="fnSubmitNexmoSettings()">Save</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                    <mat-accordion class="matcard-space">
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    <div class="d-flex">
+                                        <div>
                                             <img src="/assets/images/admin/textlocal.png" class="">
                                         </div>
                                         <div class="payment-toggle-btn">

@@ -1098,7 +1098,7 @@ export class DialogCancelReason {
       let that = this;
       var formData = new FormData();
       let customer_email = this.myAppoDetailData.customer.email;
-      let order_id = this.myAppoDetailData.order_id;
+      let order_item_id = this.myAppoDetailData.order_item_id;
 
       // domtoimage.toPng(document.getElementById('printInvoice')).then(function (blob) {
       //   var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
@@ -1114,7 +1114,7 @@ export class DialogCancelReason {
 
       //       var binary = btoa(pdf.output());
             formData.append('email', customer_email);
-            formData.append('order_id',order_id );
+            formData.append('order_item_id',order_item_id );
             // formData.append('invoice_pdf', binary);
             that.UserService.sendInvoiceEmail(formData).subscribe((response:any) => {
                 if(response.data == true){

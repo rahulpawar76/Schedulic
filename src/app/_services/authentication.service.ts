@@ -80,7 +80,7 @@ export class AuthenticationService {
         }
         return this.http.post<any>(`${environment.apiUrl}/facebook-google-login`, requestObject)
         .pipe(map(user => {
-            if (user && user.response.idExists == true) {
+            if (user && user.response) {
                 localStorage.setItem('currentUser', JSON.stringify(user.response.userData));
                 this.currentUserSubject.next(user.response.userData);
                 var logoutTime = new Date();

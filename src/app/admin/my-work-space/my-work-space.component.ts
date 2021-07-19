@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
@@ -14,6 +14,7 @@ import { AppComponent } from '@app/app.component';
 import { AuthenticationService } from '@app/_services';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { NgxDaterangepickerMd, DaterangepickerDirective } from 'ngx-daterangepicker-material';
 // import * as _moment from 'moment';
 // // tslint:disable-next-line:no-duplicate-imports
 // import {default as _rollupMoment} from 'moment';
@@ -110,6 +111,13 @@ export class MyWorkSpaceComponent implements OnInit {
   singlenote: any;
   startWorkSpacePage: boolean = true;
   bookingTypeView: any = 'all';
+  dateTypeFilter:any='today';
+  dateTypeFilterView:any=new Date();
+  selectedDateRange:any;
+  selectedStartDate:any;
+  selectedEndDate:any;
+  
+  @ViewChild(DaterangepickerDirective, { static: false }) pickerDirective: DaterangepickerDirective;
   constructor(
     public dialog: MatDialog,
     private http: HttpClient,
@@ -128,6 +136,11 @@ export class MyWorkSpaceComponent implements OnInit {
     this.filterDate = this._formBuilder.group({
       filterDate: [''],
     });
+    
+  this.dateTypeFilterView=this.datePipe.transform(new Date(), 'd MMM, y');
+  
+  this.selectedStartDate=this.datePipe.transform(new Date(),"yyyy-MM-dd");
+  this.selectedEndDate=this.datePipe.transform(new Date(),"yyyy-MM-dd");
   }
 
   ngOnInit() {
@@ -203,11 +216,11 @@ export class MyWorkSpaceComponent implements OnInit {
 
       }
       else if (response.data == false && response.response !== 'api token or userid invaild') {
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass: ['red-snackbar']
-        });
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition: 'top',
+        //   panelClass: ['red-snackbar']
+        // });
       }
     })
   }
@@ -259,11 +272,14 @@ export class MyWorkSpaceComponent implements OnInit {
     this.selectedCategory = i;
   }
   fnGetAllAppointmentsByCategoryAndStatus() {
+    this.isLoaderAdmin = true;
     let requestObject = {
       "business_id": this.businessId,
       "category": this.selectedCategoryId,
       "status_filter": this.selectedStatus,
-      "booking_date": this.selectedDate
+      "booking_date": this.dateTypeFilter,
+      "start_date":this.selectedStartDate,
+      "end_date":this.selectedEndDate
     };
     this.adminService.getAllAppointmentsByCategoryAndStatus(requestObject).subscribe((response: any) => {
       if (response.data == true) {
@@ -338,6 +354,8 @@ export class MyWorkSpaceComponent implements OnInit {
         });
         this.appointments = [];
       }
+      
+    this.isLoaderAdmin = false;
     },
       (err) => {
         this.error = err;
@@ -546,6 +564,24 @@ export class MyWorkSpaceComponent implements OnInit {
       this.fnGetAllAppointmentsByCategoryAndStatus();
     });
   }
+  openDateRangeSelection() {
+    const dialogRef = this.dialog.open(dateRangeSelectDialog, {
+      height: '700px',
+      panelClass: 'without_border',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != undefined){
+        if(result.start_date){
+          this.selectedStartDate=this.datePipe.transform(new Date(result.start_date),"yyyy-MM-dd");
+        }
+        if(result.end_date){
+          this.selectedEndDate=this.datePipe.transform(new Date(result.end_date),"yyyy-MM-dd");
+        }
+      }
+      this.fnGetAllAppointmentsByCategoryAndStatus();
+    });
+  }
 
   fnConfirmAppointment() {
     let requestObject = {
@@ -709,6 +745,32 @@ export class MyWorkSpaceComponent implements OnInit {
     this.bookingTypeView = type;
       this.selectedStatus = type;
     // this.formSettingPage = false;
+    this.fnGetAllAppointmentsByCategoryAndStatus();
+  }
+
+  fnChangeDateFilter(dateType){
+    this.dateTypeFilter= dateType;
+    if(dateType == 'today'){
+      this.dateTypeFilterView = this.datePipe.transform(new Date(), 'd MMM, y');
+    }else if(dateType == 'tomorrow'){
+      const today = new Date()
+      const tomorrow = new Date(today)
+      tomorrow.setDate(tomorrow.getDate() + 1)
+      this.dateTypeFilterView = this.datePipe.transform(tomorrow, 'd MMM, y');
+    }else if(dateType == 'week'){
+      var curr = new Date; // get current date
+      var first = curr.getDate() - curr.getDay() + 1; // First day is the day of the month - the day of the week
+      var last = first + 6; // last day is the first day + 6
+      var firstday = new Date(curr.setDate(first)).toUTCString();
+      var lastday = new Date(curr.setDate(last)).toUTCString();
+      this.dateTypeFilterView = this.datePipe.transform(firstday, 'd MMM, y') +' to '+this.datePipe.transform(lastday, 'd MMM, y')
+    }else if(dateType == 'month'){
+      this.dateTypeFilterView = this.datePipe.transform(new Date(), 'MMMM')
+    }else if(dateType == 'year'){
+      this.dateTypeFilterView = this.datePipe.transform(new Date(), 'y')
+    }else if(dateType == 'custom'){
+      this.dateTypeFilterView = this.selectedStartDate+' To '+this.selectedEndDate
+    }
     this.fnGetAllAppointmentsByCategoryAndStatus();
   }
 
@@ -998,6 +1060,28 @@ export class InterruptedReschedule {
         });
       }
     })
+  }
+
+}
+
+
+
+@Component({
+  selector: 'date-range-selection',
+  templateUrl: '../_dialogs/date-range-picker.html',
+  providers: [DatePipe]
+})
+export class dateRangeSelectDialog {
+  constructor(
+    public dialogRef: MatDialogRef<dateRangeSelectDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+   
+  }
+
+  datesUpdated(event){
+    if(event.startDate && event.endDate){
+      this.dialogRef.close({'start_date':event.startDate._d, 'end_date':event.endDate._d});
+    }
   }
 
 }

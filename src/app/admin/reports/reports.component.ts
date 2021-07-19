@@ -4,11 +4,8 @@ import { AdminService } from '../_services/admin-main.service';
 import { AppComponent } from '@app/app.component';
 import { DatePipe} from '@angular/common';
 import { NgbDateParserFormatter, NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
-import { ExportToCsv } from 'export-to-csv';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { environment } from '@environments/environment';
-import * as domtoimage from 'dom-to-image';
-import * as jspdf from 'jspdf';
 //import moment from 'moment';
 
 @Component({

@@ -93,18 +93,10 @@
                                     <p class="text-capitalize" *ngIf="onGoingAppointmentData.order_status == 'OW'">On The Way</p>
                                     <p class="text-capitalize" *ngIf="onGoingAppointmentData.order_status == 'WS'">Work Started
                                     </p>
+                                    <p class="text-capitalize" *ngIf="onGoingAppointmentData.order_status == 'GL'">Getting Late
+                                    </p>
                                     <p class="text-capitalize" *ngIf="onGoingAppointmentData.order_status == 'ITR'">
                                         Interrupted</p>
-                                    <div class="late-time-select">
-                                        <mat-form-field class=" bottom-border-field">
-                                            <mat-label>Select Late time</mat-label>
-                                            <mat-select name="time select">
-                                                <mat-option value="10min">10 min</mat-option>
-                                                <mat-option value="20min">20 min</mat-option>
-                                                <mat-option value="30min">30 min</mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
 
                                 </div>
 

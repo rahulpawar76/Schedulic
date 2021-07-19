@@ -1691,10 +1691,10 @@ export class FrontBookingThemeThreeComponent implements OnInit {
       "password" : this.formExistingUser.get('existing_password').value,
       "business_id": this.businessId
       };
-   this.fnLogin(requestObject,false);
+   this.fnLogin(requestObject);
   }
 
-  fnLogin(requestObject,isAfterSignup){
+  fnLogin(requestObject){
     
    let headers = new HttpHeaders({
      'Content-Type': 'application/json',
@@ -1706,15 +1706,6 @@ export class FrontBookingThemeThreeComponent implements OnInit {
      }),
      catchError(this.handleError)).subscribe((response:any) => {
       if(response.data == true ){
-        // localStorage.setItem("userId",response.response.user_id);
-        // localStorage.setItem("tokenID",response.response.id);
-        // localStorage.setItem("userToken",response.response.token);
-        // localStorage.setItem("userName",response.response.fullname);
-        // localStorage.setItem("userRole",response.response.user_type);
-        // localStorage.setItem("billing_address",response.response.address);
-        // localStorage.setItem("billing_state",response.response.state);
-        // localStorage.setItem("billing_city",response.response.city);
-        // localStorage.setItem("billing_zipcode",response.response.zip);
         localStorage.setItem('currentUser', JSON.stringify(response.response));
         localStorage.setItem('isFront', "true");
         this.authenticationService.currentUserSubject.next(response.response);
@@ -1728,18 +1719,12 @@ export class FrontBookingThemeThreeComponent implements OnInit {
         this.customerEmail=this.authenticationService.currentUserValue.email;
         this.customerPhone=this.authenticationService.currentUserValue.phone;
       
-        if(!isAfterSignup){
-          // this.formAppointmentInfo.controls['appo_address'].setValue(response.response.address);
-          // this.formAppointmentInfo.controls['appo_state'].setValue(response.response.state);
-          // this.formAppointmentInfo.controls['appo_city'].setValue(response.response.city);
-          // this.formAppointmentInfo.controls['appo_zipcode'].setValue(response.response.zip);
           this.showSameAsAboveCheck=false;
-          this.snackBar.open("Login successfull", "X", {
+          this.snackBar.open("Login successfull.", "X", {
             duration: 2000,
             verticalPosition: 'top',
             panelClass : ['green-snackbar']
             });
-        }
         if(this.is_at_home_service){
           if(this.existinguser){
             this.personalinfo = false;
@@ -1772,6 +1757,64 @@ export class FrontBookingThemeThreeComponent implements OnInit {
     });
   }
 
+  
+  fnNewLogin(requestObject){
+    alert()
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+ 
+    this.http.post(`${environment.apiUrl}/new-customer-login`,requestObject,{headers:headers} ).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(this.handleError)).subscribe((response:any) => {
+       if(response.data == true ){
+         localStorage.setItem('currentUser', JSON.stringify(response.response));
+         localStorage.setItem('isFront', "true");
+         this.authenticationService.currentUserSubject.next(response.response);
+ 
+ 
+         this.customerName=response.response.fullname;
+       
+         this.customerFirstname = this.customerName!=undefined?this.customerName.split(" ")[0]:'';
+         this.customerLastname  =  this.customerName!=undefined?this.customerName.split(" ")[1]:'';
+ 
+         this.customerEmail=this.authenticationService.currentUserValue.email;
+         this.customerPhone=this.authenticationService.currentUserValue.phone;
+       
+         if(this.is_at_home_service){
+           if(this.existinguser){
+             this.personalinfo = false;
+             this.appointmentinfo = true;
+             this.isLoggedIn=true;
+           }else if(this.newuser){
+             this.personalinfo = false;
+             this.appointmentinfo = false;
+             this.summaryScreen = true;
+             this.isLoggedIn=true;
+           }
+         }else if(!this.is_at_home_service){
+           this.personalinfo = false;
+           this.appointmentinfo = false;
+           this.summaryScreen = true;
+           this.isLoggedIn=true;
+         }
+       }else{
+ 
+         this.snackBar.open(response.response, "X", {
+         duration: 2000,
+         verticalPosition: 'top',
+         panelClass : ['red-snackbar']
+         });
+ 
+         this.showSameAsAboveCheck=true;
+       }
+     },(err) =>{ 
+        this.errorMessage = this.handleError;
+     });
+   }
+ 
   // personal info
   isEmailUnique(control: FormControl) {
     return new Promise((resolve, reject) => {
@@ -1941,7 +1984,7 @@ export class FrontBookingThemeThreeComponent implements OnInit {
           "password" : this.formNewUser.get('newUserPassword').value,
           "business_id": this.businessId
           };
-        this.fnLogin(requestObject2,true);
+        this.fnNewLogin(requestObject2);
       }else{
         this.personalinfo = true;
       }
@@ -2614,12 +2657,6 @@ export class FrontBookingThemeThreeComponent implements OnInit {
       'fullname' : JSON.parse(localStorage.getItem('currentUser')).fullname,
       'full_name' : JSON.parse(localStorage.getItem('currentUser')).full_name
     };
-     
-      
-      // setTimeout(()=>{
-      //   this.isLoader=false;
-      // },4000)
-      // return false;
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
       });
