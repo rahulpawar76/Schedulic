@@ -2772,7 +2772,7 @@ export class rescheduleAppointmentDialog {
         "discount": 0,
         "tax": this.taxAmountArr,
         "nettotal": this.netCost,
-        "created_by": "self",
+        "created_by": "customer",
         "payment_method": "Cash",
         "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd hh:mm:ss") 
       };
