@@ -1,0 +1,29 @@
+<div class="modal-dialog modal-notify modal-info" role="document">
+    <div class="modal-content">
+        <div class="modal-header modal-bcolor-primary">
+            <p class="heading lead mb-0 work-content">Getting Late</p>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+            <p class="h5 work-content">How much time you will be late?</p>
+
+           
+            <div class="late-time-select mb-3">
+                <mat-form-field class=" bottom-border-field">
+                    <mat-label>Select Late time</mat-label>
+                    <mat-select [(ngModel)]="lateTime" name="time select">
+                        <mat-option value="10">10 Min</mat-option>
+                        <mat-option value="20">20 Min</mat-option>
+                        <mat-option value="30">30 Min</mat-option>
+                        <mat-option value="60">1 Hour</mat-option>
+                        <mat-option value="120">2 Hours</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <button class="d-block btn btn-primary addbtn float-right" (click)="changeBookingStatus(booking_id, status)">Save</button>
+        </div>
+    </div>
+</div>

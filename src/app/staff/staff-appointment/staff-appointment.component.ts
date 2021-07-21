@@ -253,6 +253,17 @@ export class StaffAppointmentComponent implements OnInit {
         this.getOnGoingAppointment();
        });
     }
+    if(status == 'GL'){
+      const dialogRef = this.dialog.open(DialogGettingLate, {
+        width: '500px',
+        data: {booking_id :booking_id, status: status}
+      });
+
+       dialogRef.afterClosed().subscribe(result => {
+        this.status = result;
+        this.getOnGoingAppointment();
+       });
+    }
   }
 
   changeBookingStatus(order_item_id, status, index){
@@ -1531,6 +1542,64 @@ export class StaffAppointmentComponent implements OnInit {
     }
 
   }
+
+  @Component({
+    selector: 'work-started-dialog',
+    templateUrl: '../_dialogs/getting-late-dialog.html',
+  })
+  export class DialogGettingLate {
+    
+    status: any;
+    booking_id: any;
+    notes: any;
+    lateTime:any;
+    bussinessId:any;
+    staffId:any;
+    constructor(
+      public dialogRef: MatDialogRef<DialogGettingLate>,
+      public dialog: MatDialog,
+      private StaffService: StaffService,
+      private _snackBar: MatSnackBar,
+      private authenticationService:AuthenticationService,
+      
+      @Inject(MAT_DIALOG_DATA) public data: any) {
+        
+        this.bussinessId=this.authenticationService.currentUserValue.business_id
+        this.staffId = this.authenticationService.currentUserValue.user_id
+        this.status = this.data.status;
+        this.booking_id = this.data.booking_id 
+      }
+
+    onNoClick(): void {
+      this.dialogRef.close();
+      
+    }
+    changeBookingStatus(order_item_id, status){
+      let requestObject = {
+        'order_item_id': order_item_id,
+        'gl_time': this.lateTime,
+      };
+      this.StaffService.GLStatusUpdate(requestObject).subscribe((response:any) =>{
+        if(response.data == true){
+          this._snackBar.open("Appointment Updated.", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+          this.dialogRef.close();
+        }
+        else if(response.data == false) {
+          this._snackBar.open("Appointment Not Updated.", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          }); 
+          this.dialogRef.close();
+        }
+      })
+    }
+
+  }
   
    @Component({
     selector: 'interrupted-dialog',
@@ -1567,26 +1636,6 @@ export class StaffAppointmentComponent implements OnInit {
         }
         
         });
-
-
-      // this.StaffService.changeStatus(order_item_id, status, this.notes).subscribe((response:any) =>{
-      //   if(response.data == true){
-      //     this._snackBar.open("Appointment Updated", "X", {
-      //       duration: 2000,
-      //       verticalPosition:'top',
-      //       panelClass :['green-snackbar']
-      //     });
-      //     this.dialogRef.close();
-      //   }
-      //   else if(response.data == false) {
-      //     this._snackBar.open("Appointment Not Updated", "X", {
-      //       duration: 2000,
-      //       verticalPosition:'top',
-      //       panelClass :['red-snackbar']
-      //     }); 
-      //     this.dialogRef.close();
-      //   }
-      // })
     }
 
   }

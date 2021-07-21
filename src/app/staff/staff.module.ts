@@ -5,7 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { HttpClientModule } from '@angular/common/http';
-import {ProgressBarModule} from "angular-progress-bar";
+import { ProgressBarModule } from "angular-progress-bar";
 import { HighchartsChartModule } from 'highcharts-angular';
 
 import { MaterialModule } from '@app/_helpers/material.module';
@@ -31,6 +31,7 @@ import { DialogCashPaymentMode } from './staff-appointment/staff-appointment.com
 import { DialogOnlinePaymentMode } from './staff-appointment/staff-appointment.component';
 import { DialogCashPaymentDetails } from './staff-appointment/staff-appointment.component';
 import { DialogOnlinePaymentDetails } from './staff-appointment/staff-appointment.component';
+import { DialogGettingLate } from './staff-appointment/staff-appointment.component';
 import { DialogTodayAppointmentDetail } from './my-work-space/my-work-space.component';
 
 import { DialogStaffImageUpload } from './my-profile/my-profile.component';
@@ -39,26 +40,27 @@ import { SharedModule } from '../shared.module';
 
 @NgModule({
   declarations: [
-		MyProfileComponent,
-		WorkProfileComponent,
-		StaffAppointmentComponent,
-		DialogONTheWay,
-		DialogWorkStarted,
-		DialogInterrupted,
-		InterruptedReschedule,
-		DialogAddNewAppointment,
-		// DialogNewAppointment,
-		DialogStaffMyAppointmentDetails,
-		OnGoingAppointmentDetails,
-		CompleteAppointmentDetails,
-		MyWorkSpaceComponent,
-		DialogCashPaymentMode,
-		DialogOnlinePaymentMode,
-		DialogCashPaymentDetails,
-		DialogOnlinePaymentDetails,
+    MyProfileComponent,
+    WorkProfileComponent,
+    StaffAppointmentComponent,
+    DialogONTheWay, 
+    DialogWorkStarted,
+    DialogInterrupted,
+    InterruptedReschedule,
+    DialogAddNewAppointment,
+    // DialogNewAppointment,
+    DialogStaffMyAppointmentDetails,
+    OnGoingAppointmentDetails,
+    CompleteAppointmentDetails,
+    MyWorkSpaceComponent,
+    DialogCashPaymentMode,
+    DialogOnlinePaymentMode,
+    DialogCashPaymentDetails,
+    DialogOnlinePaymentDetails,
     DialogStaffImageUpload,
     DialogTodayAppointmentDetail,
-    DialogStaffDashBGUpload
+    DialogStaffDashBGUpload,
+    DialogGettingLate
   ],
   imports: [
     CommonModule,
@@ -77,10 +79,10 @@ import { SharedModule } from '../shared.module';
   exports: [
     FormsModule
   ],
-  entryComponents: [DialogONTheWay,DialogWorkStarted,DialogInterrupted,
-    InterruptedReschedule,DialogAddNewAppointment,
-    DialogStaffMyAppointmentDetails,OnGoingAppointmentDetails,CompleteAppointmentDetails,
-    DialogCashPaymentMode,DialogOnlinePaymentMode,DialogCashPaymentDetails,
-    DialogOnlinePaymentDetails,DialogStaffImageUpload,DialogTodayAppointmentDetail,DialogStaffDashBGUpload],
+  entryComponents: [DialogONTheWay, DialogWorkStarted, DialogInterrupted,
+    InterruptedReschedule, DialogAddNewAppointment,
+    DialogStaffMyAppointmentDetails, OnGoingAppointmentDetails, CompleteAppointmentDetails,
+    DialogCashPaymentMode, DialogOnlinePaymentMode, DialogCashPaymentDetails,
+    DialogOnlinePaymentDetails, DialogStaffImageUpload, DialogTodayAppointmentDetail, DialogStaffDashBGUpload, DialogGettingLate],
 })
 export class StaffModule { }

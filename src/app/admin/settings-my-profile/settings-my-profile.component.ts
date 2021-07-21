@@ -127,9 +127,9 @@ export class MyProfileComponent implements OnInit {
       this.isLoader = true;
       let requestObject = {
         'user_id': this.adminId,
-        'user_type':'SM',
+        'user_type':'A',
         "old_password" : this.changePwd.get('oldPassword').value,
-        "new_password" : this.changePwd.get('ReNewPassword').value,
+        "password" : this.changePwd.get('ReNewPassword').value,
       }
       this.AdminService.changePassword(requestObject).subscribe((response:any) => {
         if(response.data == true){

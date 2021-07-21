@@ -34,7 +34,7 @@ import { DialogPaymentNote } from './customers/customers.component';
 import { DialogViewReview } from './customers/customers.component';
 import {DialogImportFileUpload} from './customers/customers.component';
 import { DiscountCouponComponent } from './discount-coupon/discount-coupon.component';
-import { InterruptedReschedule } from './my-work-space/my-work-space.component';
+import { InterruptedReschedule, dateRangeSelectDialog } from './my-work-space/my-work-space.component';
 import { InterruptedReschedulecustomer } from './customers/customers.component';
 import { RescheduleAppointAdmin } from './appointment/appointment.component';
 import { MyProfileComponent } from './settings-my-profile/settings-my-profile.component';
@@ -88,7 +88,7 @@ import { AgmDirectionModule } from 'agm-direction';   // agm-direction
     DialogCouponDetails,
     CustomerAppointmentDetailsDialog,
     SupportComponent,
-    
+    dateRangeSelectDialog,
     //DialogReAuthentication,
     ],
   imports: [
@@ -125,7 +125,7 @@ import { AgmDirectionModule } from 'agm-direction';   // agm-direction
     DialogViewReview,InterruptedReschedule,InterruptedReschedulecustomer,RescheduleAppointAdmin,PendingAppointmentDetailsDialog,addPOSBookingNoteDialog,paymentModeDialog,DialogNotification, DialogNotificationAppointment,
     WorkStartedAppointmentDetailsDialog,OnTheWayAppointmentDetailsDialog,
     DialogImportFileUpload,DialogMyProfileImageUpload,DialogAllAppointmentDetails,
-    DialogCustomerImageUpload,DialogCouponDetails,CustomerAppointmentDetailsDialog,RescheduleAppointment,DialogInvoiceDialog],
+    DialogCustomerImageUpload,DialogCouponDetails,CustomerAppointmentDetailsDialog,RescheduleAppointment,DialogInvoiceDialog,dateRangeSelectDialog],
 })
 export class AdminModule { }
 

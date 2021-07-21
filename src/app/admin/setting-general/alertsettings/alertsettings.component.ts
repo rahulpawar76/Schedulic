@@ -26,6 +26,7 @@ export class AlertsettingsComponent implements OnInit {
 
   businessId : any;
   phoneNumberInvalidTwilio:any = "valid";
+  phoneNumberInvalidNexmo:any = "valid";
   phoneNumberInvalidTxtLocal:any = "valid";
   emailCustomerAppointment = {
     booked:{
@@ -108,6 +109,7 @@ export class AlertsettingsComponent implements OnInit {
   appointmentsReminderAdmin :boolean = false;
   appointmentsReminderSMS : boolean = false;
   twilliStatus : boolean = false;
+  nexmoStatus : boolean = false;
   textLocalStatus : boolean = false;
   settingSideMenuToggle : boolean = false;
   totalTimeCustomerEmail:any;
@@ -124,6 +126,7 @@ export class AlertsettingsComponent implements OnInit {
   adminEmailForAlert: FormGroup;
   customizeAlert: FormGroup;
   twilio: FormGroup;  
+  nexmo: FormGroup;  
   textLocal: FormGroup;  
 
   admintomerEmailTemp1: any;
@@ -135,6 +138,7 @@ export class AlertsettingsComponent implements OnInit {
   characters = this.maxCharacters;
   cusEmailTempl : any;
   twilioSettingValue : any;
+  nexmoSettingValue : any;
   textLocalSettingValue : any
  
 
@@ -195,6 +199,11 @@ export class AlertsettingsComponent implements OnInit {
       accountSID: ['', [Validators.required]],
       authToken: ['', [Validators.required]],
       twilioSender: ['', [Validators.required]],
+      adminNumber: ['', [Validators.required]]
+    });
+    this.nexmo = this._formBuilder.group({
+      api_key: ['', [Validators.required]],
+      api_secret : ['', [Validators.required]],
       adminNumber: ['', [Validators.required]]
     });
     this.textLocal = this._formBuilder.group({
@@ -304,7 +313,18 @@ export class AlertsettingsComponent implements OnInit {
             this.twilio.controls['twilioSender'].setValue(this.twilioSettingValue.twilo_sender_number);
             this.twilio.controls['adminNumber'].setValue(this.twilioSettingValue.admin_phone_number);
             this.twilliStatus = this.twilioSettingValue.status;
-            this. selectedCountryISO = this.fnCheckCountry(this.twilioSettingValue.countryCodeTwo);
+            this.selectedCountryISO = this.fnCheckCountry(this.twilioSettingValue.countryCodeTwo);
+            
+          }
+          if(response.response.nexmo_setting){
+
+            this.nexmoSettingValue = JSON.parse(response.response.nexmo_setting);
+            console.log()
+            this.nexmo.controls['api_key'].setValue(this.nexmoSettingValue.api_key);
+            this.nexmo.controls['api_secret'].setValue(this.nexmoSettingValue.api_secret);
+            this.nexmo.controls['adminNumber'].setValue(this.nexmoSettingValue.admin_number);
+            this.nexmoStatus = this.nexmoSettingValue.status;
+            this.selectedCountryISO = this.fnCheckCountry(this.nexmoSettingValue .countryCodeTwo);
             
           }
           if(response.response.textlocal_setting){
@@ -312,7 +332,7 @@ export class AlertsettingsComponent implements OnInit {
             this.textLocal.controls['apiKey'].setValue(this.textLocalSettingValue.api_key);
             this.textLocal.controls['adminNumber'].setValue(this.textLocalSettingValue.admin_number);
             this.textLocalStatus = this.textLocalSettingValue.status;
-            this. selectedCountryISO1 = this.fnCheckCountry(this.textLocalSettingValue.countryCodeTwo);
+            this.selectedCountryISO1 = this.fnCheckCountry(this.textLocalSettingValue.countryCodeTwo);
 
           }
 
@@ -793,6 +813,31 @@ fnAppointmentsReminderSMS(event){
       this.phoneNumberInvalidTwilio = "required";
     }
   }
+  
+  fnPhoneMouceLeaveNexmo(){
+    if(this.nexmo.get('adminNumber').value === null){
+      this.phoneNumberInvalidNexmo = "required";
+    
+    }else if(this.nexmo.get('adminNumber').value !== '' || this.nexmo.get('adminNumber').value !== null){
+      if(this.nexmo.get('adminNumber').value.number.length >= 6 && this.nexmo.get('adminNumber').value.number.length <= 15){
+        this.phoneNumberInvalidNexmo = "valid";
+      }else{
+        this.phoneNumberInvalidNexmo = "length";
+      }
+    }
+    
+  }
+  fnenterPhoneNumberNexmo(){
+    if(this.nexmo.get('adminNumber').value !== '' || this.nexmo.get('adminNumber').value !== null){
+      if(this.nexmo.get('adminNumber').value.number.length >= 6 && this.nexmo.get('adminNumber').value.number.length <= 15){
+        this.phoneNumberInvalidNexmo = "valid";
+      }else{
+        this.phoneNumberInvalidNexmo = "length";
+      }
+    }else if(this.nexmo.get('adminNumber').value === '' || this.nexmo.get('adminNumber').value === null){
+      this.phoneNumberInvalidNexmo = "required";
+    }
+  }
 
   
   fnSubmitTwillioSettings(){
@@ -846,6 +891,74 @@ fnAppointmentsReminderSMS(event){
       console.log(requestObject)
       this.updateTwillioSettings(requestObject);
     }
+  }
+
+  fnSubmitNexmoSettings(){
+    console.log(this.nexmo.get("adminNumber").value)
+    if(this.nexmo.get('adminNumber').value === null){
+      this.phoneNumberInvalidTwilio = "required";
+    }else if(this.nexmo.get('adminNumber').value !== '' || this.nexmo.get('adminNumber').value !== null){
+      if(this.nexmo.get('adminNumber').value.number.length < 6 && this.nexmo.get('adminNumber').value.number.length > 15){
+        this.phoneNumberInvalidNexmo = "length";
+      }else if(this.twilio.valid){
+        this.phoneNumberInvalidNexmo = "valid";
+        let nexmoSetting = {
+          "api_key":this.nexmo.get("api_key").value,
+          "api_secret":this.nexmo.get("api_secret").value,
+          "admin_number":this.nexmo.get("adminNumber").value.number.replace(/\s/g, ""),
+          "countryCode":this.nexmo.get("adminNumber").value.dialCode,
+          "countryCodeTwo":this.nexmo.get("adminNumber").value.countryCode,
+          "status": this.nexmoStatus,
+        }
+  
+        let requestObject = {
+          "business_id" :this.businessId,
+          "status":this.nexmoStatus,
+          "nexmo_setting" : nexmoSetting
+        }
+        console.log(requestObject)
+        this.updateNexmoSettings(requestObject);
+      }
+
+    }else if(this.twilio.valid){
+      this.phoneNumberInvalidTwilio = "valid";
+      let nexmoSetting = {
+        "api_key":this.nexmo.get("api_key").value,
+        "api_secret":this.nexmo.get("api_secret").value,
+        "admin_number":this.nexmo.get("adminNumber").value.number.replace(/\s/g, ""),
+        "countryCode":this.nexmo.get("adminNumber").value.dialCode,
+        "countryCodeTwo":this.nexmo.get("adminNumber").value.countryCode,
+        "status": this.nexmoStatus,
+      }
+
+      let requestObject = {
+        "business_id" :this.businessId,
+        "status":this.nexmoStatus,
+        "nexmo_setting" : nexmoSetting
+      }
+      console.log(requestObject)
+      this.updateNexmoSettings(requestObject);
+    }
+  }
+
+  updateNexmoSettings(requestObject){
+    this.adminSettingsService.updateNexmoSettings(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open("Twillio Setting is Updated.", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['green-snackbar']
+        });
+        this.getSettingsValue();
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+      this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
   }
 
   updateTwillioSettings(requestObject){

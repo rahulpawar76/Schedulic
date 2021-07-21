@@ -1606,6 +1606,19 @@ export class AdminSettingsService {
         }),
         catchError(this.handleError));
     }
+    updateNexmoSettings(requestObject){
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/set-nexmo-sms`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
     updateTextLocalSettings(requestObject){
         this.checkAuthentication();
         let headers = new HttpHeaders({

@@ -156,7 +156,7 @@ export class MyProfileComponent implements OnInit {
         'user_id': this.staffId,
         'user_type':'SM',
         "old_password" : this.changePwd.get('oldPassword').value,
-        "new_password" : this.changePwd.get('ReNewPassword').value,
+        "password" : this.changePwd.get('ReNewPassword').value,
       }
       this.StaffService.changePassword(requestObject).subscribe((response:any) => {
         if(response.data == true){

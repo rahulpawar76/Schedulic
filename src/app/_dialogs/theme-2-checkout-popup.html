@@ -605,4 +605,24 @@
 
     </div>
 
+    <div id="thankyou_screen" class="main-step step_9 p-0" *ngIf="thankYouScreen">
+        <div class="step-top-head"></div>
+        <mat-card-content class="py-2 px-4 mt-0 mb-2">
+            <div class="col-12">
+                <div class="top_right_icon">
+                    <img src="../../assets/icons/green_check.png">
+                </div>
+                <div class="thankyoy_msg">
+                    <h2>Thank you! Your Booking is Completed. An Email with Details of your Booking has been sent to you.</h2>
+                </div>
+                <div class="booking_details" *ngFor="let  serviceCart of serviceCartArr">
+                    <div class="d-block" *ngIf="serviceCart != null">
+                        <p>Service: <span>{{serviceCart.service_name}}</span></p>
+                        <p>Time: <span>{{serviceCart.appointmentDateForLabel}} @ {{serviceCart.appointmentTimeSlotForLabel}}</span></p>
+                    </div>
+
+                </div>
+            </div>
+        </mat-card-content>
+    </div>
 </div>

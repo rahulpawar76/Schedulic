@@ -874,3 +874,6 @@
 .appointment-listing-card {
     overflow: unset;
 }
+::ng-deep .without_border{
+    height: auto !important;
+}

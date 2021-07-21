@@ -23,34 +23,37 @@
                              <h6 class="font-blue mb-0">Today</h6>
                         </div> -->
                         <div class="col-lg-2 col-md-4 col-6 flex-align-center">
-                            <h6 [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="mb-0 font-blue cursor-pointer">This Month <i class="fa fa-chevron-down" aria-hidden="true"></i> </h6>
+                            <h6 [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="mb-0 font-blue cursor-pointer text-capitalize">
+                                <span *ngIf="dateTypeFilter == 'today' || dateTypeFilter == 'tomorrow'">{{dateTypeFilter}}</span>
+                                <span *ngIf="dateTypeFilter == 'week' || dateTypeFilter == 'month' || dateTypeFilter == 'year'">This {{dateTypeFilter}}</span>
+                                <span *ngIf="dateTypeFilter == 'custom'">{{dateTypeFilter}} Date</span>
+                                <i class="fa fa-chevron-down" aria-hidden="true"></i> </h6>
 
                             <ng-template class="popover common-popover" #popContent>
-                                <div class="common-text">
+                                <div (click)="fnChangeDateFilter('today')" class="common-text">
                                     <a> Today </a>
                                 </div>
-                                <div class="common-text">
+                                <div (click)="fnChangeDateFilter('tomorrow')" class="common-text">
                                     <a> Tomorrow </a>
                                 </div>
-                                <div class="common-text">
+                                <div (click)="fnChangeDateFilter('week')" class="common-text">
                                     <a> This Week </a>
                                 </div>
-                                <div class="common-text">
+                                <div (click)="fnChangeDateFilter('month')" class="common-text">
                                     <a> This Month </a>
                                 </div>
-                                <div class="common-text">
+                                <div (click)="fnChangeDateFilter('year')" class="common-text">
                                     <a> This Year </a>
                                 </div>
-                                <div class="common-text">
+                                <div ngxDaterangepickerMd (click)="fnChangeDateFilter('custom'); openDateRangeSelection()" class="common-text">
                                     <a> Custom Date </a>
                                 </div>
-
                             </ng-template>
-
-                            <p class="font-gray pt-1 mb-0">sep 2021</p>
+                            <p class="font-gray pt-1 mb-0">{{dateTypeFilterView}}</p>
                         </div>
                         <div class="col-lg-2 col-md-4 col-6 left-border flex-align-center">
                             <h6 *ngIf="selectedCategoryName == 'Services'" class="category">All</h6>
+                            <h6 *ngIf="selectedCategoryName != 'Services'" class="category">Category</h6>
                             <p class="font-gray pt-1 mb-0">{{selectedCategoryName}}</p>
                         </div>
 
