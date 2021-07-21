@@ -44,6 +44,25 @@
                 font-size: 20px;
             }
         }
+        .delete-btn{
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            width: 40px;
+            height: 40px;
+            // background-color: #ff4a4a;
+            // transform: rotate(45deg);
+            color: #888;
+            font-size: 14px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 8px;
+            cursor: pointer;
+            // i{
+            //     transform: rotate(-45deg);
+            // }
+        }
         .content {
             font-size: 14px;
             padding: 0;
