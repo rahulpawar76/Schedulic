@@ -158,6 +158,8 @@
                                             <mat-icon *ngIf="val.booking_notes !== null" (click)="fnShowNote(val.booking_notes)">sticky_note_2</mat-icon>
                                             <img src="/assets/images/admin/stopwatch.png">
                                             <span class="timing"><small class="title">hh:mm:ss</small>
+                                                    <!-- {{counter | formatTime}} -->
+                                                <!-- {{hoursToDday}} :{{minutesToDday}} : {{secondsToDday}} -->
                                                 {{countDown(val.booking_date+' '+val.booking_time)}}
                                             </span>
                                         </div>
