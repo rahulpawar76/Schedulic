@@ -210,7 +210,9 @@ export class AppointmentLiveComponent implements OnInit {
     this.fnGetCategory();
     this.fngetService();
     this.fnGetTaxDetails();
-    
+    setInterval(() => {
+      this.countDown; 
+      }, 100);
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -1066,6 +1068,7 @@ export class AppointmentLiveComponent implements OnInit {
 
   }
 
+   
   countDown(countDown){
     var countDownDate = new Date(countDown).getTime();
     // var x = setInterval(function() {
@@ -1082,8 +1085,10 @@ export class AppointmentLiveComponent implements OnInit {
             return  hours + ":" + minutes + ":" + seconds;
         }
     //  }, 1000);
-
   }
+
+  
+  
 
 
   /*For notification Dialog*/

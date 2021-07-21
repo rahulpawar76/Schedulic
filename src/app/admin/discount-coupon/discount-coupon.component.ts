@@ -74,6 +74,7 @@ export class DiscountCouponComponent implements OnInit {
   currencySymbolPosition: any;
   currencySymbolFormat: any;
   singleCouponDetail: any;
+  
   constructor(
     private AdminService: AdminService,
     private _formBuilder: FormBuilder,
@@ -671,7 +672,7 @@ export class DiscountCouponComponent implements OnInit {
     this.categoryServiceCheckServiceId.length = 0;
     this.addNewCouponCode = false;
     this.discountCoupon.reset();
-
+    this.singleCouponDetail = null;
   }
 
   fnCouponEdit(i) {
@@ -701,7 +702,7 @@ export class DiscountCouponComponent implements OnInit {
     this.discountCoupon.controls["valid_till"].setValue(
       new Date(this.singleCouponDetail.coupon_valid_till)
     );
-
+      
     this.categoryServiceCheckServiceId = this.singleCouponDetail.service_id
       .split(",")
       .map(function (item) {

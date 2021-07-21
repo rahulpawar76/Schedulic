@@ -130,8 +130,8 @@
         <form [formGroup]="discountCoupon" class="add-coupon-form">
             <div class="row">
                 <div class="col-lg-8 col-sm-12 col-md-12 col-12">
-                    <h5 *ngIf="!fnNewCouponCode()">Edit Discount Coupon</h5>
-                    <h5 *ngIf="fnNewCouponCode()">Add Discount Coupon</h5>
+                    <h5 *ngIf="!singleCouponDetail">Add Discount Coupon</h5>
+                    <h5 *ngIf="singleCouponDetail">Edit Discount Coupon</h5>
 
                     <div class="row mx-0">
                         <div class=" form-group col-lg-6 col-12 col-sm-12 col-md-6  bottom-border-field">
