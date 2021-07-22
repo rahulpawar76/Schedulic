@@ -35,10 +35,10 @@
                         <div class="delete-btn">
                             <mat-icon [ngbPopover]="popContent" placement="left" aria-hidden="false" aria-label="Example home icon" class="">more_vert</mat-icon>
                             <ng-template class="popover custom-popover" #popContent>
-                                <div class="align-items-center pop-menu-item d-flex">
+                                <div (click)="delete(allBusiness.id)" class="align-items-center pop-menu-item d-flex">
                                     <i class="fa fa-trash mr-2"></i><span>Delete</span>
                                 </div>
-                                <div class="align-items-center pop-menu-item d-flex">
+                                <div (click)="duplicate(allBusiness.id)" class="align-items-center pop-menu-item d-flex">
                                     <i class="fa fa-trash mr-2"></i><span>Duplicate</span>
                                 </div>
 

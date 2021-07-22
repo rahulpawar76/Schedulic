@@ -1207,6 +1207,23 @@ export class AdminService {
         }),
         catchError(this.handleError));
     }
+
+    deletebusiness(bussinessId){
+        this.checkAuthentication();
+        let requestObject = {
+            'business_id': bussinessId,
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'api-token' : this.currentUser.token 
+        });
+        return this.http.post(`${environment.apiUrl}/business-delete`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
     
 }
 
