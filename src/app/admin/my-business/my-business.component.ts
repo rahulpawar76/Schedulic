@@ -131,7 +131,7 @@ export class MyBusinessComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
         if(result){
             this.isLoaderAdmin = true;
-            this.AdminService.deletebusiness(id).subscribe((response:any) => {
+            this.AdminService.deleteBusiness(id).subscribe((response:any) => {
               if(response.data == true){
                 this._snackBar.open("Bussiness Deleted.", "X", {
                   duration: 2000,
@@ -154,7 +154,34 @@ export class MyBusinessComponent implements OnInit {
   }
 
   duplicate(id:number){
-    console.log(id);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure you want to create duplicate?"
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+        if(result){
+            this.isLoaderAdmin = true;
+            this.AdminService.duplicateBusiness(id).subscribe((response:any) => {
+              if(response.data == true){
+                this._snackBar.open("Duplicate Bussiness Created.", "X", {
+                  duration: 2000,
+                  verticalPosition:'top',
+                  panelClass :['green-snackbar']
+                });
+                this.getAllBusiness();
+                this.isLoaderAdmin = false;
+              } else if(response.data == false && response.response !== 'api token or userid invaild'){
+                this._snackBar.open(response.response, "X", {
+                  duration: 2000,
+                  verticalPosition: 'top',
+                  panelClass : ['red-snackbar']
+                });
+                this.isLoaderAdmin = false;
+              }
+            });
+        }
+    });
   }
   
   fnSelectBusiness(business_id,busisness_name){
