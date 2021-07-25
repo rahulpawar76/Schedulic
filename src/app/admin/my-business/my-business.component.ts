@@ -11,6 +11,7 @@ import { AuthenticationService } from '@app/_services';
 import { environment } from '@environments/environment';
 import { take, takeUntil } from 'rxjs/operators';
 import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
+import { SharedService } from '@app/_services/shared.service';
 export interface DialogData {
   animal: string;
   name: string;
@@ -33,11 +34,11 @@ export interface countryArry {
 
 
 // export interface status {
-  
+
 //   id: string;
 //   name :string;
 //   timezone:string;
-  
+
 // }
 @Component({
   selector: 'app-my-business',
@@ -55,7 +56,7 @@ export class MyBusinessComponent implements OnInit {
   token:any;
   getIpAddress : any;
   pageSlug:any;
-   
+
   constructor(
     public dialog: MatDialog,
     private http: HttpClient,
@@ -63,7 +64,8 @@ export class MyBusinessComponent implements OnInit {
     private AdminService: AdminService,
     private appComponent : AppComponent,
     private authenticationService:AuthenticationService,
-    private _snackBar: MatSnackBar) {
+    private _snackBar: MatSnackBar,
+    private sharedService: SharedService) {
     localStorage.setItem('isBusiness', 'true');
     this.router.events.subscribe(event => {
       if (event instanceof RouterEvent) this.handleRoute(event);
@@ -77,7 +79,7 @@ export class MyBusinessComponent implements OnInit {
   ngOnInit() {
     this.getAllBusiness();
     this.fnGetIpAddress();
-    
+
   }
 
   ngAfterViewInit() {
@@ -87,12 +89,12 @@ export class MyBusinessComponent implements OnInit {
   }
 
   fnGetIpAddress(){
-    this.authenticationService.getIPAddress().subscribe((res:any)=>{  
-      this.getIpAddress=res.ip; 
+    this.authenticationService.getIPAddress().subscribe((res:any)=>{
+      this.getIpAddress=res.ip;
       // this.getGeoLocation(this.getIpAddress);
-    });  
+    });
   }
-  
+
   // getGeoLocation(IP){
   //   this.isLoaderAdmin = true;
   //   this.AdminService.getGeoLocation(IP).subscribe((response:any) => {
@@ -106,6 +108,7 @@ export class MyBusinessComponent implements OnInit {
   // }
   getAllBusiness(){
     this.isLoaderAdmin = true;
+    this.sharedService.updateSideMenuState(false);
     this.AdminService.getAllBusiness().subscribe((response:any) => {
       if(response.data == true){
         this.allBusiness = response.response
@@ -183,7 +186,7 @@ export class MyBusinessComponent implements OnInit {
         }
     });
   }
-  
+
   fnSelectBusiness(business_id,busisness_name){
 
     localStorage.setItem('business_id', business_id);
@@ -204,8 +207,8 @@ export class MyBusinessComponent implements OnInit {
      });
   }
 
-  
-    
+
+
   // page url conditions
   dynamicSort(property: string) {
     let sortOrder = 1;
@@ -242,9 +245,10 @@ export class MyBusinessComponent implements OnInit {
     }else{
       console.log('isBusiness no')
       localStorage.setItem('isBusiness','false');
+      this.sharedService.updateSideMenuState(true);
     }
   }
-  
+
 }
 
 
@@ -263,15 +267,15 @@ export class myCreateNewBusinessDialog {
   createBusiness :FormGroup;
   isLoaderAdmin : boolean = false;
   onlynumeric = /^-?(0|[1-9]\d*)?$/
-  
+
   protected listTimeZoneListArry: ListTimeZoneListArry[];
   public timeZoneFilterCtrl: FormControl = new FormControl();
   public listTimeZoneList: ReplaySubject<ListTimeZoneListArry[]> = new ReplaySubject<ListTimeZoneListArry[]>(1);
-  
+
   protected countryArry: countryArry[];
   public countryFilterCtrl: FormControl = new FormControl();
   public countryList: ReplaySubject<countryArry[]> = new ReplaySubject<countryArry[]>(1);
-  
+
 
 
   protected _onDestroy = new Subject<void>();
@@ -288,19 +292,19 @@ export class myCreateNewBusinessDialog {
 
   onNoClick(): void {
     this.dialogRef.close();
-    
+
   }
 
-  
+
   ngAfterViewInit() {
     this.setInitialValueTimeZone();
     this.setInitialValueCountry();
   }
-  
+
   ngOnInit() {
     this.gelAllCountry();
     this.getTimeZone();
-    
+
 
     this.createBusiness = this._formBuilder.group({
       business_name : ['', [Validators.required]],
@@ -414,7 +418,7 @@ export class myCreateNewBusinessDialog {
         "site_url" : environment.urlForLink,
         "zipcode" : this.createBusiness.get('business_zip').value,
       }
-      
+
     this.createNewBusiness(this.newBusinessData);
     }else{
       this.createBusiness.get('business_name').markAsTouched();
@@ -505,5 +509,5 @@ export class myCreateNewBusinessDialog {
     );
   }
 
-  
+
 }

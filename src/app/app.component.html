@@ -121,7 +121,7 @@
             </div>
             <div class="bottom_header" *ngIf="isAdminUser() && !isFront()" fxFlex="100">
                 <mat-drawer-container class="main-container left-admin-menu">
-                    <mat-drawer [disableClose]="true" class="main_admin_menu" [opened]="(businessComponent && !isBusiness()) && (POSComponent && !isPOS())" mode="side">
+                    <mat-drawer [disableClose]="true" class="main_admin_menu" [opened]="sharedService.sideMenuState | async" mode="side">
                         <div class="top_admin_menu">
                             <mat-list-item role="listitem" class="matlist pointer menuitem logo">
                                 <div (click)="fnClickLogo('admin')" class="logo"><img src="assets/images/admin/admin-logo-orange.png"></div>

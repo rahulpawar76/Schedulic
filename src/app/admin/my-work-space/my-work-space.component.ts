@@ -15,6 +15,7 @@ import { AuthenticationService } from '@app/_services';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { NgxDaterangepickerMd, DaterangepickerDirective } from 'ngx-daterangepicker-material';
+import { SharedService } from '@app/_services/shared.service';
 // import * as _moment from 'moment';
 // // tslint:disable-next-line:no-duplicate-imports
 // import {default as _rollupMoment} from 'moment';
@@ -116,7 +117,7 @@ export class MyWorkSpaceComponent implements OnInit {
   selectedDateRange:any;
   selectedStartDate:any;
   selectedEndDate:any;
-  
+
   @ViewChild(DaterangepickerDirective, { static: false }) pickerDirective: DaterangepickerDirective;
   constructor(
     public dialog: MatDialog,
@@ -127,18 +128,20 @@ export class MyWorkSpaceComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private appComponent: AppComponent,
     private authenticationService: AuthenticationService,
-    private datePipe: DatePipe) {
+    private datePipe: DatePipe,
+    private sharedService: SharedService) {
     //this.appComponent.settingsModule(this.adminSettings);
     localStorage.setItem('isPOS', 'false');
     localStorage.setItem('isBusiness', 'false');
     this.businessId = localStorage.getItem('business_id');
+    this.sharedService.updateSideMenuState(true);
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.filterDate = this._formBuilder.group({
       filterDate: [''],
     });
-    
+
   this.dateTypeFilterView=this.datePipe.transform(new Date(), 'd MMM, y');
-  
+
   this.selectedStartDate=this.datePipe.transform(new Date(),"yyyy-MM-dd");
   this.selectedEndDate=this.datePipe.transform(new Date(),"yyyy-MM-dd");
   }
@@ -354,7 +357,7 @@ export class MyWorkSpaceComponent implements OnInit {
         });
         this.appointments = [];
       }
-      
+
     this.isLoaderAdmin = false;
     },
       (err) => {
@@ -1075,7 +1078,7 @@ export class dateRangeSelectDialog {
   constructor(
     public dialogRef: MatDialogRef<dateRangeSelectDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-   
+
   }
 
   datesUpdated(event){
