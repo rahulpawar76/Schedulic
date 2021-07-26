@@ -96,7 +96,7 @@ export class AppearanceComponent implements OnInit {
         // const enc = new Base64();   
         // this.encodedBusinessId = enc.encode(this.businessId);
         // console.log(this.encodedBusinessId);
-        this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+window.btoa(this.businessId)+"'></iframe>";
+        this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+window.btoa(this.businessId)+"' frameborder='0'></iframe>";
         
       }
       
