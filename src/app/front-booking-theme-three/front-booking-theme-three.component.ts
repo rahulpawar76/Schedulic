@@ -2673,13 +2673,14 @@ export class FrontBookingThemeThreeComponent implements OnInit {
           this.paymentScreen=false;
           if(this.thankYou.status == true){
             setTimeout(() => {
-              window.top.location.href = this.thankYou.page_link;
+              window.open(this.thankYou.page_link, "_blank");
             }, 2000);
           }else {
             setTimeout(() => {
               window.location.reload();
             }, 2000);
           }
+          this.fnViewDashboard();
         }else{
           this.snackBar.open(response.response, "X", {
             duration: 2000,

@@ -27,6 +27,7 @@ import {
   transition
 } from '@angular/animations';
 import { eventNames } from 'process';
+import { SharedService } from './_services/shared.service';
 
 
 
@@ -88,7 +89,7 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit() {
 
   }
- 
+
   pageHeading: string;
   // myRoute: string;
   currentUser: User;
@@ -99,7 +100,7 @@ export class AppComponent implements AfterViewInit {
   appearenceColor: any=[];
   loginForm: FormGroup;
   staffAvailable : boolean = true;
-  
+
   constructor(
     private http: HttpClient,
     public router: Router,
@@ -109,9 +110,10 @@ export class AppComponent implements AfterViewInit {
     private CommonService: CommonService,
     public dialogRef2: MatDialog,
     private authService: AuthService,
-    private bnIdle: BnNgIdleService
+    private bnIdle: BnNgIdleService,
+    public sharedService: SharedService
   ) {
-    
+
     if(this.authenticationService.currentUser){
       this.loadLocalStorage();
       //this.checkAuthentication();
@@ -153,7 +155,7 @@ export class AppComponent implements AfterViewInit {
   private handleError(error: HttpErrorResponse) {
     return throwError('Error! something went wrong.');
   }
-  
+
 
 
   loadLocalStorage(){
@@ -161,7 +163,6 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngOnInit() {
-
     this.router.events.subscribe(event => {
       if (event instanceof RouterEvent) this.handleRoute(event);
     });
@@ -171,11 +172,11 @@ export class AppComponent implements AfterViewInit {
     if(is_logout==true){
         this.router.navigate(['/login']);
         return false;
-    } 
+    }
     if(localStorage.getItem('currentUser') && localStorage.getItem('isBusiness') && localStorage.getItem('isBusiness') == "true"){
-    }  
+    }
   }
-  
+
 
 
   dynamicSort(property: string) {
@@ -193,7 +194,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   isSettingsModule(url?: string) {
-    
+
 
     const mod = this.cleanUrl(url || this.currentUrl);
     this.pageHeading = this.authenticationService.pageName(mod,this.currentUser?this.currentUser.user_type:null);
@@ -304,7 +305,7 @@ export class AppComponent implements AfterViewInit {
   isLogin() {
     if (localStorage.getItem('currentUser')) {
       return true;
-     
+
     } else {
       return false;
     }
@@ -351,7 +352,7 @@ export class AppComponent implements AfterViewInit {
 
   /*Add New Navigation */
   addNewAppointNav() {
-    
+
     this.router.navigate(['/admin/my-appointment'], { queryParams: { appointment: 'new' } });
   }
   addNewCategoryNav() {
@@ -482,7 +483,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   logout() {
- 
+
     // this.authService.signOut();
     this.dialogRef2.closeAll();
     this.authenticationService.logout();
@@ -653,7 +654,7 @@ export class AppComponent implements AfterViewInit {
         }
 
         // this.initiateTimeout();
-      
+
       }else if(data.idExists == false && data.emailExists == true){
         this.signOut();
         this.isAllowed=true;
@@ -674,9 +675,9 @@ export class AppComponent implements AfterViewInit {
         duration: 2000,
         verticalPosition: 'top',
         panelClass: ['red-snackbar']
-      }); 
-      // this.error = "Database Connection Error"; 
-      // this.dataLoaded = true;  
+      });
+      // this.error = "Database Connection Error";
+      // this.dataLoaded = true;
     });
   }
 
@@ -695,7 +696,7 @@ export class AppComponent implements AfterViewInit {
       "google_id":user_data.provider=="GOOGLE"?user_data.id:null,
       "facebook_id":user_data.provider=="FACEBOOK"?user_data.id:null
     }
-    // .subscribe((response: any) => 
+    // .subscribe((response: any) =>
     this.authenticationService.signup(signUpUserObj).pipe(first()).subscribe(data => {
       if(data.data == true){
         this.fnLoginWithGoogleFacebook(user_data);
@@ -705,18 +706,18 @@ export class AppComponent implements AfterViewInit {
           verticalPosition: 'top',
           panelClass: ['red-snackbar']
         });
-          // this.error = "Unable to signin with "+user_data.provider; 
+          // this.error = "Unable to signin with "+user_data.provider;
           // this.dataLoaded = true;
       }
     },
-    error => { 
+    error => {
       this._snackBar.open("Database Connection Error", "X", {
         duration: 2000,
         verticalPosition: 'top',
         panelClass: ['red-snackbar']
       });
-      // this.error = "Database Connection Error"; 
-      // this.dataLoaded = true;  
+      // this.error = "Database Connection Error";
+      // this.dataLoaded = true;
     });
   }
 
@@ -781,8 +782,8 @@ export class AppComponent implements AfterViewInit {
         });
       }
     }
-   
-      
+
+
       let requestObject = {
         "user_id": userId,
         "user_type": this.userType
@@ -794,14 +795,14 @@ export class AppComponent implements AfterViewInit {
         }else if(response.data == false){
           this.notificationCount = 0
         }
-  
+
         this.isLoaderAdmin = false;
       })
     }else{
       this.logout();
-    this.router.navigate(['/login']); 
+    this.router.navigate(['/login']);
     }
-    
+
 
   }
   openNotificationDialog() {
@@ -915,7 +916,7 @@ export class AppComponent implements AfterViewInit {
       if (response.data == true) {
         this.settingsArr = response.response;
         // this.appearenceColor = JSON.parse(this.settingsArr.appearance)
-        
+
         if(!this.settingsArr.appearance){
           localStorage.companycolours='{"pri_color":"#287de9","pri_gradient1":"#4b96f5","pri_gradient2":"#1e79ed","text_color":"#000000","text_bgcolor":"#ffffff","font":"Poppins, sans-serif"}';
           this.update_SCSS_var();
@@ -1051,7 +1052,7 @@ export class DialogNotification {
       }
     })
   }
- 
+
    notificationAppointment(index) {
     const dialogRef = this.dialog.open(DialogNotificationAppointment, {
       width: '500px',
@@ -1142,7 +1143,7 @@ export class DialogLogoutAppointment {
 
   logout() {
     //this.authService.signOut();
-   
+
     this.dialogRef2.closeAll();
     this.dialogRef.close();
     setTimeout(() => {
@@ -1158,7 +1159,7 @@ export class DialogLogoutAppointment {
     // }
     this.router.navigate(['/login']);
 
-    
+
   }
 
   closePopup() {
@@ -1184,7 +1185,7 @@ export class DialogReAuthentication {
     private _snackBar : MatSnackBar,
     private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-        
+
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
         this.reAuthenticationForm = this._formBuilder.group({
          user_password : ['',[ Validators.required]],
@@ -1228,7 +1229,7 @@ export class DialogReAuthentication {
                 verticalPosition: 'top',
                 panelClass: ['red-snackbar']
                 });
-                
+
         this.reAuthenticationForm.get('user_password').markAsTouched();
         }
         },(err) =>{
@@ -1239,8 +1240,8 @@ export class DialogReAuthentication {
     }
 
     onNoClick(): void {
-    this.dialogRef.close(); 
-    
+    this.dialogRef.close();
+
     }
 
     closePopup() {
