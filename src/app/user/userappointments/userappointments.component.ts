@@ -36,7 +36,11 @@ export class UserappointmentsComponent implements OnInit {
   customerId:any;
   appointmentData : any;
   cancelAppointmentData: any;
+  pendingAppointmentData: any;
   completedAppointmentData: any;
+  selectedAppointment:any=null;
+  pendingOrdeTotal = 0;
+  selectedAppointmentData:any=[];
   settingsArr: any;
   cancellationBufferTime= new Date();
   minReschedulingTime= new Date();
@@ -129,6 +133,7 @@ export class UserappointmentsComponent implements OnInit {
     this.fnGetSettingValue();
     this.getAllAppointments();
     this.getCancelAppointments();
+    this.getPendingAppointments();
     this.getCompletedAppointments();
   }
 
@@ -260,6 +265,65 @@ export class UserappointmentsComponent implements OnInit {
     })
   }
 
+  getPendingAppointments(): void{
+    console.log("pending");
+    this.UserService.getPendingAppointments().subscribe((response:any) =>{
+      if(response.data == true){
+        this.pendingAppointmentData = response.response;
+        this.pendingAppointmentData.forEach( (element) => {
+          element.booking_timeForLabel = this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+          element.booking_dateForLabel = this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
+          element.created_atForLabel = this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a");
+          element.is_selected  = false
+          var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"dd MMM yyyy hh:mm a"));
+          dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+          element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+        });
+        this.pendingAppointmentData = this.pendingAppointmentData.sort(this.dynamicSort("-updated_at"))
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this.pendingAppointmentData = '';
+      }
+    })
+  }
+
+  fnSelect(index, id){
+    if(this.selectedAppointment==null){
+      this.selectedAppointment = id;
+      this.pendingAppointmentData[index].is_selected = true;
+      this.selectedAppointmentData = this.pendingAppointmentData[index];
+    }else if(this.selectedAppointment != id){
+
+      this._snackBar.open('Select Same service', "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass: ['red-snackbar']
+      });
+      
+      return false;
+    }else{
+      if(true == this.pendingAppointmentData[index].is_selected){
+        this.pendingAppointmentData[index].is_selected = false;
+      }else{
+        this.pendingAppointmentData[index].is_selected = true;
+        this.selectedAppointmentData = this.pendingAppointmentData[index];
+      }
+    }
+
+    this.pendingOrdeTotal = 0;
+    this.pendingAppointmentData.forEach(element => {
+      if(element.is_selected==true){
+        this.pendingOrdeTotal = this.pendingOrdeTotal + parseInt(element.service_cost);
+      }
+    });
+
+    if(this.pendingOrdeTotal==0){
+      this.selectedAppointment = null;
+      this.pendingAppointmentData = [];
+    }
+    this.pending_invoice_dialog();
+  }
+
   getCompletedAppointments(): void{
     this.UserService.getCompletedAppointments().subscribe((response:any) =>{
       if(response.data == true){
@@ -297,6 +361,7 @@ export class UserappointmentsComponent implements OnInit {
      dialogRef.afterClosed().subscribe(result => {
       this.getAllAppointments();
       this.getCancelAppointments();
+      this.getPendingAppointments();
       this.getCompletedAppointments();
       this.animal = result;
      });
@@ -314,6 +379,7 @@ export class UserappointmentsComponent implements OnInit {
      dialogRef.afterClosed().subscribe(result => {
       this.getAllAppointments();
       this.getCancelAppointments();
+      this.getPendingAppointments();
       this.getCompletedAppointments();
       this.animal = result;
      });
@@ -326,6 +392,7 @@ export class UserappointmentsComponent implements OnInit {
 
      dialogRef.afterClosed().subscribe(result => {
       this.getAllAppointments();
+      this.getPendingAppointments();
       this.getCancelAppointments();
       this.getCompletedAppointments();
      });
@@ -370,6 +437,7 @@ export class UserappointmentsComponent implements OnInit {
      dialogRef.afterClosed().subscribe(result => {
       this.getAllAppointments();
       this.getCancelAppointments();
+      this.getPendingAppointments();
       this.getCompletedAppointments();
      });
     //  dialogRef.keydownEvents().subscribe(event => {
@@ -387,6 +455,32 @@ export class UserappointmentsComponent implements OnInit {
 
     });
 
+     dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+     });
+  }
+
+  pending_details_dialog(index) {
+    const dialogRef = this.dialog.open(DialogPendingAppointmentDetails, {
+     
+      height: '700px',
+      data: {fulldata: this.pendingAppointmentData[index]}
+
+    });
+
+     dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+     });
+  }
+
+  pending_invoice_dialog() {
+    const dialogRef = this.dialog.open(DialogPendingAppointmentDetails, {
+      
+      height: '700px',
+      data: {fulldata: this.pendingAppointmentData, orderTotal : this.pendingOrdeTotal}
+
+    });
+    console.log(this.pendingAppointmentData);
      dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
      });
@@ -748,6 +842,7 @@ export class UserappointmentsComponent implements OnInit {
        
       this.getAllAppointments();
       this.getCancelAppointments();
+      this.getPendingAppointments();
       this.getCompletedAppointments();
 
 
@@ -1461,6 +1556,55 @@ export class DialogCancelReason {
       }else if (Now<APPO){
         return false;  
       } 
+    }
+
+  }
+
+  @Component({
+    selector: 'dialog-pending-appointment-details',
+    templateUrl: '../_dialogs/dialog-pending-appointment-details.html',
+    providers: [DatePipe]
+  })
+  export class DialogPendingAppointmentDetails {
+    myAppoDetailData: any;
+    index: any;
+    animal : any;
+    bussinessId : any;
+    settingsArr: any;
+    currencySymbol:any;
+    currencySymbolPosition:any;
+    currencySymbolFormat:any;
+    activityLog:any=[];
+    cancellationBufferTime:any;
+    minReschedulingTime:any;
+    booking_date_time:any;
+    timeToServiceDecimal:any;
+    formSettingPage:boolean = false;
+    singlenote:any;
+    singleBookingNotes:any;
+    pendingAppointmentData: any;
+    selectedAppointment:any=null;
+    pendingOrdeTotal = 0;
+    selectedAppointmentData:any=[];
+    constructor(
+      public dialogRef: MatDialogRef<DialogPendingAppointmentDetails>,
+      private authenticationService: AuthenticationService,
+      private UserService: UserService,
+      private datePipe: DatePipe,
+      private _snackBar: MatSnackBar,
+       public dialog: MatDialog,
+      @Inject(MAT_DIALOG_DATA) public data: any) {
+        this.pendingAppointmentData = 
+        this.myAppoDetailData = this.data.fulldata;
+        this.pendingOrdeTotal = this.data.orderTotal;
+        this.bussinessId=this.authenticationService.currentUserValue.business_id;
+      }
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+
+    fnplaceOrder(){
+      
     }
 
   }

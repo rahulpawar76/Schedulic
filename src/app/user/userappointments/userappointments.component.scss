@@ -4,6 +4,167 @@
     position: relative;
 }
 
+.service-details-title {
+    background-color: #D9D9D9;
+}
+
+.right-cart-container {
+    width: 400px;
+    float: left;
+    // display: flex;
+    height: calc(100vh - 65px);
+    overflow-y: auto;
+    //flex-wrap: wrap;
+    .cart-head {
+        width: 100%;
+        padding: 5px 10px;
+        h3 {
+            text-align: left;
+            letter-spacing: 0px;
+            color: #2C2C2C;
+            font-weight: 500;
+            font-size: 18px;
+            margin: 0;
+            line-height: 2;
+        }
+    }
+    .customer-container {
+        width: 100%;
+        mat-expansion-panel {
+            box-shadow: unset;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            border-radius: 0;
+            margin-bottom: 0 !important;
+            .mat-expansion-indicator {
+                display: none;
+            }
+            .mat-expansion-panel-header-title {
+                text-align: center;
+                display: block;
+                i {
+                    font-size: 24px;
+                }
+            }
+            .mat-expansion-panel-body {
+                margin-left: 0;
+                &:before {
+                    border: 0px;
+                }
+            }
+            // .cutomer-form-body {}
+        }
+    }
+    .cart-items {
+        .item-header {
+            padding: 7px;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            background: #D9D9D9 0% 0% no-repeat padding-box;
+            color: #595959;
+            font-size: 16px;
+        }
+        .item-list {
+            height: calc(100vh - 360px);
+            overflow-y: auto;
+            .item {
+                border-bottom: 1px solid #ccc;
+                padding: 7px;
+                font-size: 14px;
+                align-items: center;
+                .close-btn {
+                    background-color: #B5B5B5;
+                    width: 20px;
+                    height: 20px;
+                    mat-icon {
+                        font-size: 14px;
+                        width: 20px;
+                        line-height: 0.2;
+                        height: 25px;
+                    }
+                }
+                .service-name {
+                    label {
+                        color: #595959;
+                        font-size: 16px;
+                        margin-bottom: 0;
+                        span {
+                            font-size: 14px;
+                        }
+                    }
+                    .staff-name {
+                        font-size: 14px;
+                        color: #808080;
+                    }
+                }
+            }
+        }
+        .add-note {
+            height: 50px;
+            width: 100%;
+            background: #DEDEDE 0% 0% no-repeat padding-box;
+            padding: 0 10px;
+            display: flex;
+            align-items: center;
+            .title {
+                color: #1172F4;
+                text-align: left;
+                text-decoration: underline;
+                font-size: 16px;
+                font-weight: 500;
+                margin-bottom: 0;
+                cursor: pointer;
+                &.with-icon {
+                    text-decoration: none;
+                    mat-icon {
+                        font-size: 20px;
+                        display: flex;
+                        align-items: center;
+                        padding-left: 10px;
+                        border-bottom: 0;
+                    }
+                }
+            }
+        }
+        .total {
+            height: 50px;
+            width: 100%;
+            background: #DDEAFD 0% 0% no-repeat padding-box;
+            padding: 0 10px;
+            display: flex;
+            align-items: center;
+            .title {
+                color: #2C2C2C;
+                text-align: left;
+                font-size: 16px;
+                font-weight: 500;
+                margin-bottom: 0;
+            }
+        }
+        .footer-action {
+            display: flex;
+            padding: 10px;
+            justify-content: space-around;
+            align-items: center;
+            .save-btn {
+                width: 105px;
+                height: 35px;
+                background: #B5B5B5 0% 0% no-repeat padding-box;
+                border-radius: 5px;
+                font-size: 13px;
+            }
+            .place-btn {
+                border-radius: 5px;
+                font-size: 13px;
+                background: #1172F4 0% 0% no-repeat padding-box;
+                width: 105px;
+                color: #fff;
+                height: 35px;
+            }
+        }
+    }
+}
+
 .right-button-wrapp {
     height: 100%;
     border-radius: 0;

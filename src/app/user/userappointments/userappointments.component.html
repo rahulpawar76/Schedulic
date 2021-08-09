@@ -167,6 +167,54 @@
                 <h2 class="text-center my-3 mx-auto">NO Data Found</h2>
             </div>
         </mat-tab>
+
+        <mat-tab label="Pending Appointments">
+            <div *ngIf="pendingAppointmentData != ''" class="bookings-details-main">
+                <div *ngFor="let pendingAppointmentData of pendingAppointmentData; let i = index" class="col-12 col-sm-6 col-md-6 col-lg-4 single-booking float-left">
+                    <mat-card class="col card mt-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6 col-lg-6 col-sm-3 col-md-6">
+                                    <label class="d-block font-weight-bold">Date & Time</label>
+                                    <p>{{pendingAppointmentData.booking_dateForLabel}},</p>
+                                    <p>{{pendingAppointmentData.booking_timeForLabel}}</p>
+                                </div>
+                                <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right">
+                                    <label class="font-weight-bold">Status</label>
+                                    <p>Pending</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-sm-3 col-md-6 col-lg-8">
+                                    <label class="font-weight-bold">Service</label>
+                                    <p>{{pendingAppointmentData.service.service_name}}</p>
+                                    <p>Duration: {{pendingAppointmentData.service.service_time}} Min</p>
+
+                                    <label class="font-weight-bold">Amount</label>
+                                    <!-- <p>$ {{cancelAppointmentData.total_cost}}</p> -->
+                                    <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ pendingAppointmentData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                                    <p *ngIf="currencySymbolPosition=='right'">{{ pendingAppointmentData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+
+                                    <label class="font-weight-bold">Staff</label>
+                                    <p *ngIf="pendingAppointmentData.staff_id == null">Not Assigned</p>
+                                    <p class="text-capitalize" *ngIf="pendingAppointmentData.staff_id != null && pendingAppointmentData.staff != null">{{pendingAppointmentData.staff.firstname}} {{pendingAppointmentData.staff.lastname}}</p>
+                                </div>
+                                <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons">
+                                    <button mat-button class="d-block details-btn" (click)="pending_details_dialog(i)">Details</button>
+                                    <button mat-button class="d-block invoice-light-btn  {{pendingAppointmentData.is_selected==false ? 'btn-primary' : 'btn-secondary'}} " (click)="fnSelect(i,pendingAppointmentData.service.id);">
+                                        {{pendingAppointmentData.is_selected==false?'Seleted':'Unselect'}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+
+            <div *ngIf="pendingAppointmentData == ''" class="bookings-details-main">
+                <h2 class="text-center my-3 mx-auto">NO Data Found</h2>
+            </div>
+        </mat-tab>
     </mat-tab-group>
     <form class="form-inline" id="search_container_userappo">
         <div class="search-input-container"  >

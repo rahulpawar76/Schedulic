@@ -121,6 +121,23 @@ export class UserService {
 		catchError(this.handleError));
 	}
 
+	getPendingAppointments(){
+		this.checkAuthentication();
+		let requestObject = {
+		// "customer_id":"41"
+		};
+		let headers = new HttpHeaders({
+			'Content-Type': 'application/json',
+			"customer-id":JSON.stringify(this.userId),
+			"api-token":this.token
+		});
+		return this.http.post(`${environment.apiUrl}/customer-booking-pending`,requestObject,{headers:headers}).pipe(
+		map((res) => {
+			return res;
+		}),
+		catchError(this.handleError));
+	}
+
 	saveBookingNotes(requestObject){
         this.checkAuthentication();
         let headers = new HttpHeaders({
