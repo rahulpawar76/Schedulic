@@ -21,6 +21,8 @@ export class CustomerLoginComponent implements OnInit {
     loginForm: FormGroup;
     loading = false;
     submitted = false;
+    otpShow = true;
+    loginShow = false;
     returnUrl: string;
     error = '';
     hide = true;
@@ -60,10 +62,9 @@ export class CustomerLoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
         this.loginForm = this.formBuilder.group({
-            email: ['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
-            password: ['', Validators.required]
+            phone: ['',[Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+            password: ['', [Validators.required, Validators.pattern("^[1-9][0-9]{3}")]]
         });
         
         // get return url from route parameters or default to '/'
@@ -73,35 +74,74 @@ export class CustomerLoginComponent implements OnInit {
     // convenience getter for easy access to form fields
     get f() { return this.loginForm.controls; }
 
+    getOtp() {
+        this.loading = true;
+        var phone = this.loginForm.get('phone').value;
+        console.log(phone.length);
+        if(phone.length == 10) {
+            phone = "+91"+phone;
+        }
+        let requestObject = {
+            'phone' : phone,
+            'business_id' : this.businessId,
+            'country_code' : '+91'
+        }
+        this.authenticationService.getOtp(requestObject).pipe(first()).subscribe(data => {
+            if(data.data == true){
+                this.loginShow = true;
+                this.loading = false;
+                this.otpShow = false;                
+            }else if(data.data == false){
+
+                console.log(data.data);
+
+            }  else{
+                this.error = "Database Connection Error."; 
+                this.dataLoaded = true;
+            }
+
+        },
+        error => {  
+            this.error = "Database Connection Error."; 
+            this.dataLoaded = true;  
+        });
+
+    }
+
     onSubmit() {
         this.submitted = true;
         if(this.loginForm.invalid){
-            this.loginForm.get('email').markAsTouched();
+            this.loginForm.get('phone').markAsTouched();
             this.loginForm.get('password').markAsTouched();
 
             return false;
         }
         this.dataLoaded = false;
+        var phone = this.loginForm.get('phone').value;
+        console.log(phone.length);
+        if(phone.length == 10) {
+            phone = "+91"+phone;
+        }
         let requestObject = {
-            'email' : this.loginForm.get('email').value,
-            'password' : this.loginForm.get('password').value,
+            'phone' : phone,
+            'otp' : this.loginForm.get('password').value,
             'business_id' : this.businessId,
         }
-        this.authenticationService.customerLogin(requestObject)
+        console.log(requestObject);
+        this.authenticationService.verifyOtp(requestObject)
         .pipe(first()).subscribe(data => {
-            if(data.data == true){
-                if(data.response.user_type == "C"){
-                    this.router.navigate(["user"]);
-                }else{
+            if (data.data == true) {
+                if (data.response.data) {
+                    this.router.navigate(['/user/appointments']);
+                } else {
                    localStorage.removeItem('currentUser');
                    this.router.navigate(["customer-login"]);
                 }
-
-                // this.appComponent.initiateTimeout();
                 this.hideLoginForm = false;
-                
-            }else if(data.data == false){
-
+                this.loginShow = true;
+                this.loading = false;
+                this.otpShow = false;
+            } else if(data.data == false){
                 this._snackBar.open(data.response, "X", {
                     duration: 2000,
                     verticalPosition:'top',
@@ -109,12 +149,7 @@ export class CustomerLoginComponent implements OnInit {
                     });
                 this.error = data.response; 
                 this.dataLoaded = true;
-
-            }  else{
-                this.error = "Database Connection Error."; 
-                this.dataLoaded = true;
             }
-
         },
         error => {  
             this.error = "Database Connection Error."; 

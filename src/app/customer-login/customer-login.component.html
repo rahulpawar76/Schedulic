@@ -20,29 +20,34 @@
                             <p class="text-center text-dark">to your account</p>
                         </mat-card-title>
                         <div class="input-wrap my-3 required-field">
-                            <input type="text" formControlName="email" placeholder="Email" class="common-input form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                            <span class="error-wrap" *ngIf="loginForm.get('email').dirty || loginForm.get('email').touched || formSubmitclicked"><small *ngIf="loginForm.get('email').hasError('required')" class="error text-center">Email is required.</small><small *ngIf="loginForm.get('email').hasError('email') || loginForm.get('email').hasError('pattern')" class="error text-center">Enter a valid email address.</small></span>
+                            <input type="text" formControlName="phone" placeholder="Mobile Number" class="common-input form-control" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+                            <span class="error-wrap" *ngIf="loginForm.get('phone').dirty || loginForm.get('phone').touched || formSubmitclicked"><small *ngIf="loginForm.get('phone').hasError('required')" class="error text-center">Mobile Number is required.</small><small *ngIf="loginForm.get('phone').hasError('phone') || loginForm.get('phone').hasError('pattern')" class="error text-center">Enter a valid Mobile Number.</small></span>
                         </div>
-
-                        <div class="input-wrap my-3 required-field">
-                            <input type="password" formControlName="password" placeholder="Password" class="common-input form-control" [type]="hide ? 'password' : 'text'" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                        <div class="input-wrap my-3" *ngIf="otpShow">
+                            <button type="submit" color="primary" [disabled]="loading" (click)="getOtp()" class="common-btn text-white w-100 buttion-but">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mt-butn "></span>
+                                Get OTP
+                            </button>
+                        </div>
+                        <div class="input-wrap my-3 required-field" *ngIf="loginShow">
+                            <input type="password" formControlName="password" placeholder="Enter OTP" class="common-input form-control" [type]="hide ? 'password' : 'text'" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
                             <div mat-icon-button matSuffix class="icon-cust-pass">
                                 <mat-icon class="pointer" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </div>
                             <span class="error-wrap" *ngIf="loginForm.get('password').dirty || loginForm.get('password').touched || formSubmitclicked"><small *ngIf="loginForm.get('password').hasError('required')" class="error text-center">Password is required.</small></span>
                         </div>
-                        <div class="input-wrap my-3">
+                        <div class="input-wrap my-3" *ngIf="loginShow">
                             <button type="submit" color="primary" [disabled]="loading" (click)="onSubmit()" class="common-btn text-white w-100 buttion-but">
-                  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mt-butn "></span>
-                  Login
-              </button>
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mt-butn "></span>
+                                Login
+                            </button>
                         </div>
                         <div class="input-wrap my-3">
                         </div>
                         <!-- Traslate -->
-                        <div class="forgot-wrap text-center">
+                        <!-- <div class="forgot-wrap text-center">
                             <a class="help forgot-pwd" routerLink="/admin/settings-general/alert-rules" (click)="forgotPassword()">Forgot Password?</a>
-                        </div>
+                        </div> -->
                         <!-- <p class="error" *ngIf="error">{{error}}</p> -->
                     </form>
                 </div>

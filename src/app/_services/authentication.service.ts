@@ -29,6 +29,31 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
+    getOtp(requestObject){
+        return this.http.post<any>(`${environment.apiUrl}/send-otp`, requestObject)
+           .pipe(map(data => { 
+               console.log(data);
+               return data;
+           }));
+   }
+
+   verifyOtp(requestObject) {
+        return this.http.post<any>(`${environment.apiUrl}/verify-otp`,  requestObject )
+        .pipe(map(user => {
+            console.log(user.data);
+            if (user && user.data== true && user.response.data) {
+                console.log(JSON.stringify(user.response.data));
+                localStorage.setItem('currentUser', JSON.stringify(user.response.data));
+                localStorage.setItem('isFront', "true");
+                var logoutTime = new Date();
+                logoutTime.setHours( logoutTime.getHours() + 6 );
+                localStorage.setItem('logoutTime', JSON.stringify(logoutTime));
+                this.currentUserSubject.next(user.response.data);
+            }
+            return user;
+        }));
+    }
+
     login(email: string, password: string) {
         //return this.http.post<any>(`${environment.authApiUrl}/users/authenticate`, { email, password })
         return this.http.post<any>(`${environment.apiUrl}/user-login`, { email, password })

@@ -94,7 +94,7 @@ export class FrontbookingComponent implements OnInit {
   coupon = {
     couponcode_val: ""
   };
-  existing_mail: any;
+  existing_phone: any;
   timeslotview: boolean = false;
   newcustomer: boolean = false;
   validpostalcode : string = 'default';
@@ -118,6 +118,8 @@ export class FrontbookingComponent implements OnInit {
   availableStaff:any= [];
   showSameAsAboveCheck:boolean=true;
   isLoggedIn:boolean=false;
+  otpShow = true;
+  loginShow = false;
   isStaffAvailable:boolean=false;
   customerName:any;
   customerFirstname:any;
@@ -253,8 +255,8 @@ export class FrontbookingComponent implements OnInit {
     };
 
     this.formExistingUser = this._formBuilder.group({
-      existing_mail: ['',[Validators.required,Validators.email]],
-      existing_password: ['',Validators.required],
+      existing_phone: ['',[Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      existing_otp: ['',[Validators.required, Validators.pattern("^[1-9][0-9]{3}")]],
     })
     this.cardForm = this._formBuilder.group({
       cardHolderName: ['',[Validators.required]],
@@ -1605,18 +1607,55 @@ this.router.navigate(['/customer-login/'+this.urlString[1]]);
 
   fnloginexisinguser(){
     if(!this.formExistingUser.valid){
-     this.formExistingUser.get('existing_mail').markAsTouched();
-     this.formExistingUser.get('existing_password').markAsTouched();
-     
+     this.formExistingUser.get('existing_phone').markAsTouched();
+     this.formExistingUser.get('existing_otp').markAsTouched();
+     console.log("error");
      return false;
     }
+
+    var phone = this.formExistingUser.get('existing_phone').value;
+    if(phone.length == 10) {
+        phone = "+91"+phone;
+    }
     let requestObject = {
-      "email" : this.formExistingUser.get('existing_mail').value,
-      "password" : this.formExistingUser.get('existing_password').value,
+      "phone" : phone,
+      "otp" : this.formExistingUser.get('existing_otp').value,
       "business_id": this.businessId
       };
    this.fnLogin(requestObject);
   }
+
+  getOtp() {
+    var phone = this.formExistingUser.get('existing_phone').value;
+    console.log(phone.length);
+    if(phone.length == 10) {
+        phone = "+91"+phone;
+    }
+    let requestObject = {
+        'phone' : phone,
+        'business_id' : this.businessId,
+        'country_code' : '+91'
+    }
+    this.fnGetOtp(requestObject);
+}
+
+fnGetOtp(requestObject){
+  let headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+  });
+  this.http.post<any>(`${environment.apiUrl}/send-otp`, requestObject, {headers:headers})
+    .pipe(map(data => { 
+        return data;
+    }),
+    catchError(this.handleError)).subscribe((response:any) => {
+      if(response.data == true){
+        this.loginShow = true;
+        this.otpShow = false;                
+      }
+    },(err) =>{ 
+      this.errorMessage = this.handleError;
+   });
+}  
 
   fnLogin(requestObject){
     
@@ -1624,18 +1663,17 @@ this.router.navigate(['/customer-login/'+this.urlString[1]]);
       'Content-Type': 'application/json',
     });
  
-    this.http.post(`${environment.apiUrl}/customer-login`,requestObject,{headers:headers} ).pipe(
+    this.http.post(`${environment.apiUrl}/verify-otp`,requestObject,{headers:headers} ).pipe(
       map((res) => {
         return res;
       }),
       catchError(this.handleError)).subscribe((response:any) => {
        if(response.data == true ){
-         localStorage.setItem('currentUser', JSON.stringify(response.response));
+         localStorage.setItem('currentUser', JSON.stringify(response.response.data));
          localStorage.setItem('isFront', "true");
-         this.authenticationService.currentUserSubject.next(response.response);
+         this.authenticationService.currentUserSubject.next(response.response.data);
  
- 
-         this.customerName=response.response.fullname;
+         this.customerName=response.response.data.fullname;
        
          this.customerFirstname = this.customerName!=undefined?this.customerName.split(" ")[0]:'';
          this.customerLastname  =  this.customerName!=undefined?this.customerName.split(" ")[1]:'';
@@ -2930,6 +2968,8 @@ export class theme2CheckoutDialog {
   transactionId:any=null;
   phoneNumberInvalid:any = "valid";
   isLoggedIn:boolean=false;
+  otpShow = true;
+  loginShow = false;
   customerName:any;
   customerFirstname:any;
   customerLastname:any;
@@ -2981,8 +3021,8 @@ export class theme2CheckoutDialog {
       this.taxArr=this.data.taxArr,
       this.bookingPostalcode=this.data.bookingPostalcode;
       this.formExistingUser = this._formBuilder.group({
-        existing_mail: ['',[Validators.required,Validators.pattern(this.emailPattern)]],
-        existing_password: ['',Validators.required],
+        existing_phone: ['',[Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+        existing_otp: ['',[Validators.required, Validators.pattern("^[1-9][0-9]{3}")]],
       });
       
       this.formNewUser = this._formBuilder.group({
@@ -3295,20 +3335,54 @@ export class theme2CheckoutDialog {
 
     fnloginexisinguser(){
       if(!this.formExistingUser.valid){
-       this.formExistingUser.get('existing_mail').markAsTouched();
-       this.formExistingUser.get('existing_password').markAsTouched();
-       
+       this.formExistingUser.get('existing_phone').markAsTouched();
+       this.formExistingUser.get('existing_otp').markAsTouched();
+       console.log("error");
        return false;
       }
+      var phone = this.formExistingUser.get('existing_phone').value;
+      if(phone.length == 10) {
+          phone = "+91"+phone;
+      }
       let requestObject = {
-        "email" : this.formExistingUser.get('existing_mail').value,
-        "password" : this.formExistingUser.get('existing_password').value,
+        "phone" : phone,
+        "otp" : this.formExistingUser.get('existing_otp').value,
         "business_id": this.businessId
         };
-     this.fnLogin(requestObject);
+      this.fnLogin(requestObject);
     }
+
+    getOtp() {
+      var phone = this.formExistingUser.get('existing_phone').value;
+      console.log(phone.length);
+      if(phone.length == 10) {
+          phone = "+91"+phone;
+      }
+      let requestObject = {
+          'phone' : phone,
+          'business_id' : this.businessId,
+          'country_code' : '+91'
+      }
+      this.fnGetOtp(requestObject);
+  }
   
-    
+  fnGetOtp(requestObject){
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    this.http.post<any>(`${environment.apiUrl}/send-otp`, requestObject, {headers:headers})
+      .pipe(map(data => { 
+          return data;
+      }),
+      catchError(this.handleError)).subscribe((response:any) => {
+        if(response.data == true){
+          this.loginShow = true;
+          this.otpShow = false;                
+        }
+      },(err) =>{ 
+        this.errorMessage = this.handleError;
+     });
+  }  
 
   fnLogin(requestObject){
     
@@ -3316,18 +3390,17 @@ export class theme2CheckoutDialog {
       'Content-Type': 'application/json',
     });
  
-    this.http.post(`${environment.apiUrl}/customer-login`,requestObject,{headers:headers} ).pipe(
+    this.http.post(`${environment.apiUrl}/verify-otp`,requestObject,{headers:headers} ).pipe(
       map((res) => {
         return res;
       }),
       catchError(this.handleError)).subscribe((response:any) => {
        if(response.data == true ){
-         localStorage.setItem('currentUser', JSON.stringify(response.response));
+         localStorage.setItem('currentUser', JSON.stringify(response.response.data));
          localStorage.setItem('isFront', "true");
-         this.authenticationService.currentUserSubject.next(response.response);
+         this.authenticationService.currentUserSubject.next(response.response.data);
  
- 
-         this.customerName=response.response.fullname;
+         this.customerName=response.response.data.fullname;
        
          this.customerFirstname = this.customerName!=undefined?this.customerName.split(" ")[0]:'';
          this.customerLastname  =  this.customerName!=undefined?this.customerName.split(" ")[1]:'';
