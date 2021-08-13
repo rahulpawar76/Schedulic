@@ -97,6 +97,35 @@ export class AdminSettingsService {
             }),
             catchError(this.handleError));
     }
+    fnExportService(){
+        let requestObject = {
+          };
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/export-service`, requestObject, {headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
+    fnImportService(requestObject) {
+      this.checkAuthentication();
+      let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'admin-id': this.adminId,
+          'api-token': this.adminToken
+      });
+      return this.http.post(`${environment.apiUrl}/service-import`, requestObject, {headers:headers}).pipe(
+      map((res) => {
+          return res;
+      }),
+      catchError(this.handleError));
+    }
     fnstaffList(requestObject){
         this.checkAuthentication();
         let headers = new HttpHeaders({

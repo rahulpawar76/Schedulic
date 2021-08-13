@@ -6,6 +6,10 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '@environments/environment';
+import { ExportToCsv } from 'export-to-csv';
+import { map, catchError } from 'rxjs/operators';
+import { Observable, throwError, from } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { AuthenticationService } from '@app/_services';
 import { AdminSettingsService } from '../../_services/admin-settings.service'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -46,6 +50,7 @@ export class ServicesComponent implements OnInit {
     businessId: any;
     selectedValue: any;
     selectedFilter: any;
+    selectedServicesArr: any;
     createServiceCategoryId: any;
     createServiceCategoryType: any;
     editServiceId: any;
@@ -1939,6 +1944,48 @@ export class ServicesComponent implements OnInit {
         
     }
 
+    fnExportService(){
+        const options = { 
+          fieldSeparator: ',',
+          quoteStrings: '"',
+          decimalSeparator: '.',
+          showLabels: true, 
+          showTitle: false,
+          // title: 'Exported Service Data',
+          useTextFile: false,
+          useBom: true,
+          useKeysAsHeaders: true,
+          // headers: ['Column 1', 'Column 2', etc...] <-- Won't work with useKeysAsHeaders present!
+        };
+        const csvExporter = new ExportToCsv(options);
+          this.isLoaderAdmin = true;
+          this.adminSettingsService.fnExportService().subscribe((response:any) => {
+            if(response.data == true){
+              this.selectedServicesArr = response.response
+              csvExporter.generateCsv(this.selectedServicesArr);
+            }
+            else if(response.data == false && response.response !== 'api token or userid invaild'){
+              this._snackBar.open(response.response, "X", {
+                duration: 2000,
+                verticalPosition: 'top',
+                panelClass : ['red-snackbar']
+              });
+            }
+            this.isLoaderAdmin = false;
+          })
+        }
+
+
+    ImportFileUpload() {
+        const dialogRef = this.dialog.open(DialogImportServiceUpload, {
+            width: '500px',
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+            this.fnAllServices();
+        });
+    }    
+
     fnAssignStaffToService(event, staffId){
         if(event == true){
             this.assignStaffArr.push(staffId)
@@ -2042,6 +2089,91 @@ export class ServicesComponent implements OnInit {
         });
     }
 }
+
+
+@Component({
+    selector: 'import-service-upload',
+    templateUrl: '../_dialogs/import-service-upload.html',
+  })
+  export class DialogImportServiceUpload {
+  
+  fileToUpload:any;
+  isLoaderAdmin : boolean = false;
+  
+  constructor(
+    public dialogRef: MatDialogRef<DialogImportServiceUpload>,
+    public http: HttpClient,
+    private _snackBar: MatSnackBar,
+    @Inject(AdminSettingsService) public adminSettingsService: AdminSettingsService,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+  
+    private handleError(error: HttpErrorResponse) {
+      return throwError('Error! something went wrong.');
+    }
+  
+    handleFileInput(files): void {
+      console.log(files)
+      this.fileToUpload = files.item(0);
+  
+      if(this.fileToUpload.type != "application/vnd.ms-excel"){
+        this._snackBar.open("Please select CSV file", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+        return;
+      }
+      
+  
+  
+    }
+  
+    fileupload(){
+      
+      if(this.fileToUpload.type != "application/vnd.ms-excel"){
+  
+        this._snackBar.open("Please select CSV file", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+        return;
+  
+      }
+  
+  
+      this.isLoaderAdmin = true;
+      const formData: FormData = new FormData();
+      formData.append('file', this.fileToUpload);
+      formData.append('business_id',JSON.parse(localStorage.getItem('business_id')));
+
+      this.adminSettingsService.fnImportService(formData).subscribe((response:any) => {
+        if(response.data == true){
+            this._snackBar.open("CSV file is uploaded", "X", {
+                duration: 2000,
+                verticalPosition:'top',
+                panelClass :['green-snackbar']
+              });
+            this.dialogRef.close();
+        }
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
+            this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+            });
+        }
+        this.isLoaderAdmin = false;
+      })
+  
+      this.isLoaderAdmin = false;
+    }
+  
+  }
       
       @Component({
         selector: 'category-image-upload',
@@ -2291,7 +2423,7 @@ export class ServicesComponent implements OnInit {
         });
         
       }
-      
+
       
     }
     

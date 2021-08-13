@@ -143,6 +143,14 @@
         </mat-drawer>
 
         <mat-drawer-content>
+            <div class="row" layout-padding>
+                <div class="mx-2">
+                    <button mat-button (click)="ImportFileUpload()" class="d-block ml-auto service-create-btn">Import</button>
+                </div>
+                <div class="mx-2">
+                    <button mat-button (click)="fnExportService()" class="d-block ml-auto service-create-btn">Export</button>
+                </div>
+            </div>
             <div class="" *ngIf="servicesList" class="service-listing">
                 <div class="main-table-content main-cust-table-content">
                     <div class="">
@@ -150,7 +158,7 @@
                             <!-- <div class="" fxFlex="5">
                                 <mat-checkbox [checked]="selectAll" (change)="checkAll($event)" class=""></mat-checkbox>
                             </div> -->
-                            <div class="" fxFlex="30">Service</div>
+                            <div class="" fxFlex="30">Service1</div>
                             <div class="" fxFlex="15">Duration</div>
                             <div class="" fxFlex="13">Price</div>
                             <div class="" fxFlex="10">Unit</div>
@@ -468,7 +476,7 @@
                                 <div class="" fxFlex="5">
                                     <mat-checkbox [checked]="selectAllCategory" (change)="checkAllCategory($event)" class=""></mat-checkbox>
                                 </div>
-                                <div class="" fxFlex="30">Service</div>
+                                <div class="" fxFlex="30">Service2</div>
                                 <div class="" fxFlex="15">Duration</div>
                                 <div class="" fxFlex="10">Price</div>
                                 <div class="" fxFlex="10">Unit</div>
