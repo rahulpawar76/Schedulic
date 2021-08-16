@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControl,ValidatorFn } from '@an
 import { AdminSettingsService } from '../../_services/admin-settings.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
+import { SearchCountryField, CountryISO } from 'ngx-intl-tel-input';
 
 export interface DialogData {
   animal: string;
@@ -40,7 +40,7 @@ export class CompanyDetailsComponent implements OnInit {
 
   CountryISO = CountryISO;
   preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
-  TooltipLabel = TooltipLabel;
+  // TooltipLabel = TooltipLabel;
   separateDialCode = true;
   SearchCountryField = SearchCountryField;
   selectedCountryISO: CountryISO;

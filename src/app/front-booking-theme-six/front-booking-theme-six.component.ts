@@ -10,7 +10,7 @@ import { MatSnackBar} from '@angular/material/snack-bar';
 import { AuthenticationService } from '@app/_services';
 import { DatePipe, DOCUMENT, JsonPipe } from '@angular/common';
 import { AppComponent } from '@app/app.component';
-import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
+import { SearchCountryField, CountryISO } from 'ngx-intl-tel-input';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { Meta } from '@angular/platform-browser';
 import { Router, RouterOutlet } from '@angular/router';
@@ -157,7 +157,7 @@ export class FrontBookingThemeSixComponent implements OnInit {
 
   separateDialCode = true;
 	SearchCountryField = SearchCountryField;
-	TooltipLabel = TooltipLabel;
+	// TooltipLabel = TooltipLabel;
 	CountryISO = CountryISO;
 	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
   itemArr:any= [];
