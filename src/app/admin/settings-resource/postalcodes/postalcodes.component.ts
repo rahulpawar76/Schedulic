@@ -3,7 +3,7 @@ import { AppComponent } from '@app/app.component';
 import { AdminSettingsService } from '../../_services/admin-settings.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, from } from 'rxjs';
@@ -30,6 +30,8 @@ export class PostalcodesComponent implements OnInit {
   settingSideMenuToggle : boolean = false;
   settingData:any;
   PostalCodeCheckStatus : boolean = false;
+  singlePostalCode: any;
+  editPostalCodeId: any;
   search ={
     postalCode :"",
   }
@@ -81,6 +83,38 @@ export class PostalcodesComponent implements OnInit {
         this.fnGetPostalCodeList();
       }
     });
+  }
+
+  editPostalCode(postalCodeId){
+    let requestObject = {
+      'business_id': localStorage.getItem('business_id'),
+      'postal_id': postalCodeId
+    };
+      this.adminSettingsService.getPostalCodeDetail(requestObject).subscribe((response:any) => {
+          if(response.data == true){
+              this.singlePostalCode = response.response;
+              this.editPostalCodeId = response.response.id;
+              var selectedStaff  =  this.singlePostalCode.staffs.map(
+                data => data.id
+              );
+              const dialogRef = this.dialog.open(DialogEditPostalCode, {
+                width: '500px',
+                data: {
+                  id:this.editPostalCodeId,
+                  postalCode: this.singlePostalCode.postal_code,
+                  postalCodeArea: this.singlePostalCode.area,
+                  postalCodeStaff: selectedStaff
+                }
+              });
+
+              dialogRef.afterClosed().subscribe(result => {
+                console.log(result);
+                if(result){
+                  this.fnGetPostalCodeList();
+                }
+              });
+          }
+      });
   }
 
   addcsvPostalCode(){
@@ -363,7 +397,97 @@ export class DialogAddPostalCode {
 
 }
 
+@Component({
+  selector: 'edit-postalcode',
+  templateUrl: '../_dialogs/edit-postalcode.html',
+})
+export class DialogEditPostalCode {
+  formCreatePostalCode : FormGroup;
+  businessId : any;
+  staffList : any;
+  id:any;
+  selectedStaff:any;
+  postalCode: any;
+  postalCodeArea: any;
+  postalCodeStaff: any;
+  constructor(
+    public dialogRef: MatDialogRef<DialogEditPostalCode>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(AdminSettingsService) public adminSettingsService: AdminSettingsService,
+    private _formBuilder: FormBuilder,
+    private _snackBar: MatSnackBar) {
+      this.id = data.id;
+      this.postalCode = data.postalCode;
+      this.postalCodeArea = data.postalCodeArea;
+      this.selectedStaff = data.postalCodeStaff;
+    if(localStorage.getItem('business_id')){
+        this.businessId = localStorage.getItem('business_id');
+        this.fnGetStaffList();
+    }
+    this.formCreatePostalCode = this._formBuilder.group({
+      id:[this.id,[]],
+      postalCode: [this.postalCode, [Validators.required,Validators.minLength(3),Validators.maxLength(7)]],
+      postalCodeArea: [this.postalCodeArea, [Validators.required,Validators.maxLength(20)]],
+      postalCodeStaff: [this.selectedStaff,[]]
+    });
+  }
 
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  
+
+  fnGetStaffList(){
+    let requestObject = {
+      'business_id': this.businessId,
+      'action': 'E',
+    };
+    this.adminSettingsService.getStaffList(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.staffList = response.response;
+      }
+      else {
+       this.staffList = [];
+      }
+    })
+  }
+
+  fnEditPostalCode(){
+    if(this.formCreatePostalCode.invalid){
+      this.formCreatePostalCode.get("postalCode").markAsTouched();
+      this.formCreatePostalCode.get("postalCodeArea").markAsTouched();
+      this.formCreatePostalCode.get("postalCodeStaff").markAsTouched();
+      return false;
+    }
+    if(this.formCreatePostalCode.get("postalCodeStaff").value == ''){
+      this.formCreatePostalCode.controls["postalCodeStaff"].setValue([]);
+    }
+    let requestObject = {
+      'business_id': this.businessId,
+      'id' : this.id,
+      'postal_code': this.formCreatePostalCode.get("postalCode").value,
+      'area': this.formCreatePostalCode.get("postalCodeArea").value,
+      'staff_id': this.selectedStaff,
+    };
+    this.adminSettingsService.editPostalCodeDetail(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open("PostalCode Edited.", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+          });
+          this.dialogRef.close(true);
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+          });
+      }
+    })
+  }
+}
 
 
 @Component({

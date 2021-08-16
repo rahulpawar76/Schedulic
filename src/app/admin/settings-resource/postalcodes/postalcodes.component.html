@@ -143,7 +143,8 @@
                                     <div class="text-center status-toggle" fxFlex="10">
                                         <mat-slide-toggle [checked]="postalCode.postal_status" (change)="fnChangePostalCodeStatus($event.checked,postalCode.id)"></mat-slide-toggle>
                                     </div>
-                                    <div class="text-center pointer" fxFlex="10" (click)="fnDeletePostalCode(postalCode.id)"><i class="fa fa-trash-o delete-box"></i></div>
+                                    <div class="text-center pointer" fxFlex="5" (click)="fnDeletePostalCode(postalCode.id)"><i class="fa fa-trash-o delete-box"></i></div>
+                                    <div class="text-center pointer" fxFlex="5" (click)="editPostalCode(postalCode.id)"><i class="fa fa-pencil edit-box"></i></div>
                                 </div>
                                 <div class="postalcode-box" *ngIf="postalCodeList.length == 0">No Postal Code Available</div>
                             </div>
