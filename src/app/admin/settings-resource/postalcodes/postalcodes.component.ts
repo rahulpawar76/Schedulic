@@ -412,7 +412,7 @@ export class DialogEditPostalCode {
   postalCodeStaff: any;
   constructor(
     public dialogRef: MatDialogRef<DialogEditPostalCode>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     @Inject(AdminSettingsService) public adminSettingsService: AdminSettingsService,
     private _formBuilder: FormBuilder,
     private _snackBar: MatSnackBar) {
