@@ -19,7 +19,7 @@ import { DndDirective } from './direcitves/dnd.directive';
 import { ServicesComponent, DialogCategoryImageUpload, DialogServiceImageUpload, DialogDataExampleDialog, DialogSubCategoryImageUpload } from './services/services.component';
 import { StaffComponent, DialogStaffViewReview, DialogAddNewTimeOff, DialogStaffImageUpload } from './staff/staff.component';
 import { BusinessHoursComponent, DialogAddNewTimeOffBussiness } from './business-hours/business-hours.component';
-import { PostalcodesComponent, DialogAddPostalCode, DialogNewCSVPostalCode } from './postalcodes/postalcodes.component';
+import { PostalcodesComponent, DialogAddPostalCode, DialogEditPostalCode, DialogNewCSVPostalCode } from './postalcodes/postalcodes.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
@@ -41,6 +41,7 @@ enableRipple(true);
     DialogStaffViewReview,
     DialogAddNewTimeOff,
     DialogAddPostalCode,
+    DialogEditPostalCode,
     DialogAddNewTimeOffBussiness,
     DialogStaffImageUpload,
     DialogNewCSVPostalCode,
@@ -75,6 +76,7 @@ enableRipple(true);
     DialogStaffViewReview,
     DialogAddNewTimeOff,
     DialogAddPostalCode,
+    DialogEditPostalCode,
     DialogAddNewTimeOffBussiness,
     DialogStaffImageUpload,
     DialogNewCSVPostalCode,
