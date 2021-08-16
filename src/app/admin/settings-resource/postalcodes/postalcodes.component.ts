@@ -412,14 +412,14 @@ export class DialogEditPostalCode {
   postalCodeStaff: any;
   constructor(
     public dialogRef: MatDialogRef<DialogEditPostalCode>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     @Inject(AdminSettingsService) public adminSettingsService: AdminSettingsService,
     private _formBuilder: FormBuilder,
     private _snackBar: MatSnackBar) {
-      this.id = data.id;
-      this.postalCode = data.postalCode;
-      this.postalCodeArea = data.postalCodeArea;
-      this.selectedStaff = data.postalCodeStaff;
+      this.id = this.data.id;
+      this.postalCode = this.data.postalCode;
+      this.postalCodeArea = this.data.postalCodeArea;
+      this.selectedStaff = this.data.postalCodeStaff;
     if(localStorage.getItem('business_id')){
         this.businessId = localStorage.getItem('business_id');
         this.fnGetStaffList();
