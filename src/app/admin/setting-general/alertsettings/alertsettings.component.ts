@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {DomSanitizer} from "@angular/platform-browser";
-import { SearchCountryField, TooltipLabel, CountryISO  } from 'ngx-intl-tel-input';
+import { SearchCountryField, CountryISO  } from 'ngx-intl-tel-input';
 
 
 export interface DialogData {
@@ -144,14 +144,14 @@ export class AlertsettingsComponent implements OnInit {
 
   CountryISO = CountryISO;
   preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
-  TooltipLabel = TooltipLabel;
+  // TooltipLabel = TooltipLabel;
   separateDialCode = true;
   SearchCountryField = SearchCountryField;
   selectedCountryISO: CountryISO = CountryISO.Afghanistan;
 
   CountryISO1 = CountryISO;
   preferredCountries1: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
-  TooltipLabel1 = TooltipLabel;
+  // TooltipLabel1 = TooltipLabel;
   separateDialCode1 = true;
   SearchCountryField1 = SearchCountryField;
   selectedCountryISO1 : CountryISO;
