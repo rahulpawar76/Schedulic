@@ -1079,6 +1079,20 @@ export class AdminSettingsService {
             catchError(this.handleError));
     }
 
+    changeOwAndgtNotificationStatus(requestObject) {
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/set-ow-and-gt-notification`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
     updateTermsConditionsStatusValues(requestObject) {
         this.checkAuthentication();
         let headers = new HttpHeaders({

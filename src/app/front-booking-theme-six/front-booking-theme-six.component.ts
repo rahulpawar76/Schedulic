@@ -52,6 +52,7 @@ export class FrontBookingThemeSixComponent implements OnInit {
   paymentScreen= false;
   thankYouScreen = false;
   allUnitsBack = "";
+  defaultPayment:any;
   totalAmt ="";
   selectedItem = "";
   presentToast ="";
@@ -285,6 +286,7 @@ export class FrontBookingThemeSixComponent implements OnInit {
 
   ngOnInit() {
     this.fnGetSettings();
+    this.fnGetDefaultPayment();
     this.fnIsPostalCodeAdded();
     this.fnGetBusiness();
 
@@ -359,6 +361,60 @@ export class FrontBookingThemeSixComponent implements OnInit {
       }
 
   }
+
+  fnGetDefaultPayment(){
+    let requestObject = {
+      "business_id" : this.businessId
+    };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    this.http.post(`${environment.apiUrl}/get-default-payment`,requestObject,{headers:headers} ).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(this.handleError)
+    ).subscribe((response:any) => {
+        if(response.data == true){
+          console.log(response.response.option_value);
+          this.defaultPayment = response.response.option_value;
+          this.paymentMethod = this.defaultPayment;
+        }
+    },(err) =>{
+    });
+  }
+
+  fnChangePaymentStatus(type){
+    let requestObject = {
+      "business_id" : this.businessId,
+      "default_payment": type
+    };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    this.http.post(`${environment.apiUrl}/set-default-payment`,requestObject,{headers:headers} ).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(this.handleError)
+    ).subscribe((response:any) => {
+        if(response.data == true){
+          this.defaultPayment = type;
+          this.snackBar.open("Default Payment Set Successfuly", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['green-snackbar']
+          });
+        } else {
+          this.snackBar.open("Default Payment status Not Updated.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+    },(err) =>{
+    });
+}
 
   fnGetSettings(){
     let requestObject = {

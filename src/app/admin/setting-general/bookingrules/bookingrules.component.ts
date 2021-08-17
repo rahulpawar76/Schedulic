@@ -41,6 +41,7 @@ export class BookingrulesComponent implements OnInit {
   staffListOnFrontValue:any;
   appAutoConfirmValue:any;
   autoAssignStaffValue:any;
+  owAndgtNotification:any;
   customerAllowStaffRatingValue:any;
   termsConditionsStatusValue:boolean;
   termsConditionsLabelValue:any;
@@ -83,6 +84,7 @@ websiteUrlFormate = '/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z
     this.staffListOnFrontValue="false";
     this.appAutoConfirmValue="false";
     this.autoAssignStaffValue="false";
+    this.owAndgtNotification="false";
     this.customerAllowStaffRatingValue="false";
     this.termsConditionsStatusValue=false;
     this.termsConditionsLabelValue="";
@@ -165,6 +167,9 @@ websiteUrlFormate = '/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z
         }
         if(this.settingsArr.customer_allow_for_staff_rating){
           this.customerAllowStaffRatingValue=this.settingsArr.customer_allow_for_staff_rating;
+        }
+        if(this.settingsArr.OW_and_GT_notification){
+          this.owAndgtNotification=this.settingsArr.OW_and_GT_notification;
         }
         if(this.settingsArr.terms_condition){
           this.termsConditionsStatusValue=JSON.parse(this.settingsArr.terms_condition).status;
@@ -508,7 +513,8 @@ websiteUrlFormate = '/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z
   fnUpdateAppAutoConfirmSettings(){
     let autoConfirmArr={
       "appointment_auto_confirm":this.appAutoConfirmValue,
-      "auto_assign_to_staff":this.autoAssignStaffValue
+      "auto_assign_to_staff":this.autoAssignStaffValue,
+      "owAndGtNotification" : this.owAndgtNotification
     }
     let tempArr:any=[];
     tempArr.push(autoConfirmArr);
@@ -554,6 +560,30 @@ websiteUrlFormate = '/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
        this.snackBar.open("Customer Staff Status Not Updated.", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+  }
+
+  fnChangeOwAndgtNotificationStatus(event){
+    let requestObject={
+      "business_id":this.businessId,
+      "OW_and_GT_notification":JSON.stringify(event.checked)
+    }
+    console.log(JSON.stringify(requestObject));
+    this.adminSettingsService.changeOwAndgtNotificationStatus(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.snackBar.open("Customer On the way and Getting Late notication status Updated.", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['green-snackbar']
+        });
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+       this.snackBar.open("Customer On the way and Getting Late notication status Not Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['red-snackbar']

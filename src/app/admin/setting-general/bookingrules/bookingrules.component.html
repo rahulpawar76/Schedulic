@@ -868,6 +868,17 @@
             <mat-card class="matcard-space">
                 <div class="d-flex">
                     <div>
+                        <h6>Notification For On the way and Getting Late</h6>
+                        <p class="mb-0">By Enabling this feature, To get notifation for On the way and Getting Late.</p>
+                    </div>
+                    <div class="ml-auto mx-3">
+                        <mat-slide-toggle (change)="fnChangeOwAndgtNotificationStatus($event)" [checked]="owAndgtNotification === 'true' ? true : false"></mat-slide-toggle>
+                    </div>
+                </div>
+            </mat-card>
+            <mat-card class="matcard-space">-
+                <div class="d-flex">
+                    <div>
                         <h6>Allow Customers for Staff Rating</h6>
                         <p class="mb-0">By Enabling this Feature, Customers can rate your staff from their account</p>
                     </div>

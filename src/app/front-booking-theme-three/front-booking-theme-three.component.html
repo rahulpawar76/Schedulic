@@ -719,12 +719,18 @@
                                     'Cash'" (change)="fnPaymentMethod('Cash')" class="payment-radio px-3 mb-0 col-12 w-auto
                                     mt-y mx-4 p-4 cash-payment single-pay" value="pay1">Cash Payment
                         <img src="../../assets/icons/cash-symbol.png" class="payment-gtw-icon cash-payment" />
+                        <div class="ml-auto mx-3">
+                            <mat-slide-toggle (change)="fnChangePaymentStatus('Cash')" [checked]="defaultPayment === 'Cash' ? true : false"></mat-slide-toggle>
+                        </div>
                     </mat-radio-button>
 
                     <mat-radio-button *ngIf="stripeStatus" [checked]="paymentMethod == 'stripe'" (change)="fnPaymentMethod('stripe')" class="col-12 w-auto mt-4 mx-4 p-4
                                     credit-payment single-pay payment-radio px-3
                                     mb-0" value="pay2">Debit Card / Credit Card
                         <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" />
+                        <div class="ml-auto mx-3">
+                            <mat-slide-toggle (change)="fnChangePaymentStatus('stripe')" [checked]="defaultPayment === 'stripe' ? true : false"></mat-slide-toggle>
+                        </div>
                     </mat-radio-button>
                     <div *ngIf="creditcardform">
                         <form [formGroup]="cardForm" class="field-list
@@ -811,6 +817,9 @@
                                     mb-0" value="pay3" *ngIf="paypalStatus">Paypal
                         <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_150x38.png" alt="PayPal" class="payment-gtw-icon
                                         cash-payment" />
+                                        <div class="ml-auto mx-3">
+                                            <mat-slide-toggle (change)="fnChangePaymentStatus('Paypal')" [checked]="defaultPayment === 'Paypal' ? true : false"></mat-slide-toggle>
+                                        </div>
                     </mat-radio-button>
                     <div *ngIf="showPaypalButtons" class="field-list
                                     mx-4 row credit-card-form">
@@ -828,6 +837,9 @@
                         <!-- <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" /> -->
                         <img src="../../assets/images/payumoney-logo.png" alt="PayPal" class="payment-gtw-icon
                                         cash-payment payumoney-logo-width" />
+                                        <div class="ml-auto mx-3">
+                                            <mat-slide-toggle (change)="fnChangePaymentStatus('PayUMoney')" [checked]="defaultPayment === 'PayUMoney' ? true : false"></mat-slide-toggle>
+                                        </div>
                         <!-- <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal"  class="payment-gtw-icon cash-payment"/> -->
                     </mat-radio-button>
                     <!-- <div *ngIf="showPayUMoneyButton" class="field-list mx-4 row credit-card-form "> -->
@@ -845,6 +857,9 @@
                                     credit-payment single-pay payment-radio px-3
                                     mb-0" value="pay2">Bank Transfer
                         <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" />
+                        <div class="ml-auto mx-3">
+                            <mat-slide-toggle (change)="fnChangePaymentStatus('BankTransfer')" [checked]="defaultPayment === 'BankTransfer' ? true : false"></mat-slide-toggle>
+                        </div>
                     </mat-radio-button>
                     <div *ngIf="BankDetail" class="bank-details">
                         <div class="row m-3">
