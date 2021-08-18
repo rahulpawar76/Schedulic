@@ -1,8 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { AppComponent } from '@app/app.component'
 import { AdminSettingsService } from '../../_services/admin-settings.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthenticationService } from '@app/_services';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-paymentgateway',
@@ -12,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class PaymentgatewayComponent implements OnInit {
   adminSettings : boolean = true;
 
-  
+  currentUser:any;
   paypal: FormGroup;
   stripe: FormGroup;
   payumoney: FormGroup;
@@ -31,6 +33,7 @@ export class PaymentgatewayComponent implements OnInit {
   paypalGuestStatus : boolean = false;
   paypalTestStatus : boolean = false;
   settingSideMenuToggle : boolean = false;
+  gatewayList:any=[];
   
 
   constructor(
@@ -38,8 +41,10 @@ export class PaymentgatewayComponent implements OnInit {
     @Inject(AdminSettingsService) public adminSettingsService: AdminSettingsService,
     private _snackBar: MatSnackBar,
     private _formBuilder: FormBuilder,
+      private authenticationService: AuthenticationService,
   )
    {
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     //this.appComponent.settingsModule(this.adminSettings);
     if(localStorage.getItem('business_id')){
       this.businessId = localStorage.getItem('business_id');
@@ -47,29 +52,7 @@ export class PaymentgatewayComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.getSettingsValue();
-    this.paypal = this._formBuilder.group({
-      clientId: ['',[Validators.required]],
-      // apiUsername: ['',[Validators.required]],
-      // apiPassword: ['',[Validators.required]],
-      // signature: ['',[Validators.required]]
-    });
-    this.stripe = this._formBuilder.group({
-      secretKey: ['',[Validators.required]],
-      publishableKey: ['',[Validators.required]],
-    });
-    this.payumoney = this._formBuilder.group({
-      merchantKey: ['',[Validators.required]],
-      saltKey: ['',[Validators.required]],
-    });
-    this.bankTransfer = this._formBuilder.group({
-      bankName: ['',[Validators.required]],
-      accountName: ['',[Validators.required]], 
-      accountNumber: ['',[Validators.required]], 
-      branchCode: [''], 
-      IFSCCode: ['',[Validators.required]], 
-      bankDescription: [''], 
-    });
+    this.getAllPaymentGateways();
   }
   fnSettingMenuToggleSmall(){
     this.settingSideMenuToggle = true;
@@ -78,306 +61,188 @@ export class PaymentgatewayComponent implements OnInit {
     this.settingSideMenuToggle = false;
   }
 
-  getSettingsValue(){
-    let requestObject={
-      "business_id":this.businessId
+  getAllPaymentGateways(){
+    let requestObject = {
+      'admin_id' : this.currentUser.user_id,
+      'business_id' : this.businessId,
     }
-    this.adminSettingsService.getSettingsValue(requestObject).subscribe((response:any) => {
-        console.log(response.response);
-        if(response.data == true && response.response != ''){
-          this.settingsValue = response.response;
-          if(this.settingsValue.pay_pal_settings){
-            this.paypalSettingValue = JSON.parse(this.settingsValue.pay_pal_settings);
-            this.paypalStatus = this.paypalSettingValue.status
-            this.paypalTestStatus = this.paypalSettingValue.test_mode
-            this.paypal.controls['clientId'].setValue(this.paypalSettingValue.client_id)
-            // this.paypalSettingValue = JSON.parse(this.settingsValue.pay_pal_settings);
-            // this.paypal.controls['apiUsername'].setValue(this.paypalSettingValue.api_username);
-            // this.paypal.controls['apiPassword'].setValue(this.paypalSettingValue.api_password);
-            // this.paypal.controls['signature'].setValue(this.paypalSettingValue.signature);
-          }
-          if(this.settingsValue.stripe_settings){
-            this.stripeSettingValue = JSON.parse(this.settingsValue.stripe_settings);
-            this.stripeStatus = this.stripeSettingValue.status
-            this.stripe.controls['secretKey'].setValue(this.stripeSettingValue.secret_key);
-            this.stripe.controls['publishableKey'].setValue(this.stripeSettingValue.publishable_key);
-          }
-          if(this.settingsValue.payUmoney_settings){
-            this.payUMoneySettingValue = JSON.parse(this.settingsValue.payUmoney_settings);
-            this.payumoneyStatus = this.payUMoneySettingValue.status
-            this.payumoney.controls['merchantKey'].setValue(this.payUMoneySettingValue.merchant_key);
-            this.payumoney.controls['saltKey'].setValue(this.payUMoneySettingValue.salt_key);
-          }
-          if(this.settingsValue.bank_transfer){
-            this.bankTransferSettingValue = JSON.parse(this.settingsValue.bank_transfer);
-            this.bankTransferStatus = this.bankTransferSettingValue.status
-            this.bankTransfer.controls['bankName'].setValue(this.bankTransferSettingValue.bank_name);
-            this.bankTransfer.controls['accountName'].setValue(this.bankTransferSettingValue.account_name);
-            this.bankTransfer.controls['accountNumber'].setValue(this.bankTransferSettingValue.account_number);
-            this.bankTransfer.controls['branchCode'].setValue(this.bankTransferSettingValue.branch_code);
-            this.bankTransfer.controls['IFSCCode'].setValue(this.bankTransferSettingValue.IFSC_code);
-            this.bankTransfer.controls['bankDescription'].setValue(this.bankTransferSettingValue.bank_description);
-          }
+    this.isLoaderAdmin = true;
+    this.adminSettingsService.getAllPaymentGateways(requestObject).subscribe((response:any) => {
+      if(response.status == 'success'){ 
+        this.gatewayList = response.data;
+        // this.ErrorService.successMessage('Paypal Updated')
+      } else{
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+      this.isLoaderAdmin = false;
+    });
+
+  }
+
+  
+  public onSubmitPaymentGateway(data:NgForm,gateway_type,is_default,code){
+        //console.log(data.value);
+        let testMode = data.value.testMode?1:0;
+        //console.log(testMode);
+        let login_details = {};
+        Object.entries(data.value).forEach(([key, value]) => {
+          // login_details[key] = encodeURIComponent(String(value));
+          login_details[key] = String(value);
+        });
+        delete login_details['testMode'];
+        let requestObject = {
+          'admin_id' : this.currentUser.user_id,
+          'business_id' : this.businessId,
+          'gateway_type' : gateway_type,
+          'gateway_code' : code,
+          'login_detail' : login_details,
+          'testMode' : testMode,
         }
-        else  if(response.data == false && response.response !== 'api token or userid invaild'){
-          this._snackBar.open(response.response, "X", {
+        this.isLoaderAdmin = true;
+        this.adminSettingsService.UpdatePaymentGateway(requestObject).subscribe(response => {
+          //console.log(response);
+          if(response['status']==='success'){
+            this._snackBar.open(response['message'], "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass : ['green-snackbar']
+            });
+            this.getAllPaymentGateways();
+          }else if(response['status']=='error'){
+            this._snackBar.open(response['message'], "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass : ['red-snackbar']
+            });
+          }
+          this.isLoaderAdmin = false;
+        },err=>{
+          this.isLoaderAdmin = false;
+          this._snackBar.open(environment.ErrorMsg, "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass : ['green-snackbar']
+            });
+        })
+  }
+  
+  
+  public ChangePaymentStatus(code,type,status){
+    if (status) {
+      let requestObject = {
+        'code':code,
+        'status':'active',
+        'gateway_type':type,
+        'admin_id' : this.currentUser.user_id,
+        'business_id' : this.businessId,
+      }
+      this.isLoaderAdmin = true;
+      this.adminSettingsService.ChangeGatewayStatus(requestObject).subscribe(response => {
+        if(response['status']=='success'){
+          this.getAllPaymentGateways();
+          this._snackBar.open(response['message'], "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass : ['green-snackbar']
+            });
+        }else if(response['status']==='error'){
+          this._snackBar.open(response['message'], "X", {
             duration: 2000,
             verticalPosition: 'top',
-            panelClass : ['green-snackbar']
+            panelClass : ['red-snackbar']
           });
         }
-    })
-  }
-
-  fnPaypalStatus(event){
-    this.paypalStatus = event;
-    let PaypalSetting = {
-      "client_id":this.paypal.get('clientId').value,
-      // "api_username":this.paypal.get('apiUsername').value,
-      // "api_password":this.paypal.get('apiPassword').value,
-      // "signature":this.paypal.get('signature').value,
-      // "paypal_guest_payment":this.paypalGuestStatus,
-      "test_mode":this.paypalTestStatus,
-      "status" : this.paypalStatus
-      
+        this.getAllPaymentGateways();
+        this.isLoaderAdmin = false;
+      },err=>{
+        this.isLoaderAdmin = false;
+        this._snackBar.open(environment.ErrorMsg, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['green-snackbar']
+        });
+      })
     }
-    let requestObject = {
-      "business_id":this.businessId,
-      "status":this.paypalStatus,
-      "pay_pal_settings":PaypalSetting
-      }
-      this.updatePaypalSetting(requestObject);
-  }
-
-  fnPaypalGuest(event){
-    this.paypalGuestStatus = event;
-  }
-  fnPaypalTest(event){
-    this.paypalTestStatus = event;
-  }
-
-  fnSubmitPaypal(){
-    if(this.paypal.invalid){
-      this.paypal.get('clientId').markAsTouched();
-    }
-    if(this.paypal.valid){
-      let PaypalSetting = {
-        "client_id":this.paypal.get('clientId').value,
-        // "api_username":this.paypal.get('apiUsername').value,
-        // "api_password":this.paypal.get('apiPassword').value,
-        // "signature":this.paypal.get('signature').value,
-        // "paypal_guest_payment":this.paypalGuestStatus,
-        "test_mode":this.paypalTestStatus,
-        "status" : this.paypalStatus
-        
-      }
+    else {
       let requestObject = {
-        "business_id":this.businessId,
-        "status":this.paypalStatus,
-        "pay_pal_settings":PaypalSetting
+        'code':code,
+        'status':'inactive',
+        'gateway_type':type,
+        'admin_id' : this.currentUser.user_id,
+        'business_id' : this.businessId,
+      }
+      this.isLoaderAdmin = true;
+      this.adminSettingsService.ChangeGatewayStatus(requestObject).subscribe(response => {
+        if(response['status']=='success'){
+         this._snackBar.open(response['message'], "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass : ['green-snackbar']
+            });
+        }else if(response['status']==='error'){
+          this._snackBar.open(response['message'], "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
         }
-        this.updatePaypalSetting(requestObject);
-      }
-
-  }
-
-  updatePaypalSetting(requestObject){
-    this.adminSettingsService.updatePaypalSetting(requestObject).subscribe((response:any) => {
-      if(response.data == true){
-        this._snackBar.open("Paypal Updated.", "X", {
+        this.getAllPaymentGateways();
+        this.isLoaderAdmin = false;
+      },err=>{
+        this.isLoaderAdmin = false;
+        this._snackBar.open(environment.ErrorMsg, "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
         });
-        this.getSettingsValue();
-      }
-      else  if(response.data == false && response.response !== 'api token or userid invaild'){
-       this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
-      }
-      this.isLoaderAdmin = false;
-    })
+      })
+    }
   }
 
-  fnStripeStatus(event){
-    this.stripeStatus = event;
-    let stripeSetting = {
-      "secret_key":this.stripe.get('secretKey').value,
-      "publishable_key":this.stripe.get('publishableKey').value,
-      "status" : this.stripeStatus
-      
-    }
+  SetDefault(code,type) {
     let requestObject = {
-      "business_id":this.businessId,
-      "status":this.stripeStatus,
-      "stripe_settings":stripeSetting
-      }
-      this.updateStripeSetting(requestObject);
-  }
-  fnSubmitStripe(){
-    if(this.stripe.invalid){
-      this.stripe.get('secretKey').markAsTouched();
-      this.stripe.get('publishableKey').markAsTouched();
+      'admin_id' : this.currentUser.user_id,
+      'business_id' : this.businessId,
+      'gateway_type' : type,
+      'code' : code,
+      'is_default' : 1,
     }
-    if(this.stripe.valid){
-      let stripeSetting = {
-        "secret_key":this.stripe.get('secretKey').value,
-        "publishable_key":this.stripe.get('publishableKey').value,
-        "status" : this.stripeStatus
-      }
-      let requestObject = {
-        "business_id":this.businessId,
-        "status":this.stripeStatus,
-        "stripe_settings":stripeSetting
-      }
-      this.updateStripeSetting(requestObject);
-    }
-
-  }
-
-
-  updateStripeSetting(requestObject){
-    this.adminSettingsService.updateStripeSetting(requestObject).subscribe((response:any) => {
-      if(response.data == true){
-        this._snackBar.open("Stripe Updated.", "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['green-snackbar']
-        });
-        this.getSettingsValue();
-      }
-      else  if(response.data == false && response.response !== 'api token or userid invaild'){
-       this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
+    this.isLoaderAdmin = true;
+    this.adminSettingsService.ChangeDefaultGateway(requestObject).subscribe(response => {
+      if(response['status']=='success'){
+        this.getAllPaymentGateways();
+        this._snackBar.open(response['message'], "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass : ['green-snackbar']
+            });
+      }else if(response['status']=='error'){
+          this._snackBar.open(response['message'], "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+      }else{
+          this._snackBar.open(response['message'], "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
       }
       this.isLoaderAdmin = false;
+    },err=>{
+      this.isLoaderAdmin = false;
+      this._snackBar.open(environment.ErrorMsg, "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['green-snackbar']
+      });
     })
-  }
-  fnPayumoneyStatus(event){
-    this.payumoneyStatus = event;
-    let payumoneySetting = {
-      "merchant_key":this.payumoney.get('merchantKey').value,
-      "salt_key":this.payumoney.get('saltKey').value,
-      "status" : this.payumoneyStatus
-    }
-    let requestObject = {
-      "business_id":this.businessId,
-      "status":this.payumoneyStatus,
-      "payUmoney_settings":payumoneySetting
-    }
-    this.updatePayumoneySetting(requestObject);
-  }
-  fnSubmitPayumoney(){
-    if(this.payumoney.invalid){
-      this.payumoney.get('merchantKey').markAsTouched();
-      this.payumoney.get('saltKey').markAsTouched();
-    }
-    if(this.payumoney.valid){
-      let payumoneySetting = {
-        "merchant_key":this.payumoney.get('merchantKey').value,
-        "salt_key":this.payumoney.get('saltKey').value,
-        "status" : this.payumoneyStatus
-      }
-      let requestObject = {
-        "business_id":this.businessId,
-        "status":this.payumoneyStatus,
-        "payUmoney_settings":payumoneySetting
-      }
-      this.updatePayumoneySetting(requestObject);
-    }
   }
 
-  updatePayumoneySetting(requestObject){
-    this.adminSettingsService.updatePayumoneySetting(requestObject).subscribe((response:any) => {
-      if(response.data == true){
-        this._snackBar.open("PayUMoney Updated.", "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['green-snackbar']
-        });
-        this.getSettingsValue();
-      }
-      else  if(response.data == false && response.response !== 'api token or userid invaild'){
-       this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
-      }
-      this.isLoaderAdmin = false;
-    })
-  }
-  fnBankTransferStatus(event){
-    this.bankTransferStatus = event;
-    let bankTransferSetting = {
-      "bank_name":this.bankTransfer.get('bankName').value,
-      "account_name":this.bankTransfer.get('accountName').value,
-      "account_number":this.bankTransfer.get('accountNumber').value,
-      "IFSC_code":this.bankTransfer.get('IFSCCode').value,
-      "branch_code":this.bankTransfer.get('branchCode').value,
-      "bank_description":this.bankTransfer.get('bankDescription').value,
-      "status" : this.bankTransferStatus
-    }
-    let requestObject = {
-      "business_id":this.businessId,
-      "status":this.bankTransferStatus,
-      "bank_transfer":bankTransferSetting
-    }
-    this.updateBankTransferSetting(requestObject);
-  }
-  fnSubmitBankTransfer(){
-    if(this.bankTransfer.invalid){
-      this.bankTransfer.get('bankName').markAsTouched();
-      this.bankTransfer.get('accountName').markAsTouched();
-      this.bankTransfer.get('accountNumber').markAsTouched();
-      this.bankTransfer.get('IFSCCode').markAsTouched();
-      this.bankTransfer.get('branchCode').markAsTouched();
-      this.bankTransfer.get('bankDescription').markAsTouched();
-    }
-    if(this.bankTransfer.valid){
-      let bankTransferSetting = {
-        "bank_name":this.bankTransfer.get('bankName').value,
-        "account_name":this.bankTransfer.get('accountName').value,
-        "account_number":this.bankTransfer.get('accountNumber').value,
-        "IFSC_code":this.bankTransfer.get('IFSCCode').value,
-        "branch_code":this.bankTransfer.get('branchCode').value,
-        "bank_description":this.bankTransfer.get('bankDescription').value,
-        "status" : this.bankTransferStatus
-      }
-      let requestObject = {
-        "business_id":this.businessId,
-        "status":this.bankTransferStatus,
-        "bank_transfer":bankTransferSetting
-      }
-      this.updateBankTransferSetting(requestObject);
-    }
-  }
-
-  updateBankTransferSetting(requestObject){
-    this.adminSettingsService.updateBankTransferSetting(requestObject).subscribe((response:any) => {
-      if(response.data == true){
-        this._snackBar.open("Bank Transfer Updated.", "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['green-snackbar']
-        });
-        this.getSettingsValue();
-      }
-      else  if(response.data == false && response.response !== 'api token or userid invaild'){
-       this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
-      }
-      this.isLoaderAdmin = false;
-    })
-  }
 
 }

@@ -1822,6 +1822,63 @@ export class AdminSettingsService {
         }),
         catchError(this.handleError));
     }
+
+    getAllPaymentGateways(requestObject){
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/showAllPaymentGateway`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
+    ChangeDefaultGateway(requestObject){
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/makeDefaultPaymentGatway`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
+    ChangeGatewayStatus(requestObject){
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/changeStatusPaymentGateway`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
+    UpdatePaymentGateway(requestObject){
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/savePaymentGateway`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
     reAuthenticateUser() {
         if (this.dialogRef) {
             return

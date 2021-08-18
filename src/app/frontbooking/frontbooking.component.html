@@ -836,18 +836,23 @@
                 <mat-radio-group>
                     <mat-radio-button [checked]="paymentMethod == 'Cash'" (change)="fnPaymentMethod('Cash')" class="payment-radio px-3 mb-0 col-12 w-auto mt-y mx-4 p-4 cash-payment single-pay" value="pay1">Cash Payment
                         <img src="../../assets/icons/cash-symbol.png" class="payment-gtw-icon cash-payment" />
-                        <div class="ml-auto mx-3">
+                        <!-- <div class="ml-auto mx-3">
                             <mat-slide-toggle (change)="fnChangePaymentStatus('Cash')" [checked]="defaultPayment === 'Cash' ? true : false"></mat-slide-toggle>
-                        </div>
+                        </div> -->
                     </mat-radio-button>
-
-                    <mat-radio-button *ngIf="stripeStatus" [checked]="paymentMethod == 'stripe'" (change)="fnPaymentMethod('stripe')" class="col-12 w-auto mt-4 mx-4 p-4  credit-payment single-pay payment-radio px-3 mb-0" value="pay2">Debit Card / Credit Card
+                    <mat-radio-button *ngFor="let gateway of gatewayList; let i=index;" [checked]="paymentMethod == gateway.gateway_type"
+                    (change)="GetPaymentGatewayDetails(gateway.gateway_type,gateway.payment_code,payButton); fnPaymentMethod(gateway.gateway_type)"
+                        class="payment-radio single-pay px-3 mb-0 w-auto mt-4 mx-4 p-4" value="card">
+                        {{gateway.name}}
+                        <img src="../../assets/images/payement-gateways/{{gateway.gateway_type}}.png" class="payment-gtw-icon cash-payment" />
+                    </mat-radio-button>
+                    <!-- <mat-radio-button *ngIf="stripeStatus" [checked]="paymentMethod == 'stripe'" (change)="fnPaymentMethod('stripe')" class="col-12 w-auto mt-4 mx-4 p-4  credit-payment single-pay payment-radio px-3 mb-0" value="pay2">Debit Card / Credit Card
                         <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" />
                         <div class="ml-auto mx-3">
                             <mat-slide-toggle (change)="fnChangePaymentStatus('stripe')" [checked]="defaultPayment === 'stripe' ? true : false"></mat-slide-toggle>
                         </div>
-                    </mat-radio-button>
-                    <div *ngIf="creditcardform">
+                    </mat-radio-button> -->
+                    <!-- <div *ngIf="creditcardform">
                         <form [formGroup]="cardForm" class="field-list
                                         mx-4 row credit-card-form">
                             <div class="col-12 left-side mb-3
@@ -914,24 +919,11 @@
                     </div>
 
                     <mat-radio-button *ngIf="payUmoneyStatus" [checked]="paymentMethod == 'PayUMoney'" (change)="fnPaymentMethod('PayUMoney')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay4">PayUMoney
-                        <!-- <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" /> -->
-                        <img src="../../assets/images/payumoney-logo.png" alt="PayPal" class="payment-gtw-icon  cash-payment payumoney-logo-width" />
+                       <img src="../../assets/images/payumoney-logo.png" alt="PayPal" class="payment-gtw-icon  cash-payment payumoney-logo-width" />
                         <div class="ml-auto mx-3">
                             <mat-slide-toggle (change)="fnChangePaymentStatus('PayUMoney')" [checked]="defaultPayment === 'PayUMoney' ? true : false"></mat-slide-toggle>
                         </div>
-                        <!-- <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal"  class="payment-gtw-icon cash-payment"/> -->
-                    </mat-radio-button>
-                    <!-- <div *ngIf="showPayUMoneyButton" class="field-list mx-4 row credit-card-form "> -->
-                    <!-- <div class="col-12 left-side col-lg-6">
-                        <div class='pm-button'><a href='https://www.payumoney.com/sandbox/paybypayumoney/#/8C489717229C94CF81E97BB992F57B4D'><img src='https://www.payumoney.com/media/images/payby_payumoney/new_buttons/23.png' /></a></div> 
-                    </div> -->
-                    <!-- <div class="col-12 left-side col-lg-6">
-                        <div class='pm-button'><button (click)="fnPayUMoney()" mat-button class="round-btn gray-btn logout-btn"><img src='https://www.payumoney.com/media/images/payby_payumoney/new_buttons/23.png' /></button></div> 
-                    </div>
-                    <div class="col-12 right-side col-lg-6">
-                        <img src='../../assets/images/payumoney-logo.png' />
-                    </div>
-                </div> -->
+                         </mat-radio-button>
                     <mat-radio-button *ngIf="bankTransferStatus" [checked]="paymentMethod == 'BankTransfer'" (change)="fnPaymentMethod('BankTransfer')" class="col-12 w-auto mt-4 mx-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay2">Bank Transfer
                         <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" />
                         <div class="ml-auto mx-3">
@@ -967,12 +959,62 @@
 
 
                         </div>
-                    </div>
+                    </div> -->
                 </mat-radio-group>
+                
+                <form id="kc-payment-gateway-process-div" #cardDetails="ngForm" (ngSubmit)="PreProcessData(cardDetails)">
+                    <div class="card mb-3" id="cardCheckoutForm" *ngIf="CardFormList.includes(paymentMethod)">
+                        <div class="card-header">
+                            <h5 class="card-title display-td">Your Card Details</h5>
+                        </div>
+                        <div class="card-body mb-3">
+                            <div class="form-group">
+                                <label for="cname">Name on Card</label>
+                                <input type="text" class="form-control" id="cname" name="cardname" placeholder="John More Doe"  required [ngModel]="" #cardname="ngModel">
+                                <div *ngIf="(cardname.touched || cardDetails.submitted) && cardname.invalid" class="error">Name is required.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cardNumber">Card Number</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="cardNumber" name="number" required [ngModel]="" #cardnumber="ngModel">
+                                    <div class="input-group-append" id="basic-addon1">
+                                        <span class="input-group-text"><i class="fa fa-credit-card"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div *ngIf="(cardnumber.touched || cardDetails.submitted) && cardnumber.invalid" class="error">Card number is required.</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <label for="expmonth">Exp Month</label>
+                                    <input type="number" class="form-control" id="expmonth" name="month" required [ngModel]=""  #expmonth="ngModel">
+                                    <div *ngIf="(expmonth.touched || cardDetails.submitted) && expmonth.invalid" class="error">Expiry month is required.</div>
+                                </div>
+                                <div class="col">
+                                    <label for="expyear">Exp Year</label>
+                                    <input type="number" class="form-control" id="expyear" name="year" required [ngModel]="" #expyear="ngModel">
+                                    <div *ngIf="(expyear.touched || cardDetails.submitted) && expyear.invalid" class="error">Expiry year is required.</div>
+                                </div>
+                                <div class="col">
+                                    <label for="cvv">CVV</label>
+                                    <input type="number" class="form-control" id="cvv" name="cvv" required [ngModel]="" #cvv="ngModel">
+                                    <div *ngIf="(cvv.touched || cardDetails.submitted) && cvv.invalid" class="error">CVV is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-ctn-btn">
+                        <button *ngIf="paymentMethod && paymentMethod == 'cash'" (click)="fnPayNow()" mat-button class="round-btn gray-btn proceed">Pay Now</button>
+                        <button mat-flat-button type="submit" #payButton class="round-btn gray-btn proceed" *ngIf="paymentMethod && paymentMethod != 'cash'"> Pay Now </button>
+                    </div>
+                    <!-- <div class="bottom-submit-btn">
+                        <button mat-flat-button *ngIf="payment_method && payment_method == 'cash'" (click)="fnOrderCreate()"
+                            class="px-3 mr-2 text-light btn-color btn-bgcolor"> Book Now</button>
+                            <button mat-flat-button type="submit" #payButton class="px-3 mr-2 text-light btn-color btn-bgcolor" *ngIf="payment_method && payment_method != 'cash'"> Book Now </button>
+                    </div> -->
+                </form>
 
-                <div class="bottom-ctn-btn">
-                    <button *ngIf="paymentMethod != '' &&  paymentMethod != 'Paypal'" (click)="fnPayNow()" mat-button class="round-btn gray-btn proceed">Pay Now</button>
-                </div>
+               
 
             </mat-card-content>
 

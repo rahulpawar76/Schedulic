@@ -69,16 +69,20 @@ export class MyWorkSpaceComponent implements OnInit {
   }
 
   getProfiledata(){
+        this.isLoader=true;
     this.StaffService.getProfiledata().subscribe((response:any) => 
     {
       if(response.data == true){
-        this.isLoader=false;
         this.dashBGImage = response.response.staff_bg_image;
+      }else{
+
       }
+        this.isLoader=false;
     })
   }
 
   fnGetSettingValue(){
+    this.isLoader=true;
     let requestObject = {
       "business_id":this.bussinessId
     };
@@ -92,6 +96,7 @@ export class MyWorkSpaceComponent implements OnInit {
       else if(response.data == false){
         
       }
+    this.isLoader=false;
     })
   }
   changeBookingStatus(order_item_id, status){
@@ -120,11 +125,12 @@ export class MyWorkSpaceComponent implements OnInit {
             panelClass :['red-snackbar']
           }); 
         }
-      })
     this.isLoader=false;
+      })
   }
 
   getTodayAppointment(){
+    this.isLoader=true;
     let requestObject = {
       'staff_id' : this.staffId,
       'business_id': this.bussinessId,
@@ -150,6 +156,7 @@ export class MyWorkSpaceComponent implements OnInit {
       else if(response.data == false){
         this.todayAppointmentData = ''
       }
+    this.isLoader=false;
     })
   }
   fnBookingActive(index){
@@ -200,8 +207,8 @@ export class MyWorkSpaceComponent implements OnInit {
           panelClass :['red-snackbar']
         }); 
       }
-    })
     this.isLoader=false;
+    })
   }
 
 }
@@ -214,6 +221,7 @@ export class MyWorkSpaceComponent implements OnInit {
 export class DialogStaffDashBGUpload {
 
   uploadForm: FormGroup;  
+  isLoader:boolean=false;
   imageSrc: any;  
   profileImage: string;
   constructor(
@@ -277,6 +285,7 @@ export class DialogStaffDashBGUpload {
 export class DialogTodayAppointmentDetail {
 
 appoDetail : any;
+isLoader:boolean=false;
 bussinessId: any;
 settingsArr:any=[];
 currencySymbol:any;
@@ -298,6 +307,7 @@ onNoClick(): void {
   this.dialogRef.close();
 }
     fnGetSettingValue(){
+    this.isLoader=true;
       let requestObject = {
         "business_id":this.bussinessId
       };
@@ -311,10 +321,12 @@ onNoClick(): void {
         else if(response.data == false){
           
         }
+    this.isLoader=false;
       })
     }
 
     fnGetActivityLog(orderItemId){
+    this.isLoader=true;
       let requestObject = {
         "order_item_id":orderItemId
       };
@@ -325,6 +337,7 @@ onNoClick(): void {
         else if(response.data == false){
           this.activityLog=[];
         }
+    this.isLoader=false;
       })
     }
 
