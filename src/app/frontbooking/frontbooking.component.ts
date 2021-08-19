@@ -1514,7 +1514,8 @@ this.router.navigate(['/customer-login/'+this.urlString[1]]);
     this.isLoader=true;
     let requestObject = {
       "business_id": this.businessId,
-      "selected_date":this.selecteddate
+      "selected_date":this.selecteddate,
+      "service_id":this.currentSelectedService,
       };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -6059,7 +6060,8 @@ export class theme2DateTimeSelection {
         this.isLoader=true;
         let requestObject = {
           "business_id": this.businessId,
-          "selected_date":this.selecteddate
+          "selected_date":this.selecteddate,
+          "service_id":this.currentSelectedService,
           };
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',

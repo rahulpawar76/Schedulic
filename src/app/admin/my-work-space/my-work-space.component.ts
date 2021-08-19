@@ -84,7 +84,8 @@ export class MyWorkSpaceComponent implements OnInit {
     initials: "",
     service_name: "",
     customer_id: "",
-    bookingNotes: ""
+    bookingNotes: "",
+    gl_time: "",
   };
   categories: any = [];
   businessId: any;

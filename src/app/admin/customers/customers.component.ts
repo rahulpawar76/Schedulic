@@ -1875,6 +1875,7 @@ export class InterruptedReschedulecustomer {
     let requestObject = {
       "business_id":this.businessId,
       "selected_date":selectedDate,
+      "service_id":JSON.stringify(this.detailsData.service_id),
     };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -2802,7 +2803,8 @@ constructor(
   fnGetTimeSlots(date){
     let requestObject = {
       "business_id":this.bussinessId,
-      "selected_date":date
+      "selected_date":date,
+      "service_id":this.selectedServiceId,
     };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',

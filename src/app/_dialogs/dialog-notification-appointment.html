@@ -35,6 +35,8 @@
                             <p class="font-weight-bold text-capitalize" *ngIf="myAppoDetailData.order_status == 'RSS'">Rescheduled By Staff</p>
                             <p class="font-weight-bold text-capitalize" *ngIf="myAppoDetailData.order_status == 'RSC'">Rescheduled</p>
                             <p class="font-weight-bold text-capitalize" *ngIf="myAppoDetailData.order_status == 'CO'">Completed</p>
+                            <p class="font-weight-bold text-capitalize mb-0" *ngIf="myAppoDetailData.order_status == 'GL'">Getting Late</p>
+                            <p class="mb-0" *ngIf="myAppoDetailData.gl_time && myAppoDetailData.gl_time != '' && myAppoDetailData.order_status == 'GL'">Late Time : {{myAppoDetailData.gl_time}} Min</p>
                         </div>
 
                     </div>
