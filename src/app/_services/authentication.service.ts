@@ -37,6 +37,13 @@ export class AuthenticationService {
            }));
    }
 
+    getPhoneCode(){
+        return this.http.get<any>(`${environment.apiUrl}/get-phone-code`)
+            .pipe(map(data => { 
+                return data;
+        }));
+    }
+
    verifyOtp(requestObject) {
         return this.http.post<any>(`${environment.apiUrl}/verify-otp`,  requestObject )
         .pipe(map(user => {

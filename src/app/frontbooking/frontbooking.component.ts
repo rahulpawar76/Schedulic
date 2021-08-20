@@ -30,6 +30,7 @@ declare const PayUMoneylaunch: any;
 export class FrontbookingComponent implements OnInit {
   selectedTheme:any = '1';
   formExistingUser : FormGroup;
+  formOtpExistingUser : FormGroup;
   formNewUser: FormGroup
   formAppointmentInfo: FormGroup;
   model: NgbDateStruct;
@@ -51,6 +52,10 @@ export class FrontbookingComponent implements OnInit {
   summaryScreen = false;
   paymentScreen= false;
   thankYouScreen = false;
+  otpLogin = false;
+  normalLogin = false;
+  phoneCodes :any=[];
+  selectedPhoneCode: any;
   defaultPayment:any;
   allUnitsBack = "";
   totalAmt ="";
@@ -96,6 +101,7 @@ export class FrontbookingComponent implements OnInit {
     couponcode_val: ""
   };
   existing_phone: any;
+  existing_email: any;
   timeslotview: boolean = false;
   newcustomer: boolean = false;
   validpostalcode : string = 'default';
@@ -255,10 +261,16 @@ export class FrontbookingComponent implements OnInit {
       day: current.getDate(),
     };
 
-    this.formExistingUser = this._formBuilder.group({
+    this.formOtpExistingUser = this._formBuilder.group({
       existing_phone: ['',[Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       existing_otp: ['',[Validators.required, Validators.pattern("^[1-9][0-9]{3}")]],
     })
+
+    this.formExistingUser = this._formBuilder.group({
+      existing_mail: ['',[Validators.required,Validators.email]],
+      existing_password: ['',Validators.required]
+    });
+
     this.cardForm = this._formBuilder.group({
       cardHolderName: ['',[Validators.required]],
       cardNumber: ['',[Validators.required,Validators.minLength(16), Validators.maxLength(16),Validators.pattern(this.onlynumeric)]],
@@ -293,6 +305,7 @@ export class FrontbookingComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fngetPhoneCode();
     this.fnGetSettings();
     this.fnGetDefaultPayment();
     this.fnIsPostalCodeAdded();
@@ -317,6 +330,17 @@ export class FrontbookingComponent implements OnInit {
     this.serviceCount.length=0
     this.serviceCartArr.length=0
 
+    this.normalLogin = true;
+
+  }
+
+  fngetPhoneCode(){
+    this.authenticationService.getPhoneCode().subscribe((response:any) => {
+        if(response.data == true){
+            this.phoneCodes = response.response;
+            this.selectedPhoneCode = "91";
+        }
+      });
   }
 
   renderExternalScript(src: string): HTMLScriptElement {
@@ -1663,36 +1687,59 @@ this.router.navigate(['/customer-login/'+this.urlString[1]]);
 
   fnloginexisinguser(){
     if(!this.formExistingUser.valid){
-     this.formExistingUser.get('existing_phone').markAsTouched();
-     this.formExistingUser.get('existing_otp').markAsTouched();
+      this.formExistingUser.get('existing_mail').markAsTouched();
+      this.formExistingUser.get('existing_password').markAsTouched();
+      
+      return false;
+     }
+     let requestObject = {
+       "email" : this.formExistingUser.get('existing_mail').value,
+       "password" : this.formExistingUser.get('existing_password').value,
+       "business_id": this.businessId
+       };
+    this.fnLogin(requestObject);
+  }
+
+  fnOtploginexisinguser(){
+    if(!this.formOtpExistingUser.valid){
+     this.formOtpExistingUser.get('existing_phone').markAsTouched();
+     this.formOtpExistingUser.get('existing_otp').markAsTouched();
      console.log("error");
      return false;
     }
 
-    var phone = this.formExistingUser.get('existing_phone').value;
-    if(phone.length == 10) {
-        phone = "+91"+phone;
-    }
+    var phone = this.formOtpExistingUser.get('existing_phone').value;
+    phone = "+"+this.selectedPhoneCode+phone;
     let requestObject = {
       "phone" : phone,
-      "otp" : this.formExistingUser.get('existing_otp').value,
+      "otp" : this.formOtpExistingUser.get('existing_otp').value,
       "business_id": this.businessId
       };
-   this.fnLogin(requestObject);
+   this.fnOtpLogin(requestObject);
   }
 
   getOtp() {
-    var phone = this.formExistingUser.get('existing_phone').value;
-    console.log(phone.length);
-    if(phone.length == 10) {
-        phone = "+91"+phone;
+    if(this.formOtpExistingUser.get('existing_phone').valid) {
+      var phone = this.formOtpExistingUser.get('existing_phone').value;
+      phone = "+"+this.selectedPhoneCode+phone;
+      let requestObject = {
+          'phone' : phone,
+          'business_id' : this.businessId,
+          'country_code' : "+"+this.selectedPhoneCode
+      }
+      this.fnGetOtp(requestObject);
     }
-    let requestObject = {
-        'phone' : phone,
-        'business_id' : this.businessId,
-        'country_code' : '+91'
-    }
-    this.fnGetOtp(requestObject);
+    
+}
+
+fnLoginType(event,logintype){
+  if(logintype == "otp"){
+    this.otpLogin = true;
+    this.normalLogin = false;
+  }else{
+      this.otpLogin = false;
+      this.normalLogin = true;
+  }
 }
 
 fnGetOtp(requestObject){
@@ -1713,7 +1760,7 @@ fnGetOtp(requestObject){
    });
 }  
 
-  fnLogin(requestObject){
+  fnOtpLogin(requestObject){
     
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -1730,6 +1777,69 @@ fnGetOtp(requestObject){
          this.authenticationService.currentUserSubject.next(response.response.data);
  
          this.customerName=response.response.data.fullname;
+       
+         this.customerFirstname = this.customerName!=undefined?this.customerName.split(" ")[0]:'';
+         this.customerLastname  =  this.customerName!=undefined?this.customerName.split(" ")[1]:'';
+ 
+         this.customerEmail=this.authenticationService.currentUserValue.email;
+         this.customerPhone=this.authenticationService.currentUserValue.phone;
+       
+           this.showSameAsAboveCheck=false;
+           this.snackBar.open("Login successfull.", "X", {
+             duration: 2000,
+             verticalPosition: 'top',
+             panelClass : ['green-snackbar']
+             });
+         if(this.is_at_home_service){
+           if(this.existinguser){
+             this.personalinfo = false;
+             this.appointmentinfo = true;
+             this.isLoggedIn=true;
+           }else if(this.newuser){
+             this.personalinfo = false;
+             this.appointmentinfo = false;
+             this.summaryScreen = true;
+             this.isLoggedIn=true;
+           }
+         }else if(!this.is_at_home_service){
+           this.personalinfo = false;
+           this.appointmentinfo = false;
+           this.summaryScreen = true;
+           this.isLoggedIn=true;
+         }
+       }else{
+ 
+         this.snackBar.open(response.response, "X", {
+         duration: 2000,
+         verticalPosition: 'top',
+         panelClass : ['red-snackbar']
+         });
+ 
+         this.showSameAsAboveCheck=true;
+       }
+     },(err) =>{ 
+        this.errorMessage = this.handleError;
+     });
+   }
+
+   fnLogin(requestObject){
+    
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+ 
+    this.http.post(`${environment.apiUrl}/customer-login`,requestObject,{headers:headers} ).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(this.handleError)).subscribe((response:any) => {
+       if(response.data == true ){
+         localStorage.setItem('currentUser', JSON.stringify(response.response));
+         localStorage.setItem('isFront', "true");
+         this.authenticationService.currentUserSubject.next(response.response);
+ 
+ 
+         this.customerName=response.response.fullname;
        
          this.customerFirstname = this.customerName!=undefined?this.customerName.split(" ")[0]:'';
          this.customerLastname  =  this.customerName!=undefined?this.customerName.split(" ")[1]:'';
@@ -2946,6 +3056,13 @@ fnGetOtp(requestObject){
 export class theme2CheckoutDialog {
   isLoader:boolean= false;
   formExistingUser : FormGroup;
+  formOtpExistingUser : FormGroup;
+  otpLogin = false;
+  normalLogin = false;
+  otpShow = true;
+  loginShow = false;
+  phoneCodes :any=[];
+  selectedPhoneCode: any;
   serviceMainArr={
     totalNumberServices:0,
     subtotal:0,
@@ -3024,8 +3141,6 @@ export class theme2CheckoutDialog {
   transactionId:any=null;
   phoneNumberInvalid:any = "valid";
   isLoggedIn:boolean=false;
-  otpShow = true;
-  loginShow = false;
   customerName:any;
   customerFirstname:any;
   customerLastname:any;
@@ -3076,11 +3191,17 @@ export class theme2CheckoutDialog {
       this.serviceCount= this.data.serviceCount,
       this.taxArr=this.data.taxArr,
       this.bookingPostalcode=this.data.bookingPostalcode;
-      this.formExistingUser = this._formBuilder.group({
+      this.formOtpExistingUser = this._formBuilder.group({
         existing_phone: ['',[Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
         existing_otp: ['',[Validators.required, Validators.pattern("^[1-9][0-9]{3}")]],
       });
-      
+
+      this.formExistingUser = this._formBuilder.group({
+        existing_mail: ['',[Validators.required,Validators.email]],
+        existing_password: ['',Validators.required]
+      });
+      this.fngetPhoneCode();
+      this.normalLogin = true;
       this.formNewUser = this._formBuilder.group({
         newUserEmail: ['',[Validators.required,Validators.email,Validators.pattern(this.emailPattern)],
         this.isEmailUnique.bind(this)],
@@ -3389,37 +3510,58 @@ export class theme2CheckoutDialog {
       }
     }
 
+    fngetPhoneCode(){
+      this.authenticationService.getPhoneCode().subscribe((response:any) => {
+          if(response.data == true){
+              this.phoneCodes = response.response;
+              this.selectedPhoneCode = "91";
+          }
+        });
+    }
+
     fnloginexisinguser(){
       if(!this.formExistingUser.valid){
-       this.formExistingUser.get('existing_phone').markAsTouched();
-       this.formExistingUser.get('existing_otp').markAsTouched();
-       console.log("error");
-       return false;
-      }
-      var phone = this.formExistingUser.get('existing_phone').value;
-      if(phone.length == 10) {
-          phone = "+91"+phone;
-      }
-      let requestObject = {
-        "phone" : phone,
-        "otp" : this.formExistingUser.get('existing_otp').value,
-        "business_id": this.businessId
-        };
+        this.formExistingUser.get('existing_mail').markAsTouched();
+        this.formExistingUser.get('existing_password').markAsTouched();
+        
+        return false;
+       }
+       let requestObject = {
+         "email" : this.formExistingUser.get('existing_mail').value,
+         "password" : this.formExistingUser.get('existing_password').value,
+         "business_id": this.businessId
+         };
       this.fnLogin(requestObject);
     }
 
-    getOtp() {
-      var phone = this.formExistingUser.get('existing_phone').value;
-      console.log(phone.length);
-      if(phone.length == 10) {
-          phone = "+91"+phone;
+    fnOtploginexisinguser(){
+      if(!this.formOtpExistingUser.valid){
+       this.formOtpExistingUser.get('existing_phone').markAsTouched();
+       this.formOtpExistingUser.get('existing_otp').markAsTouched();
+       console.log("error");
+       return false;
       }
+      var phone = this.formOtpExistingUser.get('existing_phone').value;
+          phone = "+"+this.selectedPhoneCode+phone;
       let requestObject = {
-          'phone' : phone,
-          'business_id' : this.businessId,
-          'country_code' : '+91'
+        "phone" : phone,
+        "otp" : this.formOtpExistingUser.get('existing_otp').value,
+        "business_id": this.businessId
+        };
+      this.fnOtpLogin(requestObject);
+    }
+
+    getOtp() {
+      if(this.formOtpExistingUser.get('existing_phone').valid) {
+        var phone = this.formOtpExistingUser.get('existing_phone').value;
+          phone = "+"+this.selectedPhoneCode+phone;
+          let requestObject = {
+              'phone' : phone,
+              'business_id' : this.businessId,
+              'country_code' : '+'+this.selectedPhoneCode
+          }
+          this.fnGetOtp(requestObject);
       }
-      this.fnGetOtp(requestObject);
   }
   
   fnGetOtp(requestObject){
@@ -3440,7 +3582,7 @@ export class theme2CheckoutDialog {
      });
   }  
 
-  fnLogin(requestObject){
+  fnOtpLogin(requestObject){
     
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -3457,6 +3599,69 @@ export class theme2CheckoutDialog {
          this.authenticationService.currentUserSubject.next(response.response.data);
  
          this.customerName=response.response.data.fullname;
+       
+         this.customerFirstname = this.customerName!=undefined?this.customerName.split(" ")[0]:'';
+         this.customerLastname  =  this.customerName!=undefined?this.customerName.split(" ")[1]:'';
+ 
+         this.customerEmail=this.authenticationService.currentUserValue.email;
+         this.customerPhone=this.authenticationService.currentUserValue.phone;
+       
+           this.showSameAsAboveCheck=false;
+           this.snackBar.open("Login successfull.", "X", {
+             duration: 2000,
+             verticalPosition: 'top',
+             panelClass : ['green-snackbar']
+             });
+         if(this.is_at_home_service){
+           if(this.existinguser){
+             this.personalinfo = false;
+             this.appointmentinfo = true;
+             this.isLoggedIn=true;
+           }else if(this.newuser){
+             this.personalinfo = false;
+             this.appointmentinfo = false;
+             this.summaryScreen = true;
+             this.isLoggedIn=true;
+           }
+         }else if(!this.is_at_home_service){
+           this.personalinfo = false;
+           this.appointmentinfo = false;
+           this.summaryScreen = true;
+           this.isLoggedIn=true;
+         }
+       }else{
+ 
+         this.snackBar.open(response.response, "X", {
+         duration: 2000,
+         verticalPosition: 'top',
+         panelClass : ['red-snackbar']
+         });
+ 
+         this.showSameAsAboveCheck=true;
+       }
+     },(err) =>{ 
+        this.errorMessage = this.handleError;
+     });
+   }
+
+   fnLogin(requestObject){
+    
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+ 
+    this.http.post(`${environment.apiUrl}/customer-login`,requestObject,{headers:headers} ).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(this.handleError)).subscribe((response:any) => {
+       if(response.data == true ){
+         localStorage.setItem('currentUser', JSON.stringify(response.response));
+         localStorage.setItem('isFront', "true");
+         this.authenticationService.currentUserSubject.next(response.response);
+ 
+ 
+         this.customerName=response.response.fullname;
        
          this.customerFirstname = this.customerName!=undefined?this.customerName.split(" ")[0]:'';
          this.customerLastname  =  this.customerName!=undefined?this.customerName.split(" ")[1]:'';

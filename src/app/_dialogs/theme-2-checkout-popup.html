@@ -23,7 +23,52 @@
                     </mat-radio-group>
                 </div>
                 <div id="existing_user" *ngIf="existinguser" class="">
-                    <form [formGroup]="formExistingUser">
+                    <div class="user-type-selection">
+                        <mat-radio-group aria-label="Select an option">
+                            <mat-radio-button  (click)="fnLoginType($event,'otp')" value="otp-login">OTP Login</mat-radio-button>
+                            <mat-radio-button checked (click)="fnLoginType($event,'normal')" value="normal-login">New User</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <form [formGroup]="formOtpExistingUser" *ngIf="otpLogin">
+                        <div class="field-list mr-0 ml-0 row">
+                            <div class="col-12 col-lg-6 col-md-6
+                                            col-sm-6">
+                                <label>Mobile Number</label>
+                                <input formControlName="existing_phone" class="common-input" type="phone" />
+                                <span class="error-wrap" *ngIf="formOtpExistingUser.get('existing_phone').dirty
+                                                ||
+                                                formOtpExistingUser.get('existing_phone').touched
+                                                || formSubmitclicked"><small
+                                                    *ngIf="formOtpExistingUser.get('existing_phone').hasError('required')"
+                                                    class="error">Mobile Number is
+                                                    required.</small>
+                                                <small
+                                                    *ngIf="formOtpExistingUser.get('existing_phone').hasError('phone')"
+                                                    class="error">Enter valid
+                                                    Mobile Number.</small></span>
+                            </div>
+                            <div class="col-12 col-lg-6 col-md-6
+                                            col-sm-6" *ngIf="loginShow">
+                                <label>Enter OTP</label>
+                                <input class="common-input" formControlName="existing_otp" type="otp" />
+                                <span class="error-wrap" *ngIf="formOtpExistingUser.get('existing_otp').dirty
+                                                ||
+                                                formOtpExistingUser.get('existing_otp').touched
+                                                || formSubmitclicked"><small
+                                                    *ngIf="formOtpExistingUser.get('existing_otp').hasError('required')"
+                                                    class="error">OTP is
+                                                    required.</small></span>
+                            </div>
+                            <div class="col-12 col-lg-6 col-md-6
+                                            col-sm-6" *ngIf="otpShow">
+                                            <button mat-button (click)="getOtp()" class="round-btn float-right gray-btn mr-0">Get OTP</button>
+                            </div>
+                            <div class="col bottom-ctn-btn exi-user-login-btn" *ngIf="loginShow">
+                                <button mat-button (click)="fnOtploginexisinguser()" class="round-btn float-right gray-btn mr-0">Log In</button>
+                            </div>
+                        </div>
+                    </form>
+                    <form [formGroup]="formExistingUser" *ngIf="normalLogin">
                         <div class="field-list mr-0 ml-0 row">
                             <div class="col-12 col-lg-6 col-md-6
                                         col-sm-6">
