@@ -1845,7 +1845,8 @@ export class StaffAppointmentComponent implements OnInit {
       fnGetTimeSlots(rescheduleServiceId,rescheduleDate){
         let requestObject = {
           "business_id":this.businessId,
-          "selected_date":rescheduleDate
+          "selected_date":rescheduleDate,
+          "service_id":this.myAppoDetailData.service.id
         };
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',

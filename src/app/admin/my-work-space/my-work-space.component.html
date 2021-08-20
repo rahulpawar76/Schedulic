@@ -191,6 +191,9 @@
                                                     <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'CC'">Cancelled by Client</p>
                                                     <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'R'">Rejected</p>
                                                     <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'CO'">Completed</p>
+                                                    <p class="status-stamp ff-stamper pt-0 " *ngIf="appointment.order_status == 'GL'">
+                                                        Getting late {{appointment.gl_time && appointment.gl_time != ''?'(Late Time : '+appointment.gl_time+')':''}}
+                                                    </p>
                                                 </div>
                                                 <h5>{{appointment.service?appointment.service.service_name:''}} <small class="work-space-font">({{appointment.service?appointment.service.category_name:''}})</small></h5>
                                             </div>
@@ -306,6 +309,9 @@
                                         <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'CC'">Cancelled By Client</h6>
                                         <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'R'">Rejected</h6>
                                         <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'CO'">Completed</h6>
+                                        <h6 class="pt-0 mb-0" *ngIf="appointmentDetails.order_status == 'GL'">
+                                            Getting Late {{appointmentDetails.gl_time && appointmentDetails.gl_time != ''?'(Late Time : '+appointmentDetails.gl_time+')':''}}
+                                        </h6>
                                     </div>
                                     <div class="appoint-staff">
                                         <p class="text-gray mb-0 pt-2">Staff</p>

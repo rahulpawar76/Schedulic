@@ -140,6 +140,8 @@
                             <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'OW'">On The Way</p>
                             <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'WS'">Work Started</p>
                             <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'CO'">Completed</p>
+                            <p class="text-capitalize font-weight-bold text-right mb-0" *ngIf="detailData.order_status == 'GL'">Getting Late </p>
+                            <p class="title text-right" *ngIf="detailData.gl_time && detailData.gl_time != '' && detailData.order_status == 'GL'">Late Time : {{detailData.gl_time}} Min</p>
                         </div>
                     </div>
 

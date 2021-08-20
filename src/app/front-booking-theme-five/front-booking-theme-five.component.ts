@@ -1611,7 +1611,8 @@ export class FrontBookingThemeFiveComponent implements OnInit {
     this.isLoader=true;
     let requestObject = {
       "business_id": this.businessId,
-      "selected_date":this.selecteddate
+      "selected_date":this.selecteddate,
+      "service_id":this.currentSelectedService,
       };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',

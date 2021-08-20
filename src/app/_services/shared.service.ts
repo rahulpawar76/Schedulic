@@ -5,6 +5,10 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class SharedService {
+	// sidemenuStatus:boolean=false;
+	// if(localStorage.getItem('currentUser')){
+		
+	// }
   private sideMenuStateSource = new BehaviorSubject<boolean>(false);
 	sideMenuState = this.sideMenuStateSource.asObservable();
 

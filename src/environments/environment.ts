@@ -9,6 +9,7 @@ export const environment = {
     apiUrl:         'https://api.schedulic.com/api',
     authApiUrl:     'https://api.schedulic.com/api',
     urlForLink :    'http://localhost:4200',
+    ErrorMsg:"Something went wrong",
 
 };
 

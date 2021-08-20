@@ -117,6 +117,11 @@
                             <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.order_status == 'OW'">On The Way</p>
                             <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.order_status == 'WS'">Work Started</p>
                             <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.order_status == 'CO'">Completed</p>
+                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.order_status == 'CO'">Completed</p>
+                            
+                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.order_status == 'GL'">
+                                Getting Late {{detailsData.gl_time && detailsData.gl_time != ''?'(Late Time : '+detailsData.gl_time+')':''}}
+                            </p>
                         </div>
                     </div>
 
@@ -186,7 +191,7 @@
                 <div class="p-1-5 bottom-border">
                     <h6>Activity Log</h6>
                     <div *ngFor="let log of activityLog" class="mb-4">
-                        {{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - {{log.status=='P'?'Pending':''}} {{log.status=='MOD'?'Modified':''}} {{log.status=='CNF'?'Confirmed':''}} {{log.user_type=='A' && log.status=='CNF' ? 'By Admin' : log.user_type=='S'
+                        {{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - {{log.status=='P'?'Pending':''}} {{log.status=='MOD'?'Modified':''}} {{log.status=='CNF'?'Confirmed':''}} {{log.status=='GL'?'Getting Late':''}} {{log.user_type=='A' && log.status=='CNF' ? 'By Admin' : log.user_type=='S'
                         && log.status=='CNF' ? 'By Staff': log.user_type=='C' && log.status=='CNF' ? 'By User' : ''}} {{log.status=='AC'?'Accepted':''}} {{log.user_type=='A' && log.status=='AC' ? 'By Admin' : log.user_type=='S' && log.status=='AC' ? 'By
                         Staff': log.user_type=='C' && log.status=='AC' ? 'By User' : ''}} {{log.status=='OW'?'On The Way':''}} {{log.status=='WS'?'Work Started':''}}
                         <!-- {{log.status=='RSA'?'Rescheduled By Admin':''}}
@@ -197,8 +202,12 @@
                         <!-- {{log.status=='C'?'Cancelled':''}}
                         {{log.status=='CC'?'Cancelled By Client':''}} -->
                         {{log.status=='C' && log.customer ? 'Cancelled By '+ log.customer.fullname : log.status=='C' ? 'Cancelled' :''}} {{log.status=='CC' && log.customer ? 'Cancelled By '+ log.customer.fullname : log.status=='CC' ? 'Cancelled By Client' :''}} {{log.status=='R'?'Rejected':''}}
-                        {{log.user_type=='A' && log.status=='R' ? 'By Admin' : log.user_type=='S' && log.status=='R' ? 'By Staff': log.user_type=='C' && log.status=='R' ? 'By User' : ''}} {{log.status=='CO'?'Completed':''}} {{log.user_type=='A' && log.status=='CO'
+                        {{log.user_type=='A' && log.status=='R' ? 'By Admin' : log.user_type=='S' && log.status=='R' ? 'By Staff': log.user_type=='C' && log.status=='R' ? 'By User' : ''}} 
+                        {{log.status=='CO'?'Completed':''}} {{log.user_type=='A' && log.status=='CO'
                         ? 'By Admin' : log.user_type=='S' && log.status=='CO' ? 'By Staff': log.user_type=='C' && log.status=='CO' ? 'By User' : ''}}
+
+                        {{log.user_type=='A' && log.status=='GL'
+                        ? 'By Admin' : log.user_type=='S' && log.status=='GL' ? 'By Staff': log.user_type=='C' && log.status=='GL' ? 'By User' : ''}}
 
                         <p *ngIf="log.notes">
                             <b>Note: </b> {{log.notes}}

@@ -565,6 +565,7 @@
                     .payment-gtw-icon {
                         margin-left: auto;
                         float: right;
+                        max-width: 130px;
                     }
                     &.payment-radio {
                          ::ng-deep .mat-radio-label {

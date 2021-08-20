@@ -1,6 +1,6 @@
-import { Component, OnInit,ElementRef, ViewChild, ViewChildren, QueryList, Renderer2, Inject} from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, Renderer2, Inject, NgZone} from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
-import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators,FormControl, NgForm } from '@angular/forms';
 import { environment } from '@environments/environment';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
@@ -15,12 +15,14 @@ import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { Meta } from '@angular/platform-browser';
 import { Router, RouterOutlet } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { FrontService } from '@app/_services/front.service';
+ import { ErrorService } from '@app/_services/error.service';
 // import { DOCUMENT } from '@angular/platform-browser';
 // import { DOCUMENT } from '@angular/common',
 import { sha512 as sha512 } from 'js-sha512';
 //import { Base64 } from 'base64-string';
 
-declare const PayUMoneylaunch: any;
+// declare const PayUMoneylaunch: any;
 @Component({
   selector: 'app-frontbooking',
   templateUrl: './frontbooking.component.html',
@@ -186,32 +188,32 @@ export class FrontbookingComponent implements OnInit {
   //@ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
   emailFormat = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/"
   onlynumeric = /^(\d*\.)?\d+$/
-  private payPalConfig?: IPayPalConfig;
+  // private payPalConfig?: IPayPalConfig;
   cardForm:FormGroup
 
-  PayUMoney={
-    key:'',
-    txnid:'',
-    amount:'',
-    firstname:'',
-    email:'',
-    phone:'',
-    productinfo:'',
-    surl:'',
-    furl:'',
-    mode:'',
-    salt:'',
-    udf1:'',
-    udf2:'',
-    udf3:'',
-    udf4:'',
-    udf5:''
-  }
-  payUmoneyStatus : boolean = false;
+  // PayUMoney={
+  //   key:'',
+  //   txnid:'',
+  //   amount:'',
+  //   firstname:'',
+  //   email:'',
+  //   phone:'',
+  //   productinfo:'',
+  //   surl:'',
+  //   furl:'',
+  //   mode:'',
+  //   salt:'',
+  //   udf1:'',
+  //   udf2:'',
+  //   udf3:'',
+  //   udf4:'',
+  //   udf5:''
+  // }
+  // payUmoneyStatus : boolean = false;
 
-  paypalClientId:any="sb";
-  paypalTestMode:any;
-  paypalStatus:boolean=false;
+  // paypalClientId:any="sb";
+  // paypalTestMode:any;
+  // paypalStatus:boolean=false;
   encodedbusinessId:any;
   businessId:any;
   businessDetail:any;
@@ -224,6 +226,32 @@ export class FrontbookingComponent implements OnInit {
   cartPopupCloseType:any;
   canCustomerLogin:boolean= false
   frontBgImage:any;
+
+  // payment var
+  gatewayList:any=[];
+  selectedGateway;
+  currencyDetails;
+  CGateways: any;
+  raw_pgw_details: object = {};
+  finalProcessData: {
+    key: string; // add razorpay Api Key Id
+    amount: any; // 2000 paise = INR 20
+    currency: any; // add currency
+    name: any; // add merchant user name
+    handler: (gatewayResponse: any) => void; prefill: {
+      name: any; // add user name
+      email: any;
+    }; theme: { color: any; }; modal: { ondismiss: (e: any) => void; };
+
+  };
+  razorpayamt: any;
+  finalGatewayResult:any;
+  // fileLink = environment.fileLink;
+  CardFormList = ['checkout_com','authorize-net','cybersource','worldpay','adyen']
+  OrderId = 'O'+Math.floor(Math.random() * 999999) + 111111;
+  // isLoader:boolean = false;
+  cartRequestObject:any;
+  orderDetails: any;
   constructor(
     private _formBuilder: FormBuilder,
     private http: HttpClient,
@@ -235,7 +263,10 @@ export class FrontbookingComponent implements OnInit {
     private datePipe: DatePipe,
     private meta: Meta,
     private renderer2: Renderer2,
+    private frontService: FrontService,
+    private errorService: ErrorService,
     public router: Router,
+    private readonly ngZone: NgZone,
     @Inject(DOCUMENT) private _document
     
   ) { 
@@ -323,6 +354,7 @@ export class FrontbookingComponent implements OnInit {
     this.fnGetTaxDetails();
     this.fnGetCategories();
     this.fnGetOffDays();
+    this.getPaymentGateways();
     setTimeout(() => {
       this.selectToday();
     }, 1000);
@@ -477,33 +509,33 @@ export class FrontbookingComponent implements OnInit {
               localStorage.setItem('frontBusiness_id',this.businessId)
             }
           }
-          if(this.settingsArr.payUmoney_settings){
-            this.PayUMoneyCredentials = JSON.parse(this.settingsArr.payUmoney_settings);
-            this.PayUMoney.key= this.PayUMoneyCredentials.merchant_key;
-            this.PayUMoney.salt=this.PayUMoneyCredentials.salt_key;
-            this.payUmoneyStatus=this.PayUMoneyCredentials.status;
-          }
+          // if(this.settingsArr.payUmoney_settings){
+          //   this.PayUMoneyCredentials = JSON.parse(this.settingsArr.payUmoney_settings);
+          //   this.PayUMoney.key= this.PayUMoneyCredentials.merchant_key;
+          //   this.PayUMoney.salt=this.PayUMoneyCredentials.salt_key;
+          //   this.payUmoneyStatus=this.PayUMoneyCredentials.status;
+          // }
           
-        if(this.settingsArr.pay_pal_settings){
-          this.paypalSetting = JSON.parse(this.settingsArr.pay_pal_settings)
-          this.paypalTestMode = this.paypalSetting.test_mode;
-          if(this.paypalTestMode){
-            this.paypalClientId="sb";
-          }else{
-            this.paypalClientId = this.paypalSetting.client_id;
-          }
-          this.paypalStatus = this.paypalSetting.status;
+        // if(this.settingsArr.pay_pal_settings){
+        //   this.paypalSetting = JSON.parse(this.settingsArr.pay_pal_settings)
+        //   this.paypalTestMode = this.paypalSetting.test_mode;
+        //   if(this.paypalTestMode){
+        //     this.paypalClientId="sb";
+        //   }else{
+        //     this.paypalClientId = this.paypalSetting.client_id;
+        //   }
+        //   this.paypalStatus = this.paypalSetting.status;
 
-        }
+        // }
           
-        if(this.settingsArr.stripe_settings){
-          this.stripeSetting = JSON.parse(this.settingsArr.stripe_settings)
-          this.stripeStatus = this.stripeSetting.status
-        }
-        if(this.settingsArr.bank_transfer){
-          this.bankTransferSetting = JSON.parse(this.settingsArr.bank_transfer)
-          this.bankTransferStatus = this.bankTransferSetting.status
-        }
+        // if(this.settingsArr.stripe_settings){
+        //   this.stripeSetting = JSON.parse(this.settingsArr.stripe_settings)
+        //   this.stripeStatus = this.stripeSetting.status
+        // }
+        // if(this.settingsArr.bank_transfer){
+        //   this.bankTransferSetting = JSON.parse(this.settingsArr.bank_transfer)
+        //   this.bankTransferStatus = this.bankTransferSetting.status
+        // }
           
 
           this.termsConditions = JSON.parse(this.settingsArr.terms_condition);
@@ -585,7 +617,7 @@ export class FrontbookingComponent implements OnInit {
           }
           
           
-        this.initConfig();
+        // this.initConfig();
         }else{
         }
       },(err) =>{
@@ -1506,7 +1538,8 @@ this.router.navigate(['/customer-login/'+this.urlString[1]]);
     this.isLoader=true;
     let requestObject = {
       "business_id": this.businessId,
-      "selected_date":this.selecteddate
+      "selected_date":this.selecteddate,
+      "service_id":this.currentSelectedService,
       };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -2539,48 +2572,10 @@ fnGetOtp(requestObject){
    }
 
   fnPaymentMethod(paymentMethod){
-    if(paymentMethod == 'Cash'){
-      this.creditcardform =false;
-      this.showPaypalButtons =false;
-      this.paymentMethod="Cash";
-      this.BankDetail =false;
-      this.transactionId=null;
+    
+      this.paymentMethod=paymentMethod;
       this.paymentDateTime=this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss");
-    }
-    if(paymentMethod == 'stripe'){
-      this.paymentMethod="stripe";
-      this.creditcardform =true;
-      this.showPaypalButtons =false;
-      this.BankDetail =false;
-      this.transactionId=null;
-      this.paymentDateTime=this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss");
-    }
-    if(paymentMethod == 'BankTransfer'){
-      this.paymentMethod="BankTransfer";
-      this.BankDetail =true;
-      this.creditcardform =false;
-      this.showPaypalButtons =false;
-      this.transactionId=null;
-      this.paymentDateTime=this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss");
-    }
-    if(paymentMethod == 'Paypal'){
-      this.BankDetail =false;
-      this.creditcardform =false;
-      this.showPaypalButtons =true;
-      this.showPayUMoneyButton =false;
-      this.paymentMethod="Paypal";
-      this.transactionId=null;
-      this.paymentDateTime=new Date();
-    }
-    if(paymentMethod == 'PayUMoney'){
-      this.creditcardform =false;
-      this.showPaypalButtons =false;
-      this.showPayUMoneyButton =true;
-      this.BankDetail =false;
-      this.paymentMethod="PayUMoney";
-      this.transactionId=null;
-      this.paymentDateTime=new Date();
-    }
+   
   }
   
   // date time 
@@ -2631,144 +2626,144 @@ fnGetOtp(requestObject){
     if(this.paymentMethod == 'Cash'){
       this.fnAppointmentBooking();
     }
-    if(this.paymentMethod == 'BankTransfer'){
-      this.fnAppointmentBooking();
-    }
-    if(this.paymentMethod == 'stripe'){
-      this.stripePayment();
-    }
-    if(this.paymentMethod == 'PayUMoney'){
-      if(this.PayUMoney.key!="" && this.PayUMoney.salt!=""){
-        this.fnPayUMoney();
-      }
-    }
+    // if(this.paymentMethod == 'BankTransfer'){
+    //   this.fnAppointmentBooking();
+    // }
+    // if(this.paymentMethod == 'stripe'){
+    //   this.stripePayment();
+    // }
+    // if(this.paymentMethod == 'PayUMoney'){
+    //   if(this.PayUMoney.key!="" && this.PayUMoney.salt!=""){
+    //     this.fnPayUMoney();
+    //   }
+    // }
   }
-  stripePayment(){
+  // stripePayment(){
     
-    if(this.cardForm.valid){
-      this.isLoader = true;
-      let requestObject ={
-        "name" : this.cardForm.get("cardHolderName").value,
-        "number" : this.cardForm.get("cardNumber").value,
-        "exp_month" : this.cardForm.get("expiryMonth").value,
-        "exp_year" : this.cardForm.get("expiryYear").value,
-        "cvc" : this.cardForm.get("cvvCode").value,
-        "amount" : this.serviceMainArr.netCost,
-        "business_id" : this.businessId,
-      }
-      let headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-      });
+  //   if(this.cardForm.valid){
+  //     this.isLoader = true;
+  //     let requestObject ={
+  //       "name" : this.cardForm.get("cardHolderName").value,
+  //       "number" : this.cardForm.get("cardNumber").value,
+  //       "exp_month" : this.cardForm.get("expiryMonth").value,
+  //       "exp_year" : this.cardForm.get("expiryYear").value,
+  //       "cvc" : this.cardForm.get("cvvCode").value,
+  //       "amount" : this.serviceMainArr.netCost,
+  //       "business_id" : this.businessId,
+  //     }
+  //     let headers = new HttpHeaders({
+  //       'Content-Type': 'application/json',
+  //     });
   
-      this.http.post(`${environment.apiUrl}/stripe-payment`,requestObject,{headers:headers} ).pipe(
-        map((res) => {
-          return res;
-        }),
-        catchError(this.handleError)
-      ).subscribe((response:any) => {
-        if(response.data == true){
-          let digit5= Math.floor(Math.random()*90000) + 10000;
-        this.reference_id="2_"+digit5+"_"+ this.datePipe.transform(new Date(),"yyyy/MM/dd") ;
-          this.transactionId = response.response.id 
-          this.paymentDateTime = this. datePipe.transform(new Date(),"yyyy/MM/dd");
-          this.isLoader=false;
-          this.fnAppointmentBooking();
-      }
-        else{
-          this.snackBar.open("Card Invalid", "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-          });
-          this.isLoader=false;
-        }
-        },
-        (err) =>{
+  //     this.http.post(`${environment.apiUrl}/stripe-payment`,requestObject,{headers:headers} ).pipe(
+  //       map((res) => {
+  //         return res;
+  //       }),
+  //       catchError(this.handleError)
+  //     ).subscribe((response:any) => {
+  //       if(response.data == true){
+  //         let digit5= Math.floor(Math.random()*90000) + 10000;
+  //       this.reference_id="2_"+digit5+"_"+ this.datePipe.transform(new Date(),"yyyy/MM/dd") ;
+  //         this.transactionId = response.response.id 
+  //         this.paymentDateTime = this. datePipe.transform(new Date(),"yyyy/MM/dd");
+  //         this.isLoader=false;
+  //         this.fnAppointmentBooking();
+  //     }
+  //       else{
+  //         this.snackBar.open("Card Invalid", "X", {
+  //         duration: 2000,
+  //         verticalPosition: 'top',
+  //         panelClass : ['red-snackbar']
+  //         });
+  //         this.isLoader=false;
+  //       }
+  //       },
+  //       (err) =>{
           
-        })
-    }else{
-      this.cardForm.get("cardHolderName").markAsTouched();
-      this.cardForm.get("cardNumber").markAsTouched();
-      this.cardForm.get("expiryMonth").markAsTouched();
-      this.cardForm.get("expiryYear").markAsTouched();
-      this.cardForm.get("cvvCode").markAsTouched();
-    }
-  }
+  //       })
+  //   }else{
+  //     this.cardForm.get("cardHolderName").markAsTouched();
+  //     this.cardForm.get("cardNumber").markAsTouched();
+  //     this.cardForm.get("expiryMonth").markAsTouched();
+  //     this.cardForm.get("expiryYear").markAsTouched();
+  //     this.cardForm.get("cvvCode").markAsTouched();
+  //   }
+  // }
 
-  private initConfig(): void {
-      this.payPalConfig = {
-      currency: this.currencySymbol,
-      clientId: this.paypalClientId,
-      //clientId: 'AXQW9QFCurkFtIGNbnex8fp8oanZWUZFVhEmwU4GK39xbOzqetPmQj8wnju2U7yOvn9xBBojoqGsIWSh',
-      // clientId: 'sb',
-      createOrderOnClient: (data) => <ICreateOrderRequest>{
-        intent: 'CAPTURE',
-        purchase_units: [
-          {
-            reference_id: this.reference_id,
-            amount: {
-              currency_code: this.currencySymbol,
-              value: JSON.stringify(this.serviceMainArr.netCost),
-              breakdown: {
-                item_total: {
-                  currency_code: this.currencySymbol,
-                  value: JSON.stringify(this.serviceMainArr.subtotal)
-                },
-                tax_total : {
-                  currency_code: this.currencySymbol,
-                  value: JSON.stringify(this.taxAmount)
-                },
-                discount : {
-                  currency_code: this.currencySymbol,
-                  value: JSON.stringify(this.serviceMainArr.discount)
-                }
-              }
-            },
-            items: this.itemArr,
-          }
-        ]
-      },
+  // private initConfig(): void {
+  //     this.payPalConfig = {
+  //     currency: this.currencySymbol,
+  //     clientId: this.paypalClientId,
+  //     //clientId: 'AXQW9QFCurkFtIGNbnex8fp8oanZWUZFVhEmwU4GK39xbOzqetPmQj8wnju2U7yOvn9xBBojoqGsIWSh',
+  //     // clientId: 'sb',
+  //     createOrderOnClient: (data) => <ICreateOrderRequest>{
+  //       intent: 'CAPTURE',
+  //       purchase_units: [
+  //         {
+  //           reference_id: this.reference_id,
+  //           amount: {
+  //             currency_code: this.currencySymbol,
+  //             value: JSON.stringify(this.serviceMainArr.netCost),
+  //             breakdown: {
+  //               item_total: {
+  //                 currency_code: this.currencySymbol,
+  //                 value: JSON.stringify(this.serviceMainArr.subtotal)
+  //               },
+  //               tax_total : {
+  //                 currency_code: this.currencySymbol,
+  //                 value: JSON.stringify(this.taxAmount)
+  //               },
+  //               discount : {
+  //                 currency_code: this.currencySymbol,
+  //                 value: JSON.stringify(this.serviceMainArr.discount)
+  //               }
+  //             }
+  //           },
+  //           items: this.itemArr,
+  //         }
+  //       ]
+  //     },
    
-      advanced: {
-        commit: 'true'
-      },
-      style: {
-        label: 'paypal',
-        layout: 'vertical',
-        size: "responsive"
-      },
-      onApprove: (data, actions) => {
-      this.isLoader=true
-        actions.order.get().then(details => {
-        });
-      },
-      onClientAuthorization: (data) => {
-         if(data.status && data.status== "COMPLETED"){
-          this.transactionId=data.id;
-          this.paymentDateTime= this.datePipe.transform(data.create_time,"yyyy-MM-dd HH:mm:ss");
-          this.fnAppointmentBooking();
-        }
-        //this.fnAppointmentBooking();
-      },
-      onCancel: (data, actions) => {
-       this.snackBar.open("Transaction Cancelled", "X", {
-        duration: 2000,
-        verticalPosition: 'top',
-        panelClass : ['red-snackbar']
-        });
-      },
-      onError: err => {
-        this.snackBar.open("Error: "+err, "X", {
-        duration: 2000,
-        verticalPosition: 'top',
-        panelClass : ['red-snackbar']
-        });
-      },
-      onClick: (data, actions) => {
-      },
+  //     advanced: {
+  //       commit: 'true'
+  //     },
+  //     style: {
+  //       label: 'paypal',
+  //       layout: 'vertical',
+  //       size: "responsive"
+  //     },
+  //     onApprove: (data, actions) => {
+  //     this.isLoader=true
+  //       actions.order.get().then(details => {
+  //       });
+  //     },
+  //     onClientAuthorization: (data) => {
+  //        if(data.status && data.status== "COMPLETED"){
+  //         this.transactionId=data.id;
+  //         this.paymentDateTime= this.datePipe.transform(data.create_time,"yyyy-MM-dd HH:mm:ss");
+  //         this.fnAppointmentBooking();
+  //       }
+  //       //this.fnAppointmentBooking();
+  //     },
+  //     onCancel: (data, actions) => {
+  //      this.snackBar.open("Transaction Cancelled", "X", {
+  //       duration: 2000,
+  //       verticalPosition: 'top',
+  //       panelClass : ['red-snackbar']
+  //       });
+  //     },
+  //     onError: err => {
+  //       this.snackBar.open("Error: "+err, "X", {
+  //       duration: 2000,
+  //       verticalPosition: 'top',
+  //       panelClass : ['red-snackbar']
+  //       });
+  //     },
+  //     onClick: (data, actions) => {
+  //     },
    
-    };
-    }
+  //   };
+  //   }
 
   fnAppointmentBooking(){
     this.isLoader=true;
@@ -2786,7 +2781,7 @@ fnGetOtp(requestObject){
       "user_id": this.authenticationService.currentUserValue.user_id,
       "notes":this.formNewUser.get('newUserSplReq').value ? this.formNewUser.get('newUserSplReq').value : null
      }
-    let requestObject = {
+     this.cartRequestObject = {
       "postal_code" : this.booking.postalcode,
       "business_id" : this.businessId,
       "serviceInfo" : serviceCartArrTemp,
@@ -2818,7 +2813,7 @@ fnGetOtp(requestObject){
       'Content-Type': 'application/json',
     });
   
-      this.http.post(`${environment.apiUrl}/order-create`,requestObject,{headers:headers} ).pipe(
+      this.http.post(`${environment.apiUrl}/order-create`,this.cartRequestObject,{headers:headers} ).pipe(
         map((res) => {
           return res;
         }),
@@ -2852,98 +2847,98 @@ fnGetOtp(requestObject){
     }
 
 
-    guid() {
-      return this.s4() + this.s4() + this.s4() + this.s4();
-    }
+    // guid() {
+    //   return this.s4() + this.s4() + this.s4() + this.s4();
+    // }
 
-    s4() {
-      return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-    }
+    // s4() {
+    //   return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+    // }
 
-    getTxnId(){
-      return this.guid();
-    }
+    // getTxnId(){
+    //   return this.guid();
+    // }
     
      // Get Random Transaction Id
 
-    fnPayUMoney(){
+    // fnPayUMoney(){
 
-      this.PayUMoney.txnid= this.getTxnId();
-      this.PayUMoney.amount= this.serviceMainArr.netCost.toString();
-      this.PayUMoney.firstname= this.customerFirstname;
-      this.PayUMoney.email= this.customerEmail,
-      this.PayUMoney.phone= this.customerPhone,
-      this.PayUMoney.productinfo= 'Product Description';
-      this.PayUMoney.surl= environment.urlForLink;
-      this.PayUMoney.furl= environment.urlForLink;
-      this.PayUMoney.mode='dropout';// non-mandatory for Customized Response Handling
-      this.PayUMoney.udf1='';
-      this.PayUMoney.udf2='';
-      this.PayUMoney.udf3='';
-      this.PayUMoney.udf4='';
-      this.PayUMoney.udf5='';
+    //   this.PayUMoney.txnid= this.getTxnId();
+    //   this.PayUMoney.amount= this.serviceMainArr.netCost.toString();
+    //   this.PayUMoney.firstname= this.customerFirstname;
+    //   this.PayUMoney.email= this.customerEmail,
+    //   this.PayUMoney.phone= this.customerPhone,
+    //   this.PayUMoney.productinfo= 'Product Description';
+    //   this.PayUMoney.surl= environment.urlForLink;
+    //   this.PayUMoney.furl= environment.urlForLink;
+    //   this.PayUMoney.mode='dropout';// non-mandatory for Customized Response Handling
+    //   this.PayUMoney.udf1='';
+    //   this.PayUMoney.udf2='';
+    //   this.PayUMoney.udf3='';
+    //   this.PayUMoney.udf4='';
+    //   this.PayUMoney.udf5='';
       
-      // #Where salt is available on the PayUMoney dashboard.
-      var RequestData = {
-        key: this.PayUMoney.key,
-        txnid: this.PayUMoney.txnid,
-        hash: '',
-        amount: this.PayUMoney.amount,
-        firstname: this.PayUMoney.firstname,
-        email: this.PayUMoney.email,
-        phone: this.PayUMoney.phone,
-        productinfo: this.PayUMoney.productinfo,
-        surl : this.PayUMoney.surl,
-        furl: this.PayUMoney.furl,
-        // mode:this.PayUMoney.mode// non-mandatory for Customized Response Handling
-      }
-      this.generateRequestHash(RequestData);
-      var Handler = {
-        responseHandler: (BOLT) => {
-          if(BOLT && BOLT.response.txnStatus == "SUCCESS"){
-            let generatedHash=this.generateResponseHash(BOLT.response);
-            if(BOLT.response.hash == generatedHash){
-              this.reference_id=BOLT.response.txnid;
-              this.transactionId=BOLT.response.payuMoneyId;
-              this.paymentDateTime= this.datePipe.transform(BOLT.response.addedon,"yyyy-MM-dd HH:mm:ss");
-              this.fnAppointmentBooking();
-            }
-          }else if(BOLT && BOLT.response.txnStatus == "FAILED"){
-            this.snackBar.open("Transaction Failed", "X", {
-              duration: 2000,
-              verticalPosition: 'top',
-              panelClass : ['red-snackbar']
-            });
-          }else if(BOLT && BOLT.response.txnStatus == "CANCEL"){
-            this.snackBar.open(BOLT.response.txnMessage, "X", {
-              duration: 2000,
-              verticalPosition: 'top',
-              panelClass : ['red-snackbar']
-            });
-          }
-          // your payment response Code goes here, BOLT is the response object
-        },
-        catchException: function(BOLT){
-          // the code you use to handle the integration errors goes here
-        }
-      }
-      PayUMoneylaunch(RequestData,Handler);
-      // bolt.launch( RequestData , Handler ); 
-    }
+    //   // #Where salt is available on the PayUMoney dashboard.
+    //   var RequestData = {
+    //     key: this.PayUMoney.key,
+    //     txnid: this.PayUMoney.txnid,
+    //     hash: '',
+    //     amount: this.PayUMoney.amount,
+    //     firstname: this.PayUMoney.firstname,
+    //     email: this.PayUMoney.email,
+    //     phone: this.PayUMoney.phone,
+    //     productinfo: this.PayUMoney.productinfo,
+    //     surl : this.PayUMoney.surl,
+    //     furl: this.PayUMoney.furl,
+    //     // mode:this.PayUMoney.mode// non-mandatory for Customized Response Handling
+    //   }
+    //   this.generateRequestHash(RequestData);
+    //   var Handler = {
+    //     responseHandler: (BOLT) => {
+    //       if(BOLT && BOLT.response.txnStatus == "SUCCESS"){
+    //         let generatedHash=this.generateResponseHash(BOLT.response);
+    //         if(BOLT.response.hash == generatedHash){
+    //           this.reference_id=BOLT.response.txnid;
+    //           this.transactionId=BOLT.response.payuMoneyId;
+    //           this.paymentDateTime= this.datePipe.transform(BOLT.response.addedon,"yyyy-MM-dd HH:mm:ss");
+    //           this.fnAppointmentBooking();
+    //         }
+    //       }else if(BOLT && BOLT.response.txnStatus == "FAILED"){
+    //         this.snackBar.open("Transaction Failed", "X", {
+    //           duration: 2000,
+    //           verticalPosition: 'top',
+    //           panelClass : ['red-snackbar']
+    //         });
+    //       }else if(BOLT && BOLT.response.txnStatus == "CANCEL"){
+    //         this.snackBar.open(BOLT.response.txnMessage, "X", {
+    //           duration: 2000,
+    //           verticalPosition: 'top',
+    //           panelClass : ['red-snackbar']
+    //         });
+    //       }
+    //       // your payment response Code goes here, BOLT is the response object
+    //     },
+    //     catchException: function(BOLT){
+    //       // the code you use to handle the integration errors goes here
+    //     }
+    //   }
+    //   PayUMoneylaunch(RequestData,Handler);
+    //   // bolt.launch( RequestData , Handler ); 
+    // }
 
-    generateRequestHash(RequestData) {
-      var string = RequestData.key + '|' + RequestData.txnid + '|' + RequestData.amount + '|' + RequestData.productinfo + '|' + RequestData.firstname + '|' + RequestData.email+'|'+this.PayUMoney.udf1+'|'+this.PayUMoney.udf2+'|'+this.PayUMoney.udf3+'|'+this.PayUMoney.udf4+'|'+this.PayUMoney.udf5+'|'+'|'+'|'+'|'+'|'+'|'+this.PayUMoney.salt;
+  //   generateRequestHash(RequestData) {
+  //     var string = RequestData.key + '|' + RequestData.txnid + '|' + RequestData.amount + '|' + RequestData.productinfo + '|' + RequestData.firstname + '|' + RequestData.email+'|'+this.PayUMoney.udf1+'|'+this.PayUMoney.udf2+'|'+this.PayUMoney.udf3+'|'+this.PayUMoney.udf4+'|'+this.PayUMoney.udf5+'|'+'|'+'|'+'|'+'|'+'|'+this.PayUMoney.salt;
             
-      var encrypttext = sha512(string);
-      RequestData.hash = encrypttext;
-   }
-   // (d: Date | null): string => {
-    generateResponseHash(Response) {
-      var string = this.PayUMoney.salt +'|'+Response.status+'|'+'|'+'|'+'|'+'|'+'|'+Response.udf5+'|'+this.PayUMoney.udf4+'|'+this.PayUMoney.udf3+'|'+this.PayUMoney.udf2+'|'+this.PayUMoney.udf1+'|'+Response.email+'|'+Response.firstname+'|'+Response.productinfo+'|'+Response.amount+'|'+Response.txnid+'|'+Response.key;
+  //     var encrypttext = sha512(string);
+  //     RequestData.hash = encrypttext;
+  //  }
+  //  // (d: Date | null): string => {
+  //   generateResponseHash(Response) {
+  //     var string = this.PayUMoney.salt +'|'+Response.status+'|'+'|'+'|'+'|'+'|'+'|'+Response.udf5+'|'+this.PayUMoney.udf4+'|'+this.PayUMoney.udf3+'|'+this.PayUMoney.udf2+'|'+this.PayUMoney.udf1+'|'+Response.email+'|'+Response.firstname+'|'+Response.productinfo+'|'+Response.amount+'|'+Response.txnid+'|'+Response.key;
             
-      var encrypttext = sha512(string);
-      return encrypttext;
-   }
+  //     var encrypttext = sha512(string);
+  //     return encrypttext;
+  //  }
    
    openTheme2CartPopup() {
      
@@ -3046,6 +3041,971 @@ fnGetOtp(requestObject){
   fnForgotPWD(){
     this.router.navigate(['/forgot-password']);
   }
+
+  // payment functions
+
+  getPaymentGateways(){
+    this.isLoader = true;
+    let requestObject = {
+      "business_id" : this.businessId
+    };
+      this.frontService.paymentGatewaysList(requestObject).subscribe((response:any) => {
+      if(response['status']=='success'){
+        this.gatewayList = response.data;
+        console.log(this.gatewayList)
+      }else if(response['status']=='error'){
+        this.errorService.errorMessage(response['message']);
+      }
+    });
+  }
+
+  
+  GetPaymentGatewayDetails(type,payment_code,target:HTMLElement){    
+    this.isLoader = true;
+    this.selectedGateway = type;
+    let requestObj = {
+      'business_id': this.businessId,
+      'payment_code': payment_code
+    }
+    this.frontService.GetPaymentGatewayDetails(requestObj).subscribe(response => {
+      if(response['status']==='success'){
+        this.CGateways = response['data'];
+        this.CGateways['field'].forEach(field => {
+          this.raw_pgw_details[field['fieldname']] = field['value'];
+        });
+        this.isLoader = false;
+        target.scrollIntoView();
+        // this.PreProcessData();
+      }else{
+        this.CGateways = [];
+        this.ResetSelectedGateway();
+        this.isLoader = false;
+      }
+    },err=>{
+      // this._snackBar.open(environment.ErrorMsg,'X',{duration:2000,panelClass:'error-response'});
+          this.errorService.errorMessage(environment.ErrorMsg)
+    });
+  }
+
+  ResetSelectedGateway(){
+    // this.payment_method = "";
+  }
+  fnChangePaymentMethod(method){
+    // this.payment_method = method;
+    // this.selectedGateway = method;
+    // this.cartRequestObject['payment_method'] = this.payment_method;
+    // this.cartRequestObject['payment_status'] = 'paid';
+    
+  }
+  PreProcessData(card:NgForm){ 
+    localStorage.setItem('cartRequestObject',JSON.stringify(this.cartRequestObject))
+    console.log(card)
+    // return false.valueOf;
+    if(card.invalid){return;}
+    let keys = {}
+    var raw_input = {
+      paymentOption: this.selectedGateway,
+      mode : this.CGateways['testMode'],
+      // mode : 1,
+      name : 'my Name',
+      email : 'test@test.com',
+      phone :  '8934589344',
+      address : 'full address',
+      city : "Mumbai",
+      state : "California", // Required for 2Checkout 
+      country : "IN",
+      zip : "90210",
+      amount : this.serviceMainArr.netCost,
+      currency : this.currencySymbol? this.currencySymbol:"INR",
+      description : "Test "+this.selectedGateway,
+      callbackUrl : "https://eventsmatic.com/gateway-response.php",
+    }
+    
+    raw_input = Object.assign(raw_input, this.raw_pgw_details,card.value);
+    raw_input['testMode'] = raw_input['mode'];
+    console.log(raw_input);
+    
+    localStorage.setItem('raw_user_data', JSON.stringify(raw_input));
+    switch (this.selectedGateway) {
+      case 'razorpay':
+        this.loadScript({'id':this.selectedGateway,'src':'https://checkout.razorpay.com/v1/checkout.js'});
+        this.frontService.PreProcessPaymentGatewayData(raw_input).subscribe(response => {
+          console.log(response);
+          if(response['status'] == "success"){
+            let pre_process_data = response;
+            let userDetails = pre_process_data['data'];
+            let userConfig = pre_process_data['config'];
+            let currency = pre_process_data['data']['currency'];
+            let themeColor = pre_process_data['config'].themeColor;
+            let razorpayKeyId = ''; 
+            if (pre_process_data['config'].testMode) {
+                razorpayKeyId = pre_process_data['config'].razorpayTestingkeyId;
+            } else {
+                razorpayKeyId = pre_process_data['config'].razorpayLivekeyId;
+            }
+            console.log(parseInt(userDetails['amounts'][currency]))
+            this.razorpayamt = parseInt(userDetails['amounts'][currency]);
+            this.razorpayamt = this.razorpayamt.toFixed(2) * 100;
+            var razorpayPaymentId = null;
+            this.finalProcessData = {
+              "key": razorpayKeyId, // add razorpay Api Key Id
+              "amount": this.razorpayamt, // 2000 paise = INR 20
+              "currency": currency, // add currency
+              "name": pre_process_data['config'].merchantname, // add merchant user name
+              "handler":  function(response) {
+                var razorpayData = {
+                  'razorpayPaymentId': response.razorpay_payment_id,
+                  'razorpayAmount': window.btoa(Window['PreviewEventsComponent'].razorpayamt),
+                  ...userDetails,
+                  ...userConfig
+                };
+                
+                delete razorpayData['amounts'];
+                Window['PreviewEventsComponent'].paymentApi.FinalProcessPaymentGatewayData(razorpayData,raw_input.amount,raw_input.currency).subscribe(response => {
+                  if(response['status'] == "captured"){
+                    razorpayData = Object.assign(razorpayData,response);
+                    Window['PreviewEventsComponent'].redirecToSuccess(razorpayData,raw_input.callbackUrl);
+                  }else{alert("Something went wrong!")}
+                })
+              },
+              "prefill": {
+                  "name": userDetails['payer_name'], // add user name
+                  "email": userDetails['payer_email'], // add user email
+              },
+              "theme": {
+                  "color": themeColor, // add widget theme color
+              },
+              "modal": {
+                  "ondismiss": function(e) {
+                      if (razorpayPaymentId == null) {
+                        alert('closed');
+                      }
+                  }
+              }
+            };
+            console.log(this.finalProcessData);
+            this.ngZone.runOutsideAngular(()=>{
+              var rzp1 = new window['Razorpay'](this.finalProcessData);
+              rzp1.open();
+            });
+          }else{
+              alert("Failed to preprocess razorpay data...");
+          }
+        },err=>{
+          this.errorService.errorMessage(environment.ErrorMsg)
+          // this._snackBar.open(environment.ErrorMsg,'X',{duration:2000,panelClass:'error-response'});
+          // this._snackBar.add({msg:environment.ErrorMsg,timeout:2000,background:'red',color:'white'});
+        })
+        break;
+      case 'payumoney':
+        this.frontService.PreProcessPaymentGatewayData(raw_input).subscribe(response => {
+          if(response['status'] == "success"){
+            let payumoney_process_data = {
+              ...response['data'],
+              ...response['config']
+            }
+            let rawStorageData = Object.assign(response['config'],JSON.parse(localStorage.getItem('raw_user_data')))
+            localStorage.setItem('raw_user_data',JSON.stringify(rawStorageData));
+            delete payumoney_process_data['amounts'];
+            console.log(payumoney_process_data);
+            if(payumoney_process_data.testMode){
+              this.loadScript({'id':'bolt','src':'https://sboxcheckout-static.citruspay.com/bolt/run/bolt.min.js','bolt-color':payumoney_process_data.checkoutColor,'bolt-logo':payumoney_process_data.checkoutLogo});
+            }else{
+              this.loadScript({'id':'bolt','src':'https://checkout-static.citruspay.com/bolt/run/bolt.min.js','bolt-color':payumoney_process_data.checkoutColor,'bolt-logo':payumoney_process_data.checkoutLogo});
+            }
+            // Window['PreviewEventsComponent'].ProcessPaymentToGateway(this.selectedGateway,payumoney_process_data,raw_input.amount,raw_input.currency)(response => {
+            Window['PreviewEventsComponent'].paymentApi.FinalProcessPaymentGatewayData(payumoney_process_data,raw_input.amount,raw_input.currency).subscribe(response => {
+              //payumoney response
+              if (response.paymentOption == "payumoney"){
+                setTimeout(() => {
+                  window['bolt'].launch(response, {
+                      responseHandler: function(BOLT) {
+                        console.log(BOLT)
+                        //   // Window['PreviewEventsComponent'].paymentApi.ResponsePaymentGateway(response,Window['PreviewEventsComponent'].selectedGateway,payumoney_process_data['order_id']).subscribe(response => {
+                        //   //   Window['PreviewEventsComponent'].finalGatewayResult = response;
+                        //   // })
+                        // })
+                      },
+                      catchException: function(BOLT) {
+                        console.log(BOLT);                      
+                      }
+                  });
+                }, 100);
+              }
+            })
+          }
+        },err=>{
+          this.errorService.errorMessage(environment.ErrorMsg)
+          // this._snackBar.open(environment.ErrorMsg,'X',{duration:2000,panelClass:'error-response'});
+          // this._snackBar.add({msg:environment.ErrorMsg,timeout:2000,background:'red',color:'white'});
+        })
+        break;
+      case 'paytm':
+        this.frontService.FinalProcessPaymentGatewayData(raw_input,raw_input.amount,raw_input.currency).subscribe(response => {
+          console.log(response);
+          if(response['status'] == "success")
+          {
+            let paytm_form: any = document.createElement('form');
+            paytm_form.name = 'paytm_form';
+            paytm_form.method = 'post';
+            paytm_form.action = 'https://securegw-stage.paytm.in/order/process';
+
+            Object.entries(response['data']).forEach(([key, value]) => {
+              let my_tb: any = document.createElement('input');
+              my_tb.type = 'hidden';
+              my_tb.name = key;
+              my_tb.value = value;
+              paytm_form.appendChild(my_tb);
+            });
+            document.body.appendChild(paytm_form);
+            paytm_form.submit();
+          }else{
+            alert(response['message']);
+          }
+        })
+      break;
+      case 'instamojo':
+        this.frontService.FinalProcessPaymentGatewayData(raw_input,raw_input.amount,raw_input.currency).subscribe(response => {
+          console.log(response);
+            if (response['status'] == 'success') {
+                window.location.href = response['longurl'];
+            }
+        },err=>{
+          this.errorService.errorMessage(environment.ErrorMsg)
+          // this._snackBar.open(environment.ErrorMsg,'X',{duration:2000,panelClass:'error-response'});
+          // this._snackBar.add({msg:environment.ErrorMsg,timeout:2000,background:'red',color:'white'});
+        })
+      break;
+      case 'stripe':
+        this.loadScript({'id':'stripe','src':'https://js.stripe.com/v3'});
+        this.frontService.PreProcessPaymentGatewayData(raw_input).subscribe(response => {
+          setTimeout(() => {
+            let stripe = window['Stripe'](raw_input['PublishKey']);
+            stripe.redirectToCheckout({
+              sessionId: response['id'],
+            }).then(function(result) {
+              alert(result)
+              console.log(result);
+            });
+          }, 100);
+        },err=>{
+          this.errorService.errorMessage(environment.ErrorMsg)
+          // this._snackBar.open(environment.ErrorMsg,'X',{duration:2000,panelClass:'error-response'});
+          // this._snackBar.add({msg:environment.ErrorMsg,timeout:2000,background:'red',color:'white'});
+        })
+      break;
+      case 'authorize-net':
+        this.frontService.FinalProcessPaymentGatewayData(raw_input,raw_input.amount,raw_input.currency).subscribe(response => {
+          if (response['status'] == "success") {
+            //alert(response);
+            let authorize_form: any = document.createElement('form');
+            authorize_form.name = 'authorize_form';
+            authorize_form.method = 'post';
+            authorize_form.action = raw_input.callbackUrl;
+
+            Object.entries(response).forEach(([key, value]) => {
+              let my_tb: any = document.createElement('input');
+              my_tb.type = 'hidden';
+              my_tb.name = key;
+              my_tb.value = value;
+              authorize_form.appendChild(my_tb);
+            });
+            document.body.appendChild(authorize_form);
+            authorize_form.submit();
+          } else if (response['status'] == "error") {
+            alert("error:- " + response['message'])
+            this.ResetSelectedGateway();
+          } else {
+            alert("error:- " + response['validationMessage'])
+            this.ResetSelectedGateway();
+          }
+        },err=>{
+          this.errorService.errorMessage(environment.ErrorMsg)
+          // this._snackBar.open(environment.ErrorMsg,'X',{duration:2000,panelClass:'error-response'});
+          // this._snackBar.add({msg:environment.ErrorMsg,timeout:2000,background:'red',color:'white'});
+        })
+      break;
+      case 'checkout_com':
+        this.frontService.FinalProcessPaymentGatewayData(raw_input,raw_input.amount,raw_input.currency).subscribe(response => {
+          if (response['status'] == "success") {
+            //alert(response);
+            let checkout_form: any = document.createElement('form');
+            checkout_form.name = 'checkout_form';
+            checkout_form.method = 'post';
+            checkout_form.action = raw_input.callbackUrl;
+
+            Object.entries(response).forEach(([key, value]) => {
+              let my_tb: any = document.createElement('input');
+              my_tb.type = 'hidden';
+              my_tb.name = key;
+              my_tb.value = value;
+              checkout_form.appendChild(my_tb);
+            });
+            document.body.appendChild(checkout_form);
+            checkout_form.submit();
+          } else if (response['status'] == "error") {
+            alert("error:- " + response['message'])
+            this.ResetSelectedGateway();
+          } else {
+            alert("error:- " + response['validationMessage'])
+            this.ResetSelectedGateway();
+          }
+        },
+        error => {
+          alert(error);
+          this.ResetSelectedGateway();
+        });
+      break;
+      case 'mollie':
+        this.loadScript({'id':'mollie','src':'https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js'});
+        // raw_input.amount = parseInt(raw_input.amount).toFixed(2);
+        raw_input.currency = "EUR";
+        keys = {'testMode':raw_input['testMode']?true:false,
+        'testApiKey':raw_input['testMode']?raw_input['ApiKey']:'',
+        'liveApiKey':raw_input['testMode']?'':raw_input['ApiKey']}
+        keys = Object.assign(keys,JSON.parse(localStorage.getItem('raw_user_data')))
+        localStorage.setItem('raw_user_data',JSON.stringify(keys));
+        this.frontService.FinalProcessPaymentGatewayData(raw_input,raw_input.amount,raw_input.currency).subscribe(
+          response => {
+            if (response['errorMessage']) {
+              this.ResetSelectedGateway();
+              alert(response['errorMessage']);
+            }else if (response['message'] == 'success') {
+              window.location.href = response['checkoutUrl'];
+            }
+          },
+          error => {
+            alert(error);
+            this.ResetSelectedGateway();
+          }
+        );
+      break;      
+      case 'cybersource':
+      raw_input.currency = "USD";
+      this.frontService.FinalProcessPaymentGatewayData(raw_input,raw_input.amount,raw_input.currency).subscribe(response => {
+        if (response['decision'] == "ACCEPT" || response['decision'] == "REJECT") {
+          let cybersource_form: any = document.createElement('form');
+          cybersource_form.name = 'cybersource_form';
+          cybersource_form.method = 'post';
+          cybersource_form.action = raw_input.callbackUrl;
+
+          Object.entries(response).forEach(([key, value]) => {
+            let my_tb: any = document.createElement('input');
+            my_tb.type = 'hidden';
+            my_tb.name = key;
+            my_tb.value = value;
+            cybersource_form.appendChild(my_tb);
+          });
+          document.body.appendChild(cybersource_form);
+          cybersource_form.submit();
+        } else {
+          alert("error:- " + response['validationMessage'])
+          this.ResetSelectedGateway();
+        }
+      },
+      error => {
+        alert(error);
+        this.ResetSelectedGateway();
+      });
+    break;
+    case 'ravepay':
+      this.loadScript({'id':'mollie','src':'https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js'});
+      // raw_input.amount = parseInt(raw_input.amount).toFixed(2);
+      setTimeout(() => {},200);
+      raw_input.currency = "NGN";
+      setTimeout(() => {
+        var x = window['getpaidSetup']({
+          PBFPubKey: raw_input['PublishKey'],
+        // customer_email: raw_input.email,
+        amount: raw_input.amount,
+        currency: raw_input.currency,
+        txref:  this.OrderId,
+        onclose: function() {
+          alert('Closed');
+        },
+        callback: function(response) {
+          console.log(response);
+          let additionalData = {
+            PBFPubKey: raw_input['PublishKey'],
+            // payer_email: raw_input.email,
+            amount: raw_input.amount,
+            currency: raw_input.currency,
+            txref:  Window['PreviewEventsComponent'].OrderId
+          }
+          raw_input = Object.assign(raw_input,additionalData);
+          Window['PreviewEventsComponent'].paymentApi.PreProcessPaymentGatewayData(raw_input).subscribe(
+            response => {
+              console.log(response);
+              if (response['body'].status == 'success') {
+                let ravepay_form: any = document.createElement('form');
+                ravepay_form.name = 'ravepay_form';
+                ravepay_form.method = 'post';
+                ravepay_form.action = raw_input.callbackUrl;
+                Object.entries(response).forEach(([key, value]) => {
+                  let my_tb: any = document.createElement('input');
+                  my_tb.type = 'hidden';
+                  my_tb.name = key;
+                  my_tb.value = value;
+                  ravepay_form.appendChild(my_tb);
+                });
+                document.body.appendChild(ravepay_form);
+                ravepay_form.submit();
+              }else{
+                alert(response);
+                Window['PreviewEventsComponent'].ResetSelectedGateway();
+              }
+            },
+            error => {
+              alert(error);
+              Window['PreviewEventsComponent'].ResetSelectedGateway();
+            }
+            );
+            x.close();           
+          }
+        });
+      }, 300)
+      
+      break;
+      case 'aamarpay':
+        raw_input.currency = "BDT";
+        raw_input['address2'] = "Dhaka",
+        this.frontService.FinalProcessPaymentGatewayData(raw_input,raw_input.amount,raw_input.currency).subscribe(response => {
+          if (response['result'] == "true") {
+            let aamarpay_form: any = document.createElement('form');
+            aamarpay_form.name = 'aamarpay_form';
+            aamarpay_form.method = 'post';
+            aamarpay_form.action = response['payment_url'];           
+            let my_tb: any = document.createElement('input');
+            my_tb.type = 'hidden';
+            my_tb.name = 'paymentOption';
+            my_tb.value = 'aamarpay';
+            aamarpay_form.appendChild(my_tb);
+            document.body.appendChild(aamarpay_form);
+            aamarpay_form.submit();
+          } else {
+            alert(response['message'])
+            this.ResetSelectedGateway();
+          }
+        },
+        error => {
+          alert(error);
+          this.ResetSelectedGateway();
+        });
+      break;
+      case '2checkout':
+        this.loadScript({'id':'2checkout','src':'https://2pay-js.2checkout.com/v1/2pay.js'});
+        var _2checkout_merchant_code = raw_input['merchantCode'];
+        raw_input['first_name']= "John";
+        raw_input['last_name']="Doe";
+        raw_input.currency = "USD";
+
+        
+        setTimeout(() => {
+          let jsPaymentClient = new window['TwoPayClient'](_2checkout_merchant_code);
+          let component = jsPaymentClient.components.create('card');
+          component.mount('#card-element');
+          document.getElementById('payment-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const billingDetails = {
+              name: raw_input['first_name']+" "+raw_input['last_name']
+            };
+            jsPaymentClient.tokens.generate(component, billingDetails).then((response) => {
+                  two_checkout_process(response.token, raw_input);
+              }).catch((error) => {
+              console.error(error);
+              Window['PreviewEventsComponent'].ResetSelectedGateway();
+            });
+          });
+        },200);
+        // window.addEventListener('load', function() {
+        // });
+
+        function two_checkout_process(token, raw_input){
+          raw_input['token'] = token;
+          Window['PreviewEventsComponent'].paymentApi.FinalProcessPaymentGatewayData(raw_input,raw_input.amount,raw_input.currency).subscribe(
+            response => {
+              if (response.Status == "AUTHRECEIVED" || response.Status == "PENDING") {
+                  let checkout2_form: any = document.createElement('form');
+                  checkout2_form.name = 'checkout2_form';
+                  checkout2_form.method = 'post';
+                  checkout2_form.action = raw_input.callbackUrl;
+                  Object.entries(response).forEach(([key, value]) => {
+                    let my_tb: any = document.createElement('input');
+                    my_tb.type = 'hidden';
+                    my_tb.name = key;
+                    my_tb.value = value;
+                    checkout2_form.appendChild(my_tb);
+                  });
+                  document.body.appendChild(checkout2_form);
+                  checkout2_form.submit();
+              } else {
+                  if(response.message != "")
+                  {
+                      alert(response.error_code + " " + response.message);
+                      Window['PreviewEventsComponent'].ResetSelectedGateway();
+                  }
+                  else
+                  {
+                      alert("Something went wrong..");
+                      Window['PreviewEventsComponent'].ResetSelectedGateway();
+                  }
+              }
+          },        
+          error => {
+              alert(error);
+              Window['PreviewEventsComponent'].ResetSelectedGateway();
+          })
+        }
+      break;
+      case 'paytabs':
+        raw_input['first_name']= "John";
+        raw_input['last_name']="Doe";
+        raw_input['country_code']="973";
+        raw_input.currency = "USD";
+        raw_input.country = "BHR";
+        raw_input.zip = "973";
+        keys = {'testMode':raw_input['testMode']?true:false,
+        'testSecretKey':raw_input['testMode']?raw_input['secretKey']:'',
+        'liveSecretKey':raw_input['testMode']?'':raw_input['secretKey'],
+        'testMerchantEmail':raw_input['testMode']?raw_input['merchantEmail']:'',
+        'liveMerchantEmail':raw_input['testMode']?'':raw_input['merchantEmail'],}
+        keys = Object.assign(keys,JSON.parse(localStorage.getItem('raw_user_data')))
+        localStorage.setItem('raw_user_data',JSON.stringify(keys));
+        this.frontService.FinalProcessPaymentGatewayData(raw_input,raw_input.amount,raw_input.currency).subscribe(
+          response => {
+            if (response['payment_url'] != ''){
+                window.location.href = response['payment_url'];
+            }
+            else{
+                alert(response['response_code'] +" - "+response['result']);
+            }
+          },
+          error => {
+            Window['PreviewEventsComponent'].ResetSelectedGateway();
+            alert(error);            
+          }
+        )
+      break
+      case 'sslcommerz':
+        this.frontService.FinalProcessPaymentGatewayData(raw_input,raw_input.amount,raw_input.currency).subscribe(
+          response => {
+            if (response['status'] == 'success') {
+                window.location.href = response['data'].redirectGatewayURL;
+            }
+            else{
+                alert(response['response_code'] +" - "+response['result']);
+            }
+          },
+          error => {
+            alert(error);   
+            this.ResetSelectedGateway();         
+          }
+        )
+      break
+      case 'worldpay':
+        raw_input['first_name']= "John";
+        raw_input['last_name']="Doe";
+        raw_input.zip = "19011";
+        raw_input.currency = "USD";
+        this.frontService.FinalProcessPaymentGatewayData(raw_input,raw_input.amount,raw_input.currency).subscribe(response => {
+          if (response['paymentStatus'] == "SUCCESS") {
+            let worldpay_form: any = document.createElement('form');
+            worldpay_form.name = 'worldpay_form';
+            worldpay_form.method = 'post';
+            worldpay_form.action = raw_input.callbackUrl;           
+            Object.entries(response).forEach(([key, value]) => {
+              let my_tb: any = document.createElement('input');
+              my_tb.type = 'hidden';
+              my_tb.name = key;
+              my_tb.value = value;
+              worldpay_form.appendChild(my_tb);
+            });
+            document.body.appendChild(worldpay_form);
+            worldpay_form.submit();
+          } else {
+            alert(response['message'])
+          }
+        },
+        error => {
+          alert(error);
+          this.ResetSelectedGateway();
+        });
+      break;
+      case 'braintree':
+        this.loadScript({'id':'braintree_client','src':'https://js.braintreegateway.com/web/3.69.0/js/client.min.js'});
+        this.loadScript({'id':'braintree_hosted_field','src':'https://js.braintreegateway.com/web/3.69.0/js/hosted-fields.min.js'});
+        setTimeout(() => {
+        var braintree_inputs = {
+          paymentOption : "braintree",
+          amount : "1.65",
+          currency : "USD",
+          first_name: "Pradeep",
+          last_name: "Sawant",
+          address: "751 Green Hill",
+          zip: "1902",
+          email: "pradeep.sawant2501@gmail.com", //optional
+          phone: "917977597049", //optional
+          mode : "1",
+          callbackUrl : "https://gateway.webjio.com/frontend/response.php",
+          merchantId : "wwr376fjksjxtnb2",
+          publicKey : "9wsb49t4dmzfwbs6",
+          privateKey : "aad5bb91a3c05000f379b537c068cd0a",
+          tokenizationKey : "sandbox_q7c52v9z_wwr376fjksjxtnb2"
+        };
+      
+          var form = document.querySelector('#braintree_form');
+      
+        window['braintree'].client.create({
+          //authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b'
+          authorization: braintree_inputs.tokenizationKey
+        }, function(err, clientInstance) {
+          if (err) {
+            console.error(err);
+            return;
+          }
+      
+        window['braintree'].hostedFields.create({
+            client: clientInstance,
+            styles: {
+              input: {
+                // change input styles to match
+                // bootstrap styles
+                'font-size': '1rem',
+                color: '#495057'
+              }
+            },
+            fields: {
+              cardholderName: {
+                selector: '#cc-name',
+                placeholder: 'Name as it appears on your card'
+              },
+              number: {
+                selector: '#cc-number',
+                placeholder: '4111 1111 1111 1111'
+              },
+              cvv: {
+                selector: '#cc-cvv',
+                placeholder: '123'
+              },
+              expirationDate: {
+                selector: '#cc-expiration',
+                placeholder: 'MM / YY'
+              }
+            }
+          }, function(err, hostedFieldsInstance) {
+            if (err) {
+              console.error(err);
+              return;
+            }
+            function createInputChangeEventListener(element) {
+              return function () {
+                // validateInput(element);
+              }
+            }
+      
+            function setValidityClasses(element, validity) {
+              if (validity) {
+                element.removeClass('is-invalid');
+                element.addClass('is-valid');  
+              } else {
+                element.addClass('is-invalid');
+                element.removeClass('is-valid');  
+              }    
+            }
+            
+            // function validateInput(element) {
+            //   // very basic validation, if the
+            //   // fields are empty, mark them
+            //   // as invalid, if not, mark them
+            //   // as valid
+      
+            //   if (!element.val().trim()) {
+            //     setValidityClasses(element, false);
+      
+            //     return false;
+            //   }
+      
+            //   setValidityClasses(element, true);
+      
+            //   return true;
+            // }
+            
+            // function validateEmail () {
+            //   var baseValidity = validateInput(email);
+              
+            //   if (!baseValidity) {  
+            //     return false;
+            //   }
+      
+            //   if (email.val().indexOf('@') === -1) {
+            //     setValidityClasses(email, false);
+            //     return false;
+            //   }
+              
+            //   setValidityClasses(email, true);
+            //   return true;
+            // }
+      
+            var ccName = document.querySelector('#cc-name');
+            var email = document.querySelector('#email');
+      
+            // ccName.on('change', function () {
+            //   validateInput(ccName);
+            // });
+            // email.on('change', validateEmail);
+      
+      
+            hostedFieldsInstance.on('validityChange', function(event) 
+            {
+              var field = event.fields[event.emittedBy];
+      
+              // Remove any previously applied error or warning classes
+              document.querySelector(field.container).removeClass('is-valid');
+              document.querySelector(field.container).removeClass('is-invalid');
+      
+              if (field.isValid) {
+                document.querySelector(field.container).addClass('is-valid');
+              } else if (field.isPotentiallyValid) {
+                // skip adding classes if the field is
+                // not valid, but is potentially valid
+              } else {
+                document.querySelector(field.container).addClass('is-invalid');
+              }
+            });
+      
+            hostedFieldsInstance.on('cardTypeChange', function(event) {
+              var cardBrand = document.querySelector('#card-brand');
+              var cvvLabel = document.querySelector('[for="cc-cvv"]');
+      
+              if (event.cards.length === 1) {
+                var card = event.cards[0];
+      
+                // change pay button to specify the type of card
+                // being used
+                cardBrand.innerHTML = card.niceType;
+                // update the security code label
+                cvvLabel.innerHTML = card.code.name;
+              } else {
+                // reset to defaults
+                cardBrand.innerHTML = 'Card';
+                cvvLabel.innerHTML = 'CVV';
+              }
+            });
+      
+            form['submit'](function(event) {
+              event.preventDefault();
+      
+              var formIsInvalid = false;
+              var state = hostedFieldsInstance.getState();
+      
+              // perform validations on the non-Hosted Fields
+              // inputs
+              // if (!validateEmail()) {
+              //   formIsInvalid = true;
+              // }
+      
+              // Loop through the Hosted Fields and check
+              // for validity, apply the is-invalid class
+              // to the field container if invalid
+              Object.keys(state.fields).forEach(function(field) {
+                if (!state.fields[field].isValid) {
+                  document.querySelector(state.fields[field].container).addClass('is-invalid');
+                  formIsInvalid = true;
+                }
+              });
+      
+              if (formIsInvalid) {
+                // skip tokenization request if any fields are invalid
+                return;
+              }
+      
+              hostedFieldsInstance.tokenize(function(err, payload) {
+                if (err) {
+                  console.error(err);
+                  return;
+                }
+      
+                console.log(payload.nonce);
+                braintree_process(payload.nonce, braintree_inputs)
+                return;
+              });
+            });
+          });
+        });
+        
+        function braintree_process(token, braintree_inputs)
+        {
+                //document.getElementById("token").value=token;
+                //document.getElementById("tokenForm").submit();
+      
+                /**** APPEND PAYMENT METHOD TOKEN TO PROCESS INPUT ****/
+                braintree_inputs['paymentMethodNonce'] = token;
+      
+                var braintree_CallbackUrl = braintree_inputs.callbackUrl;
+                console.log(braintree_inputs);
+                
+                //console.log(braintree_inputs);
+      
+                // $ajax({
+                //     type: 'post', //form method
+                //     context: this,
+                //     url: 'https://gateway.webjio.com/webapp/process', // post data url
+                //     dataType: "JSON",
+                //     data: braintree_inputs, // form serialize data
+                //     error: function(err) {
+                //         var error = err.responseText;
+      
+                //         //on error show alert message
+                //         alert("AJAX error in request: " + JSON.stringify(error, null, 2));
+                //         //hide loader after ajax request complete
+                //         $(".lw-show-till-loading").hide();
+                //     },
+                //     success: function(response) {
+                //         if(typeof response == "string")
+                //         response = JSON.parse(response);
+      
+                //         console.log(response);
+      
+                //         if (response.success) {
+                //             //console.log(response);
+                //             let form = "<form action='" + braintree_CallbackUrl + "' method='post'><input type='hidden' name='paymentOption' value='braintree'>"
+                //                   Object.entries(response).forEach(([key, value]) => {
+                //                       if(typeof(value) == 'object'){
+                //                           form = form + "<input type='hidden' name='"+key+"' value='"+JSON.stringify(value)+"'>";
+                //                       }else{
+                //                           form = form + "<input type='hidden' name='"+key+"' value='"+value+"'>";
+                //                       }
+                //                   });
+                //                   form = form + "</form>"
+                //                   $('body').html(form);
+                //                   $('body form').submit();
+                //         } else {
+                //           //console.log(response);
+                //             if(response.message != "")
+                //             {
+                //                 alert(response.message);
+                //             }
+                //             else
+                //             {
+                //                alert("Something went wrong..");
+                //             }
+                //         }
+      
+                //     }
+                // });
+        }
+      },500);
+      break;
+      case 'adyen':
+        this.loadScript({'id':'adyen','src':'https://app.kafecloud.com/assets/js/adyen.encrypt.nodom.min.js'});
+        setTimeout(() => {},500);
+          var key     =   raw_input['encryptionKey'];  
+          var options = {};
+
+          var cardNumber = raw_input['number'];
+          var email = raw_input['email'];
+          var expiryMonth =  raw_input['month'];
+          var expiryYear =  raw_input['year'];
+          var cvc = raw_input['cvv'];
+          var name = raw_input['name'];
+          var adyen_CallbackUrl = raw_input['callbackUrl'];
+          
+          var generationtime = new Date().toISOString(); 
+          var cseInstance = Window['adyen'].encrypt.createEncryption(key, options);
+          function getEncryptedFormData(cardNumber, cvc, name, expiryMonth, expiryYear, generationtime) {
+          
+            var postData = {};
+            
+            var cardData = {
+                number : cardNumber,
+                cvc : cvc,
+                holderName : name,
+                expiryMonth : expiryMonth,
+                expiryYear : expiryYear,
+                generationtime : generationtime
+            };
+            
+            postData['adyen-encrypted-data'] = cseInstance.encrypt(cardData);
+            
+            return postData;
+          }
+
+            var postData = getEncryptedFormData(cardNumber, cvc, name, expiryMonth, expiryYear, generationtime);
+
+            raw_input['encryptedCardData'] = postData['adyen-encrypted-data'];
+            this.frontService.FinalProcessPaymentGatewayData(raw_input,raw_input.amount,raw_input.currency).subscribe(
+              response => {
+                if (response['response'] =='[capture-received]') {
+                    //console.log(response);
+                    let adyen_form: any = document.createElement('form');
+                    adyen_form.name = 'adyen_form';
+                    adyen_form.method = 'post';
+                    adyen_form.action = raw_input.callbackUrl;           
+                    Object.entries(response).forEach(([key, value]) => {
+                      let my_tb: any = document.createElement('input');
+                      my_tb.type = 'hidden';
+                      my_tb.name = key;
+                      my_tb.value = value;
+                      adyen_form.appendChild(my_tb);
+                    });
+                    document.body.appendChild(adyen_form);
+                    adyen_form.submit();
+                } else {
+                  //console.log(response);
+                    if(response['message'] != "")
+                    {
+                        alert(response['message']);
+                    }
+                    else
+                    {
+                        alert("Something went wrong..");
+                    }
+                }
+              },
+              error => {
+                alert(error);
+              }
+            );  
+                // response = JSON.parse(response);
+                  /*console.log('hello');
+                  console.log(response);
+                  alert(response);*/
+      break;
+    }
+  }
+  
+loadScript(attributes){
+  if(document.getElementById(attributes.id)){
+    document.getElementById(attributes.id).remove();
+  }
+  let pgsc = document.createElement('script');
+  Object.entries(attributes).forEach(([key, value]) => {
+    pgsc.setAttribute(key,String(value));
+  });
+  document.head.appendChild(pgsc);
+}
+
+redirecToSuccess(param,callback){
+  let paytm_form: any = document.createElement('form');
+  paytm_form.name = 'paytm_form';
+  paytm_form.method = 'post';
+  paytm_form.action = callback;
+
+  Object.entries(param).forEach(([key, value]) => {
+    let my_tb: any = document.createElement('input');
+    my_tb.type = 'hidden';
+    my_tb.name = key;
+    if(typeof(value) == 'object'){
+      my_tb.value = JSON.stringify(value);
+    }else{
+      my_tb.value = value;
+    }
+    paytm_form.appendChild(my_tb);
+  });
+  document.body.appendChild(paytm_form);
+  paytm_form.submit();
+}
+
 }
 
 @Component({
@@ -3354,83 +4314,83 @@ export class theme2CheckoutDialog {
           this.formAppointmentInfo.addControl('appo_zipcode', new FormControl('', validatorsZipCode));
         }
         this.customerLoginValue=JSON.parse(this.settingsArr.customer_login);
-      this.initConfig();
+      // this.initConfig();
     }
     private createErrorMessage(error: HttpErrorResponse){
       this.errorMessage = error.error ? error.error : error.statusText;
     }
-    private initConfig(): void {
-      this.payPalConfig = {
-      currency: this.currencySymbol,
-      clientId: this.paypalClientId,
-      createOrderOnClient: (data) => <ICreateOrderRequest>{
-        intent: 'CAPTURE',
-        purchase_units: [
-          {
-            reference_id: this.reference_id,
-            amount: {
-              currency_code: this.currencySymbol,
-              value: JSON.stringify(this.serviceMainArr.netCost),
-              breakdown: {
-                item_total: {
-                  currency_code: this.currencySymbol,
-                  value: JSON.stringify(this.serviceMainArr.subtotal)
-                },
-                tax_total : {
-                  currency_code: this.currencySymbol,
-                  value: JSON.stringify(this.taxAmount)
-                },
-                discount : {
-                  currency_code: this.currencySymbol,
-                  value: JSON.stringify(this.serviceMainArr.discount)
-                }
-              }
-            },
-            items: this.itemArr,
+    // private initConfig(): void {
+    //   this.payPalConfig = {
+    //   currency: this.currencySymbol,
+    //   clientId: this.paypalClientId,
+    //   createOrderOnClient: (data) => <ICreateOrderRequest>{
+    //     intent: 'CAPTURE',
+    //     purchase_units: [
+    //       {
+    //         reference_id: this.reference_id,
+    //         amount: {
+    //           currency_code: this.currencySymbol,
+    //           value: JSON.stringify(this.serviceMainArr.netCost),
+    //           breakdown: {
+    //             item_total: {
+    //               currency_code: this.currencySymbol,
+    //               value: JSON.stringify(this.serviceMainArr.subtotal)
+    //             },
+    //             tax_total : {
+    //               currency_code: this.currencySymbol,
+    //               value: JSON.stringify(this.taxAmount)
+    //             },
+    //             discount : {
+    //               currency_code: this.currencySymbol,
+    //               value: JSON.stringify(this.serviceMainArr.discount)
+    //             }
+    //           }
+    //         },
+    //         items: this.itemArr,
         
-          }
-        ]
-      },
-      advanced: {
-        commit: 'true'
-      },
-      style: {
-        label: 'paypal',
-        layout: 'vertical',
-        size: "responsive"
-      },
-      onApprove: (data, actions) => {
-      this.isLoader=true
-        actions.order.get().then(details => {
-        });
-      },
-      onClientAuthorization: (data) => {
-        if(data.status && data.status== "COMPLETED"){
-          this.transactionId=data.id;
-          this.paymentDateTime= this.datePipe.transform(data.create_time,"yyyy-MM-dd HH:mm:ss");
-          this.fnAppointmentBooking();
-        }
-        //this.fnAppointmentBooking();
-      },
-      onCancel: (data, actions) => {
-        this.snackBar.open("Transaction Cancelled", "X", {
-        duration: 2000,
-        verticalPosition: 'top',
-        panelClass : ['red-snackbar']
-        });
-      },
-      onError: err => {
-        this.snackBar.open("Error: "+err, "X", {
-        duration: 2000,
-        verticalPosition: 'top',
-        panelClass : ['red-snackbar']
-        });
-      },
-      onClick: (data, actions) => {
-      },
+    //       }
+    //     ]
+    //   },
+    //   advanced: {
+    //     commit: 'true'
+    //   },
+    //   style: {
+    //     label: 'paypal',
+    //     layout: 'vertical',
+    //     size: "responsive"
+    //   },
+    //   onApprove: (data, actions) => {
+    //   this.isLoader=true
+    //     actions.order.get().then(details => {
+    //     });
+    //   },
+    //   onClientAuthorization: (data) => {
+    //     if(data.status && data.status== "COMPLETED"){
+    //       this.transactionId=data.id;
+    //       this.paymentDateTime= this.datePipe.transform(data.create_time,"yyyy-MM-dd HH:mm:ss");
+    //       this.fnAppointmentBooking();
+    //     }
+    //     //this.fnAppointmentBooking();
+    //   },
+    //   onCancel: (data, actions) => {
+    //     this.snackBar.open("Transaction Cancelled", "X", {
+    //     duration: 2000,
+    //     verticalPosition: 'top',
+    //     panelClass : ['red-snackbar']
+    //     });
+    //   },
+    //   onError: err => {
+    //     this.snackBar.open("Error: "+err, "X", {
+    //     duration: 2000,
+    //     verticalPosition: 'top',
+    //     panelClass : ['red-snackbar']
+    //     });
+    //   },
+    //   onClick: (data, actions) => {
+    //   },
    
-    };
-    }
+    // };
+    // }
     private handleError(error: HttpErrorResponse) {
       return throwError('Error! something went wrong.');
       //return error.error ? error.error : error.statusText;
@@ -4684,7 +5644,7 @@ export class theme2CheckoutDialog {
           // the code you use to handle the integration errors goes here
         }
       }
-      PayUMoneylaunch(RequestData,Handler);
+      // PayUMoneylaunch(RequestData,Handler);
       // bolt.launch( RequestData , Handler ); 
     }
 
@@ -5305,7 +6265,8 @@ export class theme2DateTimeSelection {
         this.isLoader=true;
         let requestObject = {
           "business_id": this.businessId,
-          "selected_date":this.selecteddate
+          "selected_date":this.selecteddate,
+          "service_id":this.currentSelectedService,
           };
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',

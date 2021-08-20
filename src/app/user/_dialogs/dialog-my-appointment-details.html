@@ -56,6 +56,8 @@
                             <p class="font-weight-bold text-capitalize" *ngIf="myAppoDetailData.order_status == 'RSC'">Rescheduled</p>
                             <p class="font-weight-bold text-capitalize" *ngIf="myAppoDetailData.order_status == 'R'">Rejected</p>
                             <p class="font-weight-bold text-capitalize" *ngIf="myAppoDetailData.order_status == 'CNF'">Confirm</p>
+                            <p class="font-weight-bold text-capitalize" *ngIf="myAppoDetailData.order_status == 'GL'">
+                                Getting Late {{myAppoDetailData.gl_time && myAppoDetailData.gl_time != ''?'(Late Time : '+myAppoDetailData.gl_time+')':''}}</p>
                         </div>
                     </div>
                     <div>

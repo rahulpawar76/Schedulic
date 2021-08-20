@@ -1785,7 +1785,8 @@ export class rescheduleAppointmentDialog {
         this.isLoader = true;
         let requestObject = {
           "business_id":this.myAppoDetailData.business_id,
-          "selected_date":rescheduleDate
+          "selected_date":rescheduleDate,
+          "service_id":this.myAppoDetailData.service.id
         };
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
@@ -2732,7 +2733,8 @@ export class rescheduleAppointmentDialog {
     fnGetTimeSlots(date){
       let requestObject = {
         "business_id":this.bussinessId,
-        "selected_date":date
+        "selected_date":date,
+        "service_id":this.selectedServiceId,
       };
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
