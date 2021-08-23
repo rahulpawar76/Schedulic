@@ -1785,11 +1785,10 @@ export class rescheduleAppointmentDialog {
   myFilter:any;
   offDaysList:any=[];
   workingHoursOffDaysList:any=[];
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;
   settingsArr:any=[];
-  minimumAdvanceBookingTime:any;
-  maximumAdvanceBookingTime:any;
-  minimumAdvanceBookingDateTimeObject:any;
-  maximumAdvanceBookingDateTimeObject:any;
   constructor(
     public dialogRef: MatDialogRef<rescheduleAppointmentDialog>,
     private datePipe: DatePipe,
@@ -1857,17 +1856,9 @@ export class rescheduleAppointmentDialog {
       this.userService.getSettingValue(requestObject).subscribe((response:any) => {
         if(response.data == true && response.response != ''){
           this.settingsArr=response.response;
-          
-          this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
-          this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
-          
-          this.minimumAdvanceBookingDateTimeObject = new Date();
-          this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
-          this.minDate = this.minimumAdvanceBookingDateTimeObject;
-
-          this.maximumAdvanceBookingDateTimeObject = new Date();
-          this.maximumAdvanceBookingDateTimeObject.setMinutes( this.maximumAdvanceBookingDateTimeObject.getMinutes() + this.maximumAdvanceBookingTime );
-          this.maxDate = this.maximumAdvanceBookingDateTimeObject;
+          this.currencySymbol = this.settingsArr.currency;
+          this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+          this.currencySymbolFormat = this.settingsArr.currency_format;
         }
         else if(response.data == false && response.response !== 'api token or userid invaild'){
           
