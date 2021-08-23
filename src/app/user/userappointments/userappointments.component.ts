@@ -1757,13 +1757,36 @@ export class DialogCancelReason {
         this.pendingSubTotal = this.data.subTotal;
         this.pendingTaxTotal = this.data.taxTotal;
         this.bussinessId=this.authenticationService.currentUserValue.business_id;
+        this.fnGetSettingValue();
       }
+
     onNoClick(flag): void {
       if (flag) {
         this.dialogRef.close({data:true});
       } else {
         this.dialogRef.close({data:false});
       }
+    }
+
+    fnGetSettingValue(){
+      let requestObject = {
+        "business_id":this.bussinessId
+      };
+      this.UserService.getSettingValue(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.settingsArr=response.response;
+          this.currencySymbol = this.settingsArr.currency;
+          this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+          this.currencySymbolFormat = this.settingsArr.currency_format;
+        }
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
+          
+        }
+      })
+    }
+
+    fnplaceOrder(){
+      
     }
   }
 
@@ -1785,11 +1808,10 @@ export class rescheduleAppointmentDialog {
   myFilter:any;
   offDaysList:any=[];
   workingHoursOffDaysList:any=[];
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;
   settingsArr:any=[];
-  minimumAdvanceBookingTime:any;
-  maximumAdvanceBookingTime:any;
-  minimumAdvanceBookingDateTimeObject:any;
-  maximumAdvanceBookingDateTimeObject:any;
   constructor(
     public dialogRef: MatDialogRef<rescheduleAppointmentDialog>,
     private datePipe: DatePipe,
@@ -1857,17 +1879,9 @@ export class rescheduleAppointmentDialog {
       this.userService.getSettingValue(requestObject).subscribe((response:any) => {
         if(response.data == true && response.response != ''){
           this.settingsArr=response.response;
-          
-          this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
-          this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
-          
-          this.minimumAdvanceBookingDateTimeObject = new Date();
-          this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
-          this.minDate = this.minimumAdvanceBookingDateTimeObject;
-
-          this.maximumAdvanceBookingDateTimeObject = new Date();
-          this.maximumAdvanceBookingDateTimeObject.setMinutes( this.maximumAdvanceBookingDateTimeObject.getMinutes() + this.maximumAdvanceBookingTime );
-          this.maxDate = this.maximumAdvanceBookingDateTimeObject;
+          this.currencySymbol = this.settingsArr.currency;
+          this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+          this.currencySymbolFormat = this.settingsArr.currency_format;
         }
         else if(response.data == false && response.response !== 'api token or userid invaild'){
           
