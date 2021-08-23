@@ -1,7 +1,7 @@
 <div class="loader-main" *ngIf="isLoader">
     <img src="../../../assets/images/step-loader.gif" />
 </div>
-<div class="content-main" *ngIf="!paymentScreen">
+<div class="content-main" *ngIf="!paymentScreen && !pendingPaymentScreen" >
     <mat-tab-group (selectedIndexChange)="fnTabValue($event)" mat-align-tabs="start">
         <mat-tab label="My Appointments" class="appointmentlabel">
             <div *ngIf="appointmentData != ''" class="bookings-details-main">
@@ -169,6 +169,9 @@
         </mat-tab>
 
         <mat-tab label="Pending Appointments">
+            <div class="bookings-details-main" *ngIf="(pendingOrderTotal > 0)">
+                <button  class="text-center my-3 mx-auto btn btn-primary" (click)="pending_invoice_pay()">Pay All</button>
+            </div>
             <div *ngIf="pendingAppointmentData != ''" class="bookings-details-main">
                 <div *ngFor="let pendingAppointmentData of pendingAppointmentData; let i = index" class="col-12 col-sm-6 col-md-6 col-lg-4 single-booking float-left">
                     <mat-card class="col card mt-3">
@@ -201,7 +204,7 @@
                                 </div>
                                 <div class="col-6 col-sm-3 col-md-6 col-lg-4 buttons">
                                     <button mat-button class="d-block details-btn" (click)="pending_details_dialog(i)">Details</button>
-                                    <button mat-button class="d-block invoice-light-btn  {{pendingAppointmentData.is_selected==false ? 'btn-primary' : 'btn-secondary'}} " (click)="fnSelect(i,pendingAppointmentData.service.id);">
+                                    <button mat-button class="d-block {{pendingAppointmentData.is_selected==false ? 'pay-btn' : 'reschedule-btn'}} " (click)="fnSelect(i,pendingAppointmentData.service.id);">
                                         {{pendingAppointmentData.is_selected==false?'Seleted':'Unselect'}}
                                     </button>
                                 </div>
@@ -300,6 +303,98 @@
                 </div>
 
                 <mat-radio-button *ngIf="payUmoneyStatus" [checked]="paymentMethod == 'PayUMoney'" (change)="fnPaymentMethod('PayUMoney')" class="col-12 w-auto mt-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay2">PayUMoney
+                    <!-- <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" /> -->
+                    <img src="../../assets/images/payumoney-logo.png" alt="payUMoney" class="payment-gtw-icon cash-payment payumoney-logo-width" />
+                    <!-- <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal"  class="payment-gtw-icon cash-payment"/> -->
+                </mat-radio-button>
+
+            </mat-radio-group>
+
+            <div class="bottom-ctn-btn">
+                <button *ngIf="paymentMethod != '' && paymentMethod != 'Paypal'" (click)="fnPayNow()" mat-button class="round-btn continue-btn proceed">Pay Now</button>
+            </div>
+
+
+        </mat-card-content>
+
+    </div>
+</div>
+
+<div class="content-main d-flex justify-content-center flex-wrap" *ngIf="pendingPaymentScreen">
+    <div class="col-12 my-2">
+        <button mat-button (click)="fnPendingBackToPayment()" class="payment-bk-btn"><i class="fa fa-chevron-left"></i> Back</button>
+    </div>
+    <div id="payment_method" class="col-6 p-0">
+
+        <mat-card-title class="px-4 mx-4 pt-3 ">
+            <div class="col-lg-12 col-sm-12 col-12 top-title px-0 float-left">
+                Payment Method
+            </div>
+            <div *ngIf="!stripeStatus">
+                <p>No Payment Method Available</p>
+            </div>
+        </mat-card-title>
+        <mat-card-content class="py-2 px-4 mt-0 mb-2">
+            <mat-radio-group>
+
+                <mat-radio-button *ngIf="stripeStatus" [checked]="paymentMethod == 'Stripe'" (change)="fnPendingPaymentMethod('Stripe')" class="col-12  p-3 w-auto credit-payment single-pay payment-radio  mb-0" value="pay2">Credit Card
+                    <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" />
+                </mat-radio-button>
+                <div *ngIf="creditcardform">
+                    <form [formGroup]="cardForm" class="field-list mx-0 row credit-card-form ">
+                        <div class="col-12 left-side mb-3 col-lg-6">
+                            <div class="col-12 mb-4">
+                                <label>Card Holder Name</label>
+                                <input formControlName="cardHolderName" class="common-input" type="text" />
+                                <span class="error-wrap" *ngIf="cardForm.get('cardHolderName').dirty || cardForm.get('cardHolderName').touched"><small *ngIf="cardForm.get('cardHolderName').hasError('required')" class="error">Card holder name is required</small></span>
+                            </div>
+                            <div class="col-12 mb-4">
+                                <label>Card Number</label>
+                                <input formControlName="cardNumber" class="common-input" type="text" (keypress)="numberOnly($event)" />
+                                <span class="error-wrap" *ngIf="cardForm.get('cardNumber').dirty || cardForm.get('cardNumber').touched"><small *ngIf="cardForm.get('cardNumber').hasError('required')" class="error">Card number is required</small>
+                                <small *ngIf="cardForm.get('cardNumber').hasError('minlength') || cardForm.get('cardNumber').hasError('maxlength')" class="error">Card Number in invalid</small>
+                                </span>
+                            </div>
+
+                            <div class="col-6 float-left p-0">
+                                <label>Expiry Date</label>
+                                <div class="col-6 float-left mb-4 p-0 pr-1">
+                                    <label>Month</label>
+                                    <input formControlName="expiryMonth" class="common-input" type="text" (keypress)="numberOnly($event)" />
+                                    <span class="error-wrap" *ngIf="cardForm.get('expiryMonth').dirty || cardForm.get('expiryMonth').touched"><small *ngIf="cardForm.get('expiryMonth').hasError('required')" class="error">Expiry month is required</small><small *ngIf="cardForm.get('expiryMonth').hasError('minlength') || cardForm.get('expiryMonth').hasError('maxlength')" class="error">Expiry month is invalid</small></span>
+                                </div>
+                                <div class="col-6 float-left mb-4 p-0">
+                                    <label>Year</label>
+                                    <input formControlName="expiryYear" class="common-input" type="text" (keypress)="numberOnly($event)" />
+                                    <span class="error-wrap" *ngIf="cardForm.get('expiryYear').dirty || cardForm.get('expiryYear').touched"><small *ngIf="cardForm.get('expiryYear').hasError('required')" class="error">Expiry year is required</small><small *ngIf="cardForm.get('expiryYear').hasError('minlength') || cardForm.get('expiryYear').hasError('maxlength')" class="error">Expiry year is invalid</small></span>
+                                </div>
+                            </div>
+                            <div class="col-6 float-left mb-4">
+                                <label class="invisible">CVV Code</label>
+                                <label class="mt-2">CVV Code</label>
+                                <input formControlName="cvvCode" class="common-input" type="password" (keypress)="numberOnly($event)" />
+                                <span class="error-wrap" *ngIf="cardForm.get('cvvCode').dirty || cardForm.get('cvvCode').touched"><small *ngIf="cardForm.get('cvvCode').hasError('required')" class="error">CVV code is required</small><small *ngIf="cardForm.get('cvvCode').hasError('minlength') || cardForm.get('cvvCode').hasError('maxlength')" class="error">CVV code is invalid</small></span>
+                            </div>
+                        </div>
+                        <div class="col-12 right-side col-lg-6">
+                            <img src="../../assets/icons/credit-card.png" />
+                        </div>
+                    </form>
+                </div>
+
+                <mat-radio-button *ngIf="paypalStatus" [checked]="paymentMethod == 'Paypal'" (change)="fnPendingPaymentMethod('Paypal')" class="col-12 w-auto mt-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay2">Paypal
+                    <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_150x38.png" alt="PayPal" class="payment-gtw-icon cash-payment" />
+                </mat-radio-button>
+                <div *ngIf="showPaypalButtons" class="field-list mx-4 row credit-card-form ">
+                    <div class="col-12 left-side col-lg-6">
+                        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                    </div>
+                    <div class="col-12 right-side col-lg-6">
+                        <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_200x51.png" alt="PayPal" />
+                    </div>
+                </div>
+
+                <mat-radio-button *ngIf="payUmoneyStatus" [checked]="paymentMethod == 'PayUMoney'" (change)="fnPendingPaymentMethod('PayUMoney')" class="col-12 w-auto mt-4 p-4 credit-payment single-pay payment-radio px-3 mb-0" value="pay2">PayUMoney
                     <!-- <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" /> -->
                     <img src="../../assets/images/payumoney-logo.png" alt="payUMoney" class="payment-gtw-icon cash-payment payumoney-logo-width" />
                     <!-- <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal"  class="payment-gtw-icon cash-payment"/> -->

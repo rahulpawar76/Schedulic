@@ -4,7 +4,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Appointment Details</h5>
-                    <button type="button" (click)="onNoClick()" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" (click)="onNoClick(false)" class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true">&times;</span>
                       </button>
                 </div>
@@ -38,10 +38,10 @@
                     <div class="px-3 mt-2">
                         <div class="row ">
                             <div class="col-12">
-                                <!-- <span> Subtotal : {{currencySymbol| currencySymbol:'wide'}} {{ pendingOrdeTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span> -->
+                                <span> Subtotal : {{currencySymbol| currencySymbol:'wide'}} {{ pendingSubTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
                             </div>
                             <div class="col-12">
-                                <span>Tax : <i class="fa fa-rupee pr-1"></i> 0</span>
+                                <span>Tax : <i class="fa fa-rupee pr-1"></i> {{pendingTaxTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
                             </div>
                         </div>
                     </div>
@@ -53,10 +53,10 @@
                                 <span>Total</span>
                             </div>
                             <div class="col-3 ">
-                                <!-- <span> {{currencySymbol| currencySymbol:'wide'}} {{ pendingOrdeTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span> -->
+                                <span> {{currencySymbol| currencySymbol:'wide'}} {{ pendingOrderTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
                             </div>
                             <div class="col-12 ">
-                                <button class="btn btn-primary" [disabled]="myAppoDetailData.length == 0" mat-button (click)="fnplaceOrder()">Place</button>
+                                <button class="btn btn-primary" [disabled]="myAppoDetailData.length == 0" mat-button (click)="onNoClick(true)">Place</button>
                             </div>
                         </div>
                     </div>

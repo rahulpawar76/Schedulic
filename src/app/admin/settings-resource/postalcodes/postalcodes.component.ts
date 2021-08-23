@@ -476,6 +476,8 @@ export class DialogEditPostalCode {
           verticalPosition:'top',
           panelClass :['green-snackbar']
           });
+          this.staffList = [];
+          this.fnGetStaffList();
           this.dialogRef.close(true);
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){

@@ -13,15 +13,26 @@
     <div class="card-wrap col-lg-6 col-md-6 col-sm-9 col-xs-11">
         <mat-card class="example-card login-card p-0">
             <mat-card-content class="login-container row">
-                <div fxLayoutAlign="center center" id="login-form" class="left-side p-2 col-12 h-100">
-                    <form [formGroup]="loginForm" class="w-75">
+                <div fxLayoutAlign="center center" class="col-12">
+                    <mat-radio-group aria-label="Select an option">
+                        <mat-radio-button  (click)="fnLoginType($event,'otp')" value="exist-user">OTP Login</mat-radio-button>
+                        <mat-radio-button checked (click)="fnLoginType($event,'normal')" value="new-user">Username & Password Login</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div fxLayoutAlign="center center"  *ngIf="otpLogin" id="login-form" class="left-side p-2 col-12 h-100">
+                    <form [formGroup]="otpLoginForm" class="w-75" >
                         <mat-card-title>
                             <h2 class="text-center login-title">Log In</h2>
                             <p class="text-center text-dark">to your account</p>
                         </mat-card-title>
                         <div class="input-wrap my-3 required-field">
+                            <mat-select [(value)]="selectedPhoneCode">
+                                <mat-option *ngFor="let option of phoneCodes" value="{{ option.phone_code }}">
+                                    {{ option.country_name }} (+{{option.phone_code}})
+                                </mat-option>
+                            </mat-select>
                             <input type="text" formControlName="phone" placeholder="Mobile Number" class="common-input form-control" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
-                            <span class="error-wrap" *ngIf="loginForm.get('phone').dirty || loginForm.get('phone').touched || formSubmitclicked"><small *ngIf="loginForm.get('phone').hasError('required')" class="error text-center">Mobile Number is required.</small><small *ngIf="loginForm.get('phone').hasError('phone') || loginForm.get('phone').hasError('pattern')" class="error text-center">Enter a valid Mobile Number.</small></span>
+                            <span class="error-wrap" *ngIf="otpLoginForm.get('phone').dirty || otpLoginForm.get('phone').touched || formSubmitclicked"><small *ngIf="otpLoginForm.get('phone').hasError('required')" class="error text-center">Mobile Number is required.</small><small *ngIf="otpLoginForm.get('phone').hasError('phone') || otpLoginForm.get('phone').hasError('pattern')" class="error text-center">Enter a valid Mobile Number.</small></span>
                         </div>
                         <div class="input-wrap my-3" *ngIf="otpShow">
                             <button type="submit" color="primary" [disabled]="loading" (click)="getOtp()" class="common-btn text-white w-100 buttion-but">
@@ -34,10 +45,10 @@
                             <div mat-icon-button matSuffix class="icon-cust-pass">
                                 <mat-icon class="pointer" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </div>
-                            <span class="error-wrap" *ngIf="loginForm.get('password').dirty || loginForm.get('password').touched || formSubmitclicked"><small *ngIf="loginForm.get('password').hasError('required')" class="error text-center">Password is required.</small></span>
+                            <span class="error-wrap" *ngIf="otpLoginForm.get('password').dirty || otpLoginForm.get('password').touched || formSubmitclicked"><small *ngIf="otpLoginForm.get('password').hasError('required')" class="error text-center">Password is required.</small></span>
                         </div>
                         <div class="input-wrap my-3" *ngIf="loginShow">
-                            <button type="submit" color="primary" [disabled]="loading" (click)="onSubmit()" class="common-btn text-white w-100 buttion-but">
+                            <button type="submit" color="primary" [disabled]="loading" (click)="onOTPSubmit()" class="common-btn text-white w-100 buttion-but">
                                 <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mt-butn "></span>
                                 Login
                             </button>
@@ -48,6 +59,39 @@
                         <!-- <div class="forgot-wrap text-center">
                             <a class="help forgot-pwd" routerLink="/admin/settings-general/alert-rules" (click)="forgotPassword()">Forgot Password?</a>
                         </div> -->
+                        <!-- <p class="error" *ngIf="error">{{error}}</p> -->
+                    </form>
+                </div>
+                <div fxLayoutAlign="center center" *ngIf="normalLogin" id="login-form" class="left-side p-2 col-12 h-100">
+                    <form [formGroup]="loginForm" class="w-75" >
+                        <mat-card-title>
+                            <h2 class="text-center login-title">Log In 2</h2>
+                            <p class="text-center text-dark">to your account</p>
+                        </mat-card-title>
+                        <div class="input-wrap my-3 required-field">
+                            <input type="text" formControlName="email" placeholder="Email" class="common-input form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                            <span class="error-wrap" *ngIf="loginForm.get('email').dirty || loginForm.get('email').touched || formSubmitclicked"><small *ngIf="loginForm.get('email').hasError('required')" class="error text-center">Email is required.</small><small *ngIf="loginForm.get('email').hasError('email') || loginForm.get('email').hasError('pattern')" class="error text-center">Enter a valid email address.</small></span>
+                        </div>
+
+                        <div class="input-wrap my-3 required-field">
+                            <input type="password" formControlName="password" placeholder="Password" class="common-input form-control" [type]="hide ? 'password' : 'text'" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                            <div mat-icon-button matSuffix class="icon-cust-pass">
+                                <mat-icon class="pointer" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </div>
+                            <span class="error-wrap" *ngIf="loginForm.get('password').dirty || loginForm.get('password').touched || formSubmitclicked"><small *ngIf="loginForm.get('password').hasError('required')" class="error text-center">Password is required.</small></span>
+                        </div>
+                        <div class="input-wrap my-3">
+                            <button type="submit" color="primary" [disabled]="loading" (click)="onSubmit()" class="common-btn text-white w-100 buttion-but">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mt-butn "></span>
+                                Login
+                            </button>
+                        </div>
+                        <div class="input-wrap my-3">
+                        </div>
+                        <!-- Traslate -->
+                        <div class="forgot-wrap text-center">
+                            <a class="help forgot-pwd" (click)="forgotPassword()">Forgot Password?</a>
+                        </div>
                         <!-- <p class="error" *ngIf="error">{{error}}</p> -->
                     </form>
                 </div>

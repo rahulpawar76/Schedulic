@@ -39,7 +39,9 @@ export class UserappointmentsComponent implements OnInit {
   pendingAppointmentData: any;
   completedAppointmentData: any;
   selectedAppointment:any=null;
-  pendingOrdeTotal = 0;
+  pendingOrderTotal = 0;
+  pendingTaxTotal = 0;
+  pendingSubTotal = 0;
   selectedAppointmentData:any=[];
   settingsArr: any;
   cancellationBufferTime= new Date();
@@ -64,6 +66,7 @@ export class UserappointmentsComponent implements OnInit {
   transactionId : any;
   paymentDateTime: any;
   paymentScreen: boolean = false;
+  pendingPaymentScreen: boolean = false;
   
   private payPalConfig?: IPayPalConfig;
   onlynumeric = /^-?(0|[1-9]\d*)?$/
@@ -287,6 +290,10 @@ export class UserappointmentsComponent implements OnInit {
     })
   }
 
+  pending_invoice_pay() {
+    this.pending_invoice_dialog();
+  }
+
   fnSelect(index, id){
     if(this.selectedAppointment==null){
       this.selectedAppointment = id;
@@ -310,18 +317,21 @@ export class UserappointmentsComponent implements OnInit {
       }
     }
 
-    this.pendingOrdeTotal = 0;
+    this.pendingOrderTotal = 0;
+    this.pendingTaxTotal = 0;
+    this.pendingSubTotal = 0;
     this.pendingAppointmentData.forEach(element => {
       if(element.is_selected==true){
-        this.pendingOrdeTotal = this.pendingOrdeTotal + parseInt(element.service_cost);
+        this.pendingSubTotal = this.pendingSubTotal + parseInt(element.subtotal);
+        this.pendingTaxTotal = this.pendingTaxTotal + (parseInt(element.total_cost) - parseInt(element.subtotal));
+        this.pendingOrderTotal = this.pendingOrderTotal + parseInt(element.total_cost);
       }
     });
 
-    if(this.pendingOrdeTotal==0){
+    if(this.pendingOrderTotal==0){
       this.selectedAppointment = null;
       this.pendingAppointmentData = [];
     }
-    this.pending_invoice_dialog();
   }
 
   getCompletedAppointments(): void{
@@ -477,12 +487,14 @@ export class UserappointmentsComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogPendingAppointmentDetails, {
       
       height: '700px',
-      data: {fulldata: this.pendingAppointmentData, orderTotal : this.pendingOrdeTotal}
+      data: {fulldata: this.pendingAppointmentData, orderTotal : this.pendingOrderTotal, subTotal : this.pendingSubTotal, taxTotal : this.pendingTaxTotal}
 
     });
     console.log(this.pendingAppointmentData);
      dialogRef.afterClosed().subscribe(result => {
-      this.animal = result;
+      if(result.data) {
+        this.pendingPaymentScreen = true;
+      }
      });
   }
 
@@ -522,7 +534,36 @@ export class UserappointmentsComponent implements OnInit {
       this.taxAmountArr=[];
     }
   }
+  
   fnPaymentMethod(paymentMethod){
+    if(paymentMethod == 'Stripe'){
+      this.paymentMethod="Stripe";
+      this.creditcardform =true;
+      this.showPaypalButtons =false;
+      this.transactionId=null;
+      this.paymentDateTime=this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss");
+    }
+    if(paymentMethod == 'Paypal'){
+      this.creditcardform =false;
+      this.showPaypalButtons =true;
+      this.showPayUMoneyButton =false;
+      this.paymentMethod="Paypal";
+      this.transactionId=null;
+      this.paymentDateTime=new Date();
+      let digit5= Math.floor(Math.random()*90000) + 10000;
+      this.reference_id="2_"+digit5+"_"+ this.datePipe.transform(new Date(),"yyyy/MM/dd") ;
+    }
+    if(paymentMethod == 'PayUMoney'){
+      this.creditcardform =false;
+      this.showPaypalButtons =false;
+      this.showPayUMoneyButton =true;
+      this.paymentMethod="PayUMoney";
+      this.transactionId=null;
+      this.paymentDateTime=new Date();
+    }
+  }
+
+  fnPendingPaymentMethod(paymentMethod){
     if(paymentMethod == 'Stripe'){
       this.paymentMethod="Stripe";
       this.creditcardform =true;
@@ -553,12 +594,64 @@ export class UserappointmentsComponent implements OnInit {
     this.paymentScreen = false;
     this.cardForm.reset();
   }
+  fnPendingBackToPayment(){
+    this.pendingPaymentScreen = false;
+    this.cardForm.reset();
+  }
   fnPayNow(){
     if(this.paymentMethod == 'Stripe'){
       this.stripePayment();
     }
     if(this.paymentMethod == 'PayUMoney'){
      this.fnPayUMoney();
+    }
+  }
+
+  fnPendingPayNow(){
+    if(this.paymentMethod == 'Stripe'){
+      this.pendingStripePayment();
+    }
+    if(this.paymentMethod == 'PayUMoney'){
+     this.fnPendingPayUMoney();
+    }
+  }
+
+  pendingStripePayment(){
+    if(this.cardForm.valid){
+      let requestObject ={
+        "business_id" :this.bussinessId,
+        "name" : this.cardForm.get("cardHolderName").value,
+        "number" : this.cardForm.get("cardNumber").value,
+        "exp_month" : this.cardForm.get("expiryMonth").value,
+        "exp_year" : this.cardForm.get("expiryYear").value,
+        "cvc" : this.cardForm.get("cvvCode").value,
+        "amount" : this.pendingOrderTotal,
+      }
+      this.isLoader=true;
+      this.UserService.customerStripePayment(requestObject).subscribe((response:any) =>{
+        if(response.data == true){
+          let digit5= Math.floor(Math.random()*90000) + 10000;
+          this.reference_id="2_"+digit5+"_"+ this.datePipe.transform(new Date(),"yyyy/MM/dd") ;
+          this.transactionId = response.response.id 
+          this.paymentDateTime = this. datePipe.transform(new Date(),"yyyy/MM/dd");
+          this.isLoader=false;
+          this.confirmPayment();
+        }
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+        }
+        this.isLoader=false;
+      })  
+    }else{
+      this.cardForm.get("cardHolderName").markAsTouched();
+      this.cardForm.get("cardNumber").markAsTouched();
+      this.cardForm.get("expiryMonth").markAsTouched();
+      this.cardForm.get("expiryYear").markAsTouched();
+      this.cardForm.get("cvvCode").markAsTouched();
     }
   }
 
@@ -729,6 +822,69 @@ export class UserappointmentsComponent implements OnInit {
     this.PayUMoney.firstname= this.appointDetailForPayment.customer.fullname;
     this.PayUMoney.email= this.appointDetailForPayment.customer.email,
     this.PayUMoney.phone= this.appointDetailForPayment.customer.phone,
+    this.PayUMoney.productinfo= 'Product Description';
+    this.PayUMoney.surl= environment.urlForLink;
+    this.PayUMoney.furl= environment.urlForLink;
+    this.PayUMoney.mode='dropout';// non-mandatory for Customized Response Handling
+    this.PayUMoney.udf1='';
+    this.PayUMoney.udf2='';
+    this.PayUMoney.udf3='';
+    this.PayUMoney.udf4='';
+    this.PayUMoney.udf5='';
+
+    // #Where salt is available on the PayUMoney dashboard.
+    var RequestData = {
+      key: this.PayUMoney.key,
+      txnid: this.PayUMoney.txnid,
+      hash: '',
+      amount: this.PayUMoney.amount,
+      firstname: this.PayUMoney.firstname,
+      email: this.PayUMoney.email,
+      phone: this.PayUMoney.phone,
+      productinfo: this.PayUMoney.productinfo,
+      surl : this.PayUMoney.surl,
+      furl: this.PayUMoney.furl,
+      // mode:this.PayUMoney.mode// non-mandatory for Customized Response Handling
+    }
+    this.generateRequestHash(RequestData);
+    var Handler = {
+      responseHandler: (BOLT) => {
+        if(BOLT && BOLT.response.txnStatus == "SUCCESS"){
+          let generatedHash=this.generateResponseHash(BOLT.response);
+          if(BOLT.response.hash == generatedHash){
+            this.reference_id=BOLT.response.txnid;
+            this.transactionId=BOLT.response.payuMoneyId;
+            this.paymentDateTime= this.datePipe.transform(BOLT.response.addedon,"yyyy-MM-dd HH:mm:ss");
+            this.confirmPayment();
+          }
+        }else if(BOLT && BOLT.response.txnStatus == "FAILED"){
+          this._snackBar.open("Transaction Failed", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }else if(BOLT && BOLT.response.txnStatus == "CANCEL"){
+          this._snackBar.open(BOLT.response.txnMessage, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        // your payment response Code goes here, BOLT is the response object
+      },
+      catchException: function(BOLT){
+      }
+    }
+    //bolt.launch( RequestData , Handler ); 
+  }
+
+  fnPendingPayUMoney(){
+      
+    this.PayUMoney.txnid= this.getTxnId();
+    this.PayUMoney.amount= this.pendingOrderTotal.toString();
+    this.PayUMoney.firstname= this.pendingAppointmentData.customer.fullname;
+    this.PayUMoney.email= this.pendingAppointmentData.customer.email,
+    this.PayUMoney.phone= this.pendingAppointmentData.customer.phone,
     this.PayUMoney.productinfo= 'Product Description';
     this.PayUMoney.surl= environment.urlForLink;
     this.PayUMoney.furl= environment.urlForLink;
@@ -1584,7 +1740,9 @@ export class DialogCancelReason {
     singleBookingNotes:any;
     pendingAppointmentData: any;
     selectedAppointment:any=null;
-    pendingOrdeTotal = 0;
+    pendingOrderTotal = 0;
+    pendingSubTotal = 0;
+    pendingTaxTotal = 0;
     selectedAppointmentData:any=[];
     constructor(
       public dialogRef: MatDialogRef<DialogPendingAppointmentDetails>,
@@ -1594,14 +1752,20 @@ export class DialogCancelReason {
       private _snackBar: MatSnackBar,
        public dialog: MatDialog,
       @Inject(MAT_DIALOG_DATA) public data: any) {
-        this.pendingAppointmentData = 
         this.myAppoDetailData = this.data.fulldata;
-        this.pendingOrdeTotal = this.data.orderTotal;
+        this.pendingOrderTotal = this.data.orderTotal;
+        this.pendingSubTotal = this.data.subTotal;
+        this.pendingTaxTotal = this.data.taxTotal;
         this.bussinessId=this.authenticationService.currentUserValue.business_id;
         this.fnGetSettingValue();
       }
-    onNoClick(): void {
-      this.dialogRef.close();
+
+    onNoClick(flag): void {
+      if (flag) {
+        this.dialogRef.close({data:true});
+      } else {
+        this.dialogRef.close({data:false});
+      }
     }
 
     fnGetSettingValue(){
@@ -1624,7 +1788,6 @@ export class DialogCancelReason {
     fnplaceOrder(){
       
     }
-
   }
 
 @Component({

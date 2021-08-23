@@ -2040,7 +2040,7 @@ export class ServicesComponent implements OnInit {
         
     }
 
-    fnExportService(){
+    fnExportService(categoryId, filter){
         const options = { 
           fieldSeparator: ',',
           quoteStrings: '"',
@@ -2055,7 +2055,7 @@ export class ServicesComponent implements OnInit {
         };
         const csvExporter = new ExportToCsv(options);
           this.isLoaderAdmin = true;
-          this.adminSettingsService.fnExportService().subscribe((response:any) => {
+          this.adminSettingsService.fnExportService(categoryId, filter).subscribe((response:any) => {
             if(response.data == true){
               this.selectedServicesArr = response.response
               csvExporter.generateCsv(this.selectedServicesArr);
@@ -2072,9 +2072,13 @@ export class ServicesComponent implements OnInit {
         }
 
 
-    ImportFileUpload() {
+    ImportFileUpload(categoryId, filter) {
         const dialogRef = this.dialog.open(DialogImportServiceUpload, {
             width: '500px',
+            data: {
+                categoryId:categoryId,
+                filter: filter
+              }
         });
     
         dialogRef.afterClosed().subscribe(result => {
@@ -2227,13 +2231,18 @@ export class ServicesComponent implements OnInit {
   
   fileToUpload:any;
   isLoaderAdmin : boolean = false;
+  categoryId:any;
+  filter:any;
   
   constructor(
     public dialogRef: MatDialogRef<DialogImportServiceUpload>,
     public http: HttpClient,
     private _snackBar: MatSnackBar,
     @Inject(AdminSettingsService) public adminSettingsService: AdminSettingsService,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+        this.categoryId = this.data.categoryId;
+        this.filter = this.data.filter;
+    }
   
     onNoClick(): void {
       this.dialogRef.close();
@@ -2260,7 +2269,7 @@ export class ServicesComponent implements OnInit {
   
     }
   
-    fileupload(){
+    fileupload(categoryId, filter){
       
       if(this.fileToUpload.type != "application/vnd.ms-excel"){
   
@@ -2278,6 +2287,9 @@ export class ServicesComponent implements OnInit {
       const formData: FormData = new FormData();
       formData.append('file', this.fileToUpload);
       formData.append('business_id',JSON.parse(localStorage.getItem('business_id')));
+      formData.append('category_id', categoryId);
+      formData.append('filter', filter);
+
 
       this.adminSettingsService.fnImportService(formData).subscribe((response:any) => {
         if(response.data == true){
