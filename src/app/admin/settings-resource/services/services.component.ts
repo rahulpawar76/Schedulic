@@ -2269,7 +2269,7 @@ export class ServicesComponent implements OnInit {
   
     }
   
-    fileupload(categoryId, filter){
+    fileupload(){
       
       if(this.fileToUpload.type != "application/vnd.ms-excel"){
   
@@ -2287,8 +2287,8 @@ export class ServicesComponent implements OnInit {
       const formData: FormData = new FormData();
       formData.append('file', this.fileToUpload);
       formData.append('business_id',JSON.parse(localStorage.getItem('business_id')));
-      formData.append('category_id', categoryId);
-      formData.append('filter', filter);
+      formData.append('category_id', this.categoryId);
+      formData.append('filter', this.filter);
 
 
       this.adminSettingsService.fnImportService(formData).subscribe((response:any) => {
