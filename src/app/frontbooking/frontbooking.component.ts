@@ -1741,8 +1741,8 @@ this.router.navigate(['/customer-login/'+this.urlString[1]]);
      return false;
     }
 
-    var phone = this.formOtpExistingUser.get('existing_phone').value;
-    phone = "+"+this.selectedPhoneCode+phone;
+    var phone = this.formOtpExistingUser.get('existing_phone').value.e164Number;
+    // phone = "+"+this.selectedPhoneCode+phone;
     let requestObject = {
       "phone" : phone,
       "otp" : this.formOtpExistingUser.get('existing_otp').value,
@@ -1753,12 +1753,12 @@ this.router.navigate(['/customer-login/'+this.urlString[1]]);
 
   getOtp() {
     if(this.formOtpExistingUser.get('existing_phone').valid) {
-      var phone = this.formOtpExistingUser.get('existing_phone').value;
-      phone = "+"+this.selectedPhoneCode+phone;
+      var phone = this.formOtpExistingUser.get('existing_phone').value.e164Number;
+      // phone = "+"+this.selectedPhoneCode+phone;
       let requestObject = {
           'phone' : phone,
           'business_id' : this.businessId,
-          'country_code' : "+"+this.selectedPhoneCode
+          'country_code' : this.formOtpExistingUser.get('existing_phone').value.dialCode
       }
       this.fnGetOtp(requestObject);
     }

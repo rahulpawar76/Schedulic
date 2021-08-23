@@ -497,6 +497,13 @@ export class AppComponent implements AfterViewInit {
     this.router.navigate(['/login']);
   }
 
+  customerLogout() {
+    console.log(localStorage.getItem('frontBusiness_id'))
+    let businessId = localStorage.getItem('frontBusiness_id')
+    this.authenticationService.customerLogout();
+    this.router.navigate(['/customer-login/'+window.btoa(businessId)]);
+  }
+
   logout2(callGoogleSignOut) {
     this.dialogRef2.closeAll();
     this.isSignOut=false;
@@ -1154,16 +1161,12 @@ export class DialogLogoutAppointment {
     },3000)
   }
 
+
   fnTemp(){
     this.authenticationService.logout();
-    // if (this.timer) {
-    //   clearTimeout(this.timer);
-    //   this.timer = 0;
-    // }
     this.router.navigate(['/login']);
-
-
   }
+
 
   closePopup() {
     this.dialogRef.close();

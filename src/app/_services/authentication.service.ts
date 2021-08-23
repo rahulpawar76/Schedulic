@@ -171,6 +171,27 @@ export class AuthenticationService {
         //window.location.reload(true);
      //   console.log(this.currentUserValue);
     }
+
+    customerLogout() {
+        // remove user from local storage to log user out
+        // localStorage.removeItem('userId');
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('isFront');
+        localStorage.removeItem('logoutTime');
+        localStorage.removeItem('business_id');
+        localStorage.removeItem('internal_staff');
+        localStorage.removeItem('business_name');
+        localStorage.removeItem('isBusiness');
+        localStorage.removeItem('adminData');
+        // localStorage.clear();
+        // localStorage.removeItem('userToken');
+        // localStorage.removeItem('userName');
+        // localStorage.removeItem('userRole');
+        // localStorage.removeItem('tokenID');
+        this.currentUserSubject.next(null);
+        //window.location.reload(true);
+     //   console.log(this.currentUserValue);
+    }
     pageName(name,user_type){
         
 
