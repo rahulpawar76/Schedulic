@@ -143,14 +143,6 @@
         </mat-drawer>
 
         <mat-drawer-content>
-            <div class="row" layout-padding>
-                <div class="mx-2">
-                    <button mat-button (click)="ImportFileUpload()" class="d-block ml-auto service-create-btn">Import</button>
-                </div>
-                <div class="mx-2">
-                    <button mat-button (click)="fnExportService()" class="d-block ml-auto service-create-btn">Export</button>
-                </div>
-            </div>
             <div class="" *ngIf="servicesList" class="service-listing">
                 <div class="main-table-content main-cust-table-content">
                     <div class="">
@@ -443,6 +435,14 @@
                             </div>
                         </div>
                         <div class="ml-auto">
+                            <div class="row" layout-padding *ngIf="categoryServicesList != '' && categoryServicesList[0].sub_category_id != null">
+                                <div class="mx-2">
+                                    <button mat-button (click)="ImportFileUpload(selectedSubCategoryDetails.id, 'category')" class="d-block ml-auto service-create-btn">Import</button>
+                                </div>
+                                <div class="mx-2">
+                                    <button mat-button (click)="fnExportService(selectedSubCategoryDetails.id, 'category')" class="d-block ml-auto service-create-btn">Export</button>
+                                </div>
+                            </div>
                             <button mat-button *ngIf="categoryServicesList != '' && categoryServicesList[0].sub_category_id != null" (click)="fnCreateNewSubCategoryPage(selectedCategoryDetails.id,'upper')" class="addservice-btn d-block ml-auto">Add Sub Category</button>
                             <button mat-button *ngIf="categoryServicesList != '' && categoryServicesList[0].sub_category_id == null" (click)="fnCreateNewServicePage(selectedCategoryDetails.id,'category','upper')" class="addservice-btn d-block ml-auto">Add Service</button>
                             <div class="mt-2 d-flex">
@@ -577,6 +577,14 @@
                             </div>
                         </div>
                         <div class="ml-auto">
+                            <div class="row" layout-padding *ngIf="singleSubCategoryPage == 'services'">
+                                <div class="mx-2">
+                                    <button mat-button (click)="ImportFileUpload(selectedSubCategoryDetails.id, 'subcategory')" class="d-block ml-auto service-create-btn">Import</button>
+                                </div>
+                                <div class="mx-2">
+                                    <button mat-button (click)="fnExportService(selectedSubCategoryDetails.id, 'subcategory')" class="d-block ml-auto service-create-btn">Export</button>
+                                </div>
+                            </div>
                             <button mat-button (click)="fnCreateNewServicePage(selectedSubCategoryDetails.id,'subcategory','upper')" class="addservice-btn d-block ml-auto" *ngIf="singleSubCategoryPage == 'services'">Add Service</button>
                             <div class="mt-2 d-flex">
                                 <mat-form-field class=" bottom-border-field mt-3 filter-feild">
