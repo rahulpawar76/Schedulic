@@ -1051,8 +1051,8 @@
                         </div>
                     </div>
                     <div class="bottom-ctn-btn">
-                        <button *ngIf="paymentMethod && paymentMethod == 'cash'" (click)="fnPayNow()" mat-button class="round-btn gray-btn proceed">Pay Now</button>
-                        <button mat-flat-button type="submit" #payButton class="round-btn gray-btn proceed" *ngIf="paymentMethod && paymentMethod != 'cash'"> Pay Now </button>
+                        <button *ngIf="paymentMethod && paymentMethod == 'Cash'" (click)="fnPayNow()" mat-button class="round-btn gray-btn proceed">Pay Now</button>
+                        <button mat-flat-button type="submit" #payButton class="round-btn gray-btn proceed" *ngIf="paymentMethod && paymentMethod != 'Cash'"> Pay Now </button>
                     </div>
                     <!-- <div class="bottom-submit-btn">
                         <button mat-flat-button *ngIf="payment_method && payment_method == 'cash'" (click)="fnOrderCreate()"
