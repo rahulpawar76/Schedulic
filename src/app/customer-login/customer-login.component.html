@@ -14,18 +14,27 @@
         <mat-card class="example-card login-card p-0">
             <mat-card-content class="login-container row">
                 <div fxLayoutAlign="center center" class="col-12">
+                </div>
+                <div fxLayoutAlign="center center"  id="login-form" class="left-side p-2 col-12 h-100 flex-wrap ">
                     <mat-radio-group aria-label="Select an option">
                         <mat-radio-button  (click)="fnLoginType($event,'otp')" value="exist-user">OTP Login</mat-radio-button>
                         <mat-radio-button checked (click)="fnLoginType($event,'normal')" value="new-user">Username & Password Login</mat-radio-button>
                     </mat-radio-group>
-                </div>
-                <div fxLayoutAlign="center center"  *ngIf="otpLogin" id="login-form" class="left-side p-2 col-12 h-100">
-                    <form [formGroup]="otpLoginForm" class="w-75" >
+                    <form [formGroup]="otpLoginForm" *ngIf="otpLogin" class="w-75" >
                         <mat-card-title>
                             <h2 class="text-center login-title">Log In</h2>
                             <p class="text-center text-dark">to your account</p>
                         </mat-card-title>
                         <div class="input-wrap my-3 required-field">
+                            <ngx-intl-tel-input class="common-input mobile-intel-input" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
+                            [selectedCountryISO]="CountryISO.India" (mousedown)="fnPhoneMouceLeave($event)" (keyup)="fnenterPhoneNumber($event)" [maxLength]="10" [phoneValidation]="false" [separateDialCode]="separateDialCode" formControlName="phone"
+                            placeholder=" ">
+                        </ngx-intl-tel-input>
+                        <span class="error-wrap" *ngIf="otpLoginForm.get('phone').dirty || otpLoginForm.get('phone').touched"><small *ngIf="otpLoginForm.get('phone').hasError('required')" class="error text-center">Mobile Number is required.</small>
+                            <!-- <small *ngIf="otpLoginForm.get('phone').hasError('phone') || otpLoginForm.get('phone').hasError('pattern')" class="error text-center">Enter a valid Mobile Number.</small> -->
+                            </span>
+                        </div>
+                        <!-- <div class="input-wrap my-3 required-field">
                             <mat-select [(value)]="selectedPhoneCode">
                                 <mat-option *ngFor="let option of phoneCodes" value="{{ option.phone_code }}">
                                     {{ option.country_name }} (+{{option.phone_code}})
@@ -33,7 +42,7 @@
                             </mat-select>
                             <input type="text" formControlName="phone" placeholder="Mobile Number" class="common-input form-control" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
                             <span class="error-wrap" *ngIf="otpLoginForm.get('phone').dirty || otpLoginForm.get('phone').touched || formSubmitclicked"><small *ngIf="otpLoginForm.get('phone').hasError('required')" class="error text-center">Mobile Number is required.</small><small *ngIf="otpLoginForm.get('phone').hasError('phone') || otpLoginForm.get('phone').hasError('pattern')" class="error text-center">Enter a valid Mobile Number.</small></span>
-                        </div>
+                        </div> -->
                         <div class="input-wrap my-3" *ngIf="otpShow">
                             <button type="submit" color="primary" [disabled]="loading" (click)="getOtp()" class="common-btn text-white w-100 buttion-but">
                                 <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mt-butn "></span>
@@ -61,9 +70,7 @@
                         </div> -->
                         <!-- <p class="error" *ngIf="error">{{error}}</p> -->
                     </form>
-                </div>
-                <div fxLayoutAlign="center center" *ngIf="normalLogin" id="login-form" class="left-side p-2 col-12 h-100">
-                    <form [formGroup]="loginForm" class="w-75" >
+                    <form [formGroup]="loginForm" *ngIf="normalLogin" class="w-75" >
                         <mat-card-title>
                             <h2 class="text-center login-title">Log In 2</h2>
                             <p class="text-center text-dark">to your account</p>
@@ -95,6 +102,9 @@
                         <!-- <p class="error" *ngIf="error">{{error}}</p> -->
                     </form>
                 </div>
+                <!-- <div fxLayoutAlign="center center" id="login-form" class="left-side p-2 col-12 h-100">
+                    
+                </div> -->
             </mat-card-content>
         </mat-card>
     </div>

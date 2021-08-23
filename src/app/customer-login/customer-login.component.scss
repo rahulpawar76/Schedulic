@@ -171,3 +171,18 @@
         display: none;
     }
 }
+
+
+.mobile-intel-input {
+    padding: 0 !important;
+    border: 0 !important;
+     ::ng-deep .intl-tel-input {
+        width: 100%;
+        input[type="tel"] {
+            padding: 6px 0;
+            width: 100%;
+            border: 1px solid #e4e3e3;
+            border-radius: 5px;
+        }
+    }
+}
