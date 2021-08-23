@@ -1598,9 +1598,27 @@ export class DialogCancelReason {
         this.myAppoDetailData = this.data.fulldata;
         this.pendingOrdeTotal = this.data.orderTotal;
         this.bussinessId=this.authenticationService.currentUserValue.business_id;
+        this.fnGetSettingValue();
       }
     onNoClick(): void {
       this.dialogRef.close();
+    }
+
+    fnGetSettingValue(){
+      let requestObject = {
+        "business_id":this.bussinessId
+      };
+      this.UserService.getSettingValue(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.settingsArr=response.response;
+          this.currencySymbol = this.settingsArr.currency;
+          this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+          this.currencySymbolFormat = this.settingsArr.currency_format;
+        }
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
+          
+        }
+      })
     }
 
     fnplaceOrder(){
