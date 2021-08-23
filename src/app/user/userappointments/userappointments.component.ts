@@ -1757,13 +1757,36 @@ export class DialogCancelReason {
         this.pendingSubTotal = this.data.subTotal;
         this.pendingTaxTotal = this.data.taxTotal;
         this.bussinessId=this.authenticationService.currentUserValue.business_id;
+        this.fnGetSettingValue();
       }
+
     onNoClick(flag): void {
       if (flag) {
         this.dialogRef.close({data:true});
       } else {
         this.dialogRef.close({data:false});
       }
+    }
+
+    fnGetSettingValue(){
+      let requestObject = {
+        "business_id":this.bussinessId
+      };
+      this.UserService.getSettingValue(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.settingsArr=response.response;
+          this.currencySymbol = this.settingsArr.currency;
+          this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+          this.currencySymbolFormat = this.settingsArr.currency_format;
+        }
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
+          
+        }
+      })
+    }
+
+    fnplaceOrder(){
+      
     }
   }
 
