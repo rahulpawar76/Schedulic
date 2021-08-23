@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit,AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SearchCountryField, CountryISO } from 'ngx-intl-tel-input';
 import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '@app/_services';
@@ -38,6 +39,10 @@ export class CustomerLoginComponent implements OnInit {
     currentUser: User;
     businessId:any;
     urlString: any;
+	CountryISO = CountryISO;
+  preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
+  separateDialCode = true;
+	SearchCountryField = SearchCountryField;
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
@@ -60,7 +65,7 @@ export class CustomerLoginComponent implements OnInit {
             this.appComponent.fnCheckAuthState();
         }
 
-        this.fngetPhoneCode();
+        // this.fngetPhoneCode();
         
         // this.boxOfficeId = this.route.snapshot.params.id;
         
@@ -98,12 +103,13 @@ export class CustomerLoginComponent implements OnInit {
     getOtp() {
         if(this.otpLoginForm.get('phone').valid) {
             this.loading = true;
-            var phone = this.otpLoginForm.get('phone').value;
-            phone = "+"+this.selectedPhoneCode+phone;
+            var phone = this.otpLoginForm.get('phone').value.e164Number;
+            this.selectedPhoneCode = this.otpLoginForm.get('phone').value.dialCode
+            // phone = "+"+this.selectedPhoneCode+phone;
             let requestObject = {
                 'phone' : phone,
                 'business_id' : this.businessId,
-                'country_code' : "+"+this.selectedPhoneCode
+                'country_code' : this.selectedPhoneCode
             }
             this.authenticationService.getOtp(requestObject).pipe(first()).subscribe(data => {
                 if(data.data == true){
@@ -138,14 +144,14 @@ export class CustomerLoginComponent implements OnInit {
         }
       }
 
-      fngetPhoneCode(){
-        this.authenticationService.getPhoneCode().subscribe((response:any) => {
-            if(response.data == true){
-                this.phoneCodes = response.response;
-                this.selectedPhoneCode = "91";
-            }
-          });
-      }
+    //   fngetPhoneCode(){
+    //     this.authenticationService.getPhoneCode().subscribe((response:any) => {
+    //         if(response.data == true){
+    //             this.phoneCodes = response.response;
+    //             this.selectedPhoneCode = "91";
+    //         }
+    //       });
+    //   }
 
     onOTPSubmit() {
         this.submitted = true;
@@ -156,10 +162,11 @@ export class CustomerLoginComponent implements OnInit {
             return false;
         }
         this.dataLoaded = false;
-        var phone = this.otpLoginForm.get('phone').value;
-        if(phone.length == 10) {
-            phone = "+"+this.selectedPhoneCode+phone;
-        }
+        var phone = this.otpLoginForm.get('phone').value.e164Number;
+        this.selectedPhoneCode = this.otpLoginForm.get('phone').value.dialCode
+        // if(phone.length == 10) {
+        //     phone = "+"+this.selectedPhoneCode+phone;
+        // }
         let requestObject = {
             'phone' : phone,
             'otp' : this.otpLoginForm.get('password').value,
@@ -242,6 +249,28 @@ export class CustomerLoginComponent implements OnInit {
             this.error = "Database Connection Error."; 
             this.dataLoaded = true;  
         });
+    }
+    
+    fnenterPhoneNumber(){
+        console.log(this.otpLoginForm.get('phone').value)
+        // if(this.otpLoginForm.get('newUserPhone').value==undefined){
+        //     this.phoneNumberInvalid = "valid";
+        //     return;
+        // }
+
+        // if( this.otpLoginForm.get('newUserPhone').value !== '' || this.otpLoginForm.get('newUserPhone').value !== null ){
+        // if(this.otpLoginForm.get('newUserPhone').value.number.length >= 6 && this.otpLoginForm.get('newUserPhone').value.number.length <= 15){
+        //     this.phoneNumberInvalid = "valid";
+        // }else{
+        //     this.phoneNumberInvalid = "length";
+        // }
+        // }else if(this.otpLoginForm.get('newUserPhone').value === '' || this.otpLoginForm.get('newUserPhone').value === null){
+        // this.phoneNumberInvalid = "required";
+        // }
+    }
+
+    fnPhoneMouceLeave(event){
+        
     }
 
     forgotPassword(){

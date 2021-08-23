@@ -344,8 +344,8 @@
                 <div id="existing_user" *ngIf="existinguser" class="">
                     <div class="user-type-selection">
                         <mat-radio-group aria-label="Select an option">
-                            <mat-radio-button  (click)="fnLoginType($event,'otp')" value="otp-login">OTP Login</mat-radio-button>
-                            <mat-radio-button checked (click)="fnLoginType($event,'normal')" value="normal-login">New User</mat-radio-button>
+                            <mat-radio-button  (click)="fnLoginType($event,'otp')" value="otp-login">Login With Phone No.</mat-radio-button>
+                            <mat-radio-button checked (click)="fnLoginType($event,'normal')" value="normal-login">Login with Email</mat-radio-button>
                         </mat-radio-group>
                     </div>
                     <form [formGroup]="formOtpExistingUser" *ngIf="otpLogin">
@@ -362,7 +362,7 @@
                                 <span class="error-wrap" *ngIf="formOtpExistingUser.get('existing_phone').dirty
                                                 ||
                                                 formOtpExistingUser.get('existing_phone').touched
-                                                || formSubmitclicked"><small
+                                                "><small
                                                     *ngIf="formOtpExistingUser.get('existing_phone').hasError('required')"
                                                     class="error">Mobile Number is
                                                     required.</small>
@@ -378,7 +378,7 @@
                                 <span class="error-wrap" *ngIf="formOtpExistingUser.get('existing_otp').dirty
                                                 ||
                                                 formOtpExistingUser.get('existing_otp').touched
-                                                || formSubmitclicked"><small
+                                                "><small
                                                     *ngIf="formOtpExistingUser.get('existing_otp').hasError('required')"
                                                     class="error">OTP is
                                                     required.</small></span>
@@ -401,7 +401,7 @@
                                 <span class="error-wrap" *ngIf="formExistingUser.get('existing_mail').dirty
                                             ||
                                             formExistingUser.get('existing_mail').touched
-                                            || formSubmitclicked"><small
+                                            "><small
                                                 *ngIf="formExistingUser.get('existing_mail').hasError('required')"
                                                 class="error">Email is
                                                 required.</small>
@@ -417,7 +417,7 @@
                                 <span class="error-wrap" *ngIf="formExistingUser.get('existing_password').dirty
                                             ||
                                             formExistingUser.get('existing_password').touched
-                                            || formSubmitclicked"><small
+                                            "><small
                                                 *ngIf="formExistingUser.get('existing_password').hasError('required')"
                                                 class="error">Password is
                                                 required.</small></span>
@@ -439,7 +439,7 @@
                                 <span class="error-wrap" *ngIf="formNewUser.get('newUserEmail').dirty
                                                 ||
                                                 formNewUser.get('newUserEmail').touched
-                                                || formSubmitclicked"><small
+                                                "><small
                                                     *ngIf="formNewUser.get('newUserEmail').hasError('required')"
                                                     class="error">Email is
                                                     required.</small>
@@ -460,7 +460,7 @@
                                 <span class="error-wrap" *ngIf="formNewUser.get('newUserPassword').dirty
                                                 ||
                                                 formNewUser.get('newUserPassword').touched
-                                                || formSubmitclicked"><small
+                                                "><small
                                                     *ngIf="formNewUser.get('newUserPassword').hasError('required')"
                                                     class="error">Password is
                                                     required.</small>
@@ -482,7 +482,7 @@
                                 <span *ngIf="formNewUser.get('newUserFullname').dirty
                                                 ||
                                                 formNewUser.get('newUserFullname').touched
-                                                || formSubmitclicked"><small
+                                                "><small
                                                     *ngIf="formNewUser.get('newUserFullname').hasError('required')"
                                                     class="error">Full name is
                                                     required.</small></span>
@@ -516,7 +516,7 @@
                                 <span class="error-wrap" *ngIf="formNewUser.get('newUserAddress').dirty
                                                 ||
                                                 formNewUser.get('newUserAddress').touched
-                                                || formSubmitclicked"><small
+                                                "><small
                                                     *ngIf="formNewUser.get('newUserAddress').hasError('required')"
                                                     class="error">Address is
                                                     required.</small></span>
@@ -529,7 +529,7 @@
                                 <span class="error-wrap" *ngIf="formNewUser.get('newUserState').dirty
                                                 ||
                                                 formNewUser.get('newUserState').touched
-                                                || formSubmitclicked"><small
+                                                "><small
                                                     *ngIf="formNewUser.get('newUserState').hasError('required')"
                                                     class="error">State is
                                                     required.</small></span>
@@ -542,7 +542,7 @@
                                 <span class="error-wrap" *ngIf="formNewUser.get('newUserCity').dirty
                                                 ||
                                                 formNewUser.get('newUserCity').touched
-                                                || formSubmitclicked"><small
+                                                "><small
                                                     *ngIf="formNewUser.get('newUserCity').hasError('required')"
                                                     class="error">City is
                                                     required.</small></span>
@@ -555,7 +555,7 @@
                                 <span class="error-wrap" *ngIf="formNewUser.get('newUserZipcode').dirty
                                                 ||
                                                 formNewUser.get('newUserZipcode').touched
-                                                || formSubmitclicked">
+                                                ">
                                                 <small
                                                     *ngIf="formNewUser.get('newUserZipcode').hasError('required')"
                                                     class="error">Zipcode is
@@ -625,7 +625,7 @@
                             <span class="error-wrap" *ngIf="formAppointmentInfo.get('appo_address').dirty
                                             ||
                                             formAppointmentInfo.get('appo_address').touched
-                                            || formSubmitclicked"><small
+                                            "><small
                                                 *ngIf="formAppointmentInfo.get('appo_address').hasError('required')"
                                                 class="error">Address is
                                                 required.</small></span>
@@ -637,7 +637,7 @@
                             <span class="error-wrap" *ngIf="formAppointmentInfo.get('appo_state').dirty
                                             ||
                                             formAppointmentInfo.get('appo_state').touched
-                                            || formSubmitclicked"><small
+                                            "><small
                                                 *ngIf="formAppointmentInfo.get('appo_state').hasError('required')"
                                                 class="error">State is required.</small></span>
                         </div>
@@ -648,7 +648,7 @@
                             <span class="error-wrap" *ngIf="formAppointmentInfo.get('appo_city').dirty
                                             ||
                                             formAppointmentInfo.get('appo_city').touched
-                                            || formSubmitclicked"><small
+                                            "><small
                                                 *ngIf="formAppointmentInfo.get('appo_city').hasError('required')"
                                                 class="error">City is required.</small></span>
                         </div>
@@ -659,7 +659,7 @@
                             <span class="error-wrap" *ngIf="formAppointmentInfo.get('appo_zipcode').dirty
                                             ||
                                             formAppointmentInfo.get('appo_zipcode').touched
-                                            || formSubmitclicked"><small
+                                            "><small
                                                 *ngIf="formAppointmentInfo.get('appo_zipcode').hasError('required')"
                                                 class="error">Zipcode is
                                                 required.</small><small
