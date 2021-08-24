@@ -3104,7 +3104,7 @@ export class rescheduleAppointmentDialog {
         "customer_appointment_state": this.formAddNewAppointmentStaffStep2.get('customerAppoState').value,
         "customer_appointment_city": this.formAddNewAppointmentStaffStep2.get('customerAppoCity').value,
         "customer_appointment_zipcode": this.formAddNewAppointmentStaffStep2.get('customerPostalCode').value,
-        "coupon_code": '',
+        "coupon_code": this.formAddNewAppointmentStaffStep2.get('customerCouponCode').value,
         "subtotal": serviceCartArrTemp[0].subtotal,
         "discount_type" : this.discount_type,
         "discount_value" : this.discount_amount,
