@@ -299,15 +299,6 @@ export class UserappointmentsComponent implements OnInit {
       this.selectedAppointment = id;
       this.pendingAppointmentData[index].is_selected = true;
       this.selectedAppointmentData = this.pendingAppointmentData[index];
-    }else if(this.selectedAppointment != id){
-
-      this._snackBar.open('Select Same service', "X", {
-        duration: 2000,
-        verticalPosition: 'top',
-        panelClass: ['red-snackbar']
-      });
-      
-      return false;
     }else{
       if(true == this.pendingAppointmentData[index].is_selected){
         this.pendingAppointmentData[index].is_selected = false;
