@@ -2079,6 +2079,13 @@ serviceData:any= [];
 selectedCatId:any;
 selectedSubCatId:any;
 selectedServiceId:any;
+currencySymbol:any;
+currencySymbolPosition:any;
+currencySymbolFormat:any;  
+discount_amount:number;
+discount_type:any;
+appointmentSubTotal:number;
+appointmentAmountAfterDiscount:number;
 minDate = new Date();
 maxDate = new Date();
 timeSlotArr:any= [];
@@ -2149,6 +2156,7 @@ constructor(
         customerCategory: ['', Validators.required],
         customerSubCategory: ['', [Validators.required]],
         customerService: ['', [Validators.required]],
+        customerCouponCode: [''],
         customerDate: ['', Validators.required],
         customerTime: ['', Validators.required],
         customerStaff:['',Validators.required],
@@ -2312,6 +2320,7 @@ constructor(
             customerCategory: ['', Validators.required],
             customerSubCategory: ['', [Validators.required]],
             customerService: ['', [Validators.required]],
+            customerCouponCode: [''],
             customerDate: ['', Validators.required],
             customerTime: ['', Validators.required],
             customerStaff:['',Validators.required],
@@ -2325,6 +2334,7 @@ constructor(
             customerCategory: ['', Validators.required],
             customerSubCategory: ['', [Validators.required]],
             customerService: ['', [Validators.required]],
+            customerCouponCode: [''],
             customerDate: ['', Validators.required],
             customerTime: ['', Validators.required],
             customerStaff:['',Validators.required],
@@ -2932,6 +2942,60 @@ constructor(
     this.fnBookAppointment();
   }
 
+  applyCoupon(){
+    if(this.formAddNewAppointmentStaffStep2.get('customerService').valid) {
+      let couponRequestObject = {
+        "coupon_code": this.formAddNewAppointmentStaffStep2.get('customerCouponCode').value,
+        "service_id" : this.formAddNewAppointmentStaffStep2.get('customerService').value,
+        "business_id": this.bussinessId,
+      };
+      this.discount_type = null;
+      this.discount_amount = 0;
+      this.adminService.getCoupon(couponRequestObject).subscribe((response:any) =>{
+        if(response.data == true){
+          this._snackBar.open("Coupon Applied Successfully", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+          this.formAddNewAppointmentStaffStep2.get('customerCouponCode').disable();
+          this.discount_type = response.response['coupon_type'];
+          this.discount_amount = response.response['coupon_value'];
+
+          this.appointmentSubTotal = 0;
+          let serviceCartArrTemp:any= [];
+          for(let i=0; i<this.serviceCount.length;i++){
+            if(this.serviceCount[i] != null && this.serviceCount[i].count > 0){
+              serviceCartArrTemp.push(this.serviceCount[i]);
+            }
+          }
+    
+          this.appointmentSubTotal = serviceCartArrTemp[0].subtotal;
+
+          if (this.discount_type == "F") {
+            this.appointmentAmountAfterDiscount = (this.appointmentSubTotal > this.discount_amount) ? this.appointmentSubTotal - this.discount_amount : 0;
+          } else if (this.discount_type == "P") {
+            this.discount_amount = (this.appointmentSubTotal * this.discount_amount)/100;
+            this.appointmentAmountAfterDiscount = this.appointmentSubTotal - this.discount_amount;
+          }
+        } else {
+          this._snackBar.open("Coupon code not found", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+        }
+      });
+    } else {
+      this._snackBar.open('Select service', "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass: ['red-snackbar']
+      });
+      return false;
+    }
+  }
+
   fnBookAppointment(){
     let serviceCartArrTemp:any= [];
     for(let i=0; i<this.serviceCount.length;i++){
@@ -2939,8 +3003,7 @@ constructor(
         serviceCartArrTemp.push(this.serviceCount[i]);
       }
     }
-    var discount_type = null;
-    var amountAfterDiscount=serviceCartArrTemp[0].subtotal;
+    var amountAfterDiscount=this.appointmentAmountAfterDiscount;
     var amountAfterTax=0;
     this.taxAmountArr.length=0;
     if(amountAfterDiscount > 0){
@@ -2986,11 +3049,11 @@ constructor(
       "customer_appointment_state": this.formAddNewAppointmentStaffStep2.get('customerAppoState').value,
       "customer_appointment_city": this.formAddNewAppointmentStaffStep2.get('customerAppoCity').value,
       "customer_appointment_zipcode": this.formAddNewAppointmentStaffStep2.get('customerPostalCode').value,
-      "coupon_code": '',
+      "coupon_code": this.formAddNewAppointmentStaffStep2.get('customerCouponCode').value,
       "subtotal": serviceCartArrTemp[0].subtotal,
-      "discount_type" : discount_type,
-      "discount_value" : null,
-      "discount": 0,
+      "discount_type" : this.discount_type,
+      "discount_value" : this.discount_amount,
+      "discount": this.discount_amount,
       "tax": this.taxAmountArr,
       "nettotal": this.netCost,
       "created_by": "admin",

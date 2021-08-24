@@ -5,7 +5,7 @@
 <div class="modal-dialog modal-notify modal-lg modal-info" role="document">
     <div class="modal-content">
         <div class="modal-header modal-bcolor-primary">
-            <p class="heading lead mb-0 fontfamily">New Appointment</p>
+            <p class="heading lead mb-0 fontfamily">New Appointment45</p>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
           <span aria-hidden="true" class="white-text">&times;</span>
         </button>
@@ -158,6 +158,25 @@
                         </span>
                         </div>
                     </div>
+                </div>
+
+                <div class="row" *ngIf="!data.appointmentData">
+                    <div class="col-6">
+                        <input class="form-control formcontrol"  formControlName="customerCouponCode" placeholder="Coupon Code">
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-primary" (click)="applyCoupon()">Apply Coupon</button>
+                    </div>
+                    <div class="col-4" *ngIf="appointmentSubTotal > 0">
+                        <span> Subtotal : {{currencySymbol| currencySymbol:'wide'}} {{ appointmentSubTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                    </div>
+                    <div class="col-4" *ngIf="appointmentSubTotal > 0">
+                        <span> Discount : {{currencySymbol| currencySymbol:'wide'}} {{ discount_amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                    </div>
+                    <div class="col-12" *ngIf="appointmentSubTotal > 0">
+                        <span> Total : {{currencySymbol| currencySymbol:'wide'}} {{ appointmentAmountAfterDiscount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                    </div>
+                    <div class="col-12 mb-3 ml-2" ></div>
                 </div>
 
                 <button class="d-block btn btn-primary addbtn ml-2" (click)="fnNewAppointmentStep2()">Create</button>
