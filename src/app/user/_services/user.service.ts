@@ -386,6 +386,20 @@ export class UserService {
 		}),
 		catchError(this.handleError));
 	}
+
+	getCoupon(requestObject) {
+		this.checkAuthentication();
+		let headers = new HttpHeaders({
+			'Content-Type': 'application/json',
+			"customer-id":JSON.stringify(this.userId),
+			"api-token":this.token,
+		});
+		return this.http.post(`${environment.apiUrl}/get-coupon`, requestObject, { headers: headers }).pipe(
+		map((res) => {
+			return res;
+		}),
+		catchError(this.handleError));
+	}
 	
 	reAuthenticateUser() {
 		if (this.dialogRef) {

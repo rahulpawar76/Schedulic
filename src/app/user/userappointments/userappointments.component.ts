@@ -2246,6 +2246,8 @@ export class rescheduleAppointmentDialog {
   selectedStaffId:any;
   availableStaff:any=[];  
   isStaffAvailable:boolean=false;
+  discount_amount:number;
+  discount_type:any;
   taxType:any="P";
   taxValue:any;
   netCost:any;
@@ -2284,7 +2286,7 @@ export class rescheduleAppointmentDialog {
   disableCategory:boolean=false;
   disableSubCategory:boolean=false;
   disableService:boolean=false;
-  dialogTitle:any="New Appointment";
+  dialogTitle:any="New Appointment8";
   showSubCatDropDown=true;
   valide_postal_code:boolean =false;
   isLoader:boolean=false;
@@ -2316,6 +2318,7 @@ export class rescheduleAppointmentDialog {
         customerAppoAddress: [''],
         customerAppoState: [''],
         customerAppoCity: [''],
+        customerCouponCode: ['']
      });
 
       this.bussinessId=(JSON.parse(localStorage.getItem('currentUser'))).business_id;
@@ -2441,6 +2444,7 @@ export class rescheduleAppointmentDialog {
               customerAppoAddress: ['', Validators.required],
               customerAppoState: ['', Validators.required],
               customerAppoCity: ['', Validators.required],
+              customerCouponCode : ['']
           });
           }else{
             this.valide_postal_code = true;
@@ -2455,6 +2459,7 @@ export class rescheduleAppointmentDialog {
               customerAppoAddress: ['', Validators.required],
               customerAppoState: ['', Validators.required],
               customerAppoCity: ['', Validators.required],
+              customerCouponCode : ['']
              });
           }
         },(err) =>{
@@ -3017,6 +3022,7 @@ export class rescheduleAppointmentDialog {
 
       if(this.formAddNewAppointmentStaffStep2.invalid){
         this.formAddNewAppointmentStaffStep2.get('customerPostalCode').markAsTouched();
+        this.formAddNewAppointmentStaffStep2.get('customerCouponCode').markAsTouched();
         this.formAddNewAppointmentStaffStep2.get('customerCategory').markAsTouched();
         this.formAddNewAppointmentStaffStep2.get('customerSubCategory').markAsTouched();
         this.formAddNewAppointmentStaffStep2.get('customerService').markAsTouched();
@@ -3029,8 +3035,22 @@ export class rescheduleAppointmentDialog {
         this.formAddNewAppointmentStaffStep2.get('customerAppoCity').markAsTouched();
         return false;
       }
-  
-      this.fnBookAppointment();
+      this.applyCoupon();
+    }
+
+    applyCoupon(){
+      let couponRequestObject = {
+        "coupon_code": this.formAddNewAppointmentStaffStep2.get('customerCouponCode').value
+      };
+      this.discount_type = null;
+      this.discount_amount = 0;
+      this.userService.getCoupon(couponRequestObject).subscribe((response:any) =>{
+        if(response.data == true){
+          this.discount_type = response.response['coupon_type'];
+          this.discount_amount = response.response['coupon_value'];
+        }
+        this.fnBookAppointment();
+      });
     }
   
     fnBookAppointment(){
@@ -3040,10 +3060,19 @@ export class rescheduleAppointmentDialog {
           serviceCartArrTemp.push(this.serviceCount[i]);
         }
       }
-      var discount_type = null;
+
+      var subTotal = serviceCartArrTemp[0].subtotal;
       var amountAfterDiscount=serviceCartArrTemp[0].subtotal;
       var amountAfterTax=0;
       this.taxAmountArr.length=0;
+
+      if (this.discount_type == "F") {
+        amountAfterDiscount = (subTotal > this.discount_amount) ? subTotal - this.discount_amount : 0;
+      } else if (this.discount_type == "P") {
+        this.discount_amount = (subTotal * this.discount_amount)/100;
+        amountAfterDiscount = subTotal - this.discount_amount;
+      }
+      
       if(amountAfterDiscount > 0){
         this.taxArr.forEach((element) => {
           let taxTemp={
@@ -3085,16 +3114,15 @@ export class rescheduleAppointmentDialog {
         "customer_appointment_zipcode": this.formAddNewAppointmentStaffStep2.get('customerPostalCode').value,
         "coupon_code": '',
         "subtotal": serviceCartArrTemp[0].subtotal,
-        "discount_type" : discount_type,
-        "discount_value" : null,
-        "discount": 0,
+        "discount_type" : this.discount_type,
+        "discount_value" : this.discount_amount,
+        "discount": this.discount_amount,
         "tax": this.taxAmountArr,
         "nettotal": this.netCost,
         "created_by": "customer",
         "payment_method": "Cash",
         "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd hh:mm:ss") 
       };
-
 
       this.isLoader = true;
       this.userService.BookAppointment(requestObject).subscribe((response:any) =>{

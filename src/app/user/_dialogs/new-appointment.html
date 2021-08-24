@@ -141,7 +141,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 mb-3">
+                    <div class="col-8 mb-3">
                         <label class="mb-1">Select Staff</label>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -157,6 +157,11 @@
                                 <small *ngIf="formAddNewAppointmentStaffStep2.get('customerStaff').hasError('required')" class="error">Staff is required</small>
                             </span>
                         </div>
+                    </div>
+
+                    <div class="col-4">
+                        <mat-label>Apply Coupon Code</mat-label>
+                        <input class="form-control formcontrol" formControlName="customerCouponCode" placeholder="Coupon Code">
                     </div>
                 </div>
 
