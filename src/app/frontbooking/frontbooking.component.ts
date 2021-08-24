@@ -4494,53 +4494,66 @@ export class theme2CheckoutDialog {
       this.fnLogin(requestObject);
     }
 
-    fnOtploginexisinguser(){
-      if(!this.formOtpExistingUser.valid){
-       this.formOtpExistingUser.get('existing_phone').markAsTouched();
-       this.formOtpExistingUser.get('existing_otp').markAsTouched();
-       console.log("error");
-       return false;
-      }
-      var phone = this.formOtpExistingUser.get('existing_phone').value;
-          phone = "+"+this.selectedPhoneCode+phone;
-      let requestObject = {
-        "phone" : phone,
-        "otp" : this.formOtpExistingUser.get('existing_otp').value,
-        "business_id": this.businessId
-        };
-      this.fnOtpLogin(requestObject);
+     
+  fnOtploginexisinguser(){
+    if(!this.formOtpExistingUser.valid){
+     this.formOtpExistingUser.get('existing_phone').markAsTouched();
+     this.formOtpExistingUser.get('existing_otp').markAsTouched();
+     console.log("error");
+     return false;
     }
 
-    getOtp() {
-      if(this.formOtpExistingUser.get('existing_phone').valid) {
-        var phone = this.formOtpExistingUser.get('existing_phone').value;
-          phone = "+"+this.selectedPhoneCode+phone;
-          let requestObject = {
-              'phone' : phone,
-              'business_id' : this.businessId,
-              'country_code' : '+'+this.selectedPhoneCode
-          }
-          this.fnGetOtp(requestObject);
-      }
+    var phone = this.formOtpExistingUser.get('existing_phone').value.e164Number;
+    // phone = "+"+this.selectedPhoneCode+phone;
+    let requestObject = {
+      "phone" : phone,
+      "otp" : this.formOtpExistingUser.get('existing_otp').value,
+      "business_id": this.businessId
+      };
+   this.fnOtpLogin(requestObject);
   }
-  
-  fnGetOtp(requestObject){
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-    this.http.post<any>(`${environment.apiUrl}/send-otp`, requestObject, {headers:headers})
-      .pipe(map(data => { 
-          return data;
-      }),
-      catchError(this.handleError)).subscribe((response:any) => {
-        if(response.data == true){
-          this.loginShow = true;
-          this.otpShow = false;                
-        }
-      },(err) =>{ 
-        this.errorMessage = this.handleError;
-     });
-  }  
+
+  getOtp() {
+    if(this.formOtpExistingUser.get('existing_phone').valid) {
+      var phone = this.formOtpExistingUser.get('existing_phone').value.e164Number;
+      // phone = "+"+this.selectedPhoneCode+phone;
+      let requestObject = {
+          'phone' : phone,
+          'business_id' : this.businessId,
+          'country_code' : this.formOtpExistingUser.get('existing_phone').value.dialCode
+      }
+      this.fnGetOtp(requestObject);
+    }
+    
+}
+
+fnLoginType(event,logintype){
+  if(logintype == "otp"){
+    this.otpLogin = true;
+    this.normalLogin = false;
+  }else{
+      this.otpLogin = false;
+      this.normalLogin = true;
+  }
+}
+
+fnGetOtp(requestObject){
+  let headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+  });
+  this.http.post<any>(`${environment.apiUrl}/send-otp`, requestObject, {headers:headers})
+    .pipe(map(data => { 
+        return data;
+    }),
+    catchError(this.handleError)).subscribe((response:any) => {
+      if(response.data == true){
+        this.loginShow = true;
+        this.otpShow = false;                
+      }
+    },(err) =>{ 
+      this.errorMessage = this.handleError;
+   });
+}  
 
   fnOtpLogin(requestObject){
     
@@ -4554,11 +4567,11 @@ export class theme2CheckoutDialog {
       }),
       catchError(this.handleError)).subscribe((response:any) => {
        if(response.data == true ){
-         localStorage.setItem('currentUser', JSON.stringify(response.response.data));
+         localStorage.setItem('currentUser', JSON.stringify(response.response));
          localStorage.setItem('isFront', "true");
-         this.authenticationService.currentUserSubject.next(response.response.data);
+         this.authenticationService.currentUserSubject.next(response.response);
  
-         this.customerName=response.response.data.fullname;
+         this.customerName=response.response.fullname;
        
          this.customerFirstname = this.customerName!=undefined?this.customerName.split(" ")[0]:'';
          this.customerLastname  =  this.customerName!=undefined?this.customerName.split(" ")[1]:'';

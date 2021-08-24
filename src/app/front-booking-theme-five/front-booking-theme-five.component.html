@@ -22,7 +22,8 @@
                         <div class="col-lg-12 col-sm-12 col-12 float-left
                             loggedin_head" *ngIf="isLoggedIn && canCustomerLogin">
 
-                            <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn gray-btn logout-btn">View
+                            <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button
+                                class="round-btn gray-btn logout-btn">View
                                 Dashboard</button>
 
                             <button (click)="fnLogout()" mat-button class="round-btn
@@ -31,10 +32,12 @@
                         <div class="col-lg-12 col-sm-12 col-12 float-left
                             loggedin_head" *ngIf="(!isLoggedIn &&
                             customerLoginValue) && canCustomerLogin">
-                            <button (click)="fnNavigateToLogin()" mat-button class="round-btn gray-btn logout-btn ml-a">Login</button>
+                            <button (click)="fnNavigateToLogin()" mat-button
+                                class="round-btn gray-btn logout-btn ml-a">Login</button>
                         </div>
                         <mat-card-title class="px-4 py-2 mx-0 row d-flex">
-                            <label class="col-lg-6 px-0 col-sm-12 col-12 float-left">{{businessDetail?businessDetail.business_name:''}}</label>
+                            <label
+                                class="col-lg-6 px-0 col-sm-12 col-12 float-left">{{businessDetail?businessDetail.business_name:''}}</label>
                             <div class="col-lg-6 col-sm-12 col-12
                                 right-check-postal-form float-left" *ngIf="postalCodeCondition &&
                                 postal_code_status">
@@ -43,14 +46,17 @@
                                     'valid','not-valid':validpostalcode ===
                                     'invalid'}">
                                     <i class="fa fa-map-marker"></i>
-                                    <input type="text" [(ngModel)]="booking.postalcode" class="postcode-input" placeholder="Enter the postal code to get our service" (keyup)="fnCheckPostalCode($event)" />
-                                    <input type="button" value="Check" (click)="fnCheckPostalCode($event)" class="inline-btn" id="check_postal_code" *ngIf="validpostalcode != 'valid'" />
-                                    <input type="button" (click)="fnChangePostalCode($event)" value="Change" class="inline-btn" id="check_postal_code" *ngIf="validpostalcode == 'valid'" />
+                                    <input type="text" [(ngModel)]="booking.postalcode" class="postcode-input"
+                                        placeholder="Enter the postal code to get our service"
+                                        (keyup)="fnCheckPostalCode($event)" />
+                                    <input type="button" value="Check" (click)="fnCheckPostalCode($event)"
+                                        class="inline-btn" id="check_postal_code" *ngIf="validpostalcode != 'valid'" />
+                                    <input type="button" (click)="fnChangePostalCode($event)" value="Change"
+                                        class="inline-btn" id="check_postal_code" *ngIf="validpostalcode == 'valid'" />
                                     <i class="material-icons">check_circle</i>
                                     <span class="error-wrap" *ngIf="validpostalcode
                                         == 'invalid' && postalCodeError ==
-                                        true"><small
-                                            class="error">We do not provide
+                                        true"><small class="error">We do not provide
                                             service
                                             at this location.</small></span>
                                 </div>
@@ -60,20 +66,29 @@
                             <div class="row service-list">
                                 <div class="cate-select-box">
                                     <mat-label>Category</mat-label>
-                                    <mat-select placeholder="Select" (selectionChange)="fnCategory($event)" class="form-control">
-                                        <mat-option value="{{category.id}}_{{category.category_title}}" *ngFor="let category of catdata; let i=index">{{category.category_title}}</mat-option>
+                                    <mat-select placeholder="Select" (selectionChange)="fnCategory($event)"
+                                        class="form-control">
+                                        <mat-option value="{{category.id}}_{{category.category_title}}"
+                                            *ngFor="let category of catdata; let i=index">{{category.category_title}}
+                                        </mat-option>
                                     </mat-select>
                                 </div>
                                 <div *ngIf="!directService" class="cate-select-box">
                                     <mat-label>Sub Category</mat-label>
-                                    <mat-select placeholder="Select" (selectionChange)="fnSubCategory($event)" class="form-control">
-                                        <mat-option value="{{subcategory.id}}_{{subcategory.sub_category_name}}" *ngFor="let subcategory of subcatdata; let i= index">{{subcategory.sub_category_name}}</mat-option>
+                                    <mat-select placeholder="Select" (selectionChange)="fnSubCategory($event)"
+                                        class="form-control">
+                                        <mat-option value="{{subcategory.id}}_{{subcategory.sub_category_name}}"
+                                            *ngFor="let subcategory of subcatdata; let i= index">
+                                            {{subcategory.sub_category_name}}</mat-option>
                                     </mat-select>
                                 </div>
                                 <div class="cate-select-box">
                                     <mat-label>Service</mat-label>
-                                    <mat-select placeholder="Select" (selectionChange)="fnShowCounter($event)" class="form-control">
-                                        <mat-option value="{{services.id}}_{{services.service_name}}" *ngFor="let services of serviceData; let i= index">{{services.service_name}}</mat-option>
+                                    <mat-select placeholder="Select" (selectionChange)="fnShowCounter($event)"
+                                        class="form-control">
+                                        <mat-option value="{{services.id}}_{{services.service_name}}"
+                                            *ngFor="let services of serviceData; let i= index">{{services.service_name}}
+                                        </mat-option>
                                     </mat-select>
                                 </div>
                             </div>
@@ -94,7 +109,10 @@
                                         <div class="ngb-dp-month-name
                                             ng-star-inserted">Pick date & time</div>
                                     </div>
-                                    <ngb-datepicker [startDate]="today" [minDate]="minDate" [maxDate]="maxDate" [markDisabled]="isDisabled" (dateSelect)="onDateSelect($event)" [displayMonths]="displayMonths" [navigation]="navigation" today={true} class='' #dp [(ngModel)]="model" (navigate)="date= $event.next"></ngb-datepicker>
+                                    <ngb-datepicker [startDate]="today" [minDate]="minDate" [maxDate]="maxDate"
+                                        [markDisabled]="isDisabled" (dateSelect)="onDateSelect($event)"
+                                        [displayMonths]="displayMonths" [navigation]="navigation" today={true} class=''
+                                        #dp [(ngModel)]="model" (navigate)="date= $event.next"></ngb-datepicker>
                                 </div>
 
                             </div>
@@ -104,7 +122,8 @@
                                     float-right" (click)="fnbacktofirst()">
                                     <i class="material-icons" color="">close</i>
                                 </button>
-                                <h3 class="selected-date">{{selecteddateForLabel != '' ? selecteddateForLabel : ''}}</h3>
+                                <h3 class="selected-date">{{selecteddateForLabel != '' ? selecteddateForLabel : ''}}
+                                </h3>
                                 <div *ngIf="!timeslotview">
                                     No slots available
                                 </div>
@@ -112,24 +131,22 @@
                                     <div class="timing" *ngFor="let timeSlot of
                                         timeSlotArr, let i= index">
                                         <label>
-                                            <input name="timeslot" type="radio"
-                                                [checked]="serviceCartArr[currentSelectedService]
+                                            <input name="timeslot" type="radio" [checked]="serviceCartArr[currentSelectedService]
                                                 &&
                                                 serviceCartArr[currentSelectedService].appointmentTimeSlot==timeSlot"
-                                                (click)="fnSelectTimeSlot(timeSlot,i)"
-                                                />
+                                                (click)="fnSelectTimeSlot(timeSlot,i)" />
                                             <!-- <div class="single-slot"
                                                 [mdePopoverTriggerFor]="selectstaff"
                                                 mdePopoverTriggerOn="click"
                                                 #popoverTrigger="mdePopoverTrigger">{{timeSlotArrForLabel[i]}}</div> -->
-                                                <div *ngIf="staffOnFrontValue" class="single-slot"
-                                                [mdePopoverTriggerFor]="selectstaff"
-                                                mdePopoverTriggerOn="click"
+                                            <div *ngIf="staffOnFrontValue" class="single-slot"
+                                                [mdePopoverTriggerFor]="selectstaff" mdePopoverTriggerOn="click"
                                                 #popoverTrigger="mdePopoverTrigger">{{timeSlotArrForLabel[i]}}</div>
-                                            <div *ngIf="!staffOnFrontValue" class="single-slot"
-                                                >{{timeSlotArrForLabel[i]}}</div>
+                                            <div *ngIf="!staffOnFrontValue" class="single-slot">
+                                                {{timeSlotArrForLabel[i]}}</div>
                                         </label>
-                                        <mde-popover #selectstaff="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
+                                        <mde-popover #selectstaff="mdePopover" [mdePopoverOverlapTrigger]="false"
+                                            [mdePopoverCloseOnClick]="false">
                                             <mat-card class="staff-select-box
                                                 p-0" style="width: 200px">
                                                 <mat-card-content class="py-2
@@ -140,9 +157,11 @@
                                                             staff-selection">
                                                             <mat-radio-group *ngIf="!isStaffAvailable" aria-label="Select
                                                                 Staff">
-                                                                <mat-radio-button [checked]="serviceCartArr[currentSelectedService]
+                                                                <mat-radio-button
+                                                                    [checked]="serviceCartArr[currentSelectedService]
                                                                     &&
-                                                                    serviceCartArr[currentSelectedService].assignedStaff==null" (change)="fnSelectStaff(null,i)" value="">Any Staff
+                                                                    serviceCartArr[currentSelectedService].assignedStaff==null"
+                                                                    (change)="fnSelectStaff(null,i)" value="">Any Staff
                                                                 </mat-radio-button>
                                                             </mat-radio-group>
                                                             <!-- <mat-checkbox value="staff1" [checked]="checked" (click)="fnSelectStaff($event,)">Any Staff</mat-checkbox>
@@ -150,15 +169,21 @@
                                                             <!-- <p class="mb-0" *ngIf="!isStaffAvailable">No Staff Available</p> -->
                                                             <mat-radio-group aria-label="Select
                                                                 Staff" *ngIf="isStaffAvailable">
-                                                                <mat-radio-button [checked]="serviceCartArr[currentSelectedService]
+                                                                <mat-radio-button
+                                                                    [checked]="serviceCartArr[currentSelectedService]
                                                                     &&
-                                                                    serviceCartArr[currentSelectedService].assignedStaff==null" (change)="fnSelectStaff(null,i)" value="">Any Staff
+                                                                    serviceCartArr[currentSelectedService].assignedStaff==null"
+                                                                    (change)="fnSelectStaff(null,i)" value="">Any Staff
                                                                 </mat-radio-button>
                                                                 <mat-radio-button *ngFor="let
                                                                     staff of
-                                                                    availableStaff" [checked]="serviceCartArr[currentSelectedService]
+                                                                    availableStaff"
+                                                                    [checked]="serviceCartArr[currentSelectedService]
                                                                     &&
-                                                                    serviceCartArr[currentSelectedService].assignedStaff==staff.id" (change)="fnSelectStaff(staff.id,i)" class="text-capitalize" value="{{staff.id}}">{{staff.name}}</mat-radio-button>
+                                                                    serviceCartArr[currentSelectedService].assignedStaff==staff.id"
+                                                                    (change)="fnSelectStaff(staff.id,i)"
+                                                                    class="text-capitalize" value="{{staff.id}}">
+                                                                    {{staff.name}}</mat-radio-button>
                                                             </mat-radio-group>
                                                         </div>
                                                     </div>
@@ -173,9 +198,12 @@
 
                                 </div>
                                 <div class="next-action">
-                                    <button mat-button (click)="fnbacktocategory($event)" class="round-btn gray-btn">Add More
+                                    <button mat-button (click)="fnbacktocategory($event)" class="round-btn gray-btn">Add
+                                        More
                                         Services</button>
-                                    <button mat-button *ngIf="serviceMainArr.totalNumberServices>0" (click)="fnDatetimeSelection($event)" class="round-btn gray-btn">Book Now</button>
+                                    <button mat-button *ngIf="serviceMainArr.totalNumberServices>0"
+                                        (click)="fnDatetimeSelection($event)" class="round-btn gray-btn">Book
+                                        Now</button>
                                 </div>
                             </div>
                         </div>
@@ -185,14 +213,16 @@
                         <div class="col-lg-12 col-sm-12 col-12 float-left
                                         loggedin_head" *ngIf="isLoggedIn">
                             <!-- <p>Welcome, {{customerName}}</p><button (click)="fnLogout()" mat-button class="round-btn gray-btn logout-btn">Logout</button> -->
-                            <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn gray-btn logout-btn">View
-                                            Dashboard</button><button (click)="fnLogout()" mat-button class="round-btn gray-btn
+                            <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button
+                                class="round-btn gray-btn logout-btn">View
+                                Dashboard</button><button (click)="fnLogout()" mat-button class="round-btn gray-btn
                                             logout-btn
                                             ml-a">Logout</button>
                         </div>
                         <mat-card-title class="px-4 d-flex">
                             <div class="col-lg-12 col-sm-12 col-12 top-title float-left"> Your Personal Details
-                                <button mat-fab color="" class="top-back-btn float-right ml-a" (click)="fnbacktofirst()">
+                                <button mat-fab color="" class="top-back-btn float-right ml-a"
+                                    (click)="fnbacktofirst()">
                                     <i class="material-icons" color="">close</i>
                                 </button>
                             </div>
@@ -201,44 +231,95 @@
                             <div *ngIf="personalinfo">
                                 <div class="user-type-selection">
                                     <mat-radio-group aria-label="Select an option">
-                                        <mat-radio-button checked (click)="fnUserType($event,'existing')" value="exist-user">Existing User</mat-radio-button>
-                                        <mat-radio-button (click)="fnUserType($event,'new')" value="new-user">New User</mat-radio-button>
+                                        <mat-radio-button checked (click)="fnUserType($event,'existing')"
+                                            value="exist-user">Existing User</mat-radio-button>
+                                        <mat-radio-button (click)="fnUserType($event,'new')" value="new-user">New User
+                                        </mat-radio-button>
                                     </mat-radio-group>
                                 </div>
                                 <div id="existing_user" *ngIf="existinguser" class="">
-                                    <form [formGroup]="formExistingUser">
+                                    <div class="user-type-selection">
+                                        <mat-radio-group aria-label="Select an option">
+                                            <mat-radio-button (click)="fnLoginType($event,'otp')" value="otp-login">
+                                                Login With Phone No.</mat-radio-button>
+                                            <mat-radio-button checked (click)="fnLoginType($event,'normal')"
+                                                value="normal-login">Login with Email</mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                    <form [formGroup]="formOtpExistingUser" *ngIf="otpLogin">
+                                        <div class="field-list mr-0 ml-0 row mb-5">
+                                            <div class="col-12 col-lg-6 col-md-6
+                                                            col-sm-6">
+                                                <label>Mobile Number</label>
+                                                <ngx-intl-tel-input class="common-input mobile-intel-input"
+                                                    [preferredCountries]="preferredCountries"
+                                                    [enableAutoCountrySelect]="false" [searchCountryFlag]="true"
+                                                    [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                                    [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.India"
+                                                    [maxLength]="10" [phoneValidation]="false"
+                                                    [separateDialCode]="separateDialCode"
+                                                    formControlName="existing_phone" placeholder=" ">
+                                                </ngx-intl-tel-input>
+                                            </div>
+                                            <div class="col-12 col-lg-6 col-md-6
+                                                            col-sm-6" *ngIf="loginShow">
+                                                <label>Enter OTP</label>
+                                                <input class="common-input" formControlName="existing_otp" type="otp" />
+                                                <span class="error-wrap" *ngIf="formOtpExistingUser.get('existing_otp').dirty
+                                                                ||
+                                                                formOtpExistingUser.get('existing_otp').touched
+                                                                "><small
+                                                        *ngIf="formOtpExistingUser.get('existing_otp').hasError('required')"
+                                                        class="error">OTP is
+                                                        required.</small></span>
+                                            </div>
+                                            <div class="col-12 col-lg-6 col-md-6
+                                                            col-sm-6" *ngIf="otpShow">
+                                                <button mat-button (click)="getOtp()"
+                                                    class="round-btn float-right gray-btn mr-0">Get OTP</button>
+                                            </div>
+                                            <div class="col bottom-ctn-btn exi-user-login-btn" *ngIf="loginShow">
+                                                <button mat-button (click)="fnOtploginexisinguser()"
+                                                    class="round-btn float-right gray-btn mr-0">Log In</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <form [formGroup]="formExistingUser" *ngIf="normalLogin">
                                         <div class="field-list mr-0 ml-0 row">
                                             <div class="col-12 col-lg-6 col-md-6
                                                         col-sm-6">
                                                 <label>Email</label>
-                                                <input formControlName="existing_mail" class="common-input" type="email" />
+                                                <input formControlName="existing_mail" class="common-input"
+                                                    type="email" />
                                                 <span class="error-wrap" *ngIf="formExistingUser.get('existing_mail').dirty
                                                             ||
                                                             formExistingUser.get('existing_mail').touched
-                                                            || formSubmitclicked"><small
-                                                                *ngIf="formExistingUser.get('existing_mail').hasError('required')"
-                                                                class="error">Email is
-                                                                required.</small>
-                                                            <small
-                                                                *ngIf="formExistingUser.get('existing_mail').hasError('email')"
-                                                                class="error">Enter valid
-                                                                email.</small></span>
+                                                            "><small
+                                                        *ngIf="formExistingUser.get('existing_mail').hasError('required')"
+                                                        class="error">Email is
+                                                        required.</small>
+                                                    <small
+                                                        *ngIf="formExistingUser.get('existing_mail').hasError('email')"
+                                                        class="error">Enter valid
+                                                        email.</small></span>
                                             </div>
                                             <div class="col-12 col-lg-6 col-md-6
                                                         col-sm-6">
                                                 <label>Password</label>
-                                                <input class="common-input" formControlName="existing_password" type="password" />
+                                                <input class="common-input" formControlName="existing_password"
+                                                    type="password" />
                                                 <span class="error-wrap" *ngIf="formExistingUser.get('existing_password').dirty
                                                             ||
                                                             formExistingUser.get('existing_password').touched
-                                                            || formSubmitclicked"><small
-                                                                *ngIf="formExistingUser.get('existing_password').hasError('required')"
-                                                                class="error">Password is
-                                                                required.</small></span>
+                                                            "><small
+                                                        *ngIf="formExistingUser.get('existing_password').hasError('required')"
+                                                        class="error">Password is
+                                                        required.</small></span>
                                             </div>
                                             <div class="col bottom-ctn-btn exi-user-login-btn">
                                                 <p (click)="fnForgotPWD()" class="forgot-pwd-link">Forgot Password?</p>
-                                                <button mat-button (click)="fnloginexisinguser()" class="round-btn float-right gray-btn mr-0">Log In</button>
+                                                <button mat-button (click)="fnloginexisinguser()"
+                                                    class="round-btn float-right gray-btn mr-0">Log In</button>
                                             </div>
                                         </div>
                                     </form>
@@ -249,105 +330,115 @@
                                             <div class="col-12 col-lg-6 col-md-6
                                                         col-sm-6">
                                                 <label>Email</label>
-                                                <input formControlName="newUserEmail" class="common-input" type="email" />
+                                                <input formControlName="newUserEmail" class="common-input"
+                                                    type="email" />
                                                 <span class="error-wrap" *ngIf="formNewUser.get('newUserEmail').dirty
                                                             ||
                                                             formNewUser.get('newUserEmail').touched
-                                                            || formSubmitclicked"><small
-                                                                *ngIf="formNewUser.get('newUserEmail').hasError('required')"
-                                                                class="error">Email is
-                                                                required.</small>
-                                                            <small
-                                                                *ngIf="formNewUser.get('newUserEmail').hasError('email')
+                                                            "><small
+                                                        *ngIf="formNewUser.get('newUserEmail').hasError('required')"
+                                                        class="error">Email is
+                                                        required.</small>
+                                                    <small *ngIf="formNewUser.get('newUserEmail').hasError('email')
                                                                 ||
                                                                 formNewUser.get('newUserEmail').hasError('pattern')"
-                                                                class="error">Enter valid
-                                                                email.</small><small
-                                                                class="error"
-                                                                *ngIf="formNewUser.get('newUserEmail').hasError('isEmailUnique')">Email
-                                                                already in use.</small></span>
+                                                        class="error">Enter valid
+                                                        email.</small><small class="error"
+                                                        *ngIf="formNewUser.get('newUserEmail').hasError('isEmailUnique')">Email
+                                                        already in use.</small></span>
                                             </div>
                                             <div class="col-12 col-lg-6 col-md-6
                                                         col-sm-6">
                                                 <label>Password</label>
-                                                <input formControlName="newUserPassword" class="common-input" type="password" />
+                                                <input formControlName="newUserPassword" class="common-input"
+                                                    type="password" />
                                                 <span class="error-wrap" *ngIf="formNewUser.get('newUserPassword').dirty
                                                             ||
                                                             formNewUser.get('newUserPassword').touched
-                                                            || formSubmitclicked"><small
-                                                                *ngIf="formNewUser.get('newUserPassword').hasError('required')"
-                                                                class="error">Password is
-                                                                required.</small>
-                                                            <small
-                                                                *ngIf="formNewUser.get('newUserPassword').hasError('minlength')"
-                                                                class="error">Minimum 8
-                                                                characters.</small>
-            
-                                                            <small
-                                                                *ngIf="formNewUser.get('newUserPassword').hasError('maxlength')"
-                                                                class="error">Maximum 12
-                                                                characters.</small>
-                                                        </span>
+                                                            "><small
+                                                        *ngIf="formNewUser.get('newUserPassword').hasError('required')"
+                                                        class="error">Password is
+                                                        required.</small>
+                                                    <small
+                                                        *ngIf="formNewUser.get('newUserPassword').hasError('minlength')"
+                                                        class="error">Minimum 8
+                                                        characters.</small>
+
+                                                    <small
+                                                        *ngIf="formNewUser.get('newUserPassword').hasError('maxlength')"
+                                                        class="error">Maximum 12
+                                                        characters.</small>
+                                                </span>
                                             </div>
                                             <div class="col-12 col-lg-6 col-md-6
                                                         col-sm-6">
                                                 <label>Full Name</label>
-                                                <input formControlName="newUserFullname" class="common-input" type="text" />
+                                                <input formControlName="newUserFullname" class="common-input"
+                                                    type="text" />
                                                 <span *ngIf="formNewUser.get('newUserFullname').dirty
                                                             ||
                                                             formNewUser.get('newUserFullname').touched
-                                                            || formSubmitclicked"><small
-                                                                *ngIf="formNewUser.get('newUserFullname').hasError('required')"
-                                                                class="error">Full name is
-                                                                required.</small></span>
+                                                            "><small
+                                                        *ngIf="formNewUser.get('newUserFullname').hasError('required')"
+                                                        class="error">Full name is
+                                                        required.</small></span>
                                             </div>
                                             <div class="col-12 col-lg-6 col-md-6
                                                         col-sm-6">
                                                 <label>Phone</label>
                                                 <!-- <input formControlName="newUserPhone" class="common-input" type="text" /> -->
                                                 <ngx-intl-tel-input class="common-input
-                                                            mobile-intel-input" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2,
-                                                            SearchCountryField.Name]" [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.India" (mousedown)="fnPhoneMouceLeave($event)" (keyup)="fnenterPhoneNumber($event)" [maxLength]="10" [phoneValidation]="false"
-                                                    [separateDialCode]="separateDialCode" formControlName="newUserPhone">
+                                                            mobile-intel-input"
+                                                    [preferredCountries]="preferredCountries"
+                                                    [enableAutoCountrySelect]="false" [searchCountryFlag]="true"
+                                                    [searchCountryField]="[SearchCountryField.Iso2,
+                                                            SearchCountryField.Name]" [selectFirstCountry]="false"
+                                                    [selectedCountryISO]="CountryISO.India"
+                                                    (mousedown)="fnPhoneMouceLeave($event)"
+                                                    (keyup)="fnenterPhoneNumber($event)" [maxLength]="10"
+                                                    [phoneValidation]="false" [separateDialCode]="separateDialCode"
+                                                    formControlName="newUserPhone">
                                                 </ngx-intl-tel-input>
                                                 <span *ngIf="phoneNumberInvalid">
-                                                            <small *ngIf="phoneNumberInvalid
+                                                    <small *ngIf="phoneNumberInvalid
                                                                 ==
                                                                 'required'" class="error">Phone
-                                                                number is required.</small>
-                                                            <small *ngIf="phoneNumberInvalid
+                                                        number is required.</small>
+                                                    <small *ngIf="phoneNumberInvalid
                                                                 ==
                                                                 'length'" class="error">Phone
-                                                                number should be 6 to 15
-                                                                digits
-                                                                long.</small>
-                                                        </span>
+                                                        number should be 6 to 15
+                                                        digits
+                                                        long.</small>
+                                                </span>
                                             </div>
                                             <div class="col-12 col-lg-12 col-md-12
                                                         col-sm-12" *ngIf="contactFormSettingsArr.addressField.status
                                                         == 1">
                                                 <label>Address</label>
-                                                <textarea formControlName="newUserAddress" class="common-input" rows="3"></textarea>
+                                                <textarea formControlName="newUserAddress" class="common-input"
+                                                    rows="3"></textarea>
                                                 <span class="error-wrap" *ngIf="formNewUser.get('newUserAddress').dirty
                                                             ||
                                                             formNewUser.get('newUserAddress').touched
-                                                            || formSubmitclicked"><small
-                                                                *ngIf="formNewUser.get('newUserAddress').hasError('required')"
-                                                                class="error">Address is
-                                                                required.</small></span>
+                                                            "><small
+                                                        *ngIf="formNewUser.get('newUserAddress').hasError('required')"
+                                                        class="error">Address is
+                                                        required.</small></span>
                                             </div>
                                             <div class="col-12 col-lg-4 col-md-4
                                                         col-sm-4" *ngIf="contactFormSettingsArr.addressField.status
                                                         == 1">
                                                 <label>State</label>
-                                                <input formControlName="newUserState" class="common-input" type="text" />
+                                                <input formControlName="newUserState" class="common-input"
+                                                    type="text" />
                                                 <span class="error-wrap" *ngIf="formNewUser.get('newUserState').dirty
                                                             ||
                                                             formNewUser.get('newUserState').touched
-                                                            || formSubmitclicked"><small
-                                                                *ngIf="formNewUser.get('newUserState').hasError('required')"
-                                                                class="error">State is
-                                                                required.</small></span>
+                                                            "><small
+                                                        *ngIf="formNewUser.get('newUserState').hasError('required')"
+                                                        class="error">State is
+                                                        required.</small></span>
                                             </div>
                                             <div class="col-12 col-lg-4 col-md-4
                                                         col-sm-4" *ngIf="contactFormSettingsArr.addressField.status
@@ -357,45 +448,50 @@
                                                 <span class="error-wrap" *ngIf="formNewUser.get('newUserCity').dirty
                                                             ||
                                                             formNewUser.get('newUserCity').touched
-                                                            || formSubmitclicked"><small
-                                                                *ngIf="formNewUser.get('newUserCity').hasError('required')"
-                                                                class="error">City is
-                                                                required.</small></span>
+                                                            "><small
+                                                        *ngIf="formNewUser.get('newUserCity').hasError('required')"
+                                                        class="error">City is
+                                                        required.</small></span>
                                             </div>
                                             <div class="col-12 col-lg-4 col-md-4
                                                         col-sm-4" *ngIf="contactFormSettingsArr.addressField.status
                                                         == 1">
                                                 <label>Zip Code</label>
-                                                <input formControlName="newUserZipcode" class="common-input" type="text" />
+                                                <input formControlName="newUserZipcode" class="common-input"
+                                                    type="text" />
                                                 <span class="error-wrap" *ngIf="formNewUser.get('newUserZipcode').dirty
                                                             ||
                                                             formNewUser.get('newUserZipcode').touched
-                                                            || formSubmitclicked">
-                                                            <small
-                                                                *ngIf="formNewUser.get('newUserZipcode').hasError('required')"
-                                                                class="error">Zipcode is
-                                                                required.</small>
-                                                            <small
-                                                                *ngIf="formNewUser.get('newUserZipcode').hasError('minlength')
+                                                            ">
+                                                    <small
+                                                        *ngIf="formNewUser.get('newUserZipcode').hasError('required')"
+                                                        class="error">Zipcode is
+                                                        required.</small>
+                                                    <small
+                                                        *ngIf="formNewUser.get('newUserZipcode').hasError('minlength')
                                                                 ||
                                                                 formNewUser.get('newUserZipcode').hasError('maxlength')"
-                                                                class="error">Zipcode must
-                                                                be 5
-                                                                to 7 characters.</small></span>
+                                                        class="error">Zipcode must
+                                                        be 5
+                                                        to 7 characters.</small></span>
                                             </div>
                                             <div class="col-12 col-lg-12 col-md-12
                                                         col-sm-12">
                                                 <label>Special request (Notes)</label>
-                                                <textarea formControlName="newUserSplReq" class="common-input" rows="3"></textarea>
+                                                <textarea formControlName="newUserSplReq" class="common-input"
+                                                    rows="3"></textarea>
                                             </div>
                                         </div>
                                     </form>
                                     <div *ngIf="!is_at_home_service" class="bottom-ctn-btn">
-                                        <button (click)="fnpersonalinfo()" mat-button class="round-btn continue-btn">Continue<i class="material-icons">keyboard_arrow_right</i></button>
+                                        <button (click)="fnpersonalinfo()" mat-button
+                                            class="round-btn continue-btn">Continue<i
+                                                class="material-icons">keyboard_arrow_right</i></button>
                                     </div>
                                 </div>
                             </div>
-                            <div id="appointment_info" class="main-step step_7 p-0" *ngIf="appointmentinfo && is_at_home_service">
+                            <div id="appointment_info" class="main-step step_7 p-0"
+                                *ngIf="appointmentinfo && is_at_home_service">
                                 <div class="pt-3 d-flex flex-wrap">
                                     <div class="col-lg-12 col-sm-12 col-12 top-title float-left">
                                         Appointment Details
@@ -403,15 +499,19 @@
                                     <div class="col-lg-12 col-sm-12 col-12 float-left" *ngIf="showSameAsAboveCheck">
                                         <!-- <mat-checkbox (change)="fnsameasabove($event)" class="same-check" id="same_check" name="sameasabove"></mat-checkbox> -->
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="same_check" (change)="fnsameasabove($event)" name="sameasabove">
-                                            <label class="custom-control-label same_check_label" for="same_check">Same as Above</label>
+                                            <input type="checkbox" class="custom-control-input" id="same_check"
+                                                (change)="fnsameasabove($event)" name="sameasabove">
+                                            <label class="custom-control-label same_check_label" for="same_check">Same
+                                                as Above</label>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-sm-12 col-12 float-left" *ngIf="!showSameAsAboveCheck">
                                         <!-- <mat-checkbox (change)="fnsameasabove($event)" class="same-check" id="same_check" name="sameasabove"></mat-checkbox> -->
                                         <div class="custom-control custom-checkbox" *ngIf="is_at_home_service==true">
-                                            <input type="checkbox" class="custom-control-input" id="same_check" (change)="fnSameAsBillingAddress($event)" name="sameasabove">
-                                            <label class="custom-control-label same_check_label" for="same_check">Same as Billing Address</label>
+                                            <input type="checkbox" class="custom-control-input" id="same_check"
+                                                (change)="fnSameAsBillingAddress($event)" name="sameasabove">
+                                            <label class="custom-control-label same_check_label" for="same_check">Same
+                                                as Billing Address</label>
                                         </div>
                                     </div>
                                 </div>
@@ -420,14 +520,15 @@
                                         <div class="field-list mr-0 ml-0 row" *ngIf="is_at_home_service==true">
                                             <div class="col-12 col-lg-12 col-md-12  col-sm-12">
                                                 <label>Address</label>
-                                                <textarea formControlName="appo_address" class="common-input" rows="3"></textarea>
+                                                <textarea formControlName="appo_address" class="common-input"
+                                                    rows="3"></textarea>
                                                 <span class="error-wrap" *ngIf="formAppointmentInfo.get('appo_address').dirty
                                                             ||
                                                             formAppointmentInfo.get('appo_address').touched
-                                                            || formSubmitclicked"><small
-                                                                *ngIf="formAppointmentInfo.get('appo_address').hasError('required')"
-                                                                class="error">Address is
-                                                                required.</small></span>
+                                                            "><small
+                                                        *ngIf="formAppointmentInfo.get('appo_address').hasError('required')"
+                                                        class="error">Address is
+                                                        required.</small></span>
                                             </div>
                                             <div class="col-12 col-lg-4 col-md-4
                                                         col-sm-4">
@@ -436,9 +537,9 @@
                                                 <span class="error-wrap" *ngIf="formAppointmentInfo.get('appo_state').dirty
                                                             ||
                                                             formAppointmentInfo.get('appo_state').touched
-                                                            || formSubmitclicked"><small
-                                                                *ngIf="formAppointmentInfo.get('appo_state').hasError('required')"
-                                                                class="error">State is required.</small></span>
+                                                            "><small
+                                                        *ngIf="formAppointmentInfo.get('appo_state').hasError('required')"
+                                                        class="error">State is required.</small></span>
                                             </div>
                                             <div class="col-12 col-lg-4 col-md-4
                                                         col-sm-4">
@@ -447,22 +548,30 @@
                                                 <span class="error-wrap" *ngIf="formAppointmentInfo.get('appo_city').dirty
                                                             ||
                                                             formAppointmentInfo.get('appo_city').touched
-                                                            || formSubmitclicked"><small
-                                                                *ngIf="formAppointmentInfo.get('appo_city').hasError('required')"
-                                                                class="error">City is required.</small></span>
+                                                            "><small
+                                                        *ngIf="formAppointmentInfo.get('appo_city').hasError('required')"
+                                                        class="error">City is required.</small></span>
                                             </div>
                                             <div class="col-12 col-lg-4 col-md-4 col-sm-4">
                                                 <label>Zip Code</label>
-                                                <input formControlName="appo_zipcode" class="common-input" type="text" />
-                                                <span class="error-wrap" *ngIf="formAppointmentInfo.get('appo_zipcode').dirty || formAppointmentInfo.get('appo_zipcode').touched || formSubmitclicked"><small *ngIf="formAppointmentInfo.get('appo_zipcode').hasError('required')" class="error">Zipcode is required.</small><small *ngIf="formAppointmentInfo.get('appo_zipcode').hasError('minlength') || formAppointmentInfo.get('appo_zipcode').hasError('maxlength')" class="error">Zipcode must be 5 to 7 characters.</small></span>
+                                                <input formControlName="appo_zipcode" class="common-input"
+                                                    type="text" />
+                                                <span class="error-wrap"
+                                                    *ngIf="formAppointmentInfo.get('appo_zipcode').dirty || formAppointmentInfo.get('appo_zipcode').touched "><small
+                                                        *ngIf="formAppointmentInfo.get('appo_zipcode').hasError('required')"
+                                                        class="error">Zipcode is required.</small><small
+                                                        *ngIf="formAppointmentInfo.get('appo_zipcode').hasError('minlength') || formAppointmentInfo.get('appo_zipcode').hasError('maxlength')"
+                                                        class="error">Zipcode must be 5 to 7 characters.</small></span>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </mat-card-content>
-                        <div class="bottom-ctn-btn mb-3" *ngIf="is_at_home_service && ((newuser && !isLoggedIn) || (existinguser && isLoggedIn))">
-                            <button (click)="fnProceedToSummary($event)" mat-button class="round-btn continue-btn">Confirm</button>
+                        <div class="bottom-ctn-btn mb-3"
+                            *ngIf="is_at_home_service && ((newuser && !isLoggedIn) || (existinguser && isLoggedIn))">
+                            <button (click)="fnProceedToSummary($event)" mat-button
+                                class="round-btn continue-btn">Confirm</button>
                         </div>
                     </div>
                     <!-- *ngIf="serviceCount[services.id].count<1" -->
@@ -471,7 +580,8 @@
                         <div class="col-lg-12 col-sm-12 col-12 float-left
                             loggedin_head" *ngIf="isLoggedIn">
                             <!-- <p>Welcome, {{customerName}}</p><button (click)="fnLogout()" mat-button class="round-btn gray-btn logout-btn">Logout</button> -->
-                            <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button class="round-btn gray-btn logout-btn">View
+                            <p>Welcome {{customerName}},</p><button (click)="fnViewDashboard()" mat-button
+                                class="round-btn gray-btn logout-btn">View
                                 Dashboard</button><button (click)="fnLogout()" mat-button class="round-btn gray-btn
                                 logout-btn
                                 ml-a">Logout</button>
@@ -503,7 +613,8 @@
                                         <div class="qty-counter">
                                             <button mat-fab class="action-btn
                                                 qty-minus" (click)="fnRemove($event,serviceCart.id)">-</button>
-                                            <input type="text" class="qty_value" value="{{serviceCart.count}}" readonly/>
+                                            <input type="text" class="qty_value" value="{{serviceCart.count}}"
+                                                readonly />
                                             <button mat-fab class="action-btn
                                                 qty-minus" (click)="fnAdd($event,serviceCart.id)">+</button>
                                         </div>
@@ -538,7 +649,8 @@
                                         serviceMainArr.subtotal |
                                         currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
                                         }}</label>
-                                    <label *ngIf="currencySymbolPosition=='right'" class="price">{{ serviceMainArr.subtotal
+                                    <label *ngIf="currencySymbolPosition=='right'" class="price">{{
+                                        serviceMainArr.subtotal
                                         |
                                         currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
                                         }} {{currencySymbol|
@@ -554,7 +666,8 @@
                                         serviceMainArr.discount |
                                         currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
                                         }}</label>
-                                    <label *ngIf="currencySymbolPosition=='right'" class="price">{{ serviceMainArr.discount
+                                    <label *ngIf="currencySymbolPosition=='right'" class="price">{{
+                                        serviceMainArr.discount
                                         |
                                         currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
                                         }} {{currencySymbol|
@@ -589,14 +702,14 @@
                                     'default','valid':closecoupon ===
                                     'valid','invalid':closecoupon ===
                                     'invalid'}">
-                                    <input [(ngModel)]="coupon.couponcode_val" type="text" class="coupon-code-input" isReadOnly/>
+                                    <input [(ngModel)]="coupon.couponcode_val" type="text" class="coupon-code-input"
+                                        isReadOnly />
                                     <button (click)="fncheckcouponcodebtn(closecoupon)" [ngClass]="{'remove-code':closecoupon
                                         ===
                                         'valid',
                                         'coupon-code-submit':closecoupon
                                         !== 'valid'}"><i class="material-icons">{{couponIcon}}</i></button>
-                                    <span class="error-wrap" *ngIf="showCouponError"><small
-                                            class="error">{{
+                                    <span class="error-wrap" *ngIf="showCouponError"><small class="error">{{
                                             couponErrorMessage}}</small></span>
                                 </div>
                                 <!-- <div class="col-lg-6 px-0 py-1 promocode-main">
@@ -615,7 +728,8 @@
                                 </div>
                                 <div class="col-lg-4 px-0 py-1 right-side">
                                     <!-- <label class="price text-right d-block">₹ {{serviceMainArr.netCost}}</label> -->
-                                    <label *ngIf="currencySymbolPosition=='left'" class="price text-right d-block">{{currencySymbol|
+                                    <label *ngIf="currencySymbolPosition=='left'"
+                                        class="price text-right d-block">{{currencySymbol|
                                         currencySymbol:'wide'}} {{
                                         serviceMainArr.netCost |
                                         currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
@@ -630,9 +744,12 @@
                             <div *ngIf="termsConditions && privacyPolicy" class="d-flex flex-wrap">
 
                                 <mat-checkbox *ngIf="termsConditions.status ==
-                                    true" class="termscondition ml-3" (change)="fnChangeTermsConditionsStatus($event.checked)">
-                                    <a *ngIf="termsConditions.page_link != ''" href="{{termsConditions.page_link}}" target="blank">{{termsConditions.label}}</a>
-                                    <a *ngIf="termsConditions.page_link == ''" target="blank">{{termsConditions.label}}</a>
+                                    true" class="termscondition ml-3"
+                                    (change)="fnChangeTermsConditionsStatus($event.checked)">
+                                    <a *ngIf="termsConditions.page_link != ''" href="{{termsConditions.page_link}}"
+                                        target="blank">{{termsConditions.label}}</a>
+                                    <a *ngIf="termsConditions.page_link == ''"
+                                        target="blank">{{termsConditions.label}}</a>
                                 </mat-checkbox>
                                 <!-- <label *ngIf="termsConditions.status == 'true'"><input id="check" type="checkbox" class="termscondition ml-3" (change)="fnChangeTermsConditionsStatus($event.target.checked)" > 
                     <a *ngIf="termsConditions.page_link != ''" href="{{termsConditions.page_link}}" target="blank">{{termsConditions.label}}</a>
@@ -640,8 +757,10 @@
                     <a *ngIf="termsConditions.page_link == ''" target="blank">{{termsConditions.label}}</a>
                 </label> -->
                                 <mat-checkbox *ngIf="privacyPolicy.status ==
-                                    true" class="termscondition ml-3" (change)="fnChangePrivacyPolicyStatus($event.checked)">
-                                    <a *ngIf="privacyPolicy.page_link !=''" href="{{privacyPolicy.page_link}}" target="blank">{{privacyPolicy.label}}</a>
+                                    true" class="termscondition ml-3"
+                                    (change)="fnChangePrivacyPolicyStatus($event.checked)">
+                                    <a *ngIf="privacyPolicy.page_link !=''" href="{{privacyPolicy.page_link}}"
+                                        target="blank">{{privacyPolicy.label}}</a>
                                     <a *ngIf="privacyPolicy.page_link ==''" target="blank">{{privacyPolicy.label}}</a>
                                 </mat-checkbox>
                                 <span *ngIf="privacyPolicy.status == true &&
@@ -654,7 +773,8 @@
                                     w-100 pl-3">Please check Terms & Condition.</span>
                             </div>
                             <div class="bottom-ctn-btn">
-                                <button *ngIf='serviceMainArr.totalNumberServices>0' (click)="fnProceedToPayment($event)" mat-button class="round-btn gray-btn
+                                <button *ngIf='serviceMainArr.totalNumberServices>0'
+                                    (click)="fnProceedToPayment($event)" mat-button class="round-btn gray-btn
                                     proceed">Proceed</button>
                             </div>
                         </mat-card-content>
@@ -678,18 +798,23 @@
                                 <mat-radio-button [checked]="paymentMethod ==
                                     'Cash'" (change)="fnPaymentMethod('Cash')" class="payment-radio px-3 mb-0 col-12 w-auto
                                     mt-y mx-4 p-4 cash-payment single-pay" value="pay1">Cash Payment
-                                    <img src="../../assets/icons/cash-symbol.png" class="payment-gtw-icon cash-payment" />
+                                    <img src="../../assets/icons/cash-symbol.png"
+                                        class="payment-gtw-icon cash-payment" />
                                     <div class="ml-auto mx-3">
-                                        <mat-slide-toggle (change)="fnChangePaymentStatus('Cash')" [checked]="defaultPayment === 'Cash' ? true : false"></mat-slide-toggle>
+                                        <mat-slide-toggle (change)="fnChangePaymentStatus('Cash')"
+                                            [checked]="defaultPayment === 'Cash' ? true : false"></mat-slide-toggle>
                                     </div>
                                 </mat-radio-button>
 
-                                <mat-radio-button *ngIf="stripeStatus" [checked]="paymentMethod == 'stripe'" (change)="fnPaymentMethod('stripe')" class="col-12 w-auto mt-4 mx-4 p-4
+                                <mat-radio-button *ngIf="stripeStatus" [checked]="paymentMethod == 'stripe'"
+                                    (change)="fnPaymentMethod('stripe')" class="col-12 w-auto mt-4 mx-4 p-4
                                     credit-payment single-pay payment-radio px-3
                                     mb-0" value="pay2">Debit Card / Credit Card
-                                    <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" />
+                                    <img src="../../assets/icons/card-images.png"
+                                        class="payment-gtw-icon cash-payment" />
                                     <div class="ml-auto mx-3">
-                                        <mat-slide-toggle (change)="fnChangePaymentStatus('stripe')" [checked]="defaultPayment === 'stripe' ? true : false"></mat-slide-toggle>
+                                        <mat-slide-toggle (change)="fnChangePaymentStatus('stripe')"
+                                            [checked]="defaultPayment === 'stripe' ? true : false"></mat-slide-toggle>
                                     </div>
                                 </mat-radio-button>
                                 <div *ngIf="creditcardform">
@@ -699,7 +824,8 @@
                                             col-lg-6">
                                             <div class="col-12 mb-4">
                                                 <label>Card Holder Name</label>
-                                                <input formControlName="cardHolderName" class="common-input" type="text" />
+                                                <input formControlName="cardHolderName" class="common-input"
+                                                    type="text" />
                                                 <span class="error-wrap" *ngIf="cardForm.get('cardHolderName').dirty
                                                     ||
                                                     cardForm.get('cardHolderName').touched"><small
@@ -711,10 +837,15 @@
                                             <div class="col-12 mb-4">
                                                 <label>Card Number</label>
                                                 <input formControlName="cardNumber" class="common-input" type="text" />
-                                                <span class="error-wrap" *ngIf="cardForm.get('cardNumber').dirty || cardForm.get('cardNumber').touched">
-                                                    <small *ngIf="cardForm.get('cardNumber').hasError('required')" class="error">Card number is required.</small>
-                                                    <small *ngIf="!cardForm.get('cardNumber').hasError('pattern') && (cardForm.get('cardNumber').hasError('minlength') || cardForm.get('cardNumber').hasError('maxlength'))" class="error">Please enter 16 digit card number.</small>
-                                                    <small *ngIf="cardForm.get('cardNumber').hasError('pattern')" class="error">Please enter numaric only.</small>
+                                                <span class="error-wrap"
+                                                    *ngIf="cardForm.get('cardNumber').dirty || cardForm.get('cardNumber').touched">
+                                                    <small *ngIf="cardForm.get('cardNumber').hasError('required')"
+                                                        class="error">Card number is required.</small>
+                                                    <small
+                                                        *ngIf="!cardForm.get('cardNumber').hasError('pattern') && (cardForm.get('cardNumber').hasError('minlength') || cardForm.get('cardNumber').hasError('maxlength'))"
+                                                        class="error">Please enter 16 digit card number.</small>
+                                                    <small *ngIf="cardForm.get('cardNumber').hasError('pattern')"
+                                                        class="error">Please enter numaric only.</small>
                                                 </span>
                                             </div>
 
@@ -724,7 +855,8 @@
                                                     mb-4
                                                     p-0 pr-1">
                                                     <label>Month</label>
-                                                    <input formControlName="expiryMonth" class="common-input" type="text" />
+                                                    <input formControlName="expiryMonth" class="common-input"
+                                                        type="text" />
                                                     <span class="error-wrap" *ngIf="cardForm.get('expiryMonth').dirty
                                                         ||
                                                         cardForm.get('expiryMonth').touched"><small
@@ -740,7 +872,8 @@
                                                     mb-4
                                                     p-0">
                                                     <label>Year</label>
-                                                    <input formControlName="expiryYear" class="common-input" type="text" />
+                                                    <input formControlName="expiryYear" class="common-input"
+                                                        type="text" />
                                                     <span class="error-wrap" *ngIf="cardForm.get('expiryYear').dirty
                                                         ||
                                                         cardForm.get('expiryYear').touched"><small
@@ -776,11 +909,13 @@
                                     'Paypal'" (change)="fnPaymentMethod('Paypal')" class="col-12 w-auto mt-4 mx-4 p-4
                                     credit-payment single-pay payment-radio px-3
                                     mb-0" value="pay3" *ngIf="paypalStatus">Paypal
-                                    <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_150x38.png" alt="PayPal" class="payment-gtw-icon
+                                    <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_150x38.png"
+                                        alt="PayPal" class="payment-gtw-icon
                                         cash-payment" />
-                                        <div class="ml-auto mx-3">
-                                            <mat-slide-toggle (change)="fnChangePaymentStatus('Paypal')" [checked]="defaultPayment === 'Paypal' ? true : false"></mat-slide-toggle>
-                                        </div>
+                                    <div class="ml-auto mx-3">
+                                        <mat-slide-toggle (change)="fnChangePaymentStatus('Paypal')"
+                                            [checked]="defaultPayment === 'Paypal' ? true : false"></mat-slide-toggle>
+                                    </div>
                                 </mat-radio-button>
                                 <div *ngIf="showPaypalButtons" class="field-list
                                     mx-4 row credit-card-form">
@@ -788,19 +923,23 @@
                                         <ngx-paypal [config]="payPalConfig"></ngx-paypal>
                                     </div>
                                     <div class="col-12 right-side col-lg-6">
-                                        <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_200x51.png" alt="PayPal" />
+                                        <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_200x51.png"
+                                            alt="PayPal" />
                                     </div>
                                 </div>
 
-                                <mat-radio-button *ngIf="payUmoneyStatus" [checked]="paymentMethod == 'PayUMoney'" (change)="fnPaymentMethod('PayUMoney')" class="col-12 w-auto mt-4 mx-4 p-4
+                                <mat-radio-button *ngIf="payUmoneyStatus" [checked]="paymentMethod == 'PayUMoney'"
+                                    (change)="fnPaymentMethod('PayUMoney')" class="col-12 w-auto mt-4 mx-4 p-4
                                     credit-payment single-pay payment-radio px-3
                                     mb-0" value="pay4">PayUMoney
                                     <!-- <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" /> -->
                                     <img src="../../assets/images/payumoney-logo.png" alt="PayPal" class="payment-gtw-icon
                                         cash-payment payumoney-logo-width" />
-                                        <div class="ml-auto mx-3">
-                                            <mat-slide-toggle (change)="fnChangePaymentStatus('PayUMoney')" [checked]="defaultPayment === 'PayUMoney' ? true : false"></mat-slide-toggle>
-                                        </div>
+                                    <div class="ml-auto mx-3">
+                                        <mat-slide-toggle (change)="fnChangePaymentStatus('PayUMoney')"
+                                            [checked]="defaultPayment === 'PayUMoney' ? true : false">
+                                        </mat-slide-toggle>
+                                    </div>
                                     <!-- <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal"  class="payment-gtw-icon cash-payment"/> -->
                                 </mat-radio-button>
                                 <!-- <div *ngIf="showPayUMoneyButton" class="field-list mx-4 row credit-card-form "> -->
@@ -814,12 +953,16 @@
                         <img src='../../assets/images/payumoney-logo.png' />
                     </div>
                 </div> -->
-                                <mat-radio-button *ngIf="bankTransferStatus" [checked]="paymentMethod == 'BankTransfer'" (change)="fnPaymentMethod('BankTransfer')" class="col-12 w-auto mt-4 mx-4 p-4
+                                <mat-radio-button *ngIf="bankTransferStatus" [checked]="paymentMethod == 'BankTransfer'"
+                                    (change)="fnPaymentMethod('BankTransfer')" class="col-12 w-auto mt-4 mx-4 p-4
                                     credit-payment single-pay payment-radio px-3
                                     mb-0" value="pay2">Bank Transfer
-                                    <img src="../../assets/icons/card-images.png" class="payment-gtw-icon cash-payment" />
+                                    <img src="../../assets/icons/card-images.png"
+                                        class="payment-gtw-icon cash-payment" />
                                     <div class="ml-auto mx-3">
-                                        <mat-slide-toggle (change)="fnChangePaymentStatus('BankTransfer')" [checked]="defaultPayment === 'BankTransfer' ? true : false"></mat-slide-toggle>
+                                        <mat-slide-toggle (change)="fnChangePaymentStatus('BankTransfer')"
+                                            [checked]="defaultPayment === 'BankTransfer' ? true : false">
+                                        </mat-slide-toggle>
                                     </div>
                                 </mat-radio-button>
                                 <div *ngIf="BankDetail" class="bank-details">
@@ -874,7 +1017,8 @@
                                     <img src="../../assets/icons/green_check.png">
                                 </div>
                                 <div class="thankyoy_msg">
-                                    <h2>Thank you! Your Booking is Completed. An Email with Details of your Booking has been sent to you.</h2>
+                                    <h2>Thank you! Your Booking is Completed. An Email with Details of your Booking has
+                                        been sent to you.</h2>
                                 </div>
                                 <div class="booking_details" *ngFor="let
                                     serviceCart
@@ -896,16 +1040,23 @@
 
 
                     <!-- common footer -->
-                    <div class="common-footer" *ngIf="catselection || (!thankYouScreen || ((businessDetail && businessDetail.private_status == 'N') &&  (businessDetail && businessDetail.status == 'E')))">
-                        <div class="cart-btn mt-2" matBadge="{{serviceMainArr.totalNumberServices}}" matBadgePosition="before" [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click" #popoverTrigger="mdePopoverTrigger" (click)="fnOpenCartbox()">
+                    <div class="common-footer"
+                        *ngIf="catselection || (!thankYouScreen || ((businessDetail && businessDetail.private_status == 'N') &&  (businessDetail && businessDetail.status == 'E')))">
+                        <div class="cart-btn mt-2" matBadge="{{serviceMainArr.totalNumberServices}}"
+                            matBadgePosition="before" [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click"
+                            #popoverTrigger="mdePopoverTrigger" (click)="fnOpenCartbox()">
                             <i *ngIf="cartOpened" class="material-icons">add_shopping_cart</i>
                             <i *ngIf="!cartOpened" class="material-icons">close</i>
                         </div>
-                        <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
+                        <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false"
+                            [mdePopoverCloseOnClick]="false">
                             <mat-card class="booking-summary p-0" style="width:
                                 380px">
                                 <mat-card-title class="py-2 px-3">
-                                    <label class="mb-0">Summary</label><button mat-button class="continue-btn" *ngIf="serviceMainArr.totalNumberServices>0" (click)="fnContinueFromCart()">Checkout<i class="material-icons">keyboard_arrow_right</i></button>
+                                    <label class="mb-0">Summary</label><button mat-button class="continue-btn"
+                                        *ngIf="serviceMainArr.totalNumberServices>0"
+                                        (click)="fnContinueFromCart()">Checkout<i
+                                            class="material-icons">keyboard_arrow_right</i></button>
                                 </mat-card-title>
                                 <mat-card-content class="py-2 px-3 mt-0">
                                     <div *ngFor="let serviceCart of
@@ -914,12 +1065,16 @@
                                             null">
                                             <div class="col-lg-8 left-side">
                                                 <label class="service-title">{{serviceCart.service_name}}</label>
-                                                <p><i class="fa fa-calendar"></i>{{serviceCart.appointmentDateForLabel}}</p>
-                                                <p><i class="fa fa-clock-o"></i>{{serviceCart.appointmentTimeSlotForLabel}}</p>
+                                                <p><i class="fa fa-calendar"></i>{{serviceCart.appointmentDateForLabel}}
+                                                </p>
+                                                <p><i
+                                                        class="fa fa-clock-o"></i>{{serviceCart.appointmentTimeSlotForLabel}}
+                                                </p>
                                             </div>
                                             <div class="col-lg-4 right-side">
                                                 <!-- <label class="price">₹ {{serviceCart.subtotal}}</label> -->
-                                                <label *ngIf="currencySymbolPosition=='left'" class="price">{{currencySymbol|
+                                                <label *ngIf="currencySymbolPosition=='left'"
+                                                    class="price">{{currencySymbol|
                                                     currencySymbol:'wide'}} {{
                                                     serviceCart.subtotal |
                                                     currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
@@ -932,7 +1087,8 @@
                                                 <div class="qty-counter">
                                                     <button mat-fab class="action-btn
                                                         qty-minus" (click)="fnRemove($event,serviceCart.id)">-</button>
-                                                    <input type="text" class="qty_value" value="{{serviceCart.count}}" readonly/>
+                                                    <input type="text" class="qty_value" value="{{serviceCart.count}}"
+                                                        readonly />
                                                     <button mat-fab class="action-btn
                                                         qty-minus" (click)="fnAdd($event,serviceCart.id)">+</button>
                                                 </div>
@@ -946,7 +1102,8 @@
                                         </div>
                                         <div class="col-lg-4 right-side">
                                             <!-- <label class="price">₹ {{serviceMainArr.subtotal}}</label> -->
-                                            <label *ngIf="currencySymbolPosition=='left'" class="price">{{currencySymbol|
+                                            <label *ngIf="currencySymbolPosition=='left'"
+                                                class="price">{{currencySymbol|
                                                 currencySymbol:'wide'}} {{
                                                 serviceMainArr.subtotal |
                                                 currency:selectedCurrency:'':'1.2-2':currencySymbolFormat

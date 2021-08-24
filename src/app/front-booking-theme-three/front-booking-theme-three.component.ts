@@ -31,7 +31,12 @@ export class FrontBookingThemeThreeComponent implements OnInit {
 
   
   selectedTheme:any = '1';
+  formOtpExistingUser : FormGroup;
   formExistingUser : FormGroup;
+  otpLogin = false;
+  normalLogin = false;
+  otpShow = true;
+  loginShow = false;
   formNewUser: FormGroup
   formAppointmentInfo: FormGroup;
   model: NgbDateStruct;
@@ -258,6 +263,10 @@ export class FrontBookingThemeThreeComponent implements OnInit {
       day: current.getDate(),
     };
 
+    this.formOtpExistingUser = this._formBuilder.group({
+      existing_phone: ['',[Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      existing_otp: ['',[Validators.required, Validators.pattern("^[1-9][0-9]{3}")]],
+    })
     this.formExistingUser = this._formBuilder.group({
       existing_mail: ['',[Validators.required,Validators.email]],
       existing_password: ['',Validators.required],
@@ -1750,6 +1759,129 @@ export class FrontBookingThemeThreeComponent implements OnInit {
       };
    this.fnLogin(requestObject);
   }
+
+  
+  fnOtploginexisinguser(){
+    if(!this.formOtpExistingUser.valid){
+     this.formOtpExistingUser.get('existing_phone').markAsTouched();
+     this.formOtpExistingUser.get('existing_otp').markAsTouched();
+     console.log("error");
+     return false;
+    }
+
+    var phone = this.formOtpExistingUser.get('existing_phone').value.e164Number;
+    // phone = "+"+this.selectedPhoneCode+phone;
+    let requestObject = {
+      "phone" : phone,
+      "otp" : this.formOtpExistingUser.get('existing_otp').value,
+      "business_id": this.businessId
+      };
+   this.fnOtpLogin(requestObject);
+  }
+
+  getOtp() {
+    if(this.formOtpExistingUser.get('existing_phone').valid) {
+      var phone = this.formOtpExistingUser.get('existing_phone').value.e164Number;
+      // phone = "+"+this.selectedPhoneCode+phone;
+      let requestObject = {
+          'phone' : phone,
+          'business_id' : this.businessId,
+          'country_code' : this.formOtpExistingUser.get('existing_phone').value.dialCode
+      }
+      this.fnGetOtp(requestObject);
+    }
+    
+}
+
+fnLoginType(event,logintype){
+  if(logintype == "otp"){
+    this.otpLogin = true;
+    this.normalLogin = false;
+  }else{
+      this.otpLogin = false;
+      this.normalLogin = true;
+  }
+}
+
+fnGetOtp(requestObject){
+  let headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+  });
+  this.http.post<any>(`${environment.apiUrl}/send-otp`, requestObject, {headers:headers})
+    .pipe(map(data => { 
+        return data;
+    }),
+    catchError(this.handleError)).subscribe((response:any) => {
+      if(response.data == true){
+        this.loginShow = true;
+        this.otpShow = false;                
+      }
+    },(err) =>{ 
+      this.errorMessage = this.handleError;
+   });
+}  
+
+  fnOtpLogin(requestObject){
+    
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+ 
+    this.http.post(`${environment.apiUrl}/otp-login`,requestObject,{headers:headers} ).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(this.handleError)).subscribe((response:any) => {
+       if(response.data == true ){
+         localStorage.setItem('currentUser', JSON.stringify(response.response));
+         localStorage.setItem('isFront', "true");
+         this.authenticationService.currentUserSubject.next(response.response);
+ 
+         this.customerName=response.response.fullname;
+       
+         this.customerFirstname = this.customerName!=undefined?this.customerName.split(" ")[0]:'';
+         this.customerLastname  =  this.customerName!=undefined?this.customerName.split(" ")[1]:'';
+ 
+         this.customerEmail=this.authenticationService.currentUserValue.email;
+         this.customerPhone=this.authenticationService.currentUserValue.phone;
+       
+           this.showSameAsAboveCheck=false;
+           this.snackBar.open("Login successfull.", "X", {
+             duration: 2000,
+             verticalPosition: 'top',
+             panelClass : ['green-snackbar']
+             });
+         if(this.is_at_home_service){
+           if(this.existinguser){
+             this.personalinfo = false;
+             this.appointmentinfo = true;
+             this.isLoggedIn=true;
+           }else if(this.newuser){
+             this.personalinfo = false;
+             this.appointmentinfo = false;
+             this.summaryScreen = true;
+             this.isLoggedIn=true;
+           }
+         }else if(!this.is_at_home_service){
+           this.personalinfo = false;
+           this.appointmentinfo = false;
+           this.summaryScreen = true;
+           this.isLoggedIn=true;
+         }
+       }else{
+ 
+         this.snackBar.open(response.response, "X", {
+         duration: 2000,
+         verticalPosition: 'top',
+         panelClass : ['red-snackbar']
+         });
+ 
+         this.showSameAsAboveCheck=true;
+       }
+     },(err) =>{ 
+        this.errorMessage = this.handleError;
+     });
+   }
 
   fnLogin(requestObject){
     
