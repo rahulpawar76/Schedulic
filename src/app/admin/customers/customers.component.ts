@@ -2356,6 +2356,9 @@ constructor(
     this.adminService.getSettingValue(requestObject).subscribe((response:any) => {
       if(response.data == true && response.response){
         this.settingsArr=response.response;
+        this.currencySymbol = this.settingsArr.currency;
+        this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+        this.currencySymbolFormat = this.settingsArr.currency_format;
         console.log(this.settingsArr);
         this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
         this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);

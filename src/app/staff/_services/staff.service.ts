@@ -74,6 +74,20 @@ export class StaffService {
     catchError(this.handleError));
   }
 
+  getCoupon(requestObject) {
+		this.checkAuthentication();
+		let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'staff-id' : this.staffId,
+      'api-token' : this.staffToken
+		});
+		return this.http.post(`${environment.apiUrl}/get-coupon`, requestObject, { headers: headers }).pipe(
+		map((res) => {
+			return res;
+		}),
+		catchError(this.handleError));
+	}
+
   fnprofilesubmit(updatedprofiledata){
     this.checkAuthentication();
     let headers = new HttpHeaders({
