@@ -707,6 +707,13 @@ export class DialogAddNewAppointment {
   serviceCount:any= [];
   selectedDate:any;
   selectedTime:any;
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;  
+  discount_amount:number;
+  discount_type:any;
+  appointmentSubTotal:number;
+  appointmentAmountAfterDiscount:number;
   selectedStaffId:any;
   availableStaff:any=[];
   isStaffAvailable:boolean=false;
@@ -742,6 +749,7 @@ export class DialogAddNewAppointment {
     booking_date:new Date(),
     booking_time:'',
     staff:'',
+    discount_code:'',
     is_selected:'',
     customerAppoAddress:'',
     customerAppoState:'',
@@ -789,6 +797,7 @@ export class DialogAddNewAppointment {
       this.appointmentData.city=this.data.appointmentData.customer.city;
       this.appointmentData.state=this.data.appointmentData.customer.state;
       this.appointmentData.zip=this.data.appointmentData.customer.zip;
+      this.appointmentData.discount_code=this.data.appointmentData.customer.discount_code;
       this.selectedCatId=this.appointmentData.category_id=JSON.stringify(this.data.appointmentData.service.category_id);
       this.appointmentData.sub_category_id=JSON.stringify(this.data.appointmentData.service.sub_category_id);
       this.appointmentData.service_id=JSON.stringify(this.data.appointmentData.service.id);
@@ -851,7 +860,9 @@ export class DialogAddNewAppointment {
       customerService: [this.appointmentData.service_id, [Validators.required]],
       customerDate: [this.appointmentData.booking_date, Validators.required],
       customerTime: [this.appointmentData.booking_time, Validators.required],
-      customerStaff: [this.appointmentData.staff, Validators.required]
+      customerStaff: [this.appointmentData.staff, Validators.required],
+      customerCouponCode: [this.appointmentData.discount_code, Validators.required]
+
     });
  //   console.log("ar "+this.formAddNewAppointmentStaffStep2.get('customerDate').value);
     this.fnIsPostalCodeAdded();
@@ -1089,6 +1100,10 @@ export class DialogAddNewAppointment {
     this.adminService.getSettingValue(requestObject).subscribe((response:any) => {
       if(response.data == true && response.response != ''){
         this.settingsArr=response.response;
+
+        this.currencySymbol = this.settingsArr.currency;
+        this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+        this.currencySymbolFormat = this.settingsArr.currency_format;
         
         this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
         this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
@@ -1995,6 +2010,60 @@ export class DialogAddNewAppointment {
     
   }
 
+  applyCoupon(){
+    if(this.formAddNewAppointmentStaffStep2.get('customerService').valid) {
+      let couponRequestObject = {
+        "coupon_code": this.formAddNewAppointmentStaffStep2.get('customerCouponCode').value,
+        "service_id" : this.formAddNewAppointmentStaffStep2.get('customerService').value,
+        "business_id": this.bussinessId,
+      };
+      this.discount_type = null;
+      this.discount_amount = 0;
+      this.adminService.getCoupon(couponRequestObject).subscribe((response:any) =>{
+        if(response.data == true){
+          this._snackBar.open("Coupon Applied Successfully", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+          this.formAddNewAppointmentStaffStep2.get('customerCouponCode').disable();
+          this.discount_type = response.response['coupon_type'];
+          this.discount_amount = response.response['coupon_value'];
+
+          this.appointmentSubTotal = 0;
+          let serviceCartArrTemp:any= [];
+          for(let i=0; i<this.serviceCount.length;i++){
+            if(this.serviceCount[i] != null && this.serviceCount[i].count > 0){
+              serviceCartArrTemp.push(this.serviceCount[i]);
+            }
+          }
+    
+          this.appointmentSubTotal = serviceCartArrTemp[0].subtotal;
+
+          if (this.discount_type == "F") {
+            this.appointmentAmountAfterDiscount = (this.appointmentSubTotal > this.discount_amount) ? this.appointmentSubTotal - this.discount_amount : 0;
+          } else if (this.discount_type == "P") {
+            this.discount_amount = (this.appointmentSubTotal * this.discount_amount)/100;
+            this.appointmentAmountAfterDiscount = this.appointmentSubTotal - this.discount_amount;
+          }
+        } else {
+          this._snackBar.open("Coupon code not found", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['red-snackbar']
+          });
+        }
+      });
+    } else {
+      this._snackBar.open('Select service', "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass: ['red-snackbar']
+      });
+      return false;
+    }
+  }
+
   fnBookAppointment(){
     this.isLoaderAdmin = true;
     let serviceCartArrTemp:any= [];
@@ -2011,8 +2080,7 @@ export class DialogAddNewAppointment {
     //   }
     // }
     // this.netCost=serviceCartArrTemp[0].totalCost+this.taxAmount;
-    var discount_type = null;
-    var amountAfterDiscount=serviceCartArrTemp[0].subtotal;
+    var amountAfterDiscount=this.appointmentAmountAfterDiscount;
     var amountAfterTax=0;
     this.taxAmountArr.length=0;
     if(amountAfterDiscount > 0){
@@ -2058,11 +2126,11 @@ export class DialogAddNewAppointment {
       "customer_appointment_state": this.formAddNewAppointmentStaffStep1.get('customerAppoState').value,
       "customer_appointment_city": this.formAddNewAppointmentStaffStep1.get('customerAppoCity').value,
       "customer_appointment_zipcode": this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').value,
-      "coupon_code": '',
+      "coupon_code": this.formAddNewAppointmentStaffStep2.get('customerCouponCode').value,
       "subtotal": serviceCartArrTemp[0].subtotal,
-      "discount_type" : discount_type,
-      "discount_value" : null,
-      "discount": 0,
+      "discount_type" : this.discount_type,
+      "discount_value" : this.discount_amount,
+      "discount": this.discount_amount,
       "tax": this.taxAmountArr,
       "nettotal": this.netCost,
       "created_by": "admin",

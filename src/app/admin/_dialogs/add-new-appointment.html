@@ -239,6 +239,24 @@
             <small *ngIf="formAddNewAppointmentStaffStep2.get('customerStaff').hasError('required')" class="error">Staff is required.</small>
           </span>
                 </div>
+                <div class="row" *ngIf="!data.appointmentData">
+                    <div class="col-6">
+                        <input class="form-control formcontrol"  formControlName="customerCouponCode" placeholder="Coupon Code">
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-primary" (click)="applyCoupon()">Apply Coupon</button>
+                    </div>
+                    <div class="col-4" *ngIf="appointmentSubTotal > 0">
+                        <span> Subtotal : {{currencySymbol| currencySymbol:'wide'}} {{ appointmentSubTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                    </div>
+                    <div class="col-4" *ngIf="appointmentSubTotal > 0">
+                        <span> Discount : {{currencySymbol| currencySymbol:'wide'}} {{ discount_amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                    </div>
+                    <div class="col-12" *ngIf="appointmentSubTotal > 0">
+                        <span> Total : {{currencySymbol| currencySymbol:'wide'}} {{ appointmentAmountAfterDiscount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                    </div>
+                    <div class="col-12 mb-3 ml-2" ></div>
+                </div>
                 <button class="d-block btn btn-primary addbtn ml-2" (click)="fnNewAppointmentStep2()">{{(dialogTitle=='Edit Appointment')?'Update':'Create'}}</button>
                 <button class="d-block btn btn-secondary addbtn float-right" (click)="onBackClick()">Back</button>
             </form>
