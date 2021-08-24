@@ -3031,6 +3031,7 @@ export class rescheduleAppointmentDialog {
     applyCoupon(){
       let couponRequestObject = {
         "coupon_code": this.formAddNewAppointmentStaffStep2.get('customerCouponCode').value,
+        "service_id" : this.formAddNewAppointmentStaffStep2.get('customerService').value,
         "business_id": this.bussinessId,
       };
       this.discount_type = null;
