@@ -2234,10 +2234,15 @@ export class rescheduleAppointmentDialog {
   selectedDate:any;
   selectedTime:any;
   selectedStaffId:any;
-  availableStaff:any=[];  
+  availableStaff:any=[];
+  currencySymbol:any;
+  currencySymbolPosition:any;
+  currencySymbolFormat:any;  
   isStaffAvailable:boolean=false;
   discount_amount:number;
   discount_type:any;
+  appointmentSubTotal:number;
+  appointmentAmountAfterDiscount:number;
   taxType:any="P";
   taxValue:any;
   netCost:any;
@@ -2489,6 +2494,12 @@ export class rescheduleAppointmentDialog {
       this.userService.getSettingValue(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.settingsArr=response.response;
+
+          this.settingsArr=response.response;
+          this.currencySymbol = this.settingsArr.currency;
+          this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+          this.currencySymbolFormat = this.settingsArr.currency_format;
+
           this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
           this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
           
@@ -3025,24 +3036,49 @@ export class rescheduleAppointmentDialog {
         this.formAddNewAppointmentStaffStep2.get('customerAppoCity').markAsTouched();
         return false;
       }
-      this.applyCoupon();
+      this.fnBookAppointment();
     }
 
     applyCoupon(){
-      let couponRequestObject = {
-        "coupon_code": this.formAddNewAppointmentStaffStep2.get('customerCouponCode').value,
-        "service_id" : this.formAddNewAppointmentStaffStep2.get('customerService').value,
-        "business_id": this.bussinessId,
-      };
-      this.discount_type = null;
-      this.discount_amount = 0;
-      this.userService.getCoupon(couponRequestObject).subscribe((response:any) =>{
-        if(response.data == true){
-          this.discount_type = response.response['coupon_type'];
-          this.discount_amount = response.response['coupon_value'];
-        }
-        this.fnBookAppointment();
-      });
+      if(this.formAddNewAppointmentStaffStep2.get('customerService').valid) {
+        let couponRequestObject = {
+          "coupon_code": this.formAddNewAppointmentStaffStep2.get('customerCouponCode').value,
+          "service_id" : this.formAddNewAppointmentStaffStep2.get('customerService').value,
+          "business_id": this.bussinessId,
+        };
+        this.discount_type = null;
+        this.discount_amount = 0;
+        this.userService.getCoupon(couponRequestObject).subscribe((response:any) =>{
+          if(response.data == true){
+            this.discount_type = response.response['coupon_type'];
+            this.discount_amount = response.response['coupon_value'];
+
+            this.appointmentSubTotal = 0;
+            let serviceCartArrTemp:any= [];
+            for(let i=0; i<this.serviceCount.length;i++){
+              if(this.serviceCount[i] != null && this.serviceCount[i].count > 0){
+                serviceCartArrTemp.push(this.serviceCount[i]);
+              }
+            }
+      
+            this.appointmentSubTotal = serviceCartArrTemp[0].subtotal;
+
+            if (this.discount_type == "F") {
+              this.appointmentAmountAfterDiscount = (this.appointmentSubTotal > this.discount_amount) ? this.appointmentSubTotal - this.discount_amount : 0;
+            } else if (this.discount_type == "P") {
+              this.discount_amount = (this.appointmentSubTotal * this.discount_amount)/100;
+              this.appointmentAmountAfterDiscount = this.appointmentSubTotal - this.discount_amount;
+            }
+          }
+        });
+      } else {
+        this._snackBar.open('Select service', "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+        });
+        return false;
+      }
     }
   
     fnBookAppointment(){
@@ -3053,17 +3089,10 @@ export class rescheduleAppointmentDialog {
         }
       }
 
-      var subTotal = serviceCartArrTemp[0].subtotal;
-      var amountAfterDiscount=serviceCartArrTemp[0].subtotal;
+      var subTotal = this.appointmentSubTotal;
+      var amountAfterDiscount=this.appointmentAmountAfterDiscount;
       var amountAfterTax=0;
       this.taxAmountArr.length=0;
-
-      if (this.discount_type == "F") {
-        amountAfterDiscount = (subTotal > this.discount_amount) ? subTotal - this.discount_amount : 0;
-      } else if (this.discount_type == "P") {
-        this.discount_amount = (subTotal * this.discount_amount)/100;
-        amountAfterDiscount = subTotal - this.discount_amount;
-      }
       
       if(amountAfterDiscount > 0){
         this.taxArr.forEach((element) => {

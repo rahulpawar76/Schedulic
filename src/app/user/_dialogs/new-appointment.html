@@ -141,7 +141,7 @@
                         </div>
                     </div>
 
-                    <div class="col-8 mb-3">
+                    <div class="col-12 mb-3">
                         <label class="mb-1">Select Staff</label>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -159,9 +159,21 @@
                         </div>
                     </div>
 
-                    <div class="col-4">
-                        <mat-label>Apply Coupon Code</mat-label>
+                    <div class="col-6">
+                        <mat-label>Coupon Code</mat-label>
                         <input class="form-control formcontrol" formControlName="customerCouponCode" placeholder="Coupon Code">
+                    </div>
+                    <div class="col-6">
+                        <button class="d-block btn btn-primary addbtn" (click)="applyCoupon()">Apply Coupon</button>
+                    </div>
+                    <div class="col-4" *ngIf="appointmentSubTotal > 0">
+                        <span> Subtotal : {{currencySymbol| currencySymbol:'wide'}} {{ appointmentSubTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                    </div>
+                    <div class="col-4" *ngIf="appointmentSubTotal > 0">
+                        <span> Discount : {{currencySymbol| currencySymbol:'wide'}} {{ discount_amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                    </div>
+                    <div class="col-4" *ngIf="appointmentSubTotal > 0">
+                        <span> Total : {{currencySymbol| currencySymbol:'wide'}} {{ appointmentAmountAfterDiscount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
                     </div>
                 </div>
 
