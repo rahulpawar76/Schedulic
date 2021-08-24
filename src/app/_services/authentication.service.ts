@@ -45,17 +45,16 @@ export class AuthenticationService {
     }
 
    verifyOtp(requestObject) {
-        return this.http.post<any>(`${environment.apiUrl}/verify-otp`,  requestObject )
+        return this.http.post<any>(`${environment.apiUrl}/otp-login`,  requestObject )
         .pipe(map(user => {
-            console.log(user.data);
-            if (user && user.data== true && user.response.data) {
-                console.log(JSON.stringify(user.response.data));
-                localStorage.setItem('currentUser', JSON.stringify(user.response.data));
-                localStorage.setItem('isFront', "true");
-                var logoutTime = new Date();
-                logoutTime.setHours( logoutTime.getHours() + 6 );
-                localStorage.setItem('logoutTime', JSON.stringify(logoutTime));
-                this.currentUserSubject.next(user.response.data);
+            if (user && user.data== true && user.response.token) {
+                localStorage.setItem('currentUser', JSON.stringify(user.response));
+               // localStorage.setItem('isFront', "false");
+               var logoutTime = new Date();
+               logoutTime.setHours( logoutTime.getHours() + 6 );
+               localStorage.setItem('logoutTime', JSON.stringify(logoutTime));
+
+                this.currentUserSubject.next(user.response);
             }
             return user;
         }));

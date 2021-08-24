@@ -1799,17 +1799,17 @@ fnGetOtp(requestObject){
       'Content-Type': 'application/json',
     });
  
-    this.http.post(`${environment.apiUrl}/verify-otp`,requestObject,{headers:headers} ).pipe(
+    this.http.post(`${environment.apiUrl}/otp-login`,requestObject,{headers:headers} ).pipe(
       map((res) => {
         return res;
       }),
       catchError(this.handleError)).subscribe((response:any) => {
        if(response.data == true ){
-         localStorage.setItem('currentUser', JSON.stringify(response.response.data));
+         localStorage.setItem('currentUser', JSON.stringify(response.response));
          localStorage.setItem('isFront', "true");
-         this.authenticationService.currentUserSubject.next(response.response.data);
+         this.authenticationService.currentUserSubject.next(response.response);
  
-         this.customerName=response.response.data.fullname;
+         this.customerName=response.response.fullname;
        
          this.customerFirstname = this.customerName!=undefined?this.customerName.split(" ")[0]:'';
          this.customerLastname  =  this.customerName!=undefined?this.customerName.split(" ")[1]:'';
@@ -4548,7 +4548,7 @@ export class theme2CheckoutDialog {
       'Content-Type': 'application/json',
     });
  
-    this.http.post(`${environment.apiUrl}/verify-otp`,requestObject,{headers:headers} ).pipe(
+    this.http.post(`${environment.apiUrl}/otp-login`,requestObject,{headers:headers} ).pipe(
       map((res) => {
         return res;
       }),

@@ -176,8 +176,8 @@ export class CustomerLoginComponent implements OnInit {
         this.authenticationService.verifyOtp(requestObject)
         .pipe(first()).subscribe(data => {
             if (data.data == true) {
-                if (data.response.data) {
-                    this.router.navigate(['/user/appointments']);
+                if (data.response.user_type == "C") {
+                    this.router.navigate(["user"]);
                 } else {
                    localStorage.removeItem('currentUser');
                    this.router.navigate(["customer-login"]);
