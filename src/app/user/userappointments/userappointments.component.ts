@@ -321,7 +321,6 @@ export class UserappointmentsComponent implements OnInit {
 
     if(this.pendingOrderTotal==0){
       this.selectedAppointment = null;
-      this.pendingAppointmentData = [];
     }
   }
 
@@ -3031,7 +3030,8 @@ export class rescheduleAppointmentDialog {
 
     applyCoupon(){
       let couponRequestObject = {
-        "coupon_code": this.formAddNewAppointmentStaffStep2.get('customerCouponCode').value
+        "coupon_code": this.formAddNewAppointmentStaffStep2.get('customerCouponCode').value,
+        "business_id": this.bussinessId,
       };
       this.discount_type = null;
       this.discount_amount = 0;
