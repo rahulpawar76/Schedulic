@@ -3050,6 +3050,12 @@ export class rescheduleAppointmentDialog {
         this.discount_amount = 0;
         this.userService.getCoupon(couponRequestObject).subscribe((response:any) =>{
           if(response.data == true){
+            this._snackBar.open("Coupon Applied Successfully", "X", {
+              duration: 2000,
+              verticalPosition:'top',
+              panelClass :['green-snackbar']
+            });
+            this.formAddNewAppointmentStaffStep2.get('customerCouponCode').disable();
             this.discount_type = response.response['coupon_type'];
             this.discount_amount = response.response['coupon_value'];
 
@@ -3069,6 +3075,12 @@ export class rescheduleAppointmentDialog {
               this.discount_amount = (this.appointmentSubTotal * this.discount_amount)/100;
               this.appointmentAmountAfterDiscount = this.appointmentSubTotal - this.discount_amount;
             }
+          } else {
+            this._snackBar.open("Coupon code not found", "X", {
+              duration: 2000,
+              verticalPosition:'top',
+              panelClass :['red-snackbar']
+            });
           }
         });
       } else {
