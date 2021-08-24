@@ -17,6 +17,7 @@ import { FrontBookingThemeSixComponent } from './front-booking-theme-six/front-b
 import { FrontBookingThemeThreeComponent } from './front-booking-theme-three/front-booking-theme-three.component';
 import { FrontBookingThemeFiveComponent } from './front-booking-theme-five/front-booking-theme-five.component';
 import { ResponsePageComponent } from './response-page/response-page.component';
+import { PaymentSuccessComponent } from './payment-success/payment-success.component';
 
 const routes: Routes = [
   {
@@ -74,6 +75,10 @@ const routes: Routes = [
   {
     path: 'admin-select-subscription', 
     component:  SubscriptionComponent,
+  },
+  {
+    path: 'payment-success', 
+    component:  PaymentSuccessComponent,
   },
 
   {

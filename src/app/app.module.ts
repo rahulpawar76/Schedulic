@@ -41,6 +41,7 @@ import { FrontBookingThemeSixComponent, theme6DateTimeSelection } from './front-
 import { FrontBookingThemeThreeComponent, theme3DateTimeSelection } from './front-booking-theme-three/front-booking-theme-three.component';
 import { FrontBookingThemeFiveComponent } from './front-booking-theme-five/front-booking-theme-five.component'; 
 import { ResponsePageComponent } from './response-page/response-page.component';
+import { PaymentSuccessComponent } from './payment-success/payment-success.component';
 //import { GoogleMapsModule } from '@angular/google-maps'
 
 registerLocaleData(localeDe);
@@ -93,7 +94,8 @@ export function provideConfig() {
         FrontBookingThemeSixComponent,
         FrontBookingThemeThreeComponent,
         FrontBookingThemeFiveComponent,
-        ResponsePageComponent
+        ResponsePageComponent,
+        PaymentSuccessComponent
         ],
     imports: [
         BrowserModule,
