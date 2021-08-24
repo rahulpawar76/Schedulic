@@ -17,7 +17,7 @@
                                         <div class="col-6">
                                             <span>Service</span>
                                         </div>
-                                        <div class="col-3 pr-3">
+                                        <div class="col-6">
                                             <span>Price</span>
                                         </div>
                                     </div>
@@ -26,8 +26,9 @@
                                     <div class="col-6">
                                         <span>{{val.service.service_name}}</span>
                                     </div>
-                                    <div class="col-3 pr-3">
-                                        <!-- <span > {{currencySymbol| currencySymbol:'wide'}} {{ val.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span> -->
+                                    <div class="col-6">
+                                        <span *ngIf="currencySymbolPosition=='left'"> {{currencySymbol| currencySymbol:'wide'}} {{ val.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                                        <span *ngIf="currencySymbolPosition=='right'">  {{ val.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</span>
                                     </div>
                                 </div>
                                 <hr class="my-2">
@@ -38,10 +39,12 @@
                     <div class="px-3 mt-2">
                         <div class="row ">
                             <div class="col-12">
-                                <span> Subtotal : {{currencySymbol| currencySymbol:'wide'}} {{ pendingSubTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                                <span *ngIf="currencySymbolPosition=='left'"> Subtotal : {{currencySymbol| currencySymbol:'wide'}} {{ pendingSubTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                                <span *ngIf="currencySymbolPosition=='right'"> Subtotal : {{ pendingSubTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</span>
                             </div>
                             <div class="col-12">
-                                <span>Tax : <i class="fa fa-rupee pr-1"></i> {{pendingTaxTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                                <span *ngIf="currencySymbolPosition=='left'">Tax :   {{currencySymbol| currencySymbol:'wide'}} {{pendingTaxTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                                <span *ngIf="currencySymbolPosition=='right'">Tax :  {{pendingTaxTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}  {{currencySymbol| currencySymbol:'wide'}}</span>
                             </div>
                         </div>
                     </div>
@@ -49,14 +52,15 @@
                     <hr class="my-2">
                     <div class="px-3 py-2 mt-3 total-bill">
                         <div class="row ">
-                            <div class="col-9">
+                            <div class="col-lg-6">
                                 <span>Total</span>
                             </div>
-                            <div class="col-3 ">
-                                <span> {{currencySymbol| currencySymbol:'wide'}} {{ pendingOrderTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                            <div class="col-6 ">
+                                <span *ngIf="currencySymbolPosition=='left'"> {{currencySymbol| currencySymbol:'wide'}} {{ pendingOrderTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                                <span *ngIf="currencySymbolPosition=='right'">  {{ pendingOrderTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}{{currencySymbol| currencySymbol:'wide'}}</span>
                             </div>
                             <div class="col-12 ">
-                                <button class="btn btn-primary" [disabled]="myAppoDetailData.length == 0" mat-button (click)="onNoClick(true)">Place</button>
+                                <button class="btn btn-primary ml-auto mt-4 d-flex" [disabled]="myAppoDetailData.length == 0" mat-button (click)="onNoClick(true)">Place</button>
                             </div>
                         </div>
                     </div>
