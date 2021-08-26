@@ -98,19 +98,6 @@ mat-drawer-content {
     }
 }
 
-.menuitem {
-    color: #325c98;
-    padding-top: 4px;
-    &:focus {
-        outline: none;
-    }
-}
-
-.mat-list-item {
-    &:hover {
-        background-color: $bgblue;
-    }
-}
 
 
 /*Css For Toggle Bar*/
@@ -310,21 +297,24 @@ input:focus {
     background-color: #fff;
 }
 
-.left-admin-menu {
+::ng-deep  .left-admin-menu {
     .main_admin_menu {
         width: 90px;
         filter: drop-shadow(1.5px 2.598px 1.5px rgba(2, 2, 2, 0.09));
-        background-color: #04397f;
+        background-color: #00A89B;
         height: 100vh;
         z-index: 9999;
         position: fixed;
-         ::ng-deep .mat-drawer-inner-container {
+         .mat-drawer-inner-container {
             mat-list-item {
                 display: flex;
                 justify-content: center;
                 transition: all 0.3s;
-                opacity: 0.7;
                 cursor: pointer;
+                width: 60px;
+                height: 60px;
+                border-radius: 5px;
+                margin-bottom: 5px;
                 &.logo {
                     margin-bottom: 15px;
                     opacity: 1;
@@ -338,6 +328,9 @@ input:focus {
                 .mat-list-item-content {
                     display: flex;
                     justify-content: center;
+                    width: 100%;
+                    border-radius: 5px;
+                    align-items: center;
                 }
                 .common-menu {
                     padding: 10px;
@@ -357,22 +350,13 @@ input:focus {
                     }
                 }
                 &:hover {
-                    background-color: transparent;
-                    opacity: 1;
-                    transition: all 0.3s;
+                    .mat-list-item-content{
+                        background-color: rgba(0, 119, 110, 0.61);
+                    }
                 }
                 &.active {
-                    background-color: transparent;
-                    opacity: 1;
-                    position: relative;
-                    &:after {
-                        content: "";
-                        height: 100%;
-                        width: 5px;
-                        border-radius: 15px;
-                        background-color: #5298f7;
-                        position: absolute;
-                        right: 0px;
+                    .mat-list-item-content{
+                        background-color: rgba(0, 119, 110, 0.61);
                     }
                 }
             }
@@ -587,13 +571,19 @@ input:focus {
 .top_admin_menu {
     height: calc(100vh - 136px);
     overflow-y: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .bottom_admin_menu {
     position: absolute;
     width: 100%;
     bottom: 0;
-    background-color: #04397f;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .profile-head {

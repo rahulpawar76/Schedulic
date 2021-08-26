@@ -124,7 +124,7 @@
                     <mat-drawer [disableClose]="true" class="main_admin_menu" [opened]="sharedService.sideMenuState | async" mode="side">
                         <div class="top_admin_menu">
                             <mat-list-item role="listitem" class="matlist pointer menuitem logo">
-                                <div (click)="fnClickLogo('admin')" class="logo"><img src="assets/images/admin/admin-logo-orange.png"></div>
+                                <div (click)="fnClickLogo('admin')" class="logo"><img src="assets/images/icons/menu-icons/left-menu-logo.svg"></div>
                             </mat-list-item>
                             <mat-list-item role="listitem" class="add">
                                 <div>
@@ -184,29 +184,29 @@
                                 </div>
                             </mat-list-item>
                             <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-workspace' , 'active': pageHeading == 'My Workspace' }" (click)="myWorkSpaceNav(); fnPostUrl('my-workspace');" matTooltip="Workspace">
-                                <div class="common-menu"><img src="/assets/images/admin/admin-menu-bag.png"></div>
+                                <div class="common-menu"><img src="/assets/images/icons/menu-icons/workspace.svg"></div>
                             </mat-list-item>
                             <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-appointment', 'active': pageHeading=='My Appointments' }" (click)="MyAppointmentNav(); fnPostUrl('my-appointment');" matTooltip="Appointment">
-                                <div class="common-menu"><img src="/assets/images/admin/admin-menu-calendar.png">
+                                <div class="common-menu"><img src="/assets/images/icons/menu-icons/calendar.svg">
                                 </div>
                             </mat-list-item>
                             <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-customers' , 'active': pageHeading=='My Customer' }" (click)="MyCustomerNav(); fnPostUrl('my-customers');" matTooltip="Customers">
-                                <div class="common-menu"><img src="/assets/images/admin/admin-menu-user.png">
+                                <div class="common-menu"><img src="/assets/images/icons/menu-icons/customers.svg">
                                 </div>
                             </mat-list-item>
                             <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-reports', 'active': pageHeading=='My Reports' }" (click)="MyReportsNav(); fnPostUrl('my-reports');" matTooltip="Reports">
-                                <div class="common-menu"><img src="/assets/images/admin/admin-menu-statistics.png"></div>
+                                <div class="common-menu"><img src="/assets/images/icons/menu-icons/reports.svg"></div>
                             </mat-list-item>
                             <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-discountCoupon', 'active': pageHeading=='My Discount Coupon' }" (click)="MyDiscountCouponNav(); fnPostUrl('my-discountCoupon');" matTooltip="DiscountCoupon">
-                                <div class="common-menu"><img src="/assets/images/admin/admin-menu-couon.png"></div>
+                                <div class="common-menu"><img src="/assets/images/icons/menu-icons/discount.svg"></div>
                             </mat-list-item>
                         </div>
                         <div class="bottom_admin_menu">
                             <mat-list-item role="listitem" (click)="MySettingsNav(); fnPostUrl('my-settings');" [ngClass]="{'active': postUrl == 'my-settings', 'active': pageHeading=='My Settings' }" matTooltip="Settings">
-                                <div class="common-menu"><img src="/assets/images/admin/admin-menu-settings.png"></div>
+                                <div class="common-menu"><img src="/assets/images/icons/menu-icons/settings.svg"></div>
                             </mat-list-item>
                             <mat-list-item role="listitem" (click)="MyProfileNav(); fnPostUrl('my-profile');" [ngClass]="{'active': postUrl == 'my-profile', 'active': pageHeading=='My Profile' }" matTooltip="Profile">
-                                <div class="common-menu"><img src="/assets/images/admin/admin-menu-user-2.png"></div>
+                                <div class="common-menu"><img src="/assets/images/icons/menu-icons/user.svg"></div>
                             </mat-list-item>
                         </div>
                     </mat-drawer>

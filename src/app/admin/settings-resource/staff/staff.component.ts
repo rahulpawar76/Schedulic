@@ -345,6 +345,10 @@ export class StaffComponent implements OnInit {
       email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
       phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       description : ['',Validators.maxLength(255)],
+      country : ['',Validators.required],
+      state : ['',Validators.required],
+      city : ['',Validators.required],
+      zip : ['',Validators.required],
       staff_id : [null],
     });
     let addNewAction = window.location.search.split("?staff")
@@ -1139,6 +1143,10 @@ export class StaffComponent implements OnInit {
       email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)],
       phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       description : ['',Validators.maxLength(255)],
+      country : ['',Validators.required],
+      state : ['',Validators.required],
+      city : ['',Validators.required],
+      zip : ['',Validators.required],
       staff_id : [null],
     });  
   }
@@ -1592,6 +1600,10 @@ export class StaffComponent implements OnInit {
       email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUniqueForEdit.bind(this)],
       phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       description : ['',Validators.maxLength(255)],
+      country : ['',Validators.required],
+      state : ['',Validators.required],
+      city : ['',Validators.required],
+      zip : ['',Validators.required],
       staff_id : [null],
     });
     console.log("this.singleStaffDetail.staff--------",this.singleStaffDetail);

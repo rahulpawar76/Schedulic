@@ -183,7 +183,7 @@
         }
         svg {
             path {
-                stroke: #007bff !important;
+                stroke: #00A89B !important;
             }
         }
         .mat-checkbox-background {
@@ -249,14 +249,14 @@
 }
 
 .theme-active {
-    border: 5px solid #007BFF;
+    border: 5px solid #00A89B;
     position: relative;
     .check-icon {
         position: absolute;
         left: 0;
         top: 0;
         display: block !important;
-        background-color: #007BFF;
+        background-color: #00A89B;
         width: 25px;
         height: 25px;
         border-radius: 0 0 5px;
@@ -271,7 +271,7 @@
     position: absolute;
     top: 5%;
     left: 5%;
-    color: #007BFF;
+    color: #00A89B;
 }
 
 .theme-title {
@@ -346,7 +346,7 @@
 
 .btn-color-dummy {
     text-decoration: underline;
-    color: #007BFF;
+    color: #00A89B;
 }
 
 .btn-color-one {

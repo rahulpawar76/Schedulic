@@ -360,10 +360,10 @@
     }
     &.valid {
         .coupon-code-input {
-            border: 1px dashed #007bff;
+            border: 1px dashed #00A89B;
         }
         .remove-code {
-            background-color: #007bff;
+            background-color: #00A89B;
             border: 0;
             border-radius: 100%;
             height: 30px;
@@ -402,7 +402,7 @@
         padding: 12px 10px;
         border-radius: 0px 5px 5px 0px;
         border: 0px;
-        background-color: #007bff;
+        background-color: #00A89B;
         color: $text-bg;
         text-align: center;
         line-height: 1;
