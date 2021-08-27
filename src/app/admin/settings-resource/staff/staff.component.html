@@ -192,8 +192,8 @@
                                 </div>
                                 <div class="col-6 common-input">
                                     <div class="form-group">
-                                        <mat-select placeholder="Country" formControlName="country" class="form-control">
-                                            <mat-option value="1">1</mat-option>
+                                        <mat-select placeholder="Country" formControlName="country" class="form-control" (selectionChange)="selectCountry($event.value)">
+                                            <mat-option *ngFor="let allCountry of allCountry" [value]="allCountry.id">{{allCountry.name}}</mat-option>
                                         </mat-select>
                                     </div>
                                     <span class="error-wrap" *ngIf="StaffCreate.get('country').touched || StaffCreate.get('country').dirty ">
@@ -202,8 +202,8 @@
                                 </div>
                                 <div class="col-6 common-input">
                                     <div class="form-group">
-                                        <mat-select placeholder="State" formControlName="state" class="form-control">
-                                            <mat-option value="1">1</mat-option>
+                                        <mat-select placeholder="State" formControlName="state" class="form-control" (selectionChange)="selectStates($event.value)">
+                                            <mat-option *ngFor="let allStates of allStates" [value]="allStates.id">{{allStates.name}}</mat-option>
                                         </mat-select>
                                     </div>
                                     <span class="error-wrap" *ngIf="StaffCreate.get('state').touched || StaffCreate.get('state').dirty ">
@@ -213,7 +213,7 @@
                                 <div class="col-6 common-input">
                                     <div class="form-group">
                                         <mat-select placeholder="City" formControlName="city" class="form-control">
-                                            <mat-option value="1">1</mat-option>
+                                            <mat-option *ngFor="let allCities of allCities" [value]="allCities.id">{{allCities.name}}</mat-option>
                                         </mat-select>
                                     </div>
                                     <span class="error-wrap" *ngIf="StaffCreate.get('city').touched || StaffCreate.get('city').dirty ">

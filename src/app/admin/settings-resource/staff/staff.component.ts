@@ -176,7 +176,9 @@ export class StaffComponent implements OnInit {
   categoryServiceCheckCatId: any = [];
   categoryServiceChecksubCatId: any = [];
   categoryServiceCheckServiceId: any = [];
-
+  allCountry: any=[];
+  allStates: any=[];
+  allCities: any=[];
 
   onFileDropped($event) {
     this.prepareFilesList($event);  
@@ -1124,6 +1126,7 @@ export class StaffComponent implements OnInit {
 
   fnAddNewStaff(){
     this.isLoaderAdmin = true;
+    this.gelAllCountry();
     this.addStaffPage = true;
     this.staffListPage = false;
     this.singleStaffView = false;
@@ -1149,6 +1152,64 @@ export class StaffComponent implements OnInit {
       zip : ['',Validators.required],
       staff_id : [null],
     });  
+  }
+
+
+  
+  gelAllCountry(){
+    this.isLoaderAdmin =true;
+    this.adminSettingsService.gelAllCountry().subscribe((response:any) => {
+      if(response.data == true){
+        this.allCountry = response.response
+        
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this.allCountry = [];
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+      this.isLoaderAdmin =false;
+    })
+  }
+  selectCountry(country_id){
+    this.isLoaderAdmin =true;
+    this.adminSettingsService.gelAllState(country_id).subscribe((response:any) => {
+      if(response.data == true){
+        this.allStates = response.response
+        this.StaffCreate.controls['state'].setValue('');
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this.allStates = ''
+        this.StaffCreate.controls['state'].setValue('');
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+      this.isLoaderAdmin =false;
+    })
+  }
+  selectStates(state_id){
+    this.isLoaderAdmin =true;
+    this.adminSettingsService.gelAllCities(state_id).subscribe((response:any) => {
+      if(response.data == true){
+        this.StaffCreate.controls['city'].setValue('');
+        this.allCities = response.response;
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this.allCities = [];
+        this.StaffCreate.controls['city'].setValue('');
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+      this.isLoaderAdmin =false;
+    })
   }
 
   searchService(event){
@@ -1445,6 +1506,10 @@ export class StaffComponent implements OnInit {
           formData.append('phone', this.StaffCreate.get('phone').value);
           formData.append('address', this.StaffCreate.get('address').value);
           formData.append('description', this.StaffCreate.get('description').value);
+          formData.append('country', this.StaffCreate.get('country').value);
+          formData.append('state', this.StaffCreate.get('state').value);
+          formData.append('city', this.StaffCreate.get('city').value);
+          formData.append('postalcode', this.StaffCreate.get('zip').value); 
           formData.append('servicelist', this.categoryServiceCheckServiceId);
           
           if(this.staffImageUrl!=undefined){
@@ -1459,6 +1524,10 @@ export class StaffComponent implements OnInit {
         this.StaffCreate.get('phone').markAsTouched();
         this.StaffCreate.get('address').markAsTouched();
         this.StaffCreate.get('description').markAsTouched();
+        this.StaffCreate.get('country').markAsTouched();
+        this.StaffCreate.get('state').markAsTouched();
+        this.StaffCreate.get('city').markAsTouched();
+        this.StaffCreate.get('zip').markAsTouched();
       }
 
     }else{ 
@@ -1478,6 +1547,10 @@ export class StaffComponent implements OnInit {
         formData.append('phone', this.StaffCreate.get('phone').value);
         formData.append('address', this.StaffCreate.get('address').value);
         formData.append('description', this.StaffCreate.get('description').value);
+        formData.append('country', this.StaffCreate.get('country').value);
+        formData.append('state', this.StaffCreate.get('state').value);
+        formData.append('city', this.StaffCreate.get('city').value);
+        formData.append('postalcode', this.StaffCreate.get('zip').value);  
         formData.append('servicelist', this.categoryServiceCheckServiceId);
         formData.append('image', this.staffImageUrl);
          this.createNewStaff(formData);
@@ -1491,6 +1564,10 @@ export class StaffComponent implements OnInit {
         this.StaffCreate.get('phone').markAsTouched();
         this.StaffCreate.get('address').markAsTouched();
         this.StaffCreate.get('description').markAsTouched();
+        this.StaffCreate.get('country').markAsTouched();
+        this.StaffCreate.get('state').markAsTouched();
+        this.StaffCreate.get('city').markAsTouched();
+        this.StaffCreate.get('zip').markAsTouched();
       }
     }
   }
@@ -1577,7 +1654,10 @@ export class StaffComponent implements OnInit {
   }
 
   fnEditStaff(staffId){
-    this.editStaffId = staffId
+    this.editStaffId = staffId;
+    this.gelAllCountry();
+    this.selectCountry(this.singleStaffDetail.staff[0].country_details.id);
+    this.selectStates(this.singleStaffDetail.staff[0].state_details.id);
     this.isLoaderAdmin = true;
     this.addStaffPage = true;
     this.staffListPage = false;
@@ -1592,35 +1672,27 @@ export class StaffComponent implements OnInit {
 
     //this.StaffCreate.controls['email'].setValidators([[Validators.required,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)]);
     // this.StaffCreate.controls['email'].updateValueAndValidity();
-
+console.log(this.singleStaffDetail.staff[0])
     this.StaffCreate = this._formBuilder.group({
-      firstname : ['',[ Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
-      lastname : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
-      address : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
-      email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUniqueForEdit.bind(this)],
-      phone : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
-      description : ['',Validators.maxLength(255)],
-      country : ['',Validators.required],
-      state : ['',Validators.required],
-      city : ['',Validators.required],
-      zip : ['',Validators.required],
-      staff_id : [null],
+      firstname : [this.singleStaffDetail.staff[0].firstname,[ Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
+      lastname : [this.singleStaffDetail.staff[0].lastname, [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
+      address : [this.singleStaffDetail.staff[0].address, [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+      email : [this.singleStaffDetail.staff[0].email, [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUniqueForEdit.bind(this)],
+      phone : [this.singleStaffDetail.staff[0].phone, [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
+      description : [this.singleStaffDetail.staff[0].description,Validators.maxLength(255)],
+      country : [this.singleStaffDetail.staff[0].country_details.id,Validators.required],
+      state : [this.singleStaffDetail.staff[0].state_details.id,Validators.required],
+      city : [this.singleStaffDetail.staff[0].city_details.id,Validators.required],
+      zip : [this.singleStaffDetail.staff[0].zip,Validators.required],
+      staff_id : [staffId],
     });
-    console.log("this.singleStaffDetail.staff--------",this.singleStaffDetail);
     
-    this.StaffCreate.controls['firstname'].setValue(this.singleStaffDetail.staff[0].firstname);
-    this.StaffCreate.controls['lastname'].setValue(this.singleStaffDetail.staff[0].lastname);
-    this.StaffCreate.controls['phone'].setValue(this.singleStaffDetail.staff[0].phone);
-    this.StaffCreate.controls['address'].setValue(this.singleStaffDetail.staff[0].address);
-    this.StaffCreate.controls['description'].setValue(this.singleStaffDetail.staff[0].description);
-    this.StaffCreate.controls['email'].setValue(this.singleStaffDetail.staff[0].email);
-    this.StaffCreate.controls['staff_id'].setValue(staffId);
+
     this.singleStaffDetail.staff[0].services.forEach(element => {
       // this.selectedServicesArr.push(element.id);
       this.selectedServiceNewStaff.push(element.id);
     });
-    console.log("selectedServiceNewStaff");
-    console.log(this.selectedServiceNewStaff);
+    console.log(this.StaffCreate);
 
     this.getCateServiceList();
     this.isLoaderAdmin = false;
@@ -1628,7 +1700,7 @@ export class StaffComponent implements OnInit {
 
  fnBackStaff(){
    this.addStaffPage = false;
-  this.staffListPage = true;
+    this.staffListPage = true;
     this.singleStaffView = false;
 
  }
