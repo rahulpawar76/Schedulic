@@ -2,8 +2,10 @@
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div>
     <div class="left-side-menu setting-menu" [ngClass]="{ 'short-menu': settingSideMenuToggle === true }">
         <div class="leftarrow-icon d-flex">
-            <mat-icon (click)="fnSettingMenuToggleSmall()" *ngIf="!settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_back</mat-icon>
-            <mat-icon (click)="fnSettingMenuToggleLarge()" *ngIf="settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_forward</mat-icon>
+            <mat-icon (click)="fnSettingMenuToggleSmall()" *ngIf="!settingSideMenuToggle"
+                class="customer-drawer-leftarrow ml-auto pointer">arrow_back</mat-icon>
+            <mat-icon (click)="fnSettingMenuToggleLarge()" *ngIf="settingSideMenuToggle"
+                class="customer-drawer-leftarrow ml-auto pointer">arrow_forward</mat-icon>
         </div>
         <h6>Resource Management</h6>
         <div routerLink="/admin/settings-resource" class="d-flex setting-menu-item">
@@ -93,15 +95,15 @@
                 <h5>Postal Code</h5>
                 <p class="mb-0">Postal codes are defined geographical boundaries within a location. </p>
                 <p class="mb-0"> Staff can be these area code.</p>
-                <mat-slide-toggle [checked]="PostalCodeCheckStatus" (change)="fnChangePostalCodeCheck($event.checked)" class="postalcode-check-status">Check Postal Code for Booking</mat-slide-toggle>
+
             </div>
             <div class="d-flex float-right mt-2 flex-wrap justify-content-end">
                 <!-- <button mat-button appearance="fill" class="time-of-btn ml-2 mr-2">Upload Postal Code</button> -->
-                <button (click)="addcsvPostalCode()" class="time-of-btn ml-2 mr-2" style="width: 190px;">Upload Postal Code</button>
-                <button (click)="addPostalCode()" class="time-of-btn ml-2 mr-2">Add Postal Code</button>
+                <button mat-button (click)="addcsvPostalCode()" class="sc-yellow-btn ml-2 mr-2"
+                    style="width: 190px;">Upload Postal Code</button>
+                <button mat-button (click)="addPostalCode()" class="sc-pink-btn ml-2 mr-2">Add Postal Code</button>
             </div>
-            <div class="d-flex w-100 my-2">
-                <mat-form-field class="bottom-border-field dropdown-width mt-0">
+            <!-- <mat-form-field class="bottom-border-field dropdown-width mt-0">
                     <mat-label>Select</mat-label>
                     <mat-select [(ngModel)]="selectedValue" (selectionChange)="fnSelectedPostalCodeStatus($event)" [disabled]="arr.length==0">
 
@@ -109,44 +111,71 @@
                         <mat-option value="inactive">Set Inactive</mat-option>
 
                     </mat-select>
-                </mat-form-field>
-                <div class="postalcode-searchbox mr-2">
-                    <form class="search_input-postalcode">
-                        <div class="form-group has-search">
-                            <span class="fa fa-search form-control-feedback verticalLine"></span>
-                            <input name="searchPostalCode" [(ngModel)]="search.postalCode" (keyup)="postalCodeSearch()" type="text" class="form-control searchbox_postalcode " placeholder="Search Postal Codes">
-                        </div>
-                    </form>
-                </div>
+                </mat-form-field> -->
+            <div class="postalcode-searchbox">
+                <form class="search_input-postalcode">
+                    <div class="form-group has-search">
+                        <span class="fa fa-search form-control-feedback verticalLine"></span>
+                        <input name="searchPostalCode" [(ngModel)]="search.postalCode" (keyup)="postalCodeSearch()"
+                            type="text" class="form-control" placeholder="Search Postal Codes">
+                    </div>
+                </form>
+                <mat-slide-toggle [checked]="PostalCodeCheckStatus" (change)="fnChangePostalCodeCheck($event.checked)"
+                    class="postalcode-check-status">Check Postal Code for Booking</mat-slide-toggle>
             </div>
             <div class="">
                 <div class="postalcode-table">
                     <div class="main-table-content main-cust-table-content">
                         <div class="">
                             <div class="heads main-heading-content postalcode-box header-background " fxLayout="row">
-                                <div class="text-center" fxFlex="5"></div>
-                                <div class="text-center" fxFlex="20">Zipcode</div>
-                                <div class="text-center" fxFlex="20">Area</div>
-                                <div class="text-center" fxFlex="20">Assigned Staff</div>
-                                <div class="text-center" fxFlex="10">Status</div>
-                                <div class="text-center" fxFlex="10"></div>
+                                <div class="" fxFlex="33">
+                                    <mat-checkbox class=""></mat-checkbox> <span>Zipcode </span>
+                                </div>
+                                <!-- <div class="" fxFlex="20"></div> -->
+                                <div class="" fxFlex="33">Area</div>
+                                <!-- <div class="" fxFlex="20">Assigned Staff</div> -->
+                                <div class="text-end" fxFlex="33">
+                                    <div class="form-group ml-auto action-dropdown">
+
+                                        <mat-select class="form-control" [(ngModel)]="selectedValue"
+                                            (selectionChange)="fnSelectedPostalCodeStatus($event)"
+                                            [disabled]="arr.length==0">
+                                            <!-- <mat-option value="">Select an option</mat-option> -->
+                                            <mat-option value="active">Set Active</mat-option>
+                                            <mat-option value="inactive">Set Inactive</mat-option>
+
+                                        </mat-select>
+                                    </div>
+                                </div>
 
                             </div>
                             <div class="content" class="postalcode-list">
                                 <div class="postalcode-box" *ngFor="let postalCode of postalCodeList">
-                                    <div class="text-center" fxFlex="5">
-                                        <mat-checkbox (change)="fnAddPostalCodeId($event.checked,postalCode.id)"></mat-checkbox>
+                                    <div class="" fxFlex="33">
+                                        <mat-checkbox (change)="fnAddPostalCodeId($event.checked,postalCode.id)">
+                                        </mat-checkbox>
+                                        {{postalCode.postal_code}}
                                     </div>
-                                    <div class="text-center " fxFlex="20">{{postalCode.postal_code}}</div>
-                                    <div class="text-center " fxFlex="20">{{postalCode.area}}</div>
-                                    <div class="text-center " fxFlex="20">{{postalCode.staffs_count}}</div>
-                                    <div class="text-center status-toggle" fxFlex="10">
-                                        <mat-slide-toggle [checked]="postalCode.postal_status" (change)="fnChangePostalCodeStatus($event.checked,postalCode.id)"></mat-slide-toggle>
+
+                                    <div class="" fxFlex="33">{{postalCode.area}}</div>
+                                    <!-- <div class=" " fxFlex="20">{{postalCode.staffs_count}}</div> -->
+                                    <div class="main-actions" fxFlex="33">
+                                        <div class="status-toggle mr-4">
+                                            <mat-slide-toggle [checked]="postalCode.postal_status"
+                                                (change)="fnChangePostalCodeStatus($event.checked,postalCode.id)">
+                                            </mat-slide-toggle>
+                                        </div>
+                                        <div class=" pointer mr-4" fxFlex="5"
+                                            (click)="fnDeletePostalCode(postalCode.id)"><i
+                                                class="fa fa-trash-o delete-box"></i></div>
+                                        <div class=" pointer" fxFlex="5" (click)="editPostalCode(postalCode.id)"><i
+                                                class="fa fa-pencil edit-box"></i></div>
                                     </div>
-                                    <div class="text-center pointer" fxFlex="5" (click)="fnDeletePostalCode(postalCode.id)"><i class="fa fa-trash-o delete-box"></i></div>
-                                    <div class="text-center pointer" fxFlex="5" (click)="editPostalCode(postalCode.id)"><i class="fa fa-pencil edit-box"></i></div>
+
+
                                 </div>
-                                <div class="postalcode-box" *ngIf="postalCodeList.length == 0">No Postal Code Available</div>
+                                <div class="postalcode-box" *ngIf="postalCodeList.length == 0">No Postal Code Available
+                                </div>
                             </div>
                         </div>
 
