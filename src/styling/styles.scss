@@ -1148,3 +1148,41 @@
         font-weight: 400;
         font-size: 16px;
     }
+    
+    
+.circle-animat-wrap{
+    margin-bottom:0;
+    .circle-blick-with-border{
+       display: inline-block;
+        width: 10px;
+        height: 10px;
+        line-height: 92px;
+        background-color: #FED74B;
+        border-radius: 50%;
+        color: #fff;
+        position: relative;
+        z-index: 1;
+        margin-right: 10px;
+        box-shadow: 0 20px 70px rgb(0 0 0 / 20%);
+        &:after, &:before{
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: -1;
+            bottom: 0;
+            left: 0;
+            border-radius: 50%;
+            border: .5px solid #FED74B;
+        }
+        &:after{
+            animation: ripple 2s linear infinite;
+        }
+        &:before{
+            animation: ripple 2s linear 1s infinite;
+        }
+    }
+    
+}
+@keyframes ripple{0%{transform:scale(1.5)}75%{transform:scale(2.5);opacity:1}to{transform:scale(3.5);opacity:0}}

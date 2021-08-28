@@ -42,6 +42,15 @@
 .selected-business-btn-main {
     display: table;
     margin: 0 auto;
+    label{
+        color:#565657;
+        font-size:16px;
+        margin-bottom: 0;
+        font-weight: 500;   
+        span {
+            color:#0E0E0E;
+        }
+    }
 }
 
 // Add Menu Css
@@ -88,15 +97,6 @@ mat-drawer-content {
     color: $iconcolors;
 }
 
-.matlist {
-    display: block !important;
-    height: 60px !important;
-    width: 100% !important;
-    padding: 5px 0 !important;
-    &:hover {
-        background-color: $bgblue;
-    }
-}
 
 
 
@@ -314,16 +314,24 @@ input:focus {
                 width: 60px;
                 height: 60px;
                 border-radius: 5px;
-                margin-bottom: 5px;
+                margin-bottom: 5px !important;
+                margin:0 auto;
                 &.logo {
-                    margin-bottom: 15px;
+                    margin-bottom: 30px !important;
                     opacity: 1;
                     img {
                         width: 40px;
+                        opacity: 1;
+                    }
+                    &:hover{
+                        .mat-list-item-content{
+                            background-color:transparent;
+                        }
                     }
                 }
                 img {
                     width: 28px;
+                    opacity:0.8;
                 }
                 .mat-list-item-content {
                     display: flex;
@@ -357,6 +365,9 @@ input:focus {
                 &.active {
                     .mat-list-item-content{
                         background-color: rgba(0, 119, 110, 0.61);
+                        img {
+                            opacity:1;
+                        }
                     }
                 }
             }
@@ -571,9 +582,9 @@ input:focus {
 .top_admin_menu {
     height: calc(100vh - 136px);
     overflow-y: scroll;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    // display: flex;
+    // flex-wrap: wrap;
+    // justify-content: center;
 }
 
 .bottom_admin_menu {

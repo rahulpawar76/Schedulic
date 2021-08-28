@@ -1,5 +1,5 @@
 <mat-drawer-content id="business_hours" class="ml-0">
-    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div>
     <div class="left-side-menu setting-menu" [ngClass]="{ 'short-menu': settingSideMenuToggle === true }">
         <div class="leftarrow-icon d-flex">
             <mat-icon (click)="fnSettingMenuToggleSmall()" *ngIf="!settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_back</mat-icon>
@@ -88,205 +88,211 @@
         </div>
     </div>
     <div class="setting-right-side-content with-footer" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
-        <h5 class="text-left pl-3 mt-3">Business Hours</h5>
-        <mat-tab-group>
+        <div class="row mx-0 mb-3 mt-4 pl-4 pr-4">
+            <div class="col-8">
+                <div class="d-flex mb-1">
+                    <h5 class="page-title">Business Hours</h5>
+                </div>
+                <p class="w-100 d-flex page-des">Staff/team members are required to deliver services to your customers. you can define rights/permissions, and the services they can perform.</p>
+            </div>
+        </div>
+        <mat-tab-group class="common-tab-group">
             <mat-tab label="Working Hours">
                 <div class="main-working-hours-content">
-                    <!-- <div class="d-flex mb-3">
-                        <p class="mt-4">Time Zone</p>
-                        <mat-form-field class=" bottom-border-field col-6">
-                            <mat-label></mat-label>
-                            <mat-select (selectionChange)="fnChangeTimeZone($event)" [(value)]="selectedTimeZone">
-                                <mat-option>
-                                    <ngx-mat-select-search [formControl]="timeZoneFilterCtrl"></ngx-mat-select-search>
-                                </mat-option>
-                                <mat-option value="{{listTimeZone.name}}" *ngFor="let listTimeZone of listTimeZoneList | async">({{listTimeZone.utc}}) {{listTimeZone.name}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div> -->
                     <div class="">
                         <div class="Customer-appointment-table">
                             <div class="main-table-content main-cust-table-content">
                                 <div class="">
 
-                                    <div class="content" class="example-list">
+                                    <div class="content" class="working-hours-list">
                                         <form [formGroup]="formSetWorkingHours">
-                                            <div class=" working-hour-box">
-                                                <div class="" fxFlex="10">
+                                            <div class="working-hour-box">
+                                                <div class="" fxFlex="15">
                                                     <mat-slide-toggle formControlName="mondayToggle" (change)="fnChangeToggle($event,'Monday')"></mat-slide-toggle>
                                                 </div>
-                                                <div class="" fxFlex="15">Monday</div>
-                                                <div class="" fxFlex="30" *ngIf="mondayOn">
+                                                <div class="" fxFlex="20">Monday</div>
+                                                <div class="working-hrs-drpdwn" fxFlex="65" *ngIf="mondayOn">
                                                     <div class="d-flex">
-                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                            <mat-label></mat-label>
-                                                            <mat-select formControlName="mondayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Monday')">
+                                                        <div class="common-input">
+                                                            <div class="form-group">
+                                                            <mat-select class="form-control" formControlName="mondayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Monday')">
                                                                 <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
-                                                        </mat-form-field>
+                                                        </div>
+                                                        </div>
                                                         <div class="to-center">to</div>
-                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                            <mat-label></mat-label>
-                                                            <mat-select formControlName="mondayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Monday')">
+                                                        <div class="common-input">
+                                                            <div class="form-group">
+                                                            <mat-select class="form-control" formControlName="mondayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Monday')">
                                                                 <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="mondayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
-                                                        </mat-form-field>
+                                                        </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="" *ngIf="!mondayOn">Closed for Business</div>
-                                                <div class="blue-font pointer ml-2" fxFlex="30">
-                                                    <p class="mb-0 ml-2" (click)="fnApplyToAll()"> Apply to all </p>
-                                                </div>
                                             </div>
                                             <div class="working-hour-box">
-                                                <div class="" fxFlex="10">
+                                                <div class="" fxFlex="15">
                                                     <mat-slide-toggle formControlName="tuesdayToggle" (change)="fnChangeToggle($event,'Tuesday')"></mat-slide-toggle>
                                                 </div>
-                                                <div class="" fxFlex="15">Tuesday</div>
-                                                <div class="" fxFlex="30" *ngIf="tuesdayOn">
+                                                <div class="" fxFlex="20">Tuesday</div>
+                                                <div class="working-hrs-drpdwn" fxFlex="65" *ngIf="tuesdayOn">
                                                     <div class="d-flex">
-                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                            <mat-label></mat-label>
-                                                            <mat-select formControlName="tuesdayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Tuesday')">
+                                                        <div class="common-input">
+                                                            <div class="form-group">
+                                                            <mat-select class="form-control" formControlName="tuesdayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Tuesday')">
                                                                 <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
-                                                        </mat-form-field>
+                                                        </div>
+                                                        </div>
                                                         <div class="to-center">to</div>
-                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                            <mat-label></mat-label>
-                                                            <mat-select formControlName="tuesdayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Tuesday')">
+                                                        <div class="common-input">
+                                                            <div class="form-group">
+                                                            <mat-select class="form-control" formControlName="tuesdayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Tuesday')">
                                                                 <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="tuesdayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
-                                                        </mat-form-field>
+                                                        </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="" *ngIf="!tuesdayOn">Closed for Business</div>
-                                                <div class="blue-font" fxFlex="30"></div>
                                             </div>
                                             <div class="working-hour-box">
-                                                <div class="" fxFlex="10">
+                                                <div class="" fxFlex="15">
                                                     <mat-slide-toggle formControlName="wednesdayToggle" (change)="fnChangeToggle($event,'Wednesday')"></mat-slide-toggle>
                                                 </div>
-                                                <div class="" fxFlex="15">Wednesday</div>
-                                                <div class="" fxFlex="30" *ngIf="wednesdayOn">
+                                                <div class="" fxFlex="20">Wednesday</div>
+                                                <div class="working-hrs-drpdwn" fxFlex="65" *ngIf="wednesdayOn">
                                                     <div class="d-flex">
-                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                            <mat-label></mat-label>
-                                                            <mat-select formControlName="wednesdayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Wednesday')">
+                                                        <div class="common-input">
+                                                            <div class="form-group">
+                                                            <mat-select class="form-control" formControlName="wednesdayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Wednesday')">
                                                                 <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
-                                                        </mat-form-field>
+                                                        </div>
+                                                        </div>
                                                         <div class="to-center">to</div>
-                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                            <mat-label></mat-label>
-                                                            <mat-select formControlName="wednesdayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Wednesday')">
+                                                        <div class="common-input">
+                                                            <div class="form-group">
+                                                            <mat-select class="form-control" formControlName="wednesdayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Wednesday')">
                                                                 <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="wednesdayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
-                                                        </mat-form-field>
+                                                        </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="" *ngIf="!wednesdayOn">Closed for Business</div>
-                                                <div class="blue-font" fxFlex="30"></div>
                                             </div>
                                             <div class="working-hour-box">
-                                                <div class="" fxFlex="10">
+                                                <div class="" fxFlex="15">
                                                     <mat-slide-toggle formControlName="thursdayToggle" (change)="fnChangeToggle($event,'Thursday')"></mat-slide-toggle>
                                                 </div>
-                                                <div class="" fxFlex="15">Thursday</div>
-                                                <div class="" fxFlex="30" *ngIf="thursdayOn">
+                                                <div class="" fxFlex="20">Thursday</div>
+                                                <div class="working-hrs-drpdwn" fxFlex="65" *ngIf="thursdayOn">
                                                     <div class="d-flex">
-                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                            <mat-label></mat-label>
-                                                            <mat-select formControlName="thursdayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Thursday')">
+                                                        <div class="common-input">
+                                                            <div class="form-group">
+                                                            <mat-select class="form-control" formControlName="thursdayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Thursday')">
                                                                 <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
-                                                        </mat-form-field>
+                                                        </div>
+                                                        </div>
                                                         <div class="to-center">to</div>
-                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                            <mat-label></mat-label>
-                                                            <mat-select formControlName="thursdayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Thursday')">
+                                                        <div class="common-input">
+                                                            <div class="form-group">
+                                                            <mat-select class="form-control" formControlName="thursdayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Thursday')">
                                                                 <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="thursdayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
-                                                        </mat-form-field>
+                                                        </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="" *ngIf="!thursdayOn">Closed for Business</div>
-                                                <div class="blue-font" fxFlex="30"></div>
                                             </div>
                                             <div class="working-hour-box">
-                                                <div class="" fxFlex="10">
+                                                <div class="" fxFlex="15">
                                                     <mat-slide-toggle formControlName="fridayToggle" (change)="fnChangeToggle($event,'Friday')"></mat-slide-toggle>
                                                 </div>
-                                                <div class="" fxFlex="15">Friday</div>
-                                                <div class="" fxFlex="30" *ngIf="fridayOn">
+                                                <div class="" fxFlex="20">Friday</div>
+                                                <div class="working-hrs-drpdwn" fxFlex="65" *ngIf="fridayOn">
                                                     <div class="d-flex">
-                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                            <mat-label></mat-label>
-                                                            <mat-select formControlName="fridayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Friday')">
+                                                        <div class="common-input">
+                                                            <div class="form-group">
+                                                            <mat-select class="form-control" formControlName="fridayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Friday')">
                                                                 <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
-                                                        </mat-form-field>
+                                                        </div>
+                                                        </div>
                                                         <div class="to-center">to</div>
-                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                            <mat-label></mat-label>
-                                                            <mat-select formControlName="fridayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Friday')">
+                                                        <div class="common-input">
+                                                            <div class="form-group">
+                                                            <mat-select class="form-control" formControlName="fridayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Friday')">
                                                                 <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="fridayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
-                                                        </mat-form-field>
+                                                        </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="" *ngIf="!fridayOn">Closed for Business</div>
-                                                <div class="blue-font" fxFlex="30"></div>
                                             </div>
                                             <div class="working-hour-box">
-                                                <div class="" fxFlex="10">
+                                                <div class="" fxFlex="15">
                                                     <mat-slide-toggle formControlName="saturdayToggle" (change)="fnChangeToggle($event,'Saturday')"></mat-slide-toggle>
                                                 </div>
-                                                <div class="" fxFlex="15">Saturday</div>
-                                                <div class="" fxFlex="30" *ngIf="saturdayOn">
+                                                <div class="" fxFlex="20">Saturday</div>
+                                                <div class="working-hrs-drpdwn" fxFlex="65" *ngIf="saturdayOn">
                                                     <div class="d-flex">
-                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                            <mat-label></mat-label>
-                                                            <mat-select formControlName="saturdayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Saturday')">
+                                                        <div class="common-input">
+                                                            <div class="form-group">
+                                                            <mat-select class="form-control" formControlName="saturdayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Saturday')">
                                                                 <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
-                                                        </mat-form-field>
+                                                        </div>
+                                                        </div>
                                                         <div class="to-center">to</div>
-                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                            <mat-label></mat-label>
-                                                            <mat-select formControlName="saturdayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Saturday')">
+                                                        <div class="common-input">
+                                                            <div class="form-group">
+                                                            <mat-select class="form-control" formControlName="saturdayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Saturday')">
                                                                 <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="saturdayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
-                                                        </mat-form-field>
+                                                        </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="" *ngIf="!saturdayOn">Closed for Business</div>
-                                                <div class="blue-font" fxFlex="30"></div>
                                             </div>
                                             <div class="working-hour-box">
-                                                <div class="" fxFlex="10">
+                                                <div class="" fxFlex="15">
                                                     <mat-slide-toggle formControlName="sundayToggle" (change)="fnChangeToggle($event,'Sunday')"></mat-slide-toggle>
                                                 </div>
-                                                <div class="" fxFlex="15">Sunday</div>
-                                                <div class="" fxFlex="30" *ngIf="sundayOn">
+                                                <div class="" fxFlex="20">Sunday</div>
+                                                <div class="working-hrs-drpdwn" fxFlex="65" *ngIf="sundayOn">
                                                     <div class="d-flex">
-                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                            <mat-label></mat-label>
-                                                            <mat-select formControlName="sundayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Sunday')">
+                                                        <div class="common-input">
+                                                            <div class="form-group">
+                                                            <mat-select class="form-control" formControlName="sundayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Sunday')">
                                                                 <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
-                                                        </mat-form-field>
+                                                        </div>
+                                                        </div>
                                                         <div class="to-center">to</div>
-                                                        <mat-form-field class="bottom-border-field workinghour-dropdown">
-                                                            <mat-label></mat-label>
-                                                            <mat-select formControlName="sundayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Sunday')">
+                                                        <div class="common-input">
+                                                            <div class="form-group">
+                                                            <mat-select class="form-control" formControlName="sundayEndTime" (selectionChange)="fnOnChangeEndTimeWorkingHour($event,'Sunday')">
                                                                 <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="sundayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
                                                             </mat-select>
-                                                        </mat-form-field>
+                                                        </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="" *ngIf="!sundayOn">Closed for Business</div>
-                                                <div class="blue-font" fxFlex="30"></div>
+                                            </div>
+                                            
+                                        </form>
+                                    </div>
+                                            <div class="blue-font pointer ml-2">
+                                                <p class="mb-0 ml-2" (click)="fnApplyToAll()"> Apply to all </p>
                                             </div>
                                             <mat-card class="row footer-save-container">
                                                 <div class="company-action-btn d-flex">
@@ -300,8 +306,6 @@
                                                 <button mat-button class="cancel-btn my-3" (click)="fnCancelWorkingHours()">Cancel</button>
                                                 <button mat-button class="save-btn my-3" (click)="fnCreateWorkingHours()">Save</button>
                                             </div> -->
-                                        </form>
-                                    </div>
                                 </div>
                             </div>
                         </div>
