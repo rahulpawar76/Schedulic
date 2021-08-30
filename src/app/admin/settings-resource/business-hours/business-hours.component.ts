@@ -59,6 +59,34 @@ export class BusinessHoursComponent implements OnInit {
   selectedEndTimeSaturday: any;
   selectedStartTimeSunday: any;
   selectedEndTimeSunday: any;
+  selectedWorkHourStartTimeMonday: any;
+  selectedWorkHourEndTimeMonday: any;
+  selectedWorkHourStartTimeTuesday: any;
+  selectedWorkHourEndTimeTuesday: any;
+  selectedWorkHourStartTimeWednesday: any;
+  selectedWorkHourEndTimeWednesday: any;
+  selectedWorkHourStartTimeThursday: any;
+  selectedWorkHourEndTimeThursday: any;
+  selectedWorkHourStartTimeFriday: any;
+  selectedWorkHourEndTimeFriday: any;
+  selectedWorkHourStartTimeSaturday: any;
+  selectedWorkHourEndTimeSaturday: any;
+  selectedWorkHourStartTimeSunday: any;
+  selectedWorkHourEndTimeSunday: any;
+  showMondayWorkHourAddForm: boolean=false;
+  showTuesdayWorkHourAddForm: boolean=false;
+  showWednesdayWorkHourAddForm: boolean=false;
+  showThursdayWorkHourAddForm: boolean=false;
+  showFridayWorkHourAddForm: boolean=false;
+  showSaturdayWorkHourAddForm: boolean=false;
+  showSundayWorkHourAddForm: boolean=false;
+  mondayWorkHourAvailable:boolean=false;
+  sundayWorkHourAvailable:boolean=false;
+  tuesdayWorkHourAvailable:boolean=false;
+  wednesdayWorkHourAvailable:boolean=false;
+  thursdayWorkHourAvailable:boolean=false;
+  fridayWorkHourAvailable:boolean=false;
+  saturdayWorkHourAvailable:boolean=false;
   showMondayAddForm: boolean=false;
   showTuesdayAddForm: boolean=false;
   showWednesdayAddForm: boolean=false;
@@ -169,64 +197,48 @@ export class BusinessHoursComponent implements OnInit {
     let workingHoursArray:any=[];
     let workingHoursTempArray={
       dayNumber:"",
-      start_time:"",
-      end_time:"",
       offday:""
     };
 
     workingHoursTempArray={
       dayNumber:"1",
-      start_time:this.formSetWorkingHours.get("mondayStartTime").value,
-      end_time:this.formSetWorkingHours.get("mondayEndTime").value,
-      offday:this.formSetWorkingHours.get("mondayToggle").value?"N":"Y"
+      offday:this.mondayOn?"N":"Y"
     };
     workingHoursArray.push(workingHoursTempArray);
 
     workingHoursTempArray={
       dayNumber:"2",
-      start_time:this.formSetWorkingHours.get("tuesdayStartTime").value,
-      end_time:this.formSetWorkingHours.get("tuesdayEndTime").value,
-      offday:this.formSetWorkingHours.get("tuesdayToggle").value?"N":"Y"
+      offday:this.tuesdayOn?"N":"Y"
     };
     workingHoursArray.push(workingHoursTempArray);
 
     workingHoursTempArray={
       dayNumber:"3",
-      start_time:this.formSetWorkingHours.get("wednesdayStartTime").value,
-      end_time:this.formSetWorkingHours.get("wednesdayEndTime").value,
-      offday:this.formSetWorkingHours.get("wednesdayToggle").value?"N":"Y"
+      offday:this.wednesdayOn?"N":"Y"
     };
     workingHoursArray.push(workingHoursTempArray);
 
     workingHoursTempArray={
       dayNumber:"4",
-      start_time:this.formSetWorkingHours.get("thursdayStartTime").value,
-      end_time:this.formSetWorkingHours.get("thursdayEndTime").value,
-      offday:this.formSetWorkingHours.get("thursdayToggle").value?"N":"Y"
+      offday:this.thursdayOn?"N":"Y"
     };
     workingHoursArray.push(workingHoursTempArray);
 
     workingHoursTempArray={
       dayNumber:"5",
-      start_time:this.formSetWorkingHours.get("fridayStartTime").value,
-      end_time:this.formSetWorkingHours.get("fridayEndTime").value,
-      offday:this.formSetWorkingHours.get("fridayToggle").value?"N":"Y"
+      offday:this.fridayOn?"N":"Y"
     };
     workingHoursArray.push(workingHoursTempArray);
 
     workingHoursTempArray={
       dayNumber:"6",
-      start_time:this.formSetWorkingHours.get("saturdayStartTime").value,
-      end_time:this.formSetWorkingHours.get("saturdayEndTime").value,
-      offday:this.formSetWorkingHours.get("saturdayToggle").value?"N":"Y"
+      offday:this.saturdayOn?"N":"Y"
     };
     workingHoursArray.push(workingHoursTempArray);
 
     workingHoursTempArray={
       dayNumber:"0",
-      start_time:this.formSetWorkingHours.get("sundayStartTime").value,
-      end_time:this.formSetWorkingHours.get("sundayEndTime").value,
-      offday:this.formSetWorkingHours.get("sundayToggle").value?"N":"Y"
+      offday:this.saturdayOn?"N":"Y"
     };
     workingHoursArray.push(workingHoursTempArray);
     console.log(JSON.stringify(workingHoursArray));
@@ -331,7 +343,6 @@ export class BusinessHoursComponent implements OnInit {
       this.sundayOn=event.checked;
     }
     
-    this.fnFormBuild(this.mondayOn,this.tuesdayOn,this.wednesdayOn,this.thursdayOn,this.fridayOn,this.saturdayOn,this.sundayOn);
   }
 
   fnGetTimeSlotsList(start, end,interval){
@@ -468,84 +479,6 @@ export class BusinessHoursComponent implements OnInit {
           }
         });
         console.log(this.workingHoursList);
-
-        for(var i=0; i<this.timeSlotList.length; i++){
-          if(this.timeSlotList[i].long==this.workingHoursList[0].day_start_time){
-            this.mondayWorkingHourStartTimeIndex=i;
-          }
-          if(this.timeSlotList[i].long==this.workingHoursList[0].day_end_time){
-            this.mondayWorkingHourEndTimeIndex=i;
-          }
-          
-          if(this.timeSlotList[i].long==this.workingHoursList[1].day_start_time){
-            this.tuesdayWorkingHourStartTimeIndex=i;
-          }
-          if(this.timeSlotList[i].long==this.workingHoursList[1].day_end_time){
-            this.tuesdayWorkingHourEndTimeIndex=i;
-          }
-          
-          if(this.timeSlotList[i].long==this.workingHoursList[2].day_start_time){
-            this.wednesdayWorkingHourStartTimeIndex=i;
-          }
-          if(this.timeSlotList[i].long==this.workingHoursList[2].day_end_time){
-            this.wednesdayWorkingHourEndTimeIndex=i;
-          }
-          
-          if(this.timeSlotList[i].long==this.workingHoursList[3].day_start_time){
-            this.thursdayWorkingHourStartTimeIndex=i;
-          }
-          if(this.timeSlotList[i].long==this.workingHoursList[3].day_end_time){
-            this.thursdayWorkingHourEndTimeIndex=i;
-          }
-          
-          if(this.timeSlotList[i].long==this.workingHoursList[4].day_start_time){
-            this.fridayWorkingHourStartTimeIndex=i;
-          }
-          if(this.timeSlotList[i].long==this.workingHoursList[4].day_end_time){
-            this.fridayWorkingHourEndTimeIndex=i;
-          }
-          
-          if(this.timeSlotList[i].long==this.workingHoursList[5].day_start_time){
-            this.saturdayWorkingHourStartTimeIndex=i;
-          }
-          if(this.timeSlotList[i].long==this.workingHoursList[5].day_end_time){
-            this.saturdayWorkingHourEndTimeIndex=i;
-          }
-          
-          if(this.timeSlotList[i].long==this.workingHoursList[6].day_start_time){
-            this.sundayWorkingHourStartTimeIndex=i;
-          }
-          if(this.timeSlotList[i].long==this.workingHoursList[6].day_end_time){
-            this.sundayWorkingHourEndTimeIndex=i;
-          }
-
-        }
-
-        console.log(this.mondayWorkingHourStartTimeIndex);
-        
-        this.formSetWorkingHours = this._formBuilder.group({
-          mondayToggle: [this.workingHoursList[0].off_day=="N"?true:false,this.mondayOn?Validators.required:''],
-          mondayStartTime: [this.workingHoursList[0].day_start_time,this.mondayOn?Validators.required:''],
-          mondayEndTime: [this.workingHoursList[0].day_end_time,this.mondayOn?Validators.required:''],
-          tuesdayToggle: [this.workingHoursList[1].off_day=="N"?true:false,this.tuesdayOn?Validators.required:''],
-          tuesdayStartTime: [this.workingHoursList[1].day_start_time,this.tuesdayOn?Validators.required:''],
-          tuesdayEndTime: [this.workingHoursList[1].day_end_time,this.tuesdayOn?Validators.required:''],
-          wednesdayToggle: [this.workingHoursList[2].off_day=="N"?true:false,this.wednesdayOn?Validators.required:''],
-          wednesdayStartTime: [this.workingHoursList[2].day_start_time,this.wednesdayOn?Validators.required:''],
-          wednesdayEndTime: [this.workingHoursList[2].day_end_time,this.wednesdayOn?Validators.required:''],
-          thursdayToggle: [this.workingHoursList[3].off_day=="N"?true:false,this.thursdayOn?Validators.required:''],
-          thursdayStartTime: [this.workingHoursList[3].day_start_time,this.thursdayOn?Validators.required:''],
-          thursdayEndTime: [this.workingHoursList[3].day_end_time,this.thursdayOn?Validators.required:''],
-          fridayToggle: [this.workingHoursList[4].off_day=="N"?true:false,this.fridayOn?Validators.required:''],
-          fridayStartTime: [this.workingHoursList[4].day_start_time,this.fridayOn?Validators.required:''],
-          fridayEndTime: [this.workingHoursList[4].day_end_time,this.fridayOn?Validators.required:''],
-          saturdayToggle: [this.workingHoursList[5].off_day=="N"?true:false,this.saturdayOn?Validators.required:''],
-          saturdayStartTime: [this.workingHoursList[5].day_start_time,this.saturdayOn?Validators.required:''],
-          saturdayEndTime: [this.workingHoursList[5].day_end_time,this.saturdayOn?Validators.required:''],
-          sundayToggle: [this.workingHoursList[6].off_day=="N"?true:false,this.sundayOn?Validators.required:''],
-          sundayStartTime: [this.workingHoursList[6].day_start_time,this.sundayOn?Validators.required:''],
-          sundayEndTime: [this.workingHoursList[6].day_end_time,this.sundayOn?Validators.required:''],
-        })
       }
       else{
        
@@ -1039,6 +972,115 @@ export class BusinessHoursComponent implements OnInit {
     }
   }
 
+
+  fnShowAddWorkHourForm(day){
+    if(day == "Monday"){
+       for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==this.formSetWorkingHours.get("mondayStartTime").value){
+          this.mondayWorkingHourStartTimeIndex=i;
+        }
+        if(this.timeSlotList[i].long==this.formSetWorkingHours.get("mondayEndTime").value){
+          this.mondayWorkingHourEndTimeIndex=i;
+        }
+      }
+      this.selectedWorkHourStartTimeMonday=this.formSetWorkingHours.get("mondayStartTime").value;
+      this.selectedWorkHourEndTimeMonday=this.formSetWorkingHours.get("mondayEndTime").value;
+      this.showMondayAddForm=this.showMondayAddForm==true?false:true;
+      // this.mondayBreakStartTimeIndex=0;
+      // this.mondayBreakEndTimeIndex=this.timeSlotList.length-1;
+    }
+    if(day == "Tuesday"){
+       for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==this.formSetWorkingHours.get("tuesdayStartTime").value){
+          this.tuesdayWorkingHourStartTimeIndex=i;
+        }
+        if(this.timeSlotList[i].long==this.formSetWorkingHours.get("tuesdayEndTime").value){
+          this.tuesdayWorkingHourEndTimeIndex=i;
+        }
+      }
+      this.selectedWorkHourStartTimeTuesday=this.formSetWorkingHours.get("tuesdayStartTime").value;
+      this.selectedWorkHourEndTimeTuesday=this.formSetWorkingHours.get("tuesdayEndTime").value;
+      this.showTuesdayAddForm=this.showTuesdayAddForm==true?false:true;
+      // this.tuesdayBreakStartTimeIndex=0;
+      // this.tuesdayBreakEndTimeIndex=this.timeSlotList.length-1;
+    }
+    if(day == "Wednesday"){
+       for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==this.formSetWorkingHours.get("wednesdayStartTime").value){
+          this.wednesdayWorkingHourStartTimeIndex=i;
+        }
+        if(this.timeSlotList[i].long==this.formSetWorkingHours.get("wednesdayEndTime").value){
+          this.wednesdayWorkingHourEndTimeIndex=i;
+        }
+      }
+      this.selectedWorkHourStartTimeWednesday=this.formSetWorkingHours.get("wednesdayStartTime").value;
+      this.selectedWorkHourEndTimeWednesday=this.formSetWorkingHours.get("wednesdayEndTime").value;
+      this.showWednesdayAddForm=this.showWednesdayAddForm==true?false:true;
+      // this.wednesdayBreakStartTimeIndex=0;
+      // this.wednesdayBreakEndTimeIndex=this.timeSlotList.length-1;
+    }
+    if(day == "Thursday"){
+       for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==this.formSetWorkingHours.get("thursdayStartTime").value){
+          this.thursdayWorkingHourStartTimeIndex=i;
+        }
+        if(this.timeSlotList[i].long==this.formSetWorkingHours.get("thursdayEndTime").value){
+          this.thursdayWorkingHourEndTimeIndex=i;
+        }
+      }
+      this.selectedWorkHourStartTimeThursday=this.formSetWorkingHours.get("thursdayStartTime").value;
+      this.selectedWorkHourEndTimeThursday=this.formSetWorkingHours.get("thursdayEndTime").value;
+      this.showThursdayAddForm=this.showThursdayAddForm==true?false:true;
+      // this.thursdayBreakStartTimeIndex=0;
+      // this.thursdayBreakEndTimeIndex=this.timeSlotList.length-1;
+    }
+    if(day == "Friday"){
+       for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==this.formSetWorkingHours.get("fridayStartTime").value){
+          this.fridayWorkingHourStartTimeIndex=i;
+        }
+        if(this.timeSlotList[i].long==this.formSetWorkingHours.get("fridayEndTime").value){
+          this.fridayWorkingHourEndTimeIndex=i;
+        }
+      }
+      this.selectedWorkHourStartTimeFriday=this.formSetWorkingHours.get("fridayStartTime").value;
+      this.selectedWorkHourEndTimeFriday=this.formSetWorkingHours.get("fridayEndTime").value;
+      this.showFridayAddForm=this.showFridayAddForm==true?false:true;
+      // this.fridayBreakStartTimeIndex=0;
+      // this.fridayBreakEndTimeIndex=this.timeSlotList.length-1;
+    }
+    if(day == "Saturday"){
+       for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==this.formSetWorkingHours.get("saturdayStartTime").value){
+          this.saturdayWorkingHourStartTimeIndex=i;
+        }
+        if(this.timeSlotList[i].long==this.formSetWorkingHours.get("saturdayEndTime").value){
+          this.saturdayWorkingHourEndTimeIndex=i;
+        }
+      }
+      this.selectedWorkHourStartTimeSaturday=this.formSetWorkingHours.get("saturdayStartTime").value;
+      this.selectedWorkHourEndTimeSaturday=this.formSetWorkingHours.get("saturdayEndTime").value;
+      this.showSaturdayAddForm=this.showSaturdayAddForm==true?false:true;
+      // this.saturdayBreakStartTimeIndex=0;
+      // this.saturdayBreakEndTimeIndex=this.timeSlotList.length-1;
+    }
+    if(day == "Sunday"){
+       for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==this.formSetWorkingHours.get("sundayStartTime").value){
+          this.sundayWorkingHourStartTimeIndex=i;
+        }
+        if(this.timeSlotList[i].long==this.formSetWorkingHours.get("sundayEndTime").value){
+          this.sundayWorkingHourEndTimeIndex=i;
+        }
+      }
+      this.selectedWorkHourStartTimeSunday=this.formSetWorkingHours.get("sundayStartTime").value;
+      this.selectedWorkHourEndTimeSunday=this.formSetWorkingHours.get("sundayEndTime").value;
+      this.showSundayAddForm=this.showSundayAddForm==true?false:true;
+      // this.sundayBreakStartTimeIndex=0;
+      // this.sundayBreakEndTimeIndex=this.timeSlotList.length-1;
+    }
+  }
+
   fnOnChangeStartTimeBreak(event,day){
     console.log(event);
     console.log(day);
@@ -1179,7 +1221,149 @@ export class BusinessHoursComponent implements OnInit {
         }
       }
     }
+  }  
+  
+  fnOnChangeStartTimeWorkHour(event,day){
+    if(day == 'Monday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.mondayWorkingHourStartTimeIndex=i;
+        }
+      }
+      if(this.mondayWorkingHourEndTimeIndex<=this.mondayWorkingHourStartTimeIndex){
+        this.selectedWorkHourEndTimeMonday=null;
+      }
+    }
+    
+    if(day == 'Tuesday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.tuesdayWorkingHourStartTimeIndex=i;
+        }
+      }
+      if(this.tuesdayWorkingHourEndTimeIndex<=this.tuesdayWorkingHourStartTimeIndex){
+        this.selectedWorkHourEndTimeTuesday=null;
+      }
+    }
+    
+    if(day == 'Wednesday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.wednesdayWorkingHourStartTimeIndex=i;
+        }
+      }
+      if(this.wednesdayWorkingHourEndTimeIndex<=this.wednesdayWorkingHourStartTimeIndex){
+        this.selectedWorkHourEndTimeWednesday=null;
+      }
+    }
+    
+    if(day == 'Thursday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.thursdayWorkingHourStartTimeIndex=i;
+        }
+      }
+      if(this.thursdayWorkingHourEndTimeIndex<=this.thursdayWorkingHourStartTimeIndex){
+        this.selectedWorkHourEndTimeThursday=null;
+      }
+    }
+    
+    if(day == 'Friday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.fridayWorkingHourStartTimeIndex=i;
+        }
+      }
+      if(this.fridayWorkingHourEndTimeIndex<=this.fridayWorkingHourStartTimeIndex){
+        this.selectedWorkHourEndTimeFriday=null;
+      }
+    }
+    
+    if(day == 'Saturday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.saturdayWorkingHourStartTimeIndex=i;
+        }
+      }
+      if(this.saturdayWorkingHourEndTimeIndex<=this.saturdayWorkingHourStartTimeIndex){
+        this.selectedWorkHourEndTimeSaturday=null;
+      }
+    }
+    
+    if(day == 'Sunday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.sundayWorkingHourStartTimeIndex=i;
+        }
+      }
+      if(this.sundayWorkingHourEndTimeIndex<=this.sundayWorkingHourStartTimeIndex){
+        this.selectedWorkHourEndTimeSunday=null;
+      }
+    }
+
   }
+
+  fnOnChangeEndTimeWorkHour(event,day){
+    
+    if(day == 'Monday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.mondayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Tuesday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.tuesdayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Wednesday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.wednesdayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Thursday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.thursdayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Friday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.fridayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Saturday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.saturdayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Sunday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.sundayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+  }
+
+
+
   fnSettingMenuToggleSmall(){
     this.settingSideMenuToggle = true;
   }
@@ -1402,6 +1586,255 @@ export class BusinessHoursComponent implements OnInit {
       }
     })
   }
+
+  fnAddWorkHour(day){
+    let requestObject={
+      "business_id":'',
+      "start_time":'',
+      "end_time":'',
+      "dayNumber":''
+    }
+    if(day == "Monday"){
+      if(this.selectedWorkHourStartTimeMonday==null || this.selectedWorkHourEndTimeMonday==null){
+        if(this.selectedWorkHourStartTimeMonday==null){
+          this.snackBar.open("Select Start Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        if(this.selectedWorkHourEndTimeMonday==null){
+          this.snackBar.open("Select End Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        
+        return false;
+      }
+      requestObject={
+        "business_id":this.businessId,
+        "start_time":this.selectedWorkHourStartTimeMonday,
+        "end_time":this.selectedWorkHourEndTimeMonday,
+        "dayNumber":"1"
+      }
+      console.log(requestObject);
+    }
+    if(day == "Tuesday"){
+      if(this.selectedWorkHourStartTimeTuesday==null || this.selectedWorkHourEndTimeTuesday==null){
+        if(this.selectedWorkHourStartTimeTuesday==null){
+          this.snackBar.open("Select Start Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        if(this.selectedWorkHourEndTimeTuesday==null){
+          this.snackBar.open("Select End Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        return false;
+      }
+      requestObject={
+        "business_id":this.businessId,
+        "start_time":this.selectedWorkHourStartTimeTuesday,
+        "end_time":this.selectedWorkHourEndTimeTuesday,
+        "dayNumber":"2"
+      }
+      console.log(requestObject);
+    }
+    if(day == "Wednesday"){
+      if(this.selectedWorkHourStartTimeWednesday==null || this.selectedWorkHourEndTimeWednesday==null){
+        if(this.selectedWorkHourStartTimeWednesday==null){
+          this.snackBar.open("Select Start Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        if(this.selectedWorkHourEndTimeWednesday==null){
+          this.snackBar.open("Select End Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        return false;
+      }
+      requestObject={
+        "business_id":this.businessId,
+        "start_time":this.selectedWorkHourStartTimeWednesday,
+        "end_time":this.selectedWorkHourEndTimeWednesday,
+        "dayNumber":"3"
+      }
+      console.log(requestObject);
+    }
+    if(day == "Thursday"){
+      if(this.selectedWorkHourStartTimeThursday==null || this.selectedWorkHourEndTimeThursday==null){
+        if(this.selectedWorkHourStartTimeThursday==null){
+          this.snackBar.open("Select Start Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        if(this.selectedWorkHourEndTimeThursday==null){
+          this.snackBar.open("Select End Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        return false;
+      }
+      requestObject={
+        "business_id":this.businessId,
+        "start_time":this.selectedWorkHourStartTimeThursday,
+        "end_time":this.selectedWorkHourEndTimeThursday,
+        "dayNumber":"4"
+      }
+      console.log(requestObject);
+    }
+    if(day == "Friday"){
+      if(this.selectedWorkHourStartTimeFriday==null || this.selectedWorkHourEndTimeFriday==null){
+        if(this.selectedWorkHourStartTimeFriday==null){
+          this.snackBar.open("Select Start Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        if(this.selectedWorkHourEndTimeFriday==null){
+          this.snackBar.open("Select End Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        return false;
+      }
+      requestObject={
+        "business_id":this.businessId,
+        "start_time":this.selectedWorkHourStartTimeFriday,
+        "end_time":this.selectedWorkHourEndTimeFriday,
+        "dayNumber":"5"
+      }
+      console.log(requestObject);
+    }
+    if(day == "Saturday"){
+      if(this.selectedWorkHourStartTimeSaturday==null || this.selectedWorkHourEndTimeSaturday==null){
+        if(this.selectedWorkHourStartTimeSaturday==null){
+          this.snackBar.open("Select Start Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        if(this.selectedWorkHourEndTimeSaturday==null){
+          this.snackBar.open("Select End Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        return false;
+      }
+      requestObject={
+        "business_id":this.businessId,
+        "start_time":this.selectedWorkHourStartTimeSaturday,
+        "end_time":this.selectedWorkHourEndTimeSaturday,
+        "dayNumber":"6"
+      }
+      console.log(requestObject);
+    }
+    if(day == "Sunday"){
+      if(this.selectedWorkHourStartTimeSunday==null || this.selectedWorkHourEndTimeSunday==null){
+        if(this.selectedWorkHourStartTimeSunday==null){
+          this.snackBar.open("Select Start Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        if(this.selectedWorkHourEndTimeSunday==null){
+          this.snackBar.open("Select End Time.", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+        return false;
+      }
+      requestObject={
+        "business_id":this.businessId,
+        "start_time":this.selectedWorkHourStartTimeSunday,
+        "end_time":this.selectedWorkHourEndTimeSunday,
+        "dayNumber":"0"
+      }
+      console.log(requestObject);
+    }
+    this.adminSettingsService.addNewWorkingHours(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.fnGetWorkingHours();
+        this.showMondayWorkHourAddForm=false;
+        this.showTuesdayWorkHourAddForm=false;
+        this.showWednesdayWorkHourAddForm=false;
+        this.showThursdayWorkHourAddForm=false;
+        this.showFridayWorkHourAddForm=false;
+        this.showSaturdayWorkHourAddForm=false;
+        this.showSundayWorkHourAddForm=false;
+        this.snackBar.open("Break Added.", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['green-snackbar']
+        });
+      }
+       else if(response.data == false && response.response !== 'api token or userid invaild'){
+       this.snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+    })
+  }
+
+  fnDeleteWorkHour(WorkHourId){
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure you want to delete?"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        console.log(WorkHourId);
+        let requestObject={
+          "working_hours_id":WorkHourId
+        }
+
+        this.adminSettingsService.deleteWorkingHours(requestObject).subscribe((response:any) => {
+          if(response.data == true){
+            this.fnGetWorkingHours();
+            this.snackBar.open("Working Hour Deleted.", "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass : ['green-snackbar']
+            });
+          } else if(response.data == false && response.response !== 'api token or userid invaild'){
+           this.snackBar.open("Working Hour Not Deleted.", "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass : ['red-snackbar']
+            });
+          }
+        })
+      }
+    });
+  }
+
 
   fnDeleteBreak(breakId){
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
