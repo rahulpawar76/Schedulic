@@ -23,12 +23,6 @@
     color: white;
 }
 
-.time-off-btn {
-    height: 34px;
-    border-radius: 50px;
-    background-color: #c3ddff;
-    color: $primary-color;
-}
 
 ::ng-deep .big-single-btn {
     height: auto;
@@ -84,7 +78,7 @@
     cursor: move;
 }
 
-.main-working-hours-content {
+.main-working-hours-content, .main-breaks-content {
     margin: 30px;
 }
 
@@ -201,33 +195,14 @@
     padding: 16px 0px;
 }
 
-.Add-braek-btn {
-    width: 100px;
-    height: 34px;
-    border-radius: 50px;
-    background-color: #3ab54a;
-    color: white;
-    &.braek-closed {
-        background-color: #e74033;
-    }
-}
-
-.time-of-box {
-    padding: 10px 10px;
-    border-bottom: solid 1px #ccc;
-    color: rgba(0, 0, 0, 0.87);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-    background: white;
-    font-size: 14px;
-}
-
 .delete-box {
     font-size: 20px;
-    color: red;
+    color: #FF5757;
+}
+
+.save-box {
+    font-size: 20px;
+    color: #00A89B;
 }
 
 .save-btn {
@@ -251,16 +226,6 @@
     min-height: 80px !important;
 }
 
-.breaktime-slot-main {
-    &:first-child {
-        .workinghour-dropdown {
-            margin-top: 0;
-        }
-        .to-center {
-            line-height: 2;
-        }
-    }
-}
 
 
 .setting-right-side-content {
@@ -285,16 +250,17 @@
 .business-cancel-btn {
     width: 128px;
     height: 37px;
-    border-radius: 7px;
+    border-radius: 5px;
     margin-right: 7px;
-    background-color: #dddddd;
+    background-color: #A1A1A1;
+    color: #fff;
     margin-left: auto;
 }
 .company-save-btn {
     width: 109px;
     height: 39px;
-    border-radius: 7px;
-    background-color: #1173f4;
+    border-radius: 5px;
+    background-color: #F04589;
     color: white;
 }
 
@@ -336,23 +302,89 @@
             font-weight: 500;
             margin-bottom: 10px;
             border-radius: 5px;
-            .common-input{
-                margin-bottom: 0;
-                .form-control{
-                    background-color: #fff;
-                    width: 150px;
-                    padding: 12px;
-                    height: 40px;
-                }
-            }
-            .working-hrs-drpdwn{
-                align-items: center;
-                .to-center{
-                    width: 50px;
-                    text-align: center;
-                    margin: auto 0;
-                }
-            }
+        
         }
     }
 }
+.apply-all-btn{
+    margin: 10px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    text-decoration: underline;
+    color: #00A89B;
+    font-weight: 500;
+}
+
+.hrs-drpdwn{
+    align-items: center;
+    .common-input{
+        margin-bottom: 0;
+        .form-control{
+            background-color: #fff;
+            width: 150px;
+            padding: 12px;
+            height: 40px;
+        }
+    }
+    .to-center{
+        width: 50px;
+        text-align: center;
+        margin: auto 0;
+    }
+}
+ ::ng-deep .main-breaks-content{
+     .breaks-list{
+        width: 100%;
+        max-width: 700px;
+        .break-box{
+            background-color: #EAF7F6;
+            padding: 10px;
+            align-items: flex-start;
+            font-size: 16px;
+            color: #565657 !important;
+            font-weight: 500;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            .add-braek-btn {
+                width: 100px;
+                height: 34px;
+                border-radius: 5px;
+                background-color: #F04589;
+                color: white;
+                &.braek-closed {
+                    background-color: #e74033;
+                }
+            }
+            .breaktime-slot-main{
+                margin-bottom: 10px;
+            }
+        }
+
+     }
+ }
+
+ ::ng-deep .holiday-table{
+    margin: 30px;
+    .time-of-box{
+        background-color: #EAF7F6;
+        padding: 10px 15px;
+        align-items: center;
+        font-size: 16px;
+        color: #565657 !important;
+        font-weight: 500;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        .toggle-btn{
+            margin: 0 20px;
+        }
+        .delete-box{
+            margin: 0 20px;
+        }
+    }
+    .holiday-list{
+        .time-of-box{
+            padding: 25px 15px;
+        }
+    }
+ }

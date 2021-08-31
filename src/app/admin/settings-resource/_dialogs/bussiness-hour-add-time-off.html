@@ -3,40 +3,52 @@
         <div class="modal-header modal-bcolor-primary">
             <p class="heading lead mb-0 work-content">Add Holiday</p>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
-      <span aria-hidden="true" class="white-text">&times;</span>
-      </button>
+                <span aria-hidden="true" class="white-text"><span class="material-icons-outlined">close </span></span>
+            </button>
         </div>
         <div class="modal-body">
-            <form [formGroup]="formAddNewTimeOff">
-                <mat-form-field class="bottom-border-field col-lg-6">
-                    <mat-label>Start date</mat-label>
-                    <input matInput [min]="minStartDate" [matDatepicker]="startdate" (click)="startdate.open()" formControlName="startDate" (dateChange)="fnDateChange($event)">
-                    <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
-                    <mat-datepicker #startdate></mat-datepicker>
-                </mat-form-field>
-                <!-- <input mat-input [min]="minDate" [matDatepicker]="picker" placeholder="Choose a date" class="form-control formcontrol" (click)="picker.open()" (dateChange)="fnDateChange($event)" formControlName="customerDate" >
-          <mat-datepicker #picker></mat-datepicker> -->
-                <mat-form-field class="bottom-border-field col-lg-6">
-                    <mat-label>End date</mat-label>
-                    <input matInput [min]="minEndDate" [matDatepicker]="enddate" (click)="enddate.open()" formControlName="endDate">
-                    <mat-datepicker-toggle matSuffix [for]="enddate"></mat-datepicker-toggle>
-                    <mat-datepicker #enddate></mat-datepicker>
-
-                </mat-form-field>
-                <span class="error-wrap offset-6 d-block col-6" *ngIf="formAddNewTimeOff.get('endDate').touched || formAddNewTimeOff.get('endDate').dirty">
-                  <small *ngIf="formAddNewTimeOff.get('endDate').hasError('required')" class="error">End Date is required.</small>
-              </span>
-                <mat-form-field class="bottom-border-field col">
-                    <mat-label>Description</mat-label>
-                    <textarea matInput placeholder="Vacation, Holiday, Other" formControlName="description"></textarea>
-
-                </mat-form-field>
-                <span class="error-wrap d-block col" *ngIf="formAddNewTimeOff.get('description').touched || formAddNewTimeOff.get('description').dirty">
-                  <small *ngIf="formAddNewTimeOff.get('description').hasError('required')" class="error">Description is required.</small>
-              </span>
+            <form [formGroup]="formAddNewTimeOff" class="row">
+                <div class="col-12 common-input mb-3">
+                    <div class="form-group">
+                        <label> Description</label>
+                        <input class="form-control" placeholder="Vacation, Holiday, Other" formControlName="description" />
+                    </div>
+                    <span class="error-wrap d-block" *ngIf="formAddNewTimeOff.get('description').touched || formAddNewTimeOff.get('description').dirty">
+                        <small *ngIf="formAddNewTimeOff.get('description').hasError('required')" class="error">Description is required.</small>
+                    </span>
+                </div>
+                <div class="col-6 common-input">
+                    <label> Start Date</label>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><img src="/assets/images/icons/date-calendar.svg" /></span>
+                        </div>
+                        <input class="form-control" [min]="minStartDate" [matDatepicker]="startdate" (click)="startdate.open()" formControlName="startDate" (dateChange)="fnDateChange($event)">
+                        <!-- <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle> -->
+                        <mat-datepicker #startdate></mat-datepicker>
+                    </div>
+                    <span class="error-wrap d-block" *ngIf="formAddNewTimeOff.get('startDate').touched || formAddNewTimeOff.get('startDate').dirty">
+                        <small *ngIf="formAddNewTimeOff.get('startDate').hasError('required')" class="error">Start Date is required.</small>
+                    </span>
+                </div>
+                <div class="col-6 common-input">
+                    <label> End Date</label>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><img src="/assets/images/icons/date-calendar.svg" /></span>
+                        </div>
+                        <input class="form-control" [min]="minEndDate" [matDatepicker]="enddate" (click)="enddate.open()" formControlName="endDate">
+                        <!-- <mat-datepicker-toggle matSuffix [for]="enddate"></mat-datepicker-toggle> -->
+                        <mat-datepicker #enddate></mat-datepicker>
+                    </div>
+                    <span class="error-wrap d-block" *ngIf="formAddNewTimeOff.get('endDate').touched || formAddNewTimeOff.get('endDate').dirty">
+                    <small *ngIf="formAddNewTimeOff.get('endDate').hasError('required')" class="error">End Date is required.</small>
+                </span>
+                </div>
             </form>
-            <div>
-                <button class="d-block btn btn-primary addbtn mt-2 mr-2" (click)="fnAddNewTimeOff()">Save</button>
+            <div class="modal-bottom-action-btn">
+                <button mat-button class="cancel-btn" (click)="onNoClick()">Cancel</button>
+                <button mat-button class="save-btn" (click)="fnAddNewTimeOff()">Save</button>
             </div>
         </div>
     </div>
