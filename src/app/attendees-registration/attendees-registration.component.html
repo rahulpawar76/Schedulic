@@ -1,4 +1,4 @@
-<div fxLayout="row wrap" fxLayoutGap="2%" *ngIf="dataLoaded" fxLayoutAlign="center center" class="full-height">
+<!-- <div fxLayout="row wrap" fxLayoutGap="2%" *ngIf="dataLoaded" fxLayoutAlign="center center" class="full-height">
     <img src="../../assets/loading-spinner.gif" />
 </div>
 <div class="signup-screen d-flex justify-content-center align-items-center">
@@ -38,12 +38,10 @@
 							</button>
                             </div>
                         </div>
-                        <!-- Traslate -->
+                       
                     </form>
                 </div>
-                <!-- <div class="col-12">
-                    <div class="or-option">or</div>
-                </div> -->
+               
                 <div id="login-with-social" class="right-side p-2 col-lg-12 col-md-12 col-sm-12 col-12  float-left">
                     <div class="w-75 row login-with-social">
                         <div class="col-12 col-lg-6">
@@ -62,5 +60,69 @@
                 </div>
             </mat-card-content>
         </mat-card>
+    </div>
+</div> -->
+
+<div id="Main">
+    <div class="container-fluid pl-0 custom-padding-wrap">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="left-col-image-wrap">
+                    <img src="../../assets/images/Group 3026.png" class="img-fluid" alt="image">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-10 col-xs-12 custom-wrap-center">
+                <div class="right-col-wrap">
+                    <div class="logo-wrap">
+                        <img src="../../assets/images/Group 3120.png" alt="logo">
+                    </div>
+                    <div class="heading-text-wrap">
+                        <h4>Welcome to Schedulic!</h4>
+                        <p>Already have an account?<a>Sign in</a></p>
+                    </div>
+                    <div class="form-field-main">
+                        <form>
+                            <div class="input-group-meta mt-4 mb-4">
+                                <label>Full Name</label>
+                                <input formcontrolname="email" placeholder="Enter your Full Name" type="email"
+                                    class="ng-untouched input-wrap ng-pristine ng-invalid">
+                                <span class="placeholder_icon valid-sign"><img alt="" src="../../assets/images/Path.png"></span>
+                            </div>
+                            <div class="input-group-meta mb-4">
+                                <label>Email</label>
+                                <input formcontrolname="email" placeholder="Enter your email address" type="email"
+                                    class="ng-untouched input-wrap ng-pristine ng-invalid">
+                                <span class="placeholder_icon valid-sign"><img alt="" src="../../assets/images/Path.png"></span>
+                            </div>
+                            <div class="input-group-meta mb-4">
+                                <label>Password</label>
+                                <input formcontrolname="email" placeholder="Enter Password" type="password"
+                                    class="ng-untouched input-wrap ng-pristine ng-invalid">
+                                <span class="placeholder_icon valid-sign"><img alt="" src="../../assets/images/view.png"></span>
+                            </div>
+                            <div class="input-group-meta mb-4">
+                                <label>Confirm Password</label>
+                                <input formcontrolname="email" placeholder="Confirm password" type="password"
+                                    class="ng-untouched input-wrap ng-pristine ng-invalid">
+                                <span class="placeholder_icon valid-sign"><img alt="" src="../../assets/images/view.png"></span>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    By Checking you agree to the 
+                                </label>
+                                <p><a>Terms and Conditions</a>and<a>Privacy Policy.</a></p>
+                            </div>
+                            <div class="sign-btn">
+                                <button mat-button color="primary">Sign Up</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="copyright-text">
+                        <p>copyright 2021 Schedulic</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
