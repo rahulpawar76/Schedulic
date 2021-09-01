@@ -1141,7 +1141,7 @@ export class StaffComponent implements OnInit {
       }
       console.log(requestObject);
     }
-    this.adminSettingsService.addNewWorkingHours(requestObject).subscribe((response:any) => {
+    this.adminSettingsService.addNewWorkingHoursStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
         this.showMondayWorkHourAddForm=false;
@@ -2132,8 +2132,6 @@ export class StaffComponent implements OnInit {
     if(day=="Sunday"){
       this.sundayOn=event.checked;
     }
-    
-    this.fnFormBuild(this.mondayOn,this.tuesdayOn,this.wednesdayOn,this.thursdayOn,this.fridayOn,this.saturdayOn,this.sundayOn);
   }
 
   fnOnChangeStartTimeWorkingHour(event,day){
@@ -2472,17 +2470,23 @@ export class StaffComponent implements OnInit {
     if(!this.mondayOn){
       return false;
     }
-    if(this.formSetWorkingHours.get("mondayToggle").value){
-      if(this.formSetWorkingHours.get("mondayStartTime").value == '' || this.formSetWorkingHours.get("mondayEndTime").value == '' || this.formSetWorkingHours.get("mondayStartTime").value == null || this.formSetWorkingHours.get("mondayEndTime").value == null){
+    let mondayHours = [];
+    mondayHours = this.workingHoursList.filter(element => element.week_day_id == 1);
+
+    mondayHours.forEach(element => {
+      if(element.day_start_time == '' || element.day_start_time == null || element.day_end_time == '' || element.day_end_time == null){
+        this._snackBar.open("Start & End Time can not be empty.", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
         return false;
       }
-    }
+    });
     this.isLoaderAdmin = true;
     let requestObject={
       "staff_id":this.selectedStaffId,
-      "start_time":this.formSetWorkingHours.get("mondayStartTime").value,
-      "end_time":this.formSetWorkingHours.get("mondayEndTime").value,
-      "off_day":this.formSetWorkingHours.get("mondayToggle").value?"N":"Y"
+      "working_hours":mondayHours,
     }
    // console.log(JSON.stringify(requestObject));
     

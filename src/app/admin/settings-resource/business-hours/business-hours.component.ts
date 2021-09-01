@@ -1776,7 +1776,7 @@ export class BusinessHoursComponent implements OnInit {
       }
       console.log(requestObject);
     }
-    this.adminSettingsService.addNewWorkingHours(requestObject).subscribe((response:any) => {
+    this.adminSettingsService.addNewWorkingHoursStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fnGetWorkingHours();
         this.showMondayWorkHourAddForm=false;
