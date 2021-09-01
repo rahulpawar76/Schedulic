@@ -5,7 +5,7 @@
 </style>
 <mat-drawer-container [ngClass]="{'main-container-top': isFront()}" class="main-container">
     <mat-drawer-content [ngClass]="{'main-content-top': isFront()}" class="">
-        <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
+        <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div>
         <main fxLayout="column" fxLayoutGap="0">
             <mat-toolbar [ngClass]="{'admin_top_bar': (isAdminUser() && !isBusiness()) || isSuperAdmin()}" color="primary" class="toolbar menu-comman" *ngIf="(isLogin() && !isFront()) && !isPOS()">
                 <mat-toolbar-row *ngIf="isCustomerUser()">
@@ -61,13 +61,16 @@
                     </div>
                     <span class="example-fill-remaining-space">
             <div class="selected-business-btn-main">
-              <button mat-button color="primary" class="text-capitalize" *ngIf="isBusinessSelected() && !isBusiness()">Business : {{selectedBusinessName}}</button>
+              <label class="text-capitalize" *ngIf="isBusinessSelected() && !isBusiness()">Business : <span>{{selectedBusinessName}}</span></label>
 
             </div>
           </span>
                     <span class="f13 d-flex align-items-center">
-            <button mat-raised-button color="warn" *ngIf="!isBusiness()" (click)="MyLiveAppointmentNav()">Live</button>
-            <button mat-button color="primary" (click)="MyBusinessNav()">My Businesses</button>
+            <button mat-raised-button class="sc-pink-btn mr-2 position-relative" *ngIf="!isBusiness()" (click)="MyLiveAppointmentNav()">
+                <label class="circle-animat-wrap"><span class="circle-blick-with-border"></span></label>
+                Live
+            </button>
+            <button mat-button class="sc-yellow-btn" (click)="MyBusinessNav()">My Businesses</button>
             <span class="profile-head">
                 <div class="customer-profile-img m-2 float-left overflow-hidden" data="aaa">
                     <img class="h-100 w-100" src="{{currentUser.image}}" onerror="this.src='../assets/img/user.png';" >

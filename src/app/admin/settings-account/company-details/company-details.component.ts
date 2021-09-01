@@ -67,9 +67,8 @@ export class CompanyDetailsComponent implements OnInit {
       company_name : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)],this.whiteSpaceValidation.bind(this)],
       comp_email : ['',[Validators.required, Validators.pattern(this.emailFormat)]],
       comp_website : ['',[Validators.pattern("(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?")]],
-//      comp_mobile : ['',[Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
-      comp_mobile : ['',[Validators.required]],
-
+      comp_mobile : ['',[Validators.required,Validators.minLength(6),Validators.maxLength(15)]],
+      // comp_mobile : ['',[Validators.required]],
       country:['', Validators.required],
       comp_address:['', Validators.required],
       city:['', Validators.required],
@@ -103,47 +102,47 @@ export class CompanyDetailsComponent implements OnInit {
   //   return true;
 
   // }
-  fnPhoneMouceLeave(){
+  // fnPhoneMouceLeave(){
   
-    if(this.companyDetails.get('comp_mobile').value==undefined){
-      this.phoneNumberInvalid = "required";
-      return;
-    }
+  //   if(this.companyDetails.get('comp_mobile').value==undefined){
+  //     this.phoneNumberInvalid = "required";
+  //     return;
+  //   }
 
 
-    if(this.companyDetails.get('comp_mobile').value === null){
-      this.phoneNumberInvalid = "required";
+  //   if(this.companyDetails.get('comp_mobile').value === null){
+  //     this.phoneNumberInvalid = "required";
     
-    }else if(this.companyDetails.get('comp_mobile').value !== '' || this.companyDetails.get('comp_mobile').value !== null){
-      if(this.companyDetails.get('comp_mobile').value.number.length >= 6 && this.companyDetails.get('comp_mobile').value.number.length <= 15){
-        this.phoneNumberInvalid = "valid";
-      }else{
-        this.phoneNumberInvalid = "length";
-      }
-    }
+  //   }else if(this.companyDetails.get('comp_mobile').value !== '' || this.companyDetails.get('comp_mobile').value !== null){
+  //     if(this.companyDetails.get('comp_mobile').value.number.length >= 6 && this.companyDetails.get('comp_mobile').value.number.length <= 15){
+  //       this.phoneNumberInvalid = "valid";
+  //     }else{
+  //       this.phoneNumberInvalid = "length";
+  //     }
+  //   }
 
-  }
+  // }
 
-  fnenterPhoneNumber(){
+  // fnenterPhoneNumber(){
     
 
-    if(this.companyDetails.get('comp_mobile').value==undefined){
-      this.phoneNumberInvalid = "required";
-      return;
-    }
+  //   if(this.companyDetails.get('comp_mobile').value==undefined){
+  //     this.phoneNumberInvalid = "required";
+  //     return;
+  //   }
 
 
-    if(this.companyDetails.get('comp_mobile').value !== '' || this.companyDetails.get('comp_mobile').value !== null){
-      if(this.companyDetails.get('comp_mobile').value.number.length >= 6 && this.companyDetails.get('comp_mobile').value.number.length <= 15){
-        this.phoneNumberInvalid = "valid";
-      }else{
-        this.phoneNumberInvalid = "length";
-      }
-    }else if(this.companyDetails.get('comp_mobile').value === '' || this.companyDetails.get('comp_mobile').value === null){
-      this.phoneNumberInvalid = "required";
-    }
+  //   if(this.companyDetails.get('comp_mobile').value !== '' || this.companyDetails.get('comp_mobile').value !== null){
+  //     if(this.companyDetails.get('comp_mobile').value.number.length >= 6 && this.companyDetails.get('comp_mobile').value.number.length <= 15){
+  //       this.phoneNumberInvalid = "valid";
+  //     }else{
+  //       this.phoneNumberInvalid = "length";
+  //     }
+  //   }else if(this.companyDetails.get('comp_mobile').value === '' || this.companyDetails.get('comp_mobile').value === null){
+  //     this.phoneNumberInvalid = "required";
+  //   }
     
-  }
+  // }
 
   getCompanyDetails(){
     this.isLoaderAdmin = true;
@@ -154,9 +153,6 @@ export class CompanyDetailsComponent implements OnInit {
       if(response.data == true){
         this.companyDetailsData = response.response;
         this.selectCountry(this.companyDetailsData.country.id);
-        // this.selectedCountry = this.companyDetailsData.country.name
-        // this.selectedState = this.companyDetailsData.state.name
-        // this.selectedCity = this.companyDetailsData.city.name
         this.selectStates(this.companyDetailsData.state);
         this.companyDetails.controls['company_name'].setValue(this.companyDetailsData.business_name);
         this.companyDetails.controls['comp_email'].setValue(this.companyDetailsData.email);
@@ -171,7 +167,9 @@ export class CompanyDetailsComponent implements OnInit {
         this.companyDetails.controls['comp_decs'].setValue(this.companyDetailsData.description);
         this.companyDetails.controls['comp_status'].setValue(this.companyDetailsData.status=="E"?true:false);
         this.companyDetails.controls['comp_private_status'].setValue(this.companyDetailsData.private_status=="Y"?true:false);
-
+        if(this.companyDetailsData.image == 'https://api.schedulic.com/business-images/default.png'){
+          this.companyDetailsData.image = null;
+        }
         this.selectedCountryISO =  this.adminSettingsService.fncountySelected(this.companyDetailsData.country.id);
         
       }
@@ -260,7 +258,7 @@ export class CompanyDetailsComponent implements OnInit {
 
   fnUpdateCompanyDetail(){
     if(this.companyDetails.invalid){
-    this.companyDetails.get('company_name').markAsTouched();
+      this.companyDetails.get('company_name').markAsTouched();
       this.companyDetails.get('comp_email').markAllAsTouched();
       this.companyDetails.get('comp_website').markAsTouched();
       this.companyDetails.get('comp_mobile').markAsTouched();
@@ -271,20 +269,20 @@ export class CompanyDetailsComponent implements OnInit {
       this.companyDetails.get('zip_code').markAsTouched();
       this.companyDetails.get('comp_decs').markAsTouched();
     }
-    var comp_mobile =  this.companyDetails.get('comp_mobile').value;
-    console.log(comp_mobile);
+    // var comp_mobile =  this.companyDetails.get('comp_mobile').value;
+    // console.log(comp_mobile);
     
-    if(comp_mobile==undefined){ 
-      this.phoneNumberInvalid = "required";
-      return; 
-    }
+    // if(comp_mobile==undefined){ 
+    //   this.phoneNumberInvalid = "required";
+    //   return; 
+    // }
 
-    if(comp_mobile.number.length < 6 || comp_mobile.number.length > 15){
-      this.phoneNumberInvalid = "length";
-      return;
-    }
+    // if(comp_mobile.number.length < 6 || comp_mobile.number.length > 15){
+    //   this.phoneNumberInvalid = "length";
+    //   return;
+    // }
     
-    var phone = this.companyDetails.get('comp_mobile').value.number.replace(/\s/g, "");
+    // var phone = this.companyDetails.get('comp_mobile').value.number.replace(/\s/g, "");
 
     
     if(this.companyDetails.valid){
@@ -294,8 +292,8 @@ export class CompanyDetailsComponent implements OnInit {
           "company_name" : this.companyDetails.get('company_name').value,
           "email" : this.companyDetails.get('comp_email').value,
           "website" : this.companyDetails.get('comp_website').value,
-          "phone" : phone.split('-').join(''),
-          "country_code" : this.companyDetails.get('comp_mobile').value.dialCode.replace(/\s/g, ""),
+          "phone" : this.companyDetails.get('comp_mobile').value,
+          // "country_code" : this.companyDetails.get('comp_mobile').value.dialCode.replace(/\s/g, ""),
           "country" : this.companyDetails.get('country').value,
           "address" : this.companyDetails.get('comp_address').value,
           "city" : this.companyDetails.get('city').value,
@@ -313,8 +311,8 @@ export class CompanyDetailsComponent implements OnInit {
           "company_name" : this.companyDetails.get('company_name').value,
           "email" : this.companyDetails.get('comp_email').value,
           "website" : this.companyDetails.get('comp_website').value,
-          "phone" : this.companyDetails.get('comp_mobile').value.number.replace(/\s/g, ""),
-          "country_code" : this.companyDetails.get('comp_mobile').value.dialCode.replace(/\s/g, ""),
+          "phone" : this.companyDetails.get('comp_mobile').value,
+          // "country_code" : this.companyDetails.get('comp_mobile').value.dialCode.replace(/\s/g, ""),
           "country" : this.companyDetails.get('country').value,
           "address" : this.companyDetails.get('comp_address').value,
           "city" : this.companyDetails.get('city').value,
@@ -332,6 +330,32 @@ export class CompanyDetailsComponent implements OnInit {
   fnupdateBusineData(updateCompanyDetailsData){
     this.isLoaderAdmin = true;
     this.adminSettingsService.fnupdateBusineData(updateCompanyDetailsData).subscribe((response:any) => {
+      this.isLoaderAdmin = false;
+      if(response.data == true){
+        this._snackBar.open("Company detail updated.", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.companyDetailsImageUrl = undefined;
+        this.getCompanyDetails();
+      } else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+      }
+    });
+  }
+
+  removeCompanyImage(){
+    let requestObject  = {
+      'user_type' : 'B',
+      'user_id' : this.businessId,
+    }
+    this.isLoaderAdmin = true;
+    this.adminSettingsService.onRemoveProfile(requestObject).subscribe((response:any) => {
       this.isLoaderAdmin = false;
       if(response.data == true){
         this._snackBar.open("Company detail updated.", "X", {

@@ -143,18 +143,28 @@
     .staff-profile-width {
         height: 100px;
         width: 100px;
-        border-radius: 50%;
+        border-radius: 5px;
     }
     .review-star {
         color: #ffa801;
         line-height: 1.4;
     }
     .staff-mail-icon {
-        color: #1173f4;
+        color: #F04589;
+        font-size: 24px;
+        margin-right: 10px;
+        margin-bottom: 5px;
+        line-height: 1;
     }
     .staff-call-icon {
-        color: #1173f4;
+        color: #fff;
+        background-color: #F04589;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 16px;
+        margin-right: 10px;
     }
+
     .staff-btn {
         margin-left: auto;
         height: max-content;
@@ -170,13 +180,6 @@
             width: 129px;
             height: 37px;
             border-radius: 21px;
-        }
-        .staff-back-btn {
-            width: 103px;
-            height: 37px;
-            border-radius: 21px;
-            background-color: #1173f4;
-            color: white;
         }
     }
     .bottom-border {
@@ -681,6 +684,20 @@
 
 .single-staff-header {
     height: 130px;
+    margin: 10px 30px;
+    .staff-back-btn {
+        color: #00A89B;
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        text-decoration: none;
+        span{
+            background-color: #00A89B;
+            border-radius: 100%;
+            color: #fff;
+            margin-right: 5px;
+        }
+    }
 }
 
 .single-staff-container {
@@ -791,6 +808,7 @@
             justify-content: center;
             margin: 0 auto;
             overflow: hidden;
+            border-radius: 5px; 
             .default-img{
                 width: 40px;
             }

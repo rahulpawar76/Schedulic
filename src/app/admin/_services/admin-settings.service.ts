@@ -1909,6 +1909,20 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
 
+    onRemoveProfile(requestObject){
+        this.checkAuthentication();
+        let headers = new HttpHeaders({
+            'admin-id' : this.adminId,
+            'api-token' : this.adminToken,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(`${environment.apiUrl}/remove-profile-image`,requestObject,{headers:headers}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
     reAuthenticateUser() {
         if (this.dialogRef) {
             return

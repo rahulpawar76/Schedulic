@@ -3,17 +3,29 @@
         <div class="modal-header modal-bcolor-primary">
             <p class="heading lead mb-0 work-content">Add Holiday</p>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
-      <span aria-hidden="true" class="white-text">&times;</span>
-      </button>
+                <span aria-hidden="true" class="white-text"><span class="material-icons-outlined">close </span></span>
+            </button>
         </div>
         <div class="modal-body">
             <form [formGroup]="formAddNewTimeOff">
-                <mat-form-field class="bottom-border-field col-lg-6">
-                    <mat-label>Start date</mat-label>
-                    <input matInput [min]="minStartDate" [matDatepicker]="startdate" (click)="startdate.open()" formControlName="startDate" (dateChange)="fnDateChange($event)">
-                    <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
-                    <mat-datepicker #startdate></mat-datepicker>
-                </mat-form-field>
+                <div class="col-12 common-input">
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Vacation, Holiday, Other" formControlName="description" />
+                    </div>
+                    <span class="error-wrap d-block col" *ngIf="formAddNewTimeOff.get('description').touched || formAddNewTimeOff.get('description').dirty">
+                        <small *ngIf="formAddNewTimeOff.get('description').hasError('required')" class="error">Description is required.</small>
+                    </span>
+                </div>
+                <div class="col-6 common-input">
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><img src="/assets/images/icons/man.svg" /></span>
+                        </div>
+                        <input class="form-control" [min]="minStartDate" [matDatepicker]="startdate" (click)="startdate.open()" formControlName="startDate" (dateChange)="fnDateChange($event)">
+                        <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
+                        <mat-datepicker #startdate></mat-datepicker>
+                    </div>
+                </div>
                 <mat-form-field class="bottom-border-field col-lg-6">
                     <mat-label>End date</mat-label>
                     <input matInput [min]="minEndDate" [matDatepicker]="enddate" (click)="enddate.open()" formControlName="endDate">
@@ -22,13 +34,6 @@
                 </mat-form-field>
                 <span class="error-wrap offset-6 d-block col-6" *ngIf="formAddNewTimeOff.get('endDate').touched || formAddNewTimeOff.get('endDate').dirty">
                     <small *ngIf="formAddNewTimeOff.get('endDate').hasError('required')" class="error">End Date is required.</small>
-                </span>
-                <mat-form-field class="bottom-border-field col">
-                    <mat-label>Description</mat-label>
-                    <textarea class="min-height" matInput placeholder="Vacation, Holiday, Other" formControlName="description"></textarea>
-                </mat-form-field>
-                <span class="error-wrap d-block col" *ngIf="formAddNewTimeOff.get('description').touched || formAddNewTimeOff.get('description').dirty">
-                    <small *ngIf="formAddNewTimeOff.get('description').hasError('required')" class="error">Description is required.</small>
                 </span>
             </form>
             <div>
