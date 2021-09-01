@@ -884,9 +884,69 @@ export class StaffComponent implements OnInit {
 
   }
 
+  fnOnChangeEndTimeWorkHour(event,day){
+    
+    if(day == 'Monday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.mondayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Tuesday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.tuesdayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Wednesday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.wednesdayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Thursday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.thursdayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Friday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.fridayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Saturday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.saturdayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+    
+    if(day == 'Sunday'){
+      for(var i=0; i<this.timeSlotList.length; i++){
+        if(this.timeSlotList[i].long==event.value){
+          this.sundayWorkingHourEndTimeIndex=i;
+        }
+      }
+    }
+  }
+
   fnAddWorkHour(day){
     let requestObject={
       "business_id":'',
+      "staff_id":'',
       "start_time":'',
       "end_time":'',
       "dayNumber":''
@@ -912,6 +972,7 @@ export class StaffComponent implements OnInit {
       }
       requestObject={
         "business_id":this.businessId,
+        "staff_id":this.selectedStaffId,
         "start_time":this.selectedWorkHourStartTimeMonday,
         "end_time":this.selectedWorkHourEndTimeMonday,
         "dayNumber":"1"
@@ -938,6 +999,7 @@ export class StaffComponent implements OnInit {
       }
       requestObject={
         "business_id":this.businessId,
+        "staff_id":this.selectedStaffId,
         "start_time":this.selectedWorkHourStartTimeTuesday,
         "end_time":this.selectedWorkHourEndTimeTuesday,
         "dayNumber":"2"
@@ -964,6 +1026,7 @@ export class StaffComponent implements OnInit {
       }
       requestObject={
         "business_id":this.businessId,
+        "staff_id":this.selectedStaffId,
         "start_time":this.selectedWorkHourStartTimeWednesday,
         "end_time":this.selectedWorkHourEndTimeWednesday,
         "dayNumber":"3"
@@ -990,6 +1053,7 @@ export class StaffComponent implements OnInit {
       }
       requestObject={
         "business_id":this.businessId,
+        "staff_id":this.selectedStaffId,
         "start_time":this.selectedWorkHourStartTimeThursday,
         "end_time":this.selectedWorkHourEndTimeThursday,
         "dayNumber":"4"
@@ -1016,6 +1080,7 @@ export class StaffComponent implements OnInit {
       }
       requestObject={
         "business_id":this.businessId,
+        "staff_id":this.selectedStaffId,
         "start_time":this.selectedWorkHourStartTimeFriday,
         "end_time":this.selectedWorkHourEndTimeFriday,
         "dayNumber":"5"
@@ -1042,6 +1107,7 @@ export class StaffComponent implements OnInit {
       }
       requestObject={
         "business_id":this.businessId,
+        "staff_id":this.selectedStaffId,
         "start_time":this.selectedWorkHourStartTimeSaturday,
         "end_time":this.selectedWorkHourEndTimeSaturday,
         "dayNumber":"6"
@@ -1068,6 +1134,7 @@ export class StaffComponent implements OnInit {
       }
       requestObject={
         "business_id":this.businessId,
+        "staff_id":this.selectedStaffId,
         "start_time":this.selectedWorkHourStartTimeSunday,
         "end_time":this.selectedWorkHourEndTimeSunday,
         "dayNumber":"0"
@@ -1275,81 +1342,6 @@ export class StaffComponent implements OnInit {
               }
             }
           });
-
-          for(var i=0; i<this.timeSlotList.length; i++){
-            if(this.timeSlotList[i].long==this.workingHoursList[0].day_start_time){
-              this.mondayWorkingHourStartTimeIndex=i;
-            }
-            if(this.timeSlotList[i].long==this.workingHoursList[0].day_end_time){
-              this.mondayWorkingHourEndTimeIndex=i;
-            }
-            
-            if(this.timeSlotList[i].long==this.workingHoursList[1].day_start_time){
-              this.tuesdayWorkingHourStartTimeIndex=i;
-            }
-            if(this.timeSlotList[i].long==this.workingHoursList[1].day_end_time){
-              this.tuesdayWorkingHourEndTimeIndex=i;
-            }
-            
-            if(this.timeSlotList[i].long==this.workingHoursList[2].day_start_time){
-              this.wednesdayWorkingHourStartTimeIndex=i;
-            }
-            if(this.timeSlotList[i].long==this.workingHoursList[2].day_end_time){
-              this.wednesdayWorkingHourEndTimeIndex=i;
-            }
-            
-            if(this.timeSlotList[i].long==this.workingHoursList[3].day_start_time){
-              this.thursdayWorkingHourStartTimeIndex=i;
-            }
-            if(this.timeSlotList[i].long==this.workingHoursList[3].day_end_time){
-              this.thursdayWorkingHourEndTimeIndex=i;
-            }
-            
-            if(this.timeSlotList[i].long==this.workingHoursList[4].day_start_time){
-              this.fridayWorkingHourStartTimeIndex=i;
-            }
-            if(this.timeSlotList[i].long==this.workingHoursList[4].day_end_time){
-              this.fridayWorkingHourEndTimeIndex=i;
-            }
-            
-            if(this.timeSlotList[i].long==this.workingHoursList[5].day_start_time){
-              this.saturdayWorkingHourStartTimeIndex=i;
-            }
-            if(this.timeSlotList[i].long==this.workingHoursList[5].day_end_time){
-              this.saturdayWorkingHourEndTimeIndex=i;
-            }
-            
-            if(this.timeSlotList[i].long==this.workingHoursList[6].day_start_time){
-              this.sundayWorkingHourStartTimeIndex=i;
-            }
-            if(this.timeSlotList[i].long==this.workingHoursList[6].day_end_time){
-              this.sundayWorkingHourEndTimeIndex=i;
-            }
-
-          }
-          this.formSetWorkingHours = this._formBuilder.group({
-            mondayToggle: [this.workingHoursList[0].off_day=="N"?true:false,this.mondayOn?Validators.required:''],
-            mondayStartTime: [this.workingHoursList[0].day_start_time,this.mondayOn?Validators.required:''],
-            mondayEndTime: [this.workingHoursList[0].day_end_time,this.mondayOn?Validators.required:''],
-            tuesdayToggle: [this.workingHoursList[1].off_day=="N"?true:false,this.tuesdayOn?Validators.required:''],
-            tuesdayStartTime: [this.workingHoursList[1].day_start_time,this.tuesdayOn?Validators.required:''],
-            tuesdayEndTime: [this.workingHoursList[1].day_end_time,this.tuesdayOn?Validators.required:''],
-            wednesdayToggle: [this.workingHoursList[2].off_day=="N"?true:false,this.wednesdayOn?Validators.required:''],
-            wednesdayStartTime: [this.workingHoursList[2].day_start_time,this.wednesdayOn?Validators.required:''],
-            wednesdayEndTime: [this.workingHoursList[2].day_end_time,this.wednesdayOn?Validators.required:''],
-            thursdayToggle: [this.workingHoursList[3].off_day=="N"?true:false,this.thursdayOn?Validators.required:''],
-            thursdayStartTime: [this.workingHoursList[3].day_start_time,this.thursdayOn?Validators.required:''],
-            thursdayEndTime: [this.workingHoursList[3].day_end_time,this.thursdayOn?Validators.required:''],
-            fridayToggle: [this.workingHoursList[4].off_day=="N"?true:false,this.fridayOn?Validators.required:''],
-            fridayStartTime: [this.workingHoursList[4].day_start_time,this.fridayOn?Validators.required:''],
-            fridayEndTime: [this.workingHoursList[4].day_end_time,this.fridayOn?Validators.required:''],
-            saturdayToggle: [this.workingHoursList[5].off_day=="N"?true:false,this.saturdayOn?Validators.required:''],
-            saturdayStartTime: [this.workingHoursList[5].day_start_time,this.saturdayOn?Validators.required:''],
-            saturdayEndTime: [this.workingHoursList[5].day_end_time,this.saturdayOn?Validators.required:''],
-            sundayToggle: [this.workingHoursList[6].off_day=="N"?true:false,this.sundayOn?Validators.required:''],
-            sundayStartTime: [this.workingHoursList[6].day_start_time,this.sundayOn?Validators.required:''],
-            sundayEndTime: [this.workingHoursList[6].day_end_time,this.sundayOn?Validators.required:''],
-          })
         }
         if(this.singleStaffDetail.breaktime.length>0){
           this.breakTimeList= this.singleStaffDetail.breaktime;
