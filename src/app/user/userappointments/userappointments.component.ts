@@ -2239,10 +2239,10 @@ export class rescheduleAppointmentDialog {
   currencySymbolPosition:any;
   currencySymbolFormat:any;  
   isStaffAvailable:boolean=false;
-  discount_amount:number;
+  discount_amount:number = 0;
   discount_type:any;
-  appointmentSubTotal:number;
-  appointmentAmountAfterDiscount:number;
+  appointmentSubTotal:number = 0;
+  appointmentAmountAfterDiscount:number = 0;
   taxType:any="P";
   taxValue:any;
   netCost:any;
@@ -3040,6 +3040,12 @@ export class rescheduleAppointmentDialog {
     }
 
     applyCoupon(){
+      let serviceCartArrTemp:any= [];
+      for(let i=0; i<this.serviceCount.length;i++){
+        if(this.serviceCount[i] != null && this.serviceCount[i].count > 0){
+          serviceCartArrTemp.push(this.serviceCount[i]);
+        }
+      }
       if(this.formAddNewAppointmentStaffStep2.get('customerService').valid) {
         let couponRequestObject = {
           "coupon_code": this.formAddNewAppointmentStaffStep2.get('customerCouponCode').value,
@@ -3060,12 +3066,6 @@ export class rescheduleAppointmentDialog {
             this.discount_amount = response.response['coupon_value'];
 
             this.appointmentSubTotal = 0;
-            let serviceCartArrTemp:any= [];
-            for(let i=0; i<this.serviceCount.length;i++){
-              if(this.serviceCount[i] != null && this.serviceCount[i].count > 0){
-                serviceCartArrTemp.push(this.serviceCount[i]);
-              }
-            }
       
             this.appointmentSubTotal = serviceCartArrTemp[0].subtotal;
 
@@ -3074,8 +3074,14 @@ export class rescheduleAppointmentDialog {
             } else if (this.discount_type == "P") {
               this.discount_amount = (this.appointmentSubTotal * this.discount_amount)/100;
               this.appointmentAmountAfterDiscount = this.appointmentSubTotal - this.discount_amount;
+            } else {
+              this.discount_amount = 0;
+              this.appointmentAmountAfterDiscount = this.appointmentSubTotal;
             }
           } else {
+            this.appointmentSubTotal = serviceCartArrTemp[0].subtotal;
+            this.appointmentAmountAfterDiscount = this.appointmentSubTotal;
+            this.discount_amount = 0;
             this._snackBar.open("Coupon code not found", "X", {
               duration: 2000,
               verticalPosition:'top',
@@ -3099,6 +3105,11 @@ export class rescheduleAppointmentDialog {
         if(this.serviceCount[i] != null && this.serviceCount[i].count > 0){
           serviceCartArrTemp.push(this.serviceCount[i]);
         }
+      }
+
+      if(this.appointmentAmountAfterDiscount == 0){
+        this.appointmentSubTotal = serviceCartArrTemp[0].subtotal;
+        this.appointmentAmountAfterDiscount = this.appointmentSubTotal;
       }
 
       var subTotal = this.appointmentSubTotal;
