@@ -22,12 +22,12 @@
                             </div>
                              <h6 class="font-blue mb-0">Today</h6>
                         </div> -->
-                        <div class="col-lg-2 col-md-4 col-6 flex-align-center">
-                            <h6 [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="mb-0 font-blue cursor-pointer text-capitalize">
+                        <div class="col-lg-2 col-md-4 col-6">
+                            <h6 [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="mb-0 cursor-pointer text-capitalize">
                                 <span *ngIf="dateTypeFilter == 'today' || dateTypeFilter == 'tomorrow'">{{dateTypeFilter}}</span>
                                 <span *ngIf="dateTypeFilter == 'week' || dateTypeFilter == 'month' || dateTypeFilter == 'year'">This {{dateTypeFilter}}</span>
                                 <span *ngIf="dateTypeFilter == 'custom'">{{dateTypeFilter}} Date</span>
-                                <i class="fa fa-chevron-down" aria-hidden="true"></i> </h6>
+                                <i class="fa fa-chevron-down ml-2" aria-hidden="true"></i> </h6>
 
                             <ng-template class="popover common-popover" #popContent>
                                 <div (click)="fnChangeDateFilter('today')" class="common-text">

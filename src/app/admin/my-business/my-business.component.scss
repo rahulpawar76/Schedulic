@@ -1,7 +1,7 @@
 #my-business-top {
     margin-top: 63px;
     .inner {
-        background: #cfe3fc;
+        background: #FFE482;
         padding: 15px;
         position: fixed;
         top: 64px;
@@ -18,11 +18,11 @@
             justify-content: flex-end;
             display: flex;
             a {
-                background-color: #f87912;
+                background-color: #F04589;
                 padding: 7px 20px;
                 font-size: 12px;
                 color: #fff;
-                border-radius: 25px;
+                border-radius: 5px;
                 i {
                     margin-right: 10px;
                 }
@@ -47,12 +47,13 @@
         .delete-btn{
             position: absolute;
             right: 0px;
-            top: 0px;
+            top: 5px;
             width: 40px;
             height: 40px;
+            color: #00A89B;
             // background-color: #ff4a4a;
             // transform: rotate(45deg);
-            color: #888;
+            // color: #888;
             font-size: 14px;
             display: flex;
             align-items: flex-end;
@@ -62,15 +63,30 @@
             // i{
             //     transform: rotate(-45deg);
             // }
+            .material-icons{
+                font-size: 30px;
+            }
+            ::ng-deep .popover-body{
+                padding: 5px 8px;
+                .pop-menu-item{
+                    color: #7b7b7b;
+                    padding: 4px 0px;
+                    &:first-child{
+                        border-bottom: 2px solid #d2c7c747;
+                    }
+                }
+            }
         }
         .content {
             font-size: 14px;
             padding: 0;
             margin: 2% 1em;
+            color: #595959;
         }
     }
     .SelectBusiness {
-        box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
+        // box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 0px 10px rgb(0 168 155 / 39%) !important;
         .image-round-main {
             display: flex;
             justify-content: center;
@@ -92,16 +108,19 @@
         }
     }
     .businness-btn {
-        border-radius: 40px 40px;
+        border-radius: 5px;
         padding: 0 25px;
-        background-color: #1172f4;
+        background-color: #00A89B;
         color: white;
     }
     .NewBusiness-matcard {
-        background-color: #cfe3fc;
+        background-color: #fff;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        border: 1px solid #00A89B;
+        border-style: dashed;
+        color: #595959;
     }
     .business-btn-main {
         display: flex;
@@ -109,7 +128,7 @@
         align-items: center;
     }
     .AddNewBusinessIcon {
-        background-color: #97c1fb;
+        background-color: #00A89B;
         border-radius: 50%;
         height: 60px;
         width: 60px;
