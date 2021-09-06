@@ -13,13 +13,19 @@
         mat-card {
             display: inline-flex;
             width: 100%;
-            border-radius: 8px;
+            border-radius: 5px;
             align-items: center;
             justify-content: center;
+            background-color: #FFE482;
+            padding: 13px 8px;
             .flex-align-center {
                 align-items: center;
                 display: inline-flex;
                 flex-direction: column;
+                p{
+                    color: #565657;
+                    font-size: 14px;
+                }
             }
         }
     }
@@ -37,7 +43,7 @@
         color: #848484;
     }
     .left-border {
-        border-left: 1px solid #dedede;
+        border-left: 1px solid #00A89B;
     }
 }
 

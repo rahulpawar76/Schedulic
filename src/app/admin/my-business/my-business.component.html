@@ -7,7 +7,7 @@
         <div class="col-12 d-flex inner">
             <div class="col-lg-6 col-md-6 col-sm-12 first d-flex"><span>My Business</span></div>
             <div class="col-lg-6 col-md-6 col-sm-12 second">
-                <a (click)="creatNewBusiness()"><i class="fa fa-plus AddNewBusinessIcon" aria-hidden="true"></i> Add New Business/Location</a>
+                <a (click)="creatNewBusiness()">Add New Business/Location</a>
             </div>
         </div>
     </div>
@@ -39,7 +39,7 @@
                                     <i class="fa fa-trash mr-2"></i><span>Delete</span>
                                 </div>
                                 <div (click)="duplicate(allBusiness.id)" class="align-items-center pop-menu-item d-flex">
-                                    <i class="fa fa-trash mr-2"></i><span>Duplicate</span>
+                                    <i class="fa fa-clone mr-2" aria-hidden="true"></i><span>Duplicate</span>
                                 </div>
 
                             </ng-template>
