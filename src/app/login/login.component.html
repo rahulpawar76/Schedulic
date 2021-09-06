@@ -99,18 +99,20 @@
                         <p>Don’t have an account?<a>Create an account now</a></p>
                     </div>
                     <div class="form-field-main">
-                        <form>
+                        <form [formGroup]="loginForm">
                             <div class="input-group-meta mt-5 mb-4">
                                 <label>Email</label>
-                                <input formcontrolname="email" placeholder="Enter your email address" type="email"
+                                <input formControlName="email" placeholder="Enter your email address" type="email"
                                     class=" input-wrap">
                                 <span class="placeholder_icon valid-sign"><img alt="" src="../../assets/images/Path.png"></span>
+                                <span class="error-wrap" *ngIf="loginForm.get('email').dirty || loginForm.get('email').touched"><small *ngIf="loginForm.get('email').hasError('required')" class="error text-left">Email is required.</small><small *ngIf="loginForm.get('email').hasError('email') || loginForm.get('email').hasError('pattern')" class="error text-left">Enter a valid email address.</small></span>
                             </div>
                             <div class="input-group-meta mb-4">
                                 <label>Password</label>
-                                <input formcontrolname="email" placeholder="Enter Password" type="password"
+                                <input formControlName="password" placeholder="Enter Password" type="password"
                                     class="input-wrap">
                                 <span class="placeholder_icon valid-sign"><img alt="" src="../../assets/images/view.png"></span>
+                                <span class="error-wrap" *ngIf="loginForm.get('password').dirty || loginForm.get('password').touched"><small *ngIf="loginForm.get('password').hasError('required')" class="error text-left">Password is required.</small></span>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -120,7 +122,7 @@
                                 <p><a>Forgot Password</a></p>
                             </div>
                             <div class="sign-btn">
-                                <button mat-button color="primary">Sign IN</button>
+                                <button mat-button color="primary" (click)="onSubmit()">Sign IN</button>
                             </div>
                         </form>
                     </div>
