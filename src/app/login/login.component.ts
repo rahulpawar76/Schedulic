@@ -124,7 +124,7 @@ export class LoginComponent implements OnInit {
     }
     
     signUp(event){
-        this.router.navigate(["attendees-registration"]);
+        this.router.navigate(["/sign-up"]);
     }
 
     signInWithGoogle(): void {

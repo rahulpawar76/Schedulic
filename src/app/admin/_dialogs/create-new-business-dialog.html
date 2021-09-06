@@ -39,7 +39,7 @@
                                     <mat-label>Country</mat-label>
                                     <mat-select formControlName="business_country" (selectionChange)="selectCountry($event.value)">
                                         <mat-option>
-                                            <ngx-mat-select-search [formControl]="countryFilterCtrl"></ngx-mat-select-search>
+                                            <ngx-mat-select-search placeholderLabel="Search" noEntriesFoundLabel="No record found" [formControl]="countryFilterCtrl"></ngx-mat-select-search>
                                         </mat-option>
                                         <mat-option *ngFor="let country of countryList | async" [value]="country.id">
                                             {{country.name}}
@@ -72,7 +72,7 @@
                                     <mat-label>Time zone</mat-label>
                                     <mat-select formControlName="business_timezone" #singleSelect>
                                         <mat-option>
-                                            <ngx-mat-select-search [formControl]="timeZoneFilterCtrl"></ngx-mat-select-search>
+                                            <ngx-mat-select-search placeholderLabel="Search" noEntriesFoundLabel="No record found" [formControl]="timeZoneFilterCtrl"></ngx-mat-select-search>
                                         </mat-option>
                                         <!-- <mat-select-search [formControl]="bankFilterCtrl"></mat-select-search> -->
                                         <mat-option *ngFor="let listTimeZone of listTimeZoneList | async" [value]="listTimeZone.name">

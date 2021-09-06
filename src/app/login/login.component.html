@@ -84,19 +84,19 @@
 <div id="Main">
     <div class="container-fluid pl-0 custom-padding-wrap">
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pr-0">
                 <div class="left-col-image-wrap">
-                    <img src="../../assets/images/Group 3026.png" class="img-fluid" alt="image">
+                    <img src="../../assets/images/login-banner.svg" class="img-fluid w-100" alt="image">
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-10 col-xs-12 custom-wrap-center">
+            <div class="col-lg-6 col-md-6 col-sm-10 col-xs-12 pl-0 custom-wrap-center">
                 <div class="right-col-wrap">
                     <div class="logo-wrap">
-                        <img src="../../assets/images/Group 3120.png" alt="logo">
+                        <img src="../../assets/images/logo-black.svg" alt="logo">
                     </div>
                     <div class="heading-text-wrap">
                         <h4>Sign in with your Schedulic Account</h4>
-                        <p>Don’t have an account?<a>Create an account now</a></p>
+                        <p>Don’t have an account?<a (click)="signUp($event)">Create an account now</a></p>
                     </div>
                     <div class="form-field-main">
                         <form [formGroup]="loginForm">
@@ -104,14 +104,15 @@
                                 <label>Email</label>
                                 <input formControlName="email" placeholder="Enter your email address" type="email"
                                     class=" input-wrap">
-                                <span class="placeholder_icon valid-sign"><img alt="" src="../../assets/images/Path.png"></span>
+                                <span *ngIf="!loginForm.get('email').hasError('required') && !loginForm.get('email').hasError('pattern')" class="placeholder_icon valid-sign"><img alt="" src="../../assets/images/Path.png"></span>
                                 <span class="error-wrap" *ngIf="loginForm.get('email').dirty || loginForm.get('email').touched"><small *ngIf="loginForm.get('email').hasError('required')" class="error text-left">Email is required.</small><small *ngIf="loginForm.get('email').hasError('email') || loginForm.get('email').hasError('pattern')" class="error text-left">Enter a valid email address.</small></span>
                             </div>
                             <div class="input-group-meta mb-4">
                                 <label>Password</label>
-                                <input formControlName="password" placeholder="Enter Password" type="password"
-                                    class="input-wrap">
-                                <span class="placeholder_icon valid-sign"><img alt="" src="../../assets/images/view.png"></span>
+                                <input formControlName="password" placeholder="Enter Password" [type]="hide ? 'password' : 'text'" class="input-wrap">
+                                <span class="placeholder_icon valid-sign">
+                                    <mat-icon class="pointer" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </span>
                                 <span class="error-wrap" *ngIf="loginForm.get('password').dirty || loginForm.get('password').touched"><small *ngIf="loginForm.get('password').hasError('required')" class="error text-left">Password is required.</small></span>
                             </div>
                             <div class="form-check">
@@ -119,12 +120,17 @@
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Keep me Logged in
                                 </label>
-                                <p><a>Forgot Password</a></p>
+                                <p><a (click)="forgotPassword()">Forgot Password</a></p>
                             </div>
                             <div class="sign-btn">
-                                <button mat-button color="primary" (click)="onSubmit()">Sign IN</button>
+                                <button mat-button color="primary" (click)="onSubmit()">Sign In</button>
                             </div>
                         </form>
+                    </div>
+                    
+                    <div class="social-btns" fxLayoutalign="center center">
+                        <a class="btn social-login facebook" (click)="signInWithFB()"><i class="fa fa-facebook-f"></i></a>
+                        <a class="btn social-login google_plus" (click)="signInWithGoogle()"><i class="fa fa-google-plus"></i></a>
                     </div>
                     <div class="copyright-text">
                         <p>copyright 2021 Schedulic</p>

@@ -66,57 +66,74 @@
 <div id="Main">
     <div class="container-fluid pl-0 custom-padding-wrap">
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pr-0">
                 <div class="left-col-image-wrap">
-                    <img src="../../assets/images/Group 3026.png" class="img-fluid" alt="image">
+                    <img src="../../assets/images/login-banner.svg" class="img-fluid w-100" alt="image">
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-10 col-xs-12 custom-wrap-center">
+            <div class="col-lg-6 col-md-6 col-sm-10 col-xs-12 pl-0 custom-wrap-center">
                 <div class="right-col-wrap">
                     <div class="logo-wrap">
-                        <img src="../../assets/images/Group 3120.png" alt="logo">
+                        <img src="../../assets/images/logo-black.svg" alt="logo">
                     </div>
                     <div class="heading-text-wrap">
                         <h4>Welcome to Schedulic!</h4>
-                        <p>Already have an account?<a>Sign in</a></p>
+                        <p>Already have an account?<a (click)="login()">Sign in</a></p>
                     </div>
                     <div class="form-field-main">
-                        <form>
+                        <form [formGroup]="signUpForm">
                             <div class="input-group-meta mt-4 mb-4">
                                 <label>Full Name</label>
-                                <input formcontrolname="email" placeholder="Enter your Full Name" type="email"
+                                <input formControlName="fullname" placeholder="Enter your Full Name" type="text"
                                     class="ng-untouched input-wrap ng-pristine ng-invalid">
-                                <span class="placeholder_icon valid-sign"><img alt="" src="../../assets/images/Path.png"></span>
+                                <span *ngIf="!signUpForm.get('fullname').hasError('required')" class="placeholder_icon valid-sign"><img alt="" src="../../assets/images/Path.png"></span>
+                                <span class="error-wrap" *ngIf="signUpForm.get('fullname').dirty || signUpForm.get('fullname').touched">
+                                    <small *ngIf="signUpForm.get('fullname').hasError('required')" class="error">Full name is required.</small>
+                                </span>
                             </div>
                             <div class="input-group-meta mb-4">
                                 <label>Email</label>
-                                <input formcontrolname="email" placeholder="Enter your email address" type="email"
+                                <input formControlName="email" placeholder="Enter your email address" type="text"
                                     class="ng-untouched input-wrap ng-pristine ng-invalid">
-                                <span class="placeholder_icon valid-sign"><img alt="" src="../../assets/images/Path.png"></span>
+                                <span *ngIf="!signUpForm.get('email').hasError('required') && !signUpForm.get('email').hasError('pattern') && signUpForm.get('email').hasError('isEmailUnique')" class="placeholder_icon valid-sign"><img alt="" src="../../assets/images/Path.png"></span>
+                                <span class="error-wrap" *ngIf="signUpForm.get('email').dirty || signUpForm.get('email').touched"><small *ngIf="signUpForm.get('email').hasError('required')" class="error">Email is required.</small><small *ngIf="signUpForm.get('email').hasError('pattern')" class="error">Enter valid email.</small><small *ngIf="signUpForm.get('email').hasError('isEmailUnique')" class="error">Email is already exists.</small></span>
                             </div>
                             <div class="input-group-meta mb-4">
                                 <label>Password</label>
-                                <input formcontrolname="email" placeholder="Enter Password" type="password"
+                                <input formControlName="password" placeholder="Enter Password" [type]="hide ? 'password' : 'text'"
                                     class="ng-untouched input-wrap ng-pristine ng-invalid">
-                                <span class="placeholder_icon valid-sign"><img alt="" src="../../assets/images/view.png"></span>
+                                <span class="placeholder_icon valid-sign">
+                                    <mat-icon class="pointer" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </span>
+                                <span class="error-wrap" *ngIf="signUpForm.get('password').dirty || signUpForm.get('password').touched"><small *ngIf="signUpForm.get('password').hasError('required')" class="error">Password is required.</small><small *ngIf="signUpForm.get('password').hasError('minlength') || signUpForm.get('password').hasError('maxlength')" class="error">Password should  minimum 8 maximum 12 characters.</small></span>
                             </div>
                             <div class="input-group-meta mb-4">
                                 <label>Confirm Password</label>
-                                <input formcontrolname="email" placeholder="Confirm password" type="password"
+                                <input formControlName="cpassword" placeholder="Confirm password" [type]="hide1 ? 'password' : 'text'"
                                     class="ng-untouched input-wrap ng-pristine ng-invalid">
-                                <span class="placeholder_icon valid-sign"><img alt="" src="../../assets/images/view.png"></span>
+                                <span class="placeholder_icon valid-sign">
+                                    <mat-icon class="pointer" (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide1">{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </span>
+                                <span class="error-wrap" *ngIf="signUpForm.get('cpassword').dirty || signUpForm.get('cpassword').touched">
+                                    <small *ngIf="signUpForm.get('cpassword').hasError('required') && signUpForm.hasError('notSame')" class="error text-left">Confirm password is required.</small>
+                                    <small *ngIf="!signUpForm.get('cpassword').hasError('required') && signUpForm.hasError('notSame')" class="error text-left">Passwords do not match.</small>
+                                </span>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    By Checking you agree to the 
-                                </label>
-                                <p><a>Terms and Conditions</a>and<a>Privacy Policy.</a></p>
+                                <mat-checkbox class="" (change)="fnChangeTermsPrivacyCheck($event.checked)"> By Checking you agree to the <a>Terms and Conditions </a>and<a>Privacy Policy.</a>
+                                </mat-checkbox>
+                                <span class="error-wrap" *ngIf="!termsCheckbox">
+                                    <small *ngIf="!termsCheckbox" class="error"> Check the Privacy Policy & Terms and Conditions.</small></span>
+                                
                             </div>
                             <div class="sign-btn">
-                                <button mat-button color="primary">Sign Up</button>
+                                <button mat-button color="primary" (click)="signUpSubmit()">Sign Up</button>
                             </div>
                         </form>
+                    </div>
+                    <div class="social-btns">
+                        <a class="btn social-login facebook" (click)="signInWithFB()"><i class="fa fa-facebook-f"></i></a>
+                        <a class="btn social-login google_plus" (click)="signInWithGoogle()"><i class="fa fa-google-plus"></i></a>
                     </div>
                     <div class="copyright-text">
                         <p>copyright 2021 Schedulic</p>

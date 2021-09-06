@@ -105,8 +105,9 @@ export class ForgotPasswordComponent implements OnInit {
     }
     
   }
-  fnCloseForgotPwd(){
-    this.router.navigate(['/login']);
+  
+	login(){
+    this.router.navigate(["login"]);
   }
     
  

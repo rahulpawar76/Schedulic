@@ -33,7 +33,7 @@ import { AppComponent, DialogNotification, DialogLogoutAppointment, DialogNotifi
 import { DialogSubscriptionCardForm } from './subscription/subscription.component'
 import { LoginComponent } from './login';
 import { CustomerLoginComponent } from './customer-login';
-import { AttendeesRegistrationComponent } from './attendees-registration';
+import { SignUpComponent } from './sign-up';
 import { LoaderComponent } from './_components/loader/loader.component';
 import { DialogAuthentication } from './_services/auth.component'
 import { FrontBookingThemeFourComponent, theme4DateTimeSelection } from './front-booking-theme-four/front-booking-theme-four.component';
@@ -70,7 +70,7 @@ export function provideConfig() {
         AppComponent,
         LoginComponent,
         CustomerLoginComponent,
-        AttendeesRegistrationComponent,
+        SignUpComponent,
         LoaderComponent,
         ConfirmationDialogComponent,
         ForgotPasswordComponent,

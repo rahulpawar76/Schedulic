@@ -768,14 +768,16 @@ i.fa.fa-plus-circle.pl-2.note-icon {
 }
 
 .setting-menu {
-    background-color: #fbfbfb;
-    width: 215px;
+    background-color: #EAF7F6;
+    width: 250px;
     position: fixed;
     top: 65px;
     height: calc(100vh - 64px);
     box-shadow: 1px 1px 3px #e5e3e3;
     z-index: 12;
     overflow-y: scroll;
+    padding-top: 15px;
+    transition: all 0.4s;
     .setting-menu-item {
         cursor: pointer;
         padding: 10px 20px;
@@ -789,6 +791,7 @@ i.fa.fa-plus-circle.pl-2.note-icon {
         p {
             margin: 0;
             font-weight: 500;
+            color: #0E0E0E;
         }
         .menu-icon {
             margin-right: 10px;
@@ -808,8 +811,11 @@ i.fa.fa-plus-circle.pl-2.note-icon {
             }
         }
         &:hover {
-            background-color: #ddeafd;
-            color: #1273f6;
+            background-color: rgba(0, 168, 155, 0.08);
+            color: #00A89B;
+            p{
+                color: #00A89B;
+            }
             .menu-icon {
                 .normal {
                     top: -20px;
@@ -824,8 +830,11 @@ i.fa.fa-plus-circle.pl-2.note-icon {
             }
         }
         &.setting-menu-active {
-            background-color: #ddeafd;
-            color: #1273f6;
+            background-color: rgba(0, 168, 155, 0.08);
+            color: #00A89B;
+            p{
+                color: #00A89B;
+            }
             .menu-icon {
                 .normal {
                     top: -20px;
@@ -845,7 +854,17 @@ i.fa.fa-plus-circle.pl-2.note-icon {
         font-weight: 600;
         padding-left: 15px;
     }
-}
+    .leftarrow-icon{   
+        .customer-drawer-leftarrow{
+            padding: 4px 8px;
+            height: auto;
+            width: auto;
+            text-align: center;
+            margin-left: auto;
+            font-size: 28px;
+        }
+    }
+}    
 
 .short-menu {
     &.setting-menu {
@@ -861,6 +880,11 @@ i.fa.fa-plus-circle.pl-2.note-icon {
             }
             .menu-icon {
                 margin-right: 0;
+            }
+        }
+        .leftarrow-icon{   
+            .customer-drawer-leftarrow{
+                margin: 0 auto !important;
             }
         }
     }
@@ -881,10 +905,11 @@ i.fa.fa-plus-circle.pl-2.note-icon {
 }
 
 .setting-right-side-content {
-    margin-left: 215px;
-    width: calc(100% - 215px);
+    margin-left: 250px;
+    width: calc(100% - 250px);
     margin-top: 65px;
     background-color: #fff;
+    transition: all 0.4s;
     &.short-content-area {
         margin-left: 60px;
         width: calc(100% - 60px);

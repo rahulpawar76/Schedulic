@@ -12,7 +12,7 @@
             <form [formGroup]="formCreatePostalCode">
                 <!-- <mat-form-field class=" bottom-border-field">
                     <mat-label>Code</mat-label>
-                    <mat-icon matPrefix><img class="normal" src="../../../../assets/images/admin/settings-menu/postalcode.png" /></mat-icon>
+                    <mat-icon matPrefix><img class="normal" src="../../../../assets/images/admin/settings-menu/business-detail.svg" /></mat-icon>
                     <input matInput placeholder="400101" formControlName="postalCode">
                 </mat-form-field>
                 <span class="error-wrap" *ngIf="formCreatePostalCode.get('postalCode').touched || formCreatePostalCode.get('postalCode').dirty">
@@ -86,7 +86,7 @@
 
                 <mat-form-field class=" bottom-border-field">
                     <mat-label>Staff</mat-label>
-                    <mat-icon matPrefix><img class="normal" src="../../../../assets/images/admin/settings-menu/staff.png" /></mat-icon>
+                    <mat-icon matPrefix><img class="normal" src="../../../../assets/images/admin/settings-menu/staff.svg" /></mat-icon>
                     <input matInput  placeholder="Kandivali East" formControlName="postalCodeStaff"> 
                     <mat-select formControlName="postalCodeStaff" multiple>
                         <mat-option *ngFor="let staff of staffList" value="{{staff.id}}">{{staff.firstname}} {{staff.lastname}}</mat-option>

@@ -11,17 +11,21 @@ import { AppComponent } from '../app.component';
 import { AuthenticationService } from '@app/_services';
 
 @Component({
-  selector: 'app-attendees-registration',
-  templateUrl: './attendees-registration.component.html',
-  styleUrls: ['./attendees-registration.component.scss']
+  selector: 'app-sign-up',
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.scss']
 })
-export class AttendeesRegistrationComponent implements OnInit {
+export class SignUpComponent implements OnInit {
 
 	signUpForm: FormGroup;
 	loginForm: FormGroup;
     dataLoaded: boolean = false;
 	currentUser: any;
 	adminSignUpData:any;
+    hide = true;
+    hide1 = true;
+	termsCheckbox:boolean = true;
+	termsCheckboxChecked:boolean = false;
 
   	constructor(private _formBuilder: FormBuilder,
   		private _snackBar: MatSnackBar,
@@ -35,12 +39,11 @@ export class AttendeesRegistrationComponent implements OnInit {
 		let onlynumeric = /^-?(0|[1-9]\d*)?$/
 
 		this.signUpForm = this._formBuilder.group({
-			firstName: ['',[Validators.required]],
-			lastName: ['',[Validators.required]],
+			fullname: ['',[Validators.required]],
 			email: ['',[Validators.required,Validators.email,Validators.pattern(emailPattern)],this.isEmailUnique.bind(this)],
-			phonenumber: ['',[Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(onlynumeric)]],
 			password: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
-		});
+			cpassword: ['',[Validators.required]]            
+		},{validator: this.checkPasswords });
 		this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
 		if (this.authenticationService.currentUserValue) {
             this.appComponent.fnCheckLoginStatus();
@@ -48,24 +51,39 @@ export class AttendeesRegistrationComponent implements OnInit {
             this.appComponent.fnCheckAuthState();
         }
 
-  		  	}
+	}
 
 	 ngOnInit() {
 		
 	 	
+	}
+	
+	/* Check password and confirm password */
+	checkPasswords(group: FormGroup) { 
+		let pass = group.controls.password.value;
+		let confirmPass = group.controls.cpassword.value;
+
+		return pass === confirmPass ? null : { notSame: true }
 	}
 	private handleError(error: HttpErrorResponse) {
 		return throwError('Error! something went wrong.');
 		//return error.error ? error.error : error.statusText;
 	  }
 	signUpSubmit(){
+		if(!this.termsCheckboxChecked){
+			this.termsCheckbox = false;
+		}
+		if(!this.termsCheckboxChecked){
+			this.termsCheckbox = false;
+			return false;
+		}
 		if(this.signUpForm.valid){
+			let fullname = this.signUpForm.get("fullname").value.split(' ',2)
 			let requestObject = {
-				"firstname":this.signUpForm.get("firstName").value,
-				"lastname":this.signUpForm.get("lastName").value,
-				"phone":this.signUpForm.get("phonenumber").value,
+				"firstname":fullname[0],
+				"lastname":fullname[1]?fullname[1]:"",
 				"email":this.signUpForm.get("email").value,
-				"password":this.signUpForm.get("password").value,
+				"password":this.signUpForm.get("cpassword").value,
 			};
 			let headers = new HttpHeaders({
 				'Content-Type': 'application/json',
@@ -102,11 +120,10 @@ export class AttendeesRegistrationComponent implements OnInit {
 			  console.log(err)
 			})
 		}else{
-			this.signUpForm.get("firstName").markAsTouched();
-			this.signUpForm.get("lastName").markAsTouched();
-			this.signUpForm.get("phonenumber").markAsTouched();
+			this.signUpForm.get("fullname").markAsTouched();
 			this.signUpForm.get("email").markAsTouched();
 			this.signUpForm.get("password").markAsTouched();
+			this.signUpForm.get("cpassword").markAsTouched();
 		}
 	}
 	login(){
@@ -140,5 +157,10 @@ export class AttendeesRegistrationComponent implements OnInit {
     signInWithFB(): void {
         this.appComponent.signInWithFB(this.loginForm);
     }
+		
+	fnChangeTermsPrivacyCheck(check){
+		this.termsCheckboxChecked = check;
+		this.termsCheckbox = check;
+	}
 
 }

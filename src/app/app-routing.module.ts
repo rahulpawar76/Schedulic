@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { Role } from './_models';
 import { AuthGuard } from './_helpers';
-import { AttendeesRegistrationComponent } from './attendees-registration'
+import { SignUpComponent } from './sign-up'
 import { LoginComponent } from './login';
 import { CustomerLoginComponent } from './customer-login';
 import { ForgotPasswordComponent } from './forgot-password';
@@ -45,8 +45,8 @@ const routes: Routes = [
     component: ResetPasswordComponent 
   },
   {
-    path: 'attendees-registration', 
-    component:  AttendeesRegistrationComponent,
+    path: 'sign-up', 
+    component:  SignUpComponent,
   },
   {
     path: 'booking', 

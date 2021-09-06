@@ -1,88 +1,88 @@
 <mat-drawer-content id="paymentgateway" class="ml-0">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div>
     <div class="left-side-menu setting-menu" [ngClass]="{ 'short-menu': settingSideMenuToggle === true }">
-        <div class="leftarrow-icon d-flex">
-            <mat-icon (click)="fnSettingMenuToggleSmall()" *ngIf="!settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_back</mat-icon>
-            <mat-icon (click)="fnSettingMenuToggleLarge()" *ngIf="settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_forward</mat-icon>
+        <div class="leftarrow-icon d-flex align-items-center">
+            <h6 class="mb-0">Resource Management</h6>
+            <span (click)="fnSettingMenuToggleSmall()" *ngIf="!settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer material-icons-outlined">arrow_circle_left</span>
+            <span (click)="fnSettingMenuToggleLarge()" *ngIf="settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer material-icons-outlined">arrow_circle_right</span>
         </div>
-        <h6>Resource Management</h6>
         <div routerLink="/admin/settings-resource" class="d-flex setting-menu-item">
             <div class="menu-icon">
-                <img class="normal" src="../../../../assets/images/admin/settings-menu/service.png" />
-                <img class="colored" src="../../../../assets/images/admin/settings-menu/service-color.png" />
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/service.svg" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/service-active.svg" />
             </div>
             <p>Services</p>
         </div>
         <div routerLink="/admin/settings-resource/staff" class="d-flex setting-menu-item">
             <div class="menu-icon">
-                <img class="normal" src="../../../../assets/images/admin/settings-menu/staff.png" />
-                <img class="colored" src="../../../../assets/images/admin/settings-menu/staff-color.png" />
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/staff.svg" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/staff-active.svg" />
             </div>
             <p>Staff</p>
         </div>
         <div routerLink="/admin/settings-resource/business-hours" class="d-flex setting-menu-item">
             <div class="menu-icon">
-                <img class="normal" src="../../../../assets/images/admin/settings-menu/business-hours.png" />
-                <img class="colored" src="../../../../assets/images/admin/settings-menu/business-hours-color.png" />
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/business-hours.svg" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/business-hours-active.svg" />
             </div>
             <p>Business Hours</p>
         </div>
         <div routerLink="/admin/settings-resource/postalcode" class="d-flex setting-menu-item">
             <div class="menu-icon">
-                <img class="normal" src="../../../../assets/images/admin/settings-menu/postalcode.png" />
-                <img class="colored" src="../../../../assets/images/admin/settings-menu/postalcode-color.png" />
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/postal-code.svg" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/postal-code-active.svg" />
             </div>
             <p>Postal Codes</p>
         </div>
         <h6 class="pt-3">Account</h6>
         <div routerLink="/admin/settings-account/company-details" class="d-flex setting-menu-item">
             <div class="menu-icon">
-                <img class="normal" src="../../../../assets/images/admin/settings-menu/companydetails.png" />
-                <img class="colored" src="../../../../assets/images/admin/settings-menu/companydetails-color.png" />
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/business-detail.svg" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/business-detail-active.svg" />
             </div>
             <p>Business Details</p>
         </div>
         <h6 class="pt-3">Payment</h6>
         <div routerLink="/admin/settings-payment/billing" class="d-flex setting-menu-item">
             <div class="menu-icon">
-                <img class="normal" src="../../../../assets/images/admin/settings-menu/billing.png" />
-                <img class="colored" src="../../../../assets/images/admin/settings-menu/billing-color.png" />
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/billing.svg" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/billing-active.svg" />
             </div>
             <p>Billing</p>
         </div>
         <div routerLink="/admin/settings-payment/payment-gateway" class="d-flex setting-menu-item setting-menu-active">
             <div class="menu-icon">
-                <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentgateway.png" />
-                <img class="colored" src="../../../../assets/images/admin/settings-menu/paymentgateway-color.png" />
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/payment-gateway.svg" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/payment-gateway-active.svg" />
             </div>
             <p>Payment Gateway</p>
         </div>
         <div routerLink="/admin/settings-payment/payment-rules" class="d-flex setting-menu-item">
             <div class="menu-icon">
-                <img class="normal" src="../../../../assets/images/admin/settings-menu/paymentrules.png" />
-                <img class="colored" src="../../../../assets/images/admin/settings-menu/paymentrules-color.png" />
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/payment-rules.svg" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/payment-rules-active.svg" />
             </div>
             <p>Payment Rules</p>
         </div>
         <h6 class="pt-3">General Setting</h6>
         <div routerLink="/admin/settings-general/appearance" class="d-flex setting-menu-item">
             <div class="menu-icon">
-                <img class="normal" src="../../../../assets/images/admin/settings-menu/appearance.png" />
-                <img class="colored" src="../../../../assets/images/admin/settings-menu/appearance-color.png" />
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/appearance.svg" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/appearance-active.svg" />
             </div>
             <p>Appearance</p>
         </div>
         <div routerLink="/admin/settings-general/booking-rules" class="d-flex setting-menu-item">
             <div class="menu-icon">
-                <img class="normal" src="../../../../assets/images/admin/settings-menu/bookingrules.png" />
-                <img class="colored" src="../../../../assets/images/admin/settings-menu/bookingrules-color.png" />
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/booking-rules.svg" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/booking-rules-active.svg" />
             </div>
             <p>Booking Rules</p>
         </div>
         <div routerLink="/admin/settings-general/alert-rules" class="d-flex setting-menu-item">
             <div class="menu-icon">
-                <img class="normal" src="../../../../assets/images/admin/settings-menu/alert.png" />
-                <img class="colored" src="../../../../assets/images/admin/settings-menu/alert-color.png" />
+                <img class="normal" src="../../../../assets/images/admin/settings-menu/alert-rules.svg" />
+                <img class="colored" src="../../../../assets/images/admin/settings-menu/alert-rules-active.svg" />
             </div>
             <p>Alert Rules</p>
         </div>

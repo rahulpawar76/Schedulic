@@ -24,6 +24,8 @@ export class ResetPasswordComponent implements OnInit {
   submitted = false;
   newPassword: any;
   accesToken : any;
+  hide = true;
+  hide1 = true;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -103,6 +105,11 @@ export class ResetPasswordComponent implements OnInit {
       this.resetPasswordForm.get('NewPassword').markAsTouched();
       this.resetPasswordForm.get('ReNewPassword').markAsTouched();
     }  
+  }
+
+  
+	login(){
+    this.router.navigate(["login"]);
   }
 
 }
