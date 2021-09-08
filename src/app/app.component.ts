@@ -151,6 +151,7 @@ export class AppComponent implements AfterViewInit {
         }
       }
     })
+    this.isAdminUser();
   }
   private handleError(error: HttpErrorResponse) {
     return throwError('Error! something went wrong.');

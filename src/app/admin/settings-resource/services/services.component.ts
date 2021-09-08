@@ -37,11 +37,11 @@ export class ServicesComponent implements OnInit {
     ActionId: any = [];
     staffActionIdSub:any = [];
     selectAll:boolean =false;
-    staffList:any;
+    staffList:any=[];
 
 
     allCetegoryList: any;
-    allServicesList: any;
+    allServicesList: any=[];
     allCategoryCount: any;
     allServiceCount: any;
     editCategoryId: any;
@@ -59,7 +59,7 @@ export class ServicesComponent implements OnInit {
     subCategoryServicesList: any;
     service_filter: any = 'all';
     subcategory_service_filter: any = 'all';
-    servicesList: boolean = true;
+    servicesList: boolean = false;
     adminSettings: boolean = true;
     selectedCategoryDetails: any;
     selectedSubCategoryDetails: any;
@@ -459,6 +459,9 @@ export class ServicesComponent implements OnInit {
             if (response.data == true && response.response.length > 0) {
                 this.allCetegoryList = response.response
                 this.allCategoryCount = this.allCetegoryList.length;
+                if(this.allCategoryCount > 0){
+                    this.servicesList = true;
+                }
                 this.isLoaderAdmin = false;
                 if(this.allowed){
                     this.allowed=false;
@@ -474,11 +477,6 @@ export class ServicesComponent implements OnInit {
                 }
                 
             }else if(response.data == true && response.response.length == 0){
-                this._snackBar.open("Please add category.", "X", {
-                    duration: 2000,
-                    verticalPosition: 'top',
-                    panelClass: ['red-snackbar']
-                });
                 this.allCetegoryList = [];
                 this.allCategoryCount = 0;
 
