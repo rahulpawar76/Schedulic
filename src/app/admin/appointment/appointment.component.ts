@@ -861,7 +861,7 @@ export class DialogAddNewAppointment {
       customerDate: [this.appointmentData.booking_date, Validators.required],
       customerTime: [this.appointmentData.booking_time, Validators.required],
       customerStaff: [this.appointmentData.staff, Validators.required],
-      customerCouponCode: [this.appointmentData.discount_code, Validators.required]
+      customerCouponCode: ['']
 
     });
  //   console.log("ar "+this.formAddNewAppointmentStaffStep2.get('customerDate').value);
