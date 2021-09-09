@@ -95,17 +95,6 @@ export class MyBusinessComponent implements OnInit {
     });
   }
 
-  // getGeoLocation(IP){
-  //   this.isLoaderAdmin = true;
-  //   this.AdminService.getGeoLocation(IP).subscribe((response:any) => {
-  //     if(response){
-  //       console.log(response.response)
-  //     }
-  //     else {
-  //     }
-  //     this.isLoaderAdmin = false;
-  //   })
-  // }
   getAllBusiness(){
     this.isLoaderAdmin = true;
     this.sharedService.updateSideMenuState(false);
@@ -237,13 +226,10 @@ export class MyBusinessComponent implements OnInit {
   private handleRoute(event: RouterEvent) {
     const url = this.getUrl(event);
     let devidedUrl = url.split('/',4);
-    console.log(devidedUrl)
     if((devidedUrl[1] == 'admin' && devidedUrl.length == 2) || devidedUrl[2] == 'my-business'){
-      console.log('isBusiness yes')
       // this.AppComponent
       localStorage.setItem('isBusiness','true');
     }else{
-      console.log('isBusiness no')
       localStorage.setItem('isBusiness','false');
       this.sharedService.updateSideMenuState(true);
     }
@@ -458,7 +444,6 @@ export class myCreateNewBusinessDialog {
     this.listTimeZoneList
       .pipe(take(1), takeUntil(this._onDestroy))
       .subscribe(() => {
-        console.log('fail')
       });
   }
 
@@ -487,7 +472,6 @@ export class myCreateNewBusinessDialog {
     this.listTimeZoneList
       .pipe(take(1), takeUntil(this._onDestroy))
       .subscribe(() => {
-        console.log('fail')
       });
   }
 

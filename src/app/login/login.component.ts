@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
     returnUrl: string;
     error = '';
     hide = true;
-    hideLoginForm: boolean = true;
     dataLoaded: boolean = false;
     isIE: boolean = false;
 
@@ -85,6 +84,8 @@ export class LoginComponent implements OnInit {
                     this.router.navigate(["admin-select-subscription"]);
                     return; 
                 }
+                // this.dataLoaded = false;
+                // debugger;
 
                 if(data.response.user_type == "A"){
                     this.router.navigate(["admin"]);
@@ -94,9 +95,6 @@ export class LoginComponent implements OnInit {
                 }else{
                     this.router.navigate(["user"]);
                 }
-
-                // this.appComponent.initiateTimeout();
-                this.hideLoginForm = false;
                 
             }else if(data.data == false){
 

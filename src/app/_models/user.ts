@@ -4,6 +4,7 @@
     email: string;
     password: string;
     firstname: string;
+    full_name?: string;
     lastname: string;
     role: string;
     user_type?: string;
@@ -19,4 +20,6 @@
     google_id?: string; //Use with fake backend
     facebook_id?: string; //Use with fake backend
     internal_staff?: string; //Use with fake backend
+    image?: string; //Use with fake backend
+    avgRatings?: []; //Use with fake backend
 }

@@ -150,11 +150,6 @@
                                                             <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/Category.png" /> Category
                                                         </div>
                                                     </mat-list-item>
-                                                    <!-- <mat-list-item role="listitem" (click)="addNewServicesNav()">
-                                                        <div class="common-menu">
-                                                            <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/Customer.png" /> Services
-                                                        </div>
-                                                    </mat-list-item> -->
                                                     <mat-list-item role="listitem" (click)="addNewStaffNav()">
                                                         <div class="common-menu">
                                                             <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/Staff.png" /> Staff
@@ -175,11 +170,6 @@
                                                             <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/discount.png" /> Discount Coupon
                                                         </div>
                                                     </mat-list-item>
-                                                    <!-- <mat-list-item role="listitem" (click)="addNewTimeOffNav()">
-                                                        <div class="common-menu">
-                                                            <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/Time-off.png" /> Time off
-                                                        </div>
-                                                    </mat-list-item> -->
                                                 </ul>
                                             </mat-card-content>
                                         </mat-card>
@@ -274,7 +264,7 @@
                 <img class="customer-profile-img ml-2 mr-2 mb-2" src="{{currentUser.image}}">
                 <div>
                     <p class="font-weight-bold p-1 mb-0">{{currentUser.full_name}}</p>
-                    <div *ngIf="currentUser.avgRatings != ''" class="d-flex statick-rating staff-dash w-100">
+                    <div *ngIf="currentUser.avgRatings.length != 0" class="d-flex statick-rating staff-dash w-100">
                         <div class="star-rating" *ngIf="currentUser.avgRatings">
                             <input type="radio" [checked]="currentUser.avgRatings[0].aggregate == '5'" id="5-stars_{{currentUser.id}}" name="rating_2" value="5" />
                             <label for="5-stars_{{currentUser.id}}" class="star">&#9733;</label>
@@ -305,28 +295,19 @@
                     <i mat-list-icon class="fa fa-sign-out mr-3 menuitem"></i>Logout</button>
             </mat-list-item>
         </mat-list>
-        <mat-list role="list" *ngIf="isStaffUser() && isAdminUser()">
+        <!-- <mat-list role="list" *ngIf="isStaffUser() && isAdminUser()">
             <mat-menu></mat-menu>
             <mat-list-item role="listitem" (click)="drawer.toggle()" (click)="MyProfile('./my-profile')" class="matlist pointer menuitem">
                 <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg">
                 <p class="font-weight-bold mt-2 p-1">Userxyzee</p>
             </mat-list-item>
-            <!-- <mat-list-item role="listitem" (click)="UserAppointment('./userappointments')"
-        (click)="drawer.toggle()">
-        <button mat-menu-item (click)="drawer.toggle()" class="menuitem">
-        <i mat-list-icon class="fa fa-briefcase mr-3"></i>My Work Space</button>
-        </mat-list-item> -->
             <mat-list-item role="listitem" (click)="myWorkSpaceNav()" (click)="drawer.toggle()">
                 <button mat-menu-item class="menuitem"><i mat-list-icon  class="fa fa-calendar mr-3"></i>My Appointmets</button>
             </mat-list-item>
-            <!--  <mat-list-item role="listitem"  (click)="WorkProfile('./work-profile')"
-        (click)="drawer.toggle()">
-        <button mat-menu-item (click)="drawer.toggle()" class="menuitem"><i mat-list-icon    class="material-icons mr-3">people_alt</i>Work Profile</button>
-        </mat-list-item> -->
             <mat-list-item role="listitem">
                 <button mat-menu-item (click)="logout(); drawer.toggle();" class="menuitem">
-        <i mat-list-icon class="fa fa-sign-out mr-3 menuitem" matTooltip="Logout" aria-label="clcik on Logout"></i>Logout</button>
+                    <i mat-list-icon class="fa fa-sign-out mr-3 menuitem" matTooltip="Logout" aria-label="clcik on Logout"></i>Logout</button>
             </mat-list-item>
-        </mat-list>
+        </mat-list> -->
     </mat-drawer>
 </mat-drawer-container>
