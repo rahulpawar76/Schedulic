@@ -1,26 +1,81 @@
 .selected-plan {
-    background-color: #417bff;
-    color: #fff;
+    background-color: #eaf7f6;
+    color: #000;
     pointer-events: none;
     .selected-plan-btn {
         background-color: #fff;
         color: #00A89B;
     }
+    
 }
-
+.bg-wrap{
+    background-color: #eaf7f6;
+    padding: 15px;
+    border-radius: 4px;
+    .plan-name{
+        font-weight: 500!important;
+    }
+}
+.paln-business-staff .row{
+    flex-direction: column;
+    .custom-col-wrap{
+        display: flex;
+        justify-content: center;
+        flex-direction: row-reverse;
+        span{
+            margin-left: 5px;
+            color: #565657;
+            font-size: 15px;
+        }
+        p{
+            color: #565657;
+            font-weight: 400!important;
+            font-size: 15px;
+        }
+    }
+}
+.subscribe-btn{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .subscribe-btn-wrap{
+        background-color: #f04589;
+    }
+    .selected-plan-btn{
+        background-color: #ffe482;
+        color: #222;
+        padding: 0px 40px;
+    }
+    .plan-cost{
+        font-size: 14px;
+    }
+}
 .current-plan-detail {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff4ca;
+    box-shadow: unset!important;
+    margin-bottom: 0px!important;
     h3 {
         text-align: left;
-        margin-bottom: 15px;
-        font-size: 20px;
+        margin-bottom: 0px;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
         span {
             font-weight: 500;
         }
+    }
+    .date-wrap-detail{
+        display: flex;
     }
     label {
         text-align: left;
         width: 100%;
         font-size: 16px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0px;
         span {
             font-weight: 500;
         }
@@ -30,7 +85,7 @@
         .cancel-btn {
             color: #fff;
             margin-left: auto;
-            background-color: #f44336;
+            background-color: #ff5a5a;
         }
     }
 }

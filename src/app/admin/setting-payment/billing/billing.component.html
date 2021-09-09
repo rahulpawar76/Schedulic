@@ -90,11 +90,12 @@
     <div class="setting-right-side-content without-footer" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
         <mat-card class="main-card-container mb-0">
             <h5>Subscription Plans</h5>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
             <mat-card *ngIf="currentUser.plan" class="current-plan-detail row mx-0">
                 <h3>Current Plan :
                     <span>{{currentUser.plan.plan_name}}</span>
                 </h3>
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-6 date-wrap-detail">
                     <label>Start Date : <span>{{currentUser.currentPlan.start_date}}</span></label>
                     <label>End Date : <span>{{currentUser.currentPlan.end_date}}</span></label>
                 </div>
@@ -102,42 +103,43 @@
                     <button mat-button class="cancel-btn" (click)="fnCancelPlane();">Cancel Subscription</button>
                 </div>
             </mat-card>
-            <div class=" mt-5 plan-content p-2">
+            <div class=" plan-content ">
                 <div class="row">
                     <div class="col-4 p-3 text-center" *ngFor="let planList of planList; let i=index;">
-                        <div class="border shadow" [ngClass]="{'selected-plan':planList.selected === true}">
+                        <div class=" bg-wrap" [ngClass]="{'selected-plan':planList.selected === true}">
                             <div class="plan-name py-2 text-center text-capitalize font-weight-bold">
                                 {{planList.plan_name}}
                             </div>
                             <hr class="m-0">
-                            <div class="plan-cost py-2 text-center">
-                                <i class="fa  fa-usd pr-2"></i> <span class="cost pr-2">{{planList.amount}}/-</span> <span>per {{planList.interval}}</span>
-                            </div>
                             <!-- <hr class="m-0"> -->
-                            <div class="paln-business-staff p-2">
+                            <div class="paln-business-staff pt-3">
                                 <div class="row">
-                                    <div class="col-6">
-                                        <i class="fa fa-briefcase pr-2"></i><span>Business</span>
+                                    <div class="col-12 custom-col-wrap">
+                                        <!-- <i class="fa fa-briefcase pr-2"></i><span>Business</span> -->
+                                        <span>Business</span>
                                         <p *ngIf="planList.business_limit" class="font-weight-bold">{{planList.business_limit}}</p>
                                         <p *ngIf="!planList.business_limit" class="font-weight-bold">--</p>
                                     </div>
-                                    <div class="col-6">
-                                        <i class="fa fa-id-card pr-2"></i> <span>Staff</span>
+                                    <div class="col-12 custom-col-wrap">
+                                        <!-- <i class="fa fa-id-card pr-2"></i> <span>Staff</span> -->
+                                        <span>Staff</span>
                                         <p *ngIf="planList.staff_limit" class="font-weight-bold">{{planList.staff_limit}}</p>
                                         <p *ngIf="!planList.staff_limit" class="font-weight-bold">--</p>
                                     </div>
                                 </div>
                             </div>
                             <!-- <hr class="m-0"> -->
-                            <div class="paln-business-staff p-2">
+                            <div class="paln-business-staff ">
                                 <div class="row">
-                                    <div class="col-6">
-                                        <i class="fa fa-users pr-2"></i> <span>Customers</span>
+                                    <div class="col-12 custom-col-wrap">
+                                        <!-- <i class="fa fa-users pr-2"></i> <span>Customers</span> -->
+                                        <span>Customers</span>
                                         <p *ngIf="planList.customer_limit" class="font-weight-bold">{{planList.customer_limit}}</p>
                                         <p *ngIf="!planList.customer_limit" class="font-weight-bold">--</p>
                                     </div>
-                                    <div class="col-6">
-                                        <i class="fa fa-bookmark pr-2"></i> <span>Services</span>
+                                    <div class="col-12 custom-col-wrap">
+                                        <!-- <i class="fa fa-bookmark pr-2"></i> <span>Services</span> -->
+                                        <span>Services</span>
                                         <p *ngIf="planList.service_limit" class="font-weight-bold">{{planList.service_limit}}</p>
                                         <p *ngIf="!planList.service_limit" class="font-weight-bold">--</p>
                                     </div>
@@ -145,8 +147,11 @@
                             </div>
                             <hr class="m-0">
                             <div class="subscribe-btn text-center py-3">
+                                <div class="plan-cost py-2 text-center">
+                                    <i class="fa  fa-usd pr-2"></i> <span class="cost pr-2">{{planList.amount}}/-</span><br><span>per {{planList.interval}}</span>
+                                </div>
                                 <button *ngIf="planList.selected == true" mat-flat-button class="selected-plan-btn">Selected</button>
-                                <button *ngIf="planList.selected == false" (click)="fnChangePlan(planList.plan_id)" mat-flat-button color="primary">Subscribe Now</button>
+                                <button *ngIf="planList.selected == false" (click)="fnChangePlan(planList.plan_id)" mat-flat-button class="subscribe-btn-wrap" color="primary">Subscribe Now</button>
                             </div>
                         </div>
                     </div>
