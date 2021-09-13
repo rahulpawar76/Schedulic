@@ -170,7 +170,12 @@
                                 <mat-form-field class=" bottom-border-field">
                                     <mat-label>Country</mat-label>
                                     <mat-select formControlName="country" (selectionChange)="selectCountry($event.value)">
-                                        <mat-option *ngFor="let allCountry of allCountry" value="{{allCountry.id}}"> {{allCountry.name}}</mat-option>
+                                        <mat-option>
+                                            <ngx-mat-select-search [formControl]="countryFilterCtrl"></ngx-mat-select-search>
+                                        </mat-option>
+                                        <mat-option *ngFor="let allCountry of countryList | async" value="{{allCountry.id}}"> 
+                                            {{allCountry.name}}           
+                                        </mat-option>
                                     </mat-select>
                                 </mat-form-field>
                                 <span class="error-wrap d-flex" *ngIf="companyDetails.get('country').dirty || companyDetails.get('country').touched">
@@ -184,7 +189,10 @@
                                     <mat-form-field class=" bottom-border-field">
                                         <mat-label>State</mat-label>
                                         <mat-select formControlName="state" (selectionChange)="selectStates($event.value)">
-                                            <mat-option *ngFor="let allStates of allStates" value="{{allStates.id}}">
+                                            <mat-option>
+                                                <ngx-mat-select-search [formControl]="StateFilterCtrl"></ngx-mat-select-search>
+                                            </mat-option>
+                                            <mat-option *ngFor="let allStates of StateList | async" value="{{allStates.id}}">
                                                 {{allStates.name}}
                                             </mat-option>
                                         </mat-select>
@@ -197,7 +205,10 @@
                                     <mat-form-field class="bottom-border-field">
                                         <mat-label>City</mat-label>
                                         <mat-select formControlName="city">
-                                            <mat-option *ngFor="let allCities of allCities" value="{{allCities.id}}">
+                                            <mat-option>
+                                                <ngx-mat-select-search [formControl]="CityFilterCtrl"></ngx-mat-select-search>
+                                            </mat-option>
+                                            <mat-option *ngFor="let allCities of CityList | async" value="{{allCities.id}}">
                                                 {{allCities.name}}
                                             </mat-option>
                                         </mat-select>

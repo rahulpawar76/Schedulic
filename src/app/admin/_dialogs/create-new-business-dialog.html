@@ -56,7 +56,10 @@
                                 <mat-form-field>
                                     <mat-label>State</mat-label>
                                     <mat-select formControlName="business_state" (selectionChange)="selectStates($event.value)">
-                                        <mat-option *ngFor="let allStates of allStates" [value]="allStates.id">
+                                        <mat-option>
+                                            <ngx-mat-select-search [formControl]="StateFilterCtrl"></ngx-mat-select-search>
+                                        </mat-option>
+                                        <mat-option *ngFor="let allStates of StateList | async" [value]="allStates.id">
                                             {{allStates.name}}
                                         </mat-option>
                                     </mat-select>
@@ -87,7 +90,10 @@
                                 <mat-form-field>
                                     <mat-label>City</mat-label>
                                     <mat-select formControlName="business_city">
-                                        <mat-option *ngFor="let allCities of allCities" [value]="allCities.id">
+                                        <mat-option>
+                                            <ngx-mat-select-search [formControl]="CityFilterCtrl"></ngx-mat-select-search>
+                                        </mat-option>
+                                        <mat-option *ngFor="let allCities of CityList | async" [value]="allCities.id">
                                             {{allCities.name}}
                                         </mat-option>
                                     </mat-select>
