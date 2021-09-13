@@ -21,12 +21,18 @@
 ::ng-deep .mat-tab-label-container {
     .mat-tab-list {
         .mat-tab-labels {
-            background-color: $tab-colors !important;
-            height: 63px;
+            background-color: #ffe895!important;
+            height: 55px;
             align-items: center;
             .mat-tab-label-active {
-                background-color: #fff !important;
+                background-color: #fed74b !important;
                 height: 63px;
+            }
+            .mat-tab-label{
+                opacity: 1;
+                color: #000;
+                font-weight: 600;
+                border-right: 1px solid #fff;
             }
         }
     }
@@ -283,20 +289,31 @@
         .before-search {
             position: absolute;
             line-height: 1.9;
-            left: 15px;
+            left: 0px;
+            color: #222;
         }
         .searchbox_staffappo {
             padding: 8px 20px;
-            border-radius: 20px;
+            border-radius: 0px;
             font-size: $fs-12;
             text-indent: 15px;
+            border-bottom: 1px solid #777;
+            border-top: 0px;
+            border-right: 0px;
+            border-left: 0px;
+            background-color: transparent;
+            &::placeholder{
+                color: #000;
+            }
         }
     }
     .btnappoint_staffappo {
-        border-radius: 50px;
+        border-radius: 4px;
         margin-left: 20px;
         padding: 8px 20px;
         font-size: 12px;
+        background-color: #f04589;
+        border: none; 
     }
 }
 

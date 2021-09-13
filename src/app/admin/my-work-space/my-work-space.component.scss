@@ -681,8 +681,11 @@
 
 
 /*_____________[3] Appointment____________________ */
-
+.custom-background{
+    background-color: #eafafc;
+}
 #Appoinment-Details {
+    background-color: #eafafc;
     // .border-right-blue:after {}
     .map-icon {
         width: auto;
@@ -697,6 +700,7 @@
     }
     h6 {
         font-size: 13px;
+        font-weight: 700;
     }
     p {
         font-size: 12px;
@@ -740,6 +744,8 @@
     }
     .Appoinment-icon {
         color: #1e88e5;
+        align-items: center;
+        display: flex;
     }
     .person-name {
         padding-top: 0;

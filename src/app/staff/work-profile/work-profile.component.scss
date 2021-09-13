@@ -9,17 +9,23 @@
     background-color: $bgblue;
     margin: 0px;
 }
-
 ::ng-deep .mat-tab-label-container {
     .mat-tab-list {
         .mat-tab-labels {
-            background-color: $tab-colors !important;
-            height: 63px;
+            background-color: #ffe895 !important;
+            height:55px;
             align-items: center;
             .mat-tab-label-active {
-                background-color: #fff !important;
+                background-color: #fed74b !important;
                 height: 63px;
             }
+            .mat-tab-label{
+                opacity: 1;
+                color: #000;
+                font-weight: 600;
+                border-right: 1px solid #fff;
+            }
+            
         }
     }
 }
@@ -89,8 +95,8 @@
         .card-body-workinghour {
             .map {
                 .customer-profile-img {
-                    height: 30px;
-                    width: 34px;
+                    height: 28px;
+                    width: 28px;
                     border-radius: unset;
                 }
             }
@@ -107,7 +113,7 @@
 }
 
 .staff-work-profile {
-    margin: 15px 0;
+    margin: 30px 0;
     .profile-single-slot {
         .card-body-workinghour {
             padding: 0px 30px;
@@ -119,14 +125,22 @@
                 display: flex;
                 align-items: center;
                 color: #000;
+                font-weight: 600;
             }
+            
             .wrapcontent {
                 display: flex;
                 margin-bottom: 20px;
+                .location-icon{
+                    width: unset!important;
+                    height: 32px;
+                }
             }
             .wrapcontent1 {
                 width: 100%;
                 text-align: center;
+                display: flex;
+                justify-content: space-around;
                 p {
                     float: left;
                     text-align: left;
@@ -138,9 +152,12 @@
                         filter: drop-shadow(0 0 5px rgba(2, 2, 2, 0.2));
                     }
                 }
+                .custom-bold-text{
+                    font-weight: 500;
+                }
             }
             .map {
-                background-color: #ededed;
+                background-color: #eaf7f6;
                 border-radius: 100%;
                 height: 65px;
                 width: 65px;
@@ -155,11 +172,12 @@
                 }
             }
             .hours {
-                background-color: #ededed;
+                background-color: #eaf7f6;
                 height: 29px;
                 width: 100px;
                 padding: 5px 0 5px;
                 text-align: center;
+                border-radius: 5px;
             }
         }
     }

@@ -117,7 +117,10 @@
 
 .mat-button-toggle {}
 
-.mat-card {}
+.mat-card {
+    border: none;
+    box-shadow: 0px 0px 18px 9px #eaf7f6!important;
+}
 
 .mat-card-title {
     font-size: 24px;
@@ -2506,7 +2509,7 @@ th.mat-header-cell {
 
 .mat-tab-group.mat-primary .mat-ink-bar,
 .mat-tab-nav-bar.mat-primary .mat-ink-bar {
-    background-color: #00A89B
+    background-color: unset
 }
 
 .mat-tab-group.mat-primary.mat-background-primary .mat-ink-bar,

@@ -1,6 +1,6 @@
 <div class="content-main">
-    <mat-tab-group mat-align-tabs="start">
-        <mat-tab label="Services">
+    <mat-tab-group  mat-align-tabs="start">
+        <mat-tab  label="Services">
             <div class="staff-work-profile work-profile-category">
                 <div *ngIf="serviceData != ''" class="single-booking row mx-0">
                     <div *ngFor="let serviceData of serviceData; let i = index" class="col-sm-3 col-lg-3 col-md-6 profile-single-slot float-left">
@@ -24,12 +24,15 @@
                     <mat-card class="card">
                         <div class="card-body-workinghour mt-3">
                             <div class="wrapcontent">
-                                <div class="map"><i class="fa fa-map-marker"></i></div>
+                                <div class="map">
+                                    <img mat-card-avatar class="location-icon text-center" src="/assets/images/icons/location.svg">
+                                </div>
+                                <!-- <div class="map"><i class="fa fa-map-marker"></i></div> -->
                                 <label class="text-capitaliza">{{postalCodeData.area}}</label>
                             </div>
                             <div class="wrapcontent1">
-                                <p class="mb-0">Postal Code</p>
-                                <p class="wrapcontent1">{{postalCodeData.postal_code}}</p>
+                                <p class="mb-0">Postal Code:</p>
+                                <p class="custom-bold-text">{{postalCodeData.postal_code}}</p>
                             </div>
                         </div>
                     </mat-card>
@@ -46,7 +49,7 @@
                         <div class="card-body-workinghour mt-3">
                             <div class="wrapcontent w-100">
                                 <div class="map">
-                                    <img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/calendar.png">
+                                    <img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/icons/date-calendar.svg">
                                 </div>
                                 <label>{{workingHours.week_day_name}}</label>
                             </div>
@@ -54,7 +57,7 @@
                                 <div class="hours">
                                     <p>{{workingHours.day_start_timeForLabel}}</p>
                                 </div>
-                                <label>to</label>
+                                <label class="font-weight-normal">to</label>
                                 <div class="hours">
                                     <p>{{workingHours.day_end_timeForLabel}}</p>
                                 </div>
@@ -80,7 +83,7 @@
                         <div class="card-body-workinghour mt-3">
                             <div class="wrapcontent w-100">
                                 <div class="map">
-                                    <img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/calendar.png">
+                                    <img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/icons/clock.svg">
                                 </div>
                                 <label>{{breakHours.week_day_name}}</label>
                             </div>
@@ -88,7 +91,7 @@
                                 <div class="hours">
                                     <p>{{breakHours.break_start_timeForLabel}}</p>
                                 </div>
-                                <label>to</label>
+                                <label class="font-weight-normal">to</label>
                                 <div class="hours">
                                     <p> {{breakHours.break_end_timeForLabel}}</p>
                                 </div>
@@ -136,7 +139,7 @@
                         <div class="card-body-workinghour mt-3">
                             <div class="wrapcontent">
                                 <div class="map">
-                                    <img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/time-off.png">
+                                    <img mat-card-avatar class="customer-profile-img text-center" src="/assets/images/icons/date-calendar.svg">
                                 </div>
                                 <label>{{holidayData.description}}</label>
                             </div>
