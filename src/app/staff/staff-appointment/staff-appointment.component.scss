@@ -244,13 +244,18 @@
     background: #eee;
     width: 400px;
     .rejectbtn {
-        border-radius: 50px;
+        border-radius: 5px;
         margin: 5px;
-        background-color: #ff3e3f;
+        background-color: #fa8888;
+        color: #000;    
+        border-color: #fa8888;
     }
     .acceptbtn {
-        border-radius: 50px;
+        border-radius: 5px;
         margin: 5px;
+        background-color: #a0da8d;
+        color: #000;
+        border-color: #a0da8d;
     }
     .ongoingdetails {
         .greenfont {
