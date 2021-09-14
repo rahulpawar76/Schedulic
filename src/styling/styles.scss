@@ -1069,6 +1069,10 @@ textarea {
             font-size: 16px;
             line-height: 1;
             height: 44px;
+            &.bordered-control{
+                border: 1px solid rgba(112, 112, 112, 0.4);
+                line-height: 0.8;
+            }
         }
         &.input-group {
             .input-group-prepend {
@@ -1213,6 +1217,10 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
     font-size: 16px;
 }
 
+.long-width-btn{
+    width: 200px;
+}
+
 .circle-animat-wrap {
     margin-bottom: 0;
     .circle-blick-with-border {
@@ -1300,6 +1308,11 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
     }
 }
 
+.blue-card{
+    background-color: #EAF7F6;
+    border-radius: 5px;
+    padding: 20px 50px;
+}
 
 @keyframes ripple {
     0% {

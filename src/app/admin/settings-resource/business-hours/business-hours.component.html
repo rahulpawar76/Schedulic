@@ -113,10 +113,10 @@
                                             <div class="d-flex">
                                                 <div class="common-input">
                                                     <div class="form-group">
-                                                    <mat-select class="form-control" formControlName="mondayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Monday')">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
-                                                    </mat-select>
-                                                </div>
+                                                        <mat-select class="form-control" formControlName="mondayStartTime" (selectionChange)="fnOnChangeStartTimeWorkingHour($event,'Monday')">
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        </mat-select>
+                                                    </div>
                                                 </div>
                                                 <div class="to-center">to</div>
                                                 <div class="common-input">

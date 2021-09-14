@@ -88,28 +88,23 @@
         </div>
     </div>
     <div class="setting-right-side-content" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
+        <div class="row mx-0 mb-0 pt-4 pl-4 pr-4">
+            <div class="col-6">
+                <div class="d-flex mb-1">
+                    <h5 class="page-title">Postal Code</h5>
+                </div>
+                <p class="w-100 d-flex page-des mb-0">Postal codes are defined geographical boundaries within a location.</p>
+                <p class="w-100 d-flex page-des">Staff can be these area code.</p>
+            </div>
+            <div class="col-6">
+                <div class="d-flex float-right mt-2 flex-wrap justify-content-end">
+                    <button mat-button (click)="addcsvPostalCode()" class="sc-yellow-btn ml-2 mr-2"
+                        style="width: 190px;">Upload Postal Code</button>
+                    <button mat-button (click)="addPostalCode()" class="sc-pink-btn ml-2 mr-2">Add Postal Code</button>
+                </div>
+            </div>
+        </div>
         <div class="main-postalcode-content">
-            <div class="float-left">
-                <h5>Postal Code</h5>
-                <p class="mb-0">Postal codes are defined geographical boundaries within a location. </p>
-                <p class="mb-0"> Staff can be these area code.</p>
-
-            </div>
-            <div class="d-flex float-right mt-2 flex-wrap justify-content-end">
-                <!-- <button mat-button appearance="fill" class="time-of-btn ml-2 mr-2">Upload Postal Code</button> -->
-                <button mat-button (click)="addcsvPostalCode()" class="sc-yellow-btn ml-2 mr-2"
-                    style="width: 190px;">Upload Postal Code</button>
-                <button mat-button (click)="addPostalCode()" class="sc-pink-btn ml-2 mr-2">Add Postal Code</button>
-            </div>
-            <!-- <mat-form-field class="bottom-border-field dropdown-width mt-0">
-                    <mat-label>Select</mat-label>
-                    <mat-select [(ngModel)]="selectedValue" (selectionChange)="fnSelectedPostalCodeStatus($event)" [disabled]="arr.length==0">
-
-                        <mat-option value="active">Set Active</mat-option>
-                        <mat-option value="inactive">Set Inactive</mat-option>
-
-                    </mat-select>
-                </mat-form-field> -->
             <div class="postalcode-searchbox">
                 <form class="search_input-postalcode">
                     <div class="form-group has-search">

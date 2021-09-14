@@ -87,45 +87,67 @@
         </div>
     </div>
     <div class="setting-right-side-content without-footer" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
-        <mat-card class="payment-rules">
-            <h5>Payment Rules</h5>
-            <mat-card>
-                <!-- <h5>{{'USD'| currencySymbol}}</h5> -->
-                <!-- <h5> {{selectedCurrency| currencySymbol:'wide'}} {{ '3522.595' | currency:selectedCurrency:'':'1.2-2':'en-US' }}</h5> -->
-                <h5>Currency</h5>
-                <div class="d-flex">
-                    <mat-form-field class="bottom-border-field mr-2">
-                        <!-- <mat-icon matPrefix>{{selectedCurrency | currencySymbol:'wide'}}</mat-icon> -->
-                        <mat-icon matPrefix>{{selectedCurrency| currencySymbol:'wide'}}</mat-icon>
-                        <mat-label>Select Currency</mat-label>
-                        <mat-select (selectionChange)="fnChangeCurrency($event.value)" [(value)]="selectedCurrency">
-                            <mat-option *ngFor="let currenciesData of currenciesData; let i=index" value="{{currenciesData.CurrencyCode}}">{{currenciesData.CurrencyName}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field class="bottom-border-field mr-2">
-                        <mat-label>Currency Symbol Position</mat-label>
-                        <mat-select (selectionChange)="fnCurrencyPosition($event.value)" [(value)]="selectedCurrencyPosition">
-                            <mat-option value="left">Left</mat-option>
-                            <mat-option value="right">Right</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field class="bottom-border-field">
-                        <mat-label>Select Currency Format</mat-label>
-                        <mat-select (selectionChange)="fnCurrencyFormat($event.value)" [(value)]="selectedCurrencyFormat">
-                            <mat-option value="en-US">xx,xxx.xx</mat-option>
-                            <mat-option value="de">xx.xxx,xx</mat-option>
-                        </mat-select>
-                    </mat-form-field>
+        <div class="payment-rules">
+            <div class="row mx-0 mb-3 mt-4">
+                <div class="col-8">
+                    <div class="d-flex mb-1">
+                        <h5 class="page-title">Payment Rules</h5>
+                    </div>
+                    <p class="w-100 d-flex page-des mb-0">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                        <p class="w-100 d-flex page-des">Lorem Ipsum has been the industry's standard dummy.</p>
                 </div>
-            </mat-card>
-            <div class="d-flex">
-                <div class="mx-2 ml-auto">
-                    <button (click)="addTax()" mat-button appearance="fill" class="payment-addtax-btn">Add Tax</button>
+                <div class="col-4">
+                    <div class="d-flex float-right mt-2 flex-wrap justify-content-end">
+                        <button mat-button (click)="addTax()" class="sc-pink-btn ml-2 mr-2 long-width-btn">Add Tax</button>
+                    </div>
                 </div>
             </div>
-            <div class="border mt-3">
-                <div class="">
-                    <div class="Customer-appointment-table">
+            <div class="blue-card">
+                <div class="row">
+                    <div class="col-4 common-input">
+                        <div class="form-group">
+                            <label>Select Currency</label>
+                            <mat-select class="form-control bordered-control" (selectionChange)="fnChangeCurrency($event.value)" [(value)]="selectedCurrency">
+                                <mat-option *ngFor="let currenciesData of currenciesData; let i=index" value="{{currenciesData.CurrencyCode}}">{{currenciesData.CurrencyName}}</mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                    <div class="col-4 common-input">
+                        <div class="form-group">
+                            <label>Currency Symbol Position</label>
+                            <mat-select class="form-control bordered-control" (selectionChange)="fnCurrencyPosition($event.value)" [(value)]="selectedCurrencyPosition">
+                                <mat-option value="left">Left</mat-option>
+                                <mat-option value="right">Right</mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                    <div class="col-4 common-input">
+                        <div class="form-group">
+                            <label>Select Currency Format</label>
+                            <mat-select class="form-control bordered-control    " (selectionChange)="fnCurrencyFormat($event.value)" [(value)]="selectedCurrencyFormat">
+                                <mat-option value="en-US">xx,xxx.xx</mat-option>
+                                <mat-option value="de">xx.xxx,xx</mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-6" *ngFor="let tax of taxesData; let i=index">
+                    <div class="blue-card" fxLayout="row">
+                        <div class="" fxFlex="40">
+                            <label>Tax Name</label>
+                            <p>{{tax.name}}</p>
+                        </div>
+                        <div class="" fxFlex="30">
+                            <label>Percentage</label>
+                            <p>{{tax.value}}%</p>
+                        </div>
+                        <div class="" fxFlex="30">
+                            <mat-icon aria-hidden="false">delete_outline</mat-icon>
+                        </div>
+                    </div>
+                    <!-- <div class="Customer-appointment-table">
                         <div class="main-table-content main-cust-table-content">
                             <div class="">
                                 <div class="heads main-heading-content example-box header-background tax-background" fxLayout="row">
@@ -149,16 +171,12 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div *ngIf="taxesData == '' || taxesData == null" class="content" class="example-list">
-                                    <p class="text-center p-1">No Record Found.</p>
-                                </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
             </div>
-        </mat-card>
+        </div>
     </div>
 </mat-drawer-content>
