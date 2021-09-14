@@ -151,7 +151,7 @@
                                 <mat-checkbox [checked]="selectAll" (change)="checkAll($event)" class=""></mat-checkbox>
                             </div> -->
                             <div class="" fxFlex="30">Service1</div>
-                            <div class="" fxFlex="15">Duration</div>
+                            <div class="" fxFlex="15">Duration (Mins)</div>
                             <div class="" fxFlex="13">Price</div>
                             <div class="" fxFlex="10">Unit</div>
                             <div class="" fxFlex="12">Visibility</div>
@@ -164,7 +164,7 @@
                                     <mat-checkbox [checked]="allServicesList.is_selected" (change)="fnAddStaffId($event.checked,allServicesList.id,i)"></mat-checkbox>
                                 </div> -->
                                 <div class="wrap-column" fxFlex="30">{{allServicesList.service_name}}</div>
-                                <div class="wrap-column" fxFlex="15">{{conversion(allServicesList.service_time)}}</div>
+                                <div class="wrap-column" fxFlex="15">{{allServicesList.service_time}}</div>
                                 <!-- <div class="wrap-column" fxFlex="13">$ {{allServicesList.service_cost}}</div> -->
                                 <div class="wrap-column" fxFlex="13" *ngIf="currencySymbolPosition=='left'">
                                     {{currencySymbol| currencySymbol:'wide'}} {{ allServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
@@ -278,7 +278,7 @@
 
                         <div class="service-statustoggle" *ngIf="!editCategoryId">
                             <p>
-                                <mat-slide-toggle [checked]="newcategoryStatus == 'D'" (change)="newCategoryStatus($event.checked)">Status</mat-slide-toggle>
+                                <mat-slide-toggle [checked]="newcategoryStatus == 'E'" (change)="newCategoryStatus($event.checked)">Status</mat-slide-toggle>
                             </p>
                             <p>
                                 <mat-slide-toggle (change)="newCategoryPrivate($event.checked)">Private
@@ -477,7 +477,7 @@
                                     <mat-checkbox [checked]="selectAllCategory" (change)="checkAllCategory($event)" class=""></mat-checkbox>
                                 </div>
                                 <div class="" fxFlex="30">Service2</div>
-                                <div class="" fxFlex="15">Duration</div>
+                                <div class="" fxFlex="15">Duration (Mins)</div>
                                 <div class="" fxFlex="10">Price</div>
                                 <div class="" fxFlex="10">Unit</div>
                                 <div class="" fxFlex="10">Visibility</div>
@@ -491,7 +491,7 @@
                                         </mat-checkbox>
                                     </div>
                                     <div class="wrap-column" fxFlex="30">{{categoryServicesList.service_name}}</div>
-                                    <div class="wrap-column" fxFlex="15">{{conversion(categoryServicesList.service_time)}}</div>
+                                    <div class="wrap-column" fxFlex="15">{{categoryServicesList.service_time}}</div>
                                     <!-- <div class="wrap-column" fxFlex="10">$ {{categoryServicesList.service_cost}}</div> -->
                                     <div class="wrap-column" fxFlex="10" *ngIf="currencySymbolPosition=='left'">
                                         {{currencySymbol| currencySymbol:'wide'}} {{ categoryServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
@@ -618,7 +618,7 @@
                                     <mat-checkbox [checked]="selectAllSubCat" (change)="checkAllSubcat($event)" class=""></mat-checkbox>
                                 </div>
                                 <div class="" fxFlex="30">Service</div>
-                                <div class="" fxFlex="15">Duration</div>
+                                <div class="" fxFlex="15">Duration (Mins)</div>
                                 <div class="" fxFlex="10">Price</div>
                                 <div class="" fxFlex="10">Unit</div>
                                 <div class="" fxFlex="10">Visibility</div>
@@ -632,7 +632,7 @@
                                         </mat-checkbox>
                                     </div>
                                     <div class="wrap-column" fxFlex="30">{{subCategoryServicesList.service_name}}</div>
-                                    <div class="wrap-column" fxFlex="15">{{conversion(subCategoryServicesList.service_time)}}</div>
+                                    <div class="wrap-column" fxFlex="15">{{subCategoryServicesList.service_time}}</div>
                                     <!-- <div class="wrap-column" fxFlex="10">$ {{subCategoryServicesList.service_cost}}</div> -->
                                     <div class="wrap-column" fxFlex="10" *ngIf="currencySymbolPosition=='left'">
                                         {{currencySymbol| currencySymbol:'wide'}} {{ subCategoryServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}

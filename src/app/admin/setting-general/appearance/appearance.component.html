@@ -214,8 +214,13 @@
                         {{embededCode}}
                         <!-- <iframe height="100%" width="100%" src="http://localhost:4200/booking?business_id=34"></iframe> -->
                     </mat-card>
-                    <div>
+                    <div *ngIf="isTextCopie==false">
                         <button mat-button type="submit" (click)="copyEmbedCode(embededCode)" class="appearance-save-btn">Copy Code</button>
+                    </div>
+                    <div *ngIf="isTextCopie==true">
+                        <button mat-button type="submit" class="appearance-save-btn"> <span class="material-icons-outlined">
+                            done
+                            </span> Copied </button>
                     </div>
                 </div>
                 <div class="mt-4">
