@@ -98,7 +98,7 @@
                             <mat-label></mat-label>
                             <mat-select (selectionChange)="fnChangeTimeZone($event)" [(value)]="selectedTimeZone">
                                 <mat-option>
-                                    <ngx-mat-select-search [formControl]="timeZoneFilterCtrl"></ngx-mat-select-search>
+                                    <ngx-mat-select-search placeholderLabel="Search" noEntriesFoundLabel="No record found" [formControl]="timeZoneFilterCtrl"></ngx-mat-select-search>
                                 </mat-option>
                                 <mat-option value="{{listTimeZone.name}}" *ngFor="let listTimeZone of listTimeZoneList | async">({{listTimeZone.utc}}) {{listTimeZone.name}}</mat-option>
                             </mat-select>
