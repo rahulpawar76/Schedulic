@@ -1,6 +1,9 @@
 @import "variables";
 #settings-my-profile {
     margin-top: 50px;
+    .my-profile{
+        padding-bottom: 0px;
+    }
 }
 
 #services {
@@ -21,9 +24,9 @@
     cursor: pointer;
 }
 
-.my-profile {
-    padding-left: 45px;
-}
+// .my-profile {
+//     padding-left: 45px;
+// }
 
 .account-menuitem {
     // color:#325c98;
@@ -138,49 +141,76 @@
     }
 }
 
-.profile-img-wrap {
-    border-radius: 100%;
-    height: 120px;
-    max-width: 120px;
-    overflow: hidden;
-    position: relative;
-    transition: 0.3s all;
-    cursor: pointer;
-    background-color: #e8e8e8;
-    width: 120px;
-    border-radius: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    &:hover .camera-alt {
-        transition: 0.3s all;
-        display: flex;
-    }
-    .customer-profile-img {
-        width: 100%;
-        height: 100%;
-    }
-    .camera-alt {
-        display: none;
-        position: absolute;
-        top: 0;
-        border-radius: 100%;
-        width: 100%;
-        height: 100%;
-        background-color: #00000070;
-        justify-content: center;
-        align-items: center;
-        i {
-            font-size: 45px;
-            width: auto;
-            color: #ffffff;
-        }
-    }
-}
+// .profile-img-wrap {
+//     border-radius: 100%;
+//     height: 120px;
+//     max-width: 120px;
+//     overflow: hidden;
+//     position: relative;
+//     transition: 0.3s all;
+//     cursor: pointer;
+//     background-color: #e8e8e8;
+//     width: 120px;
+//     border-radius: 80px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     &:hover .camera-alt {
+//         transition: 0.3s all;
+//         display: flex;
+//     }
+//     .customer-profile-img {
+//         width: 100%;
+//         height: 100%;
+//     }
+//     .camera-alt {
+//         display: none;
+//         position: absolute;
+//         top: 0;
+//         border-radius: 100%;
+//         width: 100%;
+//         height: 100%;
+//         background-color: #00000070;
+//         justify-content: center;
+//         align-items: center;
+//         i {
+//             font-size: 45px;
+//             width: auto;
+//             color: #ffffff;
+//         }
+//     }
+// }
 
-.account-profile-image {
-    width: 100%;
-    height: 100%;
+// .account-profile-image {
+//     width: 100%;
+//     height: 100%;
+// }
+.main-account-my-profile{
+    padding: 10px 40px;
+    .user-image-upload{
+        display: flex;
+           .profile-img-wrap{
+               width: 150px;
+               height: 150px;
+               background-color: #EAF7F6;
+               justify-content: center;
+               margin-right: 40px;
+               overflow: hidden;
+               border-radius: 5px; 
+               .default-img{
+                   width: 40px;
+               }
+               .service-profile-image {
+                   // width: 100%;
+                   // height: 100%;
+               }
+           }
+           .img-upload-btns{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+           }
+       }
 }
 
  ::ng-deep .upload-preview-img {
@@ -196,4 +226,37 @@
 
 .pointer-none {
     pointer-events: none;
+}
+.change-password-container{
+    background-color: #FFF1C0;
+    padding-top: 45px;
+    .main-heading{
+       
+        font-size: 16px;
+        padding: 0px 16px;
+    }
+    .form-group{
+        .form-control{
+            background-color: #fff;
+            padding: 0px 16px;
+            border-radius: 4px;
+            border: none;
+        }
+        
+    }
+    .mat-icon-button{
+        color: #565657;
+        /* font-size: 27px; */
+        position: absolute;
+        right: 15px;
+        background-color: #fff;
+        border-radius: 0px;
+        height: 36px;
+        z-index: 99999;
+        .material-icons{
+            font-size: 24px;
+            /* position: absolute; */
+            margin-top: -6px;
+        }
+    }
 }

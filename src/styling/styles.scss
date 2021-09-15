@@ -1261,7 +1261,7 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
         .modal-header {
             background-color: #FFE482;
             /* padding-bottom: 0px; */
-            padding: 14px ​16p;
+            padding: 14px ​16px;
             border: none;
             align-items: center;
             p {
@@ -1345,4 +1345,7 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
         box-shadow:unset!important;
         padding-top: 0px;
     }
+}
+.pink-medium-btn{
+    min-width: 120px !important;
 }
