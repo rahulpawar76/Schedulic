@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AuthenticationService } from '@app/_services';
-
+import { environment } from '@environments/environment';
 
 export interface DialogData {
   animal: string;

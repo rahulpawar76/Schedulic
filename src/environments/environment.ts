@@ -8,6 +8,7 @@ export const environment = {
     googleMapAPIKey: 'AIzaSyA8RwRCpG7ajbR-pl0D58oUGzi83c6RCYk',
     apiUrl:         'https://api.schedulic.com/api',
     authApiUrl:     'https://api.schedulic.com/api',
+    apiDomainUrl:     'https://api.schedulic.com',
     urlForLink :    'http://localhost:4200',
     ErrorMsg:"Something went wrong",
 

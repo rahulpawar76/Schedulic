@@ -1063,9 +1063,9 @@ textarea {
             background-color: #eaf7f6;
             border: 0;
             padding: 15px 10px;
-            font-size: 16px;
+            font-size: 14px;
             line-height: 1;
-            height: 44px;
+            height: 40px;
             &.bordered-control{
                 border: 1px solid rgba(112, 112, 112, 0.4);
                 line-height: 0.8;
@@ -1094,7 +1094,7 @@ textarea {
     label{
         color: #0E0E0E;
         font-weight: 500;
-        font-size: 16px;
+        font-size: 14px;
     }
 }
 
@@ -1258,7 +1258,7 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
         .modal-header {
             background-color: #FFE482;
             /* padding-bottom: 0px; */
-            padding: 14px ​16p;
+            padding: 14px ​16px;
             border: none;
             align-items: center;
             p {
@@ -1342,4 +1342,7 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
         box-shadow:unset!important;
         padding-top: 0px;
     }
+}
+.pink-medium-btn{
+    min-width: 120px !important;
 }
