@@ -203,6 +203,7 @@
     border: 1px solid #36d2d2;
     padding: 4px;
     background-color: #36d2d23d;
+    border-radius: 4px;
 }
 
 .mat-form-field-prefix .mat-icon,
@@ -1741,7 +1742,7 @@ th.mat-header-cell {
 }
 
 .mat-expansion-panel:not([class*=mat-elevation-z]) {
-    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12)
+    background-color: #eaf7f6;
 }
 
 .mat-action-row {
@@ -2258,13 +2259,19 @@ th.mat-header-cell {
 }
 
 .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
-    background-color: #00A89B
+    background-color: #fff;
+    height: 13px;
+    width: 13px;
 }
 
 .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
-    background-color: rgba(0, 168, 155, .54)
+    background-color: #00a89b;
+    height: 16px;
 }
-
+.mat-slide-toggle-thumb-container{
+    top: 1px!important;
+    left: 4px!important;
+}
 .mat-slide-toggle.mat-checked .mat-ripple-element {
     background-color: #00A89B
 }
@@ -2299,11 +2306,15 @@ th.mat-header-cell {
 
 .mat-slide-toggle-thumb {
     box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
-    background-color: #fafafa
+    background-color: #fafafa;
+    height: 13px!important;
+    width: 13px!important;
 }
 
 .mat-slide-toggle-bar {
-    background-color: rgba(0, 0, 0, .38)
+    background-color: rgba(0, 0, 0, .38);
+    width: 35px!important;
+    height: 15px!important;
 }
 
 .mat-slider-track-background {

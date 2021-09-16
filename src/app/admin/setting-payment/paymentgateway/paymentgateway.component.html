@@ -90,6 +90,7 @@
     <div class="setting-right-side-content without-footer" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
         <div class="payment-gateways">
             <h5>Payment Gateways</h5>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo<br> Inventore explicabo totam ab necessitatibus</p>
             <div class="row mx-0">
                 <div *ngFor="let gateway of gatewayList; let i=index;" class="col-md-6 col-sm-12">
                     <form #gatewayFrom="ngForm" (submit)="onSubmitPaymentGateway(gatewayFrom,gateway.gateway_type,gateway.is_default?gateway.is_default:0,gateway.payment_code ? gateway.payment_code : '' )">
@@ -100,18 +101,21 @@
                                         <div class="row w-100 align-items-center no-gutters justify-content-between">
                                             <div class="col-6">
                                                 <div class="w-100"><img src="/assets/images/payement-gateways/{{gateway.gateway_type}}.png" class="img-fluid d-block payment-image"></div>
-                                                <p class="mb-0 mt-2 gm-font-14 text-left text-muted">{{gateway?.name}} </p>
+                                                <p class="mb-0   gm-font-14 text-left payment-name text-muted">{{gateway?.name}} </p>
                                             </div>
                                             <div class="col-6 align-items-center no-gutters row">
-                                                <div class="col-12">
-                                                    <div class="pull-right mb-3" *ngIf="gateway.payment_code">
+                                                <div class="col-12 custom-btn-payment-wrap">
+                                                    <div class="pull-right mb-1" *ngIf="gateway.payment_code">
                                                         <mat-slide-toggle class="" [checked]="gateway.status == 'active'" (change)="ChangePaymentStatus(gateway.payment_code,gateway.gateway_type,$event.checked)"></mat-slide-toggle>
                                                     </div>
-                                                </div>
-                                                <div class="col-12 no-gutters row justify-content-end">
                                                     <div class="" *ngIf="gateway.payment_code">
                                                         <button type="button" class="btn make-default-btn px-4 gm-font-12" [ngClass]="gateway.is_default? 'btn-kc-yellow' : 'border-0 gm-btn-kc-yellow'" [disabled]="gateway.is_default" (click)="SetDefault(gateway.payment_code,gateway.gateway_type)">{{gateway.is_default?"Default":"Make As Default"}}</button>
                                                     </div>
+                                                </div>
+                                                <div class="col-12 no-gutters row justify-content-end">
+                                                    <!-- <div class="" *ngIf="gateway.payment_code">
+                                                        <button type="button" class="btn make-default-btn px-4 gm-font-12" [ngClass]="gateway.is_default? 'btn-kc-yellow' : 'border-0 gm-btn-kc-yellow'" [disabled]="gateway.is_default" (click)="SetDefault(gateway.payment_code,gateway.gateway_type)">{{gateway.is_default?"Default":"Make As Default"}}</button>
+                                                    </div> -->
                                                     <div class="ml-3 align-items-center payment-expand-icon d-flex gm-acc-icon gm-lightblue-bg justify-content-center" id="kc-acc-icon-{{gateway.gateway_type}}"><svg viewBox="0 0 448 512" width="15px" height="15px" class="svg-inline--fa fa-chevron-right fa-w-8 fa-2x"><path fill="#2A4797" d="M441.9 167.3l-19.8-19.8c-4.7-4.7-12.3-4.7-17 0L224 328.2 42.9 147.5c-4.7-4.7-12.3-4.7-17 0L6.1 167.3c-4.7 4.7-4.7 12.3 0 17l209.4 209.4c4.7 4.7 12.3 4.7 17 0l209.4-209.4c4.7-4.7 4.7-12.3 0-17z" class=""></path></svg></div>
                                                 </div>
                                             </div>
