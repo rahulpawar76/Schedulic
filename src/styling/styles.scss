@@ -614,7 +614,7 @@ $calendarsize: 10px;
 
 .bottom-border-field .mat-form-field-infix {
     padding: 0.4em 0 !important;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
     border-top: unset;
 }
 
@@ -627,9 +627,6 @@ $calendarsize: 10px;
     margin-right: 10px;
 }
 
-.bottom-border-field {
-    margin-top: 20px;
-}
 
 .loader-main {
     width: 100%;
