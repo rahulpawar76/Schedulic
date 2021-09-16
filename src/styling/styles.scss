@@ -1397,3 +1397,30 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
         height: 23px;
     }
   }
+
+
+::ng-deep .common-tab-group{
+    .mat-tab-header{
+        background-color: #ffe4816b;
+        padding: 0px 40px;
+        .mat-ink-bar{
+            height: 5px;
+            border-radius: 40px;
+            background-color: #00a89b;
+        }
+        .mat-tab-label{
+            padding: 0 10px;
+            width: 130px !important;
+            opacity: 1;
+            &.mat-tab-label-active{
+                opacity: 1;
+                .mat-tab-label-content{
+                    color: #0E0E0E;
+                }
+            }
+            .mat-tab-label-content{
+                color: #565657;
+            }
+        }
+    }
+}
