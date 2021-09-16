@@ -3,8 +3,10 @@
     <div class="left-side-menu setting-menu" [ngClass]="{ 'short-menu': settingSideMenuToggle === true }">
         <div class="leftarrow-icon d-flex align-items-center">
             <h6 class="mb-0">Resource Management</h6>
-            <span (click)="fnSettingMenuToggleSmall()" *ngIf="!settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer material-icons-outlined">arrow_circle_left</span>
-            <span (click)="fnSettingMenuToggleLarge()" *ngIf="settingSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer material-icons-outlined">arrow_circle_right</span>
+            <span (click)="fnSettingMenuToggleSmall()" *ngIf="!settingSideMenuToggle"
+                class="customer-drawer-leftarrow ml-auto pointer material-icons-outlined">arrow_circle_left</span>
+            <span (click)="fnSettingMenuToggleLarge()" *ngIf="settingSideMenuToggle"
+                class="customer-drawer-leftarrow ml-auto pointer material-icons-outlined">arrow_circle_right</span>
         </div>
         <div routerLink="/admin/settings-resource" class="d-flex setting-menu-item">
             <div class="menu-icon">
@@ -87,33 +89,41 @@
             <p>Alert Rules</p>
         </div>
     </div>
-    <div class="setting-right-side-content without-footer" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
-        <mat-card class="main-card-container mb-0 h-auto">
-            <h5>Alert Settings</h5>
-            <mat-tab-group>
+    <div class="setting-right-side-content without-footer"
+        [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
+        <mat-card class="main-card-container mb-0 h-auto common-tab-group">
+            <div class="common-discription-heading">
+                <h3> Alert Settings</h3>
+                <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                <p> Lorem Ipsum has been the industry's standard dummy. </p>
+
+            </div>
+            <mat-tab-group class="common-tab-group">
                 <mat-tab label="Email Alert">
-                    <h5 class="m-4">Alert Sent to Customers</h5>
+                    <h5 class="common-alert-heading">Alert Sent to Customers</h5>
                     <mat-card class="matcard-space">
-                        <div class="d-flex">
+                        <div class="common-alert-card">
                             <div>
                                 <h5>Appointments Reminder</h5>
-                                <p class="">Remind customers about upcoming appointments?</p>
+                                <p class=""> Remind customers about upcoming appointments?</p>
                             </div>
-                            <div class="ml-auto mx-3">
-                                <mat-slide-toggle [checked]="appointmentsReminder" (change)="fnAppointmentsReminder($event.checked)"></mat-slide-toggle>
+                            <div class="">
+                                <mat-slide-toggle [checked]="appointmentsReminder"
+                                    (change)="fnAppointmentsReminder($event.checked)"></mat-slide-toggle>
                             </div>
                         </div>
                         <div *ngIf="appointmentsReminder">
+                            <div class="common-alert-card"> 
                             <div>
                                 <h5>Send an Email</h5>
+                                <p class="">Appointments</p>
                             </div>
-                            <div>
-                                <p class="pt-2">Appointments</p>
-                            </div>
-                            <div class="d-flex my-3">
+                            <div class="d-flex main-checkbox-select-wrap">
                                 <div class="custom-check-box">
                                     <div class="checked round">
-                                        <mat-checkbox [checked]="emailCustomerAppointment['booked'].status == '1'" (change)="fnCusEmailAppoint($event.checked, 'booked')" class="form_field_checkbox"></mat-checkbox>
+                                        <mat-checkbox [checked]="emailCustomerAppointment['booked'].status == '1'"
+                                            (change)="fnCusEmailAppoint($event.checked, 'booked')"
+                                            class="form_field_checkbox"></mat-checkbox>
                                         <p class="check-label">Booked</p>
                                     </div>
                                 </div>
@@ -135,18 +145,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="d-flex my-3">
-                        <div class="alert-booked-chechkbox mr-3">
-                            <mat-checkbox class="checkbox-circle">Booked</mat-checkbox>
                         </div>
-                        <div class="alert-update-chechkbox mr-3">
-                            <mat-checkbox>Status Updated</mat-checkbox>
-                        </div>
-                        <div class="alert-cancel-chechkbox mr-3">
-                            <mat-checkbox>Cancelled</mat-checkbox>
-                        </div>
-                    </div> -->
-                            <div class="bottom-line"></div>
+                           
                             <div>
                                 <h5>Reminder Lead Time</h5>
                                 <p>Send a reminder to customers</p>
@@ -166,7 +166,9 @@
                                                     <div class="mx-2" fxFlex="15">
                                                         <mat-form-field class="bottom-border-field">
                                                             <mat-label>Days</mat-label>
-                                                            <mat-select (selectionChange)="fnSetCustomerEmailReminderTime($event)" [(value)]="emailAlertCustomerDays">
+                                                            <mat-select
+                                                                (selectionChange)="fnSetCustomerEmailReminderTime($event)"
+                                                                [(value)]="emailAlertCustomerDays">
                                                                 <mat-option value="0">0 days</mat-option>
                                                                 <mat-option value="1">1 days</mat-option>
                                                                 <mat-option value="2">2 days</mat-option>
@@ -204,7 +206,9 @@
                                                     <div class="mx-2" fxFlex="15">
                                                         <mat-form-field class="bottom-border-field">
                                                             <mat-label>Hours</mat-label>
-                                                            <mat-select (selectionChange)="fnSetCustomerEmailReminderTime($event)" [(value)]="emailAlertCustomerHours">
+                                                            <mat-select
+                                                                (selectionChange)="fnSetCustomerEmailReminderTime($event)"
+                                                                [(value)]="emailAlertCustomerHours">
                                                                 <mat-option value="0">0 Hours</mat-option>
                                                                 <mat-option value="1">1 Hours</mat-option>
                                                                 <mat-option value="2">2 Hours</mat-option>
@@ -235,7 +239,9 @@
                                                     <div class="mx-2" fxFlex="15">
                                                         <mat-form-field class="bottom-border-field">
                                                             <mat-label>Minutes</mat-label>
-                                                            <mat-select (selectionChange)="fnSetCustomerEmailReminderTime($event)" [(value)]="emailAlertCustomerMinutes">
+                                                            <mat-select
+                                                                (selectionChange)="fnSetCustomerEmailReminderTime($event)"
+                                                                [(value)]="emailAlertCustomerMinutes">
                                                                 <mat-option value="0">0 Minutes</mat-option>
                                                                 <mat-option value="1">1 Minutes</mat-option>
                                                                 <mat-option value="2">2 Minutes</mat-option>
@@ -321,7 +327,8 @@
                                 <p class="">Remind customers about upcoming appointments?</p>
                             </div>
                             <div class="ml-auto mx-3">
-                                <mat-slide-toggle [checked]="appointmentsReminderStaff" (change)="fnAppointmentsReminderStaff($event.checked)"></mat-slide-toggle>
+                                <mat-slide-toggle [checked]="appointmentsReminderStaff"
+                                    (change)="fnAppointmentsReminderStaff($event.checked)"></mat-slide-toggle>
                             </div>
                         </div>
                         <div *ngIf="appointmentsReminderStaff">
@@ -334,7 +341,9 @@
                             <div class="d-flex my-3">
                                 <div class="custom-check-box">
                                     <div class="checked round">
-                                        <mat-checkbox [checked]="emailStaffAppointment['booked'].status == '1'" (change)="fnStaffEmailAppoint($event.checked, 'booked')" class="form_field_checkbox"></mat-checkbox>
+                                        <mat-checkbox [checked]="emailStaffAppointment['booked'].status == '1'"
+                                            (change)="fnStaffEmailAppoint($event.checked, 'booked')"
+                                            class="form_field_checkbox"></mat-checkbox>
                                         <p class="check-label">Booked</p>
                                     </div>
                                 </div>
@@ -349,7 +358,9 @@
                                 </div>
                                 <div class="custom-check-box">
                                     <div class="checked round cancel-check-btn">
-                                        <mat-checkbox [checked]="emailStaffAppointment['cancelled'].status == '1'" (change)="fnStaffEmailAppoint($event.checked, 'cancelled')" class="form_field_checkbox"></mat-checkbox>
+                                        <mat-checkbox [checked]="emailStaffAppointment['cancelled'].status == '1'"
+                                            (change)="fnStaffEmailAppoint($event.checked, 'cancelled')"
+                                            class="form_field_checkbox"></mat-checkbox>
                                         <p class="check-label">Cancelled</p>
                                     </div>
                                 </div>
@@ -385,7 +396,9 @@
                                                     <div class="mx-2" fxFlex="15">
                                                         <mat-form-field class="bottom-border-field">
                                                             <mat-label>Days</mat-label>
-                                                            <mat-select (selectionChange)="fnSetStaffEmailReminderTime($event)" [(value)]="emailAlertStaffDays">
+                                                            <mat-select
+                                                                (selectionChange)="fnSetStaffEmailReminderTime($event)"
+                                                                [(value)]="emailAlertStaffDays">
                                                                 <mat-option value="0">0 days</mat-option>
                                                                 <mat-option value="1">1 days</mat-option>
                                                                 <mat-option value="2">2 days</mat-option>
@@ -423,7 +436,9 @@
                                                     <div class="mx-2" fxFlex="15">
                                                         <mat-form-field class="bottom-border-field">
                                                             <mat-label>Hours</mat-label>
-                                                            <mat-select (selectionChange)="fnSetStaffEmailReminderTime($event)" [(value)]="emailAlertStaffHours">
+                                                            <mat-select
+                                                                (selectionChange)="fnSetStaffEmailReminderTime($event)"
+                                                                [(value)]="emailAlertStaffHours">
                                                                 <mat-option value="0">0 Hours</mat-option>
                                                                 <mat-option value="1">1 Hours</mat-option>
                                                                 <mat-option value="2">2 Hours</mat-option>
@@ -454,7 +469,9 @@
                                                     <div class="mx-2" fxFlex="15">
                                                         <mat-form-field class="bottom-border-field">
                                                             <mat-label>Minutes</mat-label>
-                                                            <mat-select (selectionChange)="fnSetStaffEmailReminderTime($event)" [(value)]="emailAlertStaffMinutes">
+                                                            <mat-select
+                                                                (selectionChange)="fnSetStaffEmailReminderTime($event)"
+                                                                [(value)]="emailAlertStaffMinutes">
                                                                 <mat-option value="0">0 Minutes</mat-option>
                                                                 <mat-option value="1">1 Minutes</mat-option>
                                                                 <mat-option value="2">2 Minutes</mat-option>
@@ -538,7 +555,8 @@
                                 <p class="">Remind customers about upcoming appointments?</p>
                             </div>
                             <div class="ml-auto mx-3">
-                                <mat-slide-toggle [checked]="appointmentsReminderAdmin" (change)="fnAppointmentsReminderAdmin($event.checked)"></mat-slide-toggle>
+                                <mat-slide-toggle [checked]="appointmentsReminderAdmin"
+                                    (change)="fnAppointmentsReminderAdmin($event.checked)"></mat-slide-toggle>
                             </div>
                         </div>
                         <div *ngIf="appointmentsReminderAdmin">
@@ -553,14 +571,12 @@
                                     </mat-form-field>
                                     <span class="error-wrap" *ngIf="adminEmailForAlert.get('alertEmail').dirty ||
                   adminEmailForAlert.get('alertEmail').touched">
-                  <small
-                    *ngIf="adminEmailForAlert.get('alertEmail').hasError('required')"
-                    class="error">Email is required.</small>
-                  <small
-                    *ngIf="adminEmailForAlert.get('alertEmail').hasError('email')
-                    || adminEmailForAlert.get('alertEmail').hasError('pattern')"
-                    class="error">Enter valid email.</small>
-                </span>
+                                        <small *ngIf="adminEmailForAlert.get('alertEmail').hasError('required')"
+                                            class="error">Email is required.</small>
+                                        <small *ngIf="adminEmailForAlert.get('alertEmail').hasError('email')
+                    || adminEmailForAlert.get('alertEmail').hasError('pattern')" class="error">Enter valid
+                                            email.</small>
+                                    </span>
                                 </form>
                             </div>
                             <div>
@@ -572,7 +588,9 @@
                             <div class="d-flex my-3">
                                 <div class="custom-check-box">
                                     <div class="checked round">
-                                        <mat-checkbox [checked]="emailAdminAppointment['booked'].status == '1'" (change)="fnAdminEmailAppoint($event.checked, 'booked')" class="form_field_checkbox"></mat-checkbox>
+                                        <mat-checkbox [checked]="emailAdminAppointment['booked'].status == '1'"
+                                            (change)="fnAdminEmailAppoint($event.checked, 'booked')"
+                                            class="form_field_checkbox"></mat-checkbox>
                                         <p class="check-label">Booked</p>
                                     </div>
                                 </div>
@@ -587,7 +605,9 @@
                                 </div>
                                 <div class="custom-check-box">
                                     <div class="checked round cancel-check-btn">
-                                        <mat-checkbox [checked]="emailAdminAppointment['cancelled'].status == '1'" (change)="fnAdminEmailAppoint($event.checked, 'cancelled')" class="form_field_checkbox"></mat-checkbox>
+                                        <mat-checkbox [checked]="emailAdminAppointment['cancelled'].status == '1'"
+                                            (change)="fnAdminEmailAppoint($event.checked, 'cancelled')"
+                                            class="form_field_checkbox"></mat-checkbox>
                                         <p class="check-label">Cancelled</p>
                                     </div>
                                 </div>
@@ -623,7 +643,9 @@
                                                     <div class="mx-2" fxFlex="15">
                                                         <mat-form-field class="bottom-border-field">
                                                             <mat-label>Days</mat-label>
-                                                            <mat-select (selectionChange)="fnSetAdminEmailReminderTime($event)" [(value)]="emailAlertAdminDays">
+                                                            <mat-select
+                                                                (selectionChange)="fnSetAdminEmailReminderTime($event)"
+                                                                [(value)]="emailAlertAdminDays">
                                                                 <mat-option value="0">0 days</mat-option>
                                                                 <mat-option value="1">1 days</mat-option>
                                                                 <mat-option value="2">2 days</mat-option>
@@ -661,7 +683,9 @@
                                                     <div class="mx-2" fxFlex="15">
                                                         <mat-form-field class="bottom-border-field">
                                                             <mat-label>Hours</mat-label>
-                                                            <mat-select (selectionChange)="fnSetAdminEmailReminderTime($event)" [(value)]="emailAlertAdminHours">
+                                                            <mat-select
+                                                                (selectionChange)="fnSetAdminEmailReminderTime($event)"
+                                                                [(value)]="emailAlertAdminHours">
                                                                 <mat-option value="0">0 Hours</mat-option>
                                                                 <mat-option value="1">1 Hours</mat-option>
                                                                 <mat-option value="2">2 Hours</mat-option>
@@ -692,7 +716,9 @@
                                                     <div class="mx-2" fxFlex="15">
                                                         <mat-form-field class="bottom-border-field">
                                                             <mat-label>Minutes</mat-label>
-                                                            <mat-select (selectionChange)="fnSetAdminEmailReminderTime($event)" [(value)]="emailAlertAdminMinutes">
+                                                            <mat-select
+                                                                (selectionChange)="fnSetAdminEmailReminderTime($event)"
+                                                                [(value)]="emailAlertAdminMinutes">
                                                                 <mat-option value="0">0 Minutes</mat-option>
                                                                 <mat-option value="1">1 Minutes</mat-option>
                                                                 <mat-option value="2">2 Minutes</mat-option>
@@ -777,9 +803,10 @@
                                 <mat-form-field class="example-full-width bottom-border-field w-50">
                                     <input formControlName="senderName" matInput placeholder="Sender Name">
                                 </mat-form-field>
-                                <span class="error-wrap" *ngIf="customizeAlert.get('senderName').dirty || customizeAlert.get('senderName').touched">
+                                <span class="error-wrap"
+                                    *ngIf="customizeAlert.get('senderName').dirty || customizeAlert.get('senderName').touched">
                                     <small *ngIf="customizeAlert.get('senderName').hasError('required')"
-                                class="error">Sender name is required.</small>
+                                        class="error">Sender name is required.</small>
                                 </span>
                             </div>
                             <div>
@@ -787,11 +814,16 @@
                                 <p>Notification emails sent to customers will have the following sender name</p>
                                 <mat-form-field class="example-full-width bottom-border-field w-50">
                                     <mat-label></mat-label>
-                                    <textarea row="5" #signature (keyup)="count(signature.value)" formControlName="emailSignature" maxlength="500" matInput placeholder="Thanks Sparsh"></textarea>
-                                    <mat-hint class="mt-3"><i>Characters Left:<span class="text-danger">{{characters}}</span></i></mat-hint>
+                                    <textarea row="5" #signature (keyup)="count(signature.value)"
+                                        formControlName="emailSignature" maxlength="500" matInput
+                                        placeholder="Thanks Sparsh"></textarea>
+                                    <mat-hint class="mt-3"><i>Characters Left:<span
+                                                class="text-danger">{{characters}}</span></i></mat-hint>
                                 </mat-form-field>
-                                <span class="error-wrap" *ngIf="customizeAlert.get('emailSignature').dirty || customizeAlert.get('emailSignature').touched">
-                                    <small *ngIf="customizeAlert.get('emailSignature').hasError('required')" class="error">Email signature is required.</small>
+                                <span class="error-wrap"
+                                    *ngIf="customizeAlert.get('emailSignature').dirty || customizeAlert.get('emailSignature').touched">
+                                    <small *ngIf="customizeAlert.get('emailSignature').hasError('required')"
+                                        class="error">Email signature is required.</small>
                                 </span>
                             </div>
                             <button mat-button class="save-btn my-3" (click)="fnSubmitCustomizeAlert()">Save</button>
@@ -806,7 +838,8 @@
                                 <h5>Appointments SMS Reminders</h5>
                             </div>
                             <div class="ml-auto mx-3">
-                                <mat-slide-toggle [checked]="appointmentsReminderSMS" (change)="fnAppointmentsReminderSMS($event.checked)"></mat-slide-toggle>
+                                <mat-slide-toggle [checked]="appointmentsReminderSMS"
+                                    (change)="fnAppointmentsReminderSMS($event.checked)"></mat-slide-toggle>
                             </div>
                         </div>
                         <div *ngIf="appointmentsReminderSMS">
@@ -819,20 +852,26 @@
                             <div class="d-flex my-3">
                                 <div class="custom-check-box">
                                     <div class="checked round">
-                                        <mat-checkbox [checked]="smsAppointment['booked'].status == '1'" (change)="fnSmsAppoint($event.checked, 'booked')" class="form_field_checkbox"></mat-checkbox>
+                                        <mat-checkbox [checked]="smsAppointment['booked'].status == '1'"
+                                            (change)="fnSmsAppoint($event.checked, 'booked')"
+                                            class="form_field_checkbox"></mat-checkbox>
                                         <p class="check-label">Booked</p>
                                     </div>
                                 </div>
 
                                 <div class="custom-check-box">
                                     <div class="checked round status-update-main">
-                                        <mat-checkbox [checked]="smsAppointment['status_updated'].status == '1'" (change)="fnSmsAppoint($event.checked, 'status_updated')" class="form_field_checkbox"></mat-checkbox>
+                                        <mat-checkbox [checked]="smsAppointment['status_updated'].status == '1'"
+                                            (change)="fnSmsAppoint($event.checked, 'status_updated')"
+                                            class="form_field_checkbox"></mat-checkbox>
                                         <p class="check-label">Status Updated</p>
                                     </div>
                                 </div>
                                 <div class="custom-check-box">
                                     <div class="checked round cancel-check-btn">
-                                        <mat-checkbox [checked]="smsAppointment['cancelled'].status == '1'" (change)="fnSmsAppoint($event.checked, 'cancelled')" class="form_field_checkbox"></mat-checkbox>
+                                        <mat-checkbox [checked]="smsAppointment['cancelled'].status == '1'"
+                                            (change)="fnSmsAppoint($event.checked, 'cancelled')"
+                                            class="form_field_checkbox"></mat-checkbox>
                                         <p class="check-label">Cancelled</p>
                                     </div>
                                 </div>
@@ -856,7 +895,8 @@
                                     <h5>Admin</h5>
                                 </div>
                                 <div class="ml-auto mx-3">
-                                    <mat-slide-toggle [checked]="smsAlertWho['admin'].status == '1'" (change)="fnSmsWho($event.checked, 'admin')"></mat-slide-toggle>
+                                    <mat-slide-toggle [checked]="smsAlertWho['admin'].status == '1'"
+                                        (change)="fnSmsWho($event.checked, 'admin')"></mat-slide-toggle>
                                 </div>
                             </div>
                             <div class="d-flex top-bottom-space">
@@ -864,7 +904,8 @@
                                     <h5>Customer</h5>
                                 </div>
                                 <div class="ml-auto mx-3">
-                                    <mat-slide-toggle [checked]="smsAlertWho['customer'].status == '1'" (change)="fnSmsWho($event.checked, 'customer')"></mat-slide-toggle>
+                                    <mat-slide-toggle [checked]="smsAlertWho['customer'].status == '1'"
+                                        (change)="fnSmsWho($event.checked, 'customer')"></mat-slide-toggle>
                                 </div>
                             </div>
                             <div class="d-flex top-bottom-space">
@@ -872,7 +913,8 @@
                                     <h5>Staff</h5>
                                 </div>
                                 <div class="ml-auto mx-3">
-                                    <mat-slide-toggle [checked]="smsAlertWho['staff'].status == '1'" (change)="fnSmsWho($event.checked, 'staff')"></mat-slide-toggle>
+                                    <mat-slide-toggle [checked]="smsAlertWho['staff'].status == '1'"
+                                        (change)="fnSmsWho($event.checked, 'staff')"></mat-slide-toggle>
                                 </div>
                             </div>
                             <div class="bottom-line"></div>
@@ -895,7 +937,8 @@
                                                     <div class="mx-2" fxFlex="15">
                                                         <mat-form-field class="bottom-border-field">
                                                             <mat-label>Days</mat-label>
-                                                            <mat-select (selectionChange)="fnSetSmsReminderTime($event)" [(value)]="smsAlertDays">
+                                                            <mat-select (selectionChange)="fnSetSmsReminderTime($event)"
+                                                                [(value)]="smsAlertDays">
                                                                 <mat-option value="0">0 days</mat-option>
                                                                 <mat-option value="1">1 days</mat-option>
                                                                 <mat-option value="2">2 days</mat-option>
@@ -933,7 +976,8 @@
                                                     <div class="mx-2" fxFlex="15">
                                                         <mat-form-field class="bottom-border-field">
                                                             <mat-label>Hours</mat-label>
-                                                            <mat-select (selectionChange)="fnSetSmsReminderTime($event)" [(value)]="smsAlertHours">
+                                                            <mat-select (selectionChange)="fnSetSmsReminderTime($event)"
+                                                                [(value)]="smsAlertHours">
                                                                 <mat-option value="0">0 Hours</mat-option>
                                                                 <mat-option value="1">1 Hours</mat-option>
                                                                 <mat-option value="2">2 Hours</mat-option>
@@ -964,7 +1008,8 @@
                                                     <div class="mx-2" fxFlex="15">
                                                         <mat-form-field class="bottom-border-field">
                                                             <mat-label>Minutes</mat-label>
-                                                            <mat-select (selectionChange)="fnSetSmsReminderTime($event)" [(value)]="smsAlertMinutes">
+                                                            <mat-select (selectionChange)="fnSetSmsReminderTime($event)"
+                                                                [(value)]="smsAlertMinutes">
                                                                 <mat-option value="0">0 Minutes</mat-option>
                                                                 <mat-option value="1">1 Minutes</mat-option>
                                                                 <mat-option value="2">2 Minutes</mat-option>
@@ -1050,7 +1095,9 @@
                                             <img src="/assets/images/admin/twilio.png" class="payment-image">
                                         </div>
                                         <div class="payment-toggle-btn">
-                                            <mat-slide-toggle *ngIf="twilioSettingValue" [checked]="twilioSettingValue.status" (change)="fnTwillioStatus($event.checked)" class=""></mat-slide-toggle>
+                                            <mat-slide-toggle *ngIf="twilioSettingValue"
+                                                [checked]="twilioSettingValue.status"
+                                                (change)="fnTwillioStatus($event.checked)" class=""></mat-slide-toggle>
                                         </div>
                                     </div>
                                     <div>
@@ -1081,14 +1128,18 @@
                                                                 <label class="payment-label">Account SID</label>
                                                             </div>
                                                             <div class="mx-2" fxFlex="80">
-                                                                <mat-form-field class="example-full-width bottom-border-field">
-                                                                    <input formControlName="accountSID" matInput placeholder="" value="">
+                                                                <mat-form-field
+                                                                    class="example-full-width bottom-border-field">
+                                                                    <input formControlName="accountSID" matInput
+                                                                        placeholder="" value="">
                                                                 </mat-form-field>
                                                             </div>
                                                         </div>
-                                                        <span class="w-100 error-wrap" *ngIf="twilio.get('accountSID').dirty || twilio.get('accountSID').touched">
-                                                        <small *ngIf="twilio.get('accountSID').hasError('required')" class="error">Account SID is required.</small>
-                                                    </span>
+                                                        <span class="w-100 error-wrap"
+                                                            *ngIf="twilio.get('accountSID').dirty || twilio.get('accountSID').touched">
+                                                            <small *ngIf="twilio.get('accountSID').hasError('required')"
+                                                                class="error">Account SID is required.</small>
+                                                        </span>
                                                     </div>
                                                     <div class="content" class="">
                                                         <div class="">
@@ -1096,14 +1147,18 @@
                                                                 <label class="payment-label">Auth Token</label>
                                                             </div>
                                                             <div class="mx-2" fxFlex="80">
-                                                                <mat-form-field class="example-full-width bottom-border-field">
-                                                                    <input formControlName="authToken" matInput placeholder="" value="">
+                                                                <mat-form-field
+                                                                    class="example-full-width bottom-border-field">
+                                                                    <input formControlName="authToken" matInput
+                                                                        placeholder="" value="">
                                                                 </mat-form-field>
                                                             </div>
                                                         </div>
-                                                        <span class="w-100 error-wrap" *ngIf="twilio.get('authToken').dirty || twilio.get('authToken').touched">
-                                                        <small *ngIf="twilio.get('authToken').hasError('required')" class="error">Auth token is required.</small>
-                                                    </span>
+                                                        <span class="w-100 error-wrap"
+                                                            *ngIf="twilio.get('authToken').dirty || twilio.get('authToken').touched">
+                                                            <small *ngIf="twilio.get('authToken').hasError('required')"
+                                                                class="error">Auth token is required.</small>
+                                                        </span>
                                                     </div>
                                                     <div class="content" class="">
                                                         <div class="">
@@ -1111,14 +1166,19 @@
                                                                 <label class="payment-label">Twilio Sender</label>
                                                             </div>
                                                             <div class="mx-2" fxFlex="80">
-                                                                <mat-form-field class="example-full-width bottom-border-field">
-                                                                    <input formControlName="twilioSender" matInput placeholder="" value="">
+                                                                <mat-form-field
+                                                                    class="example-full-width bottom-border-field">
+                                                                    <input formControlName="twilioSender" matInput
+                                                                        placeholder="" value="">
                                                                 </mat-form-field>
                                                             </div>
                                                         </div>
-                                                        <span class="w-100 error-wrap" *ngIf="twilio.get('twilioSender').dirty || twilio.get('twilioSender').touched">
-                                                        <small *ngIf="twilio.get('twilioSender').hasError('required')" class="error">Twilio sender is required.</small>
-                                                    </span>
+                                                        <span class="w-100 error-wrap"
+                                                            *ngIf="twilio.get('twilioSender').dirty || twilio.get('twilioSender').touched">
+                                                            <small
+                                                                *ngIf="twilio.get('twilioSender').hasError('required')"
+                                                                class="error">Twilio sender is required.</small>
+                                                        </span>
                                                     </div>
                                                     <div class="content" class="">
                                                         <div class="">
@@ -1130,20 +1190,35 @@
                                                                     <mat-icon matPrefix><img src="/assets/images/admin/india.png"></mat-icon>
                                                                     <input formControlName="adminNumber" type="number" matInput placeholder="" value="">
                                                                 </mat-form-field> -->
-                                                                <ngx-intl-tel-input class="common-input mobile-intel-input bottom-border-field" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-                                                                    [selectFirstCountry]="true" [selectedCountryISO]="selectedCountryISO" [maxLength]="15" [phoneValidation]="false" (mousedown)="fnPhoneMouceLeaveTwilio()" (keyup)="fnenterPhoneNumberTwilio()"
-                                                                    [separateDialCode]="separateDialCode" formControlName="adminNumber" placeholder="Mobile">
+                                                                <ngx-intl-tel-input
+                                                                    class="common-input mobile-intel-input bottom-border-field"
+                                                                    [preferredCountries]="preferredCountries"
+                                                                    [enableAutoCountrySelect]="false"
+                                                                    [searchCountryFlag]="true"
+                                                                    [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                                                    [selectFirstCountry]="true"
+                                                                    [selectedCountryISO]="selectedCountryISO"
+                                                                    [maxLength]="15" [phoneValidation]="false"
+                                                                    (mousedown)="fnPhoneMouceLeaveTwilio()"
+                                                                    (keyup)="fnenterPhoneNumberTwilio()"
+                                                                    [separateDialCode]="separateDialCode"
+                                                                    formControlName="adminNumber" placeholder="Mobile">
                                                                 </ngx-intl-tel-input>
                                                                 <span class="" *ngIf="phoneNumberInvalidTwilio">
-                                                                    <small *ngIf="phoneNumberInvalidTwilio == 'required'" class="error">Admin number is required.</small>
-                                                                    <small *ngIf="phoneNumberInvalidTwilio == 'length'" class="error">Admin number should be 6 to 15 digits long.</small>
+                                                                    <small
+                                                                        *ngIf="phoneNumberInvalidTwilio == 'required'"
+                                                                        class="error">Admin number is required.</small>
+                                                                    <small *ngIf="phoneNumberInvalidTwilio == 'length'"
+                                                                        class="error">Admin number should be 6 to 15
+                                                                        digits long.</small>
                                                                 </span>
                                                             </div>
                                                         </div>
 
                                                     </div>
                                                 </div>
-                                                <button mat-button class="save-btn my-3" (click)="fnSubmitTwillioSettings()">Save</button>
+                                                <button mat-button class="save-btn my-3"
+                                                    (click)="fnSubmitTwillioSettings()">Save</button>
                                             </form>
                                         </div>
                                     </div>
@@ -1160,7 +1235,9 @@
                                             <img src="/assets/images/admin/nexmo_logo.png" class="payment-image">
                                         </div>
                                         <div class="payment-toggle-btn">
-                                            <mat-slide-toggle *ngIf="nexmoSettingValue" [checked]="nexmoSettingValue.status" (change)="fnTwillioStatus($event.checked)" class=""></mat-slide-toggle>
+                                            <mat-slide-toggle *ngIf="nexmoSettingValue"
+                                                [checked]="nexmoSettingValue.status"
+                                                (change)="fnTwillioStatus($event.checked)" class=""></mat-slide-toggle>
                                         </div>
                                     </div>
                                     <div>
@@ -1191,14 +1268,18 @@
                                                                 <label class="payment-label">API Key</label>
                                                             </div>
                                                             <div class="mx-2" fxFlex="80">
-                                                                <mat-form-field class="example-full-width bottom-border-field">
-                                                                    <input formControlName="api_key" matInput placeholder="" value="">
+                                                                <mat-form-field
+                                                                    class="example-full-width bottom-border-field">
+                                                                    <input formControlName="api_key" matInput
+                                                                        placeholder="" value="">
                                                                 </mat-form-field>
                                                             </div>
                                                         </div>
-                                                        <span class="w-100 error-wrap" *ngIf="nexmo.get('api_key').dirty || nexmo.get('api_key').touched">
-                                                        <small *ngIf="nexmo.get('api_key').hasError('required')" class="error">API key is required.</small>
-                                                    </span>
+                                                        <span class="w-100 error-wrap"
+                                                            *ngIf="nexmo.get('api_key').dirty || nexmo.get('api_key').touched">
+                                                            <small *ngIf="nexmo.get('api_key').hasError('required')"
+                                                                class="error">API key is required.</small>
+                                                        </span>
                                                     </div>
                                                     <div class="content" class="">
                                                         <div class="">
@@ -1206,14 +1287,18 @@
                                                                 <label class="payment-label">API Secret</label>
                                                             </div>
                                                             <div class="mx-2" fxFlex="80">
-                                                                <mat-form-field class="example-full-width bottom-border-field">
-                                                                    <input formControlName="api_secret" matInput placeholder="" value="">
+                                                                <mat-form-field
+                                                                    class="example-full-width bottom-border-field">
+                                                                    <input formControlName="api_secret" matInput
+                                                                        placeholder="" value="">
                                                                 </mat-form-field>
                                                             </div>
                                                         </div>
-                                                        <span class="w-100 error-wrap" *ngIf="nexmo.get('api_secret').dirty || nexmo.get('api_secret').touched">
-                                                        <small *ngIf="nexmo.get('api_secret').hasError('required')" class="error">API secret is required.</small>
-                                                    </span>
+                                                        <span class="w-100 error-wrap"
+                                                            *ngIf="nexmo.get('api_secret').dirty || nexmo.get('api_secret').touched">
+                                                            <small *ngIf="nexmo.get('api_secret').hasError('required')"
+                                                                class="error">API secret is required.</small>
+                                                        </span>
                                                     </div>
                                                     <div class="content" class="">
                                                         <div class="">
@@ -1225,20 +1310,34 @@
                                                                     <mat-icon matPrefix><img src="/assets/images/admin/india.png"></mat-icon>
                                                                     <input formControlName="adminNumber" type="number" matInput placeholder="" value="">
                                                                 </mat-form-field> -->
-                                                                <ngx-intl-tel-input class="common-input mobile-intel-input bottom-border-field" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-                                                                    [selectFirstCountry]="true" [selectedCountryISO]="selectedCountryISO" [maxLength]="15" [phoneValidation]="false" (mousedown)="fnPhoneMouceLeaveNexmo()" (keyup)="fnenterPhoneNumberNexmo()"
-                                                                    [separateDialCode]="separateDialCode" formControlName="adminNumber" placeholder="Mobile">
+                                                                <ngx-intl-tel-input
+                                                                    class="common-input mobile-intel-input bottom-border-field"
+                                                                    [preferredCountries]="preferredCountries"
+                                                                    [enableAutoCountrySelect]="false"
+                                                                    [searchCountryFlag]="true"
+                                                                    [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                                                    [selectFirstCountry]="true"
+                                                                    [selectedCountryISO]="selectedCountryISO"
+                                                                    [maxLength]="15" [phoneValidation]="false"
+                                                                    (mousedown)="fnPhoneMouceLeaveNexmo()"
+                                                                    (keyup)="fnenterPhoneNumberNexmo()"
+                                                                    [separateDialCode]="separateDialCode"
+                                                                    formControlName="adminNumber" placeholder="Mobile">
                                                                 </ngx-intl-tel-input>
                                                                 <span class="" *ngIf="phoneNumberInvalidNexmo">
-                                                                    <small *ngIf="phoneNumberInvalidNexmo == 'required'" class="error">Admin number is required.</small>
-                                                                    <small *ngIf="phoneNumberInvalidNexmo == 'length'" class="error">Admin number should be 6 to 15 digits long.</small>
+                                                                    <small *ngIf="phoneNumberInvalidNexmo == 'required'"
+                                                                        class="error">Admin number is required.</small>
+                                                                    <small *ngIf="phoneNumberInvalidNexmo == 'length'"
+                                                                        class="error">Admin number should be 6 to 15
+                                                                        digits long.</small>
                                                                 </span>
                                                             </div>
                                                         </div>
 
                                                     </div>
                                                 </div>
-                                                <button mat-button class="save-btn my-3" (click)="fnSubmitNexmoSettings()">Save</button>
+                                                <button mat-button class="save-btn my-3"
+                                                    (click)="fnSubmitNexmoSettings()">Save</button>
                                             </form>
                                         </div>
                                     </div>
@@ -1255,7 +1354,10 @@
                                             <img src="/assets/images/admin/textlocal.png" class="">
                                         </div>
                                         <div class="payment-toggle-btn">
-                                            <mat-slide-toggle *ngIf="textLocalSettingValue" [checked]="textLocalSettingValue.status" (change)="fnTextLocalStatus($event.checked)" class=""></mat-slide-toggle>
+                                            <mat-slide-toggle *ngIf="textLocalSettingValue"
+                                                [checked]="textLocalSettingValue.status"
+                                                (change)="fnTextLocalStatus($event.checked)" class="">
+                                            </mat-slide-toggle>
                                         </div>
                                     </div>
                                     <div>
@@ -1281,8 +1383,10 @@
                                                                 <label class="payment-label">API Key</label>
                                                             </div>
                                                             <div class="mx-2" fxFlex="80">
-                                                                <mat-form-field class="example-full-width bottom-border-field">
-                                                                    <input formControlName="apiKey" matInput placeholder="" value="">
+                                                                <mat-form-field
+                                                                    class="example-full-width bottom-border-field">
+                                                                    <input formControlName="apiKey" matInput
+                                                                        placeholder="" value="">
                                                                 </mat-form-field>
                                                             </div>
                                                         </div>
@@ -1295,23 +1399,42 @@
                                                                     <input formControlName="adminNumber" matInput placeholder="" value="">
                                                                 </mat-form-field> -->
 
-                                                                <ngx-intl-tel-input class="common-input mobile-intel-input bottom-border-field" [preferredCountries]="preferredCountries1" [enableAutoCountrySelect]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField1.Iso2, SearchCountryField1.Name]"
-                                                                    [selectFirstCountry]="true" [selectedCountryISO]="selectedCountryISO1" [maxLength]="15" [phoneValidation]="false" [separateDialCode]="separateDialCode1" formControlName="adminNumber" (mousedown)="fnPhoneMouceLeaveTxtLocal()"
-                                                                    (keyup)="fnenterPhoneNumberTxtLocal()" placeholder="Mobile">
+                                                                <ngx-intl-tel-input
+                                                                    class="common-input mobile-intel-input bottom-border-field"
+                                                                    [preferredCountries]="preferredCountries1"
+                                                                    [enableAutoCountrySelect]="false"
+                                                                    [searchCountryFlag]="true"
+                                                                    [searchCountryField]="[SearchCountryField1.Iso2, SearchCountryField1.Name]"
+                                                                    [selectFirstCountry]="true"
+                                                                    [selectedCountryISO]="selectedCountryISO1"
+                                                                    [maxLength]="15" [phoneValidation]="false"
+                                                                    [separateDialCode]="separateDialCode1"
+                                                                    formControlName="adminNumber"
+                                                                    (mousedown)="fnPhoneMouceLeaveTxtLocal()"
+                                                                    (keyup)="fnenterPhoneNumberTxtLocal()"
+                                                                    placeholder="Mobile">
                                                                 </ngx-intl-tel-input>
                                                                 <span class="" *ngIf="phoneNumberInvalidTxtLocal">
-                                                                    <small *ngIf="phoneNumberInvalidTxtLocal == 'required'" class="error">Admin number is required.</small>
-                                                                    <small *ngIf="phoneNumberInvalidTxtLocal == 'length'" class="error">Admin number should be 6 to 15 digits long.</small>
+                                                                    <small
+                                                                        *ngIf="phoneNumberInvalidTxtLocal == 'required'"
+                                                                        class="error">Admin number is required.</small>
+                                                                    <small
+                                                                        *ngIf="phoneNumberInvalidTxtLocal == 'length'"
+                                                                        class="error">Admin number should be 6 to 15
+                                                                        digits long.</small>
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                        <span class="w-100 error-wrap" *ngIf="textLocal.get('apiKey').dirty || textLocal.get('apiKey').touched">
-                                                        <small *ngIf="textLocal.get('apiKey').hasError('required')" class="error">Api key is required.</small>
-                                                    </span>
+                                                        <span class="w-100 error-wrap"
+                                                            *ngIf="textLocal.get('apiKey').dirty || textLocal.get('apiKey').touched">
+                                                            <small *ngIf="textLocal.get('apiKey').hasError('required')"
+                                                                class="error">Api key is required.</small>
+                                                        </span>
                                                     </div>
                                                 </div>
 
-                                                <button mat-button class="save-btn my-3" (click)="fnSubmitTextLocalSetting()">Save</button>
+                                                <button mat-button class="save-btn my-3"
+                                                    (click)="fnSubmitTextLocalSetting()">Save</button>
                                             </div>
                                         </div>
                                     </form>
