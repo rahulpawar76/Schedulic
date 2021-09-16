@@ -200,6 +200,9 @@
     font-size: inherit;
     font-weight: 400;
     line-height: 1.125;
+    border: 1px solid #36d2d2;
+    padding: 4px;
+    background-color: #36d2d23d;
 }
 
 .mat-form-field-prefix .mat-icon,
@@ -1853,9 +1856,7 @@ th.mat-header-cell {
     color: rgba(0, 0, 0, .54)
 }
 
-.mat-form-field-appearance-legacy .mat-form-field-underline {
-    background-color: rgba(0, 0, 0, .42)
-}
+
 
 .mat-form-field-appearance-legacy.mat-form-field-disabled .mat-form-field-underline {
     background-image: linear-gradient(to right, rgba(0, 0, 0, .42) 0, rgba(0, 0, 0, .42) 33%, transparent 0);
