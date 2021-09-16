@@ -107,13 +107,14 @@
 }
 
 .make-default-btn {
-    width: 140px;
+    width: 180px;
     height: 37px;
     border-radius: 4px;
     background-color: #fff;
     color: #000;
     margin-right: 15px;
-    border-color: #3addcf;
+    border: 1px solid #3addcf!important;
+    opacity: 0.9;
 }
 
 .min-height {
