@@ -1349,3 +1349,20 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
 .pink-medium-btn{
     min-width: 120px !important;
 }
+/*media query starts*/
+@media only screen and (min-width: 320px) and (max-width: 520px){
+   #Main{
+    .left-col-image-wrap{
+        img{
+            position: unset !important;
+        }
+    }
+    .custom-wrap-center{
+        padding-left: 15px !important;
+    }
+   }
+    .left-img-wrap{
+        padding-left: 0px !important;
+    }
+    
+}
