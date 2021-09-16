@@ -1,4 +1,29 @@
-
 .payment-rules {
     margin: 30px;
+}
+.setting-right-side-content {
+    .payment-rules {
+        .payment-common-details {
+            .blue-card {
+                label {
+                    color: #565657;
+                    font-size: 14px;
+                    margin-bottom: 4px;
+                }
+                p {
+                    font-weight: 500;
+                    margin-bottom: 0px;
+                }
+                .payment-delete-button{
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                    height: 100%;
+                    img{
+                        width: 22px;
+                    }
+                }
+            }
+        }
+    }
 }

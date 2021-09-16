@@ -791,11 +791,12 @@ i.fa.fa-plus-circle.pl-2.note-icon {
             font-weight: 500;
             color: #0E0E0E;
         }
+        
         .menu-icon {
             margin-right: 10px;
             display: block;
-            height: 23px;
-            width: 23px;
+            height: 27px;
+            width: 27px;
             img {
                 width: 100%;
                 position: relative;
@@ -807,7 +808,9 @@ i.fa.fa-plus-circle.pl-2.note-icon {
                 opacity: 0;
                 display: none;
             }
+            
         }
+       
         &:hover {
             background-color: rgba(0, 168, 155, 0.08);
             color: #00A89B;
@@ -846,7 +849,9 @@ i.fa.fa-plus-circle.pl-2.note-icon {
                 }
             }
         }
+        
     }
+    
     h6 {
         font-size: 15px;
         font-weight: 600;
@@ -1064,12 +1069,13 @@ textarea {
             border: 0;
             padding: 15px 10px;
             font-size: 14px;
-            line-height: 1;
+            line-height: 0.8;
             height: 40px;
             &.bordered-control{
                 border: 1px solid rgba(112, 112, 112, 0.4);
                 line-height: 0.8;
             }
+          
         }
         &.input-group {
             .input-group-prepend {
@@ -1107,6 +1113,7 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
     border-width: 0px 2px 2px 0px;
     transform: rotate(45deg);
     transition: border-width 150ms ease-in-out;
+    margin-top: -10px;  
 }
 
 .sc-table-view {
@@ -1363,3 +1370,30 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
     }
     
 }
+
+// .setting-menu .setting-menu-item{
+//     background-color: red;
+// }
+.setting-menu .setting-menu-item:nth-child(9){
+    .menu-icon{
+        width: 20px;
+    }
+  }
+  .setting-menu .setting-menu-item:nth-child(13){
+    .menu-icon{
+        width: 23px;
+        height: 23px;
+    }
+  }
+  .setting-menu .setting-menu-item:nth-child(14){
+    .menu-icon{
+        width: 23px;
+        height: 23px;
+    }
+  }
+  .setting-menu .setting-menu-item:nth-child(15){
+    .menu-icon{
+        width: 23px;
+        height: 23px;
+    }
+  }

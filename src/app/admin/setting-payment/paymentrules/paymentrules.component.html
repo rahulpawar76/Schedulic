@@ -132,19 +132,22 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-3">
+            <div class="row mt-3 payment-common-details">
                 <div class="col-6" *ngFor="let tax of taxesData; let i=index">
                     <div class="blue-card" fxLayout="row">
-                        <div class="" fxFlex="40">
+                        <div class="" fxFlex="45">
                             <label>Tax Name</label>
                             <p>{{tax.name}}</p>
                         </div>
-                        <div class="" fxFlex="30">
+                        <div class="" fxFlex="45">
                             <label>Percentage</label>
                             <p>{{tax.value}}%</p>
                         </div>
-                        <div class="" fxFlex="30">
-                            <mat-icon aria-hidden="false">delete_outline</mat-icon>
+                        <div class="" fxFlex="10">
+                            <a class="payment-delete-button">
+                                <img class="normal" src="../../../../assets/images/payment-delete.svg" />
+                            </a>
+                            
                         </div>
                     </div>
                     <!-- <div class="Customer-appointment-table">
