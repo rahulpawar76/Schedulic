@@ -234,36 +234,36 @@
             </mat-tab>
             <!-- --------------------------------- Appearance --------------------------------------- -->
             <mat-tab label="Appearance">
-                <div class="row m-0">
-                    <div class="main-appearance-content custom-appearance-bg col-4" [formGroup]="Appearance">
-                        <div class="bottom-border d-flex ">
-                            <mat-label>Primary Color</mat-label>
+                <div class="row m-0 appearance-wrap">
+                    <div class="left-side appearance-side col-4" [formGroup]="Appearance">
+                        <div class="color-field d-flex ">
+                            <label>Primary Color</label>
                             <div class="colorpicker-wrap">
                                 <input [style.background]="primarycolor" class="color_box" [(colorPicker)]="primarycolor" (colorPickerChange)="onChangePrimaryColor($event)" />
                             </div>
                         </div>
-                        <div class="bottom-border d-flex">
-                            <mat-label>Primary Gradient</mat-label>
+                        <div class="color-field d-flex">
+                            <label>Primary Gradient</label>
                             <div class="colorpicker-wrap d-flex">
                                 <input [style.background]="primarygradient1" class="color_box" [(colorPicker)]="primarygradient1" (colorPickerChange)="onChangePrimaryGradient1($event)" />
                                 <input [style.background]="primarygradient2" class="color_box" [(colorPicker)]="primarygradient2" (colorPickerChange)="onChangePrimaryGradient2($event)" />
                             </div>
                         </div>
-                        <div class="bottom-border d-flex">
-                            <mat-label>Text Color</mat-label>
+                        <div class="color-field d-flex">
+                            <label>Text Color</label>
                             <div class="colorpicker-wrap">
                                 <input [style.background]="textcolor" class="color_box" [(colorPicker)]="textcolor" (colorPickerChange)="onChangeTextColor($event)" />
                             </div>
                         </div>
-                        <div class="bottom-border d-flex">
-                            <mat-label>Text Color On Background</mat-label>
+                        <div class="color-field d-flex">
+                            <label>Text Color On Background</label>
                             <div class=" colorpicker-wrap">
                                 <input [style.background]="textbgcolor" class="color_box" [(colorPicker)]="textbgcolor" (colorPickerChange)="onChangeTextBgColor($event)" />
                             </div>
                         </div>
-                        <mat-form-field class="dropdown bottom-border-field bottom-border mt-3">
-                            <mat-label>Font</mat-label>
-                            <mat-select (selectionChange)="fnChangeFont($event)" formControlName="font">
+                        <div class="common-input mt-3">
+                            <label>Font</label>
+                            <mat-select class="form-control form-control-trasprent" (selectionChange)="fnChangeFont($event)" formControlName="font">
                                 <mat-option value="Poppins, sans-serif">Poppins</mat-option>
                                 <mat-option value="Roboto, sans-serif">Roboto</mat-option>
                                 <mat-option value="'Cairo', sans-serif">Cairo</mat-option>
@@ -276,11 +276,11 @@
                                 <mat-option value="Raleway, sans-serif">Raleway</mat-option>
                                 <mat-option value="Ubuntu, sans-serif">Ubuntu</mat-option>
                             </mat-select>
-                        </mat-form-field>
+                        </div>
 
                     </div>
-                    <div id="preview_container" class="main-appearance-content col-8">
-                        <div class="row ml-0 mr-0 main-datetime-selection h-100">
+                    <div id="preview_container" class="right-side pr-0 py-3 appearance-side col-8">
+                        <div class="row mx-0 main-datetime-selection h-100">
                             <div class="col-12 col-lg-6 col-sm-12 datepicker-main">
                                 <div class="ngbpicker">
                                     <div class="ngb-dp-header customepickheader">
@@ -290,7 +290,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-12 col-lg-6 col-sm-12 timeslot-main">
+                            <div class="col-12 col-lg-6 col-sm-12 timeslot-main py-3">
                                 <button mat-fab color="" class="top-back-btn float-right">
                                 <i class="material-icons" color="">close</i>
                             </button>
@@ -327,7 +327,7 @@
                                 </div>
                                 <div class="">
 
-                                    <div class="cart-btn mt-2">
+                                    <div class="cart-btn">
                                         <i class="material-icons">add_shopping_cart</i>
                                     </div>
                                 </div>
@@ -337,8 +337,8 @@
                 </div>
                 <mat-card class="save-cencel-footer">
                     <div class="d-flex py-2 save-footer-btn">
-                        <button mat-button (click)="fnCancelAppearance()" class="staff-cancel-btn">Cancel</button>
-                        <button mat-button appearance="fill" class="appearancecolor-save-btn" (click)="fnSaveAppearanceSettings()">Save</button>
+                        <button mat-button (click)="fnCancelAppearance()" class="sc-grey-btn mr-2">Cancel</button>
+                        <button mat-button class="sc-pink-btn mr-2" (click)="fnSaveAppearanceSettings()">Save</button>
                     </div>
                 </mat-card>
             </mat-tab>
@@ -428,8 +428,8 @@
                 
                 <mat-card class="save-cencel-footer">
                     <div class="d-flex py-2 save-footer-btn">
-                        <button mat-button (click)="fnCancelAppearance()" class="staff-cancel-btn">Cancel</button>
-                        <button mat-button appearance="fill" class="appearancecolor-save-btn" (click)="fnFormSetting()">Save</button>
+                        <button mat-button (click)="fnCancelAppearance()" class="sc-grey-btn mr-2">Cancel</button>
+                        <button mat-button class="sc-pink-btn mr-2" (click)="fnFormSetting()">Save</button>
                     </div>
                 </mat-card>
             </mat-tab>

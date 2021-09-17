@@ -430,6 +430,38 @@
 .select-service {
     //max-width: 400px;
     margin-left: auto;
+    
+    .searchbox {
+        .search_input-staff {
+            height: 39px;
+            padding-top: 3px;
+            .has-search .form-control {
+                padding-left: 2.375rem;
+            }
+            .has-search .form-control-feedback {
+                position: absolute;
+                z-index: 2;
+                display: block;
+                line-height: 2.6rem;
+                pointer-events: none;
+                color: #0E0E0E;
+                text-align: center;
+                width: 2.375rem;
+                font-size: 25px;
+            }
+            .searchbox_staff {
+                border-bottom: 1px solid #0E0E0E !important;
+                border: 0;
+                background-color: transparent;
+                border-radius: 0;
+                color: #0E0E0E;
+                &::placeholder {
+                   font-size: 12px;
+                   color: #0E0E0E;
+               }
+            }
+        }
+    }
     .select-service-accordian {
          ::ng-deep .mat-expansion-panel-header {
             background-color: #e8f2fe;

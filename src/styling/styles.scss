@@ -1419,13 +1419,13 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
             opacity: 0;
             cursor: pointer;
             top: 0;
+            margin-top: -30px;
         }
     }
     .drag-text {
         text-align: center;
         h6 {
             font-size: 18px;
-            color: #00a89b;
         }
         h3 {
             font-size: 14px;
@@ -1436,5 +1436,11 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
         display: table;
         padding: 8px 16px;
         border-radius: 50px;
+    }
+}
+
+.save-footer-btn{
+    button{
+        width: 120px;
     }
 }
