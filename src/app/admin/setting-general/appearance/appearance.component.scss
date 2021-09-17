@@ -234,6 +234,25 @@
         }
     }
 }
+.service-boking-text-wrap{
+    box-shadow:unset!important;
+    background-color: transparent!important;
+    margin: 15px;
+    h5{
+        font-size: 16px;
+        color:#000;
+        margin-bottom: 0px;
+    }
+    p{
+      font-size: 14px;
+      color: #777;
+      font-weight: 400;
+    }
+    .bg-wrap{
+        background-color: #edf4fe;
+        padding: 30px!important;
+    }
+}
 .content-btn-links-wrap{
     box-shadow:unset!important;
     background-color: transparent!important;
@@ -243,8 +262,9 @@
         color:#000;
     }
     p{
-      font-size: 15px;
+      font-size: 14px;
       color: #777;
+      font-weight: 400;
     }
     .bg-wrap{
         background-color: #edf4fe;
@@ -390,13 +410,13 @@
 }
 
 .service-booking-link {
-    background-color: #E1E1E1;
-    color: #000000;
+    background-color: #a1a1a1;
+    color: #fff;
 }
 
 .btn-color-dummy {
     text-decoration: underline;
-    color: #00A89B;
+    color: #f04589;
 }
 
 .btn-color-one {

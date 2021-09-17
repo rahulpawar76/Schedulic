@@ -87,7 +87,7 @@
         </div>
     </div>
     <div class="setting-right-side-content without-footer" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
-        <mat-card class="main-card-container mb-0 h-auto pb-3">
+        <mat-card class="main-card-container custom-booking-rules-wrap mb-0 h-auto pb-3">
             <h5>Booking Rules</h5>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo<br> Inventore explicabo totam ab necessitatibus</p>
             <mat-card class="custom-mat-card-bg">
@@ -113,7 +113,7 @@
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
                                            
-                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetMinAdvBookingTime($event)" [(value)]="minAdvBookingTimeDays">
+                                                <mat-select class="form-control form-control-trasprent" (selectionChange)="fnSetMinAdvBookingTime($event)" [(value)]="minAdvBookingTimeDays">
                                                     <mat-option value="0">0 days</mat-option>
                                                     <mat-option value="1">1 days</mat-option>
                                                     <mat-option value="2">2 days</mat-option>
@@ -150,7 +150,7 @@
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
                                             
-                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetMinAdvBookingTime($event)" [(value)]="minAdvBookingTimeHours">
+                                                <mat-select class="form-control form-control-trasprent" (selectionChange)="fnSetMinAdvBookingTime($event)" [(value)]="minAdvBookingTimeHours">
                                                     <mat-option value="0">0 Hours</mat-option>
                                                     <mat-option value="1">1 Hours</mat-option>
                                                     <mat-option value="2">2 Hours</mat-option>
@@ -181,7 +181,7 @@
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
                                           
-                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetMinAdvBookingTime($event)" [(value)]="minAdvBookingTimeMinutes">
+                                                <mat-select class="form-control form-control-trasprent" (selectionChange)="fnSetMinAdvBookingTime($event)" [(value)]="minAdvBookingTimeMinutes">
                                                     <mat-option value="0">0 Minutes</mat-option>
                                                     <mat-option value="1">1 Minutes</mat-option>
                                                     <mat-option value="2">2 Minutes</mat-option>
@@ -255,7 +255,7 @@
                                         </div>
                                         <div class="" fxFlex="12">
                                             
-                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetMaxAdvBookingTime($event)" [(value)]="maxAdvBookingTimeMonths">
+                                                <mat-select class="form-control form-control-trasprent" (selectionChange)="fnSetMaxAdvBookingTime($event)" [(value)]="maxAdvBookingTimeMonths">
                                                     <mat-option value="0">0 Months</mat-option>
                                                     <mat-option value="1">1 Months</mat-option>
                                                     <mat-option value="2">2 Months</mat-option>
@@ -274,7 +274,7 @@
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
                                            
-                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetMaxAdvBookingTime($event)" [(value)]="maxAdvBookingTimeDays">
+                                                <mat-select class="form-control form-control-trasprent" (selectionChange)="fnSetMaxAdvBookingTime($event)" [(value)]="maxAdvBookingTimeDays">
                                                     <mat-option value="0">0 days</mat-option>
                                                     <mat-option value="1">1 days</mat-option>
                                                     <mat-option value="2">2 days</mat-option>
@@ -311,7 +311,7 @@
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
                                           
-                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetMaxAdvBookingTime($event)" [(value)]="maxAdvBookingTimeHours">
+                                                <mat-select class="form-control form-control-trasprent" (selectionChange)="fnSetMaxAdvBookingTime($event)" [(value)]="maxAdvBookingTimeHours">
                                                     <mat-option value="0">0 Hours</mat-option>
                                                     <mat-option value="1">1 Hours</mat-option>
                                                     <mat-option value="2">2 Hours</mat-option>
@@ -341,7 +341,7 @@
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
                                            
-                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetMaxAdvBookingTime($event)" [(value)]="maxAdvBookingTimeMinutes">
+                                                <mat-select class="form-control form-control-trasprent" (selectionChange)="fnSetMaxAdvBookingTime($event)" [(value)]="maxAdvBookingTimeMinutes">
                                                     <mat-option value="0">0 Minutes</mat-option>
                                                     <mat-option value="1">1 Minutes</mat-option>
                                                     <mat-option value="2">2 Minutes</mat-option>
@@ -420,7 +420,7 @@
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
                                             
-                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetTimeInterval($event)" [(value)]="timeIntervalHours">
+                                                <mat-select class="form-control form-control-trasprent" (selectionChange)="fnSetTimeInterval($event)" [(value)]="timeIntervalHours">
                                                     <mat-option value="0">0 Hours</mat-option>
                                                     <mat-option value="1">1 Hours</mat-option>
                                                     <mat-option value="2">2 Hours</mat-option>
@@ -450,7 +450,7 @@
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
                                             
-                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetTimeInterval($event)" [(value)]="timeIntervalMinutes">
+                                                <mat-select class="form-control form-control-trasprent" (selectionChange)="fnSetTimeInterval($event)" [(value)]="timeIntervalMinutes">
                                                     <mat-option value="0">0 Minutes</mat-option>
                                                     <mat-option value="1">1 Minutes</mat-option>
                                                     <mat-option value="2">2 Minutes</mat-option>
@@ -526,7 +526,7 @@
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
                                            
-                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetCancellationBufferTime($event)" [(value)]="cancellationBufferTimeDays">
+                                                <mat-select class="form-control form-control-trasprent" (selectionChange)="fnSetCancellationBufferTime($event)" [(value)]="cancellationBufferTimeDays">
                                                     <mat-option value="0">0 days</mat-option>
                                                     <mat-option value="1">1 days</mat-option>
                                                     <mat-option value="2">2 days</mat-option>
@@ -563,7 +563,7 @@
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
                                             
-                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetCancellationBufferTime($event)" [(value)]="cancellationBufferTimeHours">
+                                                <mat-select class="form-control form-control-trasprent" (selectionChange)="fnSetCancellationBufferTime($event)" [(value)]="cancellationBufferTimeHours">
                                                     <mat-option value="0">0 Hours</mat-option>
                                                     <mat-option value="1">1 Hours</mat-option>
                                                     <mat-option value="2">2 Hours</mat-option>
@@ -593,7 +593,7 @@
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
                                            
-                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetCancellationBufferTime($event)" [(value)]="cancellationBufferTimeMinutes">
+                                                <mat-select class="form-control form-control-trasprent" (selectionChange)="fnSetCancellationBufferTime($event)" [(value)]="cancellationBufferTimeMinutes">
                                                     <mat-option value="0">0 Minutes</mat-option>
                                                     <mat-option value="1">1 Minutes</mat-option>
                                                     <mat-option value="2">2 Minutes</mat-option>
@@ -669,7 +669,7 @@
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
                                            
-                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetMinResedulingTime($event)" [(value)]="minResedulingTimeDays">
+                                                <mat-select class="form-control form-control-trasprent" (selectionChange)="fnSetMinResedulingTime($event)" [(value)]="minResedulingTimeDays">
                                                     <mat-option value="0">0 days</mat-option>
                                                     <mat-option value="1">1 days</mat-option>
                                                     <mat-option value="2">2 days</mat-option>
@@ -706,7 +706,7 @@
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
                                            
-                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetMinResedulingTime($event)" [(value)]="minResedulingTimeHours">
+                                                <mat-select class="form-control form-control-trasprent" (selectionChange)="fnSetMinResedulingTime($event)" [(value)]="minResedulingTimeHours">
                                                     <mat-option value="0">0 Hours</mat-option>
                                                     <mat-option value="1">1 Hours</mat-option>
                                                     <mat-option value="2">2 Hours</mat-option>
@@ -736,7 +736,7 @@
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
                                            
-                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetMinResedulingTime($event)" [(value)]="minResedulingTimeMinutes">
+                                                <mat-select class="form-control form-control-trasprent" (selectionChange)="fnSetMinResedulingTime($event)" [(value)]="minResedulingTimeMinutes">
                                                     <mat-option value="0">0 Minutes</mat-option>
                                                     <mat-option value="1">1 Minutes</mat-option>
                                                     <mat-option value="2">2 Minutes</mat-option>
@@ -798,7 +798,6 @@
                                                     <mat-option value="58">58 Minutes</mat-option>
                                                     <mat-option value="59">59 Minutes</mat-option>
                                                 </mat-select>
-                                           
                                         </div>
                                     </div>
                                 </div>
@@ -807,8 +806,8 @@
                     </div>
                 </div>
             </mat-card>
-            <mat-card class="matcard-space">
-                <div class="d-flex">
+            <mat-card class="matcard-space custom-matcard-space">
+                <div class="d-flex align-items-center">
                     <div>
                         <h6>Customer Login</h6>
                         <p class="mb-0">Create an exclusive profile with a username and password for your customer.</p>
@@ -819,8 +818,8 @@
                     </div>
                 </div>
             </mat-card>
-            <mat-card class="matcard-space bg-wrap">
-                <div class="d-flex">
+            <mat-card class="matcard-space custom-matcard-space">
+                <div class="d-flex align-items-center">
                     <div>
                         <h6>Staff List On Front</h6>
                         <p class="mb-0">By Enabling this feature, Staff list will be shown in the Front.</p>
@@ -831,28 +830,28 @@
                     </div>
                 </div>
             </mat-card>
-            <mat-card class="matcard-space bg-wrap">
-                <div class="d-flex">
+            <mat-card class="matcard-space custom-matcard-space">
+                <div class="d-flex align-items-center">
                     <div>
                         <h6>Appointment auto confirm</h6>
-                        <p class="mb-0">By Enabling this feature, Appointment request from clients will be auto confirmed.</p>
+                        <p class="mb-4">By Enabling this feature, Appointment request from clients will be auto confirmed.</p>
                     </div>
                     <div class="ml-auto mx-3">
                         <mat-slide-toggle (change)="fnChangeAppAutoConfirmStatus($event)" [checked]="appAutoConfirmValue === 'true' ? true : false"></mat-slide-toggle>
                     </div>
                 </div>
-                <div class="pt-4" *ngIf="appAutoConfirmValue === 'true'">
-                    <div class="d-flex">
-                        <mat-checkbox class="pr-3" (change)="fnChangeAutoAssignStaffStatus($event)" [checked]="autoAssignStaffValue === 'true' ? true : false"></mat-checkbox>
+                <div class="pt-4 border-top" *ngIf="appAutoConfirmValue === 'true'">
+                    <div class="d-flex justify-content-between">
                         <h6>Auto assign to staff</h6>
+                        <mat-checkbox class="pr-4" (change)="fnChangeAutoAssignStaffStatus($event)" [checked]="autoAssignStaffValue === 'true' ? true : false"></mat-checkbox>  
                     </div>
                     <div>
                         <p class="mb-0">By enabling this feature services will get assigned to the staff automatically, otherwise it has to be done manually by the admin.</p>
                     </div>
                 </div>
             </mat-card>
-            <mat-card class="matcard-space bg-wrap">
-                <div class="d-flex">
+            <mat-card class="matcard-space custom-matcard-space">
+                <div class="d-flex align-items-center">
                     <div>
                         <h6>Notification For On the way and Getting Late</h6>
                         <p class="mb-0">By Enabling this feature, To get notifation for On the way and Getting Late.</p>
@@ -862,8 +861,8 @@
                     </div>
                 </div>
             </mat-card>
-            <mat-card class="matcard-space bg-wrap">-
-                <div class="d-flex">
+            <mat-card class="matcard-space custom-matcard-space">-
+                <div class="d-flex align-items-center">
                     <div>
                         <h6>Allow Customers for Staff Rating</h6>
                         <p class="mb-0">By Enabling this Feature, Customers can rate your staff from their account</p>
@@ -874,95 +873,109 @@
                 </div>
             </mat-card>
             <div>
-                <h6 class="py-4">Terms & Conditions </h6>
-                <mat-card class="matcard-space ">
-                    <div class="d-flex">
+                <!-- <h6 class="py-4">Terms & Conditions </h6> -->
+                <mat-card class="matcard-space custom-matcard-space">
+                    <div class="d-flex align-items-center">
                         <div>
                             <h6>Terms & Conditions </h6>
+                            <p>lorem is a simply dummy text of the printing and typesetting industry</p>
                         </div>
                         <div class="ml-auto mx-3">
                             <mat-slide-toggle (change)="fnChangeTermsConditionsStatus($event)" [checked]="termsConditionsStatusValue === true ? true : false"></mat-slide-toggle>
                         </div>
                     </div>
-                    <div class="example-form" *ngIf="termsConditionsStatusValue==true">
-                        <mat-form-field class="example-full-width bottom-border-field">
+                    <div class="example-form border-top mt-4" *ngIf="termsConditionsStatusValue==true">
+                        <!-- <mat-form-field class="example-full-width bottom-border-field"> -->
                             <!-- <mat-label></mat-label> -->
-                            <input matInput placeholder="Add a label to your Terms & Conditions." [ngModel]="termsConditionsLabelValue" (ngModelChange)="setTermConditionsLabelValue($event)" maxlength="150">
-                        </mat-form-field>
-                        <div class="d-flex example-full-width ">
-                            <mat-hint class="ml-auto"><i>Maximum characters allowed<span class="text-danger"> 150</span></i></mat-hint>
-                        </div>
+                            <h6 class="mt-4 label-wrap">Add a label to your Privacy Policy.</h6>
+                            <input class="form-control form-control-trasprent border mt-2" matInput placeholder="Enter Your label here." [ngModel]="termsConditionsLabelValue" (ngModelChange)="setTermConditionsLabelValue($event)" maxlength="150">
+                        <!-- </mat-form-field> -->
+                        <!-- <div class="d-flex"> -->
+                            <!-- <mat-hint class="ml-auto"><i>Maximum characters allowed 150</i></mat-hint> -->
+                            <p class="text-right">Maximum characters allowed 150</p>
+                        <!-- </div> -->
                     </div>
                     <div class="example-form" *ngIf="termsConditionsStatusValue==true">
-                        <mat-form-field class="example-full-width bottom-border-field">
+                        <!-- <mat-form-field class="example-full-width bottom-border-field"> -->
                             <!-- <mat-label></mat-label> -->
-                            <input matInput placeholder="Add a link to your Terms & Conditions." [ngModel]="termsConditionsPageLinkValue" (ngModelChange)="setTermConditionsPageLinkValue($event)">
-                        </mat-form-field>
-                        <div class="d-flex example-full-width ">
-                            <mat-hint class="ml-auto"><i>Link will open in a new browser window</i></mat-hint>
-                        </div>
+                            <h6 class="mt-3 label-wrap">Add a link to your Terms & Conditions.</h6>
+                            <input class="form-control form-control-trasprent border mt-2" matInput placeholder="Add a link to your Terms & Conditions." [ngModel]="termsConditionsPageLinkValue" (ngModelChange)="setTermConditionsPageLinkValue($event)">
+                        <!-- </mat-form-field> -->
+                        <!-- <div class="d-flex example-full-width "> -->
+                            <!-- <mat-hint class="ml-auto"><i>Link will open in a new browser window</i></mat-hint> -->
+                            <p class="text-right">Link will open in a new browser window</p>
+                        <!-- </div> -->
                     </div>
                     <div class="example-form" *ngIf="termsConditionsStatusValue==true">
                         <div class="d-flex example-full-width ">
                             <button mat-button class="staff-reset-btn" (click)="fnSaveTermsConditionsValues()">Save</button>
+                            <button class="cancel-btn">Cancel</button>
                         </div>
                     </div>
                 </mat-card>
             </div>
             <div>
-                <h6 class="py-4">Privacy Policy </h6>
-                <mat-card class="matcard-space">
-                    <div class="d-flex">
+                <!-- <h6 class="py-4">Privacy Policy </h6> -->
+                <mat-card class="matcard-space custom-matcard-space ">
+                    <div class="d-flex align-items-center">
                         <div>
                             <h6>Privacy Policy </h6>
+                            <p>lorem is a simply dummy text of the printing and typesetting industry</p>
                         </div>
                         <div class="ml-auto mx-3">
                             <mat-slide-toggle (change)="fnChangePrivacyPolicyStatus($event)" [checked]="privacyPolicyStatusValue === true ? true : false"></mat-slide-toggle>
                         </div>
                     </div>
-                    <div class="example-form" *ngIf="privacyPolicyStatusValue==true">
+                    <div class="example-form border-top mt-4" *ngIf="privacyPolicyStatusValue==true">
                         <p>Display as hyperlink text next to a checkbox that the user must accept.</p>
-                        <mat-form-field class="example-full-width bottom-border-field">
-                            <input matInput placeholder="Add a label to your Privacy Policy." [ngModel]="privacyPolicyLabelValue" (ngModelChange)="setPrivacyPolicyLabelValue($event)" maxlength="150">
-                        </mat-form-field>
-                        <div class="d-flex example-full-width ">
-                            <mat-hint class="ml-auto"><i>Maximum characters allowed<span class="text-danger"> 150</span></i></mat-hint>
-                        </div>
+                        <!-- <mat-form-field class="example-full-width bottom-border-field"> -->
+                            <h6 class="mt-3 label-wrap">Add a label to your Privacy Policy.</h6>
+                            <input class="form-control form-control-trasprent border mt-2" matInput placeholder="Add a label to your Privacy Policy." [ngModel]="privacyPolicyLabelValue" (ngModelChange)="setPrivacyPolicyLabelValue($event)" maxlength="150">
+                        <!-- </mat-form-field> -->
+                        <!-- <div class="d-flex example-full-width "> -->
+                            <!-- <mat-hint class="ml-auto"><i>Maximum characters allowed<span class="text-danger"> 150</span></i></mat-hint> -->
+                            <p class="text-right">Maximum characters allowed 150</p>
+                        <!-- </div> -->
                     </div>
                     <div class="example-form" *ngIf="privacyPolicyStatusValue==true">
-                        <mat-form-field class="example-full-width bottom-border-field">
-                            <input matInput placeholder="Add a Page link of your Privacy Policy." [ngModel]="privacyPolicyPageLinkValue" (ngModelChange)="setPrivacyPolicyPageLinkValue($event)">
-                        </mat-form-field>
-                        <div class="d-flex example-full-width ">
-                            <mat-hint class="ml-auto"><i>Link will open in a new browser window</i></mat-hint>
-                        </div>
+                        <!-- <mat-form-field class="example-full-width bottom-border-field"> -->
+                            <h6 class="mt-3 label-wrap">Add a Page link of your Privacy Policy.</h6>
+                            <input class="form-control form-control-trasprent border mt-2" matInput placeholder="Add a Page link of your Privacy Policy." [ngModel]="privacyPolicyPageLinkValue" (ngModelChange)="setPrivacyPolicyPageLinkValue($event)">
+                        <!-- </mat-form-field> -->
+                        <!-- <div class="d-flex example-full-width "> -->
+                            <!-- <mat-hint class="ml-auto"><i>Link will open in a new browser window</i></mat-hint> -->
+                            <p class="text-right">Link will open in a new browser window</p>
+                        <!-- </div> -->
                     </div>
                     <div class="example-form" *ngIf="privacyPolicyStatusValue==true">
                         <div class="d-flex example-full-width ">
                             <button mat-button class="staff-reset-btn" (click)="fnSavePrivacyPolicyValues()">Save</button>
+                            <button class="cancel-btn">Cancel</button>
                         </div>
                     </div>
                 </mat-card>
             </div>
             <div>
-                <h6 class="py-4">Thank You Page</h6>
-                <mat-card class="matcard-space">
-                    <div class="d-flex">
+                <mat-card class="matcard-space custom-matcard-space">
+                    <div class="d-flex align-items-center">
                         <div>
                             <h6>Thank You Page</h6>
+                            <p>lorem is a simply dummy text of the printing and typesetting industry</p>
                         </div>
                         <div class="ml-auto mx-3">
                             <mat-slide-toggle (change)="fnChangeThankyouPageStatus($event)" [checked]="thankyouPageStatusValue === true ? true : false"></mat-slide-toggle>
                         </div>
                     </div>
-                    <div class="example-form" *ngIf="thankyouPageStatusValue==true">
-                        <mat-form-field class="example-full-width bottom-border-field">
-                            <input matInput placeholder="Add a link to your Thank You page" [ngModel]="thankyouPageLinkValue" (ngModelChange)="setThankyouPageLinkValue($event)">
-                        </mat-form-field>
+                    <div class="example-form border-top mt-4" *ngIf="thankyouPageStatusValue==true">
+                        <!-- <mat-form-field class="example-full-width bottom-border-field"> -->
+                            <h6 class="mt-4 label-wrap">Add a link to your Thank You page</h6>
+                            <input class="form-control form-control-trasprent border mt-2" matInput placeholder="Add a link to your Thank You page" [ngModel]="thankyouPageLinkValue" (ngModelChange)="setThankyouPageLinkValue($event)">
+                        <!-- </mat-form-field> -->
                     </div>
                     <div class="example-form" *ngIf="thankyouPageStatusValue==true">
                         <div class="d-flex example-full-width ">
                             <button mat-button class="staff-reset-btn mt-3" (click)="fnSaveThankyouPageValues()">Save</button>
+                            <button class="cancel-btn mt-3">Cancel</button>
                         </div>
                     </div>
                 </mat-card>
