@@ -589,45 +589,6 @@ $calendarsize: 10px;
     }
 }
 
-// common for mat Components
-.mat-form-field {
-    margin-bottom: 0;
-}
-
-::ng-deep .bottom-border-field .mat-form-field-underline {
-    bottom: 0 !important;
-}
-
-::ng-deep .bottom-border-field .mat-form-field-infix {
-    padding: 0.4em 0 !important;
-    margin-bottom: 5px;
-}
-
-::ng-deep .bottom-border-field .mat-icon {
-    line-height: 1;
-    font-size: 100% !important;
-}
-
-.bottom-border-field .mat-form-field-underline {
-    bottom: 0 !important;
-}
-
-.bottom-border-field .mat-form-field-infix {
-    padding: 0.4em 0 !important;
-    margin-bottom: 0px;
-    border-top: unset;
-}
-
-.bottom-border-field mat-icon {
-    padding-right: 10px;
-    border-right: 1px solid #222;
-    display: table;
-    line-height: 1;
-    font-size: 100% !important;
-    margin-right: 10px;
-}
-
-
 .loader-main {
     width: 100%;
     height: 100%;
@@ -1229,7 +1190,9 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
     font-weight: 500;
     font-size: 16px;
 }
-
+.pink-btn-md{
+    width: 120px;
+}
 .long-width-btn{
     width: 200px;
 }
@@ -1273,7 +1236,6 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
     .modal-content {
         .modal-header {
             background-color: #FFE482;
-            /* padding-bottom: 0px; */
             padding: 14px ​16px;
             border: none;
             align-items: center;
@@ -1408,44 +1370,47 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
   }
 
 
-::ng-deep .common-tab-group{
-    .mat-tab-header{
+.common-tab-group {
+    .mat-tab-header {
         background-color: #ffe4816b;
         padding: 0px 40px;
-        .mat-ink-bar{
+        border: none;
+        .mat-ink-bar {
             height: 5px;
             border-radius: 40px;
             background-color: #00a89b;
         }
-        .mat-tab-label{
+        .mat-tab-label {
             padding: 0 10px;
             width: 130px !important;
             opacity: 1;
-            &.mat-tab-label-active{
+            &.mat-tab-label-active {
                 opacity: 1;
-                .mat-tab-label-content{
-                    color: #0E0E0E;
+                .mat-tab-label-content {
+                    color: #0e0e0e;
                 }
             }
-            .mat-tab-label-content{
+            .mat-tab-label-content {
                 color: #565657;
             }
         }
     }
 }
 
-
-/*Image Upload*/
-
+//Import Files
 .file-upload {
     background-color: #ffffff;
     margin: 0 auto;
     padding: 20px;
     .image-upload-wrap {
         margin-top: 20px;
-        border: 2px dashed #03a9f4;
+        border: 1px dashed #565657;
         position: relative;
         padding: 30px 0;
+        min-height: 160px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         .fileuploadinput {
             position: absolute;
             margin: 0;
@@ -1455,6 +1420,7 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
             outline: none;
             opacity: 0;
             cursor: pointer;
+            top: 0;
             margin-top: -30px;
         }
     }
