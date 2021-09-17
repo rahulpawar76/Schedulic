@@ -282,7 +282,7 @@
                         </div>
 
                         <div class="col-lg-3 col-md-3 col-12 select-service">
-                            <mat-card class="h-100">
+                            <div class="h-100">
                                 <h6 style="font-weight: 400;">Select Service for the Staff</h6>
                                 <!-- <mat-form-field class="pb-3 bottom-border-field">
                                     <input matInput placeholder="Category, Sub Category, Service" (keyup)="searchService($event);">
@@ -307,8 +307,8 @@
                                             </mat-panel-title>
                                         </mat-expansion-panel-header>
 
-                                        <mat-expansion-panel class="my-3" *ngFor="let subcategoryList of categoryServiceListval.subcategory; let sub_index=index">
-                                            <mat-expansion-panel-header>
+                                        <mat-expansion-panel [disabled]="subcategoryList.services.length == 0" class="" *ngFor="let subcategoryList of categoryServiceListval.subcategory; let sub_index=index">
+                                            <mat-expansion-panel-header [ngClass]="{'sub-cate-head' : sub_index ==0 }">
                                                 <mat-panel-title>
                                                     <mat-checkbox (change)="checkServie($event,'subcategory',i,sub_index)" [checked]="subcategoryList.is_selected ? true: ''">{{subcategoryList.sub_category_name}}</mat-checkbox>
                                                 </mat-panel-title>
@@ -326,7 +326,7 @@
 
                                     </mat-expansion-panel>
                                 </mat-accordion>
-                            </mat-card>
+                            </div>
                         </div>
                     </div>
                 </form>
