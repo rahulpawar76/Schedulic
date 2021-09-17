@@ -102,7 +102,7 @@
                 <mat-tab label="Email Alert">
                     <h5 class="common-alert-heading">Alert Sent to Customers</h5>
                     <mat-card class="matcard-space">
-                        <div class="common-alert-card">
+                        <div class="common-alert-card border-top-none">
                             <div>
                                 <h5>Appointments Reminder</h5>
                                 <p class=""> Remind customers about upcoming appointments?</p>
@@ -113,980 +113,876 @@
                             </div>
                         </div>
                         <div *ngIf="appointmentsReminder">
-                            <div class="common-alert-card"> 
-                            <div>
-                                <h5>Send an Email</h5>
-                                <p class="">Appointments</p>
-                            </div>
-                            <div class="d-flex main-checkbox-select-wrap">
-                                <div class="custom-check-box">
-                                    <div class="checked round">
-                                        <mat-checkbox [checked]="emailCustomerAppointment['booked'].status == '1'"
-                                            (change)="fnCusEmailAppoint($event.checked, 'booked')"
-                                            class="form_field_checkbox"></mat-checkbox>
-                                        <p class="check-label">Booked</p>
-                                    </div>
+                            <div class="common-alert-card">
+                                <div>
+                                    <h5>Send an Email</h5>
+                                    <p class="">Appointments</p>
                                 </div>
+                                <div class="d-flex main-checkbox-select-wrap">
+                                    <div class="custom-check-box">
+                                        <div class="checked round">
+                                            <mat-checkbox [checked]="emailCustomerAppointment['booked'].status == '1'"
+                                                (change)="fnCusEmailAppoint($event.checked, 'booked')"
+                                                class="form_field_checkbox"></mat-checkbox>
+                                            <p class="check-label">Booked</p>
+                                        </div>
+                                    </div>
 
-                                <div class="custom-check-box">
-                                    <div class="checked round status-update-main">
-                                        <mat-checkbox [checked]="emailCustomerAppointment['status_updated'].status
+                                    <div class="custom-check-box">
+                                        <div class="checked round status-update-main">
+                                            <mat-checkbox [checked]="emailCustomerAppointment['status_updated'].status
                     == '1'" (change)="fnCusEmailAppoint($event.checked,
                     'status_updated')" class="form_field_checkbox"></mat-checkbox>
-                                        <p class="check-label">Status Updated</p>
+                                            <p class="check-label">Status Updated</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="custom-check-box">
-                                    <div class="checked round cancel-check-btn">
-                                        <mat-checkbox [checked]="emailCustomerAppointment['cancelled'].status ==
+                                    <div class="custom-check-box">
+                                        <div class="checked round cancel-check-btn">
+                                            <mat-checkbox [checked]="emailCustomerAppointment['cancelled'].status ==
                     '1'" (change)="fnCusEmailAppoint($event.checked,
                     'cancelled')" class="form_field_checkbox"></mat-checkbox>
-                                        <p class="check-label">Cancelled</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                           
-                            <div>
-                                <h5>Reminder Lead Time</h5>
-                                <p>Send a reminder to customers</p>
-                            </div>
-                            <div class="">
-                                <div class="">
-                                    <div class="main-table-content main-cust-table-content">
-                                        <div class="">
-                                            <div class="" fxLayout="row">
-                                                <div class="" fxFlex="15"></div>
-                                                <div class="" fxFlex="15"></div>
-                                                <div class="" fxFlex="15"></div>
-                                                <div class="" fxFlex="55"></div>
-                                            </div>
-                                            <div class="content" class="">
-                                                <div class="">
-                                                    <div class="mx-2" fxFlex="15">
-                                                        <mat-form-field class="bottom-border-field">
-                                                            <mat-label>Days</mat-label>
-                                                            <mat-select
-                                                                (selectionChange)="fnSetCustomerEmailReminderTime($event)"
-                                                                [(value)]="emailAlertCustomerDays">
-                                                                <mat-option value="0">0 days</mat-option>
-                                                                <mat-option value="1">1 days</mat-option>
-                                                                <mat-option value="2">2 days</mat-option>
-                                                                <mat-option value="3">3 days</mat-option>
-                                                                <mat-option value="4">4 days</mat-option>
-                                                                <mat-option value="5">5 days</mat-option>
-                                                                <mat-option value="6">6 days</mat-option>
-                                                                <mat-option value="7">7 days</mat-option>
-                                                                <mat-option value="8">8 days</mat-option>
-                                                                <mat-option value="9">9 days</mat-option>
-                                                                <mat-option value="10">10 days</mat-option>
-                                                                <mat-option value="11">11 days</mat-option>
-                                                                <mat-option value="12">12 days</mat-option>
-                                                                <mat-option value="13">13 days</mat-option>
-                                                                <mat-option value="14">14 days</mat-option>
-                                                                <mat-option value="15">15 days</mat-option>
-                                                                <mat-option value="16">16 days</mat-option>
-                                                                <mat-option value="17">17 days</mat-option>
-                                                                <mat-option value="18">18 days</mat-option>
-                                                                <mat-option value="19">19 days</mat-option>
-                                                                <mat-option value="20">20 days</mat-option>
-                                                                <mat-option value="21">21 days</mat-option>
-                                                                <mat-option value="22">22 days</mat-option>
-                                                                <mat-option value="23">23 days</mat-option>
-                                                                <mat-option value="24">24 days</mat-option>
-                                                                <mat-option value="25">25 days</mat-option>
-                                                                <mat-option value="26">26 days</mat-option>
-                                                                <mat-option value="27">27 days</mat-option>
-                                                                <mat-option value="28">28 days</mat-option>
-                                                                <mat-option value="29">29 days</mat-option>
-                                                                <mat-option value="30">30 days</mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="mx-2" fxFlex="15">
-                                                        <mat-form-field class="bottom-border-field">
-                                                            <mat-label>Hours</mat-label>
-                                                            <mat-select
-                                                                (selectionChange)="fnSetCustomerEmailReminderTime($event)"
-                                                                [(value)]="emailAlertCustomerHours">
-                                                                <mat-option value="0">0 Hours</mat-option>
-                                                                <mat-option value="1">1 Hours</mat-option>
-                                                                <mat-option value="2">2 Hours</mat-option>
-                                                                <mat-option value="3">3 Hours</mat-option>
-                                                                <mat-option value="4">4 Hours</mat-option>
-                                                                <mat-option value="5">5 Hours</mat-option>
-                                                                <mat-option value="6">6 Hours</mat-option>
-                                                                <mat-option value="7">7 Hours</mat-option>
-                                                                <mat-option value="8">8 Hours</mat-option>
-                                                                <mat-option value="9">9 Hours</mat-option>
-                                                                <mat-option value="10">10 Hours</mat-option>
-                                                                <mat-option value="11">11 Hours</mat-option>
-                                                                <mat-option value="12">12 Hours</mat-option>
-                                                                <mat-option value="13">13 Hours</mat-option>
-                                                                <mat-option value="14">14 Hours</mat-option>
-                                                                <mat-option value="15">15 Hours</mat-option>
-                                                                <mat-option value="16">16 Hours</mat-option>
-                                                                <mat-option value="17">17 Hours</mat-option>
-                                                                <mat-option value="18">18 Hours</mat-option>
-                                                                <mat-option value="19">19 Hours</mat-option>
-                                                                <mat-option value="20">20 Hours</mat-option>
-                                                                <mat-option value="21">21 Hours</mat-option>
-                                                                <mat-option value="22">22 Hours</mat-option>
-                                                                <mat-option value="23">23 Hours</mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="mx-2" fxFlex="15">
-                                                        <mat-form-field class="bottom-border-field">
-                                                            <mat-label>Minutes</mat-label>
-                                                            <mat-select
-                                                                (selectionChange)="fnSetCustomerEmailReminderTime($event)"
-                                                                [(value)]="emailAlertCustomerMinutes">
-                                                                <mat-option value="0">0 Minutes</mat-option>
-                                                                <mat-option value="1">1 Minutes</mat-option>
-                                                                <mat-option value="2">2 Minutes</mat-option>
-                                                                <mat-option value="3">3 Minutes</mat-option>
-                                                                <mat-option value="4">4 Minutes</mat-option>
-                                                                <mat-option value="5">5 Minutes</mat-option>
-                                                                <mat-option value="6">6 Minutes</mat-option>
-                                                                <mat-option value="7">7 Minutes</mat-option>
-                                                                <mat-option value="8">8 Minutes</mat-option>
-                                                                <mat-option value="9">9 Minutes</mat-option>
-                                                                <mat-option value="10">10 Minutes</mat-option>
-                                                                <mat-option value="11">11 Minutes</mat-option>
-                                                                <mat-option value="12">12 Minutes</mat-option>
-                                                                <mat-option value="13">13 Minutes</mat-option>
-                                                                <mat-option value="14">14 Minutes</mat-option>
-                                                                <mat-option value="15">15 Minutes</mat-option>
-                                                                <mat-option value="16">16 Minutes</mat-option>
-                                                                <mat-option value="17">17 Minutes</mat-option>
-                                                                <mat-option value="18">18 Minutes</mat-option>
-                                                                <mat-option value="19">19 Minutes</mat-option>
-                                                                <mat-option value="20">20 Minutes</mat-option>
-                                                                <mat-option value="21">21 Minutes</mat-option>
-                                                                <mat-option value="22">22 Minutes</mat-option>
-                                                                <mat-option value="23">23 Minutes</mat-option>
-                                                                <mat-option value="24">24 Minutes</mat-option>
-                                                                <mat-option value="25">25 Minutes</mat-option>
-                                                                <mat-option value="26">26 Minutes</mat-option>
-                                                                <mat-option value="27">27 Minutes</mat-option>
-                                                                <mat-option value="28">28 Minutes</mat-option>
-                                                                <mat-option value="29">29 Minutes</mat-option>
-                                                                <mat-option value="30">30 Minutes</mat-option>
-                                                                <mat-option value="31">31 Minutes</mat-option>
-                                                                <mat-option value="32">32 Minutes</mat-option>
-                                                                <mat-option value="33">33 Minutes</mat-option>
-                                                                <mat-option value="34">34 Minutes</mat-option>
-                                                                <mat-option value="35">35 Minutes</mat-option>
-                                                                <mat-option value="36">36 Minutes</mat-option>
-                                                                <mat-option value="37">37 Minutes</mat-option>
-                                                                <mat-option value="38">38 Minutes</mat-option>
-                                                                <mat-option value="39">39 Minutes</mat-option>
-                                                                <mat-option value="40">40 Minutes</mat-option>
-                                                                <mat-option value="41">41 Minutes</mat-option>
-                                                                <mat-option value="42">42 Minutes</mat-option>
-                                                                <mat-option value="43">43 Minutes</mat-option>
-                                                                <mat-option value="44">44 Minutes</mat-option>
-                                                                <mat-option value="45">45 Minutes</mat-option>
-                                                                <mat-option value="46">46 Minutes</mat-option>
-                                                                <mat-option value="47">47 Minutes</mat-option>
-                                                                <mat-option value="48">48 Minutes</mat-option>
-                                                                <mat-option value="49">49 Minutes</mat-option>
-                                                                <mat-option value="50">50 Minutes</mat-option>
-                                                                <mat-option value="51">51 Minutes</mat-option>
-                                                                <mat-option value="52">52 Minutes</mat-option>
-                                                                <mat-option value="53">53 Minutes</mat-option>
-                                                                <mat-option value="54">54 Minutes</mat-option>
-                                                                <mat-option value="55">55 Minutes</mat-option>
-                                                                <mat-option value="56">56 Minutes</mat-option>
-                                                                <mat-option value="57">57 Minutes</mat-option>
-                                                                <mat-option value="58">58 Minutes</mat-option>
-                                                                <mat-option value="59">59 Minutes</mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="" fxFlex="55">
-                                                        <p class="appointment-top">prior to each appointments</p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <p class="check-label">Cancelled</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="common-alert-card-two">
+                                <div class="main-lead-wrap">
+                                    <div class="w-100">
+                                        <h5>Reminder Lead Time</h5>
+                                        <p>Send a reminder to customers,prior to each appointments</p>
+                                    </div>
+                                    <div class="main-lead-time">
+                                        <div class="common-lead-select">
+                                            <mat-select class="form-control"
+                                                (selectionChange)="fnSetCustomerEmailReminderTime($event)"
+                                                [(value)]="emailAlertCustomerDays">
+                                                <mat-option value="0">0 days</mat-option>
+                                                <mat-option value="1">1 days</mat-option>
+                                                <mat-option value="2">2 days</mat-option>
+                                                <mat-option value="3">3 days</mat-option>
+                                                <mat-option value="4">4 days</mat-option>
+                                                <mat-option value="5">5 days</mat-option>
+                                                <mat-option value="6">6 days</mat-option>
+                                                <mat-option value="7">7 days</mat-option>
+                                                <mat-option value="8">8 days</mat-option>
+                                                <mat-option value="9">9 days</mat-option>
+                                                <mat-option value="10">10 days</mat-option>
+                                                <mat-option value="11">11 days</mat-option>
+                                                <mat-option value="12">12 days</mat-option>
+                                                <mat-option value="13">13 days</mat-option>
+                                                <mat-option value="14">14 days</mat-option>
+                                                <mat-option value="15">15 days</mat-option>
+                                                <mat-option value="16">16 days</mat-option>
+                                                <mat-option value="17">17 days</mat-option>
+                                                <mat-option value="18">18 days</mat-option>
+                                                <mat-option value="19">19 days</mat-option>
+                                                <mat-option value="20">20 days</mat-option>
+                                                <mat-option value="21">21 days</mat-option>
+                                                <mat-option value="22">22 days</mat-option>
+                                                <mat-option value="23">23 days</mat-option>
+                                                <mat-option value="24">24 days</mat-option>
+                                                <mat-option value="25">25 days</mat-option>
+                                                <mat-option value="26">26 days</mat-option>
+                                                <mat-option value="27">27 days</mat-option>
+                                                <mat-option value="28">28 days</mat-option>
+                                                <mat-option value="29">29 days</mat-option>
+                                                <mat-option value="30">30 days</mat-option>
+                                            </mat-select>
 
-                            <button mat-button class="save-btn my-3" (click)="fnSubmitCusEmailAlert()">Save</button>
+                                        </div>
+                                        <div class="common-lead-select">
+
+                                            <mat-select class="form-control"
+                                                (selectionChange)="fnSetCustomerEmailReminderTime($event)"
+                                                [(value)]="emailAlertCustomerHours">
+                                                <mat-option value="0">0 Hours</mat-option>
+                                                <mat-option value="1">1 Hours</mat-option>
+                                                <mat-option value="2">2 Hours</mat-option>
+                                                <mat-option value="3">3 Hours</mat-option>
+                                                <mat-option value="4">4 Hours</mat-option>
+                                                <mat-option value="5">5 Hours</mat-option>
+                                                <mat-option value="6">6 Hours</mat-option>
+                                                <mat-option value="7">7 Hours</mat-option>
+                                                <mat-option value="8">8 Hours</mat-option>
+                                                <mat-option value="9">9 Hours</mat-option>
+                                                <mat-option value="10">10 Hours</mat-option>
+                                                <mat-option value="11">11 Hours</mat-option>
+                                                <mat-option value="12">12 Hours</mat-option>
+                                                <mat-option value="13">13 Hours</mat-option>
+                                                <mat-option value="14">14 Hours</mat-option>
+                                                <mat-option value="15">15 Hours</mat-option>
+                                                <mat-option value="16">16 Hours</mat-option>
+                                                <mat-option value="17">17 Hours</mat-option>
+                                                <mat-option value="18">18 Hours</mat-option>
+                                                <mat-option value="19">19 Hours</mat-option>
+                                                <mat-option value="20">20 Hours</mat-option>
+                                                <mat-option value="21">21 Hours</mat-option>
+                                                <mat-option value="22">22 Hours</mat-option>
+                                                <mat-option value="23">23 Hours</mat-option>
+                                            </mat-select>
+
+                                        </div>
+                                        <div class="common-lead-select">
+
+                                            <mat-select class="form-control"
+                                                (selectionChange)="fnSetCustomerEmailReminderTime($event)"
+                                                [(value)]="emailAlertCustomerMinutes">
+                                                <mat-option value="0">0 Minutes</mat-option>
+                                                <mat-option value="1">1 Minutes</mat-option>
+                                                <mat-option value="2">2 Minutes</mat-option>
+                                                <mat-option value="3">3 Minutes</mat-option>
+                                                <mat-option value="4">4 Minutes</mat-option>
+                                                <mat-option value="5">5 Minutes</mat-option>
+                                                <mat-option value="6">6 Minutes</mat-option>
+                                                <mat-option value="7">7 Minutes</mat-option>
+                                                <mat-option value="8">8 Minutes</mat-option>
+                                                <mat-option value="9">9 Minutes</mat-option>
+                                                <mat-option value="10">10 Minutes</mat-option>
+                                                <mat-option value="11">11 Minutes</mat-option>
+                                                <mat-option value="12">12 Minutes</mat-option>
+                                                <mat-option value="13">13 Minutes</mat-option>
+                                                <mat-option value="14">14 Minutes</mat-option>
+                                                <mat-option value="15">15 Minutes</mat-option>
+                                                <mat-option value="16">16 Minutes</mat-option>
+                                                <mat-option value="17">17 Minutes</mat-option>
+                                                <mat-option value="18">18 Minutes</mat-option>
+                                                <mat-option value="19">19 Minutes</mat-option>
+                                                <mat-option value="20">20 Minutes</mat-option>
+                                                <mat-option value="21">21 Minutes</mat-option>
+                                                <mat-option value="22">22 Minutes</mat-option>
+                                                <mat-option value="23">23 Minutes</mat-option>
+                                                <mat-option value="24">24 Minutes</mat-option>
+                                                <mat-option value="25">25 Minutes</mat-option>
+                                                <mat-option value="26">26 Minutes</mat-option>
+                                                <mat-option value="27">27 Minutes</mat-option>
+                                                <mat-option value="28">28 Minutes</mat-option>
+                                                <mat-option value="29">29 Minutes</mat-option>
+                                                <mat-option value="30">30 Minutes</mat-option>
+                                                <mat-option value="31">31 Minutes</mat-option>
+                                                <mat-option value="32">32 Minutes</mat-option>
+                                                <mat-option value="33">33 Minutes</mat-option>
+                                                <mat-option value="34">34 Minutes</mat-option>
+                                                <mat-option value="35">35 Minutes</mat-option>
+                                                <mat-option value="36">36 Minutes</mat-option>
+                                                <mat-option value="37">37 Minutes</mat-option>
+                                                <mat-option value="38">38 Minutes</mat-option>
+                                                <mat-option value="39">39 Minutes</mat-option>
+                                                <mat-option value="40">40 Minutes</mat-option>
+                                                <mat-option value="41">41 Minutes</mat-option>
+                                                <mat-option value="42">42 Minutes</mat-option>
+                                                <mat-option value="43">43 Minutes</mat-option>
+                                                <mat-option value="44">44 Minutes</mat-option>
+                                                <mat-option value="45">45 Minutes</mat-option>
+                                                <mat-option value="46">46 Minutes</mat-option>
+                                                <mat-option value="47">47 Minutes</mat-option>
+                                                <mat-option value="48">48 Minutes</mat-option>
+                                                <mat-option value="49">49 Minutes</mat-option>
+                                                <mat-option value="50">50 Minutes</mat-option>
+                                                <mat-option value="51">51 Minutes</mat-option>
+                                                <mat-option value="52">52 Minutes</mat-option>
+                                                <mat-option value="53">53 Minutes</mat-option>
+                                                <mat-option value="54">54 Minutes</mat-option>
+                                                <mat-option value="55">55 Minutes</mat-option>
+                                                <mat-option value="56">56 Minutes</mat-option>
+                                                <mat-option value="57">57 Minutes</mat-option>
+                                                <mat-option value="58">58 Minutes</mat-option>
+                                                <mat-option value="59">59 Minutes</mat-option>
+                                            </mat-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button mat-button class="sc-pink-btn my-3"
+                                        (click)="fnSubmitCusEmailAlert()">Save</button>
+                                </div>
+                            </div>
                         </div>
-
                     </mat-card>
-                    <h5 class="m-4">Alert Sent to Staff</h5>
+                    <h5 class="common-alert-heading">Alert Sent to Customers</h5>
                     <mat-card class="matcard-space">
-                        <div class="d-flex">
+                        <div class="common-alert-card border-top-none">
                             <div>
                                 <h5>Appointments Reminder</h5>
                                 <p class="">Remind customers about upcoming appointments?</p>
                             </div>
-                            <div class="ml-auto mx-3">
+                            <div class="">
                                 <mat-slide-toggle [checked]="appointmentsReminderStaff"
                                     (change)="fnAppointmentsReminderStaff($event.checked)"></mat-slide-toggle>
                             </div>
                         </div>
                         <div *ngIf="appointmentsReminderStaff">
-                            <div>
-                                <h5>Send an Email</h5>
-                            </div>
-                            <div>
-                                <p class="pt-2">Appointments</p>
-                            </div>
-                            <div class="d-flex my-3">
-                                <div class="custom-check-box">
-                                    <div class="checked round">
-                                        <mat-checkbox [checked]="emailStaffAppointment['booked'].status == '1'"
-                                            (change)="fnStaffEmailAppoint($event.checked, 'booked')"
-                                            class="form_field_checkbox"></mat-checkbox>
-                                        <p class="check-label">Booked</p>
-                                    </div>
+                            <div class="common-alert-card">
+                                <div>
+                                    <h5>Send an Email</h5>
+                                    <p class="">Appointments</p>
                                 </div>
 
-                                <div class="custom-check-box">
-                                    <div class="checked round status-update-main">
-                                        <mat-checkbox [checked]="emailStaffAppointment['status_updated'].status ==
+                                <div class="d-flex main-checkbox-select-wrap">
+                                    <div class="custom-check-box">
+                                        <div class="checked round">
+                                            <mat-checkbox [checked]="emailStaffAppointment['booked'].status == '1'"
+                                                (change)="fnStaffEmailAppoint($event.checked, 'booked')"
+                                                class="form_field_checkbox"></mat-checkbox>
+                                            <p class="check-label">Booked</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="custom-check-box">
+                                        <div class="checked round status-update-main">
+                                            <mat-checkbox [checked]="emailStaffAppointment['status_updated'].status ==
                     '1'" (change)="fnStaffEmailAppoint($event.checked,
                     'status_updated')" class="form_field_checkbox"></mat-checkbox>
-                                        <p class="check-label">Status Updated</p>
+                                            <p class="check-label">Status Updated</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="custom-check-box">
-                                    <div class="checked round cancel-check-btn">
-                                        <mat-checkbox [checked]="emailStaffAppointment['cancelled'].status == '1'"
-                                            (change)="fnStaffEmailAppoint($event.checked, 'cancelled')"
-                                            class="form_field_checkbox"></mat-checkbox>
-                                        <p class="check-label">Cancelled</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="d-flex my-3">
-                        <div class="alert-booked-chechkbox mr-3">
-                            <mat-checkbox class="checkbox-circle">Booked</mat-checkbox>
-                        </div>
-                        <div class="alert-update-chechkbox mr-3">
-                            <mat-checkbox>Status Updated</mat-checkbox>
-                        </div>
-                        <div class="alert-cancel-chechkbox mr-3">
-                            <mat-checkbox>Cancelled</mat-checkbox>
-                        </div>
-                    </div> -->
-                            <div class="bottom-line"></div>
-                            <div>
-                                <h5>Reminder Lead Time</h5>
-                                <p>Send a reminder to customers</p>
-                            </div>
-                            <div class="">
-                                <div class="">
-                                    <div class="main-table-content main-cust-table-content">
-                                        <div class="">
-                                            <div class="" fxLayout="row">
-                                                <div class="" fxFlex="15"></div>
-                                                <div class="" fxFlex="15"></div>
-                                                <div class="" fxFlex="15"></div>
-                                                <div class="" fxFlex="55"></div>
-                                            </div>
-                                            <div class="content" class="">
-                                                <div class="">
-                                                    <div class="mx-2" fxFlex="15">
-                                                        <mat-form-field class="bottom-border-field">
-                                                            <mat-label>Days</mat-label>
-                                                            <mat-select
-                                                                (selectionChange)="fnSetStaffEmailReminderTime($event)"
-                                                                [(value)]="emailAlertStaffDays">
-                                                                <mat-option value="0">0 days</mat-option>
-                                                                <mat-option value="1">1 days</mat-option>
-                                                                <mat-option value="2">2 days</mat-option>
-                                                                <mat-option value="3">3 days</mat-option>
-                                                                <mat-option value="4">4 days</mat-option>
-                                                                <mat-option value="5">5 days</mat-option>
-                                                                <mat-option value="6">6 days</mat-option>
-                                                                <mat-option value="7">7 days</mat-option>
-                                                                <mat-option value="8">8 days</mat-option>
-                                                                <mat-option value="9">9 days</mat-option>
-                                                                <mat-option value="10">10 days</mat-option>
-                                                                <mat-option value="11">11 days</mat-option>
-                                                                <mat-option value="12">12 days</mat-option>
-                                                                <mat-option value="13">13 days</mat-option>
-                                                                <mat-option value="14">14 days</mat-option>
-                                                                <mat-option value="15">15 days</mat-option>
-                                                                <mat-option value="16">16 days</mat-option>
-                                                                <mat-option value="17">17 days</mat-option>
-                                                                <mat-option value="18">18 days</mat-option>
-                                                                <mat-option value="19">19 days</mat-option>
-                                                                <mat-option value="20">20 days</mat-option>
-                                                                <mat-option value="21">21 days</mat-option>
-                                                                <mat-option value="22">22 days</mat-option>
-                                                                <mat-option value="23">23 days</mat-option>
-                                                                <mat-option value="24">24 days</mat-option>
-                                                                <mat-option value="25">25 days</mat-option>
-                                                                <mat-option value="26">26 days</mat-option>
-                                                                <mat-option value="27">27 days</mat-option>
-                                                                <mat-option value="28">28 days</mat-option>
-                                                                <mat-option value="29">29 days</mat-option>
-                                                                <mat-option value="30">30 days</mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="mx-2" fxFlex="15">
-                                                        <mat-form-field class="bottom-border-field">
-                                                            <mat-label>Hours</mat-label>
-                                                            <mat-select
-                                                                (selectionChange)="fnSetStaffEmailReminderTime($event)"
-                                                                [(value)]="emailAlertStaffHours">
-                                                                <mat-option value="0">0 Hours</mat-option>
-                                                                <mat-option value="1">1 Hours</mat-option>
-                                                                <mat-option value="2">2 Hours</mat-option>
-                                                                <mat-option value="3">3 Hours</mat-option>
-                                                                <mat-option value="4">4 Hours</mat-option>
-                                                                <mat-option value="5">5 Hours</mat-option>
-                                                                <mat-option value="6">6 Hours</mat-option>
-                                                                <mat-option value="7">7 Hours</mat-option>
-                                                                <mat-option value="8">8 Hours</mat-option>
-                                                                <mat-option value="9">9 Hours</mat-option>
-                                                                <mat-option value="10">10 Hours</mat-option>
-                                                                <mat-option value="11">11 Hours</mat-option>
-                                                                <mat-option value="12">12 Hours</mat-option>
-                                                                <mat-option value="13">13 Hours</mat-option>
-                                                                <mat-option value="14">14 Hours</mat-option>
-                                                                <mat-option value="15">15 Hours</mat-option>
-                                                                <mat-option value="16">16 Hours</mat-option>
-                                                                <mat-option value="17">17 Hours</mat-option>
-                                                                <mat-option value="18">18 Hours</mat-option>
-                                                                <mat-option value="19">19 Hours</mat-option>
-                                                                <mat-option value="20">20 Hours</mat-option>
-                                                                <mat-option value="21">21 Hours</mat-option>
-                                                                <mat-option value="22">22 Hours</mat-option>
-                                                                <mat-option value="23">23 Hours</mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="mx-2" fxFlex="15">
-                                                        <mat-form-field class="bottom-border-field">
-                                                            <mat-label>Minutes</mat-label>
-                                                            <mat-select
-                                                                (selectionChange)="fnSetStaffEmailReminderTime($event)"
-                                                                [(value)]="emailAlertStaffMinutes">
-                                                                <mat-option value="0">0 Minutes</mat-option>
-                                                                <mat-option value="1">1 Minutes</mat-option>
-                                                                <mat-option value="2">2 Minutes</mat-option>
-                                                                <mat-option value="3">3 Minutes</mat-option>
-                                                                <mat-option value="4">4 Minutes</mat-option>
-                                                                <mat-option value="5">5 Minutes</mat-option>
-                                                                <mat-option value="6">6 Minutes</mat-option>
-                                                                <mat-option value="7">7 Minutes</mat-option>
-                                                                <mat-option value="8">8 Minutes</mat-option>
-                                                                <mat-option value="9">9 Minutes</mat-option>
-                                                                <mat-option value="10">10 Minutes</mat-option>
-                                                                <mat-option value="11">11 Minutes</mat-option>
-                                                                <mat-option value="12">12 Minutes</mat-option>
-                                                                <mat-option value="13">13 Minutes</mat-option>
-                                                                <mat-option value="14">14 Minutes</mat-option>
-                                                                <mat-option value="15">15 Minutes</mat-option>
-                                                                <mat-option value="16">16 Minutes</mat-option>
-                                                                <mat-option value="17">17 Minutes</mat-option>
-                                                                <mat-option value="18">18 Minutes</mat-option>
-                                                                <mat-option value="19">19 Minutes</mat-option>
-                                                                <mat-option value="20">20 Minutes</mat-option>
-                                                                <mat-option value="21">21 Minutes</mat-option>
-                                                                <mat-option value="22">22 Minutes</mat-option>
-                                                                <mat-option value="23">23 Minutes</mat-option>
-                                                                <mat-option value="24">24 Minutes</mat-option>
-                                                                <mat-option value="25">25 Minutes</mat-option>
-                                                                <mat-option value="26">26 Minutes</mat-option>
-                                                                <mat-option value="27">27 Minutes</mat-option>
-                                                                <mat-option value="28">28 Minutes</mat-option>
-                                                                <mat-option value="29">29 Minutes</mat-option>
-                                                                <mat-option value="30">30 Minutes</mat-option>
-                                                                <mat-option value="31">31 Minutes</mat-option>
-                                                                <mat-option value="32">32 Minutes</mat-option>
-                                                                <mat-option value="33">33 Minutes</mat-option>
-                                                                <mat-option value="34">34 Minutes</mat-option>
-                                                                <mat-option value="35">35 Minutes</mat-option>
-                                                                <mat-option value="36">36 Minutes</mat-option>
-                                                                <mat-option value="37">37 Minutes</mat-option>
-                                                                <mat-option value="38">38 Minutes</mat-option>
-                                                                <mat-option value="39">39 Minutes</mat-option>
-                                                                <mat-option value="40">40 Minutes</mat-option>
-                                                                <mat-option value="41">41 Minutes</mat-option>
-                                                                <mat-option value="42">42 Minutes</mat-option>
-                                                                <mat-option value="43">43 Minutes</mat-option>
-                                                                <mat-option value="44">44 Minutes</mat-option>
-                                                                <mat-option value="45">45 Minutes</mat-option>
-                                                                <mat-option value="46">46 Minutes</mat-option>
-                                                                <mat-option value="47">47 Minutes</mat-option>
-                                                                <mat-option value="48">48 Minutes</mat-option>
-                                                                <mat-option value="49">49 Minutes</mat-option>
-                                                                <mat-option value="50">50 Minutes</mat-option>
-                                                                <mat-option value="51">51 Minutes</mat-option>
-                                                                <mat-option value="52">52 Minutes</mat-option>
-                                                                <mat-option value="53">53 Minutes</mat-option>
-                                                                <mat-option value="54">54 Minutes</mat-option>
-                                                                <mat-option value="55">55 Minutes</mat-option>
-                                                                <mat-option value="56">56 Minutes</mat-option>
-                                                                <mat-option value="57">57 Minutes</mat-option>
-                                                                <mat-option value="58">58 Minutes</mat-option>
-                                                                <mat-option value="59">59 Minutes</mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="" fxFlex="55">
-                                                        <p class="appointment-top">prior to each appointments</p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <div class="custom-check-box">
+                                        <div class="checked round cancel-check-btn">
+                                            <mat-checkbox [checked]="emailStaffAppointment['cancelled'].status == '1'"
+                                                (change)="fnStaffEmailAppoint($event.checked, 'cancelled')"
+                                                class="form_field_checkbox"></mat-checkbox>
+                                            <p class="check-label">Cancelled</p>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
-                            <button mat-button class="save-btn my-3" (click)="fnSubmitStaffEmailAlert()">Save</button>
+                            <div class="common-alert-card-two">
+                                <div class="main-lead-wrap">
+                                    <div class="w-100">
+                                        <h5>Reminder Lead Time</h5>
+                                        <p>Send a reminder to customers,prior to each appointments</p>
+                                    </div>
+                                    <div class="main-lead-time">
+                                        <div class="common-lead-select">
+                                            <mat-select class="form-control"
+                                                (selectionChange)="fnSetStaffEmailReminderTime($event)"
+                                                [(value)]="emailAlertStaffDays">
+                                                <mat-option value="0">0 days</mat-option>
+                                                <mat-option value="1">1 days</mat-option>
+                                                <mat-option value="2">2 days</mat-option>
+                                                <mat-option value="3">3 days</mat-option>
+                                                <mat-option value="4">4 days</mat-option>
+                                                <mat-option value="5">5 days</mat-option>
+                                                <mat-option value="6">6 days</mat-option>
+                                                <mat-option value="7">7 days</mat-option>
+                                                <mat-option value="8">8 days</mat-option>
+                                                <mat-option value="9">9 days</mat-option>
+                                                <mat-option value="10">10 days</mat-option>
+                                                <mat-option value="11">11 days</mat-option>
+                                                <mat-option value="12">12 days</mat-option>
+                                                <mat-option value="13">13 days</mat-option>
+                                                <mat-option value="14">14 days</mat-option>
+                                                <mat-option value="15">15 days</mat-option>
+                                                <mat-option value="16">16 days</mat-option>
+                                                <mat-option value="17">17 days</mat-option>
+                                                <mat-option value="18">18 days</mat-option>
+                                                <mat-option value="19">19 days</mat-option>
+                                                <mat-option value="20">20 days</mat-option>
+                                                <mat-option value="21">21 days</mat-option>
+                                                <mat-option value="22">22 days</mat-option>
+                                                <mat-option value="23">23 days</mat-option>
+                                                <mat-option value="24">24 days</mat-option>
+                                                <mat-option value="25">25 days</mat-option>
+                                                <mat-option value="26">26 days</mat-option>
+                                                <mat-option value="27">27 days</mat-option>
+                                                <mat-option value="28">28 days</mat-option>
+                                                <mat-option value="29">29 days</mat-option>
+                                                <mat-option value="30">30 days</mat-option>
+                                            </mat-select>
+                                        </div>
+                                        <div class="common-lead-select">
+                                            <mat-select class="form-control"
+                                                (selectionChange)="fnSetStaffEmailReminderTime($event)"
+                                                [(value)]="emailAlertStaffHours">
+                                                <mat-option value="0">0 Hours</mat-option>
+                                                <mat-option value="1">1 Hours</mat-option>
+                                                <mat-option value="2">2 Hours</mat-option>
+                                                <mat-option value="3">3 Hours</mat-option>
+                                                <mat-option value="4">4 Hours</mat-option>
+                                                <mat-option value="5">5 Hours</mat-option>
+                                                <mat-option value="6">6 Hours</mat-option>
+                                                <mat-option value="7">7 Hours</mat-option>
+                                                <mat-option value="8">8 Hours</mat-option>
+                                                <mat-option value="9">9 Hours</mat-option>
+                                                <mat-option value="10">10 Hours</mat-option>
+                                                <mat-option value="11">11 Hours</mat-option>
+                                                <mat-option value="12">12 Hours</mat-option>
+                                                <mat-option value="13">13 Hours</mat-option>
+                                                <mat-option value="14">14 Hours</mat-option>
+                                                <mat-option value="15">15 Hours</mat-option>
+                                                <mat-option value="16">16 Hours</mat-option>
+                                                <mat-option value="17">17 Hours</mat-option>
+                                                <mat-option value="18">18 Hours</mat-option>
+                                                <mat-option value="19">19 Hours</mat-option>
+                                                <mat-option value="20">20 Hours</mat-option>
+                                                <mat-option value="21">21 Hours</mat-option>
+                                                <mat-option value="22">22 Hours</mat-option>
+                                                <mat-option value="23">23 Hours</mat-option>
+                                            </mat-select>
+                                        </div>
+                                        <div class="common-lead-select">
+                                            <mat-select class="form-control"
+                                                (selectionChange)="fnSetStaffEmailReminderTime($event)"
+                                                [(value)]="emailAlertStaffMinutes">
+                                                <mat-option value="0">0 Minutes</mat-option>
+                                                <mat-option value="1">1 Minutes</mat-option>
+                                                <mat-option value="2">2 Minutes</mat-option>
+                                                <mat-option value="3">3 Minutes</mat-option>
+                                                <mat-option value="4">4 Minutes</mat-option>
+                                                <mat-option value="5">5 Minutes</mat-option>
+                                                <mat-option value="6">6 Minutes</mat-option>
+                                                <mat-option value="7">7 Minutes</mat-option>
+                                                <mat-option value="8">8 Minutes</mat-option>
+                                                <mat-option value="9">9 Minutes</mat-option>
+                                                <mat-option value="10">10 Minutes</mat-option>
+                                                <mat-option value="11">11 Minutes</mat-option>
+                                                <mat-option value="12">12 Minutes</mat-option>
+                                                <mat-option value="13">13 Minutes</mat-option>
+                                                <mat-option value="14">14 Minutes</mat-option>
+                                                <mat-option value="15">15 Minutes</mat-option>
+                                                <mat-option value="16">16 Minutes</mat-option>
+                                                <mat-option value="17">17 Minutes</mat-option>
+                                                <mat-option value="18">18 Minutes</mat-option>
+                                                <mat-option value="19">19 Minutes</mat-option>
+                                                <mat-option value="20">20 Minutes</mat-option>
+                                                <mat-option value="21">21 Minutes</mat-option>
+                                                <mat-option value="22">22 Minutes</mat-option>
+                                                <mat-option value="23">23 Minutes</mat-option>
+                                                <mat-option value="24">24 Minutes</mat-option>
+                                                <mat-option value="25">25 Minutes</mat-option>
+                                                <mat-option value="26">26 Minutes</mat-option>
+                                                <mat-option value="27">27 Minutes</mat-option>
+                                                <mat-option value="28">28 Minutes</mat-option>
+                                                <mat-option value="29">29 Minutes</mat-option>
+                                                <mat-option value="30">30 Minutes</mat-option>
+                                                <mat-option value="31">31 Minutes</mat-option>
+                                                <mat-option value="32">32 Minutes</mat-option>
+                                                <mat-option value="33">33 Minutes</mat-option>
+                                                <mat-option value="34">34 Minutes</mat-option>
+                                                <mat-option value="35">35 Minutes</mat-option>
+                                                <mat-option value="36">36 Minutes</mat-option>
+                                                <mat-option value="37">37 Minutes</mat-option>
+                                                <mat-option value="38">38 Minutes</mat-option>
+                                                <mat-option value="39">39 Minutes</mat-option>
+                                                <mat-option value="40">40 Minutes</mat-option>
+                                                <mat-option value="41">41 Minutes</mat-option>
+                                                <mat-option value="42">42 Minutes</mat-option>
+                                                <mat-option value="43">43 Minutes</mat-option>
+                                                <mat-option value="44">44 Minutes</mat-option>
+                                                <mat-option value="45">45 Minutes</mat-option>
+                                                <mat-option value="46">46 Minutes</mat-option>
+                                                <mat-option value="47">47 Minutes</mat-option>
+                                                <mat-option value="48">48 Minutes</mat-option>
+                                                <mat-option value="49">49 Minutes</mat-option>
+                                                <mat-option value="50">50 Minutes</mat-option>
+                                                <mat-option value="51">51 Minutes</mat-option>
+                                                <mat-option value="52">52 Minutes</mat-option>
+                                                <mat-option value="53">53 Minutes</mat-option>
+                                                <mat-option value="54">54 Minutes</mat-option>
+                                                <mat-option value="55">55 Minutes</mat-option>
+                                                <mat-option value="56">56 Minutes</mat-option>
+                                                <mat-option value="57">57 Minutes</mat-option>
+                                                <mat-option value="58">58 Minutes</mat-option>
+                                                <mat-option value="59">59 Minutes</mat-option>
+                                            </mat-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button mat-button class="sc-pink-btn my-3"
+                                    (click)="fnSubmitStaffEmailAlert()">Save</button>
+                            </div>
                         </div>
                     </mat-card>
-                    <h5 class="m-4">Alert Sent to Admin</h5>
+                    <h5 class="common-alert-heading">Alert Sent to Admin</h5>
                     <mat-card class="matcard-space">
-                        <div class="d-flex">
+                        <div class="common-alert-card border-top-none">
                             <div>
                                 <h5>Appointments Reminder</h5>
                                 <p class="">Remind customers about upcoming appointments?</p>
                             </div>
-                            <div class="ml-auto mx-3">
+                            <div class="">
                                 <mat-slide-toggle [checked]="appointmentsReminderAdmin"
                                     (change)="fnAppointmentsReminderAdmin($event.checked)"></mat-slide-toggle>
                             </div>
                         </div>
                         <div *ngIf="appointmentsReminderAdmin">
-                            <div>
-                                <h5>Add Email Id</h5>
-                                <p class="mb-0">Lorem ipsum is dummy text used for Typesetting</p>
-                                <form [formGroup]="adminEmailForAlert" class="example-form">
-                                    <mat-form-field class="example-full-width bottom-border-field
-                  w-50">
-                                        <mat-label>Email</mat-label>
-                                        <input formControlName="alertEmail" matInput placeholder="Enter Your Email">
-                                    </mat-form-field>
-                                    <span class="error-wrap" *ngIf="adminEmailForAlert.get('alertEmail').dirty ||
+                            <div class="common-alert-card">
+                                <div>
+                                    <h5>Add Email Id</h5>
+                                    <p class="mb-0">Lorem ipsum is dummy text used for Typesetting</p>
+                                </div>
+                                <div class="col-6 mail-form-main">
+                                    <form [formGroup]="adminEmailForAlert" class="example-form">
+
+                                        <input formControlName="alertEmail" class="form-control"
+                                            placeholder="Enter Your Email">
+                                        <span class="error-wrap" *ngIf="adminEmailForAlert.get('alertEmail').dirty ||
                   adminEmailForAlert.get('alertEmail').touched">
-                                        <small *ngIf="adminEmailForAlert.get('alertEmail').hasError('required')"
-                                            class="error">Email is required.</small>
-                                        <small *ngIf="adminEmailForAlert.get('alertEmail').hasError('email')
+                                            <small *ngIf="adminEmailForAlert.get('alertEmail').hasError('required')"
+                                                class="error">Email is required.</small>
+                                            <small *ngIf="adminEmailForAlert.get('alertEmail').hasError('email')
                     || adminEmailForAlert.get('alertEmail').hasError('pattern')" class="error">Enter valid
-                                            email.</small>
-                                    </span>
-                                </form>
+                                                email.</small>
+                                        </span>
+                                    </form>
+                                </div>
                             </div>
-                            <div>
-                                <h5>Send an Email</h5>
-                            </div>
-                            <div>
-                                <p class="pt-2">Appointments</p>
-                            </div>
-                            <div class="d-flex my-3">
-                                <div class="custom-check-box">
-                                    <div class="checked round">
-                                        <mat-checkbox [checked]="emailAdminAppointment['booked'].status == '1'"
-                                            (change)="fnAdminEmailAppoint($event.checked, 'booked')"
-                                            class="form_field_checkbox"></mat-checkbox>
-                                        <p class="check-label">Booked</p>
-                                    </div>
+                            <div class="common-alert-card">
+                                <div>
+                                    <h5>Send an Email</h5>
+                                    <p>Appointments</p>
                                 </div>
 
-                                <div class="custom-check-box">
-                                    <div class="checked round status-update-main">
-                                        <mat-checkbox [checked]="emailAdminAppointment['status_updated'].status ==
-                    '1'" (change)="fnAdminEmailAppoint($event.checked,
-                    'status_updated')" class="form_field_checkbox"></mat-checkbox>
-                                        <p class="check-label">Status Updated</p>
+                                <div class="d-flex main-checkbox-select-wrap">
+                                    <div class="custom-check-box">
+                                        <div class="checked round">
+                                            <mat-checkbox [checked]="emailAdminAppointment['booked'].status == '1'"
+                                                (change)="fnAdminEmailAppoint($event.checked, 'booked')"
+                                                class="form_field_checkbox"></mat-checkbox>
+                                            <p class="check-label">Booked</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="custom-check-box">
-                                    <div class="checked round cancel-check-btn">
-                                        <mat-checkbox [checked]="emailAdminAppointment['cancelled'].status == '1'"
-                                            (change)="fnAdminEmailAppoint($event.checked, 'cancelled')"
-                                            class="form_field_checkbox"></mat-checkbox>
-                                        <p class="check-label">Cancelled</p>
+
+                                    <div class="custom-check-box">
+                                        <div class="checked round status-update-main">
+                                            <mat-checkbox [checked]="emailAdminAppointment['status_updated'].status ==
+                                        '1'" (change)="fnAdminEmailAppoint($event.checked,
+                                        'status_updated')" class="form_field_checkbox"></mat-checkbox>
+                                            <p class="check-label">Status Updated</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <!-- <div class="d-flex my-3">
-                        <div class="alert-booked-chechkbox mr-3" >
-                            <mat-checkbox class="checkbox-circle">Booked</mat-checkbox>
-                        </div>
-                        <div class="alert-update-chechkbox mr-3">
-                            <mat-checkbox>Status Updated</mat-checkbox>
-                        </div>
-                        <div class="alert-cancel-chechkbox mr-3">
-                            <mat-checkbox>Cancelled</mat-checkbox>
-                        </div>
-                    </div> -->
-                            <div class="bottom-line"></div>
-                            <div>
-                                <h5>Reminder Lead Time</h5>
-                                <p>Send a reminder to customers</p>
-                            </div>
-                            <div class="">
-                                <div class="">
-                                    <div class="main-table-content main-cust-table-content">
-                                        <div class="">
-                                            <div class="" fxLayout="row">
-                                                <div class="" fxFlex="15"></div>
-                                                <div class="" fxFlex="15"></div>
-                                                <div class="" fxFlex="15"></div>
-                                                <div class="" fxFlex="55"></div>
-                                            </div>
-                                            <div class="content" class="">
-                                                <div class="">
-                                                    <div class="mx-2" fxFlex="15">
-                                                        <mat-form-field class="bottom-border-field">
-                                                            <mat-label>Days</mat-label>
-                                                            <mat-select
-                                                                (selectionChange)="fnSetAdminEmailReminderTime($event)"
-                                                                [(value)]="emailAlertAdminDays">
-                                                                <mat-option value="0">0 days</mat-option>
-                                                                <mat-option value="1">1 days</mat-option>
-                                                                <mat-option value="2">2 days</mat-option>
-                                                                <mat-option value="3">3 days</mat-option>
-                                                                <mat-option value="4">4 days</mat-option>
-                                                                <mat-option value="5">5 days</mat-option>
-                                                                <mat-option value="6">6 days</mat-option>
-                                                                <mat-option value="7">7 days</mat-option>
-                                                                <mat-option value="8">8 days</mat-option>
-                                                                <mat-option value="9">9 days</mat-option>
-                                                                <mat-option value="10">10 days</mat-option>
-                                                                <mat-option value="11">11 days</mat-option>
-                                                                <mat-option value="12">12 days</mat-option>
-                                                                <mat-option value="13">13 days</mat-option>
-                                                                <mat-option value="14">14 days</mat-option>
-                                                                <mat-option value="15">15 days</mat-option>
-                                                                <mat-option value="16">16 days</mat-option>
-                                                                <mat-option value="17">17 days</mat-option>
-                                                                <mat-option value="18">18 days</mat-option>
-                                                                <mat-option value="19">19 days</mat-option>
-                                                                <mat-option value="20">20 days</mat-option>
-                                                                <mat-option value="21">21 days</mat-option>
-                                                                <mat-option value="22">22 days</mat-option>
-                                                                <mat-option value="23">23 days</mat-option>
-                                                                <mat-option value="24">24 days</mat-option>
-                                                                <mat-option value="25">25 days</mat-option>
-                                                                <mat-option value="26">26 days</mat-option>
-                                                                <mat-option value="27">27 days</mat-option>
-                                                                <mat-option value="28">28 days</mat-option>
-                                                                <mat-option value="29">29 days</mat-option>
-                                                                <mat-option value="30">30 days</mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="mx-2" fxFlex="15">
-                                                        <mat-form-field class="bottom-border-field">
-                                                            <mat-label>Hours</mat-label>
-                                                            <mat-select
-                                                                (selectionChange)="fnSetAdminEmailReminderTime($event)"
-                                                                [(value)]="emailAlertAdminHours">
-                                                                <mat-option value="0">0 Hours</mat-option>
-                                                                <mat-option value="1">1 Hours</mat-option>
-                                                                <mat-option value="2">2 Hours</mat-option>
-                                                                <mat-option value="3">3 Hours</mat-option>
-                                                                <mat-option value="4">4 Hours</mat-option>
-                                                                <mat-option value="5">5 Hours</mat-option>
-                                                                <mat-option value="6">6 Hours</mat-option>
-                                                                <mat-option value="7">7 Hours</mat-option>
-                                                                <mat-option value="8">8 Hours</mat-option>
-                                                                <mat-option value="9">9 Hours</mat-option>
-                                                                <mat-option value="10">10 Hours</mat-option>
-                                                                <mat-option value="11">11 Hours</mat-option>
-                                                                <mat-option value="12">12 Hours</mat-option>
-                                                                <mat-option value="13">13 Hours</mat-option>
-                                                                <mat-option value="14">14 Hours</mat-option>
-                                                                <mat-option value="15">15 Hours</mat-option>
-                                                                <mat-option value="16">16 Hours</mat-option>
-                                                                <mat-option value="17">17 Hours</mat-option>
-                                                                <mat-option value="18">18 Hours</mat-option>
-                                                                <mat-option value="19">19 Hours</mat-option>
-                                                                <mat-option value="20">20 Hours</mat-option>
-                                                                <mat-option value="21">21 Hours</mat-option>
-                                                                <mat-option value="22">22 Hours</mat-option>
-                                                                <mat-option value="23">23 Hours</mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="mx-2" fxFlex="15">
-                                                        <mat-form-field class="bottom-border-field">
-                                                            <mat-label>Minutes</mat-label>
-                                                            <mat-select
-                                                                (selectionChange)="fnSetAdminEmailReminderTime($event)"
-                                                                [(value)]="emailAlertAdminMinutes">
-                                                                <mat-option value="0">0 Minutes</mat-option>
-                                                                <mat-option value="1">1 Minutes</mat-option>
-                                                                <mat-option value="2">2 Minutes</mat-option>
-                                                                <mat-option value="3">3 Minutes</mat-option>
-                                                                <mat-option value="4">4 Minutes</mat-option>
-                                                                <mat-option value="5">5 Minutes</mat-option>
-                                                                <mat-option value="6">6 Minutes</mat-option>
-                                                                <mat-option value="7">7 Minutes</mat-option>
-                                                                <mat-option value="8">8 Minutes</mat-option>
-                                                                <mat-option value="9">9 Minutes</mat-option>
-                                                                <mat-option value="10">10 Minutes</mat-option>
-                                                                <mat-option value="11">11 Minutes</mat-option>
-                                                                <mat-option value="12">12 Minutes</mat-option>
-                                                                <mat-option value="13">13 Minutes</mat-option>
-                                                                <mat-option value="14">14 Minutes</mat-option>
-                                                                <mat-option value="15">15 Minutes</mat-option>
-                                                                <mat-option value="16">16 Minutes</mat-option>
-                                                                <mat-option value="17">17 Minutes</mat-option>
-                                                                <mat-option value="18">18 Minutes</mat-option>
-                                                                <mat-option value="19">19 Minutes</mat-option>
-                                                                <mat-option value="20">20 Minutes</mat-option>
-                                                                <mat-option value="21">21 Minutes</mat-option>
-                                                                <mat-option value="22">22 Minutes</mat-option>
-                                                                <mat-option value="23">23 Minutes</mat-option>
-                                                                <mat-option value="24">24 Minutes</mat-option>
-                                                                <mat-option value="25">25 Minutes</mat-option>
-                                                                <mat-option value="26">26 Minutes</mat-option>
-                                                                <mat-option value="27">27 Minutes</mat-option>
-                                                                <mat-option value="28">28 Minutes</mat-option>
-                                                                <mat-option value="29">29 Minutes</mat-option>
-                                                                <mat-option value="30">30 Minutes</mat-option>
-                                                                <mat-option value="31">31 Minutes</mat-option>
-                                                                <mat-option value="32">32 Minutes</mat-option>
-                                                                <mat-option value="33">33 Minutes</mat-option>
-                                                                <mat-option value="34">34 Minutes</mat-option>
-                                                                <mat-option value="35">35 Minutes</mat-option>
-                                                                <mat-option value="36">36 Minutes</mat-option>
-                                                                <mat-option value="37">37 Minutes</mat-option>
-                                                                <mat-option value="38">38 Minutes</mat-option>
-                                                                <mat-option value="39">39 Minutes</mat-option>
-                                                                <mat-option value="40">40 Minutes</mat-option>
-                                                                <mat-option value="41">41 Minutes</mat-option>
-                                                                <mat-option value="42">42 Minutes</mat-option>
-                                                                <mat-option value="43">43 Minutes</mat-option>
-                                                                <mat-option value="44">44 Minutes</mat-option>
-                                                                <mat-option value="45">45 Minutes</mat-option>
-                                                                <mat-option value="46">46 Minutes</mat-option>
-                                                                <mat-option value="47">47 Minutes</mat-option>
-                                                                <mat-option value="48">48 Minutes</mat-option>
-                                                                <mat-option value="49">49 Minutes</mat-option>
-                                                                <mat-option value="50">50 Minutes</mat-option>
-                                                                <mat-option value="51">51 Minutes</mat-option>
-                                                                <mat-option value="52">52 Minutes</mat-option>
-                                                                <mat-option value="53">53 Minutes</mat-option>
-                                                                <mat-option value="54">54 Minutes</mat-option>
-                                                                <mat-option value="55">55 Minutes</mat-option>
-                                                                <mat-option value="56">56 Minutes</mat-option>
-                                                                <mat-option value="57">57 Minutes</mat-option>
-                                                                <mat-option value="58">58 Minutes</mat-option>
-                                                                <mat-option value="59">59 Minutes</mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="" fxFlex="55">
-                                                        <p class="appointment-top">prior to each appointments</p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <div class="custom-check-box">
+                                        <div class="checked round cancel-check-btn">
+                                            <mat-checkbox [checked]="emailAdminAppointment['cancelled'].status == '1'"
+                                                (change)="fnAdminEmailAppoint($event.checked, 'cancelled')"
+                                                class="form_field_checkbox"></mat-checkbox>
+                                            <p class="check-label">Cancelled</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <button mat-button class="save-btn my-3" (click)="fnSubmitAdminEmailAlert()">Save</button>
+                            <div class="common-alert-card-two">
+                                <div class="main-lead-wrap">
+                                    <div class="w-100">
+                                        <h5>Reminder Lead Time</h5>
+                                        <p>Send a reminder to customers,prior to each appointments</p>
+                                    </div>
+                                    <div class="main-lead-time">
+                                        <div class="common-lead-select">
+                                            <mat-select class="form-control"
+                                                (selectionChange)="fnSetAdminEmailReminderTime($event)"
+                                                [(value)]="emailAlertAdminDays">
+                                                <mat-option value="0">0 days</mat-option>
+                                                <mat-option value="1">1 days</mat-option>
+                                                <mat-option value="2">2 days</mat-option>
+                                                <mat-option value="3">3 days</mat-option>
+                                                <mat-option value="4">4 days</mat-option>
+                                                <mat-option value="5">5 days</mat-option>
+                                                <mat-option value="6">6 days</mat-option>
+                                                <mat-option value="7">7 days</mat-option>
+                                                <mat-option value="8">8 days</mat-option>
+                                                <mat-option value="9">9 days</mat-option>
+                                                <mat-option value="10">10 days</mat-option>
+                                                <mat-option value="11">11 days</mat-option>
+                                                <mat-option value="12">12 days</mat-option>
+                                                <mat-option value="13">13 days</mat-option>
+                                                <mat-option value="14">14 days</mat-option>
+                                                <mat-option value="15">15 days</mat-option>
+                                                <mat-option value="16">16 days</mat-option>
+                                                <mat-option value="17">17 days</mat-option>
+                                                <mat-option value="18">18 days</mat-option>
+                                                <mat-option value="19">19 days</mat-option>
+                                                <mat-option value="20">20 days</mat-option>
+                                                <mat-option value="21">21 days</mat-option>
+                                                <mat-option value="22">22 days</mat-option>
+                                                <mat-option value="23">23 days</mat-option>
+                                                <mat-option value="24">24 days</mat-option>
+                                                <mat-option value="25">25 days</mat-option>
+                                                <mat-option value="26">26 days</mat-option>
+                                                <mat-option value="27">27 days</mat-option>
+                                                <mat-option value="28">28 days</mat-option>
+                                                <mat-option value="29">29 days</mat-option>
+                                                <mat-option value="30">30 days</mat-option>
+                                            </mat-select>
+                                        </div>
+                                        <div class="common-lead-select">
+
+                                            <mat-select class="form-control"
+                                                (selectionChange)="fnSetAdminEmailReminderTime($event)"
+                                                [(value)]="emailAlertAdminHours">
+                                                <mat-option value="0">0 Hours</mat-option>
+                                                <mat-option value="1">1 Hours</mat-option>
+                                                <mat-option value="2">2 Hours</mat-option>
+                                                <mat-option value="3">3 Hours</mat-option>
+                                                <mat-option value="4">4 Hours</mat-option>
+                                                <mat-option value="5">5 Hours</mat-option>
+                                                <mat-option value="6">6 Hours</mat-option>
+                                                <mat-option value="7">7 Hours</mat-option>
+                                                <mat-option value="8">8 Hours</mat-option>
+                                                <mat-option value="9">9 Hours</mat-option>
+                                                <mat-option value="10">10 Hours</mat-option>
+                                                <mat-option value="11">11 Hours</mat-option>
+                                                <mat-option value="12">12 Hours</mat-option>
+                                                <mat-option value="13">13 Hours</mat-option>
+                                                <mat-option value="14">14 Hours</mat-option>
+                                                <mat-option value="15">15 Hours</mat-option>
+                                                <mat-option value="16">16 Hours</mat-option>
+                                                <mat-option value="17">17 Hours</mat-option>
+                                                <mat-option value="18">18 Hours</mat-option>
+                                                <mat-option value="19">19 Hours</mat-option>
+                                                <mat-option value="20">20 Hours</mat-option>
+                                                <mat-option value="21">21 Hours</mat-option>
+                                                <mat-option value="22">22 Hours</mat-option>
+                                                <mat-option value="23">23 Hours</mat-option>
+                                            </mat-select>
+                                        </div>
+                                        <div class="common-lead-select">
+
+                                            <mat-select class="form-control"
+                                                (selectionChange)="fnSetAdminEmailReminderTime($event)"
+                                                [(value)]="emailAlertAdminMinutes">
+                                                <mat-option value="0">0 Minutes</mat-option>
+                                                <mat-option value="1">1 Minutes</mat-option>
+                                                <mat-option value="2">2 Minutes</mat-option>
+                                                <mat-option value="3">3 Minutes</mat-option>
+                                                <mat-option value="4">4 Minutes</mat-option>
+                                                <mat-option value="5">5 Minutes</mat-option>
+                                                <mat-option value="6">6 Minutes</mat-option>
+                                                <mat-option value="7">7 Minutes</mat-option>
+                                                <mat-option value="8">8 Minutes</mat-option>
+                                                <mat-option value="9">9 Minutes</mat-option>
+                                                <mat-option value="10">10 Minutes</mat-option>
+                                                <mat-option value="11">11 Minutes</mat-option>
+                                                <mat-option value="12">12 Minutes</mat-option>
+                                                <mat-option value="13">13 Minutes</mat-option>
+                                                <mat-option value="14">14 Minutes</mat-option>
+                                                <mat-option value="15">15 Minutes</mat-option>
+                                                <mat-option value="16">16 Minutes</mat-option>
+                                                <mat-option value="17">17 Minutes</mat-option>
+                                                <mat-option value="18">18 Minutes</mat-option>
+                                                <mat-option value="19">19 Minutes</mat-option>
+                                                <mat-option value="20">20 Minutes</mat-option>
+                                                <mat-option value="21">21 Minutes</mat-option>
+                                                <mat-option value="22">22 Minutes</mat-option>
+                                                <mat-option value="23">23 Minutes</mat-option>
+                                                <mat-option value="24">24 Minutes</mat-option>
+                                                <mat-option value="25">25 Minutes</mat-option>
+                                                <mat-option value="26">26 Minutes</mat-option>
+                                                <mat-option value="27">27 Minutes</mat-option>
+                                                <mat-option value="28">28 Minutes</mat-option>
+                                                <mat-option value="29">29 Minutes</mat-option>
+                                                <mat-option value="30">30 Minutes</mat-option>
+                                                <mat-option value="31">31 Minutes</mat-option>
+                                                <mat-option value="32">32 Minutes</mat-option>
+                                                <mat-option value="33">33 Minutes</mat-option>
+                                                <mat-option value="34">34 Minutes</mat-option>
+                                                <mat-option value="35">35 Minutes</mat-option>
+                                                <mat-option value="36">36 Minutes</mat-option>
+                                                <mat-option value="37">37 Minutes</mat-option>
+                                                <mat-option value="38">38 Minutes</mat-option>
+                                                <mat-option value="39">39 Minutes</mat-option>
+                                                <mat-option value="40">40 Minutes</mat-option>
+                                                <mat-option value="41">41 Minutes</mat-option>
+                                                <mat-option value="42">42 Minutes</mat-option>
+                                                <mat-option value="43">43 Minutes</mat-option>
+                                                <mat-option value="44">44 Minutes</mat-option>
+                                                <mat-option value="45">45 Minutes</mat-option>
+                                                <mat-option value="46">46 Minutes</mat-option>
+                                                <mat-option value="47">47 Minutes</mat-option>
+                                                <mat-option value="48">48 Minutes</mat-option>
+                                                <mat-option value="49">49 Minutes</mat-option>
+                                                <mat-option value="50">50 Minutes</mat-option>
+                                                <mat-option value="51">51 Minutes</mat-option>
+                                                <mat-option value="52">52 Minutes</mat-option>
+                                                <mat-option value="53">53 Minutes</mat-option>
+                                                <mat-option value="54">54 Minutes</mat-option>
+                                                <mat-option value="55">55 Minutes</mat-option>
+                                                <mat-option value="56">56 Minutes</mat-option>
+                                                <mat-option value="57">57 Minutes</mat-option>
+                                                <mat-option value="58">58 Minutes</mat-option>
+                                                <mat-option value="59">59 Minutes</mat-option>
+                                            </mat-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button mat-button class="sc-pink-btn  my-3"
+                                    (click)="fnSubmitAdminEmailAlert()">Save</button>
+                            </div>
+
                         </div>
                     </mat-card>
-                    <h5 class="m-4">Customize Your Alerts</h5>
+                    <h5 class="common-alert-heading">Customize Your Alerts
+                    </h5>
                     <mat-card class="matcard-space">
                         <form [formGroup]="customizeAlert" class="example-form">
-                            <div>
+                            <div class="common-customize-alert">
                                 <h5>Sender Name</h5>
                                 <p>Notification emails sent to customers will have the following sender name</p>
-                                <mat-form-field class="example-full-width bottom-border-field w-50">
-                                    <input formControlName="senderName" matInput placeholder="Sender Name">
-                                </mat-form-field>
+
+                                <input formControlName="senderName" class="form-control" placeholder="Sender Name">
                                 <span class="error-wrap"
                                     *ngIf="customizeAlert.get('senderName').dirty || customizeAlert.get('senderName').touched">
                                     <small *ngIf="customizeAlert.get('senderName').hasError('required')"
                                         class="error">Sender name is required.</small>
                                 </span>
                             </div>
-                            <div>
+                            <div class="common-customize-alert">
                                 <h5>Email Signature</h5>
                                 <p>Notification emails sent to customers will have the following sender name</p>
-                                <mat-form-field class="example-full-width bottom-border-field w-50">
-                                    <mat-label></mat-label>
-                                    <textarea row="5" #signature (keyup)="count(signature.value)"
-                                        formControlName="emailSignature" maxlength="500" matInput
-                                        placeholder="Thanks Sparsh"></textarea>
-                                    <mat-hint class="mt-3"><i>Characters Left:<span
-                                                class="text-danger">{{characters}}</span></i></mat-hint>
-                                </mat-form-field>
+
+                                <textarea class="form-control" row="5" #signature (keyup)="count(signature.value)"
+                                    formControlName="emailSignature" maxlength="500" matInput
+                                    placeholder="Thanks Sparsh"></textarea>
+                                <mat-hint class="bottom-char-main">Characters Left:<span class="">{{characters}}</span>
+                                </mat-hint>
                                 <span class="error-wrap"
                                     *ngIf="customizeAlert.get('emailSignature').dirty || customizeAlert.get('emailSignature').touched">
                                     <small *ngIf="customizeAlert.get('emailSignature').hasError('required')"
                                         class="error">Email signature is required.</small>
                                 </span>
                             </div>
-                            <button mat-button class="save-btn my-3" (click)="fnSubmitCustomizeAlert()">Save</button>
+                            <button mat-button class="sc-pink-btn my-3" (click)="fnSubmitCustomizeAlert()">Save</button>
                         </form>
                     </mat-card>
                 </mat-tab>
                 <mat-tab label="SMS Alert">
-                    <h5 class="m-4">SMS Reminders</h5>
+                    <h5 class="common-alert-heading"> SMS Reminders </h5>
                     <mat-card class="matcard-space">
-                        <div class="d-flex">
+                        <div class="common-alert-card border-top-none">
                             <div>
                                 <h5>Appointments SMS Reminders</h5>
+                                <p> Lorem Ipsum has been the industry's standard dummy. </p>
                             </div>
-                            <div class="ml-auto mx-3">
+                            <div class="">
                                 <mat-slide-toggle [checked]="appointmentsReminderSMS"
                                     (change)="fnAppointmentsReminderSMS($event.checked)"></mat-slide-toggle>
                             </div>
                         </div>
                         <div *ngIf="appointmentsReminderSMS">
-                            <div class="top-bottom-space">
-                                <h5>When to send</h5>
-                            </div>
-                            <div>
-                                <p class="pt-2">Appointments</p>
-                            </div>
-                            <div class="d-flex my-3">
-                                <div class="custom-check-box">
-                                    <div class="checked round">
-                                        <mat-checkbox [checked]="smsAppointment['booked'].status == '1'"
-                                            (change)="fnSmsAppoint($event.checked, 'booked')"
-                                            class="form_field_checkbox"></mat-checkbox>
-                                        <p class="check-label">Booked</p>
-                                    </div>
+                            <div class="common-alert-card">
+                                <div class="top-bottom-space">
+                                    <h5>When to send</h5>
+                                    <p class="">Appointments</p>
                                 </div>
 
-                                <div class="custom-check-box">
-                                    <div class="checked round status-update-main">
-                                        <mat-checkbox [checked]="smsAppointment['status_updated'].status == '1'"
-                                            (change)="fnSmsAppoint($event.checked, 'status_updated')"
-                                            class="form_field_checkbox"></mat-checkbox>
-                                        <p class="check-label">Status Updated</p>
+                                <div class="d-flex main-checkbox-select-wrap">
+                                    <div class="custom-check-box">
+                                        <div class="checked round">
+                                            <mat-checkbox [checked]="smsAppointment['booked'].status == '1'"
+                                                (change)="fnSmsAppoint($event.checked, 'booked')"
+                                                class="form_field_checkbox"></mat-checkbox>
+                                            <p class="check-label">Booked</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="custom-check-box">
-                                    <div class="checked round cancel-check-btn">
-                                        <mat-checkbox [checked]="smsAppointment['cancelled'].status == '1'"
-                                            (change)="fnSmsAppoint($event.checked, 'cancelled')"
-                                            class="form_field_checkbox"></mat-checkbox>
-                                        <p class="check-label">Cancelled</p>
+
+                                    <div class="custom-check-box">
+                                        <div class="checked round status-update-main">
+                                            <mat-checkbox [checked]="smsAppointment['status_updated'].status == '1'"
+                                                (change)="fnSmsAppoint($event.checked, 'status_updated')"
+                                                class="form_field_checkbox"></mat-checkbox>
+                                            <p class="check-label">Status Updated</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <!-- <div class="d-flex my-3">
-                        <div class="alert-booked-chechkbox mr-3">
-                            <mat-checkbox class="checkbox-circle">Booked</mat-checkbox>
-                        </div>
-                        <div class="alert-update-chechkbox mr-3">
-                            <mat-checkbox>Status Updated</mat-checkbox>
-                        </div>
-                        <div class="alert-cancel-chechkbox mr-3">
-                            <mat-checkbox>Cancelled</mat-checkbox>
-                        </div>
-                    </div> -->
-                            <div class="top-bottom-space">
-                                <h5 class="mt-4 mb-3">Who to send SMS to</h5>
-                            </div>
-                            <div class="d-flex top-bottom-space">
-                                <div>
-                                    <h5>Admin</h5>
-                                </div>
-                                <div class="ml-auto mx-3">
-                                    <mat-slide-toggle [checked]="smsAlertWho['admin'].status == '1'"
-                                        (change)="fnSmsWho($event.checked, 'admin')"></mat-slide-toggle>
-                                </div>
-                            </div>
-                            <div class="d-flex top-bottom-space">
-                                <div>
-                                    <h5>Customer</h5>
-                                </div>
-                                <div class="ml-auto mx-3">
-                                    <mat-slide-toggle [checked]="smsAlertWho['customer'].status == '1'"
-                                        (change)="fnSmsWho($event.checked, 'customer')"></mat-slide-toggle>
-                                </div>
-                            </div>
-                            <div class="d-flex top-bottom-space">
-                                <div>
-                                    <h5>Staff</h5>
-                                </div>
-                                <div class="ml-auto mx-3">
-                                    <mat-slide-toggle [checked]="smsAlertWho['staff'].status == '1'"
-                                        (change)="fnSmsWho($event.checked, 'staff')"></mat-slide-toggle>
-                                </div>
-                            </div>
-                            <div class="bottom-line"></div>
-                            <div>
-                                <h5>Reminder Lead Time</h5>
-                                <p>Send a reminder to customers</p>
-                            </div>
-                            <div class="">
-                                <div class="">
-                                    <div class="main-table-content main-cust-table-content">
-                                        <div class="">
-                                            <div class="" fxLayout="row">
-                                                <div class="" fxFlex="15"></div>
-                                                <div class="" fxFlex="15"></div>
-                                                <div class="" fxFlex="15"></div>
-                                                <div class="" fxFlex="55"></div>
-                                            </div>
-                                            <div class="content" class="">
-                                                <div class="">
-                                                    <div class="mx-2" fxFlex="15">
-                                                        <mat-form-field class="bottom-border-field">
-                                                            <mat-label>Days</mat-label>
-                                                            <mat-select (selectionChange)="fnSetSmsReminderTime($event)"
-                                                                [(value)]="smsAlertDays">
-                                                                <mat-option value="0">0 days</mat-option>
-                                                                <mat-option value="1">1 days</mat-option>
-                                                                <mat-option value="2">2 days</mat-option>
-                                                                <mat-option value="3">3 days</mat-option>
-                                                                <mat-option value="4">4 days</mat-option>
-                                                                <mat-option value="5">5 days</mat-option>
-                                                                <mat-option value="6">6 days</mat-option>
-                                                                <mat-option value="7">7 days</mat-option>
-                                                                <mat-option value="8">8 days</mat-option>
-                                                                <mat-option value="9">9 days</mat-option>
-                                                                <mat-option value="10">10 days</mat-option>
-                                                                <mat-option value="11">11 days</mat-option>
-                                                                <mat-option value="12">12 days</mat-option>
-                                                                <mat-option value="13">13 days</mat-option>
-                                                                <mat-option value="14">14 days</mat-option>
-                                                                <mat-option value="15">15 days</mat-option>
-                                                                <mat-option value="16">16 days</mat-option>
-                                                                <mat-option value="17">17 days</mat-option>
-                                                                <mat-option value="18">18 days</mat-option>
-                                                                <mat-option value="19">19 days</mat-option>
-                                                                <mat-option value="20">20 days</mat-option>
-                                                                <mat-option value="21">21 days</mat-option>
-                                                                <mat-option value="22">22 days</mat-option>
-                                                                <mat-option value="23">23 days</mat-option>
-                                                                <mat-option value="24">24 days</mat-option>
-                                                                <mat-option value="25">25 days</mat-option>
-                                                                <mat-option value="26">26 days</mat-option>
-                                                                <mat-option value="27">27 days</mat-option>
-                                                                <mat-option value="28">28 days</mat-option>
-                                                                <mat-option value="29">29 days</mat-option>
-                                                                <mat-option value="30">30 days</mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="mx-2" fxFlex="15">
-                                                        <mat-form-field class="bottom-border-field">
-                                                            <mat-label>Hours</mat-label>
-                                                            <mat-select (selectionChange)="fnSetSmsReminderTime($event)"
-                                                                [(value)]="smsAlertHours">
-                                                                <mat-option value="0">0 Hours</mat-option>
-                                                                <mat-option value="1">1 Hours</mat-option>
-                                                                <mat-option value="2">2 Hours</mat-option>
-                                                                <mat-option value="3">3 Hours</mat-option>
-                                                                <mat-option value="4">4 Hours</mat-option>
-                                                                <mat-option value="5">5 Hours</mat-option>
-                                                                <mat-option value="6">6 Hours</mat-option>
-                                                                <mat-option value="7">7 Hours</mat-option>
-                                                                <mat-option value="8">8 Hours</mat-option>
-                                                                <mat-option value="9">9 Hours</mat-option>
-                                                                <mat-option value="10">10 Hours</mat-option>
-                                                                <mat-option value="11">11 Hours</mat-option>
-                                                                <mat-option value="12">12 Hours</mat-option>
-                                                                <mat-option value="13">13 Hours</mat-option>
-                                                                <mat-option value="14">14 Hours</mat-option>
-                                                                <mat-option value="15">15 Hours</mat-option>
-                                                                <mat-option value="16">16 Hours</mat-option>
-                                                                <mat-option value="17">17 Hours</mat-option>
-                                                                <mat-option value="18">18 Hours</mat-option>
-                                                                <mat-option value="19">19 Hours</mat-option>
-                                                                <mat-option value="20">20 Hours</mat-option>
-                                                                <mat-option value="21">21 Hours</mat-option>
-                                                                <mat-option value="22">22 Hours</mat-option>
-                                                                <mat-option value="23">23 Hours</mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="mx-2" fxFlex="15">
-                                                        <mat-form-field class="bottom-border-field">
-                                                            <mat-label>Minutes</mat-label>
-                                                            <mat-select (selectionChange)="fnSetSmsReminderTime($event)"
-                                                                [(value)]="smsAlertMinutes">
-                                                                <mat-option value="0">0 Minutes</mat-option>
-                                                                <mat-option value="1">1 Minutes</mat-option>
-                                                                <mat-option value="2">2 Minutes</mat-option>
-                                                                <mat-option value="3">3 Minutes</mat-option>
-                                                                <mat-option value="4">4 Minutes</mat-option>
-                                                                <mat-option value="5">5 Minutes</mat-option>
-                                                                <mat-option value="6">6 Minutes</mat-option>
-                                                                <mat-option value="7">7 Minutes</mat-option>
-                                                                <mat-option value="8">8 Minutes</mat-option>
-                                                                <mat-option value="9">9 Minutes</mat-option>
-                                                                <mat-option value="10">10 Minutes</mat-option>
-                                                                <mat-option value="11">11 Minutes</mat-option>
-                                                                <mat-option value="12">12 Minutes</mat-option>
-                                                                <mat-option value="13">13 Minutes</mat-option>
-                                                                <mat-option value="14">14 Minutes</mat-option>
-                                                                <mat-option value="15">15 Minutes</mat-option>
-                                                                <mat-option value="16">16 Minutes</mat-option>
-                                                                <mat-option value="17">17 Minutes</mat-option>
-                                                                <mat-option value="18">18 Minutes</mat-option>
-                                                                <mat-option value="19">19 Minutes</mat-option>
-                                                                <mat-option value="20">20 Minutes</mat-option>
-                                                                <mat-option value="21">21 Minutes</mat-option>
-                                                                <mat-option value="22">22 Minutes</mat-option>
-                                                                <mat-option value="23">23 Minutes</mat-option>
-                                                                <mat-option value="24">24 Minutes</mat-option>
-                                                                <mat-option value="25">25 Minutes</mat-option>
-                                                                <mat-option value="26">26 Minutes</mat-option>
-                                                                <mat-option value="27">27 Minutes</mat-option>
-                                                                <mat-option value="28">28 Minutes</mat-option>
-                                                                <mat-option value="29">29 Minutes</mat-option>
-                                                                <mat-option value="30">30 Minutes</mat-option>
-                                                                <mat-option value="31">31 Minutes</mat-option>
-                                                                <mat-option value="32">32 Minutes</mat-option>
-                                                                <mat-option value="33">33 Minutes</mat-option>
-                                                                <mat-option value="34">34 Minutes</mat-option>
-                                                                <mat-option value="35">35 Minutes</mat-option>
-                                                                <mat-option value="36">36 Minutes</mat-option>
-                                                                <mat-option value="37">37 Minutes</mat-option>
-                                                                <mat-option value="38">38 Minutes</mat-option>
-                                                                <mat-option value="39">39 Minutes</mat-option>
-                                                                <mat-option value="40">40 Minutes</mat-option>
-                                                                <mat-option value="41">41 Minutes</mat-option>
-                                                                <mat-option value="42">42 Minutes</mat-option>
-                                                                <mat-option value="43">43 Minutes</mat-option>
-                                                                <mat-option value="44">44 Minutes</mat-option>
-                                                                <mat-option value="45">45 Minutes</mat-option>
-                                                                <mat-option value="46">46 Minutes</mat-option>
-                                                                <mat-option value="47">47 Minutes</mat-option>
-                                                                <mat-option value="48">48 Minutes</mat-option>
-                                                                <mat-option value="49">49 Minutes</mat-option>
-                                                                <mat-option value="50">50 Minutes</mat-option>
-                                                                <mat-option value="51">51 Minutes</mat-option>
-                                                                <mat-option value="52">52 Minutes</mat-option>
-                                                                <mat-option value="53">53 Minutes</mat-option>
-                                                                <mat-option value="54">54 Minutes</mat-option>
-                                                                <mat-option value="55">55 Minutes</mat-option>
-                                                                <mat-option value="56">56 Minutes</mat-option>
-                                                                <mat-option value="57">57 Minutes</mat-option>
-                                                                <mat-option value="58">58 Minutes</mat-option>
-                                                                <mat-option value="59">59 Minutes</mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="" fxFlex="55">
-                                                        <p class="appointment-top">prior to each appointments</p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <div class="custom-check-box">
+                                        <div class="checked round cancel-check-btn">
+                                            <mat-checkbox [checked]="smsAppointment['cancelled'].status == '1'"
+                                                (change)="fnSmsAppoint($event.checked, 'cancelled')"
+                                                class="form_field_checkbox"></mat-checkbox>
+                                            <p class="check-label">Cancelled</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <button mat-button class="save-btn my-3" (click)="fnSubmitSmsAlert()">Save</button>
+                            <div class="common-alert-card">
+                                <div class="">
+                                    <h5 class="">Who to send SMS to</h5>
+                                    <p> SMS Alert </p>
+                                </div>
+                                <div class="d-flex main-checkbox-select-wrap">
+                                    <div class="custom-check-box">
+                                        <div class="checked round cancel-check-btn">
+                                            <mat-checkbox class="form_field_checkbox"
+                                                [checked]="smsAlertWho['admin'].status == '1'"
+                                                (change)="fnSmsWho($event.checked, 'admin')"></mat-checkbox>
+                                            <p class="check-label">Admin</p>
+                                        </div>
+                                    </div>
+                                    <div class="custom-check-box">
+                                        <div class="checked round cancel-check-btn">
+                                            <mat-checkbox class="form_field_checkbox"
+                                                [checked]="smsAlertWho['customer'].status == '1'"
+                                                (change)="fnSmsWho($event.checked, 'customer')"></mat-checkbox>
+                                            <p class="check-label">Customer</p>
+                                        </div>
+                                    </div>
+                                    <div class="custom-check-box">
+                                        <div class="checked round cancel-check-btn">
+                                            <mat-checkbox class="form_field_checkbox"
+                                                [checked]="smsAlertWho['staff'].status == '1'"
+                                                (change)="fnSmsWho($event.checked, 'staff')"></mat-checkbox>
+                                            <p class="check-label">Staff</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="common-alert-card-two">
+                                <div class="main-lead-wrap">
+                                    <div class="w-100">
+                                        <h5>Reminder Lead Time</h5>
+                                        <p>Send a reminder to customers,prior to each appointments</p>
+                                    </div>
+
+
+                                    <div class="main-lead-time">
+                                        <div class="common-lead-select">
+
+                                            <mat-select class="form-control"
+                                                (selectionChange)="fnSetSmsReminderTime($event)"
+                                                [(value)]="smsAlertDays">
+                                                <mat-option value="0">0 days</mat-option>
+                                                <mat-option value="1">1 days</mat-option>
+                                                <mat-option value="2">2 days</mat-option>
+                                                <mat-option value="3">3 days</mat-option>
+                                                <mat-option value="4">4 days</mat-option>
+                                                <mat-option value="5">5 days</mat-option>
+                                                <mat-option value="6">6 days</mat-option>
+                                                <mat-option value="7">7 days</mat-option>
+                                                <mat-option value="8">8 days</mat-option>
+                                                <mat-option value="9">9 days</mat-option>
+                                                <mat-option value="10">10 days</mat-option>
+                                                <mat-option value="11">11 days</mat-option>
+                                                <mat-option value="12">12 days</mat-option>
+                                                <mat-option value="13">13 days</mat-option>
+                                                <mat-option value="14">14 days</mat-option>
+                                                <mat-option value="15">15 days</mat-option>
+                                                <mat-option value="16">16 days</mat-option>
+                                                <mat-option value="17">17 days</mat-option>
+                                                <mat-option value="18">18 days</mat-option>
+                                                <mat-option value="19">19 days</mat-option>
+                                                <mat-option value="20">20 days</mat-option>
+                                                <mat-option value="21">21 days</mat-option>
+                                                <mat-option value="22">22 days</mat-option>
+                                                <mat-option value="23">23 days</mat-option>
+                                                <mat-option value="24">24 days</mat-option>
+                                                <mat-option value="25">25 days</mat-option>
+                                                <mat-option value="26">26 days</mat-option>
+                                                <mat-option value="27">27 days</mat-option>
+                                                <mat-option value="28">28 days</mat-option>
+                                                <mat-option value="29">29 days</mat-option>
+                                                <mat-option value="30">30 days</mat-option>
+                                            </mat-select>
+                                        </div>
+                                        <div class="common-lead-select">
+
+                                            <mat-select class="form-control"
+                                                (selectionChange)="fnSetSmsReminderTime($event)"
+                                                [(value)]="smsAlertHours">
+                                                <mat-option value="0">0 Hours</mat-option>
+                                                <mat-option value="1">1 Hours</mat-option>
+                                                <mat-option value="2">2 Hours</mat-option>
+                                                <mat-option value="3">3 Hours</mat-option>
+                                                <mat-option value="4">4 Hours</mat-option>
+                                                <mat-option value="5">5 Hours</mat-option>
+                                                <mat-option value="6">6 Hours</mat-option>
+                                                <mat-option value="7">7 Hours</mat-option>
+                                                <mat-option value="8">8 Hours</mat-option>
+                                                <mat-option value="9">9 Hours</mat-option>
+                                                <mat-option value="10">10 Hours</mat-option>
+                                                <mat-option value="11">11 Hours</mat-option>
+                                                <mat-option value="12">12 Hours</mat-option>
+                                                <mat-option value="13">13 Hours</mat-option>
+                                                <mat-option value="14">14 Hours</mat-option>
+                                                <mat-option value="15">15 Hours</mat-option>
+                                                <mat-option value="16">16 Hours</mat-option>
+                                                <mat-option value="17">17 Hours</mat-option>
+                                                <mat-option value="18">18 Hours</mat-option>
+                                                <mat-option value="19">19 Hours</mat-option>
+                                                <mat-option value="20">20 Hours</mat-option>
+                                                <mat-option value="21">21 Hours</mat-option>
+                                                <mat-option value="22">22 Hours</mat-option>
+                                                <mat-option value="23">23 Hours</mat-option>
+                                            </mat-select>
+                                        </div>
+                                        <div class="common-lead-select">
+
+                                            <mat-select class="form-control"
+                                                (selectionChange)="fnSetSmsReminderTime($event)"
+                                                [(value)]="smsAlertMinutes">
+                                                <mat-option value="0">0 Minutes</mat-option>
+                                                <mat-option value="1">1 Minutes</mat-option>
+                                                <mat-option value="2">2 Minutes</mat-option>
+                                                <mat-option value="3">3 Minutes</mat-option>
+                                                <mat-option value="4">4 Minutes</mat-option>
+                                                <mat-option value="5">5 Minutes</mat-option>
+                                                <mat-option value="6">6 Minutes</mat-option>
+                                                <mat-option value="7">7 Minutes</mat-option>
+                                                <mat-option value="8">8 Minutes</mat-option>
+                                                <mat-option value="9">9 Minutes</mat-option>
+                                                <mat-option value="10">10 Minutes</mat-option>
+                                                <mat-option value="11">11 Minutes</mat-option>
+                                                <mat-option value="12">12 Minutes</mat-option>
+                                                <mat-option value="13">13 Minutes</mat-option>
+                                                <mat-option value="14">14 Minutes</mat-option>
+                                                <mat-option value="15">15 Minutes</mat-option>
+                                                <mat-option value="16">16 Minutes</mat-option>
+                                                <mat-option value="17">17 Minutes</mat-option>
+                                                <mat-option value="18">18 Minutes</mat-option>
+                                                <mat-option value="19">19 Minutes</mat-option>
+                                                <mat-option value="20">20 Minutes</mat-option>
+                                                <mat-option value="21">21 Minutes</mat-option>
+                                                <mat-option value="22">22 Minutes</mat-option>
+                                                <mat-option value="23">23 Minutes</mat-option>
+                                                <mat-option value="24">24 Minutes</mat-option>
+                                                <mat-option value="25">25 Minutes</mat-option>
+                                                <mat-option value="26">26 Minutes</mat-option>
+                                                <mat-option value="27">27 Minutes</mat-option>
+                                                <mat-option value="28">28 Minutes</mat-option>
+                                                <mat-option value="29">29 Minutes</mat-option>
+                                                <mat-option value="30">30 Minutes</mat-option>
+                                                <mat-option value="31">31 Minutes</mat-option>
+                                                <mat-option value="32">32 Minutes</mat-option>
+                                                <mat-option value="33">33 Minutes</mat-option>
+                                                <mat-option value="34">34 Minutes</mat-option>
+                                                <mat-option value="35">35 Minutes</mat-option>
+                                                <mat-option value="36">36 Minutes</mat-option>
+                                                <mat-option value="37">37 Minutes</mat-option>
+                                                <mat-option value="38">38 Minutes</mat-option>
+                                                <mat-option value="39">39 Minutes</mat-option>
+                                                <mat-option value="40">40 Minutes</mat-option>
+                                                <mat-option value="41">41 Minutes</mat-option>
+                                                <mat-option value="42">42 Minutes</mat-option>
+                                                <mat-option value="43">43 Minutes</mat-option>
+                                                <mat-option value="44">44 Minutes</mat-option>
+                                                <mat-option value="45">45 Minutes</mat-option>
+                                                <mat-option value="46">46 Minutes</mat-option>
+                                                <mat-option value="47">47 Minutes</mat-option>
+                                                <mat-option value="48">48 Minutes</mat-option>
+                                                <mat-option value="49">49 Minutes</mat-option>
+                                                <mat-option value="50">50 Minutes</mat-option>
+                                                <mat-option value="51">51 Minutes</mat-option>
+                                                <mat-option value="52">52 Minutes</mat-option>
+                                                <mat-option value="53">53 Minutes</mat-option>
+                                                <mat-option value="54">54 Minutes</mat-option>
+                                                <mat-option value="55">55 Minutes</mat-option>
+                                                <mat-option value="56">56 Minutes</mat-option>
+                                                <mat-option value="57">57 Minutes</mat-option>
+                                                <mat-option value="58">58 Minutes</mat-option>
+                                                <mat-option value="59">59 Minutes</mat-option>
+                                            </mat-select>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <button mat-button class="sc-pink-btn my-3" (click)="fnSubmitSmsAlert()">Save</button>
+                            </div>
+
                         </div>
                     </mat-card>
-                    <h5 class="m-4">Select SMS Gateway</h5>
-                    <mat-accordion class="matcard-space">
+                    <h5 class="common-alert-heading"> Select SMS Gateway </h5>
+                    <mat-accordion class="common-gateway-according">
                         <mat-expansion-panel>
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
@@ -1101,78 +997,46 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <p class="mb-0 pt-2 pl-3">Twilio SMS Gateway</p>
+                                        <p class="">Twilio SMS Gateway</p>
                                     </div>
                                 </mat-panel-title>
-                                <mat-panel-description>
-
-                                </mat-panel-description>
+                                
                             </mat-expansion-panel-header>
-
-                            <div class="account-setting">
-                                <p class="mb-0 py-2 account-para">Twilio Account Settings</p>
-                            </div>
-                            <div class="p-2">
                                 <div class="main-account-details">
-                                    <div class="">
                                         <div class="main-table-content main-cust-table-content">
                                             <form [formGroup]="twilio">
-                                                <div class="">
-                                                    <div class="" fxLayout="row">
-                                                        <div class="" fxFlex="20"></div>
-                                                        <div class="" fxFlex="80"></div>
-                                                    </div>
-                                                    <div class="content" class="">
-                                                        <div class="">
-                                                            <div class="mx-2" fxFlex="20">
-                                                                <label class="payment-label">Account SID</label>
-                                                            </div>
-                                                            <div class="mx-2" fxFlex="80">
-                                                                <mat-form-field
-                                                                    class="example-full-width bottom-border-field">
-                                                                    <input formControlName="accountSID" matInput
-                                                                        placeholder="" value="">
-                                                                </mat-form-field>
-                                                            </div>
-                                                        </div>
+                                                <div class="common-gateway-form">
+                                                    <div class="form-group">
+                                                        <label class="payment-label">Account SID</label>
+                                                        <input formControlName="accountSID" class="form-control"
+                                                            placeholder="" value="">
                                                         <span class="w-100 error-wrap"
                                                             *ngIf="twilio.get('accountSID').dirty || twilio.get('accountSID').touched">
                                                             <small *ngIf="twilio.get('accountSID').hasError('required')"
                                                                 class="error">Account SID is required.</small>
                                                         </span>
                                                     </div>
-                                                    <div class="content" class="">
-                                                        <div class="">
-                                                            <div class="mx-2" fxFlex="20">
-                                                                <label class="payment-label">Auth Token</label>
-                                                            </div>
-                                                            <div class="mx-2" fxFlex="80">
-                                                                <mat-form-field
-                                                                    class="example-full-width bottom-border-field">
-                                                                    <input formControlName="authToken" matInput
-                                                                        placeholder="" value="">
-                                                                </mat-form-field>
-                                                            </div>
-                                                        </div>
+                                                    <div class="form-group">
+
+                                                        <label class="payment-label">Auth Token</label>
+
+                                                        <input formControlName="authToken" class="form-control"
+                                                            placeholder="" value="">
                                                         <span class="w-100 error-wrap"
                                                             *ngIf="twilio.get('authToken').dirty || twilio.get('authToken').touched">
                                                             <small *ngIf="twilio.get('authToken').hasError('required')"
                                                                 class="error">Auth token is required.</small>
                                                         </span>
+
+
                                                     </div>
-                                                    <div class="content" class="">
-                                                        <div class="">
-                                                            <div class="mx-2" fxFlex="20">
-                                                                <label class="payment-label">Twilio Sender</label>
-                                                            </div>
-                                                            <div class="mx-2" fxFlex="80">
-                                                                <mat-form-field
-                                                                    class="example-full-width bottom-border-field">
-                                                                    <input formControlName="twilioSender" matInput
-                                                                        placeholder="" value="">
-                                                                </mat-form-field>
-                                                            </div>
-                                                        </div>
+                                                    <div class="form-group">
+
+                                                        <label class="payment-label">Twilio Sender</label>
+
+                                                        <input formControlName="twilioSender" class="form-control"
+                                                            placeholder="" value="">
+
                                                         <span class="w-100 error-wrap"
                                                             *ngIf="twilio.get('twilioSender').dirty || twilio.get('twilioSender').touched">
                                                             <small
@@ -1180,53 +1044,38 @@
                                                                 class="error">Twilio sender is required.</small>
                                                         </span>
                                                     </div>
-                                                    <div class="content" class="">
-                                                        <div class="">
-                                                            <div class="mx-2" fxFlex="20">
-                                                                <label class="payment-label">Admin Phone Number</label>
-                                                            </div>
-                                                            <div class="mx-2" fxFlex="80">
-                                                                <!-- <mat-form-field class="example-full-width bottom-border-field">
-                                                                    <mat-icon matPrefix><img src="/assets/images/admin/india.png"></mat-icon>
-                                                                    <input formControlName="adminNumber" type="number" matInput placeholder="" value="">
-                                                                </mat-form-field> -->
-                                                                <ngx-intl-tel-input
-                                                                    class="common-input mobile-intel-input bottom-border-field"
-                                                                    [preferredCountries]="preferredCountries"
-                                                                    [enableAutoCountrySelect]="false"
-                                                                    [searchCountryFlag]="true"
-                                                                    [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-                                                                    [selectFirstCountry]="true"
-                                                                    [selectedCountryISO]="selectedCountryISO"
-                                                                    [maxLength]="15" [phoneValidation]="false"
-                                                                    (mousedown)="fnPhoneMouceLeaveTwilio()"
-                                                                    (keyup)="fnenterPhoneNumberTwilio()"
-                                                                    [separateDialCode]="separateDialCode"
-                                                                    formControlName="adminNumber" placeholder="Mobile">
-                                                                </ngx-intl-tel-input>
-                                                                <span class="" *ngIf="phoneNumberInvalidTwilio">
-                                                                    <small
-                                                                        *ngIf="phoneNumberInvalidTwilio == 'required'"
-                                                                        class="error">Admin number is required.</small>
-                                                                    <small *ngIf="phoneNumberInvalidTwilio == 'length'"
-                                                                        class="error">Admin number should be 6 to 15
-                                                                        digits long.</small>
-                                                                </span>
-                                                            </div>
-                                                        </div>
+                                                    <div class="form-group">
 
+                                                        <label class="payment-label">Admin Phone Number</label>
+                                                        <ngx-intl-tel-input class=""
+                                                            [preferredCountries]="preferredCountries"
+                                                            [enableAutoCountrySelect]="false" [searchCountryFlag]="true"
+                                                            [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                                            [selectFirstCountry]="true"
+                                                            [selectedCountryISO]="selectedCountryISO" [maxLength]="15"
+                                                            [phoneValidation]="false"
+                                                            (mousedown)="fnPhoneMouceLeaveTwilio()"
+                                                            (keyup)="fnenterPhoneNumberTwilio()"
+                                                            [separateDialCode]="separateDialCode"
+                                                            formControlName="adminNumber" placeholder="Mobile">
+                                                        </ngx-intl-tel-input>
+                                                        <span class="" *ngIf="phoneNumberInvalidTwilio">
+                                                            <small *ngIf="phoneNumberInvalidTwilio == 'required'"
+                                                                class="error">Admin number is required.</small>
+                                                            <small *ngIf="phoneNumberInvalidTwilio == 'length'"
+                                                                class="error">Admin number should be 6 to 15
+                                                                digits long.</small>
+                                                        </span>
                                                     </div>
                                                 </div>
-                                                <button mat-button class="save-btn my-3"
+                                                <button mat-button class="sc-pink-btn my-3"
                                                     (click)="fnSubmitTwillioSettings()">Save</button>
                                             </form>
                                         </div>
-                                    </div>
-                                </div>
                             </div>
                         </mat-expansion-panel>
                     </mat-accordion>
-                    <mat-accordion class="matcard-space">
+                    <mat-accordion class="common-gateway-according">
                         <mat-expansion-panel>
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
@@ -1241,7 +1090,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <p class="mb-0 pt-2 pl-3">Nexmo SMS Gateway</p>
+                                        <p class="">Nexmo SMS Gateway</p>
                                     </div>
                                 </mat-panel-title>
                                 <mat-panel-description>
@@ -1249,69 +1098,41 @@
                                 </mat-panel-description>
                             </mat-expansion-panel-header>
 
-                            <div class="account-setting">
+                            <!-- <div class="account-setting">
                                 <p class="mb-0 py-2 account-para">Nexmo Account Settings</p>
-                            </div>
-                            <div class="p-2">
+                            </div> -->
+                            <div class="">
                                 <div class="main-account-details">
                                     <div class="">
                                         <div class="main-table-content main-cust-table-content">
                                             <form [formGroup]="nexmo">
-                                                <div class="">
-                                                    <div class="" fxLayout="row">
-                                                        <div class="" fxFlex="20"></div>
-                                                        <div class="" fxFlex="80"></div>
-                                                    </div>
-                                                    <div class="content" class="">
-                                                        <div class="">
-                                                            <div class="mx-2" fxFlex="20">
+                                                <div class="common-gateway-form">
+                                                    <div class="form-group">
                                                                 <label class="payment-label">API Key</label>
-                                                            </div>
-                                                            <div class="mx-2" fxFlex="80">
-                                                                <mat-form-field
-                                                                    class="example-full-width bottom-border-field">
-                                                                    <input formControlName="api_key" matInput
+                                                                    <input formControlName="api_key" class="form-control"
                                                                         placeholder="" value="">
-                                                                </mat-form-field>
-                                                            </div>
-                                                        </div>
                                                         <span class="w-100 error-wrap"
                                                             *ngIf="nexmo.get('api_key').dirty || nexmo.get('api_key').touched">
                                                             <small *ngIf="nexmo.get('api_key').hasError('required')"
                                                                 class="error">API key is required.</small>
                                                         </span>
                                                     </div>
-                                                    <div class="content" class="">
-                                                        <div class="">
-                                                            <div class="mx-2" fxFlex="20">
+                                                    <div class="form-group">
                                                                 <label class="payment-label">API Secret</label>
-                                                            </div>
-                                                            <div class="mx-2" fxFlex="80">
-                                                                <mat-form-field
-                                                                    class="example-full-width bottom-border-field">
-                                                                    <input formControlName="api_secret" matInput
+                                                                    <input formControlName="api_secret" class="form-control"
                                                                         placeholder="" value="">
-                                                                </mat-form-field>
-                                                            </div>
-                                                        </div>
+                                                            
+                                                       
                                                         <span class="w-100 error-wrap"
                                                             *ngIf="nexmo.get('api_secret').dirty || nexmo.get('api_secret').touched">
                                                             <small *ngIf="nexmo.get('api_secret').hasError('required')"
                                                                 class="error">API secret is required.</small>
                                                         </span>
                                                     </div>
-                                                    <div class="content" class="">
-                                                        <div class="">
-                                                            <div class="mx-2" fxFlex="20">
+                                                    <div class="form-group">
                                                                 <label class="payment-label">Admin Phone Number</label>
-                                                            </div>
-                                                            <div class="mx-2" fxFlex="80">
-                                                                <!-- <mat-form-field class="example-full-width bottom-border-field">
-                                                                    <mat-icon matPrefix><img src="/assets/images/admin/india.png"></mat-icon>
-                                                                    <input formControlName="adminNumber" type="number" matInput placeholder="" value="">
-                                                                </mat-form-field> -->
                                                                 <ngx-intl-tel-input
-                                                                    class="common-input mobile-intel-input bottom-border-field"
+                                                                    class=""
                                                                     [preferredCountries]="preferredCountries"
                                                                     [enableAutoCountrySelect]="false"
                                                                     [searchCountryFlag]="true"
@@ -1331,12 +1152,10 @@
                                                                         class="error">Admin number should be 6 to 15
                                                                         digits long.</small>
                                                                 </span>
-                                                            </div>
-                                                        </div>
 
                                                     </div>
                                                 </div>
-                                                <button mat-button class="save-btn my-3"
+                                                <button mat-button class="sc-pink-btn my-3"
                                                     (click)="fnSubmitNexmoSettings()">Save</button>
                                             </form>
                                         </div>
@@ -1345,13 +1164,13 @@
                             </div>
                         </mat-expansion-panel>
                     </mat-accordion>
-                    <mat-accordion class="matcard-space">
+                    <mat-accordion class="common-gateway-according">
                         <mat-expansion-panel>
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     <div class="d-flex">
                                         <div>
-                                            <img src="/assets/images/admin/textlocal.png" class="">
+                                            <img src="/assets/images/admin/textlocal.png" class="textlocal-img">
                                         </div>
                                         <div class="payment-toggle-btn">
                                             <mat-slide-toggle *ngIf="textLocalSettingValue"
@@ -1361,46 +1180,35 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <p class="mb-0 pt-2 pl-3">Text Local SMS Gateway</p>
+                                        <p class="">Text Local SMS Gateway</p>
                                     </div>
                                 </mat-panel-title>
                                 <mat-panel-description>
 
                                 </mat-panel-description>
                             </mat-expansion-panel-header>
-                            <div class="account-setting">
+                            <!-- <div class="account-setting">
                                 <p class="mb-0 py-2 account-para">Text Local Account Settings</p>
-                            </div>
-                            <div class="p-2">
+                            </div> -->
+                            <div class="">
                                 <div class="main-account-details">
                                     <form [formGroup]="textLocal">
-                                        <div class="">
-                                            <div class="main-table-content main-cust-table-content">
-                                                <div class="">
-                                                    <div class="content" class="">
-                                                        <div class="">
-                                                            <div class="mx-2" fxFlex="20">
+                                        <div class="common-gateway-form">
+                                                        <div class="form-group">
                                                                 <label class="payment-label">API Key</label>
-                                                            </div>
-                                                            <div class="mx-2" fxFlex="80">
-                                                                <mat-form-field
-                                                                    class="example-full-width bottom-border-field">
-                                                                    <input formControlName="apiKey" matInput
+                                                                    <input formControlName="apiKey" class="form-control"
                                                                         placeholder="" value="">
-                                                                </mat-form-field>
-                                                            </div>
+                                                                        <span class="w-100 error-wrap"
+                                                                        *ngIf="textLocal.get('apiKey').dirty || textLocal.get('apiKey').touched">
+                                                                        <small *ngIf="textLocal.get('apiKey').hasError('required')"
+                                                                            class="error">Api key is required.</small>
+                                                                    </span>
+                                                            
                                                         </div>
-                                                        <div class="">
-                                                            <div class="mx-2" fxFlex="20">
+                                                        <div class="form-group">
                                                                 <label class="payment-label">Admin Number</label>
-                                                            </div>
-                                                            <div class="mx-2" fxFlex="80">
-                                                                <!-- <mat-form-field class="example-full-width bottom-border-field">
-                                                                    <input formControlName="adminNumber" matInput placeholder="" value="">
-                                                                </mat-form-field> -->
-
                                                                 <ngx-intl-tel-input
-                                                                    class="common-input mobile-intel-input bottom-border-field"
+                                                                    class=""
                                                                     [preferredCountries]="preferredCountries1"
                                                                     [enableAutoCountrySelect]="false"
                                                                     [searchCountryFlag]="true"
@@ -1424,18 +1232,10 @@
                                                                         digits long.</small>
                                                                 </span>
                                                             </div>
-                                                        </div>
-                                                        <span class="w-100 error-wrap"
-                                                            *ngIf="textLocal.get('apiKey').dirty || textLocal.get('apiKey').touched">
-                                                            <small *ngIf="textLocal.get('apiKey').hasError('required')"
-                                                                class="error">Api key is required.</small>
-                                                        </span>
-                                                    </div>
-                                                </div>
 
-                                                <button mat-button class="save-btn my-3"
+                                                <button mat-button class="sc-pink-btn my-3"
                                                     (click)="fnSubmitTextLocalSetting()">Save</button>
-                                            </div>
+                                            
                                         </div>
                                     </form>
                                 </div>
