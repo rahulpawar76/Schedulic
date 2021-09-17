@@ -228,8 +228,9 @@
 
 ::ng-deep .mat-tab-label {
     &.mat-tab-label-active {
+        border-bottom: 4px solid #05a697;
         .mat-tab-label-content {
-            color: #1173f4;
+            color: #000;
         }
     }
 }
