@@ -144,7 +144,7 @@
                             <p>{{tax.value}}%</p>
                         </div>
                         <div class="" fxFlex="10">
-                            <a class="payment-delete-button">
+                            <a (click)="deleteTax(tax.id)" class="payment-delete-button">
                                 <img class="normal" src="../../../../assets/images/payment-delete.svg" />
                             </a>
                             

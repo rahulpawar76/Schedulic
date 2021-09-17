@@ -25,19 +25,6 @@
     }
 }
 
-// .save-footer-btn {
-//     float: right;
-// }
-// .save-cencel-footer {
-//     height: 20%;
-//     margin-top: 10%;
-// }
-.staff-cancel-btn {
-    width: 110px;
-    height: 39px;
-    background-color: #dddddd;
-    margin: 10px;
-}
 
 .card-content {
     margin: 0px 30px 0px 30px;
@@ -56,10 +43,6 @@
     margin-left: auto;
 }
 
-.bottom-border {
-    border-bottom: 1px solid #dbdbdb;
-    padding: 15px 0px;
-}
 .custom-content-wrap{
     h5{
         font-size: 20px;
@@ -142,10 +125,6 @@
     }
 }
 
-.main-appearance-content {
-    padding: 20px;
-}
-
 .save-btn {
     width: 100px;
     height: 34px;
@@ -163,14 +142,6 @@
     float: right;
 }
 
-.appearancecolor-save-btn {
-    width: 100px;
-    height: 39px;
-    margin: 10px;
-    background-color: #f04589;
-    color: white;
-    float: right;
-}
 .common-form-setting-wrap{
     margin: 26px;
     box-shadow: unset!important;
@@ -226,14 +197,6 @@
     }
 }
 
-::ng-deep .mat-tab-label {
-    &.mat-tab-label-active {
-        border-bottom: 4px solid #05a697;
-        .mat-tab-label-content {
-            color: #000;
-        }
-    }
-}
 .content-btn-links-wrap{
     box-shadow:unset!important;
     background-color: transparent!important;
@@ -450,73 +413,6 @@
     border-radius: 5px;
 }
 
-// .mat-input-border{
-//     border: 1px solid #000000;
-//     border-bottom: none;
-// }
-// #preview_container {
-//     .datepicker-main {
-//         background: linear-gradient(to right, #38b7fb 0%, #3969fb 100%);
-//     }
-//     @media only screen and (max-width: 600px) {
-//         .datepicker-main {
-//             overflow-x: scroll;
-//         }
-//     }
-//     .timeslot-main {
-//         .top-back-btn {
-//             background-color: #e0e0e0;
-//         }
-//         .selected-date {
-//             text-align: center;
-//             margin: 15px;
-//             font-size: $fs-26;
-//             font-weight: $fw-400;
-//         }
-//         .slot-list {
-//             margin: 10px auto;
-//             display: table;
-//             input[type="radio"] {
-//                 display: none;
-//             }
-//             input[type="radio"]:checked+.single-slot {
-//                 background: linear-gradient(to right, #38b7fb 0%, #3969fb 100%);
-//                 color: #ffffff;
-//             }
-//             .single-slot {
-//                 border: 2px solid $grey-3;
-//                 padding: 20px;
-//                 font-size: $fs-18;
-//                 color: #010101;
-//                 text-align: center;
-//                 line-height: 1;
-//                 width: 130px;
-//                 margin: 7px;
-//                 cursor: pointer;
-//                 border-radius: 8px;
-//             }
-//         }
-//         .next-action {
-//             margin: 15px;
-//             text-align: center;
-//             .continue-btn {
-//                 font-size: $fs-16;
-//                 background-color: $grey-3;
-//                 padding: 6px 25px;
-//                 margin: 10px;
-//             }
-//         }
-//     }
-//     .timing {
-//         display: inline-block;
-//     }
-//     @media only screen and (max-width: 600px) {
-//         .slot-list {
-//             align-items: center;
-//             text-align: center;
-//         }
-//     }
-// }
 #preview_container {
     font-family: $selected-font-family;
     .datepicker-main {
@@ -551,64 +447,16 @@
             overflow-x: scroll;
         }
     }
-    .timeslot-main {
-        .top-back-btn {
-            background-color: #e0e0e0;
-        }
-        .selected-date {
-            text-align: center;
-            margin: 15px;
-            font-size: $fs-26;
-            font-weight: $fw-400;
-        }
-        .slot-list {
-            margin: 10px auto;
-            display: table;
-            input[type="radio"] {
-                display: none;
-            }
-            input[type="radio"]:checked+.single-slot {
-                background: $primary-gradient-color;
-                color: $text-bg;
-                border-color: $front-primary-color;
-            }
-            .single-slot {
-                border: 2px solid $grey-3;
-                padding: 20px;
-                font-size: $fs-18;
-                color: $secondary-color;
-                text-align: center;
-                line-height: 1;
-                width: 130px;
-                margin: 7px;
-                cursor: pointer;
-                border-radius: 8px;
-            }
-        }
-        .next-action {
-            margin: 15px;
-            text-align: center;
-            .continue-btn {
-                font-size: $fs-16;
-                background-color: $grey-3;
-                padding: 6px 25px;
-                margin: 10px;
-                color: $text-color;
-            }
-        }
-    }
+    
     .timing {
         display: inline-block;
     }
     @media only screen and (max-width: 600px) {
-        // body {
-        //     display: block !important;
-        // }
         .slot-list {
             align-items: center;
             text-align: center;
         }
-    }
+    }   
 }
 
 .cart-btn {
@@ -620,10 +468,9 @@
     text-align: center;
     box-shadow: 2px 2px 14px -2px #3969fb;
     position: absolute;
-    top: calc(99% - 122px);
+    top: calc(99% - 60px);
     z-index: 0;
-    right: 150px;
-    margin-top: 0 !important;
+    right: 20px;
     i {
         font-size: 23px;
         color: $text-bg;
@@ -650,45 +497,6 @@
 
 // }
 
-/*Image Upload*/
-
-::ng-deep .file-upload {
-    background-color: #ffffff;
-    margin: 0 auto;
-    padding: 20px;
-    .image-upload-wrap {
-        margin-top: 20px;
-        border: 2px dashed #03a9f4;
-        position: relative;
-        padding: 30px 0;
-        .fileuploadinput {
-            position: absolute;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            outline: none;
-            opacity: 0;
-            cursor: pointer;
-            margin-top: -30px;
-        }
-    }
-    .drag-text {
-        text-align: center;
-        h6 {
-            font-size: 18px;
-        }
-        h3 {
-            font-size: 14px;
-        }
-    }
-    .imgbtn {
-        margin: 15px auto;
-        display: table;
-        padding: 8px 16px;
-        border-radius: 50px;
-    }
-}
 
 .profile-img-wrap {
     border-radius: 100%;
@@ -775,6 +583,82 @@
         justify-content: center;
         .material-icons-outlined{
             font-size: 22px;
+        }
+    }
+}
+
+.appearance-wrap{
+    padding: 20px 30px;
+    .left-side{
+        background-color: #EAF7F6;
+        border-radius: 5px;
+        padding: 20px 30px;
+        .color-field{
+            border-bottom: 1px solid rgba(0, 168, 155, 0.23);
+            padding: 15px 0;
+            align-items: center;
+            label{
+                color: #0E0E0E;
+                font-weight: 500;
+                font-size: 14px;
+            }
+        }
+    }
+    .right-side{
+        padding-left: 30px;
+        .main-datetime-selection{
+            box-shadow: 0 4px 7px rgb(0 0 0 / 10%);
+            .timeslot-main {
+                .top-back-btn {
+                    background-color: #e0e0e0;
+                    width: 40px;
+                    height: 40px;
+                    ::ng-deep .mat-button-wrapper{
+                        padding: 0;
+                    }
+                }
+                .selected-date {
+                    text-align: center;
+                    margin: 15px;
+                    font-size: $fs-26;
+                    font-weight: $fw-400;
+                }
+                .slot-list {
+                    margin: 10px auto;
+                    display: table;
+                    input[type="radio"] {
+                        display: none;
+                    }
+                    input[type="radio"]:checked+.single-slot {
+                        background: $primary-gradient-color;
+                        color: $text-bg;
+                        border-color: $front-primary-color;
+                    }
+                    .single-slot {
+                        border: 2px solid $grey-3;
+                        padding: 20px;
+                        font-size: $fs-18;
+                        color: $secondary-color;
+                        text-align: center;
+                        line-height: 1;
+                        width: 130px;
+                        margin: 7px;
+                        cursor: pointer;
+                        border-radius: 8px;
+                    }
+                }
+                .next-action {
+                    margin: 15px;
+                    text-align: center;
+                    .continue-btn {
+                        font-size: $fs-16;
+                        background-color: $grey-3;
+                        padding: 6px 25px;
+                        margin: 10px;
+                        color: $text-color;
+                    }
+                }
+            }
         }
     }
 }
