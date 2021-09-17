@@ -14,8 +14,9 @@
         border-top: 1px solid #ededed;
     }
     .payment-label {
-        line-height: 3;
-        color: #434343;
+        
+    color: #434343;
+    padding: 0px;
     }
     .action-btn {
         margin-left: auto;
@@ -47,7 +48,6 @@
         display: flex;
         flex-direction: row-reverse;
         align-items: flex-end;
-        justify-content: flex-end;
         height: 50px;
     }
 }
@@ -107,14 +107,14 @@
 }
 
 .make-default-btn {
-    width: 180px;
-    height: 37px;
+    height: 40px;
     border-radius: 4px;
     background-color: #fff;
     color: #000;
     margin-right: 15px;
-    border: 1px solid #3addcf!important;
+    border: 1px solid #3addcf !important;
     opacity: 0.9;
+    padding: 0px 14px !important;
 }
 
 .min-height {
@@ -235,4 +235,10 @@ mat-panel-title {
    }
 
     
+  }
+  .common-filed-center{
+    align-items: center;
+    .form-group {
+        margin-bottom: 0px;
+    }
   }

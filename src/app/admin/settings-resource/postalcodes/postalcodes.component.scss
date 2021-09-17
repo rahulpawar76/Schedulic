@@ -151,49 +151,7 @@
 ::ng-deep .text-end {
     text-align: end;
 }
-//Import Files
-::ng-deep .file-upload {
-    background-color: #ffffff;
-    margin: 0 auto;
-    padding: 20px;
-    .image-upload-wrap {
-        margin-top: 20px;
-        border: 2px dashed #565657;
-        position: relative;
-        padding: 30px 0;
-        min-height: 160px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        .fileuploadinput {
-            position: absolute;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            outline: none;
-            opacity: 0;
-            cursor: pointer;
-            top: 0;
-        }
-    }
-    .drag-text {
-        text-align: center;
-        h6 {
-            font-size: 18px;
-            color: #00a89b;
-        }
-        h3 {
-            font-size: 14px;
-        }
-    }
-    .imgbtn {
-        margin: 15px auto;
-        display: table;
-        padding: 8px 16px;
-        border-radius: 50px;
-    }
-}
+
 
 ::ng-deep .status-toggle {
     .mat-slide-toggle-label {
